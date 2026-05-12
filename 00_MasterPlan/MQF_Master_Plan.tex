@@ -10,7 +10,6 @@
 \usepackage{array}
 \usepackage{longtable}
 \usepackage{amsfonts}
-\usepackage{minted}
 \usepackage{graphicx}%
 \setcounter{MaxMatrixCols}{30}
 %TCIDATA{OutputFilter=latex2.dll}
@@ -23,7 +22,6 @@
 %BeginMSIPreambleData
 \providecommand{\U}[1]{\protect\rule{.1in}{.1in}}
 %EndMSIPreambleData
-\usemintedstyle{trac}
 \setlength{\textwidth}{15.5cm}
 \setlength{\textheight}{23.0cm}
 \setlength{\oddsidemargin}{0.3cm}
@@ -708,14 +706,26 @@ wait-and-see e soluzione del problema medio; introdurre EVPI e VSS.
 $\EVPI$, $\VSS$.
 \newline
 \textbf{Formule principali:}
+
+Per problemi formulati in minimizzazione, si indicano con $z^{SP}$ il valore
+ottimo del problema stocastico e con $z^{WS}$ il valore wait-and-see. La
+soluzione ottima del problema medio \`{e} indicata con $x^{EV}$.
+
+Il valore $z^{EV}$ non \`{e} il valore ottimo del solo problema medio, ma il
+valore della funzione obiettivo stocastica ottenuto imponendo la decisione di
+primo stadio $x=x^{EV}$.
+
+Con queste convenzioni,
+\[
+z^{WS}\leq z^{SP}\leq z^{EV}.
+\]
+
+Il valore atteso dell'informazione perfetta e il valore della soluzione
+stocastica sono
 \[
 \EVPI=z^{SP}-z^{WS},
 \qquad
-\VSS=z^{EV}-z^{SP},
-\]
-per problemi formulati in minimizzazione, con
-\[
-z^{WS}\leq z^{SP}\leq z^{EV}.
+\VSS=z^{EV}-z^{SP}.
 \]
 \textbf{Esercizi previsti:} calcolo di EVPI; calcolo di VSS; confronto tra
 soluzioni SP, EV e WS.
@@ -870,10 +880,6 @@ Criteri comuni per il codice Python:
   MQF_Registro_Decisioni.tex
 \end{verbatim}
 
-\subsection*{Prova stile codice Python}
-\paragraph{Prova inserimento codice Python}
-\inputminted{python}{Pippo.py}
-
 \section{Stato di avanzamento generale}
 
 \begin{longtable}{p{4.2cm}p{3.0cm}p{7.0cm}}
@@ -886,13 +892,13 @@ Criteri comuni per il codice Python:
 \hline
 \endhead
 Struttura delle 16 lezioni & Bozza iniziale & Derivata dal syllabus e uniformata nei titoli. \\
-Notazione generale & Da consolidare & Preparare documento separato \texttt{MQF\_Notazione.tex}. \\
+Notazione generale & Bozza consolidata & Documento \texttt{MQF\_Notazione.tex} predisposto; da aggiornare durante la scrittura del manuale e delle slides. \\
 Manuale & Non iniziato & Scrittura per capitoli separati. \\
 Slides & Non iniziate & Da produrre dopo schema dettagliato di ciascuna lezione. \\
 Esercizi teorici & Bozza iniziale & Da sviluppare lezione per lezione. \\
 Applicazioni Python & Bozza iniziale & Cinque applicazioni previste dal syllabus. \\
 Grafici & Bozza iniziale & Registro grafici da validare. \\
-Compatibilit\`{a} SWP 5.5 & Da verificare & Evitare pacchetti LaTeX moderni non necessari. \\
+Compatibilit\`{a} SWP 5.5 & In verifica & Preambolo mantenuto conservativo; evitare pacchetti LaTeX moderni non necessari nei file principali. \\
 \hline
 \end{longtable}
 
@@ -909,7 +915,7 @@ inclusi come immagini, oppure scritti in LaTeX quando compatibile.
 
 \item Decidere il livello di dettaglio delle dimostrazioni.
 
-\item Preparare il documento \texttt{MQF\_Notazione.tex}.
+\item Mantenere aggiornato il documento \texttt{MQF\_Notazione.tex} durante la scrittura del manuale, delle slides e degli script Python.
 
 \item Preparare un template standard per capitoli del manuale.
 
