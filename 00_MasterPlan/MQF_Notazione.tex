@@ -24,6 +24,8 @@
 \newcommand{\CVaR}{\operatorname{CVaR}}
 \newcommand{\argmin}{\operatorname*{arg\,min}}
 \newcommand{\argmax}{\operatorname*{arg\,max}}
+\newcommand{\EVPI}{\operatorname{EVPI}}
+\newcommand{\VSS}{\operatorname{VSS}}
 
 \title{MQF\_Notazione\\[0.2cm]
 \large Convenzioni di notazione per il corso\\
@@ -307,181 +309,137 @@ dove
 
 \section{Modello binomiale e pricing discreto}
 
-Nel modello binomiale, il prezzo iniziale \`{e} $S_0>0$. In un periodo, il prezzo pu\`{o} assumere i valori
+Nel modello binomiale, il prezzo iniziale \`{e} $S_0>0$.
+In un periodo, il prezzo pu\`{o} assumere i valori
 \[
- S_1^u=uS_0,
- \qquad
- S_1^d=dS_0,
+S_1^u=uS_0,
+\qquad
+S_1^d=dS_0,
 \]
 con
 \[
- u>d>0.
+u>d>0.
 \]
-Il tasso privo di rischio su un periodo \`{e} indicato con $r$, per cui il fattore di capitalizzazione \`{e} $1+r$.
+Il tasso privo di rischio su un periodo \`{e} indicato con $r$, per cui
+il fattore di capitalizzazione \`{e} $1+r$.
 
 La condizione elementare di assenza di arbitraggio \`{e}
 \[
- d<1+r<u.
+d<1+r<u.
 \]
 La probabilit\`{a} risk-neutral \`{e}
 \[
- q=\frac{1+r-d}{u-d}.
+q=\frac{1+r-d}{u-d}.
 \]
-La misura risk-neutral, quando introdotta, \`{e} indicata con
+La misura risk-neutral \`{e} indicata con $\Q$. Nel modello binomiale a un
+periodo,
 \[
- \Q.
+\Q(\hbox{up})=q,
+\qquad
+\Q(\hbox{down})=1-q.
 \]
 
-Se $H$ indica il payoff terminale di un derivato a un periodo, il suo prezzo iniziale \`{e}
+Se $V_t$ indica il valore di un derivato al tempo $t$, allora la formula
+ricorsiva di valutazione \`{e}
 \[
- V_0=\frac{1}{1+r}\E_{\Q}[H].
+V_t=
+\frac{1}{1+r}
+\E^{\Q}\left[V_{t+1}\mid \F_t\right].
 \]
-Nel caso multiperiodale, il valore del derivato al tempo $t$ pu\`{o} essere indicato con $V_t$ e calcolato mediante induzione all'indietro.
-
-\section{Programmazione lineare}
-
-Un problema di programmazione lineare in forma canonica di massimizzazione pu\`{o} essere scritto come
+Nel caso a un periodo, questa formula diventa
 \[
- \begin{array}{ll}
- \max & c'x \\
- \text{soggetto a} & Ax\leq b, \\
-                  & x\geq 0,
- \end{array}
-\]
-dove
-\[
- x\in\R^n,
- \qquad
- c\in\R^n,
- \qquad
- A\in\R^{m\times n},
- \qquad
- b\in\R^m.
+V_0=
+\frac{1}{1+r}
+\left(
+qV_1^u+(1-q)V_1^d
+\right).
 \]
 
-Un problema di minimizzazione in forma standard pu\`{o} essere scritto come
+Il payoff terminale di un derivato \`{e} indicato con $H$. Per una call
+europea con strike $K$,
 \[
- \begin{array}{ll}
- \min & c'x \\
- \text{soggetto a} & Ax=b, \\
-                  & x\geq 0.
- \end{array}
+H=(S_T-K)^+.
 \]
 
-La regione ammissibile \`{e} indicata con
-\[
- \mathcal{X}=\{x\in\R^n:Ax\leq b,\ x\geq 0\}.
-\]
-Il valore ottimo \`{e} $z^*$ e una soluzione ottima \`{e} $x^*$.
+\section{Programmazione lineare e programmazione stocastica}
 
-\section{Dualit\`{a} nella programmazione lineare}
-
-Per il problema primale
+La convenzione primaria del corso per la programmazione lineare \`{e} la
+minimizzazione. La forma standard \`{e}
 \[
- \begin{array}{ll}
- \max & c'x \\
- \text{soggetto a} & Ax\leq b, \\
-                  & x\geq 0,
- \end{array}
+\min_x \; c'x
+\qquad
+\hbox{soggetto a}
+\qquad
+Ax=b,\quad x\geq0.
 \]
-il problema duale associato \`{e}
+Il valore ottimo di un problema di ottimizzazione \`{e} indicato con
 \[
- \begin{array}{ll}
- \min & b'y \\
- \text{soggetto a} & A'y\geq c, \\
-                  & y\geq 0.
- \end{array}
+z^*.
 \]
-Le variabili duali sono indicate con $y$. Nel corso, esse saranno interpretate come prezzi ombra o valori marginali dei vincoli.
-
-La dualit\`{a} debole implica
+Una soluzione ottima \`{e} indicata con
 \[
- c'x\leq b'y
-\]
-per ogni coppia ammissibile primale-duale $(x,y)$. In condizioni standard, la dualit\`{a} forte implica l'uguaglianza dei valori ottimi:
-\[
- z_P^*=z_D^*.
+x^*.
 \]
 
-\section{CVaR come problema di programmazione lineare}
+Nei problemi di programmazione stocastica a due stadi, la decisione di
+primo stadio \`{e} indicata con $x$, mentre la decisione di secondo stadio
+nello scenario $s$ \`{e} indicata con $y_s$. L'insieme degli scenari \`{e}
+\[
+\mathcal S=\{1,\ldots,N\}.
+\]
+La probabilit\`{a} dello scenario $s$ \`{e} $p_s$.
 
-Sia $L_s(x)$ la perdita del portafoglio nello scenario $s\in\mathcal{S}$, con probabilit\`{a} $p_s$. Per un livello $\alpha\in(0,1)$, la rappresentazione discreta del CVaR pu\`{o} essere formulata come
+Per evitare sovrapposizioni con la probabilit\`{a} risk-neutral $q$ del
+modello binomiale, i costi di recourse nello scenario $s$ sono indicati
+con $d_s$. Una formulazione discreta a due stadi \`{e}
 \[
- \begin{array}{ll}
- \min & \displaystyle \eta+\frac{1}{1-\alpha}\sum_{s\in\mathcal{S}}p_s z_s \\
- \text{soggetto a} & z_s\geq L_s(x)-\eta, \qquad s\in\mathcal{S}, \\
-                  & z_s\geq 0, \qquad s\in\mathcal{S}, \\
-                  & x\in\mathcal{X}.
- \end{array}
+\min_{x,y_s}
+\;
+c'x+\sum_{s\in\mathcal S}p_s d_s'y_s
 \]
-Qui $\eta$ rappresenta una soglia associata al VaR e $z_s$ sono variabili ausiliarie per la parte positiva della perdita eccedente.
-
-La notazione da mantenere \`{e}:
+soggetta a
 \[
- \alpha \quad \text{livello di confidenza},
- \qquad
- \eta \quad \text{soglia},
- \qquad
- z_s \quad \text{variabile ausiliaria dello scenario }s.
-\]
-
-\section{Programmazione stocastica}
-
-Nei problemi stocastici a due stadi, la decisione di primo stadio \`{e} indicata con
-\[
- x.
-\]
-Essa \`{e} una decisione \emph{here-and-now}, cio\`{e} presa prima dell'osservazione dello scenario. La decisione di secondo stadio nello scenario $s$ \`{e} indicata con
-\[
- y_s.
-\]
-Essa \`{e} una decisione di recourse, presa dopo la realizzazione dello scenario.
-
-Una formulazione lineare stocastica a due stadi pu\`{o} essere scritta come
-\[
- \begin{array}{ll}
- \min & \displaystyle c'x+\sum_{s\in\mathcal{S}}p_s q_s'y_s \\
- \text{soggetto a} & Ax=b, \\
-                  & T_sx+W_sy_s=h_s, \qquad s\in\mathcal{S}, \\
-                  & x\geq 0, \\
-                  & y_s\geq 0, \qquad s\in\mathcal{S}.
- \end{array}
-\]
-La funzione di recourse pu\`{o} essere indicata con
-\[
- Q(x,\xi_s)=\min\{q_s'y_s:W_sy_s=h_s-T_sx,\ y_s\geq 0\}.
-\]
-Il problema stocastico pu\`{o} quindi essere rappresentato come
-\[
- \min_{x}\left\{c'x+\E\left[Q(x,\xi)\right]\right\}.
+Ax=b,
+\qquad
+T_sx+W_sy_s=h_s,
+\qquad
+x\geq0,
+\qquad
+y_s\geq0,
+\qquad
+s\in\mathcal S.
 \]
 
-\section{Valore dell'informazione e confronto tra soluzioni}
+Per problemi formulati in minimizzazione, si usano le convenzioni
+\[
+z^{SP}
+=
+\hbox{valore ottimo del problema stocastico},
+\]
+\[
+z^{WS}
+=
+\sum_{s\in\mathcal S}p_s z_s^{WS},
+\]
+\[
+z^{EV}
+=
+\hbox{valore ottenuto dalla soluzione del problema medio}.
+\]
+Sotto le usuali ipotesi di confronto,
+\[
+z^{WS}\leq z^{SP}\leq z^{EV}.
+\]
+Il valore atteso dell'informazione perfetta \`{e}
+\[
+\EVPI=z^{SP}-z^{WS}\geq0.
+\]
+Il valore della soluzione stocastica \`{e}
+\[
+\VSS=z^{EV}-z^{SP}\geq0.
+\]
 
-Per la programmazione stocastica si usano le seguenti convenzioni:
-\[
- z^{SP} \quad \text{valore ottimo del problema stocastico},
-\]
-\[
- z^{WS} \quad \text{valore atteso della soluzione wait-and-see},
-\]
-\[
- z^{EV} \quad \text{valore della soluzione expected value valutata nel problema stocastico}.
-\]
-
-Per problemi di minimizzazione, il valore atteso dell'informazione perfetta \`{e}
-\[
- EVPI=z^{SP}-z^{WS},
-\]
-mentre il valore della soluzione stocastica \`{e}
-\[
- VSS=z^{EV}-z^{SP}.
-\]
-Queste grandezze sono non negative sotto le usuali convenzioni di minimizzazione e quando i problemi sono formulati in modo coerente.
-
-\section{Corrispondenza tra notazione matematica e Python}
-
-Nelle applicazioni Python, i nomi delle variabili devono essere coerenti con la notazione matematica. Si raccomandano le seguenti convenzioni operative.
+\section{Corrispondenza tra notazione matematica e nomi Python}
 
 \begin{longtable}{>{\raggedright}p{4.0cm}>{\raggedright}p{4.2cm}>{\raggedright\arraybackslash}p{5.8cm}}
 \hline
@@ -497,22 +455,50 @@ $\CVaR_\alpha$ & \texttt{cvar\_alpha} & Conditional Value-at-Risk.\\
 $x$ & \texttt{x} & Variabili decisionali di primo stadio o di portafoglio.\\
 $y_s$ & \texttt{y[s]} & Variabili di secondo stadio indicizzate per scenario.\\
 $p_s$ & \texttt{p\_s}, \texttt{probabilities} & Probabilit\`{a} degli scenari.\\
+$d_s$ & \texttt{d[s]}, \texttt{recourse\_costs} & Costi di recourse nello scenario $s$.\\
 $\xi_s$ & \texttt{xi[s]}, \texttt{scenario\_data} & Dati aleatori dello scenario.\\
+$z^{SP}$ & \texttt{z\_sp} & Valore ottimo del problema stocastico.\\
+$z^{WS}$ & \texttt{z\_ws} & Valore wait-and-see.\\
+$z^{EV}$ & \texttt{z\_ev} & Valore della soluzione del problema medio.\\
+$\EVPI$ & \texttt{evpi} & Expected Value of Perfect Information.\\
+$\VSS$ & \texttt{vss} & Value of the Stochastic Solution.\\
 \hline
 \end{longtable}
 
-Il codice Python deve distinguere chiaramente parametri, dati, variabili decisionali, output numerici e grafici. Quando possibile, la notazione del codice deve richiamare direttamente la formulazione matematica presentata nel manuale.
+Il codice Python deve distinguere chiaramente parametri, dati, variabili
+decisionali, output numerici e grafici. Quando possibile, la notazione del
+codice deve richiamare direttamente la formulazione matematica presentata
+nel manuale.
 
 \section{Convenzioni da evitare}
 
 Per ridurre ambiguit\`{a} e incoerenze, si raccomanda di evitare le seguenti sovrapposizioni:
 
 \begin{enumerate}
-\item non usare $P$ sia per probabilit\`{a} sia per prezzo: $\Prob$ indica la probabilit\`{a}, mentre $P$ \`{e} riservato preferibilmente alle matrici di transizione;
-\item non usare $q$ contemporaneamente per probabilit\`{a} risk-neutral e costi di recourse nello stesso contesto; nella programmazione stocastica i costi di recourse possono essere indicati come $q_s$, mentre nel pricing binomiale $q$ indica la probabilit\`{a} risk-neutral;
-\item non usare $L$ per livelli o limiti quando nella stessa lezione si lavora con perdite; per i limiti preferire $\ell$, $u$, $b$ o notazioni esplicite;
-\item non usare $S$ per scenari quando $S_t$ indica il prezzo di un'attivit\`{a}; per l'insieme degli scenari usare $\mathcal{S}$;
-\item non usare $V_t$ sia per valore di un derivato sia per valore di una funzione obiettivo nella stessa sezione; per i valori ottimi di ottimizzazione usare $z^*$.
+\item Non usare $P$ per indicare una probabilit\`{a}. La probabilit\`{a}
+\`{e} indicata con $\Prob$, mentre $P$ \`{e} riservato preferibilmente
+alle matrici, in particolare alle matrici di transizione.
+
+\item Non usare $S$ per indicare il numero degli scenari quando nel corso
+si usa $S_t$ per il prezzo di un'attivit\`{a} finanziaria. L'insieme degli
+scenari \`{e} $\mathcal S=\{1,\ldots,N\}$.
+
+\item Non usare $q_s$ per i costi di recourse nella programmazione
+stocastica. Il simbolo $q$ \`{e} riservato alla probabilit\`{a}
+risk-neutral nel modello binomiale. Per i costi di recourse si usa $d_s$.
+
+\item Non usare $L$ per livelli o limiti quando nella stessa lezione si
+lavora con perdite. Per valori soglia, limiti o realizzazioni di perdita
+si preferisce $\ell$.
+
+\item Non usare $V_t$ per valori ottimi di problemi di ottimizzazione.
+Il simbolo $V_t$ \`{e} riservato al valore temporale di un derivato o di
+un processo di valore. Per i valori ottimi si usano $z^*$, $z^{SP}$,
+$z^{WS}$ e $z^{EV}$.
+
+\item Non introdurre simboli locali in conflitto con simboli globali gi\`{a}
+definiti in questo documento. Ogni eccezione locale deve essere dichiarata
+esplicitamente nella lezione in cui viene usata.
 \end{enumerate}
 
 \section{Stato di avanzamento}

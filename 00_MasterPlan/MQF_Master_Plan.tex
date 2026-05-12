@@ -31,10 +31,14 @@
 \setlength{\topmargin}{-0.4cm}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{6pt}
-\newcommand{\E}{\mathbb{E}}
-\newcommand{\Pprob}{\mathbb{P}}
-\newcommand{\Qprob}{\mathbb{Q}}
 \newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\1}{\mathbf{1}}
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\Cov}{\operatorname{Cov}}
 \newcommand{\VaR}{\operatorname{VaR}}
@@ -169,31 +173,30 @@ codice selezionato, output e interpretazione.
 \section{Convenzioni preliminari di notazione}
 
 Le convenzioni definitive saranno raccolte nel documento separato
-\texttt{MQF\_Notazione.tex}. In prima approssimazione:
-
+\texttt{MQF\_Notazione.tex}. In prima approssimazione, e in coerenza con il documento
+\texttt{MQF\_Notazione.tex}, si adottano le seguenti convenzioni generali:
 \begin{center}%
-\begin{tabular}
-[c]{cp{8.5cm}}\hline
-\textbf{Simbolo} & \textbf{Significato}\\\hline
-\multicolumn{1}{l}{$\left(  \Omega,\mathcal{F},\mathbb{P}\right)  $} & Spazio
-di probabilit\`{a}.\\
-\multicolumn{1}{l}{$X,Y,Z$} & Variabili casuali.\\
-\multicolumn{1}{l}{$\mathbb{E}[X]$, $\operatorname{Var}(X)$,
-$\operatorname{Cov}(X,Y)$} & Valore atteso, varianza e covarianza.\\
-\multicolumn{1}{l}{$\{\mathcal{F}_{t}\}_{t=0}^{T}$} & Filtrazione in tempo
-discreto.\\
-\multicolumn{1}{l}{$S_{t}$} & Prezzo di un'attivit\`{a} finanziaria al tempo
-$t$.\\
-\multicolumn{1}{l}{$r$} & Tasso privo di rischio su un periodo, salvo diversa
-specificazione.\\
-\multicolumn{1}{l}{$\mathbb{Q}$} & Misura risk-neutral, quando introdotta.\\
-\multicolumn{1}{l}{$x$} & Vettore di variabili decisionali.\\
-\multicolumn{1}{l}{$\xi$} & Vettore aleatorio oppure informazione incerta nei
-problemi decisionali.\\
-\multicolumn{1}{l}{$\omega_{s}$, $p_{s}$} & Scenario $s$ e probabilit\`{a}
-dello scenario $s$.\\\hline
+\begin{tabular}[c]{cp{8.5cm}}
+\hline
+\textbf{Simbolo} & \textbf{Significato}\\
+\hline
+\multicolumn{1}{l}{$(\Omega,\F,\Prob)$} & Spazio di probabilit\`{a}.\\
+\multicolumn{1}{l}{$X,Y,Z$} & Variabili casuali reali.\\
+\multicolumn{1}{l}{$L$} & Variabile casuale di perdita.\\
+\multicolumn{1}{l}{$H$} & Payoff terminale.\\
+\multicolumn{1}{l}{$\E[X]$, $\Var(X)$, $\Cov(X,Y)$} & Valore atteso, varianza e covarianza.\\
+\multicolumn{1}{l}{$\{\F_t\}_{t=0}^{T}$} & Filtrazione in tempo discreto.\\
+\multicolumn{1}{l}{$X_t$} & Processo stocastico generico al tempo $t$.\\
+\multicolumn{1}{l}{$S_t$} & Prezzo di un'attivit\`{a} finanziaria al tempo $t$.\\
+\multicolumn{1}{l}{$r$} & Tasso privo di rischio su un periodo, salvo diversa specificazione.\\
+\multicolumn{1}{l}{$\Q$} & Misura risk-neutral, quando introdotta.\\
+\multicolumn{1}{l}{$q$} & Probabilit\`{a} risk-neutral nel modello binomiale.\\
+\multicolumn{1}{l}{$x$} & Vettore di variabili decisionali nei problemi di ottimizzazione.\\
+\multicolumn{1}{l}{$\xi$} & Vettore aleatorio o informazione incerta nei problemi decisionali.\\
+\multicolumn{1}{l}{$\mathcal S=\{1,\ldots,N\}$} & Insieme finito degli scenari.\\
+\multicolumn{1}{l}{$s\in\mathcal S$, $p_s$} & Scenario generico e probabilit\`{a} dello scenario $s$.\\
+\hline
 \end{tabular}
-
 \end{center}
 
 Salvo diversa indicazione, il corso lavora prevalentemente in tempo discreto:
@@ -388,16 +391,31 @@ degli stati alla misurazione del rischio di perdita?\newline%
 collegare distribuzioni di perdita, VaR e CVaR; usare catene di Markov per
 generare distribuzioni future di rischio.\newline\textbf{Notazione
 introdotta:} perdita $L$, $\operatorname{VaR}_{\alpha}(L)$,
-$\operatorname{CVaR}_{\alpha}(L)$.\newline\textbf{Formule principali:}
+$\operatorname{CVaR}_{\alpha}(L)$.
+\newline\textbf{Formule principali:}
 \[
-\operatorname{VaR}_{\alpha}(L)=\inf\{\ell:\mathbb{P}(L\leq\ell)\geq\alpha\},
+\VaR_{\alpha}(L)
+=
+\inf\{\ell\in\R:F_L(\ell)\geq\alpha\},
 \]
 \[
-\operatorname{CVaR}_{\alpha}(L)=\mathbb{E}[L\mid L\geq\operatorname{VaR}%
-_{\alpha}(L)]
+\CVaR_{\alpha}(L)
+=
+\min_{\eta\in\R}
+\left\{
+\eta+\frac{1}{1-\alpha}\E[(L-\eta)^+]
+\right\},
+\qquad
+(x)^+=\max\{x,0\}.
 \]
-nel caso discreto elementare in cui la coda sia trattata senza correzioni di
-interpolazione.\newline\textbf{Esercizi previsti:} calcolo di VaR e CVaR su
+Nel caso continuo, oppure in esempi discreti elementari costruiti senza massa
+critica in corrispondenza del quantile, si pu\`{o} usare l'interpretazione
+\[
+\CVaR_{\alpha}(L)
+=
+\E\left[L\mid L\geq \VaR_{\alpha}(L)\right].
+\]
+\newline\textbf{Esercizi previsti:} calcolo di VaR e CVaR su
 perdite discrete; confronto tra due portafogli; interpretazione delle
 code.\newline\textbf{Grafici previsti:} distribuzione delle perdite; quantile
 VaR; area di coda CVaR.\newline\textbf{Applicazioni Python collegate:} Lezioni
@@ -437,19 +455,32 @@ introdurre variabili binomiali, alberi dei prezzi, payoff terminali e
 probabilit\`{a} risk-neutral.\newline\textbf{Notazione introdotta:} $u$, $d$,
 $q$, $S_{t}$, $V_{t}$, payoff $H$.\newline\textbf{Formule principali:}
 \[
-S_{t+1}=%
+S_{t+1}=
 \begin{cases}
-uS_{t}, & \hbox{stato up},\\
-dS_{t}, & \hbox{stato down},
+uS_t, & \hbox{stato up},\\
+dS_t, & \hbox{stato down},
 \end{cases}
-\qquad q=\frac{(1+r)-d}{u-d},
+\qquad
+u>d>0.
 \]
+La condizione elementare di assenza di arbitraggio \`{e}
 \[
-V_{t}=\frac{1}{1+r}\left(  qV_{t+1}^{u}+(1-q)V_{t+1}^{d}\right)  .
+d<1+r<u.
 \]
-\textbf{Esercizi previsti:} pricing di opzione call a un periodo; costruzione
-di albero a due periodi; calcolo di payoff terminali e valore
-iniziale.\newline\textbf{Grafici previsti:} albero binomiale dei prezzi;
+La probabilit\`{a} risk-neutral \`{e}
+\[
+q=\frac{(1+r)-d}{u-d}.
+\]
+Il valore di un derivato con valori successivi $V_{t+1}^{u}$ e
+$V_{t+1}^{d}$ \`{e} calcolato per induzione all'indietro mediante
+\[
+V_t=
+\frac{1}{1+r}
+\left(
+qV_{t+1}^{u}+(1-q)V_{t+1}^{d}
+\right).
+\]
+\textbf{Esercizi previsti:} albero binomiale dei prezzi;
 albero dei payoff; backward induction visuale.\newline\textbf{Applicazioni
 Python collegate:} Lezione 10.\newline\textbf{Stato di avanzamento:} bozza
 progettuale predisposta; ipotesi di assenza di arbitraggio da formalizzare.
@@ -484,21 +515,23 @@ elementare; ottimizzazione di base.\newline\textbf{Obiettivi didattici:}
 introdurre variabili decisionali, funzione obiettivo, vincoli, forma standard,
 regione ammissibile e soluzione ottima.\newline\textbf{Notazione introdotta:}
 $x$, $c$, $A$, $b$, problema primale.\newline\textbf{Formule principali:}
+La convenzione primaria del corso per la programmazione lineare \`{e} la
+formulazione di minimizzazione. In forma standard:
 \[
-\max_{x} \; c^{\prime}x \qquad\hbox{soggetto a} \qquad Ax\leq b, \quad
-x\geq0.
+\min_x \; c'x
+\qquad
+\hbox{soggetto a}
+\qquad
+Ax=b,\quad x\geq 0.
 \]
-In forma alternativa:
-\[
-\min_{x} \; c^{\prime}x \qquad\hbox{soggetto a} \qquad Ax=b, \quad x\geq0.
-\]
-\textbf{Esercizi previsti:} problema di allocazione di portafoglio con
-vincoli; rappresentazione grafica in due variabili; identificazione della
-soluzione ottima.\newline\textbf{Grafici previsti:} regione ammissibile; rette
-di livello; soluzione ottima su un vertice.\newline\textbf{Applicazioni Python
-collegate:} Lezione 13 e Lezione 16.\newline\textbf{Stato di avanzamento:}
-bozza progettuale predisposta; scegliere convenzione primaria tra forma di
-massimo e forma di minimo.
+Formulazioni equivalenti con vincoli di disuguaglianza o con funzione
+obiettivo di massimo saranno introdotte come trasformazioni della forma
+standard.
+\newline
+\textbf{Esercizi previsti:} problema di allocazione di portafoglio con vincoli; rappresentazione grafica in due variabili; identificazione della soluzione ottima.\newline
+\textbf{Grafici previsti:} regione ammissibile; rette di livello; soluzione ottima su un vertice.\newline
+\textbf{Applicazioni Python collegate:} Lezione 13 e Lezione 16.\newline
+\textbf{Stato di avanzamento:} bozza progettuale predisposta; convenzione primaria di minimizzazione adottata.
 
 \subsection{Lezione 12 -- Dualit\`{a} nella programmazione lineare}
 
@@ -509,13 +542,32 @@ interpretare variabili duali e prezzi ombra; collegare primalit\`{a},
 dualit\`{a} e sensibilit\`{a}.\newline\textbf{Notazione introdotta:} variabili
 duali $y$, problema primale, problema duale, valore ottimo $z^{*}$%
 .\newline\textbf{Formule principali:}
+Per coerenza con la convenzione primaria di minimizzazione, si considera
+inizialmente il problema primale
 \[
-\max_{x} \; c^{\prime}x \quad\hbox{soggetto a} \quad Ax\leq b,\; x\geq0,
+\min_x \; c'x
+\qquad
+\hbox{soggetto a}
+\qquad
+Ax\geq b,\quad x\geq0.
 \]
+Il corrispondente problema duale \`{e}
 \[
-\min_{y} \; b^{\prime}y \quad\hbox{soggetto a} \quad A^{\prime}y\geq c,\;
-y\geq0.
+\max_y \; b'y
+\qquad
+\hbox{soggetto a}
+\qquad
+A'y\leq c,\quad y\geq0.
 \]
+In forma standard con vincoli di uguaglianza,
+\[
+\min_x \; c'x
+\qquad
+\hbox{soggetto a}
+\qquad
+Ax=b,\quad x\geq0,
+\]
+le variabili duali associate ai vincoli di uguaglianza sono libere di segno.
 \textbf{Esercizi previsti:} derivazione del duale da un problema semplice;
 interpretazione dei moltiplicatori; analisi di variazioni nel vincolo.\newline%
 \textbf{Grafici previsti:} interpretazione geometrica primal-dual; rette di
@@ -531,17 +583,26 @@ portafoglio attraverso un problema di programmazione lineare?\newline%
 \textbf{Prerequisiti:} Lezioni 7, 11 e 12; basi operative di Python.\newline%
 \textbf{Obiettivi didattici:} formulare il CVaR come problema di
 programmazione lineare; implementare il modello; interpretare la soluzione e i
-vincoli.\newline\textbf{Notazione introdotta:} livello $\alpha$, soglia $\eta
-$, variabili ausiliarie $z_{s}$, scenari $s$.\newline\textbf{Formule
-principali:}
+vincoli.\newline\textbf{Notazione introdotta:} livello $\alpha$, soglia $\eta$,
+variabili ausiliarie $z_s$, insieme degli scenari
+$\mathcal S=\{1,\ldots,N\}$, probabilit\`{a} $p_s$.\newline
+\textbf{Formule principali:}
 \[
-\min_{x,\eta,z} \; \eta+\frac{1}{1-\alpha}\sum_{s=1}^{S}p_{s} z_{s}
+\min_{x,\eta,z} \;
+\eta+\frac{1}{1-\alpha}
+\sum_{s\in\mathcal S}p_s z_s
 \]
 \[
-\hbox{soggetto a} \qquad z_{s}\geq L_{s}(x)-\eta, \quad z_{s}\geq0, \quad
-s=1,\ldots,S,
+\hbox{soggetto a}
+\qquad
+z_s\geq L_s(x)-\eta,
+\quad
+z_s\geq0,
+\quad
+s\in\mathcal S,
 \]
-con eventuali vincoli di portafoglio su $x$.\newline\textbf{Esercizi
+con eventuali vincoli di portafoglio su $x$.
+\newline\textbf{Esercizi
 previsti:} modificare il livello di confidenza; confrontare portafogli;
 interpretare le variabili ausiliarie.\newline\textbf{Grafici previsti:}
 distribuzione delle perdite; VaR e CVaR; sensibilit\`{a} rispetto ad $\alpha
@@ -557,17 +618,31 @@ Lezioni 3, 4, 11 e 12.\newline\textbf{Obiettivi didattici:} introdurre
 scenari, decisioni here-and-now, decisioni wait-and-see e recourse; formulare
 problemi stocastici discreti a due stadi.\newline\textbf{Notazione
 introdotta:} scenari $s$, probabilit\`{a} $p_{s}$, decisione di primo stadio
-$x$, decisione di secondo stadio $y_{s}$.\newline\textbf{Formule principali:}
+$x$, decisione di secondo stadio $y_{s}$.\newline\textbf{Notazione introdotta:} insieme degli scenari
+$\mathcal S=\{1,\ldots,N\}$, scenario $s\in\mathcal S$,
+probabilit\`{a} $p_s$, decisione di primo stadio $x$, decisione di
+secondo stadio $y_s$, costo di recourse $d_s$.\newline
+\textbf{Formule principali:}
 \[
-\min_{x} \; c^{\prime}x+\mathbb{E}_{\xi}[Q(x,\xi)]
+\min_x \; c'x+\E_{\xi}[Q(x,\xi)].
 \]
-con approssimazione discreta
+Nel caso di approssimazione discreta a scenari:
 \[
-\min_{x,y_{s}} \; c^{\prime}x+\sum_{s=1}^{S}p_{s} q_{s}^{\prime}y_{s}
+\min_{x,y_s} \;
+c'x+\sum_{s\in\mathcal S}p_s d_s'y_s
 \]
 \[
-\hbox{soggetto a} \qquad Ax=b, \quad T_{s} x+W_{s} y_{s}=h_{s}, \quad x\geq0,
-\quad y_{s}\geq0.
+\hbox{soggetto a}
+\qquad
+Ax=b,
+\quad
+T_sx+W_sy_s=h_s,
+\quad
+x\geq0,
+\quad
+y_s\geq0,
+\quad
+s\in\mathcal S.
 \]
 \textbf{Esercizi previsti:} formulazione di un problema a due stadi;
 costruzione di tabella scenari; distinzione tra decisioni anticipative e non
@@ -585,21 +660,44 @@ approfondire valore dell'informazione, soluzione wait-and-see, expected value
 solution, recourse problem e non anticipativit\`{a}.\newline\textbf{Notazione
 introdotta:} $z^{SP}$, $z^{WS}$, $z^{EV}$, $\operatorname{EVPI}$,
 $\operatorname{VSS}$.\newline\textbf{Formule principali:}
+Per problemi formulati in minimizzazione, si assumono le convenzioni
 \[
-z^{SP}=\hbox{valore ottimo del problema stocastico}, \qquad z^{WS}=\sum
-_{s=1}^{S}p_{s} z_{s}^{WS},
+z^{SP}
+=
+\hbox{valore ottimo del problema stocastico},
+\qquad
+z^{WS}
+=
+\sum_{s\in\mathcal S}p_s z_s^{WS},
 \]
 \[
-\operatorname{EVPI}=z^{SP}-z^{WS}, \qquad\operatorname{VSS}=z^{EV}-z^{SP},
+z^{EV}
+=
+\hbox{valore ottenuto applicando la soluzione del problema medio
+al problema stocastico}.
 \]
-per una convenzione di minimizzazione.\newline\textbf{Esercizi previsti:}
-calcolo di EVPI in un esempio discreto; confronto tra soluzione deterministica
-equivalente e soluzione stocastica; interpretazione economica.\newline%
+Sotto le usuali ipotesi di confronto tra informazione perfetta,
+soluzione stocastica e soluzione basata sul problema medio, vale
+\[
+z^{WS}\leq z^{SP}\leq z^{EV}.
+\]
+Il valore atteso dell'informazione perfetta \`{e}
+\[
+\EVPI=z^{SP}-z^{WS}\geq0,
+\]
+mentre il valore della soluzione stocastica \`{e}
+\[
+\VSS=z^{EV}-z^{SP}\geq0.
+\]
+\newline
+\textbf{Esercizi previsti:} calcolo di EVPI in un esempio discreto;
+confronto tra soluzione deterministica equivalente e soluzione stocastica;
+interpretazione economica.\newline%
 \textbf{Grafici previsti:} confronto dei valori ottimi; albero con decisioni
 non anticipative; diagramma dei livelli informativi.\newline%
-\textbf{Applicazioni Python collegate:} Lezione 16.\newline\textbf{Stato di
-avanzamento:} bozza progettuale predisposta; convenzioni di segno per EVPI e
-VSS da confermare.
+\textbf{Applicazioni Python collegate:} Lezione 16.\newline%
+\textbf{Stato di avanzamento:} bozza progettuale predisposta; convenzioni di
+segno per EVPI e VSS adottate per problemi di minimizzazione.
 
 \subsection{Lezione 16 -- Applicazioni Python di programmazione stocastica}
 
@@ -613,10 +711,23 @@ introdotta:} raccordo computazionale con $x$, $y_{s}$, $p_{s}$, $z^{SP}$,
 $z^{WS}$, $z^{EV}$, $\operatorname{EVPI}$ e $\operatorname{VSS}$%
 .\newline\textbf{Formule principali:}
 \[
-\min_{x,y_{s}} \; c^{\prime}x+\sum_{s=1}^{S}p_{s} q_{s}^{\prime}y_{s},
+\min_{x,y_s} \;
+c'x+\sum_{s\in\mathcal S}p_s d_s'y_s,
 \]
 con vincoli di primo stadio, vincoli di recourse e vincoli di non
-anticipativit\`{a}.\newline\textbf{Esercizi previsti:} modificare
+anticipativit\`{a}:
+\[
+Ax=b,
+\qquad
+T_sx+W_sy_s=h_s,
+\qquad
+x\geq0,
+\qquad
+y_s\geq0,
+\qquad
+s\in\mathcal S.
+\].
+\newline\textbf{Esercizi previsti:} modificare
 probabilit\`{a} degli scenari; introdurre vincoli di budget o rischio;
 confrontare decisioni ottime.\newline\textbf{Grafici previsti:} albero degli
 scenari; confronto tra soluzioni; distribuzione dei risultati per
