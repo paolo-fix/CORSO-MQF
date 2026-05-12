@@ -53,11 +53,17 @@ dove $T$ indica l'orizzonte finale del modello. I simboli introdotti in questo d
 \textbf{Oggetto} & \textbf{Notazione} & \textbf{Uso previsto}\\
 \hline
 Scalari & $a,b,c,\alpha,\beta$ & Parametri reali, coefficienti, livelli di confidenza, tassi o pesi.\\
-Vettori & $x,y,z,\xi$ & Vettori colonna, salvo diversa indicazione.\\
-Matrici & $A,B,P,Q$ & Matrici di coefficienti, matrici di transizione, matrici di vincoli.\\
-Insiemi & $A,B,C,\Omega,\mathcal{S}$ & Eventi, spazio campionario, insieme degli scenari o degli stati.\\
-Variabili casuali & $X,Y,Z,L,H$ & Variabili casuali reali; $L$ per perdite, $H$ per payoff terminali.\\
-Processi & $\{X_t\}_{t=0}^{T}$, $\{S_t\}_{t=0}^{T}$ & Sequenze temporali aleatorie in tempo discreto.\\
+Vettori & $x,y,\lambda,\xi$ & Vettori colonna, salvo diversa indicazione:
+$x$ per decisioni, $y_s$ per decisioni di secondo stadio, $\lambda$ per
+variabili duali, $\xi$ per dati aleatori.\\
+Matrici & $A,B,P,Q$ & Matrici di coefficienti, matrici di transizione,
+matrici di vincoli.\\
+Insiemi & $A,B,C,\Omega,\mathcal{S}$ & Eventi, spazio campionario, insieme
+degli scenari o degli stati.\\
+Variabili casuali & $X,Y,Z,L,H$ & Variabili casuali reali; $L$ per perdite,
+$H$ per payoff terminali.\\
+Processi & $\{X_t\}_{t=0}^{T}$, $\{S_t\}_{t=0}^{T}$ & Sequenze temporali
+aleatorie in tempo discreto.\\
 Valore ottimo & $z^*$ & Valore ottimo di un problema di ottimizzazione.\\
 Soluzione ottima & $x^*$ & Vettore ottimo delle variabili decisionali.\\
 \hline
@@ -304,8 +310,28 @@ mentre nelle formulazioni di ottimizzazione si preferisce la rappresentazione
 \]
 dove
 \[
- (x)^+=\max\{x,0\}.
+(x)^+=\max\{x,0\}.
 \]
+
+Nelle formulazioni discrete del CVaR si indicano con $u_s$ le variabili
+ausiliarie che rappresentano gli eccessi di perdita rispetto alla soglia
+$\eta$:
+\[
+u_s\geq L_s(x)-\eta,
+\qquad
+u_s\geq0,
+\qquad
+s\in\mathcal S.
+\]
+La formulazione lineare standard \`{e}
+\[
+\min_{x,\eta,u}
+\eta+\frac{1}{1-\alpha}\sum_{s\in\mathcal S}p_su_s.
+\]
+Il simbolo $z$ resta riservato ai valori ottimi dei problemi di
+ottimizzazione.
+
+\section{Modello binomiale e pricing discreto}
 
 \section{Modello binomiale e pricing discreto}
 
@@ -327,139 +353,112 @@ La condizione elementare di assenza di arbitraggio \`{e}
 \[
 d<1+r<u.
 \]
-La probabilit\`{a} risk-neutral \`{e}
+La probabilit\`{a} risk-neutral a un periodo \`{e}
 \[
 q=\frac{1+r-d}{u-d}.
 \]
-La misura risk-neutral \`{e} indicata con $\Q$. Nel modello binomiale a un
-periodo,
+La misura risk-neutral \`{e} indicata con $\Q$. Il valore di un derivato con
+payoff terminale $H$ \`{e} indicato con $V_t$. A un periodo,
 \[
-\Q(\hbox{up})=q,
-\qquad
-\Q(\hbox{down})=1-q.
+V_0=\frac{1}{1+r}\E_{\Q}[H]
+=\frac{1}{1+r}\left(qH^u+(1-q)H^d\right).
 \]
 
-Se $V_t$ indica il valore di un derivato al tempo $t$, allora la formula
-ricorsiva di valutazione \`{e}
-\[
-V_t=
-\frac{1}{1+r}
-\E^{\Q}\left[V_{t+1}\mid \F_t\right].
-\]
-Nel caso a un periodo, questa formula diventa
-\[
-V_0=
-\frac{1}{1+r}
-\left(
-qV_1^u+(1-q)V_1^d
-\right).
-\]
+\section{Programmazione lineare}
 
-Il payoff terminale di un derivato \`{e} indicato con $H$. Per una call
-europea con strike $K$,
-\[
-H=(S_T-K)^+.
-\]
-
-\section{Programmazione lineare e programmazione stocastica}
-
-La convenzione primaria del corso per la programmazione lineare \`{e} la
-minimizzazione. La forma standard \`{e}
+Un problema di programmazione lineare viene scritto, salvo diversa
+indicazione, nella forma
 \[
 \min_x \; c'x
+\]
+soggetto a
+\[
+Ax\geq b,
 \qquad
-\hbox{soggetto a}
+x\geq0.
+\]
+Il vettore delle variabili decisionali \`{e} $x$, il valore ottimo \`{e}
+$z^*$ e una soluzione ottima \`{e} $x^*$. Le variabili duali sono indicate
+preferibilmente con $\lambda$. Per il problema primale precedente, il duale
+associato \`{e}
+\[
+\max_{\lambda} \; b'\lambda
+\]
+soggetto a
+\[
+A'\lambda\leq c,
 \qquad
-Ax=b,\quad x\geq0.
+\lambda\geq0.
 \]
-Il valore ottimo di un problema di ottimizzazione \`{e} indicato con
-\[
-z^*.
-\]
-Una soluzione ottima \`{e} indicata con
-\[
-x^*.
-\]
+Il simbolo $y_s$ \`{e} riservato alle decisioni di secondo stadio nei problemi
+di programmazione stocastica.
 
-Nei problemi di programmazione stocastica a due stadi, la decisione di
-primo stadio \`{e} indicata con $x$, mentre la decisione di secondo stadio
-nello scenario $s$ \`{e} indicata con $y_s$. L'insieme degli scenari \`{e}
-\[
-\mathcal S=\{1,\ldots,N\}.
-\]
-La probabilit\`{a} dello scenario $s$ \`{e} $p_s$.
+\section{Programmazione stocastica}
 
-Per evitare sovrapposizioni con la probabilit\`{a} risk-neutral $q$ del
-modello binomiale, i costi di recourse nello scenario $s$ sono indicati
-con $d_s$. Una formulazione discreta a due stadi \`{e}
+Nei problemi stocastici a due stadi, $x$ indica la decisione di primo stadio,
+presa prima dell'osservazione dello scenario. Per ogni scenario
+$s\in\mathcal S$, $y_s$ indica la decisione di secondo stadio o decisione di
+recourse.
+
+Una forma standard \`{e}
 \[
-\min_{x,y_s}
-\;
-c'x+\sum_{s\in\mathcal S}p_s d_s'y_s
+\min_{x,y_s} \; c'x+\sum_{s\in\mathcal S}p_s d_s'y_s
 \]
 soggetta a
 \[
-Ax=b,
+Ax\geq b,
 \qquad
-T_sx+W_sy_s=h_s,
-\qquad
-x\geq0,
+W_s y_s\geq h_s-T_sx,
 \qquad
 y_s\geq0,
-\qquad
-s\in\mathcal S.
+\quad s\in\mathcal S.
 \]
+Il valore ottimo del problema stocastico \`{e} indicato con $z^{SP}$.
 
-Per problemi formulati in minimizzazione, si usano le convenzioni
-\[
-z^{SP}
-=
-\hbox{valore ottimo del problema stocastico},
-\]
-\[
-z^{WS}
-=
-\sum_{s\in\mathcal S}p_s z_s^{WS},
-\]
-\[
-z^{EV}
-=
-\hbox{valore ottenuto dalla soluzione del problema medio}.
-\]
-Sotto le usuali ipotesi di confronto,
+Il valore wait-and-see \`{e} indicato con $z^{WS}$ e corrisponde al valore
+atteso dei problemi risolti separatamente dopo l'osservazione dello scenario.
+
+Si indichi con $x^{EV}$ la soluzione ottima del problema medio. Il valore
+$z^{EV}$ non \`{e} il valore ottimo del solo problema medio, ma il valore
+della funzione obiettivo stocastica ottenuto imponendo la decisione di primo
+stadio $x=x^{EV}$.
+
+Per problemi formulati in minimizzazione si usa la convenzione
 \[
 z^{WS}\leq z^{SP}\leq z^{EV}.
 \]
-Il valore atteso dell'informazione perfetta \`{e}
+Pertanto,
 \[
-\EVPI=z^{SP}-z^{WS}\geq0.
-\]
-Il valore della soluzione stocastica \`{e}
-\[
+\EVPI=z^{SP}-z^{WS}\geq0,
+\qquad
 \VSS=z^{EV}-z^{SP}\geq0.
 \]
 
-\section{Corrispondenza tra notazione matematica e nomi Python}
+\section{Corrispondenza tra notazione matematica e Python}
 
 \begin{longtable}{>{\raggedright}p{4.0cm}>{\raggedright}p{4.2cm}>{\raggedright\arraybackslash}p{5.8cm}}
 \hline
 \textbf{Oggetto matematico} & \textbf{Nome Python suggerito} & \textbf{Commento}\\
 \hline
 $S_t$ & \texttt{S\_t}, \texttt{prices} & Prezzi simulati o osservati.\\
-$X_t$ & \texttt{X\_t}, \texttt{states} & Processo generico o stati Markoviani.\\
+$X_t$ & \texttt{X\_t}, \texttt{states} & Processo generico o stati markoviani.\\
 $P=(p_{ij})$ & \texttt{P} & Matrice di transizione.\\
 $\pi_t$ & \texttt{pi\_t} & Distribuzione sugli stati.\\
 $L$ & \texttt{losses} & Vettore delle perdite.\\
 $\VaR_\alpha$ & \texttt{var\_alpha} & Value-at-Risk al livello $\alpha$.\\
 $\CVaR_\alpha$ & \texttt{cvar\_alpha} & Conditional Value-at-Risk.\\
+$\eta$ & \texttt{eta} & Soglia nella formulazione del CVaR.\\
+$u_s$ & \texttt{u[s]} & Eccesso di perdita nello scenario $s$.\\
 $x$ & \texttt{x} & Variabili decisionali di primo stadio o di portafoglio.\\
+$\lambda$ & \texttt{lambda\_dual} & Variabili duali nei problemi di programmazione lineare.\\
 $y_s$ & \texttt{y[s]} & Variabili di secondo stadio indicizzate per scenario.\\
 $p_s$ & \texttt{p\_s}, \texttt{probabilities} & Probabilit\`{a} degli scenari.\\
 $d_s$ & \texttt{d[s]}, \texttt{recourse\_costs} & Costi di recourse nello scenario $s$.\\
 $\xi_s$ & \texttt{xi[s]}, \texttt{scenario\_data} & Dati aleatori dello scenario.\\
 $z^{SP}$ & \texttt{z\_sp} & Valore ottimo del problema stocastico.\\
 $z^{WS}$ & \texttt{z\_ws} & Valore wait-and-see.\\
-$z^{EV}$ & \texttt{z\_ev} & Valore della soluzione del problema medio.\\
+$x^{EV}$ & \texttt{x\_ev} & Soluzione ottima del problema medio.\\
+$z^{EV}$ & \texttt{z\_ev} & Valore stocastico ottenuto fissando $x=x^{EV}$.\\
 $\EVPI$ & \texttt{evpi} & Expected Value of Perfect Information.\\
 $\VSS$ & \texttt{vss} & Value of the Stochastic Solution.\\
 \hline
@@ -467,8 +466,8 @@ $\VSS$ & \texttt{vss} & Value of the Stochastic Solution.\\
 
 Il codice Python deve distinguere chiaramente parametri, dati, variabili
 decisionali, output numerici e grafici. Quando possibile, la notazione del
-codice deve richiamare direttamente la formulazione matematica presentata
-nel manuale.
+codice deve richiamare direttamente la formulazione matematica presentata nel
+manuale.
 
 \section{Convenzioni da evitare}
 
@@ -495,6 +494,14 @@ si preferisce $\ell$.
 Il simbolo $V_t$ \`{e} riservato al valore temporale di un derivato o di
 un processo di valore. Per i valori ottimi si usano $z^*$, $z^{SP}$,
 $z^{WS}$ e $z^{EV}$.
+
+\item Non usare $z_s$ per variabili ausiliarie di scenario nei problemi di
+CVaR. Per gli eccessi di perdita si usa $u_s$; il simbolo $z$ resta riservato
+ai valori ottimi.
+
+\item Non usare $y$ per le variabili duali quando nella stessa parte del corso
+si lavora con programmazione stocastica. Le variabili duali sono indicate con
+$\lambda$, mentre $y_s$ \`{e} riservato alle decisioni di secondo stadio.
 
 \item Non introdurre simboli locali in conflitto con simboli globali gi\`{a}
 definiti in questo documento. Ogni eccezione locale deve essere dichiarata

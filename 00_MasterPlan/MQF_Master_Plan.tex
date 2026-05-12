@@ -37,12 +37,15 @@
 \newcommand{\Prob}{\mathbb{P}}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\F}{\mathcal{F}}
+\newcommand{\B}{\mathcal{B}}
 \newcommand{\G}{\mathcal{G}}
 \newcommand{\1}{\mathbf{1}}
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\Cov}{\operatorname{Cov}}
 \newcommand{\VaR}{\operatorname{VaR}}
 \newcommand{\CVaR}{\operatorname{CVaR}}
+\newcommand{\argmin}{\operatorname*{arg\,min}}
+\newcommand{\argmax}{\operatorname*{arg\,max}}
 \newcommand{\EVPI}{\operatorname{EVPI}}
 \newcommand{\VSS}{\operatorname{VSS}}
 \begin{document}
@@ -172,9 +175,22 @@ codice selezionato, output e interpretazione.
 
 \section{Convenzioni preliminari di notazione}
 
-Le convenzioni definitive saranno raccolte nel documento separato
-\texttt{MQF\_Notazione.tex}. In prima approssimazione, e in coerenza con il documento
-\texttt{MQF\_Notazione.tex}, si adottano le seguenti convenzioni generali:
+Il documento \texttt{MQF\_Notazione.tex} costituisce il riferimento
+normativo per tutti i simboli matematici del corso. Il presente Master Plan
+riporta soltanto una sintesi operativa delle convenzioni principali, utile
+per collegare ciascuna lezione alla notazione comune.
+
+Ogni lezione deve rispettare tre regole:
+\begin{enumerate}
+\item non introdurre simboli locali in conflitto con simboli gi\`{a} fissati
+in \texttt{MQF\_Notazione.tex};
+\item dichiarare esplicitamente eventuali eccezioni locali;
+\item aggiornare \texttt{MQF\_Notazione.tex} quando una nuova convenzione
+diventa ricorrente nel manuale, nelle slides o nel codice Python.
+\end{enumerate}
+
+In coerenza con il documento \texttt{MQF\_Notazione.tex}, si adottano le
+seguenti convenzioni generali:
 \begin{center}%
 \begin{tabular}[c]{cp{8.5cm}}
 \hline
@@ -192,9 +208,11 @@ Le convenzioni definitive saranno raccolte nel documento separato
 \multicolumn{1}{l}{$\Q$} & Misura risk-neutral, quando introdotta.\\
 \multicolumn{1}{l}{$q$} & Probabilit\`{a} risk-neutral nel modello binomiale.\\
 \multicolumn{1}{l}{$x$} & Vettore di variabili decisionali nei problemi di ottimizzazione.\\
+\multicolumn{1}{l}{$\omega\in\Omega$} & Esito elementare nello spazio campionario.\\
 \multicolumn{1}{l}{$\xi$} & Vettore aleatorio o informazione incerta nei problemi decisionali.\\
-\multicolumn{1}{l}{$\mathcal S=\{1,\ldots,N\}$} & Insieme finito degli scenari.\\
-\multicolumn{1}{l}{$s\in\mathcal S$, $p_s$} & Scenario generico e probabilit\`{a} dello scenario $s$.\\
+\multicolumn{1}{l}{$\mathcal S=\{1,\ldots,N\}$} & Insieme finito degli scenari discreti.\\
+\multicolumn{1}{l}{$s\in\mathcal S$, $p_s$} & Indice di scenario e probabilit\`{a} dello scenario $s$.\\
+\multicolumn{1}{l}{$\xi_s$} & Realizzazione dei dati aleatori nello scenario $s$.\\
 \hline
 \end{tabular}
 \end{center}
@@ -322,7 +340,9 @@ l'evoluzione temporale di prezzi, rendimenti o fattori di rischio?\newline%
 introdurre processi stocastici in tempo discreto; distinguere traiettorie,
 stati e scenari; collegare simulazione e rappresentazione
 dell'incertezza.\newline\textbf{Notazione introdotta:} $\{X_{t}\}_{t=0}^{T}$,
-$\{S_{t}\}_{t=0}^{T}$, $\mathcal{F}_{t}$, scenari $\omega_{s}$.\newline%
+$\{S_{t}\}_{t=0}^{T}$, $\{\F_t\}_{t=0}^{T}$, traiettorie
+$X_0(\omega),\ldots,X_T(\omega)$, scenari discreti $s\in\mathcal S$ e dati
+di scenario $\xi_s$.\newline%
 \textbf{Formule principali:}
 \[
 X_{t}:\Omega\rightarrow\mathbb{R}, \qquad\{X_{t}\}_{t=0}^{T}, \qquad X_{t} \;
@@ -467,83 +487,74 @@ La condizione elementare di assenza di arbitraggio \`{e}
 \[
 d<1+r<u.
 \]
-La probabilit\`{a} risk-neutral \`{e}
+La probabilit\`{a} risk-neutral a un periodo \`{e}
 \[
-q=\frac{(1+r)-d}{u-d}.
+q=\frac{1+r-d}{u-d}.
 \]
-Il valore di un derivato con valori successivi $V_{t+1}^{u}$ e
-$V_{t+1}^{d}$ \`{e} calcolato per induzione all'indietro mediante
+Se $V_t$ indica il valore del derivato al tempo $t$, la valutazione
+risk-neutral a un periodo \`{e}
 \[
-V_t=
-\frac{1}{1+r}
-\left(
-qV_{t+1}^{u}+(1-q)V_{t+1}^{d}
-\right).
+V_0=\frac{1}{1+r}\left(qV_1^u+(1-q)V_1^d\right).
 \]
-\textbf{Esercizi previsti:} albero binomiale dei prezzi;
-albero dei payoff; backward induction visuale.\newline\textbf{Applicazioni
-Python collegate:} Lezione 10.\newline\textbf{Stato di avanzamento:} bozza
-progettuale predisposta; ipotesi di assenza di arbitraggio da formalizzare.
+\textbf{Esercizi previsti:} pricing binomiale a un periodo; calcolo della
+probabilit\`{a} risk-neutral; backward induction in un albero a due periodi.
+\newline
+\textbf{Grafici previsti:} albero binomiale dei prezzi; albero dei payoff;
+albero dei valori.
+\newline
+\textbf{Applicazioni Python collegate:} Lezione 10.
+\newline
+\textbf{Stato di avanzamento:} bozza progettuale predisposta; completare gli
+esempi numerici.
 
-\subsection{Lezione 10 -- Applicazioni Python al pricing di opzioni e
-obbligazioni}
+\subsection{Lezione 10 -- Applicazioni Python al pricing di opzioni e obbligazioni}
 
-\textbf{Tipo:} C.\newline\textbf{Domanda guida:} come si implementa
-numericamente il pricing ricorsivo in un albero discreto?\newline%
-\textbf{Prerequisiti:} Lezione 9; basi operative di Python.\newline%
-\textbf{Obiettivi didattici:} costruire alberi binomiali in Python; calcolare
-payoff; implementare backward induction; estendere il metodo a strumenti
-obbligazionari semplici.\newline\textbf{Notazione introdotta:} raccordo
-computazionale con $S_{t}$, $V_{t}$, $u$, $d$, $q$, $r$.\newline%
+\textbf{Tipo:} C.
+\newline
+\textbf{Domanda guida:} come si implementa numericamente la valutazione
+backward in un albero binomiale?
+\newline
+\textbf{Prerequisiti:} Lezione 9; basi operative di Python.
+\newline
+\textbf{Obiettivi didattici:} implementare alberi binomiali dei prezzi e dei
+payoff; calcolare prezzi di derivati mediante backward induction; analizzare
+la sensibilit\`{a} rispetto a $u$, $d$, $r$ e allo strike.
+\newline
+\textbf{Notazione introdotta:} raccordo computazionale con $S_t$, $V_t$, $H$,
+$u$, $d$, $r$ e $q$.
+\newline
 \textbf{Formule principali:}
 \[
-H=(S_{T}-K)^{+}, \qquad V_{t}=\frac{1}{1+r}\mathbb{E}^{\mathbb{Q}}[V_{t+1}%
-\mid\mathcal{F}_{t}].
+V_t=\frac{1}{1+r}\left(qV_{t+1}^u+(1-q)V_{t+1}^d\right).
 \]
-\textbf{Esercizi previsti:} modificare strike, tasso e volatilit\`{a};
-confrontare prezzi; introdurre un payoff alternativo.\newline\textbf{Grafici
-previsti:} albero del prezzo; albero del valore; sensibilit\`{a} del prezzo
-rispetto ai parametri.\newline\textbf{Applicazioni Python collegate:}
-applicazione Python 3.\newline\textbf{Stato di avanzamento:} bozza progettuale
-predisposta; codice da scrivere.
+\textbf{Esercizi previsti:} modificare strike e tasso; confrontare payoff
+call e put; verificare l'effetto di $u$ e $d$.
+\newline
+\textbf{Grafici previsti:} albero dei prezzi; albero dei payoff; albero dei
+valori.
+\newline
+\textbf{Applicazioni Python collegate:} applicazione Python 3.
+\newline
+\textbf{Stato di avanzamento:} bozza progettuale predisposta; codice da
+scrivere.
 
 \subsection{Lezione 11 -- Programmazione lineare}
 
-\textbf{Tipo:} P.\newline\textbf{Domanda guida:} come si formula e risolve una
-decisione finanziaria vincolata?\newline\textbf{Prerequisiti:} algebra lineare
-elementare; ottimizzazione di base.\newline\textbf{Obiettivi didattici:}
-introdurre variabili decisionali, funzione obiettivo, vincoli, forma standard,
-regione ammissibile e soluzione ottima.\newline\textbf{Notazione introdotta:}
-$x$, $c$, $A$, $b$, problema primale.\newline\textbf{Formule principali:}
-La convenzione primaria del corso per la programmazione lineare \`{e} la
-formulazione di minimizzazione. In forma standard:
-\[
-\min_x \; c'x
-\qquad
-\hbox{soggetto a}
-\qquad
-Ax=b,\quad x\geq 0.
-\]
-Formulazioni equivalenti con vincoli di disuguaglianza o con funzione
-obiettivo di massimo saranno introdotte come trasformazioni della forma
-standard.
+\textbf{Tipo:} P.
 \newline
-\textbf{Esercizi previsti:} problema di allocazione di portafoglio con vincoli; rappresentazione grafica in due variabili; identificazione della soluzione ottima.\newline
-\textbf{Grafici previsti:} regione ammissibile; rette di livello; soluzione ottima su un vertice.\newline
-\textbf{Applicazioni Python collegate:} Lezione 13 e Lezione 16.\newline
-\textbf{Stato di avanzamento:} bozza progettuale predisposta; convenzione primaria di minimizzazione adottata.
-
-\subsection{Lezione 12 -- Dualit\`{a} nella programmazione lineare}
-
-\textbf{Tipo:} P.\newline\textbf{Domanda guida:} qual \`{e} il significato
-economico dei prezzi ombra associati ai vincoli?\newline\textbf{Prerequisiti:}
-Lezione 11.\newline\textbf{Obiettivi didattici:} introdurre il problema duale;
-interpretare variabili duali e prezzi ombra; collegare primalit\`{a},
-dualit\`{a} e sensibilit\`{a}.\newline\textbf{Notazione introdotta:} variabili
-duali $y$, problema primale, problema duale, valore ottimo $z^{*}$%
-.\newline\textbf{Formule principali:}
-Per coerenza con la convenzione primaria di minimizzazione, si considera
-inizialmente il problema primale
+\textbf{Domanda guida:} come si formula un problema decisionale vincolato in
+forma lineare?
+\newline
+\textbf{Prerequisiti:} algebra lineare elementare; interpretazione geometrica
+dei vincoli.
+\newline
+\textbf{Obiettivi didattici:} introdurre variabili decisionali, funzione
+obiettivo, vincoli lineari, regione ammissibile e valore ottimo.
+\newline
+\textbf{Notazione introdotta:} vettore decisionale $x$, matrice dei vincoli
+$A$, vettori $b$ e $c$, valore ottimo $z^*$.
+\newline
+\textbf{Formule principali:}
 \[
 \min_x \; c'x
 \qquad
@@ -551,255 +562,236 @@ inizialmente il problema primale
 \qquad
 Ax\geq b,\quad x\geq0.
 \]
-Il corrispondente problema duale \`{e}
-\[
-\max_y \; b'y
-\qquad
-\hbox{soggetto a}
-\qquad
-A'y\leq c,\quad y\geq0.
-\]
-In forma standard con vincoli di uguaglianza,
+\textbf{Esercizi previsti:} formulazione di un problema di allocazione;
+soluzione grafica in due variabili; interpretazione dei vincoli.
+\newline
+\textbf{Grafici previsti:} regione ammissibile; rette di livello; punto
+ottimo.
+\newline
+\textbf{Applicazioni Python collegate:} Lezione 13.
+\newline
+\textbf{Stato di avanzamento:} bozza progettuale predisposta; scegliere un
+esempio finanziario guida.
+
+\subsection{Lezione 12 -- Dualit\`{a} nella programmazione lineare}
+
+\textbf{Tipo:} P.
+\newline
+\textbf{Domanda guida:} come si interpreta economicamente il valore marginale
+di un vincolo?
+\newline
+\textbf{Prerequisiti:} Lezione 11.
+\newline
+\textbf{Obiettivi didattici:} introdurre il problema duale, i prezzi ombra e
+il legame tra primalit\`{a}, dualit\`{a} e interpretazione economica.
+\newline
+\textbf{Notazione introdotta:} variabili duali $\lambda$, problema primale,
+problema duale, valore ottimo $z^*$.
+\newline
+\textbf{Formule principali:}
 \[
 \min_x \; c'x
 \qquad
 \hbox{soggetto a}
 \qquad
-Ax=b,\quad x\geq0,
+Ax\geq b,\quad x\geq0,
 \]
-le variabili duali associate ai vincoli di uguaglianza sono libere di segno.
-\textbf{Esercizi previsti:} derivazione del duale da un problema semplice;
-interpretazione dei moltiplicatori; analisi di variazioni nel vincolo.\newline%
-\textbf{Grafici previsti:} interpretazione geometrica primal-dual; rette di
-supporto; valore marginale dei vincoli.\newline\textbf{Applicazioni Python
-collegate:} Lezioni 13 e 16.\newline\textbf{Stato di avanzamento:} bozza
-progettuale predisposta; esempi economico-finanziari da scegliere.
+\[
+\max_{\lambda} \; b'\lambda
+\qquad
+\hbox{soggetto a}
+\qquad
+A'\lambda\leq c,\quad \lambda\geq0.
+\]
+\textbf{Esercizi previsti:} costruzione del duale; interpretazione dei prezzi
+ombra; verifica di condizioni di ottimalit\`{a}.
+\newline
+\textbf{Grafici previsti:} interpretazione geometrica primal-dual.
+\newline
+\textbf{Applicazioni Python collegate:} Lezione 13.
+\newline
+\textbf{Stato di avanzamento:} bozza progettuale predisposta; esempi da
+definire.
 
-\subsection{Lezione 13 -- Applicazioni Python di programmazione lineare:
-calcolo del CVaR}
+\subsection{Lezione 13 -- Applicazioni Python di programmazione lineare: calcolo del CVaR}
 
-\textbf{Tipo:} C.\newline\textbf{Domanda guida:} come si calcola il CVaR di
-portafoglio attraverso un problema di programmazione lineare?\newline%
-\textbf{Prerequisiti:} Lezioni 7, 11 e 12; basi operative di Python.\newline%
-\textbf{Obiettivi didattici:} formulare il CVaR come problema di
-programmazione lineare; implementare il modello; interpretare la soluzione e i
-vincoli.\newline\textbf{Notazione introdotta:} livello $\alpha$, soglia $\eta$,
-variabili ausiliarie $z_s$, insieme degli scenari
-$\mathcal S=\{1,\ldots,N\}$, probabilit\`{a} $p_s$.\newline
+\textbf{Tipo:} C.
+\newline
+\textbf{Domanda guida:} come si calcola il CVaR mediante una formulazione di
+programmazione lineare?
+\newline
+\textbf{Prerequisiti:} Lezioni 7, 11 e 12.
+\newline
+\textbf{Obiettivi didattici:} formulare il CVaR discreto come problema
+lineare; implementare il modello; interpretare soglia, eccessi di perdita e
+soluzione ottima.
+\newline
+\textbf{Notazione introdotta:} livello $\alpha$, soglia $\eta$, variabili
+ausiliarie $u_s$, perdite di scenario $L_s(x)$, probabilit\`{a} $p_s$.
+\newline
 \textbf{Formule principali:}
 \[
-\min_{x,\eta,z} \;
-\eta+\frac{1}{1-\alpha}
-\sum_{s\in\mathcal S}p_s z_s
+\min_{x,\eta,u} \;
+\eta+\frac{1}{1-\alpha}\sum_{s\in\mathcal S}p_s u_s
 \]
 \[
 \hbox{soggetto a}
 \qquad
-z_s\geq L_s(x)-\eta,
-\quad
-z_s\geq0,
-\quad
-s\in\mathcal S,
+u_s\geq L_s(x)-\eta,\quad
+u_s\geq0,\quad s\in\mathcal S.
 \]
-con eventuali vincoli di portafoglio su $x$.
-\newline\textbf{Esercizi
-previsti:} modificare il livello di confidenza; confrontare portafogli;
-interpretare le variabili ausiliarie.\newline\textbf{Grafici previsti:}
-distribuzione delle perdite; VaR e CVaR; sensibilit\`{a} rispetto ad $\alpha
-$.\newline\textbf{Applicazioni Python collegate:} applicazione Python
-4.\newline\textbf{Stato di avanzamento:} bozza progettuale predisposta;
-libreria di ottimizzazione Python da decidere.
+\textbf{Esercizi previsti:} calcolo del CVaR via PL; sensibilit\`{a} rispetto
+ad $\alpha$; confronto tra VaR e CVaR.
+\newline
+\textbf{Grafici previsti:} distribuzione delle perdite; confronto VaR--CVaR;
+andamento del CVaR al variare di $\alpha$.
+\newline
+\textbf{Applicazioni Python collegate:} applicazione Python 4.
+\newline
+\textbf{Stato di avanzamento:} bozza progettuale predisposta; codice da
+scrivere.
 
 \subsection{Lezione 14 -- Programmazione lineare stocastica I}
 
-\textbf{Tipo:} P.\newline\textbf{Domanda guida:} come si prende una decisione
-oggi quando gli esiti futuri sono incerti?\newline\textbf{Prerequisiti:}
-Lezioni 3, 4, 11 e 12.\newline\textbf{Obiettivi didattici:} introdurre
-scenari, decisioni here-and-now, decisioni wait-and-see e recourse; formulare
-problemi stocastici discreti a due stadi.\newline\textbf{Notazione
-introdotta:} scenari $s$, probabilit\`{a} $p_{s}$, decisione di primo stadio
-$x$, decisione di secondo stadio $y_{s}$.\newline\textbf{Notazione introdotta:} insieme degli scenari
-$\mathcal S=\{1,\ldots,N\}$, scenario $s\in\mathcal S$,
-probabilit\`{a} $p_s$, decisione di primo stadio $x$, decisione di
-secondo stadio $y_s$, costo di recourse $d_s$.\newline
+\textbf{Tipo:} P.
+\newline
+\textbf{Domanda guida:} come si formula una decisione presa prima di conoscere
+lo scenario futuro?
+\newline
+\textbf{Prerequisiti:} Lezioni 11--13.
+\newline
+\textbf{Obiettivi didattici:} introdurre decisioni here-and-now, scenari,
+vincoli di non anticipativit\`{a} e decisioni di recourse.
+\newline
+\textbf{Notazione introdotta:} decisione di primo stadio $x$, scenario
+$s\in\mathcal S$, dati di scenario $\xi_s$, decisione di secondo stadio
+$y_s$, costo di recourse $d_s$.
+\newline
 \textbf{Formule principali:}
 \[
-\min_x \; c'x+\E_{\xi}[Q(x,\xi)].
-\]
-Nel caso di approssimazione discreta a scenari:
-\[
-\min_{x,y_s} \;
-c'x+\sum_{s\in\mathcal S}p_s d_s'y_s
+\min_{x,y_s} \; c'x+\sum_{s\in\mathcal S}p_s d_s'y_s
 \]
 \[
 \hbox{soggetto a}
 \qquad
-Ax=b,
-\quad
-T_sx+W_sy_s=h_s,
-\quad
-x\geq0,
-\quad
+Ax\geq b,
+\qquad
+W_s y_s\geq h_s-T_sx,
+\qquad
 y_s\geq0,
-\quad
-s\in\mathcal S.
+\quad s\in\mathcal S.
 \]
-\textbf{Esercizi previsti:} formulazione di un problema a due stadi;
-costruzione di tabella scenari; distinzione tra decisioni anticipative e non
-anticipative.\newline\textbf{Grafici previsti:} albero degli scenari; schema
-here-and-now/recourse; confronto tra scenari.\newline\textbf{Applicazioni
-Python collegate:} Lezione 16.\newline\textbf{Stato di avanzamento:} bozza
-progettuale predisposta; esempio finanziario di riferimento da scegliere.
+\textbf{Esercizi previsti:} formulazione di un modello a due stadi; verifica
+della non anticipativit\`{a}; interpretazione del recourse.
+\newline
+\textbf{Grafici previsti:} albero degli scenari; struttura primo
+stadio--secondo stadio.
+\newline
+\textbf{Applicazioni Python collegate:} Lezione 16.
+\newline
+\textbf{Stato di avanzamento:} bozza progettuale predisposta; esempio guida
+da selezionare.
 
 \subsection{Lezione 15 -- Programmazione lineare stocastica II}
 
-\textbf{Tipo:} P.\newline\textbf{Domanda guida:} qual \`{e} il valore
-economico dell'informazione e della modellizzazione stocastica?\newline%
-\textbf{Prerequisiti:} Lezione 14.\newline\textbf{Obiettivi didattici:}
-approfondire valore dell'informazione, soluzione wait-and-see, expected value
-solution, recourse problem e non anticipativit\`{a}.\newline\textbf{Notazione
-introdotta:} $z^{SP}$, $z^{WS}$, $z^{EV}$, $\operatorname{EVPI}$,
-$\operatorname{VSS}$.\newline\textbf{Formule principali:}
-Per problemi formulati in minimizzazione, si assumono le convenzioni
+\textbf{Tipo:} P.
+\newline
+\textbf{Domanda guida:} qual \`{e} il valore economico dell'informazione e
+della soluzione stocastica?
+\newline
+\textbf{Prerequisiti:} Lezione 14.
+\newline
+\textbf{Obiettivi didattici:} distinguere soluzione stocastica, soluzione
+wait-and-see e soluzione del problema medio; introdurre EVPI e VSS.
+\newline
+\textbf{Notazione introdotta:} $z^{SP}$, $z^{WS}$, $x^{EV}$, $z^{EV}$,
+$\EVPI$, $\VSS$.
+\newline
+\textbf{Formule principali:}
 \[
-z^{SP}
-=
-\hbox{valore ottimo del problema stocastico},
+\EVPI=z^{SP}-z^{WS},
 \qquad
-z^{WS}
-=
-\sum_{s\in\mathcal S}p_s z_s^{WS},
+\VSS=z^{EV}-z^{SP},
 \]
-\[
-z^{EV}
-=
-\hbox{valore ottenuto applicando la soluzione del problema medio
-al problema stocastico}.
-\]
-Sotto le usuali ipotesi di confronto tra informazione perfetta,
-soluzione stocastica e soluzione basata sul problema medio, vale
+per problemi formulati in minimizzazione, con
 \[
 z^{WS}\leq z^{SP}\leq z^{EV}.
 \]
-Il valore atteso dell'informazione perfetta \`{e}
-\[
-\EVPI=z^{SP}-z^{WS}\geq0,
-\]
-mentre il valore della soluzione stocastica \`{e}
-\[
-\VSS=z^{EV}-z^{SP}\geq0.
-\]
+\textbf{Esercizi previsti:} calcolo di EVPI; calcolo di VSS; confronto tra
+soluzioni SP, EV e WS.
 \newline
-\textbf{Esercizi previsti:} calcolo di EVPI in un esempio discreto;
-confronto tra soluzione deterministica equivalente e soluzione stocastica;
-interpretazione economica.\newline%
-\textbf{Grafici previsti:} confronto dei valori ottimi; albero con decisioni
-non anticipative; diagramma dei livelli informativi.\newline%
-\textbf{Applicazioni Python collegate:} Lezione 16.\newline%
-\textbf{Stato di avanzamento:} bozza progettuale predisposta; convenzioni di
-segno per EVPI e VSS adottate per problemi di minimizzazione.
+\textbf{Grafici previsti:} confronto dei valori; visualizzazione di EVPI e
+VSS.
+\newline
+\textbf{Applicazioni Python collegate:} Lezione 16.
+\newline
+\textbf{Stato di avanzamento:} bozza progettuale predisposta; definire
+esempio numerico coerente con Lezione 14.
 
 \subsection{Lezione 16 -- Applicazioni Python di programmazione stocastica}
 
-\textbf{Tipo:} C.\newline\textbf{Domanda guida:} come si implementa un modello
-stocastico discreto e come si interpretano le decisioni ottime?\newline%
-\textbf{Prerequisiti:} Lezioni 14--15; basi operative di Python.\newline%
-\textbf{Obiettivi didattici:} costruire un modello stocastico a scenari;
-risolverlo numericamente; confrontare soluzione stocastica, soluzione
-deterministica equivalente e wait-and-see.\newline\textbf{Notazione
-introdotta:} raccordo computazionale con $x$, $y_{s}$, $p_{s}$, $z^{SP}$,
-$z^{WS}$, $z^{EV}$, $\operatorname{EVPI}$ e $\operatorname{VSS}$%
-.\newline\textbf{Formule principali:}
+\textbf{Tipo:} C.
+\newline
+\textbf{Domanda guida:} come si implementa e si interpreta numericamente un
+modello stocastico discreto?
+\newline
+\textbf{Prerequisiti:} Lezioni 14--15; basi operative di Python.
+\newline
+\textbf{Obiettivi didattici:} implementare un modello stocastico a scenari;
+calcolare soluzioni SP, EV e WS; stimare EVPI e VSS; rappresentare i risultati
+in forma tabellare e grafica.
+\newline
+\textbf{Notazione introdotta:} raccordo computazionale con $x$, $y_s$,
+$p_s$, $\xi_s$, $z^{SP}$, $z^{WS}$, $z^{EV}$, $\EVPI$ e $\VSS$.
+\newline
+\textbf{Formule principali:}
 \[
-\min_{x,y_s} \;
-c'x+\sum_{s\in\mathcal S}p_s d_s'y_s,
+\EVPI=z^{SP}-z^{WS},
+\qquad
+\VSS=z^{EV}-z^{SP}.
 \]
-con vincoli di primo stadio, vincoli di recourse e vincoli di non
-anticipativit\`{a}:
-\[
-Ax=b,
-\qquad
-T_sx+W_sy_s=h_s,
-\qquad
-x\geq0,
-\qquad
-y_s\geq0,
-\qquad
-s\in\mathcal S.
-\].
-\newline\textbf{Esercizi previsti:} modificare
-probabilit\`{a} degli scenari; introdurre vincoli di budget o rischio;
-confrontare decisioni ottime.\newline\textbf{Grafici previsti:} albero degli
-scenari; confronto tra soluzioni; distribuzione dei risultati per
-scenario.\newline\textbf{Applicazioni Python collegate:} applicazione Python
-5.\newline\textbf{Stato di avanzamento:} bozza progettuale predisposta; codice
-da scrivere.
+\textbf{Esercizi previsti:} modificare probabilit\`{a} degli scenari;
+modificare costi di recourse; confrontare soluzioni SP, EV e WS.
+\newline
+\textbf{Grafici previsti:} albero degli scenari; confronto dei valori;
+visualizzazione di EVPI e VSS.
+\newline
+\textbf{Applicazioni Python collegate:} applicazione Python 5.
+\newline
+\textbf{Stato di avanzamento:} bozza progettuale predisposta; codice da
+scrivere.
 
-\section{Registro dei grafici didattici previsti}
-
-\begin{longtable}{p{4.0cm}p{4.2cm}p{6.1cm}}
-\hline
-\textbf{Tema} & \textbf{Grafico} & \textbf{Uso didattico} \\
-\hline
-\endfirsthead
-\hline
-\textbf{Tema} & \textbf{Grafico} & \textbf{Uso didattico} \\
-\hline
-\endhead
-Probabilit\`{a} condizionata & Albero probabilistico & Visualizzare eventi sequenziali e aggiornamento informativo. \\
-Variabili casuali & Funzione di massa o densit\`{a} & Collegare distribuzione, media e dispersione. \\
-Quantili & Funzione di ripartizione & Introdurre VaR e code della distribuzione. \\
-Valore atteso condizionato & Albero informativo & Mostrare il ruolo dell'informazione. \\
-Processi stocastici & Traiettorie simulate & Visualizzare dinamica e incertezza. \\
-Scenari & Ventaglio di scenari & Collegare simulazione e decisione. \\
-Catene di Markov & Grafo degli stati & Visualizzare transizioni. \\
-Matrici di transizione & Heatmap & Evidenziare persistenza e probabilit\`{a} di default. \\
-Misure di rischio & Distribuzione delle perdite & Confrontare VaR e CVaR. \\
-Alberi binomiali & Albero dei prezzi e dei payoff & Spiegare pricing ricorsivo. \\
-Programmazione lineare & Regione ammissibile & Interpretare vincoli e ottimo. \\
-Dualit\`{a} & Rette di supporto e prezzi ombra & Interpretare valori marginali. \\
-CVaR via PL & Perdita e variabili ausiliarie & Collegare rischio e ottimizzazione. \\
-Programmazione stocastica & Albero degli scenari & Distinguere decisioni e informazione. \\
-Valore dell'informazione & Confronto SP/WS/EV & Interpretare EVPI e VSS. \\
-\hline
-\end{longtable}
-
-
-\section{Registro degli esercizi in aula}
-
-Ogni lezione teorica dovrebbe includere almeno due esercizi in aula: un
-esercizio di calcolo o derivazione e un esercizio di interpretazione
-finanziaria. Le lezioni Python dovrebbero includere almeno un esercizio di
-modifica del codice e un esercizio di interpretazione dell'output.
+\section{Registro degli esercizi}
 
 \begin{longtable}{>{\centering}p{1.1cm}p{4.1cm}p{4.1cm}p{4.5cm}}
 \hline
-\textbf{Lez.} & \textbf{Esercizio 1} & \textbf{Esercizio 2} & \textbf{Esercizio grafico/computazionale} \\
+\textbf{Lez.} & \textbf{Esercizio 1} & \textbf{Esercizio 2} &
+\textbf{Esercizio grafico/computazionale}\\
 \hline
 \endfirsthead
 \hline
-\textbf{Lez.} & \textbf{Esercizio 1} & \textbf{Esercizio 2} & \textbf{Esercizio grafico/computazionale} \\
+\textbf{Lez.} & \textbf{Esercizio 1} & \textbf{Esercizio 2} &
+\textbf{Esercizio grafico/computazionale}\\
 \hline
 \endhead
-1 & Probabilit\`{a} condizionata & Formula di Bayes & Albero probabilistico \\
-2 & Media e varianza di payoff discreto & Quantile di perdita & Grafico della funzione di ripartizione \\
-3 & Valore atteso condizionato su partizione & Propriet\`{a} della torre & Albero informativo \\
-4 & Traiettorie discrete & Scenari e filtrazione & Ventaglio di scenari \\
-5 & Modifica della simulazione & Stima condizionata & Grafico delle traiettorie \\
-6 & Transizioni a due periodi & Stato assorbente & Grafo di Markov \\
-7 & VaR discreto & CVaR discreto & Distribuzione delle perdite \\
-8 & Transizioni di rating & Probabilit\`{a} di default & Heatmap delle transizioni \\
-9 & Pricing binomiale a un periodo & Backward induction & Albero binomiale \\
-10 & Variazione di strike e tasso & Payoff alternativo & Albero dei prezzi e dei valori \\
-11 & Formulazione PL & Soluzione grafica & Regione ammissibile \\
-12 & Costruzione del duale & Prezzi ombra & Interpretazione geometrica \\
-13 & CVaR via PL & Sensibilit\`{a} ad $\alpha$ & Grafico VaR--CVaR \\
-14 & Modello a due stadi & Non anticipativit\`{a} & Albero degli scenari \\
-15 & EVPI & VSS & Confronto dei valori \\
-16 & Modifica degli scenari & Confronto SP/EV/WS & Grafico dei risultati \\
+1 & Probabilit\`{a} condizionata & Formula di Bayes & Albero probabilistico\\
+2 & Media e varianza di payoff discreto & Quantile di perdita & Grafico della funzione di ripartizione\\
+3 & Valore atteso condizionato su partizione & Propriet\`{a} della torre & Albero informativo\\
+4 & Traiettorie discrete & Scenari e filtrazione & Ventaglio di scenari\\
+5 & Modifica della simulazione & Stima condizionata & Grafico delle traiettorie\\
+6 & Transizioni a due periodi & Stato assorbente & Grafo di Markov\\
+7 & VaR discreto & CVaR discreto & Distribuzione delle perdite\\
+8 & Transizioni di rating & Probabilit\`{a} di default & Heatmap delle transizioni\\
+9 & Pricing binomiale a un periodo & Backward induction & Albero binomiale\\
+10 & Variazione di strike e tasso & Payoff alternativo & Albero dei prezzi e dei valori\\
+11 & Formulazione PL & Soluzione grafica & Regione ammissibile\\
+12 & Costruzione del duale & Prezzi ombra & Interpretazione geometrica\\
+13 & CVaR via PL & Sensibilit\`{a} ad $\alpha$ & Grafico VaR--CVaR\\
+14 & Modello a due stadi & Non anticipativit\`{a} & Albero degli scenari\\
+15 & EVPI & VSS & Confronto dei valori\\
+16 & Modifica degli scenari & Confronto SP/EV/WS & Grafico dei risultati\\
 \hline
 \end{longtable}
-
 
 \section{Registro delle applicazioni Python}
 
