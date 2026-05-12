@@ -1,0 +1,544 @@
+\documentclass[12pt,a4paper]{article}
+
+% Documento di notazione per Scientific Workplace 5.5.
+% Si usano pacchetti standard e una sintassi LaTeX prudente.
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{geometry}
+\geometry{margin=2.7cm}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\1}{\mathbf{1}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\VaR}{\operatorname{VaR}}
+\newcommand{\CVaR}{\operatorname{CVaR}}
+\newcommand{\argmin}{\operatorname*{arg\,min}}
+\newcommand{\argmax}{\operatorname*{arg\,max}}
+
+\title{MQF\_Notazione\\[0.2cm]
+\large Convenzioni di notazione per il corso\\
+\large Metodi Quantitativi per la Finanza}
+\author{}
+\date{Versione preliminare}
+
+\begin{document}
+\maketitle
+
+\section{Finalit\`{a} del documento}
+
+Questo documento raccoglie le convenzioni di notazione da utilizzare nel manuale, nelle slides, negli esercizi e nelle applicazioni Python del corso \emph{Metodi Quantitativi per la Finanza}. La finalit\`{a} principale \`{e} garantire coerenza formale tra le diverse parti del materiale didattico.
+
+Il corso lavora prevalentemente in tempo discreto. Salvo diversa indicazione, l'indice temporale \`{e}
+\[
+ t=0,1,\ldots,T,
+\]
+dove $T$ indica l'orizzonte finale del modello. I simboli introdotti in questo documento devono essere considerati convenzioni generali. Eventuali eccezioni locali devono essere esplicitate nel testo della singola lezione.
+
+\section{Convenzioni tipografiche generali}
+
+\begin{longtable}{>{\raggedright}p{3.2cm}>{\raggedright}p{4.2cm}>{\raggedright\arraybackslash}p{7.0cm}}
+\hline
+\textbf{Oggetto} & \textbf{Notazione} & \textbf{Uso previsto}\\
+\hline
+Scalari & $a,b,c,\alpha,\beta$ & Parametri reali, coefficienti, livelli di confidenza, tassi o pesi.\\
+Vettori & $x,y,z,\xi$ & Vettori colonna, salvo diversa indicazione.\\
+Matrici & $A,B,P,Q$ & Matrici di coefficienti, matrici di transizione, matrici di vincoli.\\
+Insiemi & $A,B,C,\Omega,\mathcal{S}$ & Eventi, spazio campionario, insieme degli scenari o degli stati.\\
+Variabili casuali & $X,Y,Z,L,H$ & Variabili casuali reali; $L$ per perdite, $H$ per payoff terminali.\\
+Processi & $\{X_t\}_{t=0}^{T}$, $\{S_t\}_{t=0}^{T}$ & Sequenze temporali aleatorie in tempo discreto.\\
+Valore ottimo & $z^*$ & Valore ottimo di un problema di ottimizzazione.\\
+Soluzione ottima & $x^*$ & Vettore ottimo delle variabili decisionali.\\
+\hline
+\end{longtable}
+
+Per i vettori si usa, quando necessario, la notazione trasposta $x'$. Ad esempio, il prodotto scalare tra $c$ e $x$ pu\`{o} essere scritto come
+\[
+ c'x.
+\]
+In alternativa, quando la chiarezza lo richiede, si pu\`{o} usare $c^{\top}x$. Nei materiali del corso si preferisce $c'x$ per semplicit\`{a} tipografica.
+
+\section{Spazi di probabilit\`{a} ed eventi}
+
+Lo spazio di probabilit\`{a} di riferimento \`{e}
+\[
+ (\Omega,\F,\Prob),
+\]
+dove $\Omega$ \`{e} lo spazio degli esiti elementari, $\F$ \`{e} una sigma-algebra di eventi e $\Prob$ \`{e} una misura di probabilit\`{a}.
+
+\begin{longtable}{>{\raggedright}p{3.4cm}>{\raggedright}p{4.4cm}>{\raggedright\arraybackslash}p{6.6cm}}
+\hline
+\textbf{Concetto} & \textbf{Notazione} & \textbf{Significato}\\
+\hline
+Esito elementare & $\omega\in\Omega$ & Stato elementare dell'incertezza.\\
+Evento & $A\in\F$ & Sottoinsieme misurabile di $\Omega$.\\
+Complementare & $A^c$ & Evento complementare di $A$.\\
+Unione & $A\cup B$ & Evento ``$A$ oppure $B$''.\\
+Intersezione & $A\cap B$ & Evento ``$A$ e $B$''.\\
+Probabilit\`{a} & $\Prob(A)$ & Probabilit\`{a} dell'evento $A$.\\
+Probabilit\`{a} condizionata & $\Prob(A\mid B)$ & Probabilit\`{a} di $A$ condizionatamente a $B$.\\
+\hline
+\end{longtable}
+
+Per eventi $A,B\in\F$, con $\Prob(B)>0$, la probabilit\`{a} condizionata \`{e}
+\[
+ \Prob(A\mid B)=\frac{\Prob(A\cap B)}{\Prob(B)}.
+\]
+La regola del prodotto \`{e}
+\[
+ \Prob(A\cap B)=\Prob(A\mid B)\Prob(B).
+\]
+Se $\{B_1,\ldots,B_n\}$ \`{e} una partizione di $\Omega$, con $\Prob(B_i)>0$, allora
+\[
+ \Prob(A)=\sum_{i=1}^{n}\Prob(A\mid B_i)\Prob(B_i).
+\]
+La formula di Bayes \`{e}
+\[
+ \Prob(B_j\mid A)=\frac{\Prob(A\mid B_j)\Prob(B_j)}{\sum_{i=1}^{n}\Prob(A\mid B_i)\Prob(B_i)}.
+\]
+
+\section{Variabili casuali, distribuzioni e momenti}
+
+Una variabile casuale reale \`{e} indicata con una lettera maiuscola, ad esempio
+\[
+ X:\Omega\rightarrow \R.
+\]
+Le realizzazioni sono indicate con lettere minuscole, ad esempio $x$.
+
+\begin{longtable}{>{\raggedright}p{3.8cm}>{\raggedright}p{4.2cm}>{\raggedright\arraybackslash}p{6.4cm}}
+\hline
+\textbf{Concetto} & \textbf{Notazione} & \textbf{Significato}\\
+\hline
+Variabile casuale & $X$ & Quantit\`{a} aleatoria, ad esempio rendimento, perdita o payoff.\\
+Realizzazione & $x$ & Valore assunto da $X$.\\
+Funzione di ripartizione & $F_X(x)$ & $F_X(x)=\Prob(X\leq x)$.\\
+Funzione di massa & $p_X(x)$ & $p_X(x)=\Prob(X=x)$ per variabili discrete.\\
+Densit\`{a} & $f_X(x)$ & Densit\`{a} di una variabile continua.\\
+Valore atteso & $\E[X]$ & Media teorica di $X$.\\
+Varianza & $\Var(X)$ & Misura di dispersione di $X$.\\
+Covarianza & $\Cov(X,Y)$ & Dipendenza lineare tra $X$ e $Y$.\\
+Indicatrice & $\1_A$ & Variabile che vale $1$ su $A$ e $0$ altrove.\\
+\hline
+\end{longtable}
+
+Per una variabile casuale discreta,
+\[
+ \E[X]=\sum_x x\,p_X(x).
+\]
+Per una variabile casuale continua con densit\`{a} $f_X$,
+\[
+ \E[X]=\int_{-\infty}^{+\infty}x f_X(x)\,dx.
+\]
+La varianza \`{e}
+\[
+ \Var(X)=\E\left[(X-\E[X])^2\right]=\E[X^2]-\left(\E[X]\right)^2.
+\]
+La covarianza tra $X$ e $Y$ \`{e}
+\[
+ \Cov(X,Y)=\E\left[(X-\E[X])(Y-\E[Y])\right].
+\]
+
+\section{Informazione e valori attesi condizionati}
+
+L'informazione disponibile \`{e} rappresentata mediante sigma-algebre. Se $\G\subseteq\F$, allora $\G$ rappresenta un livello informativo meno fine di $\F$.
+
+Il valore atteso condizionato di $X$ rispetto a $\G$ \`{e} indicato con
+\[
+ \E[X\mid \G].
+\]
+Quando il condizionamento \`{e} rispetto a un evento $A$ con $\Prob(A)>0$, si scrive
+\[
+ \E[X\mid A].
+\]
+
+Se $X$ \`{e} discreta,
+\[
+ \E[X\mid A]=\sum_x x\,\Prob(X=x\mid A).
+\]
+Se $\{B_1,\ldots,B_n\}$ \`{e} una partizione informativa di $\Omega$, allora
+\[
+ \E[X\mid \G]=\sum_{i=1}^{n}\E[X\mid B_i]\1_{B_i},
+\]
+dove $\G=\sigma(B_1,\ldots,B_n)$.
+
+Le propriet\`{a} fondamentali da usare nel corso sono:
+\[
+ \E[aX+bY\mid\G]=a\E[X\mid\G]+b\E[Y\mid\G],
+\]
+\[
+ \E\left[\E[X\mid\G]\right]=\E[X],
+\]
+\[
+ \E\left[\E[X\mid\F_t]\mid\F_s\right]=\E[X\mid\F_s],\qquad s\leq t.
+\]
+L'ultima identit\`{a} \`{e} la propriet\`{a} iterata del valore atteso condizionato, o \emph{tower property}.
+
+\section{Tempo discreto, processi stocastici e filtrazioni}
+
+Un processo stocastico in tempo discreto \`{e} indicato come
+\[
+ \{X_t\}_{t=0}^{T}.
+\]
+Quando il processo rappresenta il prezzo di un'attivit\`{a} finanziaria, si usa preferibilmente
+\[
+ \{S_t\}_{t=0}^{T}.
+\]
+
+La filtrazione \`{e}
+\[
+ \{\F_t\}_{t=0}^{T},
+\]
+dove $\F_t$ rappresenta l'informazione disponibile al tempo $t$. Un processo $\{X_t\}_{t=0}^{T}$ \`{e} adattato alla filtrazione se $X_t$ \`{e} $\F_t$-misurabile per ogni $t$.
+
+Una traiettoria campionaria \`{e} la sequenza
+\[
+ X_0(\omega),X_1(\omega),\ldots,X_T(\omega)
+\]
+associata a uno specifico esito $\omega\in\Omega$.
+
+\section{Scenari}
+
+Nei modelli discreti di decisione sotto incertezza, l'insieme degli scenari \`{e} indicato con
+\[
+ \mathcal{S}=\{1,\ldots,N\}.
+\]
+Lo scenario generico \`{e} indicato con $s\in\mathcal{S}$ e la sua probabilit\`{a} con
+\[
+ p_s,
+ \qquad p_s\geq 0,
+ \qquad \sum_{s\in\mathcal{S}}p_s=1.
+\]
+Un parametro dipendente dallo scenario pu\`{o} essere scritto come $a_s$, $b_s$, $c_s$ oppure, in forma vettoriale, come $\xi_s$.
+
+Il vettore aleatorio sottostante \`{e} indicato con
+\[
+ \xi.
+\]
+La realizzazione nello scenario $s$ \`{e} indicata con
+\[
+ \xi_s.
+\]
+
+\section{Catene di Markov}
+
+Per le catene di Markov in tempo discreto, l'insieme degli stati \`{e} indicato con
+\[
+ \mathcal{I}=\{1,\ldots,m\}.
+\]
+La catena \`{e}
+\[
+ \{X_t\}_{t=0}^{T},
+\]
+dove $X_t\in\mathcal{I}$. La matrice di transizione \`{e}
+\[
+ P=(p_{ij})_{i,j=1}^{m},
+\]
+con
+\[
+ p_{ij}=\Prob(X_{t+1}=j\mid X_t=i),
+ \qquad
+ p_{ij}\geq 0,
+ \qquad
+ \sum_{j=1}^{m}p_{ij}=1.
+\]
+
+La propriet\`{a} di Markov \`{e}
+\[
+ \Prob(X_{t+1}=j\mid X_t=i,X_{t-1}=i_{t-1},\ldots,X_0=i_0)
+ =\Prob(X_{t+1}=j\mid X_t=i).
+\]
+
+Se $\pi_t$ indica il vettore riga delle probabilit\`{a} di stato al tempo $t$, allora
+\[
+ \pi_{t+1}=\pi_t P,
+ \qquad
+ \pi_t=\pi_0P^t.
+\]
+Uno stato $i$ \`{e} assorbente se
+\[
+ p_{ii}=1.
+\]
+
+\section{Rendimenti, perdite e misure di rischio}
+
+Il prezzo di un'attivit\`{a} finanziaria al tempo $t$ \`{e} indicato con $S_t$. Il rendimento semplice su un periodo pu\`{o} essere indicato come
+\[
+ R_{t+1}=\frac{S_{t+1}-S_t}{S_t}.
+\]
+Quando si lavora con perdite, la variabile casuale di perdita \`{e} indicata con
+\[
+ L.
+\]
+Per convenzione, valori pi\`{u} elevati di $L$ rappresentano esiti peggiori.
+
+Per un livello di confidenza $\alpha\in(0,1)$, il Value-at-Risk \`{e} indicato con
+\[
+ \VaR_{\alpha}(L).
+\]
+In forma generale,
+\[
+ \VaR_{\alpha}(L)=\inf\{\ell\in\R:F_L(\ell)\geq \alpha\}.
+\]
+Il Conditional Value-at-Risk \`{e} indicato con
+\[
+ \CVaR_{\alpha}(L).
+\]
+Nel caso continuo, si pu\`{o} usare l'interpretazione
+\[
+ \CVaR_{\alpha}(L)=\E\left[L\mid L\geq \VaR_{\alpha}(L)\right],
+\]
+mentre nelle formulazioni di ottimizzazione si preferisce la rappresentazione
+\[
+ \CVaR_{\alpha}(L)=\min_{\eta\in\R}\left\{\eta+\frac{1}{1-\alpha}\E[(L-\eta)^+]\right\},
+\]
+dove
+\[
+ (x)^+=\max\{x,0\}.
+\]
+
+\section{Modello binomiale e pricing discreto}
+
+Nel modello binomiale, il prezzo iniziale \`{e} $S_0>0$. In un periodo, il prezzo pu\`{o} assumere i valori
+\[
+ S_1^u=uS_0,
+ \qquad
+ S_1^d=dS_0,
+\]
+con
+\[
+ u>d>0.
+\]
+Il tasso privo di rischio su un periodo \`{e} indicato con $r$, per cui il fattore di capitalizzazione \`{e} $1+r$.
+
+La condizione elementare di assenza di arbitraggio \`{e}
+\[
+ d<1+r<u.
+\]
+La probabilit\`{a} risk-neutral \`{e}
+\[
+ q=\frac{1+r-d}{u-d}.
+\]
+La misura risk-neutral, quando introdotta, \`{e} indicata con
+\[
+ \Q.
+\]
+
+Se $H$ indica il payoff terminale di un derivato a un periodo, il suo prezzo iniziale \`{e}
+\[
+ V_0=\frac{1}{1+r}\E_{\Q}[H].
+\]
+Nel caso multiperiodale, il valore del derivato al tempo $t$ pu\`{o} essere indicato con $V_t$ e calcolato mediante induzione all'indietro.
+
+\section{Programmazione lineare}
+
+Un problema di programmazione lineare in forma canonica di massimizzazione pu\`{o} essere scritto come
+\[
+ \begin{array}{ll}
+ \max & c'x \\
+ \text{soggetto a} & Ax\leq b, \\
+                  & x\geq 0,
+ \end{array}
+\]
+dove
+\[
+ x\in\R^n,
+ \qquad
+ c\in\R^n,
+ \qquad
+ A\in\R^{m\times n},
+ \qquad
+ b\in\R^m.
+\]
+
+Un problema di minimizzazione in forma standard pu\`{o} essere scritto come
+\[
+ \begin{array}{ll}
+ \min & c'x \\
+ \text{soggetto a} & Ax=b, \\
+                  & x\geq 0.
+ \end{array}
+\]
+
+La regione ammissibile \`{e} indicata con
+\[
+ \mathcal{X}=\{x\in\R^n:Ax\leq b,\ x\geq 0\}.
+\]
+Il valore ottimo \`{e} $z^*$ e una soluzione ottima \`{e} $x^*$.
+
+\section{Dualit\`{a} nella programmazione lineare}
+
+Per il problema primale
+\[
+ \begin{array}{ll}
+ \max & c'x \\
+ \text{soggetto a} & Ax\leq b, \\
+                  & x\geq 0,
+ \end{array}
+\]
+il problema duale associato \`{e}
+\[
+ \begin{array}{ll}
+ \min & b'y \\
+ \text{soggetto a} & A'y\geq c, \\
+                  & y\geq 0.
+ \end{array}
+\]
+Le variabili duali sono indicate con $y$. Nel corso, esse saranno interpretate come prezzi ombra o valori marginali dei vincoli.
+
+La dualit\`{a} debole implica
+\[
+ c'x\leq b'y
+\]
+per ogni coppia ammissibile primale-duale $(x,y)$. In condizioni standard, la dualit\`{a} forte implica l'uguaglianza dei valori ottimi:
+\[
+ z_P^*=z_D^*.
+\]
+
+\section{CVaR come problema di programmazione lineare}
+
+Sia $L_s(x)$ la perdita del portafoglio nello scenario $s\in\mathcal{S}$, con probabilit\`{a} $p_s$. Per un livello $\alpha\in(0,1)$, la rappresentazione discreta del CVaR pu\`{o} essere formulata come
+\[
+ \begin{array}{ll}
+ \min & \displaystyle \eta+\frac{1}{1-\alpha}\sum_{s\in\mathcal{S}}p_s z_s \\
+ \text{soggetto a} & z_s\geq L_s(x)-\eta, \qquad s\in\mathcal{S}, \\
+                  & z_s\geq 0, \qquad s\in\mathcal{S}, \\
+                  & x\in\mathcal{X}.
+ \end{array}
+\]
+Qui $\eta$ rappresenta una soglia associata al VaR e $z_s$ sono variabili ausiliarie per la parte positiva della perdita eccedente.
+
+La notazione da mantenere \`{e}:
+\[
+ \alpha \quad \text{livello di confidenza},
+ \qquad
+ \eta \quad \text{soglia},
+ \qquad
+ z_s \quad \text{variabile ausiliaria dello scenario }s.
+\]
+
+\section{Programmazione stocastica}
+
+Nei problemi stocastici a due stadi, la decisione di primo stadio \`{e} indicata con
+\[
+ x.
+\]
+Essa \`{e} una decisione \emph{here-and-now}, cio\`{e} presa prima dell'osservazione dello scenario. La decisione di secondo stadio nello scenario $s$ \`{e} indicata con
+\[
+ y_s.
+\]
+Essa \`{e} una decisione di recourse, presa dopo la realizzazione dello scenario.
+
+Una formulazione lineare stocastica a due stadi pu\`{o} essere scritta come
+\[
+ \begin{array}{ll}
+ \min & \displaystyle c'x+\sum_{s\in\mathcal{S}}p_s q_s'y_s \\
+ \text{soggetto a} & Ax=b, \\
+                  & T_sx+W_sy_s=h_s, \qquad s\in\mathcal{S}, \\
+                  & x\geq 0, \\
+                  & y_s\geq 0, \qquad s\in\mathcal{S}.
+ \end{array}
+\]
+La funzione di recourse pu\`{o} essere indicata con
+\[
+ Q(x,\xi_s)=\min\{q_s'y_s:W_sy_s=h_s-T_sx,\ y_s\geq 0\}.
+\]
+Il problema stocastico pu\`{o} quindi essere rappresentato come
+\[
+ \min_{x}\left\{c'x+\E\left[Q(x,\xi)\right]\right\}.
+\]
+
+\section{Valore dell'informazione e confronto tra soluzioni}
+
+Per la programmazione stocastica si usano le seguenti convenzioni:
+\[
+ z^{SP} \quad \text{valore ottimo del problema stocastico},
+\]
+\[
+ z^{WS} \quad \text{valore atteso della soluzione wait-and-see},
+\]
+\[
+ z^{EV} \quad \text{valore della soluzione expected value valutata nel problema stocastico}.
+\]
+
+Per problemi di minimizzazione, il valore atteso dell'informazione perfetta \`{e}
+\[
+ EVPI=z^{SP}-z^{WS},
+\]
+mentre il valore della soluzione stocastica \`{e}
+\[
+ VSS=z^{EV}-z^{SP}.
+\]
+Queste grandezze sono non negative sotto le usuali convenzioni di minimizzazione e quando i problemi sono formulati in modo coerente.
+
+\section{Corrispondenza tra notazione matematica e Python}
+
+Nelle applicazioni Python, i nomi delle variabili devono essere coerenti con la notazione matematica. Si raccomandano le seguenti convenzioni operative.
+
+\begin{longtable}{>{\raggedright}p{4.0cm}>{\raggedright}p{4.2cm}>{\raggedright\arraybackslash}p{5.8cm}}
+\hline
+\textbf{Oggetto matematico} & \textbf{Nome Python suggerito} & \textbf{Commento}\\
+\hline
+$S_t$ & \texttt{S\_t}, \texttt{prices} & Prezzi simulati o osservati.\\
+$X_t$ & \texttt{X\_t}, \texttt{states} & Processo generico o stati Markoviani.\\
+$P=(p_{ij})$ & \texttt{P} & Matrice di transizione.\\
+$\pi_t$ & \texttt{pi\_t} & Distribuzione sugli stati.\\
+$L$ & \texttt{losses} & Vettore delle perdite.\\
+$\VaR_\alpha$ & \texttt{var\_alpha} & Value-at-Risk al livello $\alpha$.\\
+$\CVaR_\alpha$ & \texttt{cvar\_alpha} & Conditional Value-at-Risk.\\
+$x$ & \texttt{x} & Variabili decisionali di primo stadio o di portafoglio.\\
+$y_s$ & \texttt{y[s]} & Variabili di secondo stadio indicizzate per scenario.\\
+$p_s$ & \texttt{p\_s}, \texttt{probabilities} & Probabilit\`{a} degli scenari.\\
+$\xi_s$ & \texttt{xi[s]}, \texttt{scenario\_data} & Dati aleatori dello scenario.\\
+\hline
+\end{longtable}
+
+Il codice Python deve distinguere chiaramente parametri, dati, variabili decisionali, output numerici e grafici. Quando possibile, la notazione del codice deve richiamare direttamente la formulazione matematica presentata nel manuale.
+
+\section{Convenzioni da evitare}
+
+Per ridurre ambiguit\`{a} e incoerenze, si raccomanda di evitare le seguenti sovrapposizioni:
+
+\begin{enumerate}
+\item non usare $P$ sia per probabilit\`{a} sia per prezzo: $\Prob$ indica la probabilit\`{a}, mentre $P$ \`{e} riservato preferibilmente alle matrici di transizione;
+\item non usare $q$ contemporaneamente per probabilit\`{a} risk-neutral e costi di recourse nello stesso contesto; nella programmazione stocastica i costi di recourse possono essere indicati come $q_s$, mentre nel pricing binomiale $q$ indica la probabilit\`{a} risk-neutral;
+\item non usare $L$ per livelli o limiti quando nella stessa lezione si lavora con perdite; per i limiti preferire $\ell$, $u$, $b$ o notazioni esplicite;
+\item non usare $S$ per scenari quando $S_t$ indica il prezzo di un'attivit\`{a}; per l'insieme degli scenari usare $\mathcal{S}$;
+\item non usare $V_t$ sia per valore di un derivato sia per valore di una funzione obiettivo nella stessa sezione; per i valori ottimi di ottimizzazione usare $z^*$.
+\end{enumerate}
+
+\section{Stato di avanzamento}
+
+\begin{center}
+\begin{tabular}{|p{5.0cm}|p{4.0cm}|p{5.0cm}|}
+\hline
+\textbf{Area} & \textbf{Stato} & \textbf{Note}\\
+\hline
+Notazione probabilistica & Bozza consolidata & Da validare durante la scrittura delle Lezioni 1--3.\\
+\hline
+Processi stocastici e filtrazioni & Bozza consolidata & Da coordinare con la prima applicazione Python.\\
+\hline
+Catene di Markov & Bozza consolidata & Da verificare con gli esempi di rating.\\
+\hline
+Misure di rischio & Bozza consolidata & Da raccordare con CVaR discreto e formulazione PL.\\
+\hline
+Pricing binomiale & Bozza consolidata & Da dettagliare nella Lezione 9.\\
+\hline
+Programmazione lineare e dualit\`{a} & Bozza consolidata & Da adattare agli esempi finanziari scelti.\\
+\hline
+Programmazione stocastica & Bozza consolidata & Da verificare con la struttura Python finale.\\
+\hline
+Corrispondenza Python & Bozza iniziale & Da aggiornare quando saranno definiti gli script.\\
+\hline
+\end{tabular}
+\end{center}
+
+\end{document}
