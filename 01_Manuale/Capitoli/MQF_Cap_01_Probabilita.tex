@@ -1,0 +1,871 @@
+%2multibyte Version: 5.50.0.2960 CodePage: 65001
+% MQF_Manuale_Master_SW55_Memoir.tex
+% Master del manuale MQF costruito sullo shell SW5.5 "Memoir Class for Configurable Typesetting".
+% Versione modulare: i capitoli scritti sono inclusi con \input.%
+% POSIZIONE DEI FILE
+% Questo master deve stare nella cartella 01_Manuale.
+% I capitoli devono stare nella sottocartella 01_Manuale/Capitoli.
+% Non mettere il master dentro Capitoli.
+% I capitoli futuri restano come traccia, ma non generano pagine nel documento.
+% Evita pagine bianche dovute all'apertura dei capitoli su pagina dispari.
+% ------------------------------------------------------------
+% Nomi italiani
+% ------------------------------------------------------------
+% ------------------------------------------------------------
+% Macro matematiche ufficiali del progetto MQF
+% Coerenti con MQF_Notazione.tex
+% ------------------------------------------------------------
+% ------------------------------------------------------------
+% Ambienti di tipo teorema.
+% I nomi interni restano compatibili con lo shell SW.
+% Le etichette stampate sono in italiano.
+% ------------------------------------------------------------
+
+%TCIDATA{OutputFilter=latex2.dll}
+%TCIDATA{Version=5.50.0.2960}
+%TCIDATA{LaTeXparent=1,1,MQF_Manuale_Master.tex}
+
+
+\chapter{Elementi di teoria della probabilit\`{a}}
+
+\label{cap:probabilita}
+
+\section{Obiettivi della lezione}
+
+La finanza quantitativa studia grandezze economiche e finanziarie che non sono
+note con certezza nel momento in cui una decisione viene assunta. Il
+rendimento futuro di un titolo, il valore di un portafoglio alla fine di un
+periodo, l'eventuale default di un debitore, la variazione di un tasso di
+interesse o il superamento di una soglia di perdita sono esempi di fenomeni il
+cui esito dipende da condizioni future non pienamente osservabili al tempo
+della decisione.
+
+Il primo obiettivo di questo capitolo \`{e} introdurre il linguaggio
+matematico di base con cui tale incertezza viene rappresentata. Questo
+linguaggio \`{e} quello della teoria della probabilit\`{a}. In particolare, il
+capitolo introduce gli elementi costitutivi di uno spazio di probabilit\`{a}:
+\[
+(\Omega,\mathcal{F},\mathbb{P}).
+\]
+L'insieme $\Omega$ rappresenta gli esiti elementari possibili, $\mathcal{F}$
+rappresenta la famiglia degli eventi ai quali il modello assegna significato
+probabilistico, mentre $\mathbb{P}$ assegna a ciascun evento una probabilit\`{a}.
+
+Il secondo obiettivo \`{e} chiarire come si calcolano le probabilit\`{a} di
+eventi composti e come si interpreta il condizionamento. In finanza, il
+condizionamento \`{e} essenziale: un segnale di mercato, un deterioramento del
+rating, una variazione dello spread o un nuovo dato macroeconomico modificano
+l'informazione disponibile e quindi la valutazione probabilistica degli eventi futuri.
+
+Al termine del capitolo lo studente dovr\`{a} essere in grado di:
+
+\begin{itemize}
+\item distinguere tra esiti elementari, eventi e famiglie di eventi;
+
+\item interpretare uno spazio di probabilit\`{a} in un contesto finanziario;
+
+\item utilizzare le operazioni fondamentali sugli eventi;
+
+\item applicare le regole elementari della probabilit\`{a};
+
+\item calcolare probabilit\`{a} condizionate;
+
+\item distinguere tra eventi disgiunti ed eventi indipendenti;
+
+\item applicare la formula delle probabilit\`{a} totali e la formula di Bayes;
+
+\item interpretare l'aggiornamento bayesiano come revisione della
+probabilit\`{a} in presenza di nuova informazione.
+\end{itemize}
+
+Il capitolo prepara il passaggio al Capitolo 2. In questa fase l'attenzione
+\`{e} posta sugli eventi. Nel capitolo successivo gli scenari saranno
+trasformati in grandezze numeriche mediante il concetto di variabile casuale.
+
+\section{Motivazione finanziaria: incertezza, scenari ed eventi}
+
+Consideriamo un investitore che osserva oggi il prezzo di un titolo e deve
+valutare il possibile valore del proprio investimento alla fine del periodo
+successivo. Al tempo iniziale, indicato con $t=0$, il valore futuro non \`{e}
+noto. Esistono diversi scenari compatibili con l'informazione disponibile: il
+prezzo potrebbe aumentare, rimanere sostanzialmente stabile oppure diminuire.
+
+In termini elementari, possiamo rappresentare questi scenari mediante uno
+spazio campionario finito:
+\[
+\Omega=\{\omega_{1},\omega_{2},\omega_{3}\},
+\]
+dove $\omega_{1}$ rappresenta uno scenario di ribasso, $\omega_{2}$ uno
+scenario di stabilit\`{a} e $\omega_{3}$ uno scenario di rialzo. Lo spazio
+$\Omega$ non \`{e} ancora un modello probabilistico completo: esso elenca
+soltanto gli esiti possibili.
+
+Se definiamo
+\[
+A=\{\omega_{1}\},
+\]
+l'evento $A$ pu\`{o} essere interpretato come evento di perdita. Se definiamo
+\[
+B=\{\omega_{2},\omega_{3}\},
+\]
+l'evento $B$ rappresenta la circostanza in cui il rendimento non \`{e}
+negativo. L'evento certo \`{e} $\Omega$, mentre l'evento impossibile \`{e}
+$\emptyset$.
+
+Un secondo esempio riguarda il rischio di credito. Un debitore pu\`{o}
+rimborsare regolarmente oppure andare in default. In una rappresentazione
+elementare si pu\`{o} porre
+\[
+\Omega=\{\omega_{N},\omega_{D}\},
+\]
+dove $\omega_{N}$ indica lo stato di non default e $\omega_{D}$ indica lo
+stato di default. L'evento di default \`{e}
+\[
+D=\{\omega_{D}\}.
+\]
+La probabilit\`{a} $\mathbb{P}(D)$ rappresenta la probabilit\`{a} di default
+sull'orizzonte temporale considerato. Tale probabilit\`{a}, tuttavia, pu\`{o}
+essere rivista se si osserva un nuovo segnale informativo, ad esempio un
+peggioramento del rating o un aumento dello spread.
+
+Questi esempi mostrano che un modello probabilistico richiede tre elementi:
+\[
+\text{scenari possibili}\quad\longrightarrow\quad\text{eventi rilevanti}%
+\quad\longrightarrow\quad\text{probabilit\`{a} degli eventi}.
+\]
+La tripla $(\Omega,\mathcal{F},\mathbb{P})$ formalizza precisamente questi tre elementi.
+
+\section{Spazio campionario ed eventi}
+
+\begin{definition}
+Lo spazio campionario $\Omega$ \`{e} l'insieme degli esiti elementari
+possibili di un esperimento aleatorio. Un elemento $\omega\in\Omega$ \`{e}
+detto esito elementare.
+\end{definition}
+
+Nel contesto finanziario, gli esiti elementari possono rappresentare scenari
+di mercato, stati di credito, evoluzioni di un tasso di interesse oppure
+possibili realizzazioni di un insieme di fattori di rischio.
+
+\begin{definition}
+Un evento \`{e} un sottoinsieme dello spazio campionario. Se $A\subseteq
+\Omega$, dire che l'evento $A$ si verifica significa che l'esito elementare
+realizzato appartiene ad $A$.
+\end{definition}
+
+Nel caso di uno spazio finito, ad esempio
+\[
+\Omega=\{\omega_{1},\omega_{2},\omega_{3},\omega_{4}\},
+\]
+un evento pu\`{o} essere
+\[
+A=\{\omega_{1},\omega_{2}\}.
+\]
+Se $\omega_{1}$ o $\omega_{2}$ si realizza, allora si dice che $A$ si \`{e}
+verificato. Se invece si realizza $\omega_{3}$ o $\omega_{4}$, l'evento $A$
+non si \`{e} verificato.
+
+In questo capitolo useremo soprattutto spazi campionari finiti o discreti. Gli
+spazi continui saranno richiamati solo quando necessario e saranno ripresi nel
+Capitolo 2, quando introdurremo variabili casuali e distribuzioni.
+
+\section{Spazi campionari generati da esperimenti ripetuti}
+
+Molti problemi finanziari non riguardano un singolo esperimento aleatorio, ma
+una sequenza di esperimenti osservati nel tempo. Si pensi, ad esempio, ai
+movimenti giornalieri di un prezzo, all'evoluzione periodica del rating di una
+controparte, alla successione di default e non default in un portafoglio,
+oppure alla simulazione di una traiettoria di mercato su pi\`{u} date future.
+
+Supponiamo che l'incertezza sia osservata in $n$ date successive e che, alla
+data $i$, gli esiti possibili siano descritti da uno spazio campionario
+$\Omega_{i}$, con
+\[
+i=1,\ldots,n.
+\]
+Lo spazio campionario complessivo \`{e} allora il prodotto cartesiano
+\[
+\Omega=\Omega_{1}\times\Omega_{2}\times\cdots\times\Omega_{n}.
+\]
+Un esito elementare $\omega\in\Omega$ \`{e} una $n$-pla
+\[
+\omega=(\omega_{1},\omega_{2},\ldots,\omega_{n}),
+\]
+dove $\omega_{i}\in\Omega_{i}$ rappresenta l'esito elementare realizzato nella
+$i$-esima osservazione.
+
+Questa notazione \`{e} particolarmente importante per il seguito del manuale.
+Essa permette di interpretare un esito elementare non come un singolo stato
+isolato, ma come una sequenza ordinata di realizzazioni. In questo senso, un
+elemento $\omega\in\Omega$ pu\`{o} essere letto come una traiettoria elementare.
+
+Nel caso in cui lo stesso esperimento sia ripetuto $n$ volte e lo spazio degli
+esiti sia lo stesso a ogni data, cio\`{e}
+\[
+\Omega_{1}=\Omega_{2}=\cdots=\Omega_{n}=\Omega^{\ast},
+\]
+si scrive pi\`{u} semplicemente
+\[
+\Omega=(\Omega^{\ast})^{n}.
+\]
+Se $\Omega^{\ast}$ contiene $m$ esiti elementari, allora lo spazio prodotto
+$(\Omega^{\ast})^{n}$ contiene
+\[
+m^{n}%
+\]
+esiti elementari.
+
+\begin{example}
+Consideriamo tre movimenti successivi del prezzo di un titolo. A ogni data il
+prezzo pu\`{o} registrare un rialzo, indicato con $u$, oppure un ribasso,
+indicato con $d$. Lo spazio degli esiti di una singola osservazione \`{e}
+\[
+\Omega^{\ast}=\{u,d\}.
+\]
+Per tre osservazioni successive, lo spazio campionario \`{e}
+\[
+\Omega=(\Omega^{\ast})^{3}=\{u,d\}^{3}.
+\]
+Gli esiti elementari sono le otto sequenze
+\[
+\Omega=\{uuu,uud,udu,udd,duu,dud,ddu,ddd\}.
+\]
+Ad esempio,
+\[
+\omega=udd
+\]
+rappresenta la traiettoria in cui il primo movimento \`{e} un rialzo, mentre
+il secondo e il terzo sono ribassi.
+\end{example}
+
+In questa rappresentazione, gli eventi sono sottoinsiemi di sequenze. Ad
+esempio, nell'esempio precedente, l'evento
+\[
+A=\{uuu,uud,udu,udd\}
+\]
+rappresenta la circostanza in cui il primo movimento \`{e} un rialzo.
+L'evento
+\[
+B=\{udd,dud,ddu\}
+\]
+rappresenta invece la circostanza in cui si osserva esattamente un rialzo nei
+tre periodi. L'evento
+\[
+C=\{uuu,uud,udu,duu\}
+\]
+rappresenta la circostanza in cui si osservano almeno due rialzi.
+
+Questi esempi mostrano che, quando gli esiti elementari sono sequenze, gli
+eventi possono descrivere propriet\`{a} della traiettoria: il primo movimento,
+il numero totale di rialzi, il verificarsi di due ribassi consecutivi, oppure
+il superamento di una soglia lungo il percorso.
+
+\begin{example}
+Consideriamo ora quattro date trimestrali di osservazione del merito
+creditizio di una controparte. A ogni trimestre si osserva se il merito
+creditizio rimane stabile, indicato con $s$, oppure si deteriora, indicato con
+$d$. Lo spazio degli esiti di una singola osservazione \`{e}
+\[
+\Omega^{\ast}=\{s,d\}.
+\]
+Su quattro trimestri,
+\[
+\Omega=(\Omega^{\ast})^{4}=\{s,d\}^{4},
+\]
+e quindi lo spazio campionario contiene
+\[
+2^{4}=16
+\]
+traiettorie elementari.
+
+L'esito
+\[
+\omega=sdds
+\]
+rappresenta una traiettoria nella quale il merito creditizio resta stabile nel
+primo trimestre, si deteriora nel secondo e nel terzo, e torna stabile nel quarto.
+
+L'evento
+\[
+A=\{\omega\in\Omega:\text{ in }\omega\text{ compaiono almeno due simboli }d\}
+\]
+rappresenta la circostanza in cui si osservano almeno due deterioramenti nel
+periodo considerato. Questo evento non riguarda un singolo trimestre, ma una
+propriet\`{a} dell'intera traiettoria.
+\end{example}
+
+La stessa logica si estende al caso di un numero infinito di osservazioni. Se
+l'esperimento viene ripetuto indefinitamente e lo spazio elementare \`{e}
+$\Omega^{\ast}$, si pu\`{o} considerare lo spazio
+\[
+\Omega=(\Omega^{\ast})^{\mathbb{N}}.
+\]
+In questo caso un esito elementare \`{e} una successione infinita
+\[
+\omega=(\omega_{1},\omega_{2},\ldots).
+\]
+Nel presente manuale lavoreremo prevalentemente con orizzonti finiti
+$t=0,1,\ldots,T$, ma la notazione per successioni infinite \`{e} utile per
+comprendere il legame con modelli stocastici pi\`{u} generali.
+
+Questa costruzione sar\`{a} ripresa pi\`{u} volte. Nei processi stocastici,
+una traiettoria descrive l'evoluzione temporale di una variabile aleatoria.
+Negli alberi binomiali, ogni percorso dalla radice a una foglia rappresenta
+una sequenza di rialzi e ribassi. Nella simulazione, ogni replica genera una
+traiettoria casuale. Nella programmazione stocastica, uno scenario pu\`{o}
+essere interpretato come una realizzazione coerente dell'incertezza lungo
+l'orizzonte temporale considerato.
+
+\section{Operazioni sugli eventi}
+
+Siano $A,B\subseteq\Omega$ due eventi.
+
+L'unione
+\[
+A\cup B
+\]
+\`{e} l'evento che si verifica quando si verifica almeno uno tra $A$ e $B$.
+L'intersezione
+\[
+A\cap B
+\]
+\`{e} l'evento che si verifica quando si verificano simultaneamente $A$ e $B$.
+Il complemento
+\[
+A^{c}=\Omega\setminus A
+\]
+\`{e} l'evento che si verifica quando $A$ non si verifica.
+
+Due eventi $A$ e $B$ si dicono disgiunti se
+\[
+A\cap B=\emptyset.
+\]
+In questo caso non possono verificarsi simultaneamente.
+
+\begin{example}
+Supponiamo che $\Omega=\{\omega_{1},\omega_{2},\omega_{3}\}$ rappresenti tre
+scenari di mercato: ribasso, stabilit\`{a} e rialzo. Se
+\[
+A=\{\omega_{1}\},\qquad B=\{\omega_{1},\omega_{2}\},
+\]
+allora $A$ rappresenta l'evento di perdita, mentre $B$ rappresenta l'evento in
+cui non vi \`{e} rialzo. Si ha
+\[
+A\cap B=\{\omega_{1}\},\qquad A\cup B=\{\omega_{1},\omega_{2}\},\qquad
+A^{c}=\{\omega_{2},\omega_{3}\}.
+\]
+
+\end{example}
+
+Una famiglia di eventi $B_{1},\ldots,B_{n}$ \`{e} una partizione di $\Omega$
+se gli eventi sono due a due disgiunti e la loro unione \`{e} l'intero spazio
+campionario:
+\[
+B_{i}\cap B_{j}=\emptyset\quad(i\neq j),\qquad\bigcup_{i=1}^{n}B_{i}=\Omega.
+\]
+Le partizioni sono importanti perch\'{e} permettono di decomporre un problema
+probabilistico rispetto a scenari alternativi e mutuamente esclusivi.
+
+\section{Sigma-algebra e informazione}
+
+\begin{definition}
+Una sigma-algebra $\mathcal{F}$ su $\Omega$ \`{e} una famiglia di sottoinsiemi
+di $\Omega$ tale che:
+
+\begin{enumerate}
+\item $\Omega\in\mathcal{F}$;
+
+\item se $A\in\mathcal{F}$, allora $A^{c}\in\mathcal{F}$;
+
+\item se $A_{1},A_{2},\ldots$ appartengono a $\mathcal{F}$, allora
+$\bigcup_{n=1}^{\infty} A_{n}\in\mathcal{F}$.
+\end{enumerate}
+\end{definition}
+
+Nel seguito, gli elementi di $\mathcal{F}$ saranno chiamati eventi. In uno
+spazio campionario finito si lavora spesso con l'insieme delle parti di
+$\Omega$; in tal caso tutti i sottoinsiemi di $\Omega$ sono eventi. Per il
+manuale \`{e} tuttavia utile mantenere la notazione generale $\mathcal{F}$,
+perch\'{e} essa consente di rappresentare formalmente l'informazione disponibile.
+
+L'interpretazione finanziaria \`{e} la seguente: $\mathcal{F}$ descrive quali
+eventi sono distinguibili nel modello. Una sigma-algebra pi\`{u} ricca
+consente di distinguere pi\`{u} eventi; una sigma-algebra pi\`{u} povera
+rappresenta un livello informativo pi\`{u} aggregato.
+
+\begin{example}
+Consideriamo tre movimenti successivi di un titolo, ciascuno dei quali pu\`{o}
+essere un rialzo $u$ oppure un ribasso $d$. Lo spazio campionario \`{e}
+\[
+\Omega=\{uuu,uud,udu,udd,duu,dud,ddu,ddd\}.
+\]
+Prima di osservare i movimenti, l'informazione \`{e} minima. Dopo il primo
+movimento si pu\`{o} distinguere tra gli scenari che iniziano con $u$ e quelli
+che iniziano con $d$. Dopo due movimenti, la distinzione diventa pi\`{u} fine.
+Dopo tre movimenti l'informazione \`{e} completa. Questa successione di
+livelli informativi anticipa il ruolo delle filtrazioni $\{\mathcal{F}%
+_{t}\}_{t=0}^{T}$, che saranno introdotte nei capitoli successivi.
+\end{example}
+
+\section{Misura di probabilit\`{a}}
+
+\begin{definition}
+Una misura di probabilit\`{a} su $(\Omega,\mathcal{F})$ \`{e} una funzione
+\[
+\mathbb{P}:\mathcal{F}\longrightarrow\lbrack0,1]
+\]
+tale che:
+
+\begin{enumerate}
+\item $\mathbb{P}(A)\geq0$ per ogni $A\in\mathcal{F}$;
+
+\item $\mathbb{P}(\Omega)=1$;
+
+\item se $A_{1},A_{2},\ldots$ sono eventi due a due disgiunti, allora
+\[
+\mathbb{P}\left( \bigcup_{n=1}^{\infty} A_{n}\right)  = \sum_{n=1}^{\infty
+}\mathbb{P}(A_{n}).
+\]
+
+\end{enumerate}
+\end{definition}
+
+Da questi assiomi discendono alcune regole di calcolo elementari. Per ogni
+$A,B\in\mathcal{F}$,
+\[
+\mathbb{P}(A^{c})=1-\mathbb{P}(A),
+\]
+e
+\[
+\mathbb{P}(A\cup B)=\mathbb{P}(A)+\mathbb{P}(B)-\mathbb{P}(A\cap B).
+\]
+Se $A$ e $B$ sono disgiunti, allora
+\[
+\mathbb{P}(A\cup B)=\mathbb{P}(A)+\mathbb{P}(B).
+\]
+
+
+\begin{example}
+Supponiamo che uno spazio campionario finito sia dato da
+\[
+\Omega=\{\omega_{1},\omega_{2},\omega_{3}\},
+\]
+con
+\[
+\mathbb{P}(\{\omega_{1}\})=0.25,\qquad\mathbb{P}(\{\omega_{2}\})=0.35,\qquad
+\mathbb{P}(\{\omega_{3}\})=0.40.
+\]
+Se $A=\{\omega_{1}\}$ e $B=\{\omega_{2},\omega_{3}\}$, allora
+\[
+\mathbb{P}(A)=0.25,\qquad\mathbb{P}(B)=0.35+0.40=0.75.
+\]
+
+\end{example}
+
+\section{Spazio di probabilit\`{a}}
+
+\begin{definition}
+Uno spazio di probabilit\`{a} \`{e} una tripla
+\[
+(\Omega,\mathcal{F},\mathbb{P}),
+\]
+dove $\Omega$ \`{e} lo spazio campionario, $\mathcal{F}$ \`{e} una
+sigma-algebra di eventi e $\mathbb{P}$ \`{e} una misura di probabilit\`{a} su
+$\mathcal{F}$.
+\end{definition}
+
+Questa tripla separa tre piani concettuali distinti: gli scenari possibili,
+gli eventi osservabili o modellizzati, e la probabilit\`{a} assegnata a tali
+eventi. La distinzione \`{e} essenziale in finanza, perch\'{e} una stessa
+struttura di scenari pu\`{o} essere valutata con misure di probabilit\`{a}
+diverse, ad esempio una misura storica oppure, nei modelli di pricing, una
+misura risk-neutral $\mathbb{Q}$.
+
+\section{Probabilit\`{a} condizionata}
+
+\begin{definition}
+Siano $A,B\in\mathcal{F}$ e sia $\mathbb{P}(B)>0$. La probabilit\`{a}
+condizionata di $A$ dato $B$ \`{e} definita da
+\[
+\mathbb{P}(A\mid B)=\frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}.
+\]
+
+\end{definition}
+
+La probabilit\`{a} condizionata rappresenta la probabilit\`{a} dell'evento $A$
+quando si assume noto che l'evento $B$ si sia verificato. In questa
+prospettiva, $B$ restringe lo spazio informativo rilevante.
+
+Dalla definizione segue la regola del prodotto:
+\[
+\mathbb{P}(A\cap B)=\mathbb{P}(A\mid B)\mathbb{P}(B).
+\]
+Simmetricamente, se $\mathbb{P}(A)>0$,
+\[
+\mathbb{P}(A\cap B)=\mathbb{P}(B\mid A)\mathbb{P}(A).
+\]
+
+
+\begin{example}
+Questo esempio ha funzione qualitativa. Sia $D$ l'evento di default di un
+debitore e sia $S$ l'evento che rappresenta l'osservazione di un segnale
+negativo di mercato. La probabilit\`{a}
+\[
+\mathbb{P}(D\mid S)
+\]
+misura la probabilit\`{a} di default dopo avere osservato il segnale negativo.
+
+In generale, $\mathbb{P}(D\mid S)$ pu\`{o} essere molto diversa dalla
+probabilit\`{a} non condizionata $\mathbb{P}(D)$. Il segnale $S$ modifica
+infatti l'informazione disponibile e restringe l'attenzione agli scenari nei
+quali tale segnale si \`{e} verificato.
+\end{example}
+
+\begin{example}
+Consideriamo due esposizioni creditizie appartenenti allo stesso portafoglio.
+Per ciascuna esposizione si osserva, su un dato orizzonte temporale, se vi
+\`{e} stato un deterioramento del merito creditizio oppure no. Indichiamo con
+$D$ il deterioramento e con $N$ l'assenza di deterioramento. Supponiamo, in
+forma puramente stilizzata, che i quattro esiti elementari
+\[
+\Omega=\{NN,ND,DN,DD\}
+\]
+siano equiprobabili.
+
+Sia
+\[
+A=\{DD\}
+\]
+l'evento in cui entrambe le esposizioni si deteriorano, e sia
+\[
+B=\{ND,DN,DD\}
+\]
+l'evento in cui almeno una delle due esposizioni si deteriora. Vogliamo
+calcolare la probabilit\`{a} che entrambe le esposizioni si deteriorino
+sapendo che almeno una si \`{e} deteriorata.
+
+Per definizione,
+\[
+\mathbb{P}(A\mid B)=\frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}.
+\]
+Poich\'{e} $A\subseteq B$, si ha $A\cap B=A$. Inoltre,
+\[
+\mathbb{P}(A)=\frac{1}{4},\qquad\mathbb{P}(B)=\frac{3}{4}.
+\]
+Pertanto
+\[
+\mathbb{P}(A\mid B)=\frac{1/4}{3/4}=\frac{1}{3}.
+\]
+
+
+Il risultato mostra che l'informazione \textquotedblleft almeno una
+esposizione si \`{e} deteriorata\textquotedblright\ modifica lo spazio degli
+scenari rilevanti. Non si considera pi\`{u} l'intero insieme $\Omega$, ma solo
+il sottoinsieme $B$ degli scenari compatibili con l'informazione osservata.
+\end{example}
+
+\begin{example}
+Un modello preliminare assegna a una controparte uno score intero compreso tra
+$1$ e $10$, dove valori pi\`{u} elevati indicano migliore qualit\`{a}
+creditizia. In assenza di ulteriori informazioni, supponiamo che i dieci
+valori siano equiprobabili:
+\[
+\Omega=\{1,2,\ldots,10\},\qquad\mathbb{P}(\{\omega\})=\frac{1}{10}%
+\quad\text{per ogni }\omega\in\Omega.
+\]
+
+
+Sia
+\[
+A=\{10\}
+\]
+l'evento in cui la controparte riceve lo score massimo. Supponiamo ora di
+sapere che la controparte ha superato una prima soglia di ammissibilit\`{a},
+cio\`{e} che lo score \`{e} almeno pari a $5$. L'evento informativo \`{e}
+\[
+B=\{5,6,7,8,9,10\}.
+\]
+Vogliamo calcolare
+\[
+\mathbb{P}(A\mid B).
+\]
+
+
+Poich\'{e} $A\subseteq B$, si ha $A\cap B=A$. Inoltre,
+\[
+\mathbb{P}(A)=\frac{1}{10},\qquad\mathbb{P}(B)=\frac{6}{10}.
+\]
+Quindi
+\[
+\mathbb{P}(A\mid B)=\frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}=\frac
+{1/10}{6/10}=\frac{1}{6}.
+\]
+
+
+L'informazione che lo score \`{e} almeno pari a $5$ elimina gli scenari
+$\{1,2,3,4\}$ dallo spazio rilevante. La probabilit\`{a} condizionata dello
+score massimo non \`{e} quindi $1/10$, ma $1/6$, perch\'{e} il calcolo viene
+effettuato all'interno del sottoinsieme degli scenari compatibili con
+l'informazione disponibile.
+\end{example}
+
+I due esempi precedenti mostrano che il condizionamento non modifica gli
+eventi in s\`{e}, ma modifica lo spazio informativo rispetto al quale le loro
+probabilit\`{a} vengono valutate. In entrambi i casi, l'evento condizionante
+seleziona un sottoinsieme di scenari compatibili con l'informazione osservata;
+la probabilit\`{a} condizionata \`{e} quindi una probabilit\`{a} relativa a
+tale sottoinsieme.
+
+\section{Indipendenza tra eventi}
+
+\begin{definition}
+Due eventi $A,B\in\mathcal{F}$ si dicono indipendenti se
+\[
+\mathbb{P}(A\cap B)=\mathbb{P}(A)\mathbb{P}(B).
+\]
+
+\end{definition}
+
+Se $\mathbb{P}(B)>0$, l'indipendenza \`{e} equivalente a
+\[
+\mathbb{P}(A\mid B)=\mathbb{P}(A).
+\]
+Quindi $A$ e $B$ sono indipendenti quando la conoscenza del verificarsi di $B$
+non modifica la probabilit\`{a} attribuita ad $A$.
+
+\`{e} importante distinguere indipendenza e incompatibilit\`{a}. Se $A$ e $B$
+sono disgiunti e hanno probabilit\`{a} positiva, allora non sono indipendenti:
+infatti
+\[
+\mathbb{P}(A\cap B)=0,
+\]
+mentre
+\[
+\mathbb{P}(A)\mathbb{P}(B)>0.
+\]
+In finanza, l'ipotesi di indipendenza deve essere utilizzata con cautela.
+Eventi di default apparentemente separati possono diventare fortemente
+dipendenti in presenza di uno shock macroeconomico comune.
+
+\section{Formula delle probabilit\`{a} totali}
+
+Sia $B_{1},\ldots,B_{n}$ una partizione di $\Omega$ con $\mathbb{P}(B_{i})>0$
+per ogni $i$. Per ogni evento $A\in\mathcal{F}$ vale
+\[
+\mathbb{P}(A)=\sum_{i=1}^{n}\mathbb{P}(A\mid B_{i})\mathbb{P}(B_{i}).
+\]
+
+
+La formula delle probabilit\`{a} totali consente di calcolare la
+probabilit\`{a} di un evento aggregando le probabilit\`{a} condizionate
+rispetto a scenari alternativi.
+
+\begin{example}
+Supponiamo che l'economia possa trovarsi in tre stati:
+\[
+B_{1}=\text{crescita},\qquad B_{2}=\text{stagnazione},\qquad B_{3}%
+=\text{recessione}.
+\]
+Sia $D$ l'evento di default di un debitore. Se conosciamo le probabilit\`{a}
+$\mathbb{P}(B_{i})$ e le probabilit\`{a} condizionate $\mathbb{P}(D\mid
+B_{i})$, allora
+\[
+\mathbb{P}(D)=\mathbb{P}(D\mid B_{1})\mathbb{P}(B_{1})+\mathbb{P}(D\mid
+B_{2})\mathbb{P}(B_{2})+\mathbb{P}(D\mid B_{3})\mathbb{P}(B_{3}).
+\]
+
+\end{example}
+
+\section{Formula di Bayes}
+
+Nelle stesse ipotesi della sezione precedente, per ogni $j=1,\ldots,n$ vale
+\[
+\mathbb{P}(B_{j}\mid A) = \frac{\mathbb{P}(A\mid B_{j})\mathbb{P}(B_{j})}
+{\sum_{i=1}^{n}\mathbb{P}(A\mid B_{i})\mathbb{P}(B_{i})}.
+\]
+
+
+La formula di Bayes permette di aggiornare la probabilit\`{a} di uno scenario
+$B_{j}$ dopo l'osservazione dell'evento $A$. In termini finanziari, essa
+formalizza il passaggio da probabilit\`{a} a priori a probabilit\`{a} a posteriori.
+
+Nel linguaggio del rischio di credito, $B_{j}$ pu\`{o} rappresentare uno stato
+latente del debitore e $A$ un segnale osservabile, come un peggioramento dello
+spread. La formula di Bayes consente allora di calcolare la probabilit\`{a}
+aggiornata dello stato del debitore dopo il segnale.
+
+\section{Esempio finanziario integrato}
+
+Consideriamo un debitore che pu\`{o} trovarsi in uno di tre stati latenti:
+\[
+B_{1}=\text{solido},\qquad B_{2}=\text{fragile},\qquad B_{3}=\text{critico}.
+\]
+Supponiamo che tali stati formino una partizione di $\Omega$ e che le
+probabilit\`{a} a priori siano
+\[
+\mathbb{P}(B_{1})=0.60,\qquad\mathbb{P}(B_{2})=0.30,\qquad\mathbb{P}%
+(B_{3})=0.10.
+\]
+Si osserva un segnale negativo di mercato, indicato con $S$. Le
+probabilit\`{a} del segnale condizionate allo stato del debitore sono
+\[
+\mathbb{P}(S\mid B_{1})=0.10,\qquad\mathbb{P}(S\mid B_{2})=0.40,\qquad
+\mathbb{P}(S\mid B_{3})=0.80.
+\]
+
+
+La probabilit\`{a} non condizionata del segnale \`{e}
+\[
+\begin{aligned}
+\Prob(S)
+&=\Prob(S\mid B_1)\Prob(B_1)
++\Prob(S\mid B_2)\Prob(B_2)
++\Prob(S\mid B_3)\Prob(B_3)\\
+&=0.10\cdot 0.60+0.40\cdot 0.30+0.80\cdot 0.10\\
+&=0.26.
+\end{aligned}
+\]
+
+
+La probabilit\`{a} a posteriori dello stato critico, dato il segnale negativo,
+\`{e}
+\[
+\mathbb{P}(B_{3}\mid S)=\frac{\mathbb{P}(S\mid B_{3})\mathbb{P}(B_{3}%
+)}{\mathbb{P}(S)}=\frac{0.80\cdot0.10}{0.26}\simeq0.3077.
+\]
+L'osservazione del segnale negativo aumenta quindi la probabilit\`{a} dello
+stato critico dal $10\%$ a circa il $30.77\%$.
+
+Supponiamo ora che la probabilit\`{a} di default condizionata allo stato sia
+\[
+\mathbb{P}(D\mid B_{1})=0.01,\qquad\mathbb{P}(D\mid B_{2})=0.05,\qquad
+\mathbb{P}(D\mid B_{3})=0.20.
+\]
+Per calcolare la probabilit\`{a} di default dopo il segnale si determinano
+prima le probabilit\`{a} posteriori degli stati:
+\[
+\mathbb{P}(B_{1}\mid S)=\frac{0.10\cdot0.60}{0.26}\simeq0.2308,
+\]%
+\[
+\mathbb{P}(B_{2}\mid S)=\frac{0.40\cdot0.30}{0.26}\simeq0.4615,
+\]%
+\[
+\mathbb{P}(B_{3}\mid S)=\frac{0.80\cdot0.10}{0.26}\simeq0.3077.
+\]
+La probabilit\`{a} di default condizionata al segnale \`{e} quindi
+\[
+\begin{aligned}
+\Prob(D\mid S)
+&=\Prob(D\mid B_1)\Prob(B_1\mid S)
++\Prob(D\mid B_2)\Prob(B_2\mid S)
++\Prob(D\mid B_3)\Prob(B_3\mid S)\\
+&=0.01\cdot 0.2308+0.05\cdot 0.4615+0.20\cdot 0.3077\\
+&\simeq 0.0869.
+\end{aligned}
+\]
+Il segnale negativo porta quindi la probabilit\`{a} di default aggiornata a
+circa l'$8.69\%$. L'esempio mostra come probabilit\`{a} totali e formula di
+Bayes permettano di passare da un modello di scenari a una valutazione
+aggiornata del rischio.
+
+\section{Esercizi svolti}
+
+\begin{exercise}
+Sia
+\[
+\Omega=\{\omega_{1},\omega_{2},\omega_{3},\omega_{4}\}
+\]
+con probabilit\`{a} degli esiti elementari pari a $0.20,0.30,0.10,0.40$.
+Siano
+\[
+A=\{\omega_{1},\omega_{2}\},\qquad B=\{\omega_{2},\omega_{4}\}.
+\]
+Calcolare $\mathbb{P}(A)$, $\mathbb{P}(B)$, $\mathbb{P}(A\cap B)$,
+$\mathbb{P}(A\cup B)$ e $\mathbb{P}(A^{c})$.
+\end{exercise}
+
+\begin{solution}
+Si ha
+\[
+\mathbb{P}(A)=0.20+0.30=0.50,
+\]
+\[
+\mathbb{P}(B)=0.30+0.40=0.70,
+\]
+\[
+A\cap B=\{\omega_{2}\}, \qquad\mathbb{P}(A\cap B)=0.30.
+\]
+Pertanto
+\[
+\mathbb{P}(A\cup B)=\mathbb{P}(A)+\mathbb{P}(B)-\mathbb{P}(A\cap B)
+=0.50+0.70-0.30=0.90.
+\]
+Infine
+\[
+\mathbb{P}(A^{c})=1-\mathbb{P}(A)=0.50.
+\]
+
+\end{solution}
+
+\begin{exercise}
+Sia $D$ l'evento di default e sia $S$ un segnale negativo. Supponiamo che
+\[
+\mathbb{P}(D\cap S)=0.04,\qquad\mathbb{P}(S)=0.20.
+\]
+Calcolare $\mathbb{P}(D\mid S)$.
+\end{exercise}
+
+\begin{solution}
+Per definizione di probabilit\`{a} condizionata,
+\[
+\mathbb{P}(D\mid S)=\frac{\mathbb{P}(D\cap S)}{\mathbb{P}(S)}=\frac
+{0.04}{0.20}=0.20.
+\]
+La probabilit\`{a} di default condizionata al segnale negativo \`{e} quindi
+pari al $20\%$.
+\end{solution}
+
+\section{Esercizi proposti}
+
+\begin{exercise}
+Si consideri uno spazio campionario con tre scenari di mercato: ribasso,
+stabilit\`{a} e rialzo. Si definiscano due eventi finanziari rilevanti e si
+calcolino unione, intersezione e complemento.
+\end{exercise}
+
+\begin{exercise}
+Siano $A$ e $B$ due eventi con
+\[
+\mathbb{P}(A)=0.40,\qquad\mathbb{P}(B)=0.50,\qquad\mathbb{P}(A\cap B)=0.20.
+\]
+Verificare se $A$ e $B$ sono indipendenti.
+\end{exercise}
+
+\begin{exercise}
+Un debitore pu\`{o} trovarsi in due stati, solido e fragile. Le
+probabilit\`{a} a priori sono $0.70$ e $0.30$. La probabilit\`{a} di osservare
+un segnale negativo \`{e} $0.10$ nello stato solido e $0.50$ nello stato
+fragile. Calcolare la probabilit\`{a} a posteriori dello stato fragile dopo
+l'osservazione del segnale.
+\end{exercise}
+
+\section{Sintesi finale}
+
+Uno spazio di probabilit\`{a} $(\Omega,\mathcal{F},\mathbb{P})$ fornisce la
+rappresentazione formale dell'incertezza. Lo spazio campionario $\Omega$
+descrive gli esiti possibili; la sigma-algebra $\mathcal{F}$ descrive gli
+eventi considerati dal modello; la misura $\mathbb{P}$ assegna probabilit\`{a}
+agli eventi.
+
+Le operazioni sugli eventi consentono di rappresentare eventi alternativi,
+congiunti o complementari. La probabilit\`{a} condizionata formalizza
+l'effetto dell'informazione sulla valutazione probabilistica. L'indipendenza
+rappresenta il caso in cui tale informazione non modifica la probabilit\`{a}
+dell'evento di interesse.
+
+La formula delle probabilit\`{a} totali permette di decomporre una
+probabilit\`{a} rispetto a una partizione di scenari. La formula di Bayes
+permette di aggiornare le probabilit\`{a} degli scenari dopo l'osservazione di
+un segnale. Questi strumenti costituiscono la base per la trattazione delle
+variabili casuali, dei valori attesi condizionati e dei processi stocastici
+nei capitoli successivi.

@@ -1,0 +1,404 @@
+%2multibyte Version: 5.50.0.2960 CodePage: 65001
+% MQF_Manuale_Master_SW55_Memoir.tex
+% Master del manuale MQF costruito sullo shell SW5.5 "Memoir Class for Configurable Typesetting".
+% Versione modulare: i capitoli scritti sono inclusi con \input.%
+% POSIZIONE DEI FILE
+% Questo master deve stare nella cartella 01_Manuale.
+% I capitoli devono stare nella sottocartella 01_Manuale/Capitoli.
+% Non mettere il master dentro Capitoli.
+% I capitoli futuri restano come traccia, ma non generano pagine nel documento.
+% Evita pagine bianche dovute all'apertura dei capitoli su pagina dispari.
+% ------------------------------------------------------------
+% Nomi italiani
+% ------------------------------------------------------------
+% ------------------------------------------------------------
+% Macro matematiche ufficiali del progetto MQF
+% Coerenti con MQF_Notazione.tex
+% ------------------------------------------------------------
+% ------------------------------------------------------------
+% Ambienti di tipo teorema.
+% I nomi interni restano compatibili con lo shell SW.
+% Le etichette stampate sono in italiano.
+% ------------------------------------------------------------
+
+\documentclass[oneside,openany]{memoir}%
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}%
+\setcounter{MaxMatrixCols}{30}
+%TCIDATA{OutputFilter=latex2.dll}
+%TCIDATA{Version=5.50.0.2960}
+%TCIDATA{Codepage=65001}
+%TCIDATA{CSTFile=memoir.cst}
+%TCIDATA{Created=Wednesday, May 13, 2026 15:06:28}
+%TCIDATA{LastRevised=Wednesday, May 13, 2026 22:06:18}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Books\SW\Memoir Class for Configurable Typesetting">}
+%BeginMSIPreambleData
+\providecommand{\U}[1]{\protect\rule{.1in}{.1in}}
+%EndMSIPreambleData
+\let\cleardoublepage\clearpage
+\renewcommand{\contentsname}{Indice}
+\renewcommand{\abstractname}{Sommario}
+\renewcommand{\bibname}{Bibliografia}
+\renewcommand{\partname}{Parte}
+\renewcommand{\chaptername}{Capitolo}
+\renewcommand{\figurename}{Figura}
+\renewcommand{\tablename}{Tabella}
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{2}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\VaR}{\operatorname{VaR}}
+\newcommand{\CVaR}{\operatorname{CVaR}}
+\newcommand{\argmin}{\operatorname*{arg\,min}}
+\newcommand{\argmax}{\operatorname*{arg\,max}}
+\newcommand{\EVPI}{\operatorname{EVPI}}
+\newcommand{\VSS}{\operatorname{VSS}}
+\newtheorem{theorem}{Teorema}[chapter]
+\newtheorem{acknowledgement}[theorem]{Ringraziamenti}
+\newtheorem{algorithm}[theorem]{Algoritmo}
+\newtheorem{axiom}[theorem]{Assioma}
+\newtheorem{case}[theorem]{Caso}
+\newtheorem{claim}[theorem]{Affermazione}
+\newtheorem{conclusion}[theorem]{Conclusione}
+\newtheorem{condition}[theorem]{Condizione}
+\newtheorem{conjecture}[theorem]{Congettura}
+\newtheorem{corollary}[theorem]{Corollario}
+\newtheorem{criterion}[theorem]{Criterio}
+\newtheorem{definition}[theorem]{Definizione}
+\newtheorem{example}[theorem]{Esempio}
+\newtheorem{exercise}[theorem]{Esercizio}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notazione}
+\newtheorem{problem}[theorem]{Problema}
+\newtheorem{proposition}[theorem]{Proposizione}
+\newtheorem{remark}[theorem]{Osservazione}
+\newtheorem{solution}[theorem]{Soluzione}
+\newtheorem{summary}[theorem]{Sintesi}
+\newenvironment{proof}[1][Dimostrazione]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+\begin{document}
+
+\frontmatter
+\title{Metodi Quantitativi per la Finanza\\Probabilit\`{a}, rischio e ottimizzazione}
+\author{Corso MQF}
+\date{}
+\maketitle
+
+\begin{abstract}
+Il manuale introduce i principali strumenti quantitativi per la
+rappresentazione dell'incertezza finanziaria, la misurazione del rischio e la
+formulazione di problemi di ottimizzazione in tempo discreto. Il percorso
+integra probabilita', variabili casuali, informazione condizionata, processi
+stocastici, catene di Markov, modelli binomiali, misure di rischio e
+programmazione stocastica. Si ricorrer\`{a} ad applicazioni in Python.
+
+\end{abstract}
+\tableofcontents
+
+\chapter*{Prefazione}
+
+\addcontentsline{toc}{chapter}{Prefazione}
+
+Questo manuale raccoglie il materiale teorico, applicativo e computazionale
+del corso di Metodi Quantitativi per la Finanza. Il suo obiettivo non \`{e}
+sostituire le lezioni, le slides, gli esercizi o il codice Python, ma fornire
+un riferimento organico nel quale i diversi strumenti quantitativi siano
+presentati all'interno di un percorso unitario.
+
+Il filo conduttore del manuale \`{e} la rappresentazione dell'incertezza in
+finanza. La valutazione di un payoff, la misurazione di una perdita, il
+calcolo di una probabilit\`{a} di default, la costruzione di un albero
+binomiale, la simulazione di scenari e la formulazione di un problema di
+ottimizzazione sotto incertezza richiedono tutti una struttura probabilistica
+esplicita. Per questo motivo il manuale inizia dagli elementi fondamentali
+della teoria della probabilit\`{a} e procede poi verso variabili casuali,
+informazione condizionata, processi stocastici, catene di Markov, misure di
+rischio, pricing discreto e programmazione stocastica.
+
+Una scelta metodologica centrale del manuale \`{e} la formulazione in tempo
+discreto. Gli istanti temporali sono indicati con
+\[
+t=0,1,\ldots,T.
+\]
+Questa scelta non deve essere interpretata come una semplice riduzione della
+complessit\`{a} matematica. Il tempo discreto costituisce, al contrario, un
+ambiente naturale per molti problemi finanziari e computazionali. Le decisioni
+di investimento vengono spesso assunte a date prefissate; i bilanci, i rating,
+i dati di mercato e le informazioni rilevanti sono osservati su griglie
+temporali; i modelli di scenario, gli alberi ricombinanti, le catene di Markov
+e i problemi di programmazione stocastica sono formulati in modo diretto su
+insiemi finiti o numerabili di date, stati e scenari.
+
+La formulazione discreta presenta inoltre un vantaggio didattico e
+computazionale rilevante. Essa consente di mantenere un collegamento
+trasparente tra tre livelli del discorso: la definizione matematica, la sua
+interpretazione finanziaria e la sua implementazione numerica. Uno spazio di
+probabilit\`{a} finito o discreto pu\`{o} essere rappresentato mediante
+scenari; una variabile casuale pu\`{o} essere descritta tramite i valori
+assunti sugli scenari; un valore atteso diventa una somma pesata; una
+probabilit\`{a} condizionata pu\`{o} essere calcolata attraverso una tabella;
+una catena di Markov \`{e} descritta da una matrice di transizione; un
+problema di ottimizzazione sotto incertezza pu\`{o} essere scritto come
+modello deterministico equivalente su un insieme finito di scenari.
+
+Il tempo continuo rimane naturalmente un riferimento importante nella finanza
+matematica, in particolare nella teoria del pricing, nel calcolo stocastico e
+nei modelli di diffusione. Tuttavia, esso non costituisce il centro di questo
+manuale. La scelta adottata \`{e} quella di costruire prima un linguaggio
+solido in tempo discreto, nel quale i concetti fondamentali possano essere
+compresi, calcolati e implementati. Tale linguaggio conserva un valore anche
+oltre il contesto discreto, poich\'{e} molte tecniche numeriche per modelli a
+tempo continuo richiedono comunque una discretizzazione del tempo, dello
+spazio degli stati o delle possibili traiettorie. La scelta adottata \`{e}
+quella di costruire prima un linguaggio solido in tempo discreto, nel quale i
+concetti fondamentali possano essere compresi, calcolati e implementati. In
+questa prospettiva, il tempo discreto non \`{e} un'alternativa debole al tempo
+continuo, ma una struttura autonoma e particolarmente adatta alla
+modellizzazione quantitativa, alla simulazione e all'ottimizzazione finanziaria.
+
+Il manuale \`{e} organizzato in quattro parti. La prima parte introduce
+probabilit\`{a}, variabili casuali, informazione e processi stocastici. La
+seconda parte \`{e} dedicata alle catene di Markov e alle misure di rischio.
+La terza parte sviluppa i modelli binomiali e il pricing discreto. La quarta
+parte introduce la programmazione lineare, il CVaR e la programmazione stocastica.
+
+La notazione \`{e} mantenuta coerente lungo tutto il testo. Uno spazio di
+probabilit\`{a} \`{e} indicato con
+\[
+(\Omega,\mathcal{F},\mathbb{P}),
+\]
+dove $\Omega$ \`{e} lo spazio campionario, $\mathcal{F}$ \`{e} la
+sigma-algebra degli eventi e $\mathbb{P}$ \`{e} la misura di probabilit\`{a}.
+Le variabili casuali reali sono indicate con $X,Y,Z$, le perdite con $L$, i
+payoff terminali con $H$, i processi stocastici con $X_{t}$ o $S_{t}$ a
+seconda del contesto. Questa coerenza notazionale \`{e} parte integrante del
+progetto didattico: gli stessi simboli devono accompagnare lo studente dalla
+probabilit\`{a} elementare fino ai modelli di rischio e ottimizzazione.
+
+Ogni capitolo combina definizioni, interpretazioni finanziarie, esempi
+numerici ed esercizi. Le dimostrazioni sono incluse quando aiutano a
+comprendere il meccanismo quantitativo sottostante; non sono invece
+privilegiate come fine autonomo. Nei capitoli computazionali, il codice Python
+ha una funzione strumentale: rendere visibile il passaggio dalla formula al
+calcolo e dal modello teorico all'analisi numerica.
+
+Il risultato atteso \`{e} un percorso nel quale probabilit\`{a}, rischio e
+ottimizzazione non siano trattati come argomenti separati, ma come componenti
+di un unico linguaggio quantitativo per la finanza. La formulazione discreta
+presenta inoltre un vantaggio didattico, computazionale e metodologico
+rilevante. Essa consente di mantenere un collegamento trasparente tra tre
+livelli del discorso: la definizione matematica, la sua interpretazione
+finanziaria e la sua implementazione numerica. Uno spazio di probabilit\`{a}
+finito o discreto pu\`{o} essere rappresentato mediante scenari; una variabile
+casuale pu\`{o} essere descritta tramite i valori assunti sugli scenari; un
+valore atteso diventa una somma pesata; una probabilit\`{a} condizionata
+pu\`{o} essere calcolata attraverso una tabella; una catena di Markov \`{e}
+descritta da una matrice di transizione; un problema di ottimizzazione sotto
+incertezza pu\`{o} essere scritto come modello deterministico equivalente su
+un insieme finito di scenari.
+
+Un ulteriore elemento di pregio della formulazione discreta \`{e} che essa
+permette di introdurre modelli e metodi computazionali che risultano utili
+anche quando l'oggetto teorico di riferimento \`{e} formulato in tempo
+continuo. Molte procedure numeriche per modelli continui si basano infatti su
+discretizzazioni temporali, approssimazioni mediante alberi, simulazioni di
+traiettorie, schemi ricorsivi o rappresentazioni finite dello spazio degli
+scenari. In questa prospettiva, lo studio del tempo discreto non \`{e} solo
+una premessa didattica, ma anche una porta di accesso ai metodi numerici con
+cui si approssimano, si simulano e si implementano modelli finanziari pi\`{u} complessi.
+
+\chapter*{Struttura del manuale}
+
+\addcontentsline{toc}{chapter}{Struttura del manuale}
+
+Il manuale \`{e} organizzato in quattro parti. In questa fase i capitoli
+successivi al primo sono mantenuti come traccia editoriale. Verranno inclusi
+nel file master solo quando saranno redatti in file autonomi.
+
+\section*{Parte I -- Probabilit\`{a}, variabili casuali e informazione}
+
+\begin{center}%
+\begin{tabular}
+[c]{ll}\hline
+Capitolo & Titolo\\\hline
+1 & Elementi di teoria della probabilit\`{a}\\
+2 & Variabili casuali e distribuzioni\\
+3 & Valori attesi condizionati e informazione\\
+4 & Processi stocastici, traiettorie e scenari\\
+5 & Applicazioni Python a processi stocastici e valori attesi
+condizionati\\\hline
+\end{tabular}
+
+\end{center}
+
+\section*{Parte II -- Catene di Markov e misure di rischio}
+
+\begin{center}%
+\begin{tabular}
+[c]{ll}\hline
+Capitolo & Titolo\\\hline
+6 & Catene di Markov: definizioni e propriet\`{a}\\
+7 & Catene di Markov e misure di rischio\\
+8 & Applicazioni Python al rischio di credito\\\hline
+\end{tabular}
+
+\end{center}
+
+\section*{Parte III -- Modelli binomiali e pricing discreto}
+
+\begin{center}%
+\begin{tabular}
+[c]{ll}\hline
+Capitolo & Titolo\\\hline
+9 & Variabili casuali binomiali e alberi binomiali\\
+10 & Applicazioni Python al pricing di opzioni e obbligazioni\\\hline
+\end{tabular}
+
+
+
+\end{center}
+
+\section*{Parte IV -- Ottimizzazione, CVaR e programmazione stocastica}
+
+\begin{center}%
+\begin{tabular}
+[c]{ll}\hline
+Capitolo & Titolo\\\hline
+11 & Programmazione lineare\\
+12 & Dualit\`{a} nella programmazione lineare\\
+13 & Applicazioni Python di programmazione lineare: calcolo del CVaR\\
+14 & Programmazione lineare stocastica I\\
+15 & Programmazione lineare stocastica II\\
+16 & Applicazioni Python di programmazione stocastica\\\hline
+\end{tabular}
+
+
+
+\end{center}
+
+\chapter*{Notazione}
+
+\addcontentsline{toc}{chapter}{Notazione}
+
+La notazione principale del manuale segue il documento di notazione del
+progetto. In particolare, lo spazio di probabilit\`{a} \`{e} sempre indicato
+con
+\[
+(\Omega,\mathcal{F},\mathbb{P}).
+\]
+
+
+\begin{center}%
+\begin{tabular}
+[c]{ll}\hline
+Simbolo & Significato\\\hline
+$\Omega$ & spazio campionario\\
+$\omega\in\Omega$ & esito elementare\\
+$\mathcal{F}$ & sigma-algebra degli eventi\\
+$\mathbb{P}$ & misura di probabilit\`{a}\\
+$(\Omega,\mathcal{F},\mathbb{P})$ & spazio di probabilit\`{a}\\
+$t=0,1,\ldots,T$ & tempo discreto\\
+$X,Y,Z$ & variabili casuali reali\\
+$L$ & variabile casuale di perdita\\
+$H$ & payoff terminale\\
+$\mathbb{E}[X]$ & valore atteso di $X$\\
+$\operatorname{Var}(X)$ & varianza di $X$\\
+$\operatorname{Cov}(X,Y)$ & covarianza tra $X$ e $Y$\\
+$\{\mathcal{F}_{t}\}_{t=0}^{T}$ & filtrazione in tempo discreto\\
+$X_{t}$ & processo stocastico generico al tempo $t$\\
+$S_{t}$ & prezzo di una attivit\`{a} finanziaria al tempo $t$\\
+$r$ & tasso privo di rischio su un periodo, salvo diversa specificazione\\
+$\mathbb{Q}$ & misura risk-neutral, quando introdotta\\
+$q$ & probabilit\`{a} risk-neutral nel modello binomiale\\
+$x$ & vettore di variabili decisionali nei problemi di ottimizzazione\\
+$\xi$ & vettore aleatorio o informazione incerta nei problemi decisionali\\
+$\mathcal{S}=\{1,\ldots,N\}$ & insieme finito degli scenari discreti\\
+$s\in\mathcal{S},\ p_{s}$ & indice di scenario e probabilit\`{a} dello
+scenario $s$\\
+$\xi_{s}$ & realizzazione dei dati aleatori nello scenario $s$\\
+$\mathcal{I}=\{1,\ldots,m\}$ & insieme finito degli stati di una catena di
+Markov\\
+$\operatorname{VaR}_{\alpha}$ & Value-at-Risk al livello $\alpha$\\
+$\operatorname{CVaR}_{\alpha}$ & Conditional Value-at-Risk al livello $\alpha
+$\\
+$M,\ k=1,\ldots,M$ & numero e indice delle repliche simulate\\\hline
+\end{tabular}
+
+
+
+\end{center}
+
+\mainmatter
+
+
+%============================================================
+%Capitoli redatti e inclusi
+%Inseriti come Subdocument SWP, non come semplice input nativo
+%============================================================
+%
+
+%TCIMACRO{\QSubDoc{Include subdoc}%
+%{\input{./Capitoli/MQF_Cap_01_Probabilita.tex}}}%
+%BeginExpansion
+\input{./Capitoli/MQF_Cap_01_Probabilita.tex}
+%EndExpansion
+
+
+%============================================================
+%Capitoli futuri: traccia operativa.
+%Attivare una riga solo quando il corrispondente file e' stato redatto.
+%============================================================
+%\input{./Capitoli/MQF_Cap_02_Variabili_Casuali}
+%\input{./Capitoli/MQF_Cap_03_Valori_Attesi_Condizionati}
+%\input{./Capitoli/MQF_Cap_04_Processi_Stocastici}
+%\input{./Capitoli/MQF_Cap_05_Python_Processi_Stocastici}
+%\input{./Capitoli/MQF_Cap_06_Catene_Markov}
+%\input{./Capitoli/MQF_Cap_07_Markov_Misure_Rischio}
+%\input{./Capitoli/MQF_Cap_08_Python_Rischio_Credito}
+%\input{./Capitoli/MQF_Cap_09_Modelli_Binomiali}
+%\input{./Capitoli/MQF_Cap_10_Python_Pricing}
+%\input{./Capitoli/MQF_Cap_11_Programmazione_Lineare}
+%\input{./Capitoli/MQF_Cap_12_Dualita}
+%\input{./Capitoli/MQF_Cap_13_Python_CVaR}
+%\input{./Capitoli/MQF_Cap_14_Programmazione_Stocastica_I}
+%\input{./Capitoli/MQF_Cap_15_Programmazione_Stocastica_II}
+%\input{./Capitoli/MQF_Cap_16_Python_Programmazione_Stocastica}
+
+
+\backmatter
+
+
+\chapter*{Bibliografia}
+
+\addcontentsline{toc}{chapter}{Bibliografia}
+
+La bibliografia sar\`{a} inserita in una fase successiva. In prima istanza
+pu\`{o} essere gestita manualmente mediante l'ambiente
+\texttt{thebibliography}.
+
+\begin{thebibliography}{9}                                                                                                %
+
+
+\bibitem {Hull}Hull, J. C., \textit{Options, Futures, and Other Derivatives}, Pearson.
+
+\bibitem {Ross}Ross, S. M., \textit{Introduction to Probability Models},
+Academic Press.
+
+\bibitem {RockafellarUryasev}Rockafellar, R. T. and Uryasev, S., Optimization
+of Conditional Value-at-Risk.
+\end{thebibliography}
+
+
+\end{document}
