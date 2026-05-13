@@ -58,8 +58,8 @@ $x$ per decisioni, $y_s$ per decisioni di secondo stadio, $\lambda$ per
 variabili duali, $\xi$ per dati aleatori.\\
 Matrici & $A,B,P,Q$ & Matrici di coefficienti, matrici di transizione,
 matrici di vincoli.\\
-Insiemi & $A,B,C,\Omega,\mathcal{S}$ & Eventi, spazio campionario, insieme
-degli scenari o degli stati.\\
+Insiemi & $A,B,C,\Omega,\mathcal{S},\mathcal{I}$ & Eventi, spazio campionario,
+insieme degli scenari, insieme degli stati markoviani.\\
 Variabili casuali & $X,Y,Z,L,H$ & Variabili casuali reali; $L$ per perdite,
 $H$ per payoff terminali.\\
 Processi & $\{X_t\}_{t=0}^{T}$, $\{S_t\}_{t=0}^{T}$ & Sequenze temporali
@@ -231,10 +231,19 @@ Il vettore aleatorio sottostante \`{e} indicato con
 \[
  \xi.
 \]
-La realizzazione nello scenario $s$ \`{e} indicata con
+Quando si distinguono scenari discreti del modello e repliche simulate, si
+riserva $N$ al numero di scenari e si usa $M$ per il numero di repliche
+simulate. L'indice di replica simulata \`{e} indicato con
 \[
- \xi_s.
+ k=1,\ldots,M.
 \]
+Una realizzazione simulata della variabile casuale $X$ nella replica $k$ pu\`{o}
+essere indicata con
+\[
+ X^{(k)}.
+\]
+Questa convenzione \`{e} usata soprattutto nelle applicazioni Python e nelle
+stime Monte Carlo.
 
 \section{Catene di Markov}
 
@@ -346,6 +355,16 @@ u>d>0.
 \]
 Il tasso privo di rischio su un periodo \`{e} indicato con $r$, per cui
 il fattore di capitalizzazione \`{e} $1+r$.
+Per la valutazione di flussi certi, si indica con
+\[
+D_t=(1+r)^{-t}
+\]
+il fattore di sconto a $t$ periodi. Se $c_t$ \`{e} il flusso certo pagato al
+tempo $t$, il valore iniziale di una sequenza di flussi obbligazionari certi
+pu\`{o} essere scritto come
+\[
+V_0^{obbl}=\sum_{t=1}^{T}D_t c_t.
+\]
 
 La condizione elementare di assenza di arbitraggio \`{e}
 \[
@@ -354,6 +373,13 @@ d<1+r<u.
 La probabilit\`{a} risk-neutral a un periodo \`{e}
 \[
 q=\frac{1+r-d}{u-d}.
+\]
+Lo strike price di un'opzione \`{e} indicato con $K$. Per un'opzione europea
+call e put con scadenza $T$, i payoff terminali sono rispettivamente
+\[
+H^{\mathrm{call}}=(S_T-K)^+,
+\qquad
+H^{\mathrm{put}}=(K-S_T)^+.
 \]
 La misura risk-neutral \`{e} indicata con $\Q$. Il valore di un derivato con
 payoff terminale $H$ \`{e} indicato con $V_t$. A un periodo,

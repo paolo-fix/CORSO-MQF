@@ -211,6 +211,8 @@ seguenti convenzioni generali:
 \multicolumn{1}{l}{$\mathcal S=\{1,\ldots,N\}$} & Insieme finito degli scenari discreti.\\
 \multicolumn{1}{l}{$s\in\mathcal S$, $p_s$} & Indice di scenario e probabilit\`{a} dello scenario $s$.\\
 \multicolumn{1}{l}{$\xi_s$} & Realizzazione dei dati aleatori nello scenario $s$.\\
+\multicolumn{1}{l}{$\mathcal I=\{1,\ldots,m\}$} & Insieme finito degli stati di una catena di Markov.\\
+\multicolumn{1}{l}{$M$, $k=1,\ldots,M$} & Numero e indice delle repliche simulate nelle applicazioni Monte Carlo.\\
 \hline
 \end{tabular}
 \end{center}
@@ -366,11 +368,14 @@ scenari.\newline\textbf{Notazione introdotta:} nessuna notazione teorica
 sostanziale; raccordo tra simboli matematici e variabili Python.\newline%
 \textbf{Formule principali:}
 \[
-\widehat{\mathbb{E}}[X]=\frac{1}{N}\sum_{n=1}^{N}X^{(n)}, \qquad
-\widehat{\mathbb{E}}[X\mid G=g]=\frac{1}{N_{g}}\sum_{n:G^{(n)}=g}X^{(n)}.
+\widehat{\E}[X]=\frac{1}{M}\sum_{k=1}^{M}X^{(k)}, \qquad
+\widehat{\E}[X\mid A_g]=\frac{1}{M_g}\sum_{k:\omega_k\in A_g}X^{(k)}.
 \]
-\textbf{Esercizi previsti:} modificare parametri di simulazione; aumentare il
-numero di scenari; interpretare la stabilit\`{a} numerica.\newline%
+Qui $M$ \`{e} il numero di repliche simulate, $k$ \`{e} l'indice di replica,
+$A_g$ \`{e} l'evento associato alla classe informativa $g$ e
+$M_g=\#\{k:\omega_k\in A_g\}$.
+\newline\textbf{Esercizi previsti:} modificare parametri di simulazione; aumentare il
+numero di repliche simulate; interpretare la stabilit\`{a} numerica.\newline%
 \textbf{Grafici previsti:} traiettorie multiple; media temporale; bande
 empiriche.\newline\textbf{Applicazioni Python collegate:} applicazione Python
 1.\newline\textbf{Stato di avanzamento:} bozza progettuale predisposta; codice
@@ -383,15 +388,22 @@ probabilistiche tra stati finanziari, ad esempio classi di rating?\newline%
 \textbf{Prerequisiti:} Lezioni 1--4.\newline\textbf{Obiettivi didattici:}
 definire catene di Markov in tempo discreto; introdurre matrice di
 transizione; analizzare distribuzioni a uno o pi\`{u} passi.\newline%
-\textbf{Notazione introdotta:} stati $i,j$, matrice $P=(p_{ij})$,
-distribuzione iniziale $\pi_{0}$, distribuzione $\pi_{t}$.\newline%
+\textbf{Notazione introdotta:} insieme degli stati $\mathcal I=\{1,\ldots,m\}$,
+stati $i,j\in\mathcal I$, catena $\{X_t\}_{t=0}^{T}$ con
+$X_t\in\mathcal I$, matrice $P=(p_{ij})_{i,j=1}^{m}$, distribuzione iniziale
+$\pi_{0}$, distribuzione $\pi_{t}$.\newline%
 \textbf{Formule principali:}
 \[
-p_{ij}=\mathbb{P}(X_{t+1}=j\mid X_{t}=i), \qquad\mathbb{P}(X_{t+1}=j\mid
-X_{t}=i,X_{t-1},\ldots,X_{0})=p_{ij},
+p_{ij}=\Prob(X_{t+1}=j\mid X_t=i),
+\qquad
+\Prob(X_{t+1}=j\mid X_t=i,X_{t-1}=i_{t-1},\ldots,X_0=i_0)
+=
+\Prob(X_{t+1}=j\mid X_t=i)=p_{ij}.
 \]
 \[
-\pi_{t}=\pi_{0} P^{t}.
+\pi_{t+1}=\pi_tP,
+\qquad
+\pi_t=\pi_0P^t.
 \]
 \textbf{Esercizi previsti:} calcolo di transizioni a due periodi;
 distribuzione futura di rating; probabilit\`{a} di default assorbente.\newline%
@@ -452,11 +464,15 @@ introdotta:} raccordo computazionale con $P$, $\pi_{t}$, $L$,
 $\operatorname{VaR}_{\alpha}(L)$ e $\operatorname{CVaR}_{\alpha}(L)$%
 .\newline\textbf{Formule principali:}
 \[
-\pi_{t}=\pi_{0}P^{t}, \qquad\widehat{\mathbb{P}}(\hbox{default entro }T)=\frac
-{1}{N}\sum_{n=1}^{N} I_{n},
+\pi_t=\pi_0P^t,
+\qquad
+\widehat{\Prob}(\tau\leq T)=\frac{1}{M}\sum_{k=1}^{M}D_k,
+\qquad
+D_k=\1_{\{\tau^{(k)}\leq T\}}.
 \]
-dove $I_{n}$ indica l'evento di default simulato nella traiettoria
-$n$.\newline\textbf{Esercizi previsti:} modificare la matrice di transizione;
+dove $\tau^{(k)}$ \`{e} il tempo di default simulato nella replica $k$ e
+$D_k$ \`{e} l'indicatrice dell'evento di default entro l'orizzonte $T$.
+\newline\textbf{Esercizi previsti:} modificare la matrice di transizione;
 introdurre uno stato assorbente; confrontare portafogli con diverse
 esposizioni.\newline\textbf{Grafici previsti:} heatmap della matrice;
 probabilit\`{a} di default nel tempo; distribuzione simulata delle
@@ -489,10 +505,12 @@ La probabilit\`{a} risk-neutral a un periodo \`{e}
 \[
 q=\frac{1+r-d}{u-d}.
 \]
-Se $V_t$ indica il valore del derivato al tempo $t$, la valutazione
-risk-neutral a un periodo \`{e}
+Se $H$ indica il payoff terminale del derivato, nel modello a un periodo si ha
+$V_1=H$. La valutazione risk-neutral a un periodo \`{e}
 \[
-V_0=\frac{1}{1+r}\left(qV_1^u+(1-q)V_1^d\right).
+V_0=\frac{1}{1+r}\E_{\Q}[H]
+=
+\frac{1}{1+r}\left(qH^u+(1-q)H^d\right).
 \]
 \textbf{Esercizi previsti:} pricing binomiale a un periodo; calcolo della
 probabilit\`{a} risk-neutral; backward induction in un albero a due periodi.
@@ -516,14 +534,20 @@ backward in un albero binomiale?
 \newline
 \textbf{Obiettivi didattici:} implementare alberi binomiali dei prezzi e dei
 payoff; calcolare prezzi di derivati mediante backward induction; analizzare
-la sensibilit\`{a} rispetto a $u$, $d$, $r$ e allo strike.
+la sensibilit\`{a} rispetto a $u$, $d$, $r$ e allo strike $K$.
 \newline
 \textbf{Notazione introdotta:} raccordo computazionale con $S_t$, $V_t$, $H$,
-$u$, $d$, $r$ e $q$.
+$K$, $u$, $d$, $r$, $q$, $D_t$ e $c_t$.
 \newline
 \textbf{Formule principali:}
 \[
 V_t=\frac{1}{1+r}\left(qV_{t+1}^u+(1-q)V_{t+1}^d\right).
+\]
+Per flussi obbligazionari certi,
+\[
+V_0^{obbl}=\sum_{t=1}^{T}D_t c_t,
+\qquad
+D_t=(1+r)^{-t}.
 \]
 \textbf{Esercizi previsti:} modificare strike e tasso; confrontare payoff
 call e put; verificare l'effetto di $u$ e $d$.
