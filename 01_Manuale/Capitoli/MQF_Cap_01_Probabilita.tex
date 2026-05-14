@@ -378,9 +378,71 @@ A^{c}=\{\omega_{2},\omega_{3}\}.
 
 \end{example}
 
-Famiglie di eventi. E' spesso utile ragruppare gli eventi. Un evento formato
-come insieme di eventi \`{e} una cosa dall'evento formato dalla loro unione.
-Cio\`{e} dati gli eventi $B,C$ 
+\subsection{Famiglie di eventi}
+In molte situazioni non interessa considerare un singolo evento, ma un insieme di eventi accomunati da una certa propriet\`{a}. 
+Una famiglia di eventi \`{e} un insieme del tipo
+\[
+\mathcal{A}=\{A_i:i\in I\},
+\]
+dove ogni \(A_i\) \`{e} un evento.
+Occorre distinguere accuratamente la famiglia \(\mathcal{A}\) dall'evento ottenuto unendo gli eventi che la compongono:
+\[
+\bigcup_{i\in I} A_i.
+\]
+La famiglia \(\mathcal{A}\) \`{e} un insieme i cui elementi sono eventi, ma non è un evento; l'unione \(\bigcup_{i\in I}A_i\), invece, \`{e} un sottoinsieme di \(\Omega\), e quindi pu\`{o} essere un evento.
+
+\begin{example}
+Sia
+\[
+\Omega=\{1,2,3,4,5,6\}
+\]
+lo spazio dei risultati del lancio di un dado. Consideriamo gli eventi
+\[
+A=\{2,4,6\},\qquad B=\{1,3,5\}.
+\]
+La famiglia
+\[
+\mathcal{A}=\{A,B\}
+\]
+ha come elementi due eventi: l'evento ``esce un numero pari'' e l'evento ``esce un numero dispari''. 
+Essa non coincide con l'evento
+\[
+A\cup B=\{1,2,3,4,5,6\}=\Omega.
+\]
+Infatti \(\mathcal{A}\) \`{e} un insieme di sottoinsiemi di \(\Omega\), mentre \(A\cup B\) \`{e} un sottoinsieme di \(\Omega\). 
+La probabilit\`{a} \(P(A\cup B)\) \`{e} ben definita; al contrario, \(P(\mathcal{A})\) non ha significato nello spazio di probabilit\`{a} originario, perch\'{e} \(\mathcal{A}\) non \`{e} un evento di \(\mathcal{F}\), ma una collezione di eventi.
+\end{example}
+
+In altre parole:
+\[
+\mathcal{A}=\{A,B\}\neq A\cup B.
+\]
+e
+\[
+\mathcal{A}=\{A_i:i\in I\},
+\qquad
+A_i\subseteq\Omega,
+\qquad
+\bigcup_{i\in I}A_i\subseteq\Omega.
+\]
+Le famiglie di eventi permettono di descrivere in modo compatto classi di eventi, operazioni collettive e strutture logiche. 
+Per esempio, data una famiglia \(\{A_i:i\in I\}\), l'evento
+\[
+\bigcup_{i\in I}A_i
+\]
+rappresenta il verificarsi di almeno uno degli eventi \(A_i\), mentre
+\[
+\bigcap_{i\in I}A_i
+\]
+rappresenta il verificarsi simultaneo di tutti gli eventi della famiglia. 
+Analogamente,
+\[
+\left(\bigcup_{i\in I}A_i\right)^c
+\]
+rappresenta l'evento in cui nessuno degli eventi \(A_i\) si verifica.
+
+\subsection{Partizione di $\Omega$}
+Una importante famiglia di eventi è la \textbf{partizione di $\Omega$}.
 
 \begin{definition}
 Una famiglia di eventi $B_{1},\ldots,B_{n}$ \`{e} una partizione di $\Omega$
