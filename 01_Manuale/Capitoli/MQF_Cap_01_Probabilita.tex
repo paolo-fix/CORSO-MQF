@@ -20,6 +20,27 @@
 % I nomi interni restano compatibili con lo shell SW.
 % Le etichette stampate sono in italiano.
 % ------------------------------------------------------------
+% MQF_Manuale_Master_SW55_Memoir.tex
+% Master del manuale MQF costruito sullo shell SW5.5 "Memoir Class for Configurable Typesetting".
+% Versione modulare: i capitoli scritti sono inclusi con \input.%
+% POSIZIONE DEI FILE
+% Questo master deve stare nella cartella 01_Manuale.
+% I capitoli devono stare nella sottocartella 01_Manuale/Capitoli.
+% Non mettere il master dentro Capitoli.
+% I capitoli futuri restano come traccia, ma non generano pagine nel documento.
+% Evita pagine bianche dovute all'apertura dei capitoli su pagina dispari.
+% ------------------------------------------------------------
+% Nomi italiani
+% ------------------------------------------------------------
+% ------------------------------------------------------------
+% Macro matematiche ufficiali del progetto MQF
+% Coerenti con MQF_Notazione.tex
+% ------------------------------------------------------------
+% ------------------------------------------------------------
+% Ambienti di tipo teorema.
+% I nomi interni restano compatibili con lo shell SW.
+% Le etichette stampate sono in italiano.
+% ------------------------------------------------------------
 
 %TCIDATA{OutputFilter=latex2.dll}
 %TCIDATA{Version=5.50.0.2960}
@@ -140,7 +161,7 @@ La tripla $(\Omega,\mathcal{F},\mathbb{P})$ formalizza precisamente questi tre e
 \begin{definition}
 Lo spazio campionario $\Omega$ \`{e} l'insieme degli esiti elementari
 possibili di un esperimento aleatorio. Un elemento $\omega\in\Omega$ \`{e}
-detto esito elementare.
+detto evento o esito elementare.
 \end{definition}
 
 Nel contesto finanziario, gli esiti elementari possono rappresentare scenari
@@ -174,16 +195,14 @@ Capitolo 2, quando introdurremo variabili casuali e distribuzioni.
 Molti problemi finanziari non riguardano un singolo esperimento aleatorio, ma
 una sequenza di esperimenti osservati nel tempo. Si pensi, ad esempio, ai
 movimenti giornalieri di un prezzo, all'evoluzione periodica del rating di una
-controparte, alla successione di default e non default in un portafoglio,
-oppure alla simulazione di una traiettoria di mercato su pi\`{u} date future.
+controparte, alla successione di rialzi e ribassi del valore di un
+portafoglio, oppure alla simulazione di una traiettoria di mercato su pi\`{u}
+date future.
 
 Supponiamo che l'incertezza sia osservata in $n$ date successive e che, alla
-data $i$, gli esiti possibili siano descritti da uno spazio campionario
-$\Omega_{i}$, con
-\[
-i=1,\ldots,n.
-\]
-Lo spazio campionario complessivo \`{e} allora il prodotto cartesiano
+data $i=1,\ldots,n$, gli esiti possibili siano descritti da uno spazio
+campionario $\Omega_{i}$. Lo spazio campionario complessivo \`{e} allora il
+prodotto cartesiano
 \[
 \Omega=\Omega_{1}\times\Omega_{2}\times\cdots\times\Omega_{n}.
 \]
@@ -196,17 +215,19 @@ $i$-esima osservazione.
 
 Questa notazione \`{e} particolarmente importante per il seguito del manuale.
 Essa permette di interpretare un esito elementare non come un singolo stato
-isolato, ma come una sequenza ordinata di realizzazioni. In questo senso, un
-elemento $\omega\in\Omega$ pu\`{o} essere letto come una traiettoria elementare.
+isolato ad una sola data $i$, ma come una \textit{sequenza ordinata} di
+realizzazioni. In questo senso, un elemento $\omega\in\Omega$ pu\`{o} essere
+letto come una \textit{traiettoria} elementare.
 
-Nel caso in cui lo stesso esperimento sia ripetuto $n$ volte e lo spazio degli
-esiti sia lo stesso a ogni data, cio\`{e}
+Nel caso in cui lo stesso esperimento sia ripetuto $n$ volte e ciascuno spazio
+degli esiti sia lo stesso a ogni data, cio\`{e}
 \[
 \Omega_{1}=\Omega_{2}=\cdots=\Omega_{n}=\Omega^{\ast},
 \]
 si scrive pi\`{u} semplicemente
 \[
-\Omega=(\Omega^{\ast})^{n}.
+\Omega=\underset{\text{n volte}}{\underbrace{\Omega^{\ast}\times\Omega^{\ast
+}\times...\times\Omega^{\ast}}}=(\Omega^{\ast})^{n}.
 \]
 Se $\Omega^{\ast}$ contiene $m$ esiti elementari, allora lo spazio prodotto
 $(\Omega^{\ast})^{n}$ contiene
@@ -310,22 +331,22 @@ comprendere il legame con modelli stocastici pi\`{u} generali.
 
 Questa costruzione sar\`{a} ripresa pi\`{u} volte. Nei processi stocastici,
 una traiettoria descrive l'evoluzione temporale di una variabile aleatoria.
-Negli alberi binomiali, ogni percorso dalla radice a una foglia rappresenta
-una sequenza di rialzi e ribassi. Nella simulazione, ogni replica genera una
-traiettoria casuale. Nella programmazione stocastica, uno scenario pu\`{o}
-essere interpretato come una realizzazione coerente dell'incertezza lungo
-l'orizzonte temporale considerato.
+Negli alberi binomiali, ogni percorso dalla radice, detta \textit{foglia},
+rappresenta una sequenza di rialzi e ribassi. Nella simulazione, ogni replica
+genera una traiettoria casuale. Nella programmazione stocastica, uno scenario
+pu\`{o} essere interpretato come una realizzazione coerente dell'incertezza
+lungo l'orizzonte temporale considerato.
 
 \section{Operazioni sugli eventi}
 
 Siano $A,B\subseteq\Omega$ due eventi.
 
-L'unione
+L'\textit{unione}
 \[
 A\cup B
 \]
 \`{e} l'evento che si verifica quando si verifica almeno uno tra $A$ e $B$.
-L'intersezione
+L'\textit{intersezione}
 \[
 A\cap B
 \]
@@ -357,12 +378,20 @@ A^{c}=\{\omega_{2},\omega_{3}\}.
 
 \end{example}
 
+Famiglie di eventi. E' spesso utile ragruppare gli eventi. Un evento formato
+come insieme di eventi \`{e} una cosa dall'evento formato dalla loro unione.
+Cio\`{e} dati gli eventi $B,C$ 
+
+\begin{definition}
 Una famiglia di eventi $B_{1},\ldots,B_{n}$ \`{e} una partizione di $\Omega$
 se gli eventi sono due a due disgiunti e la loro unione \`{e} l'intero spazio
 campionario:
 \[
 B_{i}\cap B_{j}=\emptyset\quad(i\neq j),\qquad\bigcup_{i=1}^{n}B_{i}=\Omega.
 \]
+
+\end{definition}
+
 Le partizioni sono importanti perch\'{e} permettono di decomporre un problema
 probabilistico rispetto a scenari alternativi e mutuamente esclusivi.
 
@@ -423,7 +452,7 @@ tale che:
 
 \item se $A_{1},A_{2},\ldots$ sono eventi due a due disgiunti, allora
 \[
-\mathbb{P}\left( \bigcup_{n=1}^{\infty} A_{n}\right)  = \sum_{n=1}^{\infty
+\mathbb{P}\left(  \bigcup_{n=1}^{\infty} A_{n}\right)  = \sum_{n=1}^{\infty
 }\mathbb{P}(A_{n}).
 \]
 
@@ -869,3 +898,4 @@ permette di aggiornare le probabilit\`{a} degli scenari dopo l'osservazione di
 un segnale. Questi strumenti costituiscono la base per la trattazione delle
 variabili casuali, dei valori attesi condizionati e dei processi stocastici
 nei capitoli successivi.
+
