@@ -184,7 +184,29 @@ A=\{\omega_{1},\omega_{2}\}.
 \]
 Se $\omega_{1}$ o $\omega_{2}$ si realizza, allora si dice che $A$ si \`{e}
 verificato. Se invece si realizza $\omega_{3}$ o $\omega_{4}$, l'evento $A$
-non si \`{e} verificato.
+non si \`{e} verificato. 
+Un caso particolare, ma perfettamente ammissibile, \`{e} quello in cui un evento $A$
+contiene un solo esito elementare. Se $\omega\in\Omega$, l'insieme
+\[
+A=\{\omega\}
+\]
+\`{e} detto \textbf{evento elementare}, o \textbf{singleton}. Esso rappresenta il caso in
+cui si verifica esattamente l'esito $\omega$. Gli eventi singleton sono gli eventi pi\`{u} fini che si possano considerare:
+non possono essere ulteriormente scomposti in eventi non vuoti pi\`{u} piccoli.
+Una partizione formata da soli singleton distingue ogni esito elementare di
+$\Omega$.
+
+Altri due casi particolari sono l'\textbf{evento certo} e l'\textbf{evento impossibile}. 
+L'evento certo coincide con l'intero spazio degli esiti:
+\[
+\Omega.
+\]
+Esso si verifica qualunque sia l'esito realizzato. L'evento impossibile coincide
+invece con l'insieme vuoto:
+\[
+\emptyset.
+\]
+Esso non si verifica per alcun esito elementare.
 
 In questo capitolo useremo soprattutto spazi campionari finiti o discreti. Gli
 spazi continui saranno richiamati solo quando necessario e saranno ripresi nel
@@ -357,11 +379,18 @@ A^{c}=\Omega\setminus A
 \]
 \`{e} l'evento che si verifica quando $A$ non si verifica.
 
-Due eventi $A$ e $B$ si dicono disgiunti se
+Due eventi $A$ e $B$ si dicono \textbf{disgiunti o incompatibili} se
 \[
 A\cap B=\emptyset.
 \]
-In questo caso non possono verificarsi simultaneamente.
+In questo caso non possono verificarsi simultaneamente. 
+
+Se invece
+\[
+A\cap B\neq\emptyset,
+\]
+gli eventi si dicono \textbf{compatibili}: esistono esiti elementari che appartengono
+sia ad $A$ sia a $B$, e quindi i due eventi possono verificarsi congiuntamente.
 
 \begin{example}
 Supponiamo che $\Omega=\{\omega_{1},\omega_{2},\omega_{3}\}$ rappresenti tre
@@ -378,18 +407,22 @@ A^{c}=\{\omega_{2},\omega_{3}\}.
 
 \end{example}
 
-\subsection{Famiglie di eventi}
+\section{Famiglie di eventi}
 In molte situazioni non interessa considerare un singolo evento, ma un insieme di eventi accomunati da una certa propriet\`{a}. 
-Una famiglia di eventi \`{e} un insieme del tipo
+Una famiglia di eventi arbitrari, che possono essere disgiunti o congiunti, \`{e} un insieme del tipo
 \[
 \mathcal{A}=\{A_i:i\in I\},
 \]
 dove ogni \(A_i\) \`{e} un evento.
-Occorre distinguere accuratamente la famiglia \(\mathcal{A}\) dall'evento ottenuto unendo gli eventi che la compongono:
+Occorre distinguere accuratamente la famiglia di eventi
 \[
-\bigcup_{i\in I} A_i.
+\mathcal{A}=\{A_i:i\in I\}
 \]
-La famiglia \(\mathcal{A}\) \`{e} un insieme i cui elementi sono eventi, ma non è un evento; l'unione \(\bigcup_{i\in I}A_i\), invece, \`{e} un sottoinsieme di \(\Omega\), e quindi pu\`{o} essere un evento.
+dall'evento ottenuto unendo gli eventi che la compongono:
+\[
+\mathcal{A}\neq \bigcup_{i\in I}A_i.
+\]
+La famiglia \(\mathcal{A}\) \`{e} un insieme i cui elementi sono eventi, ma non è un evento; l'unione \(\bigcup_{i\in I}A_i\), invece, \`{e} un sottoinsieme di \(\Omega\), e quindi è un evento. 
 
 \begin{example}
 Sia
@@ -457,10 +490,11 @@ B_{i}\cap B_{j}=\emptyset\quad(i\neq j),\qquad\bigcup_{i=1}^{n}B_{i}=\Omega.
 Le partizioni sono importanti perch\'{e} permettono di decomporre un problema
 probabilistico rispetto a scenari alternativi e mutuamente esclusivi.
 
-\section{Sigma-algebra e informazione}
+\subsection{Informazione e $\sigma$-algebre}
 
+Un'altra famiglia di eventi estremamente importante è la cosiddetta $\sigma$-algebra.
 \begin{definition}
-Una sigma-algebra $\mathcal{F}$ su $\Omega$ \`{e} una famiglia di sottoinsiemi
+Una $\sigma$-algebra $\mathcal{F}$ su $\Omega$ \`{e} una famiglia di sottoinsiemi
 di $\Omega$ tale che:
 
 \begin{enumerate}
@@ -473,16 +507,182 @@ $\bigcup_{n=1}^{\infty} A_{n}\in\mathcal{F}$.
 \end{enumerate}
 \end{definition}
 
-Nel seguito, gli elementi di $\mathcal{F}$ saranno chiamati eventi. In uno
-spazio campionario finito si lavora spesso con l'insieme delle parti di
-$\Omega$; in tal caso tutti i sottoinsiemi di $\Omega$ sono eventi. Per il
-manuale \`{e} tuttavia utile mantenere la notazione generale $\mathcal{F}$,
-perch\'{e} essa consente di rappresentare formalmente l'informazione disponibile.
-
-L'interpretazione finanziaria \`{e} la seguente: $\mathcal{F}$ descrive quali
+Gli elementi di $\mathcal{F}$ sono eventi. L'interpretazione finanziaria \`{e} la seguente: $\mathcal{F}$ descrive quali
 eventi sono distinguibili nel modello. Una sigma-algebra pi\`{u} ricca
 consente di distinguere pi\`{u} eventi; una sigma-algebra pi\`{u} povera
-rappresenta un livello informativo pi\`{u} aggregato.
+rappresenta un livello informativo pi\`{u} aggregato. Pi\`{u} in generale, una $\sigma$-algebra pu\`{o} essere interpretata come una rappresentazione matematica dell'informazione disponibile. Condizionare rispetto a un evento, o rispetto a una famiglia strutturata di eventi, significa allora ricalcolare le probabilit\`{a} alla luce dell'informazione espressa da quegli eventi. 
+
+La $\sigma$-algebra pi\`{u} povera che si possa definire su $\Omega$ \`{e}
+\[
+\mathcal{F}_{\min}=\{\emptyset,\Omega\}.
+\]
+Essa contiene soltanto l'evento impossibile e l'evento certo. 
+Non distingue quindi alcun sottoinsieme proprio di $\Omega$ come evento osservabile. 
+Dal punto di vista informativo, questa $\sigma$-algebra rappresenta il livello
+minimo di informazione: consente solo di affermare che l'esito appartiene a
+$\Omega$, ma non permette di distinguere tra regioni diverse dello spazio degli esiti.
+
+\subsection{Partizioni e $\sigma$-algebre generate}
+
+Nella pratica si considerano di norma $\sigma$-algebre pi\`{u} informative
+della $\sigma$-algebra banale $\{\emptyset,\Omega\}$. 
+Consideriamo uno spazio degli
+esiti $\Omega$ che sia suddiviso mediante una partizione finita
+\[
+\mathcal{A}=\{A_1,\ldots,A_m\},
+\]
+i cui eventi rappresentano gli eventi elementari rilevanti per il
+problema. A partire dalla partizione $\mathcal{A}$ si pu\`{o} costruire in modo naturale
+una e una sola $\sigma$-algebra $\mathcal{F}$ generata dalla partizione. Essa
+\`{e} l'unica $\sigma$-algebra che contiene tutti gli elementi della
+partizione.
+
+La costruzione della $\sigma$-algebra pu\`{o} essere descritta in modo iterativo:
+
+\begin{enumerate}
+\item Si parte dalla collezione iniziale formata dall'evento certo e dagli elementi  della partizione:
+\[
+\{\Omega,A_1,\ldots,A_m\}.
+\]
+
+\item Si arricchisce la collezione aggiungendo i
+complementari degli insiemi gi\`{a} presenti, quindi:
+\[
+\emptyset =\Omega^c, \qquad
+A_i^c=\Omega\setminus A_i.
+\]
+
+\item Si aggiungono poi tutte le unioni ottenibili dagli insiemi disponibili.
+In particolare, per ogni $A_i$ e $A_j$ già appartenenti o aggiunti alla collezione corrente, si aggiunge anche
+\[
+A_z=A_i\cup A_j.
+\]
+Pi\`{u} in generale, si aggiungono tutte le unioni finite degli insiemi gi\`{a}
+presenti.
+
+\item Dopo avere aggiunto complementari e unioni, si verifica se sono comparsi
+nuovi insiemi. Se la collezione si \`{e} ampliata, si ripete la procedura:
+si prendono nuovamente i complementari e le unioni degli insiemi ora disponibili. Viceversa, se non si riesce più ad arricchire la collezione, la procedura si ferma e la collezione così realizzata è la $\sigma$-algebra ricercata.
+\end{enumerate}
+
+La collezione finale cos\`{\i} ottenuta contiene $\emptyset$ e $\Omega$, \`{e}
+chiusa rispetto al complementare ed \`{e} chiusa rispetto all'unione.  Indichiamo questa $\sigma$-algebra $\mathcal{F}=\sigma(\mathcal{A})$.
+
+\paragraph*{Raffinamento di una partizione.}
+Ai fini dei capitoli successivi, \`{e} importante osservare che una
+$\sigma$-algebra pi\`{u} povera pu\`{o} essere inclusa in una
+$\sigma$-algebra pi\`{u} ricca:
+\[
+\mathcal{G}\subseteq\mathcal{F}.
+\]
+Questa inclusione formalizza il passaggio da un livello informativo pi\`{u}
+grossolano a uno pi\`{u} dettagliato. Quando le $\sigma$-algebre sono generate
+da partizioni finite, tale passaggio corrisponde al raffinamento delle
+partizioni di $\Omega$.
+
+Siano $\mathcal{S}$ e $\mathcal{R}$ due partizioni di $\Omega$. 
+Si dice che $\mathcal{R}$ \`{e} un raffinamento di $\mathcal{S}$, oppure che
+$\mathcal{R}$ \`{e} pi\`{u} fine di $\mathcal{S}$, se ogni blocco di
+$\mathcal{R}$ \`{e} contenuto in un blocco di $\mathcal{S}$. 
+Formalmente, per ogni $R\in\mathcal{R}$ esiste un $S\in\mathcal{S}$ tale che
+\[
+R\subseteq S.
+\]
+
+In termini informativi, $\mathcal{R}$ distingue almeno tutti i casi distinti da
+$\mathcal{S}$, e pu\`{o} distinguerne di ulteriori. Equivalentemente, due esiti
+che appartengono a blocchi distinti di $\mathcal{S}$ appartengono anche a
+blocchi distinti di $\mathcal{R}$. Se inoltre esistono due esiti che
+$\mathcal{R}$ distingue ma che $\mathcal{S}$ non distingue, allora
+$\mathcal{R}$ \`{e} un raffinamento proprio di $\mathcal{S}$.
+
+Se $\mathcal{R}$ \`{e} un raffinamento di $\mathcal{S}$, risulta che 
+\[
+\sigma(\mathcal{S})\subseteq \sigma(\mathcal{R}).
+\]
+
+\begin{example}
+Sia
+\[
+\Omega=\{1,2,3,4\}.
+\]
+Consideriamo la partizione
+\[
+\mathcal{S}=\big\{\{1,2\},\{3,4\}\big\}.
+\]
+La $\sigma$-algebra generata da $\mathcal{S}$ \`{e}
+\[
+\sigma(\mathcal{S})
+=
+\big\{
+\emptyset,
+\{1,2\},
+\{3,4\},
+\Omega
+\big\}.
+\]
+Essa distingue solo due casi: l'esito appartiene a $\{1,2\}$ oppure appartiene
+a $\{3,4\}$.
+
+Consideriamo ora la partizione pi\`{u} fine
+\[
+\mathcal{R}=\big\{\{1\},\{2\},\{3,4\}\big\}.
+\]
+La partizione $\mathcal{R}$ \`{e} un raffinamento di $\mathcal{S}$: infatti
+i blocchi $\{1\}$ e $\{2\}$ sono contenuti nel blocco $\{1,2\}$ di
+$\mathcal{S}$, mentre il blocco $\{3,4\}$ coincide con un blocco di
+$\mathcal{S}$.
+
+La $\sigma$-algebra generata da $\mathcal{R}$ \`{e}
+\[
+\sigma(\mathcal{R})
+=
+\big\{
+\emptyset,
+\{1\},
+\{2\},
+\{3,4\},
+\{1,2\},
+\{1,3,4\},
+\{2,3,4\},
+\Omega
+\big\}.
+\]
+Si verifica immediatamente che
+\[
+\sigma(\mathcal{S})\subseteq\sigma(\mathcal{R}).
+\]
+Infatti gli eventi $\emptyset$, $\{1,2\}$, $\{3,4\}$ e $\Omega$ appartengono
+anche a $\sigma(\mathcal{R})$.
+
+La ragione \`{e} che $\mathcal{R}$ contiene una descrizione pi\`{u} dettagliata
+di $\Omega$: essa distingue l'esito $1$ dall'esito $2$, mentre
+$\mathcal{S}$ li raggruppa nello stesso blocco. Una partizione pi\`{u} fine
+genera quindi una $\sigma$-algebra pi\`{u} ricca.
+\end{example}
+
+
+
+\paragraph*{Insieme delle parti.}
+Dato lo spazio degli esiti $\Omega$, si indica con
+\[
+\mathcal{P}(\Omega)
+\]
+l'insieme di tutti i sottoinsiemi di $\Omega$:
+\[
+\mathcal{P}(\Omega)=\{A:A\subseteq\Omega\}.
+\]
+$\mathcal{P}(\Omega)$ è costruibile applicando le codizioni di complementazione e di unione previste per una qualunque $\sigma$-algebra partendo da tutti gli eventi elementari di $\Omega$. In questo senso, esso rappresenta la famiglia pi\`{u} ampia di eventi che si possa considerare su $\Omega$.
+Ogni altra $\sigma$-algebra di eventi su $\Omega$ sar\`{a} una sottocollezione di $\mathcal{P}(\Omega)$.
+
+Le $\sigma$-algebre su $\Omega$ sono ordinate per inclusione solo parzialmente:
+non tutte sono confrontabili tra loro. Tuttavia, quando pi\`{u} $\sigma$-algebre sono confrontabili per inclusione, esse formano
+una catena crescente
+\[
+\mathcal{F}_0\subseteq\mathcal{F}_1\subseteq\cdots\subseteq\mathcal{F}_n \subseteq \mathcal{P}(\Omega),
+\]
+interpretabile come una successione di livelli informativi progressivamente
+pi\`{u} ricchi. 
 
 \begin{example}
 Consideriamo tre movimenti successivi di un titolo, ciascuno dei quali pu\`{o}
@@ -526,11 +726,14 @@ $A,B\in\mathcal{F}$,
 \[
 \mathbb{P}(A^{c})=1-\mathbb{P}(A),
 \]
-e
+e vale la \textbf{regola della somma}:
 \[
 \mathbb{P}(A\cup B)=\mathbb{P}(A)+\mathbb{P}(B)-\mathbb{P}(A\cap B).
 \]
-Se $A$ e $B$ sono disgiunti, allora
+Il termine $\mathbb{P}(A\cap B)$ viene sottratto perch\'{e} gli esiti appartenenti
+ad $A\cap B$ sono conteggiati due volte nella somma
+$\mathbb{P}(A)+\mathbb{P}(B)$.
+Se $A$ e $B$ sono disgiunti, allora $A\cap B=\emptyset$ e la formula si riduce a
 \[
 \mathbb{P}(A\cup B)=\mathbb{P}(A)+\mathbb{P}(B).
 \]
@@ -565,8 +768,8 @@ sigma-algebra di eventi e $\mathbb{P}$ \`{e} una misura di probabilit\`{a} su
 $\mathcal{F}$.
 \end{definition}
 
-Questa tripla separa tre piani concettuali distinti: gli scenari possibili,
-gli eventi osservabili o modellizzati, e la probabilit\`{a} assegnata a tali
+Questa tripla separa tre piani concettuali distinti: gli eventi elementari possibili,
+gli eventi \textbf{osservabili} o \textbf{modellizzati}, e la probabilit\`{a} assegnata a tali
 eventi. La distinzione \`{e} essenziale in finanza, perch\'{e} una stessa
 struttura di scenari pu\`{o} essere valutata con misure di probabilit\`{a}
 diverse, ad esempio una misura storica oppure, nei modelli di pricing, una
@@ -587,7 +790,7 @@ La probabilit\`{a} condizionata rappresenta la probabilit\`{a} dell'evento $A$
 quando si assume noto che l'evento $B$ si sia verificato. In questa
 prospettiva, $B$ restringe lo spazio informativo rilevante.
 
-Dalla definizione segue la regola del prodotto:
+Dalla definizione segue la \textbf{regola del prodotto}:
 \[
 \mathbb{P}(A\cap B)=\mathbb{P}(A\mid B)\mathbb{P}(B).
 \]
@@ -656,7 +859,7 @@ il sottoinsieme $B$ degli scenari compatibili con l'informazione osservata.
 \end{example}
 
 \begin{example}
-Un modello preliminare assegna a una controparte uno score intero compreso tra
+Un modello di "credit rating" preliminare assegna a una controparte uno score intero compreso tra
 $1$ e $10$, dove valori pi\`{u} elevati indicano migliore qualit\`{a}
 creditizia. In assenza di ulteriori informazioni, supponiamo che i dieci
 valori siano equiprobabili:
@@ -707,6 +910,54 @@ seleziona un sottoinsieme di scenari compatibili con l'informazione osservata;
 la probabilit\`{a} condizionata \`{e} quindi una probabilit\`{a} relativa a
 tale sottoinsieme.
 
+\paragraph*{Regole della somma e del prodotto.}
+Le operazioni fondamentali tra eventi sono l'unione e l'intersezione. 
+La prima conduce alla \textbf{regola della somma} (già incontrata in precedenza e che qui richiamiamo brevemente), la seconda alla regola del prodotto.
+
+Consideriamo inizialmente due eventi $A$ e $B$. 
+La regola della somma riguarda la probabilit\`{a} dell'unione $A\cup B$, cio\`{e} dell'evento in cui si verifica almeno uno tra $A$ e $B$.
+
+Se $A$ e $B$ sono disgiunti, cio\`{e}
+\[
+A\cap B=\emptyset,
+\]
+allora i due eventi non possono verificarsi simultaneamente. In questo caso
+\[
+\mathbb{P}(A\cup B)=\mathbb{P}(A)+\mathbb{P}(B).
+\]
+Se invece $A$ e $B$ non sono disgiunti, allora l'intersezione $A\cap B$ contiene gli esiti comuni ai due eventi. Tali esiti verrebbero conteggiati due volte nella somma $\mathbb{P}(A)+\mathbb{P}(B)$: una volta come parte di $A$ e una volta come parte di $B$. Per correggere questo doppio conteggio si sottrae la probabilit\`{a} dell'intersezione:
+\[
+\mathbb{P}(A\cup B)
+=
+\mathbb{P}(A)+\mathbb{P}(B)-\mathbb{P}(A\cap B).
+\]
+
+La \textbf{regola del prodotto} riguarda invece la probabilit\`{a} dell'intersezione $A\cap B$, cio\`{e} dell'evento in cui $A$ e $B$ si verificano simultaneamente. 
+Nel caso generale, se $\mathbb{P}(A)>0$, si ha
+\[
+\mathbb{P}(A\cap B)
+=
+\mathbb{P}(A)\mathbb{P}(B\mid A).
+\]
+Equivalentemente, se $\mathbb{P}(B)>0$,
+\[
+\mathbb{P}(A\cap B)
+=
+\mathbb{P}(B)\mathbb{P}(A\mid B).
+\]
+Questa \`{e} la forma generale della regola del prodotto: la probabilit\`{a} che si verifichino entrambi gli eventi \`{e} data dalla probabilit\`{a} del primo evento moltiplicata per la probabilit\`{a} del secondo evento condizionata al verificarsi del primo.
+
+Un caso particolare importante si ha quando il verificarsi di $A$ non modifica la probabilit\`{a} di $B$. In tal caso
+\[
+\mathbb{P}(B\mid A)=\mathbb{P}(B),
+\]
+e la regola del prodotto si riduce a
+\[
+\mathbb{P}(A\cap B)
+=
+\mathbb{P}(A)\mathbb{P}(B).
+\]
+
 \section{Indipendenza tra eventi}
 
 \begin{definition}
@@ -752,176 +1003,457 @@ probabilit\`{a} di un evento aggregando le probabilit\`{a} condizionate
 rispetto a scenari alternativi.
 
 \begin{example}
-Supponiamo che l'economia possa trovarsi in tre stati:
+Supponiamo che l'economia possa trovarsi in tre stati alternativi:
 \[
-B_{1}=\text{crescita},\qquad B_{2}=\text{stagnazione},\qquad B_{3}%
-=\text{recessione}.
+S_1=\text{``recessione''}, \qquad
+S_2=\text{``crescita moderata''}, \qquad
+S_3=\text{``espansione''}.
 \]
-Sia $D$ l'evento di default di un debitore. Se conosciamo le probabilit\`{a}
-$\mathbb{P}(B_{i})$ e le probabilit\`{a} condizionate $\mathbb{P}(D\mid
-B_{i})$, allora
+Assumiamo che questi tre eventi costituiscano una partizione dello spazio degli esiti $\Omega$. 
+Ci\`{o} significa che gli stati sono mutuamente esclusivi,
 \[
-\mathbb{P}(D)=\mathbb{P}(D\mid B_{1})\mathbb{P}(B_{1})+\mathbb{P}(D\mid
-B_{2})\mathbb{P}(B_{2})+\mathbb{P}(D\mid B_{3})\mathbb{P}(B_{3}).
+S_i\cap S_j=\emptyset \qquad \text{per } i\neq j,
+\]
+ed esaustivi,
+\[
+S_1\cup S_2\cup S_3=\Omega.
 \]
 
+Sia ora $A$ l'evento
+\[
+A=\text{``il rendimento di un portafoglio \`{e} positivo''}.
+\]
+La probabilit\`{a} di $A$ pu\`{o} essere calcolata considerando separatamente i tre possibili stati dell'economia. 
+Infatti, l'evento $A$ pu\`{o} essere scomposto come
+\[
+A=(A\cap S_1)\cup(A\cap S_2)\cup(A\cap S_3).
+\]
+Poich\'{e} gli eventi $S_1,S_2,S_3$ sono disgiunti, anche gli eventi
+\[
+A\cap S_1, \qquad A\cap S_2, \qquad A\cap S_3
+\]
+sono disgiunti. Pertanto,
+\[
+\mathbb{P}(A)
+=
+\mathbb{P}(A\cap S_1)
++
+\mathbb{P}(A\cap S_2)
++
+\mathbb{P}(A\cap S_3).
+\]
+Applicando la regola del prodotto a ciascun termine, si ottiene
+\[
+\mathbb{P}(A)
+=
+\mathbb{P}(A\mid S_1)\mathbb{P}(S_1)
++
+\mathbb{P}(A\mid S_2)\mathbb{P}(S_2)
++
+\mathbb{P}(A\mid S_3)\mathbb{P}(S_3).
+\]
+Questa \`{e} la formula delle probabilit\`{a} totali.
+
+Supponiamo, ad esempio, che le probabilit\`{a} dei tre stati siano
+\[
+\mathbb{P}(S_1)=0.20, \qquad
+\mathbb{P}(S_2)=0.50, \qquad
+\mathbb{P}(S_3)=0.30.
+\]
+Supponiamo inoltre che la probabilit\`{a} di ottenere un rendimento positivo nei tre stati sia:
+\[
+\mathbb{P}(A\mid S_1)=0.25, \qquad
+\mathbb{P}(A\mid S_2)=0.60, \qquad
+\mathbb{P}(A\mid S_3)=0.85.
+\]
+Allora
+\[
+\begin{aligned}
+\mathbb{P}(A)
+&=
+0.25\cdot 0.20
++
+0.60\cdot 0.50
++
+0.85\cdot 0.30 \\
+&=
+0.05+0.30+0.255 \\
+&=
+0.605.
+\end{aligned}
+\]
+La probabilit\`{a} complessiva che il portafoglio abbia rendimento positivo \`{e} quindi pari a $0.605$.
 \end{example}
 
 \section{Formula di Bayes}
 
-Nelle stesse ipotesi della sezione precedente, per ogni $j=1,\ldots,n$ vale
+Nel linguaggio della formula di Bayes si distingue tra probabilit\`{a} a priori e
+probabilit\`{a} a posteriori. Le probabilit\`{a} a priori descrivono la
+valutazione iniziale della probabilit\`{a} degli scenari, prima di osservare una
+nuova informazione. Se $B_1,\ldots,B_n$ sono scenari alternativi e mutuamente
+esclusivi, le quantit\`{a}
+\[
+\mathbb{P}(B_1),\ldots,\mathbb{P}(B_n)
+\]
+rappresentano le probabilit\`{a} a priori degli scenari.
+
+Le probabilit\`{a} a posteriori descrivono invece la valutazione aggiornata
+della probabilit\`{a} degli stessi scenari dopo avere osservato un evento $A$.
+Esse sono quindi probabilit\`{a} condizionate del tipo
+\[
+\mathbb{P}(B_j\mid A),
+\qquad j=1,\ldots,n.
+\]
+La formula di Bayes fornisce precisamente la regola con cui passare dalle
+probabilit\`{a} a priori $\mathbb{P}(B_j)$ alle probabilit\`{a} a posteriori
+$\mathbb{P}(B_j\mid A)$, tenendo conto della legge delle probabilità totali (i.e. le probabilit\`{a} con cui l'informazione osservata $A$ si manifesta nei diversi scenari).
 \[
 \mathbb{P}(B_{j}\mid A) = \frac{\mathbb{P}(A\mid B_{j})\mathbb{P}(B_{j})}
 {\sum_{i=1}^{n}\mathbb{P}(A\mid B_{i})\mathbb{P}(B_{i})}.
 \]
-
-
-La formula di Bayes permette di aggiornare la probabilit\`{a} di uno scenario
-$B_{j}$ dopo l'osservazione dell'evento $A$. In termini finanziari, essa
-formalizza il passaggio da probabilit\`{a} a priori a probabilit\`{a} a posteriori.
 
 Nel linguaggio del rischio di credito, $B_{j}$ pu\`{o} rappresentare uno stato
 latente del debitore e $A$ un segnale osservabile, come un peggioramento dello
 spread. La formula di Bayes consente allora di calcolare la probabilit\`{a}
 aggiornata dello stato del debitore dopo il segnale.
 
-\section{Esempio finanziario integrato}
+\begin{example}
 
-Consideriamo un debitore che pu\`{o} trovarsi in uno di tre stati latenti:
+Supponiamo di voler valutare la probabilit\`{a} che l'economia entri in
+recessione entro il prossimo anno. Indichiamo con
 \[
-B_{1}=\text{solido},\qquad B_{2}=\text{fragile},\qquad B_{3}=\text{critico}.
+R
 \]
-Supponiamo che tali stati formino una partizione di $\Omega$ e che le
-probabilit\`{a} a priori siano
+l'evento ``si verifica una recessione'' e con $R^c$ l'evento complementare
+``non si verifica una recessione''. Prima di osservare nuove informazioni,
+l'analista attribuisce alla recessione la probabilit\`{a}
 \[
-\mathbb{P}(B_{1})=0.60,\qquad\mathbb{P}(B_{2})=0.30,\qquad\mathbb{P}%
-(B_{3})=0.10.
-\]
-Si osserva un segnale negativo di mercato, indicato con $S$. Le
-probabilit\`{a} del segnale condizionate allo stato del debitore sono
-\[
-\mathbb{P}(S\mid B_{1})=0.10,\qquad\mathbb{P}(S\mid B_{2})=0.40,\qquad
-\mathbb{P}(S\mid B_{3})=0.80.
+\Prob(R)=0.20,
+\qquad
+\Prob(R^c)=0.80.
 \]
 
-
-La probabilit\`{a} non condizionata del segnale \`{e}
+Consideriamo ora un indicatore macroeconomico, ad esempio un indice anticipatore
+dell'attivit\`{a} economica. Sia
 \[
-\begin{aligned}
+S
+\]
+l'evento ``l'indicatore fornisce un segnale negativo''. Supponiamo che il
+segnale negativo sia pi\`{u} probabile in caso di recessione che in caso di
+assenza di recessione:
+\[
+\Prob(S\mid R)=0.75,
+\qquad
+\Prob(S\mid R^c)=0.25.
+\]
+La prima probabilit\`{a} indica che, se l'economia entrer\`{a} in recessione,
+l'indicatore fornisce un segnale negativo nel $75\%$ dei casi. La seconda indica
+che, anche in assenza di recessione, l'indicatore pu\`{o} comunque fornire un
+segnale negativo nel $25\%$ dei casi.
+
+Dopo avere osservato il segnale $S$, vogliamo aggiornare la probabilit\`{a} di
+recessione, cio\`{e} calcolare
+\[
+\Prob(R\mid S).
+\]
+Per la formula di Bayes,
+\[
+\Prob(R\mid S)
+=
+\frac{\Prob(S\mid R)\Prob(R)}
+{\Prob(S)}.
+\]
+Il denominatore si calcola con la formula delle probabilit\`{a} totali:
+\[
 \Prob(S)
-&=\Prob(S\mid B_1)\Prob(B_1)
-+\Prob(S\mid B_2)\Prob(B_2)
-+\Prob(S\mid B_3)\Prob(B_3)\\
-&=0.10\cdot 0.60+0.40\cdot 0.30+0.80\cdot 0.10\\
-&=0.26.
-\end{aligned}
+=
+\Prob(S\mid R)\Prob(R)
++
+\Prob(S\mid R^c)\Prob(R^c).
+\]
+Pertanto
+\[
+\Prob(S)
+=
+0.75\cdot 0.20
++
+0.25\cdot 0.80
+=
+0.15+0.20
+=
+0.35.
+\]
+Applicando Bayes,
+\[
+\Prob(R\mid S)
+=
+\frac{0.75\cdot 0.20}{0.35}
+=
+\frac{0.15}{0.35}
+\simeq 0.4286.
 \]
 
-
-La probabilit\`{a} a posteriori dello stato critico, dato il segnale negativo,
-\`{e}
-\[
-\mathbb{P}(B_{3}\mid S)=\frac{\mathbb{P}(S\mid B_{3})\mathbb{P}(B_{3}%
-)}{\mathbb{P}(S)}=\frac{0.80\cdot0.10}{0.26}\simeq0.3077.
-\]
-L'osservazione del segnale negativo aumenta quindi la probabilit\`{a} dello
-stato critico dal $10\%$ a circa il $30.77\%$.
-
-Supponiamo ora che la probabilit\`{a} di default condizionata allo stato sia
-\[
-\mathbb{P}(D\mid B_{1})=0.01,\qquad\mathbb{P}(D\mid B_{2})=0.05,\qquad
-\mathbb{P}(D\mid B_{3})=0.20.
-\]
-Per calcolare la probabilit\`{a} di default dopo il segnale si determinano
-prima le probabilit\`{a} posteriori degli stati:
-\[
-\mathbb{P}(B_{1}\mid S)=\frac{0.10\cdot0.60}{0.26}\simeq0.2308,
-\]%
-\[
-\mathbb{P}(B_{2}\mid S)=\frac{0.40\cdot0.30}{0.26}\simeq0.4615,
-\]%
-\[
-\mathbb{P}(B_{3}\mid S)=\frac{0.80\cdot0.10}{0.26}\simeq0.3077.
-\]
-La probabilit\`{a} di default condizionata al segnale \`{e} quindi
-\[
-\begin{aligned}
-\Prob(D\mid S)
-&=\Prob(D\mid B_1)\Prob(B_1\mid S)
-+\Prob(D\mid B_2)\Prob(B_2\mid S)
-+\Prob(D\mid B_3)\Prob(B_3\mid S)\\
-&=0.01\cdot 0.2308+0.05\cdot 0.4615+0.20\cdot 0.3077\\
-&\simeq 0.0869.
-\end{aligned}
-\]
-Il segnale negativo porta quindi la probabilit\`{a} di default aggiornata a
-circa l'$8.69\%$. L'esempio mostra come probabilit\`{a} totali e formula di
-Bayes permettano di passare da un modello di scenari a una valutazione
-aggiornata del rischio.
+L'osservazione del segnale negativo modifica quindi la probabilit\`{a} di
+recessione da $0.20$ a circa $0.429$. In altri termini, il segnale negativo non
+implica con certezza una recessione, ma aumenta in modo significativo la
+probabilit\`{a} attribuita a tale scenario.
+    
+\end{example}
 
 \section{Esercizi svolti}
 
 \begin{exercise}
-Sia
+Un portafoglio pu\`{o} trovarsi, alla fine dell'orizzonte considerato, in uno
+dei seguenti cinque scenari:
 \[
-\Omega=\{\omega_{1},\omega_{2},\omega_{3},\omega_{4}\}
+\Omega=\{\omega_1,\omega_2,\omega_3,\omega_4,\omega_5\}.
 \]
-con probabilit\`{a} degli esiti elementari pari a $0.20,0.30,0.10,0.40$.
-Siano
+Le probabilit\`{a} degli scenari sono
 \[
-A=\{\omega_{1},\omega_{2}\},\qquad B=\{\omega_{2},\omega_{4}\}.
+\mathbb{P}(\{\omega_1\})=0.10,\quad
+\mathbb{P}(\{\omega_2\})=0.20,\quad
+\mathbb{P}(\{\omega_3\})=0.25,\quad
+\mathbb{P}(\{\omega_4\})=0.30,\quad
+\mathbb{P}(\{\omega_5\})=0.15.
 \]
-Calcolare $\mathbb{P}(A)$, $\mathbb{P}(B)$, $\mathbb{P}(A\cap B)$,
-$\mathbb{P}(A\cup B)$ e $\mathbb{P}(A^{c})$.
+Si considerino gli eventi
+\[
+A=\{\omega_1,\omega_2,\omega_3\},
+\qquad
+B=\{\omega_3,\omega_4,\omega_5\},
+\qquad
+C=\{\omega_1,\omega_5\}.
+\]
+Calcolare:
+\[
+\mathbb{P}(A),\quad \mathbb{P}(B),\quad
+\mathbb{P}(A\cap B),\quad \mathbb{P}(A\cup B),
+\quad \mathbb{P}(A\mid B).
+\]
+Verificare inoltre se $A$ e $B$ sono indipendenti e se $A$ e $C$ sono disgiunti.
 \end{exercise}
 
-\begin{solution}
+\paragraph{Soluzione}
 Si ha
 \[
-\mathbb{P}(A)=0.20+0.30=0.50,
+\mathbb{P}(A)=0.10+0.20+0.25=0.55,
 \]
+e
 \[
-\mathbb{P}(B)=0.30+0.40=0.70,
+\mathbb{P}(B)=0.25+0.30+0.15=0.70.
 \]
+L'intersezione tra $A$ e $B$ \`{e}
 \[
-A\cap B=\{\omega_{2}\}, \qquad\mathbb{P}(A\cap B)=0.30.
+A\cap B=\{\omega_3\},
 \]
-Pertanto
+quindi
 \[
-\mathbb{P}(A\cup B)=\mathbb{P}(A)+\mathbb{P}(B)-\mathbb{P}(A\cap B)
-=0.50+0.70-0.30=0.90.
+\mathbb{P}(A\cap B)=0.25.
 \]
-Infine
+La probabilit\`{a} dell'unione si calcola con la regola della somma:
 \[
-\mathbb{P}(A^{c})=1-\mathbb{P}(A)=0.50.
+\mathbb{P}(A\cup B)
+=
+\mathbb{P}(A)+\mathbb{P}(B)-\mathbb{P}(A\cap B)
+=
+0.55+0.70-0.25=1.
+\]
+La probabilit\`{a} condizionata di $A$ dato $B$ \`{e}
+\[
+\mathbb{P}(A\mid B)
+=
+\frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}
+=
+\frac{0.25}{0.70}
+\simeq 0.3571.
 \]
 
-\end{solution}
+Per verificare l'indipendenza tra $A$ e $B$, confrontiamo
+\[
+\mathbb{P}(A\cap B)
+\]
+con
+\[
+\mathbb{P}(A)\mathbb{P}(B).
+\]
+Poich\'{e}
+\[
+\mathbb{P}(A)\mathbb{P}(B)=0.55\cdot0.70=0.385,
+\]
+mentre
+\[
+\mathbb{P}(A\cap B)=0.25,
+\]
+gli eventi $A$ e $B$ non sono indipendenti.
+
+Infine,
+\[
+A\cap C=\{\omega_1\},
+\]
+quindi $A$ e $C$ non sono disgiunti.
 
 \begin{exercise}
-Sia $D$ l'evento di default e sia $S$ un segnale negativo. Supponiamo che
+Un debitore pu\`{o} trovarsi in uno di tre stati latenti:
 \[
-\mathbb{P}(D\cap S)=0.04,\qquad\mathbb{P}(S)=0.20.
+B_1=\text{solido},\qquad B_2=\text{fragile},\qquad B_3=\text{critico}.
 \]
-Calcolare $\mathbb{P}(D\mid S)$.
+Gli stati formano una partizione di $\Omega$ e hanno probabilit\`{a} a priori
+\[
+\mathbb{P}(B_1)=0.50,\qquad
+\mathbb{P}(B_2)=0.35,\qquad
+\mathbb{P}(B_3)=0.15.
+\]
+Si osserva un segnale negativo $S$. Le probabilit\`{a} del segnale nei tre stati sono
+\[
+\mathbb{P}(S\mid B_1)=0.05,\qquad
+\mathbb{P}(S\mid B_2)=0.30,\qquad
+\mathbb{P}(S\mid B_3)=0.75.
+\]
+Le probabilit\`{a} di default condizionate allo stato sono
+\[
+\mathbb{P}(D\mid B_1)=0.01,\qquad
+\mathbb{P}(D\mid B_2)=0.06,\qquad
+\mathbb{P}(D\mid B_3)=0.25.
+\]
+Assumendo che, condizionatamente allo stato $B_j$, il segnale $S$ non aggiunga
+ulteriore informazione diretta sul default, calcolare:
+\[
+\mathbb{P}(S),
+\qquad
+\mathbb{P}(B_j\mid S),\quad j=1,2,3,
+\qquad
+\mathbb{P}(D\mid S).
+\]
 \end{exercise}
 
-\begin{solution}
-Per definizione di probabilit\`{a} condizionata,
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\textwidth]{graphics/Eserc_cap01_a.png}
+\caption{Diagramma degli eventi considerati nell'esercizio.}
+\label{fig:eserc-cap01-a}
+\end{figure}
+
+\paragraph{Soluzione}
+La probabilit\`{a} non condizionata del segnale si ottiene con la formula delle
+probabilit\`{a} totali:
 \[
-\mathbb{P}(D\mid S)=\frac{\mathbb{P}(D\cap S)}{\mathbb{P}(S)}=\frac
-{0.04}{0.20}=0.20.
+\begin{aligned}
+\mathbb{P}(S)
+&=
+\mathbb{P}(S\mid B_1)\mathbb{P}(B_1)
++
+\mathbb{P}(S\mid B_2)\mathbb{P}(B_2)
++
+\mathbb{P}(S\mid B_3)\mathbb{P}(B_3)\\
+&=
+0.05\cdot0.50+0.30\cdot0.35+0.75\cdot0.15\\
+&=
+0.025+0.105+0.1125\\
+&=
+0.2425.
+\end{aligned}
 \]
-La probabilit\`{a} di default condizionata al segnale negativo \`{e} quindi
-pari al $20\%$.
-\end{solution}
+
+Applicando la formula di Bayes, si ottengono le probabilit\`{a} a posteriori:
+\[
+\mathbb{P}(B_1\mid S)
+=
+\frac{0.05\cdot0.50}{0.2425}
+\simeq 0.1031,
+\]
+\[
+\mathbb{P}(B_2\mid S)
+=
+\frac{0.30\cdot0.35}{0.2425}
+\simeq 0.4330,
+\]
+\[
+\mathbb{P}(B_3\mid S)
+=
+\frac{0.75\cdot0.15}{0.2425}
+\simeq 0.4639.
+\]
+
+Il segnale negativo aumenta quindi sensibilmente il peso dello stato critico,
+che passa da una probabilit\`{a} a priori pari a $0.15$ a una probabilit\`{a}
+a posteriori pari a circa $0.4639$.
+
+Per calcolare la probabilit\`{a} di default dopo il segnale, ricordiamo l'ipotesi che allo stato $B_j$, il segnale $S$ non aggiunga
+ulteriore informazione diretta sul default, cioè che
+\[
+\mathbb{P}(D\mid B_j)=\mathbb{P}(D\mid B_j \cap S)
+\]
+Usiamo quindi la
+scomposizione rispetto agli stati:
+\[
+\mathbb{P}(D\mid S)
+=
+\sum_{j=1}^3
+\mathbb{P}(D\mid B_j)\mathbb{P}(B_j\mid S).
+\]
+Questa formula utilizza l'ipotesi secondo cui, una volta noto lo stato $B_j$,
+il segnale $S$ non modifica ulteriormente la probabilit\`{a} di default.
+
+Pertanto
+\[
+\begin{aligned}
+\mathbb{P}(D\mid S)
+&=
+0.01\cdot0.1031
++
+0.06\cdot0.4330
++
+0.25\cdot0.4639\\
+&\simeq
+0.0010+0.0260+0.1160\\
+&\simeq 0.1430.
+\end{aligned}
+\]
+Dopo l'osservazione del segnale negativo, la probabilit\`{a} aggiornata di
+default \`{e} quindi circa pari al $14.30\%$.
 
 \section{Esercizi proposti}
 
 \begin{exercise}
-Si consideri uno spazio campionario con tre scenari di mercato: ribasso,
-stabilit\`{a} e rialzo. Si definiscano due eventi finanziari rilevanti e si
-calcolino unione, intersezione e complemento.
+Sia
+\[
+\Omega=\{\omega_1,\omega_2,\omega_3,\omega_4,\omega_5,\omega_6\}.
+\]
+Si consideri la partizione
+\[
+\mathcal{A}
+=
+\big\{
+A_1,A_2,A_3
+\big\},
+\]
+dove
+\[
+A_1=\{\omega_1,\omega_2\},\qquad
+A_2=\{\omega_3\},\qquad
+A_3=\{\omega_4,\omega_5,\omega_6\}.
+\]
+Costruire la $\sigma$-algebra generata da $\mathcal{A}$.
+
+Si consideri poi la partizione pi\`{u} fine
+\[
+\mathcal{R}
+=
+\big\{
+R_1,R_2,R_3,R_4
+\big\},
+\]
+dove
+\[
+R_1=\{\omega_1\},\qquad
+R_2=\{\omega_2\},\qquad
+R_3=\{\omega_3\},\qquad
+R_4=\{\omega_4,\omega_5,\omega_6\}.
+\]
+Verificare che $\mathcal{R}$ \`{e} un raffinamento di $\mathcal{A}$ e che
+\[
+\sigma(\mathcal{A})\subseteq\sigma(\mathcal{R}).
+\]
 \end{exercise}
 
 \begin{exercise}
