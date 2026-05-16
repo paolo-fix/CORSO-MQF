@@ -1,0 +1,583 @@
+%2multibyte Version: 5.50.0.2960 CodePage: 65001
+% ------------------------------------------------------------
+% Macro matematiche ufficiali del progetto MQF
+% Coerenti con MQF_Notazione.tex
+% ------------------------------------------------------------
+% Fallback utile per compilazione esterna se qualche titolo resta scritto come \QTR.
+% Scientific WorkPlace usa \QTR internamente; in Beamer \QTR{frametitle}{Titolo}
+% deve espandersi in \frametitle{Titolo}.
+
+\documentclass[notes=show,handout]{beamer}%
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{multimedia}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}%
+\setcounter{MaxMatrixCols}{30}
+%TCIDATA{OutputFilter=latex2.dll}
+%TCIDATA{Version=5.50.0.2960}
+%TCIDATA{Codepage=65001}
+%TCIDATA{CSTFile=beamer.cst}
+%TCIDATA{Created=Saturday, May 16, 2026 09:09:59}
+%TCIDATA{LastRevised=Saturday, May 16, 2026 11:24:58}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="2">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Other Documents\SW\Slides - Beamer">}
+%BeginMSIPreambleData
+\providecommand{\U}[1]{\protect\rule{.1in}{.1in}}
+%EndMSIPreambleData
+\newenvironment{stepenumerate}{\begin{enumerate}[<+->]}{\end{enumerate}}
+\newenvironment{stepitemize}{\begin{itemize}[<+->]}{\end{itemize} }
+\newenvironment{stepenumeratewithalert}{\begin{enumerate}[<+-| alert@+>]}{\end{enumerate}}
+\newenvironment{stepitemizewithalert}{\begin{itemize}[<+-| alert@+>]}{\end{itemize} }
+\usetheme{Madrid}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\E}{\mathbb{E}}
+\providecommand{\Prob}{\mathbb{P}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\F}{\mathcal{F}}
+\providecommand{\B}{\mathcal{B}}
+\providecommand{\G}{\mathcal{G}}
+\providecommand{\Var}{\operatorname{Var}}
+\providecommand{\Cov}{\operatorname{Cov}}
+\providecommand{\VaR}{\operatorname{VaR}}
+\providecommand{\CVaR}{\operatorname{CVaR}}
+\providecommand{\argmin}{\operatorname*{arg\,min}}
+\providecommand{\argmax}{\operatorname*{arg\,max}}
+\providecommand{\EVPI}{\operatorname{EVPI}}
+\providecommand{\VSS}{\operatorname{VSS}}
+\providecommand{\QTR}[2]{\csname #1\endcsname{#2}}
+%BeginMSIPreambleData
+\ifx\pdfoutput\relax\let\pdfoutput=\undefined\fi
+\newcount\msipdfoutput
+\ifx\pdfoutput\undefined\else
+\ifcase\pdfoutput\else
+\msipdfoutput=1
+\ifx\paperwidth\undefined\else
+\ifdim\paperheight=0pt\relax\else\pdfpageheight\paperheight\fi
+\ifdim\paperwidth=0pt\relax\else\pdfpagewidth\paperwidth\fi
+\fi\fi\fi
+%EndMSIPreambleData
+\begin{document}
+
+\title{Lezione 1 - Elementi di teoria della probabilit\`{a}}
+\subtitle{Metodi Quantitativi per la Finanza}
+\author[P. Falbo]{{\LARGE Prof. Paolo Falbo}}
+\institute[]{{\large Dipartimento Economia e Management}}
+\date[]{}
+
+
+\titlegraphic{
+\includegraphics[width=3.3cm]{graphics/logo-Unibs-esteso.png}
+}
+\maketitle
+\section{Apertura}
+
+\subsection{Domanda guida}%
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+%
+
+%TCIMACRO{\QTR{frametitle}{Lezione 1 -- Scenari, eventi e probabilit\`{a}}}%
+%BeginExpansion
+\frametitle{Lezione 1 -- Scenari, eventi e probabilit\`{a}}%
+%EndExpansion
+%
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+
+\begin{center}
+{\Large Come si rappresenta formalmente l'incertezza finanziaria?}
+\end{center}
+
+\medskip
+
+La finanza quantitativa studia grandezze che non sono note al momento della decisione:
+
+\begin{stepitemize}
+\item il rendimento futuro di un titolo;
+
+\item il valore futuro di un portafoglio;
+
+\item il default di una controparte;
+
+\item il superamento di una soglia di perdita;
+
+\item l'evoluzione di una traiettoria di mercato.
+\end{stepitemize}
+
+\medskip
+
+Il linguaggio di base sar\`{a} quello dello spazio di probabilit\`{a}:
+\[
+(\Omega,\F,\Prob).
+\]
+%
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion%
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\subsection{Percorso della lezione}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Percorso della lezione}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+L'obiettivo della lezione \`{e} costruire il primo linguaggio formale per
+descrivere l'incertezza in finanza.
+
+\medskip
+
+\begin{stepenumerate}
+\item[1.] Scenari ed eventi: $\Omega$, $\omega$, $A\in\F$.
+\item[2.] Esperimenti ripetuti e traiettorie:
+\[
+\omega=(\omega_1,\ldots,\omega_n).
+\]
+\item[3.] Operazioni sugli eventi: unione, intersezione, complemento.
+\item[4.] Informazione e sigma-algebre: $\F$.
+\item[5.] Misura di probabilit\`{a}: $\Prob(A)$.
+\item[6.] Condizionamento e aggiornamento bayesiano.
+\end{stepenumerate}
+
+\medskip
+
+\begin{center}
+{\small Dalla descrizione degli scenari alla probabilit\`{a} condizionata.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%***********************************************************
+\section{Spazio campionario ed eventi}
+
+\subsection{Scenari elementari}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Spazio campionario: l'insieme degli scenari}
+
+Uno spazio campionario descrive gli esiti elementari possibili di un fenomeno
+aleatorio.
+
+\medskip
+
+\[
+\Omega=\{\omega_1,\omega_2,\ldots,\omega_m\}
+\]
+
+\medskip
+
+\begin{stepitemize}
+\item $\Omega$ \`{e} l'insieme degli scenari possibili.
+\item $\omega\in\Omega$ \`{e} un esito elementare.
+\item Prima della realizzazione dell'incertezza, non sappiamo quale
+$\omega$ si verificher\`{a}.
+\end{stepitemize}
+
+\medskip
+
+\begin{center}
+{\small In finanza, uno scenario pu\`{o} descrivere uno stato di mercato,
+uno stato di credito o una configurazione futura dei fattori di rischio.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%***********************************************************
+\subsection{Eventi}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Eventi: propriet\`{a} degli scenari}
+
+Un evento \`{e} un sottoinsieme dello spazio campionario.
+
+\[
+A\subseteq \Omega
+\]
+
+Dire che l'evento $A$ si verifica significa che l'esito elementare realizzato
+appartiene ad $A$:
+
+\[
+\omega\in A.
+\]
+
+\medskip
+
+\begin{stepitemize}
+\item Evento certo: $\Omega$.
+\item Evento impossibile: $\emptyset$.
+\item Evento elementare: $\{\omega\}$.
+\item \textbf{Evento}: è il caso normale, un insieme che contiene pi\`{u} esiti elementari.
+\end{stepitemize}
+
+\medskip
+
+\begin{center}
+{\small Gli eventi traducono proposizioni finanziarie in oggetti matematici.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%***********************************************************
+\subsection{Un primo esempio finanziario}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Esempio: tre scenari di mercato}
+
+Consideriamo tre possibili scenari per il rendimento di un titolo su un periodo:
+
+\[
+\Omega=\{\omega_1,\omega_2,\omega_3\},
+\]
+
+dove
+
+\begin{stepenumerate}
+\item[1.] $\omega_1$ indica uno scenario di ribasso;
+\item[2.] $\omega_2$ indica uno scenario di stabilit\`{a};
+\item[3.] $\omega_3$ indica uno scenario di rialzo.
+\end{stepenumerate}
+
+\medskip
+
+Possiamo definire, ad esempio,
+
+\[
+A=\{\omega_1\},
+\qquad
+B=\{\omega_2,\omega_3\}.
+\]
+
+\begin{stepitemize}
+\item $A$ rappresenta l'evento di perdita.
+\item $B$ rappresenta l'evento di rendimento non negativo.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%***********************************************************
+\section{Esperimenti ripetuti e traiettorie}
+
+\subsection{Esperimenti ripetuti}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Esperimenti ripetuti}
+
+Molti problemi finanziari non riguardano un singolo esperimento aleatorio,
+ma una sequenza di esperimenti osservati nel tempo.
+
+\medskip
+
+Se l'incertezza viene osservata in $n$ date successive, possiamo introdurre
+gli spazi campionari
+
+\[
+\Omega_1,\Omega_2,\ldots,\Omega_n.
+\]
+
+\medskip
+
+Lo spazio campionario complessivo \`{e} il prodotto cartesiano
+
+\[
+\Omega=\Omega_1\times\Omega_2\times\cdots\times\Omega_n.
+\]
+
+\medskip
+
+\begin{stepitemize}
+\item Ogni $\Omega_i$ descrive gli esiti possibili alla data $i$.
+\item Lo spazio $\Omega$ descrive tutte le sequenze possibili.
+\item Un esito elementare diventa una \textbf{traiettoria}.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%***********************************************************
+\subsection{Notazione per le traiettorie}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Esiti elementari come traiettorie}
+
+Se poniamo
+\[
+\Omega=\Omega_1\times\Omega_2\times\cdots\times\Omega_n,
+\]
+allora un esito elementare $\omega\in\Omega$ \`{e} una $n$-pla
+
+\[
+\omega=(\omega_1,\omega_2,\ldots,\omega_n),
+\]
+
+dove
+
+\[
+\omega_i\in\Omega_i.
+\]
+
+\medskip
+
+\begin{stepitemize}
+\item $\omega_i$ \`{e} l'esito osservato alla data $i$.
+\item $\omega$ raccoglie l'intera sequenza degli esiti.
+\item In termini finanziari, $\omega$ descrive una possibile evoluzione
+temporale dei fattori rilevanti: prezzi, rendimenti, rating, default.
+\end{stepitemize}
+
+\medskip
+
+\begin{center}
+{\small Un esito elementare $\omega$ pu\`{o} rappresentare una traiettoria:
+una sequenza ordinata di realizzazioni nel tempo.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%***********************************************************
+\subsection{Esperimento ripetuto con stesso spazio elementare}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Il caso di esperimenti identici ripetuti}
+
+Se lo stesso esperimento viene ripetuto $n$ volte, possiamo porre
+
+\[
+\Omega_1=\Omega_2=\cdots=\Omega_n=\Omega^\ast.
+\]
+
+\medskip
+
+In questo caso lo spazio campionario complessivo \`{e}
+
+\[
+\Omega=(\Omega^\ast)^n.
+\]
+
+\medskip
+
+Se $\Omega^\ast$ contiene $m$ esiti elementari, allora
+
+\[
+|\Omega|=m^n.
+\]
+
+\medskip
+
+\begin{stepitemize}
+\item La dimensione dello spazio cresce rapidamente con $n$.
+\item Ogni elemento di $\Omega$ \`{e} una sequenza di lunghezza $n$.
+\item Questa struttura anticipa alberi binomiali, traiettorie simulate e
+processi stocastici.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%***********************************************************
+\subsection{Esempio: tre movimenti di mercato}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Esempio: tre movimenti di un titolo}
+
+A ogni data il prezzo di un titolo pu\`{o} registrare un rialzo $u$ oppure
+un ribasso $d$:
+
+\[
+\Omega^\ast=\{u,d\}.
+\]
+
+Per tre osservazioni successive,
+
+\[
+\Omega=(\Omega^\ast)^3=\{u,d\}^3.
+\]
+
+Gli esiti elementari sono
+
+\[
+\Omega=\{uuu,uud,udu,udd,duu,dud,ddu,ddd\}.
+\]
+
+\medskip
+
+\begin{stepitemize}
+\item $\omega=uuu$: tre rialzi consecutivi.
+\item $\omega=udd$: un rialzo seguito da due ribassi.
+\item $\omega=ddd$: tre ribassi consecutivi.
+\end{stepitemize}
+
+\medskip
+
+\begin{center}
+{\small Ogni esito elementare \`{e} una traiettoria di mercato.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%***********************************************************
+\subsection{Eventi definiti su traiettorie}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Eventi come propriet\`{a} delle traiettorie}
+
+Quando gli esiti elementari sono traiettorie, gli eventi descrivono propriet\`{a}
+dell'intera sequenza. Riprendendo:
+\[
+\Omega=\{uuu,uud,udu,udd,duu,dud,ddu,ddd\},
+\]
+
+possiamo definire:
+
+\[
+A=\{uuu,uud,udu,udd\},
+\]
+
+evento in cui il primo movimento \`{e} un rialzo;
+
+\[
+B=\{udd,dud,ddu\},
+\]
+
+evento in cui si osserva esattamente un rialzo;
+
+\[
+C=\{uuu,uud,udu,duu\},
+\]
+
+evento in cui si osservano almeno due rialzi.
+
+\medskip
+
+\begin{center}
+{\small Gli eventi possomo caratterizzare il percorso, non solo il valore finale.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\end{document}
