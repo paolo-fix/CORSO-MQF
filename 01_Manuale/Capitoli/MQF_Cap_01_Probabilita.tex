@@ -23,11 +23,11 @@ matematico di base con cui tale incertezza viene rappresentata. Questo
 linguaggio \`{e} quello della teoria della probabilit\`{a}. In particolare, il
 capitolo introduce gli elementi costitutivi di uno spazio di probabilit\`{a}:
 \[
-(\Omega,\mathcal{F},\mathbb{P}).
+(\Omega,\F,\Prob).
 \]
-L'insieme $\Omega$ rappresenta gli esiti elementari possibili, $\mathcal{F}$
+L'insieme $\Omega$ rappresenta gli esiti elementari possibili, $\F$
 rappresenta la famiglia degli eventi ai quali il modello assegna significato
-probabilistico, mentre $\mathbb{P}$ assegna a ciascun evento una probabilit\`{a}.
+probabilistico, mentre $\Prob$ assegna a ciascun evento una probabilit\`{a}.
 
 Il secondo obiettivo \`{e} chiarire come si calcolano le probabilit\`{a} di
 eventi composti e come si interpreta il condizionamento. In finanza, il
@@ -101,7 +101,7 @@ stato di default. L'evento di default \`{e}
 \[
 D=\{\omega_{D}\}.
 \]
-La probabilit\`{a} $\mathbb{P}(D)$ rappresenta la probabilit\`{a} di default
+La probabilit\`{a} $\Prob(D)$ rappresenta la probabilit\`{a} di default
 sull'orizzonte temporale considerato. Tale probabilit\`{a}, tuttavia, pu\`{o}
 essere rivista se si osserva un nuovo segnale informativo, ad esempio un
 peggioramento del rating o un aumento dello spread.
@@ -111,7 +111,7 @@ Questi esempi mostrano che un modello probabilistico richiede tre elementi:
 \text{scenari possibili}\quad\longrightarrow\quad\text{eventi rilevanti}%
 \quad\longrightarrow\quad\text{probabilit\`{a} degli eventi}.
 \]
-La tripla $(\Omega,\mathcal{F},\mathbb{P})$ formalizza precisamente questi tre elementi.
+La tripla $(\Omega,\F,\Prob)$ formalizza precisamente questi tre elementi.
 
 \section{Spazio campionario ed eventi}
 
@@ -310,7 +310,7 @@ comprendere il legame con modelli stocastici pi\`{u} generali.
 
 Questa costruzione sar\`{a} ripresa pi\`{u} volte. Nei processi stocastici,
 una traiettoria descrive l'evoluzione temporale di una variabile aleatoria.
-Negli alberi binomiali, ogni percorso dalla radice, detta \textit{foglia},
+Negli alberi binomiali, ogni percorso dalla \textit{radice}, alla \textit{foglia},
 rappresenta una sequenza di rialzi e ribassi. Nella simulazione, ogni replica
 genera una traiettoria casuale. Nella programmazione stocastica, uno scenario
 pu\`{o} essere interpretato come una realizzazione coerente dell'incertezza
@@ -379,7 +379,7 @@ dall'evento ottenuto unendo gli eventi che la compongono:
 \[
 \mathcal{A}\neq \bigcup_{i\in I}A_i.
 \]
-La famiglia \(\mathcal{A}\) \`{e} un insieme i cui elementi sono eventi, ma non è un evento; l'unione \(\bigcup_{i\in I}A_i\), invece, \`{e} un sottoinsieme di \(\Omega\), e quindi è un evento. 
+La famiglia \(\mathcal{A}\) \`{e} un insieme i cui elementi sono eventi, ma non \`{e} un evento; l'unione \(\bigcup_{i\in I}A_i\), invece, \`{e} un sottoinsieme di \(\Omega\), e quindi \`{e} un evento. 
 
 \begin{example}
 Sia
@@ -400,7 +400,7 @@ Essa non coincide con l'evento
 A\cup B=\{1,2,3,4,5,6\}=\Omega.
 \]
 Infatti \(\mathcal{A}\) \`{e} un insieme di sottoinsiemi di \(\Omega\), mentre \(A\cup B\) \`{e} un sottoinsieme di \(\Omega\). 
-La probabilit\`{a} \(P(A\cup B)\) \`{e} ben definita; al contrario, \(P(\mathcal{A})\) non ha significato nello spazio di probabilit\`{a} originario, perch\'{e} \(\mathcal{A}\) non \`{e} un evento di \(\mathcal{F}\), ma una collezione di eventi.
+La probabilit\`{a} \(P(A\cup B)\) \`{e} ben definita; al contrario, \(P(\mathcal{A})\) non ha significato nello spazio di probabilit\`{a} originario, perch\'{e} \(\mathcal{A}\) non \`{e} un evento di \(\F\), ma una collezione di eventi.
 \end{example}
 
 In altre parole:
@@ -432,7 +432,7 @@ Analogamente,
 rappresenta l'evento in cui nessuno degli eventi \(A_i\) si verifica.
 
 \subsection{Partizione di $\Omega$}
-Una importante famiglia di eventi è la \textbf{partizione di $\Omega$}.
+Una importante famiglia di eventi \`{e} la \textbf{partizione di $\Omega$}.
 
 \begin{definition}
 Una famiglia di eventi $B_{1},\ldots,B_{n}$ \`{e} una partizione di $\Omega$
@@ -449,29 +449,29 @@ probabilistico rispetto a scenari alternativi e mutuamente esclusivi.
 
 \subsection{Informazione e $\sigma$-algebre}
 
-Un'altra famiglia di eventi estremamente importante è la cosiddetta $\sigma$-algebra.
+Un'altra famiglia di eventi estremamente importante \`{e} la cosiddetta $\sigma$-algebra.
 \begin{definition}
-Una $\sigma$-algebra $\mathcal{F}$ su $\Omega$ \`{e} una famiglia di sottoinsiemi
+Una $\sigma$-algebra $\F$ su $\Omega$ \`{e} una famiglia di sottoinsiemi
 di $\Omega$ tale che:
 
 \begin{enumerate}
-\item $\Omega\in\mathcal{F}$;
+\item $\Omega\in\F$;
 
-\item se $A\in\mathcal{F}$, allora $A^{c}\in\mathcal{F}$;
+\item se $A\in\F$, allora $A^{c}\in\F$;
 
-\item se $A_{1},A_{2},\ldots$ appartengono a $\mathcal{F}$, allora
-$\bigcup_{n=1}^{\infty} A_{n}\in\mathcal{F}$.
+\item se $A_{1},A_{2},\ldots$ appartengono a $\F$, allora
+$\bigcup_{n=1}^{\infty} A_{n}\in\F$.
 \end{enumerate}
 \end{definition}
 
-Gli elementi di $\mathcal{F}$ sono eventi. L'interpretazione finanziaria \`{e} la seguente: $\mathcal{F}$ descrive quali
+Gli elementi di $\F$ sono eventi. L'interpretazione finanziaria \`{e} la seguente: $\F$ descrive quali
 eventi sono distinguibili nel modello. Una sigma-algebra pi\`{u} ricca
 consente di distinguere pi\`{u} eventi; una sigma-algebra pi\`{u} povera
 rappresenta un livello informativo pi\`{u} aggregato. Pi\`{u} in generale, una $\sigma$-algebra pu\`{o} essere interpretata come una rappresentazione matematica dell'informazione disponibile. Condizionare rispetto a un evento, o rispetto a una famiglia strutturata di eventi, significa allora ricalcolare le probabilit\`{a} alla luce dell'informazione espressa da quegli eventi. 
 
 La $\sigma$-algebra pi\`{u} povera che si possa definire su $\Omega$ \`{e}
 \[
-\mathcal{F}_{\min}=\{\emptyset,\Omega\}.
+\F_{\min}=\{\emptyset,\Omega\}.
 \]
 Essa contiene soltanto l'evento impossibile e l'evento certo. 
 Non distingue quindi alcun sottoinsieme proprio di $\Omega$ come evento osservabile. 
@@ -490,7 +490,7 @@ esiti $\Omega$ che sia suddiviso mediante una partizione finita
 \]
 i cui eventi rappresentano gli eventi elementari rilevanti per il
 problema. A partire dalla partizione $\mathcal{A}$ si pu\`{o} costruire in modo naturale
-una e una sola $\sigma$-algebra $\mathcal{F}$ generata dalla partizione. Essa
+una e una sola $\sigma$-algebra $\F$ generata dalla partizione. Essa
 \`{e} l'unica $\sigma$-algebra che contiene tutti gli elementi della
 partizione.
 
@@ -510,7 +510,7 @@ A_i^c=\Omega\setminus A_i.
 \]
 
 \item Si aggiungono poi tutte le unioni ottenibili dagli insiemi disponibili.
-In particolare, per ogni $A_i$ e $A_j$ già appartenenti o aggiunti alla collezione corrente, si aggiunge anche
+In particolare, per ogni $A_i$ e $A_j$ gi\`{a} appartenenti o aggiunti alla collezione corrente, si aggiunge anche
 \[
 A_z=A_i\cup A_j.
 \]
@@ -519,18 +519,18 @@ presenti.
 
 \item Dopo avere aggiunto complementari e unioni, si verifica se sono comparsi
 nuovi insiemi. Se la collezione si \`{e} ampliata, si ripete la procedura:
-si prendono nuovamente i complementari e le unioni degli insiemi ora disponibili. Viceversa, se non si riesce più ad arricchire la collezione, la procedura si ferma e la collezione così realizzata è la $\sigma$-algebra ricercata.
+si prendono nuovamente i complementari e le unioni degli insiemi ora disponibili. Viceversa, se non si riesce pi\`{u} ad arricchire la collezione, la procedura si ferma e la collezione cos\`{i} realizzata \`{e} la $\sigma$-algebra ricercata.
 \end{enumerate}
 
 La collezione finale cos\`{\i} ottenuta contiene $\emptyset$ e $\Omega$, \`{e}
-chiusa rispetto al complementare ed \`{e} chiusa rispetto all'unione.  Indichiamo questa $\sigma$-algebra $\mathcal{F}=\sigma(\mathcal{A})$.
+chiusa rispetto al complementare ed \`{e} chiusa rispetto all'unione.  Indichiamo questa $\sigma$-algebra $\F=\sigma(\mathcal{A})$.
 
 \paragraph*{Raffinamento di una partizione.}
 Ai fini dei capitoli successivi, \`{e} importante osservare che una
 $\sigma$-algebra pi\`{u} povera pu\`{o} essere inclusa in una
 $\sigma$-algebra pi\`{u} ricca:
 \[
-\mathcal{G}\subseteq\mathcal{F}.
+\mathcal{G}\subseteq\F.
 \]
 Questa inclusione formalizza il passaggio da un livello informativo pi\`{u}
 grossolano a uno pi\`{u} dettagliato. Quando le $\sigma$-algebre sono generate
@@ -629,14 +629,14 @@ l'insieme di tutti i sottoinsiemi di $\Omega$:
 \[
 \mathcal{P}(\Omega)=\{A:A\subseteq\Omega\}.
 \]
-$\mathcal{P}(\Omega)$ è costruibile applicando le codizioni di complementazione e di unione previste per una qualunque $\sigma$-algebra partendo da tutti gli eventi elementari di $\Omega$. In questo senso, esso rappresenta la famiglia pi\`{u} ampia di eventi che si possa considerare su $\Omega$.
+$\mathcal{P}(\Omega)$ \`{e} costruibile applicando le codizioni di complementazione e di unione previste per una qualunque $\sigma$-algebra partendo da tutti gli eventi elementari di $\Omega$. In questo senso, esso rappresenta la famiglia pi\`{u} ampia di eventi che si possa considerare su $\Omega$.
 Ogni altra $\sigma$-algebra di eventi su $\Omega$ sar\`{a} una sottocollezione di $\mathcal{P}(\Omega)$.
 
 Le $\sigma$-algebre su $\Omega$ sono ordinate per inclusione solo parzialmente:
 non tutte sono confrontabili tra loro. Tuttavia, quando pi\`{u} $\sigma$-algebre sono confrontabili per inclusione, esse formano
 una catena crescente
 \[
-\mathcal{F}_0\subseteq\mathcal{F}_1\subseteq\cdots\subseteq\mathcal{F}_n \subseteq \mathcal{P}(\Omega),
+\F_0\subseteq\F_1\subseteq\cdots\subseteq\F_n \subseteq \mathcal{P}(\Omega),
 \]
 interpretabile come una successione di livelli informativi progressivamente
 pi\`{u} ricchi. 
@@ -651,48 +651,48 @@ Prima di osservare i movimenti, l'informazione \`{e} minima. Dopo il primo
 movimento si pu\`{o} distinguere tra gli scenari che iniziano con $u$ e quelli
 che iniziano con $d$. Dopo due movimenti, la distinzione diventa pi\`{u} fine.
 Dopo tre movimenti l'informazione \`{e} completa. Questa successione di
-livelli informativi anticipa il ruolo delle filtrazioni $\{\mathcal{F}%
+livelli informativi anticipa il ruolo delle filtrazioni $\{\F%
 _{t}\}_{t=0}^{T}$, che saranno introdotte nei capitoli successivi.
 \end{example}
 
 \section{Misura di probabilit\`{a}}
 
 \begin{definition}
-Una misura di probabilit\`{a} su $(\Omega,\mathcal{F})$ \`{e} una funzione
+Una misura di probabilit\`{a} su $(\Omega,\F)$ \`{e} una funzione
 \[
-\mathbb{P}:\mathcal{F}\longrightarrow\lbrack0,1]
+\Prob:\F\longrightarrow\lbrack0,1]
 \]
 tale che:
 
 \begin{enumerate}
-\item $\mathbb{P}(A)\geq0$ per ogni $A\in\mathcal{F}$;
+\item $\Prob(A)\geq0$ per ogni $A\in\F$;
 
-\item $\mathbb{P}(\Omega)=1$;
+\item $\Prob(\Omega)=1$;
 
 \item se $A_{1},A_{2},\ldots$ sono eventi due a due disgiunti, allora
 \[
-\mathbb{P}\left(  \bigcup_{n=1}^{\infty} A_{n}\right)  = \sum_{n=1}^{\infty
-}\mathbb{P}(A_{n}).
+\Prob\left(  \bigcup_{n=1}^{\infty} A_{n}\right)  = \sum_{n=1}^{\infty
+}\Prob(A_{n}).
 \]
 
 \end{enumerate}
 \end{definition}
 
 Da questi assiomi discendono alcune regole di calcolo elementari. Per ogni
-$A,B\in\mathcal{F}$,
+$A,B\in\F$,
 \[
-\mathbb{P}(A^{c})=1-\mathbb{P}(A),
+\Prob(A^{c})=1-\Prob(A),
 \]
 e vale la \textbf{regola della somma}:
 \[
-\mathbb{P}(A\cup B)=\mathbb{P}(A)+\mathbb{P}(B)-\mathbb{P}(A\cap B).
+\Prob(A\cup B)=\Prob(A)+\Prob(B)-\Prob(A\cap B).
 \]
-Il termine $\mathbb{P}(A\cap B)$ viene sottratto perch\'{e} gli esiti appartenenti
+Il termine $\Prob(A\cap B)$ viene sottratto perch\'{e} gli esiti appartenenti
 ad $A\cap B$ sono conteggiati due volte nella somma
-$\mathbb{P}(A)+\mathbb{P}(B)$.
+$\Prob(A)+\Prob(B)$.
 Se $A$ e $B$ sono disgiunti, allora $A\cap B=\emptyset$ e la formula si riduce a
 \[
-\mathbb{P}(A\cup B)=\mathbb{P}(A)+\mathbb{P}(B).
+\Prob(A\cup B)=\Prob(A)+\Prob(B).
 \]
 
 
@@ -703,12 +703,12 @@ Supponiamo che uno spazio campionario finito sia dato da
 \]
 con
 \[
-\mathbb{P}(\{\omega_{1}\})=0.25,\qquad\mathbb{P}(\{\omega_{2}\})=0.35,\qquad
-\mathbb{P}(\{\omega_{3}\})=0.40.
+\Prob(\{\omega_{1}\})=0.25,\qquad\Prob(\{\omega_{2}\})=0.35,\qquad
+\Prob(\{\omega_{3}\})=0.40.
 \]
 Se $A=\{\omega_{1}\}$ e $B=\{\omega_{2},\omega_{3}\}$, allora
 \[
-\mathbb{P}(A)=0.25,\qquad\mathbb{P}(B)=0.35+0.40=0.75.
+\Prob(A)=0.25,\qquad\Prob(B)=0.35+0.40=0.75.
 \]
 
 \end{example}
@@ -718,11 +718,11 @@ Se $A=\{\omega_{1}\}$ e $B=\{\omega_{2},\omega_{3}\}$, allora
 \begin{definition}
 Uno spazio di probabilit\`{a} \`{e} una tripla
 \[
-(\Omega,\mathcal{F},\mathbb{P}),
+(\Omega,\F,\Prob),
 \]
-dove $\Omega$ \`{e} lo spazio campionario, $\mathcal{F}$ \`{e} una
-sigma-algebra di eventi e $\mathbb{P}$ \`{e} una misura di probabilit\`{a} su
-$\mathcal{F}$.
+dove $\Omega$ \`{e} lo spazio campionario, $\F$ \`{e} una
+sigma-algebra di eventi e $\Prob$ \`{e} una misura di probabilit\`{a} su
+$\F$.
 \end{definition}
 
 Questa tripla separa tre piani concettuali distinti: gli eventi elementari possibili,
@@ -730,15 +730,15 @@ gli eventi \textbf{osservabili} o \textbf{modellizzati}, e la probabilit\`{a} as
 eventi. La distinzione \`{e} essenziale in finanza, perch\'{e} una stessa
 struttura di scenari pu\`{o} essere valutata con misure di probabilit\`{a}
 diverse, ad esempio una misura storica oppure, nei modelli di pricing, una
-misura risk-neutral $\mathbb{Q}$.
+misura risk-neutral $\Q$.
 
 \section{Probabilit\`{a} condizionata}
 
 \begin{definition}
-Siano $A,B\in\mathcal{F}$ e sia $\mathbb{P}(B)>0$. La probabilit\`{a}
+Siano $A,B\in\F$ e sia $\Prob(B)>0$. La probabilit\`{a}
 condizionata di $A$ dato $B$ \`{e} definita da
 \[
-\mathbb{P}(A\mid B)=\frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}.
+\Prob(A\mid B)=\frac{\Prob(A\cap B)}{\Prob(B)}.
 \]
 
 \end{definition}
@@ -749,11 +749,11 @@ prospettiva, $B$ restringe lo spazio informativo rilevante.
 
 Dalla definizione segue la \textbf{regola del prodotto}:
 \[
-\mathbb{P}(A\cap B)=\mathbb{P}(A\mid B)\mathbb{P}(B).
+\Prob(A\cap B)=\Prob(A\mid B)\Prob(B).
 \]
-Simmetricamente, se $\mathbb{P}(A)>0$,
+Simmetricamente, se $\Prob(A)>0$,
 \[
-\mathbb{P}(A\cap B)=\mathbb{P}(B\mid A)\mathbb{P}(A).
+\Prob(A\cap B)=\Prob(B\mid A)\Prob(A).
 \]
 
 
@@ -762,12 +762,12 @@ Questo esempio ha funzione qualitativa. Sia $D$ l'evento di default di un
 debitore e sia $S$ l'evento che rappresenta l'osservazione di un segnale
 negativo di mercato. La probabilit\`{a}
 \[
-\mathbb{P}(D\mid S)
+\Prob(D\mid S)
 \]
 misura la probabilit\`{a} di default dopo avere osservato il segnale negativo.
 
-In generale, $\mathbb{P}(D\mid S)$ pu\`{o} essere molto diversa dalla
-probabilit\`{a} non condizionata $\mathbb{P}(D)$. Il segnale $S$ modifica
+In generale, $\Prob(D\mid S)$ pu\`{o} essere molto diversa dalla
+probabilit\`{a} non condizionata $\Prob(D)$. Il segnale $S$ modifica
 infatti l'informazione disponibile e restringe l'attenzione agli scenari nei
 quali tale segnale si \`{e} verificato.
 \end{example}
@@ -797,15 +797,15 @@ sapendo che almeno una si \`{e} deteriorata.
 
 Per definizione,
 \[
-\mathbb{P}(A\mid B)=\frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}.
+\Prob(A\mid B)=\frac{\Prob(A\cap B)}{\Prob(B)}.
 \]
 Poich\'{e} $A\subseteq B$, si ha $A\cap B=A$. Inoltre,
 \[
-\mathbb{P}(A)=\frac{1}{4},\qquad\mathbb{P}(B)=\frac{3}{4}.
+\Prob(A)=\frac{1}{4},\qquad\Prob(B)=\frac{3}{4}.
 \]
 Pertanto
 \[
-\mathbb{P}(A\mid B)=\frac{1/4}{3/4}=\frac{1}{3}.
+\Prob(A\mid B)=\frac{1/4}{3/4}=\frac{1}{3}.
 \]
 
 
@@ -821,7 +821,7 @@ $1$ e $10$, dove valori pi\`{u} elevati indicano migliore qualit\`{a}
 creditizia. In assenza di ulteriori informazioni, supponiamo che i dieci
 valori siano equiprobabili:
 \[
-\Omega=\{1,2,\ldots,10\},\qquad\mathbb{P}(\{\omega\})=\frac{1}{10}%
+\Omega=\{1,2,\ldots,10\},\qquad\Prob(\{\omega\})=\frac{1}{10}%
 \quad\text{per ogni }\omega\in\Omega.
 \]
 
@@ -838,17 +838,17 @@ B=\{5,6,7,8,9,10\}.
 \]
 Vogliamo calcolare
 \[
-\mathbb{P}(A\mid B).
+\Prob(A\mid B).
 \]
 
 
 Poich\'{e} $A\subseteq B$, si ha $A\cap B=A$. Inoltre,
 \[
-\mathbb{P}(A)=\frac{1}{10},\qquad\mathbb{P}(B)=\frac{6}{10}.
+\Prob(A)=\frac{1}{10},\qquad\Prob(B)=\frac{6}{10}.
 \]
 Quindi
 \[
-\mathbb{P}(A\mid B)=\frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}=\frac
+\Prob(A\mid B)=\frac{\Prob(A\cap B)}{\Prob(B)}=\frac
 {1/10}{6/10}=\frac{1}{6}.
 \]
 
@@ -869,7 +869,7 @@ tale sottoinsieme.
 
 \paragraph*{Regole della somma e del prodotto.}
 Le operazioni fondamentali tra eventi sono l'unione e l'intersezione. 
-La prima conduce alla \textbf{regola della somma} (già incontrata in precedenza e che qui richiamiamo brevemente), la seconda alla regola del prodotto.
+La prima conduce alla \textbf{regola della somma} (gi\`{a} incontrata in precedenza e che qui richiamiamo brevemente), la seconda alla regola del prodotto.
 
 Consideriamo inizialmente due eventi $A$ e $B$. 
 La regola della somma riguarda la probabilit\`{a} dell'unione $A\cup B$, cio\`{e} dell'evento in cui si verifica almeno uno tra $A$ e $B$.
@@ -880,54 +880,54 @@ A\cap B=\emptyset,
 \]
 allora i due eventi non possono verificarsi simultaneamente. In questo caso
 \[
-\mathbb{P}(A\cup B)=\mathbb{P}(A)+\mathbb{P}(B).
+\Prob(A\cup B)=\Prob(A)+\Prob(B).
 \]
-Se invece $A$ e $B$ non sono disgiunti, allora l'intersezione $A\cap B$ contiene gli esiti comuni ai due eventi. Tali esiti verrebbero conteggiati due volte nella somma $\mathbb{P}(A)+\mathbb{P}(B)$: una volta come parte di $A$ e una volta come parte di $B$. Per correggere questo doppio conteggio si sottrae la probabilit\`{a} dell'intersezione:
+Se invece $A$ e $B$ non sono disgiunti, allora l'intersezione $A\cap B$ contiene gli esiti comuni ai due eventi. Tali esiti verrebbero conteggiati due volte nella somma $\Prob(A)+\Prob(B)$: una volta come parte di $A$ e una volta come parte di $B$. Per correggere questo doppio conteggio si sottrae la probabilit\`{a} dell'intersezione:
 \[
-\mathbb{P}(A\cup B)
+\Prob(A\cup B)
 =
-\mathbb{P}(A)+\mathbb{P}(B)-\mathbb{P}(A\cap B).
+\Prob(A)+\Prob(B)-\Prob(A\cap B).
 \]
 
 La \textbf{regola del prodotto} riguarda invece la probabilit\`{a} dell'intersezione $A\cap B$, cio\`{e} dell'evento in cui $A$ e $B$ si verificano simultaneamente. 
-Nel caso generale, se $\mathbb{P}(A)>0$, si ha
+Nel caso generale, se $\Prob(A)>0$, si ha
 \[
-\mathbb{P}(A\cap B)
+\Prob(A\cap B)
 =
-\mathbb{P}(A)\mathbb{P}(B\mid A).
+\Prob(A)\Prob(B\mid A).
 \]
-Equivalentemente, se $\mathbb{P}(B)>0$,
+Equivalentemente, se $\Prob(B)>0$,
 \[
-\mathbb{P}(A\cap B)
+\Prob(A\cap B)
 =
-\mathbb{P}(B)\mathbb{P}(A\mid B).
+\Prob(B)\Prob(A\mid B).
 \]
 Questa \`{e} la forma generale della regola del prodotto: la probabilit\`{a} che si verifichino entrambi gli eventi \`{e} data dalla probabilit\`{a} del primo evento moltiplicata per la probabilit\`{a} del secondo evento condizionata al verificarsi del primo.
 
 Un caso particolare importante si ha quando il verificarsi di $A$ non modifica la probabilit\`{a} di $B$. In tal caso
 \[
-\mathbb{P}(B\mid A)=\mathbb{P}(B),
+\Prob(B\mid A)=\Prob(B),
 \]
 e la regola del prodotto si riduce a
 \[
-\mathbb{P}(A\cap B)
+\Prob(A\cap B)
 =
-\mathbb{P}(A)\mathbb{P}(B).
+\Prob(A)\Prob(B).
 \]
 
 \section{Indipendenza tra eventi}
 
 \begin{definition}
-Due eventi $A,B\in\mathcal{F}$ si dicono indipendenti se
+Due eventi $A,B\in\F$ si dicono indipendenti se
 \[
-\mathbb{P}(A\cap B)=\mathbb{P}(A)\mathbb{P}(B).
+\Prob(A\cap B)=\Prob(A)\Prob(B).
 \]
 
 \end{definition}
 
-Se $\mathbb{P}(B)>0$, l'indipendenza \`{e} equivalente a
+Se $\Prob(B)>0$, l'indipendenza \`{e} equivalente a
 \[
-\mathbb{P}(A\mid B)=\mathbb{P}(A).
+\Prob(A\mid B)=\Prob(A).
 \]
 Quindi $A$ e $B$ sono indipendenti quando la conoscenza del verificarsi di $B$
 non modifica la probabilit\`{a} attribuita ad $A$.
@@ -936,11 +936,11 @@ non modifica la probabilit\`{a} attribuita ad $A$.
 sono disgiunti e hanno probabilit\`{a} positiva, allora non sono indipendenti:
 infatti
 \[
-\mathbb{P}(A\cap B)=0,
+\Prob(A\cap B)=0,
 \]
 mentre
 \[
-\mathbb{P}(A)\mathbb{P}(B)>0.
+\Prob(A)\Prob(B)>0.
 \]
 In finanza, l'ipotesi di indipendenza deve essere utilizzata con cautela.
 Eventi di default apparentemente separati possono diventare fortemente
@@ -948,10 +948,10 @@ dipendenti in presenza di uno shock macroeconomico comune.
 
 \section{Formula delle probabilit\`{a} totali}
 
-Sia $B_{1},\ldots,B_{n}$ una partizione di $\Omega$ con $\mathbb{P}(B_{i})>0$
-per ogni $i$. Per ogni evento $A\in\mathcal{F}$ vale
+Sia $B_{1},\ldots,B_{n}$ una partizione di $\Omega$ con $\Prob(B_{i})>0$
+per ogni $i$. Per ogni evento $A\in\F$ vale
 \[
-\mathbb{P}(A)=\sum_{i=1}^{n}\mathbb{P}(A\mid B_{i})\mathbb{P}(B_{i}).
+\Prob(A)=\sum_{i=1}^{n}\Prob(A\mid B_{i})\Prob(B_{i}).
 \]
 
 
@@ -991,42 +991,42 @@ A\cap S_1, \qquad A\cap S_2, \qquad A\cap S_3
 \]
 sono disgiunti. Pertanto,
 \[
-\mathbb{P}(A)
+\Prob(A)
 =
-\mathbb{P}(A\cap S_1)
+\Prob(A\cap S_1)
 +
-\mathbb{P}(A\cap S_2)
+\Prob(A\cap S_2)
 +
-\mathbb{P}(A\cap S_3).
+\Prob(A\cap S_3).
 \]
 Applicando la regola del prodotto a ciascun termine, si ottiene
 \[
-\mathbb{P}(A)
+\Prob(A)
 =
-\mathbb{P}(A\mid S_1)\mathbb{P}(S_1)
+\Prob(A\mid S_1)\Prob(S_1)
 +
-\mathbb{P}(A\mid S_2)\mathbb{P}(S_2)
+\Prob(A\mid S_2)\Prob(S_2)
 +
-\mathbb{P}(A\mid S_3)\mathbb{P}(S_3).
+\Prob(A\mid S_3)\Prob(S_3).
 \]
 Questa \`{e} la formula delle probabilit\`{a} totali.
 
 Supponiamo, ad esempio, che le probabilit\`{a} dei tre stati siano
 \[
-\mathbb{P}(S_1)=0.20, \qquad
-\mathbb{P}(S_2)=0.50, \qquad
-\mathbb{P}(S_3)=0.30.
+\Prob(S_1)=0.20, \qquad
+\Prob(S_2)=0.50, \qquad
+\Prob(S_3)=0.30.
 \]
 Supponiamo inoltre che la probabilit\`{a} di ottenere un rendimento positivo nei tre stati sia:
 \[
-\mathbb{P}(A\mid S_1)=0.25, \qquad
-\mathbb{P}(A\mid S_2)=0.60, \qquad
-\mathbb{P}(A\mid S_3)=0.85.
+\Prob(A\mid S_1)=0.25, \qquad
+\Prob(A\mid S_2)=0.60, \qquad
+\Prob(A\mid S_3)=0.85.
 \]
 Allora
 \[
 \begin{aligned}
-\mathbb{P}(A)
+\Prob(A)
 &=
 0.25\cdot 0.20
 +
@@ -1050,7 +1050,7 @@ valutazione iniziale della probabilit\`{a} degli scenari, prima di osservare una
 nuova informazione. Se $B_1,\ldots,B_n$ sono scenari alternativi e mutuamente
 esclusivi, le quantit\`{a}
 \[
-\mathbb{P}(B_1),\ldots,\mathbb{P}(B_n)
+\Prob(B_1),\ldots,\Prob(B_n)
 \]
 rappresentano le probabilit\`{a} a priori degli scenari.
 
@@ -1058,15 +1058,15 @@ Le probabilit\`{a} a posteriori descrivono invece la valutazione aggiornata
 della probabilit\`{a} degli stessi scenari dopo avere osservato un evento $A$.
 Esse sono quindi probabilit\`{a} condizionate del tipo
 \[
-\mathbb{P}(B_j\mid A),
+\Prob(B_j\mid A),
 \qquad j=1,\ldots,n.
 \]
 La formula di Bayes fornisce precisamente la regola con cui passare dalle
-probabilit\`{a} a priori $\mathbb{P}(B_j)$ alle probabilit\`{a} a posteriori
-$\mathbb{P}(B_j\mid A)$, tenendo conto della legge delle probabilità totali (i.e. le probabilit\`{a} con cui l'informazione osservata $A$ si manifesta nei diversi scenari).
+probabilit\`{a} a priori $\Prob(B_j)$ alle probabilit\`{a} a posteriori
+$\Prob(B_j\mid A)$, tenendo conto della legge delle probabilit\`{a} totali (i.e. le probabilit\`{a} con cui l'informazione osservata $A$ si manifesta nei diversi scenari).
 \[
-\mathbb{P}(B_{j}\mid A) = \frac{\mathbb{P}(A\mid B_{j})\mathbb{P}(B_{j})}
-{\sum_{i=1}^{n}\mathbb{P}(A\mid B_{i})\mathbb{P}(B_{i})}.
+\Prob(B_{j}\mid A) = \frac{\Prob(A\mid B_{j})\Prob(B_{j})}
+{\sum_{i=1}^{n}\Prob(A\mid B_{i})\Prob(B_{i})}.
 \]
 
 Nel linguaggio del rischio di credito, $B_{j}$ pu\`{o} rappresentare uno stato
@@ -1167,11 +1167,11 @@ dei seguenti cinque scenari:
 \]
 Le probabilit\`{a} degli scenari sono
 \[
-\mathbb{P}(\{\omega_1\})=0.10,\quad
-\mathbb{P}(\{\omega_2\})=0.20,\quad
-\mathbb{P}(\{\omega_3\})=0.25,\quad
-\mathbb{P}(\{\omega_4\})=0.30,\quad
-\mathbb{P}(\{\omega_5\})=0.15.
+\Prob(\{\omega_1\})=0.10,\quad
+\Prob(\{\omega_2\})=0.20,\quad
+\Prob(\{\omega_3\})=0.25,\quad
+\Prob(\{\omega_4\})=0.30,\quad
+\Prob(\{\omega_5\})=0.15.
 \]
 Si considerino gli eventi
 \[
@@ -1183,9 +1183,9 @@ C=\{\omega_1,\omega_5\}.
 \]
 Calcolare:
 \[
-\mathbb{P}(A),\quad \mathbb{P}(B),\quad
-\mathbb{P}(A\cap B),\quad \mathbb{P}(A\cup B),
-\quad \mathbb{P}(A\mid B).
+\Prob(A),\quad \Prob(B),\quad
+\Prob(A\cap B),\quad \Prob(A\cup B),
+\quad \Prob(A\mid B).
 \]
 Verificare inoltre se $A$ e $B$ sono indipendenti e se $A$ e $C$ sono disgiunti.
 \end{exercise}
@@ -1193,11 +1193,11 @@ Verificare inoltre se $A$ e $B$ sono indipendenti e se $A$ e $C$ sono disgiunti.
 \paragraph{Soluzione}
 Si ha
 \[
-\mathbb{P}(A)=0.10+0.20+0.25=0.55,
+\Prob(A)=0.10+0.20+0.25=0.55,
 \]
 e
 \[
-\mathbb{P}(B)=0.25+0.30+0.15=0.70.
+\Prob(B)=0.25+0.30+0.15=0.70.
 \]
 L'intersezione tra $A$ e $B$ \`{e}
 \[
@@ -1205,21 +1205,21 @@ A\cap B=\{\omega_3\},
 \]
 quindi
 \[
-\mathbb{P}(A\cap B)=0.25.
+\Prob(A\cap B)=0.25.
 \]
 La probabilit\`{a} dell'unione si calcola con la regola della somma:
 \[
-\mathbb{P}(A\cup B)
+\Prob(A\cup B)
 =
-\mathbb{P}(A)+\mathbb{P}(B)-\mathbb{P}(A\cap B)
+\Prob(A)+\Prob(B)-\Prob(A\cap B)
 =
 0.55+0.70-0.25=1.
 \]
 La probabilit\`{a} condizionata di $A$ dato $B$ \`{e}
 \[
-\mathbb{P}(A\mid B)
+\Prob(A\mid B)
 =
-\frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}
+\frac{\Prob(A\cap B)}{\Prob(B)}
 =
 \frac{0.25}{0.70}
 \simeq 0.3571.
@@ -1227,19 +1227,19 @@ La probabilit\`{a} condizionata di $A$ dato $B$ \`{e}
 
 Per verificare l'indipendenza tra $A$ e $B$, confrontiamo
 \[
-\mathbb{P}(A\cap B)
+\Prob(A\cap B)
 \]
 con
 \[
-\mathbb{P}(A)\mathbb{P}(B).
+\Prob(A)\Prob(B).
 \]
 Poich\'{e}
 \[
-\mathbb{P}(A)\mathbb{P}(B)=0.55\cdot0.70=0.385,
+\Prob(A)\Prob(B)=0.55\cdot0.70=0.385,
 \]
 mentre
 \[
-\mathbb{P}(A\cap B)=0.25,
+\Prob(A\cap B)=0.25,
 \]
 gli eventi $A$ e $B$ non sono indipendenti.
 
@@ -1256,30 +1256,30 @@ B_1=\text{solido},\qquad B_2=\text{fragile},\qquad B_3=\text{critico}.
 \]
 Gli stati formano una partizione di $\Omega$ e hanno probabilit\`{a} a priori
 \[
-\mathbb{P}(B_1)=0.50,\qquad
-\mathbb{P}(B_2)=0.35,\qquad
-\mathbb{P}(B_3)=0.15.
+\Prob(B_1)=0.50,\qquad
+\Prob(B_2)=0.35,\qquad
+\Prob(B_3)=0.15.
 \]
 Si osserva un segnale negativo $S$. Le probabilit\`{a} del segnale nei tre stati sono
 \[
-\mathbb{P}(S\mid B_1)=0.05,\qquad
-\mathbb{P}(S\mid B_2)=0.30,\qquad
-\mathbb{P}(S\mid B_3)=0.75.
+\Prob(S\mid B_1)=0.05,\qquad
+\Prob(S\mid B_2)=0.30,\qquad
+\Prob(S\mid B_3)=0.75.
 \]
 Le probabilit\`{a} di default condizionate allo stato sono
 \[
-\mathbb{P}(D\mid B_1)=0.01,\qquad
-\mathbb{P}(D\mid B_2)=0.06,\qquad
-\mathbb{P}(D\mid B_3)=0.25.
+\Prob(D\mid B_1)=0.01,\qquad
+\Prob(D\mid B_2)=0.06,\qquad
+\Prob(D\mid B_3)=0.25.
 \]
 Assumendo che, condizionatamente allo stato $B_j$, il segnale $S$ non aggiunga
 ulteriore informazione diretta sul default, calcolare:
 \[
-\mathbb{P}(S),
+\Prob(S),
 \qquad
-\mathbb{P}(B_j\mid S),\quad j=1,2,3,
+\Prob(B_j\mid S),\quad j=1,2,3,
 \qquad
-\mathbb{P}(D\mid S).
+\Prob(D\mid S).
 \]
 \end{exercise}
 
@@ -1295,13 +1295,13 @@ La probabilit\`{a} non condizionata del segnale si ottiene con la formula delle
 probabilit\`{a} totali:
 \[
 \begin{aligned}
-\mathbb{P}(S)
+\Prob(S)
 &=
-\mathbb{P}(S\mid B_1)\mathbb{P}(B_1)
+\Prob(S\mid B_1)\Prob(B_1)
 +
-\mathbb{P}(S\mid B_2)\mathbb{P}(B_2)
+\Prob(S\mid B_2)\Prob(B_2)
 +
-\mathbb{P}(S\mid B_3)\mathbb{P}(B_3)\\
+\Prob(S\mid B_3)\Prob(B_3)\\
 &=
 0.05\cdot0.50+0.30\cdot0.35+0.75\cdot0.15\\
 &=
@@ -1313,19 +1313,19 @@ probabilit\`{a} totali:
 
 Applicando la formula di Bayes, si ottengono le probabilit\`{a} a posteriori:
 \[
-\mathbb{P}(B_1\mid S)
+\Prob(B_1\mid S)
 =
 \frac{0.05\cdot0.50}{0.2425}
 \simeq 0.1031,
 \]
 \[
-\mathbb{P}(B_2\mid S)
+\Prob(B_2\mid S)
 =
 \frac{0.30\cdot0.35}{0.2425}
 \simeq 0.4330,
 \]
 \[
-\mathbb{P}(B_3\mid S)
+\Prob(B_3\mid S)
 =
 \frac{0.75\cdot0.15}{0.2425}
 \simeq 0.4639.
@@ -1336,17 +1336,17 @@ che passa da una probabilit\`{a} a priori pari a $0.15$ a una probabilit\`{a}
 a posteriori pari a circa $0.4639$.
 
 Per calcolare la probabilit\`{a} di default dopo il segnale, ricordiamo l'ipotesi che allo stato $B_j$, il segnale $S$ non aggiunga
-ulteriore informazione diretta sul default, cioè che
+ulteriore informazione diretta sul default, cio\`{e} che
 \[
-\mathbb{P}(D\mid B_j)=\mathbb{P}(D\mid B_j \cap S)
+\Prob(D\mid B_j)=\Prob(D\mid B_j \cap S)
 \]
 Usiamo quindi la
 scomposizione rispetto agli stati:
 \[
-\mathbb{P}(D\mid S)
+\Prob(D\mid S)
 =
 \sum_{j=1}^3
-\mathbb{P}(D\mid B_j)\mathbb{P}(B_j\mid S).
+\Prob(D\mid B_j)\Prob(B_j\mid S).
 \]
 Questa formula utilizza l'ipotesi secondo cui, una volta noto lo stato $B_j$,
 il segnale $S$ non modifica ulteriormente la probabilit\`{a} di default.
@@ -1354,7 +1354,7 @@ il segnale $S$ non modifica ulteriormente la probabilit\`{a} di default.
 Pertanto
 \[
 \begin{aligned}
-\mathbb{P}(D\mid S)
+\Prob(D\mid S)
 &=
 0.01\cdot0.1031
 +
@@ -1416,7 +1416,7 @@ Verificare che $\mathcal{R}$ \`{e} un raffinamento di $\mathcal{A}$ e che
 \begin{exercise}
 Siano $A$ e $B$ due eventi con
 \[
-\mathbb{P}(A)=0.40,\qquad\mathbb{P}(B)=0.50,\qquad\mathbb{P}(A\cap B)=0.20.
+\Prob(A)=0.40,\qquad\Prob(B)=0.50,\qquad\Prob(A\cap B)=0.20.
 \]
 Verificare se $A$ e $B$ sono indipendenti.
 \end{exercise}
@@ -1431,10 +1431,10 @@ l'osservazione del segnale.
 
 \section{Sintesi finale}
 
-Uno spazio di probabilit\`{a} $(\Omega,\mathcal{F},\mathbb{P})$ fornisce la
+Uno spazio di probabilit\`{a} $(\Omega,\F,\Prob)$ fornisce la
 rappresentazione formale dell'incertezza. Lo spazio campionario $\Omega$
-descrive gli esiti possibili; la sigma-algebra $\mathcal{F}$ descrive gli
-eventi considerati dal modello; la misura $\mathbb{P}$ assegna probabilit\`{a}
+descrive gli esiti possibili; la sigma-algebra $\F$ descrive gli
+eventi considerati dal modello; la misura $\Prob$ assegna probabilit\`{a}
 agli eventi.
 
 Le operazioni sugli eventi consentono di rappresentare eventi alternativi,
