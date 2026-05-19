@@ -1,0 +1,571 @@
+%2multibyte Version: 5.50.0.2960 CodePage: 65001
+% MQF_Manuale_Master_SW55_Memoir.tex
+% Master del manuale MQF costruito sullo shell SW5.5 "Memoir Class for Configurable Typesetting".
+% Versione modulare: i capitoli scritti sono inclusi con \input.%
+% POSIZIONE DEI FILE
+% Questo master deve stare nella cartella 01_Manuale.
+% I capitoli devono stare nella sottocartella 01_Manuale/Capitoli.
+% Non mettere il master dentro Capitoli.
+% I capitoli futuri restano come traccia, ma non generano pagine nel documento.
+% Evita pagine bianche dovute all'apertura dei capitoli su pagina dispari.
+% ------------------------------------------------------------
+% Nomi italiani
+% ------------------------------------------------------------
+% ------------------------------------------------------------
+% Macro matematiche ufficiali del progetto MQF
+% Coerenti con MQF_Notazione.tex
+% ------------------------------------------------------------
+% ------------------------------------------------------------
+% Ambienti di tipo teorema.
+% I nomi interni restano compatibili con lo shell SW.
+% Le etichette stampate sono in italiano.
+% ------------------------------------------------------------
+% MQF_Manuale_Master_SW55_Memoir.tex
+% Master del manuale MQF costruito sullo shell SW5.5 "Memoir Class for Configurable Typesetting".
+% Versione modulare: i capitoli scritti sono inclusi con \input.%
+% POSIZIONE DEI FILE
+% Questo master deve stare nella cartella 01_Manuale.
+% I capitoli devono stare nella sottocartella 01_Manuale/Capitoli.
+% Non mettere il master dentro Capitoli.
+% I capitoli futuri restano come traccia, ma non generano pagine nel documento.
+% Evita pagine bianche dovute all'apertura dei capitoli su pagina dispari.
+% ------------------------------------------------------------
+% Nomi italiani
+% ------------------------------------------------------------
+% ------------------------------------------------------------
+% Macro matematiche ufficiali del progetto MQF
+% Coerenti con MQF_Notazione.tex
+% ------------------------------------------------------------
+% ------------------------------------------------------------
+% Ambienti di tipo teorema.
+% I nomi interni restano compatibili con lo shell SW.
+% Le etichette stampate sono in italiano.
+% ------------------------------------------------------------
+
+%TCIDATA{OutputFilter=latex2.dll}
+%TCIDATA{Version=5.50.0.2960}
+%TCIDATA{LaTeXparent=1,1,MQF_Manuale_Master.tex}
+
+
+\chapter{Variabili casuali e distribuzioni}
+
+\section{Obiettivi della lezione}
+
+\label{sec:cap2-obiettivi}
+
+Nel Capitolo 1 sono stati introdotti gli elementi fondamentali del linguaggio
+probabilistico: lo spazio degli esiti, gli eventi, le operazioni sugli eventi
+e la misura di probabilit\`{a}. Tale linguaggio consente di descrivere
+l'incertezza in termini di eventi del tipo ``un certo scenario si verifica''
+oppure ``un certo insieme di esiti si realizza''.
+
+In molte applicazioni della finanza quantitativa, tuttavia, l'interesse
+principale non \`{e} rivolto direttamente agli esiti elementari dello spazio
+campionario, ma a quantit\`{a} numeriche che dipendono da tali esiti. Un
+rendimento futuro, una perdita di portafoglio, il prezzo futuro di
+un'attivit\`{a} finanziaria o il payoff di un contratto derivato sono esempi
+di grandezze aleatorie. Formalmente, esse sono rappresentate mediante
+variabili casuali, cio\`{e} funzioni del tipo
+\[
+X:\Omega\longrightarrow\mathbb{R}.
+\]
+
+
+Lo scopo di questo capitolo \`{e} introdurre il linguaggio delle variabili
+casuali e delle loro distribuzioni. Il passaggio concettuale fondamentale
+\`{e} il seguente: da una probabilit\`{a} definita sugli eventi dello spazio
+campionario si costruisce una descrizione probabilistica dei valori assunti da
+una grandezza numerica aleatoria. In questo modo diventa possibile studiare
+eventi finanziariamente rilevanti quali
+\[
+\{R<0\},\qquad\{L>\ell\},\qquad\{S_{T}>K\},
+\]
+dove $R$ pu\`{o} rappresentare un rendimento, $L$ una perdita e $S_{T}$ il
+prezzo futuro di un'attivit\`{a} finanziaria.
+
+Al termine della lezione lo studente dovr\`{a} essere in grado di:
+
+\begin{enumerate}
+\item definire una variabile casuale come funzione misurabile dallo spazio
+campionario alla retta reale;
+
+\item interpretare eventi del tipo
+\[
+\{X\leq x\},\qquad\{X=x_{i}\},\qquad\{a<X\leq b\}
+\]
+come eventi appartenenti alla sigma-algebra $\mathcal{F}$;
+
+\item definire la distribuzione di una variabile casuale e la funzione di
+ripartizione
+\[
+F_{X}(x)=\mathbb{P}(X\leq x);
+\]
+
+
+\item distinguere tra variabili casuali discrete, descritte mediante una
+funzione di massa $p_{X}$, e variabili casuali assolutamente continue,
+descritte mediante una densit\`{a} $f_{X}$;
+
+\item calcolare probabilit\`{a} associate a intervalli e code distributive,
+usando la funzione di ripartizione, la funzione di massa o la densit\`{a};
+
+\item definire e interpretare il valore atteso
+\[
+\mathbb{E}[X],
+\]
+la varianza
+\[
+\operatorname{Var}(X),
+\]
+la deviazione standard e, pi\`{u} in generale, i momenti di una variabile casuale;
+
+\item calcolare il valore atteso di funzioni di variabili casuali, con
+particolare riferimento a payoff finanziari del tipo $g(X)$;
+
+\item introdurre il concetto di quantile, con particolare attenzione alla sua
+interpretazione nella misura delle perdite e del rischio;
+
+\item riconoscere alcune famiglie distributive fondamentali, tra cui le
+distribuzioni di Bernoulli, binomiale, di Poisson, uniforme, normale e lognormale.
+\end{enumerate}
+
+Il capitolo costruisce quindi il ponte tra la teoria degli eventi e la
+misurazione quantitativa del rischio. La sequenza logica che guider\`{a}
+l'esposizione \`{e}
+\[
+(\Omega,\mathcal{F},\mathbb{P}) \quad\longrightarrow\quad X \quad
+\longrightarrow\quad F_{X},\ p_{X},\ f_{X} \quad\longrightarrow\quad
+\mathbb{E}[X],\ \operatorname{Var}(X),\ q_{\alpha}(X).
+\]
+Questa sequenza permette di passare dalla descrizione astratta dell'incertezza
+alla rappresentazione analitica di rendimenti, perdite e payoff aleatori.
+
+\section{Motivazione finanziaria: rendimenti, perdite e payoff aleatori}
+
+\label{sec:cap2-motivazione-finanziaria}
+
+Nelle applicazioni finanziarie l'incertezza non riguarda soltanto il
+verificarsi o meno di un evento, ma soprattutto il valore numerico assunto da
+una grandezza economica o finanziaria. L'esito futuro di un mercato pu\`{o}
+determinare un rendimento positivo o negativo, una perdita di portafoglio, il
+prezzo futuro di un'attivit\`{a} finanziaria o il payoff di un contratto
+derivato. Tali grandezze non sono note al tempo iniziale, ma diventano note
+solo dopo la realizzazione dello scenario rilevante.
+
+Il linguaggio degli eventi, introdotto nel Capitolo 1, consente di formulare
+affermazioni del tipo
+\[
+A=\{\text{il mercato scende}\}, \qquad B=\{\text{il debitore non rimborsa il
+prestito}\}.
+\]
+Tuttavia, in molti problemi di finanza quantitativa, \`{e} necessario
+descrivere non solo se un evento si verifica, ma anche quanto vale una
+determinata grandezza in ciascuno scenario. Per questo motivo si introduce il
+concetto di variabile casuale.
+
+Ad esempio, se $R$ indica il rendimento aleatorio di un'attivit\`{a}
+finanziaria, non interessa soltanto l'evento
+\[
+\{R<0\},
+\]
+cio\`{e} l'evento in cui il rendimento \`{e} negativo. Interessa anche la
+distribuzione dei possibili valori di $R$, perch\'{e} tale distribuzione
+consente di valutare la probabilit\`{a} di perdite moderate, di perdite
+estreme, di rendimenti elevati o di risultati prossimi al valore medio.
+
+In modo analogo, se $L$ indica la perdita aleatoria di un portafoglio, eventi
+del tipo
+\[
+\{L>\ell\}
+\]
+descrivono il superamento di una soglia di perdita $\ell$. La quantit\`{a}
+\[
+\mathbb{P}(L>\ell)
+\]
+rappresenta quindi una probabilit\`{a} di coda, cio\`{e} la probabilit\`{a}
+che la perdita superi un livello prefissato. Questo tipo di probabilit\`{a}
+\`{e} centrale nella misurazione del rischio finanziario, poich\'{e} permette
+di studiare non soltanto il comportamento medio di un portafoglio, ma anche la
+severit\`{a} degli scenari sfavorevoli.
+
+Un terzo esempio fondamentale \`{e} fornito dai contratti derivati. Sia
+$S_{T}$ il prezzo aleatorio, al tempo futuro $T$, di un'attivit\`{a}
+sottostante. Il payoff di un'opzione call europea con prezzo di esercizio $K$
+\`{e}
+\[
+H=(S_{T}-K)^{+},
+\]
+dove
+\[
+(S_{T}-K)^{+}=\max\{S_{T}-K,0\}.
+\]
+Anche in questo caso il payoff $H$ \`{e} una variabile casuale: il suo valore
+dipende dallo scenario futuro e, in particolare, dal valore assunto da $S_{T}%
+$. L'evento
+\[
+\{S_{T}>K\}
+\]
+indica che l'opzione termina in the money, mentre la quantit\`{a}
+\[
+\mathbb{P}(S_{T}>K)
+\]
+misura la probabilit\`{a} che il payoff sia strettamente positivo.
+
+Questi esempi mostrano che una parte rilevante della finanza quantitativa
+pu\`{o} essere formulata mediante grandezze aleatorie numeriche:
+\[%
+\begin{array}
+[c]{ll}%
+R=\mbox{rendimento aleatorio}, & L=\mbox{perdita aleatoria},\\[4pt]%
+S_{T}=\mbox{prezzo futuro aleatorio}, & H=\mbox{payoff aleatorio}.
+\end{array}
+\]
+La variabile casuale \`{e} dunque lo strumento matematico che consente di
+associare un numero reale a ciascuno scenario possibile.
+
+Il problema centrale diventa allora descrivere la distribuzione probabilistica
+di tali grandezze. In particolare, si vogliono rispondere domande del tipo:
+\[
+\mathbb{P}(R<0)=?
+\]
+\[
+\mathbb{P}(L>\ell)=?
+\]
+\[
+\mathbb{E}[R]=?
+\]
+\[
+\operatorname{Var}(R)=?
+\]
+\[
+q_{\alpha}(L)=?
+\]
+Le prime due domande riguardano probabilit\`{a} di eventi definiti tramite
+variabili casuali. La terza riguarda il rendimento medio atteso. La quarta
+riguarda la dispersione del rendimento intorno al proprio valore atteso. La
+quinta riguarda un quantile della distribuzione della perdita, cio\`{e} una
+soglia che viene superata solo con una probabilit\`{a} prefissata.
+
+In questa prospettiva, una variabile casuale non \`{e} semplicemente un numero
+incerto. Essa \`{e} una funzione che trasforma gli esiti elementari in valori
+numerici:
+\[
+X:\Omega\longrightarrow\mathbb{R}.
+\]
+La probabilit\`{a}, definita originariamente sugli eventi dello spazio
+campionario, induce cos\`{\i} una distribuzione sui valori assunti da $X$.
+Questo passaggio \`{e} essenziale: permette di sostituire la descrizione
+astratta degli scenari con una descrizione quantitativa dei risultati
+economici associati a tali scenari.
+
+Il capitolo sviluppa quindi gli strumenti necessari per descrivere e
+utilizzare questa distribuzione: la funzione di ripartizione $F_{X}$, la
+funzione di massa $p_{X}$ nel caso discreto, la densit\`{a} $f_{X}$ nel caso
+continuo, il valore atteso, la varianza, i momenti e i quantili. Questi
+oggetti costituiscono la base probabilistica per l'analisi di rendimenti,
+perdite, payoff e rischio finanziario.
+
+\section{Dallo spazio degli eventi alle variabili casuali}
+
+\label{sec:cap2-dallo-spazio-eventi-vc}
+
+Nel Capitolo 1 l'incertezza \`{e} stata descritta mediante uno spazio di
+probabilit\`{a}
+\[
+(\Omega,\mathcal{F},\mathbb{P}),
+\]
+dove $\Omega$ rappresenta l'insieme degli esiti possibili, $\mathcal{F}$ \`{e}
+la sigma-algebra degli eventi osservabili e $\mathbb{P}$ \`{e} la misura di
+probabilit\`{a} definita su tali eventi.
+
+In molte applicazioni, tuttavia, non interessa direttamente l'esito elementare
+$\omega\in\Omega$, ma una quantit\`{a} numerica che dipende da tale esito. Una
+variabile casuale formalizza precisamente questo passaggio.
+
+\begin{definition}
+[Variabile casuale]Sia $(\Omega,\mathcal{F},\mathbb{P})$ uno spazio di
+probabilit\`{a}. Una variabile casuale reale \`{e} una funzione
+\[
+X:\Omega\longrightarrow\mathbb{R}
+\]
+tale che, per ogni $x\in\mathbb{R}$,
+\[
+\{\omega\in\Omega:X(\omega)\leq x\}\in\mathcal{F}.
+\]
+
+\end{definition}
+
+La condizione precedente significa che, per ogni soglia reale $x$, l'insieme
+degli esiti per i quali la variabile casuale assume un valore non superiore a
+$x$ \`{e} un evento. Di conseguenza, la sua probabilit\`{a} \`{e} ben definita.
+
+Per alleggerire la notazione, si scrive normalmente
+\[
+\{X\leq x\}
+\]
+al posto di
+\[
+\{\omega\in\Omega:X(\omega)\leq x\}.
+\]
+Con questa convenzione, la quantit\`{a}
+\[
+\mathbb{P}(X\leq x)
+\]
+deve essere letta come abbreviazione di
+\[
+\mathbb{P}(\{\omega\in\Omega:X(\omega)\leq x\}).
+\]
+
+
+In modo analogo, scritture come
+\[
+\{X=x_{i}\},\qquad\{a<X\leq b\},\qquad\{X\in B\}
+\]
+indicano rispettivamente gli eventi
+\[
+\{\omega\in\Omega:X(\omega)=x_{i}\},
+\]
+\[
+\{\omega\in\Omega:a<X(\omega)\leq b\},
+\]
+\[
+\{\omega\in\Omega:X(\omega)\in B\},
+\]
+dove $B$ \`{e} un sottoinsieme opportuno della retta reale.
+
+\paragraph{Esempio guida: rendimento discreto su tre regimi di mercato.}
+
+Consideriamo un modello elementare con sei esiti possibili:
+\[
+\Omega=\{\omega_{1},\omega_{2},\omega_{3},\omega_{4},\omega_{5},\omega_{6}\}.
+\]
+Gli esiti elementari rappresentano sei scenari di mercato. Supponiamo tuttavia
+che l'informazione rilevante distingua soltanto tre regimi: mercato
+sfavorevole, mercato intermedio e mercato favorevole. Introduciamo quindi la
+partizione
+\[
+A_{1}=\{\omega_{1},\omega_{2}\}, \qquad A_{2}=\{\omega_{3},\omega_{4}\},
+\qquad A_{3}=\{\omega_{5},\omega_{6}\}.
+\]
+L'evento $A_{1}$ rappresenta il regime sfavorevole, $A_{2}$ il regime
+intermedio e $A_{3}$ il regime favorevole. La sigma-algebra generata da questa
+partizione \`{e}
+\[
+\mathcal{F}=\sigma(A_{1},A_{2},A_{3}).
+\]
+Esplicitamente,
+\[
+\mathcal{F}= \{\varnothing, A_{1},A_{2},A_{3}, A_{1}\cup A_{2},A_{1}\cup
+A_{3},A_{2}\cup A_{3}, \Omega\}.
+\]
+In questo modello non tutte le distinzioni tra gli esiti elementari sono
+osservabili attraverso $\mathcal{F}$: gli eventi ammissibili sono le unioni
+degli elementi della partizione.
+
+Definiamo ora una variabile casuale $X$ che rappresenta il rendimento di un
+portafoglio in ciascuno scenario. Supponiamo che il rendimento dipenda
+soltanto dal regime di mercato e sia dato dalla seguente tabella:
+\[%
+\begin{array}
+[c]{c|c|c}%
+\mbox{esito} & \mbox{regime} & X(\omega)\\\hline
+\omega_{1},\omega_{2} & A_{1}\ \mbox{sfavorevole} & -0.04\\
+\omega_{3},\omega_{4} & A_{2}\ \mbox{intermedio} & 0.01\\
+\omega_{5},\omega_{6} & A_{3}\ \mbox{favorevole} & 0.06
+\end{array}
+\]
+La variabile casuale $X$ trasforma quindi i sei esiti elementari in tre valori
+reali:
+\[
+x_{1}=-0.04, \qquad x_{2}=0.01, \qquad x_{3}=0.06.
+\]
+I tre valori assunti da $X$ determinano una partizione sulla retta reale. Le
+regioni rilevanti sono
+\[
+(-\infty,-0.04), \qquad[-0.04,0.01), \qquad[0.01,0.06, \qquad[0.06,+\infty).
+\]
+Eventi descritti in termini di rendimenti (valori numerici) $X \in\mathbb{R}$
+sono in corrispondenza con eventi qualitativi in $\Omega$. Ad esempio,
+l'evento ``rendimento negativo'' \`{e}
+\[
+\{X<0\}=A_{1}=\{\omega_{1},\omega_{2}\}.
+\]
+L'evento ``rendimento almeno pari all'$1\%$'' \`{e}
+\[
+\{X\geq0.01\}=A_{2}\cup A_{3} =\{\omega_{3},\omega_{4},\omega_{5},\omega
+_{6}\}.
+\]
+L'evento ``rendimento non superiore all'$1\%$'' \`{e}
+\[
+\{X\leq0.01\}=A_{1}\cup A_{2} =\{\omega_{1},\omega_{2},\omega_{3},\omega
+_{4}\}.
+\]
+In tutti questi casi la probabilit\`{a} resta formalmente una probabilit\`{a}
+assegnata a eventi appartenenti a $\mathcal{F}$:
+\[
+\mathbb{P}(X<0)=\mathbb{P}(A_{1}),
+\]
+\[
+\mathbb{P}(X\geq0.01)=\mathbb{P}(A_{2}\cup A_{3}),
+\]
+\[
+\mathbb{P}(X\leq0.01)=\mathbb{P}(A_{1}\cup A_{2}).
+\]
+La variabile casuale consente per\`{o} di descrivere tali eventi mediante
+condizioni sui valori numerici del rendimento.
+
+\paragraph{Controimmagini e misurabilit\`{a}.}
+
+Il legame formale tra valori numerici ed eventi \`{e} dato dalla nozione di
+controimmagine. Sia
+\[
+X:\Omega\longrightarrow\mathbb{R}
+\]
+una funzione e sia $B\subseteq\mathbb{R}$. Si definisce controimmagine di $B$
+mediante $X$ l'insieme
+\[
+X^{-1}(B)=\{\omega\in\Omega:X(\omega)\in B\}.
+\]
+La controimmagine $X^{-1}(B)$ \`{e} quindi un sottoinsieme di $\Omega$: essa
+raccoglie tutti gli esiti elementari che, attraverso la funzione $X$, vengono
+mandati in $B$.
+
+La notazione $X^{-1}(B)$ indica l'insieme degli esiti la cui immagine
+appartiene a $B$. Ad esempio, se $B=(-\infty,a]$, allora
+\[
+X^{-1}((-\infty,a]) = \{\omega\in\Omega:X(\omega)\leq a\} = \{X\leq a\}.
+\]
+Analogamente,
+\[
+X^{-1}((a,b]) = \{\omega\in\Omega:a<X(\omega)\leq b\} = \{a<X\leq b\}.
+\]
+
+
+La nozione di variabile casuale richiede che queste controimmagini siano
+eventi ai quali sia possibile assegnare una probabilit\`{a}. Per garantire
+questo fatto si dimostra che \`{e} necessario e sufficiente che, per ogni
+scelta arbitraria del valore $a\in\mathbf{R}$ negli intervalli di tipo
+$(-\infty,a],$ risulti:%
+\begin{equation}
+X^{-1}(-\infty,a]\in\mathcal{F}. \label{cmisur}%
+\end{equation}
+Se vale la precedente condizione, allora discende anche
+\[
+X^{-1}(a,b]\in\mathcal{F}%
+\]
+per ogni scelta di $a,b$. In termini generali, una funzione $X:\Omega
+\rightarrow\mathbb{R}$ per cui vale la condizione \ref{cmisur} \`{e} detta
+variabile casuale \textbf{misurabile}.
+
+Nel seguito useremo prevalentemente eventi del tipo
+\[
+\{X\leq x\},\qquad\{a<X\leq b\},\qquad\{X\in B\},
+\]
+poich\'{e} sono quelli che permettono di costruire la funzione di
+ripartizione, la funzione di massa, la densit\`{a} e i quantili.
+
+\begin{example}
+[Controimmagini nell'esempio del rendimento discreto]Riprendiamo la variabile
+casuale $X$ definita sull'insieme
+\[
+\Omega=\{\omega_{1},\omega_{2},\omega_{3},\omega_{4},\omega_{5},\omega_{6}\}
+\]
+mediante la tabella
+\[%
+\begin{array}
+[c]{c|c|c}%
+\mbox{esito} & \mbox{regime} & X(\omega)\\\hline
+\omega_{1},\omega_{2} & A_{1}\ \mbox{sfavorevole} & -0.04\\
+\omega_{3},\omega_{4} & A_{2}\ \mbox{intermedio} & 0.01\\
+\omega_{5},\omega_{6} & A_{3}\ \mbox{favorevole} & 0.06
+\end{array}
+\]
+dove
+\[
+A_{1}=\{\omega_{1},\omega_{2}\}, \qquad A_{2}=\{\omega_{3},\omega_{4}\},
+\qquad A_{3}=\{\omega_{5},\omega_{6}\}.
+\]
+La sigma-algebra considerata \`{e}
+\[
+\mathcal{F}=\sigma(A_{1},A_{2},A_{3}) = \{\varnothing, A_{1},A_{2},A_{3},
+A_{1}\cup A_{2},A_{1}\cup A_{3},A_{2}\cup A_{3}, \Omega\}.
+\]
+
+
+Poich\'{e} i possibili rendimenti $X$ assumo soltanto i valori%
+\[
+-0.04<0.01<0.06,
+\]
+la controimmagine di un intervallo del tipo $(-\infty,a]$ dipende dalla
+posizione della soglia $a$ rispetto a questi tre valori. Si ottiene:
+\[%
+\begin{array}
+[c]{c|c}%
+\text{valori }a\text{ per intervalli }(-\infty,a] & X^{-1}((-\infty
+,a])=\{X\leq a\}\\\hline
+a<-0.04 & \varnothing\\
+-0.04\leq a<0.01 & A_{1}\\
+0.01\leq a<0.06 & A_{1}\cup A_{2}\\
+a\geq0.06 & \Omega
+\end{array}
+\]
+Ogni insieme nella seconda colonna appartiene a $\mathcal{F}$. La tabella
+mostra quindi, in modo esplicito, che $X$ \`{e} misurabile rispetto alla
+sigma-algebra considerata.
+
+La stessa logica vale per altri sottoinsiemi della retta reale. Ad esempio,
+\[
+X^{-1}([0,+\infty))=A_{2}\cup A_{3},
+\]
+perch\'{e} i valori non negativi di $X$ sono $0.01$ e $0.06$. Inoltre,
+\[
+X^{-1}((-\infty,0))=A_{1}.
+\]
+In termini finanziari, il primo evento rappresenta gli scenari con rendimento
+non negativo, mentre il secondo rappresenta gli scenari con rendimento negativo.
+\end{example}
+
+\paragraph{Variabili indicatrici.}
+
+Un caso particolarmente importante di variabile casuale \`{e} la variabile
+indicatrice di un evento. Se $A\in\mathcal{F}$, si definisce
+\[
+\mathbf{1}_{A}(\omega)=
+\begin{cases}
+1, & \mbox{se }\omega\in A,\\
+0, & \mbox{se }\omega\notin A.
+\end{cases}
+\]
+La variabile $\mathbf{1}_{A}$ assume quindi valore $1$ quando l'evento $A$ si
+verifica e valore $0$ quando l'evento non si verifica.
+
+Nell'esempio del rendimento discreto, l'indicatrice dell'evento di rendimento
+negativo \`{e}
+\[
+\mathbf{1}_{\{X<0\}}=\mathbf{1}_{A_{1}}.
+\]
+Essa vale $1$ negli scenari $\omega_{1}$ e $\omega_{2}$, e vale $0$ negli
+altri scenari. Analogamente, l'indicatrice dell'evento di rendimento almeno
+pari all'$1\%$ \`{e}
+\[
+\mathbf{1}_{\{X\geq0.01\}}=\mathbf{1}_{A_{2}\cup A_{3}}.
+\]
+
+
+Nelle applicazioni finanziarie, variabili indicatrici di questo tipo compaiono
+frequentemente:
+\[
+\mathbf{1}_{\{R<0\}}, \qquad\mathbf{1}_{\{L>\ell\}}, \qquad\mathbf{1}%
+_{\{S_{T}>K\}}.
+\]
+Esse indicano rispettivamente il verificarsi di un rendimento negativo, il
+superamento di una soglia di perdita e il superamento dello strike da parte
+del sottostante. Saranno utili anche per rappresentare payoff digitali, eventi
+di default e vincoli probabilistici.
+
+In conclusione, una variabile casuale non sostituisce lo spazio di
+probabilit\`{a}, ma lo utilizza per costruire una descrizione numerica
+dell'incertezza. Lo spazio $(\Omega,\mathcal{F},\mathbb{P})$ resta il
+fondamento formale; la variabile casuale $X$ traduce gli esiti $\omega$ in
+valori reali $X(\omega)$; la distribuzione di $X$, introdotta nella sezione
+successiva, descrive la probabilit\`{a} con cui tali valori possono manifestarsi.
