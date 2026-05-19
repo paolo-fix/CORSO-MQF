@@ -504,6 +504,45 @@ In termini finanziari, il primo evento rappresenta gli scenari con rendimento
 non negativo, mentre il secondo rappresenta gli scenari con rendimento negativo.
 \end{example}
 
+\paragraph{Il ruolo della sigma-algebra boreliana.}
+Per una variabile casuale reale, gli eventi sui valori assunti da $X$ sono
+sottoinsiemi della retta reale. La classe naturale di tali insiemi \`{e} la
+sigma-algebra boreliana $\mathcal{B}(\mathbb{R})$, generata dagli intervalli
+di $\mathbb{R}$. Essa contiene, in particolare, gli insiemi del tipo
+\[
+(-\infty,x],
+\qquad
+(a,b],
+\qquad
+[a,b],
+\qquad
+(x,+\infty),
+\]
+che sono quelli pi\`{u} frequentemente utilizzati per descrivere eventi relativi
+a una variabile casuale reale. La misurabilit\`{a} di $X$ garantisce che, per
+ogni $B\in\mathcal{B}(\mathbb{R})$, la controimmagine $X^{-1}(B)$ appartenga a
+$\F$ e abbia quindi una probabilit\`{a} ben definita.
+
+Una variabile casuale $X$ trasforma gli esiti elementari $\omega\in\Omega$ in
+valori reali $X(\omega)$. Tuttavia, nelle applicazioni probabilistiche e
+finanziarie, l'oggetto di interesse non \`{e} soltanto la funzione $X$, ma anche
+il modo in cui la probabilit\`{a} originaria $\Prob$ si trasferisce sui valori
+assunti da $X$.
+
+Sia $X$ una variabile casuale reale definita sullo spazio di probabilit\`{a}
+$(\Omega,\F,\Prob)$. Per ogni insieme boreliano
+$B\in\mathcal{B}(\mathbb{R})$, la misurabilit\`{a} di $X$ garantisce che
+\[
+X^{-1}(B)=\{\omega\in\Omega:X(\omega)\in B\}
+\]
+sia un evento di $\F$. Di conseguenza, la quantit\`{a}
+\[
+\Prob(X\in B)
+=
+\Prob(X^{-1}(B))
+\]
+\`{e} ben definita.
+
 \paragraph{Variabili indicatrici.}
 
 Un caso particolarmente importante di variabile casuale \`{e} la variabile
@@ -548,3 +587,377 @@ dell'incertezza. Lo spazio $(\Omega,\mathcal{F},\mathbb{P})$ resta il
 fondamento formale; la variabile casuale $X$ traduce gli esiti $\omega$ in
 valori reali $X(\omega)$; la distribuzione di $X$, introdotta nella sezione
 successiva, descrive la probabilit\`{a} con cui tali valori possono manifestarsi.
+
+\section{Distribuzione di una variabile casuale}
+\label{sec:cap2-distribuzione-vc}
+
+
+Una variabile casuale $X$ trasforma gli esiti elementari $\omega\in\Omega$ in
+valori reali $X(\omega)$. Tuttavia, nelle applicazioni probabilistiche e
+finanziarie, l'oggetto di interesse non \`{e} soltanto la funzione $X$, ma anche
+il modo in cui la probabilit\`{a} originaria $\Prob$ si trasferisce sui valori
+assunti da $X$.
+
+
+\begin{definition}[Distribuzione di una variabile casuale]
+Sia $X$ una variabile casuale reale su $(\Omega,\F,\Prob)$. La distribuzione, o legge, di $X$ \`{e} la misura di probabilit\`{a} $\Prob_X$ definita su
+$\mathcal{B}(\mathbb{R})$ da
+\[
+\Prob_X:=\Prob\circ X^{-1},
+\]
+ossia
+\[
+\Prob_X(B)
+=
+\Prob\left(X^{-1}(B)\right),
+\qquad B\in\mathcal{B}(\mathbb{R}).
+\]
+\end{definition}
+La distribuzione $\Prob_X$ \`{e} quindi una misura di probabilit\`{a} sulla retta
+reale. Essa assegna a ogni insieme boreliano $B$ la probabilit\`{a} che la
+variabile casuale $X$ assuma un valore appartenente a $B$. 
+
+La misura $\Prob$ e la misura $\Prob_X$ hanno quindi ruoli distinti. La prima
+\`{e} definita sugli eventi dello spazio campionario, mentre la seconda \`{e}
+definita sugli insiemi boreliani di valori assunti da $X$. La scrittura
+\[
+\Prob(X\in B)
+\]
+\`{e} una notazione abbreviata per
+\[
+\Prob\left(\{\omega\in\Omega:X(\omega)\in B\}\right).
+\]
+Pertanto,
+\[
+\Prob(X\in B)=\Prob_X(B),
+\qquad B\in\B,
+\]
+ma il lato sinistro applica la misura originaria $\Prob$ a un evento di
+$\F$, mentre il lato destro applica la misura indotta $\Prob_X$ a un insieme
+boreliano di $\B$.
+
+\begin{example}[Distribuzione del rendimento discreto]
+Riprendiamo l'esempio guida della sezione precedente. Lo spazio campionario \`{e}
+\[
+\Omega=\{\omega_1,\omega_2,\omega_3,\omega_4,\omega_5,\omega_6\},
+\]
+e gli esiti sono raggruppati nei tre regimi di mercato
+\[
+A_1=\{\omega_1,\omega_2\},
+\qquad
+A_2=\{\omega_3,\omega_4\},
+\qquad
+A_3=\{\omega_5,\omega_6\}.
+\]
+La sigma-algebra considerata \`{e}
+\[
+\F=\sigma(A_1,A_2,A_3).
+\]
+La variabile casuale $X$ rappresenta il rendimento del portafoglio e assume i
+valori
+\[
+X(\omega)=
+\begin{cases}
+-0.04, & \mbox{se }\omega\in A_1,\\
+ 0.01, & \mbox{se }\omega\in A_2,\\
+ 0.06, & \mbox{se }\omega\in A_3.
+\end{cases}
+\]
+Pertanto,
+\[
+\{X=-0.04\}=A_1,
+\qquad
+\{X=0.01\}=A_2,
+\qquad
+\{X=0.06\}=A_3.
+\]
+
+La distribuzione di $X$ assegna probabilit\`{a} ai valori reali assunti dal
+rendimento. Anticipando la notazione della funzione di massa, si ha
+\[
+\Prob_X(-0.04)
+=
+\Prob(X=-0.04)
+=
+\Prob(A_1),
+\]
+\[
+\Prob_X(0.01)
+=
+\Prob(X=0.01)
+=
+\Prob(A_2),
+\]
+e
+\[
+\Prob_X(0.06)
+=
+\Prob(X=0.06)
+=
+\Prob(A_3).
+\]
+La distribuzione di $X$ pu\`{o} quindi essere rappresentata dalla tabella
+\[
+\begin{array}{c|c|c}
+\mbox{valore di } X & \mbox{controimmagine in } \Omega
+& \mbox{probabilit\`{a}}\\
+\hline
+-0.04 & A_1 & \Prob(A_1)\\
+ 0.01 & A_2 & \Prob(A_2)\\
+ 0.06 & A_3 & \Prob(A_3)
+\end{array}
+\]
+con
+\[
+\Prob(A_1)+\Prob(A_2)+\Prob(A_3)=1.
+\]
+
+Se ponessimo
+\[
+\Prob(A_1)=0.25,
+\qquad
+\Prob(A_2)=0.50,
+\qquad
+\Prob(A_3)=0.25,
+\]
+allora la distribuzione di $X$ \`{e}
+\[
+\begin{array}{c|c}
+x & \Prob_X(x)=\Prob(X=x)\\
+\hline
+-0.04 & 0.25\\
+ 0.01 & 0.50\\
+ 0.06 & 0.25
+\end{array}
+\]
+Questa tabella non descrive pi\`{u} direttamente i sei esiti elementari
+$\omega_1,\ldots,\omega_6$, ma la probabilit\`{a} dei tre valori numerici assunti
+dal rendimento.
+
+Ad esempio, la probabilit\`{a} che il rendimento sia negativo \`{e}
+\[
+\Prob_X((-\infty,0))
+=
+\Prob(X<0)
+=
+\Prob(A_1)
+=
+0.25.
+\]
+La probabilit\`{a} che il rendimento sia non negativo \`{e}
+\[
+\Prob_X([0,+\infty))
+=
+\Prob(X\in[0,+\infty)).
+\]
+Poich\'{e}
+\[
+X^{-1}([0,+\infty))=A_2\cup A_3,
+\]
+si ottiene
+\[
+\Prob_X([0,+\infty))
+=
+\Prob(A_2\cup A_3)
+=
+\Prob(A_2)+\Prob(A_3)
+=
+0.75.
+\]
+Analogamente, la probabilit\`{a} che il rendimento non superi l'$1\%$ \`{e}
+\[
+\Prob_X((-\infty,0.01])
+=
+\Prob(X\leq 0.01)
+=
+\Prob(A_1\cup A_2)
+=
+0.75.
+\]
+\end{example}
+
+La distribuzione di una variabile casuale contiene tutte le informazioni
+probabilistiche relative ai valori di quella variabile. In particolare, conoscere
+$\Prob_X$ significa poter calcolare probabilit\`{a} del tipo
+\[
+\Prob(X\in B)
+\]
+per tutti gli insiemi boreliani $B$ rilevanti.
+
+Occorre per\`{o} distinguere la variabile casuale dalla sua distribuzione. La
+variabile casuale $X$ \`{e} una funzione definita sullo spazio campionario
+$\Omega$; la sua distribuzione $\Prob_X$ \`{e} invece una misura di
+probabilit\`{a} sulla retta reale. Variabili casuali definite su spazi di
+probabilit\`{a} diversi possono avere la stessa distribuzione, se assegnano la
+stessa probabilit\`{a} agli stessi insiemi di valori reali.
+
+Questo punto \`{e} essenziale nelle applicazioni finanziarie. Quando si afferma
+che un rendimento $R$ ha una certa distribuzione, o che una perdita $L$ segue
+una certa legge, si sta descrivendo la misura di probabilit\`{a} indotta dalla
+variabile casuale sui valori reali. Le sezioni successive introdurranno gli
+strumenti principali per rappresentare tale distribuzione: la funzione di
+ripartizione, la funzione di massa nel caso discreto e la densit\`{a} nel caso
+assolutamente continuo.
+
+\section{Funzione di ripartizione}
+\label{sec:cap2-funzione-ripartizione}
+
+La distribuzione $\Prob_X$ di una variabile casuale reale $X$ pu\`{o} essere
+rappresentata mediante una funzione reale di variabile reale. Tale funzione \`{e}
+la funzione di ripartizione.
+
+\begin{definition}[Funzione di ripartizione]
+Sia $X$ una variabile casuale reale definita su $(\Omega,\F,\Prob)$. La funzione
+di ripartizione di $X$ \`{e} la funzione $F_X:\mathbb{R}\to[0,1]$ definita da
+\[
+F_X(x)
+=
+\Prob_X((-\infty,x])
+=
+\Prob(X\leq x),
+\qquad x\in\mathbb{R}.
+\]
+\end{definition}
+
+La funzione di ripartizione associa a ogni soglia $x$ la probabilit\`{a} che la
+variabile casuale assuma un valore non superiore a $x$. Essa descrive quindi la
+probabilit\`{a} cumulata fino al livello $x$.
+
+La probabilit\`{a} resta calcolata nello spazio originario $(\Omega,\F,\Prob)$,
+poich\'{e}
+\[
+\Prob(X\leq x)
+=
+\Prob(\{\omega\in\Omega:X(\omega)\leq x\}).
+\]
+Tuttavia, attraverso $F_X$, questa probabilit\`{a} viene espressa come funzione 
+della soglia reale $x$.
+
+La funzione di ripartizione ha alcune propriet\`{a} fondamentali:
+\[
+0\leq F_X(x)\leq 1
+\qquad
+\mbox{per ogni }x\in\mathbb{R},
+\]
+\[
+x_1\leq x_2
+\quad\Longrightarrow\quad
+F_X(x_1)\leq F_X(x_2),
+\]
+cio\`{e} $F_X$ \`{e} non decrescente. Inoltre,
+\[
+\lim_{x\to -\infty}F_X(x)=0,
+\qquad
+\lim_{x\to +\infty}F_X(x)=1.
+\]
+Infine, $F_X$ \`{e} continua da destra:
+\[
+\lim_{h\downarrow 0}F_X(x+h)=F_X(x).
+\]
+
+La funzione di ripartizione consente di calcolare direttamente le probabilit\`{a}
+di intervalli del tipo $(a,b]$. Infatti, per $a<b$,
+\[
+\Prob(a<X\leq b)
+=
+F_X(b)-F_X(a).
+\]
+Questa identit\`{a} segue dalla decomposizione dell'evento $\{X\leq b\}$ come
+unione disgiunta degli eventi $\{X\leq a\}$ e $\{a<X\leq b\}$.
+
+Per trattare eventi con disuguaglianze strette \`{e} utile introdurre il limite
+sinistro di $F_X$:
+\[
+F_X(x^-)=\lim_{h\downarrow 0}F_X(x-h).
+\]
+Allora
+\[
+\Prob(X<x)=F_X(x^-),
+\]
+e
+\[
+\Prob(X=x)=F_X(x)-F_X(x^-).
+\]
+Quindi un salto della funzione di ripartizione nel punto $x$ corrisponde a una
+probabilit\`{a} positiva assegnata al valore $x$.
+
+\begin{example}[Funzione di ripartizione del rendimento discreto]
+Riprendiamo solo gli elementi necessari dell'esempio guida. La variabile casuale
+$X$ assume i tre valori
+\[
+-0.04,\qquad 0.01,\qquad 0.06,
+\]
+con probabilit\`{a}
+\[
+\Prob(X=-0.04)=0.25,
+\qquad
+\Prob(X=0.01)=0.50,
+\qquad
+\Prob(X=0.06)=0.25.
+\]
+La funzione di ripartizione \`{e} quindi
+\[
+F_X(x)=
+\begin{cases}
+0, & x<-0.04,\\
+0.25, & -0.04\leq x<0.01,\\
+0.75, & 0.01\leq x<0.06,\\
+1, & x\geq 0.06.
+\end{cases}
+\]
+La funzione $F_X$ \`{e} costante tra due valori consecutivi assunti da $X$ e
+presenta salti nei punti $-0.04$, $0.01$ e $0.06$. L'ampiezza di ciascun salto
+coincide con la probabilit\`{a} del valore corrispondente:
+\[
+F_X(-0.04)-F_X(-0.04^-)=0.25,
+\]
+\[
+F_X(0.01)-F_X(0.01^-)=0.50,
+\]
+\[
+F_X(0.06)-F_X(0.06^-)=0.25.
+\]
+Ad esempio,
+\[
+\Prob(-0.04<X\leq 0.01)
+=
+F_X(0.01)-F_X(-0.04)
+=
+0.75-0.25
+=
+0.50.
+\]
+Inoltre,
+\[
+\Prob(X<0.01)
+=
+F_X(0.01^-)
+=
+0.25,
+\]
+mentre
+\[
+\Prob(X\leq 0.01)
+=
+F_X(0.01)
+=
+0.75.
+\]
+La differenza tra queste due probabilit\`{a} \`{e}
+\[
+\Prob(X=0.01)=0.50.
+\]
+\end{example}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.75\textwidth]{graphics/cap2_cdf_rendimento_discreto.png}
+\caption{Funzione di ripartizione del rendimento discreto.}
+\label{fig:cap2-cdf-rendimento-discreto}
+\end{figure}
+
+La funzione di ripartizione \`{e} un oggetto unificante: esiste per ogni
+variabile casuale reale, indipendentemente dal fatto che la variabile sia
+discreta, continua o di altro tipo. Le sezioni successive introdurranno due modi
+particolari di rappresentare la distribuzione: la funzione di massa, nel caso
+discreto, e la densit\`{a}, nel caso assolutamente continuo.
