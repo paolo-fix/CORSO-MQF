@@ -82,11 +82,11 @@ F_{X}(x)=\mathbb{P}(X\leq x);
 
 
 \item distinguere tra variabili casuali discrete, descritte mediante una
-funzione di massa $p_{X}$, e variabili casuali assolutamente continue,
+funzione di probablit\`{a} $p_{X}$, e variabili casuali assolutamente continue,
 descritte mediante una densit\`{a} $f_{X}$;
 
 \item calcolare probabilit\`{a} associate a intervalli e code distributive,
-usando la funzione di ripartizione, la funzione di massa o la densit\`{a};
+usando la funzione di distribuzione, la funzione di probablit\`{a} o la densit\`{a};
 
 \item definire e interpretare il valore atteso
 \[
@@ -238,8 +238,8 @@ astratta degli scenari con una descrizione quantitativa dei risultati
 economici associati a tali scenari.
 
 Il capitolo sviluppa quindi gli strumenti necessari per descrivere e
-utilizzare questa distribuzione: la funzione di ripartizione $F_{X}$, la
-funzione di massa $p_{X}$ nel caso discreto, la densit\`{a} $f_{X}$ nel caso
+utilizzare questa distribuzione: la funzione di distribuzione $F_{X}$, la
+funzione di probablit\`{a} $p_{X}$ nel caso discreto, la densit\`{a} $f_{X}$ nel caso
 continuo, il valore atteso, la varianza, i momenti e i quantili. Questi
 oggetti costituiscono la base probabilistica per l'analisi di rendimenti,
 perdite, payoff e rischio finanziario.
@@ -441,7 +441,7 @@ Nel seguito useremo prevalentemente eventi del tipo
 \{X\leq x\},\qquad\{a<X\leq b\},\qquad\{X\in B\},
 \]
 poich\'{e} sono quelli che permettono di costruire la funzione di
-ripartizione, la funzione di massa, la densit\`{a} e i quantili.
+ripartizione, la funzione di probablit\`{a}, la densit\`{a} e i quantili.
 
 \begin{example}
 [Controimmagini nell'esempio del rendimento discreto]Riprendiamo la variabile
@@ -673,7 +673,7 @@ Pertanto,
 \]
 
 La distribuzione di $X$ assegna probabilit\`{a} ai valori reali assunti dal
-rendimento. Anticipando la notazione della funzione di massa, si ha
+rendimento. Anticipando la notazione della funzione di probablit\`{a}, si ha
 \[
 \Prob_X(-0.04)
 =
@@ -796,15 +796,15 @@ che un rendimento $R$ ha una certa distribuzione, o che una perdita $L$ segue
 una certa legge, si sta descrivendo la misura di probabilit\`{a} indotta dalla
 variabile casuale sui valori reali. Le sezioni successive introdurranno gli
 strumenti principali per rappresentare tale distribuzione: la funzione di
-ripartizione, la funzione di massa nel caso discreto e la densit\`{a} nel caso
+ripartizione, la funzione di probablit\`{a} nel caso discreto e la densit\`{a} nel caso
 assolutamente continuo.
 
-\section{Funzione di ripartizione}
+\section{Funzione di distribuzione o ripartizione}
 \label{sec:cap2-funzione-ripartizione}
 
 La distribuzione $\Prob_X$ di una variabile casuale reale $X$ pu\`{o} essere
 rappresentata mediante una funzione reale di variabile reale. Tale funzione \`{e}
-la funzione di ripartizione.
+la funzione di distribuzione.
 
 \begin{definition}[Funzione di ripartizione]
 Sia $X$ una variabile casuale reale definita su $(\Omega,\F,\Prob)$. La funzione
@@ -819,7 +819,7 @@ F_X(x)
 \]
 \end{definition}
 
-La funzione di ripartizione associa a ogni soglia $x$ la probabilit\`{a} che la
+La funzione di distribuzione associa a ogni soglia $x$ la probabilit\`{a} che la
 variabile casuale assuma un valore non superiore a $x$. Essa descrive quindi la
 probabilit\`{a} cumulata fino al livello $x$.
 
@@ -833,7 +833,7 @@ poich\'{e}
 Tuttavia, attraverso $F_X$, questa probabilit\`{a} viene espressa come funzione 
 della soglia reale $x$.
 
-La funzione di ripartizione ha alcune propriet\`{a} fondamentali:
+La funzione di distribuzione ha alcune propriet\`{a} fondamentali:
 \[
 0\leq F_X(x)\leq 1
 \qquad
@@ -855,7 +855,7 @@ Infine, $F_X$ \`{e} continua da destra:
 \lim_{h\downarrow 0}F_X(x+h)=F_X(x).
 \]
 
-La funzione di ripartizione consente di calcolare direttamente le probabilit\`{a}
+La funzione di distribuzione consente di calcolare direttamente le probabilit\`{a}
 di intervalli del tipo $(a,b]$. Infatti, per $a<b$,
 \[
 \Prob(a<X\leq b)
@@ -878,7 +878,7 @@ e
 \[
 \Prob(X=x)=F_X(x)-F_X(x^-).
 \]
-Quindi un salto della funzione di ripartizione nel punto $x$ corrisponde a una
+Quindi un salto della funzione di distribuzione nel punto $x$ corrisponde a una
 probabilit\`{a} positiva assegnata al valore $x$.
 
 \begin{example}[Funzione di ripartizione del rendimento discreto]
@@ -895,7 +895,7 @@ con probabilit\`{a}
 \qquad
 \Prob(X=0.06)=0.25.
 \]
-La funzione di ripartizione \`{e} quindi
+La funzione di distribuzione \`{e} quindi
 \[
 F_X(x)=
 \begin{cases}
@@ -956,8 +956,3509 @@ La differenza tra queste due probabilit\`{a} \`{e}
 \label{fig:cap2-cdf-rendimento-discreto}
 \end{figure}
 
-La funzione di ripartizione \`{e} un oggetto unificante: esiste per ogni
+La funzione di distribuzione \`{e} un oggetto unificante: esiste per ogni
 variabile casuale reale, indipendentemente dal fatto che la variabile sia
 discreta, continua o di altro tipo. Le sezioni successive introdurranno due modi
-particolari di rappresentare la distribuzione: la funzione di massa, nel caso
+particolari di rappresentare la distribuzione: la funzione di probablit\`{a}, nel caso
 discreto, e la densit\`{a}, nel caso assolutamente continuo.
+
+\section{Variabili casuali discrete}
+\label{sec:cap2-vc-discrete}
+
+Una variabile casuale reale $X$ \`{e} discreta quando l'insieme dei valori che
+pu\`{o} assumere \`{e} finito oppure numerabile. In altri termini, esiste una
+famiglia di valori reali
+\[
+x_1,x_2,\ldots
+\]
+tale che
+\[
+\Prob(X\in\{x_1,x_2,\ldots\})=1.
+\]
+Nel caso finito, l'elenco dei valori possibili termina dopo un numero finito di
+elementi; nel caso numerabile, l'elenco pu\`{o} essere infinito.
+
+\begin{definition}[Funzione di probablit\`{a}]
+Sia $X$ una variabile casuale discreta. La funzione di probablit\`{a} di $X$ \`{e} la funzione $p_X:\mathbb{R}\to[0,1]$ definita da
+\[
+p_X(x)=\Prob(X=x),
+\qquad x\in\mathbb{R}.
+\]
+\end{definition}
+
+Se $X$ assume i valori $x_1,x_2,\ldots$, allora
+\[
+p_X(x_i)=\Prob(X=x_i),
+\qquad i=1,2,\ldots,
+\]
+mentre $p_X(x)=0$ per ogni valore $x$ che non appartiene all'insieme dei valori
+possibili di $X$. La funzione di probablit\`{a} soddisfa le propriet\`{a}
+\[
+p_X(x_i)\geq 0,
+\qquad i=1,2,\ldots,
+\]
+e
+\[
+\sum_i p_X(x_i)=1.
+\]
+La somma \`{e} estesa a tutti i valori che $X$ pu\`{o} assumere con probabilit\`{a}
+positiva.
+
+La distribuzione indotta $\Prob_X$ pu\`{o} essere ricostruita dalla funzione di
+probablit\`{a}. Infatti, per ogni insieme boreliano $B\in\mathcal{B}(\mathbb{R})$,
+\[
+\Prob_X(B)
+=
+\Prob(X\in B)
+=
+\sum_{x_i\in B} p_X(x_i).
+\]
+Nel caso discreto, quindi, la probabilit\`{a} di un insieme di valori si ottiene
+sommando le masse di probabilit\`{a} associate ai valori di $X$ che appartengono
+a quell'insieme.
+
+In particolare, se $a<b$,
+\[
+\Prob(a<X\leq b)
+=
+\sum_{a<x_i\leq b}p_X(x_i).
+\]
+Questa formula mostra la differenza essenziale tra il caso discreto e il caso
+continuo: nel caso discreto, la probabilit\`{a} \`{e} concentrata sui singoli valori
+assunti dalla variabile casuale.
+
+La funzione di distribuzione, o funzione di ripartizione, di una variabile casuale discreta si ottiene
+cumulando la funzione di probablit\`{a}:
+\[
+F_X(x)
+=
+\Prob(X\leq x)
+=
+\sum_{x_i\leq x}p_X(x_i).
+\]
+Pertanto $F_X$ \`{e} una funzione a gradini. Essa rimane costante tra due valori
+consecutivi assunti da $X$ e presenta un salto in corrispondenza di ogni valore
+$x_i$ tale che $p_X(x_i)>0$. L'ampiezza del salto \`{e} precisamente
+\[
+F_X(x_i)-F_X(x_i^-)=p_X(x_i).
+\]
+
+\begin{example}[Funzione di probablit\`{a} del rendimento discreto]
+Riprendiamo il rendimento discreto gi\`{a} introdotto. La variabile casuale $X$
+assume tre valori:
+\[
+-0.04,
+\qquad
+0.01,
+\qquad
+0.06.
+\]
+Supponiamo che la distribuzione sia data da
+\[
+\Prob_x(-0.04)=0.25,
+\qquad
+\Prob_x(0.01)=0.50,
+\qquad
+\Prob_x(0.06)=0.25.
+\]
+La funzione di probablit\`{a} pu\`{o} essere rappresentata dalla tabella
+\[
+\begin{array}{c|c}
+x & \Prob_x(x)=\Prob(X=x)\\
+\hline
+-0.04 & 0.25\\
+ 0.01 & 0.50\\
+ 0.06 & 0.25
+\end{array}
+\]
+e vale zero per tutti gli altri valori reali.
+
+Ad esempio, la probabilit\`{a} che il rendimento sia compreso tra $-2\%$ e
+$4\%$ \`{e}
+\[
+\Prob(-0.02<X\leq 0.04)
+=
+\Prob_x(0.01)
+=
+0.50.
+\]
+Infatti, tra i valori assunti da $X$, solo $0.01$ appartiene all'intervallo
+$(-0.02,0.04]$.
+
+Analogamente,
+\[
+\Prob(X>0)
+=
+\Prob_x(0.01)+\Prob_x(0.06)
+=
+0.75,
+\]
+mentre
+\[
+\Prob(X<0)
+=
+\Prob_x(-0.04)
+=
+0.25.
+\]
+La funzione di probablit\`{a} consente dunque di calcolare le probabilit\`{a} rilevanti
+sommando le masse associate ai valori compatibili con l'evento considerato.
+\end{example}
+
+Una variabile casuale discreta non deve necessariamente assumere valori distinti
+su tutti gli esiti elementari. Pi\`{u} scenari diversi possono essere mappati nello
+stesso valore numerico. Nel caso dell'esempio guida, due esiti elementari
+appartengono al regime sfavorevole e producono lo stesso rendimento $-0.04$;
+altri due esiti producono il rendimento $0.01$; gli ultimi due producono il
+rendimento $0.06$. La distribuzione di $X$ non conserva la distinzione tra
+scenari che generano lo stesso valore di rendimento: essa conserva soltanto la
+probabilit\`{a} complessiva associata a ciascun valore.
+
+Questa osservazione \`{e} importante nelle applicazioni finanziarie. In un modello
+a scenari, molte configurazioni di mercato possono produrre lo stesso rendimento,
+la stessa perdita o lo stesso payoff. La variabile casuale aggrega tali scenari in
+base al valore numerico della grandezza di interesse, mentre la funzione di probablit\`{a}
+assegna a ciascun valore la probabilit\`{a} totale degli scenari che lo generano.
+
+
+\section{Variabili casuali continue e densit\`{a}}
+\label{sec:cap2-vc-continue-densita}
+
+Nel caso discreto la distribuzione di una variabile casuale \`{e} descritta
+assegnando una massa di probabilit\`{a} ai singoli valori che essa pu\`{o}
+assumere. In molte applicazioni, tuttavia, la grandezza aleatoria di interesse
+pu\`{o} assumere valori in un intervallo della retta reale. In questo caso non
+\`{e} pi\`{u} naturale attribuire probabilit\`{a} positive ai singoli punti, ma a
+insiemi di valori, in particolare a intervalli.
+
+La classe pi\`{u} importante di variabili casuali continue, ai fini di questo
+capitolo, \`{e} costituita dalle variabili casuali assolutamente continue, cio\`{e}
+variabili la cui distribuzione pu\`{o} essere rappresentata mediante una funzione
+di densit\`{a}.
+
+\begin{definition}[Variabile casuale assolutamente continua]
+Una variabile casuale reale $X$ si dice assolutamente continua se esiste una
+funzione $f_X:\mathbb{R}\to[0,+\infty)$ tale che, per ogni insieme boreliano
+$B\in\mathcal{B}(\mathbb{R})$,
+\[
+\Prob_X(B)
+=
+\Prob(X\in B)
+=
+\int_B f_X(x)\,dx.
+\]
+La funzione $f_X$ si chiama densit\`{a} di probabilit\`{a} di $X$.
+\end{definition}
+
+La densit\`{a} $f_X$ deve soddisfare due propriet\`{a} fondamentali:
+\[
+f_X(x)\geq 0
+\qquad
+\mbox{per ogni }x\in\mathbb{R},
+\]
+e
+\[
+\int_{-\infty}^{+\infty} f_X(x)\,dx=1.
+\]
+La prima condizione esprime la non negativit\`{a} della probabilit\`{a}; la
+seconda esprime il fatto che la probabilit\`{a} totale sia pari a uno.
+
+Nel caso assolutamente continuo, la probabilit\`{a} che $X$ appartenga a un
+intervallo si ottiene integrando la densit\`{a}. In particolare, per $a<b$,
+\[
+\Prob(a<X\leq b)
+=
+\int_a^b f_X(x)\,dx.
+\]
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.80\textwidth]{graphics/cap2_probabilita_area_sotto_densita.png}
+\caption{Rappresentazione geometrica della probabilit\`{a} $\Prob(a<X\leq b)$ come area sotto la densit\`{a} $f_X(x)$ nell'intervallo $(a,b]$.}
+\label{fig:cap2-area-sotto-densita}
+\end{figure}
+
+Poich\'{e} i singoli punti hanno probabilit\`{a} nulla, non \`{e} rilevante
+includere o escludere gli estremi dell'intervallo:
+\[
+\Prob(a<X<b)
+=
+\Prob(a\leq X<b)
+=
+\Prob(a<X\leq b)
+=
+\Prob(a\leq X\leq b).
+\]
+Infatti, per ogni $x\in\mathbb{R}$,
+\[
+\Prob(X=x)
+=
+\int_x^x f_X(s)\,ds
+=
+0.
+\]
+
+Questa propriet\`{a} deve essere interpretata correttamente. L'uguaglianza
+$\Prob(X=x)=0$ non significa che il valore $x$ sia logicamente impossibile; essa
+significa che, in un modello continuo, la probabilit\`{a} non \`{e} concentrata
+sui singoli punti, ma distribuita lungo intervalli della retta reale.
+
+La relazione tra densit\`{a} e funzione di ripartizione \`{e} data da
+\[
+F_X(x)
+=
+\Prob(X\leq x)
+=
+\int_{-\infty}^{x} f_X(s)\,ds.
+\]
+Quando $F_X$ \`{e} derivabile nel punto $x$, si ha
+\[
+f_X(x)=F_X'(x).
+\]
+La densit\`{a} pu\`{o} quindi essere vista come il tasso locale di variazione
+della funzione di ripartizione.
+
+Un'interpretazione utile della densit\`{a} si ottiene considerando un piccolo
+intervallo centrato in $x$. Per $\varepsilon>0$ piccolo,
+\[
+\Prob\left(x-\frac{\varepsilon}{2}<X\leq x+\frac{\varepsilon}{2}\right)
+=
+\int_{x-\varepsilon/2}^{x+\varepsilon/2} f_X(s)\,ds
+\simeq
+\varepsilon f_X(x).
+\]
+Quindi $f_X(x)$ non \`{e} una probabilit\`{a}, ma misura quanto rapidamente la
+probabilit\`{a} si accumula in un intorno del punto $x$.
+
+\begin{example}[Rendimento continuo con densit\`{a} costante]
+Si consideri un rendimento aleatorio $R$ che pu\`{o} assumere qualunque valore
+nell'intervallo compreso tra $-4\%$ e $6\%$. Supponiamo che la sua densit\`{a}
+sia costante su tale intervallo e nulla altrove:
+\[
+f_R(r)=
+\begin{cases}
+c, & -0.04\leq r\leq 0.06,\\
+0, & \mbox{altrove}.
+\end{cases}
+\]
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{graphics/cap2_densita_uniforme_rendimento_area_01_05.png}
+\caption{Densit\`{a} uniforme del rendimento $R$ nell'intervallo $[-0.04,0.06]$. L'area evidenziata rappresenta la probabilit\`{a} $\Prob(0.01\leq R\leq 0.05)$.}
+\label{fig:cap2-densita-uniforme-area-01-05}
+\end{figure}
+
+La costante $c$ deve essere scelta in modo che l'integrale della densit\`{a} sia
+uguale a uno:
+\[
+\int_{-\infty}^{+\infty} f_R(r)\,dr
+=
+\int_{-0.04}^{0.06} c\,dr
+=
+0.10c
+=
+1.
+\]
+Pertanto,
+\[
+c=10.
+\]
+La densit\`{a} \`{e} quindi
+\[
+f_R(r)=
+\begin{cases}
+10, & -0.04\leq r\leq 0.06,\\
+0, & \mbox{altrove}.
+\end{cases}
+\]
+
+La probabilit\`{a} che il rendimento sia negativo \`{e}
+\[
+\Prob(R<0)
+=
+\int_{-0.04}^{0}10\,dr
+=
+0.40.
+\]
+La probabilit\`{a} che il rendimento sia compreso tra $1\%$ e $5\%$ \`{e}
+\[
+\Prob(0.01\leq R\leq 0.05)
+=
+\int_{0.01}^{0.05}10\,dr
+=
+0.40.
+\]
+Invece, la probabilit\`{a} che il rendimento sia esattamente pari all'$1\%$ \`{e}
+\[
+\Prob(R=0.01)=0.
+\]
+Nel modello continuo, quindi, ha senso calcolare la probabilit\`{a} che il
+rendimento appartenga a un intervallo, mentre ogni singolo valore puntuale ha
+probabilit\`{a} nulla.
+\end{example}
+
+Nel linguaggio della finanza quantitativa, le densit\`{a} sono utilizzate per
+descrivere grandezze come rendimenti, perdite, prezzi futuri e fattori di
+crescita quando si assume che possano variare in modo continuo. Ad esempio, se
+$L$ rappresenta una perdita assolutamente continua con densit\`{a} $f_L$, allora
+la probabilit\`{a} che la perdita superi una soglia $\ell$ \`{e}
+\[
+\Prob(L>\ell)
+=
+\int_{\ell}^{+\infty} f_L(x)\,dx
+=
+1-F_L(\ell).
+\]
+Questa \`{e} una probabilit\`{a} di coda e costituisce uno degli oggetti centrali
+nella misurazione del rischio.
+
+La distinzione tra funzione di probabilità e densit\`{a} \`{e} dunque fondamentale. Nel
+caso discreto, la probabilit\`{a} \`{e} assegnata ai singoli valori:
+\[
+p_X(x_i)=\Prob(X=x_i).
+\]
+Nel caso assolutamente continuo, invece, la probabilit\`{a} \`{e} assegnata agli
+intervalli mediante integrazione:
+\[
+\Prob(a<X\leq b)
+=
+\int_a^b f_X(x)\,dx.
+\]
+In entrambi i casi, la funzione di distribuzione (o ripartizione) $F_X$ rimane l'oggetto comune:
+essa descrive la probabilit\`{a} cumulata fino a una soglia e consente di
+formulare in modo unitario probabilit\`{a} di intervallo, probabilit\`{a} di coda
+e quantili.
+
+\section{Probabilit\`{a} di coda e quantili}
+\label{sec:cap2-code-quantili}
+
+La funzione di distribuzione $F_X$ consente di descrivere in modo diretto le
+probabilit\`{a} di coda di una variabile casuale. Se $X$ rappresenta un
+rendimento, una perdita o un payoff, tali probabilit\`{a} misurano la frequenza
+con cui la grandezza aleatoria assume valori estremi rispetto a una soglia
+prefissata.
+
+La coda sinistra di $X$ \`{e} descritta da probabilit\`{a} del tipo
+\[
+\Prob(X\leq x)=F_X(x).
+\]
+Essa \`{e} rilevante, ad esempio, quando $X$ rappresenta un rendimento e si vuole
+valutare la probabilit\`{a} di rendimenti molto bassi o negativi.
+
+La coda destra \`{e} invece descritta da
+\[
+\Prob(X>x)=1-F_X(x),
+\]
+oppure, in presenza di possibili salti della funzione di distribuzione, da
+\[
+\Prob(X\geq x)=1-F_X(x^-),
+\]
+dove
+\[
+F_X(x^-)=\lim_{h\downarrow 0}F_X(x-h).
+\]
+La distinzione tra $X>x$ e $X\geq x$ \`{e} irrilevante per variabili casuali
+assolutamente continue, ma pu\`{o} essere importante nel caso discreto.
+
+In finanza quantitativa, le probabilit\`{a} di coda sono centrali perch\'{e}
+permettono di valutare il rischio di eventi sfavorevoli. Se $L$ rappresenta una
+perdita, la probabilit\`{a}
+\[
+\Prob(L>\ell)
+\]
+misura la probabilit\`{a} che la perdita superi la soglia $\ell$. In termini della
+funzione di distribuzione di $L$,
+\[
+\Prob(L>\ell)=1-F_L(\ell).
+\]
+Questa \`{e} una probabilit\`{a} di coda destra, poich\'{e} perdite elevate si
+collocano nella parte destra della distribuzione di $L$.
+
+\begin{definition}[Quantile]
+Sia $X$ una variabile casuale reale con funzione di distribuzione $F_X$. Per
+$\alpha\in(0,1)$, il quantile di ordine $\alpha$ di $X$ \`{e} definito da
+\[
+q_\alpha(X)
+=
+\inf\{x\in\mathbb{R}:F_X(x)\geq \alpha\}.
+\]
+\end{definition}
+
+Il quantile $q_\alpha(X)$ \`{e} la soglia pi\`{u} bassa tale che la \textbf{probabilit\`{a}
+cumulata} fino a quella soglia sia almeno pari ad $\alpha$. La definizione con
+l'infimo \`{e} particolarmente utile perch\'{e} resta valida anche quando la
+funzione di distribuzione presenta salti, come accade per le variabili casuali
+discrete.
+
+\paragraph{Caso di v.c. continua.}Se $F_X$ \`{e} continua e strettamente crescente, il quantile \`{e} il valore che
+risolve l'equazione
+\[
+F_X(q_\alpha(X))=\alpha.
+\]
+In questo caso il calcolo del quantile di livello $\alpha$ si semplifica e risulta
+\[
+q_\alpha(X)=F_X^{-1}(\alpha).
+\]
+Nel caso generale, invece, l'inversa ordinaria pu\`{o} non esistere, oppure non
+essere univoca; per questo motivo la definizione tramite infimo \`{e} quella pi\`{u}
+robusta.
+
+\begin{example}[Quantili del rendimento discreto]
+Riprendiamo la distribuzione discreta del rendimento $X$:
+\[
+\begin{array}{c|c}
+x & p_X(x)=\Prob(X=x)\\
+\hline
+-0.04 & 0.25\\
+ 0.01 & 0.50\\
+ 0.06 & 0.25
+\end{array}
+\]
+La funzione di distribuzione \`{e}
+\[
+F_X(x)=
+\begin{cases}
+0, & x<-0.04,\\
+0.25, & -0.04\leq x<0.01,\\
+0.75, & 0.01\leq x<0.06,\\
+1, & x\geq 0.06.
+\end{cases}
+\]
+Pertanto,
+\[
+q_\alpha(X)=
+\begin{cases}
+-0.04, & 0<\alpha\leq 0.25,\\
+ 0.01, & 0.25<\alpha\leq 0.75,\\
+ 0.06, & 0.75<\alpha<1.
+\end{cases}
+\]
+Ad esempio,
+\[
+q_{0.05}(X)=-0.04,
+\qquad
+q_{0.50}(X)=0.01,
+\qquad
+q_{0.95}(X)=0.06.
+\]
+Il quantile al $5\%$ individua la parte bassa della distribuzione dei rendimenti;
+il quantile al $95\%$ individua invece una soglia elevata della stessa
+distribuzione.
+\end{example}
+
+Quando la variabile casuale rappresenta una perdita, l'interpretazione dei
+quantili cambia prospettiva. Se $L$ \`{e} una perdita, un quantile elevato
+$q_\alpha(L)$ con $\alpha$ vicino a uno rappresenta una soglia di perdita che
+viene superata solo con probabilit\`{a} residua approssimativamente pari a
+$1-\alpha$, almeno nel caso continuo:
+\[
+\Prob(L>q_\alpha(L))=1-\alpha.
+\]
+Nel caso generale, e in particolare nel caso discreto, questa uguaglianza pu\`{o}
+non valere esattamente a causa dei salti della funzione di distribuzione. Resta
+per\`{o} valida l'interpretazione del quantile come soglia cumulata:
+\[
+F_L(q_\alpha(L))\geq \alpha.
+\]
+
+\begin{example}[Quantile di una perdita]
+Se il rendimento $X$ dell'esempio precedente viene trasformato in perdita
+mediante
+\[
+L=-X,
+\]
+allora $L$ assume i valori
+\[
+-0.06,\qquad -0.01,\qquad 0.04
+\]
+con probabilit\`{a} rispettivamente
+\[
+0.25,\qquad 0.50,\qquad 0.25.
+\]
+La funzione di distribuzione di $L$ \`{e}
+\[
+F_L(\ell)=
+\begin{cases}
+0, & \ell<-0.06,\\
+0.25, & -0.06\leq \ell<-0.01,\\
+0.75, & -0.01\leq \ell<0.04,\\
+1, & \ell\geq 0.04.
+\end{cases}
+\]
+Il quantile al $95\%$ della perdita \`{e}
+\[
+q_{0.95}(L)=0.04.
+\]
+Questo valore indica che, nel modello discreto considerato, almeno il $95\%$
+della probabilit\`{a} cumulata si trova a sinistra o in corrispondenza della
+perdita $0.04$. Poich\'{e} la distribuzione ha un salto in $0.04$, tutta la massa
+residua viene concentrata su tale valore.
+\end{example}
+
+Il legame tra probabilit\`{a} di coda e quantili \`{e} alla base di molte misure
+di rischio. In particolare, per una perdita $L$, un quantile elevato consente di
+individuare una soglia critica della distribuzione delle perdite. Questa idea sar\`{a}
+ripresa nei capitoli successivi, quando verranno introdotte misure di rischio
+basate sui quantili, come il Value at Risk.
+
+In sintesi, la funzione di distribuzione permette di calcolare probabilit\`{a} di
+coda, mentre i quantili invertono il punto di vista: invece di fissare una soglia
+e calcolare la probabilit\`{a} di superarla, si fissa un livello di probabilit\`{a}
+$\alpha$ e si determina la soglia corrispondente.
+
+
+\section{Valore atteso}
+\label{sec:cap2-valore-atteso}
+
+La distribuzione di una variabile casuale descrive l'intero insieme delle
+probabilit\`{a} associate ai suoi valori. In molte applicazioni \`{e} tuttavia
+utile sintetizzare tale distribuzione mediante alcuni indicatori numerici. Il
+primo e pi\`{u} importante \`{e} il valore atteso.
+
+Intuitivamente, il valore atteso rappresenta il centro di gravit\`{a} della
+distribuzione: i valori assunti dalla variabile casuale vengono ponderati con le
+rispettive probabilit\`{a}. In finanza quantitativa esso viene utilizzato, ad
+esempio, per descrivere il rendimento medio atteso di un'attivit\`{a}, la perdita
+attesa di un portafoglio o il valore medio di un payoff aleatorio.
+
+\begin{definition}[Valore atteso: caso discreto]
+Sia $X$ una variabile casuale discreta che assume valori $x_1,x_2,\ldots$ con
+funzione di probabilit\`{a} $p_X$. Se la somma \`{e} ben definita, il valore
+atteso di $X$ \`{e}
+\[
+\E[X]
+=
+\sum_i x_i p_X(x_i).
+\]
+\end{definition}
+
+Nel caso discreto finito, la somma precedente \`{e} sempre ben definita. Nel caso
+discreto numerabile, si richiede normalmente la condizione di integrabilit\`{a}
+\[
+\sum_i |x_i|p_X(x_i)<+\infty.
+\]
+Questa condizione garantisce che il valore atteso sia finito e non dipenda
+dall'ordine con cui vengono sommati i termini.
+
+\begin{example}[Valore atteso del rendimento discreto]
+Riprendiamo la distribuzione discreta del rendimento $X$:
+\[
+\begin{array}{c|c}
+x & p_X(x)=\Prob(X=x)\\
+\hline
+-0.04 & 0.25\\
+ 0.01 & 0.50\\
+ 0.06 & 0.25
+\end{array}
+\]
+Il valore atteso \`{e}
+\[
+\E[X]
+=
+(-0.04)(0.25)+(0.01)(0.50)+(0.06)(0.25).
+\]
+Pertanto,
+\[
+\E[X]
+=
+-0.010+0.005+0.015
+=
+0.010.
+\]
+Il rendimento atteso \`{e} quindi pari all'$1\%$.
+
+Questo risultato non significa che il rendimento osservato debba essere pari
+all'$1\%$. Nel modello considerato, $1\%$ \`{e} uno dei valori possibili, ma in
+generale il valore atteso pu\`{o} anche non coincidere con alcun valore
+effettivamente assumibile dalla variabile casuale. Esso rappresenta una media
+probabilistica, non una previsione deterministica.
+\end{example}
+
+Per le variabili casuali assolutamente continue la somma
+ponderata del caso discreto viene sostituita da un integrale.
+
+\begin{definition}[Valore atteso: caso assolutamente continuo]
+Sia $X$ una variabile casuale assolutamente continua con densit\`{a} $f_X$. Se
+l'integrale \`{e} ben definito, il valore atteso di $X$ \`{e}
+\[
+\E[X]
+=
+\int_{-\infty}^{+\infty}x f_X(x)\,dx.
+\]
+\end{definition}
+
+Anche in questo caso, per avere un valore atteso finito, si richiede normalmente
+la condizione di integrabilit\`{a}
+\[
+\int_{-\infty}^{+\infty}|x|f_X(x)\,dx<+\infty.
+\]
+
+\begin{example}[Valore atteso del rendimento uniforme]
+Consideriamo il rendimento continuo $R$ dell'esempio precedente, con densit\`{a}
+\[
+f_R(r)=
+\begin{cases}
+10, & -0.04\leq r\leq 0.06,\\
+0, & \mbox{altrove}.
+\end{cases}
+\]
+Il valore atteso \`{e}
+\[
+\E[R]
+=
+\int_{-\infty}^{+\infty} r f_R(r)\,dr
+=
+\int_{-0.04}^{0.06}10r\,dr.
+\]
+Calcolando l'integrale,
+\[
+\E[R]
+=
+10\left[\frac{r^2}{2}\right]_{-0.04}^{0.06}
+=
+5\left(0.06^2-(-0.04)^2\right).
+\]
+Poich\'{e}
+\[
+0.06^2=0.0036,
+\qquad
+(-0.04)^2=0.0016,
+\]
+si ottiene
+\[
+\E[R]
+=
+5(0.0020)
+=
+0.010.
+\]
+Anche in questo caso il rendimento atteso \`{e} pari all'$1\%$. Per una densit\`{a}
+uniforme su un intervallo, il valore atteso coincide con il punto medio
+dell'intervallo:
+\[
+\E[R]
+=
+\frac{-0.04+0.06}{2}
+=
+0.01.
+\]
+\end{example}
+
+\paragraph{Linearit\`{a} del valore atteso.}Il valore atteso gode di una propriet\`{a} fondamentale: la linearit\`{a}. Se $a$
+e $b$ sono costanti reali, allora
+\[
+\E[aX+b]
+=
+a\E[X]+b.
+\]
+Questa propriet\`{a} vale sia nel caso discreto sia nel caso assolutamente
+continuo, purch\'{e} i valori attesi coinvolti siano ben definiti.
+
+In ambito finanziario, la linearit\`{a} \`{e} particolarmente utile. Se $R$ \`{e}
+un rendimento e
+\[
+Y=aR+b,
+\]
+allora
+\[
+\E[Y]=a\E[R]+b.
+\]
+Ad esempio, una trasformazione affine di un rendimento modifica il valore atteso
+nello stesso modo in cui modifica i valori della variabile casuale.
+
+Pi\`{u} in generale, se $X_1,\ldots,X_n$ sono variabili casuali integrabili e
+$a_1,\ldots,a_n$ sono costanti reali, allora
+\[
+\E\left[\sum_{i=1}^n a_iX_i\right]
+=
+\sum_{i=1}^n a_i\E[X_i].
+\]
+Questa identit\`{a} non richiede indipendenza tra le variabili casuali. Essa sar\`{a}
+importante, ad esempio, nella descrizione del rendimento atteso di un portafoglio
+come combinazione lineare dei rendimenti delle singole attivit\`{a}.
+
+Il valore atteso \`{e} quindi un indicatore sintetico della posizione della
+distribuzione. Tuttavia, da solo non descrive la rischiosit\`{a} di una variabile
+casuale. Due rendimenti possono avere lo stesso valore atteso ma distribuzioni
+molto diverse, con diversa dispersione intorno alla media e diversa probabilit\`{a}
+di eventi estremi. Per questo motivo, nelle sezioni successive il valore atteso
+sar\`{a} affiancato da altri indicatori, in particolare dalla varianza, dalla
+deviazione standard e dai momenti.
+
+
+\section{Valore atteso di funzioni di variabili casuali}
+\label{sec:cap2-valore-atteso-funzioni}
+
+In molte applicazioni non interessa soltanto il valore atteso di una variabile
+casuale $X$, ma il valore atteso di una funzione di $X$. Se $X$ rappresenta un
+prezzo futuro, un rendimento o una perdita, una funzione $g(X)$ pu\`{o}
+rappresentare un payoff, una perdita trasformata, un indicatore di evento o una
+misura non lineare del risultato finanziario.
+
+Un esempio tipico \`{e} il payoff di un'opzione call europea:
+\[
+g(S_T)=(S_T-K)^+,
+\]
+dove $S_T$ \`{e} il prezzo futuro del sottostante e $K$ \`{e} il prezzo di
+esercizio. Un altro esempio \`{e} l'indicatrice di superamento di una soglia:
+\[
+g(L)=\mathbf{1}_{\{L>\ell\}},
+\]
+che vale $1$ se la perdita $L$ supera la soglia $\ell$ e vale $0$ altrimenti.
+
+Il punto essenziale \`{e} che, se si conosce la distribuzione di $X$, \`{e}
+possibile calcolare $\E[g(X)]$ senza determinare preliminarmente la
+distribuzione della nuova variabile casuale $Y=g(X)$.
+
+\begin{proposition}[Valore atteso di una funzione di una variabile casuale]
+Sia $X$ una variabile casuale reale e sia $g:\mathbb{R}\to\mathbb{R}$ una
+funzione misurabile.
+
+Se $X$ \`{e} discreta e assume valori $x_1,x_2,\ldots$ con funzione di
+probabilit\`{a} $p_X$, allora, quando la somma \`{e} ben definita,
+\[
+\E[g(X)]
+=
+\sum_i g(x_i)p_X(x_i).
+\]
+
+Se $X$ \`{e} assolutamente continua con densit\`{a} $f_X$, allora, quando
+l'integrale \`{e} ben definito,
+\[
+\E[g(X)]
+=
+\int_{-\infty}^{+\infty} g(x)f_X(x)\,dx.
+\]
+\end{proposition}
+
+Le condizioni di buona definizione richiedono, in particolare, che $g(X)$ sia
+integrabile. Nel caso discreto ci\`{o} significa normalmente
+\[
+\sum_i |g(x_i)|p_X(x_i)<+\infty,
+\]
+mentre nel caso assolutamente continuo significa
+\[
+\int_{-\infty}^{+\infty}|g(x)|f_X(x)\,dx<+\infty.
+\]
+
+Queste formule sono particolarmente utili perch\'{e} evitano un passaggio
+intermedio. In linea di principio, si potrebbe prima costruire la distribuzione
+di $Y=g(X)$ e poi calcolare $\E[Y]$. Tuttavia, la formula precedente consente di
+calcolare direttamente il valore atteso della funzione $g(X)$ a partire dalla
+distribuzione di $X$.
+
+\begin{example}[Payoff non lineare nel modello discreto]
+Riprendiamo il rendimento discreto $X$ con distribuzione
+\[
+\begin{array}{c|c}
+x & p_X(x)=\Prob(X=x)\\
+\hline
+-0.04 & 0.25\\
+ 0.01 & 0.50\\
+ 0.06 & 0.25
+\end{array}
+\]
+Supponiamo che il valore iniziale di un'attivit\`{a} finanziaria sia $S_0=100$ e
+che il prezzo futuro sia
+\[
+S_T=100(1+X).
+\]
+Allora $S_T$ assume i valori
+\[
+96,\qquad 101,\qquad 106
+\]
+con probabilit\`{a} rispettivamente
+\[
+0.25,\qquad 0.50,\qquad 0.25.
+\]
+
+Consideriamo il payoff di una call europea con prezzo di esercizio $K=100$:
+\[
+H=(S_T-K)^+.
+\]
+Poich\'{e} $S_T=100(1+X)$, il payoff pu\`{o} essere scritto come funzione di
+$X$:
+\[
+H=g(X)=\left(100(1+X)-100\right)^+.
+\]
+Quindi
+\[
+g(x)=(100x)^+.
+\]
+
+Il valore atteso del payoff si calcola direttamente dalla distribuzione di $X$:
+\[
+\E[H]
+=
+\E[g(X)]
+=
+\sum_x g(x)p_X(x).
+\]
+Nel caso considerato,
+\[
+g(-0.04)=0,
+\qquad
+g(0.01)=1,
+\qquad
+g(0.06)=6.
+\]
+Pertanto,
+\[
+\E[H]
+=
+0\cdot 0.25+1\cdot 0.50+6\cdot 0.25
+=
+2.
+\]
+Il valore atteso del payoff \`{e} quindi pari a $2$.
+\end{example}
+
+L'esempio precedente mostra un aspetto importante: anche quando $X$ ha una
+struttura molto semplice, una funzione non lineare $g(X)$ pu\`{o} modificare in
+modo rilevante i valori economici associati agli scenari. Il valore atteso del
+payoff non coincide, in generale, con il payoff calcolato nel valore atteso del
+sottostante. In altri termini, in generale,
+\[
+\E[g(X)]\neq g(\E[X]).
+\]
+L'uguaglianza vale per funzioni affini, ma non per funzioni non lineari come
+$(S_T-K)^+$.
+
+\begin{example}[Indicatrice e probabilit\`{a} di un evento]
+Sia $A\in\F$ un evento e sia $\mathbf{1}_A$ la sua variabile indicatrice:
+\[
+\mathbf{1}_A(\omega)=
+\begin{cases}
+1, & \mbox{se }\omega\in A,\\
+0, & \mbox{se }\omega\notin A.
+\end{cases}
+\]
+Il valore atteso di $\mathbf{1}_A$ \`{e}
+\[
+\E[\mathbf{1}_A]
+=
+1\cdot \Prob(A)+0\cdot \Prob(A^c)
+=
+\Prob(A).
+\]
+Quindi il valore atteso di una variabile indicatrice coincide con la probabilit\`{a}
+dell'evento indicato.
+
+Ad esempio, se $L$ rappresenta una perdita e $\ell$ una soglia critica, allora
+\[
+\E[\mathbf{1}_{\{L>\ell\}}]
+=
+\Prob(L>\ell).
+\]
+Una probabilit\`{a} di superamento pu\`{o} quindi essere vista come il valore
+atteso di una funzione della variabile casuale $L$.
+\end{example}
+
+Nel caso assolutamente continuo, la stessa logica si traduce in un integrale.
+Se $R$ \`{e} un rendimento con densit\`{a} $f_R$ e $g(R)$ rappresenta una
+trasformazione del rendimento, allora
+\[
+\E[g(R)]
+=
+\int_{-\infty}^{+\infty}g(r)f_R(r)\,dr.
+\]
+
+\begin{example}[Valore atteso di una perdita positiva]
+Sia $R$ il rendimento continuo uniforme sull'intervallo $[-0.04,0.06]$, con
+densit\`{a}
+\[
+f_R(r)=
+\begin{cases}
+10, & -0.04\leq r\leq 0.06,\\
+0, & \mbox{altrove}.
+\end{cases}
+\]
+Definiamo la perdita positiva come
+\[
+L^+=(-R)^+.
+\]
+Essa \`{e} positiva solo quando il rendimento \`{e} negativo. In questo caso
+\[
+g(r)=(-r)^+
+=
+\begin{cases}
+-r, & r<0,\\
+0, & r\geq 0.
+\end{cases}
+\]
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.78\textwidth]{graphics/cap2_funzione_shortfall_zero.png}
+\caption{Funzione $g(r)=(-r)^+$, interpretabile come perdita associata ai rendimenti negativi, o shortfall rispetto alla soglia zero.}
+\label{fig:cap2-funzione-shortfall-zero}
+\end{figure}
+
+Il valore atteso della perdita positiva \`{e}
+\[
+\E[L^+]
+=
+\E[(-R)^+]
+=
+\int_{-\infty}^{+\infty}(-r)^+ f_R(r)\,dr.
+\]
+Usando la densit\`{a} dell'esempio,
+\[
+\E[L^+]
+=
+\int_{-0.04}^{0}(-r)10\,dr.
+\]
+Quindi
+\[
+\E[L^+]
+=
+10\left[-\frac{r^2}{2}\right]_{-0.04}^{0}
+=
+10\left(0+\frac{0.04^2}{2}\right)
+=
+0.008.
+\]
+La perdita attesa \`{e} dunque pari a $0.8\%$.
+\end{example}
+
+Il valore atteso di funzioni di variabili casuali sar\`{a} utilizzato
+frequentemente nel seguito. In particolare, permette di trattare in modo unitario
+momenti, payoff, indicatori di eventi e trasformazioni non lineari. Ad esempio,
+scegliendo $g(x)=x^2$ si ottiene
+\[
+\E[X^2],
+\]
+che sar\`{a} necessario per definire e calcolare la varianza. Scegliendo invece
+$g(x)=\mathbf{1}_{\{x>\ell\}}$ si ottiene una probabilit\`{a} di coda:
+\[
+\E[\mathbf{1}_{\{X>\ell\}}]
+=
+\Prob(X>\ell).
+\]
+Questa flessibilit\`{a} rende la formula per $\E[g(X)]$ uno degli strumenti
+operativi pi\`{u} importanti nella modellizzazione probabilistica della finanza.
+
+
+\section{Varianza, deviazione standard e momenti}
+\label{sec:cap2-varianza-deviazione-momenti}
+
+Il valore atteso sintetizza la posizione centrale di una distribuzione, ma non
+descrive quanto i valori della variabile casuale siano dispersi intorno a tale
+centro. Due variabili casuali possono avere lo stesso valore atteso e presentare
+rischi molto diversi. Per misurare la dispersione si introduce la varianza.
+
+\begin{definition}[Varianza]
+Sia $X$ una variabile casuale con valore atteso finito $\E[X]$. Se
+$\E[(X-\E[X])^2]$ \`{e} finito, la varianza di $X$ \`{e} definita da
+\[
+\Var(X)
+=
+\E\left[(X-\E[X])^2\right].
+\]
+\end{definition}
+
+La varianza misura lo scostamento quadratico medio di $X$ dal proprio valore
+atteso. Poich\'{e} gli scostamenti sono elevati al quadrato, deviazioni positive
+e negative non si compensano. Inoltre, scostamenti pi\`{u} ampi ricevono un peso
+proporzionalmente maggiore.
+
+Nel caso discreto, se $X$ assume valori $x_1,x_2,\ldots$ con funzione di
+probabilit\`{a} $p_X$, allora
+\[
+\Var(X)
+=
+\sum_i (x_i-\E[X])^2p_X(x_i).
+\]
+Nel caso assolutamente continuo, se $X$ ha densit\`{a} $f_X$, allora
+\[
+\Var(X)
+=
+\int_{-\infty}^{+\infty}(x-\E[X])^2f_X(x)\,dx.
+\]
+
+Una formula operativa molto utile \`{e}
+\[
+\Var(X)
+=
+\E[X^2]-(\E[X])^2.
+\]
+Infatti,
+\[
+\E\left[(X-\E[X])^2\right]
+=
+\E[X^2-2X\E[X]+(\E[X])^2]
+=
+\E[X^2]-(\E[X])^2.
+\]
+Questa identit\`{a} consente spesso di calcolare la varianza passando prima dal
+secondo momento $\E[X^2]$.
+
+\begin{definition}[Deviazione standard]
+La deviazione standard di una variabile casuale $X$ con varianza finita \`{e}
+\[
+\sigma_X
+=
+\sqrt{\Var(X)}.
+\]
+\end{definition}
+
+La deviazione standard ha la stessa unit\`{a} di misura della variabile casuale
+originaria. Per questo motivo, nelle applicazioni finanziarie, essa \`{e} spesso
+pi\`{u} interpretabile della varianza. Se $X$ rappresenta un rendimento, anche
+$\sigma_X$ \`{e} espressa in unit\`{a} di rendimento.
+
+\begin{example}[Varianza del rendimento discreto]
+Riprendiamo il rendimento discreto $X$ con distribuzione
+\[
+\begin{array}{c|c}
+x & p_X(x)=\Prob(X=x)\\
+\hline
+-0.04 & 0.25\\
+ 0.01 & 0.50\\
+ 0.06 & 0.25
+\end{array}
+\]
+Nella sezione precedente abbiamo ottenuto
+\[
+\E[X]=0.01.
+\]
+La varianza \`{e}
+\[
+\Var(X)
+=
+(-0.04-0.01)^2\cdot 0.25
++
+(0.01-0.01)^2\cdot 0.50
++
+(0.06-0.01)^2\cdot 0.25.
+\]
+Poich\'{e}
+\[
+-0.04-0.01=-0.05,
+\qquad
+0.06-0.01=0.05,
+\]
+si ottiene
+\[
+\Var(X)
+=
+0.05^2\cdot 0.25
++
+0
++
+0.05^2\cdot 0.25
+=
+0.00125.
+\]
+La deviazione standard \`{e} quindi
+\[
+\sigma_X
+=
+\sqrt{0.00125}
+\simeq
+0.0354.
+\]
+In termini percentuali, la deviazione standard del rendimento \`{e} circa
+$3.54\%$.
+\end{example}
+
+Lo stesso risultato pu\`{o} essere ottenuto usando la formula
+\[
+\Var(X)=\E[X^2]-(\E[X])^2.
+\]
+Nel caso dell'esempio,
+\[
+\E[X^2]
+=
+(-0.04)^2\cdot 0.25
++
+(0.01)^2\cdot 0.50
++
+(0.06)^2\cdot 0.25.
+\]
+Quindi
+\[
+\E[X^2]
+=
+0.0016\cdot 0.25
++
+0.0001\cdot 0.50
++
+0.0036\cdot 0.25
+=
+0.00135.
+\]
+Poich\'{e} $\E[X]=0.01$,
+\[
+\Var(X)
+=
+0.00135-0.01^2
+=
+0.00125.
+\]
+
+\begin{example}[Varianza del rendimento uniforme]
+Consideriamo il rendimento continuo $R$ uniforme sull'intervallo
+$[-0.04,0.06]$, con densit\`{a}
+\[
+f_R(r)=
+\begin{cases}
+10, & -0.04\leq r\leq 0.06,\\
+0, & \mbox{altrove}.
+\end{cases}
+\]
+Abbiamo gi\`{a} calcolato
+\[
+\E[R]=0.01.
+\]
+La varianza \`{e}
+\[
+\Var(R)
+=
+\int_{-0.04}^{0.06}(r-0.01)^2 10\,dr.
+\]
+Calcolando direttamente l'integrale,
+\[
+\Var(R)
+=
+10\left[\frac{(r-0.01)^3}{3}\right]_{-0.04}^{0.06}.
+\]
+Poich\'{e}
+\[
+0.06-0.01=0.05,
+\qquad
+-0.04-0.01=-0.05,
+\]
+si ottiene
+\[
+\Var(R)
+=
+\frac{10}{3}
+\left[
+(0.05)^3-(-0.05)^3
+\right].
+\]
+Quindi
+\[
+\Var(R)
+=
+\frac{10}{3}\,2(0.05)^3
+=
+\frac{0.10^2}{12}
+\simeq
+0.000833.
+\]
+Quindi
+\[
+\Var(R)
+=
+\frac{0.01}{12}
+\simeq
+0.000833.
+\]
+La deviazione standard \`{e}
+\[
+\sigma_R
+=
+\sqrt{0.000833}
+\simeq
+0.0289.
+\]
+In termini percentuali, la deviazione standard \`{e} circa $2.89\%$.
+\end{example}
+
+La varianza ha alcune propriet\`{a} elementari che saranno usate frequentemente.
+Se $a$ e $b$ sono costanti reali, allora
+\[
+\Var(aX+b)
+=
+a^2\Var(X).
+\]
+La traslazione $b$ modifica il livello della variabile casuale, ma non la sua
+dispersione; il coefficiente moltiplicativo $a$ modifica invece la dispersione
+secondo il quadrato del fattore di scala.
+
+In particolare,
+\[
+\Var(X+b)=\Var(X),
+\]
+e
+\[
+\Var(aX)=a^2\Var(X).
+\]
+Per la deviazione standard si ha quindi
+\[
+\sigma_{aX+b}=|a|\sigma_X.
+\]
+
+\paragraph{Momenti.}
+Il valore atteso e la varianza sono casi particolari di una classe pi\`{u} ampia
+di indicatori, i momenti. I momenti descrivono diverse caratteristiche della
+distribuzione: posizione, dispersione, asimmetria e peso delle code.
+
+\begin{definition}[Momento rispetto a un punto]
+Sia $X$ una variabile casuale e sia $c\in\mathbb{R}$. Se il valore atteso \`{e}
+ben definito, il momento di ordine $m$ di $X$ rispetto a $c$ \`{e}
+\[
+\E[(X-c)^m].
+\]
+\end{definition}
+
+Quando $c=0$, si parla di momento ordinario di ordine $m$:
+\[
+\E[X^m].
+\]
+Quando $c=\E[X]$, si parla di momento centrale di ordine $m$:
+\[
+\E[(X-\E[X])^m].
+\]
+Il primo momento ordinario \`{e} il valore atteso:
+\[
+\E[X].
+\]
+Il secondo momento centrale \`{e} la varianza:
+\[
+\E[(X-\E[X])^2]=\Var(X).
+\]
+
+Nel caso discreto,
+\[
+\E[(X-c)^m]
+=
+\sum_i (x_i-c)^m p_X(x_i).
+\]
+Nel caso assolutamente continuo,
+\[
+\E[(X-c)^m]
+=
+\int_{-\infty}^{+\infty}(x-c)^m f_X(x)\,dx.
+\]
+
+Il momento centrale di ordine tre \`{e} collegato all'asimmetria della
+distribuzione. Se
+\[
+\E[(X-\E[X])^3]
+\]
+\`{e} positivo, la distribuzione tende ad avere una coda pi\`{u} pronunciata verso
+destra; se \`{e} negativo, tende ad avere una coda pi\`{u} pronunciata verso
+sinistra. Una misura adimensionale dell'asimmetria \`{e}
+\[
+\frac{\E[(X-\E[X])^3]}{\sigma_X^3},
+\]
+quando $\sigma_X>0$.
+
+Il momento centrale di ordine quattro \`{e} collegato alla curtosi, cio\`{e} al
+peso relativo delle code rispetto alla dispersione complessiva. Una misura
+adimensionale della curtosi \`{e}
+\[
+\frac{\E[(X-\E[X])^4]}{\sigma_X^4},
+\]
+quando $\sigma_X>0$. Nelle applicazioni finanziarie, questa informazione \`{e}
+importante perch\'{e} distribuzioni con code pi\`{u} pesanti possono generare
+perdite estreme con probabilit\`{a} maggiore rispetto a quanto suggerito dalla
+sola varianza.
+
+\begin{example}[Momenti centrali del rendimento discreto]
+Per il rendimento discreto dell'esempio precedente, $\E[X]=0.01$ e
+$\sigma_X\simeq 0.0354$. Gli scostamenti dalla media sono
+\[
+-0.04-0.01=-0.05,
+\qquad
+0.01-0.01=0,
+\qquad
+0.06-0.01=0.05.
+\]
+Il momento centrale di ordine tre \`{e}
+\[
+\E[(X-\E[X])^3]
+=
+(-0.05)^3\cdot 0.25
++
+0^3\cdot 0.50
++
+(0.05)^3\cdot 0.25
+=
+0.
+\]
+La distribuzione \`{e} quindi simmetrica intorno al valore atteso $0.01$.
+
+Il momento centrale di ordine quattro \`{e}
+\[
+\E[(X-\E[X])^4]
+=
+(-0.05)^4\cdot 0.25
++
+0^4\cdot 0.50
++
+(0.05)^4\cdot 0.25.
+\]
+Quindi
+\[
+\E[(X-\E[X])^4]
+=
+0.05^4\cdot 0.50.
+\]
+Questo momento misura il peso degli scostamenti estremi rispetto alla media.
+\end{example}
+
+Dal punto di vista finanziario, valore atteso e varianza rappresentano una prima
+sintesi della distribuzione di un rendimento o di una perdita. Il valore atteso
+descrive la posizione media, mentre la varianza e la deviazione standard
+descrivono la dispersione. Tuttavia, media e varianza non esauriscono la
+descrizione del rischio. In presenza di distribuzioni asimmetriche o con code
+pesanti, anche i momenti di ordine superiore e i quantili diventano essenziali
+per comprendere la probabilit\`{a} e la severit\`{a} degli eventi estremi.
+
+
+\section{Famiglie distributive fondamentali}
+\label{sec:cap2-famiglie-distributive}
+
+Le sezioni precedenti hanno introdotto gli strumenti generali per descrivere la
+distribuzione di una variabile casuale: funzione di distribuzione, funzione di
+probabilit\`{a}, densit\`{a}, valore atteso, varianza e quantili. In molte
+applicazioni \`{e} utile ricondurre una variabile casuale a una famiglia
+distributiva parametrica. Una famiglia distributiva specifica la forma della
+distribuzione mediante uno o pi\`{u} parametri.
+
+In questa sezione presentiamo alcune distribuzioni fondamentali, frequentemente
+utilizzate come modelli elementari in probabilit\`{a} e in finanza quantitativa.
+La rassegna non \`{e} esaustiva; l'obiettivo \`{e} introdurre le famiglie pi\`{u}
+utili per rappresentare successi e insuccessi, conteggi, rendimenti continui,
+prezzi positivi e grandezze aleatorie con struttura gaussiana.
+
+\subsection{Distribuzione di Bernoulli}
+
+La distribuzione di Bernoulli descrive un esperimento con due soli esiti:
+successo e insuccesso. Una variabile casuale $X$ ha distribuzione di Bernoulli
+con parametro $p\in[0,1]$ se assume valore $1$ con probabilit\`{a} $p$ e valore
+$0$ con probabilit\`{a} $1-p$.
+
+Si scrive
+\[
+X\sim \operatorname{Bernoulli}(p).
+\]
+La funzione di probabilit\`{a} \`{e}
+\[
+p_X(x)=
+\begin{cases}
+1-p, & x=0,\\
+p, & x=1,\\
+0, & \mbox{altrove}.
+\end{cases}
+\]
+La funzione di distribuzione \`{e}
+\[
+F_X(x)=
+\begin{cases}
+0, & x<0,\\
+1-p, & 0\leq x<1,\\
+1, & x\geq 1.
+\end{cases}
+\]
+Il valore atteso e la varianza sono
+\[
+\E[X]=p,
+\qquad
+\Var(X)=p(1-p).
+\]
+
+In finanza, una variabile di Bernoulli pu\`{o} rappresentare il verificarsi o
+meno di un evento: default/non default, superamento/non superamento di una
+soglia, esercizio/non esercizio di un'opzione digitale. In particolare, se
+$A\in\F$ \`{e} un evento, la variabile indicatrice $\mathbf{1}_A$ ha distribuzione
+di Bernoulli con parametro $\Prob(A)$.
+
+\subsection{Distribuzione binomiale}
+
+La distribuzione binomiale descrive il numero di successi in $n$ prove
+indipendenti, ciascuna con probabilit\`{a} di successo $p$. Una variabile casuale
+$X$ ha distribuzione binomiale con parametri $n$ e $p$ se
+\[
+X\sim \operatorname{Bin}(n,p),
+\]
+con $n\in\mathbb{N}$ e $p\in[0,1]$.
+
+La funzione di probabilit\`{a} \`{e}
+\[
+p_X(k)
+=
+\Prob(X=k)
+=
+\binom{n}{k}p^k(1-p)^{n-k},
+\qquad
+k=0,1,\ldots,n.
+\]
+Essa vale zero per valori di $k$ diversi da $0,1,\ldots,n$. Il coefficiente
+binomiale
+\[
+\binom{n}{k}
+=
+\frac{n!}{k!(n-k)!}
+\]
+conta il numero di sequenze di $n$ prove in cui si verificano esattamente $k$
+successi.
+
+Il valore atteso e la varianza sono
+\[
+\E[X]=np,
+\qquad
+\Var(X)=np(1-p).
+\]
+
+La distribuzione binomiale compare naturalmente nei modelli a stati binari. Ad
+esempio, in un modello binomiale elementare, $X$ pu\`{o} rappresentare il numero
+di rialzi di un prezzo in $n$ periodi. In un contesto di rischio di credito, $X$
+pu\`{o} rappresentare il numero di default in un portafoglio di $n$ esposizioni
+omogenee e indipendenti, ciascuna con probabilit\`{a} di default $p$.
+
+\begin{example}[Numero di rialzi in tre periodi]
+Supponiamo che in ciascuno di tre periodi un'attivit\`{a} finanziaria possa
+registrare un rialzo con probabilit\`{a} $p=0.4$ e un ribasso con probabilit\`{a}
+$1-p=0.6$, indipendentemente dagli altri periodi. Se $X$ indica il numero di
+rialzi nei tre periodi, allora
+\[
+X\sim \operatorname{Bin}(3,0.4).
+\]
+La funzione di probabilit\`{a} \`{e}
+\[
+p_X(k)=\binom{3}{k}(0.4)^k(0.6)^{3-k},
+\qquad k=0,1,2,3.
+\]
+Quindi
+\[
+p_X(0)=0.216,
+\qquad
+p_X(1)=0.432,
+\qquad
+p_X(2)=0.288,
+\qquad
+p_X(3)=0.064.
+\]
+Il numero atteso di rialzi \`{e}
+\[
+\E[X]=3\cdot 0.4=1.2.
+\]
+\end{example}
+
+\subsection{Distribuzione di Poisson}
+
+La distribuzione di Poisson \`{e} utilizzata per modellare conteggi di eventi
+rari su un intervallo temporale o spaziale. Una variabile casuale $X$ ha
+distribuzione di Poisson con parametro $\lambda>0$ se
+\[
+X\sim \operatorname{Poisson}(\lambda)
+\]
+e
+\[
+p_X(k)
+=
+\Prob(X=k)
+=
+e^{-\lambda}\frac{\lambda^k}{k!},
+\qquad
+k=0,1,2,\ldots.
+\]
+Il parametro $\lambda$ rappresenta sia il valore atteso sia la varianza:
+\[
+\E[X]=\lambda,
+\qquad
+\Var(X)=\lambda.
+\]
+
+La distribuzione di Poisson pu\`{o} essere vista come approssimazione della
+binomiale quando il numero di prove \`{e} grande e la probabilit\`{a} di successo
+\`{e} piccola, mantenendo costante il prodotto $np=\lambda$. In questo senso,
+essa \`{e} utile per modellare conteggi di eventi poco frequenti.
+
+In finanza, esempi stilizzati possono riguardare il numero di default in un
+portafoglio ampio con probabilit\`{a} individuali piccole, il numero di shock di
+mercato in un intervallo temporale o il numero di superamenti di una soglia di
+perdita.
+
+\begin{example}[Probabilit\`{a} di almeno un evento raro]
+Sia $X\sim \operatorname{Poisson}(\lambda)$ il numero di eventi rari osservati in
+un certo intervallo temporale. La probabilit\`{a} di almeno un evento \`{e}
+\[
+\Prob(X\geq 1)
+=
+1-\Prob(X=0).
+\]
+Poich\'{e}
+\[
+\Prob(X=0)=e^{-\lambda},
+\]
+si ottiene
+\[
+\Prob(X\geq 1)=1-e^{-\lambda}.
+\]
+\end{example}
+
+\subsection{Distribuzione uniforme continua}
+
+La distribuzione uniforme continua descrive una variabile casuale che assegna la
+stessa densit\`{a} a tutti i punti di un intervallo. Una variabile casuale $X$ ha
+distribuzione uniforme sull'intervallo $[a,b]$, con $a<b$, se
+\[
+X\sim U[a,b]
+\]
+e ha densit\`{a}
+\[
+f_X(x)=
+\begin{cases}
+\dfrac{1}{b-a}, & a\leq x\leq b,\\[6pt]
+0, & \mbox{altrove}.
+\end{cases}
+\]
+La funzione di distribuzione \`{e}
+\[
+F_X(x)=
+\begin{cases}
+0, & x<a,\\[4pt]
+\dfrac{x-a}{b-a}, & a\leq x\leq b,\\[8pt]
+1, & x>b.
+\end{cases}
+\]
+Il valore atteso e la varianza sono
+\[
+\E[X]=\frac{a+b}{2},
+\qquad
+\Var(X)=\frac{(b-a)^2}{12}.
+\]
+
+La distribuzione uniforme \`{e} utile sia come modello elementare sia come
+strumento di simulazione. In particolare, la variabile uniforme su $[0,1]$
+svolge un ruolo centrale nella generazione di scenari casuali mediante metodi di
+simulazione.
+
+\subsection{Distribuzione normale}
+
+La distribuzione normale \`{e} una delle famiglie pi\`{u} importanti della
+probabilit\`{a}. Una variabile casuale $X$ ha distribuzione normale con media
+$\mu\in\mathbb{R}$ e varianza $\sigma^2>0$ se
+\[
+X\sim \mathcal{N}(\mu,\sigma^2)
+\]
+e ha densit\`{a}
+\[
+f_X(x)
+=
+\frac{1}{\sigma\sqrt{2\pi}}
+\exp\left\{
+-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2
+\right\},
+\qquad x\in\mathbb{R}.
+\]
+Il valore atteso e la varianza sono
+\[
+\E[X]=\mu,
+\qquad
+\Var(X)=\sigma^2.
+\]
+
+La distribuzione normale standard \`{e}
+\[
+Z\sim \mathcal{N}(0,1).
+\]
+La sua funzione di distribuzione viene indicata con $\Phi$:
+\[
+\Phi(z)
+=
+\Prob(Z\leq z)
+=
+\int_{-\infty}^{z}
+\frac{1}{\sqrt{2\pi}}
+\exp\left\{-\frac{u^2}{2}\right\}\,du.
+\]
+Se $X\sim \mathcal{N}(\mu,\sigma^2)$, allora la variabile standardizzata
+\[
+Z=\frac{X-\mu}{\sigma}
+\]
+ha distribuzione normale standard:
+\[
+Z\sim \mathcal{N}(0,1).
+\]
+Di conseguenza,
+\[
+\Prob(X\leq x)
+=
+\Phi\left(\frac{x-\mu}{\sigma}\right).
+\]
+
+In finanza quantitativa, la distribuzione normale viene spesso utilizzata come
+modello di riferimento per rendimenti o variazioni di valore, soprattutto per la
+sua semplicit\`{a} analitica. Tuttavia, essa \`{e} simmetrica e caratterizzata da
+code relativamente sottili; per questo motivo pu\`{o} essere inadeguata quando
+i dati mostrano forte asimmetria o eventi estremi pi\`{u} frequenti.
+
+\subsection{Distribuzione lognormale}
+
+La distribuzione lognormale \`{e} una distribuzione continua su valori
+strettamente positivi. Essa \`{e} particolarmente importante in finanza perch\'{e}
+prezzi, capitalizzazioni e fattori di crescita non possono assumere valori
+negativi.
+
+Una variabile casuale $S$ ha distribuzione lognormale se il suo logaritmo ha
+distribuzione normale. In altri termini, se
+\[
+Y\sim \mathcal{N}(\mu,\sigma^2)
+\]
+e
+\[
+S=e^Y,
+\]
+allora $S$ ha distribuzione lognormale. Si pu\`{o} scrivere
+\[
+S\sim \operatorname{Lognormal}(\mu,\sigma^2).
+\]
+
+La densit\`{a} di $S$ \`{e}
+\[
+f_S(s)
+=
+\frac{1}{s\sigma\sqrt{2\pi}}
+\exp\left\{
+-\frac{1}{2}\left(\frac{\ln s-\mu}{\sigma}\right)^2
+\right\},
+\qquad s>0,
+\]
+e
+\[
+f_S(s)=0,
+\qquad s\leq 0.
+\]
+Il valore atteso e la varianza sono
+\[
+\E[S]
+=
+\exp\left\{\mu+\frac{1}{2}\sigma^2\right\},
+\]
+e
+\[
+\Var(S)
+=
+\exp\{2\mu+\sigma^2\}
+\left(\exp\{\sigma^2\}-1\right).
+\]
+
+La lognormale \`{e} asimmetrica a destra: la variabile non pu\`{o} scendere sotto
+zero, ma pu\`{o} assumere valori molto elevati. Questa caratteristica la rende
+naturale per modellare prezzi positivi. Se, ad esempio, il prezzo futuro di
+un'attivit\`{a} \`{e} rappresentato come
+\[
+S_T=S_0 e^Y,
+\]
+con $Y$ normale, allora $S_T$ \`{e} lognormale.
+
+\subsection{Osservazioni conclusive}
+
+Le distribuzioni introdotte in questa sezione svolgono ruoli diversi. Le
+distribuzioni di Bernoulli e binomiale descrivono eventi binari e conteggi di
+successi; la distribuzione di Poisson descrive conteggi di eventi rari; la
+distribuzione uniforme fornisce un modello continuo elementare; la normale
+descrive grandezze reali simmetriche intorno a una media; la lognormale descrive
+grandezze positive ottenute come esponenziale di una variabile normale.
+
+Nel seguito del corso, queste famiglie distributive saranno utilizzate come
+mattoni probabilistici per costruire modelli pi\`{u} articolati. La scelta della
+distribuzione non \`{e} mai soltanto tecnica: essa incorpora ipotesi sulla natura
+della grandezza aleatoria, sul suo supporto, sulla simmetria o asimmetria, sulla
+dispersione e sul comportamento delle code.
+
+
+\section{Esempi finanziari sviluppati}
+\label{sec:cap2-esempi-finanziari-sviluppati}
+
+Gli esempi di questa sezione combinano gli strumenti introdotti nel capitolo:
+distribuzione indotta, funzione di probabilit\`{a}, funzione di distribuzione,
+valore atteso, varianza, quantili e valore atteso di funzioni di variabili
+casuali. L'obiettivo non \`{e} introdurre nuova teoria, ma mostrare come tali
+strumenti operino congiuntamente in semplici problemi finanziari.
+
+\begin{example}[Rendimento discreto di un portafoglio]
+Si consideri un portafoglio il cui rendimento aleatorio $X$ possa assumere cinque
+valori, con probabilit\`{a} non simmetriche:
+\[
+\begin{array}{c|ccccc}
+x & -0.08 & -0.03 & 0.01 & 0.04 & 0.10\\
+\hline
+p_X(x) & 0.08 & 0.22 & 0.35 & 0.25 & 0.10
+\end{array}
+\]
+Le probabilit\`{a} sommano a uno:
+\[
+0.08+0.22+0.35+0.25+0.10=1.
+\]
+La funzione di distribuzione \`{e}
+\[
+F_X(x)=
+\begin{cases}
+0, & x<-0.08,\\
+0.08, & -0.08\leq x<-0.03,\\
+0.30, & -0.03\leq x<0.01,\\
+0.65, & 0.01\leq x<0.04,\\
+0.90, & 0.04\leq x<0.10,\\
+1, & x\geq 0.10.
+\end{cases}
+\]
+
+La probabilit\`{a} di rendimento negativo \`{e}
+\[
+\Prob(X<0)
+=
+p_X(-0.08)+p_X(-0.03)
+=
+0.08+0.22
+=
+0.30.
+\]
+Il valore atteso del rendimento \`{e}
+\[
+\E[X]
+=
+(-0.08)(0.08)+(-0.03)(0.22)+(0.01)(0.35)
++(0.04)(0.25)+(0.10)(0.10).
+\]
+Quindi
+\[
+\E[X]
+=
+-0.0064-0.0066+0.0035+0.0100+0.0100
+=
+0.0105.
+\]
+Il rendimento atteso \`{e} dunque pari a $1.05\%$.
+
+Per calcolare la varianza, usiamo la formula
+\[
+\Var(X)=\E[X^2]-(\E[X])^2.
+\]
+Si ha
+\[
+\E[X^2]
+=
+(-0.08)^2(0.08)+(-0.03)^2(0.22)+(0.01)^2(0.35)
++(0.04)^2(0.25)+(0.10)^2(0.10).
+\]
+Pertanto,
+\[
+\E[X^2]=0.002145.
+\]
+Poich\'{e} $\E[X]=0.0105$,
+\[
+\Var(X)
+=
+0.002145-(0.0105)^2
+=
+0.00203475.
+\]
+La deviazione standard \`{e}
+\[
+\sigma_X
+=
+\sqrt{0.00203475}
+\simeq
+0.0451.
+\]
+In termini percentuali, la deviazione standard \`{e} circa $4.51\%$.
+
+I quantili si leggono dalla funzione di distribuzione. Ad esempio,
+\[
+q_{0.05}(X)=-0.08,
+\]
+poich\'{e} il primo valore in cui la funzione di distribuzione raggiunge almeno
+$0.05$ \`{e} $-0.08$. Inoltre,
+\[
+q_{0.50}(X)=0.01,
+\qquad
+q_{0.95}(X)=0.10.
+\]
+L'esempio mostra che il valore atteso fornisce una misura di posizione, mentre
+la probabilit\`{a} di perdita, la deviazione standard e i quantili descrivono
+aspetti diversi del rischio.
+\end{example}
+
+\begin{example}[Modello binomiale e payoff di una call]
+
+Consideriamo un titolo con prezzo iniziale
+\[
+S_0=100.
+\]
+Su ciascuno di tre periodi, il prezzo pu\`{o} salire di un fattore
+\[
+u=1.12
+\]
+oppure scendere di un fattore
+\[
+d=0.94.
+\]
+Supponiamo che, in ciascun periodo, la probabilit\`{a} di rialzo sia
+\[
+p=0.55,
+\]
+e che i movimenti nei diversi periodi siano indipendenti. In questo esempio $p$
+\`{e} una probabilit\`{a} del modello considerato e non viene interpretata come
+probabilit\`{a} neutrale al rischio.
+
+Sia $N$ il numero di rialzi nei tre periodi. Allora
+\[
+N\sim \operatorname{Bin}(3,0.55).
+\]
+La funzione di probabilit\`{a} di $N$ \`{e}
+\[
+p_N(k)
+=
+\binom{3}{k}(0.55)^k(0.45)^{3-k},
+\qquad
+k=0,1,2,3.
+\]
+I valori sono
+\[
+\begin{array}{c|cccc}
+k & 0 & 1 & 2 & 3\\
+\hline
+p_N(k) & 0.091125 & 0.334125 & 0.408375 & 0.166375
+\end{array}
+\]
+
+Il prezzo finale del titolo dipende dal numero di rialzi:
+\[
+S_T(k)=S_0u^k d^{3-k}.
+\]
+Con i parametri scelti, si ottiene
+\[
+\begin{array}{c|c|c}
+k & p_N(k) & S_T(k)\\
+\hline
+0 & 0.091125 & 83.0584\\
+1 & 0.334125 & 98.9632\\
+2 & 0.408375 & 117.9136\\
+3 & 0.166375 & 140.4928
+\end{array}
+\]
+
+Consideriamo ora una call europea con prezzo di esercizio
+\[
+K=105.
+\]
+Il payoff finale \`{e}
+\[
+H=(S_T-K)^+.
+\]
+Poich\'{e} $S_T$ \`{e} funzione di $N$, anche $H$ \`{e} funzione di $N$:
+\[
+H(k)=(S_T(k)-105)^+.
+\]
+La tabella dei payoff \`{e}
+\[
+\begin{array}{c|c|c|c}
+k & p_N(k) & S_T(k) & H(k)\\
+\hline
+0 & 0.091125 & 83.0584 & 0\\
+1 & 0.334125 & 98.9632 & 0\\
+2 & 0.408375 & 117.9136 & 12.9136\\
+3 & 0.166375 & 140.4928 & 35.4928
+\end{array}
+\]
+
+Il valore atteso del payoff, rispetto alla distribuzione considerata, \`{e}
+\[
+\E[H]
+=
+\sum_{k=0}^3 H(k)p_N(k).
+\]
+Quindi
+\[
+\E[H]
+=
+0\cdot 0.091125
++
+0\cdot 0.334125
++
+12.9136\cdot 0.408375
++
+35.4928\cdot 0.166375.
+\]
+Si ottiene
+\[
+\E[H]\simeq 11.1787.
+\]
+Questo esempio mostra il passaggio
+\[
+N
+\quad\longrightarrow\quad
+S_T(N)
+\quad\longrightarrow\quad
+H(N)=(S_T(N)-K)^+.
+\]
+La variabile casuale $N$ descrive il conteggio dei rialzi; il prezzo finale
+$S_T$ \`{e} una funzione di $N$; il payoff della call \`{e} una funzione non
+lineare del prezzo finale.
+\end{example}
+
+\begin{example}[Rendimento normale, probabilit\`{a} di perdita e quantile]
+Consideriamo un rendimento aleatorio $R$ con distribuzione normale:
+\[
+R\sim \mathcal{N}(\mu,\sigma^2),
+\]
+dove
+\[
+\mu=0.008,
+\qquad
+\sigma=0.035.
+\]
+Il rendimento atteso \`{e} quindi pari a $0.8\%$, mentre la deviazione standard
+\`{e} pari a $3.5\%$.
+
+La probabilit\`{a} di rendimento negativo \`{e}
+\[
+\Prob(R<0).
+\]
+Poich\'{e} $R$ ha distribuzione normale con media $\mu$ e deviazione standard
+$\sigma$, possiamo scrivere $R$ come trasformazione affine di una normale
+standard $Z$:
+\[
+R=\mu+\sigma Z,
+\]
+dove
+\[
+Z\sim\mathcal{N}(0,1).
+\]
+Equivalentemente,
+\[
+Z=\frac{R-\mu}{\sigma}.
+\]
+Pertanto,
+\[
+\Prob(R<0)
+=
+\Prob\left(\frac{R-\mu}{\sigma}<\frac{0-\mu}{\sigma}\right)
+=
+\Prob\left(Z<\frac{0-\mu}{\sigma}\right).
+\]
+Sostituendo i valori numerici,
+\[
+\frac{0-\mu}{\sigma}
+=
+\frac{-0.008}{0.035}
+\simeq
+-0.2286.
+\]
+Quindi
+\[
+\Prob(R<0)
+=
+\Phi(-0.2286)
+\simeq
+0.4096,
+\]
+dove $\Phi$ indica la funzione di distribuzione della normale standard. Nel
+modello normale considerato, la probabilit\`{a} di rendimento negativo \`{e}
+quindi circa $40.96\%$.
+
+Calcoliamo ora il quantile al $5\%$ del rendimento. Il quantile $z_{0.05}$ della
+normale standard \`{e} definito come il valore tale che
+\[
+\Prob(Z\leq z_{0.05})=0.05.
+\]
+Dalle tavole della normale standard, o da un calcolo numerico, si ottiene
+\[
+z_{0.05}\simeq -1.645.
+\]
+Vogliamo determinare il quantile $q_{0.05}(R)$ della variabile $R$, cio\`{e} il
+valore che soddisfa
+\[
+\Prob(R\leq q_{0.05}(R))=0.05.
+\]
+Usando la rappresentazione
+\[
+R=\mu+\sigma Z,
+\]
+e ricordando che $\sigma>0$, la trasformazione affine conserva l'ordinamento.
+Quindi il punto della distribuzione di $R$ che lascia a sinistra il $5\%$ della
+probabilit\`{a} si ottiene trasformando il corrispondente punto della normale
+standard:
+\[
+q_{0.05}(R)
+=
+\mu+\sigma z_{0.05}.
+\]
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.82\textwidth]{graphics/cap2_normale_coda_sinistra_quantile_05.png}
+\caption{Densit\`{a} normale del rendimento $R$ e rappresentazione grafica del quantile $q_{0.05}(R)$. L'area ombreggiata a sinistra del quantile rappresenta la probabilit\`{a} $\Prob(R\leq q_{0.05}(R))=0.05$.}
+\label{fig:cap2-normale-coda-sinistra-quantile}
+\end{figure}
+
+Sostituendo i valori numerici,
+\[
+q_{0.05}(R)
+=
+0.008+0.035(-1.645)
+\simeq
+-0.0496.
+\]
+Il quantile al $5\%$ del rendimento \`{e} quindi circa $-4.96\%$. Ci\`{o}
+significa che, nel modello normale considerato, il $5\%$ peggiore dei rendimenti
+si colloca al di sotto di circa $-4.96\%$.
+
+Se definiamo la perdita come
+\[
+L=-R,
+\]
+allora i quantili di perdita si leggono in modo speculare. In particolare,
+\[
+q_{0.95}(L)
+=
+-q_{0.05}(R)
+\simeq
+0.0496.
+\]
+Quindi il quantile al $95\%$ della perdita \`{e} circa $4.96\%$. Nel caso
+continuo, questo significa che
+\[
+\Prob(L\leq q_{0.95}(L))=0.95
+\]
+e, equivalentemente,
+\[
+\Prob(L>q_{0.95}(L))=0.05.
+\]
+L'esempio mostra come la distribuzione normale consenta di calcolare in modo
+diretto probabilit\`{a} di perdita e soglie di coda mediante standardizzazione.
+\end{example}
+
+
+\section{Esercizi svolti}
+\label{sec:cap2-esercizi-svolti}
+
+Gli esercizi di questa sezione combinano pi\`{u} strumenti introdotti nel
+capitolo. L'obiettivo \`{e} applicare in modo integrato funzione di
+probabilit\`{a}, funzione di distribuzione, valore atteso, varianza, valore
+atteso di funzioni di variabili casuali, probabilit\`{a} di coda e quantili.
+
+\subsection*{Esercizio svolto 1 --- Rendimento discreto, funzione di distribuzione e quantili}
+
+Si consideri il rendimento aleatorio $X$ di un portafoglio, con distribuzione
+discreta
+\[
+\begin{array}{c|ccccc}
+x & -0.12 & -0.05 & 0.00 & 0.04 & 0.11\\
+\hline
+p_X(x) & 0.05 & 0.20 & 0.30 & 0.30 & 0.15
+\end{array}
+\]
+Si determini la funzione di distribuzione $F_X$, si calcolino
+\[
+\Prob(X<0),
+\qquad
+\Prob(X\leq 0),
+\]
+e i quantili
+\[
+q_{0.05}(X),
+\qquad
+q_{0.25}(X),
+\qquad
+q_{0.95}(X).
+\]
+Si definisca poi la perdita $L=-X$ e si calcolino $q_{0.95}(L)$ e
+$\Prob(L>q_{0.95}(L))$.
+
+\noindent\textbf{Soluzione.}
+
+La funzione di distribuzione di $X$ si ottiene cumulando la funzione di
+probabilit\`{a}. Si ha
+\[
+F_X(x)=
+\begin{cases}
+0, & x<-0.12,\\
+0.05, & -0.12\leq x<-0.05,\\
+0.25, & -0.05\leq x<0,\\
+0.55, & 0\leq x<0.04,\\
+0.85, & 0.04\leq x<0.11,\\
+1, & x\geq 0.11.
+\end{cases}
+\]
+La probabilit\`{a} di rendimento negativo \`{e}
+\[
+\Prob(X<0)
+=
+p_X(-0.12)+p_X(-0.05)
+=
+0.05+0.20
+=
+0.25.
+\]
+La probabilit\`{a} di rendimento non positivo \`{e}
+\[
+\Prob(X\leq 0)
+=
+p_X(-0.12)+p_X(-0.05)+p_X(0)
+=
+0.05+0.20+0.30
+=
+0.55.
+\]
+
+Usando la definizione
+\[
+q_\alpha(X)=\inf\{x\in\mathbb{R}:F_X(x)\geq \alpha\},
+\]
+si ottiene
+\[
+q_{0.05}(X)=-0.12,
+\]
+perch\'{e} $F_X(-0.12)=0.05$. Inoltre,
+\[
+q_{0.25}(X)=-0.05,
+\]
+perch\'{e} $F_X(-0.05)=0.25$, e
+\[
+q_{0.95}(X)=0.11,
+\]
+perch\'{e} $F_X(0.04)=0.85<0.95$ mentre $F_X(0.11)=1$.
+
+Definiamo ora la perdita
+\[
+L=-X.
+\]
+I valori possibili di $L$, ordinati in senso crescente, sono
+\[
+-0.11,\quad -0.04,\quad 0,\quad 0.05,\quad 0.12.
+\]
+La distribuzione di $L$ \`{e}
+\[
+\begin{array}{c|ccccc}
+\ell & -0.11 & -0.04 & 0 & 0.05 & 0.12\\
+\hline
+p_L(\ell) & 0.15 & 0.30 & 0.30 & 0.20 & 0.05
+\end{array}
+\]
+La funzione di distribuzione di $L$ \`{e} quindi
+\[
+F_L(\ell)=
+\begin{cases}
+0, & \ell<-0.11,\\
+0.15, & -0.11\leq \ell<-0.04,\\
+0.45, & -0.04\leq \ell<0,\\
+0.75, & 0\leq \ell<0.05,\\
+0.95, & 0.05\leq \ell<0.12,\\
+1, & \ell\geq 0.12.
+\end{cases}
+\]
+Pertanto,
+\[
+q_{0.95}(L)=0.05.
+\]
+La probabilit\`{a} di superare tale quantile \`{e}
+\[
+\Prob(L>q_{0.95}(L))
+=
+\Prob(L>0.05)
+=
+\Prob(L=0.12)
+=
+0.05.
+\]
+Nel caso discreto, la probabilit\`{a} di superamento di un quantile dipende dai
+salti della funzione di distribuzione. In questo esercizio essa coincide con
+$1-0.95$, ma ci\`{o} non avviene necessariamente per ogni distribuzione discreta.
+
+\subsection*{Esercizio svolto 2 --- Valore atteso di payoff non lineari}
+
+Sia $S_T$ il prezzo futuro di un'attivit\`{a} finanziaria, con distribuzione
+discreta
+\[
+\begin{array}{c|ccccc}
+s & 72 & 88 & 100 & 115 & 140\\
+\hline
+p_{S_T}(s) & 0.10 & 0.20 & 0.30 & 0.25 & 0.15
+\end{array}
+\]
+Si considerino i tre payoff
+\[
+H_1=(S_T-100)^+,
+\]
+\[
+H_2=(95-S_T)^+,
+\]
+e
+\[
+H_3=\mathbf{1}_{\{S_T>110\}}.
+\]
+Si calcolino $\E[H_1]$, $\E[H_2]$, $\E[H_3]$ e si confrontino
+\[
+\E[(S_T-100)^+]
+\]
+con
+\[
+(\E[S_T]-100)^+.
+\]
+
+\noindent\textbf{Soluzione.}
+
+Calcoliamo anzitutto i tre payoff in corrispondenza dei possibili valori di
+$S_T$:
+\[
+\begin{array}{c|ccccc}
+s & 72 & 88 & 100 & 115 & 140\\
+\hline
+H_1=(s-100)^+ & 0 & 0 & 0 & 15 & 40\\
+H_2=(95-s)^+ & 23 & 7 & 0 & 0 & 0\\
+H_3=\mathbf{1}_{\{s>110\}} & 0 & 0 & 0 & 1 & 1
+\end{array}
+\]
+Il valore atteso del payoff call $H_1$ \`{e}
+\[
+\E[H_1]
+=
+0\cdot 0.10+0\cdot 0.20+0\cdot 0.30
++15\cdot 0.25+40\cdot 0.15.
+\]
+Quindi
+\[
+\E[H_1]
+=
+3.75+6.00
+=
+9.75.
+\]
+
+Il valore atteso del payoff put $H_2$ \`{e}
+\[
+\E[H_2]
+=
+23\cdot 0.10+7\cdot 0.20
++
+0\cdot 0.30+0\cdot 0.25+0\cdot 0.15.
+\]
+Pertanto,
+\[
+\E[H_2]
+=
+2.30+1.40
+=
+3.70.
+\]
+
+Il valore atteso dell'indicatrice $H_3$ coincide con la probabilit\`{a}
+dell'evento $\{S_T>110\}$:
+\[
+\E[H_3]
+=
+\Prob(S_T>110)
+=
+p_{S_T}(115)+p_{S_T}(140)
+=
+0.25+0.15
+=
+0.40.
+\]
+
+Calcoliamo ora il valore atteso di $S_T$:
+\[
+\E[S_T]
+=
+72\cdot 0.10+88\cdot 0.20+100\cdot 0.30
++115\cdot 0.25+140\cdot 0.15.
+\]
+Quindi
+\[
+\E[S_T]
+=
+7.20+17.60+30.00+28.75+21.00
+=
+104.55.
+\]
+Ne segue che
+\[
+(\E[S_T]-100)^+
+=
+(104.55-100)^+
+=
+4.55.
+\]
+D'altra parte,
+\[
+\E[(S_T-100)^+]=9.75.
+\]
+Quindi
+\[
+\E[(S_T-100)^+]\neq (\E[S_T]-100)^+.
+\]
+La differenza dipende dalla non linearit\`{a} della funzione
+\[
+g(s)=(s-100)^+.
+\]
+In generale, per una funzione non lineare $g$, non vale l'uguaglianza
+\[
+\E[g(X)]=g(\E[X]).
+\]
+
+\subsection*{Esercizio svolto 3 --- Densit\`{a} non uniforme, funzione di distribuzione e quantile}
+
+Sia $L$ una perdita aleatoria con densit\`{a}
+\[
+f_L(\ell)=
+\begin{cases}
+c(1+\ell), & 0\leq \ell\leq 1,\\
+0, & \mbox{altrove}.
+\end{cases}
+\]
+Si determini la costante $c$, si ricavi la funzione di distribuzione $F_L$, si
+calcolino
+\[
+\Prob(L>0.6),
+\qquad
+\E[L],
+\qquad
+q_{0.95}(L).
+\]
+
+\noindent\textbf{Soluzione.}
+
+La costante $c$ si determina imponendo che l'integrale della densit\`{a} sia pari
+a uno:
+\[
+\int_{-\infty}^{+\infty}f_L(\ell)\,d\ell=1.
+\]
+Poich\'{e} la densit\`{a} \`{e} positiva solo su $[0,1]$, si ha
+\[
+\int_0^1 c(1+\ell)\,d\ell=1.
+\]
+Quindi
+\[
+c\left[\ell+\frac{\ell^2}{2}\right]_0^1=1,
+\]
+cio\`{e}
+\[
+c\left(1+\frac{1}{2}\right)=1.
+\]
+Pertanto,
+\[
+c=\frac{2}{3}.
+\]
+La densit\`{a} \`{e}
+\[
+f_L(\ell)=
+\begin{cases}
+\dfrac{2}{3}(1+\ell), & 0\leq \ell\leq 1,\\[6pt]
+0, & \mbox{altrove}.
+\end{cases}
+\]
+
+Per determinare la funzione di distribuzione, consideriamo tre casi. Se
+$\ell<0$,
+\[
+F_L(\ell)=0.
+\]
+Se $0\leq \ell\leq 1$,
+\[
+F_L(\ell)
+=
+\int_0^\ell \frac{2}{3}(1+t)\,dt
+=
+\frac{2}{3}\left[\ell+\frac{\ell^2}{2}\right].
+\]
+Quindi
+\[
+F_L(\ell)
+=
+\frac{2\ell+\ell^2}{3},
+\qquad 0\leq \ell\leq 1.
+\]
+Se $\ell>1$,
+\[
+F_L(\ell)=1.
+\]
+Dunque
+\[
+F_L(\ell)=
+\begin{cases}
+0, & \ell<0,\\[4pt]
+\dfrac{2\ell+\ell^2}{3}, & 0\leq \ell\leq 1,\\[8pt]
+1, & \ell>1.
+\end{cases}
+\]
+
+La probabilit\`{a} di superare $0.6$ \`{e}
+\[
+\Prob(L>0.6)
+=
+1-F_L(0.6).
+\]
+Poich\'{e}
+\[
+F_L(0.6)
+=
+\frac{2(0.6)+(0.6)^2}{3}
+=
+\frac{1.20+0.36}{3}
+=
+0.52,
+\]
+si ottiene
+\[
+\Prob(L>0.6)=1-0.52=0.48.
+\]
+
+Il valore atteso \`{e}
+\[
+\E[L]
+=
+\int_0^1 \ell \frac{2}{3}(1+\ell)\,d\ell.
+\]
+Quindi
+\[
+\E[L]
+=
+\frac{2}{3}\int_0^1(\ell+\ell^2)\,d\ell
+=
+\frac{2}{3}
+\left[
+\frac{\ell^2}{2}+\frac{\ell^3}{3}
+\right]_0^1.
+\]
+Pertanto,
+\[
+\E[L]
+=
+\frac{2}{3}\left(\frac{1}{2}+\frac{1}{3}\right)
+=
+\frac{2}{3}\cdot\frac{5}{6}
+=
+\frac{5}{9}.
+\]
+Numericamente,
+\[
+\E[L]\simeq 0.5556.
+\]
+
+Per calcolare $q_{0.95}(L)$, risolviamo l'equazione
+\[
+F_L(\ell)=0.95
+\]
+nell'intervallo $[0,1]$. Si ha
+\[
+\frac{2\ell+\ell^2}{3}=0.95,
+\]
+cio\`{e}
+\[
+\ell^2+2\ell-2.85=0.
+\]
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{graphics/cap2_es3_densita_cdf_affiancati.png}
+\caption{Esercizio svolto 3. A sinistra: densit\`{a} della perdita $L$ con evidenziata la probabilit\`{a} di coda $\Prob(L>0.6)$. A destra: funzione di distribuzione di $L$ con evidenziato il quantile $q_{0.95}(L)$.}
+\label{fig:cap2-es3-densita-cdf-affiancati}
+\end{figure}
+
+
+La soluzione positiva \`{e}
+\[
+\ell
+=
+-1+\sqrt{1+2.85}
+=
+-1+\sqrt{3.85}.
+\]
+Quindi
+\[
+q_{0.95}(L)
+=
+-1+\sqrt{3.85}
+\simeq
+0.9621.
+\]
+Il quantile al $95\%$ della perdita \`{e} quindi circa $0.9621$. Poich\'{e} la
+densit\`{a} \`{e} crescente su $[0,1]$, la distribuzione attribuisce maggiore
+peso alle perdite elevate rispetto a una distribuzione uniforme sullo stesso
+intervallo.
+
+\subsection*{Esercizio svolto 4 --- Rendimento normale, perdita e capitale a rischio}
+
+Sia
+\[
+R\sim\mathcal{N}(0.006,0.04^2)
+\]
+il rendimento di un portafoglio su un determinato orizzonte temporale.
+Definiamo la perdita percentuale come
+\[
+L=-R.
+\]
+Si calcolino
+\[
+\Prob(R<0),
+\qquad
+q_{0.01}(R),
+\qquad
+q_{0.99}(L),
+\qquad
+\Prob(L>0.10).
+\]
+Si interpreti $q_{0.99}(L)$ come soglia di capitale percentuale.
+
+\noindent\textbf{Soluzione.}
+
+Il rendimento ha media
+\[
+\mu=0.006
+\]
+e deviazione standard
+\[
+\sigma=0.04.
+\]
+Per calcolare la probabilit\`{a} di rendimento negativo, standardizziamo:
+\[
+Z=\frac{R-\mu}{\sigma}\sim\mathcal{N}(0,1).
+\]
+Allora
+\[
+\Prob(R<0)
+=
+\Prob\left(Z<\frac{0-\mu}{\sigma}\right).
+\]
+Sostituendo i valori numerici,
+\[
+\frac{0-\mu}{\sigma}
+=
+\frac{-0.006}{0.04}
+=
+-0.15.
+\]
+Pertanto,
+\[
+\Prob(R<0)
+=
+\Phi(-0.15)
+\simeq
+0.4404.
+\]
+La probabilit\`{a} di rendimento negativo \`{e} quindi circa $44.04\%$.
+
+Calcoliamo ora il quantile all'$1\%$ del rendimento. Sia $z_{0.01}$ il quantile
+all'$1\%$ della normale standard:
+\[
+\Prob(Z\leq z_{0.01})=0.01.
+\]
+Dalle tavole della normale standard, o da un calcolo numerico,
+\[
+z_{0.01}\simeq -2.326.
+\]
+Poich\'{e}
+\[
+R=\mu+\sigma Z,
+\]
+si ha
+\[
+q_{0.01}(R)
+=
+\mu+\sigma z_{0.01}.
+\]
+Quindi
+\[
+q_{0.01}(R)
+=
+0.006+0.04(-2.326)
+\simeq
+-0.0870.
+\]
+Il quantile all'$1\%$ del rendimento \`{e} circa $-8.70\%$.
+
+Passiamo ora alla perdita
+\[
+L=-R.
+\]
+Se $R\sim\mathcal{N}(0.006,0.04^2)$, allora
+\[
+L\sim\mathcal{N}(-0.006,0.04^2).
+\]
+Inoltre, poich\'{e} $L=-R$, il quantile destro della perdita al $99\%$ \`{e}
+legato al quantile sinistro del rendimento all'$1\%$:
+\[
+q_{0.99}(L)
+=
+-q_{0.01}(R).
+\]
+Pertanto,
+\[
+q_{0.99}(L)
+\simeq
+0.0870.
+\]
+Questo valore pu\`{o} essere interpretato come una soglia di capitale
+percentuale: nel modello normale considerato, una copertura pari a circa
+$8.70\%$ del valore del portafoglio consente di coprire la perdita con
+probabilit\`{a} pari al $99\%$.
+
+Infine, calcoliamo la probabilit\`{a} di una perdita superiore al $10\%$:
+\[
+\Prob(L>0.10)
+=
+\Prob(-R>0.10)
+=
+\Prob(R<-0.10).
+\]
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.82\textwidth]{graphics/cap2_es4_perdita_normale_quantile_coda.png}
+\caption{Esercizio svolto 4. Densit\`{a} della perdita percentuale $L=-R$. Sono evidenziati il quantile $q_{0.99}(L)$ e la probabilit\`{a} di superare la soglia di perdita $0.10$.}
+\label{fig:cap2-es4-perdita-normale-quantile-coda}
+\end{figure}
+
+Standardizzando,
+\[
+\Prob(R<-0.10)
+=
+\Prob\left(
+Z<\frac{-0.10-0.006}{0.04}
+\right).
+\]
+Poich\'{e}
+\[
+\frac{-0.106}{0.04}
+=
+-2.65,
+\]
+si ottiene
+\[
+\Prob(L>0.10)
+=
+\Phi(-2.65)
+\simeq
+0.0040.
+\]
+La probabilit\`{a} di una perdita superiore al $10\%$ \`{e} quindi circa
+$0.40\%$.
+
+\section{Esercizi proposti}
+\label{sec:cap2-esercizi-proposti}
+
+Gli esercizi proposti richiedono di combinare gli strumenti introdotti nel
+capitolo: variabili casuali, distribuzioni indotte, funzione di probabilit\`{a},
+funzione di distribuzione, densit\`{a}, valore atteso, varianza, payoff, code e
+quantili. Gli esercizi contrassegnati con un asterisco richiedono un maggiore
+grado di autonomia nell'interpretazione finanziaria dei risultati.
+
+\begin{enumerate}
+\item \textbf{Scenari, sigma-algebra e distribuzione indotta.}
+
+Si consideri lo spazio campionario
+\[
+\Omega=\{\omega_1,\omega_2,\omega_3,\omega_4,
+\omega_5,\omega_6,\omega_7,\omega_8\}.
+\]
+Gli esiti elementari sono raggruppati nella partizione
+\[
+A_1=\{\omega_1,\omega_2\},
+\qquad
+A_2=\{\omega_3,\omega_4\},
+\]
+\[
+A_3=\{\omega_5,\omega_6\},
+\qquad
+A_4=\{\omega_7,\omega_8\}.
+\]
+Sia
+\[
+\F=\sigma(A_1,A_2,A_3,A_4).
+\]
+Le probabilit\`{a} dei quattro regimi sono
+\[
+\Prob(A_1)=0.15,
+\qquad
+\Prob(A_2)=0.25,
+\qquad
+\Prob(A_3)=0.35,
+\qquad
+\Prob(A_4)=0.25.
+\]
+Si definisce la variabile casuale $X$ mediante
+\[
+X(\omega)=
+\begin{cases}
+-0.07, & \omega\in A_1,\\
+-0.01, & \omega\in A_2,\\
+0.03, & \omega\in A_3,\\
+0.09, & \omega\in A_4.
+\end{cases}
+\]
+Determinare la distribuzione indotta $\Prob_X$, la funzione di probabilit\`{a}
+$p_X$, la funzione di distribuzione $F_X$ e calcolare
+\[
+\Prob(X<0),
+\qquad
+\Prob(-0.02<X\leq 0.05),
+\]
+\[
+q_{0.10}(X),
+\qquad
+q_{0.90}(X).
+\]
+Verificare inoltre, usando le controimmagini, che gli eventi considerati
+appartengono a $\F$.
+
+\item \textbf{Rendimento discreto, perdita e quantili.}
+
+Il rendimento aleatorio $X$ di un portafoglio ha distribuzione
+\[
+\begin{array}{c|cccccc}
+x & -0.15 & -0.07 & -0.02 & 0.03 & 0.08 & 0.16\\
+\hline
+p_X(x) & 0.04 & 0.12 & 0.24 & 0.30 & 0.20 & 0.10
+\end{array}
+\]
+Calcolare
+\[
+\E[X],
+\qquad
+\E[X^2],
+\qquad
+\Var(X),
+\qquad
+\sigma_X.
+\]
+Calcolare inoltre
+\[
+\Prob(X<0),
+\qquad
+q_{0.05}(X),
+\qquad
+q_{0.50}(X),
+\qquad
+q_{0.95}(X).
+\]
+Definendo la perdita $L=-X$, determinare la distribuzione di $L$ e calcolare
+\[
+q_{0.95}(L),
+\qquad
+\Prob(L>q_{0.95}(L)).
+\]
+Commentare la differenza tra la coda sinistra del rendimento e la coda destra
+della perdita.
+
+\item \textbf{Funzione di distribuzione a gradini e funzione di probabilit\`{a}.}
+
+Sia $X$ una variabile casuale con funzione di distribuzione
+\[
+F_X(x)=
+\begin{cases}
+0, & x<-0.10,\\
+0.10, & -0.10\leq x<-0.04,\\
+0.30, & -0.04\leq x<0.02,\\
+0.65, & 0.02\leq x<0.07,\\
+0.90, & 0.07\leq x<0.12,\\
+1, & x\geq 0.12.
+\end{cases}
+\]
+Ricostruire la funzione di probabilit\`{a} $p_X$. Calcolare
+\[
+\E[X],
+\qquad
+\E[X^2],
+\qquad
+\Var(X),
+\]
+e determinare
+\[
+q_{0.10}(X),
+\qquad
+q_{0.30}(X),
+\qquad
+q_{0.80}(X).
+\]
+Calcolare infine
+\[
+\Prob(-0.04<X\leq 0.07)
+\]
+usando sia la funzione di distribuzione sia la funzione di probabilit\`{a}.
+
+\item \textbf{Payoff di opzioni e variabili indicatrici.}
+
+Il prezzo futuro $S_T$ di un'attivit\`{a} finanziaria ha distribuzione
+\[
+\begin{array}{c|ccccc}
+s & 70 & 85 & 100 & 120 & 150\\
+\hline
+p_{S_T}(s) & 0.08 & 0.18 & 0.34 & 0.27 & 0.13
+\end{array}
+\]
+Si considerino i payoff
+\[
+H_1=(S_T-105)^+,
+\]
+\[
+H_2=(95-S_T)^+,
+\]
+e
+\[
+H_3=\mathbf{1}_{\{S_T>125\}}.
+\]
+Calcolare
+\[
+\E[H_1],
+\qquad
+\E[H_2],
+\qquad
+\E[H_3].
+\]
+Calcolare inoltre $\E[S_T]$ e confrontare
+\[
+\E[(S_T-105)^+]
+\]
+con
+\[
+(\E[S_T]-105)^+.
+\]
+Spiegare perch\'{e}, in generale, non si pu\`{o} sostituire
+$\E[g(S_T)]$ con $g(\E[S_T])$ quando $g$ \`{e} non lineare.
+
+\item \textbf{Shortfall rispetto a una soglia.}
+
+Il rendimento $R$ di una strategia finanziaria ha distribuzione
+\[
+\begin{array}{c|cccccc}
+r & -0.10 & -0.04 & 0.00 & 0.03 & 0.07 & 0.12\\
+\hline
+p_R(r) & 0.06 & 0.14 & 0.25 & 0.30 & 0.17 & 0.08
+\end{array}
+\]
+Sia $\tau=0.025$ una soglia minima di rendimento ritenuta accettabile. Si
+definisca lo shortfall rispetto a $\tau$ come
+\[
+G=(\tau-R)^+.
+\]
+Calcolare
+\[
+\Prob(R<\tau),
+\qquad
+\E[\mathbf{1}_{\{R<\tau\}}],
+\qquad
+\E[G].
+\]
+Calcolare anche
+\[
+U=(R-\tau)^+
+\]
+e confrontare $\E[U]$ con $\E[G]$. Interpretare finanziariamente il confronto tra
+upside atteso e shortfall atteso.
+
+\item \textbf{Modello binomiale a quattro periodi.}*
+
+Un titolo ha prezzo iniziale
+\[
+S_0=100.
+\]
+In ciascuno di quattro periodi il prezzo pu\`{o} salire di un fattore
+\[
+u=1.09
+\]
+oppure scendere di un fattore
+\[
+d=0.96.
+\]
+La probabilit\`{a} di rialzo in ciascun periodo \`{e}
+\[
+p=0.58,
+\]
+e i movimenti sono indipendenti. Sia $N$ il numero di rialzi nei quattro periodi.
+
+Determinare la distribuzione di $N$ e calcolare
+\[
+S_T(k)=S_0u^k d^{4-k},
+\qquad
+k=0,1,2,3,4.
+\]
+Calcolare
+\[
+\E[S_T],
+\qquad
+\Prob(S_T>107),
+\]
+e il valore atteso del payoff della call
+\[
+H=(S_T-107)^+.
+\]
+Spiegare in che senso $S_T$ e $H$ sono funzioni della variabile casuale $N$.
+
+\item \textbf{Densit\`{a} lineare decrescente e quantile.}
+
+Sia $X$ una variabile casuale assolutamente continua con densit\`{a}
+\[
+f_X(x)=
+\begin{cases}
+c(2-x), & 0\leq x\leq 2,\\
+0, & \mbox{altrove}.
+\end{cases}
+\]
+Determinare la costante $c$. Ricavare la funzione di distribuzione $F_X(x)$.
+Calcolare
+\[
+\E[X],
+\qquad
+\Prob(X>1),
+\qquad
+q_{0.90}(X).
+\]
+Interpretare il fatto che la densit\`{a} sia decrescente sull'intervallo
+$[0,2]$.
+
+\item \textbf{Rendimento uniforme e trasformazione non lineare.}
+
+Sia
+\[
+R\sim U[-0.06,0.08].
+\]
+Calcolare
+\[
+\Prob(R<0),
+\qquad
+\E[R],
+\qquad
+\Var(R).
+\]
+Definire
+\[
+G=(-R)^+.
+\]
+Calcolare
+\[
+\E[G],
+\qquad
+\Prob(G=0).
+\]
+Spiegare perch\'{e} la variabile $G$ non ha la stessa natura distributiva della
+variabile continua $R$.
+
+\item \textbf{Rendimento normale, perdita e capitale a rischio.}*
+
+Sia
+\[
+R\sim\mathcal{N}(0.004,0.05^2)
+\]
+il rendimento di un portafoglio. Definire la perdita percentuale
+\[
+L=-R.
+\]
+Calcolare
+\[
+\Prob(R<0),
+\qquad
+q_{0.01}(R),
+\qquad
+q_{0.99}(L),
+\qquad
+\Prob(L>0.12).
+\]
+Interpretare $q_{0.99}(L)$ come soglia di capitale percentuale necessaria a
+coprire la perdita con probabilit\`{a} pari al $99\%$.
+
+\item \textbf{Distribuzione lognormale e prezzo positivo.}*
+
+Sia
+\[
+Y\sim\mathcal{N}(0.03,0.20^2)
+\]
+e si definisca il prezzo futuro
+\[
+S_T=100e^Y.
+\]
+Calcolare
+\[
+\E[S_T],
+\qquad
+\Var(S_T).
+\]
+Calcolare inoltre
+\[
+\Prob(S_T>120)
+\]
+riconducendo l'evento a una disuguaglianza sulla variabile normale $Y$.
+Determinare infine il quantile $q_{0.95}(S_T)$ usando il quantile della normale
+standard. Commentare perch\'{e} la distribuzione lognormale \`{e} adatta a
+rappresentare prezzi positivi.
+\end{enumerate}
+
+\subsection*{Risposte sintetiche agli esercizi proposti}
+
+Le risposte riportate di seguito forniscono i risultati finali principali. Per le
+distribuzioni normali, i valori numerici sono approssimati usando i quantili e la
+funzione di distribuzione della normale standard.
+
+\begin{enumerate}
+\item
+La distribuzione indotta \`{e}
+\[
+\begin{array}{c|cccc}
+x & -0.07 & -0.01 & 0.03 & 0.09\\
+\hline
+p_X(x) & 0.15 & 0.25 & 0.35 & 0.25
+\end{array}
+\]
+La funzione di distribuzione \`{e}
+\[
+F_X(x)=
+\begin{cases}
+0, & x<-0.07,\\
+0.15, & -0.07\leq x<-0.01,\\
+0.40, & -0.01\leq x<0.03,\\
+0.75, & 0.03\leq x<0.09,\\
+1, & x\geq 0.09.
+\end{cases}
+\]
+Inoltre,
+\[
+\Prob(X<0)=0.40,
+\qquad
+\Prob(-0.02<X\leq 0.05)=0.60,
+\]
+\[
+q_{0.10}(X)=-0.07,
+\qquad
+q_{0.90}(X)=0.09.
+\]
+
+\item
+Si ottiene
+\[
+\E[X]=0.0218,
+\qquad
+\E[X^2]=0.005694,
+\]
+\[
+\Var(X)=0.00521876,
+\qquad
+\sigma_X\simeq 0.07224.
+\]
+Inoltre,
+\[
+\Prob(X<0)=0.40,
+\]
+\[
+q_{0.05}(X)=-0.07,
+\qquad
+q_{0.50}(X)=0.03,
+\qquad
+q_{0.95}(X)=0.16.
+\]
+Per $L=-X$,
+\[
+\begin{array}{c|cccccc}
+\ell & -0.16 & -0.08 & -0.03 & 0.02 & 0.07 & 0.15\\
+\hline
+p_L(\ell) & 0.10 & 0.20 & 0.30 & 0.24 & 0.12 & 0.04
+\end{array}
+\]
+e
+\[
+q_{0.95}(L)=0.07,
+\qquad
+\Prob(L>q_{0.95}(L))=0.04.
+\]
+
+\item
+La funzione di probabilit\`{a} \`{e}
+\[
+\begin{array}{c|ccccc}
+x & -0.10 & -0.04 & 0.02 & 0.07 & 0.12\\
+\hline
+p_X(x) & 0.10 & 0.20 & 0.35 & 0.25 & 0.10
+\end{array}
+\]
+Si ottiene
+\[
+\E[X]=0.0185,
+\qquad
+\E[X^2]=0.004125,
+\]
+\[
+\Var(X)=0.00378275.
+\]
+I quantili richiesti sono
+\[
+q_{0.10}(X)=-0.10,
+\qquad
+q_{0.30}(X)=-0.04,
+\qquad
+q_{0.80}(X)=0.07.
+\]
+Infine,
+\[
+\Prob(-0.04<X\leq 0.07)=0.60.
+\]
+
+\item
+I payoff attesi sono
+\[
+\E[H_1]=9.90,
+\qquad
+\E[H_2]=3.80,
+\qquad
+\E[H_3]=0.13.
+\]
+Inoltre,
+\[
+\E[S_T]=106.80,
+\]
+quindi
+\[
+(\E[S_T]-105)^+=1.80.
+\]
+Pertanto,
+\[
+\E[(S_T-105)^+]=9.90
+\neq
+1.80=(\E[S_T]-105)^+.
+\]
+
+\item
+Si ha
+\[
+\Prob(R<\tau)=0.45,
+\qquad
+\E[\mathbf{1}_{\{R<\tau\}}]=0.45.
+\]
+Lo shortfall atteso \`{e}
+\[
+\E[G]=\E[(\tau-R)^+]=0.02285.
+\]
+L'upside atteso rispetto alla soglia \`{e}
+\[
+\E[U]=\E[(R-\tau)^+]=0.01675.
+\]
+
+\item
+La distribuzione di $N$ \`{e}
+\[
+N\sim \operatorname{Bin}(4,0.58).
+\]
+Le probabilit\`{a} sono
+\[
+\begin{array}{c|ccccc}
+k & 0 & 1 & 2 & 3 & 4\\
+\hline
+p_N(k) & 0.031117 & 0.171884 & 0.356046 & 0.327788 & 0.113165
+\end{array}
+\]
+I prezzi finali sono circa
+\[
+\begin{array}{c|ccccc}
+k & 0 & 1 & 2 & 3 & 4\\
+\hline
+S_T(k) & 84.9347 & 96.4362 & 109.4953 & 124.3228 & 141.1582
+\end{array}
+\]
+Si ottiene
+\[
+\E[S_T]\simeq 114.9298,
+\]
+\[
+\Prob(S_T>107)\simeq 0.796999,
+\]
+\[
+\E[(S_T-107)^+]\simeq 10.4322.
+\]
+
+\item
+La costante di normalizzazione \`{e}
+\[
+c=\frac{1}{2}.
+\]
+La funzione di distribuzione \`{e}
+\[
+F_X(x)=
+\begin{cases}
+0, & x<0,\\[4pt]
+x-\dfrac{x^2}{4}, & 0\leq x\leq 2,\\[8pt]
+1, & x>2.
+\end{cases}
+\]
+Si ottiene
+\[
+\E[X]=\frac{2}{3},
+\qquad
+\Prob(X>1)=\frac{1}{4}.
+\]
+Il quantile al $90\%$ \`{e}
+\[
+q_{0.90}(X)
+=
+2-\sqrt{0.4}
+\simeq
+1.3675.
+\]
+
+\item
+Per $R\sim U[-0.06,0.08]$,
+\[
+\Prob(R<0)=\frac{0.06}{0.14}\simeq 0.4286,
+\]
+\[
+\E[R]=0.01,
+\qquad
+\Var(R)=\frac{0.14^2}{12}\simeq 0.001633.
+\]
+Per $G=(-R)^+$,
+\[
+\E[G]
+=
+\frac{1}{0.14}\int_{-0.06}^{0}(-r)\,dr
+\simeq
+0.01286.
+\]
+Inoltre,
+\[
+\Prob(G=0)=\Prob(R\geq 0)\simeq 0.5714.
+\]
+
+\item
+Per $R\sim\mathcal{N}(0.004,0.05^2)$,
+\[
+\Prob(R<0)
+=
+\Phi(-0.08)
+\simeq
+0.4681.
+\]
+Usando $z_{0.01}\simeq -2.326$,
+\[
+q_{0.01}(R)
+=
+0.004+0.05(-2.326)
+\simeq
+-0.1123.
+\]
+Per $L=-R$,
+\[
+q_{0.99}(L)
+=
+-q_{0.01}(R)
+\simeq
+0.1123.
+\]
+Infine,
+\[
+\Prob(L>0.12)
+=
+\Prob(R<-0.12)
+=
+\Phi(-2.48)
+\simeq
+0.0066.
+\]
+
+\item
+Poich\'{e}
+\[
+S_T=100e^Y,
+\qquad
+Y\sim\mathcal{N}(0.03,0.20^2),
+\]
+si ha
+\[
+\E[S_T]
+=
+100\exp\left\{0.03+\frac{1}{2}0.20^2\right\}
+\simeq
+105.1271.
+\]
+La varianza \`{e}
+\[
+\Var(S_T)
+=
+100^2
+\exp\{2(0.03)+0.20^2\}
+\left(\exp\{0.20^2\}-1\right)
+\simeq
+451.0288.
+\]
+Inoltre,
+\[
+\Prob(S_T>120)
+=
+\Prob\left(Y>\ln\frac{120}{100}\right)
+\simeq
+0.2231.
+\]
+Usando $z_{0.95}\simeq 1.645$,
+\[
+q_{0.95}(S_T)
+=
+100\exp\{0.03+0.20z_{0.95}\}
+\simeq
+143.1897.
+\]
+\end{enumerate}
+
+
+\section{Sintesi finale}
+\label{sec:cap2-sintesi-finale}
+
+Il capitolo ha introdotto il linguaggio delle variabili casuali e delle loro
+distribuzioni. Il passaggio concettuale fondamentale \`{e} stato il seguente:
+dagli eventi dello spazio campionario si passa a grandezze numeriche aleatorie,
+come rendimenti, perdite, prezzi futuri e payoff.
+
+Una variabile casuale reale \`{e} una funzione
+\[
+X:\Omega\longrightarrow \mathbb{R}
+\]
+definita su uno spazio di probabilit\`{a} $(\Omega,\F,\Prob)$ e tale che gli
+eventi descritti da condizioni sui valori di $X$ siano eventi osservabili. In
+particolare, una variabile casuale $X$ è misurabile, se per ogni $x\in\mathbb{R}$,
+\[
+\{X\leq x\}\in\F.
+\]
+Pi\`{u} in generale, per ogni insieme boreliano $B\in\mathcal{B}(\mathbb{R})$,
+la controimmagine
+\[
+X^{-1}(B)=\{\omega\in\Omega:X(\omega)\in B\}
+\]
+appartiene a $\F$. Questa propriet\`{a} consente di assegnare probabilit\`{a} a
+eventi del tipo
+\[
+\{X\in B\},
+\qquad
+\{X\leq x\},
+\qquad
+\{a<X\leq b\}.
+\]
+
+La distribuzione, o probabilit\`{a} indotta, di $X$ \`{e} la misura
+$\Prob_X$ definita su $\mathcal{B}(\mathbb{R})$ da
+\[
+\Prob_X(B)
+=
+\Prob(X\in B)
+=
+\Prob(X^{-1}(B)).
+\]
+Essa descrive la probabilit\`{a} di valori in $\R$ (intervalli o valori puntuali) assunti dalla variabile casuale, e
+non direttamente la probabilit\`{a} degli esiti elementari in $\Omega$. La funzione di
+distribuzione
+\[
+F_X(x)=\Prob(X\leq x)
+\]
+rappresenta la probabilit\`{a} cumulata fino alla soglia $x$ ed \`{e} l'oggetto
+comune a tutte le variabili casuali reali.
+
+Nel caso discreto, la distribuzione \`{e} descritta dalla funzione di
+probabilit\`{a}
+\[
+p_X(x)=\Prob(X=x).
+\]
+Le probabilit\`{a} degli eventi si ottengono sommando le masse associate ai valori
+compatibili con l'evento:
+\[
+\Prob(X\in B)
+=
+\sum_{x_i\in B}p_X(x_i).
+\]
+La funzione di distribuzione \`{e} una funzione a gradini:
+\[
+F_X(x)=\sum_{x_i\leq x}p_X(x_i).
+\]
+
+Nel caso assolutamente continuo, la distribuzione \`{e} descritta da una densit\`{a}
+$f_X$ tale che
+\[
+\Prob(X\in B)
+=
+\int_B f_X(x)\,dx.
+\]
+In particolare,
+\[
+\Prob(a<X\leq b)
+=
+\int_a^b f_X(x)\,dx,
+\]
+e
+\[
+F_X(x)
+=
+\int_{-\infty}^{x}f_X(s)\,ds.
+\]
+La densit\`{a} non \`{e} una probabilit\`{a} puntuale: nel caso assolutamente
+continuo,
+\[
+\Prob(X=x)=0
+\]
+per ogni $x\in\mathbb{R}$, mentre le probabilit\`{a} sono rappresentate da aree
+sotto la densit\`{a}.
+
+Il capitolo ha poi introdotto alcune misure sintetiche della distribuzione. Il
+valore atteso
+\[
+\E[X]
+\]
+descrive la posizione media della variabile casuale. La varianza
+\[
+\Var(X)=\E\left[(X-\E[X])^2\right]
+\]
+e la deviazione standard
+\[
+\sigma_X=\sqrt{\Var(X)}
+\]
+descrivono la dispersione intorno al valore atteso. La formula operativa
+\[
+\Var(X)=\E[X^2]-(\E[X])^2
+\]
+\`{e} particolarmente utile nei calcoli.
+
+Un ruolo centrale \`{e} svolto anche dal valore atteso di funzioni di variabili
+casuali. Se $g$ \`{e} una funzione misurabile, allora
+\[
+\E[g(X)]
+=
+\sum_i g(x_i)p_X(x_i)
+\]
+nel caso discreto, mentre
+\[
+\E[g(X)]
+=
+\int_{-\infty}^{+\infty}g(x)f_X(x)\,dx
+\]
+nel caso assolutamente continuo. Questa formula consente di trattare payoff,
+indicatori di eventi, shortfall e trasformazioni non lineari senza dover
+necessariamente costruire prima la distribuzione della variabile trasformata.
+
+Le probabilit\`{a} di coda e i quantili permettono di descrivere eventi estremi.
+Per una variabile casuale $X$, il quantile di ordine $\alpha$ \`{e}
+\[
+q_\alpha(X)
+=
+\inf\{x\in\mathbb{R}:F_X(x)\geq \alpha\}.
+\]
+Questa definizione \`{e} valida sia per distribuzioni continue sia per
+distribuzioni discrete, anche quando la funzione di distribuzione presenta
+salti. Nel caso di una perdita $L$, un quantile elevato $q_\alpha(L)$ rappresenta
+una soglia di perdita rilevante per la misurazione del rischio.
+
+Sono state infine presentate alcune famiglie distributive fondamentali:
+Bernoulli, binomiale, Poisson, uniforme, normale e lognormale. Ciascuna di esse
+incorpora ipotesi specifiche sul supporto, sulla forma della distribuzione, sulla
+dispersione e sul comportamento delle code. La scelta della distribuzione non
+\`{e} quindi un passaggio puramente tecnico, ma riflette la natura economica e
+finanziaria della grandezza aleatoria considerata.
+
+Il percorso logico del capitolo pu\`{o} essere riassunto nello schema
+\[
+(\Omega,\F,\Prob)
+\quad\longrightarrow\quad
+X
+\quad\longrightarrow\quad
+\Prob_X,\ F_X,\ p_X,\ f_X
+\quad\longrightarrow\quad
+\E[X],\ \Var(X),\ q_\alpha(X).
+\]
+Lo spazio di probabilit\`{a} resta il fondamento formale dell'incertezza; la
+variabile casuale traduce gli esiti in valori numerici; la distribuzione descrive
+la probabilit\`{a} di tali valori; momenti e quantili forniscono strumenti
+operativi per sintetizzare rendimento atteso, dispersione, probabilit\`{a} di
+perdita e rischio di coda.
+
+Questi strumenti costituiranno la base per i capitoli successivi, nei quali
+saranno analizzate distribuzioni multivariate, dipendenza, portafogli,
+trasformazioni di variabili casuali, modelli di prezzo e misure di rischio.
