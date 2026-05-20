@@ -6,10 +6,10 @@
 % Fallback utile per compilazione esterna se qualche titolo resta scritto come \QTR.
 % Scientific WorkPlace usa \QTR internamente; in Beamer \QTR{frametitle}{Titolo}
 % deve espandersi in \frametitle{Titolo}.
-%\usepackage{hyperref}
 
 \documentclass[handout]{beamer}%
 \usepackage{mathpazo}
+%\usepackage{hyperref}
 \usepackage{multimedia}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -21,7 +21,7 @@
 %TCIDATA{Codepage=65001}
 %TCIDATA{CSTFile=beamer.cst}
 %TCIDATA{Created=Saturday, May 16, 2026 09:09:59}
-%TCIDATA{LastRevised=Wednesday, May 20, 2026 10:26:08}
+%TCIDATA{LastRevised=Saturday, May 16, 2026 11:24:58}
 %TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
 %TCIDATA{<META NAME="SaveForMode" CONTENT="2">}
 %TCIDATA{BibliographyScheme=Manual}
@@ -34,6 +34,7 @@
 \newenvironment{stepenumeratewithalert}{\begin{enumerate}[<+-| alert@+>]}{\end{enumerate}}
 \newenvironment{stepitemizewithalert}{\begin{itemize}[<+-| alert@+>]}{\end{itemize} }
 \usetheme{Madrid}
+\setbeamersize{, text margin right=5mm}
 \providecommand{\R}{\mathbb{R}}
 \providecommand{\N}{\mathbb{N}}
 \providecommand{\E}{\mathbb{E}}
@@ -51,11 +52,6 @@
 \providecommand{\EVPI}{\operatorname{EVPI}}
 \providecommand{\VSS}{\operatorname{VSS}}
 \providecommand{\QTR}[2]{\csname #1\endcsname{#2}}
-\subtitle{Metodi Quantitativi per la Finanza}
-\institute[]{{\large Dipartimento Economia e Management}}
-\titlegraphic{
-\includegraphics[width=3.3cm]{graphics/logo-Unibs-esteso.png}
-}
 %BeginMSIPreambleData
 \ifx\pdfoutput\relax\let\pdfoutput=\undefined\fi
 \newcount\msipdfoutput
@@ -67,2134 +63,2450 @@
 \ifdim\paperwidth=0pt\relax\else\pdfpagewidth\paperwidth\fi
 \fi\fi\fi
 %EndMSIPreambleData
-\begin{document}
 
-\title{Lezione 1 - Elementi di teoria della probabilit\`{a}}
-\author{{\LARGE Paolo Falbo, Cristian Pelizzari}}
-\date{[]}
+
+\title{Lezione 2 - Variabili casuali}
+\subtitle{Metodi Quantitativi per la Finanza}
+\author[P. Falbo, C. Pelizzari]{{\LARGE Paolo Falbo, Cristian Pelizzari}}
+\institute[]{{\large Dipartimento Economia e Management}}
+\date[]{}
+\titlegraphic{
+\includegraphics[width=3.3cm]{graphics/logo-Unibs-esteso.png}
+}
+
+\begin{document}
 \maketitle
 
 \section{Apertura}
 
-\subsection{Domanda guida}%
+%***********************************
+\subsection{Apertura: perch\'{e} servono le variabili casuali}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
-%
 
-%TCIMACRO{\QTR{frametitle}{Lezione 1 -- Scenari, eventi e probabilit\`{a}}}%
+\QTR{frametitle}{Variabili casuali: dagli scenari ai valori}
+
+\textbf{Idea centrale.}
+
+\medskip
+
+L'incertezza finanziaria diventa operativa quando agli scenari associamo
+grandezze numeriche.
+
+\[
+\omega\in\Omega
+\quad\longmapsto\quad
+X(\omega)\in\mathbb{R}
+\]
+
+\medskip
+
+\textbf{Esempi finanziari.}
+
+\[
+\begin{array}{rcl}
+R   & = & \mbox{rendimento aleatorio},\\[4pt]
+L   & = & \mbox{perdita aleatoria},\\[4pt]
+S_T & = & \mbox{prezzo futuro aleatorio},\\[4pt]
+H   & = & \mbox{payoff aleatorio}.
+\end{array}
+\]
+
+\medskip
+
+Gli eventi restano il fondamento probabilistico; la finanza quantitativa lavora
+sui valori numerici generati dagli scenari.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\frametitle{Lezione 1 -- Scenari, eventi e probabilit\`{a}}%
+\transboxout%
 %EndExpansion
-%
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
-\setbeamercovered{transparent=20}%
+\end{frame}%
 %EndExpansion
 
+
+%***********************************
+\subsection{La domanda del capitolo}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{La domanda del capitolo}
+
+Non basta chiedere se un evento si verifica: occorre descrivere la
+distribuzione dei valori assunti da una grandezza finanziaria aleatoria.
+
+\[
+\Prob(R<0),
+\qquad
+\Prob(L>\ell),
+\qquad
+\Prob(S_T>K)
+\]
+
+\medskip
+
+\textbf{Domanda guida.}
+
+\medskip
+
+Come si descrive probabilisticamente un rendimento, una perdita o un payoff
+aleatorio?
+
+\medskip
+
+\[
+\begin{array}{rcl}
+R   & : & \mbox{rendimento futuro},\\[4pt]
+L   & : & \mbox{perdita di portafoglio},\\[4pt]
+S_T & : & \mbox{prezzo futuro del sottostante},\\[4pt]
+H   & : & \mbox{payoff di un contratto finanziario}.
+\end{array}
+\]
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%***********************************
+\subsection{Mappa del capitolo}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Mappa del capitolo}
+
+Il capitolo costruisce il ponte tra probabilit\`{a} astratta e misurazione
+quantitativa del rischio.
+
+\[
+(\Omega,\F,\Prob)
+\quad\longrightarrow\quad
+X
+\quad\longrightarrow\quad
+\Prob_X,\ F_X,\ p_X,\ f_X
+\quad\longrightarrow\quad
+\E[X],\ \Var(X),\ q_\alpha(X)
+\]
+
+\medskip
+
+\[
+\begin{array}{rcl}
+\Prob_X & : & \mbox{distribuzione indotta da } X,\\[4pt]
+F_X     & : & \mbox{funzione di distribuzione},\\[4pt]
+p_X     & : & \mbox{funzione di probabilit\`{a}},\\[4pt]
+f_X     & : & \mbox{densit\`{a} di probabilit\`{a}},\\[4pt]
+\E[X],\ \Var(X),\ q_\alpha(X)
+        & : & \mbox{sintesi di posizione, dispersione e coda}.
+\end{array}
+\]
+
+\medskip
+
+Obiettivo: tradurre l'incertezza sugli scenari in strumenti operativi per
+rendimenti, perdite, payoff e rischio di coda.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%***********************************
+\subsection{Definizione di variabile casuale}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Variabile casuale: definizione}
+
+Una variabile casuale reale associa un numero reale a ciascun esito dello spazio
+campionario.
+
+\[
+X:\Omega\longrightarrow\mathbb{R}
+\]
+
+\medskip
+
+Se $\omega\in\Omega$ \`{e} uno scenario, allora $X(\omega)$ \`{e} il valore
+numerico generato da quello scenario.
+
+\medskip
+
+\[
+\begin{array}{rcl}
+\omega & : & \mbox{scenario possibile},\\[4pt]
+X(\omega) & : & \mbox{valore della grandezza aleatoria nello scenario } \omega.
+\end{array}
+\]
+
+\medskip
+
+Esempi: rendimento futuro, perdita di portafoglio, prezzo futuro, payoff.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%***********************************
+\subsection{Eventi generati da una variabile casuale}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Eventi generati da una variabile casuale}
+
+\textbf{Una condizione sui valori di $X$ individua un insieme di scenari}.
+
+\[
+\{X\leq x\}
+=
+\{\omega\in\Omega:X(\omega)\leq x\}
+\]
+
+\medskip
+
+Analogamente,
+
+\[
+\{X=x_i\}
+=
+\{\omega\in\Omega:X(\omega)=x_i\},
+\]
+
+\[
+\{a<X\leq b\}
+=
+\{\omega\in\Omega:a<X(\omega)\leq b\}.
+\]
+
+\medskip
+
+La probabilit\`{a} resta assegnata a eventi dello spazio originario:
+
+\[
+\Prob(X\leq x)
+=
+\Prob(\{\omega\in\Omega:X(\omega)\leq x\}).
+\]
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%***********************************
+\subsection{Misurabilit\`{a}}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{La condizione di misurabilit\`{a}}
+
+Una funzione $X:\Omega\to\mathbb{R}$ \`{e} una variabile casuale \textbf{misurabile} se gli eventi
+del tipo $\{X\leq x\}$ sono inclusi nella $\sigma$-algebra $\F$, (famiglia degli eventi rilevanti).
+
+\[
+\{X\leq x\}\in\F
+\qquad
+\mbox{per ogni } x\in\mathbb{R}.
+\]
+
+\medskip
+
+Questa condizione garantisce che la quantit\`{a}
+
+\[
+\Prob(X\leq x)
+\]
+
+sia ben definita.
+
+\medskip
+
+\[
+\begin{array}{rcl}
+X & : & \mbox{assegna valori numerici agli esiti},\\[4pt]
+\F & : & \mbox{contiene gli eventi rilevanti / osservabili},\\[4pt]
+\Prob & : & \mbox{assegna probabilit\`{a} agli eventi di } \F.
+\end{array}
+\]
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%***********************************
+\subsection{Esempio guida: scenari, regimi e rendimento}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Sei scenari, tre regimi di mercato}
+
+Consideriamo sei esiti elementari:
+
+\[
+\Omega=\{\omega_1,\omega_2,\omega_3,\omega_4,\omega_5,\omega_6\}.
+\]
+
+\medskip
+
+Gli scenari sono raggruppati in tre regimi di mercato:
+
+\[
+A_1=\{\omega_1,\omega_2\},
+\qquad
+A_2=\{\omega_3,\omega_4\},
+\qquad
+A_3=\{\omega_5,\omega_6\}.
+\]
+
+\medskip
+
+\[
+\begin{array}{rcl}
+A_1 & : & \mbox{regime sfavorevole},\\[4pt]
+A_2 & : & \mbox{regime intermedio},\\[4pt]
+A_3 & : & \mbox{regime favorevole}.
+\end{array}
+\]
+
+\medskip
+
+Idea: il modello distingue i regimi, non necessariamente ogni singolo esito
+elementare.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%***********************************
+\subsection{Sigma-algebra generata dalla partizione}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Eventi osservabili nel modello}
+
+La partizione genera la sigma-algebra degli eventi osservabili:
+
+\[
+\F=\sigma(A_1,A_2,A_3).
+\]
+
+\medskip
+
+Esplicitamente,
+
+\[
+\F=
+\{\varnothing,
+A_1,A_2,A_3,
+A_1\cup A_2,A_1\cup A_3,A_2\cup A_3,
+\Omega\}.
+\]
+
+\medskip
+
+Gli eventi ammissibili sono le unioni dei blocchi della partizione.
+
+\medskip
+
+\[
+\begin{array}{rcl}
+A_1\cup A_2 & : & \mbox{regime non favorevole},\\[4pt]
+A_2\cup A_3 & : & \mbox{regime non sfavorevole},\\[4pt]
+\Omega      & : & \mbox{evento certo}.
+\end{array}
+\]
+
+\medskip
+
+La sigma-algebra specifica quali eventi sono descrivibili nel modello.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%***********************************
+\subsection{Rendimento come variabile casuale}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Il rendimento come funzione degli scenari}
+
+Definiamo una variabile casuale $X$ che rappresenta il rendimento del
+portafoglio:
+
+\[
+X(\omega)=
+\begin{cases}
+-0.04, & \mbox{se } \omega\in A_1,\\
+ 0.01, & \mbox{se } \omega\in A_2,\\
+ 0.06, & \mbox{se } \omega\in A_3.
+\end{cases}
+\]
+
+\medskip
+
+La variabile casuale aggrega scenari diversi nello stesso valore numerico:
+
+\[
+\begin{array}{rcl}
+\{X=-0.04\} = A_1, \qquad
+\{X=0.01\}  = A_2,\qquad
+\{X=0.06\}  = A_3.
+\end{array}
+\]
+
+\medskip
+
+Esempi di eventi generati da $X$:
+
+\[
+\{X<0\}=A_1,
+\qquad
+\{X\geq 0.01\}=A_2\cup A_3.
+\]
+
+\medskip
+
+La condizione numerica su $X$ individua un evento appartenente a $\F$.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%***********************************
+\subsection{Controimmagini, Borel e distribuzione indotta}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Controimmagini: dai valori agli eventi}
+
+Sia $X:\Omega\to\mathbb{R}$ una funzione e sia $B\subseteq\mathbb{R}$.
+
+\medskip
+
+La controimmagine di $B$ mediante $X$ \`{e}
+
+\[
+X^{-1}(B)=\{\omega\in\Omega:X(\omega)\in B\}.
+\]
+
+\medskip
+
+Essa \`{e} un sottoinsieme di $\Omega$, quindi un candidato evento.
+
+\medskip
+
+Esempi:
+
+\[
+X^{-1}((-\infty,x])
+=
+\{\omega\in\Omega:X(\omega)\leq x\}
+=
+\{X\leq x\},
+\]
+
+\[
+X^{-1}((a,b])
+=
+\{\omega\in\Omega:a<X(\omega)\leq b\}
+=
+\{a<X\leq b\}.
+\]
+
+\medskip
+
+(la notazione $X^{-1}(B)$ non è da intendersi nel senso abituale, ma come mappa che lavora in direzione inversa alla v.c. $X$).
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%***********************************
+\subsection{Il ruolo della sigma-algebra boreliana}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Il ruolo di $\mathcal{B}(\mathbb{R})$}
+
+Per variabili casuali reali, gli eventi sui valori di $X$ sono sottoinsiemi
+della retta reale.
+
+\medskip
+
+La classe naturale di tali insiemi \`{e} la sigma-algebra boreliana:
+
+\[
+\mathcal{B}(\mathbb{R}).
+\]
+
+\medskip
+
+Essa contiene gli insiemi normalmente usati per descrivere eventi sui valori
+reali:
+
+\[
+(-\infty,x],
+\qquad
+(a,b],
+\qquad
+[a,b],
+\qquad
+(x,+\infty).
+\]
+
+\medskip
+
+La misurabilit\`{a} richiede:
+
+\[
+B\in\mathcal{B}(\mathbb{R})
+\quad\Longrightarrow\quad
+X^{-1}(B)\in\F.
+\]
+
+\medskip
+
+Quindi ogni condizione boreliana sui valori di $X$ genera un evento osservabile
+nello spazio originario.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%***********************************
+\subsection{Distribuzione indotta}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Distribuzione indotta da una variabile casuale}
+
+La variabile casuale $X$ \textbf{trasferisce} o \textbf{induce} la probabilit\`{a} da $\Omega$ alla retta reale. Ciò è possibile grazie alla \textbf{misura di probabilit\`{a} indotta} $\Prob_X$: 
+\[
+\Prob_X:=\Prob\circ X^{-1} 
+\]
+ossia, per ogni $B \in\mathcal{B}(\mathbb{R})$
+\[
+\Prob_X(B) = \Prob\left(X^{-1}(B)\right).
+\]
+con la differenza che
+\[
+\begin{array}{ccc}
+B\subseteq\mathbb{R}
+& \longmapsto &
+X^{-1}(B)\subseteq\Omega\\[5pt]
+\mbox{insieme di valori}
+& &
+\mbox{evento nello spazio campionario}
+\end{array}
+\]
+
+\[
+\begin{array}{rcl}
+\Prob     & : & \mbox{probabilit\`{a} sugli eventi di } \Omega,\\[4pt]
+\Prob_X  & : & \mbox{probabilit\`{a} indotta sui valori reali di } X.
+\end{array}
+\]
+
+\medskip
+
+Messaggio: la misura $\Prob_X$ è importante perché costituisce la \textbf{distribuzione} di $X$, cioè la collezione delle  probabilit\`{a} di tutti i possibili eventi $\{X\in B\}$.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%***********************************
+\subsection{Funzione di distribuzione}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Funzione di distribuzione}
+
+La distribuzione di una variabile casuale reale pu\`{o} essere rappresentata
+mediante la funzione di distribuzione.
+
+\[
+F_X(x)
+=
+\Prob_X((-\infty,x])
+=
+\Prob(X\leq x),
+\qquad x\in\mathbb{R}.
+\]
+
+\medskip
+
+$F_X(x)$ misura la probabilit\`{a} cumulata fino alla soglia $x$.
+
+\medskip
+
+\[
+\begin{array}{rcl}
+x & : & \mbox{soglia reale},\\[4pt]
+\{X\leq x\} & : & \mbox{evento generato dalla soglia},\\[4pt]
+F_X(x) & : & \mbox{probabilit\`{a} cumulata fino a } x.
+\end{array}
+\]
+
+\medskip
+
+Messaggio: $F_X$ traduce la distribuzione di $X$ in una funzione reale di
+variabile reale.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%***********************************
+\subsection{Propriet\`{a} della funzione di distribuzione}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Propriet\`{a} fondamentali di $F_X$}
+
+Per ogni variabile casuale reale, la funzione di distribuzione soddisfa:
+
+\[
+0\leq F_X(x)\leq 1,
+\qquad x\in\mathbb{R}.
+\]
+
+\[
+x_1\leq x_2
+\quad\Longrightarrow\quad
+F_X(x_1)\leq F_X(x_2).
+\]
+
+\[
+\lim_{x\to -\infty}F_X(x)=0,
+\qquad
+\lim_{x\to +\infty}F_X(x)=1.
+\]
+
+\medskip
+
+Inoltre, $F_X$ \`{e} continua da destra:
+
+\[
+\lim_{h\downarrow 0}F_X(x+h)=F_X(x).
+\]
+
+\medskip
+\textbf{Traduzione colloquiale}: se $F_x$ fa un salto, il nuovo scalino possiede il primo punto, il vecchio scalino invece non ha ultimo punto. 
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%***********************************
+\subsection{Probabilit\`{a} di intervallo e salti}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Intervalli, limite sinistro e salti}
+
+La funzione di distribuzione consente di calcolare probabilit\`{a} di intervallo:
+
+\[
+\Prob_X(a<X\leq b)
+=
+F_X(b)-F_X(a),
+\qquad a<b.
+\]
+
+\medskip
+
+Per trattare disuguaglianze strette si usa il limite sinistro:
+
+\[
+F_X(x^-)
+=
+\lim_{h\downarrow 0}F_X(x-h).
+\]
+
+\[
+\Prob(X<x)=F_X(x^-).
+\]
+
+\medskip
+
+La probabilit\`{a} puntuale \`{e} l'ampiezza del salto di $F_X$:
+
+\[
+\Prob_X(X=x)
+=
+F_X(x)-F_X(x^-).
+\]
+
+\medskip
+
+Messaggio: un salto della funzione di distribuzione corrisponde a probabilit\`{a}
+positiva assegnata a un singolo valore.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%***********************************
+\subsection{Funzione di distribuzione discreta}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Funzione di distribuzione: caso discreto}
+
+Nel caso discreto, la funzione di distribuzione \`{e} una funzione a gradini.
+
+\medskip
+
+Per l'esempio guida:
+
+\[
+\begin{array}{c|ccc}
+x & -0.04 & 0.01 & 0.06\\
+\hline
+p_X(x) & 0.25 & 0.50 & 0.25
+\end{array}
+\]
+
+\[
+F_X(x)=
+\begin{cases}
+0, & x<-0.04,\\
+0.25, & -0.04\leq x<0.01,\\
+0.75, & 0.01\leq x<0.06,\\
+1, & x\geq 0.06.
+\end{cases}
+\]
+
+\medskip
+
+I salti di $F_X$ coincidono con le probabilit\`{a} puntuali $p_X(x)$.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%***********************************
+\subsection{Grafico della funzione di distribuzione}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Funzione di distribuzione: grafico}
 
 \begin{center}
-{\Large Come si rappresenta formalmente l'incertezza finanziaria?}
+\includegraphics[width=0.78\textwidth]{graphics/cap2_cdf_rendimento_discreto.png}
 \end{center}
 
-\medskip
-
-La finanza quantitativa studia grandezze che non sono note al momento della decisione:
-
-\begin{stepitemize}
-\item il rendimento futuro di un titolo;
-
-\item il valore futuro di un portafoglio;
-
-\item il default di una controparte;
-
-\item il superamento di una soglia di perdita;
-
-\item l'evoluzione di una traiettoria di mercato.
-\end{stepitemize}
-
-\medskip
-
-Il linguaggio di base sar\`{a} quello dello spazio di probabilit\`{a}:
-\[
-(\Omega,\F,\Prob).
-\]
-%
+La continuit\`{a} da destra determina il valore della funzione nei punti di
+salto.
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout
-%EndExpansion%
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%***********************************
+\subsection{Variabili casuali continue e densit\`{a}}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Variabili continue e densit\`{a}}
+
+Nel caso continuo, la probabilit\`{a} non \`{e} concentrata sui singoli valori.
+
+\medskip
+
+Una variabile casuale $X$ \`{e} \textbf{assolutamente continua} se esiste una funzione
+$f_X:\mathbb{R}\to[0,+\infty)$ tale che
+
+\[
+\Prob_X(B)
+=
+\Prob(X\in B)
+=
+\int_B f_X(x)\,dx,
+\qquad
+B\in\mathcal{B}(\mathbb{R}).
+\]
+
+\medskip
+
+$f_X$ \`{e} detta \textbf{funzione di densit\`{a}} (di probabilit\`{a}) di $X$.
+
+\medskip
+
+Condizioni fondamentali:
+
+\[
+f_X(x)\geq 0,
+\qquad
+\int_{-\infty}^{+\infty}f_X(x)\,dx=1.
+\]
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%***********************************
+\subsection{Probabilit\`{a} come area}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Probabilit\`{a} come area sotto la densit\`{a}}
+
+Per $a<b$, la probabilit\`{a} che $X$ appartenga all'intervallo $(a,b]$ \`{e}
+
+\[
+\Prob(a<X\leq b)
+=
+\int_a^b f_X(x)\,dx.
+\]
+
+\medskip
+
+Nel caso assolutamente continuo, i singoli punti hanno probabilit\`{a} nulla:
+
+\[
+\Prob(X=x)=0,
+\qquad
+x\in\mathbb{R}.
+\]
+
+\medskip
+
+Quindi l'inclusione o esclusione degli estremi non modifica la probabilit\`{a}:
+
+\[
+\Prob(a<X<b)
+=
+\Prob(a\leq X\leq b)
+=
+\int_a^b f_X(x)\,dx.
+\]
+
+\medskip
+
+Attenzione: $f_X(x)$ non \`{e} una probabilit\`{a}; la probabilit\`{a} \`{e}
+l'area sotto la densit\`{a}.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
 
-\subsection{Percorso della lezione}%
+%***********************************
+\subsection{Probabilit\`{a} come area}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
-%
 
-%TCIMACRO{\QTR{frametitle}{Percorso della lezione}}%
-%BeginExpansion
-\frametitle{Percorso della lezione}%
-%EndExpansion
-%
+\QTR{frametitle}{Probabilit\`{a} come area sotto la densit\`{a}}
 
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
+L'area compresa tra $a$ e $b$ rappresenta la probabilit\`{a} che la variabile casuale $X$ assuma valori in quell'intervallo.
 
-
-L'obiettivo della lezione \`{e} costruire il primo linguaggio formale per
-descrivere l'incertezza in finanza.
-
-\medskip
-
-\begin{stepenumerate}
-\item[1.] Scenari ed eventi: $\Omega$, $\omega$, $A\in\F$.
-
-\item[2.] Esperimenti ripetuti e traiettorie:
-\[
-\omega=(\omega_{1},\ldots,\omega_{n}).
-\]
-
-
-\item[3.] Operazioni sugli eventi: unione, intersezione, complemento.
-
-\item[4.] Informazione e sigma-algebre: $\F$.
-
-\item[5.] Misura di probabilit\`{a}: $\Prob(A)$.
-
-\item[6.] Condizionamento e aggiornamento bayesiano.
-\end{stepenumerate}
 
 \medskip
 
 \begin{center}
-{\small Dalla descrizione degli scenari alla probabilit\`{a} condizionata.}
-\end{center}%
+\includegraphics[width=0.82\textwidth]{graphics/cap2_probabilita_area_sotto_densita.png}
+\end{center}
+
+
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout
-%EndExpansion%
+\transboxout%
+%EndExpansion
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
 
-%***********************************************************
-
-
-\section{Spazio campionario ed eventi}
-
-\subsection{Scenari elementari}%
+%***********************************
+\subsection{Probabilit\`{a} di un punto}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
-%
 
-%TCIMACRO{\QTR{frametitle}{Spazio campionario: l'insieme degli scenari}}%
-%BeginExpansion
-\frametitle{Spazio campionario: l'insieme degli scenari}%
-%EndExpansion
+\QTR{frametitle}{Se l'intervallo si restringe a un punto}
 
-
-Uno spazio campionario descrive gli esiti elementari possibili di un fenomeno aleatorio.
-
-\medskip%
+Se l'intervallo $[a,b]$ si restringe, l'area sottesa dalla densit\`{a} tende a
+zero.
 
 \[
-\Omega=\{\omega_{1},\omega_{2},\ldots,\omega_{m}\}
+a\leftarrow b
+\qquad\Longrightarrow\qquad
+\int_a^a f_X(x)\,dx\to 0
 \]
-
 
 \medskip
 
-\begin{stepitemize}
+Quindi, nel caso assolutamente continuo,
+
+\[
+\Prob(X=a)=0.
+\]
+
+\medskip
+
+Pi\`{u} in generale,
+
+\[
+\Prob(X=x)=0,
+\qquad
+x\in\mathbb{R}.
+\]
+
+\medskip
+
+La probabilit\`{a} non \`{e} attribuita ai singoli punti, ma agli intervalli,
+cio\`{e} alle aree sotto la densit\`{a}.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
 
 
-\item $\Omega$ \`{e} l'insieme degli scenari possibili.
+%***********************************
+\subsection{Densit\`{a} e funzione di distribuzione}
 
-\item $\omega\in\Omega$ \`{e} un esito elementare.
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
 
-\item Prima della realizzazione dell'incertezza, non sappiamo quale $\omega$
-si verificher\`{a}.
-\end{stepitemize}
+\QTR{frametitle}{Densit\`{a} e funzione di distribuzione}
+
+La funzione di distribuzione si ottiene integrando la densit\`{a}:
+
+\[
+F_X(x)
+=
+\Prob(X\leq x)
+=
+\int_{-\infty}^{x} f_X(s)\,ds.
+\]
+
+\medskip
+
+Se $F_X$ \`{e} derivabile nel punto $x$, allora
+
+\[
+f_X(x)=F_X'(x).
+\]
+
+\medskip
+
+Interpretazione locale:
+
+\[
+\Prob\left(x-\frac{\varepsilon}{2}<X\leq x+\frac{\varepsilon}{2}\right)
+\simeq
+\varepsilon f_X(x),
+\qquad
+\varepsilon \mbox{ piccolo}.
+\]
+
+\medskip
+
+La densit\`{a} misura la rapidit\`{a} con cui la probabilit\`{a} si accumula
+intorno a un valore.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%***********************************
+\subsection{Esempio uniforme}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Esempio: rendimento uniforme}
+
+Sia $R$ un rendimento continuo con densit\`{a} uniforme su $[-0.04,0.06]$:
+
+\[
+f_R(r)=
+\begin{cases}
+10, & -0.04\leq r\leq 0.06,\\
+0, & \mbox{altrove}.
+\end{cases}
+\]
+
+\medskip
+
+La densit\`{a} \`{e} costante sull'intervallo dei valori possibili.
+
+\[
+\int_{-\infty}^{+\infty} f_R(r)\,dr
+=
+\int_{-0.04}^{0.06}10\,dr
+=
+10(0.10)
+=
+1.
+\]
+
+\medskip
+
+La normalizzazione conferma che $f_R$ \`{e} una densit\`{a} di probabilit\`{a}.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%***********************************
+\subsection{Area di probabilit\`{a} nell'esempio uniforme}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Esempio uniforme: probabilit\`{a} di un intervallo}
+
+L'area evidenziata rappresenta la probabilit\`{a} che il rendimento sia compreso
+tra $1\%$ e $5\%$.
 
 \medskip
 
 \begin{center}
-{\small In finanza, uno scenario pu\`{o} descrivere uno stato di mercato, uno
-stato di credito o una configurazione futura dei fattori di rischio.}
-\end{center}%
+\includegraphics[width=0.78\textwidth]{graphics/cap2_densita_uniforme_rendimento_area_01_05.png}
+\end{center}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout
-%EndExpansion%
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%***********************************
+\subsection{Probabilit\`{a} di coda}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Probabilit\`{a} di coda}
+
+La funzione di distribuzione descrive direttamente le probabilit\`{a} di coda.
+
+\medskip
+
+Coda sinistra:
+
+\[
+\Prob(X\leq x)=F_X(x).
+\]
+
+\medskip
+
+Coda destra:
+
+\[
+\Prob(X>x)=1-F_X(x).
+\]
+
+\medskip
+
+Per eventi con disuguaglianza non stretta:
+
+\[
+\Prob(X\geq x)=1-F_X(x^-).
+\]
+
+\medskip
+
+Se $L$ rappresenta una perdita, la probabilit\`{a}
+
+\[
+\Prob(L>\ell)
+\]
+
+misura la probabilit\`{a} che la perdita superi la soglia $\ell$.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
 
-%***********************************************************
-
-
-\subsection{Eventi}%
+%***********************************
+\subsection{Quantili}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
-%
 
-%TCIMACRO{\QTR{frametitle}{Eventi: propriet\`{a} degli scenari}}%
-%BeginExpansion
-\frametitle{Eventi: propriet\`{a} degli scenari}%
-%EndExpansion
+\QTR{frametitle}{Quantile di ordine $\alpha$}
 
-
-Un evento \`{e} un sottoinsieme dello spazio campionario.%
-
-\[
-A\subseteq\Omega
-\]
-
-
-Dire che l'evento $A$ si verifica significa che l'esito elementare realizzato
-appartiene ad $A$:%
-
-\[
-\omega\in A.
-\]
-
+Sia $X$ una variabile casuale reale con funzione di distribuzione $F_X$.
 
 \medskip
 
-\begin{stepitemize}
-\item Evento certo: $\Omega$.
+Per $\alpha\in(0,1)$, il quantile di ordine $\alpha$ \`{e}
 
-\item Evento impossibile: $\emptyset$.
-
-\item Evento elementare: $\{\omega\}$.
-
-\item \textbf{Evento}: \`{e} il caso normale, un insieme che contiene pi\`{u}
-esiti elementari.
-\end{stepitemize}
+\[
+q_\alpha(X)
+=
+\inf\{x\in\mathbb{R}:F_X(x)\geq \alpha\}.
+\]
 
 \medskip
 
-\begin{center}
-{\small Gli eventi traducono proposizioni finanziarie in oggetti matematici.}
-\end{center}%
+Il quantile \`{e} la soglia pi\`{u} bassa per cui la probabilit\`{a} cumulata
+raggiunge almeno $\alpha$.
+
+\medskip
+
+La definizione tramite infimo \`{e} valida anche quando $F_X$ presenta salti.
+
+\medskip
+
+Nel caso discreto, il quantile pu\`{o} coincidere con un punto di salto della
+funzione di distribuzione.
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout
-%EndExpansion%
+\transboxout%
+%EndExpansion
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
 
-%***********************************************************
-
-
-\subsection{Un primo esempio finanziario}%
+%***********************************
+\subsection{Quantili nel caso continuo}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
-%
 
-%TCIMACRO{\QTR{frametitle}{Esempio: tre scenari di mercato}}%
+\QTR{frametitle}{Quantili nel caso continuo}
+
+Se $X$ \`{e} assolutamente continua e $F_X$ \`{e} continua e strettamente
+crescente nell'intervallo rilevante, il quantile si ottiene risolvendo
+
+\[
+F_X(x)=\alpha.
+\]
+
+\medskip
+
+In questo caso,
+
+\[
+q_\alpha(X)=F_X^{-1}(\alpha).
+\]
+
+\medskip
+
+Equivalentemente, se $X$ ha densit\`{a} $f_X$,
+
+\[
+\int_{-\infty}^{q_\alpha(X)} f_X(x)\,dx=\alpha.
+\]
+
+\medskip
+
+Il quantile individua il punto che lascia a sinistra una probabilit\`{a} pari ad
+$\alpha$.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\frametitle{Esempio: tre scenari di mercato}%
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
 %EndExpansion
 
 
-Consideriamo tre possibili scenari per il rendimento di un titolo su un periodo:%
+%***********************************
+\subsection{Quantile e rischio di perdita}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Quantile e rischio di perdita}
+
+Se $L$ rappresenta una perdita, un quantile elevato individua una \textbf{soglia di
+rischio}.
+
+\medskip
+
+Per $\alpha$ vicino a $1$,
 
 \[
-\Omega=\{\omega_{1},\omega_{2},\omega_{3}\},
+q_\alpha(L)
 \]
 
+\`{e} una soglia tale che la perdita resta sotto quel livello con probabilit\`{a}
+almeno $\alpha$. Nel \textbf{caso continuo},
+
+\[
+\Prob(L\leq q_\alpha(L))=\alpha,
+\]
+
+\medskip
+
+e quindi, perdite di importo maggiore a $q_\alpha(L)$ avranno probabilità:
+\[
+\Prob(L>q_\alpha(L))=1-\alpha.
+\]
+
+\medskip
+
+Esempio: $q_{0.99}(L)$ \`{e} una soglia superata solo con
+probabilit\`{a} pari all'$1\%$.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%***********************************
+\subsection{Quantile normale: esempio}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Coda sinistra e quantile: esempio normale}
+
+Consideriamo un rendimento normale:
+
+\[
+R\sim\mathcal{N}(0.008,0.035^2).
+\]
+
+\medskip
+
+Il quantile al $5\%$ si ottiene da
+
+\[
+q_{0.05}(R)=\mu+\sigma z_{0.05},
+\]
 
 dove
 
-\begin{stepenumerate}
-\item[1.] $\omega_{1}$ indica uno scenario di ribasso;
-
-\item[2.] $\omega_{2}$ indica uno scenario di stabilit\`{a};
-
-\item[3.] $\omega_{3}$ indica uno scenario di rialzo.
-\end{stepenumerate}
+\[
+z_{0.05}\simeq -1.645.
+\]
 
 \medskip
 
-Possiamo definire, ad esempio,%
+Quindi
 
 \[
-A=\{\omega_{1}\}, \qquad B=\{\omega_{2},\omega_{3}\}.
+q_{0.05}(R)
+=
+0.008+0.035(-1.645)
+\simeq
+-0.0496.
 \]
 
+\medskip
 
-\begin{stepitemize}
-
-
-\item $A$ rappresenta l'evento di perdita.
-
-\item $B$ rappresenta l'evento di rendimento non negativo.
-\end{stepitemize}%
+Interpretazione: il $5\%$ peggiore dei rendimenti si colloca al di sotto di
+circa $-4.96\%$.
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout
-%EndExpansion%
+\transboxout%
+%EndExpansion
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
 
-%***********************************************************
-
-
-\section{Esperimenti ripetuti e traiettorie}
-
-\subsection{Esperimenti ripetuti}%
+%***********************************
+\subsection{Quantile normale: grafico}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
-%
 
-%TCIMACRO{\QTR{frametitle}{Esperimenti ripetuti}}%
-%BeginExpansion
-\frametitle{Esperimenti ripetuti}%
-%EndExpansion
-
-
-Molti problemi finanziari non riguardano un singolo esperimento aleatorio, ma
-una sequenza di esperimenti osservati nel tempo.
-
-\medskip
-
-Se l'incertezza viene osservata in $n$ date successive, possiamo introdurre
-gli spazi campionari%
-
-\[
-\Omega_{1},\Omega_{2},\ldots,\Omega_{n}.
-\]
-
-
-\medskip
-
-Lo spazio campionario complessivo \`{e} il prodotto cartesiano%
-
-\[
-\Omega=\Omega_{1}\times\Omega_{2}\times\cdots\times\Omega_{n}.
-\]
-
-
-\medskip
-
-\begin{stepitemize}
-\item Ogni $\Omega_{i}$ descrive gli esiti possibili alla data $i$.
-
-\item Lo spazio $\Omega$ descrive tutte le sequenze possibili.
-
-\item Un esito elementare diventa una \textbf{traiettoria}.
-\end{stepitemize}%
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion%
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-
-%***********************************************************
-
-
-\subsection{Notazione per le traiettorie}%
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-%
-
-%TCIMACRO{\QTR{frametitle}{Esiti elementari come traiettorie}}%
-%BeginExpansion
-\frametitle{Esiti elementari come traiettorie}%
-%EndExpansion
-
-
-Se poniamo
-\[
-\Omega=\Omega_{1}\times\Omega_{2}\times\cdots\times\Omega_{n},
-\]
-allora un esito elementare $\omega\in\Omega$ \`{e} una $n$-pla%
-
-\[
-\omega=(\omega_{1},\omega_{2},\ldots,\omega_{n}),
-\]
-
-
-dove%
-
-\[
-\omega_{i}\in\Omega_{i}.
-\]
-
-
-\medskip
-
-\begin{stepitemize}
-\item $\omega_{i}$ \`{e} l'esito osservato alla data $i$.
-
-\item $\omega$ raccoglie l'intera sequenza degli esiti.
-
-\item In termini finanziari, $\omega$ descrive una possibile evoluzione
-temporale dei fattori rilevanti: prezzi, rendimenti, rating, default.
-\end{stepitemize}
-
-\medskip
+\QTR{frametitle}{Coda sinistra e quantile: rappresentazione grafica}
 
 \begin{center}
-{\small Un esito elementare $\omega$ pu\`{o} rappresentare una traiettoria:
-una sequenza ordinata di realizzazioni nel tempo.}
-\end{center}%
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion%
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-
-%***********************************************************
-
-
-\subsection{Esperimento ripetuto con stesso spazio elementare}%
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-%
-
-%TCIMACRO{\QTR{frametitle}{Il caso di esperimenti identici ripetuti}}%
-%BeginExpansion
-\frametitle{Il caso di esperimenti identici ripetuti}%
-%EndExpansion
-
-
-Se lo stesso esperimento viene ripetuto $n$ volte, possiamo porre%
-
-\[
-\Omega_{1}=\Omega_{2}=\cdots=\Omega_{n}=\Omega^{\ast}.
-\]
-
-
-\medskip
-
-In questo caso lo spazio campionario complessivo \`{e}%
-
-\[
-\Omega=(\Omega^{\ast})^{n}.
-\]
-
-
-\medskip
-
-Se $\Omega^{\ast}$ contiene $m$ esiti elementari, allora%
-
-\[
-|\Omega|=m^{n}.
-\]
-
-
-\medskip
-
-\begin{stepitemize}
-\item La dimensione dello spazio cresce rapidamente con $n$.
-
-\item Ogni elemento di $\Omega$ \`{e} una sequenza di lunghezza $n$.
-
-\item Questa struttura anticipa alberi binomiali, traiettorie simulate e
-processi stocastici.
-\end{stepitemize}%
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion%
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-
-%***********************************************************
-
-
-\subsection{Esempio: tre movimenti di mercato}%
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-%
-
-%TCIMACRO{\QTR{frametitle}{Esempio: tre movimenti di un titolo}}%
-%BeginExpansion
-\frametitle{Esempio: tre movimenti di un titolo}%
-%EndExpansion
-
-
-A ogni data il prezzo di un titolo pu\`{o} registrare un rialzo $u$ oppure un
-ribasso $d$:%
-
-\[
-\Omega^{\ast}=\{u,d\}.
-\]
-
-
-Per tre osservazioni successive,%
-
-\[
-\Omega=(\Omega^{\ast})^{3}=\{u,d\}^{3}.
-\]
-
-
-Gli esiti elementari sono%
-
-\[
-\Omega=\{uuu,uud,udu,udd,duu,dud,ddu,ddd\}.
-\]
-
-
-\medskip
-
-\begin{stepitemize}
-\item $\omega=uuu$: tre rialzi consecutivi.
-
-\item $\omega=udd$: un rialzo seguito da due ribassi.
-
-\item $\omega=ddd$: tre ribassi consecutivi.
-\end{stepitemize}
-
-\medskip
-
-\begin{center}
-{\small Ogni esito elementare \`{e} una traiettoria di mercato.}
-\end{center}%
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion%
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-
-%***********************************************************
-
-
-\subsection{Eventi definiti su traiettorie}%
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-%
-
-%TCIMACRO{\QTR{frametitle}{Eventi come propriet\`{a} delle traiettorie}}%
-%BeginExpansion
-\frametitle{Eventi come propriet\`{a} delle traiettorie}%
-%EndExpansion
-
-
-Quando gli esiti elementari sono traiettorie, gli eventi descrivono
-propriet\`{a} dell'intera sequenza. Riprendendo:
-\[
-\Omega=\{uuu,uud,udu,udd,duu,dud,ddu,ddd\},
-\]
-
-
-possiamo definire:%
-
-\[
-A=\{uuu,uud,udu,udd\},
-\]
-
-
-evento in cui il primo movimento \`{e} un rialzo;%
-
-\[
-B=\{udd,dud,ddu\},
-\]
-
-
-evento in cui si osserva esattamente un rialzo;%
-
-\[
-C=\{uuu,uud,udu,duu\},
-\]
-
-
-evento in cui si osservano almeno due rialzi.
-
-\medskip
-
-\begin{center}
-{\small Gli eventi possono caratterizzare il percorso, non solo il valore
-finale.}
-\end{center}%
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion%
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-
-%***********************************************************
-
-
-\section{Operazioni sugli eventi}
-
-\subsection{Unione, intersezione e complemento}%
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-%
-
-%TCIMACRO{\QTR{frametitle}{Operazioni sugli eventi}}%
-%BeginExpansion
-\frametitle{Operazioni sugli eventi}%
-%EndExpansion
-
-
-Siano $A,B\subseteq\Omega$ due eventi.
-
-\medskip
-
-\begin{stepitemize}
-\item L'unione
-\[
-A\cup B
-\]
-si verifica quando si verifica almeno uno tra $A$ e $B$.
-
-\item L'intersezione
-\[
-A\cap B
-\]
-si verifica quando $A$ e $B$ si verificano simultaneamente.
-
-\item Il complemento
-\[
-A^{c}=\Omega\setminus A
-\]
-si verifica quando $A$ non si verifica.
-\end{stepitemize}
-
-\medskip
-
-\begin{center}
-{\small Come vedremo, operazioni sugli eventi permettono di costruire eventi
-finanziari complessi a partire da condizioni elementari.}
-\end{center}%
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion%
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-
-%***********************************************************
-
-
-\subsection{Eventi compatibili e disgiunti}%
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-%
-
-%TCIMACRO{\QTR{frametitle}{Eventi compatibili e disgiunti}}%
-%BeginExpansion
-\frametitle{Eventi compatibili e disgiunti}%
-%EndExpansion
-
-
-Siano $A,B\subseteq\Omega$ due eventi.
-
-\medskip
-
-\begin{stepitemize}
-\item Se
-\[
-A\cap B\neq\emptyset,
-\]
-allora $A$ e $B$ sono compatibili: possono verificarsi simultaneamente.
-
-\item Se
-\[
-A\cap B=\emptyset,
-\]
-allora $A$ e $B$ sono disgiunti: non possono verificarsi simultaneamente.
-\end{stepitemize}
-
-\medskip
-
-\begin{center}%
-\begin{tabular}
-[c]{c|c|c}\hline
-Caso & Intersezione & Interpretazione\\\hline
-Compatibili & $A\cap B\neq\emptyset$ & possono accadere insieme\\
-Disgiunti & $A\cap B=\emptyset$ & mutuamente esclusivi\\\hline
-\end{tabular}
-
+\includegraphics[width=0.80\textwidth]{graphics/cap2_normale_coda_sinistra_quantile_05.png}
 \end{center}
 
-\medskip
-
-\begin{center}
-{\small Attenzione: eventi disgiunti non sono, in generale, eventi
-indipendenti.}
-\end{center}%
-
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout
-%EndExpansion%
+\transboxout%
+%EndExpansion
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
-
-%***********************************************************
-
-
-\subsection{Esempio su traiettorie}%
+%***********************************
+\subsection{Valore atteso}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
-%
 
-%TCIMACRO{\QTR{frametitle}{Esempio: operazioni su traiettorie}}%
-%BeginExpansion
-\frametitle{Esempio: operazioni su traiettorie}%
-%EndExpansion
+\QTR{frametitle}{Valore atteso}
 
-
-Riprendiamo lo spazio delle tre traiettorie di rialzo e ribasso:%
-
-\[
-\Omega=\{uuu,uud,udu,udd,duu,dud,ddu,ddd\}.
-\]
-
-
-Definiamo%
-
-\[
-A=\{uuu,uud,udu,udd\}, \qquad B=\{uuu,uud,duu\}.
-\]
-
-
-\begin{stepitemize}
-\item $A$: il primo movimento \`{e} un rialzo.
-
-\item $B$: nei primi due movimenti c'\`{e} almeno un rialzo e il terzo
-movimento \`{e} un rialzo.
-\end{stepitemize}%
-
-\[
-A\cap B=\{uuu,uud\}, \qquad A\cup B=\{uuu,uud,udu,udd,duu\}.
-\]
-%
-
-\[
-A^{c}=\{duu,dud,ddu,ddd\}.
-\]
-
+Il valore atteso sintetizza la posizione media della distribuzione.
 
 \medskip
 
-\begin{center}
-{\small Le operazioni insiemistiche diventano operazioni su propriet\`{a}
-delle traiettorie.}
-\end{center}%
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion%
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-
-%***********************************************************
-
-
-\section{Sigma-algebra e informazione}
-
-\subsection{Famiglie di eventi}%
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-%
-
-%TCIMACRO{\QTR{frametitle}{Perch\'{e} non basta parlare di sottoinsiemi?}}%
-%BeginExpansion
-\frametitle{Perch\'{e} non basta parlare di sottoinsiemi?}%
-%EndExpansion
-
-
-Uno spazio campionario $\Omega$ descrive gli esiti possibili. Tuttavia, un
-modello probabilistico deve anche specificare quali eventi sono considerati
-\textbf{osservabili o rilevanti}.
-
-\medskip
-
-Una \textbf{famiglia di eventi} \`{e} un insieme i cui elementi sono eventi:%
+Caso discreto:
 
 \[
-\F=\{A_{1},A_{2},\ldots\}.
-\]
-
-
-\medskip
-
-Attenzione alla distinzione:%
-
-\[
-\F=\{A_{1},A_{2},\ldots\} \qquad\text{non \`{e}}\qquad\bigcup_{i} A_{i}.
-\]
-
-
-\medskip
-
-\begin{stepitemize}
-\item $\F$ \`{e} una collezione di eventi.
-
-\item Ogni $A_{i}\in\F$ \`{e} un evento, quindi un sottoinsieme di $\Omega$.
-
-\item L'unione $\bigcup_{i} A_{i}$ \`{e} invece un singolo evento.
-\end{stepitemize}
-
-\medskip%
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion%
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-
-%***********************************************************
-
-
-\subsection{Partizioni dello spazio campionario}%
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-%
-
-%TCIMACRO{\QTR{frametitle}{Partizioni dello spazio campionario}}%
-%BeginExpansion
-\frametitle{Partizioni dello spazio campionario}%
-%EndExpansion
-
-
-Una prima importante famiglia di eventi $B_{1},\ldots,B_{n}$ \`{e} la
-cosiddetta \textbf{partizione} di $\Omega$. Affinch\'{e} una famiglia $\F$ sia
-una partizione \`{e} necessario che:
-
-\medskip
-
-\begin{stepenumerate}
-\item[1.] gli eventi siano due a due disgiunti:
-\[
-B_{i}\cap B_{j}=\emptyset,\qquad i\neq j;
-\]
-
-
-\item[2.] la loro unione ricostruisca l'intero spazio campionario:
-\[
-\bigcup_{i=1}^{n}B_{i}=\Omega.
-\]
-
-\end{stepenumerate}
-
-Una partizione suddivide $\Omega$ in eventi informativi alternativi o
-\textbf{mutuamente esclusivi}.%
-
-\[
-\Omega= B_{1}\cup B_{2}\cup\cdots\cup B_{n}.
-\]
-%
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion%
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-
-%***********************************************************
-
-
-\subsection{Definizione di sigma-algebra}%
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-%
-
-%TCIMACRO{\QTR{frametitle}{Sigma-algebra degli eventi}}%
-%BeginExpansion
-\frametitle{Sigma-algebra degli eventi}%
-%EndExpansion
-
-
-Un'altra importante famiglia di eventi \`{e} la \textbf{$\sigma$-algebra}. Una
-famiglia $\F$ di sottoinsiemi di $\Omega$ \`{e} una sigma-algebra se:
-
-\medskip
-
-\begin{stepenumerate}
-
-
-\item[1.] contiene l'evento certo:
-\[
-\Omega\in\F;
-\]
-
-
-\item[2.] \`{e} chiusa rispetto al complemento:
-\[
-A\in\F \quad\Longrightarrow\quad A^{c}\in\F;
-\]
-
-
-\item[3.] \`{e} chiusa rispetto alle unioni numerabili:
-\[
-A_{1},A_{2},\ldots\in\F
-\quad\Longrightarrow\quad\bigcup_{n=1}^{\infty}A_{n}\in\F.
-\]
-
-\end{stepenumerate}%
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion%
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-
-%***********************************************************
-
-
-\subsection{Dalle partizioni alle sigma-algebre}%
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-%
-
-%TCIMACRO{\QTR{frametitle}{Partizioni e sigma-algebre}}%
-%BeginExpansion
-\frametitle{Partizioni e sigma-algebre}%
-%EndExpansion
-
-
-\textbf{Partizioni (finite) di $\Omega$ e sigma-algebre sono collegabili in
-una relazione uno-a-uno}. \medskip
-
-Sia $\mathcal{A}=\{A_{1},\ldots,A_{n}\}$ una partizione di $\Omega$. Allora:
-
-\begin{stepitemize}
-
-
-\item Dalla partizione $\mathcal{A}$ "$\rightarrow$" si costruisce la
-sigma-algebra pi\`{u} piccola $\F$, che contiene tutti i blocchi $A_{i}$.
-
-\item La costruzione avviene aggiungendo $\Omega$, $\emptyset$, i complementi
-e tutte le unioni possibili dei blocchi della partizione.
-
-\item Viceversa, dalla $\sigma$-algebra finita $\F$ "$\rightarrow$" si
-identifica la partizione $\mathcal{A}$ di $\Omega$, raccogliendo in $\F$ gli
-eventi disgiunti minimi che uniti compongono $\Omega$.
-\end{stepitemize}
-
-\medskip%
-
-\[
-\mathcal{A }\quad\longleftrightarrow\quad\sigma(\mathcal{A})
-\]
-%
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion%
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-
-%***********************************************************
-
-
-\subsection{Informazione e raffinamento}%
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-%
-
-%TCIMACRO{\QTR{frametitle}{Informazione e raffinamento delle partizioni}}%
-%BeginExpansion
-\frametitle{Informazione e raffinamento delle partizioni}%
-%EndExpansion
-
-
-Una partizione pi\`{u} fine distingue pi\`{u} casi; quindi genera una
-sigma-algebra pi\`{u} ricca.
-
-\medskip%
-
-\[
-\text{partizione pi\`{u} fine} \quad\Longrightarrow\quad\text{pi\`{u} eventi
-distinguibili}
-\]
-
-
-\medskip%
-
-\[
-\text{pi\`{u} informazione} \quad\Longleftrightarrow\quad\text{sigma-algebra
-pi\`{u} ricca}.
-\]
-
-
-\medskip
-
-Nel tempo discreto questa idea porta naturalmente a una successione crescente:%
-
-\[
-\F_{0}\subseteq\F_{1}\subseteq\cdots\subseteq\F_{n}.
-\]
-
-
-\medskip
-
-Questa successione sar\`{a} chiamata \textbf{filtrazione}.%
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion%
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-
-%***********************************************************
-
-
-\subsection{Esempio: informazione su tre movimenti}%
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-%
-
-%TCIMACRO{\QTR{frametitle}{Esempio: informazione crescente}}%
-%BeginExpansion
-\frametitle{Esempio: informazione crescente}%
-%EndExpansion
-
-
-Consideriamo lo spazio $\Omega$ di tre movimenti successivi di un titolo:%
-
-\[
-\Omega=\{uuu,uud,udu,udd,duu,dud,ddu,ddd\}.
-\]
-
-
-\medskip
-
-\begin{stepitemize}
-\item $\F_{0}$: informazione nulla (detta $\sigma$-algebra banale);
-\[
-\F_{0}=\{\emptyset,\Omega\}.
-\]
-
-
-\item $\F_{1}$: informazione sul primo movimento;
-\[
-\{uuu,uud,udu,udd\},\quad\{duu,dud,ddu,ddd\}.
-\]
-
-
-\item $\F_{2}$: informazione sui primi due movimenti;
-\[
-\{uuu,uud\},\{udu,udd\},\{duu,dud\},\{ddu,ddd\}.
-\]
-
-
-\item $\F_{3}$: informazione completa sulla traiettoria.
-\end{stepitemize}%
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion%
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-
-%***********************************************************
-
-
-\subsection{Informazione completa e insieme delle parti}%
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-%
-
-%TCIMACRO{\QTR{frametitle}{Informazione completa}}%
-%BeginExpansion
-\frametitle{Informazione completa}%
-%EndExpansion
-
-
-Nel caso dei tre movimenti $u,d$, l'informazione completa ci viene offerta
-dalla partizione $\mathcal{A}$ che distingue tutte le traiettorie elementari:%
-
-\[
-\mathcal{A}%
-=\{\{uuu\},\{uud\},\{udu\},\{udd\},\{duu\},\{dud\},\{ddu\},\{ddd\}\}.
-\]
-
-
-\medskip
-
-La sigma-algebra $\F_{3}$ generata da una partizione di singleton, come
-$\mathcal{A}$, \`{e} detta \textbf{insieme delle parti} di $\Omega$, che
-indichiamo col simbolo $\mathcal{P} (\Omega)$:%
-
-\[
-\F_{3}=\mathcal{P}(\Omega).
-\]
-
-
-\medskip
-
-La cardinalit\`{a} di $\mathcal{P}(\Omega)$ si ricava osservando il numero
-degli esiti elementari contenuti in $\Omega$. Nel nostro caso:%
-
-\[
-|\mathcal{P}(\Omega)|=2^{8}=256.
-\]
-%
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion%
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-%***********************************************************
-
-
-\section{Misura di probabilit\`{a}}
-
-\subsection{Definizione}%
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-%
-
-%TCIMACRO{\QTR{frametitle}{Misura di probabilit\`{a}}}%
-%BeginExpansion
-\frametitle{Misura di probabilit\`{a}}%
-%EndExpansion
-
-
-Una \textbf{misura di probabilit\`{a}} su $(\Omega,\F)$ \`{e} una funzione%
-
-\[
-\Prob:\F\longrightarrow[0,1]
-\]
-
-
-che assegna a ogni evento $A\in\F$ un numero $\Prob(A)$.
-
-\medskip
-
-La misura $\Prob$ deve soddisfare tre propriet\`{a} fondamentali:
-
-\begin{stepenumerate}
-\item[1.] non negativit\`{a}:
-\[
-\Prob(A)\geq0,\qquad A\in\F;
-\]
-
-
-\item[2.] normalizzazione:
-\[
-\Prob(\Omega)=1;
-\]
-
-
-\item[3.] additivit\`{a} per eventi disgiunti: se $A_{1},A_{2},\ldots\in\F$
-sono due a due disgiunti, allora
-\[
-\Prob\left( \bigcup_{i=1}^{\infty}A_{i}\right)  = \sum_{i=1}^{\infty
-}\Prob(A_{i}).
-\]
-
-\end{stepenumerate}%
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion%
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-
-%***********************************************************
-
-
-\subsection{Regole elementari di calcolo}%
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-%
-
-%TCIMACRO{\QTR{frametitle}{Prime regole di calcolo}}%
-%BeginExpansion
-\frametitle{Prime regole di calcolo}%
-%EndExpansion
-
-
-Dagli assiomi della probabilit\`{a} derivano alcune regole operative.
-
-\medskip
-
-Per ogni evento $A\in\F$,%
-
-\[
-\Prob(A^{c})=1-\Prob(A).
-\]
-
-
-\medskip
-
-Per ogni coppia di eventi $A,B\in\F$,%
-
-\[
-\Prob(A\cup B) = \Prob(A)+\Prob(B)-\Prob(A\cap B).
-\]
-
-
-\medskip
-
-Se $A$ e $B$ sono disgiunti, cio\`{e} $A\cap B=\emptyset$, allora%
-
-\[
-\Prob(A\cup B) = \Prob(A)+\Prob(B).
-\]
-
-
-\medskip
-
-Queste regole permettono di calcolare la probabilit\`{a} di eventi composti a
-partire da eventi pi\`{u} elementari.%
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion%
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-
-%***********************************************************
-
-
-\section{Probabilit\`{a} condizionata}
-
-\subsection{Definizione}%
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-%
-
-%TCIMACRO{\QTR{frametitle}{Probabilit\`{a} condizionata}}%
-%BeginExpansion
-\frametitle{Probabilit\`{a} condizionata}%
-%EndExpansion
-
-
-Siano $A,B\in\F$ e sia $\Prob(B)>0$.
-
-\medskip
-
-La probabilit\`{a} condizionata di $A$ dato $B$ \`{e}%
-
-\[
-\Prob(A\mid B) = \frac{\Prob(A\cap B)}{\Prob(B)}.
-\]
-
-
-\medskip
-
-L'evento $B$ rappresenta l'informazione disponibile.
-
-\medskip
-
-\begin{stepitemize}
-
-
-\item Prima del condizionamento, valutiamo la probabilit\`{a} di $A$ su
-$\Omega$.
-
-\item Dopo avere osservato $B$, valutiamo la probabilit\`{a} di $A$ sugli
-scenari compatibili con $B$.
-
-\item Il condizionamento modifica lo spazio informativo rilevante.
-\end{stepitemize}
-
-\medskip
-
-Dalla definizione segue la regola del prodotto:%
-
-\[
-\Prob(A\cap B)=\Prob(A\mid B)\Prob(B).
-\]
-%
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion%
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-
-%***********************************************************
-%
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-%
-
-%TCIMACRO{\QTR{frametitle}{Esempio: score creditizio}}%
-%BeginExpansion
-\frametitle{Esempio: score creditizio}%
-%EndExpansion
-
-
-Una controparte riceve uno score intero da $1$ a $10$, con valori pi\`{u}
-elevati associati a migliore qualit\`{a} creditizia.%
-
-\[
-\Omega=\{1,2,\ldots,10\}, \qquad\Prob(\{\omega\})=\frac{1}{10}.
+\E[X]
+=
+\sum_i x_i p_X(x_i).
 \]
 
 \medskip
 
-Sia%
+Caso assolutamente continuo:
 
 \[
-A=\{10\}
+\E[X]
+=
+\int_{-\infty}^{+\infty}x f_X(x)\,dx.
 \]
-
-
-l'evento ``score massimo''. Supponiamo di sapere che lo score \`{e} almeno
-pari a $5$:%
-
-\[
-B=\{5,6,7,8,9,10\}.
-\]
-
 
 \medskip
 
-Poich\'{e} $A\subseteq B$,%
+Interpretazione finanziaria:
 
 \[
-\Prob(A\mid B) = \frac{\Prob(A\cap B)}{\Prob(B)} = \frac{\Prob(A)}{\Prob(B)} =
-\frac{1/10}{6/10} = \frac{1}{6}.
-\]
-%
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion%
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-
-%***********************************************************
-%
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-%
-
-%TCIMACRO{\QTR{frametitle}{Esempio: probabilit\`{a} di perdita dato lo scenario
-%avverso}}%
-%BeginExpansion
-\frametitle{Esempio: probabilit\`{a} di perdita dato lo scenario avverso}%
-%EndExpansion
-
-
-Consideriamo un portafoglio osservato su un orizzonte di un periodo. Ogni
-scenario descrive congiuntamente condizioni di mercato e risultato del portafoglio.%
-
-\[
-\Omega=\{\omega_{1},\omega_{2},\omega_{3},\omega_{4},\omega_{5},\omega_{6}\}.
-\]
-%
-
-\[%
-\begin{array}
-[c]{c|c|c}%
-\text{Scenario} & \text{Contesto} & \Prob(\{\omega\})\\\hline
-\omega_{1} & \text{favorevole} & 0.10\\
-\omega_{2} & \text{avverso} & 0.15\\
-\omega_{3} & \text{avverso, perdita rilevante} & 0.20\\
-\omega_{4} & \text{neutrale} & 0.20\\
-\omega_{5} & \text{avverso, perdita rilevante} & 0.25\\
-\omega_{6} & \text{avverso, perdita rilevante} & 0.10
+\begin{array}{rcl}
+\E[R] & : & \mbox{rendimento medio atteso},\\[4pt]
+\E[L] & : & \mbox{perdita attesa},\\[4pt]
+\E[H] & : & \mbox{payoff medio}.
 \end{array}
 \]
 
-
 \medskip
 
-Le probabilit\`{a} degli scenari sono assegnate ex ante dal modello.%
+Il valore atteso \`{e} una media probabilistica, non una previsione deterministica.
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout
-%EndExpansion%
+\transboxout%
+%EndExpansion
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
 
-%***********************************************************
-%
+%***********************************
+\subsection{Linearit\`{a} del valore atteso}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
-%
 
-%TCIMACRO{\QTR{frametitle}{Esempio: probabilit\`{a} di perdita dato lo scenario
-%avverso}}%
-%BeginExpansion
-\frametitle{Esempio: probabilit\`{a} di perdita dato lo scenario avverso}%
-%EndExpansion
+\QTR{frametitle}{Linearit\`{a} del valore atteso}
 
-
-Definiamo l'evento di perdita rilevante:%
+Se $a$ e $b$ sono costanti reali, allora
 
 \[
-A=\{\omega_{3},\omega_{5},\omega_{6}\}.
+\E[aX+b]
+=
+a\E[X]+b.
 \]
-
-
-Il complemento \`{e}%
-
-\[
-A^{c}=\{\omega_{1},\omega_{2},\omega_{4}\},
-\]
-
-
-cio\`{e} l'evento in cui il portafoglio non registra una perdita rilevante.
 
 \medskip
 
-Definiamo l'evento informativo ``scenario macro-finanziario avverso'':%
+Pi\`{u} in generale,
 
 \[
-B=\{\omega_{2},\omega_{3},\omega_{5},\omega_{6}\}.
+\E\left[\sum_{i=1}^n a_iX_i\right]
+=
+\sum_{i=1}^n a_i\E[X_i].
 \]
 
+\medskip
 
-Il complemento \`{e}%
+Questa propriet\`{a} non richiede indipendenza tra le variabili casuali.
+
+\medskip
+
+Applicazione finanziaria:
 
 \[
-B^{c}=\{\omega_{1},\omega_{4}\},
+R_P=\sum_{i=1}^n w_i R_i
+\qquad\Longrightarrow\qquad
+\E[R_P]=\sum_{i=1}^n w_i\E[R_i].
 \]
 
+\medskip
 
-cio\`{e} l'evento in cui lo scenario non \`{e} avverso.%
+La linearit\`{a} \`{e} essenziale per rendimenti di portafoglio e trasformazioni
+affini.
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout
-%EndExpansion%
+\transboxout%
+%EndExpansion
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
 
-%***********************************************************
-%
+%***********************************
+\subsection{Valore atteso di funzioni}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
-%
 
-%TCIMACRO{\QTR{frametitle}{Esempio: probabilit\`{a} di perdita dato lo scenario
-%avverso}}%
-%BeginExpansion
-\frametitle{Esempio: probabilit\`{a} di perdita dato lo scenario avverso}%
-%EndExpansion
+\QTR{frametitle}{Valore atteso di $g(X)$}
 
-
-Poich\'{e} $A=\{\omega_{3},\omega_{5},\omega_{6}\}$ e $B=\{\omega_{2}%
-,\omega_{3},\omega_{5},\omega_{6}\}$, si ha%
+Spesso l'oggetto finanziario rilevante non \`{e} $X$, ma una funzione di $X$.
 
 \[
-A\cap B=\{\omega_{3},\omega_{5},\omega_{6}\}.
+Y=g(X).
 \]
-
 
 \medskip
 
-Quindi%
+Caso discreto:
 
 \[
-\Prob(A\cap B)=0.20+0.25+0.10=0.55,
+\E[g(X)]
+=
+\sum_i g(x_i)p_X(x_i).
 \]
-%
+
+\medskip
+
+Caso assolutamente continuo:
 
 \[
-\Prob(B)=0.15+0.20+0.25+0.10=0.70.
+\E[g(X)]
+=
+\int_{-\infty}^{+\infty} g(x)f_X(x)\,dx.
 \]
-%
-
-\[
-\Prob(A\mid B) = \frac{\Prob(A\cap B)}{\Prob(B)} = \frac{0.55}{0.70}
-\simeq0.786.
-\]
-
-
-La probabilit\`{a} di perdita rilevante, dato lo scenario avverso, \`{e} circa
-il $78.6\%$.%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout
-%EndExpansion%
+\transboxout%
+%EndExpansion
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
 
-%***********************************************************
-
-
-\section{Indipendenza}
-
-\subsection{Eventi indipendenti}%
+%***********************************
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
-%
 
-%TCIMACRO{\QTR{frametitle}{Indipendenza tra eventi}}%
-%BeginExpansion
-\frametitle{Indipendenza tra eventi}%
-%EndExpansion
+\QTR{frametitle}{Valore atteso di $g(X)$}
 
-
-Due eventi $A,B\in\F$ si dicono indipendenti se%
+Esempio: payoff di una call europea
 
 \[
-\Prob(A\cap B)=\Prob(A)\Prob(B).
+H=(S_T-K)^+.
 \]
-
-
-\medskip
-
-Se $\Prob(B)>0$, questa condizione equivale a%
 
 \[
-\Prob(A\mid B)=\Prob(A).
+\E[H]
+=
+\E[(S_T-K)^+].
 \]
 
-
 \medskip
 
-Quindi l'evento $B$ non modifica la probabilit\`{a} attribuita ad $A$.
+In generale,
 
-\medskip
+\[
+\E[g(X)]\neq g(\E[X])
+\]
 
-\begin{stepitemize}
-\item Indipendenza: l'informazione su $B$ non cambia la valutazione di $A$.
-
-\item Dipendenza: l'informazione su $B$ modifica la valutazione di $A$.
-
-\item Eventi disgiunti con probabilit\`{a} positiva non sono indipendenti.
-\end{stepitemize}%
+quando $g$ non \`{e} lineare.
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout
-%EndExpansion%
+\transboxout%
+%EndExpansion
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
 
-%***********************************************************
-
-
-\section{Probabilit\`{a} totali e formula di Bayes}
-
-\subsection{Formula delle probabilit\`{a} totali}%
+%***********************************
+\subsection{Variabili indicatrici}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
-%
 
-%TCIMACRO{\QTR{frametitle}{Formula delle probabilit\`{a} totali}}%
-%BeginExpansion
-\frametitle{Formula delle probabilit\`{a} totali}%
-%EndExpansion
+\QTR{frametitle}{Variabili indicatrici}
 
-
-Sia $\{C_{1},\ldots,C_{n}\}$ una partizione di $\Omega$, con%
+Il valore atteso di una variabile indicatrice coincide con la probabilit\`{a}
+dell'evento corrispondente:
 
 \[
-\Prob(C_{i})>0,\qquad i=1,\ldots,n.
+\E[\mathbf{1}_A]
+=
+\Prob(A).
 \]
-
 
 \medskip
 
-Per ogni evento $A\in\F$ vale%
+Esempi finanziari:
 
 \[
-\Prob(A) = \sum_{i=1}^{n} \Prob(A\mid C_{i})\Prob(C_{i}).
+\E[\mathbf{1}_{\{R<0\}}]
+=
+\Prob(R<0),
 \]
 
+\[
+\E[\mathbf{1}_{\{L>\ell\}}]
+=
+\Prob(L>\ell),
+\]
+
+\[
+\E[\mathbf{1}_{\{S_T>K\}}]
+=
+\Prob(S_T>K).
+\]
 
 \medskip
 
-La probabilit\`{a} di $A$ viene decomposta rispetto a scenari alternativi,
-esaustivi e mutuamente esclusivi.
-
-\medskip
-
-\begin{stepitemize}
-\item $C_{i}$: scenario o stato informativo.
-
-\item $\Prob(C_{i})$: probabilit\`{a} dello scenario (probabilit\`{a} detta
-anche \textit{a priori}).
-
-\item $\Prob(A\mid C_{i})$: probabilit\`{a} di $A$ nello scenario $C_{i}$.
-\end{stepitemize}%
+Le variabili indicatrici trasformano eventi in variabili casuali a valori
+$0$ e $1$.
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout
-%EndExpansion%
+\transboxout%
+%EndExpansion
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
 
-%***********************************************************
-%
+
+%***********************************
+\subsection{Indicatrice dell'evento di rendimento negativo}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
-%
 
-%TCIMACRO{\QTR{frametitle}{Legge delle probabilit\`{a} totali: rappresentazione
-%grafica}}%
+\QTR{frametitle}{Indicatrice dell'evento di rendimento negativo}
+
+Sia $r$ uno dei possibili valori della variabile casuale $R$, rendimento di un portafoglio.
+
+\medskip
+
+La funzione indicatrice indicatrice dell'evento "rendimento negativo" \`{e}:
+
+\[
+\mathbf{1}_{\{R<0\}}=
+\begin{cases}
+1, & \mbox{se } R<0,\\
+0, & \mbox{se } R\geq 0.
+\end{cases}
+\]
+
+\medskip
+
+Il suo valore atteso ha una chiara interpretazione:
+
+\medskip
+
+\[
+\E[\mathbf{1}_{\{R<0\}}]
+=
+\Prob(R<0).
+\]
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\frametitle{Legge delle probabilit\`{a} totali: rappresentazione grafica}%
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
 %EndExpansion
 
+
+%***********************************
+\subsection{Shortfall}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Perdita percentuale rispetto alla soglia zero: grafico}
+
+Introduciamo la funzione $g(r)$, perdita percentuale:
+
+\[
+g(r)=(-r)^+=-r\,\mathbf{1}_{\{r<0\}}.
+\]
+
+\medskip
 
 \begin{center}
-\includegraphics[width=0.92\textwidth]{graphics/legge_probabilita_totali.png}
-\end{center}%
+\includegraphics[width=0.80\textwidth]{graphics/cap2_funzione_shortfall_zero.png}
+\end{center}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout
-%EndExpansion%
+\transboxout%
+%EndExpansion
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
 
-%***********************************************************
-
-
-\subsection{Formula di Bayes}%
+%***********************************
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
-%
 
-%TCIMACRO{\QTR{frametitle}{Formula di Bayes}}%
-%BeginExpansion
-\frametitle{Formula di Bayes}%
-%EndExpansion
+\QTR{frametitle}{Shortfall come valore atteso condizionato}
 
 
-Sia $\{C_{1},\ldots,C_{n}\}$ una partizione di $\Omega$ e sia $A\in\F$ un
-evento osservato, con $\Prob(A)>0$.
-
-\medskip
-
-Per ogni $j=1,\ldots,n$,%
+Un indicatore di interesse finanziario è lo \emph{shortfall}, inteso come valore atteso della perdita condizionato al verificarsi di un rendimento negativo:
 
 \[
-\Prob(C_{j}\mid A) = \frac{\Prob(A\mid C_{j})\Prob(C_{j})} {\sum_{i=1}%
-^{n}\Prob(A\mid C_{i})\Prob(C_{i})}.
+\operatorname{SF}
+=
+\mathbb{E}[g(r)\mid r<0]
+=
+\mathbb{E}[-r\mid r<0].
 \]
 
-
-\medskip
-
-\begin{stepitemize}
-\item $\Prob(C_{j})$: probabilit\`{a} a priori dello scenario $C_{j}$.
-
-\item $\Prob(A\mid C_{j})$: verosimiglianza dell'evento osservato.
-
-\item $\Prob(C_{j}\mid A)$: probabilit\`{a} a posteriori dopo l'osservazione
-di $A$.
-\end{stepitemize}
-
-\medskip
-
-La formula di Bayes descrive un aggiornamento probabilistico basato su nuova informazione.%
+Esso rappresenta quindi la perdita percentuale media osservata nei soli scenari sfavorevoli.
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout
-%EndExpansion%
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%***********************************
+\subsection{Varianza}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Varianza: dispersione intorno alla media}
+
+Il valore atteso descrive la posizione media della distribuzione, ma non misura
+la dispersione.
+
+\medskip
+
+La varianza di $X$ \`{e}
+
+\[
+\Var(X)
+=
+\E\left[(X-\E[X])^2\right].
+\]
+
+\medskip
+
+Nel caso discreto,
+
+\[
+\Var(X)
+=
+\sum_i (x_i-\E[X])^2p_X(x_i).
+\]
+
+\medskip
+
+Nel caso assolutamente continuo,
+
+\[
+\Var(X)
+=
+\int_{-\infty}^{+\infty}(x-\E[X])^2f_X(x)\,dx.
+\]
+
+\medskip
+
+La varianza misura lo scostamento quadratico medio dal valore atteso.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
 
-%***********************************************************
-
-
-\subsection{Esempio: segnale e stato del debitore}%
+%***********************************
+\subsection{Formula operativa e deviazione standard}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
-%
 
-%TCIMACRO{\QTR{frametitle}{Esempio: segnale e stato del debitore}}%
-%BeginExpansion
-\frametitle{Esempio: segnale e stato del debitore}%
-%EndExpansion
+\QTR{frametitle}{Formula operativa e deviazione standard}
 
-
-Un debitore pu\`{o} trovarsi in tre stati latenti:%
+Una formula utile nei calcoli \`{e}
 
 \[
-B_{1}=\text{solido},\qquad B_{2}=\text{fragile},\qquad B_{3}=\text{critico}.
+\Var(X)
+=
+\E[X^2]-(\E[X])^2.
 \]
-
 
 \medskip
 
-Le probabilit\`{a} a priori sono%
+La deviazione standard \`{e}
 
 \[
-\Prob(B_{1})=0.60,\qquad\Prob(B_{2})=0.30,\qquad\Prob(B_{3})=0.10.
+\sigma_X
+=
+\sqrt{\Var(X)}.
 \]
-
 
 \medskip
 
-Si osserva un segnale negativo $S$. Le probabilit\`{a} condizionate del
-segnale sono%
-
 \[
-\Prob(S\mid B_{1})=0.10,\qquad\Prob(S\mid B_{2})=0.40,\qquad\Prob(S\mid
-B_{3})=0.80.
-\]
-
-
-\medskip
-
-Vogliamo aggiornare la probabilit\`{a} dello stato critico dopo il segnale.%
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion%
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-
-%***********************************************************
-
-
-\subsection{Aggiornamento bayesiano}%
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-%
-
-%TCIMACRO{\QTR{frametitle}{Esempio: aggiornamento bayesiano}}%
-%BeginExpansion
-\frametitle{Esempio: aggiornamento bayesiano}%
-%EndExpansion
-
-
-Prima calcoliamo la probabilit\`{a} non condizionata del segnale:%
-
-\[
-\begin{aligned}
-\Prob(S)
-&=
-\Prob(S\mid B_1)\Prob(B_1)
-+\Prob(S\mid B_2)\Prob(B_2)
-+\Prob(S\mid B_3)\Prob(B_3)\\
-&=
-0.10\cdot 0.60
-+0.40\cdot 0.30
-+0.80\cdot 0.10\\
-&=0.26.
-\end{aligned}
-\]
-
-
-\medskip
-
-La probabilit\`{a} a posteriori dello stato critico \`{e}%
-
-\[
-\Prob(B_{3}\mid S) = \frac{\Prob(S\mid B_{3})\Prob(B_{3})}{\Prob(S)} =
-\frac{0.80\cdot0.10}{0.26} \simeq0.3077.
-\]
-
-
-\medskip
-
-Il segnale negativo aumenta la probabilit\`{a} dello stato critico dal $10\%$
-a circa il $30.77\%$.%
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion%
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-
-%***********************************************************
-
-
-\section{Back-up ed esercizi}
-
-\subsection{Esercizio 1: eventi e traiettorie}%
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-%
-
-%TCIMACRO{\QTR{frametitle}{Esercizio 1: eventi su traiettorie}}%
-%BeginExpansion
-\frametitle{Esercizio 1: eventi su traiettorie}%
-%EndExpansion
-
-
-Consideriamo tre movimenti successivi di un titolo:%
-
-\[
-\Omega=\{uuu,uud,udu,udd,duu,dud,ddu,ddd\}.
-\]
-
-
-\medskip
-
-Definire esplicitamente i seguenti eventi:
-
-\begin{stepenumerate}
-\item[1.] $A$: il primo movimento \`{e} un rialzo.
-
-\item[2.] $B$: si osservano esattamente due rialzi.
-
-\item[3.] $C$: si osservano almeno due ribassi consecutivi.
-
-\item[4.] $A\cap B$.
-
-\item[5.] $A^{c}$.
-\end{stepenumerate}
-
-\medskip
-
-Discutere se $A$ e $B$ sono compatibili oppure disgiunti.%
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion%
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-
-%***********************************************************
-%
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-%
-
-%TCIMACRO{\QTR{frametitle}{Esercizio 2: probabilit\`{a} condizionata}}%
-%BeginExpansion
-\frametitle{Esercizio 2: probabilit\`{a} condizionata}%
-%EndExpansion
-
-
-Sia%
-
-\[
-\Omega=\{\omega_{1},\omega_{2},\omega_{3},\omega_{4},\omega_{5}\}
-\]
-
-
-con probabilit\`{a}%
-
-\[%
-\begin{array}
-[c]{c|ccccc}%
-\omega & \omega_{1} & \omega_{2} & \omega_{3} & \omega_{4} & \omega
-_{5}\\\hline
-\Prob(\{\omega\}) & 0.10 & 0.20 & 0.25 & 0.30 & 0.15
+\begin{array}{rcl}
+\Var(X) & : & \mbox{dispersione quadratica},\\[4pt]
+\sigma_X & : & \mbox{dispersione nella stessa unit\`{a} di } X.
 \end{array}
 \]
 
+\medskip
+
+Se $a$ e $b$ sono costanti reali,
+
+\[
+\Var(aX+b)=a^2\Var(X),
+\]
+
+\[
+\sigma_{aX+b}=|a|\sigma_X.
+\]
 
 \medskip
 
-Siano%
-
-\[
-A=\{\omega_{2},\omega_{3},\omega_{4}\}, \qquad B=\{\omega_{1},\omega
-_{3},\omega_{4},\omega_{5}\}.
-\]
-
-
-\medskip
-
-Calcolare:%
-
-\[
-\Prob(A),\qquad\Prob(B),\qquad\Prob(A\cap B),\qquad\Prob(A\mid B).
-\]
-%
+La traslazione cambia il livello; la scala cambia la dispersione.
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout
-%EndExpansion%
+\transboxout%
+%EndExpansion
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
 
-%***********************************************************
-%
+%***********************************
+\subsection{Momenti centrali}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
-%
 
-%TCIMACRO{\QTR{frametitle}{Esercizio 3: aggiornamento bayesiano}}%
-%BeginExpansion
-\frametitle{Esercizio 3: aggiornamento bayesiano}%
-%EndExpansion
+\QTR{frametitle}{Momenti centrali e forma della distribuzione}
 
-
-Un debitore pu\`{o} trovarsi in due stati:%
+I momenti centrali descrivono caratteristiche della distribuzione intorno alla
+media.
 
 \[
-B_{1}=\text{solido},\qquad B_{2}=\text{fragile}.
+\E[(X-\E[X])^m].
 \]
-
-
-Le probabilit\`{a} a priori sono%
-
-\[
-\Prob(B_{1})=0.75,\qquad\Prob(B_{2})=0.25.
-\]
-
 
 \medskip
 
-Si osserva un segnale negativo $S$, con%
+Casi principali:
 
 \[
-\Prob(S\mid B_{1})=0.10, \qquad\Prob(S\mid B_{2})=0.60.
+\begin{array}{rcl}
+m=2 & : & \Var(X),\\[4pt]
+m=3 & : & \mbox{asimmetria},\\[4pt]
+m=4 & : & \mbox{peso delle code}.
+\end{array}
 \]
-
-
-\medskip
-
-Calcolare:%
-
-\[
-\Prob(S), \qquad\Prob(B_{2}\mid S).
-\]
-
-
-Interpretare il risultato in termini di revisione della valutazione del rischio.%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout
-%EndExpansion%
+\transboxout%
+%EndExpansion
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+
+%***********************************
+\subsection{Distribuzioni discrete fondamentali}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Distribuzioni discrete fondamentali}
+
+\[
+\begin{array}{rcl}
+X\sim\operatorname{Bernoulli}(p)
+& : &
+\mbox{evento binario: successo/insuccesso},\\[6pt]
+X\sim\operatorname{Bin}(n,p)
+& : &
+\mbox{numero di successi in } n \mbox{ prove},\\[6pt]
+X\sim\operatorname{Poisson}(\lambda)
+& : &
+\mbox{conteggio di eventi rari}.
+\end{array}
+\]
+
+\medskip
+
+\[
+\begin{array}{rcl}
+\operatorname{Bernoulli}(p)
+& : &
+\mbox{default/non default; superamento soglia},\\[6pt]
+\operatorname{Bin}(n,p)
+& : &
+\mbox{numero di rialzi; numero di default},\\[6pt]
+\operatorname{Poisson}(\lambda)
+& : &
+\mbox{shock di mercato; eventi rari}.
+\end{array}
+\]
+
+\medskip
+
+Nel caso discreto, la distribuzione \`{e} descritta dalla funzione di
+probabilit\`{a} $p_X(x)=\Prob(X=x)$.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%***********************************
+\subsection{Distribuzioni continue fondamentali}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Distribuzioni continue fondamentali}
+
+\[
+\begin{array}{rcl}
+X\sim U[a,b]
+& : &
+\mbox{densit\`{a} costante su un intervallo},\\[6pt]
+X\sim\mathcal{N}(\mu,\sigma^2)
+& : &
+\mbox{variabile reale simmetrica intorno a } \mu,\\[6pt]
+S\sim\operatorname{Lognormal}(\mu,\sigma^2)
+& : &
+\mbox{variabile positiva e asimmetrica}.
+\end{array}
+\]
+
+\medskip
+
+\[
+\begin{array}{rcl}
+U[a,b]
+& : &
+\mbox{modello continuo elementare; simulazione},\\[6pt]
+\mathcal{N}(\mu,\sigma^2)
+& : &
+\mbox{rendimenti e variazioni di valore},\\[6pt]
+\operatorname{Lognormal}(\mu,\sigma^2)
+& : &
+\mbox{prezzi positivi; fattori di crescita}.
+\end{array}
+\]
+
+\medskip
+
+Nel caso assolutamente continuo, la distribuzione \`{e} descritta dalla densit\`{a}
+$f_X$ e dalle aree sotto $f_X$.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%***********************************
+\subsection{Scelta della distribuzione}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Che cosa incorpora una distribuzione}
+
+La scelta di una famiglia distributiva non \`{e} solo tecnica: incorpora ipotesi
+sulla grandezza aleatoria.
+
+\medskip
+
+\[
+\begin{array}{rcl}
+\mbox{supporto}
+& : &
+\mbox{quali valori sono possibili},\\[5pt]
+\mbox{forma}
+& : &
+\mbox{simmetria, asimmetria, concentrazione},\\[5pt]
+\mbox{dispersione}
+& : &
+\mbox{variabilit\`{a} intorno al valore medio},\\[5pt]
+\mbox{code}
+& : &
+\mbox{probabilit\`{a} di valori estremi}.
+\end{array}
+\]
+
+\medskip
+
+Esempi:
+
+\[
+\begin{array}{rcl}
+\mbox{Bernoulli} & : & \mbox{evento s\`{i}/no},\\[4pt]
+\mbox{Binomiale} & : & \mbox{conteggio su prove ripetute},\\[4pt]
+\mbox{Normale} & : & \mbox{variabile reale simmetrica},\\[4pt]
+\mbox{Lognormale} & : & \mbox{grandezza strettamente positiva}.
+\end{array}
+\]
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%***********************************
+\subsection{Esercizio integrato: rendimento discreto}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Esercizio 1: rendimento discreto asimmetrico}
+
+Il rendimento $X$ di un portafoglio ha distribuzione
+
+\[
+\begin{array}{c|ccccc}
+x & -0.08 & -0.03 & 0.01 & 0.04 & 0.10\\
+\hline
+p_X(x) & 0.08 & 0.22 & 0.35 & 0.25 & 0.10
+\end{array}
+\]
+
+Calcolare:
+
+\[
+F_X(x),
+\qquad
+\E[X],
+\qquad
+\Var(X),
+\qquad
+\sigma_X.
+\]
+
+\medskip
+
+Determinare inoltre:
+
+\[
+\Prob(X<0),
+\qquad
+q_{0.05}(X),
+\qquad
+q_{0.95}(X).
+\]
+
+\medskip
+
+Interpretare i risultati in termini di rendimento atteso, dispersione e rischio
+di perdita.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%***********************************
+\subsection{Esercizio integrato: payoff binomiale}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Esercizio 2: payoff binomiale di una call}
+
+Un titolo ha prezzo iniziale $S_0=100$. In ciascuno di tre periodi pu\`{o}
+salire di un fattore $u=1.12$ oppure scendere di un fattore $d=0.94$.
+
+\medskip
+
+La probabilit\`{a} di rialzo \`{e} $p=0.55$. Sia $N$ il numero di rialzi:
+
+\[
+N\sim\operatorname{Bin}(3,0.55).
+\]
+
+Il prezzo finale \`{e}
+
+\[
+S_T(N)=S_0u^N d^{3-N}.
+\]
+
+\medskip
+
+Per una call europea con strike $K=105$,
+
+\[
+H=(S_T-K)^+.
+\]
+
+Calcolare la distribuzione di $N$, i valori $S_T(k)$, i payoff $H(k)$ e
+
+\[
+\E[H].
+\]
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%***********************************
+\subsection{Esercizio integrato: rendimento normale}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Esercizio 3: rendimento normale e quantile di perdita}
+
+Il rendimento $R$ di un portafoglio ha distribuzione normale
+
+\[
+R\sim\mathcal{N}(0.008,0.035^2).
+\]
+
+Calcolare la probabilit\`{a} di rendimento negativo:
+
+\[
+\Prob(R<0).
+\]
+
+\medskip
+
+Calcolare il quantile al $5\%$ del rendimento:
+
+\[
+q_{0.05}(R).
+\]
+
+\medskip
+
+Definendo la perdita come
+
+\[
+L=-R,
+\]
+
+calcolare il quantile al $95\%$ della perdita:
+
+\[
+q_{0.95}(L).
+\]
+
+\medskip
+
+Interpretare $q_{0.95}(L)$ come soglia di perdita superata con probabilit\`{a}
+pari al $5\%$.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%***********************************
+\subsection{Sintesi concettuale}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Sintesi del capitolo}
+
+Il capitolo ha trasformato il linguaggio degli eventi in strumenti quantitativi
+per rendimenti, perdite e payoff.
+
+\medskip
+
+\[
+(\Omega,\F,\Prob)
+\quad\longrightarrow\quad
+X
+\quad\longrightarrow\quad
+\Prob_X,\ F_X,\ p_X,\ f_X
+\]
+
+\medskip
+
+\[
+\begin{array}{rcl}
+(\Omega,\F,\Prob)
+& : &
+\mbox{scenari, eventi e probabilit\`{a}},\\[5pt]
+X
+& : &
+\mbox{grandezza finanziaria aleatoria},\\[5pt]
+\Prob_X,\ F_X,\ p_X,\ f_X
+& : &
+\mbox{descrizione probabilistica dei valori di } X.
+\end{array}
+\]
+
+\medskip
+
+Idea da trattenere: la distribuzione di $X$ \`{e} il ponte tra scenari incerti e
+valori finanziari misurabili.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%***********************************
+\subsection{Misure operative e prossima tappa}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Misure operative e prossima tappa}
+
+Una volta descritta la distribuzione, possiamo sintetizzare posizione,
+dispersione e rischio di coda.
+
+\medskip
+
+\[
+\Prob_X,\ F_X,\ p_X,\ f_X
+\quad\longrightarrow\quad
+\E[X],\ \Var(X),\ q_\alpha(X)
+\]
+
+\medskip
+
+\[
+\begin{array}{rcl}
+\E[X]
+& : &
+\mbox{posizione media},\\[5pt]
+\Var(X)
+& : &
+\mbox{dispersione intorno alla media},\\[5pt]
+q_\alpha(X)
+& : &
+\mbox{soglia distributiva e rischio di coda}.
+\end{array}
+\]
+
+\medskip
+
+Prossima tappa: da una singola variabile casuale a pi\`{u} variabili casuali,
+per studiare dipendenza, covarianza, correlazione e rischio di portafoglio.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
 
 
 
