@@ -293,11 +293,21 @@ quantitativamente un rendimento, una perdita o un payoff aleatorio?\newline%
 definire variabili casuali discrete e continue; introdurre distribuzioni,
 funzione di ripartizione, momenti e quantili; collegare momenti e
 rischio.\newline\textbf{Notazione introdotta:} $X$, $F_{X}(x)$, $f_{X}(x)$,
-$p_{X}(x)$, $\mathbb{E}[X]$, $\operatorname{Var}(X)$.\newline\textbf{Formule
-principali:}
+$p_{X}(x)$, $\mathbb{E}[X]$, $\operatorname{Var}(X)$.\newline\\textbf{Formule principali:}
 \[
-F_{X}(x)=\mathbb{P}(X\leq x), \qquad\mathbb{E}[X]=\sum_{x} x p_{X}(x),
-\qquad\operatorname{Var}(X)=\mathbb{E}\left[  (X-\mathbb{E}[X])^{2}\right]  .
+F_{X}(x)=\mathbb{P}(X\leq x),
+\qquad
+\mathbb{E}[X]=\sum_{x} x p_{X}(x)
+\quad \text{nel caso discreto},
+\]
+\[
+\mathbb{E}[X]=\int_{-\infty}^{+\infty}x f_X(x)\,dx
+\quad \text{nel caso continuo},
+\]
+\[
+\operatorname{Var}(X)
+=
+\mathbb{E}\left[(X-\mathbb{E}[X])^{2}\right].
 \]
 \textbf{Esercizi previsti:} payoff discreto; rendimento atteso e varianza;
 quantile di una distribuzione discreta di perdite.\newline\textbf{Grafici
@@ -309,25 +319,130 @@ predisposta; esempi numerici da selezionare.
 \subsection{Lezione 3 -- Valori attesi condizionati e informazione}
 
 \textbf{Tipo:} P.\newline\textbf{Domanda guida:} come cambia la valutazione di
-un payoff quando arriva nuova informazione?\newline\textbf{Prerequisiti:}
-Lezioni 1--2.\newline\textbf{Obiettivi didattici:} introdurre il valore atteso
-condizionato rispetto a eventi, partizioni e sigma-algebre; interpretarlo come
-migliore previsione data l'informazione disponibile.\newline\textbf{Notazione
-introdotta:} $\mathbb{E}[X\mid A]$, $\mathbb{E}[X\mid\mathcal{G}]$, partizioni
-finite, sigma-algebre informative.\newline\textbf{Formule principali:}
+un payoff quando arriva nuova informazione?\newline\textbf{Prerequisiti:} Lezioni 1--2; probabilit\`{a} condizionata;
+variabili casuali discrete e continue; funzione di massa, densit\`{a},
+funzione di ripartizione e valore atteso. \newline\textbf{Obiettivi didattici:} introdurre il valore atteso condizionato
+rispetto a eventi nel caso discreto e nel caso continuo; collegare il
+condizionamento alla distribuzione condizionata; estendere il concetto a
+partizioni e sigma-algebre informative; interpretare il valore atteso
+condizionato come previsione coerente con l'informazione disponibile. \newline\textbf{Regole operative del valore atteso condizionato:}
+per variabili casuali integrabili e per una sigma-algebra informativa
+\(\mathcal{G}\subseteq\mathcal{F}\), il valore atteso condizionato soddisfa:
+
+\begin{enumerate}
+    \item \textbf{Linearit\`{a}:}
+    \[
+    \mathbb{E}[aX+bY\mid\mathcal{G}]
+    =
+    a\mathbb{E}[X\mid\mathcal{G}]
+    +
+    b\mathbb{E}[Y\mid\mathcal{G}].
+    \]
+
+    \item \textbf{Estrazione dei parametri noti:}
+    se \(Z\) \`{e} \(\mathcal{G}\)-misurabile e \(ZX\) \`{e} integrabile, allora
+    \[
+    \mathbb{E}[ZX\mid\mathcal{G}]
+    =
+    Z\mathbb{E}[X\mid\mathcal{G}].
+    \]
+
+    \item \textbf{Condizionamento iterato, o propriet\`{a} della torre:}
+    se \(\mathcal{G}_1\subseteq\mathcal{G}_2\), allora
+    \[
+    \mathbb{E}\left[
+    \mathbb{E}[X\mid\mathcal{G}_2]
+    \mid
+    \mathcal{G}_1
+    \right]
+    =
+    \mathbb{E}[X\mid\mathcal{G}_1].
+    \]
+
+    \item \textbf{Indipendenza da una sigma-algebra:}
+    se \(X\) \`{e} indipendente da \(\mathcal{G}\), allora
+    \[
+    \mathbb{E}[X\mid\mathcal{G}]
+    =
+    \mathbb{E}[X].
+    \]
+
+    \item \textbf{Indipendenza fra variabili casuali:}
+    se \(X\) e \(Z\) sono indipendenti, allora
+    \[
+    \mathbb{E}[X\mid Z]
+    =
+    \mathbb{E}[X],
+    \]
+    dove \(\mathbb{E}[X\mid Z]\) indica
+    \(\mathbb{E}[X\mid\sigma(Z)]\).
+
+    \item \textbf{Disuguaglianza condizionata di Jensen:}
+    se \(\varphi\) \`{e} convessa e \(X\), \(\varphi(X)\) sono integrabili, allora
+    \[
+    \varphi\left(\mathbb{E}[X\mid\mathcal{G}]\right)
+    \leq
+    \mathbb{E}[\varphi(X)\mid\mathcal{G}].
+    \]
+\end{enumerate}
+\newline\textbf{Notazione introdotta:} $\mathbb{P}(X=x\mid A)$,
+$F_{X\mid A}(x)$, $f_{X\mid A}(x)$, $\mathbb{E}[X\mid A]$,
+$\mathbb{E}[X\mid\mathcal{G}]$, partizioni finite, sigma-algebre informative.\newline\textbf{Formule principali:}
 \[
-\mathbb{E}[X\mid A]=\sum_{x} x\,\mathbb{P}(X=x\mid A), \qquad\mathbb{E}\left[
-\mathbb{E}[X\mid\mathcal{G}]\right]  =\mathbb{E}[X],
+\mathbb{P}(X=x\mid A)
+=
+\frac{\mathbb{P}(\{X=x\}\cap A)}{\mathbb{P}(A)},
+\qquad
+\mathbb{P}(A)>0.
 \]
 \[
-\mathbb{E}\left[  \mathbb{E}[X\mid\mathcal{G}_{2}]\mid\mathcal{G}_{1}\right]
-=\mathbb{E}[X\mid\mathcal{G}_{1}], \qquad\mathcal{G}_{1}\subseteq
-\mathcal{G}_{2}.
+\mathbb{E}[X\mid A]
+=
+\sum_x x\,\mathbb{P}(X=x\mid A)
+\quad \text{nel caso discreto}.
 \]
-\textbf{Esercizi previsti:} calcolo su partizioni; aggiornamento di payoff
-condizionati a stati di mercato; applicazione della propriet\`{a} della
-torre.\newline\textbf{Grafici previsti:} albero informativo; rappresentazione
-per stati e partizioni.\newline\textbf{Applicazioni Python collegate:} Lezione
+\[
+F_{X\mid A}(x)
+=
+\mathbb{P}(X\leq x\mid A),
+\qquad
+\mathbb{E}[X\mid A]
+=
+\int_{-\infty}^{+\infty} x f_{X\mid A}(x)\,dx
+\quad \text{nel caso continuo, se esiste } f_{X\mid A}.
+\]
+\[
+\mathbb{E}[X\mid \mathcal{G}]
+=
+\sum_{i=1}^{n}
+\mathbb{E}[X\mid B_i]\mathbf{1}_{B_i},
+\qquad
+\mathcal{G}=\sigma(B_1,\ldots,B_n).
+\]
+\[
+\mathbb{E}\left[
+\mathbb{E}[X\mid\mathcal{G}]
+\right]
+=
+\mathbb{E}[X].
+\]
+\[
+\mathbb{E}\left[
+\mathbb{E}[X\mid\mathcal{G}_{2}]
+\mid\mathcal{G}_{1}
+\right]
+=
+\mathbb{E}[X\mid\mathcal{G}_{1}],
+\qquad
+\mathcal{G}_{1}\subseteq\mathcal{G}_{2}.
+\]
+\textbf{Grafici previsti:} albero informativo; rappresentazione
+per stati e partizioni; confronto tra densit\`{a} non condizionata e densit\`{a}
+condizionata; rappresentazione dell'evento condizionante come regione della
+distribuzione.\newline\textbf{Grafici previsti:} albero informativo; rappresentazione
+per stati e partizioni; confronto tra densit\`{a} non condizionata e densit\`{a}
+condizionata; rappresentazione dell'evento condizionante come regione della
+distribuzione.\newline\textbf{Applicazioni Python collegate:} Lezione
 5; Lezione 16 per la distinzione tra informazione anticipativa e non
 anticipativa.\newline\textbf{Stato di avanzamento:} bozza progettuale
 predisposta; dimostrazioni essenziali da definire.
@@ -375,7 +490,8 @@ Qui $M$ \`{e} il numero di repliche simulate, $k$ \`{e} l'indice di replica,
 $A_g$ \`{e} l'evento associato alla classe informativa $g$ e
 $M_g=\#\{k:\omega_k\in A_g\}$.
 \newline\textbf{Esercizi previsti:} modificare parametri di simulazione; aumentare il
-numero di repliche simulate; interpretare la stabilit\`{a} numerica.\newline%
+numero di repliche simulate; interpretare la stabilit\`{a} numerica; stima empirica di valori attesi condizionati rispetto a eventi definiti da
+soglie, ad esempio \(X>a\), \(L>\ell\) oppure \(S_T>K\). \newline%
 \textbf{Grafici previsti:} traiettorie multiple; media temporale; bande
 empiriche.\newline\textbf{Applicazioni Python collegate:} applicazione Python
 1.\newline\textbf{Stato di avanzamento:} bozza progettuale predisposta; codice

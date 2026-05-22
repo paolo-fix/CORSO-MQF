@@ -173,23 +173,96 @@ Se $X$ \`{e} discreta,
 \[
  \E[X\mid A]=\sum_x x\,\Prob(X=x\mid A).
 \]
+Nel caso continuo, la funzione di ripartizione condizionata di \(X\)
+dato \(A\), con \(\Prob(A)>0\), \`{e}
+\[
+ F_{X\mid A}(x)=\Prob(X\leq x\mid A).
+\]
+Se la distribuzione condizionata ammette densit\`{a}, questa viene indicata con
+\(f_{X\mid A}(x)\) e il valore atteso condizionato pu\`{o} essere scritto come
+\[
+ \E[X\mid A]
+ =
+ \int_{-\infty}^{+\infty} x f_{X\mid A}(x)\,dx.
+\]
 Se $\{B_1,\ldots,B_n\}$ \`{e} una partizione informativa di $\Omega$, allora
 \[
  \E[X\mid \G]=\sum_{i=1}^{n}\E[X\mid B_i]\1_{B_i},
 \]
 dove $\G=\sigma(B_1,\ldots,B_n)$.
 
-Le propriet\`{a} fondamentali da usare nel corso sono:
+\subsection*{Regole del valore atteso condizionato}
+
+Sia \((\Omega,\mathcal{F},\mathbb{P})\) uno spazio di probabilit\`{a}
+e sia \(\mathcal{G}\subseteq\mathcal{F}\) una sigma-algebra informativa.
+Per variabili casuali integrabili, valgono le seguenti regole.
+
+\paragraph{Linearit\`{a}.}
+Per \(a,b\in\mathbb{R}\):
 \[
- \E[aX+bY\mid\G]=a\E[X\mid\G]+b\E[Y\mid\G],
+\E[aX+bY\mid\mathcal{G}]
+=
+a\E[X\mid\mathcal{G}]
++
+b\E[Y\mid\mathcal{G}].
 \]
+
+\paragraph{Estrazione dei parametri noti.}
+Se \(Z\) \`{e} \(\mathcal{G}\)-misurabile e \(ZX\) \`{e} integrabile, allora:
 \[
- \E\left[\E[X\mid\G]\right]=\E[X],
+\E[ZX\mid\mathcal{G}]
+=
+Z\E[X\mid\mathcal{G}].
 \]
+
+In particolare, se \(Z\) \`{e} noto rispetto all'informazione
+\(\mathcal{G}\), pu\`{o} essere estratto dal valore atteso condizionato.
+
+\paragraph{Condizionamento iterato.}
+Se \(\mathcal{G}_1\subseteq\mathcal{G}_2\subseteq\mathcal{F}\), allora:
 \[
- \E\left[\E[X\mid\F_t]\mid\F_s\right]=\E[X\mid\F_s],\qquad s\leq t.
+\E\left[
+\E[X\mid\mathcal{G}_2]
+\mid
+\mathcal{G}_1
+\right]
+=
+\E[X\mid\mathcal{G}_1].
 \]
-L'ultima identit\`{a} \`{e} la propriet\`{a} iterata del valore atteso condizionato, o \emph{tower property}.
+
+\paragraph{Indipendenza da una sigma-algebra.}
+Se \(X\) \`{e} indipendente da \(\mathcal{G}\), allora:
+\[
+\E[X\mid\mathcal{G}]
+=
+\E[X].
+\]
+
+\paragraph{Indipendenza fra variabili casuali.}
+Se \(X\) e \(Z\) sono indipendenti, allora:
+\[
+\E[X\mid Z]
+=
+\E[X],
+\]
+dove, per convenzione,
+\[
+\E[X\mid Z]
+=
+\E[X\mid\sigma(Z)].
+\]
+
+\paragraph{Disuguaglianza condizionata di Jensen.}
+Se \(\varphi:\mathbb{R}\to\mathbb{R}\) \`{e} convessa e
+\(X\), \(\varphi(X)\) sono integrabili, allora:
+\[
+\varphi\left(\E[X\mid\mathcal{G}]\right)
+\leq
+\E[\varphi(X)\mid\mathcal{G}].
+\]
+
+Se \(\varphi\) \`{e} concava, il verso della disuguaglianza si inverte.
+
 
 \section{Tempo discreto, processi stocastici e filtrazioni}
 
