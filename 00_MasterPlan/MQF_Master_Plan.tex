@@ -171,6 +171,73 @@ del manuale. Per ogni lezione si prevede orientativamente:
 Per le lezioni Python le slides devono privilegiare formulazione, algoritmo,
 codice selezionato, output e interpretazione.
 
+\subsection{Redazione assistita e sintassi matematica}
+
+Nella redazione assistita del manuale, delle slides e dei materiali di supporto
+occorre distinguere tra coerenza matematica, coerenza redazionale e sintassi
+matematica utilizzata nei diversi contesti di scrittura.
+
+\paragraph{Coerenza matematica.}
+Prima di proporre nuovo testo per il manuale, devono essere controllate
+esplicitamente le definizioni, le ipotesi, le formule e la coerenza logica dei
+passaggi. In particolare, devono essere dichiarate le condizioni necessarie per
+la validit\`{a} dei risultati utilizzati: misurabilit\`{a}, integrabilit\`{a},
+positivit\`{a} della probabilit\`{a} degli eventi condizionanti, esistenza di
+densit\`{a} quando si utilizzano rappresentazioni continue, e uguaglianze quasi
+certe quando si lavora con valori attesi condizionati rispetto a
+sigma-algebre.
+
+\paragraph{Coerenza redazionale.}
+Ogni nuova sezione deve essere scritta come parte di un testo progressivo e
+non come unit\`{a} autosufficiente. Prima di introdurre una definizione, occorre
+verificare se la stessa nozione sia gi\`{a} stata presentata in capitoli o
+sezioni precedenti. Se la nozione \`{e} gi\`{a} stata introdotta, essa non deve
+essere ridefinita integralmente, ma richiamata solo nella misura necessaria.
+
+Per ogni sezione occorre identificare la sua funzione redazionale: introduzione
+di un nuovo concetto, richiamo di un concetto gi\`{a} acquisito,
+reinterpretazione, applicazione, formalizzazione o ponte verso sezioni
+successive. Per esempio, una partizione gi\`{a} utilizzata nella formula delle
+probabilit\`{a} totali o nella formula del valore atteso totale non deve essere
+nuovamente definita in modo esteso, ma pu\`{o} essere reinterpretata come
+struttura informativa.
+
+\paragraph{Sintassi matematica nella chat e nei sorgenti \LaTeX.}
+Occorre distinguere tra testo esplicativo prodotto nella chat e codice
+\LaTeX{} destinato ai file sorgenti del progetto.
+
+Nel testo ordinario della chat, le espressioni matematiche devono essere
+scritte usando la sintassi di renderizzazione standard della pagina web:
+\verb|\(...\)| per le formule in linea e \verb|\[...\]| per le formule in
+blocco. In questo modo le espressioni matematiche vengono visualizzate
+correttamente nella conversazione.
+
+Nei blocchi di codice \LaTeX{} destinati a essere copiati nei file sorgenti
+del manuale o delle slides, le formule in linea devono invece essere scritte
+con la sintassi \verb|$...$|, mentre le formule autonome devono essere scritte
+con \verb|\[...\]|.
+
+Di conseguenza, la stessa espressione deve essere scritta in modo diverso a
+seconda del contesto. Nel testo ordinario della chat si user\`{a} la forma
+\verb|\(\mathcal{G}=\sigma(B_1,\ldots,B_n)\)|. Nel codice \LaTeX{} da inserire
+nel manuale si user\`{a} invece la forma
+\verb|$\mathcal{G}=\sigma(B_1,\ldots,B_n)$|.
+
+\paragraph{Procedura operativa.}
+Per ogni nuova sezione del manuale la redazione assistita deve seguire questa
+sequenza:
+\begin{enumerate}
+    \item verificare che cosa \`{e} gi\`{a} stato introdotto nei capitoli o
+    nelle sezioni precedenti;
+    \item identificare la funzione redazionale della nuova sezione;
+    \item controllare la correttezza matematica di definizioni, ipotesi,
+    formule e passaggi logici;
+    \item verificare la coerenza con il documento di notazione e con il
+    Master Plan;
+    \item produrre testo \LaTeX{} in blocchi di codice copiabili, evitando
+    formati intermedi che possano alterare i delimitatori matematici.
+\end{enumerate}
+
 \section{Convenzioni preliminari di notazione}
 
 Il documento \texttt{MQF\_Notazione.tex} costituisce il riferimento
