@@ -903,37 +903,30 @@ $B_1,\ldots,B_n$ sono blocchi informativi alternativi: osservare il blocco
 $B_i$ significa sapere che lo scenario realizzato appartiene a $B_i$, senza
 conoscere necessariamente l'esito elementare interno al blocco.
 
-La partizione, tuttavia, non \`{e} l'oggetto rispetto al quale si condiziona
-in senso formale. L'oggetto formale \`{e} la sigma-algebra generata dalla
+La partizione non \`{e} per\`{o} l'oggetto rispetto al quale si condiziona in
+senso formale. L'oggetto formale \`{e} la sigma-algebra generata dalla
 partizione. Se $\{B_1,\ldots,B_n\}$ \`{e} una partizione finita informativa,
 poniamo:
-
 \[
 \mathcal{G}
 =
 \sigma(B_1,\ldots,B_n).
 \]
 
-La sigma-algebra $\mathcal{G}$ contiene tutti e soli gli eventi osservabili
-mediante l'informazione rappresentata dalla partizione, cio\`{e} le unioni dei
-blocchi $B_i$. Per questo motivo, il valore atteso condizionato viene scritto
-come $\mathbb{E}[X\mid\mathcal{G}]$: il condizionamento \`{e} rispetto alla
-sigma-algebra informativa $\mathcal{G}$.
+Gli eventi di $\mathcal{G}$ sono le unioni e i complementi dei blocchi della partizione. I
+blocchi $B_1,\ldots,B_n$ sono gli atomi della sigma-algebra $\mathcal{G}$:
+l'informazione $\mathcal{G}$ distingue tra blocchi diversi, ma non distingue
+gli esiti elementari appartenenti allo stesso blocco.
 
 Sia $X$ una variabile casuale integrabile e supponiamo che
 $\mathbb{P}(B_i)>0$ per ogni $i=1,\ldots,n$. Per ciascun blocco $B_i$ \`{e}
 definito il valore atteso condizionato rispetto all'evento $B_i$:
-
 \[
 \mathbb{E}[X\mid B_i].
 \]
 
-Questa quantit\`{a} \`{e} un numero. Rappresenta la media di $X$ calcolata
-sotto l'informazione che il blocco $B_i$ si sia verificato.
-
-Il valore atteso condizionato di $X$ rispetto alla sigma-algebra
-$\mathcal{G}=\sigma(B_1,\ldots,B_n)$ \`{e} invece la variabile casuale:
-
+Questa quantit\`{a} \`{e} un numero. Il valore atteso condizionato di $X$
+rispetto alla sigma-algebra $\mathcal{G}$ \`{e} invece la variabile casuale:
 \[
 \mathbb{E}[X\mid\mathcal{G}]
 =
@@ -941,208 +934,222 @@ $\mathcal{G}=\sigma(B_1,\ldots,B_n)$ \`{e} invece la variabile casuale:
 \mathbb{E}[X\mid B_i]\mathbf{1}_{B_i}.
 \]
 
-La partizione interviene quindi attraverso la sigma-algebra che essa genera.
-I blocchi $B_i$ determinano gli insiemi sui quali
-$\mathbb{E}[X\mid\mathcal{G}]$ \`{e} costante, ma il condizionamento formale
-\`{e} rispetto alla sigma-algebra $\mathcal{G}$.
-
-Se $\omega\in B_i$, allora:
-
+Questa formula va letta sugli atomi della sigma-algebra. Se $\omega\in B_i$,
+allora:
 \[
 \mathbb{E}[X\mid\mathcal{G}](\omega)
 =
 \mathbb{E}[X\mid B_i].
 \]
 
-Pertanto $\mathbb{E}[X\mid\mathcal{G}]$ non \`{e}, in generale, un numero.
-\`{E} una variabile casuale che assume un valore diverso a seconda del blocco
-informativo osservato. Essa \`{e} costante su ciascun blocco della partizione
-e quindi \`{e} osservabile rispetto all'informazione $\mathcal{G}$.
+Pertanto $\mathbb{E}[X\mid\mathcal{G}]$ \`{e} una variabile casuale costante
+su ciascun blocco della partizione. Essa assume al pi\`{u} $n$ valori
+distinti, uno per ciascun atomo $B_i$ di $\mathcal{G}$. Non assume, in
+generale, tanti valori quanti sono gli eventi non vuoti di $\mathcal{G}$.
+
+Gli eventi non vuoti di $\mathcal{G}$ sono invece rilevanti per un'altra
+ragione: per ciascun evento osservabile $C\in\mathcal{G}$, con
+$\mathbb{P}(C)>0$, si pu\`{o} calcolare il numero $\mathbb{E}[X\mid C]$.
+Questi valori descrivono le medie condizionate rispetto agli eventi
+osservabili, mentre $\mathbb{E}[X\mid\mathcal{G}]$ \`{e} una variabile casuale
+definita sugli esiti elementari.
 
 \medskip
 
 \noindent
-\textbf{Interpretazione informativa.}
+\textbf{Esempio con sette scenari elementari.}
 
-Prima dell'osservazione dell'informazione non si sa quale blocco della
-partizione si realizzer\`{a}. La variabile
-$\mathbb{E}[X\mid\mathcal{G}]$ descrive quindi tutte le possibili medie
-condizionate associate ai diversi blocchi informativi.
+Consideriamo lo spazio campionario:
+\[
+\Omega
+=
+\{\omega_1,\omega_2,\omega_3,\omega_4,\omega_5,\omega_6,\omega_7\}.
+\]
 
-Dopo l'osservazione dell'informazione, se si verifica il blocco $B_i$, la
-variabile $\mathbb{E}[X\mid\mathcal{G}]$ assume il valore numerico
-$\mathbb{E}[X\mid B_i]$.
-
-In questo senso, $\mathbb{E}[X\mid\mathcal{G}]$ rappresenta la previsione di
-$X$ coerente con l'informazione contenuta nella sigma-algebra $\mathcal{G}$.
-
-\medskip
-
-\noindent
-\textbf{Esempio.}
-
-Riprendiamo il payoff terminale $H$ associato ai quattro scenari:
-
+Sia $H$ un payoff terminale definito sui sette scenari. Supponiamo che
+probabilit\`{a} e payoff siano dati dalla tabella seguente:
 \[
 \begin{array}{c|c|c}
 \text{Scenario} & \mathbb{P}(\omega) & H(\omega) \\
 \hline
-\omega_1 & 0.25 & 120 \\
-\omega_2 & 0.35 & 105 \\
-\omega_3 & 0.25 & 90 \\
-\omega_4 & 0.15 & 60 \\
+\omega_1 & 0.10 & 130 \\
+\omega_2 & 0.15 & 110 \\
+\omega_3 & 0.15 & 100 \\
+\omega_4 & 0.20 & 90 \\
+\omega_5 & 0.10 & 80 \\
+\omega_6 & 0.18 & 70 \\
+\omega_7 & 0.12 & 50 \\
 \end{array}
 \]
 
-Consideriamo la partizione informativa:
-
+L'informazione disponibile non distingue tutti gli scenari elementari, ma li
+raggruppa in tre blocchi informativi:
 \[
 B_1=\{\omega_1,\omega_2\},
 \qquad
-B_2=\{\omega_3,\omega_4\}.
+B_2=\{\omega_3,\omega_4,\omega_5\},
+\qquad
+B_3=\{\omega_6,\omega_7\}.
 \]
 
-Il blocco $B_1$ rappresenta l'informazione ``mercato favorevole'', mentre
-$B_2$ rappresenta l'informazione ``mercato sfavorevole''. La sigma-algebra
-generata dalla partizione \`{e}:
-
+La sigma-algebra informativa generata dalla partizione \`{e}:
 \[
 \mathcal{G}
 =
-\sigma(B_1,B_2)
-=
-\{\varnothing,B_1,B_2,\Omega\}.
+\sigma(B_1,B_2,B_3).
 \]
 
-Le probabilit\`{a} dei due blocchi sono:
-
+Essa contiene gli otto eventi:
 \[
-\mathbb{P}(B_1)=0.25+0.35=0.60,
-\qquad
-\mathbb{P}(B_2)=0.25+0.15=0.40.
+\mathcal{G}
+=
+\{
+\varnothing,
+B_1,
+B_2,
+B_3,
+B_1\cup B_2,
+B_1\cup B_3,
+B_2\cup B_3,
+\Omega
+\}.
 \]
 
-Il valore atteso condizionato rispetto all'evento $B_1$ \`{e}:
+I tre blocchi hanno probabilit\`{a}:
+\[
+\mathbb{P}(B_1)=0.25,
+\qquad
+\mathbb{P}(B_2)=0.45,
+\qquad
+\mathbb{P}(B_3)=0.30.
+\]
 
+Calcoliamo ora i valori attesi condizionati rispetto ai tre atomi della
+sigma-algebra $\mathcal{G}$.
+
+Per il primo blocco:
 \[
 \mathbb{E}[H\mid B_1]
 =
-\frac{0.25\cdot 120+0.35\cdot 105}{0.60}
+\frac{0.10\cdot 130+0.15\cdot 110}{0.25}
 =
-111.25.
+118.
 \]
 
-Il valore atteso condizionato rispetto all'evento $B_2$ \`{e}:
-
+Per il secondo blocco:
 \[
 \mathbb{E}[H\mid B_2]
 =
-\frac{0.25\cdot 90+0.15\cdot 60}{0.40}
+\frac{0.15\cdot 100+0.20\cdot 90+0.10\cdot 80}{0.45}
 =
-78.75.
+91.111.
 \]
 
-Il valore atteso condizionato rispetto alla sigma-algebra $\mathcal{G}$ \`{e}
-quindi:
+Per il terzo blocco:
+\[
+\mathbb{E}[H\mid B_3]
+=
+\frac{0.18\cdot 70+0.12\cdot 50}{0.30}
+=
+62.
+\]
 
+Quindi il valore atteso condizionato rispetto alla sigma-algebra
+$\mathcal{G}$ \`{e}:
 \[
 \mathbb{E}[H\mid\mathcal{G}]
 =
-111.25\,\mathbf{1}_{B_1}
+118\,\mathbf{1}_{B_1}
 +
-78.75\,\mathbf{1}_{B_2}.
+91.111\,\mathbf{1}_{B_2}
++
+62\,\mathbf{1}_{B_3}.
 \]
 
-Questa variabile casuale assume valore $111.25$ sugli scenari appartenenti a
-$B_1$ e valore $78.75$ sugli scenari appartenenti a $B_2$:
-
+Questa variabile casuale assume tre valori, uno per ciascun atomo della
+sigma-algebra:
 \[
 \begin{array}{c|c|c|c}
 \text{Scenario} & H(\omega) & \text{Blocco informativo}
 & \mathbb{E}[H\mid\mathcal{G}](\omega) \\
 \hline
-\omega_1 & 120 & B_1 & 111.25 \\
-\omega_2 & 105 & B_1 & 111.25 \\
-\omega_3 & 90  & B_2 & 78.75 \\
-\omega_4 & 60  & B_2 & 78.75 \\
+\omega_1 & 130 & B_1 & 118 \\
+\omega_2 & 110 & B_1 & 118 \\
+\omega_3 & 100 & B_2 & 91.111 \\
+\omega_4 & 90  & B_2 & 91.111 \\
+\omega_5 & 80  & B_2 & 91.111 \\
+\omega_6 & 70  & B_3 & 62 \\
+\omega_7 & 50  & B_3 & 62 \\
 \end{array}
 \]
 
-Si osservi che $\mathbb{E}[H\mid\mathcal{G}]$ non coincide con $H$. Il payoff
-$H$ distingue tutti gli scenari elementari, mentre
-$\mathbb{E}[H\mid\mathcal{G}]$ distingue soltanto i blocchi informativi
-osservabili mediante $\mathcal{G}$.
+Questa tabella mostra la distinzione essenziale: $H$ distingue i sette
+scenari elementari, mentre $\mathbb{E}[H\mid\mathcal{G}]$ distingue soltanto i
+tre blocchi informativi.
 
 \medskip
 
 \noindent
-\textbf{Coerenza con il valore atteso totale.}
+\textbf{Eventi osservabili e medie condizionate.}
 
-Il valore atteso della variabile casuale condizionata coincide con il valore
-atteso non condizionato:
+La sigma-algebra $\mathcal{G}$ contiene sette eventi non vuoti. Per ciascuno
+di essi \`{e} possibile calcolare un valore atteso condizionato rispetto
+all'evento. Questi sette numeri non sono per\`{o} i valori puntuali della
+variabile casuale $\mathbb{E}[H\mid\mathcal{G}]$.
 
+Essi sono:
 \[
+\begin{array}{c|c}
+\text{Evento osservabile } C & \mathbb{E}[H\mid C] \\
+\hline
+B_1 & 118 \\
+B_2 & 91.111 \\
+B_3 & 62 \\
+B_1\cup B_2 & 100.714 \\
+B_1\cup B_3 & 87.455 \\
+B_2\cup B_3 & 79.467 \\
+\Omega & 89.100 \\
+\end{array}
+\]
+
+Questa tabella ha una diversa interpretazione. Essa associa a ciascun evento
+osservabile $C\in\mathcal{G}$, con $C\neq\varnothing$, il numero
+$\mathbb{E}[H\mid C]$. Invece la variabile casuale
+$\mathbb{E}[H\mid\mathcal{G}]$ associa a ciascuno scenario elementare
+$\omega$ il valore medio del blocco informativo a cui $\omega$ appartiene.
+
+La relazione tra le due rappresentazioni \`{e} la seguente. Se
+$C\in\mathcal{G}$ \`{e} unione di alcuni blocchi della partizione, allora:
+\[
+\mathbb{E}[H\mid C]
+=
+\frac{
 \mathbb{E}\left[
-\mathbb{E}[H\mid\mathcal{G}]
+\mathbb{E}[H\mid\mathcal{G}]\mathbf{1}_C
 \right]
-=
-\mathbb{E}[H].
+}
+{\mathbb{P}(C)}.
 \]
 
-Nel caso numerico:
-
-\[
-\mathbb{E}\left[
-\mathbb{E}[H\mid\mathcal{G}]
-\right]
-=
-111.25\cdot 0.60
-+
-78.75\cdot 0.40
-=
-98.25.
-\]
-
-D'altra parte:
-
-\[
-\mathbb{E}[H]
-=
-0.25\cdot 120
-+
-0.35\cdot 105
-+
-0.25\cdot 90
-+
-0.15\cdot 60
-=
-98.25.
-\]
-
-Questa identit\`{a} \`{e} la versione, in termini di valore atteso condizionato
-rispetto a $\mathcal{G}$, della formula del valore atteso totale. Prima
-dell'osservazione dell'informazione, la media delle previsioni condizionate
-coincide con la media non condizionata. Dopo l'osservazione dell'informazione,
-diventa rilevante il valore associato al blocco informativo effettivamente
-osservato.
+Quindi le medie condizionate rispetto agli eventi osservabili si ottengono
+mediando la variabile casuale $\mathbb{E}[H\mid\mathcal{G}]$ sull'evento
+osservabile considerato.
 
 \medskip
 
 \noindent
 \textbf{Definizione generale rispetto a una sigma-algebra.}
 
-La costruzione precedente, basata sulla sigma-algebra generata da una
-partizione finita, suggerisce la definizione generale.
-
-Sia $\mathcal{G}\subseteq\mathcal{F}$ una sigma-algebra informativa e sia $X$
-una variabile casuale integrabile. Un valore atteso condizionato di $X$
-rispetto a $\mathcal{G}$ \`{e} una variabile casuale
-$\mathbb{E}[X\mid\mathcal{G}]$ tale che:
+La costruzione precedente suggerisce la definizione generale. Sia
+$\mathcal{G}\subseteq\mathcal{F}$ una sigma-algebra informativa e sia $X$ una
+variabile casuale integrabile. Un valore atteso condizionato di $X$ rispetto a
+$\mathcal{G}$ \`{e} una variabile casuale $\mathbb{E}[X\mid\mathcal{G}]$ tale
+che:
 
 \begin{enumerate}
     \item $\mathbb{E}[X\mid\mathcal{G}]$ \`{e} $\mathcal{G}$-misurabile;
 
-    \item per ogni evento $C\in\mathcal{G}$ vale
+    \item per ogni evento $C\in\mathcal{G}$ vale:
     \[
     \mathbb{E}\left[
     \mathbb{E}[X\mid\mathcal{G}]\mathbf{1}_C
@@ -1158,40 +1165,6 @@ su ogni evento osservabile mediante $\mathcal{G}$, la variabile
 $\mathbb{E}[X\mid\mathcal{G}]$ abbia la stessa media di $X$.
 
 Il valore atteso condizionato rispetto a una sigma-algebra \`{e} definito a
-meno di uguaglianza quasi certa. Ci\`{o} significa che due versioni di
-$\mathbb{E}[X\mid\mathcal{G}]$ sono considerate equivalenti se coincidono
-tranne che su un evento di probabilit\`{a} nulla.
-
-\medskip
-
-\noindent
-\textbf{Due casi estremi.}
-
-Se l'informazione \`{e} nulla, la sigma-algebra informativa \`{e}:
-
-\[
-\mathcal{G}_0
-=
-\{\varnothing,\Omega\}.
-\]
-
-In questo caso il valore atteso condizionato \`{e} costante:
-
-\[
-\mathbb{E}[X\mid\mathcal{G}_0]
-=
-\mathbb{E}[X].
-\]
-
-Se invece l'informazione \`{e} completa e $X$ \`{e} osservabile rispetto a
-$\mathcal{F}$, allora:
-
-\[
-\mathbb{E}[X\mid\mathcal{F}]
-=
-X.
-\]
-
-Nel primo caso l'informazione non modifica la previsione non condizionata. Nel
-secondo caso l'informazione \`{e} sufficientemente dettagliata da rendere
-osservabile direttamente la variabile casuale $X$.
+meno di uguaglianza quasi certa. Due versioni di
+$\mathbb{E}[X\mid\mathcal{G}]$ sono quindi considerate equivalenti se
+coincidono tranne che su un evento di probabilit\`{a} nulla.
