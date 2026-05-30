@@ -433,7 +433,6 @@ Ogni output prodotto nel progetto deve essere verificato rispetto ai seguenti cr
 
 Le principali questioni ancora aperte sono:
 
-1. definire il titolo definitivo del manuale;
 2. consolidare il template LaTeX del manuale;
 3. consolidare il template LaTeX delle slides;
 4. decidere se le soluzioni complete degli esercizi saranno incluse nel manuale o in un fascicolo separato;
