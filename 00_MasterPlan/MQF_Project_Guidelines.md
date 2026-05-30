@@ -1,7 +1,5 @@
 # Metodi Quantitativi per la Finanza — Linee guida di progetto
 
-TEST CACHE 2026-05-30 17:45
-
 ## 1. Identificazione del progetto
 
 Il progetto riguarda la predisposizione completa del materiale didattico per il corso universitario **Metodi Quantitativi per la Finanza**.
@@ -491,35 +489,22 @@ Per le lezioni applicative, l'aggiornamento deve inoltre indicare:
 
 Le principali questioni ancora aperte sono:
 
-1. definire il titolo definitivo del manuale;
-2. consolidare il template LaTeX del manuale;
-3. consolidare il template LaTeX delle slides;
-4. decidere se le soluzioni complete degli esercizi saranno incluse nel manuale o in un fascicolo separato;
-5. definire il livello di dettaglio delle dimostrazioni;
-6. decidere le librerie Python ammesse nelle applicazioni computazionali;
-7. stabilire una strategia definitiva per la produzione dei grafici;
-8. decidere se il materiale debba includere criteri di valutazione o prove d'esame;
-9. definire il formato standard dei notebook o script applicativi;
-10. definire il formato dei dataset didattici;
-11. stabilire se le applicazioni Python saranno distribuite come `.py`, notebook Jupyter o entrambi;
-12. definire una convenzione per i blocchi di codice da completare in aula;
-13. stabilire regole esplicite per l'uso dell'IA generativa da parte degli studenti;
-14. predisporre prompt standard per debugging, spiegazione del codice e completamento locale di funzioni;
-15. definire il formato delle estensioni take-home;
-16. decidere se le consegne take-home saranno solo formative o anche valutabili;
-17. stabilire una rubrica minima per valutare codice, controlli numerici e interpretazione finanziaria.
-
-
-Le principali questioni ancora aperte sono:
-
-1. definire il titolo definitivo del manuale;
-2. consolidare il template LaTeX del manuale;
-3. consolidare il template LaTeX delle slides;
-4. decidere se le soluzioni complete degli esercizi saranno incluse nel manuale o in un fascicolo separato;
-5. definire il livello di dettaglio delle dimostrazioni;
-6. decidere le librerie Python ammesse nelle applicazioni computazionali;
-7. stabilire una strategia definitiva per la produzione dei grafici;
-8. decidere se il materiale debba includere criteri di valutazione o prove d'esame.
+1. consolidare il template LaTeX del manuale;
+2. consolidare il template LaTeX delle slides;
+3. decidere se le soluzioni complete degli esercizi saranno incluse nel manuale o in un fascicolo separato;
+4. definire il livello di dettaglio delle dimostrazioni;
+5. decidere le librerie Python ammesse nelle applicazioni computazionali;
+6. stabilire una strategia definitiva per la produzione dei grafici;
+7. decidere se il materiale debba includere criteri di valutazione o prove d'esame;
+8. definire il formato standard dei notebook o script applicativi;
+9. definire il formato dei dataset didattici;
+10. stabilire se le applicazioni Python saranno distribuite come `.py`, notebook Jupyter o entrambi;
+11. definire una convenzione per i blocchi di codice da completare in aula;
+12. stabilire regole esplicite per l'uso dell'IA generativa da parte degli studenti;
+13. predisporre prompt standard per debugging, spiegazione del codice e completamento locale di funzioni;
+14. definire il formato delle estensioni take-home;
+15. decidere se le consegne take-home saranno solo formative o anche valutabili;
+16. stabilire una rubrica minima per valutare codice, controlli numerici e interpretazione finanziaria.
 
 ## 20. Principio guida finale
 
