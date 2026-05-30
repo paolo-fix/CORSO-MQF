@@ -52,7 +52,7 @@
 
 \begin{center}
 {\Large \textbf{Master Plan del corso}}\\[6pt]{\large \textbf{Metodi
-Quantitativi per la Finanza}}\\[12pt]
+Quantitativi per la Finanza Moderna}}\\[12pt]
 \end{center}
 
 \textbf{Destinatari:} studenti del quinto anno del corso di laurea in Banca e
@@ -170,6 +170,195 @@ del manuale. Per ogni lezione si prevede orientativamente:
 
 Per le lezioni Python le slides devono privilegiare formulazione, algoritmo,
 codice selezionato, output e interpretazione.
+
+```latex
+%============================================================
+\subsection{Scheda operativa: scaletta-promemoria della lezione}
+\label{subsec:scheda-scaletta-promemoria}
+
+Per ogni lezione teorica del corso deve essere predisposta una
+\emph{scaletta-promemoria} basata sulla versione aggiornata del manuale e
+delle slide disponibili nella pagina pubblica di progetto:
+\[
+\mbox{\texttt{https://paolilla25.synology.me/github-publish/public/}}.
+\]
+
+La scaletta deve essere costruita dopo avere riletto:
+\begin{enumerate}
+\item il capitolo del manuale corrispondente alla lezione;
+\item le slide aggiornate della lezione;
+\item se disponibile, il PDF compilato delle slide, per verificare la
+numerazione effettiva.
+\end{enumerate}
+
+La scaletta non deve essere un riassunto discorsivo della lezione, ma uno
+strumento operativo per il docente durante l'erogazione. Deve quindi indicare,
+per gruppi omogenei di slide, il contenuto essenziale, il tempo previsto e la
+funzione didattica del gruppo.
+
+\paragraph{Struttura obbligatoria di ciascun gruppo.}
+Ogni gruppo deve essere presentato secondo il seguente schema:
+\[
+\begin{array}{l}
+\mbox{\texttt{Numero. Titolo del gruppo --- slide x--y}}\\[3pt]
+\mbox{\texttt{Tempo parziale: ... minuti}}\\[3pt]
+\mbox{\texttt{Tempo cumulato: ... minuti}}\\[3pt]
+\mbox{\texttt{Contenuti essenziali: ...}}
+\end{array}
+\]
+
+Il titolo del gruppo deve essere sintetico e coerente con il titolo o con la
+funzione didattica delle slide corrispondenti. Il numero di slide deve essere
+indicato con precisione, usando la numerazione effettiva del PDF compilato.
+
+\paragraph{Criteri di aggregazione delle slide.}
+Le slide devono essere aggregate in gruppi didatticamente omogenei, non
+necessariamente coincidenti con le sezioni del manuale. Un gruppo pu\`{o}
+comprendere:
+\begin{itemize}
+\item una definizione e la sua interpretazione;
+\item un esempio sviluppato su pi\`{u} slide;
+\item una sequenza grafica;
+\item una transizione concettuale;
+\item un blocco di esercizi o di sintesi.
+\end{itemize}
+
+Le slide grafiche o molto brevi possono essere accorpate al gruppo concettuale
+di riferimento, salvo che svolgano una funzione didattica autonoma.
+
+\paragraph{Gestione dei tempi.}
+La durata complessiva della lezione teorica \`{e} di $2$ ore e $15$ minuti,
+includendo $15$ minuti di pausa. Il tempo effettivo di lezione \`{e} quindi pari
+a $120$ minuti.
+
+La scaletta deve riportare:
+\begin{itemize}
+\item il tempo parziale di ciascun gruppo;
+\item il tempo cumulato progressivo;
+\item il break come voce autonoma.
+\end{itemize}
+
+Il tempo medio per slide deve essere valutato in funzione della densit\`{a}
+effettiva:
+\[
+\begin{array}{rcl}
+\mbox{slide definitorie o simboliche} & : & \mbox{circa }3\mbox{ minuti},\\[3pt]
+\mbox{slide grafiche o di transizione} & : & \mbox{circa }1.5\mbox{--}2.5
+\mbox{ minuti},\\[3pt]
+\mbox{esempi o passaggi tecnici} & : & \mbox{circa }3\mbox{--}4
+\mbox{ minuti},\\[3pt]
+\mbox{esercizi finali non svolti integralmente} & : &
+\mbox{tempo ridotto, con funzione di check.}
+\end{array}
+\]
+
+Se il numero complessivo di slide supera la disponibilit\`{a} temporale
+ordinaria, la scaletta deve prevedere un ritmo pi\`{u} rapido su slide grafiche,
+esercizi finali e sintesi.
+
+\paragraph{Contenuti essenziali.}
+La voce \emph{Contenuti essenziali} deve essere scritta in forma telegrafica,
+non discorsiva. Deve contenere normalmente $3$--$4$ righe, a seconda della
+complessit\`{a} del gruppo.
+
+Essa deve includere:
+\begin{itemize}
+\item le nozioni centrali da richiamare;
+\item le formule indispensabili;
+\item il significato finanziario, se rilevante;
+\item eventuali avvertenze concettuali importanti.
+\end{itemize}
+
+Non deve includere spiegazioni lunghe, dimostrazioni o testo da leggere in
+aula. La funzione \`{e} di promemoria, non di dispensa.
+
+\paragraph{Uso della notazione matematica.}
+Nella scaletta-promemoria prodotta in chat si deve usare la matematica
+renderizzata standard della pagina web, non codice \LaTeX{} sorgente.
+
+Quando la scaletta viene invece inserita nel Master Plan in formato \LaTeX{},
+le formule devono essere scritte con notazione \LaTeX{} standard, senza
+dipendere da comandi non definiti nell'ambiente di destinazione.
+
+In particolare, nella scaletta-promemoria prodotta in chat non si devono usare
+comandi personalizzati del progetto come
+\[
+\mbox{\texttt{\textbackslash Prob}},
+\qquad
+\mbox{\texttt{\textbackslash F}},
+\qquad
+\mbox{\texttt{\textbackslash E}},
+\qquad
+\mbox{\texttt{\textbackslash Var}},
+\]
+perch\'{e} potrebbero non essere visualizzati correttamente fuori dai file
+sorgente del progetto.
+
+Si usino invece, nella resa matematica standard della chat, espressioni come
+\[
+(\Omega,\mathcal{F},\mathbb{P})\to X\to
+\mathbb{P}_X,\ F_X,\ p_X,\ f_X,
+\]
+\[
+F_X(x)=\mathbb{P}(X\leq x),
+\]
+\[
+q_\alpha(X)=\inf\{x:F_X(x)\geq \alpha\}.
+\]
+
+I comandi personalizzati del progetto restano riservati al codice \LaTeX{} del
+manuale e delle slide, dove sono definiti e controllati.
+
+\paragraph{Stile della scaletta.}
+La scaletta deve essere neutra, tecnica e sintetica. Deve evitare:
+\begin{itemize}
+\item commenti ridondanti;
+\item formule decorative non accompagnate da significato;
+\item spiegazioni estese;
+\item ripetizioni pedisseque dei titoli delle slide;
+\item frasi generiche come \emph{si introduce il tema}, se non specificano il
+contenuto operativo.
+\end{itemize}
+
+La scaletta deve invece aiutare il docente a ricordare:
+\begin{itemize}
+\item che cosa dire;
+\item in quale ordine;
+\item quanto tempo dedicare;
+\item quale passaggio concettuale deve essere fissato dagli studenti.
+\end{itemize}
+
+\paragraph{Esempio di formato.}
+Un gruppo della scaletta deve avere una forma del tipo seguente:
+
+\begin{quote}
+\textbf{2. Definizione di variabile casuale e misurabilit\`{a} --- slide 5--7}
+
+\medskip
+
+\textbf{Tempo parziale:} 8 minuti
+
+\textbf{Tempo cumulato:} 17 minuti
+
+\medskip
+
+\textbf{Contenuti essenziali:} una variabile casuale \`{e} una funzione numerica
+sugli esiti, ma deve generare eventi osservabili. $X:\Omega\to\mathbb{R}$;
+eventi $\{X\leq x\}$; condizione $\{X\leq x\}\in\mathcal{F}$; probabilit\`{a}
+definite su eventi.
+\end{quote}
+
+\paragraph{Controlli finali.}
+Prima di consegnare la scaletta, verificare:
+\begin{enumerate}
+\item che la numerazione delle slide corrisponda al PDF compilato;
+\item che il tempo cumulato includa correttamente il break;
+\item che ogni gruppo abbia un contenuto essenziale realmente operativo;
+\item che le formule siano visualizzate correttamente nell'ambiente richiesto;
+\item che la scaletta sia coerente con la versione aggiornata del manuale e
+delle slide.
+\end{enumerate}
+
 
 \subsection{Redazione e sintassi matematica}
 
