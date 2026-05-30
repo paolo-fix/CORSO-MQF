@@ -1,5 +1,7 @@
 # Metodi Quantitativi per la Finanza — Linee guida di progetto
 
+TEST CACHE 2026-05-30 17:45
+
 ## 1. Identificazione del progetto
 
 Il progetto riguarda la predisposizione completa del materiale didattico per il corso universitario **Metodi Quantitativi per la Finanza**.
@@ -185,6 +187,12 @@ La struttura consigliata dei documenti di coordinamento e':
   MQF_Registro_Decisioni.tex
 ```
 
+## Aggiornamento delle sezioni operative sulle lezioni applicative
+
+Le sezioni seguenti aggiornano le linee guida relative ai capitoli applicativi, alle slides, agli esercizi in aula e alle applicazioni Python, in modo da renderle coerenti con la nuova impostazione generale delle lezioni applicative definita nel Master Plan.
+
+---
+
 ## 9. Manuale del corso
 
 Il manuale deve essere il riferimento scientifico principale. Ogni capitolo deve essere autosufficiente, ma collegato agli altri capitoli.
@@ -202,20 +210,29 @@ La struttura standard di un capitolo teorico e':
 9. esercizi proposti;
 10. sintesi finale.
 
-La struttura standard di un capitolo con applicazione Python e':
+La struttura standard di un capitolo con applicazione Python deve essere concepita in modo coerente con la natura laboratoriale della lezione. Il capitolo applicativo non deve limitarsi a presentare codice commentato, ma deve documentare il passaggio dalla formulazione matematica al prodotto computazionale finale.
 
-1. obiettivi della lezione;
-2. motivazione finanziaria;
-3. formulazione matematica del problema computazionale;
-4. descrizione dell'algoritmo;
-5. codice Python commentato;
-6. output numerici;
-7. grafici;
-8. interpretazione economico-finanziaria dei risultati;
-9. esercizi di modifica del codice;
-10. sintesi finale.
+La struttura orientativa di un capitolo applicativo e':
+
+1. obiettivi della lezione applicativa;
+2. presentazione del caso finanziario o probabilistico;
+3. richiamo matematico-operativo del modello;
+4. descrizione dei dati, dei parametri e degli output attesi;
+5. strumenti Python necessari per la lezione;
+6. struttura del notebook o dello script;
+7. sviluppo guidato del codice;
+8. tappe di sviluppo autonomo;
+9. controlli numerici e logici intermedi;
+10. output numerici e grafici;
+11. interpretazione economico-finanziaria dei risultati;
+12. estensioni take-home;
+13. sintesi finale.
+
+Nei capitoli applicativi il codice deve essere presentato come parte integrante della modellizzazione. Ogni blocco computazionale rilevante deve essere preceduto da una motivazione e seguito da un commento interpretativo. Il capitolo deve rendere esplicito che cosa viene calcolato, perche' viene calcolato e come il risultato si collega al modello teorico.
 
 Le dimostrazioni devono essere selettive. Devono essere incluse quando rafforzano la comprensione dei meccanismi quantitativi, ma non devono trasformare il corso in un corso astratto di probabilita' o ottimizzazione.
+
+---
 
 ## 10. Slides delle lezioni
 
@@ -230,48 +247,34 @@ Per ogni lezione teorica, la struttura orientativa e':
 5. esercizi da svolgere in aula;
 6. sintesi conclusiva.
 
-Per ogni lezione Python, la struttura orientativa e':
+Per ogni lezione applicativa Python, la struttura delle slides deve essere coerente con lo svolgimento in laboratorio informatico. Le slides devono guidare l'alternanza tra spiegazione, sviluppo del codice, lavoro autonomo degli studenti e discussione collettiva.
 
-1. problema finanziario o quantitativo;
-2. formulazione matematica;
-3. schema algoritmico;
-4. blocchi essenziali di codice;
-5. output numerici;
-6. grafici;
-7. interpretazione dei risultati;
-8. esercizi di modifica del codice.
+La struttura orientativa delle slides applicative e':
 
-Le slides devono essere concise, visivamente ordinate e orientate alla discussione in aula. Le formule devono essere presenti, ma non in quantita' tale da rendere le slides equivalenti a pagine di manuale.
+1. apertura del caso applicativo;
+2. obiettivi computazionali della lezione;
+3. dati disponibili, parametri e output attesi;
+4. richiamo matematico-operativo;
+5. strumenti Python necessari;
+6. schema del notebook o dello script;
+7. avvio guidato dello sviluppo del codice;
+8. tappe operative per lo sviluppo autonomo;
+9. controlli intermedi e output attesi;
+10. grafici e tabelle da produrre;
+11. discussione dei risultati e degli errori ricorrenti;
+12. estensione take-home.
 
-## 11. Notazione matematica
+Le slides applicative non devono contenere codice esteso in misura eccessiva. Devono invece mostrare i blocchi essenziali, la logica del flusso computazionale, le formule da implementare, i controlli da effettuare e l'interpretazione degli output. Il codice completo o semi-completo deve essere fornito nel notebook o nello script associato alla lezione.
 
-La notazione matematica deve essere coerente in tutto il progetto. Il riferimento principale e' il file:
+Le slides devono inoltre distinguere chiaramente:
 
-```text
-MQF_Notazione.tex
-```
+1. che cosa viene spiegato dal docente;
+2. che cosa viene sviluppato in modo guidato;
+3. che cosa viene completato autonomamente dagli studenti;
+4. che cosa viene discusso collettivamente;
+5. che cosa viene lasciato come lavoro take-home.
 
-Le convenzioni generali includono:
-
-- `(Omega, F, P)` per lo spazio di probabilita';
-- `X, Y, Z` per variabili casuali;
-- `E[X]`, `Var(X)`, `Cov(X,Y)` per valore atteso, varianza e covarianza;
-- `F_t` per la filtrazione in tempo discreto;
-- `S_t` per il prezzo di un'attivita' finanziaria al tempo `t`;
-- `r` per il tasso privo di rischio su un periodo;
-- `Q` per la misura risk-neutral, quando introdotta;
-- `x` per variabili decisionali;
-- `xi` o `s` per incertezza, scenari o stati, a seconda del contesto.
-
-Nel materiale LaTeX questi simboli devono essere scritti con la notazione matematica corretta, ad esempio `\Omega`, `\mathcal{F}`, `\mathbb{P}`, `\mathbb{E}`, `\mathbb{Q}`, `\mathcal{F}_t`.
-
-Salvo diversa indicazione, il corso lavora prevalentemente in tempo discreto:
-
-```text
-t = 0, 1, ..., T.
-```
-
-Ogni nuova notazione introdotta in un capitolo deve essere registrata o verificata rispetto a `MQF_Notazione.tex`.
+---
 
 ## 12. Esercizi in aula
 
@@ -282,79 +285,184 @@ Ogni lezione teorica deve includere almeno due esercizi in aula:
 
 Quando utile, va aggiunto un esercizio grafico.
 
-Le lezioni Python devono includere almeno:
+Nelle lezioni applicative Python gli esercizi in aula devono essere organizzati come tappe operative di laboratorio. Ogni tappa deve avere:
 
-1. un esercizio di modifica del codice;
-2. un esercizio di interpretazione dell'output;
-3. un eventuale esercizio di sensibilita' rispetto ai parametri.
+1. un obiettivo intermedio esplicito;
+2. un blocco di codice da completare, modificare o interpretare;
+3. un output atteso, numerico o grafico;
+4. almeno un controllo numerico o logico;
+5. una breve interpretazione economico-finanziaria.
 
-Gli esercizi devono essere coerenti con il livello degli studenti. Devono essere sufficientemente tecnici da consolidare il metodo, ma non cosi' lunghi da diventare mini-progetti separati durante la lezione.
+Le tappe operative devono essere progettate in modo progressivo. Una possibile struttura e':
 
-## 13. Grafici didattici
+1. verifica dei dati e dei parametri;
+2. implementazione di una formula o funzione centrale;
+3. produzione di un primo output numerico;
+4. costruzione di un grafico o di una tabella;
+5. analisi di sensibilita' rispetto a un parametro;
+6. interpretazione del risultato;
+7. estensione o variante del caso base.
 
-I grafici sono parte integrante del progetto. Devono essere usati per spiegare concetti, non solo per illustrare risultati.
+Gli esercizi applicativi non devono essere mini-progetti indipendenti durante la lezione. Devono invece essere parti controllate di un percorso comune, in cui gli studenti completano alcune componenti del software mantenendo visibile il collegamento con il modello teorico.
 
-Grafici ricorrenti previsti:
+Quando si prevede l'uso di strumenti di intelligenza artificiale generativa, l'esercizio deve specificare in modo chiaro quali usi sono ammessi. L'IA puo' essere impiegata per chiarire errori di codice, spiegare messaggi di errore, proporre una funzione locale o migliorare la leggibilita' di un blocco. Non deve invece sostituire la formulazione del modello, la scelta delle ipotesi o l'interpretazione dei risultati.
 
-1. diagrammi di Venn e alberi probabilistici;
-2. funzioni di massa, densita' e ripartizione;
-3. quantili e code di distribuzione;
-4. alberi informativi;
-5. traiettorie simulate di processi stocastici;
-6. ventagli di scenari;
-7. grafi di catene di Markov;
-8. heatmap di matrici di transizione;
-9. distribuzioni di perdita con VaR e CVaR;
-10. alberi binomiali dei prezzi e dei payoff;
-11. regioni ammissibili di problemi di programmazione lineare;
-12. rette di livello e interpretazione geometrica dell'ottimo;
-13. diagrammi primal-dual e prezzi ombra;
-14. alberi degli scenari nella programmazione stocastica;
-15. confronti tra soluzioni SP, EV e WS;
-16. visualizzazioni di EVPI e VSS.
+---
 
-Per compatibilita' tecnica, i grafici possono essere generati in Python e inclusi come immagini nei documenti LaTeX. L'uso di grafici direttamente in LaTeX deve essere valutato caso per caso.
+## 14. Applicazioni Python e lezioni applicative
 
-## 14. Applicazioni Python
+Sono previste cinque applicazioni Python, corrispondenti alle lezioni applicative del corso.
 
-Sono previste cinque applicazioni Python:
+| Applicazione | Lezione | Tema                                             | Output computazionale                                   |
+| -----------: | ------: | ------------------------------------------------ | ------------------------------------------------------- |
+|            1 |       5 | Processi stocastici e valori attesi condizionati | Simulazioni, stime condizionate, grafici di traiettorie |
+|            2 |       8 | Rischio di credito                               | Matrici di transizione, default probability, VaR, CVaR  |
+|            3 |      10 | Pricing di opzioni e obbligazioni                | Alberi binomiali, backward induction, sensibilita'      |
+|            4 |      13 | Programmazione lineare e CVaR                    | Formulazione PL, soluzione numerica, confronto VaR-CVaR |
+|            5 |      16 | Programmazione stocastica                        | Scenari, recourse, EVPI, VSS                            |
 
-| Applicazione | Lezione | Tema | Output computazionale |
-|---:|---:|---|---|
-| 1 | 5 | Processi stocastici e valori attesi condizionati | Simulazioni, stime condizionate, grafici di traiettorie |
-| 2 | 8 | Rischio di credito | Matrici di transizione, default probability, VaR, CVaR |
-| 3 | 10 | Pricing di opzioni e obbligazioni | Alberi binomiali, backward induction, sensibilita' |
-| 4 | 13 | Programmazione lineare e CVaR | Formulazione PL, soluzione numerica, confronto VaR-CVaR |
-| 5 | 16 | Programmazione stocastica | Scenari, recourse, EVPI, VSS |
+Le applicazioni Python devono essere concepite come laboratori di modellizzazione quantitativa. La finalita' principale non e' insegnare Python in modo autonomo, ma mostrare come un modello probabilistico, finanziario o ottimizzativo possa essere tradotto in una procedura computazionale controllabile, interpretabile e modificabile.
+
+Ciascuna lezione applicativa ha durata complessiva di 2 ore e 15 minuti, con 15 minuti di pausa. Il tempo effettivo di lavoro e' quindi pari a circa 120 minuti. La scansione temporale orientativa e':
+
+1. 10--15 minuti per l'introduzione del caso;
+2. 10--15 minuti per il richiamo matematico-operativo;
+3. 15--20 minuti per gli strumenti Python necessari;
+4. 25--30 minuti per lo sviluppo guidato del codice;
+5. 15 minuti di pausa;
+6. 35--40 minuti per lo sviluppo autonomo assistito;
+7. 15--20 minuti per la discussione collettiva;
+8. 5--10 minuti per la chiusura e l'assegnazione take-home.
+
+Ogni applicazione deve essere costruita intorno a un caso identificabile. Il caso deve specificare:
+
+1. il contesto finanziario o probabilistico;
+2. la domanda quantitativa da affrontare;
+3. i dati disponibili;
+4. i parametri del modello;
+5. le grandezze da calcolare;
+6. gli output numerici e grafici attesi;
+7. il prodotto computazionale finale.
+
+Per ogni lezione applicativa devono essere predisposti almeno i seguenti materiali:
+
+1. una traccia del caso;
+2. un notebook o script Python semi-strutturato;
+3. eventuali file dati;
+4. una lista di parametri iniziali;
+5. una sequenza di tappe operative;
+6. controlli intermedi;
+7. output numerici attesi;
+8. grafici o tabelle da produrre;
+9. indicazioni per la discussione in aula;
+10. una o due estensioni take-home.
+
+Il notebook o script deve evitare che gli studenti partano da un file vuoto. La struttura consigliata e':
+
+1. intestazione della lezione e descrizione del caso;
+2. importazione delle librerie;
+3. definizione dei dati e dei parametri;
+4. funzioni ausiliarie;
+5. implementazione del modello base;
+6. controlli intermedi;
+7. output numerici;
+8. grafici;
+9. analisi di sensibilita';
+10. blocchi da completare da parte degli studenti;
+11. domande di interpretazione;
+12. estensione take-home.
+
+I blocchi destinati allo sviluppo autonomo devono essere chiaramente segnalati. Possono essere usate formule del tipo:
+
+```python
+# TODO 1: completare la funzione
+# TODO 2: verificare il controllo numerico
+# TODO 3: produrre il grafico richiesto
+# TODO 4: interpretare il risultato
+```
 
 Criteri comuni per il codice Python:
 
 1. codice ben commentato;
 2. separazione tra dati, parametri, funzioni e output;
 3. nomi delle variabili coerenti con la notazione matematica;
-4. uso di grafici leggibili;
-5. interpretazione dei risultati dopo ogni blocco computazionale;
-6. esercizi di modifica del codice;
-7. preferenza per codice didatticamente trasparente rispetto a codice eccessivamente compatto.
+4. preferenza per codice leggibile rispetto a codice eccessivamente compatto;
+5. controlli intermedi espliciti;
+6. grafici leggibili e interpretabili;
+7. interpretazione dei risultati dopo ogni blocco computazionale rilevante;
+8. possibilita' di modificare parametri e scenari;
+9. riproducibilita' dell'esecuzione;
+10. tracciabilita' del passaggio dalla formula matematica all'algoritmo.
 
-Quando si scrive codice Python, occorre privilegiare chiarezza, replicabilita' e tracciabilita' del passaggio dalla formula matematica all'algoritmo.
+Gli strumenti Python introdotti in ciascuna lezione devono essere selezionati in funzione del modello. Non devono essere presentati come argomenti indipendenti di programmazione. A seconda della lezione, possono essere introdotti:
+
+1. array, vettori e matrici;
+2. funzioni;
+3. cicli temporali;
+4. simulazione Monte Carlo elementare;
+5. strutture dati per stati e scenari;
+6. grafici;
+7. calcolo di quantili e medie condizionate;
+8. uso di solver di ottimizzazione;
+9. rappresentazione di alberi binomiali;
+10. analisi di sensibilita'.
+
+L'uso di strumenti di intelligenza artificiale generativa puo' essere previsto come supporto controllato. L'IA puo' essere utilizzata per:
+
+1. spiegare messaggi di errore;
+2. correggere errori sintattici o locali;
+3. proporre una funzione Python coerente con una formula data;
+4. commentare un blocco di codice;
+5. migliorare la leggibilita' del codice;
+6. confrontare due implementazioni alternative.
+
+Non e' invece appropriato delegare all'IA:
+
+1. la formulazione matematica del modello;
+2. la scelta delle ipotesi;
+3. la definizione delle variabili decisionali;
+4. la selezione delle misure di rischio;
+5. l'interpretazione economico-finanziaria dei risultati;
+6. la verifica finale della correttezza.
+
+Quando l'IA viene utilizzata dagli studenti, il docente puo' richiedere che siano esplicitati il prompt utilizzato, la risposta ricevuta e la verifica effettuata. L'obiettivo e' sviluppare un uso critico dello strumento, non sostituire la comprensione del modello.
+
+Ogni lezione applicativa deve concludersi con un prodotto finale osservabile. Esempi di prodotto finale sono:
+
+1. un simulatore di traiettorie;
+2. una procedura di stima condizionata;
+3. una matrice di transizione analizzata numericamente;
+4. una distribuzione di perdita con VaR e CVaR;
+5. un algoritmo di backward induction;
+6. una formulazione di programmazione lineare;
+7. una tabella di confronto tra soluzioni;
+8. un grafico interpretativo;
+9. una misura quantitativa del rischio;
+10. un confronto tra soluzioni SP, EV e WS.
+
+La lezione applicativa non deve concludersi genericamente con la scrittura di codice, ma con la comprensione di che cosa il codice permette di calcolare e di come tale calcolo modifichi o rafforzi l'interpretazione del modello teorico.
+
+---
 
 ## 15. Stato di avanzamento da mantenere aggiornato
 
-Il progetto deve mantenere un registro di avanzamento per aree:
+Il progetto deve mantenere un registro di avanzamento per aree. Tale registro deve essere aggiornato periodicamente e non deve restare fissato allo stato iniziale del progetto.
 
-| Area | Stato iniziale | Nota |
-|---|---|---|
-| Struttura delle 16 lezioni | Bozza consolidata | Derivata dal syllabus e uniformata nei titoli |
-| Notazione generale | Documento iniziale creato | Da aggiornare durante lo sviluppo |
-| Manuale | Non iniziato | Da scrivere capitolo per capitolo |
-| Slides | Non iniziate | Da produrre dopo lo schema dettagliato di ciascuna lezione |
-| Esercizi teorici | Bozza iniziale | Da sviluppare lezione per lezione |
-| Applicazioni Python | Bozza iniziale | Cinque applicazioni previste |
-| Grafici | Bozza iniziale | Da validare e produrre progressivamente |
-| Compatibilita' SWP 5.5 | Da verificare | Evitare pacchetti LaTeX moderni non necessari |
+| Area                       | Stato da monitorare                             | Nota                                                              |
+| -------------------------- | ----------------------------------------------- | ----------------------------------------------------------------- |
+| Struttura delle 16 lezioni | Consolidata, salvo revisioni locali             | Derivata dal syllabus e uniformata nei titoli                     |
+| Notazione generale         | Documento attivo                                | Da verificare durante lo sviluppo di ogni capitolo e applicazione |
+| Manuale                    | In sviluppo progressivo                         | Da aggiornare capitolo per capitolo                               |
+| Slides                     | In sviluppo progressivo                         | Da produrre e revisionare lezione per lezione                     |
+| Esercizi teorici           | In sviluppo progressivo                         | Da collegare a manuale e slides                                   |
+| Applicazioni Python        | Da strutturare secondo il formato laboratoriale | Cinque applicazioni previste                                      |
+| Notebook/script Python     | Da predisporre per ogni applicazione            | Devono includere parti guidate e parti da completare              |
+| Dati applicativi           | Da definire o simulare                          | Devono essere coerenti con i casi didattici                       |
+| Grafici                    | Da produrre progressivamente                    | Devono essere coerenti con manuale, slides e codice               |
+| Uso dell'IA generativa     | Da regolamentare nei materiali applicativi      | Solo come supporto controllato                                    |
+| Compatibilita' SWP 5.5     | Da verificare                                   | Evitare pacchetti LaTeX moderni non necessari                     |
 
-Ogni volta che una lezione viene sviluppata, occorre aggiornare il master plan o il registro decisionale con:
+Ogni volta che una lezione viene sviluppata, occorre aggiornare il Master Plan o il registro decisionale con:
 
 1. titolo definitivo;
 2. obiettivi didattici;
@@ -363,73 +471,44 @@ Ogni volta che una lezione viene sviluppata, occorre aggiornare il master plan o
 5. esercizi prodotti;
 6. grafici previsti o prodotti;
 7. collegamenti Python;
-8. questioni aperte.
+8. materiali applicativi collegati;
+9. eventuali dataset;
+10. eventuali notebook o script;
+11. questioni aperte.
 
-## 16. Metodo di lavoro nelle future chat ChatGPT
+Per le lezioni applicative, l'aggiornamento deve inoltre indicare:
 
-Per evitare chat eccessivamente lunghe, il progetto deve essere sviluppato in modo modulare.
+1. caso applicativo;
+2. prodotto computazionale finale;
+3. strumenti Python introdotti;
+4. tappe operative in aula;
+5. estensione take-home;
+6. criteri per l'eventuale uso dell'IA generativa.
 
-Questa linea guida deve essere usata come contesto iniziale nelle nuove chat. Ogni nuova chat dovrebbe essere dedicata a un compito specifico, ad esempio:
-
-- Lezione 1 — Manuale;
-- Lezione 1 — Slides;
-- Lezione 1 — Esercizi;
-- Applicazione Python 1;
-- Registro dei grafici;
-- Revisione della notazione;
-- Template del manuale;
-- Template delle slides.
-
-All'inizio di ogni nuova chat, e' consigliabile incollare o allegare:
-
-1. questo file `MQF_Project_Guidelines.md`;
-2. il file `MQF_Master_Plan.tex`, se rilevante;
-3. il file `MQF_Notazione.tex`, se la chat riguarda contenuti matematici;
-4. eventuali file gia' prodotti per la lezione specifica.
-
-La richiesta iniziale nelle nuove chat dovrebbe indicare chiaramente:
-
-1. quale lezione o materiale si intende sviluppare;
-2. se il prodotto richiesto e' manuale, slides, esercizi, codice Python o revisione;
-3. il livello di dettaglio atteso;
-4. eventuali vincoli aggiuntivi.
-
-## 17. Prompt operativo consigliato per nuove chat
-
-Il seguente testo puo' essere usato come prompt iniziale nelle future chat.
-
-```text
-Sto sviluppando il corso universitario "Metodi Quantitativi per la Finanza".
-Il corso e' destinato a studenti del quinto anno di Banca e Risk Management.
-Gli studenti hanno livello medio di metodi quantitativi e statistici, e buon livello di teoria finanziaria.
-Il materiale deve essere in italiano, con registro accademico e tecnico.
-Il manuale e le slides devono essere scritti in LaTeX compatibile con Scientific Workplace 5.5.
-La notazione matematica deve essere coerente con il file MQF_Notazione.tex.
-Il progetto segue le linee guida del file MQF_Project_Guidelines.md e il piano del file MQF_Master_Plan.tex.
-
-In questa chat lavoriamo su:
-[INDICARE QUI: Lezione X / Manuale / Slides / Esercizi / Python / Revisione].
-
-Obiettivo della chat:
-[DESCRIVERE IL RISULTATO ATTESO].
-```
-
-## 18. Criteri di qualita'
-
-Ogni output prodotto nel progetto deve essere verificato rispetto ai seguenti criteri:
-
-1. coerenza con l'architettura generale del corso;
-2. coerenza con la notazione stabilita;
-3. compatibilita' con Scientific Workplace 5.5 quando il materiale e' in LaTeX;
-4. chiarezza della motivazione finanziaria;
-5. correttezza matematica;
-6. presenza di esempi o esercizi adeguati;
-7. uso ragionato dei grafici;
-8. continuita' con le lezioni precedenti e successive;
-9. distinzione chiara tra teoria, applicazione e interpretazione;
-10. utilita' didattica per studenti del quinto anno.
+---
 
 ## 19. Questioni aperte
+
+Le principali questioni ancora aperte sono:
+
+1. definire il titolo definitivo del manuale;
+2. consolidare il template LaTeX del manuale;
+3. consolidare il template LaTeX delle slides;
+4. decidere se le soluzioni complete degli esercizi saranno incluse nel manuale o in un fascicolo separato;
+5. definire il livello di dettaglio delle dimostrazioni;
+6. decidere le librerie Python ammesse nelle applicazioni computazionali;
+7. stabilire una strategia definitiva per la produzione dei grafici;
+8. decidere se il materiale debba includere criteri di valutazione o prove d'esame;
+9. definire il formato standard dei notebook o script applicativi;
+10. definire il formato dei dataset didattici;
+11. stabilire se le applicazioni Python saranno distribuite come `.py`, notebook Jupyter o entrambi;
+12. definire una convenzione per i blocchi di codice da completare in aula;
+13. stabilire regole esplicite per l'uso dell'IA generativa da parte degli studenti;
+14. predisporre prompt standard per debugging, spiegazione del codice e completamento locale di funzioni;
+15. definire il formato delle estensioni take-home;
+16. decidere se le consegne take-home saranno solo formative o anche valutabili;
+17. stabilire una rubrica minima per valutare codice, controlli numerici e interpretazione finanziaria.
+
 
 Le principali questioni ancora aperte sono:
 
