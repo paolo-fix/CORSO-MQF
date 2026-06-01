@@ -232,18 +232,132 @@ Le dimostrazioni devono essere selettive. Devono essere incluse quando rafforzan
 
 ---
 
-## 10. Slides delle lezioni
+## 10. Linee guida operative per la produzione delle slide MQF in LaTeX/SW5.5
+
+Le slide del corso MQF devono essere prodotte in **LaTeX Beamer compatibile con Scientific WorkPlace 5.5**, riutilizzando il preambolo ufficiale già adottato nelle lezioni precedenti. In particolare, vanno mantenuti la classe `beamer`, il tema `Madrid`, le macro matematiche ufficiali del progetto e la struttura dei frame compatibile con SW5.5.
+
+### 1. Struttura tecnica di ogni slide
+
+Ogni slide deve rispettare la struttura standard seguente:
+
+```latex
+\subsection{Titolo della sottosezione}
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Titolo della slide}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Contenuto della slide
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+%*********************************************
+```
+
+La struttura va mantenuta anche quando il contenuto della slide è breve. Il codice deve essere direttamente integrabile nel file `.tex` della lezione.
+
+### 2. Uso del preambolo
+
+Il preambolo delle lezioni precedenti viene riutilizzato. Non è quindi necessario rigenerarlo a ogni slide, salvo richiesta esplicita. Le nuove slide devono assumere disponibili le macro ufficiali, fra cui:
+
+```latex
+\R, \N, \E, \Prob, \Q, \F, \B, \G,
+\Var, \Cov, \VaR, \CVaR
+```
+
+Le formule devono usare queste macro in modo coerente con la notazione del progetto MQF.
+
+### 3. Enumerazioni e liste
+
+Per le enumerazioni progressive si usa `stepenumerate`, con numerazione esplicita nella forma:
+
+```latex
+\begin{stepenumerate}
+\item [1.] Primo punto.
+
+\item [2.] Secondo punto.
+
+\item [3.] Terzo punto.
+\end{stepenumerate}
+```
+
+Per liste non numerate si usa `stepitemize`. Le liste devono rimanere sintetiche: ogni punto deve contenere un’unità concettuale chiara, evitando testi eccessivamente lunghi.
+
+### 4. Enfasi tipografica
+
+Le parole chiave della slide possono essere evidenziate con `\textbf{...}`, ma con parsimonia. Il grassetto va riservato a concetti strutturali, come:
+
+```latex
+\textbf{evento condizionante}, \textbf{distribuzione condizionata},
+\textbf{sigma-algebra informativa}, \textbf{regole operative}.
+```
+
+Non si devono enfatizzare intere frasi, né sovraccaricare la slide con troppi termini in grassetto.
+
+### 5. Commento finale della slide
+
+Un commento conclusivo in fondo alla slide va inserito solo quando soddisfa entrambe le condizioni seguenti:
+
+1. aggiunge un contenuto logico rilevante;
+2. vi è sufficiente spazio nella slide.
+
+Non va inserita una frase conclusiva puramente ornamentale o ridondante. Quando presente, il commento deve aiutare a chiarire il passaggio concettuale della slide o il collegamento con la slide successiva.
+
+### 6. Stile didattico
+
+Le slide non devono comprimere meccanicamente il manuale. Devono funzionare come supporto alla lezione in aula. La struttura di una lezione deve quindi alternare:
+
+* motivazione finanziaria;
+* concetti matematici essenziali;
+* formule operative;
+* esempi guidati;
+* interpretazioni economico-finanziarie;
+* eventuali figure;
+* esercizi in aula;
+* sintesi dei passaggi principali.
+
+Ogni slide deve avere un obiettivo didattico riconoscibile. È preferibile una sequenza di slide più leggibile a una singola slide eccessivamente densa.
+
+### 7. Formule matematiche
+
+Nel codice `.tex` delle slide si usa naturalmente il codice LaTeX. Nella chat di lavoro, invece, le formule matematiche vanno rese con la normale renderizzazione matematica in riga, salvo quando si sta producendo direttamente codice sorgente.
+
+Nel sorgente delle slide le formule devono essere brevi e centrali rispetto al messaggio della slide. Le formule lunghe o tecniche vanno preferibilmente isolate in display math.
+
+### 8. Durata della lezione
+
+Anche per le lezioni prevalentemente teoriche di tipo P, la durata effettiva al netto del break è assunta pari a **2 ore**, cioè circa **120 minuti**. La progettazione delle slide deve quindi essere calibrata su tale durata, prevedendo un equilibrio fra esposizione teorica, esempi e almeno due momenti applicativi o esercizi in aula.
+
+### 9. Coerenza con Master Plan, Manuale e Guidelines
+
+La costruzione delle slide deve sempre partire dalla lettura aggiornata di:
+
+* Master Plan;
+* Guidelines;
+* Notazione ufficiale;
+* capitolo corrispondente del Manuale;
+* eventuali figure e materiali collegati.
+
+La memoria delle conversazioni precedenti può servire solo da orientamento generale, ma non deve sostituire la lettura diretta dei file aggiornati quando si pianifica o si genera una nuova lezione.
+
+
+
+## 11. Slides delle lezioni computazionali, tipo C
 
 Le slides devono essere uno strumento di lezione, non una versione compressa del manuale.
-
-Per ogni lezione teorica, la struttura orientativa e':
-
-1. motivazione e obiettivi;
-2. concetti teorici essenziali;
-3. esempi numerici guidati;
-4. grafici esplicativi;
-5. esercizi da svolgere in aula;
-6. sintesi conclusiva.
 
 Per ogni lezione applicativa Python, la struttura delle slides deve essere coerente con lo svolgimento in laboratorio informatico. Le slides devono guidare l'alternanza tra spiegazione, sviluppo del codice, lavoro autonomo degli studenti e discussione collettiva.
 
@@ -307,7 +421,7 @@ Quando si prevede l'uso di strumenti di intelligenza artificiale generativa, l'e
 
 ---
 
-## 14. Applicazioni Python e lezioni applicative
+## 13. Applicazioni Python e lezioni applicative
 
 Sono previste cinque applicazioni Python, corrispondenti alle lezioni applicative del corso.
 
