@@ -64,7 +64,7 @@ output_dir.mkdir(parents=True, exist_ok=True)
 x_values = [-0.04, 0.01, 0.06]
 p_values = [0.25, 0.50, 0.25]
 
-output_name = "cap2_cdf_rendimento_discreto"
+output_name = "Cap02_cdf_rendimento_discreto"
 
 
 # ------------------------------------------------------------

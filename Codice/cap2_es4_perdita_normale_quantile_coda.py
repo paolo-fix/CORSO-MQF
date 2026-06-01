@@ -64,7 +64,7 @@ output_dir = Path(
 )
 output_dir.mkdir(parents=True, exist_ok=True)
 
-output_name = "cap2_es4_perdita_normale_quantile_coda"
+output_name = "Cap02_es4_perdita_normale_quantile_coda"
 
 
 # ------------------------------------------------------------

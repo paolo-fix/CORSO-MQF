@@ -69,7 +69,7 @@ output_dir.mkdir(parents=True, exist_ok=True)
 # Nome base dei file di output
 # ------------------------------------------------------------
 
-output_name = "cap2_densita_uniforme_rendimento_area_01_05"
+output_name = "Cap02_densita_uniforme_rendimento_area_01_05"
 
 
 # ------------------------------------------------------------

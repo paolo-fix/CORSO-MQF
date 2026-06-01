@@ -60,7 +60,7 @@ output_dir.mkdir(parents=True, exist_ok=True)
 # Nome dei file di output
 # ------------------------------------------------------------
 
-output_name = "cap2_probabilita_area_sotto_densita"
+output_name = "Cap02_probabilita_area_sotto_densita"
 
 
 # ------------------------------------------------------------

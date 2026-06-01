@@ -40,7 +40,7 @@ output_dir = Path(
 output_dir.mkdir(parents=True, exist_ok=True)
 
 
-output_name = "cap2_es3_densita_cdf_affiancati"
+output_name = "Cap02_es3_densita_cdf_affiancati"
 
 
 # ------------------------------------------------------------

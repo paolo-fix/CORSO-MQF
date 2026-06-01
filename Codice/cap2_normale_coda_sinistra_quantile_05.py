@@ -67,7 +67,7 @@ output_dir.mkdir(parents=True, exist_ok=True)
 # Nome base dei file di output
 # ------------------------------------------------------------
 
-output_name = "cap2_normale_coda_sinistra_quantile_05"
+output_name = "Cap02_normale_coda_sinistra_quantile_05"
 
 
 # ------------------------------------------------------------

@@ -42,7 +42,7 @@ output_dir.mkdir(parents=True, exist_ok=True)
 # Nome base dei file prodotti
 # ------------------------------------------------------------
 
-output_name = "cap2_funzione_shortfall_zero"
+output_name = "Cap02_funzione_shortfall_zero"
 
 
 # ------------------------------------------------------------
