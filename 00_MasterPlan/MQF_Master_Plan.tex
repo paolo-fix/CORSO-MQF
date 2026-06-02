@@ -403,10 +403,15 @@ Occorre distinguere tra testo esplicativo prodotto nella chat e codice
 \LaTeX{} destinato ai file sorgenti del progetto.
 
 Nel testo ordinario della chat, le espressioni matematiche devono essere
-scritte usando la sintassi di renderizzazione standard della pagina web:
+scritte usando la sintassi di renderizzazione standard distinguendo ambiente ChatGPT e Claude.ai. 
+Per le pagina web ChatGPT:
 \verb|\(...\)| per le formule in linea e \verb|\[...\]| per le formule in
 blocco. In questo modo le espressioni matematiche vengono visualizzate
 correttamente nella conversazione.
+
+Per le pagine web Claude.ai:
+\verb|$...$| per le formule in linea e \verb|\[...\]| per le formule in
+blocco.
 
 Nei blocchi di codice \LaTeX{} destinati a essere copiati nei file sorgenti
 del manuale o delle slides, le formule in linea devono invece essere scritte
@@ -523,6 +528,60 @@ t=0,1,\ldots,T.
 
 \textbf{Legenda:} P = lezione prevalentemente teorica; C = lezione con forte
 componente computazionale o applicativa.
+
+\section{Risorse bibliografiche del corso}
+
+I materiali didattici del corso si basano sui seguenti testi di riferimento.
+Per ciascun testo \`{e} indicato il peso relativo attribuito nella redazione
+del manuale.
+
+\begin{enumerate}
+
+\item \textbf{Ross, S.M.} \textit{Introduction to Probability Models},
+10a~edizione, Elsevier, 2011. \textbf{Peso alto.}
+Riferimento principale per la trattazione dei processi stocastici in tempo
+discreto e continuo, accessibile a studenti non matematici. Utilizzato in
+particolare per processi di Poisson, catene di Markov, moto browniano e
+simulazione.
+
+\item \textbf{Shreve, S.E.} \textit{Stochastic Calculus for Finance~I:
+The Binomial Asset Pricing Model}, Springer, 2004. \textbf{Peso alto.}
+Riferimento principale per il modello binomiale, le filtrazioni in tempo
+discreto e la valutazione risk-neutral.
+
+\item \textbf{Shreve, S.E.} \textit{Stochastic Calculus for Finance~II:
+Continuous-Time Models}, Springer, 2004. \textbf{Peso medio-alto.}
+Riferimento per il moto browniano, le SDE e il collegamento con il modello
+continuo di Black--Scholes.
+
+\item \textbf{Bj\"{o}rk, T.} \textit{Arbitrage Theory in Continuous Time},
+Oxford University Press, 3a~edizione. \textbf{Peso medio.}
+Utilizzato per il raccordo tra processi continui e pricing di derivati,
+con taglio accessibile per studenti di economia.
+
+\item \textbf{\O ksendal, B.} \textit{Stochastic Differential Equations:
+An Introduction with Applications}, Springer, 6a~edizione.
+\textbf{Peso medio.}
+Riferimento per le equazioni differenziali stocastiche e il calcolo di
+It\^{o}, consultato per la trattazione del tempo continuo.
+
+\item \textbf{Hull, J.C.} \textit{Options, Futures, and Other Derivatives},
+Pearson, 11a~edizione. \textbf{Peso medio.}
+Utilizzato per le applicazioni finanziarie, l'intuizione sui parametri
+$\mu$, $\sigma$, $r$ e gli esempi di pricing.
+
+\item \textbf{McNeil, A.J., Frey, R., Embrechts, P.}
+\textit{Quantitative Risk Management: Concepts, Techniques and Tools},
+Princeton University Press, 2a~edizione. \textbf{Peso medio.}
+Riferimento per le misure di rischio, VaR, CVaR e la gestione quantitativa
+del rischio.
+
+\item \textbf{Glasserman, P.} \textit{Monte Carlo Methods in Financial
+Engineering}, Springer, 2003. \textbf{Peso medio.}
+Riferimento per la simulazione, il metodo di Euler--Maruyama e la stima
+Monte Carlo di quantit\`{a} finanziarie.
+
+\end{enumerate}
 
 \subsection{Impostazione generale delle lezioni applicative}
 
@@ -757,27 +816,52 @@ predisposta; dimostrazioni essenziali da definire.
 
 \subsection{Lezione 4 -- Processi stocastici, traiettorie e scenari}
 
-\textbf{Tipo:} P.\newline\textbf{Domanda guida:} come si rappresenta
-l'evoluzione temporale di prezzi, rendimenti o fattori di rischio?\newline%
-\textbf{Prerequisiti:} Lezioni 1--3.\newline\textbf{Obiettivi didattici:}
-introdurre processi stocastici in tempo discreto; distinguere traiettorie,
-stati e scenari; collegare simulazione e rappresentazione
-dell'incertezza.\newline\textbf{Notazione introdotta:} $\{X_{t}\}_{t=0}^{T}$,
+\textbf{Tipo:} P.\newline
+\textbf{Domanda guida:} come si rappresenta l'evoluzione temporale di prezzi,
+rendimenti o fattori di rischio, e come si fa il salto da una rappresentazione
+matematica a scenari concreti usabili in finanza?\newline
+\textbf{Prerequisiti:} Lezioni 1--3.\newline
+\textbf{Obiettivi didattici:} introdurre i processi stocastici in tempo
+discreto e in tempo continuo; illustrare i principali esempi di entrambe le
+famiglie con motivazione finanziaria; distinguere traiettorie, stati e scenari;
+collegare simulazione e rappresentazione dell'incertezza; chiarire che i
+capitoli successivi opereranno prevalentemente in tempo discreto.\newline
+\textbf{Notazione introdotta:} $\{X_{t}\}_{t=0}^{T}$,
 $\{S_{t}\}_{t=0}^{T}$, $\{\F_t\}_{t=0}^{T}$, traiettorie
-$X_0(\omega),\ldots,X_T(\omega)$, scenari discreti $s\in\mathcal S$ e dati
-di scenario $\xi_s$.\newline%
+$X_0(\omega),\ldots,X_T(\omega)$, scenari discreti $s\in\mathcal{S}$
+e dati di scenario $\xi_s$; per il tempo continuo: $\{W_t\}_{t\geq 0}$
+(moto browniano standard), $\{S_t\}_{t\geq 0}$ (moto browniano geometrico),
+parametri $\mu$ (drift) e $\sigma$ (volatilit\`{a} diffusiva), rendimento
+logaritmico $r_t=\log(S_t/S_{t-1})$.\newline
 \textbf{Formule principali:}
 \[
-X_{t}:\Omega\rightarrow\mathbb{R}, \qquad\{X_{t}\}_{t=0}^{T}, \qquad X_{t} \;
-\hbox{\`{e} } \mathcal{F}_{t}\hbox{-misurabile}.
+X_{t}:\Omega\rightarrow\mathbb{R}, \qquad\{X_{t}\}_{t=0}^{T}, \qquad
+X_{t} \;\hbox{\`{e} }\mathcal{F}_{t}\hbox{-misurabile}.
+\]
+\[
+W_t - W_s \sim \mathcal{N}(0,\,t-s), \qquad 0\leq s < t.
+\]
+\[
+S_t = S_0\exp\!\left(\mu t + \sigma W_t\right).
 \]
 \textbf{Esercizi previsti:} costruzione di traiettorie discrete; calcolo di
 medie e varianze per stati temporali; identificazione dell'informazione
-disponibile.\newline\textbf{Grafici previsti:} traiettorie simulate; ventaglio
-di scenari; albero degli scenari.\newline\textbf{Applicazioni Python
-collegate:} Lezione 5; Lezioni 8, 10 e 16.\newline\textbf{Stato di
-avanzamento:} bozza progettuale predisposta; scelta dei processi
-esemplificativi da completare.
+disponibile; calcolo di momenti del moto browniano; collegamento
+discreto--continuo tramite calibrazione del modello binomiale.\newline
+\textbf{Grafici previsti:} albero binomiale con filtrazione; traiettorie
+simulate del moto browniano con banda $\pm\sqrt{t}$; confronto traiettorie
+continue e con salti; traiettorie del moto browniano geometrico per diversi
+valori di $\mu$; convergenza del modello binomiale al moto browniano
+geometrico.\newline
+\textbf{Risorse bibliografiche principali:} Ross,
+\textit{Introduction to Probability Models} (10a~ed., Elsevier, 2011),
+cap.~6 e~10; Shreve, \textit{Stochastic Calculus for Finance~I}
+(Springer, 2004), cap.~1--3; Shreve,
+\textit{Stochastic Calculus for Finance~II} (Springer, 2004),
+cap.~3--4; Bj\"{o}rk, \textit{Arbitrage Theory in Continuous Time}
+(Oxford, 3a~ed.), cap.~2--4.\newline
+\textbf{Applicazioni Python collegate:} Lezione~5; Lezioni~8, 10 e~16.\newline
+\textbf{Stato di avanzamento:} struttura rivista; testo in preparazione.
 
 \subsection{Lezione 5 -- Applicazioni Python a processi stocastici e valori
 attesi condizionati}

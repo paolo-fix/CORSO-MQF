@@ -70,6 +70,22 @@ Soluzione ottima & $x^*$ & Vettore ottimo delle variabili decisionali.\\
 \hline
 \end{longtable}
 
+La funzione indicatrice dell'evento $A$ \`{e} indicata con
+\[
+\1_A,
+\]
+definita da
+\[
+\1_A(\omega)=
+\begin{cases}
+1 & \text{se }\omega\in A,\\
+0 & \text{se }\omega\notin A.
+\end{cases}
+\]
+Nel codice sorgente del progetto il comando \verb|\1| \`{e} definito come
+\verb|\mathbf{1}|. Questa notazione \`{e} preferita a $\mathbb{I_A}$ e a
+$\chi_A$ per uniformit\`{a} con i testi di riferimento principali del corso.
+
 Per i vettori si usa, quando necessario, la notazione trasposta $x'$. Ad esempio, il prodotto scalare tra $c$ e $x$ pu\`{o} essere scritto come
 \[
  c'x.
@@ -287,6 +303,56 @@ Una traiettoria campionaria \`{e} la sequenza
 \]
 associata a uno specifico esito $\omega\in\Omega$.
 
+\section{Processi stocastici in tempo continuo}
+
+Il corso introduce i processi in tempo continuo a scopo motivazionale e
+concettuale, mantenendo il baricentro applicativo sul tempo discreto.
+I simboli di questa sezione vengono utilizzati principalmente nel Capitolo~4
+e nei riferimenti ai modelli di pricing del Capitolo~9.
+
+\begin{longtable}{>{\raggedright}p{3.4cm}>{\raggedright}p{4.4cm}>{\raggedright\arraybackslash}p{6.6cm}}
+\hline
+\textbf{Concetto} & \textbf{Notazione} & \textbf{Significato}\\
+\hline
+Moto browniano standard & $\{W_t\}_{t\geq 0}$ &
+Processo con $W_0=0$, incrementi indipendenti e stazionari,
+$W_t-W_s\sim\mathcal{N}(0,t-s)$.\\
+Incremento browniano & $dW_t$ &
+Incremento infinitesimo del moto browniano, usato nelle SDE.\\
+Moto browniano geometrico & $\{S_t\}_{t\geq 0}$ &
+Processo di prezzo con $S_t=S_0\exp(\mu t+\sigma W_t)$.\\
+Drift & $\mu$ &
+Parametro di tendenza media in un processo diffusivo.\\
+Volatilit\`{a} diffusiva & $\sigma$ &
+Parametro di dispersione in un processo diffusivo; $\sigma>0$.\\
+Equazione differenziale stocastica & $dX_t=a(X_t,t)\,dt+b(X_t,t)\,dW_t$ &
+Forma generale di una SDE con drift $a$ e coefficiente di
+diffusione $b$.\\
+\hline
+\end{longtable}
+
+Le propriet\`{a} fondamentali del moto browniano standard sono:
+\[
+W_0=0 \quad \text{q.c.},
+\]
+\[
+W_t-W_s\sim\mathcal{N}(0,\,t-s), \qquad 0\leq s<t,
+\]
+\[
+\mathbb{E}[W_t]=0, \qquad \Var(W_t)=t, \qquad
+\Cov(W_s,W_t)=\min(s,t).
+\]
+Il moto browniano geometrico \`{e} definito da
+\[
+S_t=S_0\exp\!\left(\mu t+\sigma W_t\right),
+\]
+con
+\[
+\mathbb{E}[S_t]=S_0 e^{\mu t},
+\qquad
+\Var(S_t)=S_0^2 e^{2\mu t}\left(e^{\sigma^2 t}-1\right).
+\]
+
 \section{Scenari}
 
 Nei modelli discreti di decisione sotto incertezza, l'insieme degli scenari \`{e} indicato con
@@ -365,6 +431,20 @@ Il prezzo di un'attivit\`{a} finanziaria al tempo $t$ \`{e} indicato con $S_t$. 
 \[
  R_{t+1}=\frac{S_{t+1}-S_t}{S_t}.
 \]
+
+Il rendimento logaritmico su un periodo \`{e} indicato con
+\[
+r_t=\log\!\left(\frac{S_t}{S_{t-1}}\right).
+\]
+Per il moto browniano geometrico, il rendimento logaritmico cumulato
+dall'origine al tempo $t$ \`{e}
+\[
+\log\!\left(\frac{S_t}{S_0}\right)=\mu t+\sigma W_t
+\sim\mathcal{N}(\mu t,\,\sigma^2 t).
+\]
+I simboli $R_{t+1}$ e $r_t$ indicano oggetti distinti e non devono essere
+usati in modo intercambiabile nella stessa lezione.
+
 Quando si lavora con perdite, la variabile casuale di perdita \`{e} indicata con
 \[
  L.
