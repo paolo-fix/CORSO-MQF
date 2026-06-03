@@ -31,16 +31,16 @@
 
 \section{Obiettivi della lezione}
 
-Il capitolo introduce il valore atteso condizionato come strumento per rappresentare in modo quantitativo il ruolo dell'informazione. Nei capitoli precedenti una variabile casuale $X$ è stata studiata rispetto alla distribuzione di probabilità assegnata sullo spazio campionario. In molte applicazioni finanziarie e decisionali, tuttavia, la valutazione di un payoff, di una perdita o di un rendimento cambia quando diventa disponibile nuova informazione.
+Il capitolo introduce il valore atteso condizionato come strumento per rappresentare in modo quantitativo il ruolo dell'informazione. Nei capitoli precedenti una variabile casuale $X$ \`{e} stata studiata rispetto alla distribuzione di probabilit\`{a} assegnata sullo spazio campionario. In molte applicazioni finanziarie e decisionali, tuttavia, la valutazione di un payoff, di una perdita o di un rendimento cambia quando diventa disponibile nuova informazione.
 
-La domanda centrale del capitolo è la seguente: come cambia la valutazione media di una variabile casuale quando non si considera più l'intero spazio degli scenari, ma solo l'informazione effettivamente osservata?
+La domanda centrale del capitolo \`{e} la seguente: come cambia la valutazione media di una variabile casuale quando non si considera pi\`{u} l'intero spazio degli scenari, ma solo l'informazione effettivamente osservata?
 
-L'obiettivo non è soltanto introdurre una nuova formula, ma chiarire che il valore atteso condizionato è una valutazione coerente con il livello informativo disponibile. Il condizionamento su un evento produce un numero, mentre il condizionamento rispetto a una sigma-algebra produce una variabile casuale, cioè una valutazione che dipende dall'informazione osservata.
+L'obiettivo non \`{e} soltanto introdurre una nuova formula, ma chiarire che il valore atteso condizionato \`{e} una valutazione coerente con il livello informativo disponibile. Il condizionamento su un evento produce un numero, mentre il condizionamento rispetto a una sigma-algebra produce una variabile casuale, cioè una valutazione che dipende dall'informazione osservata.
 
-Al termine della lezione lo studente dovrà essere in grado di:
+Al termine della lezione lo studente dovr\`{a} essere in grado di:
 
 \begin{enumerate}
-    \item richiamare la nozione di probabilità condizionata e collegarla alla distribuzione condizionata di una variabile casuale discreta;
+    \item richiamare la nozione di probabilit\`{a} condizionata e collegarla alla distribuzione condizionata di una variabile casuale discreta;
 
     \item definire il valore atteso condizionato rispetto a un evento $A$, interpretando $ \mathbb{E}[X\mid A] $ come media calcolata sotto l'informazione che $A$ si sia verificato;
 
@@ -50,24 +50,24 @@ Al termine della lezione lo studente dovrà essere in grado di:
 
     \item costruire il valore atteso condizionato rispetto a una sigma-algebra $ \mathcal{G} $, riconoscendo $ \mathbb{E}[X\mid\mathcal{G}] $ come una variabile casuale costante sui blocchi informativi generati da $ \mathcal{G} $;
 
-    \item applicare le principali proprietà del valore atteso condizionato, con particolare attenzione alla linearità, alla coerenza con il valore atteso non condizionato e alla proprietà della torre;
+    \item applicare le principali propriet\`{a} del valore atteso condizionato, con particolare attenzione alla linearit\`{a}, alla coerenza con il valore atteso non condizionato e alla propriet\`{a} della torre;
 
     \item interpretare $ \mathbb{E}[H\mid\mathcal{F}_t] $ come valutazione al tempo $t$ di un payoff terminale $H$, basata sull'informazione disponibile in quel momento;
 
     \item applicare il formalismo a semplici problemi finanziari, quali la valutazione condizionata di un payoff, la perdita attesa in uno scenario di stress e l'aggiornamento di una previsione dopo l'arrivo di un segnale informativo.
 \end{enumerate}
 
-Il capitolo prepara inoltre il passaggio allo studio dei processi stocastici in tempo discreto. La rappresentazione dell'informazione mediante una famiglia crescente di sigma-algebre consentirà, nei capitoli successivi, di formalizzare valutazioni dinamiche, strategie adattate all'informazione disponibile e modelli elementari di pricing.
+Il capitolo prepara inoltre il passaggio allo studio dei processi stocastici in tempo discreto. La rappresentazione dell'informazione mediante una famiglia crescente di sigma-algebre consentir\`{a}, nei capitoli successivi, di formalizzare valutazioni dinamiche, strategie adattate all'informazione disponibile e modelli elementari di pricing.
 
 \section{Motivazione finanziaria: valutare un payoff con informazione incompleta}
 
 In finanza quantitativa molte decisioni devono essere prese prima che lo stato futuro dell'economia sia noto. Un investitore osserva prezzi correnti, dati macroeconomici, segnali di mercato e informazioni societarie, ma non conosce ancora il valore futuro di un titolo, il rendimento di un portafoglio o il payoff finale di un contratto. La valutazione deve quindi essere formulata in condizioni di informazione incompleta.
 
-Sia $H$ un payoff terminale. Prima dell'arrivo di nuova informazione, la sua valutazione media è rappresentata dal valore atteso non condizionato $ \mathbb{E}[H] $. Questa quantità sintetizza il payoff medio considerando tutti gli scenari possibili, ponderati con le rispettive probabilità.
+Sia $H$ un payoff terminale. Prima dell'arrivo di nuova informazione, la sua valutazione media \`{e} rappresentata dal valore atteso non condizionato $ \mathbb{E}[H] $. Questa quantit\`{a} sintetizza il payoff medio considerando tutti gli scenari possibili, ponderati con le rispettive probabilit\`{a}.
 
-Tuttavia, quando diventa disponibile un'informazione parziale, la valutazione cambia. Se, per esempio, si osserva che si è verificato un evento informativo $A$, non è più appropriato valutare $H$ sull'intero spazio degli scenari. Occorre invece considerare la distribuzione di $H$ condizionata al verificarsi di $A$. La grandezza rilevante diventa quindi $ \mathbb{E}[H\mid A] $.
+Tuttavia, quando diventa disponibile un'informazione parziale, la valutazione cambia. Se, per esempio, si osserva che si \`{e} verificato un evento informativo $A$, non \`{e} pi\`{u} appropriato valutare $H$ sull'intero spazio degli scenari. Occorre invece considerare la distribuzione di $H$ condizionata al verificarsi di $A$. La grandezza rilevante diventa quindi $ \mathbb{E}[H\mid A] $.
 
-Il passaggio da $ \mathbb{E}[H] $ a $ \mathbb{E}[H\mid A] $ non consiste soltanto nel restringere l'attenzione agli scenari compatibili con $A$. Consiste anche nel modificare i pesi probabilistici assegnati a tali scenari. Dopo l'osservazione di $A$, le probabilità originarie vengono sostituite dalle probabilità condizionate.
+Il passaggio da $ \mathbb{E}[H] $ a $ \mathbb{E}[H\mid A] $ non consiste soltanto nel restringere l'attenzione agli scenari compatibili con $A$. Consiste anche nel modificare i pesi probabilistici assegnati a tali scenari. Dopo l'osservazione di $A$, le probabilit\`{a} originarie vengono sostituite dalle probabilit\`{a} condizionate.
 
 Nel caso discreto, se $\omega\in A$, il peso rilevante dello scenario $\omega$ diventa:
 \[
@@ -76,9 +76,9 @@ Nel caso discreto, se $\omega\in A$, il peso rilevante dello scenario $\omega$ d
 \frac{\mathbb{P}(\omega)}{\mathbb{P}(A)}.
 \]
 
-Gli scenari che non appartengono ad $A$ ricevono probabilità condizionata nulla. Il valore atteso condizionato è quindi una media calcolata con questi nuovi pesi probabilistici.
+Gli scenari che non appartengono ad $A$ ricevono probabilit\`{a} condizionata nulla. Il valore atteso condizionato \`{e} quindi una media calcolata con questi nuovi pesi probabilistici.
 
-L'informazione non modifica il payoff $H$. Modifica, piuttosto, l'insieme degli scenari che vengono considerati rilevanti per la valutazione e le probabilità con cui tali scenari vengono ponderati. Il valore atteso condizionato formalizza esattamente questo aggiornamento.
+L'informazione non modifica il payoff $H$. Modifica, piuttosto, l'insieme degli scenari che vengono considerati rilevanti per la valutazione e le probabilit\`{a} con cui tali scenari vengono ponderati. Il valore atteso condizionato formalizza esattamente questo aggiornamento.
 
 \medskip
 
@@ -97,7 +97,7 @@ Si consideri un payoff terminale $H$ associato a quattro scenari macro-finanziar
 \end{array}
 \]
 
-Il valore atteso non condizionato è:
+Il valore atteso non condizionato \`{e}:
 
 \[
 \mathbb{E}[H]
@@ -119,13 +119,13 @@ Supponiamo ora che, prima della scadenza, venga osservato un segnale macroeconom
 A=\{\omega_1,\omega_2\}.
 \]
 
-La probabilità dell'evento è:
+La probabilit\`{a} dell'evento \`{e}:
 
 \[
 \mathbb{P}(A)=0.25+0.35=0.60.
 \]
 
-Le probabilità condizionate degli scenari compatibili con il segnale favorevole sono quindi:
+Le probabilit\`{a} condizionate degli scenari compatibili con il segnale favorevole sono quindi:
 
 \[
 \mathbb{P}(\omega_1\mid A)
@@ -141,9 +141,9 @@ Le probabilità condizionate degli scenari compatibili con il segnale favorevole
 0.5833.
 \]
 
-Gli scenari $\omega_3$ e $\omega_4$ non sono compatibili con il segnale favorevole e hanno probabilità condizionata nulla dato $A$.
+Gli scenari $\omega_3$ e $\omega_4$ non sono compatibili con il segnale favorevole e hanno probabilit\`{a} condizionata nulla dato $A$.
 
-Il payoff medio condizionato al segnale favorevole può allora essere calcolato come media dei payoff negli scenari compatibili con $A$, pesati con le probabilità condizionate:
+Il payoff medio condizionato al segnale favorevole pu\`{o} allora essere calcolato come media dei payoff negli scenari compatibili con $A$, pesati con le probabilit\`{a} condizionate:
 
 \[
 \mathbb{E}[H\mid A]
@@ -172,13 +172,13 @@ Analogamente, se il segnale osservato fosse sfavorevole, l'evento informativo sa
 \[
 A^c=\{\omega_3,\omega_4\}.
 \]
-La probabilità dell'evento sfavorevole è:
+La probabilit\`{a} dell'evento sfavorevole \`{e}:
 
 \[
 \mathbb{P}(A^c)=0.25+0.15=0.40.
 \]
 
-Le probabilità condizionate degli scenari compatibili con $A^c$ sono:
+Le probabilit\`{a} condizionate degli scenari compatibili con $A^c$ sono:
 
 \[
 \mathbb{P}(\omega_3\mid A^c)
@@ -194,7 +194,7 @@ Le probabilità condizionate degli scenari compatibili con $A^c$ sono:
 0.375.
 \]
 
-In questo caso il payoff medio condizionato è:
+In questo caso il payoff medio condizionato \`{e}:
 
 \[
 \mathbb{E}[H\mid A^c]
@@ -216,11 +216,11 @@ In forma equivalente:
 78.75.
 \]
 
-Il confronto tra $ \mathbb{E}[H] $, $ \mathbb{E}[H\mid A] $ e $ \mathbb{E}[H\mid A^c] $ mostra il ruolo essenziale dell'informazione. La stessa variabile casuale $H$ può avere valutazioni medie diverse a seconda del contenuto informativo disponibile.
+Il confronto tra $ \mathbb{E}[H] $, $ \mathbb{E}[H\mid A] $ e $ \mathbb{E}[H\mid A^c] $ mostra il ruolo essenziale dell'informazione. La stessa variabile casuale $H$ pu\`{o} avere valutazioni medie diverse a seconda del contenuto informativo disponibile.
 
 \medskip
 
-La relazione tra valutazione non condizionata e valutazioni condizionate è:
+La relazione tra valutazione non condizionata e valutazioni condizionate \`{e}:
 
 \[
 \mathbb{E}[H]
@@ -240,7 +240,7 @@ Nel caso numerico:
 78.75\cdot 0.40.
 \]
 
-Questa identità evidenzia un punto fondamentale: prima di osservare il segnale, il valore atteso non condizionato è una media ponderata delle valutazioni che si otterrebbero nei diversi casi informativi. Dopo l'osservazione del segnale, invece, la valutazione diventa quella corrispondente all'informazione effettivamente ricevuta.
+Questa identit\`{a} evidenzia un punto fondamentale: prima di osservare il segnale, il valore atteso non condizionato \`{e} una media ponderata delle valutazioni che si otterrebbero nei diversi casi informativi. Dopo l'osservazione del segnale, invece, la valutazione diventa quella corrispondente all'informazione effettivamente ricevuta.
 
 Il linguaggio del valore atteso condizionato consente quindi di distinguere tre livelli:
 
@@ -249,18 +249,18 @@ Il linguaggio del valore atteso condizionato consente quindi di distinguere tre 
 
     \item la valutazione dopo l'osservazione di un evento informativo specifico, rappresentata da $ \mathbb{E}[H\mid A] $;
 
-    \item la valutazione come funzione dell'informazione che sarà osservata, rappresentata più in generale da $ \mathbb{E}[H\mid \mathcal{G}] $.
+    \item la valutazione come funzione dell'informazione che sar\`{a} osservata, rappresentata pi\`{u} in generale da $ \mathbb{E}[H\mid \mathcal{G}] $.
 \end{enumerate}
 
-L'ultimo punto è concettualmente il più importante. Quando l'informazione disponibile è descritta da una sigma-algebra $ \mathcal{G} $, il valore atteso condizionato $ \mathbb{E}[H\mid \mathcal{G}] $ non è più un singolo numero. Esso è una variabile casuale: assume valori diversi a seconda dell'informazione che viene effettivamente osservata.
+L'ultimo punto \`{e} concettualmente il pi\`{u} importante. Quando l'informazione disponibile \`{e} descritta da una sigma-algebra $ \mathcal{G} $, il valore atteso condizionato $ \mathbb{E}[H\mid \mathcal{G}] $ non \`{e} pi\`{u} un singolo numero. Esso \`{e} una variabile casuale: assume valori diversi a seconda dell'informazione che viene effettivamente osservata.
 
-Questa impostazione è alla base della valutazione dinamica in finanza. Se $ \mathcal{F}_t $ rappresenta l'informazione disponibile al tempo $t$, allora $ \mathbb{E}[H\mid \mathcal{F}_t] $ rappresenta la valutazione del payoff terminale $H$ formulata al tempo $t$, sulla base dell'informazione osservabile in quel momento. Nei capitoli successivi questa idea diventerà essenziale per descrivere processi stocastici, strategie adattate all'informazione disponibile e modelli dinamici di pricing.
+Questa impostazione \`{e} alla base della valutazione dinamica in finanza. Se $ \mathcal{F}_t $ rappresenta l'informazione disponibile al tempo $t$, allora $ \mathbb{E}[H\mid \mathcal{F}_t] $ rappresenta la valutazione del payoff terminale $H$ formulata al tempo $t$, sulla base dell'informazione osservabile in quel momento. Nei capitoli successivi questa idea diventer\`{a} essenziale per descrivere processi stocastici, strategie adattate all'informazione disponibile e modelli dinamici di pricing.
 
-\section{Richiamo: probabilità condizionata e distribuzione condizionata}
+\section{Richiamo: probabilit\`{a} condizionata e distribuzione condizionata}
 
-Prima di definire formalmente il valore atteso condizionato, è utile richiamare la nozione di probabilità condizionata. Il punto essenziale è che l'osservazione di un evento informativo modifica lo spazio degli scenari rilevanti e, di conseguenza, modifica anche i pesi probabilistici attribuiti agli eventi e ai valori assunti da una variabile casuale.
+Prima di definire formalmente il valore atteso condizionato, \`{e} utile richiamare la nozione di probabilit\`{a} condizionata. Il punto essenziale \`{e} che l'osservazione di un evento informativo modifica lo spazio degli scenari rilevanti e, di conseguenza, modifica anche i pesi probabilistici attribuiti agli eventi e ai valori assunti da una variabile casuale.
 
-Siano $A$ e $B$ due eventi appartenenti a $\mathcal{F}$, con $\mathbb{P}(B)>0$. La probabilità condizionata di $A$ dato $B$ è definita da:
+Siano $A$ e $B$ due eventi appartenenti a $\mathcal{F}$, con $\mathbb{P}(B)>0$. La probabilit\`{a} condizionata di $A$ dato $B$ \`{e} definita da:
 
 \[
 \mathbb{P}(A\mid B)
@@ -268,7 +268,7 @@ Siano $A$ e $B$ due eventi appartenenti a $\mathcal{F}$, con $\mathbb{P}(B)>0$. 
 \frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}.
 \]
 
-L'evento $B$ rappresenta l'informazione osservata. Dopo avere osservato $B$, l'evento $A$ viene valutato non più rispetto all'intero spazio campionario $\Omega$, ma rispetto alla porzione di spazio compatibile con $B$. La probabilità $\mathbb{P}(A\mid B)$ misura quindi quanto è probabile $A$ all'interno degli scenari in cui $B$ si è verificato.
+L'evento $B$ rappresenta l'informazione osservata. Dopo avere osservato $B$, l'evento $A$ viene valutato non pi\`{u} rispetto all'intero spazio campionario $\Omega$, ma rispetto alla porzione di spazio compatibile con $B$. La probabilit\`{a} $\mathbb{P}(A\mid B)$ misura quindi quanto \`{e} probabile $A$ all'interno degli scenari in cui $B$ si \`{e} verificato.
 
 In particolare, se $A$ e $B$ sono disgiunti, allora $A\cap B=\varnothing$ e quindi:
 
@@ -282,21 +282,21 @@ Se invece $B\subseteq A$, allora $A\cap B=B$ e quindi:
 \mathbb{P}(A\mid B)=1.
 \]
 
-Questi due casi estremi chiariscono l'interpretazione informativa della probabilità condizionata. Dopo avere osservato $B$, gli eventi incompatibili con $B$ hanno probabilità nulla, mentre gli eventi che contengono $B$ diventano certi.
+Questi due casi estremi chiariscono l'interpretazione informativa della probabilit\`{a} condizionata. Dopo avere osservato $B$, gli eventi incompatibili con $B$ hanno probabilit\`{a} nulla, mentre gli eventi che contengono $B$ diventano certi.
 
 \medskip
 
 \noindent
 \textbf{Distribuzione condizionata di una variabile casuale discreta.}
 
-Sia $X$ una variabile casuale discreta con valori possibili $x_1,\ldots,x_m$. Se si osserva un evento $B$, con $\mathbb{P}(B)>0$, la distribuzione di $X$ condizionata a $B$ è descritta dalle probabilità:
+Sia $X$ una variabile casuale discreta con valori possibili $x_1,\ldots,x_m$. Se si osserva un evento $B$, con $\mathbb{P}(B)>0$, la distribuzione di $X$ condizionata a $B$ \`{e} descritta dalle probabilit\`{a}:
 
 \[
 \mathbb{P}(X=x_j\mid B),
 \qquad j=1,\ldots,m.
 \]
 
-Applicando la definizione di probabilità condizionata, si ottiene:
+Applicando la definizione di probabilit\`{a} condizionata, si ottiene:
 
 \[
 \mathbb{P}(X=x_j\mid B)
@@ -304,18 +304,18 @@ Applicando la definizione di probabilità condizionata, si ottiene:
 \frac{\mathbb{P}(\{X=x_j\}\cap B)}{\mathbb{P}(B)}.
 \]
 
-La distribuzione condizionata descrive quindi come cambiano le probabilità dei diversi valori di $X$ quando l'informazione disponibile è rappresentata dall'evento $B$.
+La distribuzione condizionata descrive quindi come cambiano le probabilit\`{a} dei diversi valori di $X$ quando l'informazione disponibile \`{e} rappresentata dall'evento $B$.
 
-È importante osservare che non si sta modificando la variabile casuale $X$. La funzione $X:\Omega\to\mathbb{R}$ rimane la stessa. Ciò che cambia è la distribuzione di probabilità utilizzata per valutarla. Prima dell'informazione si considerano le probabilità non condizionate $\mathbb{P}(X=x_j)$; dopo l'informazione si considerano le probabilità condizionate $\mathbb{P}(X=x_j\mid B)$.
+\`{e} importante osservare che non si sta modificando la variabile casuale $X$. La funzione $X:\Omega\to\mathbb{R}$ rimane la stessa. Ci\`{o} che cambia \`{e} la distribuzione di probabilit\`{a} utilizzata per valutarla. Prima dell'informazione si considerano le probabilit\`{a} non condizionate $\mathbb{P}(X=x_j)$; dopo l'informazione si considerano le probabilit\`{a} condizionate $\mathbb{P}(X=x_j\mid B)$.
 
 \medskip
 
 \noindent
 \textbf{Caso di scenari elementari.}
 
-Nel caso finito, se lo spazio campionario è formato da scenari elementari $\omega_1,\ldots,\omega_n$, l'evento $B$ seleziona un sottoinsieme di scenari compatibili con l'informazione osservata.
+Nel caso finito, se lo spazio campionario \`{e} formato da scenari elementari $\omega_1,\ldots,\omega_n$, l'evento $B$ seleziona un sottoinsieme di scenari compatibili con l'informazione osservata.
 
-Per ogni scenario $\omega_i\in B$, la probabilità condizionata è:
+Per ogni scenario $\omega_i\in B$, la probabilit\`{a} condizionata \`{e}:
 
 \[
 \mathbb{P}(\omega_i\mid B)
@@ -329,7 +329,7 @@ Per ogni scenario $\omega_i\notin B$, invece:
 \mathbb{P}(\omega_i\mid B)=0.
 \]
 
-Quindi il condizionamento produce due effetti simultanei: elimina gli scenari incompatibili con l'informazione osservata e ripesa gli scenari compatibili in modo che le nuove probabilità sommino a uno.
+Quindi il condizionamento produce due effetti simultanei: elimina gli scenari incompatibili con l'informazione osservata e ripesa gli scenari compatibili in modo che le nuove probabilit\`{a} sommino a uno.
 
 Infatti:
 
@@ -344,7 +344,7 @@ Infatti:
 1.
 \]
 
-Questo passaggio è centrale per comprendere il valore atteso condizionato: una media condizionata è una media calcolata non con le probabilità originarie, ma con le probabilità aggiornate dall'informazione osservata.
+Questo passaggio \`{e} centrale per comprendere il valore atteso condizionato: una media condizionata \`{e} una media calcolata non con le probabilit\`{a} originarie, ma con le probabilit\`{a} aggiornate dall'informazione osservata.
 
 \medskip
 
@@ -370,13 +370,13 @@ Supponiamo che venga osservato il segnale favorevole:
 B=\{\omega_1,\omega_2\}.
 \]
 
-La probabilità dell'evento informativo è:
+La probabilit\`{a} dell'evento informativo \`{e}:
 
 \[
 \mathbb{P}(B)=0.25+0.35=0.60.
 \]
 
-Le probabilità condizionate degli scenari compatibili con $B$ sono:
+Le probabilit\`{a} condizionate degli scenari compatibili con $B$ sono:
 
 \[
 \mathbb{P}(\omega_1\mid B)
@@ -400,7 +400,7 @@ Gli scenari $\omega_3$ e $\omega_4$ sono incompatibili con il segnale favorevole
 \mathbb{P}(\omega_4\mid B)=0.
 \]
 
-La distribuzione condizionata di $H$ dato $B$ assegna quindi probabilità $0.4167$ al valore $120$ e probabilità $0.5833$ al valore $105$. I valori $90$ e $60$, pur restando possibili in senso originario, non sono compatibili con l'informazione osservata $B$.
+La distribuzione condizionata di $H$ dato $B$ assegna quindi probabilit\`{a} $0.4167$ al valore $120$ e probabilit\`{a} $0.5833$ al valore $105$. I valori $90$ e $60$, pur restando possibili in senso originario, non sono compatibili con l'informazione osservata $B$.
 
 In forma tabellare:
 
@@ -424,7 +424,7 @@ La tabella mostra in modo esplicito la differenza tra distribuzione originaria e
 \noindent
 \textbf{Dalla distribuzione condizionata al valore atteso condizionato.}
 
-Una volta costruita la distribuzione condizionata, il passaggio al valore atteso condizionato è naturale. Nel caso discreto, il valore atteso condizionato di $X$ dato $B$ è la media dei valori possibili di $X$, pesata con le probabilità condizionate:
+Una volta costruita la distribuzione condizionata, il passaggio al valore atteso condizionato \`{e} naturale. Nel caso discreto, il valore atteso condizionato di $X$ dato $B$ \`{e} la media dei valori possibili di $X$, pesata con le probabilit\`{a} condizionate:
 
 \[
 \mathbb{E}[X\mid B]
@@ -432,7 +432,7 @@ Una volta costruita la distribuzione condizionata, il passaggio al valore atteso
 \sum_j x_j\,\mathbb{P}(X=x_j\mid B).
 \]
 
-Questa formula sarà analizzata nella sezione successiva. Per il momento è sufficiente sottolineare la logica: il valore atteso condizionato non è una nuova nozione indipendente dalla probabilità condizionata, ma è il valore atteso calcolato rispetto alla distribuzione condizionata.
+Questa formula sar\`{a} analizzata nella sezione successiva. Per il momento \`{e} sufficiente sottolineare la logica: il valore atteso condizionato non \`{e} una nuova nozione indipendente dalla probabilit\`{a} condizionata, ma \`{e} il valore atteso calcolato rispetto alla distribuzione condizionata.
 
 \medskip
 
@@ -2202,7 +2202,7 @@ aggiorna progressivamente nel tempo. Prezzi, rendimenti, notizie di mercato e
 indicatori macroeconomici vengono osservati in date successive e modificano le
 previsioni su payoff e perdite future.
 
-Per rappresentare questa evoluzione dell'informazione si introduciamo un concetto che verrà meglio ripreso iseguito, cioè la
+Per rappresentare questa evoluzione dell'informazione si introduciamo un concetto che verr\`{a} meglio ripreso iseguito, cioè la
 successione crescente di sigma-algebre:
 \[
 \mathcal{F}_0
