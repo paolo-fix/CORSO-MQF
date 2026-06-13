@@ -3,10 +3,11 @@
 ## 1. Identificazione del progetto
 
 Il progetto riguarda la predisposizione completa del materiale didattico per il corso universitario **Metodi Quantitativi per la Finanza**.
+Il corso e' destinato a studenti del quinto anno del corso di laurea in **Banca e Risk Management**. Gli studenti hanno una preparazione mediamente solida nei metodi quantitativi e statistici, e una preparazione buona nella teoria finanziaria e nei modelli finanziari.
+Il materiale deve quindi mantenere un livello accademico rigoroso, evitando sia un approccio eccessivamente divulgativo sia un formalismo astratto non motivato dalle applicazioni finanziarie.
 
-Il corso e' destinato a studenti del quinto anno del corso di laurea in **Banca e Risk Management**. Gli studenti hanno una preparazione mediamente solida nei metodi quantitativi e statistici, e una preparazione buona nella teoria finanziaria e nei modelli finanziari. Il materiale deve quindi mantenere un livello accademico rigoroso, evitando sia un approccio eccessivamente divulgativo sia un formalismo astratto non motivato dalle applicazioni finanziarie.
-
-Il corso deve essere sviluppato in italiano. Il manuale, le slides e i materiali matematici devono essere scritti in LaTeX compatibile con **Scientific WorkPlace 5.5**. Questo documento, invece, e' scritto in Markdown per essere caricato su GitHub e usato come linea guida operativa nelle future chat dedicate allo sviluppo del progetto.
+Il corso deve essere sviluppato in italiano. Il manuale, le slides e i materiali matematici devono essere scritti in LaTeX compatibile con **Scientific WorkPlace 5.5**.
+Questo documento, invece, e' scritto in Markdown per essere caricato su GitHub e usato come linea guida operativa nelle future chat dedicate allo sviluppo del progetto.
 
 ## 2. Funzione e formato delle guidelines
 
@@ -35,32 +36,42 @@ Il file e' collocato nella cartella:
 
 ## 3. Finalita' generale del corso
 
-Il corso deve fornire agli studenti strumenti quantitativi per rappresentare l'incertezza, modellizzare fenomeni finanziari discreti, misurare il rischio e formulare problemi decisionali in presenza di vincoli e scenari.
+Il corso deve fornire agli studenti strumenti quantitativi per rappresentare l'incertezza, modellizzare fenomeni finanziari discreti e continui, misurare il rischio e formulare problemi decisionali in presenza di vincoli, scenari e obiettivi multipli.
 
 La finalita' generale non e' presentare una raccolta eterogenea di tecniche matematiche, ma costruire un percorso unitario centrato su tre assi concettuali:
 
 1. modellizzazione probabilistica dell'incertezza;
-2. valutazione finanziaria in tempo discreto;
-3. decisione quantitativa sotto rischio e sotto incertezza.
+2. processi stocastici, informazione e simulazione;
+3. decisione quantitativa sotto rischio, sotto incertezza e in presenza di obiettivi multipli.
 
-Ogni lezione deve contribuire esplicitamente a uno o piu' di questi assi. Le connessioni tra probabilita', processi stocastici, misure di rischio, pricing binomiale, programmazione lineare e programmazione stocastica devono essere rese chiare e ricorrenti.
+Ogni lezione deve contribuire esplicitamente a uno o piu' di questi assi. Le connessioni tra probabilita', variabili casuali, valori attesi condizionati, processi stocastici, catene di Markov, misure di rischio, programmazione lineare, goal programming e programmazione stocastica devono essere rese chiare e ricorrenti.
+
+Il corso deve mantenere un equilibrio tra formalizzazione matematica, interpretazione finanziaria e implementazione computazionale. Le lezioni applicative in Python non devono essere considerate appendici tecniche, ma momenti di consolidamento operativo dei concetti introdotti nelle lezioni teoriche.
 
 ## 4. Architettura concettuale del corso
 
-Il corso deve seguire una progressione logica fondata su dieci passaggi concettuali:
+Il corso deve seguire una progressione logica fondata sui seguenti passaggi concettuali:
 
 1. rappresentazione probabilistica dell'incertezza;
 2. variabili casuali, distribuzioni e momenti;
 3. informazione e valore atteso condizionato;
-4. processi stocastici e scenari;
-5. catene di Markov e rischio di credito;
-6. misure di rischio;
-7. alberi binomiali e pricing finanziario;
-8. programmazione lineare e dualita';
-9. CVaR come problema di ottimizzazione lineare;
-10. programmazione stocastica e decisioni in presenza di scenari.
+4. consolidamento computazionale in Python dei concetti probabilistici;
+5. processi stocastici in tempo discreto, filtrazioni e martingale;
+6. processi stocastici in tempo continuo, diffusioni e simulazione;
+7. catene di Markov e rischio di credito;
+8. misure di rischio in contesto markoviano;
+9. programmazione lineare, con dualita' come contenuto essenziale;
+10. goal programming e decisioni multicriterio;
+11. asset allocation multicriterio e asset liability management;
+12. programmazione stocastica e decisioni adattate agli scenari.
 
 Questa progressione deve orientare la scrittura del manuale, delle slides, degli esercizi e delle applicazioni Python. In particolare, le lezioni iniziali di probabilita' non devono essere presentate come un richiamo isolato, ma come la base necessaria per i modelli finanziari successivi.
+
+Il modello binomiale non costituisce piu' una lezione applicativa autonoma di pricing. Deve essere utilizzato, quando utile, come esempio strutturale di processo in tempo discreto, filtrazione, adattabilita' e martingala.
+
+La dualita' nella programmazione lineare non scompare dal corso, ma viene ricondotta alla lezione introduttiva di programmazione lineare come contenuto essenziale per l'interpretazione economica dei vincoli e dei prezzi ombra. Non costituisce piu' una lezione autonoma.
+
+Il goal programming assume invece un ruolo autonomo, come passaggio dalla programmazione lineare a obiettivo singolo alla formulazione di problemi con obiettivi multipli, target, deviazioni e trade-off. Tale passaggio prepara l'applicazione computazionale ad asset allocation multicriterio e asset liability management.
 
 ## 5. Prodotti finali previsti
 
@@ -69,7 +80,7 @@ Il progetto prevede la costruzione dei seguenti prodotti finali:
 1. un manuale del corso, articolato in 16 capitoli o unita' didattiche;
 2. le slides delle 16 lezioni;
 3. un insieme di esercizi teorici e numerici da svolgere in aula;
-4. cinque applicazioni Python coerenti con il syllabus;
+4. cinque applicazioni Python coerenti con la nuova architettura del corso;
 5. un registro dei grafici didattici;
 6. un documento autonomo di notazione matematica;
 7. eventuali materiali ausiliari, quali soluzioni degli esercizi, template LaTeX, script Python, notebook, dataset e figure.
@@ -82,22 +93,22 @@ La struttura operativa del corso e' la seguente.
 
 | Lezione | Tipo | Titolo definitivo | Tema centrale |
 |---:|:---:|---|---|
-| 1 | P | Elementi di teoria della probabilita' | Spazio di probabilita', eventi, probabilita' condizionata |
-| 2 | P | Variabili casuali e distribuzioni | Variabili casuali, distribuzioni, momenti, quantili |
-| 3 | P | Valori attesi condizionati e informazione | Condizionamento, partizioni, informazione |
-| 4 | P | Processi stocastici, traiettorie e scenari | Processi in tempo discreto, simulazione, scenari |
-| 5 | C | Applicazioni Python a processi stocastici e valori attesi condizionati | Simulazione e stima computazionale |
-| 6 | P | Catene di Markov: definizioni e proprieta' | Stati, transizioni, matrice di transizione |
-| 7 | P | Catene di Markov e misure di rischio | Evoluzione delle distribuzioni, VaR, CVaR |
-| 8 | C | Applicazioni Python al rischio di credito | Transizioni di rating e rischio di default |
-| 9 | P | Variabili casuali binomiali e alberi binomiali | Modello binomiale, payoff, probabilita' risk-neutral |
-| 10 | C | Applicazioni Python al pricing di opzioni e obbligazioni | Pricing numerico in alberi discreti |
-| 11 | P | Programmazione lineare | Formulazione, vincoli, regione ammissibile |
-| 12 | P | Dualita' nella programmazione lineare | Problema duale, prezzi ombra, interpretazione economica |
-| 13 | C | Applicazioni Python di programmazione lineare: calcolo del CVaR | CVaR come problema di programmazione lineare |
-| 14 | P | Programmazione lineare stocastica I | Decisioni here-and-now, scenari, recourse |
-| 15 | P | Programmazione lineare stocastica II | Valore dell'informazione, soluzioni EV, WS e SP |
-| 16 | C | Applicazioni Python di programmazione stocastica | Implementazione di modelli stocastici discreti |
+| 1 | P | Elementi di probabilita' | Spazio di probabilita', eventi, probabilita' condizionata |
+| 2 | P | Variabili casuali | Variabili casuali, distribuzioni, momenti, quantili |
+| 3 | P | Valori attesi condizionati | Condizionamento, partizioni, informazione |
+| 4 | C | Applicazione in Python: probabilita', variabili casuali e condizionamento | Simulazione, distribuzioni empiriche, momenti, quantili, valori attesi condizionati |
+| 5 | P | Processi stocastici in tempo discreto | Processi, traiettorie, scenari, filtrazioni, adattabilita', martingale |
+| 6 | P | Processi stocastici in tempo continuo | Moto browniano, diffusioni, GBM, OU, CIR, correlazione, discretizzazione |
+| 7 | C | Applicazione in Python: traiettorie, simulazione e pricing Monte Carlo | GBM, OU, processi correlati, opzioni asiatiche, obbligazioni indicizzate |
+| 8 | P | Catene di Markov | Stati, transizioni, matrice di transizione, distribuzioni stazionarie |
+| 9 | P | Catene di Markov e misure di rischio | Transizioni di rating, distribuzioni di perdita, VaR, CVaR |
+| 10 | C | Applicazione in Python: rischio di credito | Simulazione di catene di Markov, portafogli creditizi, misure di rischio |
+| 11 | P | Programmazione lineare | Formulazione, regione ammissibile, soluzioni di base, dualita' essenziale |
+| 12 | P | Goal Programming | Obiettivi multipli, target, deviazioni, priorita', trade-off |
+| 13 | C | Applicazione in Python: Asset Allocation e Asset Liability Management | Asset allocation multicriterio, liability matching, goal programming |
+| 14 | P | Programmazione stocastica a due stadi | Decisioni sotto incertezza, scenari, recourse, valore atteso |
+| 15 | P | Programmazione stocastica multistadio | Alberi di scenari, informazione progressiva, non anticipativita' |
+| 16 | C | Applicazione in Python: programmazione stocastica | Asset allocation sotto incertezza, scenari, vincoli di non anticipativita' |
 
 Legenda:
 
@@ -141,49 +152,80 @@ Criteri operativi:
 6. valutare con attenzione l'uso di TikZ o PGFPlots, che potrebbero non essere la soluzione piu' robusta in Scientific WorkPlace 5.5;
 7. quando opportuno, generare i grafici con Python e includerli come immagini.
 
+I nomi dei file devono essere esplicativi e coerenti con la struttura gia' adottata nel progetto. Non devono essere utilizzati nomi puramente numerici o sbrigativi.
+
 La struttura consigliata del manuale e':
 
 ```text
-/manuale
+/01_Manuale
   MQF_Manuale_Master.tex
-  MQF_Capitolo_01.tex
-  MQF_Capitolo_02.tex
-  ...
-  MQF_Capitolo_16.tex
+
+  /Capitoli
+    MQF_Cap_01_Probabilita.tex
+    MQF_Cap_02_Variabili_Casuali.tex
+    MQF_Cap_03_Valori_Attesi_Condizionati.tex
+    MQF_Cap_04_Python_Probabilita_Condizionamento.tex
+    MQF_Cap_05_Processi_Stocastici_Tempo_Discreto.tex
+    MQF_Cap_06_Processi_Stocastici_Tempo_Continuo.tex
+    MQF_Cap_07_Python_Traiettorie_Pricing.tex
+    MQF_Cap_08_Catene_Markov.tex
+    MQF_Cap_09_Markov_Misure_Rischio.tex
+    MQF_Cap_10_Python_Rischio_Credito.tex
+    MQF_Cap_11_Programmazione_Lineare.tex
+    MQF_Cap_12_Goal_Programming.tex
+    MQF_Cap_13_Python_Asset_Allocation_ALM.tex
+    MQF_Cap_14_Programmazione_Stocastica_Due_Stadi.tex
+    MQF_Cap_15_Programmazione_Stocastica_Multistadio.tex
+    MQF_Cap_16_Python_Programmazione_Stocastica.tex
 ```
 
 La struttura consigliata delle slides e':
 
 ```text
-/slides
-  MQF_Slides_01.tex
-  MQF_Slides_02.tex
-  ...
-  MQF_Slides_16.tex
+/02_Slides
+  Slides_Lez_01_Elementi_probabilita.tex
+  Slides_Lez_02_Variabili_Casuali.tex
+  Slides_Lez_03_Valori_attesi_condizionati.tex
+  Slides_Lez_04_Python_Probabilita_Condizionamento.tex
+  Slides_Lez_05_Processi_Stocastici_Tempo_Discreto.tex
+  Slides_Lez_06_Processi_Stocastici_Tempo_Continuo.tex
+  Slides_Lez_07_Python_Traiettorie_Pricing.tex
+  Slides_Lez_08_Catene_Markov.tex
+  Slides_Lez_09_Markov_Misure_Rischio.tex
+  Slides_Lez_10_Python_Rischio_Credito.tex
+  Slides_Lez_11_Programmazione_Lineare.tex
+  Slides_Lez_12_Goal_Programming.tex
+  Slides_Lez_13_Python_Asset_Allocation_ALM.tex
+  Slides_Lez_14_Programmazione_Stocastica_Due_Stadi.tex
+  Slides_Lez_15_Programmazione_Stocastica_Multistadio.tex
+  Slides_Lez_16_Python_Programmazione_Stocastica.tex
 ```
 
 La struttura consigliata dei file Python e':
 
 ```text
-/python
-  MQF_Python_01_Processi_Stocastici.py
-  MQF_Python_02_Rischio_Credito.py
-  MQF_Python_03_Pricing.py
-  MQF_Python_04_CVaR_PL.py
+/03_Python
+  MQF_Python_01_Probabilita_Condizionamento.py
+  MQF_Python_02_Traiettorie_Pricing.py
+  MQF_Python_03_Rischio_Credito.py
+  MQF_Python_04_Asset_Allocation_ALM.py
   MQF_Python_05_Programmazione_Stocastica.py
 ```
 
 La struttura consigliata dei documenti di coordinamento e':
 
 ```text
-/progetto
+/00_MasterPlan
   MQF_Project_Guidelines.md
   MQF_Master_Plan.tex
   MQF_Notazione.tex
+  MQF_Stato_Avanzamento.md
   MQF_Registro_Esercizi.tex
   MQF_Registro_Grafici.tex
   MQF_Registro_Decisioni.tex
 ```
+
+Ogni modifica ai nomi dei file deve essere esplicita e deve essere riportata nel Master Plan, nelle Guidelines e, se necessario, nei file master LaTeX che includono i singoli capitoli o le singole lezioni.
 
 ## 9. Manuale del corso
 
@@ -253,7 +295,6 @@ Ogni slide deve rispettare la struttura standard seguente:
 %EndExpansion
 
 Contenuto della slide
-
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -477,11 +518,11 @@ Nelle lezioni computazionali i grafici hanno una funzione diagnostica e interpre
 
 1. traiettorie simulate;
 2. distribuzioni empiriche;
-3. evoluzione di stati o probabilita';
-4. alberi binomiali;
+3. evoluzione di stati, probabilita' o rating;
+4. processi multivariati correlati;
 5. regioni ammissibili;
-6. funzioni obiettivo;
-7. perdite e quantili;
+6. funzioni obiettivo, deviazioni da target e trade-off;
+7. perdite, quantili e misure di rischio;
 8. confronti tra scenari o soluzioni.
 
 Ogni grafico deve essere accompagnato da una domanda interpretativa o da un commento operativo. Un grafico non deve comparire come puro output decorativo.
@@ -531,16 +572,16 @@ Ogni lezione computazionale deve concludersi con un prodotto finale osservabile.
 
 Esempi di prodotto finale sono:
 
-1. un simulatore di traiettorie;
+1. una distribuzione empirica simulata;
 2. una procedura di stima condizionata;
-3. una matrice di transizione analizzata numericamente;
-4. una distribuzione di perdita con VaR e CVaR;
-5. un algoritmo di backward induction;
-6. una formulazione di programmazione lineare;
-7. una tabella di confronto tra soluzioni;
-8. un grafico interpretativo;
-9. una misura quantitativa del rischio;
-10. un confronto tra soluzioni SP, EV e WS.
+3. un simulatore di traiettorie;
+4. una procedura Monte Carlo di pricing;
+5. una matrice di transizione analizzata numericamente;
+6. una distribuzione di perdita con VaR e CVaR;
+7. una formulazione di goal programming;
+8. una tabella di confronto tra soluzioni;
+9. un grafico interpretativo;
+10. un confronto tra soluzioni deterministiche e stocastiche.
 
 La lezione computazionale non deve concludersi genericamente con la scrittura di codice, ma con la comprensione di che cosa il codice permette di calcolare e di come tale calcolo rafforzi l'interpretazione del modello teorico.
 
@@ -581,11 +622,11 @@ Sono previste cinque applicazioni Python, corrispondenti alle lezioni applicativ
 
 | Applicazione | Lezione | Tema | Output computazionale |
 |---:|---:|---|---|
-| 1 | 5 | Processi stocastici e valori attesi condizionati | Simulazioni, stime condizionate, grafici di traiettorie |
-| 2 | 8 | Rischio di credito | Matrici di transizione, default probability, VaR, CVaR |
-| 3 | 10 | Pricing di opzioni e obbligazioni | Alberi binomiali, backward induction, sensibilita' |
-| 4 | 13 | Programmazione lineare e CVaR | Formulazione PL, soluzione numerica, confronto VaR-CVaR |
-| 5 | 16 | Programmazione stocastica | Scenari, recourse, EVPI, VSS |
+| 1 | 4 | Probabilita', variabili casuali e condizionamento | Simulazioni, distribuzioni empiriche, momenti, quantili, stime condizionate |
+| 2 | 7 | Traiettorie, simulazione e pricing Monte Carlo | Traiettorie GBM, OU, processi correlati, opzioni asiatiche, sistema OU--CIR |
+| 3 | 10 | Rischio di credito | Matrici di transizione, simulazioni di rating, distribuzioni di perdita, VaR, CVaR |
+| 4 | 13 | Asset Allocation e Asset Liability Management | Goal programming, allocazioni multicriterio, deviazioni da target, liability matching |
+| 5 | 16 | Programmazione stocastica | Scenari, recourse, non anticipativita', confronto tra soluzioni deterministiche e stocastiche |
 
 Le applicazioni Python devono essere concepite come laboratori di modellizzazione quantitativa. La finalita' principale non e' insegnare Python in modo autonomo, ma mostrare come un modello probabilistico, finanziario o ottimizzativo possa essere tradotto in una procedura computazionale controllabile, interpretabile e modificabile.
 
@@ -593,7 +634,7 @@ Ogni applicazione deve essere costruita intorno a un caso identificabile. Il cas
 
 1. il contesto finanziario o probabilistico;
 2. la domanda quantitativa da affrontare;
-3. i dati disponibili;
+3. i dati disponibili, se presenti, oppure la procedura di generazione dei dati simulati;
 4. i parametri del modello;
 5. le grandezze da calcolare;
 6. gli output numerici e grafici attesi;
@@ -645,7 +686,7 @@ Criteri comuni per il codice Python:
 5. controlli intermedi espliciti;
 6. grafici leggibili e interpretabili;
 7. interpretazione dei risultati dopo ogni blocco computazionale rilevante;
-8. possibilita' di modificare parametri e scenari;
+8. possibilita' di modificare parametri, scenari e target;
 9. riproducibilita' dell'esecuzione;
 10. tracciabilita' del passaggio dalla formula matematica all'algoritmo.
 
@@ -653,13 +694,13 @@ Gli strumenti Python introdotti in ciascuna lezione devono essere selezionati in
 
 1. array, vettori e matrici;
 2. funzioni;
-3. cicli temporali;
-4. simulazione Monte Carlo elementare;
-5. strutture dati per stati e scenari;
-6. grafici;
-7. calcolo di quantili e medie condizionate;
+3. simulazione Monte Carlo;
+4. strutture dati per stati, scenari e traiettorie;
+5. grafici;
+6. calcolo di quantili e medie condizionate;
+7. simulazione di processi stocastici discreti e continui;
 8. uso di solver di ottimizzazione;
-9. rappresentazione di alberi binomiali;
+9. formulazione di problemi di goal programming;
 10. analisi di sensibilita'.
 
 Ogni lezione applicativa deve concludersi con un prodotto finale osservabile. La lezione applicativa non deve concludersi genericamente con la scrittura di codice, ma con la comprensione di che cosa il codice permette di calcolare e di come tale calcolo modifichi o rafforzi l'interpretazione del modello teorico.
@@ -694,12 +735,12 @@ Il progetto deve mantenere un registro di avanzamento per aree. Tale registro de
 
 | Area | Stato da monitorare | Nota |
 |---|---|---|
-| Struttura delle 16 lezioni | Consolidata, salvo revisioni locali | Derivata dal syllabus e uniformata nei titoli |
+| Struttura delle 16 lezioni | Consolidata nella nuova architettura | Include nuova Lezione 4, processi sdoppiati, Goal Programming e rimozione dell'applicazione binomiale autonoma |
 | Notazione generale | Documento attivo | Da verificare durante lo sviluppo di ogni capitolo e applicazione |
-| Manuale | In sviluppo progressivo | Da aggiornare capitolo per capitolo |
+| Manuale | In sviluppo progressivo | Da aggiornare capitolo per capitolo, mantenendo nomi file esplicativi |
 | Slides | In sviluppo progressivo | Da produrre e revisionare lezione per lezione |
 | Esercizi teorici | In sviluppo progressivo | Da collegare a manuale e slides |
-| Applicazioni Python | Da strutturare secondo il formato laboratoriale | Cinque applicazioni previste |
+| Applicazioni Python | Da strutturare secondo il formato laboratoriale | Cinque applicazioni previste alle Lezioni 4, 7, 10, 13 e 16 |
 | Notebook/script Python | Da predisporre per ogni applicazione | Devono includere parti guidate e parti da completare |
 | Dati applicativi | Da definire o simulare | Devono essere coerenti con i casi didattici |
 | Grafici | Da produrre progressivamente | Devono essere coerenti con manuale, slides e codice |
@@ -737,18 +778,21 @@ Le principali questioni ancora aperte sono:
 2. consolidare il template LaTeX delle slides;
 3. decidere se le soluzioni complete degli esercizi saranno incluse nel manuale o in un fascicolo separato;
 4. definire il livello di dettaglio delle dimostrazioni;
-5. decidere le librerie Python ammesse nelle applicazioni computazionali;
-6. stabilire una strategia definitiva per la produzione dei grafici;
-7. decidere se il materiale debba includere criteri di valutazione o prove d'esame;
-8. definire il formato standard dei notebook o script applicativi;
-9. definire il formato dei dataset didattici;
-10. stabilire se le applicazioni Python saranno distribuite come `.py`, notebook Jupyter o entrambi;
-11. definire una convenzione per i blocchi di codice da completare in aula;
-12. stabilire regole esplicite per l'uso dell'IA generativa da parte degli studenti;
-13. predisporre prompt standard per debugging, spiegazione del codice e completamento locale di funzioni;
-14. definire il formato delle estensioni take-home;
-15. decidere se le consegne take-home saranno solo formative o anche valutabili;
-16. stabilire una rubrica minima per valutare codice, controlli numerici e interpretazione finanziaria.
+5. verificare la coerenza della notazione introdotta nei nuovi capitoli con il file `MQF_Notazione.tex`;
+6. decidere le librerie Python ammesse nelle applicazioni computazionali;
+7. stabilire una strategia definitiva per la produzione dei grafici;
+8. decidere se il materiale debba includere criteri di valutazione o prove d'esame;
+9. definire il formato standard dei notebook o script applicativi;
+10. definire il formato dei dataset didattici;
+11. stabilire se le applicazioni Python saranno distribuite come `.py`, notebook Jupyter o entrambi;
+12. verificare che i file master del manuale e delle slides recepiscano i nuovi nomi dei capitoli e delle lezioni;
+13. verificare che la rimozione della lezione applicativa sugli alberi binomiali non lasci riferimenti residui nei capitoli, nelle slides o nei registri;
+14. definire una convenzione per i blocchi di codice da completare in aula;
+15. stabilire regole esplicite per l'uso dell'IA generativa da parte degli studenti;
+16. predisporre prompt standard per debugging, spiegazione del codice e completamento locale di funzioni;
+17. definire il formato delle estensioni take-home;
+18. decidere se le consegne take-home saranno solo formative o anche valutabili;
+19. stabilire una rubrica minima per valutare codice, controlli numerici e interpretazione finanziaria.
 
 ## 18. Principio guida finale
 

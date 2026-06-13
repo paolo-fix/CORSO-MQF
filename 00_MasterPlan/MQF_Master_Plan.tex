@@ -1,5 +1,8 @@
 %2multibyte Version: 5.50.0.2960 CodePage: 65001
 % Master Plan del corso "Metodi Quantitativi per la Finanza"
+% Versione aggiornata: nuova Lezione 4 applicativa, sdoppiamento processi,
+% eliminazione applicazione autonoma sugli alberi binomiali, introduzione
+% del Goal Programming.
 % Versione predisposta per Scientific Workplace 5.5.
 % Scelte LaTeX conservative: pacchetti standard, tabelle semplici,
 % accenti italiani in forma esplicita, ad esempio probabilit\`{a}.
@@ -15,7 +18,7 @@
 %TCIDATA{OutputFilter=latex2.dll}
 %TCIDATA{Version=5.50.0.2960}
 %TCIDATA{Codepage=65001}
-%TCIDATA{LastRevised=Tuesday, May 12, 2026 09:39:01}
+%TCIDATA{LastRevised=Saturday, June 13, 2026 16:15:39}
 %TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
 %TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
 %TCIDATA{BibliographyScheme=Manual}
@@ -71,7 +74,7 @@ rischio. La sequenza delle lezioni deve evitare l'impressione di una raccolta
 eterogenea di strumenti matematici e deve invece costruire progressivamente un
 linguaggio comune.
 
-La progressione concettuale proposta \`{e} la seguente:
+La progressione concettuale aggiornata \`{e} la seguente:
 
 \begin{enumerate}
 \item rappresentazione probabilistica dell'incertezza;
@@ -80,19 +83,23 @@ La progressione concettuale proposta \`{e} la seguente:
 
 \item informazione e valore atteso condizionato;
 
-\item processi stocastici e scenari;
+\item consolidamento computazionale in Python dei concetti probabilistici;
+
+\item processi stocastici in tempo discreto, filtrazioni e martingale;
+
+\item processi stocastici in tempo continuo, diffusioni e simulazione;
 
 \item catene di Markov e rischio di credito;
 
-\item misure di rischio;
+\item misure di rischio in contesto markoviano;
 
-\item alberi binomiali e pricing finanziario;
+\item programmazione lineare, con dualit\`{a} come contenuto essenziale;
 
-\item programmazione lineare e dualit\`{a};
+\item goal programming e decisioni multicriterio;
 
-\item CVaR come problema di ottimizzazione lineare;
+\item asset allocation multicriterio e asset liability management;
 
-\item programmazione stocastica e decisioni in presenza di scenari.
+\item programmazione stocastica e decisioni adattate agli scenari.
 \end{enumerate}
 
 Il livello didattico desiderato \`{e}: rigoroso nella notazione, selettivo
@@ -152,13 +159,14 @@ Per le lezioni Python si aggiungono:
 \subsection{Slides}
 
 Le slides devono essere uno strumento di lezione, non una versione compressa
-del manuale. 
+del manuale.
 
-Ogni slide deve essere generata in modo vincolato al Capitolo corrispondente del Manuale e al Master Plan.
-
-È vietato introdurre definizioni, formule, proprietà, esempi, figure, interpretazioni o terminologia tecnica sulla base della sola conoscenza generale del tema.
-
-Un contenuto può entrare nelle slide solo se è presente nel Manuale, previsto dal Master Plan o richiesto esplicitamente dal docente.
+Ogni slide deve essere generata in modo vincolato al Capitolo corrispondente
+del Manuale e al Master Plan. \`{E} vietato introdurre definizioni, formule,
+propriet\`{a}, esempi, figure, interpretazioni o terminologia tecnica sulla
+base della sola conoscenza generale del tema. Un contenuto pu\`{o} entrare
+nelle slide solo se \`{e} presente nel Manuale, previsto dal Master Plan o
+richiesto esplicitamente dal docente.
 
 Per ogni lezione, la successione delle slide prevede orientativamente:
 
@@ -179,8 +187,8 @@ Per ogni lezione, la successione delle slide prevede orientativamente:
 Per le lezioni Python le slides devono privilegiare formulazione, algoritmo,
 codice selezionato, output e interpretazione.
 
-
 \subsection{Scheda operativa: scaletta-promemoria della lezione}
+
 \label{subsec:scheda-scaletta-promemoria}
 
 Per ogni lezione teorica del corso deve essere predisposta una
@@ -189,311 +197,187 @@ delle slide disponibili nella pagina pubblica di progetto:
 \[
 \mbox{\texttt{https://paolilla25.synology.me/github-publish/public/}}.
 \]
-
-La scaletta deve essere costruita dopo avere riletto:
-\begin{enumerate}
-\item il capitolo del manuale corrispondente alla lezione;
-\item le slide aggiornate della lezione;
-\item se disponibile, il PDF compilato delle slide, per verificare la
-numerazione effettiva.
-\end{enumerate}
-
 La scaletta non deve essere un riassunto discorsivo della lezione, ma uno
 strumento operativo per il docente durante l'erogazione. Deve quindi indicare,
 per gruppi omogenei di slide, il contenuto essenziale, il tempo previsto e la
 funzione didattica del gruppo.
 
 \paragraph{Struttura obbligatoria di ciascun gruppo.}
+
 Ogni gruppo deve essere presentato secondo il seguente schema:
-\[
-\begin{array}{l}
-\mbox{\texttt{Numero. Titolo del gruppo --- slide x--y}}\\[3pt]
-\mbox{\texttt{Tempo parziale: ... minuti}}\\[3pt]
-\mbox{\texttt{Tempo cumulato: ... minuti}}\\[3pt]
+\[%
+\begin{array}
+[c]{l}%
+\mbox{\texttt{Numero. Titolo del gruppo --- slide x--y}}\\[3pt]%
+\mbox{\texttt{Tempo parziale: ... minuti}}\\[3pt]%
+\mbox{\texttt{Tempo cumulato: ... minuti}}\\[3pt]%
 \mbox{\texttt{Contenuti essenziali: ...}}
 \end{array}
 \]
-
 Il titolo del gruppo deve essere sintetico e coerente con il titolo o con la
 funzione didattica delle slide corrispondenti. Il numero di slide deve essere
 indicato con precisione, usando la numerazione effettiva del PDF compilato.
 
-\paragraph{Criteri di aggregazione delle slide.}
-Le slide devono essere aggregate in gruppi didatticamente omogenei, non
-necessariamente coincidenti con le sezioni del manuale. Un gruppo pu\`{o}
-comprendere:
-\begin{itemize}
-\item una definizione e la sua interpretazione;
-\item un esempio sviluppato su pi\`{u} slide;
-\item una sequenza grafica;
-\item una transizione concettuale;
-\item un blocco di esercizi o di sintesi.
-\end{itemize}
-
-Le slide grafiche o molto brevi possono essere accorpate al gruppo concettuale
-di riferimento, salvo che svolgano una funzione didattica autonoma.
-
 \paragraph{Gestione dei tempi.}
+
 La durata complessiva della lezione teorica \`{e} di $2$ ore e $15$ minuti,
-includendo $15$ minuti di pausa. Il tempo effettivo di lezione \`{e} quindi pari
-a $120$ minuti.
-
-La scaletta deve riportare:
-\begin{itemize}
-\item il tempo parziale di ciascun gruppo;
-\item il tempo cumulato progressivo;
-\item il break come voce autonoma.
-\end{itemize}
-
-Il tempo medio per slide deve essere valutato in funzione della densit\`{a}
-effettiva:
-\[
-\begin{array}{rcl}
-\mbox{slide definitorie o simboliche} & : & \mbox{circa }3\mbox{ minuti},\\[3pt]
-\mbox{slide grafiche o di transizione} & : & \mbox{circa }1.5\mbox{--}2.5
-\mbox{ minuti},\\[3pt]
-\mbox{esempi o passaggi tecnici} & : & \mbox{circa }3\mbox{--}4
-\mbox{ minuti},\\[3pt]
-\mbox{esercizi finali non svolti integralmente} & : &
-\mbox{tempo ridotto, con funzione di check.}
-\end{array}
-\]
-
-Se il numero complessivo di slide supera la disponibilit\`{a} temporale
-ordinaria, la scaletta deve prevedere un ritmo pi\`{u} rapido su slide grafiche,
-esercizi finali e sintesi.
+includendo $15$ minuti di pausa. Il tempo effettivo di lezione \`{e} quindi
+pari a $120$ minuti. La scaletta deve riportare il tempo parziale di ciascun
+gruppo, il tempo cumulato progressivo e il break come voce autonoma.
 
 \paragraph{Contenuti essenziali.}
+
 La voce \emph{Contenuti essenziali} deve essere scritta in forma telegrafica,
 non discorsiva. Deve contenere normalmente $3$--$4$ righe, a seconda della
-complessit\`{a} del gruppo.
-
-Essa deve includere:
-\begin{itemize}
-\item le nozioni centrali da richiamare;
-\item le formule indispensabili;
-\item il significato finanziario, se rilevante;
-\item eventuali avvertenze concettuali importanti.
-\end{itemize}
-
-Non deve includere spiegazioni lunghe, dimostrazioni o testo da leggere in
-aula. La funzione \`{e} di promemoria, non di dispensa.
+complessit\`{a} del gruppo, e includere le nozioni centrali, le formule
+indispensabili, il significato finanziario e le eventuali avvertenze
+concettuali importanti.
 
 \paragraph{Uso della notazione matematica.}
+
 Nella scaletta-promemoria prodotta in chat si deve usare la matematica
-renderizzata standard della pagina web, non codice \LaTeX{} sorgente.
-
-Quando la scaletta viene invece inserita nel Master Plan in formato \LaTeX{},
-le formule devono essere scritte con notazione \LaTeX{} standard, senza
-dipendere da comandi non definiti nell'ambiente di destinazione.
-
-In particolare, nella scaletta-promemoria prodotta in chat non si devono usare
-comandi personalizzati del progetto come
-\[
-\mbox{\texttt{\textbackslash Prob}},
-\qquad
-\mbox{\texttt{\textbackslash F}},
-\qquad
-\mbox{\texttt{\textbackslash E}},
-\qquad
-\mbox{\texttt{\textbackslash Var}},
-\]
-perch\'{e} potrebbero non essere visualizzati correttamente fuori dai file
-sorgente del progetto.
-
-Si usino invece, nella resa matematica standard della chat, espressioni come
-\[
-(\Omega,\mathcal{F},\mathbb{P})\to X\to
-\mathbb{P}_X,\ F_X,\ p_X,\ f_X,
-\]
-\[
-F_X(x)=\mathbb{P}(X\leq x),
-\]
-\[
-q_\alpha(X)=\inf\{x:F_X(x)\geq \alpha\}.
-\]
-
-I comandi personalizzati del progetto restano riservati al codice \LaTeX{} del
-manuale e delle slide, dove sono definiti e controllati.
-
-\paragraph{Stile della scaletta.}
-La scaletta deve essere neutra, tecnica e sintetica. Deve evitare:
-\begin{itemize}
-\item commenti ridondanti;
-\item formule decorative non accompagnate da significato;
-\item spiegazioni estese;
-\item ripetizioni pedisseque dei titoli delle slide;
-\item frasi generiche come \emph{si introduce il tema}, se non specificano il
-contenuto operativo.
-\end{itemize}
-
-La scaletta deve invece aiutare il docente a ricordare:
-\begin{itemize}
-\item che cosa dire;
-\item in quale ordine;
-\item quanto tempo dedicare;
-\item quale passaggio concettuale deve essere fissato dagli studenti.
-\end{itemize}
-
-\paragraph{Esempio di formato.}
-Un gruppo della scaletta deve avere una forma del tipo seguente:
-
-\begin{quote}
-\textbf{2. Definizione di variabile casuale e misurabilit\`{a} --- slide 5--7}
-
-\medskip
-
-\textbf{Tempo parziale:} 8 minuti
-
-\textbf{Tempo cumulato:} 17 minuti
-
-\medskip
-
-\textbf{Contenuti essenziali:} una variabile casuale \`{e} una funzione numerica
-sugli esiti, ma deve generare eventi osservabili. $X:\Omega\to\mathbb{R}$;
-eventi $\{X\leq x\}$; condizione $\{X\leq x\}\in\mathcal{F}$; probabilit\`{a}
-definite su eventi.
-\end{quote}
-
-\paragraph{Controlli finali.}
-Prima di consegnare la scaletta, verificare:
-\begin{enumerate}
-\item che la numerazione delle slide corrisponda al PDF compilato;
-\item che il tempo cumulato includa correttamente il break;
-\item che ogni gruppo abbia un contenuto essenziale realmente operativo;
-\item che le formule siano visualizzate correttamente nell'ambiente richiesto;
-\item che la scaletta sia coerente con la versione aggiornata del manuale e
-delle slide.
-\end{enumerate}
-
+renderizzata standard della pagina web, non codice LaTeX sorgente. Quando la
+scaletta viene invece inserita nel Master Plan in formato LaTeX, le formule
+devono essere scritte con notazione LaTeX standard, senza dipendere da comandi
+non definiti nell'ambiente di destinazione.
 
 \subsection{Redazione e sintassi matematica}
 
-Nella redazione assistita del manuale, delle slides e dei materiali di supporto
-occorre distinguere tra coerenza matematica, coerenza redazionale e sintassi
-matematica utilizzata nei diversi contesti di scrittura.
+Nella redazione assistita del manuale, delle slides e dei materiali di
+supporto occorre distinguere tra coerenza matematica, coerenza redazionale e
+sintassi matematica utilizzata nei diversi contesti di scrittura.
 
 \paragraph{Coerenza matematica.}
+
 Prima di proporre nuovo testo per il manuale, devono essere controllate
 esplicitamente le definizioni, le ipotesi, le formule e la coerenza logica dei
-passaggi. In particolare, devono essere dichiarate le condizioni necessarie per
-la validit\`{a} dei risultati utilizzati: misurabilit\`{a}, integrabilit\`{a},
-positivit\`{a} della probabilit\`{a} degli eventi condizionanti, esistenza di
-densit\`{a} quando si utilizzano rappresentazioni continue, e uguaglianze quasi
-certe quando si lavora con valori attesi condizionati rispetto a
-sigma-algebre.
+passaggi. In particolare, devono essere dichiarate le condizioni necessarie
+per la validit\`{a} dei risultati utilizzati: misurabilit\`{a},
+integrabilit\`{a}, positivit\`{a} della probabilit\`{a} degli eventi
+condizionanti, esistenza di densit\`{a} quando si utilizzano rappresentazioni
+continue, e uguaglianze quasi certe quando si lavora con valori attesi
+condizionati rispetto a sigma-algebre.
 
 \paragraph{Coerenza redazionale.}
+
 Ogni nuova sezione deve essere scritta come parte di un testo progressivo e
-non come unit\`{a} autosufficiente. Prima di introdurre una definizione, occorre
-verificare se la stessa nozione sia gi\`{a} stata presentata in capitoli o
-sezioni precedenti. Se la nozione \`{e} gi\`{a} stata introdotta, essa non deve
-essere ridefinita integralmente, ma richiamata solo nella misura necessaria.
-
-Per ogni sezione occorre identificare la sua funzione redazionale: introduzione
-di un nuovo concetto, richiamo di un concetto gi\`{a} acquisito,
-reinterpretazione, applicazione, formalizzazione o ponte verso sezioni
-successive. Per esempio, una partizione gi\`{a} utilizzata nella formula delle
-probabilit\`{a} totali o nella formula del valore atteso totale non deve essere
-nuovamente definita in modo esteso, ma pu\`{o} essere reinterpretata come
-struttura informativa.
-
-\paragraph{Sintassi matematica nella chat e nei sorgenti \LaTeX.}
-Occorre distinguere tra testo esplicativo prodotto nella chat e codice
-\LaTeX{} destinato ai file sorgenti del progetto.
-
-Nel testo ordinario della chat, le espressioni matematiche devono essere
-scritte usando la sintassi di renderizzazione standard distinguendo ambiente ChatGPT e Claude.ai. 
-Per le pagina web ChatGPT:
-\verb|\(...\)| per le formule in linea e \verb|\[...\]| per le formule in
-blocco. In questo modo le espressioni matematiche vengono visualizzate
-correttamente nella conversazione.
-
-Per le pagine web Claude.ai:
-\verb|$...$| per le formule in linea e \verb|\[...\]| per le formule in
-blocco.
-
-Nei blocchi di codice \LaTeX{} destinati a essere copiati nei file sorgenti
-del manuale o delle slides, le formule in linea devono invece essere scritte
-con la sintassi \verb|$...$|, mentre le formule autonome devono essere scritte
-con \verb|\[...\]|.
-
-Di conseguenza, la stessa espressione deve essere scritta in modo diverso a
-seconda del contesto. Nel testo ordinario della chat si user\`{a} la forma
-\newline
-\verb|\(\mathcal{G}=\sigma(B_1,\ldots,B_n)\)|. 
-
-Nel codice \LaTeX{} da inserire
-nel manuale si user\`{a} invece la forma 
-\newline
-\verb|$\mathcal{G}=\sigma(B_1,\ldots,B_n)$|.
+non come unit\`{a} autosufficiente. Prima di introdurre una definizione,
+occorre verificare se la stessa nozione sia gi\`{a} stata presentata in
+capitoli o sezioni precedenti. Se la nozione \`{e} gi\`{a} stata introdotta,
+essa non deve essere ridefinita integralmente, ma richiamata solo nella misura necessaria.
 
 \paragraph{Procedura operativa.}
-Per ogni nuova sezione del manuale la redazione assistita deve seguire questa
-sequenza:
+
+Per ogni nuova sezione del manuale la redazione assistita deve seguire questa sequenza:
+
 \begin{enumerate}
-    \item verificare che cosa \`{e} gi\`{a} stato introdotto nei capitoli o
-    nelle sezioni precedenti;
-    \item identificare la funzione redazionale della nuova sezione;
-    \item controllare la correttezza matematica di definizioni, ipotesi,
-    formule e passaggi logici;
-    \item verificare la coerenza con il documento di notazione e con il
-    Master Plan;
-    \item produrre testo \LaTeX{} in blocchi di codice copiabili, evitando
-    formati intermedi che possano alterare i delimitatori matematici.
+\item verificare che cosa \`{e} gi\`{a} stato introdotto nei capitoli o nelle
+sezioni precedenti;
+
+\item identificare la funzione redazionale della nuova sezione;
+
+\item controllare la correttezza matematica di definizioni, ipotesi, formule e
+passaggi logici;
+
+\item verificare la coerenza con il documento di notazione e con il Master Plan;
+
+\item produrre testo LaTeX in blocchi di codice copiabili, evitando formati
+intermedi che possano alterare i delimitatori matematici.
 \end{enumerate}
 
 \section{Convenzioni preliminari di notazione}
 
-Il documento \texttt{MQF\_Notazione.tex} costituisce il riferimento
-normativo per tutti i simboli matematici del corso. Il presente Master Plan
-riporta soltanto una sintesi operativa delle convenzioni principali, utile
-per collegare ciascuna lezione alla notazione comune.
+Il documento \texttt{MQF\_Notazione.tex} costituisce il riferimento normativo
+per tutti i simboli matematici del corso. Il presente Master Plan riporta
+soltanto una sintesi operativa delle convenzioni principali, utile per
+collegare ciascuna lezione alla notazione comune.
 
 Ogni lezione deve rispettare tre regole:
+
 \begin{enumerate}
 \item non introdurre simboli locali in conflitto con simboli gi\`{a} fissati
 in \texttt{MQF\_Notazione.tex};
+
 \item dichiarare esplicitamente eventuali eccezioni locali;
+
 \item aggiornare \texttt{MQF\_Notazione.tex} quando una nuova convenzione
 diventa ricorrente nel manuale, nelle slides o nel codice Python.
 \end{enumerate}
 
 In coerenza con il documento \texttt{MQF\_Notazione.tex}, si adottano le
-seguenti convenzioni generali:
+seguenti convenzioni generali. Le integrazioni relative al tempo continuo e al
+Goal Programming devono essere verificate nel file di notazione prima della
+scrittura definitiva dei capitoli corrispondenti.
+
 \begin{center}%
-\begin{tabular}[c]{cp{8.5cm}}
-\hline
-\textbf{Simbolo} & \textbf{Significato}\\
-\hline
-\multicolumn{1}{l}{$(\Omega,\F,\Prob)$} & Spazio di probabilit\`{a}.\\
+\begin{tabular}
+[c]{cp{8.5cm}}\hline
+\textbf{Simbolo} & \textbf{Significato}\\\hline
+\multicolumn{1}{l}{$(\Omega,\mathcal{F},\mathbb{P})$} & Spazio di
+probabilit\`{a}.\\
 \multicolumn{1}{l}{$X,Y,Z$} & Variabili casuali reali.\\
 \multicolumn{1}{l}{$L$} & Variabile casuale di perdita.\\
 \multicolumn{1}{l}{$H$} & Payoff terminale.\\
-\multicolumn{1}{l}{$\E[X]$, $\Var(X)$, $\Cov(X,Y)$} & Valore atteso, varianza e covarianza.\\
-\multicolumn{1}{l}{$\{\F_t\}_{t=0}^{T}$} & Filtrazione in tempo discreto.\\
-\multicolumn{1}{l}{$X_t$} & Processo stocastico generico al tempo $t$.\\
-\multicolumn{1}{l}{$S_t$} & Prezzo di un'attivit\`{a} finanziaria al tempo $t$.\\
-\multicolumn{1}{l}{$r$} & Tasso privo di rischio su un periodo, salvo diversa specificazione.\\
-\multicolumn{1}{l}{$\Q$} & Misura risk-neutral, quando introdotta.\\
-\multicolumn{1}{l}{$q$} & Probabilit\`{a} risk-neutral nel modello binomiale.\\
-\multicolumn{1}{l}{$x$} & Vettore di variabili decisionali nei problemi di ottimizzazione.\\
-\multicolumn{1}{l}{$\omega\in\Omega$} & Esito elementare nello spazio campionario.\\
-\multicolumn{1}{l}{$\xi$} & Vettore aleatorio o informazione incerta nei problemi decisionali.\\
-\multicolumn{1}{l}{$\mathcal S=\{1,\ldots,N\}$} & Insieme finito degli scenari discreti.\\
-\multicolumn{1}{l}{$s\in\mathcal S$, $p_s$} & Indice di scenario e probabilit\`{a} dello scenario $s$.\\
-\multicolumn{1}{l}{$\xi_s$} & Realizzazione dei dati aleatori nello scenario $s$.\\
-\multicolumn{1}{l}{$\mathcal I=\{1,\ldots,m\}$} & Insieme finito degli stati di una catena di Markov.\\
-\multicolumn{1}{l}{$M$, $k=1,\ldots,M$} & Numero e indice delle repliche simulate nelle applicazioni Monte Carlo.\\
-\hline
+\multicolumn{1}{l}{$\mathbb{E}[X]$, $\operatorname{Var}(X)$,
+$\operatorname{Cov}(X,Y)$} & Valore atteso, varianza e covarianza.\\
+\multicolumn{1}{l}{$\{\mathcal{F}_{t}\}_{t=0}^{T}$} & Filtrazione in tempo
+discreto.\\
+\multicolumn{1}{l}{$\{\mathcal{F}_{t}\}_{t\geq0}$} & Filtrazione in tempo
+continuo, quando introdotta.\\
+\multicolumn{1}{l}{$X_{t}$} & Processo stocastico generico al tempo $t$.\\
+\multicolumn{1}{l}{$S_{t}$} & Prezzo di un'attivit\`{a} finanziaria al tempo
+$t$.\\
+\multicolumn{1}{l}{$W_{t}$} & Moto browniano standard.\\
+\multicolumn{1}{l}{$dW_{t}$} & Incremento browniano infinitesimo nelle SDE.\\
+\multicolumn{1}{l}{$\mu$, $\sigma$} & Drift e volatilit\`{a} nei modelli
+diffusivi.\\
+\multicolumn{1}{l}{$\kappa$, $\theta$} & Velocit\`{a} di mean-reversion e
+livello di lungo periodo.\\
+\multicolumn{1}{l}{$\rho$, $\Sigma$} & Correlazione e matrice di
+covarianza/correlazione nei processi multivariati.\\
+\multicolumn{1}{l}{$r$} & Tasso privo di rischio su un periodo, salvo diversa
+specificazione.\\
+\multicolumn{1}{l}{$r_{t}$} & Tasso istantaneo o fattore di sconto stocastico,
+quando introdotto.\\
+\multicolumn{1}{l}{$\mathbb{Q}$} & Misura risk-neutral, quando introdotta.\\
+\multicolumn{1}{l}{$q$} & Probabilit\`{a} risk-neutral nel modello binomiale,
+se usata.\\
+\multicolumn{1}{l}{$x$} & Vettore di variabili decisionali nei problemi di
+ottimizzazione.\\
+\multicolumn{1}{l}{$\lambda$} & Variabile duale o prezzo ombra in
+programmazione lineare.\\
+\multicolumn{1}{l}{$g_{i}(x)$} & Valore del criterio o obiettivo $i$ in un
+modello di Goal Programming.\\
+\multicolumn{1}{l}{$b_{i}$, $d_{i}^{+}$, $d_{i}^{-}$} & Target e deviazioni
+positive/negative dall'obiettivo $i$.\\
+\multicolumn{1}{l}{$\omega\in\Omega$} & Esito elementare nello spazio
+campionario.\\
+\multicolumn{1}{l}{$\xi$} & Vettore aleatorio o informazione incerta nei
+problemi decisionali.\\
+\multicolumn{1}{l}{$\mathcal{S}=\{1,\ldots,N\}$} & Insieme finito degli
+scenari discreti.\\
+\multicolumn{1}{l}{$s\in\mathcal{S}$, $p_{s}$} & Indice di scenario e
+probabilit\`{a} dello scenario $s$.\\
+\multicolumn{1}{l}{$\xi_{s}$} & Realizzazione dei dati aleatori nello scenario
+$s$.\\
+\multicolumn{1}{l}{$\mathcal{I}=\{1,\ldots,m\}$} & Insieme finito degli stati
+di una catena di Markov.\\
+\multicolumn{1}{l}{$M$, $k=1,\ldots,M$} & Numero e indice delle repliche
+simulate nelle applicazioni Monte Carlo.\\\hline
 \end{tabular}
+
 \end{center}
 
-Salvo diversa indicazione, il corso lavora prevalentemente in tempo discreto:
+Il corso utilizza sia strutture in tempo discreto,
 \[
-t=0,1,\ldots,T.
+t=0,1,\ldots,T,
 \]
-
+sia strutture in tempo continuo,
+\[
+t\geq0,
+\]
+con una distinzione esplicita tra processi discreti, diffusioni continue e
+loro discretizzazione numerica.
 
 \section{Struttura delle 16 lezioni}
 
@@ -509,19 +393,19 @@ t=0,1,\ldots,T.
 1 & P & Elementi di teoria della probabilit\`{a} & Spazio di probabilit\`{a}, eventi, probabilit\`{a} condizionata & Capitolo teorico ed esercizi \\
 2 & P & Variabili casuali e distribuzioni & Variabili casuali, distribuzioni, momenti & Capitolo teorico, esercizi e grafici \\
 3 & P & Valori attesi condizionati e informazione & Condizionamento, partizioni, informazione & Capitolo teorico ed esercizi \\
-4 & P & Processi stocastici, traiettorie e scenari & Processi in tempo discreto, simulazione, scenari & Capitolo teorico e grafici \\
-5 & C & Applicazioni Python a processi stocastici e valori attesi condizionati & Simulazione e calcolo computazionale & Notebook o script e slides applicative \\
-6 & P & Catene di Markov: definizioni e propriet\`{a} & Stati, transizioni, matrice di transizione & Capitolo teorico ed esercizi \\
-7 & P & Catene di Markov e misure di rischio & Evoluzione delle distribuzioni, VaR, CVaR & Capitolo teorico, esercizi e grafici \\
-8 & C & Applicazioni Python al rischio di credito & Transizioni di rating e rischio di default & Notebook o script e slides applicative \\
-9 & P & Variabili casuali binomiali e alberi binomiali & Modello binomiale, payoff, probabilit\`{a} risk-neutral & Capitolo teorico ed esercizi \\
-10 & C & Applicazioni Python al pricing di opzioni e obbligazioni & Pricing numerico in alberi discreti & Notebook o script e slides applicative \\
-11 & P & Programmazione lineare & Formulazione, vincoli, regione ammissibile & Capitolo teorico, esercizi e grafici \\
-12 & P & Dualit\`{a} nella programmazione lineare & Problema duale, prezzi ombra, interpretazione economica & Capitolo teorico ed esercizi \\
-13 & C & Applicazioni Python di programmazione lineare: calcolo del CVaR & CVaR come problema di programmazione lineare & Notebook o script e slides applicative \\
-14 & P & Programmazione lineare stocastica I & Decisioni here-and-now, scenari, recourse & Capitolo teorico ed esercizi \\
-15 & P & Programmazione lineare stocastica II & Valore dell'informazione, decomposizione concettuale & Capitolo teorico ed esercizi \\
-16 & C & Applicazioni Python di programmazione stocastica & Implementazione di modelli stocastici discreti & Notebook o script e slides applicative \\
+4 & C & Applicazione in Python: probabilit\`{a}, variabili casuali, valori attesi condizionati & Simulazione, distribuzioni empiriche, stime condizionate & Notebook o script e slides applicative \\
+5 & P & Processi stocastici I -- Tempo discreto: fondamenti, informazione e martingale & Processi discreti, filtrazioni, adattabilit\`{a}, martingale & Capitolo teorico ed esercizi \\
+6 & P & Processi stocastici II -- Tempo continuo: diffusioni, mean-reversion e simulazione & Browniano, SDE, GBM, OU, CIR, correlazione & Capitolo teorico, esercizi e grafici \\
+7 & C & Applicazione in Python: simulazione di traiettorie e pricing & GBM, OU, processi correlati, opzioni asiatiche, OU--CIR & Notebook o script e slides applicative \\
+8 & P & Catene di Markov: definizioni e propriet\`{a} & Stati, transizioni, matrice di transizione, distribuzioni stazionarie & Capitolo teorico ed esercizi \\
+9 & P & Catene di Markov e misure di rischio & Transizioni di rating, perdite, VaR e CVaR & Capitolo teorico, esercizi e grafici \\
+10 & C & Applicazione in Python: rischio di credito & Simulazione di rating e rischio di portafoglio & Notebook o script e slides applicative \\
+11 & P & Ottimizzazione e programmazione lineare & Formulazione, soluzioni di base, dualit\`{a} essenziale & Capitolo teorico, esercizi e grafici \\
+12 & P & Goal Programming & Obiettivi multipli, deviazioni, priorit\`{a}, trade-off & Capitolo teorico ed esercizi \\
+13 & C & Applicazione in Python: Asset Allocation & Asset allocation multicriterio e Asset Liability Management & Notebook o script e slides applicative \\
+14 & P & Programmazione lineare stocastica I & Decisioni sotto incertezza, modelli a due stadi, scenari & Capitolo teorico ed esercizi \\
+15 & P & Programmazione lineare stocastica II & Modelli multistadio, alberi di scenari, non anticipativit\`{a} & Capitolo teorico ed esercizi \\
+16 & C & Applicazione in Python: programmazione stocastica & Asset allocation sotto incertezza e implementazione a scenari & Notebook o script e slides applicative \\
 \hline
 \end{longtable}
 
@@ -536,120 +420,112 @@ Per ciascun testo \`{e} indicato il peso relativo attribuito nella redazione
 del manuale.
 
 \begin{enumerate}
-
 \item \textbf{Ross, S.M.} \textit{Introduction to Probability Models},
-10a~edizione, Elsevier, 2011. \textbf{Peso alto.}
-Riferimento principale per la trattazione dei processi stocastici in tempo
-discreto e continuo, accessibile a studenti non matematici. Utilizzato in
-particolare per processi di Poisson, catene di Markov, moto browniano e
-simulazione.
+10a~edizione, Elsevier, 2011. \textbf{Peso alto.} Riferimento principale per
+processi stocastici, catene di Markov, moto browniano e simulazione.
 
-\item \textbf{Shreve, S.E.} \textit{Stochastic Calculus for Finance~I:
-The Binomial Asset Pricing Model}, Springer, 2004. \textbf{Peso alto.}
-Riferimento principale per il modello binomiale, le filtrazioni in tempo
-discreto e la valutazione risk-neutral.
+\item \textbf{Shreve, S.E.} \textit{Stochastic Calculus for Finance~I: The
+Binomial Asset Pricing Model}, Springer, 2004. \textbf{Peso medio.} Utilizzato
+per filtrazioni in tempo discreto, martingale e modello binomiale come
+struttura informativa elementare, non come blocco autonomo di pricing.
 
 \item \textbf{Shreve, S.E.} \textit{Stochastic Calculus for Finance~II:
-Continuous-Time Models}, Springer, 2004. \textbf{Peso medio-alto.}
-Riferimento per il moto browniano, le SDE e il collegamento con il modello
-continuo di Black--Scholes.
+Continuous-Time Models}, Springer, 2004. \textbf{Peso medio-alto.} Riferimento
+per moto browniano, SDE e modelli continui.
 
 \item \textbf{Bj\"{o}rk, T.} \textit{Arbitrage Theory in Continuous Time},
-Oxford University Press, 3a~edizione. \textbf{Peso medio.}
-Utilizzato per il raccordo tra processi continui e pricing di derivati,
-con taglio accessibile per studenti di economia.
+Oxford University Press, 3a~edizione. \textbf{Peso medio.} Utilizzato per il
+raccordo tra processi continui e pricing di derivati.
 
-\item \textbf{\O ksendal, B.} \textit{Stochastic Differential Equations:
-An Introduction with Applications}, Springer, 6a~edizione.
-\textbf{Peso medio.}
-Riferimento per le equazioni differenziali stocastiche e il calcolo di
-It\^{o}, consultato per la trattazione del tempo continuo.
+\item \textbf{\O ksendal, B.} \textit{Stochastic Differential Equations: An
+Introduction with Applications}, Springer, 6a~edizione. \textbf{Peso medio.}
+Riferimento per equazioni differenziali stocastiche e metodo di discretizzazione.
 
 \item \textbf{Hull, J.C.} \textit{Options, Futures, and Other Derivatives},
-Pearson, 11a~edizione. \textbf{Peso medio.}
-Utilizzato per le applicazioni finanziarie, l'intuizione sui parametri
-$\mu$, $\sigma$, $r$ e gli esempi di pricing.
+Pearson, 11a~edizione. \textbf{Peso medio.} Utilizzato per applicazioni
+finanziarie, interpretazione dei parametri e pricing Monte Carlo.
 
-\item \textbf{McNeil, A.J., Frey, R., Embrechts, P.}
-\textit{Quantitative Risk Management: Concepts, Techniques and Tools},
-Princeton University Press, 2a~edizione. \textbf{Peso medio.}
-Riferimento per le misure di rischio, VaR, CVaR e la gestione quantitativa
-del rischio.
+\item \textbf{McNeil, A.J., Frey, R., Embrechts, P.} \textit{Quantitative Risk
+Management: Concepts, Techniques and Tools}, Princeton University Press,
+2a~edizione. \textbf{Peso medio.} Riferimento per misure di rischio, VaR, CVaR
+e gestione quantitativa del rischio.
 
 \item \textbf{Glasserman, P.} \textit{Monte Carlo Methods in Financial
-Engineering}, Springer, 2003. \textbf{Peso medio.}
-Riferimento per la simulazione, il metodo di Euler--Maruyama e la stima
-Monte Carlo di quantit\`{a} finanziarie.
+Engineering}, Springer, 2003. \textbf{Peso medio.} Riferimento per
+simulazione, metodo Euler--Maruyama e stima Monte Carlo.
 
+\item \textbf{Testi di Operations Research e Stochastic Programming da
+selezionare.} Riferimenti operativi per programmazione lineare, Goal
+Programming, asset allocation multicriterio e programmazione stocastica.
 \end{enumerate}
 
 \subsection{Impostazione generale delle lezioni applicative}
 
-Le lezioni applicative hanno la funzione di tradurre in forma computazionale i principali modelli quantitativi introdotti nelle lezioni teoriche. Esse non costituiscono un corso autonomo di programmazione, ma un laboratorio di modellizzazione: il codice Python viene utilizzato come strumento per rendere operativi concetti probabilistici, finanziari e di ottimizzazione già discussi nel manuale e nelle slide teoriche.
+Le lezioni applicative hanno la funzione di tradurre in forma computazionale i
+principali modelli quantitativi introdotti nelle lezioni teoriche. Esse non
+costituiscono un corso autonomo di programmazione, ma un laboratorio di
+modellizzazione: il codice Python viene utilizzato come strumento per rendere
+operativi concetti probabilistici, finanziari e di ottimizzazione gi\`{a}
+discussi nel manuale e nelle slide teoriche.
 
-Ciascuna lezione applicativa ha una durata complessiva di 2 ore e 15 minuti, di cui 15 minuti destinati alla pausa. Il tempo effettivo di lavoro è quindi pari a circa 120 minuti. Le lezioni si svolgono in laboratorio informatico, con postazioni individuali Windows per gli studenti e schermi di aula per la proiezione di slide, codice, risultati numerici, grafici e, quando opportuno, schermate provenienti dalle postazioni degli studenti.
+Ciascuna lezione applicativa ha una durata complessiva di 2 ore e 15 minuti,
+di cui 15 minuti destinati alla pausa. Il tempo effettivo di lavoro \`{e}
+quindi pari a circa 120 minuti. Le lezioni si svolgono in laboratorio
+informatico, con postazioni individuali Windows per gli studenti e schermi di
+aula per la proiezione di slide, codice, risultati numerici, grafici e, quando
+opportuno, schermate provenienti dalle postazioni degli studenti.
 
-La struttura didattica ricorrente delle lezioni applicative è articolata come segue.
+La struttura didattica ricorrente delle lezioni applicative \`{e} articolata
+come segue.
 
 \begin{enumerate}
-\item \textbf{Introduzione del caso applicativo.}
-La lezione si apre con la presentazione di un problema finanziario o probabilistico concreto, formulato in modo coerente con i contenuti teorici del corso. Devono essere esplicitati il contesto del problema, gli obiettivi computazionali, i dati disponibili, i parametri rilevanti e gli output attesi.
+\item \textbf{Introduzione del caso applicativo.} Presentare un problema
+finanziario o probabilistico concreto, formulato in modo coerente con i
+contenuti teorici del corso.
 
-\item \textbf{Richiamo matematico-operativo.}  
-Prima dello sviluppo del codice viene richiamata la struttura matematica essenziale del modello: variabili, parametri, formule principali, vincoli, quantità da stimare o ottimizzare. Il richiamo deve essere selettivo e finalizzato alla traduzione computazionale, evitando una ripetizione estesa della lezione teorica.
+\item \textbf{Richiamo matematico-operativo.} Richiamare variabili, parametri,
+formule principali, vincoli, quantit\`{a} da stimare o ottimizzare.
 
-\item \textbf{Introduzione mirata degli strumenti Python.}  
-Ogni lezione applicativa introduce soltanto gli elementi di programmazione necessari per il caso trattato. A seconda della difficoltà, possono essere presentati da uno a tre strumenti chiave, ad esempio: array e vettorizzazione, funzioni, cicli temporali, strutture dati per scenari, matrici di transizione, grafici, oppure uso di librerie di ottimizzazione. La scelta degli strumenti Python deve essere subordinata alla logica del modello, non viceversa.
+\item \textbf{Introduzione mirata degli strumenti Python.} Introdurre soltanto
+gli elementi di programmazione necessari al caso trattato.
 
-\item \textbf{Sviluppo guidato del codice.}  
-Il docente avvia lo sviluppo del programma in aula, costruendo l'ossatura del codice e commentando le scelte principali. Questa fase deve mostrare il passaggio dalla formulazione matematica alla struttura computazionale: definizione dei dati, costruzione delle variabili, implementazione delle formule, controlli intermedi, produzione dei primi output. L'obiettivo è fornire agli studenti una base robusta, evitando che debbano partire da un file vuoto.
+\item \textbf{Sviluppo guidato del codice.} Mostrare il passaggio dalla
+formulazione matematica alla struttura computazionale.
 
-\item \textbf{Sviluppo autonomo assistito.}  
-Dopo la fase guidata, gli studenti completano parti selezionate del codice. Il lavoro autonomo deve essere organizzato in tappe verificabili, ciascuna con un obiettivo intermedio, un output atteso e almeno un controllo numerico o logico. Il docente fornisce indicazioni sulle tappe da completare, assiste gli studenti durante lo sviluppo e interviene per chiarire errori ricorrenti o difficoltà concettuali.
+\item \textbf{Output, grafici e interpretazione.} Commentare i risultati
+numerici e grafici in termini finanziari.
 
-\item \textbf{Discussione collettiva dei risultati.}  
-Alcuni risultati prodotti dagli studenti possono essere condivisi sugli schermi dell'aula. La discussione deve riguardare non solo le soluzioni corrette, ma anche errori rappresentativi, ambiguità interpretative e scelte alternative di implementazione. L'errore deve essere trattato come oggetto didattico, utile per chiarire il legame tra modello, codice e risultato numerico.
-
-\item \textbf{Estensione take-home.}  
-La lezione si conclude assegnando una o due estensioni da completare autonomamente. Le estensioni devono essere brevi ma sostanziali: analisi di sensibilità, modifica di parametri, produzione di grafici aggiuntivi, confronto tra scenari, oppure commento interpretativo dei risultati. Il lavoro take-home deve richiedere sia codice sia interpretazione economico-finanziaria.
-
+\item \textbf{Esercizi di modifica.} Proporre modifiche dei parametri, delle
+ipotesi o del modello per consolidare l'apprendimento.
 \end{enumerate}
 
-L'organizzazione temporale di riferimento è la seguente: 10--15 minuti per l'introduzione del caso; 10--15 minuti per il richiamo matematico-operativo; 15--20 minuti per gli strumenti Python; 25--30 minuti per lo sviluppo guidato; 15 minuti di pausa; 35--40 minuti per lo sviluppo autonomo assistito; 15--20 minuti per la discussione collettiva; 5--10 minuti per la chiusura e l'assegnazione take-home. La scansione può essere adattata alla difficoltà specifica della lezione, mantenendo però l'equilibrio tra spiegazione, implementazione guidata, lavoro autonomo e interpretazione dei risultati.
-
-L'uso di strumenti di intelligenza artificiale generativa può essere previsto come supporto controllato all'attività di laboratorio. L'IA non deve sostituire la formulazione del modello né l'interpretazione dei risultati. Può invece essere utilizzata per attività circoscritte: chiarire errori di codice, spiegare messaggi di errore, proporre una funzione locale, migliorare la leggibilità di un blocco di codice, oppure confrontare implementazioni alternative. Gli studenti devono essere orientati a usare prompt specifici e verificabili, e devono mantenere la responsabilità della correttezza matematica, computazionale e interpretativa del lavoro prodotto.
-
-In ogni lezione applicativa deve essere identificato un prodotto finale osservabile. La lezione non deve concludersi genericamente con la scrittura di codice, ma con la costruzione di un oggetto computazionale riconoscibile: un simulatore, una procedura di stima, un algoritmo di pricing, una formulazione di ottimizzazione, una tabella di confronto, un grafico interpretativo o una misura quantitativa del rischio. Tale prodotto deve rendere esplicito il contributo della programmazione Python alla comprensione del modello teorico.
-
-I materiali predisposti per ciascuna lezione applicativa dovranno quindi includere almeno: una traccia del caso, un file Python o notebook parzialmente strutturato, eventuali dati di partenza, una sequenza di tappe operative, controlli intermedi, output attesi e indicazioni per l'estensione take-home. Questi materiali saranno progettati in modo da favorire la partecipazione attiva degli studenti e da mantenere coerenza tra notazione matematica, implementazione Python e interpretazione finanziaria.
-
-
-\section{Schede progettuali delle lezioni}
+\section{Schede dettagliate delle lezioni}
 
 \subsection{Lezione 1 -- Elementi di teoria della probabilit\`{a}}
 
 \textbf{Tipo:} P.\newline\textbf{Domanda guida:} come si rappresenta
-formalmente l'incertezza di un payoff finanziario?\newline%
-\textbf{Prerequisiti:} insiemi, algebra elementare degli eventi, nozioni di
-probabilit\`{a} di base.\newline\textbf{Obiettivi didattici:} introdurre lo
-spazio di probabilit\`{a}; distinguere eventi, probabilit\`{a} marginali,
-congiunte e condizionate; collegare il formalismo probabilistico alla nozione
-finanziaria di rischio.\newline\textbf{Notazione introdotta:} $\Omega$,
-$\mathcal{F}$, $\mathbb{P}$, eventi $A,B$, probabilit\`{a} condizionata
-$\mathbb{P}(A\mid B)$.\newline\textbf{Formule principali:}
+formalmente l'incertezza finanziaria?\newline\textbf{Prerequisiti:} algebra
+elementare; nozioni intuitive di probabilit\`{a}.\newline\textbf{Obiettivi
+didattici:} introdurre spazio campionario, eventi, sigma-algebra,
+probabilit\`{a}, probabilit\`{a} condizionata, formula delle probabilit\`{a}
+totali e formula di Bayes.\newline\textbf{Notazione introdotta:}
+$(\Omega,\mathcal{F},\mathbb{P})$, eventi $A,B$, partizione $\{B_{i}\}$,
+probabilit\`{a} condizionata $\mathbb{P}(A\mid B)$.\newline\textbf{Formule
+principali:}
 \[
-\mathbb{P}(A\mid B)=\frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}, \qquad
-\mathbb{P}(A)=\sum_{i} \mathbb{P}(A\mid B_{i})\mathbb{P}(B_{i}),
+\mathbb{P}(A\mid B)=\frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)},\qquad
+\mathbb{P}(B)>0.
 \]
 \[
-\mathbb{P}(B_{j}\mid A)=\frac{\mathbb{P}(A\mid B_{j})\mathbb{P}(B_{j})}%
-{\sum_{i} \mathbb{P}(A\mid B_{i})\mathbb{P}(B_{i})}.
+\mathbb{P}(A)=\sum_{i} \mathbb{P}(A\mid B_{i})\mathbb{P}(B_{i}),
+\qquad\mathbb{P}(B_{j}\mid A)=\frac{\mathbb{P}(A\mid B_{j})\mathbb{P}(B_{j}%
+)}{\sum_{i} \mathbb{P}(A\mid B_{i})\mathbb{P}(B_{i})}.
 \]
 \textbf{Esercizi previsti:} probabilit\`{a} condizionata su eventi di mercato;
 aggiornamento bayesiano di uno scenario di default; calcolo di probabilit\`{a}
 congiunte.\newline\textbf{Grafici previsti:} diagrammi di Venn; albero
 probabilistico a due stadi.\newline\textbf{Applicazioni Python collegate:}
-Lezione 5.\newline\textbf{Stato di avanzamento:} bozza progettuale
+Lezione 4.\newline\textbf{Stato di avanzamento:} bozza progettuale
 predisposta; contenuti teorici da sviluppare.
 
 \subsection{Lezione 2 -- Variabili casuali e distribuzioni}
@@ -660,679 +536,477 @@ quantitativamente un rendimento, una perdita o un payoff aleatorio?\newline%
 definire variabili casuali discrete e continue; introdurre distribuzioni,
 funzione di ripartizione, momenti e quantili; collegare momenti e
 rischio.\newline\textbf{Notazione introdotta:} $X$, $F_{X}(x)$, $f_{X}(x)$,
-$p_{X}(x)$, $\mathbb{E}[X]$, $\operatorname{Var}(X)$.\newline\\textbf{Formule principali:}
+$p_{X}(x)$, $\mathbb{E}[X]$, $\operatorname{Var}(X)$.\newline\textbf{Formule
+principali:}
 \[
-F_{X}(x)=\mathbb{P}(X\leq x),
-\qquad
-\mathbb{E}[X]=\sum_{x} x p_{X}(x)
-\quad \text{nel caso discreto},
+F_{X}(x)=\mathbb{P}(X\leq x), \qquad\mathbb{E}[X]=\sum_{x} x p_{X}(x),
+\qquad\mathbb{E}[X]=\int_{-\infty}^{+\infty}x f_{X}(x)\,dx.
 \]
 \[
-\mathbb{E}[X]=\int_{-\infty}^{+\infty}x f_X(x)\,dx
-\quad \text{nel caso continuo},
-\]
-\[
-\operatorname{Var}(X)
-=
-\mathbb{E}\left[(X-\mathbb{E}[X])^{2}\right].
+\operatorname{Var}(X)=\mathbb{E}[(X-\mathbb{E}[X])^{2}].
 \]
 \textbf{Esercizi previsti:} payoff discreto; rendimento atteso e varianza;
 quantile di una distribuzione discreta di perdite.\newline\textbf{Grafici
 previsti:} funzione di massa; densit\`{a}; funzione di ripartizione;
 rappresentazione dei quantili.\newline\textbf{Applicazioni Python collegate:}
-Lezioni 5, 8 e 13.\newline\textbf{Stato di avanzamento:} bozza progettuale
+Lezioni 4, 10 e 13.\newline\textbf{Stato di avanzamento:} bozza progettuale
 predisposta; esempi numerici da selezionare.
 
 \subsection{Lezione 3 -- Valori attesi condizionati e informazione}
 
 \textbf{Tipo:} P.\newline\textbf{Domanda guida:} come cambia la valutazione di
-un payoff quando arriva nuova informazione?\newline\textbf{Prerequisiti:} Lezioni 1--2; probabilit\`{a} condizionata;
-variabili casuali discrete e continue; funzione di massa, densit\`{a},
-funzione di ripartizione e valore atteso. \newline\textbf{Obiettivi didattici:} introdurre il valore atteso condizionato
-rispetto a eventi nel caso discreto e nel caso continuo; collegare il
-condizionamento alla distribuzione condizionata; estendere il concetto a
-partizioni e sigma-algebre informative; interpretare il valore atteso
-condizionato come previsione coerente con l'informazione disponibile. \newline\textbf{Regole operative del valore atteso condizionato:}
-per variabili casuali integrabili e per una sigma-algebra informativa
-\(\mathcal{G}\subseteq\mathcal{F}\), il valore atteso condizionato soddisfa:
-
-\begin{enumerate}
-    \item \textbf{Linearit\`{a}:}
-    \[
-    \mathbb{E}[aX+bY\mid\mathcal{G}]
-    =
-    a\mathbb{E}[X\mid\mathcal{G}]
-    +
-    b\mathbb{E}[Y\mid\mathcal{G}].
-    \]
-
-    \item \textbf{Estrazione dei parametri noti:}
-    se \(Z\) \`{e} \(\mathcal{G}\)-misurabile e \(ZX\) \`{e} integrabile, allora
-    \[
-    \mathbb{E}[ZX\mid\mathcal{G}]
-    =
-    Z\mathbb{E}[X\mid\mathcal{G}].
-    \]
-
-    \item \textbf{Condizionamento iterato, o propriet\`{a} della torre:}
-    se \(\mathcal{G}_1\subseteq\mathcal{G}_2\), allora
-    \[
-    \mathbb{E}\left[
-    \mathbb{E}[X\mid\mathcal{G}_2]
-    \mid
-    \mathcal{G}_1
-    \right]
-    =
-    \mathbb{E}[X\mid\mathcal{G}_1].
-    \]
-
-    \item \textbf{Indipendenza da una sigma-algebra:}
-    se \(X\) \`{e} indipendente da \(\mathcal{G}\), allora
-    \[
-    \mathbb{E}[X\mid\mathcal{G}]
-    =
-    \mathbb{E}[X].
-    \]
-
-    \item \textbf{Indipendenza fra variabili casuali:}
-    se \(X\) e \(Z\) sono indipendenti, allora
-    \[
-    \mathbb{E}[X\mid Z]
-    =
-    \mathbb{E}[X],
-    \]
-    dove \(\mathbb{E}[X\mid Z]\) indica
-    \(\mathbb{E}[X\mid\sigma(Z)]\).
-
-    \item \textbf{Disuguaglianza condizionata di Jensen:}
-    se \(\varphi\) \`{e} convessa e \(X\), \(\varphi(X)\) sono integrabili, allora
-    \[
-    \varphi\left(\mathbb{E}[X\mid\mathcal{G}]\right)
-    \leq
-    \mathbb{E}[\varphi(X)\mid\mathcal{G}].
-    \]
-\end{enumerate}
-\textbf{Notazione introdotta:} $\mathbb{P}(X=x\mid A)$,
-$F_{X\mid A}(x)$, $f_{X\mid A}(x)$, $\mathbb{E}[X\mid A]$,
-$\mathbb{E}[X\mid\mathcal{G}]$, partizioni finite, sigma-algebre informative.\newline\textbf{Formule principali:}
+un payoff quando arriva nuova informazione?\newline\textbf{Prerequisiti:}
+Lezioni 1--2.\newline\textbf{Obiettivi didattici:} introdurre il valore atteso
+condizionato rispetto a eventi, distribuzioni condizionate, partizioni e
+sigma-algebre informative; interpretare il valore atteso condizionato come
+previsione coerente con l'informazione disponibile.\newline\textbf{Notazione
+introdotta:} $\mathbb{P}(X=x\mid A)$, $F_{X\mid A}(x)$, $f_{X\mid A}(x)$,
+$\mathbb{E}[X\mid A]$, $\mathbb{E}[X\mid\mathcal{G}]$, partizioni finite,
+sigma-algebre informative.\newline\textbf{Formule principali:}
 \[
-\mathbb{P}(X=x\mid A)
-=
-\frac{\mathbb{P}(\{X=x\}\cap A)}{\mathbb{P}(A)},
-\qquad
-\mathbb{P}(A)>0.
+\mathbb{E}[X\mid\mathcal{G}]=\sum_{i=1}^{n}\mathbb{E}[X\mid B_{i}%
+]\mathbf{1}_{B_{i}}, \qquad\mathcal{G}=\sigma(B_{1},\ldots,B_{n}).
 \]
 \[
-\mathbb{E}[X\mid A]
-=
-\sum_x x\,\mathbb{P}(X=x\mid A)
-\quad \text{nel caso discreto}.
+\mathbb{E}[\mathbb{E}[X\mid\mathcal{G}]]=\mathbb{E}[X], \qquad\mathbb{E}%
+[\mathbb{E}[X\mid\mathcal{G}_{2}]\mid\mathcal{G}_{1}]=\mathbb{E}%
+[X\mid\mathcal{G}_{1}], \qquad\mathcal{G}_{1}\subseteq\mathcal{G}_{2}.
 \]
-\[
-F_{X\mid A}(x)
-=
-\mathbb{P}(X\leq x\mid A),
-\qquad
-\mathbb{E}[X\mid A]
-=
-\int_{-\infty}^{+\infty} x f_{X\mid A}(x)\,dx
-\quad \text{nel caso continuo, se esiste } f_{X\mid A}.
-\]
-\[
-\mathbb{E}[X\mid \mathcal{G}]
-=
-\sum_{i=1}^{n}
-\mathbb{E}[X\mid B_i]\mathbf{1}_{B_i},
-\qquad
-\mathcal{G}=\sigma(B_1,\ldots,B_n).
-\]
-\[
-\mathbb{E}\left[
-\mathbb{E}[X\mid\mathcal{G}]
-\right]
-=
-\mathbb{E}[X].
-\]
-\[
-\mathbb{E}\left[
-\mathbb{E}[X\mid\mathcal{G}_{2}]
-\mid\mathcal{G}_{1}
-\right]
-=
-\mathbb{E}[X\mid\mathcal{G}_{1}],
-\qquad
-\mathcal{G}_{1}\subseteq\mathcal{G}_{2}.
-\]
-\textbf{Grafici previsti:} albero informativo; rappresentazione
-per stati e partizioni; confronto tra densit\`{a} non condizionata e densit\`{a}
-condizionata; rappresentazione dell'evento condizionante come regione della
-distribuzione.\newline\textbf{Grafici previsti:} albero informativo; rappresentazione
-per stati e partizioni; confronto tra densit\`{a} non condizionata e densit\`{a}
-condizionata; rappresentazione dell'evento condizionante come regione della
-distribuzione.\newline\textbf{Applicazioni Python collegate:} Lezione
-5; Lezione 16 per la distinzione tra informazione anticipativa e non
+\textbf{Esercizi previsti:} valore atteso condizionato rispetto a eventi;
+valore atteso condizionato rispetto a partizioni; propriet\`{a} della
+torre.\newline\textbf{Grafici previsti:} albero informativo; rappresentazione
+per stati e partizioni; confronto tra distribuzione non condizionata e
+condizionata.\newline\textbf{Applicazioni Python collegate:} Lezione 4;
+Lezione 16 per la distinzione tra informazione anticipativa e non
 anticipativa.\newline\textbf{Stato di avanzamento:} bozza progettuale
 predisposta; dimostrazioni essenziali da definire.
 
-\subsection{Lezione 4 -- Processi stocastici, traiettorie e scenari}
+\subsection{Lezione 4 -- Applicazione in Python: probabilit\`{a}, variabili
+casuali, valori attesi condizionati}
 
-\textbf{Tipo:} P.\newline
-\textbf{Domanda guida:} come si rappresenta l'evoluzione temporale di prezzi,
-rendimenti o fattori di rischio, e come si fa il salto da una rappresentazione
-matematica a scenari concreti usabili in finanza?\newline
-\textbf{Prerequisiti:} Lezioni 1--3.\newline
-\textbf{Obiettivi didattici:} introdurre i processi stocastici in tempo
-discreto e in tempo continuo; illustrare i principali esempi di entrambe le
-famiglie con motivazione finanziaria; distinguere traiettorie, stati e scenari;
-collegare simulazione e rappresentazione dell'incertezza; chiarire che i
-capitoli successivi opereranno prevalentemente in tempo discreto.\newline
-\textbf{Notazione introdotta:} $\{X_{t}\}_{t=0}^{T}$,
-$\{S_{t}\}_{t=0}^{T}$, $\{\F_t\}_{t=0}^{T}$, traiettorie
-$X_0(\omega),\ldots,X_T(\omega)$, scenari discreti $s\in\mathcal{S}$
-e dati di scenario $\xi_s$; per il tempo continuo: $\{W_t\}_{t\geq 0}$
-(moto browniano standard), $\{S_t\}_{t\geq 0}$ (moto browniano geometrico),
-parametri $\mu$ (drift) e $\sigma$ (volatilit\`{a} diffusiva), rendimento
-logaritmico $r_t=\log(S_t/S_{t-1})$.\newline
-\textbf{Formule principali:}
+\textbf{Tipo:} C.\newline\textbf{Domanda guida:} come si trasformano
+probabilit\`{a}, distribuzioni e valori attesi condizionati in procedure
+computabili e simulabili?\newline\textbf{Prerequisiti:} Lezioni 1--3; basi
+operative di Python.\newline\textbf{Obiettivi didattici:} simulare variabili
+casuali discrete e continue; costruire distribuzioni empiriche, momenti e
+quantili; stimare valori attesi e valori attesi condizionati rispetto a eventi
+e partizioni; confrontare quantit\`{a} teoriche e stime Monte Carlo.\newline%
+\textbf{Notazione introdotta:} nessuna nuova notazione teorica sostanziale;
+raccordo computazionale con $X^{(k)}$, $L^{(k)}$, $M$, eventi $A_{g}$, classi
+informative e indicatori.\newline\textbf{Formule principali:}
 \[
-X_{t}:\Omega\rightarrow\mathbb{R}, \qquad\{X_{t}\}_{t=0}^{T}, \qquad
-X_{t} \;\hbox{\`{e} }\mathcal{F}_{t}\hbox{-misurabile}.
+\widehat{\mathbb{E}}[X]=\frac{1}{M}\sum_{k=1}^{M}X^{(k)}, \qquad
+\widehat{\mathbb{P}}(A)=\frac{1}{M}\sum_{k=1}^{M}\mathbf{1}_{A}(\omega_{k}).
 \]
 \[
-W_t - W_s \sim \mathcal{N}(0,\,t-s), \qquad 0\leq s < t.
+\widehat{\mathbb{E}}[X\mid A_{g}]=\frac{1}{M_{g}}\sum_{k:\omega_{k}\in A_{g}%
+}X^{(k)}, \qquad M_{g}=\#\{k:\omega_{k}\in A_{g}\}.
+\]
+\textbf{Esercizi previsti:} modificare distribuzioni e parametri; stimare
+media, varianza e quantili; calcolare valori attesi condizionati rispetto a
+soglie come $X>a$, $L>\ell$ o $S>K$; confrontare partizioni
+alternative.\newline\textbf{Grafici previsti:} istogrammi; funzione di
+ripartizione empirica; quantili; confronto tra stime condizionate per classi
+informative.\newline\textbf{Applicazioni Python collegate:} applicazione
+Python 1.\newline\textbf{Stato di avanzamento:} nuova lezione introdotta;
+capitolo, slides e codice da scrivere.
+
+\subsection{Lezione 5 -- Processi stocastici I: tempo discreto, informazione e
+martingale}
+
+\textbf{Tipo:} P.\newline\textbf{Domanda guida:} come si rappresenta
+l'evoluzione temporale dell'incertezza quando l'informazione cresce nel
+tempo?\newline\textbf{Prerequisiti:} Lezioni 1--4.\newline\textbf{Obiettivi
+didattici:} introdurre processi stocastici in tempo discreto, traiettorie,
+scenari, dipendenza temporale, stazionariet\`{a}, incrementi, filtrazione,
+adattabilit\`{a} e martingale; usare il modello binomiale come palestra
+strutturale per informazione e dinamica discreta, senza sviluppare una lezione
+autonoma di pricing binomiale.\newline\textbf{Notazione introdotta:}
+$\{X_{t}\}_{t=0}^{T}$, $\{S_{t}\}_{t=0}^{T}$, $\{\mathcal{F}_{t}\}_{t=0}^{T}$,
+traiettorie $X_{0}(\omega),\ldots,X_{T}(\omega)$, scenari discreti
+$s\in\mathcal{S}$, dati di scenario $\xi_{s}$.\newline\textbf{Formule
+principali:}
+\[
+X_{t}:\Omega\rightarrow\mathbb{R}, \qquad X_{t} \hbox{ \`{e} } \mathcal{F}%
+_{t}\hbox{-misurabile}.
 \]
 \[
-S_t = S_0\exp\!\left(\mu t + \sigma W_t\right).
+\mathbb{E}[X_{t+1}\mid\mathcal{F}_{t}]=X_{t} \qquad
+\hbox{condizione di martingala}.
 \]
-\textbf{Esercizi previsti:} costruzione di traiettorie discrete; calcolo di
-medie e varianze per stati temporali; identificazione dell'informazione
-disponibile; calcolo di momenti del moto browniano; collegamento
-discreto--continuo tramite calibrazione del modello binomiale.\newline
-\textbf{Grafici previsti:} albero binomiale con filtrazione; traiettorie
-simulate del moto browniano con banda $\pm\sqrt{t}$; confronto traiettorie
-continue e con salti; traiettorie del moto browniano geometrico per diversi
-valori di $\mu$; convergenza del modello binomiale al moto browniano
-geometrico.\newline
-\textbf{Risorse bibliografiche principali:} Ross,
-\textit{Introduction to Probability Models} (10a~ed., Elsevier, 2011),
-cap.~6 e~10; Shreve, \textit{Stochastic Calculus for Finance~I}
-(Springer, 2004), cap.~1--3; Shreve,
-\textit{Stochastic Calculus for Finance~II} (Springer, 2004),
-cap.~3--4; Bj\"{o}rk, \textit{Arbitrage Theory in Continuous Time}
-(Oxford, 3a~ed.), cap.~2--4.\newline
-\textbf{Applicazioni Python collegate:} Lezione~5; Lezioni~8, 10 e~16.\newline
-\textbf{Stato di avanzamento:} struttura rivista; testo in preparazione.
-
-\subsection{Lezione 5 -- Applicazioni Python a processi stocastici e valori
-attesi condizionati}
-
-\textbf{Tipo:} C.\newline\textbf{Domanda guida:} come si simulano traiettorie
-e come si stimano quantitativamente valori attesi condizionati?\newline%
-\textbf{Prerequisiti:} Lezioni 1--4; basi operative di Python.\newline%
-\textbf{Obiettivi didattici:} implementare simulazioni di processi discreti;
-stimare valori attesi condizionati; visualizzare traiettorie e
-scenari.\newline\textbf{Notazione introdotta:} nessuna notazione teorica
-sostanziale; raccordo tra simboli matematici e variabili Python.\newline%
-\textbf{Formule principali:}
 \[
-\widehat{\E}[X]=\frac{1}{M}\sum_{k=1}^{M}X^{(k)}, \qquad
-\widehat{\E}[X\mid A_g]=\frac{1}{M_g}\sum_{k:\omega_k\in A_g}X^{(k)}.
+S_{t+1}=%
+\begin{cases}
+u S_{t}, & \hbox{stato up},\\
+dS_{t}, & \hbox{stato down},
+\end{cases}
+\qquad\mathcal{F}_{t}%
+=\hbox{informazione generata dai primi }t\hbox{ movimenti}.
 \]
-Qui $M$ \`{e} il numero di repliche simulate, $k$ \`{e} l'indice di replica,
-$A_g$ \`{e} l'evento associato alla classe informativa $g$ e
-$M_g=\#\{k:\omega_k\in A_g\}$.
-\newline\textbf{Esercizi previsti:} modificare parametri di simulazione; aumentare il
-numero di repliche simulate; interpretare la stabilit\`{a} numerica; stima empirica di valori attesi condizionati rispetto a eventi definiti da
-soglie, ad esempio \(X>a\), \(L>\ell\) oppure \(S_T>K\). \newline%
-\textbf{Grafici previsti:} traiettorie multiple; media temporale; bande
-empiriche.\newline\textbf{Applicazioni Python collegate:} applicazione Python
-1.\newline\textbf{Stato di avanzamento:} bozza progettuale predisposta; codice
-da scrivere.
+\textbf{Esercizi previsti:} costruzione di traiettorie discrete;
+identificazione della filtrazione; verifica di adattabilit\`{a}; verifica
+elementare di una martingala; rappresentazione del binomiale come processo
+informativo.\newline\textbf{Grafici previsti:} albero informativo; traiettorie
+discrete; ventaglio di scenari; albero binomiale usato come struttura di
+filtrazione.\newline\textbf{Applicazioni Python collegate:} Lezione 7;
+richiami alla Lezione 16 per scenari e non anticipativit\`{a}.\newline%
+\textbf{Stato di avanzamento:} nuova articolazione introdotta; testo da
+scrivere a partire dalla precedente scheda sui processi.
 
-\subsection{Lezione 6 -- Catene di Markov: definizioni e propriet\`{a}}
+\subsection{Lezione 6 -- Processi stocastici II: tempo continuo, diffusioni,
+mean-reversion e simulazione}
+
+\textbf{Tipo:} P.\newline\textbf{Domanda guida:} come si modellano fattori
+finanziari continui nel tempo e come si preparano alla simulazione
+numerica?\newline\textbf{Prerequisiti:} Lezioni 1--5.\newline\textbf{Obiettivi
+didattici:} introdurre il moto browniano come limite della passeggiata
+aleatoria; presentare equazioni differenziali stocastiche, moto browniano
+geometrico, processi mean-reverting Ornstein--Uhlenbeck e CIR, processi
+multivariati correlati e discretizzazione di Euler--Maruyama.\newline%
+\textbf{Notazione introdotta:} $\{W_{t}\}_{t\geq0}$, $dW_{t}$, $dX_{t}$, drift
+$a(t,X_{t})$, diffusione $b(t,X_{t})$, parametri $\mu$, $\sigma$, $\kappa$,
+$\theta$, correlazione $\rho$.\newline\textbf{Formule principali:}
+\[
+W_{t}-W_{s}\sim\mathcal{N}(0,t-s), \qquad0\leq s<t.
+\]
+\[
+dX_{t}=a(t,X_{t})\,dt+b(t,X_{t})\,dW_{t}.
+\]
+\[
+dS_{t}=\mu S_{t}\,dt+\sigma S_{t}\,dW_{t}, \qquad S_{t}=S_{0}\exp\left\{
+\left( \mu-\frac{1}{2}\sigma^{2}\right) t+\sigma W_{t}\right\} .
+\]
+\[
+dX_{t}=\kappa(\theta-X_{t})\,dt+\sigma\,dW_{t}, \qquad dr_{t}=\kappa
+(\theta-r_{t})\,dt+\sigma\sqrt{r_{t}}\,dW_{t}.
+\]
+\[
+X_{t+\Delta t}\simeq X_{t}+a(t,X_{t})\Delta t+b(t,X_{t})\sqrt{\Delta t}%
+\,Z_{t}, \qquad Z_{t}\sim\mathcal{N}(0,1).
+\]
+\textbf{Esercizi previsti:} momenti del moto browniano; confronto tra GBM e
+modello mean-reverting; discretizzazione Euler--Maruyama; ruolo della
+correlazione tra fattori.\newline\textbf{Grafici previsti:} traiettorie
+browniane; GBM per diversi parametri; traiettorie OU e CIR; confronto tra
+processi indipendenti e correlati.\newline\textbf{Applicazioni Python
+collegate:} Lezione 7.\newline\textbf{Stato di avanzamento:} nuova lezione
+introdotta; completare raccordo con file di notazione.
+
+\subsection{Lezione 7 -- Applicazione in Python: simulazione di traiettorie e
+pricing}
+
+\textbf{Tipo:} C.\newline\textbf{Domanda guida:} come si implementano modelli
+dinamici simulati e come si stimano prezzi finanziari mediante Monte
+Carlo?\newline\textbf{Prerequisiti:} Lezioni 5--6; basi operative di
+Python.\newline\textbf{Obiettivi didattici:} simulare traiettorie di GBM, OU,
+CIR e processi multivariati correlati; stimare il prezzo di opzioni asiatiche;
+implementare una struttura OU--CIR per obbligazioni indicizzate
+all'inflazione; valutare prezzi Monte Carlo e incertezza di stima.\newline%
+\textbf{Notazione introdotta:} raccordo computazionale con traiettorie
+$S_{t}^{(k)}$, fattore inflazione $I_{t}$, tasso istantaneo $r_{t}$, fattore
+di sconto $D_{T}^{(k)}$, payoff $H^{(k)}$.\newline\textbf{Formule
+principali:}
+\[
+\widehat{V}_{0}=e^{-rT}\frac{1}{M}\sum_{k=1}^{M}H^{(k)}
+\]
+per sconto deterministico, oppure
+\[
+\widehat{V}_{0}=\frac{1}{M}\sum_{k=1}^{M}D_{T}^{(k)}H^{(k)}, \qquad
+D_{T}^{(k)}=\exp\left( -\sum_{j=0}^{n-1}r_{t_{j}}^{(k)}\Delta t\right)
+\]
+per sconto stocastico discretizzato. Per un'opzione asiatica aritmetica,
+\[
+H^{(k)}=\max\left\{ \frac{1}{n}\sum_{j=1}^{n}S_{t_{j}}^{(k)}-K,0\right\} .
+\]
+\textbf{Esercizi previsti:} modificare passo temporale e numero di
+simulazioni; confrontare GBM e OU; introdurre correlazione tra fattori;
+stimare intervalli di errore Monte Carlo; analizzare sensibilit\`{a} rispetto
+a strike, volatilit\`{a} e mean-reversion.\newline\textbf{Grafici previsti:}
+traiettorie simulate; distribuzione dei payoff; convergenza della media Monte
+Carlo; confronto tra prezzi al variare dei parametri.\newline%
+\textbf{Applicazioni Python collegate:} applicazione Python 2.\newline%
+\textbf{Stato di avanzamento:} nuova lezione introdotta; codice da scrivere.
+
+\subsection{Lezione 8 -- Catene di Markov: definizioni e propriet\`{a}}
 
 \textbf{Tipo:} P.\newline\textbf{Domanda guida:} come si modellano transizioni
 probabilistiche tra stati finanziari, ad esempio classi di rating?\newline%
-\textbf{Prerequisiti:} Lezioni 1--4.\newline\textbf{Obiettivi didattici:}
+\textbf{Prerequisiti:} Lezioni 1--5.\newline\textbf{Obiettivi didattici:}
 definire catene di Markov in tempo discreto; introdurre matrice di
-transizione; analizzare distribuzioni a uno o pi\`{u} passi.\newline%
-\textbf{Notazione introdotta:} insieme degli stati $\mathcal I=\{1,\ldots,m\}$,
-stati $i,j\in\mathcal I$, catena $\{X_t\}_{t=0}^{T}$ con
-$X_t\in\mathcal I$, matrice $P=(p_{ij})_{i,j=1}^{m}$, distribuzione iniziale
-$\pi_{0}$, distribuzione $\pi_{t}$.\newline%
-\textbf{Formule principali:}
+transizione, distribuzioni a uno o pi\`{u} passi, distribuzioni stazionarie e
+classificazione degli stati.\newline\textbf{Notazione introdotta:} insieme
+degli stati $\mathcal{I}=\{1,\ldots,m\}$, stati $i,j\in\mathcal{I}$, catena
+$\{X_{t}\}_{t=0}^{T}$, matrice $P=(p_{ij})$, distribuzione iniziale $\pi_{0}$,
+distribuzione $\pi_{t}$.\newline\textbf{Formule principali:}
 \[
-p_{ij}=\Prob(X_{t+1}=j\mid X_t=i),
-\qquad
-\Prob(X_{t+1}=j\mid X_t=i,X_{t-1}=i_{t-1},\ldots,X_0=i_0)
-=
-\Prob(X_{t+1}=j\mid X_t=i)=p_{ij}.
+p_{ij}=\mathbb{P}(X_{t+1}=j\mid X_{t}=i),
 \]
 \[
-\pi_{t+1}=\pi_tP,
-\qquad
-\pi_t=\pi_0P^t.
+\mathbb{P}(X_{t+1}=j\mid X_{t}=i,X_{t-1}=i_{t-1},\ldots,X_{0}=i_{0})=p_{ij}.
+\]
+\[
+\pi_{t+1}=\pi_{t}P, \qquad\pi_{t}=\pi_{0}P^{t}, \qquad\pi=\pi P.
 \]
 \textbf{Esercizi previsti:} calcolo di transizioni a due periodi;
-distribuzione futura di rating; probabilit\`{a} di default assorbente.\newline%
-\textbf{Grafici previsti:} grafo degli stati; heatmap della matrice di
-transizione; evoluzione delle probabilit\`{a} di stato.\newline%
-\textbf{Applicazioni Python collegate:} Lezione 8.\newline\textbf{Stato di
-avanzamento:} bozza progettuale predisposta; matrice di transizione
-esemplificativa da definire.
+distribuzione futura di rating; identificazione di stati assorbenti; calcolo
+di una distribuzione stazionaria semplice.\newline\textbf{Grafici previsti:}
+grafo degli stati; heatmap della matrice di transizione; evoluzione delle
+probabilit\`{a} di stato.\newline\textbf{Applicazioni Python collegate:}
+Lezione 10.\newline\textbf{Stato di avanzamento:} bozza progettuale
+predisposta; rinumerare il capitolo e aggiornare i richiami.
 
-\subsection{Lezione 7 -- Catene di Markov e misure di rischio}
+\subsection{Lezione 9 -- Catene di Markov e misure di rischio}
 
 \textbf{Tipo:} P.\newline\textbf{Domanda guida:} come si passa dalla dinamica
 degli stati alla misurazione del rischio di perdita?\newline%
-\textbf{Prerequisiti:} Lezioni 2 e 6.\newline\textbf{Obiettivi didattici:}
-collegare distribuzioni di perdita, VaR e CVaR; usare catene di Markov per
-generare distribuzioni future di rischio.\newline\textbf{Notazione
-introdotta:} perdita $L$, $\operatorname{VaR}_{\alpha}(L)$,
-$\operatorname{CVaR}_{\alpha}(L)$.
-\newline\textbf{Formule principali:}
+\textbf{Prerequisiti:} Lezioni 2 e 8.\newline\textbf{Obiettivi didattici:}
+applicare catene di Markov alle transizioni di rating creditizio; costruire
+distribuzioni di perdita; calcolare e interpretare VaR e CVaR in un contesto
+markoviano.\newline\textbf{Notazione introdotta:} perdita $L$,
+$\operatorname{VaR}_{\alpha}(L)$, $\operatorname{CVaR}_{\alpha}(L)$,
+esposizioni di portafoglio e stati di default.\newline\textbf{Formule
+principali:}
 \[
-\VaR_{\alpha}(L)
-=
-\inf\{\ell\in\R:F_L(\ell)\geq\alpha\},
+\operatorname{VaR}_{\alpha}(L)=\inf\{\ell\in\mathbb{R}:F_{L}(\ell)\geq
+\alpha\}.
 \]
 \[
-\CVaR_{\alpha}(L)
-=
-\min_{\eta\in\R}
-\left\{
-\eta+\frac{1}{1-\alpha}\E[(L-\eta)^+]
-\right\},
-\qquad
-(x)^+=\max\{x,0\}.
+\operatorname{CVaR}_{\alpha}(L)=\min_{\eta\in\mathbb{R}}\left\{ \eta+\frac
+{1}{1-\alpha}\mathbb{E}[(L-\eta)^{+}]\right\} , \qquad(x)^{+}=\max\{x,0\}.
 \]
-Nel caso continuo, oppure in esempi discreti elementari costruiti senza massa
-critica in corrispondenza del quantile, si pu\`{o} usare l'interpretazione
-\[
-\CVaR_{\alpha}(L)
-=
-\E\left[L\mid L\geq \VaR_{\alpha}(L)\right].
-\]
-\newline\textbf{Esercizi previsti:} calcolo di VaR e CVaR su
-perdite discrete; confronto tra due portafogli; interpretazione delle
-code.\newline\textbf{Grafici previsti:} distribuzione delle perdite; quantile
-VaR; area di coda CVaR.\newline\textbf{Applicazioni Python collegate:} Lezioni
-8 e 13.\newline\textbf{Stato di avanzamento:} bozza progettuale predisposta;
-precisare definizione operativa del CVaR discreto.
+\textbf{Esercizi previsti:} distribuzione delle perdite da matrice di rating;
+calcolo di VaR e CVaR su perdite discrete; confronto tra portafogli con
+diverse esposizioni.\newline\textbf{Grafici previsti:} distribuzione delle
+perdite; quantile VaR; area di coda CVaR; evoluzione della probabilit\`{a} di
+default.\newline\textbf{Applicazioni Python collegate:} Lezione 10.\newline%
+\textbf{Stato di avanzamento:} bozza progettuale predisposta; rinumerare il
+capitolo e aggiornare i richiami.
 
-\subsection{Lezione 8 -- Applicazioni Python al rischio di credito}
+\subsection{Lezione 10 -- Applicazione in Python: rischio di credito}
 
 \textbf{Tipo:} C.\newline\textbf{Domanda guida:} come si implementa un modello
-di transizione di rating e si stima il rischio di credito?\newline%
-\textbf{Prerequisiti:} Lezioni 6--7; basi operative di Python.\newline%
-\textbf{Obiettivi didattici:} implementare una matrice di transizione;
-simulare evoluzioni di rating; calcolare probabilit\`{a} di default,
-distribuzioni di perdita e misure di rischio.\newline\textbf{Notazione
-introdotta:} raccordo computazionale con $P$, $\pi_{t}$, $L$,
-$\operatorname{VaR}_{\alpha}(L)$ e $\operatorname{CVaR}_{\alpha}(L)$%
-.\newline\textbf{Formule principali:}
+di transizione di rating e si stima il rischio di credito di
+portafoglio?\newline\textbf{Prerequisiti:} Lezioni 8--9; basi operative di
+Python.\newline\textbf{Obiettivi didattici:} implementare una matrice di
+transizione; simulare evoluzioni di rating; calcolare probabilit\`{a} di
+default, distribuzioni di perdita, VaR e CVaR su portafogli.\newline%
+\textbf{Notazione introdotta:} raccordo computazionale con $P$, $\pi_{t}$,
+$L$, $\operatorname{VaR}_{\alpha}(L)$ e $\operatorname{CVaR}_{\alpha}%
+(L)$.\newline\textbf{Formule principali:}
 \[
-\pi_t=\pi_0P^t,
-\qquad
-\widehat{\Prob}(\tau\leq T)
-=
-\frac{1}{M}\sum_{k=1}^{M}\1_{\{\tau^{(k)}\leq T\}}.
+\pi_{t}=\pi_{0}P^{t}, \qquad\widehat{\mathbb{P}}(\tau\leq T)=\frac{1}{M}%
+\sum_{k=1}^{M}\mathbf{1}_{\{\tau^{(k)}\leq T\}}.
 \]
-dove $\tau^{(k)}$ \`{e} il tempo di default simulato nella replica $k$.
-\newline\textbf{Esercizi previsti:} modificare la matrice di transizione;
-introdurre uno stato assorbente; confrontare portafogli con diverse
-esposizioni.\newline\textbf{Grafici previsti:} heatmap della matrice;
-probabilit\`{a} di default nel tempo; distribuzione simulata delle
-perdite.\newline\textbf{Applicazioni Python collegate:} applicazione Python
-2.\newline\textbf{Stato di avanzamento:} bozza progettuale predisposta; codice
-da scrivere.
+\textbf{Esercizi previsti:} modificare la matrice di transizione; introdurre
+uno stato assorbente; confrontare portafogli con diverse esposizioni;
+analizzare sensibilit\`{a} di VaR e CVaR.\newline\textbf{Grafici previsti:}
+heatmap della matrice; probabilit\`{a} di default nel tempo; distribuzione
+simulata delle perdite.\newline\textbf{Applicazioni Python collegate:}
+applicazione Python 3.\newline\textbf{Stato di avanzamento:} bozza progettuale
+predisposta; rinumerare codice e slides.
 
-\subsection{Lezione 9 -- Variabili casuali binomiali e alberi binomiali}
+\subsection{Lezione 11 -- Ottimizzazione e programmazione lineare}
 
-\textbf{Tipo:} P.\newline\textbf{Domanda guida:} come si discretizza
-l'evoluzione di un prezzo finanziario per valutare un derivato?\newline%
-\textbf{Prerequisiti:} Lezioni 1--4.\newline\textbf{Obiettivi didattici:}
-introdurre variabili binomiali, alberi dei prezzi, payoff terminali e
-probabilit\`{a} risk-neutral.\newline\textbf{Notazione introdotta:} $u$, $d$,
-$q$, $S_{t}$, $V_{t}$, payoff $H$.\newline\textbf{Formule principali:}
-\[
-S_{t+1}=
-\begin{cases}
-uS_t, & \hbox{stato up},\\
-dS_t, & \hbox{stato down},
-\end{cases}
-\qquad
-u>d>0.
-\]
-La condizione elementare di assenza di arbitraggio \`{e}
-\[
-d<1+r<u.
-\]
-La probabilit\`{a} risk-neutral a un periodo \`{e}
-\[
-q=\frac{1+r-d}{u-d}.
-\]
-Se $H$ indica il payoff terminale del derivato, nel modello a un periodo si ha
-$V_1=H$. La valutazione risk-neutral a un periodo \`{e}
-\[
-V_0=\frac{1}{1+r}\E_{\Q}[H]
-=
-\frac{1}{1+r}\left(qH^u+(1-q)H^d\right).
-\]
-\textbf{Esercizi previsti:} pricing binomiale a un periodo; calcolo della
-probabilit\`{a} risk-neutral; backward induction in un albero a due periodi.
-\newline
-\textbf{Grafici previsti:} albero binomiale dei prezzi; albero dei payoff;
-albero dei valori.
-\newline
-\textbf{Applicazioni Python collegate:} Lezione 10.
-\newline
-\textbf{Stato di avanzamento:} bozza progettuale predisposta; completare gli
-esempi numerici.
-
-\subsection{Lezione 10 -- Applicazioni Python al pricing di opzioni e obbligazioni}
-
-\textbf{Tipo:} C.
-\newline
-\textbf{Domanda guida:} come si implementa numericamente la valutazione
-backward in un albero binomiale?
-\newline
-\textbf{Prerequisiti:} Lezione 9; basi operative di Python.
-\newline
-\textbf{Obiettivi didattici:} implementare alberi binomiali dei prezzi e dei
-payoff; calcolare prezzi di derivati mediante backward induction; analizzare
-la sensibilit\`{a} rispetto a $u$, $d$, $r$ e allo strike $K$.
-\newline
-\textbf{Notazione introdotta:} raccordo computazionale con $S_t$, $V_t$, $H$,
-$K$, $u$, $d$, $r$, $q$, $D_t$ e $c_t$.
-\newline
-\textbf{Formule principali:}
-\[
-V_t=\frac{1}{1+r}\left(qV_{t+1}^u+(1-q)V_{t+1}^d\right).
-\]
-Per flussi obbligazionari certi,
-\[
-V_0^{\mathrm{obbl}}=\sum_{t=1}^{T}D_t c_t,
-\qquad
-D_t=(1+r)^{-t}.
-\]
-\textbf{Esercizi previsti:} modificare strike e tasso; confrontare payoff
-call e put; verificare l'effetto di $u$ e $d$.
-\newline
-\textbf{Grafici previsti:} albero dei prezzi; albero dei payoff; albero dei
-valori.
-\newline
-\textbf{Applicazioni Python collegate:} applicazione Python 3.
-\newline
-\textbf{Stato di avanzamento:} bozza progettuale predisposta; codice da
-scrivere.
-
-\subsection{Lezione 11 -- Programmazione lineare}
-
-\textbf{Tipo:} P.
-\newline
-\textbf{Domanda guida:} come si formula un problema decisionale vincolato in
-forma lineare?
-\newline
-\textbf{Prerequisiti:} algebra lineare elementare; interpretazione geometrica
-dei vincoli.
-\newline
-\textbf{Obiettivi didattici:} introdurre variabili decisionali, funzione
-obiettivo, vincoli lineari, regione ammissibile e valore ottimo.
-\newline
+\textbf{Tipo:} P.\newline\textbf{Domanda guida:} come si formula un problema
+decisionale vincolato in forma lineare e come si interpreta il valore
+marginale dei vincoli?\newline\textbf{Prerequisiti:} algebra lineare
+elementare; interpretazione geometrica dei vincoli.\newline\textbf{Obiettivi
+didattici:} introdurre variabili decisionali, funzione obiettivo, vincoli
+lineari, regione ammissibile, soluzioni di base, valore ottimo e dualit\`{a}
+come contenuto essenziale per l'interpretazione economica.\newline%
 \textbf{Notazione introdotta:} vettore decisionale $x$, matrice dei vincoli
-$A$, vettori $b$ e $c$, valore ottimo $z^*$.
-\newline
-\textbf{Formule principali:}
+$A$, vettori $b$ e $c$, valore ottimo $z^{*}$, variabili duali $\lambda
+$.\newline\textbf{Formule principali:}
 \[
-\min_x \; c'x
-\qquad
-\hbox{soggetto a}
-\qquad
-Ax\geq b,\quad x\geq0.
+\min_{x} \; c^{\prime}x \qquad\hbox{soggetto a} \qquad Ax\geq b,\quad x\geq0.
+\]
+\[
+\max_{\lambda}\; b^{\prime}\lambda\qquad\hbox{soggetto a} \qquad A^{\prime
+}\lambda\leq c,\quad\lambda\geq0.
 \]
 \textbf{Esercizi previsti:} formulazione di un problema di allocazione;
-soluzione grafica in due variabili; interpretazione dei vincoli.
-\newline
+soluzione grafica in due variabili; identificazione di vincoli attivi;
+costruzione elementare del duale e interpretazione dei prezzi ombra.\newline%
 \textbf{Grafici previsti:} regione ammissibile; rette di livello; punto
-ottimo.
-\newline
-\textbf{Applicazioni Python collegate:} Lezione 13.
-\newline
-\textbf{Stato di avanzamento:} bozza progettuale predisposta; scegliere un
-esempio finanziario guida.
+ottimo; interpretazione geometrica di vincoli attivi.\newline%
+\textbf{Applicazioni Python collegate:} Lezione 13 e Lezione 16.\newline%
+\textbf{Stato di avanzamento:} bozza progettuale predisposta; integrare la
+dualit\`{a} nella lezione introduttiva senza conservarla come capitolo autonomo.
 
-\subsection{Lezione 12 -- Dualit\`{a} nella programmazione lineare}
+\subsection{Lezione 12 -- Goal Programming}
 
-\textbf{Tipo:} P.
-\newline
-\textbf{Domanda guida:} come si interpreta economicamente il valore marginale
-di un vincolo?
-\newline
-\textbf{Prerequisiti:} Lezione 11.
-\newline
-\textbf{Obiettivi didattici:} introdurre il problema duale, i prezzi ombra e
-il legame tra primalit\`{a}, dualit\`{a} e interpretazione economica.
-\newline
-\textbf{Notazione introdotta:} variabili duali $\lambda$, problema primale,
-problema duale, valore ottimo $z^*$.
-\newline
+\textbf{Tipo:} P.\newline\textbf{Domanda guida:} come si formalizzano
+decisioni finanziarie con pi\`{u} obiettivi, target e trade-off
+conflittuali?\newline\textbf{Prerequisiti:} Lezione 11.\newline%
+\textbf{Obiettivi didattici:} introdurre la programmazione per obiettivi;
+distinguere obiettivi rigidi e target flessibili; rappresentare deviazioni
+positive e negative; discutere pesi, priorit\`{a} e trade-off tra criteri
+conflittuali.\newline\textbf{Notazione introdotta:} criteri $g_{i}(x)$, target
+$b_{i}$, deviazioni $d_{i}^{+}$ e $d_{i}^{-}$, pesi $w_{i}^{+}$ e $w_{i}^{-}%
+$.\newline\textbf{Formule principali:}
+\[
+g_{i}(x)+d_{i}^{-} - d_{i}^{+} = b_{i}, \qquad d_{i}^{+}\geq0, \quad d_{i}%
+^{-}\geq0, \quad i=1,\ldots,m.
+\]
+\[
+\min\sum_{i=1}^{m}\left( w_{i}^{+}d_{i}^{+} + w_{i}^{-}d_{i}^{-}\right)
+\]
+con eventuali priorit\`{a} lessicografiche tra gruppi di obiettivi.\newline%
+\textbf{Esercizi previsti:} formulazione di un problema con target di
+rendimento e rischio; distinzione tra deviazioni desiderabili e
+indesiderabili; confronto tra pesi alternativi; interpretazione dei
+trade-off.\newline\textbf{Grafici previsti:} spazio degli obiettivi; frontiera
+dei trade-off; confronto tra soluzioni ottenute con pesi diversi.\newline%
+\textbf{Applicazioni Python collegate:} Lezione 13.\newline\textbf{Stato di
+avanzamento:} nuova lezione introdotta; definire esempio guida coerente con
+asset allocation e ALM.
+
+\subsection{Lezione 13 -- Applicazione in Python: Asset Allocation}
+
+\textbf{Tipo:} C.\newline\textbf{Domanda guida:} come si implementa una
+decisione di portafoglio multicriterio con obiettivi finanziari e vincoli di
+liability matching?\newline\textbf{Prerequisiti:} Lezioni 11--12; basi
+operative di Python.\newline\textbf{Obiettivi didattici:} implementare modelli
+di asset allocation multicriterio; formulare target di rendimento, rischio,
+liquidit\`{a} e liability matching; usare Goal Programming per rappresentare
+deviazioni rispetto agli obiettivi; interpretare la sensibilit\`{a} delle
+soluzioni rispetto ai pesi.\newline\textbf{Notazione introdotta:} pesi di
+portafoglio $x_{i}$, rendimenti attesi $\mu_{i}$, esposizioni $a_{ij}$,
+liability target $B_{t}$, deviazioni $d_{i}^{+}$ e $d_{i}^{-}$.\newline%
 \textbf{Formule principali:}
 \[
-\min_x \; c'x
-\qquad
-\hbox{soggetto a}
-\qquad
-Ax\geq b,\quad x\geq0,
+\sum_{i} x_{i}=1, \qquad x_{i}\geq0.
 \]
 \[
-\max_{\lambda} \; b'\lambda
-\qquad
-\hbox{soggetto a}
-\qquad
-A'\lambda\leq c,\quad \lambda\geq0.
-\]
-\textbf{Esercizi previsti:} costruzione del duale; interpretazione dei prezzi
-ombra; verifica di condizioni di ottimalit\`{a}.
-\newline
-\textbf{Grafici previsti:} interpretazione geometrica primal-dual.
-\newline
-\textbf{Applicazioni Python collegate:} Lezione 13.
-\newline
-\textbf{Stato di avanzamento:} bozza progettuale predisposta; esempi da
-definire.
-
-\subsection{Lezione 13 -- Applicazioni Python di programmazione lineare: calcolo del CVaR}
-
-\textbf{Tipo:} C.
-\newline
-\textbf{Domanda guida:} come si calcola il CVaR mediante una formulazione di
-programmazione lineare?
-\newline
-\textbf{Prerequisiti:} Lezioni 7, 11 e 12.
-\newline
-\textbf{Obiettivi didattici:} formulare il CVaR discreto come problema
-lineare; implementare il modello; interpretare soglia, eccessi di perdita e
-soluzione ottima.
-\newline
-\textbf{Notazione introdotta:} livello $\alpha$, soglia $\eta$, variabili
-ausiliarie $u_s$, perdite di scenario $L_s(x)$, probabilit\`{a} $p_s$.
-\newline
-\textbf{Formule principali:}
-\[
-\min_{x,\eta,u} \;
-\eta+\frac{1}{1-\alpha}\sum_{s\in\mathcal S}p_s u_s
+\sum_{i} \mu_{i} x_{i}+d_{R}^{-} - d_{R}^{+} = R^{*},
 \]
 \[
-\hbox{soggetto a}
-\qquad
-u_s\geq L_s(x)-\eta,\quad
-u_s\geq0,\quad s\in\mathcal S.
+\sum_{i} a_{it}x_{i}+d_{t}^{-} - d_{t}^{+} = B_{t}, \qquad t=1,\ldots,T.
 \]
-\textbf{Esercizi previsti:} calcolo del CVaR via PL; sensibilit\`{a} rispetto
-ad $\alpha$; confronto tra VaR e CVaR.
-\newline
-\textbf{Grafici previsti:} distribuzione delle perdite; confronto VaR--CVaR;
-andamento del CVaR al variare di $\alpha$.
-\newline
-\textbf{Applicazioni Python collegate:} applicazione Python 4.
-\newline
-\textbf{Stato di avanzamento:} bozza progettuale predisposta; codice da
-scrivere.
+\[
+\min\; w_{R}^{-} d_{R}^{-} + w_{R}^{+} d_{R}^{+} + \sum_{t}\left( w_{t}%
+^{-}d_{t}^{-}+w_{t}^{+}d_{t}^{+}\right) .
+\]
+\textbf{Esercizi previsti:} cambiare target di rendimento; modificare pesi
+degli obiettivi; imporre vincoli di concentrazione; confrontare soluzioni
+orientate a rendimento, rischio e copertura delle passivit\`{a}.\newline%
+\textbf{Grafici previsti:} composizione del portafoglio; deviazioni dagli
+obiettivi; confronto tra scenari di pesi; profilo asset--liability nel
+tempo.\newline\textbf{Applicazioni Python collegate:} applicazione Python
+4.\newline\textbf{Stato di avanzamento:} nuova lezione introdotta; codice da scrivere.
 
 \subsection{Lezione 14 -- Programmazione lineare stocastica I}
 
-\textbf{Tipo:} P.
-\newline
-\textbf{Domanda guida:} come si formula una decisione presa prima di conoscere
-lo scenario futuro?
-\newline
-\textbf{Prerequisiti:} Lezioni 11--13.
-\newline
-\textbf{Obiettivi didattici:} introdurre decisioni here-and-now, scenari,
-vincoli di non anticipativit\`{a} e decisioni di recourse.
-\newline
-\textbf{Notazione introdotta:} decisione di primo stadio $x$, scenario
-$s\in\mathcal S$, dati di scenario $\xi_s$, decisione di secondo stadio
-$y_s$, costo di recourse $d_s$.
-\newline
-\textbf{Formule principali:}
+\textbf{Tipo:} P.\newline\textbf{Domanda guida:} come si formula una decisione
+presa prima di conoscere lo scenario futuro?\newline\textbf{Prerequisiti:}
+Lezioni 11--13.\newline\textbf{Obiettivi didattici:} introdurre decisioni
+sotto incertezza, modelli a due stadi, scenari, valore atteso, decisioni
+here-and-now, decisioni di recourse e vincoli di non
+anticipativit\`{a}.\newline\textbf{Notazione introdotta:} decisione di primo
+stadio $x$, scenario $s\in\mathcal{S}$, dati di scenario $\xi_{s}$, decisione
+di secondo stadio $y_{s}$, costo di recourse $d_{s}$.\newline\textbf{Formule
+principali:}
 \[
-\min_{x,y_s} \; c'x+\sum_{s\in\mathcal S}p_s d_s'y_s
+\min_{x,y_{s}}\; c^{\prime}x+\sum_{s\in\mathcal{S}}p_{s} d_{s}^{\prime}y_{s}
 \]
 \[
-\hbox{soggetto a}
-\qquad
-Ax\geq b,
-\qquad
-W_s y_s\geq h_s-T_sx,
-\qquad
-y_s\geq0,
-\quad s\in\mathcal S.
+\hbox{soggetto a} \qquad Ax\geq b, \qquad W_{s} y_{s}\geq h_{s}-T_{s}x, \qquad
+y_{s}\geq0, \quad s\in\mathcal{S}.
 \]
 \textbf{Esercizi previsti:} formulazione di un modello a due stadi; verifica
-della non anticipativit\`{a}; interpretazione del recourse.
-\newline
-\textbf{Grafici previsti:} albero degli scenari; struttura primo
-stadio--secondo stadio.
-\newline
-\textbf{Applicazioni Python collegate:} Lezione 16.
-\newline
-\textbf{Stato di avanzamento:} bozza progettuale predisposta; esempio guida
-da selezionare.
+della non anticipativit\`{a}; interpretazione del recourse; confronto tra
+decisione deterministica e decisione stocastica.\newline\textbf{Grafici
+previsti:} albero degli scenari a due stadi; struttura primo stadio--secondo
+stadio.\newline\textbf{Applicazioni Python collegate:} Lezione 16.\newline%
+\textbf{Stato di avanzamento:} bozza progettuale predisposta; aggiornare il
+raccordo con la nuova Lezione 13.
 
 \subsection{Lezione 15 -- Programmazione lineare stocastica II}
 
-\textbf{Tipo:} P.
-\newline
-\textbf{Domanda guida:} qual \`{e} il valore economico dell'informazione e
-della soluzione stocastica?
-\newline
-\textbf{Prerequisiti:} Lezione 14.
-\newline
-\textbf{Obiettivi didattici:} distinguere soluzione stocastica, soluzione
-wait-and-see e soluzione del problema medio; introdurre EVPI e VSS.
-\newline
-\textbf{Notazione introdotta:} $z^{SP}$, $z^{WS}$, $x^{EV}$, $z^{EV}$,
-$\EVPI$, $\VSS$.
-\newline
-\textbf{Formule principali:}
-
-Per problemi formulati in minimizzazione, si indicano con $z^{SP}$ il valore
-ottimo del problema stocastico e con $z^{WS}$ il valore wait-and-see. La
-soluzione ottima del problema medio \`{e} indicata con $x^{EV}$.
-
-Il valore $z^{EV}$ non \`{e} il valore ottimo del solo problema medio, ma il
-valore della funzione obiettivo stocastica ottenuto imponendo la decisione di
-primo stadio $x=x^{EV}$.
-
-Con queste convenzioni,
+\textbf{Tipo:} P.\newline\textbf{Domanda guida:} come si estende una decisione
+stocastica a pi\`{u} date informative e come si impedisce l'uso anticipato
+dell'informazione futura?\newline\textbf{Prerequisiti:} Lezione 14; richiami
+su filtrazioni dalla Lezione 5.\newline\textbf{Obiettivi didattici:}
+introdurre modelli multistadio, alberi di scenari, nodi informativi, decisioni
+adattate alla storia osservata e vincoli di non anticipativit\`{a}; mantenere
+EVPI e VSS come indicatori sintetici del valore dell'informazione e della
+soluzione stocastica.\newline\textbf{Notazione introdotta:} nodi $n$
+dell'albero, predecessore $a(n)$, probabilit\`{a} di nodo $p_{n}$, decisione
+$x_{n}$, gruppi di scenari con storia comune, $z^{SP}$, $z^{WS}$, $z^{EV}$,
+$\operatorname{EVPI}$, $\operatorname{VSS}$.\newline\textbf{Formule
+principali:}
 \[
-z^{WS}\leq z^{SP}\leq z^{EV}.
+x_{s,t}=x_{s^{\prime},t} \qquad\hbox{se gli scenari }s\hbox{ e }s^{\prime
+}\hbox{ hanno la stessa storia fino a }t.
 \]
-
-Il valore atteso dell'informazione perfetta e il valore della soluzione
-stocastica sono
+Per problemi formulati in minimizzazione,
 \[
-\EVPI=z^{SP}-z^{WS},
-\qquad
-\VSS=z^{EV}-z^{SP}.
+z^{WS}\leq z^{SP}\leq z^{EV}, \qquad\operatorname{EVPI}=z^{SP}-z^{WS},
+\qquad\operatorname{VSS}=z^{EV}-z^{SP}.
 \]
-\textbf{Esercizi previsti:} calcolo di EVPI; calcolo di VSS; confronto tra
-soluzioni SP, EV e WS.
-\newline
-\textbf{Grafici previsti:} confronto dei valori; visualizzazione di EVPI e
-VSS.
-\newline
-\textbf{Applicazioni Python collegate:} Lezione 16.
-\newline
-\textbf{Stato di avanzamento:} bozza progettuale predisposta; definire
-esempio numerico coerente con Lezione 14.
+\textbf{Esercizi previsti:} costruzione di un piccolo albero multistadio;
+identificazione di vincoli di non anticipativit\`{a}; calcolo di EVPI e VSS su
+esempio ridotto.\newline\textbf{Grafici previsti:} albero multistadio; gruppi
+di scenari con storia comune; confronto dei valori SP, EV e WS.\newline%
+\textbf{Applicazioni Python collegate:} Lezione 16.\newline\textbf{Stato di
+avanzamento:} bozza progettuale predisposta; riformulare il capitolo mettendo
+al centro multistadio e non anticipativit\`{a}.
 
-\subsection{Lezione 16 -- Applicazioni Python di programmazione stocastica}
+\subsection{Lezione 16 -- Applicazione in Python: programmazione stocastica}
 
-\textbf{Tipo:} C.
-\newline
-\textbf{Domanda guida:} come si implementa e si interpreta numericamente un
-modello stocastico discreto?
-\newline
-\textbf{Prerequisiti:} Lezioni 14--15; basi operative di Python.
-\newline
-\textbf{Obiettivi didattici:} implementare un modello stocastico a scenari;
-calcolare soluzioni SP, EV e WS; stimare EVPI e VSS; rappresentare i risultati
-in forma tabellare e grafica.
-\newline
-\textbf{Notazione introdotta:} raccordo computazionale con $x$, $y_s$,
-$p_s$, $\xi_s$, $z^{SP}$, $z^{WS}$, $z^{EV}$, $\EVPI$ e $\VSS$.
-\newline
-\textbf{Formule principali:}
+\textbf{Tipo:} C.\newline\textbf{Domanda guida:} come si implementa un modello
+di asset allocation sotto incertezza con scenari e decisioni non
+anticipative?\newline\textbf{Prerequisiti:} Lezioni 14--15; basi operative di
+Python.\newline\textbf{Obiettivi didattici:} implementare modelli di
+programmazione stocastica per problemi di asset allocation sotto incertezza;
+costruire scenari; formulare decisioni di primo stadio e recourse; imporre
+vincoli di non anticipativit\`{a}; calcolare soluzioni SP, EV e WS; stimare
+EVPI e VSS.\newline\textbf{Notazione introdotta:} raccordo computazionale con
+$x$, $y_{s}$, $p_{s}$, $\xi_{s}$, $z^{SP}$, $z^{WS}$, $z^{EV}$,
+$\operatorname{EVPI}$ e $\operatorname{VSS}$.\newline\textbf{Formule
+principali:}
 \[
-\EVPI=z^{SP}-z^{WS},
-\qquad
-\VSS=z^{EV}-z^{SP}.
+\operatorname{EVPI}=z^{SP}-z^{WS}, \qquad\operatorname{VSS}=z^{EV}-z^{SP}.
 \]
 \textbf{Esercizi previsti:} modificare probabilit\`{a} degli scenari;
-modificare costi di recourse; confrontare soluzioni SP, EV e WS.
-\newline
-\textbf{Grafici previsti:} albero degli scenari; confronto dei valori;
-visualizzazione di EVPI e VSS.
-\newline
-\textbf{Applicazioni Python collegate:} applicazione Python 5.
-\newline
-\textbf{Stato di avanzamento:} bozza progettuale predisposta; codice da
-scrivere.
+modificare rendimenti e passivit\`{a}; confrontare soluzioni SP, EV e WS;
+introdurre o rimuovere vincoli di non anticipativit\`{a}.\newline%
+\textbf{Grafici previsti:} albero degli scenari; composizione del portafoglio
+per scenario o nodo; confronto dei valori; visualizzazione di EVPI e
+VSS.\newline\textbf{Applicazioni Python collegate:} applicazione Python
+5.\newline\textbf{Stato di avanzamento:} bozza progettuale predisposta; codice
+da scrivere.
 
 \section{Registro degli esercizi}
 
 \begin{longtable}{>{\centering}p{1.1cm}p{4.1cm}p{4.1cm}p{4.5cm}}
 \hline
-\textbf{Lez.} & \textbf{Esercizio 1} & \textbf{Esercizio 2} &
-\textbf{Esercizio grafico/computazionale}\\
+\textbf{Lez.} & \textbf{Esercizio 1} & \textbf{Esercizio 2} & \textbf{Esercizio grafico/computazionale}\\
 \hline
 \endfirsthead
 \hline
-\textbf{Lez.} & \textbf{Esercizio 1} & \textbf{Esercizio 2} &
-\textbf{Esercizio grafico/computazionale}\\
+\textbf{Lez.} & \textbf{Esercizio 1} & \textbf{Esercizio 2} & \textbf{Esercizio grafico/computazionale}\\
 \hline
 \endhead
 1 & Probabilit\`{a} condizionata & Formula di Bayes & Albero probabilistico\\
 2 & Media e varianza di payoff discreto & Quantile di perdita & Grafico della funzione di ripartizione\\
 3 & Valore atteso condizionato su partizione & Propriet\`{a} della torre & Albero informativo\\
-4 & Traiettorie discrete & Scenari e filtrazione & Ventaglio di scenari\\
-5 & Modifica della simulazione & Stima condizionata & Grafico delle traiettorie\\
-6 & Transizioni a due periodi & Stato assorbente & Grafo di Markov\\
-7 & VaR discreto & CVaR discreto & Distribuzione delle perdite\\
-8 & Transizioni di rating & Probabilit\`{a} di default & Heatmap delle transizioni\\
-9 & Pricing binomiale a un periodo & Backward induction & Albero binomiale\\
-10 & Variazione di strike e tasso & Payoff alternativo & Albero dei prezzi e dei valori\\
-11 & Formulazione PL & Soluzione grafica & Regione ammissibile\\
-12 & Costruzione del duale & Prezzi ombra & Interpretazione geometrica\\
-13 & CVaR via PL & Sensibilit\`{a} ad $\alpha$ & Grafico VaR--CVaR\\
-14 & Modello a due stadi & Non anticipativit\`{a} & Albero degli scenari\\
-15 & EVPI & VSS & Confronto dei valori\\
+4 & Simulazione di variabili casuali & Stima condizionata su eventi & Istogrammi, quantili e partizioni\\
+5 & Filtrazione e adattabilit\`{a} & Verifica di martingala & Albero binomiale come struttura informativa\\
+6 & Moto browniano e GBM & OU, CIR e mean-reversion & Traiettorie simulate e discretizzazione\\
+7 & Pricing Monte Carlo di asiatica & Sistema OU--CIR & Grafico traiettorie e payoff\\
+8 & Transizioni a due periodi & Stato assorbente e stazionariet\`{a} & Grafo di Markov\\
+9 & VaR discreto in modello markoviano & CVaR discreto & Distribuzione delle perdite\\
+10 & Transizioni di rating simulate & Probabilit\`{a} di default & Heatmap e distribuzione perdite\\
+11 & Formulazione PL & Duale essenziale e prezzi ombra & Regione ammissibile\\
+12 & Formulazione Goal Programming & Trade-off tra target & Spazio degli obiettivi\\
+13 & Asset allocation multicriterio & Liability matching & Portafogli e deviazioni dai target\\
+14 & Modello a due stadi & Recourse e valore atteso & Albero degli scenari a due stadi\\
+15 & Non anticipativit\`{a} multistadio & EVPI e VSS & Albero multistadio e confronto valori\\
 16 & Modifica degli scenari & Confronto SP/EV/WS & Grafico dei risultati\\
 \hline
 \end{longtable}
+
 
 \section{Registro delle applicazioni Python}
 
@@ -1345,11 +1019,11 @@ scrivere.
 \textbf{Applic.} & \textbf{Lez.} & \textbf{Tema} & \textbf{Output computazionale} \\
 \hline
 \endhead
-1 & 5 & Processi stocastici e valori attesi condizionati & Simulazioni, stime condizionate, grafici delle traiettorie. \\
-2 & 8 & Rischio di credito & Matrici di transizione, probabilit\`{a} di default, VaR e CVaR. \\
-3 & 10 & Pricing di opzioni e obbligazioni & Alberi binomiali, backward induction, analisi di sensibilit\`{a}. \\
-4 & 13 & Programmazione lineare e CVaR & Formulazione PL, soluzione numerica, confronto VaR--CVaR. \\
-5 & 16 & Programmazione stocastica & Scenari, recourse, EVPI, VSS. \\
+1 & 4 & Probabilit\`{a}, variabili casuali e valori attesi condizionati & Simulazioni di variabili casuali, distribuzioni empiriche, momenti, quantili, stime condizionate. \\
+2 & 7 & Simulazione di traiettorie e pricing & Traiettorie GBM, OU, CIR e correlate; opzioni asiatiche; obbligazioni indicizzate all'inflazione con struttura OU--CIR. \\
+3 & 10 & Rischio di credito & Matrici di transizione, evoluzioni di rating, probabilit\`{a} di default, VaR e CVaR di portafoglio. \\
+4 & 13 & Asset Allocation & Goal Programming, asset allocation multicriterio, asset liability management, analisi dei trade-off. \\
+5 & 16 & Programmazione stocastica & Scenari, recourse, vincoli di non anticipativit\`{a}, soluzioni SP/EV/WS, EVPI e VSS. \\
 \hline
 \end{longtable}
 
@@ -1376,29 +1050,54 @@ Criteri comuni per il codice Python:
 \begin{verbatim}
 /manuale
   MQF_Manuale_Master.tex
-  MQF_Capitolo_01.tex
-  MQF_Capitolo_02.tex
-  ...
-  MQF_Capitolo_16.tex
+/Capitoli 
+MQF_Cap_01_Probabilita.tex 
+MQF_Cap_02_Variabili_Casuali.tex 
+MQF_Cap_03_Valori_Attesi_Condizionati.tex 
+MQF_Cap_04_Python_Probabilita_Condizionamento.tex 
+MQF_Cap_05_Processi_Stocastici_Tempo_Discreto.tex 
+MQF_Cap_06_Processi_Stocastici_Tempo_Continuo.tex 
+MQF_Cap_07_Python_Advanced_Pricing.tex 
+MQF_Cap_08_Catene_Markov.tex 
+MQF_Cap_09_Markov_Misure_Rischio.tex 
+MQF_Cap_10_Python_Rischio_Credito.tex 
+MQF_Cap_11_Programmazione_Lineare.tex 
+MQF_Cap_12_Goal_Programming.tex 
+MQF_Cap_13_Python_Asset_Allocation_ALM.tex 
+MQF_Cap_14_Programmazione_Stocastica_I.tex 
+MQF_Cap_15_Programmazione_Stocastica_II.tex 
+MQF_Cap_16_Python_Programmazione_Stocastica.tex
 \end{verbatim}
 
 \subsection{Slides}
 \begin{verbatim}
 /slides
-  MQF_Slides_01.tex
-  MQF_Slides_02.tex
-  ...
-  MQF_Slides_16.tex
+Slides_Lez_01_Probabilita.tex 
+Slides_Lez_02_Variabili_Casuali.tex 
+Slides_Lez_03_Valori_Attesi_Condizionati.tex 
+Slides_Lez_04_Python_Probabilita_Condizionamento.tex 
+Slides_Lez_05_Processi_Stocastici_Tempo_Discreto.tex 
+Slides_Lez_06_Processi_Stocastici_Tempo_Continuo.tex 
+Slides_Lez_07_Python_Advanced_Pricing.tex 
+Slides_Lez_08_Catene_Markov.tex 
+Slides_Lez_09_Markov_Misure_Rischio.tex 
+Slides_Lez_10_Python_Rischio_Credito.tex 
+Slides_Lez_11_Programmazione_Lineare.tex 
+Slides_Lez_12_Goal_Programming.tex 
+Slides_Lez_13_Python_Asset_Allocation_ALM.tex 
+Slides_Lez_14_Programmazione_Stocastica_I.tex 
+Slides_Lez_15_Programmazione_Stocastica_II.tex 
+Slides_Lez_16_Python_Programmazione_Stocastica.tex
 \end{verbatim}
 
 \subsection{Python}
 \begin{verbatim}
 /python
-  MQF_Python_01_Processi_Stocastici.py
-  MQF_Python_02_Rischio_Credito.py
-  MQF_Python_03_Pricing.py
-  MQF_Python_04_CVaR_PL.py
-  MQF_Python_05_Programmazione_Stocastica.py
+  MQF_Python_04_Probabilita_Variabili_Condizionamento.py
+  MQF_Python_07_Python_Advanced_Pricing.py
+  MQF_Python_10_Rischio_Credito.py
+  MQF_Python_13_Asset_Allocation_Goal_Programming.py
+  MQF_Python_16_Programmazione_Stocastica.py
 \end{verbatim}
 
 \subsection{Documenti di coordinamento}
@@ -1406,6 +1105,8 @@ Criteri comuni per il codice Python:
 /progetto
   MQF_Master_Plan.tex
   MQF_Notazione.tex
+  MQF_Project_Guidelines.md
+  MQF_Stato_Avanzamento.md
   MQF_Registro_Esercizi.tex
   MQF_Registro_Grafici.tex
   MQF_Registro_Decisioni.tex
@@ -1422,13 +1123,13 @@ Criteri comuni per il codice Python:
 \textbf{Area} & \textbf{Stato} & \textbf{Note} \\
 \hline
 \endhead
-Struttura delle 16 lezioni & Bozza iniziale & Derivata dal syllabus e uniformata nei titoli. \\
-Notazione generale & Bozza consolidata & Documento \texttt{MQF\_Notazione.tex} predisposto; da aggiornare durante la scrittura del manuale e delle slides. \\
-Manuale & Non iniziato & Scrittura per capitoli separati. \\
-Slides & Non iniziate & Da produrre dopo schema dettagliato di ciascuna lezione. \\
-Esercizi teorici & Bozza iniziale & Da sviluppare lezione per lezione. \\
-Applicazioni Python & Bozza iniziale & Cinque applicazioni previste dal syllabus. \\
-Grafici & Bozza iniziale & Registro grafici da validare. \\
+Struttura delle 16 lezioni & Aggiornata & Introdotta nuova Lezione 4 applicativa; processi stocastici sdoppiati; eliminata applicazione autonoma sugli alberi binomiali; introdotto Goal Programming. \\
+Notazione generale & Bozza consolidata, da integrare & Documento \texttt{MQF\_Notazione.tex} predisposto; verificare integrazioni su tempo continuo, SDE, OU/CIR, correlazione e Goal Programming. \\
+Manuale & In sviluppo & Capitoli 1--3 gi\`{a} avviati; capitoli 4--16 da riallineare alla nuova architettura. \\
+Slides & In sviluppo & Le slide devono seguire la nuova numerazione; eliminare riferimenti alla vecchia lezione Python sugli alberi binomiali. \\
+Esercizi teorici & Bozza aggiornata & Registro esercizi riallineato alla nuova sequenza delle lezioni. \\
+Applicazioni Python & Bozza aggiornata & Cinque applicazioni previste: Lezioni 4, 7, 10, 13 e 16. \\
+Grafici & Bozza da validare & Aggiornare registro grafici in base alle nuove lezioni su processi, Goal Programming e asset allocation. \\
 Compatibilit\`{a} SWP 5.5 & In verifica & Preambolo mantenuto conservativo; evitare pacchetti LaTeX moderni non necessari nei file principali. \\
 \hline
 \end{longtable}
@@ -1437,45 +1138,42 @@ Compatibilit\`{a} SWP 5.5 & In verifica & Preambolo mantenuto conservativo; evit
 \section{Questioni aperte}
 
 \begin{enumerate}
-\item Definire il titolo definitivo del manuale.
+\item Verificare e, se necessario, integrare \texttt{MQF\_Notazione.tex} per
+tempo continuo, SDE, processi OU/CIR, correlazione e Goal Programming.
 
-\item Definire la struttura LaTeX compatibile con Scientific Workplace 5.5.
+\item Definire il titolo definitivo del Capitolo 4 applicativo.
 
-\item Stabilire se i grafici saranno prodotti prevalentemente in Python e
-inclusi come immagini, oppure scritti in LaTeX quando compatibile.
+\item Definire il livello di dettaglio del modello binomiale nella Lezione 5,
+mantenendolo come esempio strutturale e non come blocco autonomo di pricing.
 
-\item Decidere il livello di dettaglio delle dimostrazioni.
+\item Selezionare l'esempio guida della Lezione 7 per obbligazioni indicizzate
+all'inflazione con sistema OU--CIR.
 
-\item Mantenere aggiornato il documento \texttt{MQF\_Notazione.tex} durante la scrittura del manuale, delle slides e degli script Python.
+\item Selezionare l'esempio guida della Lezione 13 per asset allocation
+multicriterio e Asset Liability Management.
 
-\item Preparare un template standard per capitoli del manuale.
+\item Definire il livello computazionale delle librerie di ottimizzazione
+Python da usare nelle Lezioni 13 e 16.
 
-\item Preparare un template standard per slides.
-
-\item Definire formato e librerie Python ammesse per le applicazioni computazionali.
-
-\item Decidere se includere soluzioni complete degli esercizi nel manuale o in
-un fascicolo separato.
-
-\item Definire criteri di valutazione, se il materiale dovr\`{a} essere
-coerente con una prova d'esame.
+\item Aggiornare le Guidelines di progetto in coerenza con la nuova architettura.
 \end{enumerate}
 
-\section{Prossimi passi consigliati}
+\section{Prossimi passi operativi}
 
 \begin{enumerate}
-\item Validare o modificare i titoli definitivi delle 16 lezioni.
+\item Aggiornare \texttt{MQF\_Project\_Guidelines.md} recependo la nuova
+sequenza delle 16 lezioni.
 
-\item Predisporre il documento \texttt{MQF\_Notazione.tex}.
+\item Aggiornare \texttt{MQF\_Notazione.tex} limitatamente ai simboli che
+diventano ricorrenti nei nuovi capitoli.
 
-\item Definire il template LaTeX del manuale.
+\item Rinominare o predisporre i file sorgente dei capitoli 4--16 secondo la
+nuova numerazione.
 
-\item Definire il template LaTeX delle slides.
+\item Predisporre la struttura del Capitolo 4 e della prima applicazione Python.
 
-\item Sviluppare la scheda dettagliata della Lezione 1.
-
-\item Solo dopo la validazione della Lezione 1, replicare lo schema sulle
-lezioni successive.
+\item Riallineare progressivamente manuale, slides, esercizi e registri alla
+nuova sequenza.
 \end{enumerate}
 
 

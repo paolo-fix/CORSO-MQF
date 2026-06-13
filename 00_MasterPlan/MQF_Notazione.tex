@@ -20,32 +20,45 @@
 \newcommand{\1}{\mathbf{1}}
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\Corr}{\operatorname{Corr}}
 \newcommand{\VaR}{\operatorname{VaR}}
 \newcommand{\CVaR}{\operatorname{CVaR}}
 \newcommand{\argmin}{\operatorname*{arg\,min}}
 \newcommand{\argmax}{\operatorname*{arg\,max}}
 \newcommand{\EVPI}{\operatorname{EVPI}}
 \newcommand{\VSS}{\operatorname{VSS}}
+\newcommand{\diag}{\operatorname{diag}}
+
 \setlength{\headheight}{14pt}
 
 \title{MQF\_Notazione\\[0.2cm]
 \large Convenzioni di notazione per il corso\\
 \large Metodi Quantitativi per la Finanza}
 \author{}
-\date{Versione preliminare}
+\date{Versione aggiornata al 2026-06-13}
 
 \begin{document}
 \maketitle
 
 \section{Finalit\`{a} del documento}
 
-Questo documento raccoglie le convenzioni di notazione da utilizzare nel manuale, nelle slides, negli esercizi e nelle applicazioni Python del corso \emph{Metodi Quantitativi per la Finanza}. La finalit\`{a} principale \`{e} garantire coerenza formale tra le diverse parti del materiale didattico.
+Questo documento raccoglie le convenzioni di notazione da utilizzare nel
+manuale, nelle slides, negli esercizi e nelle applicazioni Python del corso
+\emph{Metodi Quantitativi per la Finanza}. La finalit\`{a} principale \`{e}
+garantire coerenza formale tra le diverse parti del materiale didattico.
 
-Il corso lavora prevalentemente in tempo discreto. Salvo diversa indicazione, l'indice temporale \`{e}
+Il corso utilizza sia modelli finiti e discreti sia modelli in tempo continuo.
+Salvo diversa indicazione, quando si lavora in tempo discreto l'indice temporale \`{e}
 \[
  t=0,1,\ldots,T,
 \]
-dove $T$ indica l'orizzonte finale del modello. I simboli introdotti in questo documento devono essere considerati convenzioni generali. Eventuali eccezioni locali devono essere esplicitate nel testo della singola lezione.
+dove $T$ indica l'orizzonte finale del modello. Quando si lavora in tempo
+continuo si usa invece $t\in[0,T]$ oppure $t\geq0$, con esplicita indicazione
+nel testo della lezione.
+
+I simboli introdotti in questo documento devono essere considerati convenzioni
+generali. Eventuali eccezioni locali devono essere esplicitate nel testo della
+singola lezione.
 
 \section{Convenzioni tipografiche generali}
 
@@ -53,18 +66,13 @@ dove $T$ indica l'orizzonte finale del modello. I simboli introdotti in questo d
 \hline
 \textbf{Oggetto} & \textbf{Notazione} & \textbf{Uso previsto}\\
 \hline
-Scalari & $a,b,c,\alpha,\beta$ & Parametri reali, coefficienti, livelli di confidenza, tassi o pesi.\\
-Vettori & $x,y,\lambda,\xi$ & Vettori colonna, salvo diversa indicazione:
-$x$ per decisioni, $y_s$ per decisioni di secondo stadio, $\lambda$ per
-variabili duali, $\xi$ per dati aleatori.\\
-Matrici & $A,B,P,Q$ & Matrici di coefficienti, matrici di transizione,
-matrici di vincoli.\\
-Insiemi & $A,B,C,\Omega,\mathcal{S},\mathcal{I}$ & Eventi, spazio campionario,
-insieme degli scenari, insieme degli stati markoviani.\\
-Variabili casuali & $X,Y,Z,L,H$ & Variabili casuali reali; $L$ per perdite,
-$H$ per payoff terminali.\\
-Processi & $\{X_t\}_{t=0}^{T}$, $\{S_t\}_{t=0}^{T}$ & Sequenze temporali
-aleatorie in tempo discreto.\\
+Scalari & $a,b,c,\alpha,\beta,\mu,\sigma$ & Parametri reali, coefficienti, livelli di confidenza, tassi, pesi, drift o volatilit\`{a}.\\
+Vettori & $x,y,\lambda,\xi$ & Vettori colonna, salvo diversa indicazione: $x$ per decisioni, $y_s$ per decisioni di secondo stadio, $\lambda$ per variabili duali, $\xi$ per dati aleatori.\\
+Matrici & $A,B,P,Q,\Sigma,R$ & Matrici di coefficienti, matrici di transizione, matrici di vincoli, matrici di covarianza o correlazione.\\
+Insiemi & $A,B,C,\Omega,\mathcal{S},\mathcal{I}$ & Eventi, spazio campionario, insieme degli scenari, insieme degli stati markoviani.\\
+Variabili casuali & $X,Y,Z,L,H$ & Variabili casuali reali; $L$ per perdite, $H$ per payoff terminali.\\
+Processi discreti & $\{X_t\}_{t=0}^{T}$, $\{S_t\}_{t=0}^{T}$ & Sequenze temporali aleatorie in tempo discreto.\\
+Processi continui & $\{X_t\}_{t\geq0}$, $\{S_t\}_{t\geq0}$, $\{r_t\}_{t\geq0}$ & Processi diffusivi, prezzi, fattori economico-finanziari, tassi istantanei.\\
 Valore ottimo & $z^*$ & Valore ottimo di un problema di ottimizzazione.\\
 Soluzione ottima & $x^*$ & Vettore ottimo delle variabili decisionali.\\
 \hline
@@ -83,14 +91,17 @@ definita da
 \end{cases}
 \]
 Nel codice sorgente del progetto il comando \verb|\1| \`{e} definito come
-\verb|\mathbf{1}|. Questa notazione \`{e} preferita a $\mathbb{I_A}$ e a
+\verb|\mathbf{1}|. Questa notazione \`{e} preferita a $\mathbb{I}_A$ e a
 $\chi_A$ per uniformit\`{a} con i testi di riferimento principali del corso.
 
-Per i vettori si usa, quando necessario, la notazione trasposta $x'$. Ad esempio, il prodotto scalare tra $c$ e $x$ pu\`{o} essere scritto come
+Per i vettori si usa, quando necessario, la notazione trasposta $x'$. Ad
+esempio, il prodotto scalare tra $c$ e $x$ pu\`{o} essere scritto come
 \[
  c'x.
 \]
-In alternativa, quando la chiarezza lo richiede, si pu\`{o} usare $c^{\top}x$. Nei materiali del corso si preferisce $c'x$ per semplicit\`{a} tipografica.
+In alternativa, quando la chiarezza lo richiede, si pu\`{o} usare
+$c^{\top}x$. Nei materiali del corso si preferisce $c'x$ per semplicit\`{a}
+tipografica.
 
 \section{Spazi di probabilit\`{a} ed eventi}
 
@@ -98,7 +109,8 @@ Lo spazio di probabilit\`{a} di riferimento \`{e}
 \[
  (\Omega,\F,\Prob),
 \]
-dove $\Omega$ \`{e} lo spazio degli esiti elementari, $\F$ \`{e} una sigma-algebra di eventi e $\Prob$ \`{e} una misura di probabilit\`{a}.
+dove $\Omega$ \`{e} lo spazio degli esiti elementari, $\F$ \`{e} una
+sigma-algebra di eventi e $\Prob$ \`{e} una misura di probabilit\`{a}.
 
 \begin{longtable}{>{\raggedright}p{3.4cm}>{\raggedright}p{4.4cm}>{\raggedright\arraybackslash}p{6.6cm}}
 \hline
@@ -122,7 +134,8 @@ La regola del prodotto \`{e}
 \[
  \Prob(A\cap B)=\Prob(A\mid B)\Prob(B).
 \]
-Se $\{B_1,\ldots,B_n\}$ \`{e} una partizione di $\Omega$, con $\Prob(B_i)>0$, allora
+Se $\{B_1,\ldots,B_n\}$ \`{e} una partizione di $\Omega$, con $\Prob(B_i)>0$,
+allora
 \[
  \Prob(A)=\sum_{i=1}^{n}\Prob(A\mid B_i)\Prob(B_i).
 \]
@@ -174,28 +187,30 @@ La covarianza tra $X$ e $Y$ \`{e}
 
 \section{Informazione e valori attesi condizionati}
 
-L'informazione disponibile \`{e} rappresentata mediante sigma-algebre. Se $\G\subseteq\F$, allora $\G$ rappresenta un livello informativo meno fine di $\F$.
+L'informazione disponibile \`{e} rappresentata mediante sigma-algebre. Se
+$\G\subseteq\F$, allora $\G$ rappresenta un livello informativo meno fine di
+$\F$.
 
 Il valore atteso condizionato di $X$ rispetto a $\G$ \`{e} indicato con
 \[
  \E[X\mid \G].
 \]
-Quando il condizionamento \`{e} rispetto a un evento $A$ con $\Prob(A)>0$, si scrive
+Quando il condizionamento \`{e} rispetto a un evento $A$ con $\Prob(A)>0$, si
+scrive
 \[
  \E[X\mid A].
 \]
-
 Se $X$ \`{e} discreta,
 \[
  \E[X\mid A]=\sum_x x\,\Prob(X=x\mid A).
 \]
-Nel caso continuo, la funzione di ripartizione condizionata di \(X\)
-dato \(A\), con \(\Prob(A)>0\), \`{e}
+Nel caso continuo, la funzione di ripartizione condizionata di $X$ dato $A$,
+con $\Prob(A)>0$, \`{e}
 \[
  F_{X\mid A}(x)=\Prob(X\leq x\mid A).
 \]
 Se la distribuzione condizionata ammette densit\`{a}, questa viene indicata con
-\(f_{X\mid A}(x)\) e il valore atteso condizionato pu\`{o} essere scritto come
+$f_{X\mid A}(x)$ e il valore atteso condizionato pu\`{o} essere scritto come
 \[
  \E[X\mid A]
  =
@@ -209,93 +224,76 @@ dove $\G=\sigma(B_1,\ldots,B_n)$.
 
 \subsection*{Regole del valore atteso condizionato}
 
-Sia \((\Omega,\mathcal{F},\mathbb{P})\) uno spazio di probabilit\`{a}
-e sia \(\mathcal{G}\subseteq\mathcal{F}\) una sigma-algebra informativa.
-Per variabili casuali integrabili, valgono le seguenti regole.
+Sia $(\Omega,\F,\Prob)$ uno spazio di probabilit\`{a} e sia
+$\G\subseteq\F$ una sigma-algebra informativa. Per variabili casuali integrabili,
+valgono le seguenti regole.
 
 \paragraph{Linearit\`{a}.}
-Per \(a,b\in\mathbb{R}\):
+Per $a,b\in\R$:
 \[
-\E[aX+bY\mid\mathcal{G}]
+\E[aX+bY\mid\G]
 =
-a\E[X\mid\mathcal{G}]
-+
-b\E[Y\mid\mathcal{G}].
+a\E[X\mid\G]+b\E[Y\mid\G].
 \]
 
 \paragraph{Estrazione dei parametri noti.}
-Se \(Z\) \`{e} \(\mathcal{G}\)-misurabile e \(ZX\) \`{e} integrabile, allora:
+Se $Z$ \`{e} $\G$-misurabile e $ZX$ \`{e} integrabile, allora:
 \[
-\E[ZX\mid\mathcal{G}]
-=
-Z\E[X\mid\mathcal{G}].
+\E[ZX\mid\G]=Z\E[X\mid\G].
 \]
 
-In particolare, se \(Z\) \`{e} noto rispetto all'informazione
-\(\mathcal{G}\), pu\`{o} essere estratto dal valore atteso condizionato.
-
 \paragraph{Condizionamento iterato.}
-Se \(\mathcal{G}_1\subseteq\mathcal{G}_2\subseteq\mathcal{F}\), allora:
+Se $\G_1\subseteq\G_2\subseteq\F$, allora:
 \[
-\E\left[
-\E[X\mid\mathcal{G}_2]
-\mid
-\mathcal{G}_1
-\right]
+\E\left[\E[X\mid\G_2]\mid\G_1\right]
 =
-\E[X\mid\mathcal{G}_1].
+\E[X\mid\G_1].
 \]
 
 \paragraph{Indipendenza da una sigma-algebra.}
-Se \(X\) \`{e} indipendente da \(\mathcal{G}\), allora:
+Se $X$ \`{e} indipendente da $\G$, allora:
 \[
-\E[X\mid\mathcal{G}]
-=
-\E[X].
+\E[X\mid\G]=\E[X].
 \]
 
 \paragraph{Indipendenza fra variabili casuali.}
-Se \(X\) e \(Z\) sono indipendenti, allora:
+Se $X$ e $Z$ sono indipendenti, allora:
 \[
-\E[X\mid Z]
-=
-\E[X],
+\E[X\mid Z]=\E[X],
 \]
 dove, per convenzione,
 \[
-\E[X\mid Z]
-=
-\E[X\mid\sigma(Z)].
+\E[X\mid Z]=\E[X\mid\sigma(Z)].
 \]
 
 \paragraph{Disuguaglianza condizionata di Jensen.}
-Se \(\varphi:\mathbb{R}\to\mathbb{R}\) \`{e} convessa e
-\(X\), \(\varphi(X)\) sono integrabili, allora:
+Se $\varphi:\R\to\R$ \`{e} convessa e $X$, $\varphi(X)$ sono integrabili,
+allora:
 \[
-\varphi\left(\E[X\mid\mathcal{G}]\right)
+\varphi\left(\E[X\mid\G]\right)
 \leq
-\E[\varphi(X)\mid\mathcal{G}].
+\E[\varphi(X)\mid\G].
 \]
+Se $\varphi$ \`{e} concava, il verso della disuguaglianza si inverte.
 
-Se \(\varphi\) \`{e} concava, il verso della disuguaglianza si inverte.
-
-
-\section{Tempo discreto, processi stocastici e filtrazioni}
+\section{Tempo discreto, processi stocastici, filtrazioni e martingale}
 
 Un processo stocastico in tempo discreto \`{e} indicato come
 \[
  \{X_t\}_{t=0}^{T}.
 \]
-Quando il processo rappresenta il prezzo di un'attivit\`{a} finanziaria, si usa preferibilmente
+Quando il processo rappresenta il prezzo di un'attivit\`{a} finanziaria, si usa
+preferibilmente
 \[
  \{S_t\}_{t=0}^{T}.
 \]
-
 La filtrazione \`{e}
 \[
  \{\F_t\}_{t=0}^{T},
 \]
-dove $\F_t$ rappresenta l'informazione disponibile al tempo $t$. Un processo $\{X_t\}_{t=0}^{T}$ \`{e} adattato alla filtrazione se $X_t$ \`{e} $\F_t$-misurabile per ogni $t$.
+dove $\F_t$ rappresenta l'informazione disponibile al tempo $t$.
+Un processo $\{X_t\}_{t=0}^{T}$ \`{e} adattato alla filtrazione se $X_t$ \`{e}
+$\F_t$-misurabile per ogni $t$.
 
 Una traiettoria campionaria \`{e} la sequenza
 \[
@@ -303,31 +301,51 @@ Una traiettoria campionaria \`{e} la sequenza
 \]
 associata a uno specifico esito $\omega\in\Omega$.
 
+Un processo integrabile $\{M_t\}_{t=0}^{T}$ adattato a $\{\F_t\}_{t=0}^{T}$ \`{e}
+una martingala se
+\[
+ \E[M_{t+1}\mid\F_t]=M_t,
+ \qquad t=0,\ldots,T-1.
+\]
+Se invece
+\[
+ \E[M_{t+1}\mid\F_t]\geq M_t,
+\]
+il processo \`{e} una submartingala; se
+\[
+ \E[M_{t+1}\mid\F_t]\leq M_t,
+\]
+il processo \`{e} una supermartingala.
+
+Nei modelli finanziari discreti il prezzo scontato pu\`{o} essere indicato con
+\[
+ \widetilde S_t=D_tS_t,
+\]
+dove $D_t$ \`{e} un fattore di sconto deterministico o stocastico. Quando si
+introduce una misura equivalente di valutazione $\Q$, la condizione di
+martingala per il prezzo scontato si scrive
+\[
+ \E_{\Q}[\widetilde S_{t+1}\mid\F_t]=\widetilde S_t.
+\]
+
 \section{Processi stocastici in tempo continuo}
 
-Il corso introduce i processi in tempo continuo a scopo motivazionale e
-concettuale, mantenendo il baricentro applicativo sul tempo discreto.
-I simboli di questa sezione vengono utilizzati principalmente nel Capitolo~4
-e nei riferimenti ai modelli di pricing del Capitolo~9.
+I processi in tempo continuo costituiscono un blocco autonomo del corso. Essi
+sono introdotti nella Lezione 6 e utilizzati operativamente nell'applicazione
+Python della Lezione 7, in particolare per simulazione di traiettorie, pricing
+Monte Carlo, processi mean-reverting e sistemi multivariati correlati.
 
 \begin{longtable}{>{\raggedright}p{3.4cm}>{\raggedright}p{4.4cm}>{\raggedright\arraybackslash}p{6.6cm}}
 \hline
 \textbf{Concetto} & \textbf{Notazione} & \textbf{Significato}\\
 \hline
-Moto browniano standard & $\{W_t\}_{t\geq 0}$ &
-Processo con $W_0=0$, incrementi indipendenti e stazionari,
-$W_t-W_s\sim\mathcal{N}(0,t-s)$.\\
-Incremento browniano & $dW_t$ &
-Incremento infinitesimo del moto browniano, usato nelle SDE.\\
-Moto browniano geometrico & $\{S_t\}_{t\geq 0}$ &
-Processo di prezzo con $S_t=S_0\exp(\mu t+\sigma W_t)$.\\
-Drift & $\mu$ &
-Parametro di tendenza media in un processo diffusivo.\\
-Volatilit\`{a} diffusiva & $\sigma$ &
-Parametro di dispersione in un processo diffusivo; $\sigma>0$.\\
-Equazione differenziale stocastica & $dX_t=a(X_t,t)\,dt+b(X_t,t)\,dW_t$ &
-Forma generale di una SDE con drift $a$ e coefficiente di
-diffusione $b$.\\
+Moto browniano standard & $\{W_t\}_{t\geq 0}$ & Processo con $W_0=0$, incrementi indipendenti e stazionari, $W_t-W_s\sim\mathcal{N}(0,t-s)$.\\
+Incremento browniano & $dW_t$ & Incremento infinitesimo del moto browniano, usato nelle SDE.\\
+Vettore browniano & $W_t=(W_t^1,\ldots,W_t^n)'$ & Moto browniano multidimensionale.\\
+Drift & $\mu$ oppure $a(X_t,t)$ & Termine di tendenza media in un processo diffusivo.\\
+Volatilit\`{a} diffusiva & $\sigma$ oppure $b(X_t,t)$ & Coefficiente di diffusione; nei modelli univariati tipicamente $\sigma>0$.\\
+Matrice di correlazione & $R=(\rho_{ij})$ & Matrice delle correlazioni tra fattori browniani o shock simulati.\\
+Equazione differenziale stocastica & $dX_t=a(X_t,t)\,dt+b(X_t,t)\,dW_t$ & Forma generale di una SDE univariata.\\
 \hline
 \end{longtable}
 
@@ -339,35 +357,81 @@ W_0=0 \quad \text{q.c.},
 W_t-W_s\sim\mathcal{N}(0,\,t-s), \qquad 0\leq s<t,
 \]
 \[
-\mathbb{E}[W_t]=0, \qquad \Var(W_t)=t, \qquad
+\E[W_t]=0, \qquad \Var(W_t)=t, \qquad
 \Cov(W_s,W_t)=\min(s,t).
 \]
-Il moto browniano geometrico \`{e} definito da
+
+Il moto browniano geometrico, nella parametrizzazione tramite SDE, \`{e}
 \[
-S_t=S_0\exp\!\left(\mu t+\sigma W_t\right),
+ dS_t=\mu S_t\,dt+\sigma S_t\,dW_t,
 \]
-con
+con soluzione
 \[
-\mathbb{E}[S_t]=S_0 e^{\mu t},
-\qquad
-\Var(S_t)=S_0^2 e^{2\mu t}\left(e^{\sigma^2 t}-1\right).
+ S_t=S_0\exp\left\{\left(\mu-\frac{1}{2}\sigma^2\right)t+\sigma W_t\right\}.
 \]
+Se invece si parametrizza direttamente il log-prezzo con drift logaritmico
+$m$, si pu\`{o} scrivere
+\[
+ S_t=S_0\exp\left(m t+\sigma W_t\right).
+\]
+Le due convenzioni non devono essere confuse nella stessa lezione.
+
+Il processo di Ornstein--Uhlenbeck \`{e} indicato con
+\[
+ dX_t=\kappa(\theta-X_t)\,dt+\sigma\,dW_t,
+\]
+dove $\kappa>0$ \`{e} la velocit\`{a} di mean-reversion, $\theta$ il livello di
+lungo periodo e $\sigma$ la volatilit\`{a} del fattore.
+
+Il processo CIR per un tasso istantaneo $r_t$ \`{e} indicato con
+\[
+ dr_t=\kappa(\theta-r_t)\,dt+\sigma\sqrt{r_t}\,dW_t.
+\]
+Quando necessario, la condizione
+\[
+ 2\kappa\theta\geq \sigma^2
+\]
+pu\`{o} essere richiamata come condizione sufficiente di Feller per evitare il
+raggiungimento dello zero nel modello continuo.
+
+Per simulare shock browniani correlati si pu\`{o} usare una matrice di
+correlazione $R$ e una decomposizione $R=LL'$. Se
+\[
+ Z\sim\mathcal{N}(0,I),
+\]
+allora
+\[
+ \varepsilon=LZ
+\]
+ha matrice di correlazione $R$.
+
+La discretizzazione di Eulero--Maruyama della SDE
+\[
+ dX_t=a(X_t,t)\,dt+b(X_t,t)\,dW_t
+\]
+con passo temporale $\Delta t$ \`{e}
+\[
+ X_{t+\Delta t}=X_t+a(X_t,t)\Delta t+b(X_t,t)\sqrt{\Delta t}\,Z_{t+\Delta t},
+\]
+dove $Z_{t+\Delta t}\sim\mathcal{N}(0,1)$.
 
 \section{Scenari}
 
-Nei modelli discreti di decisione sotto incertezza, l'insieme degli scenari \`{e} indicato con
+Nei modelli discreti di decisione sotto incertezza, l'insieme degli scenari \`{e}
+indicato con
 \[
  \mathcal{S}=\{1,\ldots,N\}.
 \]
-Lo scenario generico \`{e} indicato con $s\in\mathcal{S}$ e la sua probabilit\`{a} con
+Lo scenario generico \`{e} indicato con $s\in\mathcal{S}$ e la sua
+probabilit\`{a} con
 \[
  p_s,
  \qquad p_s\geq 0,
  \qquad \sum_{s\in\mathcal{S}}p_s=1.
 \]
-Un parametro dipendente dallo scenario pu\`{o} essere scritto come $a_s$, $b_s$, $c_s$ oppure, in forma vettoriale, come $\xi_s$.
-
-Il vettore aleatorio sottostante \`{e} indicato con
+Un parametro dipendente dallo scenario pu\`{o} essere scritto come $a_s$,
+$b_s$, $c_s$ oppure, in forma vettoriale, come $\xi_s$. Il vettore aleatorio
+sottostante \`{e} indicato con
 \[
  \xi.
 \]
@@ -387,7 +451,8 @@ stime Monte Carlo.
 
 \section{Catene di Markov}
 
-Per le catene di Markov in tempo discreto, l'insieme degli stati \`{e} indicato con
+Per le catene di Markov in tempo discreto, l'insieme degli stati \`{e} indicato
+con
 \[
  \mathcal{I}=\{1,\ldots,m\}.
 \]
@@ -407,14 +472,14 @@ con
  \qquad
  \sum_{j=1}^{m}p_{ij}=1.
 \]
-
 La propriet\`{a} di Markov \`{e}
 \[
  \Prob(X_{t+1}=j\mid X_t=i,X_{t-1}=i_{t-1},\ldots,X_0=i_0)
  =\Prob(X_{t+1}=j\mid X_t=i).
 \]
 
-Se $\pi_t$ indica il vettore riga delle probabilit\`{a} di stato al tempo $t$, allora
+Se $\pi_t$ indica il vettore riga delle probabilit\`{a} di stato al tempo $t$,
+allora
 \[
  \pi_{t+1}=\pi_t P,
  \qquad
@@ -427,31 +492,25 @@ Uno stato $i$ \`{e} assorbente se
 
 \section{Rendimenti, perdite e misure di rischio}
 
-Il prezzo di un'attivit\`{a} finanziaria al tempo $t$ \`{e} indicato con $S_t$. Il rendimento semplice su un periodo pu\`{o} essere indicato come
+Il prezzo di un'attivit\`{a} finanziaria al tempo $t$ \`{e} indicato con $S_t$.
+Il rendimento semplice su un periodo pu\`{o} essere indicato come
 \[
  R_{t+1}=\frac{S_{t+1}-S_t}{S_t}.
 \]
-
 Il rendimento logaritmico su un periodo \`{e} indicato con
 \[
-r_t=\log\!\left(\frac{S_t}{S_{t-1}}\right).
+ r_t=\log\left(\frac{S_t}{S_{t-1}}\right).
 \]
-Per il moto browniano geometrico, il rendimento logaritmico cumulato
-dall'origine al tempo $t$ \`{e}
-\[
-\log\!\left(\frac{S_t}{S_0}\right)=\mu t+\sigma W_t
-\sim\mathcal{N}(\mu t,\,\sigma^2 t).
-\]
-I simboli $R_{t+1}$ e $r_t$ indicano oggetti distinti e non devono essere
-usati in modo intercambiabile nella stessa lezione.
+I simboli $R_{t+1}$ e $r_t$ indicano oggetti distinti e non devono essere usati
+in modo intercambiabile nella stessa lezione.
 
 Quando si lavora con perdite, la variabile casuale di perdita \`{e} indicata con
 \[
  L.
 \]
 Per convenzione, valori pi\`{u} elevati di $L$ rappresentano esiti peggiori.
-
-Per un livello di confidenza $\alpha\in(0,1)$, il Value-at-Risk \`{e} indicato con
+Per un livello di confidenza $\alpha\in(0,1)$, il Value-at-Risk \`{e} indicato
+con
 \[
  \VaR_{\alpha}(L).
 \]
@@ -475,7 +534,6 @@ dove
 \[
 (x)^+=\max\{x,0\}.
 \]
-
 Nelle formulazioni discrete del CVaR si indicano con $u_s$ le variabili
 ausiliarie che rappresentano gli eccessi di perdita rispetto alla soglia
 $\eta$:
@@ -491,13 +549,16 @@ La formulazione lineare standard \`{e}
 \min_{x,\eta,u}
 \eta+\frac{1}{1-\alpha}\sum_{s\in\mathcal S}p_s u_s.
 \]
-Il simbolo $z$ resta riservato ai valori ottimi dei problemi di
-ottimizzazione.
+Il simbolo $z$ resta riservato ai valori ottimi dei problemi di ottimizzazione.
 
-\section{Modello binomiale e pricing discreto}
+\section{Modello binomiale come esempio discreto}
 
-Nel modello binomiale, il prezzo iniziale \`{e} $S_0>0$.
-In un periodo, il prezzo pu\`{o} assumere i valori
+Il modello binomiale non costituisce pi\`{u} una lezione autonoma di pricing.
+La sua notazione viene mantenuta come esempio elementare di processo discreto,
+filtrazione, adattabilit\`{a} e, quando opportuno, martingala.
+
+Nel modello binomiale, il prezzo iniziale \`{e} $S_0>0$. In un periodo, il
+prezzo pu\`{o} assumere i valori
 \[
 S_1^u=uS_0,
 \qquad
@@ -507,45 +568,36 @@ con
 \[
 u>d>0.
 \]
-Il tasso privo di rischio su un periodo \`{e} indicato con $r$, per cui
-il fattore di capitalizzazione \`{e} $1+r$.
-Per la valutazione di flussi certi, si indica con
+Su pi\`{u} periodi, lo spazio degli esiti pu\`{o} essere rappresentato da
+sequenze di movimenti up/down. La filtrazione $\F_t$ \`{e} generata dai
+movimenti osservati fino al tempo $t$.
+
+Il tasso privo di rischio su un periodo \`{e} indicato con $r$, per cui il
+fattore di capitalizzazione \`{e} $1+r$. Per la valutazione di flussi certi, si
+indica con
 \[
 D_t=(1+r)^{-t}
 \]
-il fattore di sconto a $t$ periodi. Se $c_t$ \`{e} il flusso certo pagato al
-tempo $t$, il valore iniziale di una sequenza di flussi obbligazionari certi
-pu\`{o} essere scritto come
-\[
-V_0^{obbl}=\sum_{t=1}^{T}D_t c_t.
-\]
+il fattore di sconto a $t$ periodi.
 
-La condizione elementare di assenza di arbitraggio \`{e}
+Quando viene richiamata la condizione elementare di assenza di arbitraggio, si
+usa
 \[
 d<1+r<u.
 \]
-La probabilit\`{a} risk-neutral a un periodo \`{e}
+La probabilit\`{a} risk-neutral a un periodo, se introdotta, \`{e}
 \[
 q=\frac{1+r-d}{u-d}.
 \]
-Lo strike price di un'opzione \`{e} indicato con $K$. Per un'opzione europea
-call e put con scadenza $T$, i payoff terminali sono rispettivamente
-\[
-H^{\mathrm{call}}=(S_T-K)^+,
-\qquad
-H^{\mathrm{put}}=(K-S_T)^+.
-\]
-La misura risk-neutral \`{e} indicata con $\Q$. Il valore di un derivato con
-payoff terminale $H$ \`{e} indicato con $V_t$. A un periodo,
-\[
-V_0=\frac{1}{1+r}\E_{\Q}[H]
-=\frac{1}{1+r}\left(qH^u+(1-q)H^d\right).
-\]
+Il payoff terminale di un contratto finanziario resta indicato in forma generale
+con $H$. Il valore del contratto al tempo $t$ pu\`{o} essere indicato con
+$V_t$, evitando per\`{o} di sviluppare il pricing binomiale come blocco autonomo
+nel Master Plan.
 
 \section{Programmazione lineare}
 
-Un problema di programmazione lineare viene scritto, salvo diversa
-indicazione, nella forma
+Un problema di programmazione lineare viene scritto, salvo diversa indicazione,
+nella forma
 \[
 \min_x \; c'x
 \]
@@ -555,10 +607,11 @@ Ax\geq b,
 \qquad
 x\geq0.
 \]
-Il vettore delle variabili decisionali \`{e} $x$, il valore ottimo \`{e}
-$z^*$ e una soluzione ottima \`{e} $x^*$. Le variabili duali sono indicate
-preferibilmente con $\lambda$. Per il problema primale precedente, il duale
-associato \`{e}
+Il vettore delle variabili decisionali \`{e} $x$, il valore ottimo \`{e} $z^*$
+e una soluzione ottima \`{e} $x^*$. Le variabili duali sono indicate
+preferibilmente con $\lambda$.
+
+Per il problema primale precedente, il duale associato \`{e}
 \[
 \max_{\lambda} \; b'\lambda
 \]
@@ -568,8 +621,55 @@ A'\lambda\leq c,
 \qquad
 \lambda\geq0.
 \]
+La dualit\`{a} resta nel corso come contenuto essenziale della lezione
+introduttiva di programmazione lineare, soprattutto per l'interpretazione
+economica dei vincoli e dei prezzi ombra. Non costituisce una lezione autonoma.
+
 Il simbolo $y_s$ \`{e} riservato alle decisioni di secondo stadio nei problemi
 di programmazione stocastica.
+
+\section{Goal Programming}
+
+Nel goal programming si considerano pi\`{u} obiettivi o target. Il target
+associato all'obiettivo $j$ \`{e} indicato con
+\[
+ \tau_j.
+\]
+La funzione-obiettivo o grandezza controllata associata al target \`{e}
+indicata con
+\[
+ g_j(x).
+\]
+Le deviazioni negativa e positiva rispetto al target sono indicate con
+\[
+ d_j^-\geq0,
+ \qquad
+ d_j^+\geq0.
+\]
+La relazione di goal si scrive
+\[
+ g_j(x)+d_j^- - d_j^+=\tau_j.
+\]
+Una forma pesata elementare del problema \`{e}
+\[
+ \min_{x,d^-,d^+}
+ \sum_{j=1}^{J}\left(w_j^- d_j^-+w_j^+ d_j^+\right)
+\]
+soggetta ai vincoli strutturali del problema e alle relazioni di goal. I pesi
+$w_j^-$ e $w_j^+$ misurano la rilevanza assegnata, rispettivamente, alla
+deviazione negativa e positiva dal target $j$.
+
+Quando gli obiettivi sono ordinati per priorit\`{a}, si possono usare classi di
+priorit\`{a}
+\[
+ \mathcal{J}_1,\mathcal{J}_2,\ldots,\mathcal{J}_K,
+\]
+con interpretazione lessicografica. In tal caso gli obiettivi di priorit\`{a}
+superiore vengono trattati prima degli obiettivi di priorit\`{a} inferiore.
+
+Nelle applicazioni di asset allocation e asset liability management, i target
+possono riguardare rendimento atteso, rischio, esposizioni settoriali,
+liquidit\`{a}, duration, funding ratio o matching rispetto a passivit\`{a} future.
 
 \section{Programmazione stocastica}
 
@@ -595,11 +695,10 @@ Il valore ottimo del problema stocastico \`{e} indicato con $z^{SP}$.
 
 Il valore wait-and-see \`{e} indicato con $z^{WS}$ e corrisponde al valore
 atteso dei problemi risolti separatamente dopo l'osservazione dello scenario.
-
 Si indichi con $x^{EV}$ la soluzione ottima del problema medio. Il valore
-$z^{EV}$ non \`{e} il valore ottimo del solo problema medio, ma il valore
-della funzione obiettivo stocastica ottenuto imponendo la decisione di primo
-stadio $x=x^{EV}$.
+$z^{EV}$ non \`{e} il valore ottimo del solo problema medio, ma il valore della
+funzione obiettivo stocastica ottenuto imponendo la decisione di primo stadio
+$x=x^{EV}$.
 
 Per problemi formulati in minimizzazione si usa la convenzione
 \[
@@ -612,14 +711,38 @@ Pertanto,
 \VSS=z^{EV}-z^{SP}\geq0.
 \]
 
+Nei modelli multistadio, la decisione al tempo $t$ nello scenario $s$ pu\`{o}
+essere indicata con
+\[
+ x_t^s.
+\]
+Se due scenari $s$ e $s'$ condividono la stessa storia informativa fino al
+tempo $t$, le decisioni devono coincidere:
+\[
+ x_t^s=x_t^{s'}.
+\]
+Questa \`{e} la forma essenziale dei vincoli di non anticipativit\`{a}.
+
 \section{Corrispondenza tra notazione matematica e Python}
 
 \begin{longtable}{>{\raggedright}p{4.0cm}>{\raggedright}p{4.2cm}>{\raggedright\arraybackslash}p{5.8cm}}
 \hline
 \textbf{Oggetto matematico} & \textbf{Nome Python suggerito} & \textbf{Commento}\\
 \hline
-$S_t$ & \texttt{S\_t}, \texttt{prices} & Prezzi simulati o osservati.\\
+$X$ & \texttt{X}, \texttt{samples} & Variabile casuale simulata o campione osservato.\\
+$X^{(k)}$ & \texttt{X[k]}, \texttt{samples[k]} & Replica simulata Monte Carlo.\\
+$\E[X]$ & \texttt{mean\_X} & Media empirica o teorica.\\
+$\E[X\mid A]$ & \texttt{cond\_mean} & Stima condizionata rispetto a evento o partizione.\\
+$S_t$ & \texttt{S\_t}, \texttt{prices}, \texttt{paths} & Prezzi simulati o osservati.\\
 $X_t$ & \texttt{X\_t}, \texttt{states} & Processo generico o stati markoviani.\\
+$W_t$ & \texttt{W}, \texttt{brownian\_paths} & Traiettorie browniane simulate.\\
+$\Delta t$ & \texttt{dt} & Passo temporale di discretizzazione.\\
+$\mu$ & \texttt{mu} & Drift o rendimento atteso, secondo il modello.\\
+$\sigma$ & \texttt{sigma} & Volatilit\`{a}.\\
+$\kappa$ & \texttt{kappa} & Velocit\`{a} di mean-reversion in OU o CIR.\\
+$\theta$ & \texttt{theta} & Livello di lungo periodo in OU o CIR.\\
+$R=(\rho_{ij})$ & \texttt{corr\_matrix} & Matrice di correlazione.\\
+$L$ con $R=LL'$ & \texttt{chol} & Fattore di Cholesky per shock correlati.\\
 $P=(p_{ij})$ & \texttt{P} & Matrice di transizione.\\
 $\pi_t$ & \texttt{pi\_t} & Distribuzione sugli stati.\\
 $L$ & \texttt{losses} & Vettore delle perdite.\\
@@ -629,10 +752,15 @@ $\eta$ & \texttt{eta} & Soglia nella formulazione del CVaR.\\
 $u_s$ & \texttt{u[s]} & Eccesso di perdita nello scenario $s$.\\
 $x$ & \texttt{x} & Variabili decisionali di primo stadio o di portafoglio.\\
 $\lambda$ & \texttt{lambda\_dual} & Variabili duali nei problemi di programmazione lineare.\\
+$\tau_j$ & \texttt{target[j]} & Target nel goal programming.\\
+$d_j^-$ & \texttt{dev\_minus[j]} & Deviazione negativa dal target.\\
+$d_j^+$ & \texttt{dev\_plus[j]} & Deviazione positiva dal target.\\
+$w_j^-,w_j^+$ & \texttt{w\_minus[j]}, \texttt{w\_plus[j]} & Pesi delle deviazioni nel goal programming.\\
 $y_s$ & \texttt{y[s]} & Variabili di secondo stadio indicizzate per scenario.\\
 $p_s$ & \texttt{p\_s}, \texttt{probabilities} & Probabilit\`{a} degli scenari.\\
 $d_s$ & \texttt{d[s]}, \texttt{recourse\_costs} & Costi di recourse nello scenario $s$.\\
 $\xi_s$ & \texttt{xi[s]}, \texttt{scenario\_data} & Dati aleatori dello scenario.\\
+$x_t^s$ & \texttt{x[t,s]} & Decisione multistadio nello scenario $s$.\\
 $z^{SP}$ & \texttt{z\_sp} & Valore ottimo del problema stocastico.\\
 $z^{WS}$ & \texttt{z\_ws} & Valore wait-and-see.\\
 $x^{EV}$ & \texttt{x\_ev} & Soluzione ottima del problema medio.\\
@@ -649,37 +777,46 @@ manuale.
 
 \section{Convenzioni da evitare}
 
-Per ridurre ambiguit\`{a} e incoerenze, si raccomanda di evitare le seguenti sovrapposizioni:
+Per ridurre ambiguit\`{a} e incoerenze, si raccomanda di evitare le seguenti
+sovrapposizioni:
 
 \begin{enumerate}
-\item Non usare $P$ per indicare una probabilit\`{a}. La probabilit\`{a}
-\`{e} indicata con $\Prob$, mentre $P$ \`{e} riservato preferibilmente
-alle matrici, in particolare alle matrici di transizione.
+\item Non usare $P$ per indicare una probabilit\`{a}. La probabilit\`{a} \`{e}
+indicata con $\Prob$, mentre $P$ \`{e} riservato preferibilmente alle matrici,
+in particolare alle matrici di transizione.
 
-\item Non usare $S$ per indicare il numero degli scenari quando nel corso
-si usa $S_t$ per il prezzo di un'attivit\`{a} finanziaria. L'insieme degli
-scenari \`{e} $\mathcal S=\{1,\ldots,N\}$.
+\item Non usare $S$ per indicare il numero degli scenari quando nel corso si
+usa $S_t$ per il prezzo di un'attivit\`{a} finanziaria. L'insieme degli scenari
+\`{e} $\mathcal S=\{1,\ldots,N\}$.
 
-\item Non usare $q_s$ per i costi di recourse nella programmazione
-stocastica. Il simbolo $q$ \`{e} riservato alla probabilit\`{a}
+\item Non usare $q_s$ per i costi di recourse nella programmazione stocastica.
+Il simbolo $q$, se utilizzato, resta associato alla probabilit\`{a}
 risk-neutral nel modello binomiale. Per i costi di recourse si usa $d_s$.
 
-\item Non usare $L$ per livelli o limiti quando nella stessa lezione si
-lavora con perdite. Per valori soglia, limiti o realizzazioni di perdita
-si preferisce $\ell$.
+\item Non usare $r_t$ simultaneamente per rendimento logaritmico e tasso
+istantaneo. Se nella stessa lezione compare un tasso istantaneo, il rendimento
+logaritmico deve essere indicato con altra notazione locale esplicita oppure
+il tasso deve essere indicato con $i_t$.
 
-\item Non usare $V_t$ per valori ottimi di problemi di ottimizzazione.
-Il simbolo $V_t$ \`{e} riservato al valore temporale di un derivato o di
-un processo di valore. Per i valori ottimi si usano $z^*$, $z^{SP}$,
-$z^{WS}$ e $z^{EV}$.
+\item Non usare $L$ per livelli o limiti quando nella stessa lezione si lavora
+con perdite. Per valori soglia, limiti o realizzazioni di perdita si preferisce
+$\ell$.
 
-\item Non usare $z_s$ per variabili ausiliarie di scenario nei problemi di
-CVaR. Per gli eccessi di perdita si usa $u_s$; il simbolo $z$ resta riservato
-ai valori ottimi.
+\item Non usare $V_t$ per valori ottimi di problemi di ottimizzazione. Il
+simbolo $V_t$ \`{e} riservato al valore temporale di un derivato o di un
+processo di valore. Per i valori ottimi si usano $z^*$, $z^{SP}$, $z^{WS}$ e
+$z^{EV}$.
+
+\item Non usare $z_s$ per variabili ausiliarie di scenario nei problemi di CVaR.
+Per gli eccessi di perdita si usa $u_s$; il simbolo $z$ resta riservato ai
+valori ottimi.
 
 \item Non usare $y$ per le variabili duali quando nella stessa parte del corso
 si lavora con programmazione stocastica. Le variabili duali sono indicate con
 $\lambda$, mentre $y_s$ \`{e} riservato alle decisioni di secondo stadio.
+
+\item Non usare $d_j$ in modo indifferenziato nel goal programming. Le
+deviazioni negative e positive devono essere distinte come $d_j^-$ e $d_j^+$.
 
 \item Non introdurre simboli locali in conflitto con simboli globali gi\`{a}
 definiti in questo documento. Ogni eccezione locale deve essere dichiarata
@@ -693,21 +830,27 @@ esplicitamente nella lezione in cui viene usata.
 \hline
 \textbf{Area} & \textbf{Stato} & \textbf{Note}\\
 \hline
-Notazione probabilistica & Bozza consolidata & Da validare durante la scrittura delle Lezioni 1--3.\\
+Notazione probabilistica & Bozza consolidata & Validata durante la scrittura delle Lezioni 1--3; da mantenere stabile salvo esigenze locali.\\
 \hline
-Processi stocastici e filtrazioni & Bozza consolidata & Da coordinare con la prima applicazione Python.\\
+Valori attesi condizionati & Bozza consolidata & Coerente con la Lezione 3 e con la nuova applicazione Python della Lezione 4.\\
 \hline
-Catene di Markov & Bozza consolidata & Da verificare con gli esempi di rating.\\
+Processi stocastici discreti e filtrazioni & Bozza aggiornata & Include adattabilit\`{a} e martingale; da verificare nello sviluppo della Lezione 5.\\
 \hline
-Misure di rischio & Bozza consolidata & Da raccordare con CVaR discreto e formulazione PL.\\
+Processi stocastici continui & Bozza aggiornata & Include Browniano, GBM, OU, CIR, correlazione ed Eulero--Maruyama; da verificare nelle Lezioni 6--7.\\
 \hline
-Pricing binomiale & Bozza consolidata & Da dettagliare nella Lezione 9.\\
+Catene di Markov & Bozza consolidata & Da verificare con gli esempi di rating e rischio credito.\\
 \hline
-Programmazione lineare e dualit\`{a} & Bozza consolidata & Da adattare agli esempi finanziari scelti.\\
+Misure di rischio & Bozza consolidata & Da raccordare con il blocco Markov/rischio credito e con eventuali applicazioni di portafoglio.\\
 \hline
-Programmazione stocastica & Bozza consolidata & Da verificare con la struttura Python finale.\\
+Modello binomiale & Bozza ridimensionata & Mantenuto come esempio strutturale di processo discreto, non come lezione autonoma di pricing.\\
 \hline
-Corrispondenza Python & Bozza iniziale & Da aggiornare quando saranno definiti gli script.\\
+Programmazione lineare e dualit\`{a} & Bozza aggiornata & Dualit\`{a} trattata come contenuto essenziale interno alla Lezione 11.\\
+\hline
+Goal Programming & Nuova sezione & Da verificare nello sviluppo della Lezione 12 e dell'applicazione di asset allocation.\\
+\hline
+Programmazione stocastica & Bozza aggiornata & Include due stadi, EVPI, VSS, multistadio e non anticipativit\`{a}.\\
+\hline
+Corrispondenza Python & Bozza aggiornata & Da aggiornare quando saranno definiti gli script delle Lezioni 4, 7, 10, 13 e 16.\\
 \hline
 \end{tabular}
 \end{center}
