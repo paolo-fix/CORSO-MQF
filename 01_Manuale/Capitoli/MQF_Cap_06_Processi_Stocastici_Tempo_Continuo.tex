@@ -1,0 +1,121 @@
+%2multibyte Version: 5.50.0.2960 CodePage: 65001
+% MQF_Manuale_Master_SW55_Memoir.tex
+% Master del manuale MQF costruito sullo shell SW5.5 "Memoir Class for Configurable Typesetting".
+% Versione modulare: i capitoli scritti sono inclusi con \input.%
+% POSIZIONE DEI FILE
+% Questo master deve stare nella cartella 01_Manuale.
+% I capitoli devono stare nella sottocartella 01_Manuale/Capitoli.
+% Non mettere il master dentro Capitoli.
+% I capitoli futuri restano come traccia, ma non generano pagine nel documento.
+% Evita pagine bianche dovute all'apertura dei capitoli su pagina dispari.
+% ------------------------------------------------------------
+% Nomi italiani
+% ------------------------------------------------------------
+% ------------------------------------------------------------
+% Macro matematiche ufficiali del progetto MQF
+% Coerenti con MQF_Notazione.tex
+% ------------------------------------------------------------
+% ------------------------------------------------------------
+% Ambienti di tipo teorema.
+% I nomi interni restano compatibili con lo shell SW.
+% Le etichette stampate sono in italiano.
+% ------------------------------------------------------------
+
+%TCIDATA{OutputFilter=latex2.dll}
+%TCIDATA{Version=5.50.0.2960}
+%TCIDATA{LaTeXparent=1,1,MQF_Manuale_Master.tex}
+
+
+% Capitoli/MQF_Cap_06_Processi_stocastici_in_tempo_continuo.tex
+
+\chapter[Processi stocastici, Tempo continuo]{Processi stocastici in tempo continuo: diffusioni, mean-reversion e simulazione}
+
+\label{cap:tempo-continuo}
+
+\section{Obiettivi della lezione}
+
+Una banca deve stabilire oggi il prezzo equo di un contratto il cui
+valore dipender\`{a} dall'andamento di un titolo nei prossimi mesi;
+un fondo pensione deve valutare un'obbligazione i cui flussi sono
+legati all'inflazione futura e ai tassi di interesse. In entrambi i
+casi il valore di oggi dipende dall'intera traiettoria futura di una
+o pi\`{u} grandezze incerte. Con quali modelli si descrive
+l'evoluzione continua di prezzi, tassi e inflazione, e come si
+generano le traiettorie su cui fondare queste valutazioni?
+
+Il capitolo precedente ha introdotto il linguaggio dei processi
+stocastici --- traiettoria, momenti, filtrazione, martingala, scenario
+--- e lo ha applicato a un modello in tempo discreto. Tutti quegli
+strumenti, lo abbiamo sottolineato, sono stati definiti in modo da
+valere per qualunque insieme di indici temporali. In questo capitolo
+li mettiamo all'opera nel contesto del \emph{tempo continuo}, in cui
+l'indice $t$ varia con continuit\`{a} su un intervallo e le traiettorie
+del processo diventano funzioni del tempo.
+
+Il tempo continuo \`{e} il linguaggio in cui sono formulati i
+principali modelli della finanza quantitativa: i prezzi delle
+attivit\`{a}, i tassi di interesse, i tassi di inflazione e gli altri
+fattori di rischio vengono descritti, nella pratica di mercato, da
+\emph{equazioni differenziali stocastiche}. La ragione non \`{e}
+soltanto formale. La formulazione continua consente di costruire
+modelli con poche grandezze interpretabili --- una tendenza di fondo,
+una volatilit\`{a}, una velocit\`{a} di richiamo verso un livello di
+equilibrio --- e di simularne le traiettorie su una griglia temporale
+fitta, generando gli scenari su cui si fonda la valutazione di prodotti
+finanziari complessi.
+
+Questo capitolo presuppone la familiarit\`{a}, acquisita in corsi
+precedenti, con il moto browniano, il calcolo stocastico e il lemma di
+It\^{o}. Tali strumenti verranno richiamati quando necessario, ma non
+sviluppati: l'obiettivo non \`{e} la costruzione della teoria del
+calcolo stocastico, bens\`{\i} l'uso dei modelli che su di essa si
+fondano per descrivere e simulare l'evoluzione dei fattori di rischio
+finanziari.
+
+La trattazione procede dal generale al particolare. Si parte dal
+quadro unificante delle equazioni differenziali stocastiche, si
+introducono poi i modelli specifici di uso pi\`{u} comune --- il moto
+browniano geometrico per i prezzi azionari, i processi mean-reverting
+di Ornstein--Uhlenbeck e di Cox--Ingersoll--Ross per i tassi e
+l'inflazione --- e si passa infine ai sistemi multivariati, in cui
+pi\`{u} fattori di rischio evolvono congiuntamente con una struttura
+di correlazione. L'intero percorso \`{e} orientato a fornire la base
+teorica per la lezione applicativa in Python, in cui questi modelli
+verranno simulati e impiegati nella valutazione di prodotti
+finanziari.
+
+Al termine del capitolo lo studente dovr\`{a} essere in grado di:
+
+\begin{itemize}
+
+\item interpretare un'equazione differenziale stocastica nella forma
+$dX_t=a(X_t,t)\,dt+b(X_t,t)\,dW_t$, riconoscendo il ruolo del termine
+di tendenza (drift) e del termine di diffusione;
+
+\item descrivere il moto browniano geometrico, ricavarne la soluzione
+e i momenti mediante il lemma di It\^{o}, e interpretarne i parametri,
+riconoscendone al contempo i limiti come modello per tassi e
+inflazione;
+
+\item distinguere i processi mean-reverting di Ornstein--Uhlenbeck e
+di Cox--Ingersoll--Ross, comprenderne la struttura di richiamo verso
+un livello di equilibrio e la differenza cruciale relativa alla
+positivit\`{a} delle traiettorie, con la condizione di Feller;
+
+\item costruire un sistema di diffusioni multivariato in cui pi\`{u}
+fattori evolvono con una struttura di correlazione assegnata, e
+comprendere come tale correlazione si traduca operativamente nella
+simulazione;
+
+\item applicare lo schema di discretizzazione di Eulero--Maruyama per
+generare traiettorie simulate dei modelli del capitolo, collegando la
+simulazione alla stima Monte Carlo introdotta nel Capitolo~5.
+
+\end{itemize}
+
+Il capitolo fornisce la base teorica diretta per la lezione applicativa
+in Python (Lezione~7), nella quale i modelli qui presentati verranno
+implementati per la simulazione di traiettorie e per la valutazione di
+prodotti finanziari il cui valore dipende dall'intera evoluzione dei
+fattori di rischio sottostanti.
+
