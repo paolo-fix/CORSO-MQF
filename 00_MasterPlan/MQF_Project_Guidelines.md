@@ -227,6 +227,69 @@ La struttura consigliata dei documenti di coordinamento e':
 
 Ogni modifica ai nomi dei file deve essere esplicita e deve essere riportata nel Master Plan, nelle Guidelines e, se necessario, nei file master LaTeX che includono i singoli capitoli o le singole lezioni.
 
+### Gestione delle figure: struttura delle cartelle, percorsi relativi e convenzione dei nomi
+
+Per tutte le figure del progetto si adotta una cartella grafica comune e una convenzione uniforme sia per il richiamo nei file LaTeX sia per il salvataggio tramite script Python.
+
+Schema ad albero della struttura rilevante:
+
+```text
+Progetto_MQF/
+|-- 01_Manuale/
+|   |-- Capitoli/
+|   |   |-- MQF_Cap_01_....tex
+|   |   |-- MQF_Cap_02_....tex
+|   |   `-- ...
+|   `-- MQF_Manuale_Master.tex
+|
+|-- 02_Slides/
+|   |-- Lezioni/
+|   |   |-- MQF_Slides_Lez_01_....tex
+|   |   |-- MQF_Slides_Lez_02_....tex
+|   |   `-- ...
+|   `-- MQF_Slides_Master.tex
+|
+|-- 03_Codice/
+|   |-- script_01.py
+|   |-- script_02.py
+|   `-- ...
+|
+`-- graphics/
+    |-- Cap06_OU_mean_reversion.png
+    |-- Cap06_GBM_traiettorie.png
+    `-- Lez07_MC_payoff_distribution.png
+```
+
+Regole operative:
+
+1. Tutte le figure del progetto, incluse quelle generate con Python, devono essere salvate nella cartella comune `graphics/`.
+
+2. Nei file LaTeX del Manuale e delle Slides, le figure devono essere richiamate mediante il percorso relativo:
+   `../graphics/NomeFigura.ext`
+
+3. Negli script Python, la cartella `03_Codice/` si trova allo stesso livello della cartella `graphics/`; di conseguenza, il salvataggio delle figure deve avvenire mediante il percorso relativo:
+   `./graphics/NomeFigura.ext`
+
+4. La convenzione di denominazione dei file grafici deve essere stabile, informativa e priva di spazi. Usare underscore `_` per separare le parole.
+
+5. Per figure associate ai capitoli del manuale, usare la forma:
+   `CapXX_descrizione.png`
+
+6. Per figure associate principalmente a una lezione o a una slide, usare la forma:
+   `LezXX_descrizione.png`
+
+7. La parte descrittiva del nome file deve essere breve e semanticamente chiara. Esempi:
+
+   * `Cap06_OU_mean_reversion.png`
+   * `Cap06_GBM_traiettorie.png`
+   * `Lez07_MC_payoff_distribution.png`
+
+Esempi d'uso:
+
+* in LaTeX: `\includegraphics[width=0.78\textwidth]{../graphics/Cap06_OU_mean_reversion.png}`
+* in Python: `plt.savefig("./graphics/Cap06_OU_mean_reversion.png", dpi=300, bbox_inches="tight")`
+
+
 ## 9. Manuale del corso
 
 Il manuale deve essere il riferimento scientifico principale. Ogni capitolo deve essere autosufficiente, ma collegato agli altri capitoli.
