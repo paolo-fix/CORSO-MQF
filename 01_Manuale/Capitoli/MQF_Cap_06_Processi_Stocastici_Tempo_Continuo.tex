@@ -89,7 +89,10 @@ Al termine del capitolo lo studente dovr\`{a} essere in grado di:
 \begin{itemize}
 
 \item interpretare un'equazione differenziale stocastica nella forma
-$dX_t=a(X_t,t)\,dt+b(X_t,t)\,dW_t$, riconoscendo il ruolo del termine
+\[
+dX_t=a(X_t,t)\,dt+b(X_t,t)\,dW_t, 
+\]
+riconoscendo il ruolo del termine
 di tendenza (drift) e del termine di diffusione;
 
 \item descrivere il moto browniano geometrico, ricavarne la soluzione
@@ -118,4 +121,770 @@ in Python (Lezione~7), nella quale i modelli qui presentati verranno
 implementati per la simulazione di traiettorie e per la valutazione di
 prodotti finanziari il cui valore dipende dall'intera evoluzione dei
 fattori di rischio sottostanti.
+
+
+\section{Motivazione finanziaria: perch\'{e} servono modelli in tempo continuo}
+
+In molte applicazioni i dati sono
+osservati a date finite, le decisioni vengono prese a scadenze
+prefissate e numerosi problemi possono essere formulati in modo naturale
+su una griglia temporale. Tuttavia, quando si passa alla modellizzazione
+dei prezzi di mercato, dei tassi di interesse e di altri fattori di
+rischio, emerge rapidamente l'esigenza di un quadro pi\`{u} flessibile,
+in cui il tempo possa variare in modo continuo.
+
+La prima ragione \`{e} economico-finanziaria. Il prezzo di un titolo
+quotato, il livello istantaneo di un tasso overnight, il valore di un
+indice o di un tasso di cambio non sono concepiti, nella pratica, come
+grandezze che esistono soltanto in corrispondenza di poche date isolate.
+Anche se l'osservazione empirica avviene a frequenza discreta, la loro
+evoluzione viene pensata come un fenomeno che si sviluppa lungo tutto
+l'orizzonte temporale. Il linguaggio del tempo continuo consente dunque
+di rappresentare in modo pi\`{u} aderente questa idea di dinamica
+persistente dell'incertezza.
+
+La seconda ragione riguarda la natura dei contratti finanziari. Il
+valore di molti strumenti non dipende soltanto dal livello finale di una
+variabile, ma dall'intera traiettoria seguita nel tempo. Opzioni con
+payoff path-dependent, prodotti indicizzati, strumenti sensibili alla
+media di un prezzo o all'evoluzione dei tassi richiedono modelli capaci
+di descrivere non solo un esito terminale, ma una storia temporale
+completa. In questo contesto il processo stocastico in tempo continuo
+diventa l'oggetto naturale su cui fondare la valutazione.
+
+Una terza ragione \`{e} di carattere modellistico. I modelli continui
+permettono di separare con chiarezza alcune componenti economiche
+essenziali: una tendenza media dell'evoluzione, l'intensit\`{a} delle
+fluttuazioni casuali, l'eventuale richiamo verso un livello di lungo
+periodo, la dipendenza congiunta di pi\`{u} fattori di rischio. Questa
+scomposizione rende i modelli pi\`{u} interpretabili e consente di
+collegare i parametri a propriet\`{a} finanziariamente significative.
+Per esempio, nel caso dei prezzi azionari si desidera spesso un modello
+che mantenga la positivit\`{a} del prezzo; nel caso dei tassi o di alcune
+variabili macro-finanziarie pu\`{o} essere essenziale rappresentare un
+comportamento di \emph{mean reversion}.
+
+Il passaggio al tempo continuo non implica per\`{o} l'abbandono del tempo
+discreto. Al contrario, i due punti di vista sono complementari. Il
+tempo discreto rimane il primo ambiente in cui i concetti vengono
+compresi con chiarezza e in cui molti calcoli possono essere svolti in
+forma esplicita. Il tempo continuo fornisce invece un linguaggio pi\`{u}
+adatto alla costruzione dei modelli utilizzati nella finanza
+quantitativa moderna e alla descrizione di fenomeni che, almeno a livello
+concettuale, evolvono senza salti prefissati tra una data e l'altra.
+
+Vi \`{e} infine una ragione operativa decisiva. I modelli in tempo
+continuo, pur essendo formulati mediante equazioni differenziali
+stocastiche, possono essere discretizzati su griglie temporali fini e
+quindi simulati numericamente. In questo modo il linguaggio continuo non
+resta una costruzione puramente teorica, ma diventa la base per generare
+scenari, stimare valori attesi, calcolare prezzi di prodotti complessi e
+misurare il rischio. Si stabilisce cos\`{\i} un ponte diretto tra
+formulazione matematica del modello e applicazione computazionale.
+
+Il ruolo di questo capitolo \`{e} precisamente quello di costruire tale
+ponte. Dopo aver introdotto nel capitolo precedente il vocabolario
+generale dei processi stocastici e la logica della simulazione Monte
+Carlo, passiamo ora ai principali modelli in tempo continuo utilizzati in
+finanza, mettendo in evidenza sia il loro significato economico sia la
+loro traducibilit\`{a} in procedure di simulazione numerica.
+
+\section{Dal tempo discreto al tempo continuo: dalla passeggiata aleatoria al moto browniano}
+
+Nel Capitolo~5 abbiamo introdotto la passeggiata aleatoria come primo
+modello dinamico dell'incertezza in tempo discreto. Tale costruzione
+costituisce il punto di partenza naturale per comprendere l'origine dei
+processi stocastici in tempo continuo. Il moto browniano non deve infatti
+essere presentato come un oggetto introdotto artificialmente, ma come il
+limite concettuale di una successione di modelli discreti osservati su
+griglie temporali sempre pi\`u fini.
+
+Consideriamo una successione $\{Z_k\}_{k\geq 1}$ di variabili casuali
+indipendenti e identicamente distribuite, tali che
+\[
+\mathbb{E}[Z_k]=0,
+\qquad
+\operatorname{Var}(Z_k)=1.
+\]
+La corrispondente passeggiata aleatoria \`e definita da
+\[
+X_n=\sum_{k=1}^{n} Z_k,
+\qquad
+n=1,2,\ldots
+\]
+Essa descrive l'accumulazione nel tempo di shock elementari indipendenti.
+In particolare, dalla linearit\`a del valore atteso e
+dall'indipendenza degli incrementi segue immediatamente che
+\[
+\mathbb{E}[X_n]=0,
+\qquad
+\operatorname{Var}(X_n)=n.
+\]
+Inoltre, se $m\leq n$, si pu\`o scrivere
+\[
+X_n=X_m+\sum_{k=m+1}^{n} Z_k,
+\]
+da cui segue
+\[
+\operatorname{Cov}(X_m,X_n)=\operatorname{Var}(X_m)=m.
+\]
+Pertanto,
+\[
+\operatorname{Cov}(X_m,X_n)=\min(m,n).
+\]
+
+Queste relazioni mostrano che la passeggiata aleatoria possiede una
+struttura molto regolare: la varianza cresce linearmente con il numero
+dei passi e la covarianza tra due istanti dipende dal tratto di storia
+comune ai due valori del processo. Sono precisamente queste propriet\`a
+che, opportunamente riscalate, riappaiono nel moto browniano.
+
+Per passare al tempo continuo, occorre sostituire il numero di passi con
+un orizzonte temporale reale. Sia dunque $\Delta t>0$ un passo temporale
+e siano
+\[
+t_k=k\Delta t,
+\qquad
+k=0,1,\ldots,n.
+\]
+Se si volesse semplicemente sommare gli stessi incrementi $Z_k$ su una
+griglia sempre pi\`u fitta, la dispersione del processo crescerebbe in
+modo non coerente con il tempo trascorso. La scala corretta degli
+incrementi elementari non \`e dell'ordine di $\Delta t$, bens\`i
+dell'ordine di $\sqrt{\Delta t}$. Per questo motivo si considera il
+processo riscalato
+\[
+W^{(\Delta t)}(t_k)=\sum_{i=1}^{k}\sqrt{\Delta t}\,Z_i.
+\]
+
+Questa normalizzazione \`e essenziale. Infatti,
+\[
+\mathbb{E}\bigl[W^{(\Delta t)}(t_k)\bigr]=0,
+\]
+e
+\[
+\operatorname{Var}\bigl(W^{(\Delta t)}(t_k)\bigr)
+=
+\sum_{i=1}^{k}\operatorname{Var}\bigl(\sqrt{\Delta t}\,Z_i\bigr)
+=
+k\Delta t
+=
+t_k.
+\]
+Analogamente, se $t_h\leq t_k$, allora
+\[
+\operatorname{Cov}\bigl(W^{(\Delta t)}(t_h),W^{(\Delta t)}(t_k)\bigr)
+=
+t_h
+=
+\min(t_h,t_k).
+\]
+
+Il significato di questa costruzione \`e chiaro: quando la griglia
+temporale si infittisce, l'ampiezza delle singole variazioni casuali
+deve ridursi in modo da conservare una varianza proporzionale al tempo.
+Il fattore $\sqrt{\Delta t}$ realizza esattamente questo bilanciamento.
+La somma di molti shock piccoli produce cos\`i un processo che mantiene,
+al variare della scala temporale, una struttura coerente con l'idea di
+incertezza accumulata nel tempo.
+
+Se ora immaginiamo di far tendere $\Delta t$ a zero, cio\`e di osservare
+il processo su griglie temporali sempre pi\`u fitte, otteniamo in modo
+intuitivo un limite continuo la cui media resta nulla, la cui varianza
+soddisfa
+\[
+\operatorname{Var}(W_t)=t,
+\]
+e la cui covarianza assume la forma
+\[
+\operatorname{Cov}(W_s,W_t)=\min(s,t).
+\]
+Questo processo limite \`e il moto browniano standard. In termini
+rigorosi, il passaggio pu\`o essere formalizzato mediante un teorema
+funzionale del limite centrale; nel presente corso ci interessa
+soprattutto il suo significato modellistico: il moto browniano nasce
+come limite naturale di una successione di modelli discreti con
+incrementi indipendenti, centrati e opportunamente riscalati.
+
+Dal punto di vista finanziario, questo collegamento \`e particolarmente
+importante. Nel modello binomiale dei prezzi, il logaritmo del prezzo
+segue una passeggiata aleatoria; quando il passo temporale si riduce e
+la scala degli incrementi viene scelta in modo appropriato, tale
+dinamica conduce a un moto browniano. Di conseguenza, il prezzo stesso,
+che in tempo discreto \`e costruito come prodotto di rendimenti
+elementari, pu\`o essere modellizzato in tempo continuo mediante un
+processo diffuso costruito a partire dal Browniano. Il passaggio dal
+binomiale al continuo non rappresenta quindi una rottura concettuale, ma
+un affinamento della stessa idea di evoluzione aleatoria dei prezzi.
+
+Questa osservazione fornisce la giustificazione teorica del capitolo. I
+processi in tempo continuo che introdurremo nelle sezioni successive non
+sono modelli isolati, ma il prolungamento naturale del linguaggio
+sviluppato nel caso discreto. Il moto browniano ne costituisce il
+mattone fondamentale: da esso si costruiscono le principali diffusioni
+utilizzate in finanza, e su di esso si fondano sia la modellizzazione
+dei prezzi e dei tassi sia le procedure di simulazione numerica.
+
+
+\section{Il moto browniano standard: definizione, propriet\`{a} e interpretazione}
+
+Il processo fondamentale della modellizzazione stocastica in tempo
+continuo \`{e} il \emph{moto browniano standard}. Esso rappresenta il
+mattone di base con cui vengono costruite le principali diffusioni
+utilizzate in finanza quantitativa.
+
+\subsection*{Definizione}
+
+Sia $(\Omega,\mathcal{F},\mathbb{P})$ uno spazio di probabilit\`{a}. Un
+processo stocastico $\{W_t\}_{t\geq 0}$ si dice \emph{moto browniano
+standard} se soddisfa le seguenti propriet\`{a}:
+\begin{enumerate}
+    \item $W_0=0$ quasi certamente;
+    \item il processo ha traiettorie continue quasi certamente;
+    \item per ogni scelta di istanti
+    \[
+    0\leq t_0 < t_1 < \cdots < t_n,
+    \]
+    gli incrementi
+    \[
+    W_{t_1}-W_{t_0}, \quad W_{t_2}-W_{t_1}, \quad \ldots, \quad
+    W_{t_n}-W_{t_{n-1}}
+    \]
+    sono indipendenti;
+    \item per ogni $0\leq s<t$, l'incremento
+    \[
+    W_t-W_s
+    \]
+    ha distribuzione normale con media nulla e varianza $t-s$, cio\`{e}
+    \[
+    W_t-W_s \sim \mathcal{N}(0,t-s).
+    \]
+\end{enumerate}
+
+Questa definizione concentra in un unico oggetto tre caratteristiche
+essenziali: continuit\`{a} delle traiettorie, indipendenza degli
+incrementi e struttura gaussiana delle variazioni su intervalli
+temporali.
+
+\subsection*{Propriet\`{a} fondamentali}
+
+Dalla definizione seguono immediatamente alcune propriet\`{a} di base.
+Anzitutto, ponendo $s=0$, otteniamo
+\[
+W_t \sim \mathcal{N}(0,t), \qquad t\geq 0.
+\]
+In particolare,
+\[
+\mathbb{E}[W_t]=0,
+\qquad
+\Var(W_t)=t.
+\]
+
+Inoltre, la distribuzione dell'incremento $W_t-W_s$ dipende soltanto
+dalla lunghezza dell'intervallo $t-s$ e non dalla sua posizione nel
+tempo. Per questo si dice che il moto browniano ha \emph{incrementi
+stazionari}. Pi\`{u} precisamente, per ogni $h>0$,
+\[
+W_{t+h}-W_t \sim \mathcal{N}(0,h).
+\]
+
+Il processo possiede anche \emph{incrementi indipendenti}: le variazioni
+su intervalli temporali disgiunti sono variabili casuali indipendenti.
+Questa propriet\`{a} formalizza l'idea che, noto il valore corrente del
+processo, l'evoluzione futura dipende da nuove perturbazioni casuali e
+non dagli incrementi gi\`{a} realizzati in intervalli separati.
+
+Un'altra relazione importante riguarda la covarianza. Se $0\leq s\leq
+t$, possiamo scrivere
+\[
+W_t = W_s + (W_t-W_s).
+\]
+Poich\'{e} l'incremento $W_t-W_s$ \`{e} indipendente da $W_s$ e ha media
+nulla, si ha
+\[
+\Cov(W_s,W_t)
+=
+\Cov\bigl(W_s,\,W_s+(W_t-W_s)\bigr)
+=
+\Var(W_s)
+=
+s.
+\]
+Quindi
+\[
+\Cov(W_s,W_t)=\min(s,t).
+\]
+
+Riassumendo, il moto browniano standard soddisfa le relazioni
+fondamentali
+\[
+\mathbb{E}[W_t]=0,
+\qquad
+\Var(W_t)=t,
+\qquad
+\Cov(W_s,W_t)=\min(s,t).
+\]
+Queste formule riprendono, in tempo continuo, la stessa struttura che
+avevamo gi\`{a} osservato per la passeggiata aleatoria riscalata.
+
+\subsection*{Interpretazione della notazione $dW_t$}
+
+Nella trattazione dei modelli in tempo continuo compare spesso la
+scrittura simbolica $dW_t$, che rappresenta un incremento infinitesimo
+del moto browniano. Essa non deve essere interpretata come derivata
+classica rispetto al tempo: le traiettorie browniane sono continue, ma
+irregolari, e in particolare non sono derivabili nel senso ordinario.
+La notazione $dW_t$ serve invece a esprimere in forma compatta la
+componente casuale elementare che compare nelle equazioni differenziali
+stocastiche.
+
+In termini intuitivi, su un intervallo molto piccolo di ampiezza
+$\Delta t$, l'incremento browniano pu\`{o} essere pensato come
+\[
+\Delta W_t \approx \sqrt{\Delta t}\,Z,
+\qquad
+Z\sim \mathcal{N}(0,1),
+\]
+cos\`{\i} che la sua varianza resta proporzionale a $\Delta t$. Questa
+regola di scala \`{e} precisamente ci\`{o} che distingue il rumore
+browniano dalle variazioni deterministiche di ordine $\Delta t$.
+
+\subsection*{Interpretazione finanziaria}
+
+Dal punto di vista finanziario, il moto browniano standard non
+costituisce di per s\'{e} un modello completo per il prezzo di un'attivit\`{a}
+finanziaria. Un processo gaussiano con media nulla pu\`{o} assumere
+valori negativi e non incorpora direttamente vincoli economici come la
+positivit\`{a} dei prezzi o la presenza di una tendenza media di crescita.
+Per questo motivo il Browniano non viene normalmente usato come modello
+diretto del prezzo.
+
+La sua importanza risiede invece nel fatto che esso fornisce il
+\emph{mattone elementare} delle diffusioni in tempo continuo. Inserendo
+il rumore browniano all'interno di una struttura con drift e coefficiente
+di diffusione appropriati, si ottengono modelli pi\`{u} realistici, come
+il moto browniano geometrico per i prezzi, i processi
+\emph{mean-reverting} per tassi e fattori di rischio, e pi\`{u} in
+generale le equazioni differenziali stocastiche che studieremo nelle
+sezioni successive.
+
+In questo senso, il moto browniano standard svolge per il tempo continuo
+un ruolo analogo a quello svolto dalla passeggiata aleatoria nel caso
+discreto: non esaurisce da solo la modellizzazione finanziaria, ma ne
+fornisce la struttura casuale fondamentale.
+
+```latex
+\section{Equazioni differenziali stocastiche: struttura generale di una diffusione}
+
+Dopo aver introdotto il moto browniano come processo fondamentale della
+casualit\`a in tempo continuo, possiamo costruire una classe molto ampia
+di modelli dinamici facendo dipendere l'evoluzione di una variabile
+stocastica sia da una componente sistematica sia da una componente
+aleatoria. Questo conduce alla nozione di \emph{equazione differenziale
+stocastica}.
+
+Una diffusione in tempo continuo viene generalmente descritta nella forma
+\[
+dX_t = a(X_t,t)\,dt + b(X_t,t)\,dW_t,
+\]
+dove $\{W_t\}_{t\geq 0}$ \`e un moto browniano standard, mentre le
+funzioni $a(X_t,t)$ e $b(X_t,t)$ determinano rispettivamente la parte
+deterministica e la parte casuale dell'evoluzione del processo.
+
+Il termine
+\[
+a(X_t,t)\,dt
+\]
+viene chiamato \emph{drift}. Esso rappresenta la componente media locale
+della dinamica, cio\`e la tendenza istantanea del processo a crescere o a
+decrescere nel tempo. In termini economici, il drift pu\`o essere
+interpretato come la forza sistematica che orienta il movimento della
+variabile: per esempio una crescita media del prezzo, un richiamo verso
+un livello di equilibrio, oppure una deriva dipendente dallo stato
+corrente del sistema.
+
+Il termine
+\[
+b(X_t,t)\,dW_t
+\]
+viene chiamato \emph{termine di diffusione}. Esso rappresenta la
+componente aleatoria della dinamica ed \`e responsabile delle
+fluttuazioni imprevedibili del processo. Il coefficiente $b(X_t,t)$
+misura l'intensit\`a locale della variabilit\`a: quanto maggiore \`e il
+suo valore in un certo istante e in un certo stato, tanto maggiore sar\`a
+la dispersione delle variazioni casuali su intervalli temporali brevi.
+
+Questa scrittura pu\`o essere interpretata in modo operativo osservando
+la dinamica su un piccolo intervallo temporale $\Delta t$. In prima
+approssimazione si ha
+\[
+X_{t+\Delta t}-X_t
+\approx
+a(X_t,t)\,\Delta t + b(X_t,t)\,\sqrt{\Delta t}\,Z_{t+\Delta t},
+\]
+dove $Z_{t+\Delta t}\sim \mathcal{N}(0,1)$. Questa relazione mostra con
+chiarezza il significato dei due termini. La parte di drift \`e dell'ordine
+di $\Delta t$, quindi cresce linearmente con la lunghezza
+dell'intervallo; la parte stocastica \`e invece dell'ordine di
+$\sqrt{\Delta t}$, perch\'e deriva dalla scala tipica degli incrementi
+browniani. Ne segue che, su intervalli molto piccoli, la componente
+casuale non \`e trascurabile e anzi costituisce l'elemento distintivo
+della dinamica stocastica continua.
+
+La forma della SDE consente anche una lettura in termini di media e
+varianza condizionate. In modo intuitivo, per $\Delta t$ piccolo,
+\[
+\mathbb{E}\left[X_{t+\Delta t}-X_t \mid X_t\right]
+\approx
+a(X_t,t)\,\Delta t,
+\]
+mentre
+\[
+\operatorname{Var}\left(X_{t+\Delta t}-X_t \mid X_t\right)
+\approx
+b^2(X_t,t)\,\Delta t.
+\]
+Pertanto il drift governa la variazione media locale del processo,
+mentre il coefficiente di diffusione governa la sua variabilit\`a locale.
+Questa distinzione \`e particolarmente utile in finanza, perch\'e permette
+di separare in modo trasparente la dinamica attesa di una variabile dal
+grado di incertezza che la circonda.
+
+L'utilit\`a di questa formalizzazione risiede nella sua flessibilit\`a.
+Scegliendo opportunamente le funzioni $a$ e $b$, si ottengono modelli con
+propriet\`a economiche differenti. Se il coefficiente di diffusione \`e
+proporzionale al livello della variabile, si possono descrivere prezzi
+positivi con volatilità proporzionale alla scala del fenomeno; se il
+drift assume la forma di un richiamo verso un livello di lungo periodo,
+si ottengono modelli \emph{mean-reverting}; se la diffusione dipende
+anch'essa dallo stato, si possono rappresentare situazioni in cui la
+variabilit\`a cresce o si riduce al variare del livello del processo.
+
+Dal punto di vista finanziario, questa classe di modelli \`e
+particolarmente importante perch\'e consente di rappresentare in un quadro
+unitario prezzi di attivit\`a finanziarie, tassi di interesse, spread,
+fattori di rischio e variabili latenti. La stessa struttura matematica
+pu\`o quindi essere adattata a contesti diversi modificando
+l'interpretazione economica dei coefficienti.
+
+Va tuttavia sottolineato che la scrittura
+\[
+dX_t = a(X_t,t)\,dt + b(X_t,t)\,dW_t
+\]
+ha natura simbolica e non va interpretata come una normale equazione
+differenziale ordinaria. Il termine $dW_t$ non \`e una derivata classica,
+ma rappresenta l'incremento elementare del moto browniano. In questo
+corso utilizzeremo tale notazione in senso modellistico e operativo:
+essa serve a identificare la struttura della dinamica, a comprendere il
+ruolo dei parametri e a costruire schemi di discretizzazione e
+simulazione.
+
+In sintesi, una equazione differenziale stocastica descrive l'evoluzione
+di un processo come combinazione di una componente media locale e di una
+componente casuale locale. Questa rappresentazione costituisce il quadro
+generale entro cui si collocano i principali modelli di diffusione
+utilizzati in finanza. Nelle sezioni successive vedremo come scelte
+specifiche dei coefficienti di drift e diffusione conducano a modelli
+classici come il moto browniano geometrico, il processo di
+Ornstein--Uhlenbeck e il processo di Cox--Ingersoll--Ross.```latex
+\section{Il moto browniano geometrico come modello dei prezzi}
+
+Tra i modelli di diffusione utilizzati in finanza, il pi\`u classico e il
+pi\`u importante come punto di partenza \`e il \emph{moto browniano
+geometrico}. Esso viene impiegato per descrivere l'evoluzione di un
+prezzo $S_t$ positivo nel tempo continuo, mantenendo una struttura
+sufficientemente semplice da consentire sia analisi teoriche sia
+applicazioni operative.
+
+Il modello \`e definito dalla seguente equazione differenziale
+stocastica:
+\[
+dS_t=\mu S_t\,dt+\sigma S_t\,dW_t,
+\qquad
+S_0>0,
+\]
+dove $\mu \in \mathbb{R}$ rappresenta il coefficiente di drift,
+$\sigma>0$ il coefficiente di volatilità, e $\{W_t\}_{t\geq 0}$ un moto
+browniano standard.
+
+La struttura del modello \`e economicamente naturale. Il termine
+deterministico
+\[
+\mu S_t\,dt
+\]
+implica che la variazione media istantanea del prezzo sia proporzionale
+al livello corrente del prezzo stesso. Il termine stocastico
+\[
+\sigma S_t\,dW_t
+\]
+introduce invece una fluttuazione casuale anch'essa proporzionale al
+livello di $S_t$. In questo modo le variazioni assolute tendono a essere
+pi\`u ampie quando il prezzo \`e elevato e pi\`u contenute quando il prezzo
+\`e basso, propriet\`a che risulta plausibile in molti contesti
+finanziari.
+
+Su un intervallo temporale molto piccolo $\Delta t$, il modello pu\`o
+essere letto in prima approssimazione come
+\[
+S_{t+\Delta t}-S_t
+\approx
+\mu S_t\,\Delta t+\sigma S_t\,\sqrt{\Delta t}\,Z_{t+\Delta t},
+\]
+dove $Z_{t+\Delta t}\sim \mathcal{N}(0,1)$. Pertanto, condizionatamente
+a $S_t$, la variazione media locale \`e circa $\mu S_t\,\Delta t$, mentre
+la dispersione locale \`e governata da $\sigma$.
+
+Una propriet\`a fondamentale del moto browniano geometrico \`e che esso
+ammette una soluzione esplicita. Si ottiene
+\[
+S_t
+=
+S_0
+\exp\left(
+\left(\mu-\frac{1}{2}\sigma^2\right)t+\sigma W_t
+\right).
+\]
+Questa espressione mette in luce due aspetti centrali del modello.
+
+In primo luogo, il prezzo resta sempre positivo:
+\[
+S_t>0
+\qquad
+\text{per ogni } t\geq 0.
+\]
+La positivit\`a non \`e imposta artificialmente, ma discende direttamente
+dalla forma esponenziale della soluzione. Questo rappresenta un vantaggio
+decisivo rispetto al moto browniano standard, che pu\`o assumere valori
+negativi e quindi non \`e adatto, da solo, a modellizzare direttamente un
+prezzo.
+
+In secondo luogo, prendendo il logaritmo della soluzione si ottiene
+\[
+\ln S_t
+=
+\ln S_0
++
+\left(\mu-\frac{1}{2}\sigma^2\right)t
++
+\sigma W_t.
+\]
+Ne segue che $\ln S_t$ \`e normalmente distribuito, mentre $S_t$ ha
+distribuzione lognormale. Pi\`u precisamente,
+\[
+\ln S_t
+\sim
+\mathcal{N}
+\left(
+\ln S_0+\left(\mu-\frac{1}{2}\sigma^2\right)t,\,
+\sigma^2 t
+\right).
+\]
+Quindi
+\[
+S_t
+\sim
+\text{lognormale}.
+\]
+
+Questo punto richiede particolare attenzione notazionale. Nel modello
+\[
+dS_t=\mu S_t\,dt+\sigma S_t\,dW_t,
+\]
+il parametro $\mu$ \`e il \emph{drift del prezzo}. Nella rappresentazione
+logaritmica, invece, il coefficiente che compare davanti a $t$ \`e
+\[
+\mu-\frac{1}{2}\sigma^2,
+\]
+che costituisce il \emph{drift logaritmico}. I due oggetti non devono
+essere confusi. Il primo governa la dinamica di $S_t$ nella SDE del
+prezzo; il secondo governa la dinamica del log-prezzo nella forma
+esplicita della soluzione. In alcune presentazioni si introduce un
+parametro separato, ad esempio
+\[
+m=\mu-\frac{1}{2}\sigma^2,
+\]
+e si scrive
+\[
+S_t=S_0\exp\left(mt+\sigma W_t\right).
+\]
+In questo capitolo, per evitare ambiguit\`a, manterremo distinta la
+notazione tra drift del prezzo $\mu$ e drift logaritmico
+$\mu-\frac{1}{2}\sigma^2$.
+
+Dal punto di vista interpretativo, $\mu$ misura la tendenza media del
+prezzo a crescere o decrescere nel tempo, mentre $\sigma$ misura
+l'intensit\`a delle oscillazioni casuali. Un aumento di $\mu$ sposta verso
+l'alto la traiettoria media del processo; un aumento di $\sigma$
+accresce la dispersione delle traiettorie e quindi il grado di
+incertezza associato all'evoluzione del prezzo.
+
+Il moto browniano geometrico costituisce il modello base di numerose
+costruzioni della finanza quantitativa. Esso \`e sufficientemente ricco
+da incorporare crescita proporzionale, casualit\`a continua e positivit\`a
+dei prezzi, ma anche sufficientemente semplice da consentire una
+trattazione analitica trasparente. Proprio per questa ragione esso
+rappresenta il primo modello continuo di riferimento per prezzi
+azionari, indici e altre variabili finanziarie positive.
+
+Naturalmente, il modello presenta anche limiti importanti. In
+particolare, assume volatilit\`a costante, distribuzione lognormale e
+assenza di fenomeni di \emph{mean reversion}. Per molte applicazioni
+queste ipotesi risultano troppo restrittive. Tuttavia, come modello
+iniziale, il moto browniano geometrico svolge un ruolo centrale: esso
+fornisce il prototipo della diffusione moltiplicativa e costituisce il
+punto di partenza naturale per modelli pi\`u sofisticati.
+
+\section{Processi mean-reverting I: Ornstein--Uhlenbeck}
+
+Dopo aver introdotto il moto browniano geometrico come modello base per
+prezzi positivi, consideriamo ora una classe diversa di processi
+diffusivi, adatta a variabili che mostrano una tendenza a ritornare verso
+un livello di equilibrio. Il modello pi\`u semplice e pi\`u classico di
+questo tipo \`e il processo di Ornstein--Uhlenbeck.
+
+Il processo di Ornstein--Uhlenbeck \`e definito dalla seguente equazione
+differenziale stocastica:
+\[
+dX_t=\kappa(\theta-X_t)\,dt+\sigma\,dW_t,
+\qquad
+\kappa>0,
+\qquad
+\sigma>0.
+\]
+Qui $\{W_t\}_{t\geq 0}$ \`e un moto browniano standard, $\theta \in \mathbb{R}$
+\`e il livello di lungo periodo, $\kappa$ misura la velocit\`a di
+\emph{mean reversion} e $\sigma$ rappresenta l'intensit\`a della
+componente casuale.
+
+La struttura del drift
+\[
+\kappa(\theta-X_t)
+\]
+\`e l'elemento distintivo del modello. Se $X_t<\theta$, allora
+$\theta-X_t>0$ e quindi il drift \`e positivo: il processo tende a
+crescere. Se invece $X_t>\theta$, allora $\theta-X_t<0$ e il drift
+diventa negativo: il processo tende a diminuire. In entrambi i casi la
+dinamica esercita un richiamo verso il livello $\theta$. Il parametro
+$\kappa$ governa l'intensit\`a di tale richiamo: quanto maggiore \`e
+$\kappa$, tanto pi\`u rapidamente il processo tende a rientrare verso il
+livello di lungo periodo.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.78\textwidth]{../graphics/Cap06_OU_mean_reversion.png}
+\caption{Traiettorie simulate di un processo di Ornstein--Uhlenbeck con livello di lungo periodo $\theta$. La linea orizzontale tratteggiata evidenzia il meccanismo di \emph{mean reversion}: le traiettorie oscillano in modo casuale, ma tendono a ritornare verso il livello $\theta$.}
+\label{fig:OU_mean_reversion}
+\end{figure}
+
+La Figura~\ref{fig:OU_mean_reversion} mette in evidenza il tratto distintivo
+del processo di Ornstein--Uhlenbeck. Pur essendo soggetto a shock casuali,
+il processo non si allontana indefinitamente dal proprio livello di lungo
+periodo, ma tende a rientrare verso $\theta$. Questa propriet\`a lo
+distingue nettamente dal moto browniano geometrico, che non incorpora
+alcun meccanismo di richiamo verso un equilibrio.
+
+Su un piccolo intervallo temporale $\Delta t$, la dinamica pu\`o essere
+letta in prima approssimazione come
+\[
+X_{t+\Delta t}-X_t
+\approx
+\kappa(\theta-X_t)\,\Delta t+\sigma\sqrt{\Delta t}\,Z_{t+\Delta t},
+\]
+dove $Z_{t+\Delta t}\sim \mathcal{N}(0,1)$. Questa formula rende
+trasparente l'interpretazione del modello: la variazione del processo
+nasce dalla combinazione di una forza sistematica che lo spinge verso
+$\theta$ e di uno shock casuale additivo di intensit\`a costante.
+
+A differenza del moto browniano geometrico, il processo di
+Ornstein--Uhlenbeck ha quindi natura \emph{additiva}. La componente
+casuale non \`e proporzionale al livello corrente del processo, ma ha
+intensit\`a pari a $\sigma$ in ogni stato. Questo punto \`e
+didatticamente importante. Nel GBM la scala delle fluttuazioni dipende da
+$S_t$ e la dinamica non presenta alcun richiamo verso un livello di
+equilibrio; nel modello di Ornstein--Uhlenbeck, invece, la diffusione \`e
+additiva e il drift incorpora esplicitamente un meccanismo di
+\emph{mean reversion}.
+
+Il processo ammette una soluzione esplicita:
+\[
+X_t
+=
+\theta+(X_0-\theta)e^{-\kappa t}
++
+\sigma \int_{0}^{t} e^{-\kappa(t-s)}\,dW_s.
+\]
+Questa rappresentazione mette in evidenza due componenti. Il termine
+\[
+(X_0-\theta)e^{-\kappa t}
+\]
+descrive il progressivo assorbimento dell'effetto della condizione
+iniziale, mentre l'integrale stocastico raccoglie gli shock casuali
+subiti dal processo lungo l'intervallo $[0,t]$, pesandoli in modo
+decrescente nel tempo.
+
+Dalla soluzione esplicita si ricavano immediatamente media e varianza.
+Si ha
+\[
+\mathbb{E}[X_t]
+=
+\theta+(X_0-\theta)e^{-\kappa t}.
+\]
+Pertanto, se $\kappa>0$,
+\[
+\mathbb{E}[X_t]\longrightarrow \theta
+\qquad
+\text{per } t\to\infty.
+\]
+La media del processo converge dunque al livello di lungo periodo.
+
+Per la varianza si ottiene
+\[
+\operatorname{Var}(X_t)
+=
+\frac{\sigma^2}{2\kappa}\left(1-e^{-2\kappa t}\right),
+\]
+da cui segue
+\[
+\operatorname{Var}(X_t)\longrightarrow \frac{\sigma^2}{2\kappa}
+\qquad
+\text{per } t\to\infty.
+\]
+A differenza del moto browniano standard e della passeggiata aleatoria,
+la dispersione del processo non cresce senza limite: essa tende a un
+valore finito di lungo periodo. Questo \`e un altro tratto caratteristico
+dei processi mean-reverting.
+
+Poich\'e il termine stocastico nella soluzione \`e gaussiano, il processo
+di Ornstein--Uhlenbeck \`e un processo gaussiano. In particolare, per ogni
+$t$, la variabile $X_t$ ha distribuzione normale. Nel lungo periodo, se
+si considera il regime limite, la distribuzione si concentra intorno a
+$\theta$ con varianza $\sigma^2/(2\kappa)$. Questo fornisce una
+descrizione particolarmente semplice di una variabile che oscilla attorno
+a un livello di equilibrio senza allontanarsene indefinitamente.
+
+Dal punto di vista finanziario, il processo di Ornstein--Uhlenbeck \`e
+adatto a modellizzare fattori che possono essere interpretati come
+scostamenti da un equilibrio, spread, componenti transitorie di tassi o
+variabili latenti con comportamento di ritorno alla media. \`E invece
+meno adatto a rappresentare direttamente il prezzo di un'attivit\`a
+finanziaria, perch\'e, essendo gaussiano e additivo, pu\`o assumere anche
+valori negativi. Questo lo distingue nettamente dal moto browniano
+geometrico, che preserva la positivit\`a ma non incorpora mean
+reversion.
+
+In sintesi, il processo di Ornstein--Uhlenbeck costituisce il modello
+pi\`u semplice di diffusione mean-reverting. La sua importanza didattica \`e
+duplice: da un lato introduce in forma trasparente i parametri
+$\kappa$ e $\theta$; dall'altro mostra che, nel passaggio dal GBM ai
+modelli di richiamo verso un equilibrio, cambia non solo
+l'interpretazione economica del drift, ma anche la struttura stessa
+della dinamica stocastica.
+
+
+
+
+
+
+
+
 

@@ -1,0 +1,1045 @@
+%2multibyte Version: 5.50.0.2960 CodePage: 65001
+%TCIDATA{OutputFilter=latex2.dll}
+%TCIDATA{Version=5.50.0.2960}
+%TCIDATA{Codepage=65001}
+%TCIDATA{CSTFile=beamer.cst}
+%TCIDATA{Created=Sunday, June 14, 2026 10:00:00}
+%TCIDATA{LastRevised=Sunday, June 14, 2026 10:00:00}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="2">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Other Documents\SW\Slides - Beamer">}
+%BeginMSIPreambleData
+\providecommand{\U}[1]{\protect\rule{.1in}{.1in}}
+%EndMSIPreambleData
+
+\documentclass[handout]{beamer}
+\usepackage{mathpazo}
+\usepackage{multimedia}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\setcounter{MaxMatrixCols}{30}
+
+\newenvironment{stepenumerate}{\begin{enumerate}[<+->]}{\end{enumerate}}
+\newenvironment{stepitemize}{\begin{itemize}[<+->]}{\end{itemize}}
+\newenvironment{stepenumeratewithalert}{\begin{enumerate}[<+-| alert@+>]}{\end{enumerate}}
+\newenvironment{stepitemizewithalert}{\begin{itemize}[<+-| alert@+>]}{\end{itemize}}
+\usetheme{Madrid}
+
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\E}{\mathbb{E}}
+\providecommand{\Prob}{\mathbb{P}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\F}{\mathcal{F}}
+\providecommand{\B}{\mathcal{B}}
+\providecommand{\G}{\mathcal{G}}
+\providecommand{\Var}{\operatorname{Var}}
+\providecommand{\Cov}{\operatorname{Cov}}
+\providecommand{\VaR}{\operatorname{VaR}}
+\providecommand{\CVaR}{\operatorname{CVaR}}
+\providecommand{\argmin}{\operatorname*{arg\,min}}
+\providecommand{\argmax}{\operatorname*{arg\,max}}
+\providecommand{\EVPI}{\operatorname{EVPI}}
+\providecommand{\VSS}{\operatorname{VSS}}
+\providecommand{\QTR}[2]{\csname #1\endcsname{#2}}
+
+\title{Lezione 5 -- Processi stocastici I}
+\subtitle{Metodi Quantitativi per la Finanza}
+\author[P. Falbo, C. Pelizzari]{{\LARGE Paolo Falbo, Cristian Pelizzari}}
+\institute[]{{\large Dipartimento Economia e Management}}
+\date[]{}
+\titlegraphic{
+\includegraphics[width=3.3cm]{../graphics/logo-Unibs-esteso.png}
+}
+
+\begin{document}
+\maketitle
+
+% ============================================================
+% GRUPPO 1 -- APERTURA
+% Slide 1-3
+% Tempo parziale: 10 minuti | Tempo cumulato: 10 minuti
+% ============================================================
+
+\section{Apertura}
+
+% --------------------------------------------------------
+% Slide 1 -- Domanda guida
+% --------------------------------------------------------
+
+\subsection{Domanda guida}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Lezione 5 -- Processi stocastici I}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+\begin{center}
+{\Large Come si rappresenta l'evoluzione temporale\\
+dell'incertezza quando l'informazione cresce nel tempo?}
+\end{center}
+
+\medskip
+
+In finanza molte grandezze non sono statiche, ma evolvono nel tempo:
+
+\begin{stepitemize}
+\item il prezzo di un'azione giorno per giorno;
+\item il merito creditizio di una controparte nel corso degli anni;
+\item il tasso di inflazione lungo un orizzonte pluriennale;
+\item il valore di un portafoglio sotto scenari futuri alternativi.
+\end{stepitemize}
+
+\medskip
+
+Una singola variabile casuale non basta. Serve un oggetto che evolve:
+\[
+\{X_t\}_{t=0}^{T}.
+\]
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% --------------------------------------------------------
+% Slide 2 -- Percorso della lezione
+% --------------------------------------------------------
+
+\subsection{Percorso della lezione}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Percorso della lezione}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+L'obiettivo \`{e} costruire il linguaggio dei processi stocastici
+in tempo discreto e applicarlo a un primo modello concreto.
+
+\medskip
+
+\begin{stepenumerate}
+\item[1.] Processo stocastico: definizione e traiettorie.
+\item[2.] Momenti e dipendenza temporale: $\mu(t)$, $\sigma^2(t)$, $c(s,t)$.
+\item[3.] Filtrazione e adattabilit\`{a}: informazione che cresce nel tempo.
+\item[4.] Martingale: il concetto di gioco equo e le sue implicazioni.
+\item[5.] Il modello binomiale come palestra strutturale.
+\item[6.] Esercizi in aula e sintesi.
+\end{stepenumerate}
+
+\medskip
+
+\begin{center}
+{\small Tutti gli strumenti di questa lezione valgono per qualunque
+processo, discreto o continuo.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% ============================================================
+% Slides_Lez_05_Gruppo_02_Processo.tex
+% GRUPPO 2 -- Processo stocastico: definizione e traiettorie
+% Slide 4-7
+% Tempo parziale: 15 minuti | Tempo cumulato: 25 minuti
+% ============================================================
+
+\section{Processo stocastico}
+
+% --------------------------------------------------------
+% Slide 4 -- Definizione
+% --------------------------------------------------------
+
+\subsection{Definizione}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Processo stocastico: definizione}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Un \textbf{processo stocastico} \`{e} una famiglia di variabili casuali
+indicizzata dal tempo:
+\[
+\{X_t\}_{t \in \mathcal{T}}, \qquad X_t : \Omega \rightarrow \mathbb{R}.
+\]
+
+\medskip
+
+\begin{stepitemize}
+\item L'insieme degli indici $\mathcal{T}$ pu\`{o} essere discreto
+($\mathcal{T} = \{0,1,\ldots,T\}$) o continuo ($\mathcal{T} = [0,T]$).
+\item Per ogni istante $t$ fissato, $X_t$ \`{e} una variabile casuale:
+descrive l'incertezza sul valore del processo a quell'istante.
+\item Per ogni esito $\omega \in \Omega$ fissato, $t \mapsto X_t(\omega)$
+\`{e} una funzione deterministica del tempo: la \textbf{traiettoria}.
+\end{stepitemize}
+
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% --------------------------------------------------------
+% Slide 5 -- Tre livelli di lettura
+% --------------------------------------------------------
+
+\subsection{Tre livelli di lettura}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Tre livelli di lettura}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Lo stesso oggetto $\{X_t\}$ si pu\`{o} leggere in tre modi:
+
+\medskip
+
+\begin{stepitemize}
+
+\item \textbf{Distribuzione marginale} -- fissato $t$, $X_t$ \`{e} una
+variabile casuale con la sua distribuzione:
+\[
+\Prob(X_t \leq x), \quad \E[X_t], \quad \Var(X_t).
+\]
+Descrive l'incertezza sul valore a un istante dato.
+
+\item \textbf{Traiettoria} -- fissato $\omega$, la mappa
+$t \mapsto X_t(\omega)$ \`{e} una sequenza di numeri:
+\[
+X_0(\omega),\; X_1(\omega),\; \ldots,\; X_T(\omega).
+\]
+\`{E} il percorso realizzato in uno specifico scenario.
+
+\item \textbf{Famiglia} -- l'intero oggetto $\{X_t\}_{t=0}^T$ descrive
+la struttura congiunta: come i valori ai diversi istanti si
+influenzano e si correlano.
+
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% --------------------------------------------------------
+% Slide 6 -- Esempio finanziario: prezzo su più periodi
+% --------------------------------------------------------
+
+\subsection{Esempio finanziario}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Esempio: il prezzo di un'azione su pi\`{u} periodi}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Sia $S_t$ il prezzo di un'azione al tempo $t = 0, 1, 2, 3$.
+
+\medskip
+
+\begin{stepitemize}
+
+\item \textbf{Distribuzione marginale}: al tempo $t=2$ il prezzo $S_2$
+\`{e} una variabile casuale. Possiamo chiederci: qual \`{e} il suo
+valore atteso? Qual \`{e} la sua varianza?
+
+\item \textbf{Traiettoria}: in uno scenario $\omega$ specifico, il
+prezzo percorre un cammino:
+\[
+S_0(\omega) = 100,\quad S_1(\omega) = 110,\quad
+S_2(\omega) = 99,\quad S_3(\omega) = 108.9.
+\]
+Ogni scenario corrisponde a una diversa sequenza di rialzi e ribassi.
+
+\item \textbf{Famiglia}: la struttura congiunta di $S_0, S_1, S_2, S_3$
+risponde a domande come: il prezzo di oggi \`{e} correlato con quello
+di dopodomani? Come evolve l'incertezza sul prezzo al crescere
+dell'orizzonte?
+
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% --------------------------------------------------------
+% Slide 7 -- Spazio campionario e traiettorie
+% --------------------------------------------------------
+
+\subsection{Spazio campionario e traiettorie}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Spazio campionario e traiettorie}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Il processo $\{X_t\}$ vive sullo stesso spazio di probabilit\`{a}
+$(\Omega, \mathcal{F}, \Prob)$ delle variabili casuali delle lezioni
+precedenti.
+
+\medskip
+
+\begin{stepitemize}
+
+\item Ogni esito elementare $\omega \in \Omega$ seleziona
+\textbf{un'intera traiettoria}: non un singolo numero, ma una
+sequenza $X_0(\omega), X_1(\omega), \ldots, X_T(\omega)$.
+
+\item L'insieme di tutte le traiettorie possibili forma lo
+\textbf{spazio delle traiettorie}: ogni $\omega$ corrisponde a
+un percorso diverso.
+
+\item La probabilit\`{a} $\Prob$ assegna un peso a ogni traiettoria
+(o a insiemi di traiettorie): i percorsi pi\`{u} probabili hanno
+peso maggiore.
+
+\item Un processo a tempo discreto con $T$ periodi e stati finiti
+ha un numero finito di traiettorie. Nel modello binomiale con
+$T$ periodi: $2^T$ traiettorie.
+
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% ============================================================
+% Slides_Lez_05_Gruppo_03_Momenti.tex
+% GRUPPO 3 -- Momenti e dipendenza temporale
+% Slide 8-12
+% Tempo parziale: 15 minuti | Tempo cumulato: 40 minuti
+% ============================================================
+
+\section{Momenti e dipendenza temporale}
+
+% --------------------------------------------------------
+% Slide 8 -- Le tre funzioni caratteristiche
+% --------------------------------------------------------
+
+\subsection{Le tre funzioni caratteristiche}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Le tre funzioni caratteristiche}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Per descrivere un processo senza specificarne l'intera legge,
+si usano tre funzioni del tempo:
+
+\medskip
+
+\begin{stepitemize}
+
+\item \textbf{Funzione media}
+\[
+\mu(t) = \E[X_t].
+\]
+Livello medio del processo all'istante $t$.
+
+\item \textbf{Funzione varianza}
+\[
+\sigma^2(t) = \Var(X_t).
+\]
+Dispersione attorno alla media all'istante $t$: misura l'incertezza
+sul valore del processo in quell'istante.
+
+\item \textbf{Funzione di autocovarianza}
+\[
+c(s,t) = \Cov(X_s, X_t), \qquad s,t \in \mathcal{T}.
+\]
+Dipendenza lineare tra i valori del processo a due istanti diversi.
+
+\end{stepitemize}
+
+\medskip
+
+\begin{center}
+{\small Nota: $c(t,t) = \Var(X_t) = \sigma^2(t)$.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% --------------------------------------------------------
+% Slide 9 -- Significato finanziario
+% --------------------------------------------------------
+
+\subsection{Significato finanziario}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Significato finanziario}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Le tre funzioni rispondono a domande operative concrete.
+
+\medskip
+
+\begin{stepitemize}
+
+\item $\mu(t)$: \textbf{qual \`{e} il valore atteso del prezzo
+(o del tasso) al tempo $t$?}\\
+Utile per stimare il rendimento atteso su un orizzonte.
+
+\item $\sigma^2(t)$: \textbf{quanto \`{e} incerto il valore
+all'orizzonte $t$?}\\
+L'incertezza tipicamente cresce con $t$: il futuro lontano
+\`{e} pi\`{u} difficile da prevedere del futuro prossimo.
+
+\item $c(s,t)$: \textbf{il valore di oggi \`{e} correlato
+con il valore di domani?}\\
+Se $c(s,t) > 0$: un valore elevato oggi tende ad
+accompagnarsi a un valore elevato in futuro.\\
+Se $c(s,t) = 0$: i valori ai due istanti sono incorrelati --
+il passato non aiuta a prevedere il futuro.
+
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% --------------------------------------------------------
+% Slide 10 -- Esempio 1: rumore i.i.d.
+% --------------------------------------------------------
+
+\subsection{Esempi}
+ 
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+ 
+\QTR{frametitle}{Esempio 1: rendimenti giornalieri i.i.d.}
+ 
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+ 
+Sia $X_t$ il \textbf{rendimento percentuale} di un'azione
+nel giorno $t$. Sotto l'ipotesi di mercato efficiente i
+rendimenti giornalieri sono i.i.d.:
+$\E[X_t] = \nu$, $\Var(X_t) = \tau^2$ uguali per ogni $t$.
+ 
+\medskip
+ 
+\begin{stepitemize}
+ 
+\item \textbf{Media costante:}
+\[
+\mu(t) = \E[X_t] = \nu \quad \text{per ogni } t.
+\]
+Il rendimento atteso non dipende dal giorno.
+ 
+\item \textbf{Varianza costante:}
+\[
+\sigma^2(t) = \Var(X_t) = \tau^2 \quad \text{per ogni } t.
+\]
+Il rischio giornaliero non cambia nel tempo.
+ 
+\item \textbf{Covarianza nulla:}
+\[
+c(s,t) = \Cov(X_s, X_t) = 0 \quad \text{per ogni } s \neq t.
+\]
+Il rendimento di ieri non aiuta a prevedere quello di oggi:
+\textbf{ipotesi di mercato efficiente in forma debole}.
+ 
+\end{stepitemize}
+ 
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% --------------------------------------------------------
+% Slide 11 -- Esempio 2: passeggiata aleatoria
+% --------------------------------------------------------
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Esempio 2: passeggiata aleatoria}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Sia $X_0 = 0$ e $X_t = Z_1 + Z_2 + \cdots + Z_t$
+con $Z_k$ i.i.d., $\E[Z_k] = \nu$, $\Var(Z_k) = \tau^2$.
+
+\medskip
+
+\begin{stepitemize}
+
+\item \textbf{Media crescente:}
+\[
+\mu(t) = t\,\nu.
+\]
+
+\item \textbf{Varianza crescente:}
+\[
+\sigma^2(t) = t\,\tau^2.
+\]
+L'incertezza si \textbf{accumula} nel tempo: l'orizzonte
+lontano \`{e} pi\`{u} incerto di quello vicino.
+
+\item \textbf{Covarianza:} per $s \leq t$,
+\[
+c(s,t) = \min(s,t)\,\tau^2 = s\,\tau^2.
+\]
+I valori a istanti diversi sono \textbf{correlati positivamente}:
+chi parte alto tende a restare alto.
+
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% --------------------------------------------------------
+% Slide 12 -- Confronto e ponte al moto browniano
+% --------------------------------------------------------
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Confronto e ponte alla Lezione 6}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+\begin{center}
+\begin{tabular}{lcc}
+\hline
+& \textbf{Rendimenti i.i.d.} & \textbf{Passeggiata aleatoria}\\
+\hline
+$\mu(t)$ & $\nu$ (costante) & $t\,\nu$ (crescente)\\
+$\sigma^2(t)$ & $\tau^2$ (costante) & $t\,\tau^2$ (crescente)\\
+$c(s,t)$ & $0$ & $\min(s,t)\,\tau^2$\\
+Struttura temporale & nessuna & accumulo nel tempo\\
+\hline
+\end{tabular}
+\end{center}
+
+\medskip
+
+\begin{stepitemize}
+
+\item La varianza $\sigma^2(t) = t\,\tau^2$ della passeggiata aleatoria
+cresce \textbf{linearmente} con il tempo: raddoppiare l'orizzonte
+quadruplica l'incertezza sul valore finale... no: la raddoppia.
+
+\item La struttura di covarianza $c(s,t) = \min(s,t)\,\tau^2$
+ricompare \textbf{identica} nel moto browniano standard (Lezione 6),
+di cui la passeggiata aleatoria \`{e} l'analogo discreto.
+
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% ============================================================
+% Slides_Lez_05_Gruppo_04_Filtrazione.tex
+% GRUPPO 4 -- Filtrazione e adattabilità
+% Slide 13-18
+% Tempo parziale: 20 minuti | Tempo cumulato: 60 minuti
+% ============================================================
+
+\section{Filtrazione e adattabilit\`{a}}
+
+% --------------------------------------------------------
+% Slide 13 -- Il problema: informazione che cresce nel tempo
+% --------------------------------------------------------
+
+\subsection{Informazione che cresce nel tempo}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Il problema: informazione che cresce nel tempo}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Nei capitoli precedenti l'informazione era rappresentata da
+una sigma-algebra $\mathcal{G} \subseteq \mathcal{F}$
+(Lezione 3).
+
+\medskip
+
+\begin{stepitemize}
+
+\item In un processo stocastico l'informazione non \`{e} statica:
+\textbf{cresce nel tempo} man mano che si osservano i valori
+del processo.
+
+\item Al tempo $t=0$ non si sa ancora nulla (o quasi).
+Al tempo $t=1$ si conosce $X_1$. Al tempo $t=2$ si conoscono
+$X_1$ e $X_2$. E cos\`{\i} via.
+
+\item La struttura naturale non \`{e} una singola sigma-algebra,
+ma una \textbf{famiglia crescente} di sigma-algebre: una per
+ogni istante.
+
+\item In finanza questo corrisponde al flusso di informazioni
+di mercato: prezzi, tassi, indici che arrivano progressivamente.
+
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% --------------------------------------------------------
+% Slide 14 -- Definizione di filtrazione
+% --------------------------------------------------------
+
+\subsection{Filtrazione}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Filtrazione}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+\begin{block}{Definizione}
+Una \textbf{filtrazione} \`{e} una famiglia di sigma-algebre
+$\{\mathcal{F}_t\}_{t=0}^T$ tale che
+\[
+\mathcal{F}_0 \subseteq \mathcal{F}_1 \subseteq \cdots
+\subseteq \mathcal{F}_T \subseteq \mathcal{F}.
+\]
+\end{block}
+
+\medskip
+
+\begin{stepitemize}
+
+\item La condizione di \textbf{crescita} $\mathcal{F}_s \subseteq
+\mathcal{F}_t$ per $s \leq t$ esprime che l'informazione non
+diminuisce mai: ci\`{o} che \`{e} noto al tempo $s$ resta noto
+a ogni istante successivo.
+
+\item $\mathcal{F}_0$: informazione iniziale -- tipicamente
+banale, $\{\emptyset, \Omega\}$: nulla \`{e} ancora osservato.
+
+\item $\mathcal{F}_T$: informazione finale -- tutta la storia
+del processo \`{e} nota.
+
+\item Ogni $\mathcal{F}_t$ rappresenta ci\`{o} che un osservatore
+sa al tempo $t$ avendo seguito il processo fino a quell'istante.
+
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% --------------------------------------------------------
+% Slide 15 -- Filtrazione naturale
+% --------------------------------------------------------
+
+\subsection{Filtrazione naturale}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Filtrazione naturale}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+\begin{block}{Definizione}
+La \textbf{filtrazione naturale} del processo $\{X_t\}$ \`{e}
+\[
+\mathcal{F}_t = \sigma(X_0, X_1, \ldots, X_t),
+\]
+la pi\`{u} piccola sigma-algebra che rende misurabili tutti
+i valori osservati fino al tempo $t$.
+\end{block}
+
+\medskip
+
+\begin{stepitemize}
+
+\item $\mathcal{F}_t$ cattura esattamente l'informazione generata
+dall'\textbf{osservazione del processo} fino a $t$: n\'{e} di pi\`{u}
+n\'{e} di meno.
+
+\item Sapere il valore di $\mathcal{F}_t$ equivale a conoscere
+la traiettoria $X_0(\omega), X_1(\omega), \ldots, X_t(\omega)$
+-- e nulla del futuro.
+
+\item In un modello binomiale con $T=3$: $\mathcal{F}_1 =
+\sigma(S_1)$ distingue solo se il primo movimento \`{e} stato
+$u$ o $d$; $\mathcal{F}_2 = \sigma(S_1, S_2)$ distingue anche
+il secondo movimento.
+
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% --------------------------------------------------------
+% Slide 16 -- Processo adattato e anticipativo
+% --------------------------------------------------------
+
+\subsection{Adattato e anticipativo}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Processo adattato e processo anticipativo}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+\begin{block}{Definizione}
+Un processo $\{Y_t\}$ \`{e} \textbf{adattato} alla filtrazione
+$\{\mathcal{F}_t\}$ se, per ogni $t$, il valore $Y_t$ \`{e}
+$\mathcal{F}_t$-misurabile: determinato dall'informazione
+disponibile al tempo $t$.
+\end{block}
+
+\medskip
+
+\begin{stepitemize}
+
+\item Un processo adattato descrive una quantit\`{a}
+\textbf{osservabile}: al tempo $t$ ne conosciamo il valore
+senza guardare il futuro.
+
+\item Un processo \textbf{anticipativo} \`{e} un processo non
+adattato: il suo valore al tempo $t$ dipende da informazioni
+non ancora disponibili in $t$.
+
+\item Ogni processo \`{e} adattato alla propria filtrazione
+naturale -- per costruzione.
+
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% --------------------------------------------------------
+% Slide 17 -- Esempi: adattato vs anticipativo
+% --------------------------------------------------------
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Esempi: adattato vs anticipativo}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Sia $\{X_t\}$ il profitto cumulato di una strategia di trading,
+$\{\mathcal{F}_t\}$ la sua filtrazione naturale.
+
+\medskip
+
+\begin{stepitemize}
+
+\item \textbf{Adattato}: il massimo profitto osservato fino a $t$,
+\[
+M_t = \max_{s \leq t} X_s.
+\]
+Per calcolarlo bastano i valori $X_0, X_1, \ldots, X_t$,
+tutti gi\`{a} osservati. Anche il drawdown $D_t = M_t - X_t$
+\`{e} adattato.
+
+\item \textbf{Anticipativo}: il profitto del giorno successivo,
+\[
+X_{t+1}.
+\]
+Per conoscerlo oggi bisognerebbe vedere l'esito di domani:
+richiede informazione futura, non ancora disponibile in $t$.
+
+\item Anche la media futura $\frac{1}{T-t}\sum_{k=t+1}^T X_k$
+\`{e} anticipativa: dipende da valori non ancora realizzati.
+
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% --------------------------------------------------------
+% Slide 18 -- Implicazione finanziaria
+% --------------------------------------------------------
+
+\subsection{Implicazione finanziaria}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Implicazione finanziaria: strategie implementabili}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+\begin{block}{Principio fondamentale}
+Una strategia di investimento \`{e} \textbf{implementabile} se
+e solo se il processo che descrive le posizioni \`{e}
+\textbf{adattato} alla filtrazione di mercato.
+\end{block}
+
+\medskip
+
+\begin{stepitemize}
+
+\item Le decisioni al tempo $t$ -- quante unit\`{a} comprare,
+quante vendere -- possono dipendere solo da ci\`{o} che
+\`{e} osservabile fino a $t$.
+
+\item Una strategia \textbf{anticipativa} presupporrebbe la
+conoscenza del futuro: equivale a preveggenza, non a
+intelligenza finanziaria.
+
+\item In un mercato senza frizioni, una strategia anticipativa
+genererebbe un \textbf{arbitraggio}: profitto certo senza
+rischio e senza capitale. Ma gli arbitraggi non esistono
+nei mercati in equilibrio.
+
+\item Il requisito di adattabilit\`{a} delle strategie \`{e}
+il fondamento tecnico della \textbf{non anticipativit\`{a}}
+nei modelli di programmazione stocastica (Lezioni 14--15).
+
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% ============================================================
+% Slides_Lez_05_Gruppo_05_Cuscinetto.tex
+% GRUPPO 5 -- Cuscinetto / riepilogo prima parte
+% Slide 19
+% Tempo parziale: 5 minuti | Tempo cumulato: 65 minuti
+% ============================================================
+
+\section{Riepilogo e pausa}
+
+% --------------------------------------------------------
+% Slide 19 -- Tabella sinottica prima parte
+% --------------------------------------------------------
+
+\subsection{Riepilogo prima parte}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Riepilogo: il linguaggio dei processi stocastici}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+\begin{itemize}
+\item \textbf{Processo} $\{X_t\}_{t=0}^T$: modella l'evoluzione
+congiunta di una grandezza aleatoria su pi\`{u} periodi; non una
+singola variabile casuale, ma una famiglia indicizzata dal tempo.
+\item \textbf{Traiettoria} $t \mapsto X_t(\omega)$:
+realizzazione del processo in uno scenario specifico; unit\`{a}
+base della simulazione Monte Carlo.
+\item \textbf{Filtrazione} $\F_0 \subseteq \cdots \subseteq \F_T$:
+formalizza l'accumulo progressivo dell'informazione osservata;
+ogni $\F_t$ rappresenta ci\`{o} che un operatore sa al tempo $t$.
+\item \textbf{Adattato} ($X_t$ \`{e} $\F_t$-misurabile):
+il valore al tempo $t$ \`{e} determinato dall'informazione disponibile
+in $t$; condizione necessaria per ogni strategia implementabile.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+\end{document}
