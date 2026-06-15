@@ -14,8 +14,8 @@ import numpy as np
 
 GBM_PARAMETERS = {
     "s0": 1.2,       # Valore iniziale S_0, allineato agli esempi BM e OU.
-    "mu": 0.15,      # Drift: aumenta o riduce la crescita media.
-    "sigma": 0.2,   # Volatilita': aumenta o riduce la dispersione.
+    "m": 0.15,       # Drift logaritmico nella formula S_t = S_0 exp(m t + sigma W_t).
+    "sigma": 0.2,    # Volatilita': aumenta o riduce la dispersione.
     "T": 2.0,        # Orizzonte temporale.
     "n_steps": 500,  # Numero di passi temporali.
     "n_paths": 8,    # Numero di traiettorie mostrate nel grafico.
@@ -43,7 +43,7 @@ OUTPUT_FILES = [
 
 def simulate_gbm_paths(
     s0: float,
-    mu: float,
+    m: float,
     sigma: float,
     T: float,
     n_steps: int,
@@ -55,19 +55,19 @@ def simulate_gbm_paths(
 
     Model:
 
-        dS_t = mu * S_t dt + sigma * S_t dW_t
+        S_t = S_0 * exp(m * t + sigma * W_t)
 
     Exact time-discretized form:
 
-        S_{t+dt} = S_t * exp((mu - 0.5 * sigma^2) dt + sigma * sqrt(dt) * Z),
+        S_{t+dt} = S_t * exp(m * dt + sigma * sqrt(dt) * Z),
         with Z ~ N(0, 1).
 
     Parameters
     ----------
     s0
         Initial value S_0. It must be positive.
-    mu
-        Drift parameter. Larger values increase the average growth rate.
+    m
+        Logarithmic drift parameter. Larger values increase the median path.
     sigma
         Volatility parameter. Larger values produce more dispersed paths.
     T
@@ -89,7 +89,7 @@ def simulate_gbm_paths(
     s = np.empty((n_steps + 1, n_paths))
     s[0, :] = s0
 
-    drift = (mu - 0.5 * sigma**2) * dt
+    drift = m * dt
 
     for i in range(n_steps):
         z = rng.standard_normal(n_paths)
@@ -107,7 +107,7 @@ def simulate_gbm_paths(
 def plot_gbm_paths(
     output_paths: str | list[str] | tuple[str, ...],
     s0: float,
-    mu: float,
+    m: float,
     sigma: float,
     T: float,
     n_steps: int,
@@ -122,7 +122,7 @@ def plot_gbm_paths(
     """
     t_grid, s = simulate_gbm_paths(
         s0=s0,
-        mu=mu,
+        m=m,
         sigma=sigma,
         T=T,
         n_steps=n_steps,
@@ -138,7 +138,19 @@ def plot_gbm_paths(
     for j in range(n_paths):
         ax.plot(t_grid, s[:, j], linewidth=1.2)
 
-    ax.axhline(s0, linestyle="--", linewidth=1.2, label=r"$S_0$")
+    # Qui m e' il drift logaritmico nella rappresentazione
+    # S_t = S_0 exp(m t + sigma W_t).
+    # Poiche' W_t ~ N(0,t), il valore atteso e'
+    # E[S_t] = S_0 exp((m + 0.5 sigma^2)t).
+    expected_value = s0 * np.exp((m + 0.5 * sigma**2) * t_grid)
+    ax.plot(
+        t_grid,
+        expected_value,
+        color="black",
+        linestyle="--",
+        linewidth=1.6,
+        label=r"$\mathbb{E}[S_t]=S_0 e^{(m+\frac{1}{2}\sigma^2)t}$",
+    )
 
     ax.set_xlabel("Tempo")
     ax.set_ylabel(r"$S_t$")
