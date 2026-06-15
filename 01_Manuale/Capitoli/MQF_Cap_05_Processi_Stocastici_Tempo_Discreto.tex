@@ -899,7 +899,12 @@ la filtrazione, che formalizza il flusso progressivo
 dell'informazione, e il valore atteso condizionato, che
 formalizza la previsione alla luce di tale informazione ---
 consentono di definire uno degli oggetti pi\`{u} importanti
-dell'intera matematica finanziaria: la \emph{martingala}.
+dell'intera matematica finanziaria: la \emph{martingala}. Una
+martingala formalizza l'idea di \emph{gioco equo}: in ogni
+istante, la migliore previsione del valore futuro del processo
+coincide con il valore corrente. Questo concetto, che appare
+semplice, \`{e} alla base della valutazione dei derivati e
+della teoria dei mercati efficienti.
 
 \subsection{Definizione e prime propriet\`{a}}
 
@@ -924,15 +929,20 @@ Le tre condizioni non sono ridondanti. La condizione~(i)
 garantisce che la previsione $\E[X_t\mid\F_s]$ sia ben posta
 come variabile $\F_s$-misurabile; la condizione~(ii) assicura
 che i valori attesi condizionati esistano e siano finiti; la
-condizione~(iii) \`{e} la propriet\`{a} sostanziale. Si noti
-che \`{e} sufficiente verificare~(iii) sul passo singolo,
+condizione~(iii) \`{e} la propriet\`{a} sostanziale.
+
+\begin{remark}
+\`{E} sufficiente verificare la condizione~(iii) sul passo
+singolo,
 \[
-\E[X_{t+1}\mid\F_t]=X_t \quad \text{per ogni } t,
+\E[X_{t+1}\mid\F_t]=X_t \qquad \text{per ogni } t,
 \]
 poich\`{e} la versione generale segue per induzione applicando
 ripetutamente la propriet\`{a} della torre.
+\end{remark}
 
-Rilassando l'uguaglianza in~(iii) si ottengono nozioni collegate.
+Rilassando l'uguaglianza in~(iii) si ottengono due nozioni
+collegate.
 
 \begin{definition}
 \label{def:sub-super}
@@ -942,55 +952,65 @@ $s\leq t$, e una \emph{supermartingala} se
 $\E[X_t\mid\F_s]\leq X_s$ per ogni $s\leq t$.
 \end{definition}
 
-Due conseguenze immediate della definizione di martingala meritano
-di essere esplicitate.
+Una submartingala descrive un gioco \emph{favorevole} al
+giocatore: il valore atteso futuro supera il valore presente.
+Una supermartingala descrive un gioco \emph{sfavorevole}: il
+valore atteso futuro \`{e} inferiore al valore presente.
+Un'azione azionaria in un mercato con rendimento atteso positivo
+\`{e} tipicamente una submartingala; il capitale di un giocatore
+alla roulette, dove il banco detiene un vantaggio strutturale,
+\`{e} una supermartingala.
+
+Due conseguenze immediate della definizione meritano di essere
+esplicitate.
 
 \noindent\textbf{Media costante.} Prendendo il valore atteso
-di entrambi i membri della condizione~(iii) e applicando la
-legge della torre:
+della condizione~(iii) e applicando la legge della torre:
 \[
 \E[X_t]=\E\bigl[\E[X_t\mid\F_s]\bigr]=\E[X_s].
 \]
-La costanza della media \`{e} condizione necessaria ma non
-sufficiente per la propriet\`{a} di martingala: la
-condizione~(iii) vincola la previsione condizionata in ogni
-possibile stato dell'informazione, non solo la media
-incondizionata.
+La costanza della media \`{e} necessaria ma non sufficiente
+per la propriet\`{a} di martingala: la condizione~(iii) vincola
+la previsione condizionata in ogni possibile stato
+dell'informazione, non solo la media incondizionata.
 
-\noindent\textbf{Incrementi incorrelati con il passato.}
-Se $\{X_t\}$ \`{e} una martingala, l'incremento
-$X_{t+1}-X_t$ ha media condizionata nulla:
+\noindent\textbf{Incrementi con media condizionata nulla.}
+Se $\{X_t\}$ \`{e} una martingala, allora per ogni $t$:
 \[
 \E[X_{t+1}-X_t\mid\F_t]=0.
 \]
 Gli incrementi futuri non sono prevedibili sulla base
-dell'informazione corrente.
+dell'informazione corrente: il processo non ha tendenza
+sistematica in alcuna direzione.
 
 \begin{example}[Profitto cumulato di una strategia di trading]
 \label{es:pl-martingala}
-Riprendiamo la passeggiata aleatoria dell'Esempio~\ref{es:random-walk},
-interpretata come profitto cumulato $X_t=\sum_{k=1}^{t}Z_k$
-di una strategia di trading su un orizzonte di $T$ giorni,
+Riprendiamo la passeggiata aleatoria
+dell'Esempio~\ref{es:random-walk}, interpretata come profitto
+cumulato $X_t=\sum_{k=1}^{t}Z_k$ di una strategia di trading,
 dove i profitti giornalieri $Z_k$ sono i.i.d.\ con media
-$\nu=\E[Z_k]$ e varianza $\tau^2=\Var(Z_k)$. Per ogni
-$s\leq t$, dall'indipendenza dei profitti futuri dal passato:
+$\nu$ e varianza $\tau^2$. Per ogni $s\leq t$,
+dall'indipendenza dei profitti futuri dall'informazione passata:
 \[
 \E[X_t\mid\F_s]=X_s+(t-s)\,\nu.
 \]
-Il segno di $\nu$ determina la natura del processo:
-$\nu=0$ martingala (gioco equo); $\nu>0$ submartingala
-(vantaggio sistematico); $\nu<0$ supermartingala (costi che
-superano il rendimento). Il capitale alla roulette, dove il
-banco detiene un vantaggio strutturale, \`{e} l'esempio
-classico di supermartingala.
+Il segno di $\nu$ determina interamente la natura del processo:
+\begin{itemize}
+\item $\nu=0$: martingala --- la strategia non ha vantaggio
+sistematico, il profitto atteso futuro coincide con quello
+gi\`{a} realizzato;
+\item $\nu>0$: submartingala --- la strategia ha un alpha
+positivo, il profitto atteso cresce nel tempo;
+\item $\nu<0$: supermartingala --- i costi superano il
+rendimento lordo, il profitto atteso decresce nel tempo.
+\end{itemize}
 \end{example}
 
-\subsection{Decomposizione di Doob e variazione quadratica}
+\subsection{Decomposizione di Doob--Meyer}
 
 Un risultato strutturale fondamentale afferma che ogni
 submartingala si decompone in modo unico nella somma di una
-martingala e di un processo con tendenza sistematica
-prevedibile.
+martingala e di un processo con tendenza sistematica.
 
 \begin{theorem}[Decomposizione di Doob--Meyer]
 \label{thm:doob-meyer}
@@ -1000,8 +1020,8 @@ classe dei processi prevedibili, come
 X_t = M_t + A_t,
 \]
 dove $\{M_t\}$ \`{e} una martingala e $\{A_t\}$ \`{e} un
-processo \emph{prevedibile} non decrescente, con $A_0=0$.
-La prevedibilit\`{a} di $A_t$ significa che $A_t$ \`{e}
+processo \emph{prevedibile} non decrescente con $A_0=0$.
+La prevedibilit\`{a} di $\{A_t\}$ significa che $A_t$ \`{e}
 $\F_{t-1}$-misurabile: la componente di tendenza \`{e} nota
 un passo in anticipo.
 \end{theorem}
@@ -1010,7 +1030,7 @@ La decomposizione separa il processo in due componenti con
 ruoli distinti: $\{M_t\}$ cattura la componente di gioco equo
 --- le fluttuazioni imprevedibili --- mentre $\{A_t\}$ cattura
 la tendenza sistematica, prevedibile sulla base del passato.
-Nella gestione di portafoglio, questa distinzione corrisponde
+Nella gestione di portafoglio questa distinzione corrisponde
 alla separazione tra \emph{alpha} (rendimento sistematico,
 $A_t$) e \emph{rumore} (fluttuazioni non sistematiche, $M_t$).
 
@@ -1023,103 +1043,66 @@ $\nu>0$ (submartingala), la decomposizione di Doob--Meyer
 X_t = \underbrace{(X_t-t\,\nu)}_{M_t} +
       \underbrace{t\,\nu}_{A_t}.
 \]
-Il processo $M_t=X_t-t\,\nu$ \`{e} la passeggiata aleatoria
-centrata (media nulla): \`{e} una martingala, come si verifica
-direttamente da $\E[M_{t+1}\mid\F_t]=M_t$. Il processo
-$A_t=t\,\nu$ \`{e} deterministico e $\F_{t-1}$-misurabile:
-rappresenta il drift accumulato, noto un giorno in anticipo.
-L'alpha della strategia \`{e} esattamente $\nu$ per periodo.
+Verifichiamo che $M_t=X_t-t\,\nu$ \`{e} una martingala:
+\[
+\E[M_{t+1}\mid\F_t]
+=\E[X_{t+1}-(t+1)\nu\mid\F_t]
+=X_t+\nu-(t+1)\nu
+=X_t-t\nu=M_t.
+\]
+Il processo $A_t=t\,\nu$ \`{e} deterministico e
+$\F_{t-1}$-misurabile: rappresenta il drift accumulato, noto
+un giorno in anticipo. L'alpha della strategia \`{e}
+esattamente $\nu$ per periodo.
 \end{example}
-
-Prima di enunciare il secondo risultato di questa sezione,
-introduciamo la nozione di variazione quadratica.
-
-\begin{definition}
-\label{def:variazione-quadratica}
-La \emph{variazione quadratica} di un processo $\{X_t\}$ fino
-al tempo $t$ \`{e}
-\[
-[X]_t = \sum_{k=1}^{t}(X_k-X_{k-1})^2.
-\]
-Essa misura l'accumulo dei quadrati degli incrementi del
-processo nel tempo, e costituisce un indicatore della
-volatilit\`{a} realizzata della traiettoria.
-\end{definition}
-
-Per la passeggiata aleatoria con incrementi i.i.d.\ di
-varianza $\tau^2$, il valore atteso della variazione quadratica
-\`{e} $\E[[X]_t]=t\,\tau^2$: l'accumulo di volatilit\`{a}
-cresce linearmente con il tempo. La proposizione seguente
-afferma che, sottraendo questo valore atteso al quadrato del
-processo, si ottiene una martingala.
-
-\begin{proposition}
-\label{prop:variazione-quadratica}
-Se $\{X_t\}$ \`{e} una martingala con incrementi i.i.d.\ di
-varianza $\tau^2$ e media nulla, allora il processo
-\[
-X_t^2 - [X]_t = X_t^2 - t\,\tau^2
-\]
-\`{e} una martingala.
-\end{proposition}
-
-\begin{proof}
-Sia $\Delta X_{t+1}=X_{t+1}-X_t$ l'incremento al passo $t+1$.
-Per la propriet\`{a} di martingala, $\E[\Delta X_{t+1}\mid\F_t]=0$;
-per la stazionariet\`{a} degli incrementi,
-$\E[(\Delta X_{t+1})^2\mid\F_t]=\tau^2$. Allora:
-\begin{eqnarray*}
-\E[X_{t+1}^2-(t+1)\tau^2\mid\F_t]
-&=& \E[(X_t+\Delta X_{t+1})^2\mid\F_t]-(t+1)\tau^2\\
-&=& X_t^2+2X_t\,\E[\Delta X_{t+1}\mid\F_t]
-    +\E[(\Delta X_{t+1})^2\mid\F_t]-(t+1)\tau^2\\
-&=& X_t^2+0+\tau^2-(t+1)\tau^2\\
-&=& X_t^2-t\,\tau^2.
-\end{eqnarray*}
-\end{proof}
-
-La variazione quadratica, qui introdotta nel caso discreto,
-\`{e} centrale nel calcolo stocastico in tempo continuo
-(Capitolo~6): la variazione quadratica del moto browniano
-standard sull'intervallo $[0,t]$ \`{e} proprio $t$, e il lemma
-di It\^{o} si interpreta come la regola di derivazione che
-tiene conto di questo accumulo quadratico.
 
 \subsection{La martingala di Doob}
 
 \begin{example}[Il processo delle previsioni]
 \label{es:doob}
-Sia $H$ una variabile casuale integrabile (ad esempio il
-payoff terminale di un contratto, $H=g(X_T)$). Il processo
-delle previsioni $H_t=\E[H\mid\F_t]$ \`{e} una martingala
-per la propriet\`{a} della torre: per ogni $s\leq t$,
+Sia $H$ una variabile casuale integrabile, ad esempio il
+payoff terminale di un contratto, $H=g(X_T)$. Il
+\emph{processo delle previsioni}
+\[
+H_t=\E[H\mid\F_t], \qquad t=0,1,\ldots,T,
+\]
+\`{e} una martingala rispetto a $\{\F_t\}$. La verifica
+segue dalla propriet\`{a} della torre: per ogni $s\leq t$,
 \[
 \E[H_t\mid\F_s]
 =\E\bigl[\E[H\mid\F_t]\bigm|\F_s\bigr]
 =\E[H\mid\F_s]=H_s.
 \]
-Agli estremi: $H_0=\E[H]$ (nessuna informazione) e $H_T=H$
-(informazione completa). Gli incrementi $H_{t+1}-H_t$ hanno
-media condizionata nulla:
+Agli estremi: $H_0=\E[H]$ (la sola informazione disponibile
+\`{e} la media incondizionata) e $H_T=H$ (l'informazione
+\`{e} completa e la previsione coincide con il valore
+realizzato).
+
+Gli incrementi del processo delle previsioni hanno media
+condizionata nulla:
 \[
 \E[H_{t+1}-H_t\mid\F_t]=0.
 \]
-Le revisioni successive di una previsione razionale sono shock
-imprevedibili: se fossero prevedibili, la previsione corrente
-non starebbe gi\`{a} incorporando tutta l'informazione
-disponibile, in contraddizione con la sua definizione.
+Le revisioni successive di una previsione razionale sono
+shock imprevedibili: se fossero prevedibili, la previsione
+corrente non starebbe gi\`{a} incorporando tutta
+l'informazione disponibile, in contraddizione con la sua
+definizione. Questo risultato ha un legame diretto con la
+teoria dei mercati efficienti: in un mercato efficiente le
+variazioni di prezzo non sono sistematicamente prevedibili
+sulla base dell'informazione passata.
 \end{example}
 
 \subsection{Trasformata di martingala e assenza di arbitraggio}
 
-Una questione naturale nella pratica finanziaria \`{e} se
+Una questione fondamentale nella pratica finanziaria \`{e} se
 sia possibile trasformare un gioco equo in uno favorevole
-attraverso una strategia di trading. La teoria delle martingale
-risponde in modo netto.
+attraverso una strategia di trading opportunamente scelta.
+La teoria delle martingale risponde in modo netto.
 
-Sia $\{X_t\}$ una martingala e $\{\phi_t\}$ una strategia
-di trading \emph{prevedibile}, cio\`{e} tale che $\phi_t$ sia
-$\F_{t-1}$-misurabile: la posizione al tempo $t$ \`{e} scelta
+Sia $\{X_t\}$ una martingala e $\{\phi_t\}$ una strategia di
+trading \emph{prevedibile}, cio\`{e} tale che $\phi_t$ sia
+$\F_{t-1}$-misurabile: la posizione al tempo $t$ si sceglie
 sulla base dell'informazione disponibile prima di osservare
 l'esito del periodo $t$. Il \emph{guadagno cumulato} della
 strategia \`{e}
@@ -1135,91 +1118,88 @@ martingala, e in particolare $\E[G_T]=0$.
 \end{proposition}
 
 \begin{proof}
+Per ogni $t\geq 1$, usando la $\F_{t-1}$-misurabilit\`{a}
+di $\phi_t$ e la propriet\`{a} di martingala di $\{X_t\}$:
 \begin{eqnarray*}
 \E[G_t-G_{t-1}\mid\F_{t-1}]
 &=& \E[\phi_t(X_t-X_{t-1})\mid\F_{t-1}]\\
 &=& \phi_t\,\E[X_t-X_{t-1}\mid\F_{t-1}]\\
-&=& \phi_t\cdot 0=0,
+&=& \phi_t\cdot 0=0.
 \end{eqnarray*}
-dove si \`{e} usata la $\F_{t-1}$-misurabilit\`{a} di $\phi_t$
-e la propriet\`{a} di martingala di $\{X_t\}$.
 \end{proof}
 
-Questo risultato ha un'interpretazione finanziaria diretta e
-profonda: \emph{nessuna strategia prevedibile trasforma un
-gioco equo in uno favorevole}. Il guadagno atteso \`{e} sempre
-nullo, qualunque sia la regola di trading adottata, purch\'{e}
-basata solo sull'informazione passata. \`{E} la formulazione
+Nessuna strategia prevedibile trasforma un gioco equo in uno
+favorevole: il guadagno atteso \`{e} sempre nullo, qualunque
+sia la regola di trading adottata, purch\'{e} basata solo
+sull'informazione passata. Questa \`{e} la formulazione
 probabilistica dell'assenza di arbitraggio.
 
-\begin{remark}
-Il teorema di arresto opzionale ne \`{e} un caso particolare.
-Per un tempo di uscita $\tau$ limitato (si esce dal gioco al
-pi\`{u} al tempo $T$), $\E[X_\tau]=\E[X_0]$: scegliere
-quando smettere di giocare sulla base del passato non altera
-il valore atteso. Le strategie di \emph{market timing} basate
-su informazione storica non creano valore atteso in un mercato
-privo di arbitraggio.
+\begin{remark}[Arresto opzionale]
+Il teorema di arresto opzionale \`{e} un caso particolare
+di questo risultato. Sia $\tau$ un tempo di uscita
+\emph{limitato}, cio\`{e} tale che $\tau\leq T$ quasi
+certamente. Allora $\E[X_\tau]=\E[X_0]$: scegliere quando
+smettere di giocare, sulla base della sola informazione
+passata, non altera il valore atteso. Strategie di
+\emph{market timing} basate su informazione storica non
+creano valore atteso in un mercato privo di arbitraggio.
 \end{remark}
 
-\subsection{Misura risk-neutral e teoremi fondamentali
-del pricing}
+\subsection{Misura risk-neutral e valutazione dei derivati}
 
 La propriet\`{a} di martingala non \`{e} assoluta: \`{e}
 relativa alla misura di probabilit\`{a} rispetto alla quale
-si calcolano i valori attesi. Questa osservazione \`{e} alla
-base della valutazione dei derivati.
+si calcolano i valori attesi. Lo stesso processo pu\`{o} essere
+una submartingala sotto una misura e una martingala sotto
+un'altra. Questa osservazione \`{e} alla base della valutazione
+dei derivati.
 
-In un mercato reale, il prezzo scontato di un'azione
+In un mercato reale il prezzo scontato di un'azione
 $\tilde{S}_t=S_t/(1+r)^t$ non \`{e} in generale una
 martingala sotto la probabilit\`{a} fisica $\Prob$: gli
-investitori richiedono un premio al rischio, quindi le azioni
-rendono in media pi\`{u} del tasso privo di rischio, e
-$\{\tilde{S}_t\}$ \`{e} tipicamente una submartingala.
+investitori richiedono un premio al rischio e le azioni
+rendono in media pi\`{u} del tasso privo di rischio, quindi
+$\{\tilde{S}_t\}$ \`{e} tipicamente una submartingala. Esiste
+tuttavia una misura di probabilit\`{a} $\Q$, detta
+\emph{misura risk-neutral}, equivalente a $\Prob$ ---
+cio\`{e} con gli stessi eventi di probabilit\`{a} zero ---
+sotto la quale il prezzo scontato diventa una martingala.
 
-Tuttavia, in un mercato privo di opportunit\`{a} di
-arbitraggio, esiste una misura di probabilit\`{a} $\Q$
-\emph{equivalente} a $\Prob$, sotto la quale il prezzo scontato
-diventa una martingala. Due misure sono equivalenti se
-assegnano probabilit\`{a} zero agli stessi eventi: gli scenari
-possibili sotto $\Prob$ sono gli stessi sotto $\Q$, ma con
-pesi diversi. Operativamente, il passaggio da $\Prob$ a $\Q$
-ridistribuisce i pesi degli scenari in modo da correggere per
-il rischio: scenari sfavorevoli ricevono peso maggiore, scenari
-favorevoli peso minore, fino a rendere il gioco equo.
+Il passaggio da $\Prob$ a $\Q$ redistribuisce i pesi degli
+scenari: scenari sfavorevoli ricevono peso maggiore, scenari
+favorevoli peso minore, fino a rendere il gioco equo. Il
+collegamento tra no-arbitraggio e martingale \`{e} precisato
+dai teoremi fondamentali del pricing.
 
-\begin{theorem}[Primo e secondo teorema fondamentale del pricing]
+\begin{theorem}[Teoremi fondamentali del pricing]
 \label{thm:ftap}
-Sia un mercato finanziario a tempo discreto con tasso
+Sia dato un mercato finanziario a tempo discreto con tasso
 privo di rischio $r$.
 \begin{enumerate}
-\item Il mercato \`{e} \emph{privo di arbitraggio} se e solo
-se esiste almeno una misura di probabilit\`{a} $\Q$,
+\item \emph{Primo teorema}: il mercato \`{e} privo di
+arbitraggio se e solo se esiste almeno una misura $\Q$,
 equivalente a $\Prob$, sotto la quale il prezzo scontato di
-ogni attivit\`{a} \`{e} una martingala. La misura $\Q$ \`{e}
-detta \emph{misura risk-neutral} o \emph{misura di
-martingala equivalente}.
-\item Il mercato \`{e} \emph{completo} (ogni payoff \`{e}
-replicabile con una strategia autofinanziante) se e solo se
-la misura risk-neutral $\Q$ \`{e} unica.
+ogni attivit\`{a} \`{e} una martingala.
+\item \emph{Secondo teorema}: il mercato \`{e} completo ---
+ogni payoff \`{e} replicabile con una strategia autofinanziante
+--- se e solo se la misura risk-neutral $\Q$ \`{e} unica.
 \end{enumerate}
 \end{theorem}
 
-Quando esiste una misura risk-neutral $\Q$, il prezzo in $t=0$
-di un derivato con payoff terminale $H$ \`{e}
+Quando esiste $\Q$, il prezzo in $t=0$ di un derivato con
+payoff terminale $H$ \`{e}:
 \[
 \pi_0=\E_{\Q}\!\left[\frac{H}{(1+r)^T}\right].
 \]
-La valutazione si riduce al calcolo di un valore atteso scontato
-sotto $\Q$: \`{e} questa la formula operativa che il Capitolo~9
-svilupper\`{a} in dettaglio.
+La valutazione si riduce al calcolo di un valore atteso
+scontato sotto $\Q$. \`{E} questa la formula operativa che
+il Capitolo~9 svilupper\`{a} in dettaglio.
 
-\begin{example}[Determinazione di $\Q$ sul modello binomiale]
+\begin{example}[Misura risk-neutral nel modello binomiale]
 \label{es:misura-q-binomiale}
-Nel modello binomiale a un periodo ($S_0$, $S_1^u=uS_0$,
-$S_1^d=dS_0$, tasso $r$), la misura risk-neutral $\Q$ \`{e}
-determinata dalla condizione che il prezzo scontato
-$\tilde{S}_t=S_t/(1+r)^t$ sia una martingala:
+Nel modello binomiale a un periodo con $S_1^u=uS_0$,
+$S_1^d=dS_0$ e tasso $r$, la condizione che il prezzo scontato
+sia una martingala sotto $\Q$ \`{e}:
 \[
 \E_{\Q}[\tilde{S}_1]=\tilde{S}_0
 \;\Longleftrightarrow\;
@@ -1230,277 +1210,18 @@ da cui
 q=\frac{(1+r)-d}{u-d}.
 \]
 La probabilit\`{a} risk-neutral $q$ esiste ed \`{e} unica
-(mercato completo) purch\'{e} $d<1+r<u$: il tasso privo di
-rischio deve stare tra il fattore di ribasso e quello di
-rialzo, altrimenti esisterebbero opportunit\`{a} di arbitraggio
-banali. Il prezzo di un'opzione call con strike $K$ \`{e}
+purch\'{e} $d<1+r<u$: se il tasso privo di rischio non stesse
+tra i fattori di ribasso e rialzo, esisterebbero opportunit\`{a}
+di arbitraggio banali. Il prezzo di un'opzione call con strike
+$K$ \`{e} allora:
 \[
 \pi_0=\frac{q\,\max(uS_0-K,0)+(1-q)\,\max(dS_0-K,0)}{1+r}.
 \]
 Si noti che $q$ non \`{e} la probabilit\`{a} fisica di rialzo:
 \`{e} una probabilit\`{a} artificiale che incorpora la
-correzione per il rischio, sotto la quale tutti gli attivi
+correzione per il rischio, sotto la quale tutte le attivit\`{a}
 rendono in media al tasso privo di rischio.
 \end{example}
-
-
-****** versione precedente *******
-
-%============================================================
-% MQF_Cap_04_Sezione_4_5.tex
-% Sezione 4.5 - Martingale (nuova sezione)
-%
-% Materiale migrato dalla vecchia coda della 4.4:
-%  - processo delle previsioni {E[H|F_t]} (martingala di Doob)
-%  - proprieta' agli estremi e proprieta' della torre
-%  - esempio del profitto cumulato (es:cond-random-walk -> es:pl-martingala)
-%
-% Ordine sottosezioni:
-%  1. Il concetto di martingala
-%  2. Esempi fondamentali
-%  3. Martingale, gioco equo e mercati efficienti
-%===========================================================
-
-\section{Martingale}
-\label{sec:martingale}
-
-Gli strumenti introdotti nella Sezione~\ref{sec:momenti2} --- la
-filtrazione, che formalizza il flusso progressivo dell'informazione,
-e il valore atteso condizionato, che formalizza la previsione alla
-luce di tale informazione --- consentono di definire uno degli oggetti
-pi\`{u} importanti dell'intera matematica finanziaria: la
-\emph{martingala}. Una martingala \`{e} la formalizzazione matematica
-dell'idea di \emph{gioco equo}, un gioco cio\`{e} in cui, in ogni
-istante, la migliore previsione del guadagno futuro coincide con il
-guadagno gi\`{a} realizzato. Questo concetto, apparentemente semplice,
-\`{e} il fondamento della valutazione dei derivati e della teoria dei
-mercati efficienti, e per questo gli dedichiamo una sezione autonoma
-prima di affrontare i modelli specifici a tempo discreto e continuo.
-
-\subsection{Il concetto di martingala}
-
-\noindent
-Sia $\{\F_t\}_{t\in\mathcal{T}}$ una filtrazione su uno spazio di
-probabilit\`{a} $(\Omega,\F,\Prob)$.
-
-\begin{definition}
-\label{def:martingala}
-Un processo $\{X_t\}_{t\in\mathcal{T}}$ \`{e} una \emph{martingala}
-rispetto alla filtrazione $\{\F_t\}$ se soddisfa tre condizioni:
-\begin{enumerate}
-\item \`{e} adattato a $\{\F_t\}$ (il valore $X_t$ \`{e} osservabile
-al tempo $t$);
-\item \`{e} integrabile, ossia $\E[\,|X_t|\,]<\infty$ per ogni $t$;
-\item (\textbf{propriet\`{a} di martingala}) per ogni coppia di istanti $s\leq t$ vale
-\[
-\E[X_t\mid\F_s]=X_s.
-\]
-\end{enumerate}
-\end{definition}
-
-La terza condizione \`{e} il cuore della definizione: la previsione
-del valore futuro $X_t$, fatta sulla base di tutta l'informazione
-disponibile al tempo $s$, coincide esattamente con il valore presente
-$X_s$. In altri termini, la conoscenza del passato e del presente non
-fornisce alcuna indicazione sulla direzione delle variazioni future:
-in media, il processo non tende n\'{e} a crescere n\'{e} a decrescere.
-
-Rilassando l'uguaglianza in una disuguaglianza si ottengono due
-nozioni collegate, che descrivono giochi sistematicamente favorevoli
-o sfavorevoli.
-
-\begin{definition}
-\label{def:sub-super}
-Un processo $\{X_t\}$ adattato e integrabile \`{e} una
-\emph{submartingala} se
-\[
-\E[X_t\mid\F_s]\geq X_s \qquad \text{per ogni } s\leq t,
-\]
-ed \`{e} una \emph{supermartingala} se
-\[
-\E[X_t\mid\F_s]\leq X_s \qquad \text{per ogni } s\leq t.
-\]
-\end{definition}
-
-L'interpretazione in termini di gioco \`{e} immediata e fornisce anche
-un utile aiuto mnemonico. Una martingala \`{e} un \emph{gioco equo}:
-il capitale atteso domani, date le informazioni di oggi, \`{e} pari al
-capitale di oggi. Una submartingala \`{e} un gioco \emph{favorevole}
-al giocatore: il capitale tende a crescere in media. Una
-supermartingala \`{e} un gioco \emph{sfavorevole}: il capitale tende a
-diminuire in media. Si noti il rovesciamento linguistico --- una
-\emph{super}martingala descrive una situazione che peggiora --- che si
-spiega ricordando che il valore presente sta \emph{sopra} (super) la
-previsione del valore futuro.
-
-\begin{remark}
-Le tre nozioni si collegano in modo naturale. Un processo \`{e} una
-martingala se e solo se \`{e} contemporaneamente una submartingala e
-una supermartingala. Inoltre, se $\{X_t\}$ \`{e} una martingala, la
-sua funzione media \`{e} costante: prendendo il valore atteso di
-entrambi i membri di $\E[X_t\mid\F_s]=X_s$ e usando la propriet\`{a}
-della torre si ottiene $\E[X_t]=\E[X_s]$ per ogni $s,t$. Una
-martingala \`{e} dunque, in particolare, un processo con media
-costante --- ma la condizione di martingala \`{e} molto pi\`{u} forte
-della semplice costanza della media, perch\`{e} riguarda la previsione
-condizionata in ogni possibile stato dell'informazione, non solo la
-media incondizionata.
-\end{remark}
-
-\subsection{Esempi fondamentali}
-
-\noindent
-Due esempi illustrano il concetto e ne mostrano la portata: il primo
-\`{e} costruttivo e copre tutti e tre i regimi (equo, favorevole,
-sfavorevole); il secondo \`{e} concettualmente centrale e mostra che
-ogni previsione razionale \`{e}, di per s\'{e}, una martingala.
-
-\begin{example}[Profitto cumulato di una strategia]
-\label{es:pl-martingala}
-Riprendiamo la passeggiata aleatoria $X_t=\sum_{k=1}^{t}Z_k$,
-interpretata come profitto cumulato di una strategia di trading,
-dove i profitti giornalieri $Z_k$ sono i.i.d.\ con media $\nu=\E[Z_k]$.
-La filtrazione naturale \`{e} $\F_t=\sigma(Z_1,\ldots,Z_t)$. Per ogni
-$s\leq t$, sfruttando l'indipendenza dei profitti futuri dal passato:
-\begin{eqnarray*}
-\E[X_t\mid\F_s]
-&=& \E\!\left[X_s+\sum_{k=s+1}^{t}Z_k\;\Bigm|\;\F_s\right]\\
-&=& X_s+\sum_{k=s+1}^{t}\E[Z_k]\\
-&=& X_s+(t-s)\,\nu.
-\end{eqnarray*}
-Il segno del profitto medio giornaliero $\nu$ determina
-completamente la natura del processo:
-\begin{itemize}
-\item se $\nu=0$ (strategia senza vantaggio sistematico), allora
-$\E[X_t\mid\F_s]=X_s$: il profitto cumulato \`{e} una
-\emph{martingala}, un gioco equo;
-\item se $\nu>0$ (strategia con vantaggio), allora
-$\E[X_t\mid\F_s]\geq X_s$: il profitto cumulato \`{e} una
-\emph{submartingala}, un gioco favorevole;
-\item se $\nu<0$ (strategia in perdita attesa, ad esempio per effetto
-di costi di transazione che superano il rendimento lordo), allora
-$\E[X_t\mid\F_s]\leq X_s$: il profitto cumulato \`{e} una
-\emph{supermartingala}, un gioco sfavorevole.
-\end{itemize}
-Il capitale di un giocatore alla roulette, dove il banco gode di un
-vantaggio strutturale, \`{e} l'esempio classico di supermartingala:
-qualunque sia la posta, il capitale atteso dopo la giocata \`{e}
-inferiore al capitale corrente.
-\end{example}
-
-\begin{example}[Il processo delle previsioni, o martingala di Doob]
-\label{es:doob}
-Sia $H$ una variabile casuale integrabile che rappresenta una
-quantit\`{a} di interesse osservabile alla fine dell'orizzonte ---
-ad esempio il payoff terminale di un contratto, $H=g(X_T)$. Si
-consideri il \emph{processo delle previsioni}
-\[
-H_t=\E[H\mid\F_t], \qquad t\in\mathcal{T},
-\]
-che a ogni istante $t$ fornisce la stima ottimale di $H$ alla luce
-dell'informazione accumulata fino a quel momento. Questo processo
-\`{e} adattato per costruzione e gode di due propriet\`{a} agli
-estremi dell'orizzonte temporale:
-\[
-H_0=\E[H\mid\F_0]=\E[H]
-\qquad\text{e}\qquad
-H_T=\E[H\mid\F_T]=H,
-\]
-purch\`{e} $H$ sia $\F_T$-misurabile. All'inizio, in assenza di
-informazione specifica, la previsione coincide con la media
-incondizionata; alla fine, quando tutta l'informazione \`{e}
-disponibile, la previsione coincide con il valore realizzato.
-
-Il processo delle previsioni \`{e} \emph{sempre una martingala}.
-Infatti, per $s\leq t$, applicando la propriet\`{a} della torre
-(Capitolo~3) e ricordando che $\F_s\subseteq\F_t$:
-\[
-\E[H_t\mid\F_s]
-=\E\bigl[\,\E[H\mid\F_t]\,\bigm|\,\F_s\,\bigr]
-=\E[H\mid\F_s]
-=H_s.
-\]
-Questa martingala, detta \emph{martingala di Doob} associata a $H$,
-formalizza un'idea profonda: una previsione razionale, che incorpora
-tutta l'informazione disponibile, non pu\`{o} essere sistematicamente
-rivista al rialzo o al ribasso. Le revisioni successive della
-previsione non sono prevedibili in anticipo; se lo fossero, la
-previsione corrente non starebbe gi\`{a} incorporando tutta
-l'informazione disponibile, in contraddizione con la sua definizione.
-\end{example}
-
-\subsection{Martingale, gioco equo e mercati efficienti}
-
-\noindent
-Il concetto di martingala fornisce il linguaggio preciso per
-formulare due idee centrali della finanza moderna: l'efficienza dei
-mercati e la valutazione dei derivati.
-
-\paragraph{Mercati efficienti.}
-L'ipotesi dei mercati efficienti, sviluppata nella teoria finanziaria
-a partire dagli anni sessanta e settanta, afferma in forma stilizzata
-che il prezzo di un'attivit\`{a} incorpora gi\`{a} tutta
-l'informazione disponibile. In termini di martingale, ci\`{o} si
-traduce nell'affermazione che il prezzo scontato di un'attivit\`{a},
-sotto opportune ipotesi, si comporta come una martingala: la migliore
-previsione del prezzo futuro, date le informazioni correnti, \`{e} il
-prezzo corrente. Ne discende che le variazioni di prezzo non sono
-sistematicamente prevedibili a partire dai dati passati --- una
-conseguenza diretta della propriet\`{a} di non-prevedibilit\`{a}
-delle revisioni illustrata nell'Esempio~\ref{es:doob}.
-
-\paragraph{Un cenno all'impossibilit\`{a} di battere un gioco equo.}
-Una domanda naturale \`{e} se sia possibile trasformare un gioco equo
-in uno favorevole scegliendo abilmente il momento in cui smettere di
-giocare --- una strategia di \emph{market timing}. Per esempio, si
-potrebbe pensare di continuare a giocare finch\'{e} non si \`{e} in
-profitto, per poi fermarsi. La teoria delle martingale risponde in
-modo netto: sotto condizioni molto generali, nessuna strategia di
-arresto basata unicamente sull'informazione passata pu\`{o} alterare
-il valore atteso di una martingala. Il guadagno atteso al momento
-dell'uscita rimane pari al capitale iniziale, qualunque sia la regola
-di uscita adottata. Questo risultato --- noto come \emph{teorema di
-arresto opzionale} --- esprime in forma rigorosa l'intuizione secondo
-cui non si pu\`{o} creare valore atteso dal nulla in un gioco equo,
-e costituisce uno degli argomenti fondamentali contro l'esistenza di
-strategie di market timing prive di rischio. Non ne diamo qui
-l'enunciato formale, che richiederebbe la nozione di tempo d'arresto;
-ci basti l'intuizione, che ritroveremo nel Capitolo~9 a proposito
-dell'assenza di arbitraggio.
-
-\paragraph{Valutazione dei derivati.}
-Il legame pi\`{u} importante per il seguito del corso \`{e} con la
-valutazione dei derivati. Nei mercati reali il prezzo scontato di
-un'attivit\`{a} non \`{e} in generale una martingala sotto la
-probabilit\`{a} $\Prob$ che descrive le frequenze effettive degli
-eventi (la cosiddetta probabilit\`{a} \emph{fisica}). Tuttavia, in un
-mercato privo di opportunit\`{a} di arbitraggio, esiste una diversa
-probabilit\`{a} $\Q$ --- detta \emph{misura risk-neutral} o misura di
-martingala --- sotto la quale il prezzo scontato di ogni attivit\`{a}
-diventa una martingala. Sotto questa misura, il prezzo di un derivato
-si calcola semplicemente come il valore atteso scontato del suo payoff
-terminale:
-\[
-\text{prezzo del derivato}=\E_{\Q}\!\left[\,\text{payoff scontato}\,\right].
-\]
-Questa formula --- il cui sviluppo completo \`{e} l'oggetto del
-Capitolo~9 --- riduce il complesso problema della valutazione di un
-derivato al calcolo di un valore atteso sotto un'opportuna misura di
-probabilit\`{a}. \`{E} la traduzione operativa del concetto di
-martingala, e la ragione per cui esso occupa una posizione centrale
-in tutta la matematica finanziaria.
-
-\begin{remark}
-La distinzione tra la probabilit\`{a} fisica $\Prob$ e la misura
-risk-neutral $\Q$ \`{e} sottile e verr\`{a} sviluppata con cura nel
-Capitolo~9. Per ora \`{e} sufficiente trattenere l'idea che la
-propriet\`{a} di martingala non \`{e} una caratteristica assoluta di
-un processo, ma \`{e} relativa alla misura di probabilit\`{a} rispetto
-alla quale si calcolano i valori attesi: lo stesso processo dei prezzi
-pu\`{o} essere una submartingala sotto $\Prob$ (le azioni tendono a
-rendere positivamente nel lungo periodo) e una martingala sotto $\Q$
-(una volta scontate e corrette per il rischio).
-\end{remark}
 
 % ============================================================
 % MQF_Cap_05_Sezione_5_6.tex

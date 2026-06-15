@@ -426,6 +426,12 @@ fondamentali
 \]
 Queste formule riprendono, in tempo continuo, la stessa struttura che
 avevamo gi\`{a} osservato per la passeggiata aleatoria riscalata.
+La Figura~\ref{fig:Brownian_traiettorie} rende visibili alcune propriet\`a
+qualitative del moto browniano. Le traiettorie sono continue, ma molto
+irregolari; inoltre il processo non presenta alcuna tendenza a ritornare
+verso un livello di equilibrio. Questo aspetto sar\`a particolarmente
+utile nel confronto successivo con i processi \emph{mean-reverting}, come
+quello di Ornstein--Uhlenbeck.
 
 \begin{figure}[htbp]
 \centering
@@ -1139,6 +1145,20 @@ dove $L$ \`{e} una matrice tale che
 \[
 R=LL'.
 \]
+La Figura~\ref{fig:correlated_gaussian_shocks} mostra il significato
+operativo della trasformazione $\varepsilon=LZ$. A partire da shock
+indipendenti si ottiene una coppia di innovazioni gaussiane con struttura
+di correlazione coerente con la matrice $R$. Nel caso rappresentato, la
+correlazione positiva produce una nuvola orientata lungo la diagonale
+crescente.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.70\textwidth]{../graphics/Cap06_correlated_gaussian_shocks.png}
+\caption{Shock gaussiani correlati ottenuti a partire da variabili normali standard indipendenti mediante una trasformazione lineare. La forma ellittica della nuvola evidenzia una correlazione positiva tra i due shock.}
+\label{fig:correlated_gaussian_shocks}
+\end{figure}
+
 In questo modo si ottiene
 \[
 \mathbb{E}[\varepsilon]=0,
@@ -1186,6 +1206,20 @@ Pertanto, a parit\`{a} di volatilit\`{a} marginali, un aumento della
 correlazione riduce il beneficio di diversificazione. Questo \`{e} uno
 dei motivi per cui la corretta modellizzazione della dipendenza tra
 fattori \`{e} cruciale nella misurazione del rischio.
+
+La Figura~\ref{fig:correlated_brownian_paths} illustra il passaggio dagli
+shock correlati alle traiettorie dei fattori. Anche con correlazione
+positiva, le due traiettorie non coincidono; tuttavia, gli incrementi
+tendono a muoversi nella stessa direzione con frequenza maggiore rispetto
+al caso indipendente. Questo \`{e} il meccanismo che, nei modelli
+multi-asset, riduce il beneficio di diversificazione quando la
+correlazione tra fattori aumenta.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.78\textwidth]{../graphics/Cap06_correlated_brownian_paths.png}
+\caption{Esempio di due moti browniani guidati da shock istantanei positivamente correlati. La correlazione non impone traiettorie identiche, ma produce una tendenza alla co-movimentazione degli incrementi.}
+\label{fig:correlated_brownian_paths}
+\end{figure}
 
 La stessa logica si applica a contesti pi\`{u} complessi. Nei modelli sui
 tassi, fattori diversi possono rappresentare movimenti paralleli,
