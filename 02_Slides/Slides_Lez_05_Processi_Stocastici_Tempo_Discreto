@@ -1041,5 +1041,315 @@ in $t$; condizione necessaria per ogni strategia implementabile.
 \end{frame}%
 %EndExpansion
 
+% ============================================================
+% Slides_Lez_05_Gruppo_06_Martingale.tex
+% GRUPPO 6 -- Martingale
+% Slide 20-25
+% Tempo parziale: 20 minuti | Tempo cumulato: 100 minuti
+% Livello intermedio: rigore nella definizione, concetti challenging.
+% ============================================================
+
+\section{Martingale}
+
+% --------------------------------------------------------
+% Slide 20 -- Definizione rigorosa
+% --------------------------------------------------------
+
+\subsection{Definizione}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Martingala: definizione}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+\begin{block}{Definizione}
+Un processo $\{X_t\}_{t=0}^T$ \`{e} una \textbf{martingala} rispetto
+alla filtrazione $\{\F_t\}$ se soddisfa tre condizioni:
+\begin{enumerate}
+\item[(i)] \textbf{adattamento}: $X_t$ \`{e} $\F_t$-misurabile
+per ogni $t$;
+\item[(ii)] \textbf{integrabilit\`{a}}: $\E[\,|X_t|\,] < \infty$
+per ogni $t$;
+\item[(iii)] \textbf{propriet\`{a} di martingala}:
+$\E[X_t \mid \F_s] = X_s$ per ogni $s \leq t$.
+\end{enumerate}
+\end{block}
+
+\medskip
+
+\begin{stepitemize}
+\item Le tre condizioni non sono ridondanti: (i) garantisce che la
+previsione sia ben posta; (ii) che i valori attesi condizionati
+esistano; (iii) \`{e} la propriet\`{a} sostanziale.
+\item \`{E} sufficiente verificare (iii) sul passo singolo
+$\E[X_{t+1} \mid \F_t] = X_t$: la versione generale segue per
+induzione e torre.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% --------------------------------------------------------
+% Slide 21 -- Conseguenze e sub/supermartingala
+% --------------------------------------------------------
+
+\subsection{Sub e supermartingala}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Conseguenze immediate; sub e supermartingala}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+\begin{stepitemize}
+\item \textbf{Media costante}: applicando $\E[\cdot]$ alla (iii)
+e usando la torre,
+\[
+\E[X_t] = \E\bigl[\E[X_t \mid \F_s]\bigr] = \E[X_s].
+\]
+La costanza della media \`{e} \emph{necessaria} ma non sufficiente:
+non implica la propriet\`{a} di martingala, che vincola la previsione
+condizionata in \emph{ogni} stato dell'informazione.
+
+\item \textbf{Submartingala} ($\E[X_t \mid \F_s] \geq X_s$) e
+\textbf{supermartingala} ($\leq$): il processo ha tendenza
+sistematica, rispettivamente, a crescere o a decrescere.
+
+\item \textbf{Decomposizione di Doob}: ogni submartingala si scrive
+in modo unico come
+\[
+X_t = M_t + A_t,
+\]
+con $\{M_t\}$ martingala e $\{A_t\}$ processo \emph{prevedibile}
+non decrescente ($A_t$ \`{e} $\F_{t-1}$-misurabile). Separa la
+componente di gioco equo dalla tendenza.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% --------------------------------------------------------
+% Slide 22 -- Esempio: profitto cumulato
+% --------------------------------------------------------
+
+\subsection{Esempio}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Esempio: passeggiata aleatoria e decomposizione}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Sia $X_t = \sum_{k=1}^t Z_k$ con $Z_k$ i.i.d., $\E[Z_k] = \nu$,
+$\Var(Z_k)=\tau^2$. Allora $\E[X_t \mid \F_s] = X_s + (t-s)\nu$.
+
+\medskip
+
+\begin{stepitemize}
+\item Per $\nu = 0$: martingala. Per $\nu > 0$: submartingala.
+Per $\nu < 0$: supermartingala.
+\item \textbf{Decomposizione di Doob esplicita}: con drift $\nu$,
+\[
+X_t = \underbrace{(X_t - t\nu)}_{M_t \text{ martingala}}
++ \underbrace{t\nu}_{A_t \text{ prevedibile}}.
+\]
+\item \textbf{Anche il quadrato porta informazione}: il processo
+\[
+X_t^2 - \Var(X_t) = X_t^2 - t\tau^2 \quad (\text{caso } \nu=0)
+\]
+\`{e} una martingala. \`{E} il primo esempio di \emph{variazione
+quadratica}, nozione centrale nel passaggio al tempo continuo
+(Lezione 6).
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% --------------------------------------------------------
+% Slide 23 -- Martingala di Doob
+% --------------------------------------------------------
+
+\subsection{La martingala di Doob}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Il processo delle previsioni (martingala di Doob)}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Data una grandezza terminale $H$ con $\E[|H|]<\infty$, il
+\textbf{processo delle previsioni} \`{e} $H_t = \E[H \mid \F_t]$.
+
+\medskip
+
+\begin{stepitemize}
+\item \`{E} una martingala per costruzione, via torre:
+\[
+\E[H_t \mid \F_s] = \E\bigl[\E[H \mid \F_t] \mid \F_s\bigr]
+= \E[H \mid \F_s] = H_s.
+\]
+\item \textbf{Ogni} martingala con valore terminale $H$ a quadrato
+integrabile coincide con la martingala di Doob di $H$: la previsione
+del valore finale \`{e} l'unica martingala compatibile.
+\item \textbf{Non prevedibilit\`{a} delle revisioni}: l'incremento
+$H_{t+1} - H_t$ ha media condizionata nulla,
+\[
+\E[H_{t+1} - H_t \mid \F_t] = 0.
+\]
+Le revisioni successive di una previsione razionale sono shock
+imprevedibili -- legame diretto con l'efficienza dei mercati.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% --------------------------------------------------------
+% Slide 24 -- Trasformata di martingala e arresto opzionale
+% --------------------------------------------------------
+
+\subsection{Strategie e arresto opzionale}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Strategie prevedibili e arresto opzionale}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Sia $\{X_t\}$ una martingala e $\{\phi_t\}$ una strategia
+\textbf{prevedibile} ($\phi_t$ \`{e} $\F_{t-1}$-misurabile: la
+posizione si sceglie prima di osservare l'esito).
+
+\medskip
+
+\begin{stepitemize}
+\item Il \textbf{guadagno cumulato} della strategia,
+\[
+G_t = \sum_{k=1}^t \phi_k (X_k - X_{k-1}),
+\]
+\`{e} ancora una martingala (\emph{trasformata di martingala}):
+$\E[G_t \mid \F_s] = G_s$.
+\item Conseguenza: nessuna strategia prevedibile trasforma un gioco
+equo in uno favorevole. In particolare $\E[G_T] = 0$.
+\item \textbf{Arresto opzionale}: per un tempo d'arresto $\tau$
+limitato, $\E[X_\tau] = \E[X_0]$. Scegliere \emph{quando} uscire,
+sulla sola base del passato, non altera il valore atteso.
+\item \`{E} la formulazione probabilistica dell'\textbf{assenza di
+arbitraggio}: senza informazione futura non si crea valore atteso.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% --------------------------------------------------------
+% Slide 25 -- Cambio di misura e pricing
+% --------------------------------------------------------
+
+\subsection{Cambio di misura}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Misura fisica, misura risk-neutral, pricing}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+\begin{alertblock}{La propriet\`{a} di martingala \`{e} relativa alla misura}
+Lo stesso processo pu\`{o} essere submartingala sotto $\Prob$ e
+martingala sotto una misura equivalente $\Q$.
+\end{alertblock}
+
+\medskip
+
+\begin{stepitemize}
+\item Sotto la misura \textbf{fisica} $\Prob$, il prezzo scontato
+$\tilde{S}_t = S_t / (1+r)^t$ \`{e} tipicamente una submartingala
+(premio al rischio positivo).
+\item Esiste una misura \textbf{equivalente} $\Q$, legata a $\Prob$
+dalla derivata di Radon--Nikodym $\frac{d\Q}{d\Prob}$, sotto la quale
+$\tilde{S}_t$ \`{e} una martingala.
+\item Allora il prezzo di un derivato con payoff $H$ \`{e}
+\[
+\pi_0 = \E_{\Q}\!\left[\frac{H}{(1+r)^T}\right].
+\]
+\item L'\textbf{esistenza} di $\Q$ equivale all'assenza di arbitraggio;
+la sua \textbf{unicit\`{a}} alla completezza del mercato (primo e
+secondo teorema fondamentale del pricing).
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
 
 \end{document}
