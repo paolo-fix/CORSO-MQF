@@ -427,6 +427,13 @@ fondamentali
 Queste formule riprendono, in tempo continuo, la stessa struttura che
 avevamo gi\`{a} osservato per la passeggiata aleatoria riscalata.
 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.78\textwidth]{../graphics/Cap06_Brownian_traiettorie.png}
+\caption{Traiettorie simulate di un moto browniano scalato. Le traiettorie sono continue ma irregolari, oscillano attorno al livello iniziale e non mostrano alcun meccanismo di richiamo verso un valore di lungo periodo.}
+\label{fig:Brownian_traiettorie}
+\end{figure}
+
 \subsection*{Interpretazione della notazione $dW_t$}
 
 Nella trattazione dei modelli in tempo continuo compare spesso la
@@ -879,6 +886,377 @@ $\kappa$ e $\theta$; dall'altro mostra che, nel passaggio dal GBM ai
 modelli di richiamo verso un equilibrio, cambia non solo
 l'interpretazione economica del drift, ma anche la struttura stessa
 della dinamica stocastica.
+
+\section{Processi mean-reverting II: Cox--Ingersoll--Ross}
+
+Il processo di Ornstein--Uhlenbeck introduce in modo semplice il
+meccanismo di \emph{mean reversion}, ma presenta un limite importante
+quando si vogliono modellizzare variabili che, per ragioni economiche,
+devono rimanere non negative. Tassi di interesse di breve periodo,
+intensit\`{a} di default, volatilità istantanee e altri fattori finanziari
+positivi non possono essere rappresentati in modo soddisfacente da un
+processo gaussiano additivo, poich\'{e} quest'ultimo pu\`{o} assumere
+valori negativi.
+
+Una risposta classica a questo problema \`{e} data dal processo di
+Cox--Ingersoll--Ross, indicato usualmente come processo CIR. Esso
+mantiene la struttura mean-reverting dell'Ornstein--Uhlenbeck, ma
+modifica la componente di diffusione rendendola dipendente dallo stato
+del processo. Nella sua forma standard, il processo CIR \`{e} definito da
+\[
+dr_t=\kappa(\theta-r_t)\,dt+\sigma\sqrt{r_t}\,dW_t,
+\qquad
+r_0>0,
+\]
+con
+\[
+\kappa>0,
+\qquad
+\theta>0,
+\qquad
+\sigma>0.
+\]
+Qui $\{W_t\}_{t\geq 0}$ \`{e} un moto browniano standard, $\theta$ \`{e}
+il livello di lungo periodo, $\kappa$ misura la velocit\`{a} di
+\emph{mean reversion} e $\sigma$ controlla l'intensit\`{a} della
+componente aleatoria.
+
+La componente deterministica della dinamica \`{e} la stessa gi\`{a}
+osservata nel processo di Ornstein--Uhlenbeck:
+\[
+\kappa(\theta-r_t).
+\]
+Se $r_t<\theta$, il drift \`{e} positivo e tende a spingere il processo
+verso l'alto; se $r_t>\theta$, il drift \`{e} negativo e tende a
+riportarlo verso il basso. Anche il processo CIR incorpora dunque un
+meccanismo di richiamo verso il livello di lungo periodo $\theta$.
+
+La differenza essenziale rispetto all'Ornstein--Uhlenbeck riguarda il
+termine stocastico. Nel processo OU la diffusione \`{e} costante ed \`{e}
+pari a $\sigma$. Nel processo CIR, invece, il coefficiente di diffusione
+\`{e}
+\[
+\sigma\sqrt{r_t}.
+\]
+La volatilit\`{a} locale dipende quindi dal livello corrente del processo:
+quando $r_t$ \`{e} elevato, le fluttuazioni casuali sono pi\`{u} ampie;
+quando $r_t$ si avvicina a zero, la componente casuale si riduce. Questa
+caratteristica \`{e} cruciale, perch\'{e} contribuisce a rendere il
+processo compatibile con la non negativit\`{a} della variabile
+modellizzata.
+
+Su un piccolo intervallo temporale $\Delta t$, la dinamica pu\`{o}
+essere letta in forma approssimata come
+\[
+r_{t+\Delta t}-r_t
+\approx
+\kappa(\theta-r_t)\,\Delta t
++
+\sigma\sqrt{r_t}\sqrt{\Delta t}\,Z_{t+\Delta t},
+\]
+dove
+\[
+Z_{t+\Delta t}\sim\mathcal{N}(0,1).
+\]
+Questa scrittura mostra chiaramente il ruolo dei due termini. Il drift
+realizza il richiamo verso $\theta$, mentre il termine stocastico genera
+fluttuazioni la cui ampiezza cresce con $\sqrt{r_t}$. A differenza del
+GBM, la diffusione non \`{e} proporzionale al livello $r_t$, ma alla sua
+radice quadrata; a differenza dell'OU, non \`{e} costante.
+
+La dipendenza della diffusione da $\sqrt{r_t}$ ha un'importante
+conseguenza qualitativa. Se il processo si avvicina a zero, la componente
+aleatoria tende a ridursi, mentre il drift diventa approssimativamente
+pari a
+\[
+\kappa\theta>0.
+\]
+Il processo riceve quindi una spinta deterministica verso l'alto. Questa
+struttura spiega perch\'{e} il modello CIR sia particolarmente adatto a
+variabili positive o non negative.
+
+Un punto delicato riguarda il comportamento del processo in prossimit\`{a}
+di zero. Una condizione sufficiente, frequentemente richiamata nella
+letteratura, per evitare che il processo raggiunga lo zero \`{e} la
+condizione di Feller:
+\[
+2\kappa\theta\geq\sigma^2.
+\]
+Quando questa condizione \`{e} soddisfatta, la forza di richiamo verso il
+livello positivo $\theta$ \`{e} sufficientemente elevata rispetto
+all'intensit\`{a} della componente casuale. In termini economici, il
+processo resta strettamente positivo se il meccanismo di mean reversion
+\`{e} abbastanza forte rispetto alla volatilit\`{a}. Se la condizione non
+\`{e} soddisfatta, il processo pu\`{o} raggiungere il valore zero, pur
+rimanendo non negativo nella formulazione continua del modello.
+
+Anche per il processo CIR si possono ricavare alcune propriet\`{a}
+momento importanti. La media condizionata mantiene la stessa struttura
+mean-reverting dell'Ornstein--Uhlenbeck:
+\[
+\mathbb{E}[r_t]
+=
+\theta+(r_0-\theta)e^{-\kappa t}.
+\]
+Pertanto,
+\[
+\mathbb{E}[r_t]\longrightarrow\theta
+\qquad
+\text{per } t\to\infty.
+\]
+Il livello $\theta$ rappresenta quindi il valore medio di lungo periodo,
+mentre $\kappa$ governa la rapidit\`{a} con cui l'effetto della condizione
+iniziale viene progressivamente assorbito.
+
+La distribuzione del processo CIR non \`{e} gaussiana. Questo lo distingue
+in modo sostanziale dal processo di Ornstein--Uhlenbeck. La non
+normalit\`{a} \`{e} coerente con il vincolo di non negativit\`{a}: una
+variabile gaussiana, infatti, assegna sempre probabilit\`{a} positiva a
+valori negativi. Il processo CIR sostituisce quindi la semplicit\`{a}
+gaussiana dell'OU con una struttura pi\`{u} adatta alla modellizzazione di
+grandezze positive.
+
+Dal punto di vista finanziario, l'applicazione classica del processo CIR
+\`{e} la modellizzazione del tasso di interesse istantaneo di breve
+periodo. In questo contesto, $r_t$ rappresenta il tasso breve, $\theta$
+il livello medio di lungo periodo, $\kappa$ la velocit\`{a} con cui il
+tasso tende a ritornare verso tale livello e $\sigma$ l'intensit\`{a}
+dell'incertezza. La stessa struttura pu\`{o} essere utilizzata anche per
+intensit\`{a} di default, fattori di rischio positivi o componenti di
+varianza in modelli pi\`{u} avanzati.
+
+Il confronto con il processo di Ornstein--Uhlenbeck \`{e} istruttivo.
+Entrambi i modelli hanno un drift mean-reverting della forma
+\[
+\kappa(\theta-X_t)
+\]
+o
+\[
+\kappa(\theta-r_t),
+\]
+ma differiscono nella diffusione. Nell'OU la componente casuale \`{e}
+additiva e costante; nel CIR \`{e} dipendente dallo stato e proporzionale
+a $\sqrt{r_t}$. Questa differenza modifica profondamente le propriet\`{a}
+del processo: l'OU \`{e} gaussiano e pu\`{o} assumere valori negativi,
+mentre il CIR \`{e} non negativo ed \`{e} quindi pi\`{u} coerente con
+variabili finanziarie vincolate inferiormente.
+
+In sintesi, il processo di Cox--Ingersoll--Ross rappresenta un'estensione
+mean-reverting dell'Ornstein--Uhlenbeck pensata per variabili positive.
+La sua specificit\`{a} risiede nella combinazione di tre elementi:
+richiamo verso un livello di lungo periodo, diffusione dipendente dallo
+stato e controllo della positivit\`{a} attraverso la struttura
+$\sqrt{r_t}$ e, in particolare, attraverso la condizione di Feller. Per
+queste ragioni il CIR occupa un ruolo centrale nella modellizzazione dei
+tassi e di altri fattori finanziari non negativi.
+
+\section{Processi multivariati e correlazione tra fattori}
+
+I modelli introdotti nelle sezioni precedenti descrivono l'evoluzione di
+un singolo fattore di rischio. In molte applicazioni finanziarie questa
+rappresentazione non \`{e} sufficiente. Un portafoglio contiene pi\`{u}
+attivit\`{a}, una curva dei tassi dipende da pi\`{u} scadenze, i mercati
+azionari e obbligazionari interagiscono tra loro, e i fattori
+macro-finanziari non evolvono in modo isolato. Per questo motivo \`{e}
+necessario estendere il linguaggio delle diffusioni al caso
+multivariato.
+
+Consideriamo un vettore di processi
+\[
+X_t=
+\begin{pmatrix}
+X_{1,t}\\
+X_{2,t}\\
+\vdots\\
+X_{d,t}
+\end{pmatrix},
+\]
+dove ciascuna componente rappresenta un fattore di rischio. In forma
+generale, una diffusione multivariata pu\`{o} essere scritta come
+\[
+dX_t=a(X_t,t)\,dt+B(X_t,t)\,dW_t,
+\]
+dove $a(X_t,t)$ \`{e} un vettore di drift, $B(X_t,t)$ \`{e} una matrice
+dei coefficienti di diffusione e $W_t$ \`{e} un vettore di moti
+browniani. La dimensione di $W_t$ pu\`{o} coincidere con quella di
+$X_t$, ma in generale ci\`{o} che conta \`{e} che la matrice
+$B(X_t,t)$ determini come gli shock browniani si trasmettono alle
+diverse componenti del sistema.
+
+La correlazione tra fattori entra attraverso la struttura degli shock. Se
+\[
+W_t=
+\begin{pmatrix}
+W_{1,t}\\
+W_{2,t}\\
+\vdots\\
+W_{d,t}
+\end{pmatrix},
+\]
+non \`{e} necessario assumere che i moti browniani componenti siano
+indipendenti. Una formulazione standard richiede che, per
+$i,j=1,\ldots,d$, si abbia
+\[
+dW_{i,t}\,dW_{j,t}=\rho_{ij}\,dt,
+\]
+dove
+\[
+R=(\rho_{ij})
+\]
+\`{e} la matrice di correlazione istantanea. In particolare,
+\[
+\rho_{ii}=1,
+\qquad
+-1\leq \rho_{ij}\leq 1,
+\]
+e la matrice $R$ deve essere simmetrica e semidefinita positiva.
+
+Questa notazione esprime un punto essenziale: la correlazione non riguarda
+soltanto i livelli dei fattori, ma gli shock elementari che ne guidano la
+dinamica. In un modello continuo, due fattori possono avere drift
+distinti, volatilit\`{a} distinte e tuttavia essere esposti a
+perturbazioni istantanee correlate. La struttura di correlazione descrive
+quindi il modo in cui l'incertezza si propaga congiuntamente nel sistema.
+
+Dal punto di vista operativo, \`{e} spesso conveniente partire da un
+vettore di shock gaussiani indipendenti
+\[
+Z=
+\begin{pmatrix}
+Z_1\\
+Z_2\\
+\vdots\\
+Z_d
+\end{pmatrix},
+\qquad
+Z\sim\mathcal{N}(0,I_d),
+\]
+e costruire un vettore di shock correlati
+\[
+\varepsilon=LZ,
+\]
+dove $L$ \`{e} una matrice tale che
+\[
+R=LL'.
+\]
+In questo modo si ottiene
+\[
+\mathbb{E}[\varepsilon]=0,
+\qquad
+\operatorname{Var}(\varepsilon)=R.
+\]
+La matrice $L$ pu\`{o} essere ottenuta, quando $R$ \`{e} definita
+positiva, mediante decomposizione di Cholesky. Questa costruzione \`{e}
+centrale nella simulazione Monte Carlo multivariata, perch\'{e} consente
+di generare shock con la struttura di dipendenza desiderata a partire da
+variabili normali standard indipendenti.
+
+Per comprendere il ruolo finanziario della correlazione, consideriamo il
+caso di due attivit\`{a} rischiose modellizzate mediante moti browniani
+geometrici correlati:
+\[
+\frac{dS_{1,t}}{S_{1,t}}
+=
+\mu_1\,dt+\sigma_1\,dW_{1,t},
+\]
+\[
+\frac{dS_{2,t}}{S_{2,t}}
+=
+\mu_2\,dt+\sigma_2\,dW_{2,t},
+\]
+con
+\[
+dW_{1,t}\,dW_{2,t}=\rho\,dt.
+\]
+In questo modello i due rendimenti istantanei hanno drift e volatilit\`{a}
+propri, ma condividono una dipendenza istantanea governata da $\rho$. Se
+$\rho>0$, shock positivi sul primo fattore tendono ad accompagnarsi a
+shock positivi sul secondo; se $\rho<0$, gli shock tendono a muoversi in
+direzioni opposte; se $\rho=0$, gli shock browniani sono incorrelati.
+
+La correlazione ha conseguenze dirette sul rischio di portafoglio.
+Infatti, per una combinazione lineare di rendimenti istantanei, la
+varianza non dipende soltanto dalle volatilit\`{a} individuali, ma anche
+dai termini incrociati. Nel caso di due fattori, la componente di
+covarianza \`{e} proporzionale a
+\[
+\rho\,\sigma_1\sigma_2.
+\]
+Pertanto, a parit\`{a} di volatilit\`{a} marginali, un aumento della
+correlazione riduce il beneficio di diversificazione. Questo \`{e} uno
+dei motivi per cui la corretta modellizzazione della dipendenza tra
+fattori \`{e} cruciale nella misurazione del rischio.
+
+La stessa logica si applica a contesti pi\`{u} complessi. Nei modelli sui
+tassi, fattori diversi possono rappresentare movimenti paralleli,
+inclinazione e curvatura della curva. Nei modelli multi-asset, la matrice
+di correlazione governa la dipendenza tra azioni, indici, tassi di
+cambio, commodities e fattori di credito. Nei modelli di rischio di
+controparte, la correlazione tra esposizione, tassi, spread e intensit\`{a}
+di default pu\`{o} modificare in modo sostanziale la distribuzione delle
+perdite. In tutti questi casi, la correlazione non \`{e} un dettaglio
+numerico, ma una componente strutturale del modello.
+
+Nel passaggio alla simulazione, la dinamica multivariata pu\`{o} essere
+discretizzata su una griglia temporale. Se il processo soddisfa
+\[
+dX_t=a(X_t,t)\,dt+B(X_t,t)\,dW_t,
+\]
+uno schema di Eulero--Maruyama assume la forma
+\[
+X_{t+\Delta t}
+=
+X_t
++
+a(X_t,t)\,\Delta t
++
+B(X_t,t)\sqrt{\Delta t}\,\varepsilon_{t+\Delta t},
+\]
+dove
+\[
+\varepsilon_{t+\Delta t}\sim\mathcal{N}(0,R).
+\]
+Utilizzando la rappresentazione
+\[
+\varepsilon_{t+\Delta t}=LZ_{t+\Delta t},
+\]
+con
+\[
+Z_{t+\Delta t}\sim\mathcal{N}(0,I_d),
+\qquad
+R=LL',
+\]
+si ottiene
+\[
+X_{t+\Delta t}
+=
+X_t
++
+a(X_t,t)\,\Delta t
++
+B(X_t,t)\sqrt{\Delta t}\,LZ_{t+\Delta t}.
+\]
+Questa formula rende esplicito il legame tra modello teorico e algoritmo
+di simulazione: la matrice $B$ descrive l'esposizione dei fattori agli
+shock, mentre la matrice $R$ descrive la dipendenza tra gli shock stessi.
+
+\`{E} importante distinguere la correlazione istantanea degli shock dalla
+correlazione empirica osservata su dati discreti. La prima \`{e} un
+parametro del modello continuo; la seconda \`{e} una quantit\`{a} stimata
+su frequenze di osservazione finite e pu\`{o} dipendere dall'orizzonte
+temporale, dal periodo campionario e dalle condizioni di mercato. In
+applicazioni reali, la matrice $R$ deve quindi essere stimata, validata
+e, se necessario, regolarizzata per garantire che sia effettivamente
+semidefinita positiva e utilizzabile in simulazione.
+
+In sintesi, l'estensione multivariata delle diffusioni consente di
+rappresentare sistemi finanziari in cui pi\`{u} fattori di rischio
+evolvono congiuntamente. La matrice di correlazione $R=(\rho_{ij})$
+descrive la dipendenza istantanea tra gli shock browniani, mentre la
+fattorizzazione $R=LL'$ fornisce lo strumento operativo per generare
+scenari coerenti in simulazione. Questo passaggio \`{e} essenziale per
+qualunque applicazione in cui il rischio non dipenda da un singolo
+fattore, ma dalla struttura congiunta di pi\`{u} fonti di incertezza.
 
 
 
