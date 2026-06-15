@@ -12,15 +12,14 @@ import numpy as np
 # dizionario. Le funzioni piu' sotto ricevono questi valori come input:
 # i numeri nelle funzioni non sono quindi un secondo punto di controllo.
 
-OU_PARAMETERS = {
-    "x0": 1.2,       # Valore iniziale X_0, allineato agli esempi BM e GBM.
-    "theta": 0.5,    # Livello medio di lungo periodo.
-    "kappa": 1.5,    # Velocita' di ritorno verso theta.
-    "sigma": 0.25,   # Volatilita' degli shock stocastici.
+GBM_PARAMETERS = {
+    "s0": 1.2,       # Valore iniziale S_0, allineato agli esempi BM e OU.
+    "mu": 0.15,      # Drift: aumenta o riduce la crescita media.
+    "sigma": 0.2,   # Volatilita': aumenta o riduce la dispersione.
     "T": 2.0,        # Orizzonte temporale.
     "n_steps": 500,  # Numero di passi temporali.
     "n_paths": 8,    # Numero di traiettorie mostrate nel grafico.
-    "seed": 42,      # Seme casuale: cambiarlo genera altre traiettorie.
+    "seed": 52,      # Seme casuale: cambiarlo genera altre traiettorie.
 }
 
 
@@ -32,20 +31,19 @@ OU_PARAMETERS = {
 # i file salvati. L'estensione decide il formato: .png, .svg, ecc.
 
 OUTPUT_FILES = [
-    "./graphics/Cap06_OU_mean_reversion.png",
-    "./graphics/Cap06_OU_mean_reversion.svg",
+    "./graphics/Cap06_GBM_traiettorie.png",
+    "./graphics/Cap06_GBM_traiettorie.svg",
 ]
 
 
 # ============================================================
-# SIMULAZIONE DEL PROCESSO DI ORNSTEIN-UHLENBECK
+# SIMULAZIONE DEL MOTO BROWNIANO GEOMETRICO
 # ============================================================
 
 
-def simulate_ou_paths(
-    x0: float,
-    theta: float,
-    kappa: float,
+def simulate_gbm_paths(
+    s0: float,
+    mu: float,
     sigma: float,
     T: float,
     n_steps: int,
@@ -53,28 +51,29 @@ def simulate_ou_paths(
     seed: int,
 ) -> tuple[np.ndarray, np.ndarray]:
     """
-    Simulate paths of an Ornstein-Uhlenbeck process with Euler-Maruyama.
+    Simulate paths of a geometric Brownian motion with the exact scheme.
 
     Model:
 
-        dX_t = kappa * (theta - X_t) dt + sigma dW_t
+        dS_t = mu * S_t dt + sigma * S_t dW_t
+
+    Exact time-discretized form:
+
+        S_{t+dt} = S_t * exp((mu - 0.5 * sigma^2) dt + sigma * sqrt(dt) * Z),
+        with Z ~ N(0, 1).
 
     Parameters
     ----------
-    x0
-        Initial value X_0.
-    theta
-        Long-run mean. Larger or smaller values move the horizontal
-        mean-reversion level in the plot.
-    kappa
-        Mean-reversion speed. Larger values pull the paths toward theta
-        more quickly.
+    s0
+        Initial value S_0. It must be positive.
+    mu
+        Drift parameter. Larger values increase the average growth rate.
     sigma
         Volatility parameter. Larger values produce more dispersed paths.
     T
         Final time horizon.
     n_steps
-        Number of time steps used in the Euler-Maruyama discretization.
+        Number of time steps used in the discretization.
     n_paths
         Number of simulated paths.
     seed
@@ -87,18 +86,17 @@ def simulate_ou_paths(
     sqrt_dt = np.sqrt(dt)
 
     t_grid = np.linspace(0.0, T, n_steps + 1)
-    x = np.empty((n_steps + 1, n_paths))
-    x[0, :] = x0
+    s = np.empty((n_steps + 1, n_paths))
+    s[0, :] = s0
+
+    drift = (mu - 0.5 * sigma**2) * dt
 
     for i in range(n_steps):
         z = rng.standard_normal(n_paths)
-        x[i + 1, :] = (
-            x[i, :]
-            + kappa * (theta - x[i, :]) * dt
-            + sigma * sqrt_dt * z
-        )
+        diffusion = sigma * sqrt_dt * z
+        s[i + 1, :] = s[i, :] * np.exp(drift + diffusion)
 
-    return t_grid, x
+    return t_grid, s
 
 
 # ============================================================
@@ -106,11 +104,10 @@ def simulate_ou_paths(
 # ============================================================
 
 
-def plot_ou_mean_reversion(
+def plot_gbm_paths(
     output_paths: str | list[str] | tuple[str, ...],
-    x0: float,
-    theta: float,
-    kappa: float,
+    s0: float,
+    mu: float,
     sigma: float,
     T: float,
     n_steps: int,
@@ -118,15 +115,14 @@ def plot_ou_mean_reversion(
     seed: int,
 ) -> None:
     """
-    Build and save the OU mean-reversion figure.
+    Build and save the geometric Brownian motion paths figure.
 
     The same figure can be written to one or more output files. The file
     extension controls the format, for example ``.png`` or ``.svg``.
     """
-    t_grid, x = simulate_ou_paths(
-        x0=x0,
-        theta=theta,
-        kappa=kappa,
+    t_grid, s = simulate_gbm_paths(
+        s0=s0,
+        mu=mu,
         sigma=sigma,
         T=T,
         n_steps=n_steps,
@@ -140,13 +136,13 @@ def plot_ou_mean_reversion(
     fig, ax = plt.subplots(figsize=(9, 5.5))
 
     for j in range(n_paths):
-        ax.plot(t_grid, x[:, j], linewidth=1.2)
+        ax.plot(t_grid, s[:, j], linewidth=1.2)
 
-    ax.axhline(theta, linestyle="--", linewidth=1.5, label=r"$\theta$")
+    ax.axhline(s0, linestyle="--", linewidth=1.2, label=r"$S_0$")
 
     ax.set_xlabel("Tempo")
-    ax.set_ylabel(r"$X_t$")
-    ax.set_title("Processo di Ornstein-Uhlenbeck: traiettorie e mean reversion")
+    ax.set_ylabel(r"$S_t$")
+    ax.set_title("Moto browniano geometrico: traiettorie simulate")
     ax.legend()
     ax.grid(True, alpha=0.3)
 
@@ -167,7 +163,7 @@ def plot_ou_mean_reversion(
 
 
 if __name__ == "__main__":
-    plot_ou_mean_reversion(OUTPUT_FILES, **OU_PARAMETERS)
+    plot_gbm_paths(OUTPUT_FILES, **GBM_PARAMETERS)
 
     for output_file in OUTPUT_FILES:
         print(f"Figura salvata in: {output_file}")
