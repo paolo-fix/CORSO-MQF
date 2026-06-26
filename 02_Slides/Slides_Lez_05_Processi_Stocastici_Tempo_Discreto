@@ -1351,5 +1351,649 @@ secondo teorema fondamentale del pricing).
 \end{frame}%
 %EndExpansion
 
+% ============================================================
+% Slides_Lez_05_Gruppo_07_Binomiale.tex
+% GRUPPO 7 -- Il modello binomiale come palestra strutturale
+% Slide 26-32
+% Tempo parziale: 18 minuti | Tempo cumulato: 118 minuti
+% ============================================================
+
+\section{Il modello binomiale come palestra strutturale}
+
+% --------------------------------------------------------
+% Slide 26 -- Definizione del modello
+% --------------------------------------------------------
+
+\subsection{Definizione del modello}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Il modello binomiale dei prezzi}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Il modello binomiale \`{e} il processo a tempo discreto pi\`{u}
+semplice che illustra concretamente filtrazione, adattabilit\`{a}
+e martingale. Lo usiamo come palestra, non come modello di pricing.
+
+\medskip
+
+\begin{block}{Dinamica}
+\[
+S_{t+1}=\begin{cases}
+u\,S_t & \text{con probabilit\`{a} }p,\\
+d\,S_t & \text{con probabilit\`{a} }1-p,
+\end{cases}
+\qquad t=0,1,\ldots,T-1,
+\]
+con $u>1>d>0$, movimenti indipendenti tra periodi.
+\end{block}
+
+\medskip
+
+\begin{stepitemize}
+\item Lo spazio campionario \`{e}
+$\Omega=\{u,d\}^T$: ogni $\omega=(\omega_1,\ldots,\omega_T)$
+\`{e} una sequenza di rialzi e ribassi.
+\item Il numero di traiettorie \`{e} $2^T$; per $T=3$,
+otto scenari.
+\item Il valore al tempo $t$ dipende solo dal numero di
+rialzi: $S_t=S_0\,u^{k_t}\,d^{t-k_t}$, dove
+$k_t=\#\{i\leq t:\omega_i=u\}$.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% --------------------------------------------------------
+% Slide 27 -- Momenti del processo
+% --------------------------------------------------------
+
+\subsection{Momenti}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Momenti del processo binomiale}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Introducendo il rendimento lordo medio per periodo
+$m=pu+(1-p)d$, le funzioni caratteristiche sono:
+
+\medskip
+
+\begin{stepitemize}
+
+\item \textbf{Media}: $\mu(t)=\E[S_t]=S_0\,m^t$.\\
+Il prezzo atteso cresce geometricamente se $m>1$.
+
+\item \textbf{Varianza}: $\sigma^2(t)=S_0^2(m_2^t-m^{2t})$,
+con $m_2=pu^2+(1-p)d^2$.\\
+La varianza cresce nel tempo: l'incertezza si accumula.
+
+\item \textbf{Covarianza}: per $s\leq t$,
+$c(s,t)=S_0^2(m_2^s\,m^{t-s}-m^{s+t})$.\\
+Positiva: prezzi alti oggi tendono ad accompagnarsi a
+prezzi alti in futuro.
+
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% --------------------------------------------------------
+% Slide 31a -- Ricombinazione: concetto
+% --------------------------------------------------------
+
+\subsection{Scenari e ricombinazione}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Scenari, albero e ricombinazione}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+
+\begin{example}
+$S_0=100$, $u=1.1$, $d=0.9$, $p=0.6$:
+\[
+m=0.6\cdot1.1+0.4\cdot0.9=1.02, \qquad
+\mu(3)=100\cdot1.02^3=106.12.
+\]
+\end{example}
+
+\medskip
+
+\begin{stepitemize}
+
+\item Con $T=3$ il modello ha $2^3=8$ scenari (traiettorie),
+ma solo $4$ valori terminali distinti, perch\'{e}
+$ud=du$: l'ordine dei movimenti non conta per il prezzo
+finale.
+
+\item \textbf{Ricombinazione}: il numero di nodi distinti
+al tempo $t$ \`{e} $t+1$, non $2^t$. Per $T=3$:
+$1+2+3+4=10$ nodi, anzich\'{e} $1+2+4+8=15$.
+
+\item La crescita \textbf{lineare} del numero di nodi
+(non esponenziale) \`{e} computazionalmente cruciale:
+consente di calcolare valori attesi condizionati e prezzi
+su alberi con molti periodi in modo efficiente.
+
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% --------------------------------------------------------
+% Slide 31b -- Albero binomiale
+% --------------------------------------------------------
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{L'albero degli scenari}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+\begin{center}
+\includegraphics[width=0.85\textwidth]{../graphics/Cap04_Figura_4_1}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% --------------------------------------------------------
+% Slide 28 -- Sigma-algebre e partizioni sull'albero
+% --------------------------------------------------------
+
+\subsection{Sigma-algebre e partizioni}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Sigma-algebre e partizioni sull'albero}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Con $T=3$, $\Omega=\{uuu,uud,udu,udd,duu,dud,ddu,ddd\}$.
+
+\medskip
+
+{\footnotesize
+\begin{center}
+\begin{tabular}{|p{0.4cm}|p{2.6cm}|p{6.4cm}|}
+\hline
+$t$ & \textbf{Sigma-algebra} & \textbf{Partizione di $\Omega$}\\
+\hline
+$0$ & $\F_0=\{\emptyset,\Omega\}$ &
+Unico blocco: \newline $\{uuu,uud,udu,udd,duu,dud,ddu,ddd\}$\\[4pt]
+$1$ & $\F_1=\sigma(S_1)$ &
+Due blocchi: \newline $A_u=\{uuu,uud,udu,udd\}$ e \newline
+$A_d=\{duu,dud,ddu,ddd\}$\\[4pt]
+$2$ & $\F_2=\sigma(S_1,S_2)$ &
+Quattro blocchi: $A_{uu}=\{uuu,uud\}$,
+$A_{ud}=\{udu,udd\}$,
+$A_{du}=\{duu,dud\}$,
+$A_{dd}=\{ddu,ddd\}$\\[4pt]
+$3$ & $\F_3=\sigma(S_1,S_2,S_3)$ &
+Otto blocchi: ogni esito elementare forma un blocco
+da solo, ad esempio $\{uuu\}$, $\{uud\}$, \ldots,
+$\{ddd\}$\\
+\hline
+\end{tabular}
+\end{center}
+}
+
+\medskip
+
+\begin{stepitemize}
+\item Al crescere di $t$ la partizione si affina:
+l'informazione disponibile aumenta.
+\item Due traiettorie nello stesso blocco di $\F_t$
+sono \textbf{indistinguibili} sulla base di quanto
+osservato fino a $t$.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% --------------------------------------------------------
+% Slide 29 -- Processo delle previsioni sull'albero
+% --------------------------------------------------------
+
+\subsection{Processo delle previsioni}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Il processo delle previsioni sull'albero}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Definiamo $H_t=\E[S_3\mid\F_t]$: la previsione del prezzo
+terminale aggiornata all'informazione disponibile al tempo $t$.
+
+\medskip
+
+\begin{stepitemize}
+
+\item \textbf{Formula compatta}: poich\`{e} i fattori futuri
+sono indipendenti da $\F_t$,
+\[
+H_t=\E[S_3\mid\F_t]=S_t\cdot m^{3-t}.
+\]
+La previsione \`{e} il prezzo corrente capitalizzato al
+rendimento medio $m$ per i periodi residui.
+
+\item \textbf{Valori nei nodi} ($S_0=100$, $m=1.02$):
+\begin{center}
+{\small
+\begin{tabular}{cl}
+\hline
+$t$ & Valori di $H_t$ nei nodi\\
+\hline
+$0$ & $106.12$\\
+$1$ & $114.44$ (nodo $u$), $\quad 93.64$ (nodo $d$)\\
+$2$ & $123.42$ ($uu$), $100.98$ ($ud$), $82.62$ ($dd$)\\
+$3$ & $133.10$, $108.90$, $89.10$, $72.90$\\
+\hline
+\end{tabular}
+}
+\end{center}
+
+\item \textbf{Verifica al nodo $u$, $t=1\to 2$}:
+\[
+\E[H_2\mid A_u]=0.6\cdot123.42+0.4\cdot100.98=114.44=H_1(A_u).
+\]
+
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% --------------------------------------------------------
+% Slide 30 -- Martingala di Doob e prezzi
+% --------------------------------------------------------
+
+\subsection{Martingale sul binomiale}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Martingala di Doob e processo dei prezzi}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+\begin{stepitemize}
+
+\item \textbf{$\{H_t\}$ \`{e} sempre una martingala.}
+Per la propriet\`{a} della torre:
+\[
+\E[H_t\mid\F_s]=\E\bigl[\E[S_3\mid\F_t]\bigm|\F_s\bigr]
+=\E[S_3\mid\F_s]=H_s.
+\]
+Le revisioni della previsione sono shock imprevedibili:
+$\E[H_{t+1}-H_t\mid\F_t]=0$.
+
+\item \textbf{$\{S_t\}$ \`{e} una martingala solo se $m=1$.}
+\[
+\E[S_{t+1}\mid\F_t]=S_t\cdot m.
+\]
+Con $m=1.02>1$: $\E[S_{t+1}\mid\F_t]>S_t$ --- il processo
+dei prezzi \`{e} una \textbf{submartingala}.
+
+\item \textbf{Attenzione}: non confondere il processo delle
+previsioni $\{H_t\}$ con il processo dei prezzi $\{S_t\}$.
+Il primo \`{e} sempre una martingala. Il secondo lo \`{e}
+solo se il rendimento medio \`{e} unitario ($m=1$), condizione
+alla base della valutazione risk-neutral.
+
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+
+% --------------------------------------------------------
+% Slide 32 -- Sintesi del ruolo del binomiale
+% --------------------------------------------------------
+
+\subsection{Sintesi}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Il binomiale come palestra: sintesi}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Il modello binomiale ha illustrato \textbf{concretamente}
+ogni concetto generale della lezione:
+
+\medskip
+
+\begin{itemize}
+
+\item \textbf{Processo}: $\{S_t\}$ con momenti $\mu(t)=S_0m^t$
+e varianza crescente.
+
+\item \textbf{Filtrazione}: la catena
+$\F_0\subseteq\F_1\subseteq\F_2\subseteq\F_3$
+come affinamento progressivo delle partizioni di $\Omega$.
+
+\item \textbf{Adattato}: $S_t$ \`{e} $\F_t$-misurabile;
+$S_{t+1}$ \`{e} anticipativo rispetto a $\F_t$.
+
+\item \textbf{Martingala di Doob}: $H_t=S_t\,m^{3-t}$,
+sempre martingala per la propriet\`{a} della torre.
+
+\item \textbf{Submartingala}: $\{S_t\}$ con $m>1$; martingala
+solo se $m=1$ (misura risk-neutral).
+
+\item \textbf{Scenari e ricombinazione}: struttura ad albero
+con crescita lineare dei nodi.
+
+\end{itemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% ============================================================
+% Slides_Lez_05_Gruppo_08_Esercizi.tex
+% GRUPPO 8 -- Esercizi in aula
+% Slide 34-37 (la numerazione esatta dipende dal totale
+% effettivo del Gruppo 7 dopo le modifiche manuali)
+% Tempo parziale: 12 minuti | Tempo cumulato: 130 minuti
+% ============================================================
+
+\section{Esercizi in aula}
+
+% --------------------------------------------------------
+% Slide -- Esercizio 1: calcolo
+% --------------------------------------------------------
+
+\subsection{Esercizio 1: calcolo}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Esercizio 1: albero binomiale a due periodi}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+\begin{block}{Dati}
+Un'azione vale oggi $S_0=80$. A ogni periodo il prezzo sale
+del $25\%$ ($u=1.25$, probabilit\`{a} $p=0.5$) oppure scende
+del $20\%$ ($d=0.8$, probabilit\`{a} $1-p=0.5$). Orizzonte
+$T=2$.
+\end{block}
+
+\medskip
+
+\begin{stepenumerate}
+\item Costruire l'albero dei prezzi ed elencare gli scenari
+con le rispettive probabilit\`{a}.
+\item Calcolare $\E[S_2]$, sia sommando sugli scenari sia con
+la formula $S_0\,m^2$.
+\item Calcolare $\E[S_2\mid\F_1]$ nei due nodi al tempo $1$
+e verificare la propriet\`{a} della torre.
+\end{stepenumerate}
+
+\medskip
+
+\begin{center}
+{\small Tempo: 6 minuti.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% --------------------------------------------------------
+% Slide -- Esercizio 1: soluzione
+% --------------------------------------------------------
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Esercizio 1: soluzione}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+\begin{stepitemize}
+
+\item $m=pu+(1-p)d=0.5\cdot1.25+0.5\cdot0.8=1.025$.
+\[
+S_1^u=100,\quad S_1^d=64,\qquad
+S_2^{uu}=125,\;\; S_2^{ud}=S_2^{du}=80,\;\; S_2^{dd}=51.2.
+\]
+
+\item $\E[S_2]=0.25\cdot125+0.5\cdot80+0.25\cdot51.2=84.05$.\\
+Verifica: $S_0\,m^2=80\cdot1.025^2=84.05$.
+
+\item Al nodo $u$: $\E[S_2\mid A_u]=0.5\cdot125+0.5\cdot80
+=102.5=100\cdot1.025$.\\
+Al nodo $d$: $\E[S_2\mid A_d]=0.5\cdot80+0.5\cdot51.2
+=65.6=64\cdot1.025$.
+
+\item Torre: $0.5\cdot102.5+0.5\cdot65.6=84.05=\E[S_2]$.
+\checkmark
+
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% --------------------------------------------------------
+% Slide -- Esercizio 2: interpretazione
+% --------------------------------------------------------
+
+\subsection{Esercizio 2: interpretazione}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Esercizio 2: interpretazione finanziaria}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+\begin{block}{Scenario}
+Un desk di trading accumula profitti giornalieri $Z_k$ i.i.d.,
+con $\E[Z_k]=\nu>0$. Sia $X_t=\sum_{k=1}^t Z_k$ il profitto
+cumulato.
+\end{block}
+
+\medskip
+
+\begin{stepenumerate}
+\item Il processo $\{X_t\}$ \`{e} una martingala, una
+submartingala o una supermartingala rispetto alla propria
+filtrazione naturale? Motivare.
+\item Cosa cambia se $\nu=0$? E se $\nu<0$?
+\item Interpretare finanziariamente i tre casi: cosa
+rappresenta $\nu$ per un gestore che valuta la strategia?
+\end{stepenumerate}
+
+\medskip
+
+\begin{center}
+{\small Tempo: 6 minuti.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% --------------------------------------------------------
+% Slide -- Esercizio 2: soluzione
+% --------------------------------------------------------
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Esercizio 2: soluzione}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+\begin{stepitemize}
+
+\item Per $s\leq t$: $\E[X_t\mid\F_s]=X_s+(t-s)\nu$. Con
+$\nu>0$: $\E[X_t\mid\F_s]\geq X_s$ $\Rightarrow$
+\textbf{submartingala}.
+
+\item Se $\nu=0$: $\E[X_t\mid\F_s]=X_s$ $\Rightarrow$
+\textbf{martingala} (gioco equo). Se $\nu<0$:
+\textbf{supermartingala} (gioco sfavorevole).
+
+\item \textbf{Interpretazione}: $\nu$ \`{e} l'\emph{alpha}
+della strategia --- il rendimento atteso per periodo al netto
+di ogni componente aleatoria. $\nu>0$ segnala un vantaggio
+sistematico (la strategia batte un gioco equo in media);
+$\nu=0$ segnala l'assenza di vantaggio; $\nu<0$ segnala
+costi che superano il rendimento lordo.
+
+\item Collegamento alla decomposizione di Doob--Meyer
+(Sezione~5.5): $X_t=(X_t-t\nu)+t\nu$, dove $X_t-t\nu$ \`{e}
+la componente di gioco equo e $t\nu$ la tendenza prevedibile.
+
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
 
 \end{document}

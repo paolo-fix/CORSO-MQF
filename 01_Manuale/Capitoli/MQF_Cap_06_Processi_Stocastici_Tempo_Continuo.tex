@@ -435,7 +435,7 @@ quello di Ornstein--Uhlenbeck.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.78\textwidth]{../graphics/Cap06_Brownian_traiettorie.png}
+\includegraphics[width=0.90\textwidth]{../graphics/Cap06_Brownian_traiettorie.png}
 \caption{Traiettorie simulate di un moto browniano scalato. Le traiettorie sono continue ma irregolari, oscillano attorno al livello iniziale e non mostrano alcun meccanismo di richiamo verso un valore di lungo periodo.}
 \label{fig:Brownian_traiettorie}
 \end{figure}
@@ -740,7 +740,7 @@ shock browniani e il carattere moltiplicativo della dinamica.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.78\textwidth]{../graphics/Cap06_GBM_traiettorie.png}
+\includegraphics[width=0.90\textwidth]{../graphics/Cap06_GBM_traiettorie.png}
 \caption{Traiettorie simulate di un moto browniano geometrico. La linea orizzontale tratteggiata indica il livello iniziale $S_0$. Le traiettorie restano positive e mostrano una dispersione crescente nel tempo, coerentemente con la natura moltiplicativa del modello.}
 \label{fig:GBM_traiettorie}
 \end{figure}
@@ -798,7 +798,7 @@ livello di lungo periodo.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.78\textwidth]{../graphics/Cap06_OU_mean_reversion.png}
+\includegraphics[width=0.90\textwidth]{../graphics/Cap06_OU_mean_reversion.png}
 \caption{Traiettorie simulate di un processo di Ornstein--Uhlenbeck con livello di lungo periodo $\theta$. La linea orizzontale tratteggiata evidenzia il meccanismo di \emph{mean reversion}: le traiettorie oscillano in modo casuale, ma tendono a ritornare verso il livello $\theta$.}
 \label{fig:OU_mean_reversion}
 \end{figure}
@@ -1305,6 +1305,600 @@ fattorizzazione $R=LL'$ fornisce lo strumento operativo per generare
 scenari coerenti in simulazione. Questo passaggio \`{e} essenziale per
 qualunque applicazione in cui il rischio non dipenda da un singolo
 fattore, ma dalla struttura congiunta di pi\`{u} fonti di incertezza.
+
+\section{Discretizzazione delle SDE: schema di Eulero--Maruyama}
+
+I modelli in tempo continuo introdotti nelle sezioni precedenti sono
+formulati mediante equazioni differenziali stocastiche. Per poterli
+utilizzare in modo operativo, in particolare nella simulazione numerica,
+\`{e} necessario sostituire la dinamica continua con una approssimazione
+su una griglia temporale finita. Questo passaggio \`{e} decisivo, perch\'{e}
+costituisce il ponte tra la formulazione teorica del modello e la
+generazione concreta di traiettorie simulate.
+
+Consideriamo una equazione differenziale stocastica nella forma
+\[
+dX_t=a(X_t,t)\,dt+b(X_t,t)\,dW_t,
+\qquad
+X_0=x_0.
+\]
+Sia
+\[
+0=t_0<t_1<\cdots<t_N=T
+\]
+una griglia temporale uniforme, con
+\[
+\Delta t = t_{n+1}-t_n=\frac{T}{N}.
+\]
+L'idea di base consiste nell'approssimare la dinamica del processo su
+ciascun intervallo elementare $[t_n,t_{n+1}]$ utilizzando il valore del
+processo al tempo iniziale $t_n$.
+
+Poich\'{e} l'incremento browniano soddisfa, in modo intuitivo,
+\[
+W_{t_{n+1}}-W_{t_n}
+\sim
+\mathcal{N}(0,\Delta t),
+\]
+esso pu\`{o} essere rappresentato come
+\[
+W_{t_{n+1}}-W_{t_n}
+=
+\sqrt{\Delta t}\,Z_{n+1},
+\qquad
+Z_{n+1}\sim\mathcal{N}(0,1),
+\]
+dove le variabili $Z_{n+1}$ sono indipendenti. Sostituendo questa
+rappresentazione nella SDE e congelando i coefficienti al tempo $t_n$ si
+ottiene lo schema di Eulero--Maruyama:
+\[
+X_{t_{n+1}}
+=
+X_{t_n}
++
+a(X_{t_n},t_n)\,\Delta t
++
+b(X_{t_n},t_n)\,\sqrt{\Delta t}\,Z_{n+1}.
+\]
+
+Questa formula \`{e} la controparte stocastica dello schema di Eulero per
+le equazioni differenziali ordinarie. Il termine
+\[
+a(X_{t_n},t_n)\,\Delta t
+\]
+approssima la componente deterministica della dinamica, mentre il termine
+\[
+b(X_{t_n},t_n)\,\sqrt{\Delta t}\,Z_{n+1}
+\]
+approssima la componente casuale elementare generata dal moto browniano.
+L'intera traiettoria simulata si ottiene iterando ricorsivamente lo
+schema per $n=0,1,\ldots,N-1$.
+
+Il significato operativo \`{e} molto chiaro. Una simulazione richiede:
+\begin{enumerate}
+    \item la scelta dell'orizzonte temporale $T$;
+    \item la scelta del numero di passi $N$, e quindi del passo
+    temporale $\Delta t$;
+    \item la generazione di una sequenza di innovazioni gaussiane
+    standard indipendenti $Z_1,\ldots,Z_N$;
+    \item l'aggiornamento ricorsivo del processo mediante la formula di
+    Eulero--Maruyama.
+\end{enumerate}
+In questo modo un modello continuo pu\`{o} essere trasformato in una
+procedura numerica adatta alla simulazione Monte Carlo.
+
+\subsection*{Esempio: discretizzazione del moto browniano geometrico}
+
+Per il moto browniano geometrico
+\[
+dS_t=\mu S_t\,dt+\sigma S_t\,dW_t,
+\qquad
+S_0>0,
+\]
+lo schema di Eulero--Maruyama assume la forma
+\[
+S_{t_{n+1}}
+=
+S_{t_n}
++
+\mu S_{t_n}\,\Delta t
++
+\sigma S_{t_n}\,\sqrt{\Delta t}\,Z_{n+1}.
+\]
+Equivalentemente,
+\[
+S_{t_{n+1}}
+=
+S_{t_n}
+\left(
+1+\mu\Delta t+\sigma\sqrt{\Delta t}\,Z_{n+1}
+\right).
+\]
+Questa relazione fornisce una regola immediata per generare traiettorie
+simulate del prezzo. A partire dal valore iniziale $S_0$, ogni nuovo
+punto della traiettoria viene ottenuto sommando un contributo di drift e
+un contributo aleatorio.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.78\textwidth]{../graphics/Cap06_EulerMaruyama_GBM_confronto.png}
+\caption{Confronto tra una traiettoria esatta di un moto browniano
+geometrico e due approssimazioni di Eulero--Maruyama costruite sulla
+stessa realizzazione browniana. All'aumentare del numero di passi
+temporali, l'approssimazione discreta segue pi\`{u} fedelmente la
+traiettoria continua.}
+\label{fig:EulerMaruyama_GBM_confronto}
+\end{figure}
+
+La Figura~\ref{fig:EulerMaruyama_GBM_confronto} mostra con chiarezza il
+significato della discretizzazione. Lo schema con griglia pi\`{u} fine
+riproduce meglio la traiettoria del modello continuo, mentre una griglia
+pi\`{u} grossolana introduce una discrepanza pi\`{u} evidente. Questo
+evidenzia il ruolo cruciale del passo temporale nella qualit\`{a}
+dell'approssimazione.
+
+\subsection*{Traiettoria simulata e interpretazione numerica}
+
+Una traiettoria simulata non \`{e} la soluzione esatta del modello
+continuo, ma una sua approssimazione discreta. Tuttavia, quando il passo
+temporale \`{e} sufficientemente piccolo, essa pu\`{o} rappresentare in
+modo soddisfacente il comportamento del processo e pu\`{o} essere usata
+per costruire stime Monte Carlo di prezzi, valori attesi e misure di
+rischio.
+
+Questo punto \`{e} particolarmente importante in finanza quantitativa.
+Molti payoff dipendono dall'intera traiettoria del processo e non soltanto
+dal valore finale. Opzioni asiatiche, barriere, prodotti path-dependent e
+modelli a pi\`{u} fattori richiedono proprio la generazione di traiettorie
+discrete del modello sottostante. Lo schema di Eulero--Maruyama fornisce
+quindi il primo strumento generale per passare dalla formulazione teorica
+della SDE alla costruzione operativa di scenari.
+
+\subsection*{Limiti dell'approssimazione}
+
+Lo schema di Eulero--Maruyama \`{e} semplice e molto versatile, ma non
+deve essere interpretato come una procedura esatta. Esso introduce un
+errore di discretizzazione, perch\'{e} sostituisce la dinamica continua
+con una successione di aggiornamenti a passi finiti. In generale, tale
+errore diminuisce quando $\Delta t$ si riduce, cio\`{e} quando la griglia
+temporale viene resa pi\`{u} fitta.
+
+Occorre tuttavia precisare che l'errore di discretizzazione pu\`{o}
+essere valutato in modi diversi, a seconda dell'obiettivo dell'analisi.
+Una prima possibilit\`{a} consiste nel confrontare il processo
+approssimato e il processo continuo al tempo finale $T$. Se
+$X_T^{(\Delta t)}$ indica il valore ottenuto mediante discretizzazione e
+$X_T$ il valore del processo continuo, una misura naturale dell'errore
+terminale \`{e}
+\[
+\left(
+\mathbb{E}\left[
+\left(
+X_T^{(\Delta t)}-X_T
+\right)^2
+\right]
+\right)^{1/2}.
+\]
+Questa misura \`{e} utile quando l'interesse principale riguarda una
+quantit\`{a} terminale, per esempio un payoff che dipende soltanto dal
+valore finale del sottostante.
+
+Una seconda possibilit\`{a}, pi\`{u} coerente con la simulazione di una
+traiettoria, consiste nel valutare l'errore sull'intera griglia
+temporale. Indicando con $X_{t_n}^{(\Delta t)}$ l'approssimazione al
+tempo $t_n$, si pu\`{o} considerare una misura del tipo
+\[
+\left(
+\mathbb{E}\left[
+\max_{0\leq n\leq N}
+\left|
+X_{t_n}^{(\Delta t)}-X_{t_n}
+\right|^2
+\right]
+\right)^{1/2}.
+\]
+Questa prospettiva \`{e} rilevante quando il payoff o la misura di
+rischio dipendono dalla storia del processo e non soltanto dal suo valore
+finale.
+
+Una terza prospettiva riguarda invece l'errore sulle quantit\`{a}
+finanziarie stimate. Se $\varphi$ \`{e} una funzione di payoff, pu\`{o}
+interessare la differenza
+\[
+\left|
+\mathbb{E}\left[\varphi(X_T^{(\Delta t)})\right]
+-
+\mathbb{E}\left[\varphi(X_T)\right]
+\right|.
+\]
+In questo caso l'attenzione non \`{e} posta sulla distanza tra singole
+traiettorie, ma sull'errore commesso nella stima di un valore atteso. Nei
+problemi di pricing e di misurazione del rischio questa distinzione \`{e}
+essenziale.
+
+Nel caso particolare del moto browniano geometrico, disponiamo di una
+soluzione esplicita. Possiamo quindi confrontare, al tempo finale, il
+valore approssimato dallo schema di Eulero--Maruyama con il valore
+calcolato dalla formula chiusa
+\[
+S_T
+=
+S_0
+\exp\left[
+\left(\mu-\frac{1}{2}\sigma^2\right)T+\sigma W_T
+\right].
+\]
+Se $S_T^{(\Delta t)}$ indica il valore approssimato, l'\textit{errore quadratico
+medio} (o \textit{Root Mean Squared Error}, RMSE) terminale \`{e}
+\[
+\mathrm{RMSE}_T(\Delta t)
+=
+\left(
+\mathbb{E}\left[
+\left(
+S_T^{(\Delta t)}-S_T
+\right)^2
+\right]
+\right)^{1/2}.
+\]
+In una simulazione Monte Carlo con $M$ traiettorie indipendenti, questa
+quantit\`{a} viene stimata da
+\[
+\widehat{\mathrm{RMSE}}_T(\Delta t)
+=
+\left(
+\frac{1}{M}
+\sum_{j=1}^{M}
+\left(
+S_{T,j}^{(\Delta t)}-S_{T,j}
+\right)^2
+\right)^{1/2},
+\]
+dove $S_{T,j}^{(\Delta t)}$ \`{e} il valore approssimato della
+$j$-esima traiettoria e $S_{T,j}$ \`{e} il corrispondente valore esatto
+calcolato dalla soluzione esplicita del GBM usando la stessa
+realizzazione browniana.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.75\textwidth]{../graphics/Cap06_EulerMaruyama_RMSE.png}
+\caption{Errore quadratico medio terminale per l'approssimazione di
+Eulero--Maruyama nel caso del moto browniano geometrico. All'aumentare
+del numero di passi temporali, l'errore di discretizzazione al tempo
+finale si riduce.}
+\label{fig:EulerMaruyama_RMSE}
+\end{figure}
+
+La Figura~\ref{fig:EulerMaruyama_RMSE} mostra una diagnostica specifica:
+l'errore quadratico medio al tempo finale nel caso del GBM, per il quale
+il confronto con la soluzione esplicita \`{e} disponibile. Il grafico non
+esaurisce la teoria dell'errore di discretizzazione, ma illustra un
+principio generale: griglie pi\`{u} fini tendono a migliorare
+l'approssimazione, al prezzo di un maggiore costo computazionale.
+
+Vi \`{e} inoltre un limite pi\`{u} sottile, ma molto importante. Alcuni
+processi continui possiedono propriet\`{a} strutturali che lo schema
+discreto pu\`{o} non preservare automaticamente. Per esempio, nel caso
+del moto browniano geometrico il processo continuo resta positivo,
+mentre la sua approssimazione di Eulero--Maruyama pu\`{o}, per passi
+troppo grandi o shock molto sfavorevoli, produrre valori negativi.
+Analogamente, per processi come il CIR, la non negativit\`{a} richiede
+particolare attenzione nella discretizzazione. Questo mostra che la
+simulazione numerica non consiste soltanto nell'applicare una formula
+ricorsiva, ma anche nel valutare la coerenza dell'approssimazione con la
+struttura del modello.
+
+\section{Esempi numerici e confronti tra modelli}
+
+Le sezioni precedenti hanno introdotto i principali processi in tempo
+continuo utilizzati nella modellizzazione finanziaria. In questa sezione
+raccogliamo alcuni esempi numerici con funzione comparativa. L'obiettivo
+non \`{e} introdurre nuovi modelli, ma rendere visibili alcune propriet\`{a}
+strutturali gi\`{a} discusse: la scala degli incrementi browniani, la
+distinzione tra drift del prezzo e drift logaritmico nel moto browniano
+geometrico, la differenza tra processi mean-reverting gaussiani e non
+negativi, e il ruolo della correlazione nella simulazione congiunta di
+fattori di rischio.
+
+Gli esempi sono costruiti in modo da mantenere un collegamento esplicito
+con applicazioni economiche, finanziarie ed energetiche. In particolare,
+gli incrementi browniani possono essere interpretati come innovazioni di
+breve periodo nei log-rendimenti; il GBM come modello elementare per
+prezzi finanziari o commodities; i processi OU e CIR come modelli per
+spread, tassi e fattori positivi; la correlazione come componente
+fondamentale nella simulazione multi-asset e nella gestione del rischio.
+
+\subsection*{Esempio 1: incrementi browniani su orizzonti diversi}
+
+Sia $\{W_t\}_{t\geq 0}$ un moto browniano standard. Per ogni intervallo
+temporale di ampiezza $h>0$, l'incremento browniano soddisfa
+\[
+W_{t+h}-W_t \sim \mathcal{N}(0,h).
+\]
+La media dell'incremento \`{e} nulla, mentre la varianza cresce
+linearmente con l'ampiezza dell'orizzonte. Ne segue che la deviazione
+standard dell'incremento \`{e} pari a
+\[
+\sqrt{h}.
+\]
+Questa propriet\`{a} \`{e} centrale nella simulazione delle equazioni
+differenziali stocastiche: gli shock browniani non crescono in scala
+$\Delta t$, ma in scala $\sqrt{\Delta t}$.
+
+In un contesto finanziario, questa relazione implica che l'incertezza su
+orizzonti pi\`{u} lunghi non si ottiene moltiplicando linearmente lo shock
+istantaneo, ma accumulando varianza nel tempo. In modo analogo, nei
+mercati energetici, variazioni inattese dei prezzi spot o dei rendimenti
+di contratti su commodities possono essere modellizzate, in prima
+approssimazione, mediante shock la cui dispersione cresce con la radice
+dell'orizzonte temporale.
+
+Consideriamo tre orizzonti:
+\[
+h=0.05,
+\qquad
+h=0.25,
+\qquad
+h=1.
+\]
+Le corrispondenti distribuzioni degli incrementi sono tutte centrate in
+zero, ma presentano dispersione crescente.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.78\textwidth]{../graphics/Cap06_Brownian_incrementi_orizzonti.png}
+\caption{Distribuzione empirica di incrementi browniani simulati su
+orizzonti temporali diversi. La dispersione aumenta con l'ampiezza
+dell'intervallo, coerentemente con la relazione
+$W_{t+h}-W_t\sim\mathcal{N}(0,h)$.}
+\label{fig:Brownian_incrementi_orizzonti}
+\end{figure}
+
+La Figura~\ref{fig:Brownian_incrementi_orizzonti} visualizza il ruolo
+della scala temporale. Aumentando $h$, la distribuzione resta centrata in
+zero, ma diventa progressivamente pi\`{u} ampia. Questo risultato spiega
+perch\'{e}, negli schemi di simulazione, l'innovazione browniana su un
+passo $\Delta t$ venga rappresentata come
+\[
+\sqrt{\Delta t}\,Z,
+\qquad
+Z\sim\mathcal{N}(0,1).
+\]
+
+\subsection*{Esempio 2: moto browniano geometrico, drift e volatilit\`{a}}
+
+Consideriamo il moto browniano geometrico nella forma
+\[
+dS_t=\mu S_t\,dt+\sigma S_t\,dW_t,
+\qquad
+S_0>0.
+\]
+La soluzione esplicita \`{e}
+\[
+S_t
+=
+S_0
+\exp\left[
+\left(\mu-\frac{1}{2}\sigma^2\right)t+\sigma W_t
+\right].
+\]
+In questa rappresentazione $\mu$ \`{e} il drift del prezzo. Il
+coefficiente del tempo nel log-prezzo \`{e} invece
+\[
+m=\mu-\frac{1}{2}\sigma^2,
+\]
+e rappresenta il drift logaritmico. La distinzione tra $\mu$ e $m$ non
+\`{e} soltanto notazionale, ma ha conseguenze dirette
+sull'interpretazione dei parametri.
+
+Infatti, nella parametrizzazione tramite SDE,
+\[
+\mathbb{E}[S_t]=S_0e^{\mu t}.
+\]
+Pertanto, a parit\`{a} di $\mu$, la volatilit\`{a} modifica la dispersione
+della distribuzione di $S_t$, ma non il suo valore atteso. Se invece si
+parametrizza il modello come
+\[
+S_t=S_0\exp(m t+\sigma W_t),
+\]
+allora
+\[
+\mathbb{E}[S_t]
+=
+S_0
+\exp\left[
+\left(m+\frac{1}{2}\sigma^2\right)t
+\right].
+\]
+In questo secondo caso, a parit\`{a} di drift logaritmico $m$, un aumento
+di $\sigma$ aumenta la media aritmetica del prezzo. L'effetto deriva
+dalla convessit\`{a} della funzione esponenziale e dalla natura lognormale
+del processo.
+
+Per isolare l'effetto del drift del prezzo, manteniamo $\sigma$ fisso e
+utilizziamo la stessa realizzazione browniana per diversi valori di
+$\mu$.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.78\textwidth]{../graphics/Cap06_GBM_drift_mu_confronto.png}
+\caption{Traiettorie di moto browniano geometrico generate sulla stessa
+realizzazione browniana, con volatilit\`{a} fissata e diversi valori del
+drift del prezzo $\mu$. A parit\`{a} di $\sigma$, un valore pi\`{u}
+elevato di $\mu$ sposta la traiettoria verso l'alto.}
+\label{fig:GBM_drift_mu_confronto}
+\end{figure}
+
+La Figura~\ref{fig:GBM_drift_mu_confronto} mostra un confronto
+controllato. Poich\'{e} la realizzazione browniana e la volatilit\`{a}
+sono le stesse, la differenza tra le traiettorie dipende esclusivamente
+dal drift del prezzo. Se $\mu_2>\mu_1$ e $\sigma$ \`{e} fissato, allora
+lungo la stessa realizzazione browniana si ha
+\[
+\frac{S_t(\mu_2,\sigma)}{S_t(\mu_1,\sigma)}
+=
+\exp\left[(\mu_2-\mu_1)t\right].
+\]
+La traiettoria con drift pi\`{u} elevato rimane quindi sopra quella con
+drift inferiore.
+
+Consideriamo ora la parametrizzazione alternativa, in cui si mantiene
+fisso il drift logaritmico $m$ e si varia $\sigma$. In questo caso la
+media aritmetica del prezzo dipende dalla volatilit\`{a} secondo la
+relazione
+\[
+\mathbb{E}[S_t]
+=
+S_0
+\exp\left[
+\left(m+\frac{1}{2}\sigma^2\right)t
+\right].
+\]
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.78\textwidth]{../graphics/Cap06_GBM_media_m_fisso.png}
+\caption{Media teorica del moto browniano geometrico a drift logaritmico
+$m$ fissato e diversi valori di $\sigma$. A parit\`{a} di $m$, un aumento
+della volatilit\`{a} aumenta la media aritmetica del prezzo per effetto
+della convessit\`{a} dell'esponenziale.}
+\label{fig:GBM_media_m_fisso}
+\end{figure}
+
+La Figura~\ref{fig:GBM_media_m_fisso} chiarisce il ruolo della
+volatilit\`{a} quando il drift logaritmico \`{e} mantenuto fisso. Un
+aumento di $\sigma$ aumenta $\mathbb{E}[S_t]$, ma non implica che ogni
+singola traiettoria simulata debba collocarsi pi\`{u} in alto. L'effetto
+\`{e} distribuzionale: una maggiore dispersione lognormale si traduce in
+una media aritmetica pi\`{u} elevata.
+
+\subsection*{Esempio 3: confronto tra OU e CIR}
+
+Consideriamo ora due processi mean-reverting. Il processo di
+Ornstein--Uhlenbeck \`{e}
+\[
+dX_t=\kappa(\theta-X_t)\,dt+\sigma\,dW_t,
+\]
+mentre il processo di Cox--Ingersoll--Ross \`{e}
+\[
+dr_t=\kappa(\theta-r_t)\,dt+\sigma\sqrt{r_t}\,dW_t.
+\]
+Entrambi condividono un drift di richiamo verso il livello di lungo
+periodo $\theta$, ma differiscono radicalmente nella componente di
+diffusione.
+
+Il processo OU ha diffusione additiva e costante. Di conseguenza, \`{e}
+gaussiano e pu\`{o} assumere valori negativi. Questa caratteristica non
+\`{e} necessariamente problematica quando il fattore modellizzato \`{e}
+uno spread, uno scostamento da un equilibrio o una componente transitoria
+di prezzo. In mercati energetici, per esempio, un modello OU pu\`{o}
+essere usato per rappresentare deviazioni temporanee di un prezzo o di
+uno spread rispetto a un livello normale.
+
+Il processo CIR, invece, ha diffusione proporzionale a $\sqrt{r_t}$.
+Quando il processo si avvicina a zero, la componente casuale si riduce,
+mentre il drift tende a spingere il processo verso il livello positivo
+$\theta$. Questa struttura \`{e} coerente con variabili non negative,
+come tassi di interesse, intensit\`{a} di default, intensit\`{a} di salto
+o fattori di varianza.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.78\textwidth]{../graphics/Cap06_OU_CIR_confronto.png}
+\caption{Confronto simulato tra un processo di Ornstein--Uhlenbeck e un
+processo di Cox--Ingersoll--Ross. Entrambi presentano richiamo verso il
+livello $\theta$, ma il processo OU pu\`{o} assumere valori negativi,
+mentre il CIR mantiene il vincolo di non negativit\`{a}.}
+\label{fig:OU_CIR_confronto}
+\end{figure}
+
+La Figura~\ref{fig:OU_CIR_confronto} evidenzia il diverso comportamento
+dei due modelli. Il meccanismo di mean reversion \`{e} presente in
+entrambi, ma la natura della diffusione cambia la struttura delle
+traiettorie. L'OU oscilla attorno a $\theta$ senza vincolo inferiore,
+mentre il CIR combina mean reversion e non negativit\`{a}. Questo
+confronto mostra che la scelta del coefficiente di diffusione non \`{e}
+un dettaglio tecnico, ma determina quali propriet\`{a} economiche il
+modello pu\`{o} rappresentare.
+
+\subsection*{Esempio 4: effetto della correlazione su due fattori}
+
+Consideriamo infine due fattori browniani $W_{1,t}$ e $W_{2,t}$ con
+correlazione istantanea
+\[
+dW_{1,t}\,dW_{2,t}=\rho\,dt.
+\]
+Dal punto di vista operativo, possiamo generare gli shock correlati a
+partire da due normali standard indipendenti $Z_1$ e $Z_2$ mediante
+\[
+\varepsilon_1=Z_1,
+\qquad
+\varepsilon_2=\rho Z_1+\sqrt{1-\rho^2}\,Z_2.
+\]
+Allora
+\[
+\mathrm{Corr}(\varepsilon_1,\varepsilon_2)=\rho.
+\]
+Questa costruzione \`{e} il caso bidimensionale della fattorizzazione
+\[
+\varepsilon=LZ,
+\qquad
+R=LL'.
+\]
+
+La correlazione tra fattori \`{e} essenziale in qualunque problema di
+portafoglio o di gestione integrata del rischio. In finanza, essa
+governa la dipendenza tra rendimenti azionari, tassi, cambi e spread di
+credito. In energia, pu\`{o} descrivere la relazione tra prezzi di
+elettricit\`{a}, gas, emission allowances e produzione rinnovabile. Una
+correlazione negativa pu\`{o} essere particolarmente rilevante quando un
+fattore svolge un ruolo di copertura rispetto a un altro.
+
+Per mostrare l'effetto della correlazione, confrontiamo due simulazioni
+basate sugli stessi shock di base: una con $\rho=0$ e una con
+$\rho=-0.45$. Nel primo caso gli incrementi dei due fattori sono
+indipendenti; nel secondo caso tendono a muoversi in direzioni opposte
+con maggiore frequenza.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.78\textwidth]{../graphics/Cap06_correlazione_traiettorie_rho0.png}
+\caption{Due fattori browniani simulati con correlazione istantanea
+nulla. Le traiettorie sono guidate da shock indipendenti e non mostrano
+una struttura sistematica di co-movimento degli incrementi.}
+\label{fig:correlazione_traiettorie_rho0}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.78\textwidth]{../graphics/Cap06_correlazione_traiettorie_rho_m045.png}
+\caption{Due fattori browniani simulati con correlazione istantanea
+negativa. Le traiettorie non sono speculari, ma gli incrementi tendono a
+muoversi con maggiore frequenza in direzioni opposte.}
+\label{fig:correlazione_traiettorie_rho_m045}
+\end{figure}
+
+Le Figure~\ref{fig:correlazione_traiettorie_rho0} e
+\ref{fig:correlazione_traiettorie_rho_m045} chiariscono che la
+correlazione non impone una relazione deterministica tra le traiettorie.
+Essa agisce sugli shock elementari e modifica la frequenza con cui i
+fattori si muovono nella stessa direzione oppure in direzioni opposte. In
+un modello multi-asset, questo aspetto ha effetti diretti sulla
+diversificazione: una correlazione negativa tende a ridurre la componente
+comune del rischio e pu\`{o} rafforzare il beneficio della combinazione
+di pi\`{u} fattori in portafoglio.
+
+Questi esempi mostrano che le propriet\`{a} qualitative dei processi in
+tempo continuo non sono aspetti puramente formali. La scala degli
+incrementi browniani determina la costruzione degli schemi numerici; la
+parametrizzazione del GBM modifica crescita, dispersione e media
+aritmetica; la forma della diffusione distingue OU e CIR; la correlazione
+governa la trasmissione congiunta degli shock. Nella lezione applicativa
+successiva questi elementi diventeranno procedure computazionali per
+simulare traiettorie, generare scenari e stimare quantit\`{a} finanziarie
+mediante Monte Carlo.
+
+
 
 
 
