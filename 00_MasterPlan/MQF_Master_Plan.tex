@@ -584,6 +584,7 @@ predisposta; dimostrazioni essenziali da definire.
 \subsection{Lezione 4 -- Applicazione in Python: probabilit\`{a}, variabili
 casuali, valori attesi condizionati}
 
+
 \textbf{Tipo:} C.\newline\textbf{Domanda guida:} come si trasformano
 probabilit\`{a}, distribuzioni e valori attesi condizionati in procedure
 computabili e simulabili?\newline\textbf{Prerequisiti:} Lezioni 1--3; basi
@@ -610,6 +611,59 @@ ripartizione empirica; quantili; confronto tra stime condizionate per classi
 informative.\newline\textbf{Applicazioni Python collegate:} applicazione
 Python 1.\newline\textbf{Stato di avanzamento:} nuova lezione introdotta;
 capitolo, slides e codice da scrivere.
+
+\paragraph{Materiali applicativi della lezione.}
+Per la Lezione 4 devono essere predisposti: capitolo del manuale, slides
+applicative, notebook Python semi-strutturato, script Python completo di
+soluzione, figure generate da Python e una breve estensione take-home. Il caso
+applicativo guida \`{e} l'analisi simulata di una perdita di portafoglio a un
+periodo in presenza di stati informativi di mercato.
+
+\paragraph{Controlli intermedi.}
+Ogni tappa computazionale deve concludersi con un controllo numerico o logico
+semplice e con una domanda interpretativa. I controlli minimi riguardano:
+somma delle probabilit\`{a} degli stati, confronto tra probabilit\`{a} teoriche e
+frequenze simulate, assenza di classi vuote, coerenza delle probabilit\`{a} di
+superamento soglia, costanza delle medie condizionate entro ciascuno stato e
+verifica empirica della relazione
+\[
+\E\left[\E[L\mid\G]\right]=\E[L].
+\]
+
+\paragraph{Estensione take-home.}
+L'estensione take-home consiste nel confronto tra una partizione informativa
+grossolana e una partizione informativa pi\`{u} fine. Gli studenti devono
+costruire le corrispondenti previsioni condizionate della perdita, verificarne
+la coerenza con la media non condizionata e commentare l'effetto della maggiore
+informazione sulla differenziazione delle previsioni.
+
+\paragraph{Caso applicativo guida.}
+Il caso applicativo guida della Lezione 4 \`{e} la simulazione Monte Carlo dei
+rendimenti e delle perdite di un portafoglio finanziario a un periodo. Il valore
+iniziale del portafoglio \`{e} indicato con $V_{0}>0$, il rendimento aleatorio con
+$R$ e la perdita con
+\[
+L=-V_{0}R.
+\]
+L'informazione di mercato \`{e} rappresentata da una variabile discreta di stato
+$Z\in\{N,V,S\}$, dove $N$ indica un mercato normale, $V$ una fase di volatilit\`{a}
+elevata e $S$ uno stato di stress. Gli eventi informativi sono
+\[
+A_N=\{Z=N\},\qquad A_V=\{Z=V\},\qquad A_S=\{Z=S\},
+\]
+e generano la sigma-algebra informativa
+\[
+\G=\sigma(A_N,A_V,A_S).
+\]
+Condizionatamente allo stato $Z=g$, il rendimento del portafoglio viene simulato
+come
+\[
+R\mid Z=g \sim \mathcal{N}(\mu_g,\sigma_g^2).
+\]
+Il laboratorio utilizza questo caso per stimare distribuzioni empiriche della
+perdita, probabilit\`{a} di superamento di soglie, valori attesi non condizionati,
+valori attesi condizionati rispetto agli eventi informativi e la variabile
+casuale $\E[L\mid\G]$.
 
 \subsection{Lezione 5 -- Processi stocastici I: tempo discreto, informazione e
 martingale}
