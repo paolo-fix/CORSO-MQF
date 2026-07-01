@@ -1,0 +1,53 @@
+{
+  "name": "codex-vscode-bridge",
+  "displayName": "Codex VS Code Bridge",
+  "description": "Exports VS Code editor state, diagnostics, dirty files, and Git status to JSON for Codex sessions.",
+  "version": "0.1.0",
+  "publisher": "local-codex",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onCommand:codexBridge.writeState"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "codexBridge.writeState",
+        "title": "Codex Bridge: Write State Now"
+      }
+    ],
+    "configuration": {
+      "title": "Codex VS Code Bridge",
+      "properties": {
+        "codexBridge.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable automatic export of VS Code state for Codex."
+        },
+        "codexBridge.writeWorkspaceFile": {
+          "type": "boolean",
+          "default": true,
+          "description": "Write .codex/vscode_state.json inside each workspace folder."
+        },
+        "codexBridge.writeGlobalFile": {
+          "type": "boolean",
+          "default": true,
+          "description": "Write the latest state to ~/.codex/vscode-bridge/latest.json."
+        },
+        "codexBridge.maxDiagnostics": {
+          "type": "number",
+          "default": 500,
+          "minimum": 50,
+          "maximum": 5000,
+          "description": "Maximum number of diagnostics to export."
+        }
+      }
+    }
+  }
+}
