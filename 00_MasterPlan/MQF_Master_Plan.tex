@@ -465,39 +465,153 @@ Le lezioni applicative hanno la funzione di tradurre in forma computazionale i
 principali modelli quantitativi introdotti nelle lezioni teoriche. Esse non
 costituiscono un corso autonomo di programmazione, ma un laboratorio di
 modellizzazione: il codice Python viene utilizzato come strumento per rendere
-operativi concetti probabilistici, finanziari e di ottimizzazione gi\`{a}
-discussi nel manuale e nelle slide teoriche.
+operativi, osservabili e verificabili concetti probabilistici, finanziari e di
+ottimizzazione gi\`{a} discussi nel manuale e nelle slide teoriche.
 
-Ciascuna lezione applicativa ha una durata complessiva di 2 ore e 15 minuti,
-di cui 15 minuti destinati alla pausa. Il tempo effettivo di lavoro \`{e}
-quindi pari a circa 120 minuti. Le lezioni si svolgono in laboratorio
-informatico, con postazioni individuali Windows per gli studenti e schermi di
-aula per la proiezione di slide, codice, risultati numerici, grafici e, quando
-opportuno, schermate provenienti dalle postazioni degli studenti.
+Le cinque lezioni applicative del corso sono collocate nelle Lezioni 4, 7, 10,
+13 e 16. Esse devono essere sviluppate secondo una struttura comune, in modo che
+gli studenti riconoscano una progressione stabile tra problema finanziario,
+specificazione teorica, procedura computazionale, output osservabili, controlli
+e interpretazione.
 
-La struttura didattica ricorrente delle lezioni applicative \`{e} articolata
-come segue.
-
+Ciascuna lezione applicativa deve prevedere una coppia di casi:
 \begin{enumerate}
-\item \textbf{Introduzione del caso applicativo.} Presentare un problema
-finanziario o probabilistico concreto, formulato in modo coerente con i
-contenuti teorici del corso.
+\item un \textbf{caso aula}, sviluppato dal docente durante la lezione, con uso
+esplicito e controllato dell'IA generativa secondo prompt virtuosi;
 
-\item \textbf{Richiamo matematico-operativo.} Richiamare variabili, parametri,
-formule principali, vincoli, quantit\`{a} da stimare o ottimizzare.
-
-\item \textbf{Introduzione mirata degli strumenti Python.} Introdurre soltanto
-gli elementi di programmazione necessari al caso trattato.
-
-\item \textbf{Sviluppo guidato del codice.} Mostrare il passaggio dalla
-formulazione matematica alla struttura computazionale.
-
-\item \textbf{Output, grafici e interpretazione.} Commentare i risultati
-numerici e grafici in termini finanziari.
-
-\item \textbf{Esercizi di modifica.} Proporre modifiche dei parametri, delle
-ipotesi o del modello per consolidare l'apprendimento.
+\item un \textbf{caso take-home}, distinto dal caso aula ma metodologicamente
+comparabile, assegnato agli studenti come lavoro autonomo.
 \end{enumerate}
+
+Il caso take-home non deve essere una semplice variazione parametrica del caso
+aula. Deve invece essere isomorfo sul piano metodologico: deve richiedere
+strumenti teorici, tappe logiche e tipi di output analoghi, ma in un contesto
+finanziario o probabilistico distinto.
+
+Per ogni lezione applicativa devono essere predisposti almeno i seguenti
+materiali:
+\begin{enumerate}
+
+\item Traccia del caso aula (\texttt{Caso\_Aula\_Traccia.md}). 
+È il caso svolto dal professore. Serve a mostrare il metodo: decomposizione del problema, uso dei regimi A/B/C, prompt virtuosi, costruzione del notebook, controlli e interpretazione.
+
+\item Notebook docente del caso aula (\texttt{Caso\_Aula\_Notebook\_Docente.ipynb}). 
+Notebook Jupyter completo, eseguito, con celle Markdown e codice. Non deve essere solo codice: deve mostrare input, output, tappe, prompt esemplari, controlli e interpretazione.
+
+\item Successione di prompt virtuosi utilizzati nel caso aula \\(\texttt{Caso\_Aula\_PromptTrace\_Docente.md}). 
+Traccia ordinata dei prompt usati dal docente. Questa non è necessariamente consegnata integralmente agli studenti, ma può essere mostrata in aula come modello.
+
+\item Traccia del caso take-home (\texttt{Caso\_TakeHome\_Traccia.md}). 
+Caso diverso ma strutturalmente comparabile al caso aula. Deve richiedere gli stessi strumenti concettuali, ma non consentire una semplice sostituzione meccanica.
+
+\item Scheda docente di calibrazione del caso take-home \\(\texttt{Caso\_TakeHome\_Scheda\_Calibrazione\_Docente.md}). 
+Documento interno, non necessariamente distribuito. Deve contenere: premesse teoriche attese, tappe risolutive, input/output tra tappe, output richiesti, prompt docente di riferimento, numero minimo e massimo di prompt.
+
+\item Notebook studente, semi-strutturato (\texttt{Caso\_TakeHome\_Notebook\_Studente.ipynb}). 
+Può essere semi-vuoto o strutturato per blocchi. Gli studenti non devono partire da un file bianco, coerentemente con le Guidelines, che raccomandano notebook semi-strutturati con dati, parametri, funzioni, output, grafici, blocchi da completare e domande interpretative.
+
+\item Template del tracciato IA in formato Markdown, che verrà prodotto dallo studente (\texttt{Template\_Tracciato\_AI\_Studente.md}). 
+Questo diventa l’oggetto centrale della valutazione metodologica: non solo ``cosa hai ottenuto'', ma ``come hai governato l'AI''.
+
+\item Rubrica di valutazione del notebook e del tracciato IA (\texttt{Rubrica\_Valutazione.md}). 
+Documento contenente criteri e pesi di valutazione del notebook e del \\ \texttt{Tracciato\_AI\_Studente}.
+
+\item Prompt da sottoporre all'AI per valutare la qualità del \texttt{Tracciato\_AI\_Studente} (\texttt{Prompt\_Valutatore\_AI.md}). Serve un prompt valutatore che riceva: traccia del caso, scheda docente di calibrazione, notebook/output dello studente e tracciato .md. La valutazione AI deve produrre punteggio, motivazione, prompt migliori, prompt problematici, eventuali deleghe improprie
+
+\end{enumerate}
+
+La scheda docente di calibrazione del caso take-home deve essere predisposta
+prima dell'assegnazione agli studenti. Essa deve indicare:
+\begin{enumerate}
+\item premesse teorico-matematiche necessarie;
+
+\item scomposizione attesa del problema in tappe;
+
+\item collegamenti input--output tra le tappe;
+
+\item output richiesti, quali stime, tabelle, grafici e controlli;
+
+\item successione di prompt docente di riferimento;
+
+\item numero minimo e massimo di prompt ammessi per il tracciato dello studente;
+
+\item criteri di valutazione.
+\end{enumerate}
+
+L'uso dell'IA generativa nelle lezioni applicative deve essere organizzato
+secondo tre regimi.
+
+\medskip
+
+\noindent
+\textbf{Regime A: ricognizione teorico-modellistica.}
+Lo studente utilizza l'IA per aiutarsi a riconoscere grandezze
+economico-finanziarie, variabili casuali o decisionali, eventi, stati
+informativi, scenari, ipotesi, formule e quantit\`{a} teoriche rilevanti.
+L'IA non deve risolvere il problema, n\`{e} imporre il modello finale.
+
+\medskip
+
+\noindent
+\textbf{Regime B: operazionalizzazione computazionale.}
+Data una specifica teorica validata, l'IA pu\`{o} essere utilizzata per
+costruire l'apparato computazionale: simulazione, dataset, struttura delle
+celle, codice Python, tabelle, output numerici e implementazione tecnica dei
+grafici. L'IA non deve modificare variabili, eventi, formule, ipotesi o
+significato finanziario del problema.
+
+\medskip
+
+\noindent
+\textbf{Regime C: verifica e interpretazione critica.}
+Lo studente verifica e interpreta. L'IA pu\`{o} intervenire solo come revisore
+critico di controlli, interpretazioni o discussioni gi\`{a} formulate dallo
+studente. L'IA non deve produrre l'interpretazione finale al posto dello
+studente.
+
+I tre regimi operano su due scale. Al livello del problema complessivo, essi
+servono a costruire il percorso risolutivo: inquadramento teorico, tappe
+principali, output finali e controlli. Al livello della singola tappa, essi
+servono a governare un passaggio specifico della procedura.
+
+Ogni tappa applicativa deve essere trattata come modulo input--output:
+\[
+\text{input}_{k}
+\longrightarrow
+\text{operazione}_{k}
+\longrightarrow
+\text{output}_{k}
+\longrightarrow
+\text{uso in } k+1.
+\]
+Per ogni tappa devono essere esplicitati: input disponibili, obiettivo,
+regime prevalente, prompt virtuoso di riferimento, oggetti teorici coinvolti,
+operazione computazionale, output prodotto, controllo numerico o logico e uso
+dell'output nella tappa successiva.
+
+Il notebook Jupyter non deve essere una semplice sequenza di celle di codice.
+Ogni tappa deve essere documentata mediante celle Markdown e celle codice,
+rendendo visibile il legame tra formulazione teorica, operazione Python, output
+e interpretazione. Una tappa didattica pu\`{o} comprendere pi\`{u} celle:
+specificazione teorica, prompt di riferimento, codice, controllo e commento
+interpretativo.
+
+La valutazione dei lavori take-home deve riguardare congiuntamente il notebook
+e il tracciato dell'interazione con l'IA. Non deve premiare la complessit\`{a}
+autonoma del codice Python, ma la capacit\`{a} dello studente di governare
+l'interazione con l'IA mantenendo controllo teorico, computazionale e
+interpretativo del problema quantitativo-finanziario.
+
+La struttura didattica ricorrente delle lezioni applicative \`{e} quindi:
+\[
+\text{caso aula dimostrativo}
+\longrightarrow
+\text{caso take-home calibrato}
+\longrightarrow
+\text{notebook operativo}
+\longrightarrow
+\text{tracciato IA valutabile}.
+\]
 
 \section{Schede dettagliate delle lezioni}
 
