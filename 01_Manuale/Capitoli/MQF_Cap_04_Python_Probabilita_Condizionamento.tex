@@ -28,6 +28,268 @@
 
 % Capitoli/MQF_Cap_04_Python_Probabilita_Condizionamento.tex
 
-\chapter[Scenario analysis]{Scenario analysis e informazione condizionata in Python}
 
-una banca o un asset manager detiene un portafoglio esposto a pochi fattori macro-finanziari
+\chapter[Applicazioni con IA e Python]{Scenario analysis e informazione condizionata con IA e Python}
+
+\section{Uso virtuoso dell'IA nelle applicazioni quantitative}
+
+\subsection{Perch\`{e} ammettere l'IA in un corso di finanza quantitativa}
+
+L'uso dell'intelligenza artificiale generativa nella didattica universitaria
+presenta un rischio evidente. Lo studente pu\`{o} utilizzarla per evitare ogni
+sforzo intellettuale: chiedere allo strumento di capire il problema, scegliere
+il modello, scrivere il codice, produrre i risultati e formulare
+l'interpretazione finale. In questo caso, il prodotto consegnato viene
+presentato come se fosse frutto del lavoro dello studente, mentre in realt\`{a}
+\`{e} stato generato artificialmente senza controllo sostanziale.
+
+Questo \`{e} l'uso vizioso dell'IA. Esso non consiste semplicemente nell'usare
+uno strumento generativo, ma nel trasferire allo strumento la responsabilit\`{a}
+cognitiva del lavoro. In un corso di finanza quantitativa, tale uso \`{e}
+particolarmente problematico, perch\`{e} pu\`{o} produrre codice, tabelle e
+grafici formalmente plausibili senza che lo studente abbia compreso gli oggetti
+matematici, le ipotesi del modello o il significato finanziario dei risultati.
+
+L'IA viene tuttavia ammessa nelle lezioni applicative perch\`{e} esiste anche un
+uso virtuoso. In questo secondo caso, lo studente non usa l'IA per sottrarsi al
+ragionamento, ma per rendere pi\`{u} efficace il lavoro sui modelli. L'IA pu\`{o}
+aiutare a chiarire concetti, proporre domande di controllo, tradurre una
+specificazione teorica in una procedura computazionale, generare codice,
+costruire output e revisionare criticamente un'interpretazione gi\`{a}
+formulata.
+
+La distinzione fondamentale \`{e} quindi la seguente:
+\begin{center}
+\begin{tabular}{p{5.2cm}p{6.8cm}}
+Uso virtuoso & l'IA aiuta lo studente a lavorare meglio su un problema di cui
+egli conserva il controllo teorico, computazionale e interpretativo; \\
+Uso vizioso & l'IA sostituisce lo studente nei passaggi essenziali e consente
+di presentare come proprio un prodotto non realmente governato.
+\end{tabular}
+\end{center}
+
+Nel corso, Python non viene introdotto come contenuto autonomo di
+programmazione. Esso serve a rendere osservabili modelli quantitativi gi\`{a}
+discussi sul piano teorico. Per questa ragione, l'IA pu\`{o} essere utilizzata
+per ridurre la frizione tecnico-computazionale, ma non per eliminare il lavoro
+di comprensione, controllo e interpretazione.
+
+La regola didattica generale \`{e}:
+\begin{center}
+\begin{tabular}{c}
+lo studente chiarisce il significato del problema; \\
+l'IA pu\`{o} aiutare a renderlo computabile; \\
+lo studente verifica e interpreta i risultati.
+\end{tabular}
+\end{center}
+
+L'uso dell'IA non viene quindi valutato in base alla quantit\`{a} di assistenza
+ricevuta, ma in base alla qualit\`{a} del controllo esercitato dallo studente.
+
+\subsection{Dall'uso virtuoso all'uso vizioso}
+
+L'interazione con l'IA pu\`{o} essere collocata lungo una scala. Ai livelli pi\`{u}
+virtuosi, lo strumento sostiene il ragionamento dello studente; ai livelli pi\`{u}
+problematici, lo sostituisce.
+
+\begin{center}
+\small
+\begin{tabular}{p{2.3cm}p{4.4cm}p{4.2cm}}
+Ruolo dell'IA & Funzione didattica IA & Valutazione nel corso \\ \hline
+Tutor & Aiuta a chiarire concetti, richiamare definizioni, proporre domande e
+guidare il ragionamento. & Uso ammesso, purch\`{e} lo studente validi quanto
+riceve. \\
+Sparring partner & Confronta una soluzione dello studente con alternative,
+obiezioni o casi particolari. & Uso ammesso, perch\`{e} stimola controllo e
+revisione. \\
+Revisore & Segnala ambiguit\`{a}, errori, passaggi mancanti o conclusioni troppo
+forti. & Uso ammesso, se esiste gi\`{a} una produzione dello studente. \\
+Automazione produttiva & Genera codice, testo, sintesi, tabelle o grafici. &
+Uso delicato: ammesso solo se vincolato da una specifica teorica e seguito da
+controllo. \\
+Autore occulto & Produce il lavoro sostituendo la responsabilit\`{a} cognitiva
+dello studente. & Uso improprio: il prodotto non documenta apprendimento.
+\end{tabular}
+\end{center}
+
+La categoria pi\`{u} delicata \`{e} l'automazione produttiva. In un corso che usa
+Python, una parte del codice pu\`{o} essere prodotta con l'aiuto dell'IA. Questo
+non \`{e} automaticamente scorretto. Diventa per\`{o} scorretto se il codice
+viene accettato senza sapere quale quantit\`{a} calcola, quali ipotesi utilizza
+e quali controlli richiede.
+
+Per questo motivo, l'automazione produttiva non \`{e} mai sufficiente da sola.
+Essa deve essere collocata tra una specificazione teorica preliminare e una
+verifica successiva. Il codice generato dall'IA pu\`{o} essere utile; un codice
+generato, non compreso e non controllato non ha valore formativo.
+
+\subsection{I tre regimi dell'interazione studente--IA}
+
+Per disciplinare l'uso dell'IA nelle lezioni applicative, distinguiamo tre
+regimi. Essi corrispondono a tre momenti diversi del lavoro quantitativo.
+
+\begin{center}
+\small
+\begin{tabular}{p{1.5cm}p{3.2cm}p{5.7cm}}
+Regime & Funzione IA & Responsabilit\`{a} principale \\ \hline
+A & Ricognizione teorico-modellistica & Lo studente identifica grandezze,
+variabili casuali o decisionali, eventi, informazione, ipotesi e quantit\`{a} da
+calcolare. L'IA pu\`{o} aiutare a ordinare i concetti, a ricavare una mappa concettuale, a scomporre un problema complessivo in sotto-blocchi, ma non deve risolvere il
+problema. \\
+B & Scrittura codice & L'IA pu\`{o} costruire codice,
+strutture dati, tabelle e grafici, ma deve rispettare la specifica teorica
+validata dallo studente. \\
+C & Verifica e interpretazione critica & Lo studente controlla output, formule
+e significato finanziario. L'IA pu\`{o} agire come revisore, non come autore
+della conclusione.
+\end{tabular}
+\end{center}
+
+Nel Regime A, l'IA viene usata per orientare il ragionamento teorico. Una
+richiesta o \textit{prompt} ammesso non chiede di risolvere il caso, ma di distinguere gli
+oggetti concettuali coinvolti.
+
+\begin{quote}
+\small
+\noindent{\ttfamily\raggedright
+sto lavorando su un problema di perdita di portafoglio in diversi stati di
+mercato; aiutami a distinguere variabili casuali, eventi, informazione
+disponibile, quantit\`{a} teoriche e ipotesi rilevanti, senza risolvere il
+problema e senza scrivere codice.\par}
+\end{quote}
+
+Nel Regime B, l'IA viene usata per costruire l'apparato computazionale. La
+delega tecnica pu\`{o} essere ampia, ma deve essere vincolata.
+
+\begin{quote}
+\small
+\noindent{\ttfamily\raggedright
+data la variabile di perdita L, l'evento di stress S e la formula della media
+empirica condizionata, costruisci una procedura Python coerente; puoi scegliere
+la struttura tecnica del codice, ma non modificare variabile, evento e formula.\par}
+\end{quote}
+
+Nel Regime C, l'IA viene usata come revisore critico. La condizione essenziale
+\`{e} che lo studente abbia gi\`{a} prodotto una verifica o un'interpretazione.
+
+\begin{quote}
+\small
+\noindent{\ttfamily\raggedright
+ho scritto questa interpretazione del risultato; valuta se distingue
+correttamente quantit\`{a} teorica e stima empirica, se \`{e} coerente con le
+ipotesi del modello e se contiene conclusioni troppo forti; non riscrivere il
+testo al posto mio.\par}
+\end{quote}
+
+I tre regimi non servono a limitare meccanicamente l'uso dell'IA, ma a chiarire
+che cosa pu\`{o} essere delegato e che cosa deve restare sotto responsabilit\`{a}
+dello studente. Il Regime A protegge la comprensione del problema; il Regime B
+rende possibile il lavoro computazionale; il Regime C protegge il controllo e
+l'interpretazione.
+
+\subsection{Dal problema complessivo alle tappe operative}
+
+L'IA pu\`{o} essere utilizzata a due scale diverse. La prima \`{e} la scala del
+problema complessivo. A questo livello, il compito non \`{e} ancora ottenere la
+soluzione, ma costruire il percorso di soluzione: individuare gli oggetti
+teorici, ordinare le tappe, stabilire quali output saranno necessari e chiarire
+quali controlli dovranno essere svolti.
+
+La seconda \`{e} la scala della singola tappa. A questo livello si lavora su un
+passaggio specifico: definire una variabile, costruire un evento, simulare una
+quantit\`{a}, calcolare una stima, produrre una tabella, generare un grafico o
+svolgere un controllo.
+
+La struttura generale \`{e}:
+\[
+(A_0 \to B_0 \to C_0)
+\quad \to \quad
+\left[
+(A_1 \to B_1 \to C_1),\ldots,
+(A_K \to B_K \to C_K)
+\right],
+\]
+dove il pedice $0$ indica il problema complessivo e il pedice $k$ indica la
+tappa $k$-esima.
+
+Ogni tappa deve avere una struttura input--output:
+\begin{center}
+\begin{tabular}{c}
+input disponibili $\to$ trasformazione richiesta $\to$ output prodotto \\
+$\to$ uso dell'output nella tappa successiva.
+\end{tabular}
+\end{center}
+
+Questa struttura \`{e} importante perch\`{e} impedisce di usare l'IA per produrre
+blocchi isolati di codice. Un blocco pu\`{o} essere sintatticamente corretto e
+tuttavia inutile se non si capisce quali input utilizza, quale output produce e
+perch\`{e} quell'output serve nel seguito dell'analisi.
+
+Una tappa ben formulata deve chiarire:
+\begin{enumerate}
+    \item quali oggetti sono gi\`{a} disponibili;
+
+    \item quale trasformazione deve essere realizzata;
+
+    \item quale output deve essere prodotto;
+
+    \item quale controllo deve essere svolto;
+
+    \item come l'output sar\`{a} utilizzato nella tappa successiva.
+\end{enumerate}
+
+In questo modo, il notebook non \`{e} una sequenza di celle generate con l'IA,
+ma una catena di oggetti teorico-computazionali collegati tra loro.
+
+\subsection{Prompt, output e controlli}
+
+Un prompt ammesso deve rendere visibile il ruolo assegnato all'IA. Non basta
+chiedere allo strumento di ``fare'' qualcosa. Occorre indicare il contesto, gli
+input disponibili, il regime di lavoro, il compito richiesto e i vincoli da
+rispettare.
+
+\begin{center}
+\small
+\begin{tabular}{p{3.0cm}p{8.6cm}}
+Elemento del prompt & Funzione \\ \hline
+Contesto & chiarisce il problema economico-finanziario; \\
+Input disponibili & indica che cosa \`{e} gi\`{a} stato definito o prodotto; \\
+Regime richiesto & distingue ricognizione, computazione e revisione critica; \\
+Compito & specifica che cosa l'IA deve fare; \\
+Vincoli & indica che cosa l'IA non deve modificare o decidere; \\
+Output richiesto & chiarisce la forma attesa della risposta; \\
+Uso successivo & collega l'output alla tappa corrente o successiva.
+\end{tabular}
+\end{center}
+
+Gli output prodotti con l'aiuto dell'IA devono essere trattati come oggetti da
+controllare, non come risultati da accettare. Stime, tabelle e grafici sono
+utili solo se rispondono a una quantit\`{a} teorica, a un confronto tra scenari
+o a una propriet\`{a} del modello.
+
+Per i grafici, la distinzione \`{e} particolarmente importante. L'IA pu\`{o}
+scrivere il codice necessario a produrre la figura, ma lo studente deve
+specificare che cosa il grafico deve mostrare: quale variabile, quale
+confronto, quale soglia, quale scenario, quale propriet\`{a} del modello. Un
+grafico generato senza una domanda informativa \`{e} un oggetto decorativo, non
+uno strumento di analisi.
+
+Ogni output deve essere accompagnato da controlli. I controlli possono
+riguardare dimensioni, domini, segni, coerenza con la formula, casi limite,
+stabilit\`{a} numerica o plausibilit\`{a} finanziaria. L'IA pu\`{o} suggerire
+controlli e produrre codice per realizzarli, ma non pu\`{o} certificare la
+correttezza del risultato. La correttezza deve essere argomentata dallo
+studente, collegando output, formula e ipotesi.
+
+La regola conclusiva \`{e}:
+\begin{center}
+\begin{tabular}{p{3.4cm}p{8.4cm}}
+Stime e tabelle & devono rispondere a una quantit\`{a} teorica o a un confronto
+definito; \\
+Grafici & devono rendere osservabile una propriet\`{a} del modello o degli
+scenari; \\
+Controlli & devono collegare output, formula e ipotesi; \\
+Interpretazione & deve restare proporzionata ai controlli effettivamente
+svolti.
+\end{tabular}
+\end{center}
