@@ -413,6 +413,28 @@ Le parole chiave della slide possono essere evidenziate con `\textbf{...}`, ma c
 
 Non si devono enfatizzare intere frasi, ne' sovraccaricare la slide con troppi termini in grassetto.
 
+## Formattazione delle istruzioni operative nel Manuale
+
+Nel Manuale, tutti i testi operativi che uno studente deve digitare o impartire a un sistema devono essere trattati come blocchi tecnici, non come formule matematiche e non come testo ordinario. La regola riguarda in particolare:
+
+1. prompt rivolti a strumenti di IA generativa;
+2. comandi da terminale o riga di comando;
+3. istruzioni testuali da inserire in un'interfaccia;
+4. comandi sintetici da copiare ed eseguire;
+5. input operativi rivolti a un software.
+
+La formattazione standard e' la seguente:
+
+    \begin{quote}
+    \small
+    \noindent{\ttfamily\raggedright
+    testo del comando o dell'istruzione.\par}
+    \end{quote}
+
+Non utilizzare display matematici del tipo `\[ \text{...} \]` per prompt, comandi o istruzioni operative. Tali elementi non sono formule matematiche, non devono essere confusi con il contenuto teorico e possono produrre problemi di impaginazione.
+
+Per riferimenti brevi a nomi di librerie, funzioni, variabili Python, file o comandi isolati all'interno del testo, e' invece ammesso l'uso di `\texttt{...}`. Ad esempio: `\texttt{numpy}`, `\texttt{pandas}`, `\texttt{pip}`, `\texttt{losses}`.
+
 ### 10.5 Formule matematiche
 
 Nel codice `.tex` delle slides si usa naturalmente il codice LaTeX. Nella chat di lavoro, invece, le formule matematiche vanno rese con la normale renderizzazione matematica in riga, salvo quando si sta producendo direttamente codice sorgente.
@@ -693,7 +715,7 @@ Sono previste cinque applicazioni Python, corrispondenti alle lezioni applicativ
 
 Le applicazioni Python devono essere concepite come laboratori di modellizzazione quantitativa. La finalita' principale non e' insegnare Python in modo autonomo, ma mostrare come un modello probabilistico, finanziario o ottimizzativo possa essere tradotto in una procedura computazionale controllabile, interpretabile e modificabile.
 
-Ogni applicazione deve essere costruita intorno a un caso identificabile. Il caso deve specificare:
+Ogni applicazione deve essere costruita intorno a un problema finanziario o probabilistico identificabile. Il caso applicativo deve specificare:
 
 1. il contesto finanziario o probabilistico;
 2. la domanda quantitativa da affrontare;
@@ -703,35 +725,92 @@ Ogni applicazione deve essere costruita intorno a un caso identificabile. Il cas
 6. gli output numerici e grafici attesi;
 7. il prodotto computazionale finale.
 
+### 14.1 Coppia caso aula / caso take-home
+
+Per ciascuna lezione applicativa deve essere progettata una coppia di casi:
+
+1. **caso aula**, sviluppato dal docente durante la lezione;
+2. **caso take-home**, assegnato agli studenti come lavoro autonomo.
+
+Il caso aula ha funzione dimostrativa. Deve mostrare come un problema quantitativo-finanziario venga trasformato in un percorso computazionale attraverso:
+
+1. ricognizione delle premesse teorico-matematiche;
+2. scomposizione del problema in tappe;
+3. identificazione degli input e degli output di ciascuna tappa;
+4. costruzione del notebook;
+5. produzione di stime, tabelle, grafici e controlli;
+6. interpretazione economico-finanziaria dei risultati;
+7. uso virtuoso dell'IA generativa, quando previsto, secondo le regole della Sezione 15.
+
+Il caso take-home deve essere distinto dal caso aula, ma metodologicamente comparabile. Non deve consistere in una semplice variazione parametrica del caso svolto in aula. Deve invece essere isomorfo sul piano metodologico: deve richiedere strumenti teorici analoghi, una struttura di tappe confrontabile e output dello stesso tipo generale, ma in un contesto finanziario o probabilistico diverso.
+
+Per ogni coppia caso aula / caso take-home devono essere chiari:
+
+1. quali concetti teorici vengono consolidati;
+2. quali strumenti computazionali vengono utilizzati;
+3. quali output devono essere prodotti;
+4. quali controlli devono essere svolti;
+5. quali elementi sono comuni ai due casi;
+6. quali elementi distinguono il caso take-home dal caso aula.
+
+### 14.2 Materiali da predisporre per ogni lezione applicativa
+
 Per ogni lezione applicativa devono essere predisposti almeno i seguenti materiali:
 
-1. una traccia del caso;
-2. un notebook o script Python semi-strutturato;
-3. eventuali file dati;
-4. una lista di parametri iniziali;
-5. una sequenza di tappe operative;
-6. controlli intermedi;
-7. output numerici attesi;
-8. grafici o tabelle da produrre;
-9. indicazioni per la discussione in aula;
-10. una o due estensioni take-home.
+1. traccia del caso aula;
+2. notebook docente del caso aula;
+3. eventuale successione di prompt virtuosi utilizzati nel caso aula;
+4. traccia del caso take-home;
+5. scheda docente di calibrazione del caso take-home;
+6. notebook studente, completo o semi-strutturato;
+7. eventuali file dati;
+8. lista dei parametri iniziali;
+9. sequenza di tappe operative;
+10. controlli intermedi;
+11. output numerici attesi;
+12. grafici o tabelle da produrre;
+13. indicazioni per la discussione in aula;
+14. template del tracciato IA in formato Markdown, se il lavoro prevede uso documentato dell'IA;
+15. rubrica di valutazione del notebook e del tracciato IA.
 
-Il notebook o script deve evitare che gli studenti partano da un file vuoto. La struttura consigliata e':
+La scheda docente di calibrazione del caso take-home deve essere predisposta prima dell'assegnazione agli studenti. Essa deve contenere:
+
+1. premesse teorico-matematiche necessarie;
+2. scomposizione attesa del problema in tappe;
+3. collegamenti input/output tra le tappe;
+4. output richiesti: stime, tabelle, grafici, controlli;
+5. successione di prompt docente di riferimento, se l'uso dell'IA e' previsto;
+6. numero minimo e massimo di prompt ammessi nel tracciato dello studente, quando richiesto;
+7. criteri di valutazione.
+
+La scheda di calibrazione ha funzione interna di controllo didattico. Serve a verificare che il caso take-home sia risolvibile, coerente con il caso aula, adeguato al livello del corso e valutabile in modo non arbitrario.
+
+### 14.3 Notebook applicativo
+
+Il notebook Jupyter e' il formato ordinario delle lezioni applicative. Lo script Python puo' essere prodotto come materiale ausiliario o di esportazione, ma il notebook resta preferibile quando e' necessario integrare testo, formule, codice, output, grafici e commenti interpretativi.
+
+Il notebook non deve essere una semplice raccolta di celle di codice. Deve essere progettato come catena di ragionamento quantitativo, in cui ogni blocco computazionale sia collegato a una domanda finanziaria, a una formula, a un output e a un controllo.
+
+La struttura consigliata del notebook e':
 
 1. intestazione della lezione e descrizione del caso;
-2. importazione delle librerie;
-3. definizione dei dati e dei parametri;
-4. funzioni ausiliarie;
-5. implementazione del modello base;
-6. controlli intermedi;
-7. output numerici;
-8. grafici;
-9. analisi di sensibilita';
-10. blocchi da completare da parte degli studenti;
-11. domande di interpretazione;
-12. estensione take-home.
+2. obiettivi applicativi;
+3. premesse teorico-matematiche essenziali;
+4. dati disponibili, parametri o procedura di simulazione;
+5. librerie Python necessarie;
+6. funzioni ausiliarie;
+7. scomposizione del problema in tappe;
+8. implementazione delle tappe;
+9. controlli intermedi;
+10. output numerici;
+11. grafici e tabelle;
+12. analisi di sensibilita', se appropriata;
+13. blocchi da completare da parte degli studenti;
+14. domande di interpretazione;
+15. sintesi finale;
+16. indicazioni per il caso take-home, quando previsto.
 
-I blocchi destinati allo sviluppo autonomo devono essere chiaramente segnalati. Possono essere usate formule del tipo:
+Il notebook deve evitare che gli studenti partano da un file vuoto. Le parti da completare, modificare o discutere devono essere chiaramente segnalate. Possono essere usate formule del tipo:
 
 ```python
 # TODO 1: completare la funzione
@@ -740,12 +819,53 @@ I blocchi destinati allo sviluppo autonomo devono essere chiaramente segnalati. 
 # TODO 4: interpretare il risultato
 ```
 
-Criteri comuni per il codice Python:
+Quando l'uso dell'IA e' previsto, il notebook puo' includere prompt virtuosi di riferimento. Tali prompt devono essere coerenti con la teoria dell'uso virtuoso dell'IA definita nella Sezione 15. I prompt non devono trasformare il notebook in una soluzione gia' delegata all'IA, ma devono mostrare come delimitare il compito richiesto allo strumento.
 
-1. codice ben commentato;
+### 14.4 Tappe operative come moduli input/output
+
+Le tappe operative devono essere progettate come moduli logici, non come celle isolate. Ogni tappa deve rendere esplicito il collegamento tra cio' che e' gia' disponibile, cio' che viene trasformato e cio' che sara' utilizzato successivamente.
+
+La struttura generale di una tappa e':
+
+```text
+input_k -> operazione_k -> output_k -> uso in k+1
+```
+
+Per ciascuna tappa devono essere specificati:
+
+1. input provenienti dalle tappe precedenti;
+2. obiettivo della tappa;
+3. oggetti teorici coinvolti;
+4. operazione computazionale richiesta;
+5. output prodotto;
+6. controllo numerico, logico o interpretativo;
+7. uso dell'output nella tappa successiva.
+
+Una tappa didattica puo' comprendere piu' celle:
+
+1. cella Markdown di descrizione della tappa;
+2. cella Markdown con input disponibili e output atteso;
+3. cella Markdown con eventuale regime IA prevalente e prompt virtuoso di riferimento;
+4. cella codice per l'operazione computazionale;
+5. cella codice o Markdown per il controllo;
+6. cella Markdown per interpretazione o commento locale.
+
+Questa struttura deve rendere visibile il passaggio:
+
+```text
+problema finanziario -> oggetto teorico -> procedura Python -> output -> controllo -> interpretazione
+```
+
+Le tappe operative non devono essere mini-progetti indipendenti. Devono essere parti concatenate di un percorso comune, in cui ogni output rilevante contribuisce alla tappa successiva o al prodotto computazionale finale.
+
+### 14.5 Criteri comuni per il codice Python
+
+Il codice Python deve rispettare i seguenti criteri:
+
+1. codice leggibile e ben commentato;
 2. separazione tra dati, parametri, funzioni e output;
-3. nomi delle variabili coerenti con la notazione matematica;
-4. preferenza per codice leggibile rispetto a codice eccessivamente compatto;
+3. nomi delle variabili coerenti, per quanto possibile, con la notazione matematica;
+4. preferenza per codice comprensibile rispetto a codice eccessivamente compatto;
 5. controlli intermedi espliciti;
 6. grafici leggibili e interpretabili;
 7. interpretazione dei risultati dopo ogni blocco computazionale rilevante;
@@ -753,7 +873,9 @@ Criteri comuni per il codice Python:
 9. riproducibilita' dell'esecuzione;
 10. tracciabilita' del passaggio dalla formula matematica all'algoritmo.
 
-Gli strumenti Python introdotti in ciascuna lezione devono essere selezionati in funzione del modello. Non devono essere presentati come argomenti indipendenti di programmazione. A seconda della lezione, possono essere introdotti:
+Gli strumenti Python introdotti in ciascuna lezione devono essere selezionati in funzione del modello. Non devono essere presentati come argomenti indipendenti di programmazione.
+
+A seconda della lezione, possono essere introdotti:
 
 1. array, vettori e matrici;
 2. funzioni;
@@ -766,31 +888,364 @@ Gli strumenti Python introdotti in ciascuna lezione devono essere selezionati in
 9. formulazione di problemi di goal programming;
 10. analisi di sensibilita'.
 
-Ogni lezione applicativa deve concludersi con un prodotto finale osservabile. La lezione applicativa non deve concludersi genericamente con la scrittura di codice, ma con la comprensione di che cosa il codice permette di calcolare e di come tale calcolo modifichi o rafforzi l'interpretazione del modello teorico.
+Quando possibile, il codice deve essere costruito in modo da permettere agli studenti di modificare parametri, soglie, scenari o target e osservare come cambiano gli output. Tuttavia, tali modifiche devono essere collegate a una domanda interpretativa e non ridursi a manipolazioni puramente tecniche.
 
-## 15. Uso controllato dell'IA generativa
+### 14.6 Output numerici, grafici e prodotto finale osservabile
 
-L'uso di strumenti di intelligenza artificiale generativa puo' essere previsto come supporto controllato.
+Ogni lezione applicativa deve concludersi con un prodotto finale osservabile. La lezione non deve concludersi genericamente con la scrittura di codice, ma con la comprensione di che cosa il codice permette di calcolare e di come tale calcolo modifichi o rafforzi l'interpretazione del modello teorico.
+
+Esempi di prodotto finale sono:
+
+1. una distribuzione empirica simulata;
+2. una procedura di stima condizionata;
+3. un simulatore di traiettorie;
+4. una procedura Monte Carlo di pricing;
+5. una matrice di transizione analizzata numericamente;
+6. una distribuzione di perdita con VaR e CVaR;
+7. una formulazione di goal programming;
+8. una tabella di confronto tra soluzioni;
+9. un grafico interpretativo;
+10. un confronto tra soluzioni deterministiche e stocastiche.
+
+I grafici devono avere funzione diagnostica o interpretativa. Non devono essere output decorativi. Per ogni grafico devono essere esplicitati:
+
+1. la variabile o le variabili rappresentate;
+2. il confronto che il grafico deve rendere visibile;
+3. eventuali soglie, stati, scenari o target da evidenziare;
+4. la domanda interpretativa associata;
+5. il collegamento con il modello teorico.
+
+Quando il codice per il grafico viene prodotto con supporto dell'IA, lo studente o il docente devono comunque specificare le proprieta' informative del grafico. L'IA puo' essere delegata alla realizzazione tecnica, ma non alla scelta del significato informativo del grafico.
+
+### 14.7 Valutazione dei lavori take-home
+
+Quando una lezione applicativa prevede un lavoro take-home, la valutazione deve riguardare congiuntamente:
+
+1. notebook operativo;
+2. output prodotti;
+3. eventuale tracciato IA in formato Markdown;
+4. interpretazione finale.
+
+La valutazione non deve premiare la complessita' autonoma del codice Python. Deve valutare la capacita' dello studente di:
+
+1. identificare correttamente le premesse teorico-matematiche;
+2. scomporre il problema in tappe coerenti;
+3. mantenere il legame input/output tra le tappe;
+4. produrre output numerici, tabelle e grafici coerenti con il problema;
+5. verificare gli output mediante controlli numerici, logici o interpretativi;
+6. interpretare i risultati in modo proporzionato alle ipotesi del modello;
+7. governare l'eventuale interazione con l'IA secondo i regimi definiti nella Sezione 15.
+
+Il notebook e il tracciato IA, quando richiesto, devono essere coerenti tra loro. Output computazionali corretti ma ottenuti attraverso una delega opaca e non controllata non costituiscono uso virtuoso dell'IA. Allo stesso modo, prompt formalmente corretti ma non collegati agli output effettivi del notebook non sono sufficienti.
+
+La rubrica di valutazione di ciascun caso take-home deve essere coerente con la scheda docente di calibrazione. I criteri minimi sono:
+
+1. qualita' delle premesse teorico-matematiche identificate;
+2. correttezza della scomposizione in tappe;
+3. coerenza degli input/output che collegano le tappe;
+4. qualita' degli output richiesti: stime, tabelle, grafici, controlli;
+5. qualita' e virtu' dei prompt utilizzati, se il tracciato IA e' richiesto;
+6. capacita' di verifica e interpretazione critica.
+
+### 14.8 Relazione con le slides e con il capitolo applicativo
+
+La lezione applicativa deve essere coerente con il capitolo corrispondente del manuale e con le slides della lezione.
+
+Il capitolo applicativo deve documentare il passaggio dalla formulazione teorica al prodotto computazionale finale. Le slides devono invece orientare il lavoro in aula, selezionando i passaggi essenziali: caso, obiettivi, formule operative, tappe principali, output attesi, controlli e interpretazione.
+
+Il notebook contiene il codice completo o semi-completo e rappresenta il supporto operativo principale. Le slides non devono duplicare il notebook, ma devono aiutare lo studente a comprendere la logica del percorso e il ruolo delle singole tappe.
+
+## 15. Uso virtuoso dell'IA generativa nelle lezioni applicative
+
+L'uso di strumenti di intelligenza artificiale generativa puo' essere previsto nelle lezioni applicative come supporto controllato alla modellizzazione quantitativa. L'obiettivo non e' insegnare l'IA come contenuto autonomo, ne' trasformare Python in un contenuto indipendente del corso. L'obiettivo e' permettere agli studenti di osservare, simulare, verificare e interpretare modelli quantitativi applicati alla finanza.
+
+Nel corso MQF, l'IA deve essere trattata come strumento di interazione metodologica. Essa puo' assistere lo studente nel passaggio dal problema economico-finanziario alla procedura computazionale, ma non deve sostituire la responsabilita' dello studente nella definizione degli oggetti teorici, nella verifica degli output e nell'interpretazione finanziaria dei risultati.
+
+L'uso virtuoso dell'IA non coincide con un uso minimo dello strumento. Uno studente puo' utilizzare l'IA in modo esteso e tuttavia corretto, se conserva il controllo della struttura teorica, delimita esplicitamente i compiti delegati, verifica gli output e formula autonomamente l'interpretazione finanziaria. L'uso improprio consiste invece nella delega opaca di passaggi che devono restare sotto responsabilita' dello studente.
+
+Le lezioni applicative devono quindi insegnare non soltanto a ottenere output computazionali, ma a governare l'interazione con l'IA secondo una sequenza metodologicamente controllata.
+
+### 15.1 Uso virtuoso e uso improprio
+
+Si parla di uso virtuoso dell'IA quando lo studente formula richieste delimitate, coerenti con il problema assegnato e accompagnate da vincoli espliciti. Un prompt virtuoso non chiede all'IA di risolvere globalmente il problema, ma specifica il contesto, indica gli oggetti gia' definiti, chiarisce il compito e stabilisce che cosa non deve essere modificato.
+
+Sono esempi di uso virtuoso:
+
+1. chiedere all'IA di aiutare a distinguere variabili casuali, eventi, stati informativi, scenari, ipotesi e quantita' teoriche, senza risolvere il problema;
+
+2. chiedere all'IA di costruire una procedura Python coerente con una specifica teorica gia' validata;
+
+3. chiedere all'IA di produrre il codice necessario per un grafico di cui lo studente ha gia' specificato le proprieta' informative;
+
+4. chiedere all'IA di segnalare ambiguita', errori logici o conclusioni troppo forti in una verifica o interpretazione gia' formulata dallo studente;
+
+5. usare l'IA per correggere errori tecnici, migliorare la leggibilita' del codice o organizzare output numerici e grafici, senza modificare il significato matematico-finanziario del problema.
+
+Sono esempi di uso improprio:
+
+1. chiedere all'IA di scegliere autonomamente il modello da utilizzare;
+
+2. chiedere all'IA di definire variabili casuali, eventi, formule o ipotesi senza successiva validazione critica;
+
+3. chiedere all'IA di risolvere direttamente l'intero caso applicativo;
+
+4. chiedere all'IA di produrre l'interpretazione finanziaria finale;
+
+5. accettare output numerici o grafici senza controllare la coerenza con la formula, con il codice e con il problema;
+
+6. presentare come verifica autonoma una certificazione di correttezza prodotta dall'IA.
+
+La distinzione tra uso virtuoso e uso improprio non riguarda quindi la presenza o assenza dell'IA, ma il controllo esercitato dallo studente sulla sequenza di lavoro.
+
+### 15.2 I tre regimi dell'interazione studente-IA
+
+L'interazione con l'IA nelle lezioni applicative deve essere organizzata secondo tre regimi. I regimi rappresentano tre funzioni diverse dello strumento e tre diversi livelli di responsabilita' dello studente.
+
+#### Regime A - Ricognizione teorico-modellistica
+
+Nel Regime A, l'IA viene utilizzata per aiutare lo studente a riconoscere gli oggetti teorici coinvolti nel problema.
+
+Lo studente puo' chiedere supporto per distinguere:
+
+1. grandezze economico-finanziarie;
+2. variabili casuali o decisionali;
+3. eventi;
+4. stati informativi;
+5. scenari;
+6. ipotesi;
+7. formule candidate;
+8. quantita' teoriche da calcolare;
+9. controparte empirica o computazionale delle quantita' teoriche;
+10. limiti del modello che dovranno essere considerati.
+
+L'IA non deve risolvere il problema, scegliere autonomamente il modello finale o produrre direttamente la soluzione matematica completa. In questo regime, l'autonomia dello studente riguarda la costruzione del significato matematico del problema. L'IA puo' proporre una mappa concettuale, ma lo studente deve validarla, correggerla e trasformarla in una specifica teorica coerente.
+
+Formula guida del Regime A:
+
+> Aiutami a riconoscere gli oggetti teorici del problema, senza risolverlo.
+
+Esempio di prompt coerente con il Regime A:
+
+> Sto lavorando su un problema di perdita di portafoglio condizionata a stati informativi di mercato. Aiutami a distinguere variabili casuali, eventi, informazione disponibile, quantita' teoriche e possibili stime empiriche. Non scegliere il modello finale, non scrivere codice e non risolvere il caso.
+
+#### Regime B - Operazionalizzazione computazionale
+
+Nel Regime B, l'IA viene utilizzata per rendere computabile una specifica teorica gia' definita e validata. In questo regime, lo studente puo' delegare all'IA la costruzione dell'apparato computazionale, pur mantenendo il controllo sulla sostanza teorica del problema.
 
 L'IA puo' essere utilizzata per:
 
-1. spiegare messaggi di errore;
-2. correggere errori sintattici o locali;
-3. proporre una funzione Python coerente con una formula data;
-4. commentare un blocco di codice;
-5. migliorare la leggibilita' del codice;
-6. confrontare due implementazioni alternative.
+1. costruire dataset simulati;
+2. definire strutture dati;
+3. scegliere nomi di variabili Python coerenti;
+4. organizzare la sequenza delle celle;
+5. scrivere codice Python;
+6. produrre tabelle;
+7. produrre output numerici;
+8. implementare tecnicamente grafici;
+9. inserire controlli computazionali;
+10. migliorare leggibilita' e modularita' del codice.
 
-Non e' invece appropriato delegare all'IA:
+Il vincolo fondamentale e' che l'IA non deve modificare la sostanza matematica del problema. Variabili casuali, eventi, stati, scenari, formule e ipotesi devono restare quelli emersi e validati nel Regime A. L'IA puo' scegliere la forma computazionale piu' conveniente, ma non puo' cambiare cio' che deve essere calcolato.
 
-1. la formulazione matematica del modello;
-2. la scelta delle ipotesi;
-3. la definizione delle variabili decisionali;
-4. la selezione delle misure di rischio;
-5. l'interpretazione economico-finanziaria dei risultati;
-6. la verifica finale della correttezza.
+Formula guida del Regime B:
 
-Quando l'IA viene utilizzata dagli studenti, il docente puo' richiedere che siano esplicitati il prompt utilizzato, la risposta ricevuta e la verifica effettuata. L'obiettivo e' sviluppare un uso critico dello strumento, non sostituire la comprensione del modello.
+> Data questa specifica teorica validata, costruisci l'apparato computazionale, senza modificarla.
+
+Esempio di prompt coerente con il Regime B:
+
+> Ho validato la seguente specifica teorica: L e' la perdita di portafoglio, S e' l'evento di stress, e la quantita' da stimare e' la media empirica di L condizionata a S. Costruisci una procedura Python coerente con questa specifica. Puoi scegliere struttura dati, nomi Python e forma dell'output. Non modificare la definizione di L, non cambiare l'evento S, non introdurre altre misure di rischio e non interpretare il risultato.
+
+Nel caso dei grafici, la distinzione tra contenuto informativo e realizzazione tecnica e' essenziale. Lo studente deve specificare quale variabile rappresentare, quale confronto mostrare, quale soglia evidenziare e quale domanda interpretativa il grafico deve rendere visibile. L'IA puo' essere delegata alla realizzazione tecnica del grafico, ma non alla scelta del suo significato informativo.
+
+#### Regime C - Verifica e interpretazione critica
+
+Nel Regime C, l'IA viene utilizzata come revisore critico. Lo studente deve prima formulare un controllo, una verifica o un'interpretazione. Solo dopo puo' chiedere all'IA di segnalare errori, ambiguita', passaggi non giustificati, confusioni terminologiche o conclusioni troppo forti.
+
+L'IA puo' aiutare a individuare:
+
+1. incoerenze tra formula teorica e codice;
+2. incoerenze tra codice e output;
+3. controlli numerici mancanti;
+4. controlli logici mancanti;
+5. confusione tra quantita' teorica e stima empirica;
+6. interpretazioni finanziarie troppo forti;
+7. limiti del modello non dichiarati;
+8. affermazioni non supportate dagli output prodotti.
+
+L'IA non deve produrre la conclusione finale al posto dello studente. In questo regime, l'autonomia dello studente e' massima: l'IA non interpreta, ma critica un'interpretazione gia' proposta.
+
+Formula guida del Regime C:
+
+> Valuta criticamente la verifica e l'interpretazione che ho scritto, senza sostituirti a me.
+
+Esempio di prompt coerente con il Regime C:
+
+> Ho scritto questa interpretazione del risultato ottenuto. Segnala se distinguo correttamente quantita' teorica e stima empirica, se traggo conclusioni troppo forti e se sto trascurando limiti rilevanti del modello. Non riscrivere il testo al posto mio e non produrre una conclusione finale.
+
+### 15.3 Due scale di lavoro
+
+I tre regimi operano su due scale diverse: il livello del problema complessivo e il livello della singola tappa.
+
+Al livello del problema complessivo, i tre regimi servono a costruire il percorso risolutivo. L'obiettivo non e' ancora produrre codice o risultati numerici, ma inquadrare il problema, generare un percorso, fissare le tappe principali e verificare che la sequenza sia logicamente coerente.
+
+Al livello della singola tappa, i tre regimi servono invece a svolgere un passaggio specifico del percorso: specificare l'oggetto teorico locale, costruire la procedura computazionale corrispondente, controllare l'output e interpretarne il ruolo.
+
+Al livello macro, la sequenza e':
+
+1. Regime A: inquadramento teorico del problema complessivo;
+2. Regime B: progettazione del percorso computazionale;
+3. Regime C: revisione critica del percorso risolutivo.
+
+Al livello micro, la sequenza e':
+
+1. Regime A: specificazione teorica della tappa;
+2. Regime B: operazionalizzazione computazionale della tappa;
+3. Regime C: verifica e interpretazione locale della tappa.
+
+Questa distinzione impedisce che l'IA passi direttamente dal testo del problema al codice completo. Prima si costruisce il percorso, poi si lavora sulle singole tappe.
+
+### 15.4 La tappa come modulo input/output
+
+Ogni tappa applicativa deve essere trattata come un modulo input/output. Una tappa non e' una semplice cella di codice, ma un passaggio logico che riceve alcuni oggetti, compie una trasformazione e produce nuovi oggetti da utilizzare successivamente.
+
+La struttura generale di una tappa e' data dalla successione: input della tappa, operazione da svolgere, output prodotto e uso dell'output nella tappa successiva.
+
+Per ogni tappa devono essere esplicitati:
+
+1. input disponibili all'inizio della tappa;
+2. obiettivo della tappa;
+3. regime prevalente dell'interazione con l'IA, se previsto;
+4. oggetti teorici coinvolti;
+5. operazione computazionale richiesta;
+6. output prodotto;
+7. controllo numerico, logico o interpretativo;
+8. uso dell'output nella tappa successiva.
+
+Questa impostazione evita che il notebook diventi una successione di celle indipendenti. Ogni blocco computazionale deve avere una funzione nel percorso complessivo e deve produrre un oggetto utile per il seguito dell'analisi o per il prodotto finale.
+
+Nel tracciato dell'interazione con l'IA, lo studente deve rendere visibile il collegamento tra tappe. Non e' sufficiente mostrare prompt isolati: occorre indicare quali input erano disponibili, quale output e' stato ottenuto e in che modo tale output viene riutilizzato.
+
+### 15.5 Grammatica del prompt virtuoso
+
+Un prompt virtuoso deve rendere visibili il contesto, il regime dell'interazione e i limiti del compito assegnato all'IA. La struttura generale del prompt deve includere, quando rilevante, i seguenti elementi:
+
+1. contesto del problema;
+2. input disponibili;
+3. oggetti teorici gia' definiti;
+4. regime richiesto: A, B oppure C;
+5. compito richiesto all'IA;
+6. vincoli su cio' che l'IA non deve modificare o produrre;
+7. output atteso;
+8. controllo richiesto;
+9. uso dell'output nella tappa successiva.
+
+Nel Regime A, il prompt deve orientare la ricognizione teorica. La forma raccomandata e':
+
+> Aiutami a distinguere grandezze, variabili, eventi, informazione, ipotesi e quantita' teoriche. Non risolvere il problema, non scegliere il modello finale e non scrivere codice.
+
+Nel Regime B, il prompt deve vincolare la costruzione computazionale. La forma raccomandata e':
+
+> Data questa specifica teorica, costruisci il codice o l'output richiesto. Puoi scegliere la forma tecnica della procedura, ma non modificare variabili, eventi, formule, ipotesi o significato finanziario.
+
+Nel Regime C, il prompt deve trasformare l'IA in revisore critico. La forma raccomandata e':
+
+> Ho scritto questa verifica o interpretazione. Segnala errori, ambiguita' e affermazioni troppo forti, ma non riscrivere il testo al posto mio.
+
+Un prompt privo di contesto, di input e di vincoli tende a produrre risposte generiche. Un prompt troppo ampio, come "risolvi il problema", trasferisce all'IA responsabilita' che nel corso devono restare allo studente. Un prompt virtuoso, invece, delimita l'interazione e permette di controllare se la risposta ottenuta e' coerente con il modello.
+
+### 15.6 Tracciato IA dello studente
+
+Quando il lavoro take-home prevede uso documentato dell'IA, lo studente deve consegnare un tracciato dell'interazione in formato Markdown `.md`.
+
+Il tracciato non deve essere valutato come prova forense dell'intera storia privata del lavoro svolto con strumenti IA. Deve essere valutato come artefatto metodologico: esso deve mostrare come lo studente ha organizzato l'assistenza dell'IA secondo una sequenza controllata di ricognizione teorico-modellistica, operazionalizzazione computazionale, verifica e interpretazione critica.
+
+Il tracciato deve contenere:
+
+1. identificazione del problema;
+2. premesse teorico-matematiche individuate;
+3. scomposizione del problema in tappe;
+4. collegamenti input/output tra tappe;
+5. prompt utilizzati;
+6. regime attribuito a ciascun prompt;
+7. risposta IA utilizzata, oppure sintesi fedele della parte effettivamente utilizzata;
+8. azione dello studente: accettazione, modifica, rifiuto o correzione;
+9. output prodotto;
+10. controllo svolto;
+11. interpretazione finale.
+
+I prompt dello studente devono essere riportati integralmente. Le risposte dell'IA possono essere sintetizzate se molto lunghe, ma la sintesi deve indicare chiaramente quale parte della risposta e' stata effettivamente utilizzata.
+
+Il numero di prompt deve rispettare l'intervallo stabilito dal docente per ciascun caso take-home. Tale intervallo viene indicato nella scheda docente di calibrazione del caso e deve essere comunicato agli studenti nella traccia del lavoro.
+
+Un tracciato troppo breve tende a indicare una delega globale e non controllata. Un tracciato eccessivamente lungo tende a rendere difficile la valutazione e puo' indicare assenza di organizzazione. Il vincolo sul numero minimo e massimo di prompt ha quindi funzione didattica: obbliga lo studente a decomporre il problema senza produrre un materiale ingestibile.
+
+### 15.7 Valutazione del tracciato IA
+
+La valutazione del tracciato IA deve concentrarsi sulla qualita' metodologica dell'interazione, non sulla presunta originalita' assoluta della conversazione. In un lavoro svolto a casa non e' realistico ricostruire tutta la storia privata dell'uso dell'IA. La valutazione deve riguardare il tracciato consegnato come artefatto osservabile.
+
+Non e' penalizzato l'uso dell'IA per migliorare la formulazione dei prompt, per organizzare meglio la sequenza di lavoro o per chiarire come strutturare l'interazione. Cio' che deve essere valutato negativamente e' la delega non governata, generica, opaca o concettualmente vuota.
+
+La valutazione del tracciato deve considerare almeno i seguenti criteri:
+
+1. corretta distinzione dei regimi A, B e C;
+2. qualita' delle premesse teorico-matematiche identificate;
+3. corretta scomposizione del problema in tappe;
+4. chiarezza del legame input/output tra tappe;
+5. specificita' dei prompt;
+6. presenza di vincoli espliciti posti all'IA;
+7. coerenza tra prompt, output del notebook e interpretazione;
+8. capacita' di correggere, restringere o rifiutare risposte IA troppo ampie;
+9. presenza di controlli numerici, logici o interpretativi;
+10. autonomia dell'interpretazione finale.
+
+Sono indicatori di uso debole o improprio:
+
+1. prompt globali del tipo "risolvi il problema";
+2. passaggio immediato dal testo del problema al codice completo;
+3. assenza di Regime A;
+4. assenza di Regime C;
+5. prompt privi di contesto e di vincoli;
+6. IA che sceglie variabili, eventi, formule o ipotesi senza validazione;
+7. IA che produce direttamente l'interpretazione finale;
+8. output non coerenti con i prompt o con la traccia del problema;
+9. controlli dichiarati ma non effettivamente collegati agli output;
+10. tracciato formalmente ordinato ma povero di contenuto specifico.
+
+Sono indicatori di uso virtuoso:
+
+1. sequenza riconoscibile di ricognizione, operazionalizzazione e verifica;
+2. prompt specifici e contestualizzati;
+3. vincoli espliciti sul ruolo dell'IA;
+4. collegamento tra oggetti teorici e oggetti computazionali;
+5. tappe concatenate mediante input e output;
+6. proprieta' informative dei grafici specificate dallo studente;
+7. controlli numerici e logici espliciti;
+8. revisione critica dell'interpretazione;
+9. correzione di risposte IA troppo generiche o invasive;
+10. coerenza tra tracciato IA, notebook e output finali.
+
+### 15.8 Rapporto tra IA, Python e responsabilita' dello studente
+
+Nelle lezioni applicative, l'IA puo' ridurre la frizione tecnica associata alla scrittura del codice Python. Questa funzione e' coerente con il corso, perche' Python non costituisce un contenuto autonomo. Tuttavia, la riduzione della frizione tecnica non deve trasformarsi in perdita di controllo concettuale.
+
+Lo studente non e' valutato per la capacita' di programmare autonomamente ogni parte del notebook. E' valutato per la capacita' di:
+
+1. riconoscere gli oggetti teorici del problema;
+2. delimitare cio' che puo' essere delegato all'IA;
+3. controllare che il codice prodotto corrisponda alla specifica teorica;
+4. verificare gli output;
+5. interpretare i risultati in modo coerente con le ipotesi;
+6. riconoscere i limiti del modello.
+
+La responsabilita' dello studente resta quindi distribuita su tre piani:
+
+1. responsabilita' teorico-modellistica nel Regime A;
+2. responsabilita' di controllo computazionale nel Regime B;
+3. responsabilita' verificativa e interpretativa nel Regime C.
+
+La formula generale dell'uso virtuoso dell'IA nelle lezioni applicative e':
+
+lo studente decide che cosa significa il problema; l'IA aiuta a renderlo computabile; lo studente verifica se il risultato e' coerente e che cosa significa sul piano finanziario.
 
 ## 16. Stato di avanzamento da mantenere aggiornato
 
