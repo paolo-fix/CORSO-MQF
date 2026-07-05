@@ -2,7 +2,7 @@ Sto sviluppando una delle cinque lezioni applicative Python del corso magistrale
 
 La lezione applicativa deve essere sviluppata in modo coerente con la teoria dell’uso virtuoso dell’AI già definita nel progetto. In particolare, l’obiettivo non è insegnare Python come contenuto autonomo, ma usare Python e AI per rendere osservabili, simulabili e verificabili modelli quantitativi applicati alla finanza.
 
-Prima di scrivere contenuti, leggi dal sito pubblico del progetto:
+Prima di scrivere contenuti, leggi dal sito pubblico del progetto, non guardare altri siti:
 
 https://paolilla25.synology.me/github-publish/public/
 
@@ -31,7 +31,7 @@ La progettazione deve rispettare i tre regimi dell’interazione studente–AI:
 **Regime A — Ricognizione teorico-modellistica.**
 Lo studente, con supporto dell’AI, identifica grandezze economico-finanziarie, variabili casuali o decisionali, eventi, stati informativi, scenari, ipotesi, formule e quantità teoriche. L’AI non deve risolvere il problema né imporre il modello finale.
 
-**Regime B — Operazionalizzazione computazionale.**
+**Regime B — traduzione operativa in codice.**
 Data una specifica teorica validata, l’AI può costruire l’apparato computazionale: simulazione, dataset, struttura delle celle, codice Python, tabelle, output numerici e implementazione tecnica dei grafici. L’AI non deve modificare variabili, eventi, formule, ipotesi o significato finanziario del problema.
 
 **Regime C — Verifica e interpretazione critica.**
