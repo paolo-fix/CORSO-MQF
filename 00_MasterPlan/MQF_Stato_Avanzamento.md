@@ -20,7 +20,7 @@ Legenda: `✓` completato · `bozza` in lavorazione · `traccia` struttura prese
 | 1 | P | Elementi di probabilità | ✓ | ✓ | ✓ | ✓ | n.a. |
 | 2 | P | Variabili casuali | ✓ | ✓ | ✓ | ✓ | n.a. |
 | 3 | P | Valori attesi condizionati | ✓ | ✓ | ✓ | ✓ | n.a. |
-| 4 | C | Applicazione in Python: probabilità, variabili casuali e condizionamento | traccia | — | — | — | — |
+| 4 | C | Applicazione in Python: probabilità, variabili casuali e condizionamento | traccia | — | — | — | traccia |
 | 5 | P | Processi stocastici in tempo discreto | traccia | — | — | — | n.a. |
 | 6 | P | Processi stocastici in tempo continuo | traccia | — | — | — | n.a. |
 | 7 | C | Applicazione in Python: traiettorie, simulazione e pricing Monte Carlo | traccia | — | — | — | — |
@@ -114,26 +114,34 @@ Nota: la convenzione `Cap0X_` è applicata sistematicamente dal Cap. 01 in poi s
 
 ## Questioni aperte operative
 
-1. **Convenzione nomi grafici** — i grafici Cap. 02 e Cap. 03 non seguono integralmente la convenzione `Cap0X_`. Decidere se rinominare o dichiarare l'eccezione nelle Guidelines.
+1. **Convenzione nomi grafici** — i grafici Cap. 02 e Cap. 03 non seguono integralmente la convenzione `Cap0X_`. Decidere se rinominarli o dichiarare l'eccezione nelle Guidelines.
 
-2. **Template LaTeX manuale** — da consolidare prima della scrittura piena del Cap. 04. I Cap. 01–03 usano shell non del tutto omogenei; verificare se mantenere la differenza o stabilire un template unico.
+2. **Template LaTeX manuale** — da consolidare prima della scrittura piena del Cap. 04. I Cap. 01--03 usano shell non del tutto omogenei; verificare se mantenere la differenza o stabilire un template unico.
 
 3. **Riallineamento nomi file pubblicati** — verificare che i file effettivamente presenti sul sito coincidano con i nomi definitivi del nuovo piano, in particolare per Cap. 07, Cap. 14 e Cap. 15.
 
 4. **File master LaTeX** — verificare che `MQF_Manuale_Master.tex` e gli eventuali file master delle slides includano i nuovi nomi dei capitoli e delle lezioni.
 
-5. **Notazione** — verificare, nello sviluppo dei Capitoli 5–7 e 12–13, la coerenza delle nuove notazioni per martingale, GBM, OU, CIR, correlazione, Eulero--Maruyama e Goal Programming.
+5. **Notazione** — verificare, nello sviluppo dei Capitoli 5--7 e 12--13, la coerenza delle nuove notazioni per martingale, GBM, OU, CIR, correlazione, Eulero--Maruyama e Goal Programming.
 
-6. **Librerie Python ammesse** — da decidere prima di scrivere l'Applicazione 1, ora collocata alla Lezione 4. Occorre stabilire se utilizzare solo `numpy`, `pandas`, `matplotlib`, oppure includere anche librerie di ottimizzazione per le applicazioni successive.
+6. **Librerie Python ammesse** — da decidere prima della scrittura definitiva del notebook della Lezione 4. Per la prima applicazione è plausibile limitarsi a `numpy`, `pandas` e `matplotlib`; le librerie di ottimizzazione saranno valutate per le applicazioni successive.
 
-7. **Formato applicazioni Python** — decidere se distribuire le applicazioni come file `.py`, notebook Jupyter o entrambi.
+7. **Formato applicazioni Python** — il notebook Jupyter è confermato come formato principale delle lezioni applicative. Resta da decidere se esportare sistematicamente anche script `.py`.
 
-8. **Dataset e simulazioni** — per la Lezione 4 occorre decidere se usare esclusivamente dati simulati o anche piccoli esempi finanziari prestrutturati.
+8. **Dataset e simulazioni** — per la Lezione 4 si adotta una simulazione controllata con parametri stilizzati. Non è previsto l'uso di dati reali nella prima versione del caso aula.
 
-9. **Lezione 7** — definire il livello di integrazione tra simulazione di GBM/OU/processi correlati, pricing di opzioni asiatiche e sistema OU--CIR per obbligazioni indicizzate all'inflazione.
+9. **Pacchetto materiali applicativi** — dopo la prima implementazione completa della Lezione 4 occorre verificare se la lista dei materiali previsti per ogni applicazione sia troppo ampia e quali elementi possano essere accorpati.
 
-10. **Goal Programming e ALM** — stabilire il caso applicativo specifico della Lezione 13: asset allocation multicriterio pura, liability matching, oppure formulazione integrata di Asset Liability Management.
+10. **Prompt virtuosi** — la procedura distingue prompt zero, prompt breve di tappa e prompt autosufficiente. Dopo la Lezione 4 occorre valutare se questa distinzione debba essere mantenuta integralmente anche nelle successive applicazioni Python.
 
-11. **Programmazione stocastica** — precisare se la Lezione 16 userà un caso semplificato di asset allocation multistadio o un modello più ricco con vincoli di portafoglio e passività.
+11. **Tracciato IA studenti** — resta da calibrare il numero minimo e massimo di prompt ammessi per il take-home della Lezione 4.
 
-12. **Rimozione residui vecchia architettura** — verificare che non restino riferimenti alla vecchia applicazione autonoma sugli alberi binomiali, alla dualità LP come lezione autonoma o alla CVaR via PL come applicazione principale della Lezione 13.
+12. **Rubrica di valutazione** — la struttura generale è stata definita nelle Guidelines; resta da costruire la rubrica specifica per il take-home della Lezione 4.
+
+13. **Lezione 7** — definire il livello di integrazione tra simulazione di GBM/OU/processi correlati, pricing di opzioni asiatiche e sistema OU--CIR per obbligazioni indicizzate all'inflazione.
+
+14. **Goal Programming e ALM** — stabilire il caso applicativo specifico della Lezione 13: asset allocation multicriterio pura, liability matching, oppure formulazione integrata di Asset Liability Management.
+
+15. **Programmazione stocastica** — precisare se la Lezione 16 userà un caso semplificato di asset allocation multistadio o un modello più ricco con vincoli di portafoglio e passività.
+
+16. **Rimozione residui vecchia architettura** — verificare che non restino riferimenti alla vecchia applicazione autonoma sugli alberi binomiali, alla dualità LP come lezione autonoma o alla CVaR via PL come applicazione principale della Lezione 13.
