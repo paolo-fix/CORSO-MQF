@@ -713,7 +713,7 @@ Sono previste cinque applicazioni Python, corrispondenti alle lezioni applicativ
 | 4 | 13 | Asset Allocation e Asset Liability Management | Goal programming, allocazioni multicriterio, deviazioni da target, liability matching |
 | 5 | 16 | Programmazione stocastica | Scenari, recourse, non anticipatività, confronto tra soluzioni deterministiche e stocastiche |
 
-Le applicazioni Python devono essere concepite come laboratori di modellizzazione quantitativa. La finalità principale non è insegnare Python in modo autonomo, ma mostrare come un modello probabilistico, finanziario o ottimizzativo possa essere tradotto in una procedura computazionale controllabile, verificabile e interpretabile.
+Le applicazioni Python devono essere concepite come laboratori di modellizzazione quantitativa. La finalità principale non è insegnare Python come contenuto autonomo, ma mostrare come un modello probabilistico, finanziario o ottimizzativo possa essere tradotto in una procedura computazionale controllabile, verificabile e interpretabile.
 
 Ogni applicazione deve essere costruita intorno a un problema finanziario, probabilistico o decisionale identificabile. Il caso applicativo deve specificare:
 
@@ -737,17 +737,22 @@ Per ciascuna lezione applicativa deve essere progettata una coppia di casi:
 1. **caso aula**, sviluppato dal docente durante la lezione;
 2. **caso take-home**, assegnato agli studenti come lavoro autonomo.
 
-Il caso aula ha funzione dimostrativa. Deve mostrare come un problema quantitativo-finanziario venga trasformato in un percorso computazionale attraverso:
+Il caso aula e il caso take-home non devono essere distinti da differenze strutturali nella procedura di sviluppo. Entrambi devono essere progettati mediante la stessa architettura metodologica:
 
-1. ricognizione delle premesse teorico-matematiche;
-2. scomposizione del problema in tappe;
-3. identificazione degli input e degli output di ciascuna tappa;
-4. costruzione del notebook;
-5. produzione di stime, tabelle, grafici e controlli;
-6. interpretazione economico-finanziaria dei risultati;
-7. uso controllato dell’IA generativa, quando previsto, secondo le regole della Sezione 15.
+1. scheda docente di calibrazione;
+2. scheda macro;
+3. scomposizione in tappe input-output;
+4. sequenza di prompt virtuosi;
+5. notebook;
+6. output numerici e grafici;
+7. controlli;
+8. interpretazione critica;
+9. eventuale tracciato IA;
+10. rubrica di valutazione.
 
-Il caso take-home deve essere distinto dal caso aula, ma metodologicamente comparabile. Non deve consistere in una semplice variazione parametrica del caso svolto in aula. Deve invece essere isomorfo sul piano metodologico: deve richiedere strumenti teorici analoghi, una struttura di tappe confrontabile e output dello stesso tipo generale, ma in un contesto finanziario, probabilistico o decisionale diverso.
+La differenza tra caso aula e caso take-home riguarda il contesto finanziario, probabilistico o decisionale, e, se necessario, alcune scelte specifiche della linea risolutiva. Il caso take-home deve restare distinto dal caso aula, ma non deve richiedere una procedura metodologica diversa.
+
+Il caso take-home non deve consistere in una semplice variazione parametrica del caso svolto in aula. Deve essere comparabile per struttura di lavoro, tipo di output, controlli richiesti e criteri di valutazione, ma collocato in un contesto diverso o in una formulazione finanziaria differenziata.
 
 Per ogni coppia caso aula / caso take-home devono essere chiari:
 
@@ -755,25 +760,95 @@ Per ogni coppia caso aula / caso take-home devono essere chiari:
 2. quali strumenti computazionali vengono utilizzati;
 3. quali output devono essere prodotti;
 4. quali controlli devono essere svolti;
-5. quali elementi sono comuni ai due casi;
+5. quali elementi metodologici sono comuni ai due casi;
 6. quali elementi distinguono il caso take-home dal caso aula;
 7. quali parti sono svolte dal docente, quali dagli studenti e quali sono eventualmente assistite dall’IA.
 
 ---
 
-### 14.2 Pacchetto dei materiali per ogni lezione applicativa
+### 14.2 Scheda docente di calibrazione
 
-Per ogni lezione applicativa deve essere predisposto un pacchetto di materiali coerente. L’elenco seguente indica i contenuti da produrre o rendere disponibili; non implica necessariamente quindici file separati. Alcuni materiali possono essere documenti autonomi, altri possono essere sezioni interne del notebook, della scheda docente, della traccia take-home o del README della lezione.
+La scheda docente di calibrazione deve essere predisposta sia per il caso aula sia per il caso take-home. Essa costituisce il documento a monte dal quale vengono ricavate:
+
+1. la scheda macro del caso;
+2. la scomposizione in tappe;
+3. la sequenza dei prompt virtuosi;
+4. la struttura del notebook;
+5. gli output richiesti;
+6. i controlli obbligatori;
+7. la rubrica di valutazione.
+
+Nel caso aula, la scheda docente di calibrazione serve a guidare la costruzione del notebook docente. Nel caso take-home, serve a garantire che il lavoro assegnato agli studenti sia coerente, risolvibile, valutabile e metodologicamente comparabile con il caso aula.
+
+La scheda docente di calibrazione deve contenere almeno:
+
+1. identificazione della lezione e del tipo di caso;
+2. titolo del caso;
+3. contesto finanziario, probabilistico o decisionale;
+4. obiettivo didattico;
+5. collegamento con le lezioni teoriche precedenti;
+6. concetti teorici da rendere osservabili;
+7. funzione della simulazione o della procedura computazionale;
+8. ruolo dell’informazione, degli stati, degli scenari o dei vincoli;
+9. grandezze economico-finanziarie;
+10. variabili casuali o decisionali;
+11. eventi, stati informativi o scenari;
+12. formule principali;
+13. quantità teoriche da stimare o calcolare;
+14. proprietà teoriche da verificare;
+15. parametri finanziari, probabilistici o computazionali;
+16. soglie, target o vincoli rilevanti;
+17. ipotesi modellistiche;
+18. limiti del modello;
+19. scomposizione attesa in tappe input-output;
+20. output richiesti: tabelle, grafici, stime, controlli;
+21. sequenza docente dei prompt virtuosi, se l’uso dell’IA è previsto;
+22. criteri di validazione del notebook;
+23. criteri di valutazione del tracciato IA, se richiesto;
+24. rubrica sintetica.
+
+La scheda docente di calibrazione ha funzione interna di controllo didattico. Deve essere validata prima di derivare la scheda macro e prima di iniziare la costruzione del notebook.
+
+---
+
+### 14.3 Scheda macro del caso
+
+La scheda macro è il documento operativo che fissa il perimetro del caso prima della scomposizione in tappe e prima dell’interazione con l’IA per la costruzione del notebook.
+
+La scheda macro deve essere derivata dalla scheda docente di calibrazione validata. Essa deve indicare almeno:
+
+1. contesto finanziario o probabilistico;
+2. domanda quantitativa;
+3. grandezze economico-finanziarie;
+4. variabili casuali o decisionali;
+5. eventi, stati informativi o scenari;
+6. ipotesi modellistiche;
+7. quantità teoriche da stimare o calcolare;
+8. output computazionali attesi;
+9. controlli richiesti;
+10. limiti del modello;
+11. eventuale specifica congelata del caso.
+
+La scheda macro non deve essere una soluzione del problema. Deve delimitare ciò che potrà essere sviluppato nel notebook e ciò che l’IA non potrà modificare.
+
+Per il caso aula, la scheda macro orienta il lavoro del docente e il notebook dimostrativo. Per il caso take-home, la scheda macro può essere fornita integralmente o parzialmente allo studente, a seconda del livello di autonomia richiesto. Quando la costruzione della scheda macro è parte del lavoro valutato, lo studente deve documentare nel tracciato IA come essa è stata ottenuta e validata.
+
+---
+
+### 14.4 Pacchetto dei materiali per ogni lezione applicativa
+
+Per ogni lezione applicativa deve essere predisposto un pacchetto coerente di materiali. L’elenco seguente indica contenuti da produrre o rendere disponibili; non implica necessariamente file separati per ciascun elemento. Alcuni materiali possono essere documenti autonomi, altri possono essere sezioni interne del notebook, della scheda docente, della traccia take-home o del README della lezione.
 
 #### Materiali principali
 
-1. traccia del caso aula;
-2. notebook docente del caso aula;
-3. traccia del caso take-home;
+1. scheda docente di calibrazione del caso aula;
+2. scheda macro del caso aula;
+3. notebook docente del caso aula;
 4. scheda docente di calibrazione del caso take-home;
-5. notebook studente, completo o semi-strutturato;
-6. template del tracciato IA in formato Markdown, se il lavoro prevede uso documentato dell’IA;
-7. rubrica di valutazione del notebook e del tracciato IA.
+5. scheda macro o traccia del caso take-home;
+6. notebook studente, completo o semi-strutturato;
+7. template del tracciato IA in formato Markdown, se il lavoro prevede uso documentato dell’IA;
+8. rubrica di valutazione del notebook e del tracciato IA.
 
 #### Sezioni o allegati obbligatori del pacchetto
 
@@ -783,7 +858,8 @@ Per ogni lezione applicativa deve essere predisposto un pacchetto di materiali c
 4. output numerici attesi;
 5. grafici o tabelle da produrre;
 6. indicazioni per la discussione in aula;
-7. eventuale successione di prompt virtuosi utilizzati nel caso aula.
+7. successione di prompt virtuosi utilizzati o suggeriti;
+8. criteri di validazione delle risposte IA, se l’IA è prevista.
 
 #### Materiali eventuali
 
@@ -802,74 +878,55 @@ Il README non è obbligatorio in ogni lezione, ma è consigliato quando il pacch
 5. eventuali istruzioni per l’esecuzione del notebook;
 6. eventuale ruolo del tracciato IA.
 
-La scheda docente di calibrazione del caso take-home deve essere predisposta prima dell’assegnazione agli studenti. Essa deve contenere:
-
-1. premesse teorico-matematiche necessarie;
-2. scomposizione attesa del problema in tappe;
-3. collegamenti input/output tra le tappe;
-4. output richiesti: stime, tabelle, grafici, controlli;
-5. successione di prompt docente di riferimento, se l’uso dell’IA è previsto;
-6. numero minimo e massimo di prompt ammessi nel tracciato dello studente, quando richiesto;
-7. criteri di valutazione.
-
-La scheda di calibrazione ha funzione interna di controllo didattico. Serve a verificare che il caso take-home sia risolvibile, coerente con il caso aula, adeguato al livello del corso e valutabile in modo non arbitrario.
-
 ---
 
-### 14.3 Procedura di sviluppo della lezione applicativa
+### 14.5 Procedura di sviluppo della lezione applicativa
 
 La costruzione di una lezione applicativa deve seguire una procedura progressiva. L’ordine raccomandato è:
 
 1. definizione della coppia caso aula / caso take-home;
-2. redazione della scheda macro del caso aula;
-3. scomposizione micro del caso aula in tappe operative;
-4. definizione della sequenza di prompt virtuosi, se l’uso dell’IA è previsto;
-5. costruzione iterativa del notebook docente;
-6. esecuzione e calibrazione degli output;
-7. predisposizione della traccia take-home;
-8. predisposizione della scheda docente di calibrazione;
-9. predisposizione del notebook studente;
-10. predisposizione del template del tracciato IA;
-11. predisposizione della rubrica di valutazione.
-
-La scheda macro del caso aula deve fissare il perimetro del problema prima di ogni sviluppo operativo. Essa deve indicare:
-
-1. contesto finanziario o probabilistico;
-2. domanda quantitativa;
-3. grandezze economico-finanziarie;
-4. variabili casuali o decisionali;
-5. eventi, stati informativi o scenari;
-6. ipotesi modellistiche;
-7. quantità teoriche da stimare o calcolare;
-8. output computazionali attesi;
-9. controlli richiesti;
-10. limiti del modello.
-
-Dopo la scheda macro, la scomposizione micro deve articolare il problema in tappe input/output. Solo a questo punto è opportuno sviluppare i prompt di tappa e il notebook.
+2. redazione della scheda docente di calibrazione del caso aula;
+3. validazione della scheda docente di calibrazione del caso aula;
+4. derivazione della scheda macro del caso aula;
+5. scomposizione del caso aula in tappe input-output;
+6. definizione della sequenza di prompt virtuosi per il caso aula;
+7. costruzione iterativa del notebook docente;
+8. esecuzione e calibrazione degli output;
+9. redazione della scheda docente di calibrazione del caso take-home;
+10. validazione della scheda docente di calibrazione del caso take-home;
+11. derivazione della scheda macro o traccia del caso take-home;
+12. predisposizione del notebook studente;
+13. predisposizione del template del tracciato IA;
+14. predisposizione della rubrica di valutazione.
 
 Quando l’IA è usata nella costruzione o nello svolgimento della lezione, il processo non deve essere lineare nel senso:
 
-1. prompt;
-2. codice;
-3. risultato.
+```text
+prompt
+-> codice
+-> risultato
+```
 
 Deve invece essere iterativo e controllato:
 
-1. tappa;
-2. prompt;
-3. risposta dell’IA;
-4. validazione docente o studente;
-5. inserimento nel notebook;
-6. esecuzione della cella;
-7. output osservabile;
-8. controllo;
-9. uso dell’output nella tappa successiva.
+```text
+scheda macro
+-> scomposizione in tappe
+-> prompt di tappa
+-> risposta IA
+-> validazione docente o studente
+-> cella Markdown e/o codice
+-> esecuzione della cella
+-> output osservabile
+-> controllo
+-> uso dell’output nella tappa successiva
+```
 
 La risposta dell’IA non deve essere copiata automaticamente nel notebook. Deve essere selezionata, corretta, ridotta o riformulata in funzione della specifica teorica del caso e dei vincoli didattici della lezione.
 
 ---
 
-### 14.4 Notebook applicativo
+### 14.6 Notebook applicativo
 
 Il notebook Jupyter è il formato ordinario delle lezioni applicative. Lo script Python può essere prodotto come materiale ausiliario o di esportazione, ma il notebook resta preferibile quando è necessario integrare testo, formule, codice, output, grafici e commenti interpretativi.
 
@@ -882,46 +939,45 @@ Il notebook non deve essere una semplice raccolta di celle di codice. Deve esser
 5. un controllo;
 6. una interpretazione.
 
-La struttura consigliata del notebook docente è:
+La struttura consigliata del notebook è:
 
 1. intestazione della lezione e descrizione del caso;
 2. obiettivi applicativi;
 3. premesse teorico-matematiche essenziali;
 4. dati disponibili, parametri o procedura di simulazione;
 5. librerie Python necessarie;
-6. funzioni ausiliarie;
+6. funzioni ausiliarie, se necessarie;
 7. scomposizione del problema in tappe;
 8. implementazione delle tappe;
 9. controlli intermedi;
 10. output numerici;
 11. grafici e tabelle;
 12. analisi di sensibilità, se appropriata;
-13. domande di interpretazione;
-14. sintesi finale;
-15. indicazioni per il caso take-home, quando previsto.
+13. interpretazione critica;
+14. limiti del modello;
+15. sintesi finale.
 
-Il notebook docente è il risultato validato del processo di sviluppo, non la trascrizione integrale della conversazione con l’IA. Se l’IA è stata utilizzata, il notebook può includere prompt virtuosi di riferimento, ma solo quando essi aiutano a comprendere il passaggio dal modello alla procedura computazionale.
+Quando il notebook viene costruito passo passo con supporto dell’IA, ogni prompt di tappa può richiedere simultaneamente:
 
-I prompt non devono trasformare il notebook in una soluzione delegata all’IA. Devono invece mostrare come delimitare il compito richiesto allo strumento e come mantenere il controllo teorico, computazionale e interpretativo del problema.
+1. una cella Markdown della tappa;
+2. una cella codice Python, se prevista;
+3. l’elenco degli output attesi;
+4. il controllo da eseguire;
+5. il collegamento con la tappa successiva.
 
-Il notebook studente può essere:
+La produzione simultanea di testo Markdown e codice Python è ammessa nel Regime B solo quando la specifica teorica della tappa è già stata fissata e validata. L’IA non deve modificare la struttura del caso, le variabili, le formule, gli stati informativi, gli scenari o il significato finanziario del problema.
+
+Il notebook docente è il risultato validato del processo di sviluppo, non la trascrizione integrale della conversazione con l’IA. Il notebook studente può essere:
 
 1. completo, se deve essere usato come materiale di studio;
 2. semi-strutturato, se deve essere completato in aula o a casa;
 3. parzialmente guidato, se alcune celle devono essere modificate, integrate o interpretate dagli studenti.
 
-Il notebook deve evitare che gli studenti partano da un file vuoto. Le parti da completare, modificare o discutere devono essere chiaramente segnalate. Possono essere usate formule del tipo:
-
-```python
-# TODO 1: completare la funzione
-# TODO 2: verificare il controllo numerico
-# TODO 3: produrre il grafico richiesto
-# TODO 4: interpretare il risultato
-```
+Il notebook deve evitare che gli studenti partano da un file vuoto, salvo scelta didattica esplicita. Le parti da completare, modificare o discutere devono essere chiaramente segnalate.
 
 ---
 
-### 14.5 Tappe operative come moduli input/output
+### 14.7 Tappe operative come moduli input/output
 
 Le tappe operative devono essere progettate come moduli logici, non come celle isolate. Ogni tappa deve rendere esplicito il collegamento tra ciò che è già disponibile, ciò che viene trasformato e ciò che sarà utilizzato successivamente.
 
@@ -959,33 +1015,20 @@ input_k
 -> uso in k+1
 ```
 
-Questa estensione non sostituisce la struttura input/output. La rende più esplicita quando la produzione del notebook passa attraverso un’interazione con l’IA.
-
-Una tappa didattica può comprendere più celle:
+Una tappa può comprendere più celle:
 
 1. cella Markdown di descrizione della tappa;
 2. cella Markdown con input disponibili e output atteso;
-3. cella Markdown con eventuale regime IA prevalente e prompt virtuoso di riferimento;
-4. cella codice per l’operazione computazionale;
-5. cella codice o Markdown per il controllo;
-6. cella Markdown per interpretazione o commento locale.
-
-Questa struttura deve rendere visibile il passaggio:
-
-```text
-problema finanziario
--> oggetto teorico
--> procedura Python
--> output
--> controllo
--> interpretazione
-```
+3. cella codice per l’operazione computazionale;
+4. cella codice o Markdown per il controllo;
+5. cella Markdown per interpretazione locale o commento;
+6. eventuale nota sul regime IA e sul prompt utilizzato.
 
 Le tappe operative non devono essere mini-progetti indipendenti. Devono essere parti concatenate di un percorso comune, in cui ogni output rilevante contribuisce alla tappa successiva o al prodotto computazionale finale.
 
 ---
 
-### 14.6 Criteri comuni per il codice Python
+### 14.8 Criteri comuni per il codice Python
 
 Il codice Python deve rispettare i seguenti criteri:
 
@@ -1019,7 +1062,7 @@ Quando possibile, il codice deve essere costruito in modo da permettere agli stu
 
 ---
 
-### 14.7 Output numerici, grafici e prodotto finale osservabile
+### 14.9 Output numerici, grafici e prodotto finale osservabile
 
 Ogni lezione applicativa deve concludersi con un prodotto finale osservabile. La lezione non deve concludersi genericamente con la scrittura di codice, ma con la comprensione di che cosa il codice permette di calcolare e di come tale calcolo modifichi o rafforzi l’interpretazione del modello teorico.
 
@@ -1056,7 +1099,7 @@ Quando il codice per il grafico viene prodotto con supporto dell’IA, lo studen
 
 ---
 
-### 14.8 Valutazione dei lavori take-home
+### 14.10 Valutazione dei lavori take-home
 
 Quando una lezione applicativa prevede un lavoro take-home, la valutazione deve riguardare congiuntamente:
 
@@ -1083,13 +1126,13 @@ La rubrica di valutazione di ciascun caso take-home deve essere coerente con la 
 2. correttezza della scomposizione in tappe;
 3. coerenza degli input/output che collegano le tappe;
 4. qualità degli output richiesti: stime, tabelle, grafici, controlli;
-5. qualità e virtù dei prompt utilizzati, se il tracciato IA è richiesto;
+5. qualità e virtù degli input forniti all’IA, se il tracciato IA è richiesto;
 6. rispetto dei regimi di interazione con l’IA, se l’IA è ammessa;
 7. capacità di verifica e interpretazione critica.
 
 ---
 
-### 14.9 Relazione con le slides e con il capitolo applicativo
+### 14.11 Relazione con le slides e con il capitolo applicativo
 
 La lezione applicativa deve essere coerente con il capitolo corrispondente del manuale e con le slides della lezione.
 
@@ -1114,7 +1157,7 @@ Quando l’IA è prevista nella lezione, la relazione tra slides, notebook e mat
 2. il notebook mostra il risultato operativo validato;
 3. il file dei prompt virtuosi documenta l’interazione metodologica;
 4. il tracciato IA dello studente registra l’uso effettivo dello strumento;
-5. la rubrica valuta la coerenza tra problema, prompt, output e interpretazione.
+5. la rubrica valuta la coerenza tra problema, input all’IA, output e interpretazione.
 
 ---
 
@@ -1126,7 +1169,7 @@ Nel corso MQF, l'IA deve essere trattata come strumento di interazione metodolog
 
 L'uso virtuoso dell'IA non coincide con un uso minimo dello strumento. Uno studente può utilizzare l'IA in modo esteso e tuttavia corretto, se conserva il controllo della struttura teorica, delimita esplicitamente i compiti delegati, verifica gli output e formula autonomamente l'interpretazione finanziaria. L'uso improprio consiste invece nella delega opaca di passaggi che devono restare sotto responsabilità dello studente.
 
-La Sezione 14 definisce l'architettura dei materiali applicativi e del notebook. La presente sezione definisce invece l'architettura dell'interazione con l'IA: regimi, prompt, validazione delle risposte, tracciato dello studente e criteri di valutazione.
+La Sezione 14 definisce l'architettura dei materiali applicativi e del notebook. La presente sezione definisce l'architettura dell'interazione con l'IA: regimi, prompt, validazione delle risposte, tracciato dello studente e criteri di valutazione.
 
 ---
 
@@ -1209,10 +1252,6 @@ Formula guida del Regime A:
 
 > Aiutami a riconoscere gli oggetti teorici del problema, senza risolverlo.
 
-Esempio di prompt coerente con il Regime A:
-
-> Sto lavorando su un problema di perdita di portafoglio condizionata a stati informativi di mercato. Aiutami a distinguere variabili casuali, eventi, informazione disponibile, quantità teoriche e possibili stime empiriche. Non scegliere il modello finale, non scrivere codice e non risolvere il caso.
-
 #### Regime B — Traduzione operativa in codice
 
 Nel Regime B, l'IA viene utilizzata per rendere computabile una specifica teorica già definita e validata. In questo regime, lo studente può delegare all'IA la costruzione dell'apparato computazionale, pur mantenendo il controllo sulla sostanza teorica del problema.
@@ -1236,10 +1275,6 @@ Formula guida del Regime B:
 
 > Data questa specifica teorica validata, costruisci l'apparato computazionale, senza modificarla.
 
-Esempio di prompt coerente con il Regime B:
-
-> Ho validato la seguente specifica teorica: \(L\) è la perdita di portafoglio, \(S\) è l'evento di stress, e la quantità da stimare è la media empirica di \(L\) condizionata a \(S\). Costruisci una procedura Python coerente con questa specifica. Puoi scegliere struttura dati, nomi Python e forma dell'output. Non modificare la definizione di \(L\), non cambiare l'evento \(S\), non introdurre altre misure di rischio e non interpretare il risultato.
-
 Nel caso dei grafici, la distinzione tra contenuto informativo e realizzazione tecnica è essenziale. Lo studente deve specificare quale variabile rappresentare, quale confronto mostrare, quale soglia evidenziare e quale domanda interpretativa il grafico deve rendere visibile. L'IA può essere delegata alla realizzazione tecnica del grafico, ma non alla scelta del suo significato informativo.
 
 #### Regime C — Verifica e interpretazione critica
@@ -1262,10 +1297,6 @@ L'IA non deve produrre la conclusione finale al posto dello studente. In questo 
 Formula guida del Regime C:
 
 > Valuta criticamente la verifica e l'interpretazione che ho scritto, senza sostituirti a me.
-
-Esempio di prompt coerente con il Regime C:
-
-> Ho scritto questa interpretazione del risultato ottenuto. Segnala se distinguo correttamente quantità teorica e stima empirica, se traggo conclusioni troppo forti e se sto trascurando limiti rilevanti del modello. Non riscrivere il testo al posto mio e non produrre una conclusione finale.
 
 ---
 
@@ -1332,17 +1363,15 @@ La validazione può essere svolta dal docente, nel notebook docente, oppure dall
 9. quale controllo è stato svolto;
 10. come l'output viene usato nella tappa successiva.
 
-La sequenza iterativa è particolarmente importante nelle lezioni applicative, perché rende visibile il passaggio:
+Quando il notebook viene costruito passo passo con supporto dell’IA, ogni prompt di tappa deve richiedere esplicitamente gli elementi da trasferire nel notebook:
 
-```text
-problema finanziario
--> oggetto teorico
--> prompt delimitato
--> procedura Python
--> output
--> controllo
--> interpretazione
-```
+1. cella Markdown della tappa;
+2. cella codice, se prevista;
+3. output attesi;
+4. controllo da eseguire;
+5. collegamento con la tappa successiva.
+
+La produzione simultanea di testo Markdown e codice Python è ammessa nel Regime B solo quando la specifica teorica della tappa è già stata fissata e validata.
 
 ---
 
@@ -1356,34 +1385,34 @@ Per questo motivo si distinguono tre tipi di prompt.
 
 Il prompt zero è il prompt di contesto iniziale. Si usa una sola volta all'inizio di una nuova chat. Serve a definire il perimetro della conversazione.
 
-Il prompt zero deve indicare almeno:
+Il prompt zero può essere:
+
+1. **generale**, se deve stabilire solo regole valide per qualunque caso applicativo;
+2. **specifico**, se deve anche introdurre il caso, la scheda macro o la specifica congelata.
+
+Il prompt zero generale non deve anticipare il contenuto del caso. Deve indicare:
 
 1. corso e livello degli studenti;
-2. obiettivo della lezione applicativa;
-3. caso aula o caso take-home;
-4. contenuti teorici già disponibili;
-5. regimi di interazione A, B e C;
-6. specifica congelata del problema, se già disponibile;
-7. vincoli generali su ciò che l'IA non deve introdurre;
-8. sequenza di lavoro prevista;
-9. ruolo del notebook e degli output computazionali;
-10. eventuale formato richiesto per le risposte.
+2. obiettivo generale del lavoro applicativo;
+3. distinzione tra notebook e tracciato IA;
+4. regimi di interazione A, B e C;
+5. regole operative generali;
+6. divieto di anticipare caso, modello, variabili, dati, scenari, parametri o output;
+7. richiesta di risposta minima di conferma.
 
-Dopo il prompt zero, i prompt di tappa possono essere più brevi, perché il contesto generale è già stato fornito.
+Salvo diversa indicazione del docente, il prompt zero deve essere non produttivo. Non deve chiedere all'IA di generare contenuti teorici, codice, formule, esempi, schede macro, scomposizioni, piani di lavoro o sintesi del caso.
 
-La struttura è:
+Forma raccomandata della chiusura del prompt zero generale:
 
 ```text
-prompt zero
--> prompt breve tappa 1
--> prompt breve tappa 2
--> prompt breve tappa 3
--> ...
+Per ora questo è solo un prompt di inizializzazione del contesto.
+Non produrre contenuti teorici, codice, formule, esempi, schede macro, scomposizioni, piani di lavoro o sintesi del caso.
+Rispondi soltanto confermando che hai compreso i vincoli generali e che attenderai il prossimo prompt.
 ```
 
 #### Prompt breve di tappa
 
-Il prompt breve di tappa è utilizzabile solo se nella stessa chat è già stato fornito un prompt zero sufficientemente completo.
+Il prompt breve di tappa è utilizzabile solo se nella stessa chat è già stato fornito un prompt zero sufficientemente completo e se la tappa è stata definita in una scomposizione validata.
 
 Il prompt breve deve indicare almeno:
 
@@ -1394,7 +1423,15 @@ Il prompt breve deve indicare almeno:
 5. vincoli specifici;
 6. output atteso.
 
-Il prompt breve non deve ripetere tutto il contesto generale, ma deve richiamare con precisione il passaggio locale da svolgere.
+Prompt molto brevi, come “ok, tappa k”, sono ammessi solo come prompt di avanzamento, non come prompt sostanziali. Sono accettabili quando:
+
+1. il prompt zero è stato fornito;
+2. la scheda macro è stata fissata;
+3. la scomposizione in tappe è stata validata;
+4. la tappa precedente è stata eseguita e controllata;
+5. il tracciato documenta che lo studente ha conservato controllo sul processo.
+
+Tali prompt non sono invece sufficienti per ricognizione teorica, validazione, correzione di errori o interpretazione critica.
 
 #### Prompt autosufficiente di tappa
 
@@ -1447,19 +1484,19 @@ L'output atteso è [formato].
 L'output sarà usato per [tappa successiva].
 ```
 
-Nel Regime A, il prompt deve orientare la ricognizione teorica. La forma raccomandata è:
+Nel Regime A, il prompt deve orientare la ricognizione teorica:
 
 > Aiutami a distinguere grandezze, variabili, eventi, informazione, ipotesi e quantità teoriche. Non risolvere il problema, non scegliere il modello finale e non scrivere codice.
 
-Nel Regime B, il prompt deve vincolare la costruzione computazionale. La forma raccomandata è:
+Nel Regime B, il prompt deve vincolare la costruzione computazionale:
 
 > Data questa specifica teorica, costruisci il codice o l'output richiesto. Puoi scegliere la forma tecnica della procedura, ma non modificare variabili, eventi, formule, ipotesi o significato finanziario.
 
-Nel Regime C, il prompt deve trasformare l'IA in revisore critico. La forma raccomandata è:
+Nel Regime C, il prompt deve trasformare l'IA in revisore critico:
 
 > Ho scritto questa verifica o interpretazione. Segnala errori, ambiguità e affermazioni troppo forti, ma non riscrivere il testo al posto mio.
 
-Un prompt privo di contesto, di input e di vincoli tende a produrre risposte generiche. Un prompt troppo ampio, come "risolvi il problema", trasferisce all'IA responsabilità che nel corso devono restare allo studente. Un prompt virtuoso, invece, delimita l'interazione e permette di controllare se la risposta ottenuta è coerente con il modello.
+Un prompt privo di contesto, di input e di vincoli tende a produrre risposte generiche. Un prompt troppo ampio, come “risolvi il problema”, trasferisce all'IA responsabilità che nel corso devono restare allo studente.
 
 La portabilità contestuale è parte integrante della qualità del prompt. Un prompt formalmente corretto ma comprensibile solo all'interno della conversazione originaria non deve essere considerato pienamente virtuoso, se è destinato a essere riutilizzato dagli studenti o documentato come esempio didattico.
 
@@ -1545,12 +1582,16 @@ Il tracciato IA dello studente deve avere una struttura stabile. La struttura co
 
 Riportare integralmente il prompt zero.
 
-## 3. Scomposizione in tappe
+## 3. Scheda macro o premesse teoriche
+
+Indicare le premesse teorico-matematiche individuate, oppure riportare la scheda macro validata.
+
+## 4. Scomposizione in tappe
 
 | Tappa | Input | Operazione | Output | Uso successivo |
 |---:|---|---|---|---|
 
-## 4. Interazioni con l'IA
+## 5. Interazioni con l'IA
 
 ### Tappa k — Titolo della tappa
 
@@ -1577,11 +1618,11 @@ Accettazione / modifica / rifiuto / correzione.
 **Uso dell'output nella tappa successiva:**  
 ...
 
-## 5. Interpretazione finale
+## 6. Interpretazione finale
 
 Testo autonomo dello studente.
 
-## 6. Limiti del modello
+## 7. Limiti del modello
 
 Discussione dei principali limiti teorici, computazionali o finanziari.
 ```
@@ -1594,35 +1635,41 @@ La struttura può essere adattata dal docente in funzione della specifica lezion
 
 La valutazione del tracciato IA deve concentrarsi sulla qualità metodologica dell'interazione, non sulla presunta originalità assoluta della conversazione. In un lavoro svolto a casa non è realistico ricostruire tutta la storia privata dell'uso dell'IA. La valutazione deve riguardare il tracciato consegnato come artefatto osservabile.
 
+Nella valutazione del tracciato IA non si valuta la qualità intrinseca delle risposte prodotte dall’IA. Si valuta invece la qualità degli input dello studente: chiarezza dei prompt, correttezza del regime richiesto, vincoli imposti, capacità di validare, correggere o rifiutare la risposta e coerenza tra interazione IA, notebook e output prodotti.
+
+Una risposta IA errata non penalizza lo studente se viene riconosciuta, corretta o esclusa. Penalizza invece lo studente l’uso non critico di una risposta IA errata, invasiva o non coerente con il regime dichiarato.
+
 Non è penalizzato l'uso dell'IA per migliorare la formulazione dei prompt, per organizzare meglio la sequenza di lavoro o per chiarire come strutturare l'interazione. Ciò che deve essere valutato negativamente è la delega non governata, generica, opaca o concettualmente vuota.
 
 La valutazione del tracciato deve considerare almeno i seguenti criteri:
 
 1. corretta distinzione dei regimi A, B e C;
-2. qualità delle premesse teorico-matematiche identificate;
-3. corretta scomposizione del problema in tappe;
-4. chiarezza del legame input/output tra tappe;
-5. specificità dei prompt;
-6. portabilità contestuale dei prompt;
-7. presenza di vincoli espliciti posti all'IA;
-8. coerenza tra prompt, output del notebook e interpretazione;
-9. capacità di correggere, restringere o rifiutare risposte IA troppo ampie;
-10. presenza di controlli numerici, logici o interpretativi;
-11. autonomia dell'interpretazione finale.
+2. qualità degli input forniti dallo studente all’IA;
+3. qualità delle premesse teorico-matematiche identificate;
+4. corretta scomposizione del problema in tappe;
+5. chiarezza del legame input/output tra tappe;
+6. specificità dei prompt sostanziali;
+7. uso appropriato dei prompt brevi di avanzamento;
+8. portabilità contestuale dei prompt;
+9. presenza di vincoli espliciti posti all'IA;
+10. coerenza tra prompt, output del notebook e interpretazione;
+11. capacità di correggere, restringere o rifiutare risposte IA troppo ampie;
+12. presenza di controlli numerici, logici o interpretativi;
+13. autonomia dell'interpretazione finale.
 
 Sono indicatori di uso debole o improprio:
 
-1. prompt globali del tipo "risolvi il problema";
+1. prompt globali del tipo “risolvi il problema”;
 2. passaggio immediato dal testo del problema al codice completo;
 3. assenza di Regime A;
 4. assenza di Regime C;
 5. prompt privi di contesto e di vincoli;
-6. IA che sceglie variabili, eventi, formule o ipotesi senza validazione;
-7. IA che produce direttamente l'interpretazione finale;
-8. output non coerenti con i prompt o con la traccia del problema;
-9. controlli dichiarati ma non effettivamente collegati agli output;
-10. tracciato formalmente ordinato ma povero di contenuto specifico;
-11. uso di prompt brevi senza prompt zero e senza contesto sufficiente;
+6. uso di prompt brevi senza prompt zero, scheda macro o scomposizione validata;
+7. IA che sceglie variabili, eventi, formule o ipotesi senza validazione;
+8. IA che produce direttamente l'interpretazione finale senza una bozza dello studente;
+9. output non coerenti con i prompt o con la traccia del problema;
+10. controlli dichiarati ma non effettivamente collegati agli output;
+11. tracciato formalmente ordinato ma povero di contenuto specifico;
 12. assenza di validazione esplicita delle risposte IA utilizzate.
 
 Sono indicatori di uso virtuoso:
@@ -1631,14 +1678,15 @@ Sono indicatori di uso virtuoso:
 2. prompt specifici e contestualizzati;
 3. uso corretto del prompt zero, quando necessario;
 4. prompt di tappa coerenti con gli input disponibili;
-5. vincoli espliciti sul ruolo dell'IA;
-6. collegamento tra oggetti teorici e oggetti computazionali;
-7. tappe concatenate mediante input e output;
-8. proprietà informative dei grafici specificate dallo studente;
-9. controlli numerici e logici espliciti;
-10. revisione critica dell'interpretazione;
-11. correzione di risposte IA troppo generiche o invasive;
-12. coerenza tra tracciato IA, notebook e output finali.
+5. uso appropriato di prompt brevi di avanzamento dopo una struttura già validata;
+6. vincoli espliciti sul ruolo dell'IA;
+7. collegamento tra oggetti teorici e oggetti computazionali;
+8. tappe concatenate mediante input e output;
+9. proprietà informative dei grafici specificate dallo studente;
+10. controlli numerici e logici espliciti;
+11. revisione critica dell'interpretazione;
+12. correzione di risposte IA troppo generiche o invasive;
+13. coerenza tra tracciato IA, notebook e output finali.
 
 ---
 
@@ -1705,15 +1753,7 @@ ipotesi
 
 La finalità didattica non è ridurre il lavoro dello studente, ma aumentare la qualità del suo controllo sul processo quantitativo.
 
-L'uso di strumenti di intelligenza artificiale generativa puo' essere previsto nelle lezioni applicative come supporto controllato alla modellizzazione quantitativa. L'obiettivo non e' insegnare l'IA come contenuto autonomo, ne' trasformare Python in un contenuto indipendente del corso. L'obiettivo e' permettere agli studenti di osservare, simulare, verificare e interpretare modelli quantitativi applicati alla finanza.
-
-Nel corso MQF, l'IA deve essere trattata come strumento di interazione metodologica. Essa puo' assistere lo studente nel passaggio dal problema economico-finanziario alla procedura computazionale, ma non deve sostituire la responsabilita' dello studente nella definizione degli oggetti teorici, nella verifica degli output e nell'interpretazione finanziaria dei risultati.
-
-L'uso virtuoso dell'IA non coincide con un uso minimo dello strumento. Uno studente puo' utilizzare l'IA in modo esteso e tuttavia corretto, se conserva il controllo della struttura teorica, delimita esplicitamente i compiti delegati, verifica gli output e formula autonomamente l'interpretazione finanziaria. L'uso improprio consiste invece nella delega opaca di passaggi che devono restare sotto responsabilita' dello studente.
-
-Le lezioni applicative devono quindi insegnare non soltanto a ottenere output computazionali, ma a governare l'interazione con l'IA secondo una sequenza metodologicamente controllata.
-
-
+---
 
 ## 16. Stato di avanzamento da mantenere aggiornato
 
