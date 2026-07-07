@@ -737,18 +737,19 @@ Per ciascuna lezione applicativa deve essere progettata una coppia di casi:
 1. **caso aula**, sviluppato dal docente durante la lezione;
 2. **caso take-home**, assegnato agli studenti come lavoro autonomo.
 
-Il caso aula e il caso take-home non devono essere distinti da differenze strutturali nella procedura di sviluppo. Entrambi devono essere progettati mediante la stessa architettura metodologica:
+Il caso aula e il caso take-home non devono essere distinti da differenze strutturali nella procedura di costruzione. Entrambi devono essere progettati mediante la stessa architettura metodologica:
 
-1. scheda docente di calibrazione;
-2. scheda macro;
-3. scomposizione in tappe input-output;
-4. sequenza di prompt virtuosi;
-5. notebook;
-6. output numerici e grafici;
-7. controlli;
-8. interpretazione critica;
-9. eventuale tracciato IA;
-10. rubrica di valutazione.
+1. Scheda Costruzione Caso;
+2. Scheda Caso;
+3. Flusso logico-teorico risolutivo;
+4. scomposizione in tappe input-output;
+5. sequenza di prompt virtuosi;
+6. notebook;
+7. output numerici e grafici;
+8. controlli;
+9. interpretazione critica;
+10. eventuale tracciato IA;
+11. rubrica di valutazione.
 
 La differenza tra caso aula e caso take-home riguarda il contesto finanziario, probabilistico o decisionale, e, se necessario, alcune scelte specifiche della linea risolutiva. Il caso take-home deve restare distinto dal caso aula, ma non deve richiedere una procedura metodologica diversa.
 
@@ -766,72 +767,118 @@ Per ogni coppia caso aula / caso take-home devono essere chiari:
 
 ---
 
-### 14.2 Scheda docente di calibrazione
+### 14.2 Scheda Costruzione Caso
 
-La scheda docente di calibrazione deve essere predisposta sia per il caso aula sia per il caso take-home. Essa costituisce il documento a monte dal quale vengono ricavate:
+La precedente denominazione **“scheda docente di calibrazione”** è sostituita da **Scheda Costruzione Caso**.
 
-1. la scheda macro del caso;
-2. la scomposizione in tappe;
-3. la sequenza dei prompt virtuosi;
-4. la struttura del notebook;
-5. gli output richiesti;
-6. i controlli obbligatori;
-7. la rubrica di valutazione.
+La Scheda Costruzione Caso è il documento interno di progettazione del caso. Essa resta nelle mani del docente, ha funzione creativa primaria e deve essere redatta prima di tutte le altre fasi: prima della Scheda Caso, prima della scomposizione in tappe, prima della sequenza dei prompt e prima della costruzione del notebook.
 
-Nel caso aula, la scheda docente di calibrazione serve a guidare la costruzione del notebook docente. Nel caso take-home, serve a garantire che il lavoro assegnato agli studenti sia coerente, risolvibile, valutabile e metodologicamente comparabile con il caso aula.
+La Scheda Costruzione Caso deve essere predisposta sia per il caso aula sia per il caso take-home. La sua funzione metodologica è la stessa nei due casi. La differenza riguarda soltanto l’uso didattico successivo dei materiali: nel caso aula il materiale sostiene lo sviluppo guidato in lezione; nel caso take-home sostiene la consegna assegnata agli studenti e la valutazione del notebook e del tracciato IA.
 
-La scheda docente di calibrazione deve contenere almeno:
+La Scheda Costruzione Caso deve contenere almeno:
 
 1. identificazione della lezione e del tipo di caso;
 2. titolo del caso;
-3. contesto finanziario, probabilistico o decisionale;
-4. obiettivo didattico;
-5. collegamento con le lezioni teoriche precedenti;
-6. concetti teorici da rendere osservabili;
-7. funzione della simulazione o della procedura computazionale;
-8. ruolo dell’informazione, degli stati, degli scenari o dei vincoli;
-9. grandezze economico-finanziarie;
-10. variabili casuali o decisionali;
-11. eventi, stati informativi o scenari;
-12. formule principali;
-13. quantità teoriche da stimare o calcolare;
-14. proprietà teoriche da verificare;
-15. parametri finanziari, probabilistici o computazionali;
-16. soglie, target o vincoli rilevanti;
-17. ipotesi modellistiche;
-18. limiti del modello;
-19. scomposizione attesa in tappe input-output;
-20. output richiesti: tabelle, grafici, stime, controlli;
-21. sequenza docente dei prompt virtuosi, se l’uso dell’IA è previsto;
-22. criteri di validazione del notebook;
-23. criteri di valutazione del tracciato IA, se richiesto;
-24. rubrica sintetica.
+3. contesto storico-finanziario, probabilistico o decisionale;
+4. motivazione didattica del caso;
+5. domanda quantitativa;
+6. obiettivo didattico;
+7. collegamento con le lezioni teoriche precedenti;
+8. concetti teorici da rendere osservabili;
+9. funzione della simulazione o della procedura computazionale;
+10. ruolo dell’informazione, degli stati, degli scenari o dei vincoli;
+11. grandezze economico-finanziarie;
+12. variabili casuali o decisionali;
+13. eventi, stati informativi o scenari;
+14. formule principali;
+15. quantità teoriche da stimare o calcolare;
+16. proprietà teoriche da verificare;
+17. parametri finanziari, probabilistici o computazionali;
+18. soglie, target o vincoli rilevanti;
+19. ipotesi modellistiche;
+20. limiti del modello;
+21. output richiesti: tabelle, grafici, stime, controlli;
+22. Flusso logico-teorico risolutivo;
+23. scomposizione attesa in tappe input-output;
+24. sequenza docente dei prompt virtuosi, se l’uso dell’IA è previsto;
+25. struttura attesa del notebook;
+26. criteri di validazione del notebook;
+27. criteri di valutazione del tracciato IA, se richiesto;
+28. rubrica sintetica;
+29. esito atteso e calibrazione qualitativa del caso.
 
-La scheda docente di calibrazione ha funzione interna di controllo didattico. Deve essere validata prima di derivare la scheda macro e prima di iniziare la costruzione del notebook.
+La Scheda Costruzione Caso non deve essere confusa con la Scheda Caso. Essa può contenere informazioni non destinate direttamente agli studenti: scelte di progettazione, calibrazione qualitativa attesa, struttura dei prompt, criteri di validazione, criteri di valutazione e rubrica.
+
+#### Flusso logico-teorico risolutivo
+
+La Scheda Costruzione Caso deve includere una sezione dedicata al **Flusso logico-teorico risolutivo**.
+
+Questa sezione costituisce il cuore intellettuale del caso. Il suo compito non è descrivere il codice, né anticipare la scomposizione operativa del notebook, ma ricostruire la sequenza dei richiami teorico-matematici necessari per passare dalla domanda quantitativa agli output richiesti.
+
+Il flusso deve richiamare, nell’ordine logicamente utile alla soluzione:
+
+1. definizioni matematiche rilevanti;
+2. proprietà probabilistiche, finanziarie o ottimizzative;
+3. teoremi o formule utilizzate;
+4. collegamenti con le grandezze specifiche del caso;
+5. output o controlli che discendono da ciascun passaggio teorico.
+
+L’output obbligatorio della sezione è una tabella con la seguente struttura:
+
+| Passo | Finalità risolutiva | Formula teorico-matematica / definizione / proprietà / teorema | Applicazione nel caso | Output o controllo collegato |
+|---:|---|---|---|---|
+| 1 |  |  |  |  |
+| 2 |  |  |  |  |
+| 3 |  |  |  |  |
+
+La colonna **Passo** indica l’ordine logico ideale della soluzione.
+
+La colonna **Finalità risolutiva** spiega perché quel richiamo teorico è necessario per procedere nella soluzione del caso.
+
+La colonna **Formula teorico-matematica / definizione / proprietà / teorema** contiene il richiamo matematico essenziale, già introdotto nei capitoli teorici del corso o esplicitamente ammesso nella lezione applicativa.
+
+La colonna **Applicazione nel caso** traduce il richiamo teorico negli oggetti specifici del caso: variabili, eventi, partizioni, distribuzioni, funzioni di perdita, vincoli, soglie o quantità da stimare.
+
+La colonna **Output o controllo collegato** indica quale tabella, grafico, quantità numerica, verifica o controllo del notebook discende da quel passaggio teorico.
+
+La sequenza del flusso logico-teorico deve guidare la successiva scomposizione in tappe input-output. Le tappe operative non devono nascere direttamente dal codice, ma dalla successione teorica fissata in questa tabella.
 
 ---
 
-### 14.3 Scheda macro del caso
+### 14.3 Scheda Caso
 
-La scheda macro è il documento operativo che fissa il perimetro del caso prima della scomposizione in tappe e prima dell’interazione con l’IA per la costruzione del notebook.
+La precedente denominazione **“scheda macro”** è sostituita da **Scheda Caso**.
 
-La scheda macro deve essere derivata dalla scheda docente di calibrazione validata. Essa deve indicare almeno:
+La Scheda Caso è il documento operativo derivato dalla Scheda Costruzione Caso. Essa contiene la descrizione del caso, il contesto, la domanda quantitativa, la specifica teorico-matematica essenziale, i parametri, le ipotesi, gli output richiesti e i controlli essenziali.
 
-1. contesto finanziario o probabilistico;
-2. domanda quantitativa;
-3. grandezze economico-finanziarie;
-4. variabili casuali o decisionali;
-5. eventi, stati informativi o scenari;
-6. ipotesi modellistiche;
-7. quantità teoriche da stimare o calcolare;
-8. output computazionali attesi;
-9. controlli richiesti;
-10. limiti del modello;
-11. eventuale specifica congelata del caso.
+La Scheda Caso non contiene la progettazione docente interna: non contiene la rubrica completa, la calibrazione qualitativa attesa, la struttura dettagliata del notebook, né la sequenza docente completa dei prompt.
 
-La scheda macro non deve essere una soluzione del problema. Deve delimitare ciò che potrà essere sviluppato nel notebook e ciò che l’IA non potrà modificare.
+La Scheda Caso non deve contenere già svolto il Flusso logico-teorico risolutivo completo. Deve però fornire gli elementi necessari affinché docente e studenti possano ricostruirlo: contesto, domanda quantitativa, variabili, eventi, parametri, formule principali, quantità teoriche da stimare, output e controlli richiesti.
 
-Per il caso aula, la scheda macro orienta il lavoro del docente e il notebook dimostrativo. Per il caso take-home, la scheda macro può essere fornita integralmente o parzialmente allo studente, a seconda del livello di autonomia richiesto. Quando la costruzione della scheda macro è parte del lavoro valutato, lo studente deve documentare nel tracciato IA come essa è stata ottenuta e validata.
+Per il caso aula, la Scheda Caso è input comune per docente e studenti. Per il caso take-home, la Scheda Caso è input operativo per gli studenti.
+
+Nel lavoro con IA, la Scheda Caso costituisce il contenuto del **Prompt 1**, successivo al Prompt 0 di inizializzazione. Nel Prompt 1 l’IA deve solo acquisire la scheda come specifica vincolante e rispondere con una conferma minima. Non deve produrre sintesi, formule aggiuntive, codice, tappe operative, interpretazioni o suggerimenti.
+
+La Scheda Caso deve indicare almeno:
+
+1. titolo del caso;
+2. tipo di caso: aula o take-home;
+3. contesto finanziario, probabilistico o decisionale;
+4. domanda quantitativa;
+5. grandezze economico-finanziarie;
+6. variabili casuali o decisionali;
+7. eventi, stati informativi o scenari;
+8. formule principali;
+9. ipotesi modellistiche;
+10. parametri;
+11. soglie, target o vincoli;
+12. quantità teoriche da stimare o calcolare;
+13. output computazionali attesi;
+14. controlli richiesti;
+15. limiti del modello;
+16. eventuale specifica congelata del caso.
+
+La Scheda Caso non deve essere una soluzione del problema. Deve delimitare ciò che potrà essere sviluppato nel notebook e ciò che l’IA non potrà modificare.
 
 ---
 
@@ -841,12 +888,12 @@ Per ogni lezione applicativa deve essere predisposto un pacchetto coerente di ma
 
 #### Materiali principali
 
-1. scheda docente di calibrazione del caso aula;
-2. scheda macro del caso aula;
-3. notebook docente del caso aula;
-4. scheda docente di calibrazione del caso take-home;
-5. scheda macro o traccia del caso take-home;
-6. notebook studente, completo o semi-strutturato;
+1. Scheda Costruzione Caso del caso aula;
+2. Scheda Caso del caso aula;
+3. notebook del caso aula;
+4. Scheda Costruzione Caso del caso take-home;
+5. Scheda Caso del caso take-home;
+6. notebook del caso take-home, completo, semi-strutturato o da costruire progressivamente;
 7. template del tracciato IA in formato Markdown, se il lavoro prevede uso documentato dell’IA;
 8. rubrica di valutazione del notebook e del tracciato IA.
 
@@ -885,19 +932,23 @@ Il README non è obbligatorio in ogni lezione, ma è consigliato quando il pacch
 La costruzione di una lezione applicativa deve seguire una procedura progressiva. L’ordine raccomandato è:
 
 1. definizione della coppia caso aula / caso take-home;
-2. redazione della scheda docente di calibrazione del caso aula;
-3. validazione della scheda docente di calibrazione del caso aula;
-4. derivazione della scheda macro del caso aula;
-5. scomposizione del caso aula in tappe input-output;
-6. definizione della sequenza di prompt virtuosi per il caso aula;
-7. costruzione iterativa del notebook docente;
-8. esecuzione e calibrazione degli output;
-9. redazione della scheda docente di calibrazione del caso take-home;
-10. validazione della scheda docente di calibrazione del caso take-home;
-11. derivazione della scheda macro o traccia del caso take-home;
-12. predisposizione del notebook studente;
-13. predisposizione del template del tracciato IA;
-14. predisposizione della rubrica di valutazione.
+2. redazione della Scheda Costruzione Caso del caso aula;
+3. validazione della Scheda Costruzione Caso del caso aula;
+4. derivazione della Scheda Caso del caso aula;
+5. costruzione o validazione del Flusso logico-teorico risolutivo del caso aula;
+6. scomposizione del caso aula in tappe input-output;
+7. definizione della sequenza di prompt virtuosi per il caso aula, se l’IA è prevista;
+8. costruzione iterativa del notebook del caso aula;
+9. esecuzione e calibrazione degli output;
+10. redazione della Scheda Costruzione Caso del caso take-home;
+11. validazione della Scheda Costruzione Caso del caso take-home;
+12. derivazione della Scheda Caso del caso take-home;
+13. costruzione o validazione del Flusso logico-teorico risolutivo del caso take-home;
+14. scomposizione del caso take-home in tappe input-output;
+15. definizione della sequenza di prompt virtuosi per il caso take-home, se l’IA è prevista;
+16. predisposizione del notebook del caso take-home, se previsto;
+17. predisposizione del template del tracciato IA;
+18. predisposizione della rubrica di valutazione.
 
 Quando l’IA è usata nella costruzione o nello svolgimento della lezione, il processo non deve essere lineare nel senso:
 
@@ -910,7 +961,9 @@ prompt
 Deve invece essere iterativo e controllato:
 
 ```text
-scheda macro
+Scheda Caso
+-> Prompt 1: acquisizione non produttiva del caso
+-> Prompt 2: costruzione del Flusso logico-teorico risolutivo
 -> scomposizione in tappe
 -> prompt di tappa
 -> risposta IA
@@ -1371,26 +1424,28 @@ Quando il notebook viene costruito passo passo con supporto dell’IA, ogni prom
 4. controllo da eseguire;
 5. collegamento con la tappa successiva.
 
-La produzione simultanea di testo Markdown e codice Python è ammessa nel Regime B solo quando la specifica teorica della tappa è già stata fissata e validata.
+La sequenza dei prompt virtuosi deve essere tracciabile rispetto alla struttura del notebook. Ogni prompt rilevante deve poter essere collegato a una o più sezioni del notebook e deve chiarire quale parte del prodotto finale genera: cella Markdown, cella codice, tabella, grafico, controllo, interpretazione locale o revisione critica.
+
+Nella scheda docente di calibrazione, il docente deve quindi predisporre una mappa esplicita tra prompt e notebook. Questa mappa ha doppia funzione: guida lo sviluppo del notebook docente e fornisce un riferimento per valutare la coerenza tra tracciato IA e notebook nei lavori take-home.
 
 ---
 
-### 15.6 Prompt zero, prompt di tappa e prompt autosufficiente
+### 15.6 Prompt zero, Prompt 1, Prompt 2 e prompt di tappa
 
-La qualità di un prompt dipende anche dalla quantità di contesto fornito all'IA. Un prompt di tappa formalmente corretto può produrre risposte deboli se viene usato in una chat nuova senza avere prima definito il contesto del corso, del caso e dei regimi di interazione.
+La qualità di un prompt dipende anche dalla quantità di contesto fornito all’IA. Un prompt di tappa formalmente corretto può produrre risposte deboli se viene usato in una chat nuova senza avere prima definito il contesto del corso, del caso e dei regimi di interazione.
 
-Per questo motivo si distinguono tre tipi di prompt.
+Per le lezioni applicative che prevedono uso documentato dell’IA, la sequenza iniziale deve distinguere:
+
+1. Prompt zero;
+2. Prompt 1 — acquisizione della Scheda Caso;
+3. Prompt 2 — costruzione del Flusso logico-teorico risolutivo;
+4. prompt di tappa.
 
 #### Prompt zero
 
-Il prompt zero è il prompt di contesto iniziale. Si usa una sola volta all'inizio di una nuova chat. Serve a definire il perimetro della conversazione.
+Il Prompt zero è il prompt di contesto iniziale. Si usa una sola volta all’inizio di una nuova chat. Serve a definire il perimetro generale della conversazione.
 
-Il prompt zero può essere:
-
-1. **generale**, se deve stabilire solo regole valide per qualunque caso applicativo;
-2. **specifico**, se deve anche introdurre il caso, la scheda macro o la specifica congelata.
-
-Il prompt zero generale non deve anticipare il contenuto del caso. Deve indicare:
+Il Prompt zero generale non deve anticipare il contenuto del caso. Deve indicare:
 
 1. corso e livello degli studenti;
 2. obiettivo generale del lavoro applicativo;
@@ -1400,59 +1455,94 @@ Il prompt zero generale non deve anticipare il contenuto del caso. Deve indicare
 6. divieto di anticipare caso, modello, variabili, dati, scenari, parametri o output;
 7. richiesta di risposta minima di conferma.
 
-Salvo diversa indicazione del docente, il prompt zero deve essere non produttivo. Non deve chiedere all'IA di generare contenuti teorici, codice, formule, esempi, schede macro, scomposizioni, piani di lavoro o sintesi del caso.
+Salvo diversa indicazione del docente, il Prompt zero deve essere non produttivo. Non deve chiedere all’IA di generare contenuti teorici, codice, formule, esempi, Schede Caso, scomposizioni, piani di lavoro o sintesi del caso.
 
-Forma raccomandata della chiusura del prompt zero generale:
+Forma raccomandata della chiusura del Prompt zero generale:
 
 ```text
 Per ora questo è solo un prompt di inizializzazione del contesto.
-Non produrre contenuti teorici, codice, formule, esempi, schede macro, scomposizioni, piani di lavoro o sintesi del caso.
+Non produrre contenuti teorici, codice, formule, esempi, schede, scomposizioni, piani di lavoro o sintesi del caso.
 Rispondi soltanto confermando che hai compreso i vincoli generali e che attenderai il prossimo prompt.
 ```
 
-#### Prompt breve di tappa
+#### Prompt 1 — acquisizione della Scheda Caso
 
-Il prompt breve di tappa è utilizzabile solo se nella stessa chat è già stato fornito un prompt zero sufficientemente completo e se la tappa è stata definita in una scomposizione validata.
+Il Prompt 1 segue il Prompt zero e contiene la Scheda Caso.
 
-Il prompt breve deve indicare almeno:
+La funzione del Prompt 1 è esclusivamente vincolante e non produttiva. Lo studente fornisce all’IA la Scheda Caso e chiede soltanto di acquisirla come specifica del lavoro.
+
+L’IA deve rispondere con una conferma minima. Non deve produrre sintesi, formule aggiuntive, codice, scomposizioni, interpretazioni, controlli o suggerimenti.
+
+Forma raccomandata del Prompt 1:
+
+```text
+Ti fornisco la Scheda Caso. Devi soltanto leggerla e acquisirla come specifica vincolante del lavoro.
+Non devi produrre sintesi, formule aggiuntive, codice, tappe operative, interpretazioni, controlli o suggerimenti.
+Rispondi soltanto “OK, scheda acquisita” se tutto è chiaro.
+```
+
+#### Prompt 2 — Flusso logico-teorico risolutivo
+
+Il Prompt 2 è obbligatorio nei lavori applicativi con uso documentato dell’IA. Deve essere formulato in **Regime A**.
+
+La finalità del Prompt 2 è costruire, con supporto dell’IA, il Flusso logico-teorico risolutivo del caso.
+
+Il Prompt 2 deve contenere un contributo esplicito dello studente. Lo studente deve proporre una prima sequenza degli elementi teorici che ritiene necessari per la soluzione del caso: definizioni, proprietà, formule, teoremi, variabili, eventi, partizioni, quantità da stimare e controlli teorici.
+
+L’IA può aiutare a verificare, completare e ordinare tale sequenza, ma non deve sostituire integralmente il lavoro dello studente. Il contributo iniziale dello studente deve restare visibile nel tracciato IA.
+
+Forma raccomandata del Prompt 2:
+
+```text
+Regime A — Ricognizione teorico-modellistica.
+
+Sulla base della Scheda Caso acquisita, devo costruire il Flusso logico-teorico risolutivo.
+Secondo me gli elementi teorici necessari, nell’ordine logico utile alla soluzione, sono:
+
+1. [parte proposta dallo studente]
+2. [parte proposta dallo studente]
+3. [parte proposta dallo studente]
+
+Ti chiedo di aiutarmi a verificare, completare e ordinare questa sequenza teorica, senza scrivere codice e senza proporre ancora la scomposizione operativa del notebook.
+
+L’output deve essere una tabella con le colonne:
+Passo;
+Finalità risolutiva;
+Formula teorico-matematica / definizione / proprietà / teorema;
+Applicazione nel caso;
+Output o controllo collegato.
+
+Devi segnalare chiaramente eventuali elementi teorici mancanti, ridondanti o fuori ordine rispetto alla soluzione del caso.
+```
+
+L’output obbligatorio del Prompt 2 è la tabella:
+
+| Passo | Finalità risolutiva | Formula teorico-matematica / definizione / proprietà / teorema | Applicazione nel caso | Output o controllo collegato |
+|---:|---|---|---|---|
+
+Prompt generici del tipo “costruisci il flusso logico-teorico del caso” sono considerati deboli, perché non rendono osservabile il contributo teorico dello studente.
+
+#### Prompt di tappa
+
+Il prompt di tappa è utilizzabile solo dopo che sono stati acquisiti:
+
+1. Prompt zero;
+2. Scheda Caso tramite Prompt 1;
+3. Flusso logico-teorico risolutivo tramite Prompt 2;
+4. scomposizione in tappe validata.
+
+Il prompt di tappa deve indicare almeno:
 
 1. numero e titolo della tappa;
 2. input disponibili;
 3. regime richiesto;
 4. compito della tappa;
 5. vincoli specifici;
-6. output atteso.
+6. output atteso;
+7. controllo da eseguire;
+8. collegamento con la tappa successiva.
 
-Prompt molto brevi, come “ok, tappa k”, sono ammessi solo come prompt di avanzamento, non come prompt sostanziali. Sono accettabili quando:
-
-1. il prompt zero è stato fornito;
-2. la scheda macro è stata fissata;
-3. la scomposizione in tappe è stata validata;
-4. la tappa precedente è stata eseguita e controllata;
-5. il tracciato documenta che lo studente ha conservato controllo sul processo.
-
-Tali prompt non sono invece sufficienti per ricognizione teorica, validazione, correzione di errori o interpretazione critica.
-
-#### Prompt autosufficiente di tappa
-
-Il prompt autosufficiente di tappa è un prompt che può essere usato anche in una chat nuova, senza prompt zero preliminare. Deve contenere sia il contesto generale essenziale sia il compito specifico della tappa.
-
-Un prompt autosufficiente deve indicare almeno:
-
-1. contesto del corso;
-2. collocazione della lezione;
-3. descrizione sintetica del caso;
-4. contenuti teorici già ammessi;
-5. specifica del modello già fissata;
-6. tappa corrente;
-7. regime richiesto;
-8. input disponibili;
-9. compito richiesto;
-10. vincoli negativi;
-11. formato dell'output atteso;
-12. eventuale uso dell'output nella tappa successiva.
-
-Il prompt autosufficiente è più lungo, ma ha maggiore portabilità. È raccomandato quando i prompt vengono consegnati agli studenti come esempi didattici o quando si vuole garantire che ogni prompt sia comprensibile indipendentemente dalla conversazione originaria.
+I prompt brevi di avanzamento, come “ok, tappa k”, sono ammissibili solo se il contesto, la Scheda Caso, il Flusso logico-teorico risolutivo e la scomposizione in tappe sono già stati fissati e validati nella stessa conversazione.
 
 ---
 
@@ -1540,17 +1630,23 @@ Il tracciato non deve essere valutato come prova forense dell'intera storia priv
 Il tracciato deve contenere:
 
 1. identificazione del problema;
-2. eventuale prompt zero utilizzato;
-3. premesse teorico-matematiche individuate;
-4. scomposizione del problema in tappe;
-5. collegamenti input/output tra tappe;
-6. prompt utilizzati;
-7. regime attribuito a ciascun prompt;
-8. risposta IA utilizzata, oppure sintesi fedele della parte effettivamente utilizzata;
-9. azione dello studente: accettazione, modifica, rifiuto o correzione;
-10. output prodotto;
-11. controllo svolto;
-12. interpretazione finale.
+2. Prompt zero utilizzato, se previsto;
+3. Prompt 1 con acquisizione della Scheda Caso;
+4. conferma non produttiva dell’IA al Prompt 1;
+5. Prompt 2 in Regime A per la costruzione del Flusso logico-teorico risolutivo;
+6. contributo iniziale dello studente al Flusso logico-teorico risolutivo;
+7. risposta IA utilizzata per verificare, completare o ordinare il flusso;
+8. azione dello studente sulla risposta IA: accettazione, modifica, rifiuto o correzione;
+9. tabella finale del Flusso logico-teorico risolutivo;
+10. scomposizione del problema in tappe;
+11. collegamenti input/output tra tappe;
+12. prompt utilizzati;
+13. regime attribuito a ciascun prompt;
+14. risposta IA utilizzata, oppure sintesi fedele della parte effettivamente utilizzata;
+15. azione dello studente: accettazione, modifica, rifiuto o correzione;
+16. output prodotto;
+17. controllo svolto;
+18. interpretazione finale autonoma.
 
 Se lo studente utilizza un prompt zero, esso deve essere riportato una sola volta all'inizio del tracciato. I prompt successivi possono essere più brevi, purché siano chiaramente collegati al contesto iniziale e alle tappe del lavoro.
 
@@ -1558,7 +1654,7 @@ Se lo studente non utilizza un prompt zero, ogni prompt di tappa deve essere suf
 
 I prompt dello studente devono essere riportati integralmente. Le risposte dell'IA possono essere sintetizzate se molto lunghe, ma la sintesi deve indicare chiaramente quale parte della risposta è stata effettivamente utilizzata.
 
-Il numero di prompt deve rispettare l'intervallo stabilito dal docente per ciascun caso take-home. Tale intervallo viene indicato nella scheda docente di calibrazione del caso e deve essere comunicato agli studenti nella traccia del lavoro.
+Il numero di prompt deve rispettare l’intervallo stabilito dal docente per ciascun caso take-home. Tale intervallo viene indicato nella Scheda Costruzione Caso e deve essere comunicato agli studenti nella Scheda Caso o nella traccia del lavoro.
 
 Un tracciato troppo breve tende a indicare una delega globale e non controllata. Un tracciato eccessivamente lungo tende a rendere difficile la valutazione e può indicare assenza di organizzazione. Il vincolo sul numero minimo e massimo di prompt ha quindi funzione didattica: obbliga lo studente a decomporre il problema senza produrre un materiale ingestibile.
 
@@ -1568,7 +1664,6 @@ Un tracciato troppo breve tende a indicare una delega globale e non controllata.
 
 Il tracciato IA dello studente deve avere una struttura stabile. La struttura consigliata è:
 
-```markdown
 # Tracciato IA
 
 ## 1. Identificazione del caso
@@ -1580,113 +1675,186 @@ Il tracciato IA dello studente deve avere una struttura stabile. La struttura co
 
 ## 2. Prompt zero, se utilizzato
 
-Riportare integralmente il prompt zero.
+Riportare integralmente il Prompt zero.
 
-## 3. Scheda macro o premesse teoriche
+## 3. Prompt 1 — Acquisizione della Scheda Caso
 
-Indicare le premesse teorico-matematiche individuate, oppure riportare la scheda macro validata.
+Riportare integralmente il Prompt 1 e allegare o richiamare la Scheda Caso fornita all’IA.
 
-## 4. Scomposizione in tappe
+**Risposta IA attesa:** conferma minima di acquisizione.
 
-| Tappa | Input | Operazione | Output | Uso successivo |
+**Controllo dello studente:** verificare che l’IA non abbia prodotto sintesi, codice, formule aggiuntive, tappe operative o suggerimenti.
+
+## 4. Prompt 2 — Flusso logico-teorico risolutivo
+
+**Regime:** A — Ricognizione teorico-modellistica.
+
+**Contributo iniziale dello studente:**
+
+Riportare la sequenza teorica proposta dallo studente prima dell’intervento dell’IA.
+
+**Prompt utilizzato:**
+
+Riportare integralmente il Prompt 2.
+
+**Risposta IA utilizzata o sintesi fedele:**
+
+Indicare quali parti della risposta IA sono state utilizzate per verificare, completare o ordinare il flusso.
+
+**Azione dello studente:**
+
+Accettazione / modifica / rifiuto / correzione.
+
+**Flusso logico-teorico risolutivo finale:**
+
+| Passo | Finalità risolutiva | Formula teorico-matematica / definizione / proprietà / teorema | Applicazione nel caso | Output o controllo collegato |
 |---:|---|---|---|---|
 
-## 5. Interazioni con l'IA
+## 5. Scomposizione in tappe
+
+| Tappa | Input | Operazione | Output | Controllo | Uso successivo |
+|---:|---|---|---|---|---|
+
+## 6. Interazioni con l’IA per le tappe operative
 
 ### Tappa k — Titolo della tappa
 
 **Regime:** A / B / C
 
-**Input disponibili:**  
+**Input disponibili:**
+
 ...
 
-**Prompt utilizzato:**  
+**Prompt utilizzato:**
+
 ...
 
-**Risposta IA utilizzata o sintesi fedele:**  
+**Risposta IA utilizzata o sintesi fedele:**
+
 ...
 
-**Azione dello studente:**  
+**Azione dello studente:**
+
 Accettazione / modifica / rifiuto / correzione.
 
-**Output prodotto nel notebook:**  
+**Output prodotto nel notebook:**
+
 ...
 
-**Controllo svolto:**  
+**Controllo svolto:**
+
 ...
 
-**Uso dell'output nella tappa successiva:**  
+**Uso dell’output nella tappa successiva:**
+
 ...
 
-## 6. Interpretazione finale
+## 7. Interpretazione finale
 
 Testo autonomo dello studente.
 
-## 7. Limiti del modello
+## 8. Limiti del modello
 
 Discussione dei principali limiti teorici, computazionali o finanziari.
-```
 
-La struttura può essere adattata dal docente in funzione della specifica lezione applicativa, ma deve sempre rendere visibile la relazione tra prompt, risposta IA, decisione dello studente, notebook e output.
+La struttura può essere adattata dal docente in funzione della specifica lezione applicativa, ma deve sempre rendere visibile la relazione tra Scheda Caso, Flusso logico-teorico risolutivo, prompt, risposta IA, decisione dello studente, notebook e output.
 
 ---
 
 ### 15.11 Valutazione del tracciato IA
 
-La valutazione del tracciato IA deve concentrarsi sulla qualità metodologica dell'interazione, non sulla presunta originalità assoluta della conversazione. In un lavoro svolto a casa non è realistico ricostruire tutta la storia privata dell'uso dell'IA. La valutazione deve riguardare il tracciato consegnato come artefatto osservabile.
+La valutazione del tracciato IA riguarda il modo in cui lo studente ha utilizzato l’IA nel processo di costruzione del lavoro. Non riguarda la qualità intrinseca delle risposte prodotte dall’IA.
 
-Nella valutazione del tracciato IA non si valuta la qualità intrinseca delle risposte prodotte dall’IA. Si valuta invece la qualità degli input dello studente: chiarezza dei prompt, correttezza del regime richiesto, vincoli imposti, capacità di validare, correggere o rifiutare la risposta e coerenza tra interazione IA, notebook e output prodotti.
+Il docente valuta quindi:
 
-Una risposta IA errata non penalizza lo studente se viene riconosciuta, corretta o esclusa. Penalizza invece lo studente l’uso non critico di una risposta IA errata, invasiva o non coerente con il regime dichiarato.
+1. la qualità dei prompt formulati dallo studente;
+2. la chiarezza dei vincoli imposti all’IA;
+3. il rispetto dei regimi A/B/C;
+4. il contributo teorico iniziale dello studente;
+5. la capacità di verificare, correggere o selezionare criticamente le risposte IA;
+6. la tracciabilità del passaggio da prompt a notebook;
+7. la presenza di controlli numerici, logici e interpretativi;
+8. l’autonomia dell’interpretazione finale.
 
-Non è penalizzato l'uso dell'IA per migliorare la formulazione dei prompt, per organizzare meglio la sequenza di lavoro o per chiarire come strutturare l'interazione. Ciò che deve essere valutato negativamente è la delega non governata, generica, opaca o concettualmente vuota.
+Il tracciato IA è valutato come documento metodologico. Deve rendere visibile il processo seguito dallo studente: che cosa è stato chiesto all’IA, con quali vincoli, quale risposta è stata utilizzata, quale decisione è stata presa dallo studente, quale output è stato trasferito nel notebook e quale controllo è stato svolto.
 
-La valutazione del tracciato deve considerare almeno i seguenti criteri:
+#### Oggetto della valutazione
 
-1. corretta distinzione dei regimi A, B e C;
-2. qualità degli input forniti dallo studente all’IA;
-3. qualità delle premesse teorico-matematiche identificate;
-4. corretta scomposizione del problema in tappe;
-5. chiarezza del legame input/output tra tappe;
-6. specificità dei prompt sostanziali;
-7. uso appropriato dei prompt brevi di avanzamento;
-8. portabilità contestuale dei prompt;
-9. presenza di vincoli espliciti posti all'IA;
-10. coerenza tra prompt, output del notebook e interpretazione;
-11. capacità di correggere, restringere o rifiutare risposte IA troppo ampie;
-12. presenza di controlli numerici, logici o interpretativi;
-13. autonomia dell'interpretazione finale.
+La valutazione deve concentrarsi sui seguenti elementi.
 
-Sono indicatori di uso debole o improprio:
+| Area | Cosa si valuta | Indicatori positivi |
+|---|---|---|
+| Prompt zero | Inizializzazione corretta del contesto | il prompt definisce corso, livello, regimi A/B/C, distinzione tra notebook e tracciato IA, e chiede una conferma non produttiva |
+| Prompt 1 | Acquisizione della Scheda Caso | l’IA riceve la Scheda Caso come specifica vincolante e risponde solo con una conferma minima |
+| Prompt 2 | Costruzione del Flusso logico-teorico risolutivo | lo studente propone una sequenza teorica iniziale e chiede all’IA di verificarla, completarla e ordinarla |
+| Regime A | Ricognizione teorico-modellistica | l’IA è usata per chiarire oggetti teorici, formule, definizioni, proprietà e collegamenti logici, senza produrre codice |
+| Regime B | Traduzione operativa in codice | l’IA traduce in Python una specifica già validata, senza modificare variabili, formule, scenari, parametri o output richiesti |
+| Regime C | Verifica e interpretazione critica | l’IA è usata per controllare, correggere o criticare output e interpretazioni già formulate dallo studente |
+| Validazione | Controllo delle risposte IA | lo studente segnala errori, omissioni, ambiguità o modifiche non autorizzate introdotte dall’IA |
+| Collegamento al notebook | Tracciabilità del lavoro | ogni uso dell’IA è collegato a una sezione del notebook, a un output prodotto e a un controllo svolto |
+| Interpretazione finale | Autonomia critica | l’interpretazione finale è scritta dallo studente e l’IA è usata solo per revisione critica, non per sostituzione |
 
-1. prompt globali del tipo “risolvi il problema”;
-2. passaggio immediato dal testo del problema al codice completo;
-3. assenza di Regime A;
-4. assenza di Regime C;
-5. prompt privi di contesto e di vincoli;
-6. uso di prompt brevi senza prompt zero, scheda macro o scomposizione validata;
-7. IA che sceglie variabili, eventi, formule o ipotesi senza validazione;
-8. IA che produce direttamente l'interpretazione finale senza una bozza dello studente;
-9. output non coerenti con i prompt o con la traccia del problema;
-10. controlli dichiarati ma non effettivamente collegati agli output;
-11. tracciato formalmente ordinato ma povero di contenuto specifico;
-12. assenza di validazione esplicita delle risposte IA utilizzate.
+#### Valutazione specifica del Prompt 2
 
-Sono indicatori di uso virtuoso:
+Il Prompt 2 ha un ruolo centrale perché avvia la costruzione del Flusso logico-teorico risolutivo. La sua valutazione deve considerare il contributo iniziale dello studente.
 
-1. sequenza riconoscibile di ricognizione, traduzione operativa e verifica;
-2. prompt specifici e contestualizzati;
-3. uso corretto del prompt zero, quando necessario;
-4. prompt di tappa coerenti con gli input disponibili;
-5. uso appropriato di prompt brevi di avanzamento dopo una struttura già validata;
-6. vincoli espliciti sul ruolo dell'IA;
-7. collegamento tra oggetti teorici e oggetti computazionali;
-8. tappe concatenate mediante input e output;
-9. proprietà informative dei grafici specificate dallo studente;
-10. controlli numerici e logici espliciti;
-11. revisione critica dell'interpretazione;
-12. correzione di risposte IA troppo generiche o invasive;
-13. coerenza tra tracciato IA, notebook e output finali.
+Sono indicatori positivi:
+
+1. proposta iniziale dello studente non vuota e non generica;
+2. presenza di definizioni, proprietà, formule o teoremi pertinenti;
+3. ordine logico almeno parzialmente motivato;
+4. collegamento tra richiami teorici e quantità da stimare;
+5. collegamento tra richiami teorici e output richiesti;
+6. richiesta all’IA di verificare, completare e ordinare, non di sostituire integralmente;
+7. correzione o selezione critica della risposta IA;
+8. tabella finale coerente con la Scheda Caso.
+
+Sono indicatori deboli:
+
+1. Prompt 2 formulato come richiesta generica del tipo “costruisci il flusso logico-teorico del caso”;
+2. assenza di contributo teorico iniziale dello studente;
+3. elenco puramente nominale copiato dalla Scheda Caso;
+4. confusione tra flusso logico-teorico e scomposizione operativa del notebook;
+5. accettazione integrale della risposta IA senza controllo;
+6. flusso finale non collegato agli output richiesti.
+
+#### Criteri generali di qualità
+
+Un tracciato IA è di buona qualità se mostra che lo studente ha usato l’IA come supporto controllato. In particolare, deve risultare chiaro che lo studente:
+
+1. ha fornito all’IA un contesto adeguato;
+2. ha delimitato il compito dell’IA;
+3. ha dichiarato il regime di interazione;
+4. ha formulato prompt specifici e verificabili;
+5. ha costruito il Flusso logico-teorico con un contributo personale visibile;
+6. ha validato la scomposizione in tappe;
+7. ha usato l’IA per produrre o correggere codice solo dopo avere fissato la specifica teorica;
+8. ha controllato gli output numerici e grafici;
+9. ha corretto eventuali errori dell’IA;
+10. ha mantenuto autonoma l’interpretazione finale.
+
+#### Elementi penalizzanti
+
+Sono elementi penalizzanti:
+
+1. uso di prompt generici come “risolvi il caso” o “scrivi tutto il notebook”;
+2. assenza del Prompt 1 di acquisizione non produttiva della Scheda Caso;
+3. assenza del Prompt 2 o Prompt 2 privo di contributo iniziale dello studente;
+4. mancata distinzione tra Regime A, Regime B e Regime C;
+5. produzione di codice prima della validazione della specifica teorica;
+6. modifica non autorizzata di variabili, formule, parametri, scenari o output richiesti;
+7. assenza di controlli sulle risposte IA;
+8. trasferimento nel notebook di risultati non verificati;
+9. interpretazione finale generata dall’IA senza bozza autonoma dello studente;
+10. tracciato non collegato in modo chiaro alle sezioni del notebook.
+
+#### Uso degli errori dell’IA nella valutazione
+
+Gli errori commessi dall’IA non penalizzano automaticamente lo studente. Diventano rilevanti solo in relazione al comportamento dello studente.
+
+Un errore dell’IA è valutato positivamente se lo studente lo riconosce, lo segnala e lo corregge. Diventa invece elemento negativo se lo studente lo accetta senza controllo e lo trasferisce nel notebook o nell’interpretazione finale.
+
+Pertanto, nella valutazione del tracciato IA, il punto centrale non è se l’IA abbia prodotto una risposta perfetta, ma se lo studente abbia mantenuto il controllo teorico, operativo e interpretativo del lavoro.
 
 ---
 
