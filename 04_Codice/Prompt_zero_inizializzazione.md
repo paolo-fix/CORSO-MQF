@@ -12,8 +12,8 @@ Il caso specifico sarà fornito in un prompt successivo. **Per ora non devi fare
 Il lavoro dovrà essere sviluppato in modo ordinato attraverso le seguenti 10 fasi:
 
 1. **Lettura della traccia**
-2. **Costruzione della scheda macro** del caso
-3. **Validazione della scheda macro**
+2. **Costruzione Flusso logico-teorico risolutivo** del caso
+3. **Validazione Flusso logico-teorico risolutivo**
 4. **Scomposizione del problema** in tappe input-output
 5. **Validazione della scomposizione**
 6. **Costruzione progressiva** del notebook

@@ -45,7 +45,7 @@ Si considera un portafoglio obbligazionario semplificato, con valore iniziale $V
 La variabile casuale rilevante è lo shock di rendimento a un periodo, indicato con $\Delta y$. La perdita approssimata del portafoglio è definita da:
 
 $$
-L = D V_0 \Delta y.
+L \simeq D V_0 \Delta y.
 $$
 
 Il segno è scelto in modo che uno shock positivo dei rendimenti, $\Delta y>0$, generi una perdita positiva.
@@ -170,16 +170,13 @@ $$
 \qquad g=1,2,3.
 $$
 
-La distribuzione non condizionata di $\Delta y$ deriva dalla combinazione tra:
-
-1. probabilità dei regimi $A_g$;
-2. distribuzioni condizionate $\Delta y\mid A_g$.
-
 La simulazione Monte Carlo deve quindi seguire uno schema gerarchico:
 
 1. estrarre il regime $A_g$ secondo le probabilità assegnate;
 2. estrarre $\Delta y$ dalla distribuzione condizionata al regime estratto;
 3. calcolare la perdita $L=D V_0\Delta y$.
+
+La distribuzione non condizionata di $\Delta y$ si ricava dall'insieme delle osservazioni simulate.
 
 ---
 
@@ -340,16 +337,11 @@ Devono essere prodotti grafici con funzione interpretativa, non puramente decora
 
 Sono richiesti almeno:
 
-1. istogramma o densità empirica dello shock di rendimento $\Delta y$;
-2. istogramma o densità empirica della perdita $L$;
-3. grafico della distribuzione empirica di $L$ con evidenza della soglia $\ell$;
-4. grafico delle medie condizionate $\widehat{\mathbb{E}}[L\mid A_g]$;
-5. confronto tra distribuzioni condizionate della perdita.
+1. istogramma delle frequenze percentuali dello shock di rendimento $\Delta y$;
+2. istogramma delle frequenze percentuali della perdita $L$, con evidenza della soglia $\ell$;
+3. grafico delle medie condizionate $\widehat{\mathbb{E}}[L\mid A_g]$;
+4. confronto tra distribuzioni condizionate della perdita.
 
-Sono facoltativi:
-
-1. confronto tra distribuzioni condizionate dello shock $\Delta y$;
-2. ECDF della perdita.
 
 ---
 
@@ -361,16 +353,15 @@ Il notebook deve verificare che:
 
 1. le probabilità degli eventi sommino a uno;
 2. le frequenze empiriche degli eventi siano coerenti con le probabilità teoriche;
-3. ogni evento abbia numerosità sufficiente;
-4. le medie e deviazioni standard empiriche di $\Delta y\mid A_g$ siano coerenti con $\mu_g,\sigma_g$;
-5. il vettore della perdita abbia dimensione $n$;
-6. la perdita rispetti la relazione $L=D V_0\Delta y$;
-7. la coerenza dei segni sia rispettata:
+3. le medie e deviazioni standard empiriche di $\Delta y\mid A_g$ siano coerenti con $\mu_g,\sigma_g$;
+4. il vettore della perdita abbia dimensione $n$;
+5. la perdita rispetti la relazione $L=D V_0\Delta y$;
+6. la coerenza dei segni sia rispettata:
    - se $\Delta y>0$, allora $L>0$;
    - se $\Delta y<0$, allora $L<0$;
-8. la media globale di $L$ coincida, salvo arrotondamenti, con la media pesata delle medie condizionate;
-9. i quantili rispettino l’ordinamento atteso;
-10. la media si collochi tra minimo e massimo campionario.
+7. la media globale di $L$ coincida, salvo arrotondamenti, con la media pesata delle medie condizionate;
+8. i quantili rispettino l’ordinamento atteso;
+9. la media si collochi tra minimo e massimo campionario.
 
 ### Controlli logici
 
@@ -433,7 +424,7 @@ Per l’uso dell’IA lo studente deve fare riferimento al documento:
 In particolare, devono essere rispettati:
 
 1. la sequenza obbligatoria Prompt zero, Prompt 1, Prompt 2, Prompt 3 e prompt di tappa;
-2. la distinzione tra Regime A, Regime B e Regime C;
+2. la distinzione tra Regime A, Regime B e Regime C nel formulare i prompt;
 3. il vincolo che la Scheda Caso non deve essere modificata dall’IA;
 4. la necessità di documentare l’interazione con l’IA mediante stampa PDF della chat;
 5. l’obbligo di mantenere nella chat solo interazioni pertinenti al caso.

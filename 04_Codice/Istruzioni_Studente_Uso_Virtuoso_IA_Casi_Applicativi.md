@@ -22,9 +22,10 @@ Per ogni caso applicativo il docente fornisce:
 
 1. Prompt zero;
 2. Prompt 1, contenente la Scheda Caso;
-3. indicazioni sugli output richiesti;
-4. indicazioni sulla consegna;
-5. pesi di valutazione, se diversi da quelli indicativi riportati in fondo a questo documento.
+3. Le presenti "Istruzioni" che forniscono:  
+    - indicazioni sugli output richiesti
+    - indicazioni sulla consegna;
+    - pesi di valutazione, se diversi da quelli indicativi riportati in fondo a questo documento.
 
 La Scheda Caso è la specifica vincolante del lavoro.
 
@@ -132,7 +133,7 @@ La sequenza iniziale è:
 |---|---|---|---|
 | Prompt zero | docente | inizializza contesto, regimi e regole generali | non valuta il contributo dello studente |
 | Prompt 1 | docente | fornisce la Scheda Caso e chiede acquisizione non produttiva | non valuta il contributo dello studente |
-| Prompt 2 | studente + IA | costruisce il Flusso logico-teorico risolutivo | valuta il contributo teorico iniziale dello studente |
+| Prompt 2 | studente + IA | costruisce il Flusso logico-teorico risolutivo | valuta contributo iniziale dello studente, ordine logico, collegamento tra teoria, output e controlli |
 | Prompt 3 | studente + IA | costruisce la scomposizione in tappe input-output | valuta la proposta operativa iniziale dello studente |
 | Prompt di tappa | studente + IA | sviluppa, codifica o verifica singole tappe | valuta specificità, controlli e uso critico dell’IA |
 
@@ -422,109 +423,7 @@ Scrivi codice Python ordinato, con tabelle leggibili e controlli espliciti.
 
 I prompt in Regime C devono essere mirati. Non devono chiedere all’IA di verificare tutto il lavoro in modo generico.
 
-Esistono due famiglie principali:
-
-1. prompt istituzionali di verifica;
-2. prompt diagnostici.
-
-Un prompt istituzionale verifica una parte già svolta del lavoro.
-
-Un prompt diagnostico parte da un dubbio specifico, da un risultato anomalo o da una possibile incoerenza individuata dallo studente.
-
----
-
-## 10.3.1 Prompt istituzionali di verifica
-
-### Esempio C1 — Verifica della simulazione dei regimi
-
-```text
-Regime C — Verifica critica.
-
-Ho svolto la tappa di simulazione dei regimi informativi.
-
-Output prodotti:
-- tabella delle frequenze simulate degli eventi;
-- confronto con le probabilità teoriche;
-- breve commento sugli scostamenti.
-
-Controllo già svolto:
-ho verificato che le frequenze empiriche siano vicine alle probabilità assegnate nella Scheda Caso.
-
-Ti chiedo di verificare se il controllo è adeguato e se il commento sugli scostamenti è corretto.
-
-Non rifare la simulazione da zero.
-Non modificare la Scheda Caso.
-Segnala solo errori, omissioni o controlli aggiuntivi utili.
-```
-
-### Esempio C2 — Verifica della simulazione condizionata
-
-```text
-Regime C — Verifica critica.
-
-Ho completato la tappa in cui simulo la variabile di rischio condizionatamente ai regimi.
-
-Output prodotti:
-- tabella con media e deviazione standard empiriche per ciascun regime;
-- confronto con i parametri teorici;
-- grafico delle distribuzioni condizionate.
-
-Controllo già svolto:
-ho confrontato le statistiche simulate con i parametri della Scheda Caso.
-
-Ti chiedo di verificare se la lettura è coerente e se il grafico aiuta davvero a distinguere i regimi.
-
-Puoi suggerire correzioni mirate alla cella Markdown o ai controlli, ma non riscrivere tutta la sezione.
-```
-
-### Esempio C3 — Verifica della variabile finale
-
-```text
-Regime C — Verifica critica.
-
-Ho calcolato la variabile finale del caso usando la formula prevista nella Scheda Caso.
-
-Output prodotti:
-- dataset con variabile di rischio e variabile finale;
-- tabella di controllo;
-- breve commento sul significato della variabile finale.
-
-Controlli già svolti:
-- dimensione del vettore;
-- coerenza formula-codice;
-- controllo del segno o della parte positiva, se rilevante.
-
-Ti chiedo di verificare se la variabile finale è stata costruita correttamente e se la spiegazione Markdown distingue bene fattore di rischio, variabile derivata e output finale.
-
-Non proporre una formula alternativa.
-Non cambiare il modello.
-```
-
-### Esempio C4 — Verifica delle quantità condizionate
-
-```text
-Regime C — Verifica critica.
-
-Ho calcolato le medie condizionate per regime e ho verificato la ricomposizione della media globale.
-
-Output prodotti:
-- tabella delle medie condizionate;
-- media globale;
-- media ricomposta come media pesata;
-- breve commento interpretativo.
-
-Ti chiedo di verificare se sto distinguendo correttamente:
-1. media condizionata rispetto a un evento;
-2. valore atteso condizionato rispetto alla sigma-algebra;
-3. media non condizionata.
-
-Non riscrivere integralmente la sezione.
-Segnala solo eventuali errori concettuali o frasi ambigue.
-```
-
----
-
-## 10.3.2 Prompt diagnostici
+Si tratta di prompt di iniziativa dello studente dovuti ad un risultato anomalo o da una possibile incoerenza connessa alle risposte e/o il codice scritti dall'IA.
 
 ### Esempio D1 — Frequenze simulate inattese
 
@@ -617,26 +516,6 @@ Controlla in particolare:
 Non riscrivere tutto il codice: individua il possibile punto debole.
 ```
 
-### Esempio D5 — Interpretazione troppo forte
-
-```text
-Regime C — Verifica diagnostica.
-
-Ho un dubbio sulla mia interpretazione finale.
-
-Ho scritto che il regime A3 “prevede” perdite elevate. Però il caso è basato su simulazione stilizzata, non su previsione di mercato.
-
-Ti chiedo di verificare se questa frase è troppo forte e come posso correggerla mantenendo il senso economico.
-
-Frase da verificare:
-[inserire frase]
-
-Vincoli:
-- non riscrivere tutta l’interpretazione;
-- suggerisci solo una correzione mirata;
-- mantieni la distinzione tra simulazione condizionata e previsione.
-```
-
 ---
 
 ## 10.4 Prompt conclusivi in Regime C
@@ -670,81 +549,27 @@ Restituisci solo:
 4. correzioni prioritarie.
 ```
 
-### Esempio F2 — Verifica finale del tracciato IA
-
-```text
-Regime C — Verifica finale mirata.
-
-Voglio controllare se la chat IA documenta correttamente il processo svolto.
-
-In particolare, verifica se sono riconoscibili:
-1. Prompt zero;
-2. Prompt 1;
-3. Prompt 2 con mio contributo iniziale;
-4. Prompt 3 con mia proposta iniziale;
-5. prompt di tappa;
-6. verifiche in Regime C;
-7. decisioni che ho preso dopo le risposte IA.
-
-Non valutare se le risposte IA sono “belle” o complete.
-Valuta solo tracciabilità e coerenza del processo.
-
-Restituisci:
-1. parti documentate bene;
-2. parti poco documentate;
-3. elementi da chiarire prima della consegna.
-```
 
 ### Esempio F3 — Verifica finale dell’interpretazione
 
 ```text
 Regime C — Verifica finale mirata.
 
-Voglio controllare solo l’interpretazione finale.
+Mi sto ficalizzando solo l’interpretazione finale.
 
-Ti fornisco:
-1. la mia interpretazione finale;
-2. gli output numerici principali;
-3. i grafici principali su cui mi baso.
+La mia interpretazione  finale è ... . Con riferimento ai grafici prodotti si conferma che... . Con riferimento ai risulti numerici si conferma che ... .
 
-Il mio dubbio è che alcune frasi siano troppo forti rispetto a risultati simulati e non previsionali.
-
-Ti chiedo di segnalare:
-1. frasi corrette;
-2. frasi troppo forti;
-3. frasi ambigue;
-4. limiti del modello da dichiarare meglio.
+Ti chiedo di verificare se ho incluso gli elementi rilevanti ed eventualmente di modificare / integrare il testo della mia interpretazione.:
 
 Non riscrivere l’intera conclusione.
 Suggerisci solo modifiche puntuali.
-```
-
-### Esempio F4 — Verifica finale di una criticità emersa
-
-```text
-Regime C — Verifica finale diagnostica.
-
-Durante il lavoro ho individuato questa criticità:
-
-[descrivere la criticità]
-
-L’IA in una risposta precedente ha confermato che il problema era reale / possibile.
-
-Ho corretto il notebook in questo modo:
-
-[descrivere correzione]
-
-Ti chiedo di verificare se la correzione è coerente e se nella chat IA la criticità è documentata in modo comprensibile.
-
-Non riscrivere il lavoro.
-Concentrati solo sulla criticità e sulla correzione.
 ```
 
 ---
 
 ## 11. Come preparare la stampa PDF della chat IA
 
-La chat IA consegnata deve documentare il processo di lavoro.
+La chat IA consegnata deve documentare l'intero processo di lavoro, inclusivo di tutti i prompt e le risposte dell'IA.
 
 Deve contenere:
 
@@ -754,18 +579,16 @@ Deve contenere:
 4. risposta IA al Prompt 2;
 5. Prompt 3;
 6. risposta IA al Prompt 3;
-7. prompt di tappa;
-8. eventuali prompt di verifica;
-9. decisioni dello studente;
-10. interpretazione finale o verifica dell’interpretazione.
+7. prompt di tappa e relative risposte IA;
+8. eventuali prompt di verifica e relative risposte IA;
+9. interpretazione finale o verifica dell’interpretazione.
 
 Non deve contenere:
 
 1. messaggi personali;
 2. conversazioni non pertinenti;
 3. richieste estranee al caso;
-4. prove casuali;
-5. materiale non collegato al notebook.
+4. materiale non collegato al notebook.
 
 Usa una chat dedicata esclusivamente al caso.
 
@@ -828,12 +651,11 @@ I pesi sono indicativi e possono essere modificati dal docente per ciascun eserc
 
 | Area | Peso indicativo | Criteri principali |
 |---|---:|---|
-| Premesse teorico-matematiche | 15 | corretta identificazione di variabili, eventi, formule, ipotesi e quantità teoriche |
-| Flusso logico-teorico risolutivo | 15 | contributo iniziale dello studente, ordine logico, collegamento tra teoria, output e controlli |
-| Scomposizione input-output | 15 | rilevanza e completezza delle tappe, input/output osservabili, controlli previsti |
-| Notebook e output computazionali | 20 | codice corretto, tabelle, grafici, riproducibilità, output richiesti |
+| **Prompt 2**. Flusso logico-teorico risolutivo | 30 | contributo iniziale dello studente, ordine logico, collegamento tra teoria, output e controlli |
+| **Prompt 3**. Scomposizione input-output | 15 | proposta operativa iniziale dello studente  |
+| **Notebook Jupyter** e output computazionali | 20 | codice corretto, tabelle, grafici, riproducibilità, output richiesti |
 | Prompt e uso dei regimi A/B/C | 15 | qualità dei prompt, vincoli, contributo dello studente, uso appropriato dell’IA |
-| Controlli numerici e logici | 10 | verifiche su probabilità, simulazioni, formule, quantità condizionate e proprietà teoriche |
-| Interpretazione critica | 10 | autonomia, coerenza con output, ruolo dell’informazione, limiti del modello |
+| Verifiche logiche, Controlli numerici | 15 | verifiche su probabilità, simulazioni, formule, quantità condizionate e proprietà teoriche |
+| Interpretazione critica | 5 | autonomia, coerenza con output, ruolo dell’informazione, limiti del modello |
 
 Totale: 100.

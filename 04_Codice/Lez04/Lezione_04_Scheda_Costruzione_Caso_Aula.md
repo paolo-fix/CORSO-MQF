@@ -502,12 +502,6 @@ Questa sezione costituisce il cuore intellettuale del caso.
 
 Il suo compito non è descrivere il codice, né anticipare la scomposizione operativa del notebook, ma ricostruire la sequenza dei richiami teorico-matematici necessari per passare dalla domanda quantitativa agli output richiesti.
 
-## 9. Flusso logico-teorico risolutivo
-
-Questa sezione costituisce il cuore intellettuale del caso.
-
-Il suo compito non è descrivere il codice, né anticipare la scomposizione operativa del notebook, ma ricostruire la sequenza dei richiami teorico-matematici necessari per passare dalla domanda quantitativa agli output richiesti.
-
 | Passo | Finalità risolutiva | Formula teorico-matematica / definizione / proprietà / teorema | Applicazione nel caso | Output o controllo collegato |
 |---:|---|---|---|---|
 | 1 | Identificare la variabile finanziaria finale e il legame con il fattore di rischio | Approssimazione lineare di duration: \(L=D V_0\Delta y\) | La perdita \(L\) è la variabile casuale derivata dallo shock di rendimento \(\Delta y\). Uno shock positivo dei rendimenti produce una perdita positiva. | Formula da implementare; controllo della relazione \(L=D V_0\Delta y\); controllo dei segni. |
