@@ -421,99 +421,173 @@ Scrivi codice Python ordinato, con tabelle leggibili e controlli espliciti.
 
 ## 10.3 Prompt in Regime C — Verifica critica
 
-I prompt in Regime C devono essere mirati. Non devono chiedere all’IA di verificare tutto il lavoro in modo generico.
+I prompt in Regime C devono essere mirati. Non devono chiedere all'IA di verificare genericamente tutto il lavoro.
 
-Si tratta di prompt di iniziativa dello studente dovuti ad un risultato anomalo o da una possibile incoerenza connessa alle risposte e/o il codice scritti dall'IA.
+Devi usare un prompt in Regime C quando, durante la costruzione del notebook, individui:
 
-### Esempio D1 — Frequenze simulate inattese
+1. un risultato numerico anomalo;
+2. un dubbio teorico o matematico;
+3. una possibile incoerenza con la Scheda Caso;
+4. una formulazione Markdown poco chiara o non coerente;
+5. un passaggio di codice che produce output non convincenti;
+6. una lettura finanziaria o interpretativa che ti sembra eccessiva, errata o non giustificata.
+
+Il tuo compito non è correggere direttamente il notebook, ma formulare chiaramente il dubbio e chiedere all'IA di verificarlo.
+
+Nel prompt devi indicare:
+
+1. quale tappa, formula, output, grafico, tabella o cella è interessata;
+2. quale dubbio hai individuato;
+3. perché pensi che possa esserci un problema;
+4. quale materiale deve essere controllato;
+5. che l'IA deve classificare l'esito della verifica come:
+   - **criticità respinta**;
+   - **criticità accolta**.
+
+Se la criticità è respinta, il notebook non viene modificato. La verifica resta documentata solo nel tracciato IA.
+
+Se la criticità è accolta, il notebook viene corretto, ma deve rimanere pulito. Non devi conservare celle errate, celle duplicate o celle aggiuntive di verifica. Le celle della tappa interessata devono essere sostituite con versioni corrette e più informative.
+
+In particolare, la nuova cella Markdown della tappa deve includere al proprio interno, in forma sintetica:
+
+1. criticità individuata;
+2. rilevanza della criticità;
+3. modifica adottata;
+4. versione corretta ora usata nel notebook;
+5. rinvio al tracciato IA.
+
+Se è necessario modificare anche il codice, la nuova cella code deve sostituire quella precedente. Il codice può contenere brevi commenti che segnalano la modifica adottata, ma non deve mantenere la versione errata.
+
+La valutazione terrà conto del fatto che:
+1. il dubbio deve essere formulato dallo studente;
+2. la verifica deve essere documentata nella chat IA;
+3. se la criticità è accolta, la modifica deve risultare visibile nelle celle corrette del notebook;
+4. il notebook finale deve restare lineare, eseguibile e composto solo dalle celle previste per Prompt 2, Prompt 3, tappe operative, verifica conclusiva del notebook e interpretazione finale.
+
+### Schema di prompt C
 
 ```text
-Regime C — Verifica diagnostica.
+Regime C — Verifica critica.
 
-Ho un dubbio sulla simulazione dei regimi.
+Sto lavorando sulla seguente parte del notebook:
 
-Con n = 50.000, le frequenze empiriche degli eventi risultano abbastanza diverse dalle probabilità teoriche. Mi aspettavo scostamenti più piccoli.
+[indicare Prompt 2, Prompt 3 oppure la tappa interessata. Inserire formula, output, tabella, grafico, testo Markdown o codice interessato]
 
-Output osservato:
-[inserire tabella delle frequenze]
+Ho individuato questo dubbio / possibile problema:
 
-Il mio dubbio è:
-non capisco se lo scostamento sia compatibile con la variabilità Monte Carlo oppure se ci sia un errore nel modo in cui ho simulato gli eventi.
+[descrivere il dubbio, l'anomalia o l'incoerenza]
 
-Ti chiedo di verificare:
-1. se il confronto frequenze-probabilità è impostato correttamente;
-2. se lo scostamento osservato è plausibile;
-3. quali controlli aggiuntivi posso svolgere senza modificare la Scheda Caso.
+Il mio ragionamento è:
 
-Non riscrivere la simulazione da zero, salvo individuazione di un errore preciso.
+[spiegare perché il risultato, la formula, il testo o il codice non mi convince]
+
+Ti chiedo di verificare criticamente il problema e di classificare l'esito della verifica in uno solo dei due casi:
+
+1. criticità respinta;
+2. criticità accolta.
+
+Se la criticità è respinta:
+- spiegami perché il dubbio non richiede modifiche;
+- non proporre modifiche al notebook.
+
+Se la criticità è accolta:
+- spiegami come si è generata la criticità nella risposta dell’IA, indicando quale passaggio, assunzione, formula, scelta di codice o interpretazione l’ha prodotta e perché non è coerente con la Scheda Caso, con la teoria, con la logica della tappa o con gli output attesi;
+- produci la versione sostitutiva della cella Markdown della tappa, includendo nella cella:
+  1. criticità individuata;
+  2. origine della criticità nella risposta dell’IA;
+  3. modifica adottata;
+- produci, se necessario, la versione sostitutiva della cella code;
+- non proporre celle extra;
+- non mantenere la versione errata;
+- non modificare la Scheda Caso.
 ```
 
-### Esempio D2 — Segno inatteso della perdita
+
+### Esempio C1 — Frequenze simulate inattese
 
 ```text
-Regime C — Verifica diagnostica.
+Regime C — Verifica critica.
 
-Ho un dubbio sul segno della perdita.
+PARTE VARIABILE — da adattare da parte dello studente
 
-In alcune simulazioni ottengo valori negativi di L. All’inizio pensavo che una perdita dovesse essere sempre positiva, ma la formula della Scheda Caso è L = D V0 Delta y.
+Sto lavorando sulla seguente parte del notebook:
+Tappa di simulazione dei regimi informativi, Tabella delle frequenze empiriche dei regimi e le probabilità teoriche
 
-Il mio dubbio è:
-i valori negativi di L sono un errore oppure rappresentano un guadagno quando lo shock di rendimento è negativo?
+Ho individuato questo dubbio / possibile problema:
+con n = [inserire numero di simulazioni], le frequenze empiriche degli eventi risultano abbastanza diverse dalle probabilità teoriche. Mi aspettavo scostamenti più piccoli.
 
-Ti chiedo di verificare la coerenza teorica e interpretativa del segno di L.
+Il mio ragionamento è:
+se la simulazione dei regimi è costruita correttamente, le frequenze empiriche dovrebbero essere vicine alle probabilità teoriche, salvo normale variabilità Monte Carlo. Non capisco se lo scostamento osservato sia plausibile oppure se derivi da un errore nella simulazione, nella lettura dei parametri o nel conteggio dei regimi.
 
-Non modificare la formula.
-Non proporre una trasformazione in parte positiva se non è prevista dalla Scheda Caso.
+
+PARTE FISSA — istruzioni per l'IA
+
+Ti chiedo di verificare criticamente il problema.
+
+Classifica l'esito della verifica in uno solo dei due casi:
+
+1. criticità respinta;
+2. criticità accolta.
+
+Se la criticità è respinta:
+- spiegami perché il dubbio non richiede modifiche;
+- non proporre modifiche al notebook.
+
+Se la criticità è accolta:
+- spiegami come si è generata la criticità nella risposta dell'IA, indicando quale passaggio, assunzione, formula, scelta di codice o interpretazione l'ha prodotta e perché non è coerente con la Scheda Caso, con la teoria, con la logica della tappa o con gli output attesi;
+- produci la versione sostitutiva della cella Markdown della tappa, includendo nella cella:
+  1. criticità individuata;
+  2. origine della criticità nella risposta dell'IA;
+  3. modifica adottata;
+- produci, se necessario, la versione sostitutiva della cella code;
+- inserisci nella cella code solo commenti essenziali collegati alla correzione;
+- non proporre celle extra;
+- non mantenere la versione errata;
+- non modificare la Scheda Caso.
 ```
 
-### Esempio D3 — Massa in zero inattesa nello shortfall
+### Esempio C2 — Segno inatteso della perdita
 
 ```text
-Regime C — Verifica diagnostica.
+Regime C — Verifica critica.
 
-Ho un dubbio sulla distribuzione dello shortfall S.
+PARTE VARIABILE — da adattare da parte dello studente
 
-Nel grafico compare una massa molto visibile in zero. Non sono sicuro se sia un risultato atteso oppure un errore nel calcolo di S.
+Sto lavorando sulla seguente parte del notebook:
+Tappa di trasformazione dello shock di rendimento nella perdita del portafoglio obbligazionario; formula usata nel notebook, riepilogo statistico in cui compaiono valori negativi di L
 
-Output osservato:
-[inserire descrizione del grafico o tabella]
+Ho individuato questo dubbio / possibile problema:
+in alcune simulazioni ottengo valori negativi della perdita L. All'inizio pensavo che una perdita dovesse essere sempre positiva.
 
-Il mio dubbio è:
-la massa in zero deriva correttamente dalla definizione S = (m* - M)^+ oppure indica che ho applicato male la formula?
+Il mio ragionamento è:
+la Scheda Caso definisce la perdita mediante la formula L = D V0 Delta y. Se Delta y è negativo, allora anche L risulta negativo. Non capisco se questo sia un errore di segno nel codice oppure se vada interpretato come guadagno del portafoglio quando lo shock di rendimento è negativo.
 
-Ti chiedo di verificare:
-1. la coerenza della formula;
-2. l’interpretazione della massa in zero;
-3. quale controllo posso aggiungere nel notebook.
 
-Non sostituire lo shortfall con una variabile diversa.
-```
+PARTE FISSA — istruzioni per l'IA
 
-### Esempio D4 — Media ricomposta diversa dalla media globale
+Ti chiedo di verificare criticamente il problema.
 
-```text
-Regime C — Verifica diagnostica.
+Classifica l'esito della verifica in uno solo dei due casi:
 
-Ho un problema nella verifica della formula del valore atteso totale.
+1. criticità respinta;
+2. criticità accolta.
 
-La media globale della variabile finale non coincide con la media ricomposta usando frequenze empiriche e medie condizionate.
+Se la criticità è respinta:
+- spiegami perché il dubbio non richiede modifiche;
+- non proporre modifiche al notebook.
 
-Output osservato:
-- media globale: [inserire valore]
-- media ricomposta: [inserire valore]
-- differenza: [inserire valore]
-
-Il mio dubbio è:
-non capisco se la differenza sia dovuta ad arrotondamenti, a un errore di raggruppamento per regime o a una formula usata male.
-
-Ti chiedo di aiutarmi a diagnosticare il problema.
-
-Controlla in particolare:
-1. se la ricomposizione deve usare probabilità teoriche o frequenze empiriche;
-2. se le medie condizionate sono calcolate sugli stessi dati della media globale;
-3. se il confronto è scritto correttamente nel notebook.
-
-Non riscrivere tutto il codice: individua il possibile punto debole.
+Se la criticità è accolta:
+- spiegami come si è generata la criticità nella risposta dell'IA, indicando quale passaggio, assunzione, formula, scelta di codice o interpretazione l'ha prodotta e perché non è coerente con la Scheda Caso, con la teoria, con la logica della tappa o con gli output attesi;
+- produci la versione sostitutiva della cella Markdown della tappa, includendo nella cella:
+  1. criticità individuata;
+  2. origine della criticità nella risposta dell'IA;
+  3. modifica adottata;
+- produci, se necessario, la versione sostitutiva della cella code;
+- inserisci nella cella code solo commenti essenziali collegati alla correzione;
+- non proporre celle extra;
+- non mantenere la versione errata;
+- non modificare la Scheda Caso;
+- non proporre una trasformazione in parte positiva se non è prevista dalla Scheda Caso.
 ```
 
 ---
