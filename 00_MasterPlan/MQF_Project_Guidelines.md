@@ -2,18 +2,18 @@
 
 ## 1. Identificazione del progetto
 
-Il progetto riguarda la predisposizione completa del materiale didattico per il corso universitario **Metodi Quantitativi per la Finanza**.
-Il corso e' destinato a studenti del quinto anno del corso di laurea in **Banca e Risk Management**. Gli studenti hanno una preparazione mediamente solida nei metodi quantitativi e statistici, e una preparazione buona nella teoria finanziaria e nei modelli finanziari.
+Il progetto riguarda la predisposizione completa del materiale didattico per il corso universitario Metodi Quantitativi per la Finanza.
+Il corso e' destinato a studenti del quinto anno del corso di laurea in Banca e Risk Management. Gli studenti hanno una preparazione mediamente solida nei metodi quantitativi e statistici, e una preparazione buona nella teoria finanziaria e nei modelli finanziari.
 Il materiale deve quindi mantenere un livello accademico rigoroso, evitando sia un approccio eccessivamente divulgativo sia un formalismo astratto non motivato dalle applicazioni finanziarie.
 
-Il corso deve essere sviluppato in italiano. Il manuale, le slides e i materiali matematici devono essere scritti in LaTeX compatibile con **Scientific WorkPlace 5.5**.
+Il corso deve essere sviluppato in italiano. Il manuale, le slides e i materiali matematici devono essere scritti in LaTeX compatibile con Scientific WorkPlace 5.5.
 Questo documento, invece, e' scritto in Markdown per essere caricato su GitHub e usato come linea guida operativa nelle future chat dedicate allo sviluppo del progetto.
 
 ## 2. Funzione e formato delle guidelines
 
 Queste guidelines hanno una funzione di coordinamento: definiscono l'impostazione didattica, i prodotti finali, i vincoli tecnici e le regole operative da rispettare nella produzione del materiale del corso.
 
-Il formato piu' idoneo per questo documento e' **Markdown**, con estensione `.md`, perche':
+Il formato piu' idoneo per questo documento e' Markdown, con estensione `.md`, perche':
 
 1. e' nativamente leggibile su GitHub;
 2. e' facilmente versionabile con Git;
@@ -140,7 +140,7 @@ salvo diversa indicazione tecnica.
 
 ## 8. Vincoli LaTeX e compatibilita' Scientific WorkPlace 5.5
 
-Il manuale e le slides devono essere scritti in LaTeX compatibile con **Scientific WorkPlace 5.5**.
+Il manuale e le slides devono essere scritti in LaTeX compatibile con Scientific WorkPlace 5.5.
 
 Criteri operativi:
 
@@ -220,6 +220,9 @@ La struttura consigliata dei documenti di coordinamento e':
   MQF_Master_Plan.tex
   MQF_Notazione.tex
   MQF_Stato_Avanzamento.md
+  MQF_Istruzioni_Studente_Uso_Virtuoso_IA_Casi_Applicativi.md
+  MQF_Modello_Prompt_zero_inizializzazione.md
+  MQF_Modello_Scheda_Costruzione_Caso_Applicativo.md
   MQF_Registro_Esercizi.tex
   MQF_Registro_Grafici.tex
   MQF_Registro_Decisioni.tex
@@ -337,7 +340,7 @@ Nei capitoli applicativi il codice deve essere presentato come parte integrante 
 
 Le slides del corso MQF devono essere uno strumento di lezione, non una versione compressa del manuale. Devono guidare l'esposizione in aula, selezionare i passaggi concettuali essenziali, rendere visibili le formule operative e favorire l'alternanza tra motivazione finanziaria, formalizzazione matematica, esempi, grafici, esercizi e interpretazione.
 
-Le slides devono essere prodotte in **LaTeX Beamer compatibile con Scientific WorkPlace 5.5**, riutilizzando il preambolo ufficiale gia' adottato nelle lezioni precedenti. In particolare, vanno mantenuti la classe `beamer`, il tema `Madrid`, le macro matematiche ufficiali del progetto e la struttura dei frame compatibile con Scientific WorkPlace 5.5.
+Le slides devono essere prodotte in LaTeX Beamer compatibile con Scientific WorkPlace 5.5, riutilizzando il preambolo ufficiale gia' adottato nelle lezioni precedenti. In particolare, vanno mantenuti la classe `beamer`, il tema `Madrid`, le macro matematiche ufficiali del progetto e la struttura dei frame compatibile con Scientific WorkPlace 5.5.
 
 ### 10.1 Struttura tecnica di ogni slide
 
@@ -366,7 +369,7 @@ Contenuto della slide
 %BeginExpansion
 \end{frame}%
 %EndExpansion
-%*********************************************
+%*
 ```
 
 La struttura va mantenuta anche quando il contenuto della slide e' breve. Il codice deve essere direttamente integrabile nel file `.tex` della lezione.
@@ -503,7 +506,7 @@ La sequenza didattica consigliata e':
 | Esercizio | Verificare la comprensione in aula |
 | Sintesi | Fissare il nucleo concettuale da ricordare |
 
-Anche per le lezioni prevalentemente teoriche di tipo P, la durata effettiva al netto del break e' assunta pari a **2 ore**, cioe' circa **120 minuti**.
+Anche per le lezioni prevalentemente teoriche di tipo P, la durata effettiva al netto del break e' assunta pari a 2 ore, cioe' circa 120 minuti.
 
 La progettazione delle slides deve quindi essere calibrata su tale durata, prevedendo:
 
@@ -514,161 +517,168 @@ La progettazione delle slides deve quindi essere calibrata su tale durata, preve
 
 E' preferibile una sequenza di slides leggibile a una singola slide eccessivamente densa. Ogni slide deve avere un obiettivo didattico riconoscibile.
 
-## 12. Slides delle lezioni computazionali di tipo C
+## 12. Slides delle lezioni applicative di tipo C
 
-Le lezioni computazionali di tipo C hanno natura laboratoriale. Le slides devono quindi guidare non soltanto l'esposizione del docente, ma anche lo sviluppo del codice, il lavoro autonomo degli studenti, la discussione degli output e l'assegnazione dell'estensione take-home.
+Le slides delle lezioni applicative di tipo C devono essere progettate come strumento di regia del laboratorio. La loro funzione non è anticipare integralmente il notebook, insegnare Python come contenuto autonomo o documentare tutta l'interazione con l'IA. La loro funzione è guidare docente e studenti nello svolgimento del caso aula: lettura della Scheda Caso, uso dei prompt, costruzione progressiva del notebook, esecuzione dei controlli, discussione degli output e assegnazione del take-home.
 
-Le slides computazionali non devono trasformarsi in una dispensa di programmazione. Devono invece mostrare come un modello probabilistico, finanziario o ottimizzativo viene tradotto in una procedura Python controllabile, verificabile e interpretabile.
+Nelle lezioni di tipo C gli studenti lavorano alla propria postazione, preferibilmente in ambiente VS Code/Jupyter. Il docente indica i prompt da utilizzare, li fa inserire materialmente dagli studenti, discute le risposte dell'IA, seleziona le parti utili, guida la costruzione delle celle del notebook e controlla gli output. Le slides devono sostenere questa sequenza operativa.
 
-### 12.1 Funzione delle slides computazionali
+---
 
-Per ogni lezione applicativa Python, le slides devono svolgere cinque funzioni principali:
+### 12.1 Ordine di produzione delle slides applicative
 
-1. introdurre il caso applicativo;
-2. collegare il caso al modello matematico del corso;
-3. presentare gli strumenti Python strettamente necessari;
-4. guidare lo sviluppo del notebook o dello script;
-5. organizzare il lavoro autonomo, la discussione e il take-home.
+Le slides applicative devono essere prodotte dopo la soluzione del caso aula e dopo la validazione del notebook docente. Non devono essere progettate in astratto prima di avere osservato come il caso si sviluppa effettivamente attraverso prompt, risposte dell'IA, celle Markdown, codice, output e controlli.
 
-Le slides devono rendere chiaro agli studenti che il codice non e' un esercizio separato dalla teoria, ma una forma operativa della modellizzazione quantitativa.
+L'ordine di produzione raccomandato è:
 
-### 12.2 Struttura orientativa delle slides computazionali
+1. redazione della Scheda Costruzione Caso;
+2. derivazione della Scheda Caso;
+3. svolgimento del caso aula con Prompt zero, Prompt 1, Prompt 2, Prompt 3 e prompt di tappa;
+4. costruzione e validazione del notebook docente;
+5. selezione degli elementi utili alla conduzione della lezione;
+6. costruzione delle slides applicative;
+7. revisione della consegna take-home alla luce del caso aula svolto.
 
-La struttura orientativa di una lezione computazionale e':
+Questa sequenza è necessaria perché gli elementi davvero utili per le slides emergono durante la soluzione del caso: passaggi teorici da richiamare, istruzioni Python da spiegare, prompt da mostrare, controlli da enfatizzare, criticità dell'IA da discutere e output da interpretare.
 
-1. apertura del caso applicativo;
-2. obiettivi computazionali della lezione;
-3. dati disponibili, parametri e output attesi;
-4. richiamo matematico-operativo;
-5. strumenti Python necessari;
-6. schema del notebook o dello script;
-7. avvio guidato dello sviluppo del codice;
-8. tappe operative per lo sviluppo autonomo;
-9. controlli intermedi e output attesi;
-10. grafici e tabelle da produrre;
-11. discussione dei risultati e degli errori ricorrenti;
-12. estensione take-home.
+---
 
-Questa struttura puo' essere adattata alla difficolta' specifica della lezione, ma deve sempre mantenere l'alternanza tra spiegazione, implementazione guidata, lavoro autonomo e interpretazione dei risultati.
+### 12.2 Funzione delle slides durante la lezione
 
-### 12.3 Codice nelle slides
+Durante la lezione applicativa, le slides devono aiutare il docente a governare il ritmo del laboratorio e devono aiutare gli studenti a capire che cosa stanno facendo nel notebook.
 
-Le slides computazionali non devono contenere codice esteso in misura eccessiva. Devono invece mostrare:
+Ogni gruppo di slides deve chiarire:
 
-1. blocchi essenziali;
-2. struttura logica del programma;
-3. formule da implementare;
-4. passaggi algoritmici principali;
-5. controlli numerici o logici;
-6. output attesi;
-7. interpretazione dei risultati.
+1. quale parte del caso si sta affrontando;
+2. quale prompt deve essere usato o quale tappa deve essere svolta;
+3. quale cella del notebook si vuole costruire;
+4. quale output deve essere prodotto;
+5. quale controllo consente di validare l'output;
+6. quale interpretazione locale o finale è richiesta.
 
-Il codice completo o semi-completo deve essere fornito nel notebook o nello script associato alla lezione. Le slides devono orientare la lettura e l'uso di quel codice, non sostituirlo integralmente.
+Le slides non devono sostituire il notebook. Il notebook contiene il lavoro operativo validato; le slides guidano la sua costruzione in aula.
 
-### 12.4 Distinzione tra attivita' del docente e attivita' degli studenti
+---
 
-Le slides computazionali devono distinguere chiaramente:
+### 12.3 Contenuti da ricavare dal notebook docente
 
-1. che cosa viene spiegato dal docente;
-2. che cosa viene sviluppato in modo guidato;
-3. che cosa viene completato autonomamente dagli studenti;
-4. che cosa viene discusso collettivamente;
-5. che cosa viene lasciato come lavoro take-home.
+Il notebook docente validato è la fonte principale per costruire le slides della lezione applicativa. Dalla soluzione del caso aula devono essere estratti solo gli elementi necessari alla conduzione della lezione.
 
-Questa distinzione puo' essere resa mediante titoli di slide, etichette operative o blocchi separati. Esempi di etichette utili sono:
+Gli elementi da considerare sono:
 
-```text
-Sviluppo guidato
-Tappa autonoma
-Controllo intermedio
-Discussione in aula
-Estensione take-home
-```
+1. formule, definizioni o collegamenti teorici indispensabili per la tappa;
+2. grandezze finanziarie, eventi, scenari, vincoli o variabili decisionali che strutturano il caso;
+3. prompt che devono essere effettivamente inseriti dagli studenti;
+4. frammenti di codice o istruzioni Python che richiedono spiegazione;
+5. tabelle, grafici e output numerici con valore didattico;
+6. controlli numerici, logici e interpretativi da svolgere in aula;
+7. criticità emerse nella costruzione del notebook e utili alla discussione.
 
-### 12.5 Tappe operative e controlli intermedi
+Le parti puramente esecutive restano nel notebook. Le risposte complete dell'IA restano nel tracciato IA. Le slides devono mostrare gli snodi che servono a condurre la lezione.
 
-Le parti affidate allo sviluppo autonomo devono essere organizzate in tappe verificabili. Ogni tappa deve indicare:
+---
 
-1. obiettivo intermedio;
-2. blocco di codice da completare, modificare o interpretare;
-3. output atteso;
-4. controllo numerico o logico;
-5. breve interpretazione economico-finanziaria.
+### 12.4 Piano generale delle slides applicative
 
-Le slides devono rendere visibile il criterio di successo della tappa. Non basta chiedere agli studenti di "completare il codice"; occorre specificare che cosa deve essere prodotto e come verificarlo.
+Le slides di una lezione applicativa devono seguire un piano coerente con lo svolgimento effettivo del laboratorio.
 
-### 12.6 Uso dei grafici nelle slides computazionali
+La struttura di riferimento è:
 
-Nelle lezioni computazionali i grafici hanno una funzione diagnostica e interpretativa. Devono essere usati per rappresentare, quando opportuno:
+1. apertura della lezione e collocazione del caso nel corso;
+2. presentazione della Scheda Caso e della domanda quantitativa;
+3. richiamo del protocollo di lavoro con IA, notebook e tracciato;
+4. sequenza iniziale dei prompt: Prompt zero, Prompt 1, Prompt 2 e Prompt 3;
+5. sviluppo guidato delle tappe del notebook;
+6. controlli intermedi e discussione degli output;
+7. verifica conclusiva del notebook e interpretazione finale;
+8. assegnazione del caso take-home.
 
-1. traiettorie simulate;
-2. distribuzioni empiriche;
-3. evoluzione di stati, probabilita' o rating;
-4. processi multivariati correlati;
-5. regioni ammissibili;
-6. funzioni obiettivo, deviazioni da target e trade-off;
-7. perdite, quantili e misure di rischio;
-8. confronti tra scenari o soluzioni.
+La struttura può essere adattata alla complessità del caso, ma deve mantenere il legame tra prompt, notebook, output e controlli.
 
-Ogni grafico deve essere accompagnato da una domanda interpretativa o da un commento operativo. Un grafico non deve comparire come puro output decorativo.
+---
 
-### 12.7 Uso controllato dell'IA generativa
+### 12.5 Slides di tappa
 
-Quando previsto, l'uso dell'IA generativa deve essere presentato nelle slides come supporto controllato, non come sostituto della modellizzazione.
+La parte centrale della lezione applicativa è composta da slides di tappa. Ogni tappa deve corrispondere a un passaggio riconoscibile del notebook.
 
-Le slides possono indicare usi ammessi, quali:
+Una slide di tappa deve indicare, in forma sintetica:
 
-1. spiegare un messaggio di errore;
-2. correggere un errore sintattico o locale;
-3. proporre una funzione Python coerente con una formula data;
-4. commentare un blocco di codice;
-5. migliorare la leggibilita' del codice;
-6. confrontare due implementazioni alternative.
+1. input disponibili;
+2. obiettivo della tappa;
+3. prompt o regime IA utilizzato;
+4. cella Markdown o cella code da costruire;
+5. output atteso;
+6. controllo da eseguire;
+7. uso dell'output nella tappa successiva.
 
-Le slides devono anche chiarire che non e' appropriato delegare all'IA:
+Quando una tappa è complessa, è preferibile separare la slide di orientamento, la slide con il prompt, la slide sul codice essenziale, la slide sull'output e la slide di controllo. Una slide troppo densa rallenta il laboratorio e rende difficile seguire la costruzione del notebook.
 
-1. la formulazione matematica del modello;
-2. la scelta delle ipotesi;
-3. la definizione delle variabili decisionali;
-4. la selezione delle misure di rischio;
-5. l'interpretazione economico-finanziaria dei risultati;
-6. la verifica finale della correttezza.
+---
 
-### 12.8 Durata e scansione delle lezioni computazionali
+### 12.6 Prompt, codice e output nelle slides
 
-Ciascuna lezione computazionale ha durata complessiva di **2 ore e 15 minuti**, con **15 minuti di pausa**. Il tempo effettivo di lavoro e' quindi pari a circa **120 minuti**.
+I prompt devono comparire nelle slides solo quando servono alla conduzione dell'aula. Un prompt completo va inserito in slide quando deve essere copiato dagli studenti. Negli altri casi è sufficiente indicare regime, obiettivo del prompt, input disponibili, output atteso e vincoli principali.
 
-La scansione temporale di riferimento e':
+Il codice Python deve comparire nelle slides solo quando serve a spiegare una scelta operativa non immediata. Non devono essere riportate intere celle già presenti nel notebook, salvo che il docente voglia discutere un passaggio specifico.
 
-1. 10--15 minuti per l'introduzione del caso;
-2. 10--15 minuti per il richiamo matematico-operativo;
-3. 15--20 minuti per gli strumenti Python necessari;
-4. 25--30 minuti per lo sviluppo guidato del codice;
-5. 15 minuti di pausa;
-6. 35--40 minuti per lo sviluppo autonomo assistito;
-7. 15--20 minuti per la discussione collettiva;
-8. 5--10 minuti per la chiusura e l'assegnazione take-home.
+Gli output devono essere selezionati in base alla loro funzione didattica. Una tabella o un grafico entra nelle slides se aiuta a discutere una quantità teorica, un confronto, una soglia, un controllo o un'interpretazione. Gli output estesi restano nel notebook.
 
-Le slides devono essere progettate in modo coerente con questa scansione. In particolare, devono rendere evidente il passaggio dalla parte guidata alla parte autonoma e poi alla discussione collettiva.
+---
 
-### 12.9 Prodotto finale osservabile
+### 12.7 Gestione del tempo della lezione applicativa
 
-Ogni lezione computazionale deve concludersi con un prodotto finale osservabile. Le slides devono esplicitare fin dall'inizio quale prodotto si intende costruire.
+Ciascuna lezione applicativa ha durata complessiva di 2 ore e 15 minuti, con 15 minuti di pausa. Il tempo effettivo di lavoro è quindi pari a circa 120 minuti.
 
-Esempi di prodotto finale sono:
+Nella progettazione delle slides occorre stimare il tempo necessario per lo sviluppo del caso aula. Il tempo non coincide con la semplice esposizione del docente: include inserimento dei prompt, attesa delle risposte dell'IA, selezione delle risposte, costruzione delle celle, esecuzione del notebook, controllo degli output e discussione.
 
-1. una distribuzione empirica simulata;
-2. una procedura di stima condizionata;
-3. un simulatore di traiettorie;
-4. una procedura Monte Carlo di pricing;
-5. una matrice di transizione analizzata numericamente;
-6. una distribuzione di perdita con VaR e CVaR;
-7. una formulazione di goal programming;
-8. una tabella di confronto tra soluzioni;
-9. un grafico interpretativo;
-10. un confronto tra soluzioni deterministiche e stocastiche.
+Per la Lezione 4, che introduce per la prima volta il protocollo applicativo con IA, una scansione realistica è:
 
-La lezione computazionale non deve concludersi genericamente con la scrittura di codice, ma con la comprensione di che cosa il codice permette di calcolare e di come tale calcolo rafforzi l'interpretazione del modello teorico.
+1. 20--25 minuti per presentare il protocollo generale delle lezioni applicative;
+2. 10 minuti per presentare la Scheda Caso aula;
+3. 15--20 minuti per Prompt zero, Prompt 1, Prompt 2 e Prompt 3;
+4. 45--50 minuti per sviluppare le tappe centrali del notebook;
+5. 15 minuti per controlli, output finali e interpretazione;
+6. 5--10 minuti per assegnare il take-home e richiamare le regole di consegna.
+
+Nelle lezioni applicative successive, il protocollo generale deve essere richiamato brevemente. Il tempo recuperato deve essere destinato allo sviluppo del caso aula, ai controlli e alla discussione degli output.
+
+---
+
+### 12.8 Specificità della Lezione 4
+
+La Lezione 4 ha una funzione diversa dalle altre lezioni applicative, perché introduce il metodo di lavoro che verrà riutilizzato nelle successive lezioni di tipo C.
+
+Le slides della Lezione 4 devono quindi presentare in modo esplicito:
+
+1. ruolo della Scheda Caso;
+2. differenza tra notebook e tracciato IA;
+3. funzione di Prompt zero, Prompt 1, Prompt 2 e Prompt 3;
+4. distinzione tra Regime A, Regime B e Regime C;
+5. modalità di lavoro in VS Code/Jupyter;
+6. regole di consegna del take-home;
+7. criteri generali di valutazione.
+
+Nelle lezioni applicative successive questi elementi non devono essere ripetuti integralmente, ma solo richiamati quando servono a governare il caso specifico.
+
+---
+
+### 12.9 Controllo finale della progettazione delle slides
+
+Prima di considerare definitive le slides di una lezione applicativa, occorre verificare che esse permettano al docente di condurre effettivamente il laboratorio.
+
+La revisione finale deve rispondere a queste domande:
+
+1. lo studente capisce quale caso sta risolvendo e perché;
+2. la sequenza dei prompt è collocata nel punto giusto della lezione;
+3. ogni tappa del notebook è collegata a un output e a un controllo;
+4. il codice mostrato è essenziale e non duplica il notebook;
+5. gli output scelti per le slides hanno una funzione interpretativa;
+6. i tempi sono compatibili con 120 minuti effettivi;
+7. il take-home è presentato come estensione coerente del caso aula.
+
+Se una slide non aiuta a orientare il lavoro, introdurre un prompt, costruire una cella, discutere un output, eseguire un controllo o preparare il take-home, deve essere eliminata o spostata nel notebook o nei materiali operativi.
+
+
 
 ## 13. Esercizi in aula
 
@@ -734,8 +744,8 @@ La lezione applicativa non deve concludersi genericamente con la scrittura di co
 
 Per ciascuna lezione applicativa deve essere progettata una coppia di casi:
 
-1. **caso aula**, sviluppato dal docente durante la lezione;
-2. **caso take-home**, assegnato agli studenti come lavoro autonomo.
+1. caso aula, sviluppato dal docente durante la lezione;
+2. caso take-home, assegnato agli studenti come lavoro autonomo.
 
 Il caso aula e il caso take-home non devono essere distinti da differenze strutturali nella procedura di costruzione. Entrambi devono essere progettati mediante la stessa architettura metodologica:
 
@@ -769,8 +779,6 @@ Per ogni coppia caso aula / caso take-home devono essere chiari:
 
 ### 14.2 Scheda Costruzione Caso
 
-La precedente denominazione **“scheda docente di calibrazione”** è sostituita da **Scheda Costruzione Caso**.
-
 La Scheda Costruzione Caso è il documento interno di progettazione del caso. Essa resta nelle mani del docente, ha funzione creativa primaria e deve essere redatta prima di tutte le altre fasi: prima della Scheda Caso, prima della scomposizione in tappe, prima della sequenza dei prompt e prima della costruzione del notebook.
 
 La Scheda Costruzione Caso deve essere predisposta sia per il caso aula sia per il caso take-home. La sua funzione metodologica è la stessa nei due casi. La differenza riguarda soltanto l’uso didattico successivo dei materiali: nel caso aula il materiale sostiene lo sviluppo guidato in lezione; nel caso take-home sostiene la consegna assegnata agli studenti e la valutazione del notebook e del tracciato IA.
@@ -801,17 +809,18 @@ La Scheda Costruzione Caso deve contenere almeno:
 22. Flusso logico-teorico risolutivo;
 23. scomposizione attesa in tappe input-output;
 24. sequenza docente dei prompt virtuosi, se l’uso dell’IA è previsto;
-25. struttura attesa del notebook;
-26. criteri di validazione del notebook;
-27. criteri di valutazione del tracciato IA, se richiesto;
-28. rubrica sintetica;
-29. esito atteso e calibrazione qualitativa del caso.
+25. mappa prompt--notebook, con indicazione degli elementi del notebook generati da ciascun prompt rilevante;
+26. struttura attesa del notebook;
+27. criteri di validazione del notebook;
+28. criteri di valutazione del tracciato IA, se richiesto;
+29. rubrica sintetica;
+30. esito atteso e calibrazione qualitativa del caso.
 
 La Scheda Costruzione Caso non deve essere confusa con la Scheda Caso. Essa può contenere informazioni non destinate direttamente agli studenti: scelte di progettazione, calibrazione qualitativa attesa, struttura dei prompt, criteri di validazione, criteri di valutazione e rubrica.
 
 #### Flusso logico-teorico risolutivo
 
-La Scheda Costruzione Caso deve includere una sezione dedicata al **Flusso logico-teorico risolutivo**.
+La Scheda Costruzione Caso deve includere una sezione dedicata al Flusso logico-teorico risolutivo.
 
 Questa sezione costituisce il cuore intellettuale del caso. Il suo compito non è descrivere il codice, né anticipare la scomposizione operativa del notebook, ma ricostruire la sequenza dei richiami teorico-matematici necessari per passare dalla domanda quantitativa agli output richiesti.
 
@@ -831,23 +840,21 @@ L’output obbligatorio della sezione è una tabella con la seguente struttura:
 | 2 |  |  |  |  |
 | 3 |  |  |  |  |
 
-La colonna **Passo** indica l’ordine logico ideale della soluzione.
+La colonna Passo indica l’ordine logico ideale della soluzione.
 
-La colonna **Finalità risolutiva** spiega perché quel richiamo teorico è necessario per procedere nella soluzione del caso.
+La colonna Finalità risolutiva spiega perché quel richiamo teorico è necessario per procedere nella soluzione del caso.
 
-La colonna **Formula teorico-matematica / definizione / proprietà / teorema** contiene il richiamo matematico essenziale, già introdotto nei capitoli teorici del corso o esplicitamente ammesso nella lezione applicativa.
+La colonna Formula teorico-matematica / definizione / proprietà / teorema contiene il richiamo matematico essenziale, già introdotto nei capitoli teorici del corso o esplicitamente ammesso nella lezione applicativa.
 
-La colonna **Applicazione nel caso** traduce il richiamo teorico negli oggetti specifici del caso: variabili, eventi, partizioni, distribuzioni, funzioni di perdita, vincoli, soglie o quantità da stimare.
+La colonna Applicazione nel caso traduce il richiamo teorico negli oggetti specifici del caso: variabili, eventi, partizioni, distribuzioni, funzioni di perdita, vincoli, soglie o quantità da stimare.
 
-La colonna **Output o controllo collegato** indica quale tabella, grafico, quantità numerica, verifica o controllo del notebook discende da quel passaggio teorico.
+La colonna Output o controllo collegato indica quale tabella, grafico, quantità numerica, verifica o controllo del notebook discende da quel passaggio teorico.
 
 La sequenza del flusso logico-teorico deve guidare la successiva scomposizione in tappe input-output. Le tappe operative non devono nascere direttamente dal codice, ma dalla successione teorica fissata in questa tabella.
 
 ---
 
 ### 14.3 Scheda Caso
-
-La precedente denominazione **“scheda macro”** è sostituita da **Scheda Caso**.
 
 La Scheda Caso è il documento operativo derivato dalla Scheda Costruzione Caso. Essa contiene la descrizione del caso, il contesto, la domanda quantitativa, la specifica teorico-matematica essenziale, i parametri, le ipotesi, gli output richiesti e i controlli essenziali.
 
@@ -857,7 +864,9 @@ La Scheda Caso non deve contenere già svolto il Flusso logico-teorico risolutiv
 
 Per il caso aula, la Scheda Caso è input comune per docente e studenti. Per il caso take-home, la Scheda Caso è input operativo per gli studenti.
 
-Nel lavoro con IA, la Scheda Caso costituisce il contenuto del **Prompt 1**, successivo al Prompt 0 di inizializzazione. Nel Prompt 1 l’IA deve solo acquisire la scheda come specifica vincolante e rispondere con una conferma minima. Non deve produrre sintesi, formule aggiuntive, codice, tappe operative, interpretazioni o suggerimenti.
+Nel lavoro con IA, la Scheda Caso costituisce il contenuto informativo del Prompt 1, successivo al Prompt zero di inizializzazione. La Scheda Caso resta la specifica vincolante del problema e non deve contenere istruzioni operative rivolte all'IA.
+
+Il Prompt 1 concreto può però contenere, dopo la Scheda Caso, un'istruzione operativa esterna alla scheda: produrre una sola cella Markdown iniziale di inquadramento da inserire nel notebook. Questa cella deve sintetizzare il caso senza risolverlo. Non deve introdurre formule, variabili, parametri, ipotesi o output non presenti nella Scheda Caso; non deve produrre codice, flusso logico-teorico, scomposizione in tappe, risultati numerici, interpretazioni o suggerimenti risolutivi.
 
 La Scheda Caso deve indicare almeno:
 
@@ -894,7 +903,7 @@ Per ogni lezione applicativa deve essere predisposto un pacchetto coerente di ma
 4. Scheda Costruzione Caso del caso take-home;
 5. Scheda Caso del caso take-home;
 6. notebook del caso take-home, completo, semi-strutturato o da costruire progressivamente;
-7. template del tracciato IA in formato Markdown, se il lavoro prevede uso documentato dell’IA;
+7. istruzioni per la consegna del tracciato IA, ordinariamente mediante stampa PDF della chat, se il lavoro prevede uso documentato dell’IA;
 8. rubrica di valutazione del notebook e del tracciato IA.
 
 #### Sezioni o allegati obbligatori del pacchetto
@@ -947,7 +956,7 @@ La costruzione di una lezione applicativa deve seguire una procedura progressiva
 14. scomposizione del caso take-home in tappe input-output;
 15. definizione della sequenza di prompt virtuosi per il caso take-home, se l’IA è prevista;
 16. predisposizione del notebook del caso take-home, se previsto;
-17. predisposizione del template del tracciato IA;
+17. predisposizione delle istruzioni per la consegna del tracciato IA;
 18. predisposizione della rubrica di valutazione.
 
 Quando l’IA è usata nella costruzione o nello svolgimento della lezione, il processo non deve essere lineare nel senso:
@@ -961,10 +970,10 @@ prompt
 Deve invece essere iterativo e controllato:
 
 ```text
-Scheda Caso
--> Prompt 1: acquisizione non produttiva del caso
+Prompt zero: inizializzazione del contesto
+-> Prompt 1: Scheda Caso e cella Markdown iniziale di inquadramento
 -> Prompt 2: costruzione del Flusso logico-teorico risolutivo
--> scomposizione in tappe
+-> Prompt 3: scomposizione in tappe input-output
 -> prompt di tappa
 -> risposta IA
 -> validazione docente o studente
@@ -992,23 +1001,23 @@ Il notebook non deve essere una semplice raccolta di celle di codice. Deve esser
 5. un controllo;
 6. una interpretazione.
 
-La struttura consigliata del notebook è:
+La struttura consigliata del notebook, quando l'applicazione prevede uso documentato dell'IA, è:
 
-1. intestazione della lezione e descrizione del caso;
-2. obiettivi applicativi;
-3. premesse teorico-matematiche essenziali;
-4. dati disponibili, parametri o procedura di simulazione;
-5. librerie Python necessarie;
-6. funzioni ausiliarie, se necessarie;
-7. scomposizione del problema in tappe;
-8. implementazione delle tappe;
-9. controlli intermedi;
-10. output numerici;
-11. grafici e tabelle;
-12. analisi di sensibilità, se appropriata;
-13. interpretazione critica;
-14. limiti del modello;
-15. sintesi finale.
+1. cella Markdown iniziale di inquadramento prodotta dal Prompt 1;
+2. cella Markdown con il Flusso logico-teorico risolutivo prodotto dal Prompt 2;
+3. cella Markdown con la scomposizione in tappe input-output prodotta dal Prompt 3;
+4. librerie Python necessarie;
+5. dati disponibili, parametri o procedura di simulazione;
+6. implementazione progressiva delle tappe;
+7. controlli intermedi;
+8. output numerici;
+9. grafici e tabelle;
+10. verifica conclusiva della coerenza tra notebook e Scheda Caso, se richiesta;
+11. interpretazione critica finale dello studente;
+12. verifica conclusiva dell'interpretazione, se richiesta;
+13. limiti del modello e sintesi finale.
+
+Quando l'applicazione non prevede uso documentato dell'IA, la stessa struttura può essere adattata mantenendo comunque il collegamento tra caso, flusso teorico, tappe, output, controlli e interpretazione.
 
 Quando il notebook viene costruito passo passo con supporto dell’IA, ogni prompt di tappa può richiedere simultaneamente:
 
@@ -1019,6 +1028,8 @@ Quando il notebook viene costruito passo passo con supporto dell’IA, ogni prom
 5. il collegamento con la tappa successiva.
 
 La produzione simultanea di testo Markdown e codice Python è ammessa nel Regime B solo quando la specifica teorica della tappa è già stata fissata e validata. L’IA non deve modificare la struttura del caso, le variabili, le formule, gli stati informativi, gli scenari o il significato finanziario del problema.
+
+Il notebook finale deve restare pulito, lineare ed eseguibile. Non deve conservare celle errate duplicate. Se una criticità concettuale viene accolta in Regime C, le celle della tappa coinvolta devono essere sostituite con versioni corrette e informative. La traccia della verifica deve essere incorporata nelle celle sostitutive, non aggiunta come cella extra: devono risultare visibili la criticità individuata, l'origine della criticità nella risposta dell'IA e la modifica adottata.
 
 Il notebook docente è il risultato validato del processo di sviluppo, non la trascrizione integrale della conversazione con l’IA. Il notebook studente può essere:
 
@@ -1158,7 +1169,7 @@ Quando una lezione applicativa prevede un lavoro take-home, la valutazione deve 
 
 1. notebook operativo;
 2. output prodotti;
-3. eventuale tracciato IA in formato Markdown;
+3. tracciato IA, ordinariamente consegnato come stampa PDF della chat, quando richiesto;
 4. interpretazione finale.
 
 La valutazione non deve premiare la complessità autonoma del codice Python. Deve valutare la capacità dello studente di:
@@ -1173,7 +1184,7 @@ La valutazione non deve premiare la complessità autonoma del codice Python. Dev
 
 Il notebook e il tracciato IA, quando richiesto, devono essere coerenti tra loro. Output computazionali corretti ma ottenuti attraverso una delega opaca e non controllata non costituiscono uso virtuoso dell’IA. Allo stesso modo, prompt formalmente corretti ma non collegati agli output effettivi del notebook non sono sufficienti.
 
-La rubrica di valutazione di ciascun caso take-home deve essere coerente con la scheda docente di calibrazione. I criteri minimi sono:
+La rubrica di valutazione di ciascun caso take-home deve essere coerente con la Scheda Costruzione Caso. I criteri minimi sono:
 
 1. qualità delle premesse teorico-matematiche identificate;
 2. correttezza della scomposizione in tappe;
@@ -1330,26 +1341,39 @@ Formula guida del Regime B:
 
 Nel caso dei grafici, la distinzione tra contenuto informativo e realizzazione tecnica è essenziale. Lo studente deve specificare quale variabile rappresentare, quale confronto mostrare, quale soglia evidenziare e quale domanda interpretativa il grafico deve rendere visibile. L'IA può essere delegata alla realizzazione tecnica del grafico, ma non alla scelta del suo significato informativo.
 
-#### Regime C — Verifica e interpretazione critica
+#### Regime C — Verifica critica
 
-Nel Regime C, l'IA viene utilizzata come revisore critico. Lo studente deve prima formulare un controllo, una verifica o un'interpretazione. Solo dopo può chiedere all'IA di segnalare errori, ambiguità, passaggi non giustificati, confusioni terminologiche o conclusioni troppo forti.
+Nel Regime C, l'IA viene utilizzata come revisore critico di materiale già prodotto o di un dubbio già formulato dallo studente. Il Regime C non consiste in una richiesta generica di certificazione del lavoro. Deve partire da un risultato numerico anomalo, da un dubbio teorico o matematico, da una possibile incoerenza con la Scheda Caso, da un passaggio di codice non convincente, da una tabella o da un grafico da verificare.
 
-L'IA può aiutare a individuare:
+Lo studente deve indicare:
 
-1. incoerenze tra formula teorica e codice;
-2. incoerenze tra codice e output;
-3. controlli numerici mancanti;
-4. controlli logici mancanti;
-5. confusione tra quantità teorica e stima empirica;
-6. interpretazioni finanziarie troppo forti;
-7. limiti del modello non dichiarati;
-8. affermazioni non supportate dagli output prodotti.
+1. la parte del notebook interessata;
+2. il dubbio, l'anomalia o la possibile incoerenza;
+3. il proprio ragionamento, cioè perché il risultato, la formula, il testo o il codice non convince;
+4. il materiale da controllare.
 
-L'IA non deve produrre la conclusione finale al posto dello studente. In questo regime, l'autonomia dello studente è massima: l'IA non interpreta, ma critica un'interpretazione già proposta.
+La risposta dell'IA deve classificare l'esito della verifica in uno solo dei due casi:
+
+1. criticità respinta, quando il dubbio dello studente non richiede modifiche al notebook;
+2. criticità accolta, quando il dubbio segnala un errore, una incoerenza, una ambiguità o una debolezza effettiva.
+
+Se la criticità è respinta, il notebook non viene modificato. La verifica resta documentata nel tracciato IA.
+
+Se la criticità è accolta, il notebook viene corretto senza aggiungere celle extra di verifica. Le celle della tappa interessata vengono sostituite con versioni corrette e informative. La cella Markdown della tappa deve incorporare in modo sintetico:
+
+1. la criticità individuata;
+2. l'origine della criticità nella risposta dell'IA;
+3. la modifica adottata.
+
+Se è necessario correggere anche il codice, la nuova cella code sostituisce la precedente e può contenere solo commenti essenziali collegati alla correzione.
+
+Gli errori puramente tecnici di codice, come errori di sintassi, librerie mancanti o warning segnalati dall'ambiente di sviluppo, vanno corretti sostituendo la cella errata. Non costituiscono però, di per sé, verifiche critiche di alto valore.
+
+L'IA non deve produrre la conclusione finale al posto dello studente. Restano distinte le verifiche conclusive sul notebook e sull'interpretazione finale, quando previste.
 
 Formula guida del Regime C:
 
-> Valuta criticamente la verifica e l'interpretazione che ho scritto, senza sostituirti a me.
+> Ho individuato un dubbio o una possibile criticità. Verifica se la criticità è respinta o accolta. Se è accolta, produci le celle sostitutive della tappa, senza celle extra e senza modificare la Scheda Caso.
 
 ---
 
@@ -1426,64 +1450,147 @@ Quando il notebook viene costruito passo passo con supporto dell’IA, ogni prom
 
 La sequenza dei prompt virtuosi deve essere tracciabile rispetto alla struttura del notebook. Ogni prompt rilevante deve poter essere collegato a una o più sezioni del notebook e deve chiarire quale parte del prodotto finale genera: cella Markdown, cella codice, tabella, grafico, controllo, interpretazione locale o revisione critica.
 
-Nella scheda docente di calibrazione, il docente deve quindi predisporre una mappa esplicita tra prompt e notebook. Questa mappa ha doppia funzione: guida lo sviluppo del notebook docente e fornisce un riferimento per valutare la coerenza tra tracciato IA e notebook nei lavori take-home.
+Nella Scheda Costruzione Caso, il docente deve quindi predisporre una mappa esplicita tra prompt e notebook. Questa mappa ha doppia funzione: guida lo sviluppo del notebook docente e fornisce un riferimento per valutare la coerenza tra tracciato IA e notebook nei lavori take-home.
+
+Per il Regime C la sequenza è specifica:
+
+```text
+dubbio dello studente
+-> Prompt C
+-> risposta IA: criticità respinta oppure criticità accolta
+-> se criticità respinta: nessuna modifica al notebook
+-> se criticità accolta: sostituzione delle celle della tappa coinvolta
+```
+
+Il notebook documenta il prodotto corretto e validato; il tracciato IA documenta il processo di verifica che ha portato alla decisione.
 
 ---
 
-### 15.6 Prompt zero, Prompt 1, Prompt 2 e prompt di tappa
+### 15.6 Prompt zero, Prompt 1, Prompt 2, Prompt 3 e prompt di tappa
 
 La qualità di un prompt dipende anche dalla quantità di contesto fornito all’IA. Un prompt di tappa formalmente corretto può produrre risposte deboli se viene usato in una chat nuova senza avere prima definito il contesto del corso, del caso e dei regimi di interazione.
 
 Per le lezioni applicative che prevedono uso documentato dell’IA, la sequenza iniziale deve distinguere:
 
 1. Prompt zero;
-2. Prompt 1 — acquisizione della Scheda Caso;
+2. Prompt 1 — acquisizione della Scheda Caso e cella Markdown iniziale;
 3. Prompt 2 — costruzione del Flusso logico-teorico risolutivo;
-4. prompt di tappa.
+4. Prompt 3 — scomposizione in tappe input-output;
+5. prompt di tappa.
 
 #### Prompt zero
 
 Il Prompt zero è il prompt di contesto iniziale. Si usa una sola volta all’inizio di una nuova chat. Serve a definire il perimetro generale della conversazione.
 
-Il Prompt zero generale non deve anticipare il contenuto del caso. Deve indicare:
-
-1. corso e livello degli studenti;
-2. obiettivo generale del lavoro applicativo;
-3. distinzione tra notebook e tracciato IA;
-4. regimi di interazione A, B e C;
-5. regole operative generali;
-6. divieto di anticipare caso, modello, variabili, dati, scenari, parametri o output;
-7. richiesta di risposta minima di conferma.
-
-Salvo diversa indicazione del docente, il Prompt zero deve essere non produttivo. Non deve chiedere all’IA di generare contenuti teorici, codice, formule, esempi, Schede Caso, scomposizioni, piani di lavoro o sintesi del caso.
-
 Forma raccomandata della chiusura del Prompt zero generale:
 
 ```text
+Devo risolvere un caso del corso magistrale Metodi Quantitativi per la Finanza, destinato a studenti del quinto anno di *Finanza e Risk Management*.
+
+L’obiettivo del lavoro non è imparare Python come contenuto autonomo, ma usare Python e l'Intelligenza Artificiale (AI) per rendere osservabili, simulabili e verificabili concetti quantitativi applicati alla finanza.
+
+Il caso specifico sarà fornito in un prompt successivo. Per ora non devi fare alcuna ipotesi sul contenuto del caso, sul modello, sulle variabili, sui dati, sugli scenari, sui parametri o sugli output.
+
+---
+
+## Fasi del Lavoro
+Il lavoro dovrà essere sviluppato in modo ordinato attraverso le seguenti 10 fasi:
+
+1. Lettura della traccia
+2. Costruzione Flusso logico-teorico risolutivo del caso
+3. Validazione Flusso logico-teorico risolutivo
+4. Scomposizione del problema in tappe input-output
+5. Validazione della scomposizione
+6. Costruzione progressiva del notebook
+7. Produzione degli output numerici e grafici
+8. Controlli numerici, logici e interpretativi
+9. Interpretazione critica
+10. Redazione del tracciato AI
+
+---
+
+## Regimi di Interazione
+Devi rispettare rigorosamente tre regimi di interazione:
+
+### Regime A — Ricognizione teorico-modellistica
+Puoi aiutarmi a identificare grandezze economico-finanziarie, variabili casuali o decisionali, eventi, stati informativi, scenari, ipotesi, formule e quantità teoriche.
+* Vincoli: Non devi risolvere il problema, non devi scegliere autonomamente il modello finale e non devi scrivere codice.
+
+### Regime B — Traduzione operativa in codice
+Puoi aiutarmi a tradurre una specifica teorica già fissata e validata in codice Python, tabelle, grafici e controlli computazionali.
+* Vincoli: Non devi modificare variabili, formule, ipotesi, stati informativi, scenari o il significato finanziario del problema.
+
+### Regime C — Verifica e interpretazione critica
+Puoi aiutarmi a revisionare controlli, risultati e interpretazioni che io abbia già formulato.
+* Vincoli: Non devi produrre l’interpretazione finale al posto mio.
+
+---
+
+## Regole Operative Generali
+1. Devi rispondere solo alla fase o alla tappa richiesta.
+2. Non devi anticipare fasi successive.
+3. Non devi proporre codice se la fase è in *Regime A*.
+4. Non devi modificare il problema assegnato.
+5. Non devi introdurre strumenti teorici non richiesti o non coerenti con la traccia.
+6. Non devi scegliere autonomamente dati, parametri, scenari o formule se non ti viene richiesto esplicitamente.
+7. Non devi produrre una soluzione completa del caso.
+8. Non devi produrre il notebook completo in un unico passaggio.
+9. Non devi produrre l’interpretazione finale al posto mio.
+10. Quando una risposta richiede validazione, devi segnalare che la decisione finale spetta allo studente.
+
+---
+
+## Distinzione dei Prodotti Output
+Nel corso del lavoro, dovrai aiutarmi a distinguere chiaramente:
+
+* Tracciato AI: Documento che registra prompt, risposte utilizzate, decisioni dello studente, controlli e collegamenti tra le tappe.
+* Notebook: Prodotto computazionale validato, strutturato con celle Markdown, celle codice, output numerici, grafici, controlli e interpretazioni.
+
+---
+
+## Stato Attuale
 Per ora questo è solo un prompt di inizializzazione del contesto.
-Non produrre contenuti teorici, codice, formule, esempi, schede, scomposizioni, piani di lavoro o sintesi del caso.
-Rispondi soltanto confermando che hai compreso i vincoli generali e che attenderai il prossimo prompt.
+
+> IMPORTANTE: Non produrre contenuti teorici, codice, formule, esempi, schede macro, scomposizioni, piani di lavoro o sintesi del caso.
+>
+> Rispondi soltanto confermando che hai compreso i vincoli generali e che attenderai il prossimo prompt, nel quale sarà fornita la traccia del caso.
 ```
 
-#### Prompt 1 — acquisizione della Scheda Caso
+#### Prompt 1 — Scheda Caso e cella Markdown iniziale
 
-Il Prompt 1 segue il Prompt zero e contiene la Scheda Caso.
+Il Prompt 1 segue il Prompt zero e contiene la Scheda Caso. È fornito dal docente e non richiede contributo autonomo dello studente.
 
-La funzione del Prompt 1 è esclusivamente vincolante e non produttiva. Lo studente fornisce all’IA la Scheda Caso e chiede soltanto di acquisirla come specifica del lavoro.
+La funzione del Prompt 1 è vincolante: l'IA deve acquisire la Scheda Caso come specifica del lavoro e non deve modificarla. Il Prompt 1 deve però chiedere anche una sola cella Markdown iniziale da inserire nel notebook. Questa cella ha funzione di inquadramento del caso, non di soluzione.
 
-L’IA deve rispondere con una conferma minima. Non deve produrre sintesi, formule aggiuntive, codice, scomposizioni, interpretazioni, controlli o suggerimenti.
+La cella Markdown iniziale deve sintetizzare:
 
-Forma raccomandata del Prompt 1:
+1. titolo del caso;
+2. contesto economico-finanziario, probabilistico o decisionale;
+3. domanda quantitativa;
+4. variabile finale di interesse;
+5. informazione disponibile;
+6. quantità principali da stimare;
+7. output richiesti;
+8. controlli principali;
+9. vincolo che la Scheda Caso non deve essere modificata.
+
+Forma raccomandata della chiusura del Prompt 1:
 
 ```text
-Ti fornisco la Scheda Caso. Devi soltanto leggerla e acquisirla come specifica vincolante del lavoro.
-Non devi produrre sintesi, formule aggiuntive, codice, tappe operative, interpretazioni, controlli o suggerimenti.
-Rispondi soltanto “OK, scheda acquisita” se tutto è chiaro.
+Dopo avere acquisito la Scheda Caso, produci una sola cella Markdown iniziale da inserire nel notebook.
+
+La cella deve sintetizzare il caso, la domanda quantitativa, la variabile finale, l'informazione disponibile, le quantità da stimare, gli output richiesti e i controlli principali.
+
+Non produrre codice, non produrre il flusso logico-teorico, non produrre tappe operative, non modificare la Scheda Caso e non anticipare risultati numerici.
+
+Restituisci solo la cella Markdown pronta da copiare nel notebook.
 ```
+
+Se l'IA produce formule aggiuntive, codice, tappe operative, interpretazioni o suggerimenti risolutivi, lo studente deve riportarla al vincolo del Prompt 1.
 
 #### Prompt 2 — Flusso logico-teorico risolutivo
 
-Il Prompt 2 è obbligatorio nei lavori applicativi con uso documentato dell’IA. Deve essere formulato in **Regime A**.
+Il Prompt 2 è obbligatorio nei lavori applicativi con uso documentato dell’IA. Deve essere formulato in Regime A.
 
 La finalità del Prompt 2 è costruire, con supporto dell’IA, il Flusso logico-teorico risolutivo del caso.
 
@@ -1522,14 +1629,46 @@ L’output obbligatorio del Prompt 2 è la tabella:
 
 Prompt generici del tipo “costruisci il flusso logico-teorico del caso” sono considerati deboli, perché non rendono osservabile il contributo teorico dello studente.
 
+#### Prompt 3 — Scomposizione in tappe input-output
+
+Il Prompt 3 è obbligatorio nei lavori applicativi con uso documentato dell'IA. Deve essere formulato dopo il Prompt 2.
+
+La finalità del Prompt 3 è trasformare il Flusso logico-teorico risolutivo in una scomposizione operativa del notebook. Anche il Prompt 3 deve contenere un contributo esplicito dello studente: una proposta iniziale di tappe, con input, operazione, output e controllo.
+
+L'IA può aiutare a verificare, completare e ordinare la scomposizione, ma non deve produrre direttamente il notebook e non deve modificare la Scheda Caso.
+
+Forma raccomandata del Prompt 3:
+
+```text
+Regime A/B — Scomposizione input-output.
+
+Sulla base della Scheda Caso e del Flusso logico-teorico risolutivo, propongo questa prima scomposizione del notebook in tappe:
+
+1. [tappa proposta dallo studente]
+2. [tappa proposta dallo studente]
+3. [tappa proposta dallo studente]
+
+Ti chiedo di verificare, completare e ordinare la scomposizione, senza scrivere ancora il codice completo del notebook.
+
+L'output deve essere una tabella con le colonne:
+Tappa;
+Input;
+Operazione;
+Output;
+Controllo;
+Uso successivo.
+```
+
+Prompt generici del tipo “dividi il problema in tappe” sono considerati deboli se non rendono visibile una proposta iniziale dello studente.
+
 #### Prompt di tappa
 
 Il prompt di tappa è utilizzabile solo dopo che sono stati acquisiti:
 
 1. Prompt zero;
-2. Scheda Caso tramite Prompt 1;
+2. Scheda Caso e cella Markdown iniziale tramite Prompt 1;
 3. Flusso logico-teorico risolutivo tramite Prompt 2;
-4. scomposizione in tappe validata.
+4. scomposizione in tappe input-output tramite Prompt 3.
 
 Il prompt di tappa deve indicare almeno:
 
@@ -1582,9 +1721,9 @@ Nel Regime B, il prompt deve vincolare la costruzione computazionale:
 
 > Data questa specifica teorica, costruisci il codice o l'output richiesto. Puoi scegliere la forma tecnica della procedura, ma non modificare variabili, eventi, formule, ipotesi o significato finanziario.
 
-Nel Regime C, il prompt deve trasformare l'IA in revisore critico:
+Nel Regime C, il prompt deve partire da un dubbio o da una possibile criticità individuata dallo studente:
 
-> Ho scritto questa verifica o interpretazione. Segnala errori, ambiguità e affermazioni troppo forti, ma non riscrivere il testo al posto mio.
+> Sto lavorando sulla seguente parte del notebook. Ho individuato questo dubbio o possibile problema. Il mio ragionamento è il seguente. Verifica criticamente il problema e classifica l'esito come criticità respinta oppure criticità accolta. Se la criticità è accolta, produci le versioni sostitutive delle celle della tappa, senza celle extra e senza modificare la Scheda Caso.
 
 Un prompt privo di contesto, di input e di vincoli tende a produrre risposte generiche. Un prompt troppo ampio, come “risolvi il problema”, trasferisce all'IA responsabilità che nel corso devono restare allo studente.
 
@@ -1617,42 +1756,46 @@ Una risposta IA deve essere corretta o scartata quando:
 6. confonde quantità teoriche e stime empiriche;
 7. sostituisce la verifica dello studente con una dichiarazione generica di correttezza.
 
+Nel Regime C, la validazione deve assumere una forma esplicita. La risposta dell'IA deve essere ricondotta a uno dei due esiti: criticità respinta oppure criticità accolta. Nel primo caso il notebook non viene modificato. Nel secondo caso il notebook viene aggiornato sostituendo le celle della tappa coinvolta con versioni corrette e informative, senza aggiungere celle extra di verifica.
+
 Nel notebook docente, la validazione può rimanere implicita se il materiale finale è già pulito e coerente. Nel tracciato IA dello studente, invece, deve essere visibile almeno in forma sintetica: accettazione, modifica, rifiuto o correzione della risposta ottenuta.
 
 ---
 
 ### 15.9 Tracciato IA dello studente
 
-Quando il lavoro take-home prevede uso documentato dell'IA, lo studente deve consegnare un tracciato dell'interazione in formato Markdown `.md`.
+Quando il lavoro take-home prevede uso documentato dell'IA, lo studente deve consegnare il tracciato dell'interazione. La forma ordinaria di consegna è la stampa PDF della chat IA dedicata al caso, salvo diversa indicazione del docente.
 
 Il tracciato non deve essere valutato come prova forense dell'intera storia privata del lavoro svolto con strumenti IA. Deve essere valutato come artefatto metodologico: esso deve mostrare come lo studente ha organizzato l'assistenza dell'IA secondo una sequenza controllata di ricognizione teorico-modellistica, traduzione operativa in codice, verifica e interpretazione critica.
 
 Il tracciato deve contenere:
 
 1. identificazione del problema;
-2. Prompt zero utilizzato, se previsto;
-3. Prompt 1 con acquisizione della Scheda Caso;
-4. conferma non produttiva dell’IA al Prompt 1;
-5. Prompt 2 in Regime A per la costruzione del Flusso logico-teorico risolutivo;
-6. contributo iniziale dello studente al Flusso logico-teorico risolutivo;
-7. risposta IA utilizzata per verificare, completare o ordinare il flusso;
-8. azione dello studente sulla risposta IA: accettazione, modifica, rifiuto o correzione;
-9. tabella finale del Flusso logico-teorico risolutivo;
-10. scomposizione del problema in tappe;
+2. Prompt zero utilizzato;
+3. Prompt 1 con Scheda Caso e produzione della cella Markdown iniziale del notebook;
+4. Prompt 2 in Regime A per la costruzione del Flusso logico-teorico risolutivo;
+5. contributo iniziale dello studente al Flusso logico-teorico risolutivo;
+6. risposta IA utilizzata per verificare, completare o ordinare il flusso;
+7. azione dello studente sulla risposta IA: accettazione, modifica, rifiuto o correzione;
+8. tabella finale del Flusso logico-teorico risolutivo;
+9. Prompt 3 per la scomposizione del problema in tappe input-output;
+10. contributo iniziale dello studente alla scomposizione in tappe;
 11. collegamenti input/output tra tappe;
 12. prompt utilizzati;
 13. regime attribuito a ciascun prompt;
-14. risposta IA utilizzata, oppure sintesi fedele della parte effettivamente utilizzata;
+14. risposta IA utilizzata;
 15. azione dello studente: accettazione, modifica, rifiuto o correzione;
-16. output prodotto;
-17. controllo svolto;
-18. interpretazione finale autonoma.
+16. eventuali verifiche in Regime C, con esito criticità respinta oppure criticità accolta;
+17. output prodotto;
+18. controllo svolto;
+19. verifiche conclusive, se richieste;
+20. interpretazione finale autonoma.
 
 Se lo studente utilizza un prompt zero, esso deve essere riportato una sola volta all'inizio del tracciato. I prompt successivi possono essere più brevi, purché siano chiaramente collegati al contesto iniziale e alle tappe del lavoro.
 
 Se lo studente non utilizza un prompt zero, ogni prompt di tappa deve essere sufficientemente autosufficiente. In questo caso il tracciato deve mostrare che l'IA ha ricevuto contesto, input, vincoli e output atteso in misura sufficiente.
 
-I prompt dello studente devono essere riportati integralmente. Le risposte dell'IA possono essere sintetizzate se molto lunghe, ma la sintesi deve indicare chiaramente quale parte della risposta è stata effettivamente utilizzata.
+La chat consegnata in PDF deve essere dedicata al caso e non deve contenere conversazioni estranee. I prompt dello studente e le risposte dell'IA devono restare visibili nella sequenza effettiva di lavoro. Eventuali sintesi interne al notebook non sostituiscono il tracciato IA.
 
 Il numero di prompt deve rispettare l’intervallo stabilito dal docente per ciascun caso take-home. Tale intervallo viene indicato nella Scheda Costruzione Caso e deve essere comunicato agli studenti nella Scheda Caso o nella traccia del lavoro.
 
@@ -1660,102 +1803,38 @@ Un tracciato troppo breve tende a indicare una delega globale e non controllata.
 
 ---
 
-### 15.10 Struttura consigliata del tracciato IA
+### 15.10 Struttura osservabile del tracciato IA
 
-Il tracciato IA dello studente deve avere una struttura stabile. La struttura consigliata è:
+La consegna ordinaria del tracciato IA è la stampa PDF della chat. Non è quindi necessario trasformare la chat in un documento Markdown separato, salvo diversa indicazione del docente.
 
-# Tracciato IA
+La chat deve tuttavia essere costruita in modo ordinato. Deve rendere osservabile la successione:
 
-## 1. Identificazione del caso
+```text
+Prompt zero
+-> Prompt 1
+-> Prompt 2
+-> Prompt 3
+-> prompt di tappa
+-> eventuali prompt C
+-> verifiche conclusive
+```
 
-- Lezione:
-- Titolo del caso:
-- Obiettivo quantitativo:
-- Output finale richiesto:
+Nel tracciato devono risultare riconoscibili:
 
-## 2. Prompt zero, se utilizzato
-
-Riportare integralmente il Prompt zero.
-
-## 3. Prompt 1 — Acquisizione della Scheda Caso
-
-Riportare integralmente il Prompt 1 e allegare o richiamare la Scheda Caso fornita all’IA.
-
-**Risposta IA attesa:** conferma minima di acquisizione.
-
-**Controllo dello studente:** verificare che l’IA non abbia prodotto sintesi, codice, formule aggiuntive, tappe operative o suggerimenti.
-
-## 4. Prompt 2 — Flusso logico-teorico risolutivo
-
-**Regime:** A — Ricognizione teorico-modellistica.
-
-**Contributo iniziale dello studente:**
-
-Riportare la sequenza teorica proposta dallo studente prima dell’intervento dell’IA.
-
-**Prompt utilizzato:**
-
-Riportare integralmente il Prompt 2.
-
-**Risposta IA utilizzata o sintesi fedele:**
-
-Indicare quali parti della risposta IA sono state utilizzate per verificare, completare o ordinare il flusso.
-
-**Azione dello studente:**
-
-Accettazione / modifica / rifiuto / correzione.
-
-**Flusso logico-teorico risolutivo finale:**
-
-| Passo | Finalità risolutiva | Formula teorico-matematica / definizione / proprietà / teorema | Applicazione nel caso | Output o controllo collegato |
-|---:|---|---|---|---|
-
-## 5. Scomposizione in tappe
-
-| Tappa | Input | Operazione | Output | Controllo | Uso successivo |
-|---:|---|---|---|---|---|
-
-## 6. Interazioni con l’IA per le tappe operative
-
-### Tappa k — Titolo della tappa
-
-**Regime:** A / B / C
-
-**Input disponibili:**
-
-...
-
-**Prompt utilizzato:**
-
-...
-
-**Risposta IA utilizzata o sintesi fedele:**
-
-...
-
-**Azione dello studente:**
-
-Accettazione / modifica / rifiuto / correzione.
-
-**Output prodotto nel notebook:**
-
-...
-
-**Controllo svolto:**
-
-...
-
-**Uso dell’output nella tappa successiva:**
-
-...
-
-## 7. Interpretazione finale
-
-Testo autonomo dello studente.
-
-## 8. Limiti del modello
-
-Discussione dei principali limiti teorici, computazionali o finanziari.
+1. il caso a cui la chat si riferisce;
+2. il Prompt zero;
+3. il Prompt 1 con la Scheda Caso e la cella Markdown iniziale prodotta dall'IA;
+4. il Prompt 2 con il contributo teorico iniziale dello studente;
+5. il Flusso logico-teorico risolutivo finale;
+6. il Prompt 3 con la proposta iniziale di scomposizione dello studente;
+7. la scomposizione input-output finale;
+8. i prompt di tappa e il regime attribuito;
+9. le risposte IA effettivamente utilizzate;
+10. le decisioni dello studente: accettazione, modifica, rifiuto o correzione;
+11. le verifiche in Regime C, quando presenti, con esito criticità respinta oppure criticità accolta;
+12. le eventuali celle sostitutive prodotte in caso di criticità accolta;
+13. le verifiche conclusive sul notebook e sull'interpretazione, quando richieste;
+14. la relazione tra tracciato IA e notebook consegnato.
 
 La struttura può essere adattata dal docente in funzione della specifica lezione applicativa, ma deve sempre rendere visibile la relazione tra Scheda Caso, Flusso logico-teorico risolutivo, prompt, risposta IA, decisione dello studente, notebook e output.
 
@@ -1785,11 +1864,12 @@ La valutazione deve concentrarsi sui seguenti elementi.
 | Area | Cosa si valuta | Indicatori positivi |
 |---|---|---|
 | Prompt zero | Inizializzazione corretta del contesto | il prompt definisce corso, livello, regimi A/B/C, distinzione tra notebook e tracciato IA, e chiede una conferma non produttiva |
-| Prompt 1 | Acquisizione della Scheda Caso | l’IA riceve la Scheda Caso come specifica vincolante e risponde solo con una conferma minima |
+| Prompt 1 | Scheda Caso e cella Markdown iniziale | l’IA riceve la Scheda Caso come specifica vincolante e produce solo la cella Markdown iniziale di inquadramento, senza risolvere il caso |
 | Prompt 2 | Costruzione del Flusso logico-teorico risolutivo | lo studente propone una sequenza teorica iniziale e chiede all’IA di verificarla, completarla e ordinarla |
+| Prompt 3 | Scomposizione input-output | lo studente propone una prima scomposizione in tappe e chiede all’IA di verificarla, completarla e ordinarla |
 | Regime A | Ricognizione teorico-modellistica | l’IA è usata per chiarire oggetti teorici, formule, definizioni, proprietà e collegamenti logici, senza produrre codice |
 | Regime B | Traduzione operativa in codice | l’IA traduce in Python una specifica già validata, senza modificare variabili, formule, scenari, parametri o output richiesti |
-| Regime C | Verifica e interpretazione critica | l’IA è usata per controllare, correggere o criticare output e interpretazioni già formulate dallo studente |
+| Regime C | Verifica critica | l’IA verifica un dubbio dello studente e classifica l’esito come criticità respinta oppure criticità accolta |
 | Validazione | Controllo delle risposte IA | lo studente segnala errori, omissioni, ambiguità o modifiche non autorizzate introdotte dall’IA |
 | Collegamento al notebook | Tracciabilità del lavoro | ogni uso dell’IA è collegato a una sezione del notebook, a un output prodotto e a un controllo svolto |
 | Interpretazione finale | Autonomia critica | l’interpretazione finale è scritta dallo studente e l’IA è usata solo per revisione critica, non per sostituzione |
@@ -1818,6 +1898,27 @@ Sono indicatori deboli:
 5. accettazione integrale della risposta IA senza controllo;
 6. flusso finale non collegato agli output richiesti.
 
+#### Valutazione specifica del Prompt 3
+
+Il Prompt 3 ha il compito di tradurre il Flusso logico-teorico risolutivo in una scomposizione operativa del notebook. La sua valutazione deve considerare la qualità della proposta iniziale dello studente.
+
+Sono indicatori positivi:
+
+1. proposta iniziale di tappe non vuota e non puramente copiata dalla risposta dell'IA;
+2. distinzione chiara tra input, operazione, output e controllo;
+3. coerenza con il Flusso logico-teorico risolutivo;
+4. collegamento tra tappe successive;
+5. presenza di controlli numerici, logici o interpretativi;
+6. richiesta all'IA di verificare, completare e ordinare, non di sostituire integralmente.
+
+Sono indicatori deboli:
+
+1. richiesta generica di costruire l'intero notebook;
+2. scomposizione che nasce direttamente dal codice e non dal flusso teorico;
+3. assenza di controlli;
+4. tappe non collegate tra loro;
+5. accettazione integrale della risposta IA senza selezione critica.
+
 #### Criteri generali di qualità
 
 Un tracciato IA è di buona qualità se mostra che lo studente ha usato l’IA come supporto controllato. In particolare, deve risultare chiaro che lo studente:
@@ -1838,21 +1939,24 @@ Un tracciato IA è di buona qualità se mostra che lo studente ha usato l’IA c
 Sono elementi penalizzanti:
 
 1. uso di prompt generici come “risolvi il caso” o “scrivi tutto il notebook”;
-2. assenza del Prompt 1 di acquisizione non produttiva della Scheda Caso;
+2. assenza del Prompt 1 con Scheda Caso e cella Markdown iniziale;
 3. assenza del Prompt 2 o Prompt 2 privo di contributo iniziale dello studente;
-4. mancata distinzione tra Regime A, Regime B e Regime C;
-5. produzione di codice prima della validazione della specifica teorica;
-6. modifica non autorizzata di variabili, formule, parametri, scenari o output richiesti;
-7. assenza di controlli sulle risposte IA;
-8. trasferimento nel notebook di risultati non verificati;
-9. interpretazione finale generata dall’IA senza bozza autonoma dello studente;
-10. tracciato non collegato in modo chiaro alle sezioni del notebook.
+4. assenza del Prompt 3 o Prompt 3 privo di proposta iniziale dello studente;
+5. mancata distinzione tra Regime A, Regime B e Regime C;
+6. produzione di codice prima della validazione della specifica teorica;
+7. modifica non autorizzata di variabili, formule, parametri, scenari o output richiesti;
+8. assenza di controlli sulle risposte IA;
+9. trasferimento nel notebook di risultati non verificati;
+10. interpretazione finale generata dall’IA senza bozza autonoma dello studente;
+11. tracciato non collegato in modo chiaro alle sezioni del notebook.
 
 #### Uso degli errori dell’IA nella valutazione
 
 Gli errori commessi dall’IA non penalizzano automaticamente lo studente. Diventano rilevanti solo in relazione al comportamento dello studente.
 
 Un errore dell’IA è valutato positivamente se lo studente lo riconosce, lo segnala e lo corregge. Diventa invece elemento negativo se lo studente lo accetta senza controllo e lo trasferisce nel notebook o nell’interpretazione finale.
+
+Occorre distinguere gli errori puramente tecnici di codice dagli errori teorici, matematici, logici o interpretativi. I primi possono essere corretti sostituendo la cella errata e non hanno, di norma, alto valore valutativo. I secondi hanno valore didattico più elevato quando sono individuati dallo studente, verificati in Regime C e recepiti nel notebook mediante sostituzione delle celle della tappa coinvolta.
 
 Pertanto, nella valutazione del tracciato IA, il punto centrale non è se l’IA abbia prodotto una risposta perfetta, ma se lo studente abbia mantenuto il controllo teorico, operativo e interpretativo del lavoro.
 
