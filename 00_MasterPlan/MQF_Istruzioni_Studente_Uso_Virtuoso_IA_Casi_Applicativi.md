@@ -1,4 +1,17 @@
-# Istruzioni per lo studente — Uso virtuoso dell’IA nei casi applicativi MQF
+﻿# Istruzioni per lo studente — Uso virtuoso dell’IA nei casi applicativi MQF
+
+<style>
+.prompt-docente {
+  font-family: Consolas, "Courier New", monospace;
+  white-space: pre-wrap;
+  background: #f6f8fa;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  padding: 0.9em 1em;
+  line-height: 1.45;
+}
+</style>
+
 
 ## 1. Scopo del documento
 
@@ -159,9 +172,9 @@ L’IA deve soltanto acquisire la Scheda Caso come specifica vincolante e rispon
 
 Risposta attesa:
 
-```text
+<pre class="prompt-docente">
 OK, scheda acquisita.
-```
+</pre>
 
 Se l’IA produce sintesi, codice, formule aggiuntive, tappe operative o suggerimenti, lo studente deve riportarla al vincolo iniziale.
 
@@ -177,7 +190,7 @@ Lo studente deve proporre una prima sequenza di elementi teorici. L’IA può co
 
 ### Esempio di prompt virtuoso
 
-```text
+<pre class="prompt-docente">
 Regime A — Ricognizione teorico-modellistica.
 
 Sulla base della Scheda Caso acquisita, devo costruire il Flusso logico-teorico risolutivo.
@@ -206,7 +219,7 @@ Finalità risolutiva;
 Formula teorico-matematica / definizione / proprietà / teorema;
 Applicazione nel caso;
 Output o controllo collegato.
-```
+</pre>
 
 ---
 
@@ -220,7 +233,7 @@ Lo studente deve proporre una prima ipotesi di tappe. L’IA può modificarla, i
 
 ### Esempio di prompt virtuoso
 
-```text
+<pre class="prompt-docente">
 Regime A — Ricognizione teorico-modellistica.
 
 Ho costruito il Flusso logico-teorico risolutivo e devo trasformarlo in tappe operative.
@@ -249,7 +262,7 @@ Per ogni tappa indica:
 
 Non produrre risultati numerici.
 Non modificare la Scheda Caso.
-```
+</pre>
 
 ---
 
@@ -269,57 +282,144 @@ Non devono essere copiati meccanicamente. Un prompt virtuoso deve sempre indicar
 
 ## 10.1 Prompt di tappa in Regime A — Chiarimento teorico
 
+Per il Regime A la parte variabile deve mostrare un ragionamento iniziale dello studente, mentre l’IA riceve istruzioni abbastanza precise.
+
+
+<pre class="prompt-docente">
+Regime A — Ricognizione teorico-modellistica.
+
+PARTE VARIABILE — contributo iniziale dello studente
+
+Sto lavorando sulla seguente parte del caso:
+[indicare Prompt 2 oppure la tappa interessata]
+
+Secondo me gli elementi teorici rilevanti sono:
+[descrivere in forma discorsiva gli oggetti teorici che sembrano necessari: variabili, eventi, informazione, distribuzioni, formule, quantità da stimare, controlli]
+
+Penso che sia innanzitutto necessario:
+[spiegare il primo passaggio logico]
+
+Successivamente occorre:
+[spiegare il secondo passaggio logico]
+
+Infine, mi sembra necessario collegare:
+[spiegare il collegamento con output, controlli o tappa successiva]
+
+Ho però questi dubbi:
+[indicare eventuali dubbi, incertezze, alternative o punti da verificare]
+
+
+PARTE FISSA — istruzioni per l'IA
+
+Ti chiedo di verificare, completare e ordinare la mia proposta.
+
+Non devi:
+- risolvere direttamente il caso;
+- scrivere codice;
+- modificare la Scheda Caso;
+- introdurre variabili, ipotesi, parametri o output non previsti;
+- anticipare la scomposizione operativa, salvo richiesta esplicita.
+
+Devi:
+- segnalare elementi mancanti, ridondanti o fuori ordine;
+- correggere eventuali confusioni teoriche;
+- produrre l'output richiesto nel formato indicato.
+</pre>
+
+
 ### Esempio A1 — Simulazione dei regimi informativi
 
-```text
+<pre class="prompt-docente">
 Regime A.
+
+PARTE VARIABILE — contributo iniziale dello studente
 
 Sto per costruire la tappa in cui simulo i regimi informativi.
 
 Secondo me l’input è dato dalle probabilità degli eventi e dal numero di simulazioni. L’output deve essere una sequenza simulata di eventi. Il controllo principale è confrontare le frequenze empiriche con le probabilità teoriche.
 
-Ti chiedo di verificare se questa lettura è corretta e se manca qualche controllo teorico o logico.
+PARTE FISSA — istruzioni per l'IA
+
+Ti chiedo di verificare se questa lettura è corretta e se manca qualche controllo teorico o logico. L'output deve essere una cella Markdown della tappa che chiarisca:
+
+1. obiettivo teorico della tappa;
+2. input disponibili;
+3. oggetti teorici coinvolti;
+4. output atteso;
+5. controllo logico o numerico da eseguire.
 
 Non modificare la Scheda Caso.
-```
+</pre>
 
 ### Esempio A2 — Distribuzione condizionata
 
-```text
+<pre class="prompt-docente">
 Regime A.
+
+PARTE VARIABILE — contributo iniziale dello studente
 
 Sto lavorando sulla tappa in cui devo simulare la variabile di rischio condizionatamente al regime estratto.
 
 La mia idea è che, dopo avere simulato il regime, devo usare la distribuzione condizionata prevista per quel regime. Il controllo dovrebbe confrontare media e deviazione standard empiriche con i parametri teorici.
 
-Ti chiedo di verificare se la logica è corretta e se l’output della tappa è ben definito.
-```
+PARTE FISSA — istruzioni per l'IA
+
+Ti chiedo di verificare se la logica è corretta e se l’output della tappa è ben definito. L'output deve essere una cella Markdown della tappa che chiarisca:
+
+1. obiettivo teorico della tappa;
+2. input disponibili;
+3. oggetti teorici coinvolti;
+4. output atteso;
+5. controllo logico o numerico da eseguire.
+</pre>
 
 ### Esempio A3 — Trasformazione nella variabile finale
 
-```text
+<pre class="prompt-docente">
 Regime A.
+
+PARTE VARIABILE — contributo iniziale dello studente
 
 Sto lavorando sulla tappa in cui trasformo la variabile di rischio nella variabile finale del caso.
 
 Secondo me devo applicare la formula indicata nella Scheda Caso e poi controllare che il risultato abbia il segno e l’interpretazione corretta.
 
+PARTE FISSA — istruzioni per l'IA
+
 Ti chiedo di verificare se sto distinguendo correttamente fattore di rischio, variabile derivata e output finale.
+L'output deve essere una cella Markdown della tappa che chiarisca:
+
+1. obiettivo teorico della tappa;
+2. input disponibili;
+3. oggetti teorici coinvolti;
+4. output atteso;
+5. controllo logico o numerico da eseguire.
 
 Non cambiare la formula del caso.
-```
+</pre>
 
 ### Esempio A4 — Valore atteso condizionato
 
-```text
+<pre class="prompt-docente">
 Regime A.
+
+PARTE VARIABILE — contributo iniziale dello studente
 
 Devo calcolare le medie condizionate per regime.
 
 Secondo me devo raggruppare le osservazioni in base agli eventi della partizione e calcolare una media per ciascun gruppo. Devo poi distinguere tra la media condizionata rispetto a un evento e il valore atteso condizionato rispetto alla sigma-algebra generata dalla partizione.
 
+PARTE FISSA — istruzioni per l'IA
+
 Ti chiedo di verificare se questa distinzione è corretta e come deve essere resa visibile nel notebook.
-```
+L'output deve essere una cella Markdown della tappa che chiarisca:
+
+1. obiettivo teorico della tappa;
+2. input disponibili;
+3. oggetti teorici coinvolti;
+4. output atteso;
+5. controllo logico o numerico da eseguire.
+</pre>
 
 ---
 
@@ -327,7 +427,7 @@ Ti chiedo di verificare se questa distinzione è corretta e come deve essere res
 
 ### Esempio B1 — Definizione dei parametri
 
-```text
+<pre class="prompt-docente">
 Regime B — Traduzione operativa in codice.
 
 Devo implementare la tappa di definizione dei parametri.
@@ -347,11 +447,11 @@ Output richiesto:
 Scrivi una cella Markdown sintetica e una cella Python chiara.
 
 Non modificare parametri, formule o probabilità.
-```
+</pre>
 
 ### Esempio B2 — Simulazione gerarchica
 
-```text
+<pre class="prompt-docente">
 Regime B — Traduzione operativa in codice.
 
 Devo implementare la simulazione gerarchica.
@@ -369,11 +469,11 @@ Output richiesto:
 Scrivi codice Python chiaro e commentato.
 Non introdurre nuovi oggetti teorici.
 Non modificare la Scheda Caso.
-```
+</pre>
 
 ### Esempio B3 — Calcolo della variabile finale
 
-```text
+<pre class="prompt-docente">
 Regime B — Traduzione operativa in codice.
 
 Devo calcolare la variabile finale del caso usando la formula fissata nella Scheda Caso.
@@ -391,11 +491,11 @@ Output:
 
 Scrivi una cella Markdown e una cella Python.
 Non modificare la formula.
-```
+</pre>
 
 ### Esempio B4 — Output non condizionati e condizionati
 
-```text
+<pre class="prompt-docente">
 Regime B — Traduzione operativa in codice.
 
 Devo produrre gli output statistici richiesti.
@@ -415,7 +515,7 @@ Output:
 - grafici essenziali.
 
 Scrivi codice Python ordinato, con tabelle leggibili e controlli espliciti.
-```
+</pre>
 
 ---
 
@@ -466,7 +566,7 @@ La valutazione terrà conto del fatto che:
 
 ### Schema di prompt C
 
-```text
+<pre class="prompt-docente">
 Regime C — Verifica critica.
 
 Sto lavorando sulla seguente parte del notebook:
@@ -500,12 +600,12 @@ Se la criticità è accolta:
 - non proporre celle extra;
 - non mantenere la versione errata;
 - non modificare la Scheda Caso.
-```
+</pre>
 
 
 ### Esempio C1 — Frequenze simulate inattese
 
-```text
+<pre class="prompt-docente">
 Regime C — Verifica critica.
 
 PARTE VARIABILE — da adattare da parte dello studente
@@ -544,11 +644,11 @@ Se la criticità è accolta:
 - non proporre celle extra;
 - non mantenere la versione errata;
 - non modificare la Scheda Caso.
-```
+</pre>
 
 ### Esempio C2 — Segno inatteso della perdita
 
-```text
+<pre class="prompt-docente">
 Regime C — Verifica critica.
 
 PARTE VARIABILE — da adattare da parte dello studente
@@ -588,7 +688,7 @@ Se la criticità è accolta:
 - non mantenere la versione errata;
 - non modificare la Scheda Caso;
 - non proporre una trasformazione in parte positiva se non è prevista dalla Scheda Caso.
-```
+</pre>
 
 ---
 
@@ -600,7 +700,7 @@ Lo studente deve scegliere quale aspetto finale verificare.
 
 ### Esempio F1 — Verifica finale della coerenza tra notebook e Scheda Caso
 
-```text
+<pre class="prompt-docente">
 Regime C — Verifica finale mirata.
 
 Voglio controllare la coerenza tra la Scheda Caso e il notebook finale.
@@ -621,23 +721,23 @@ Restituisci solo:
 2. output mancanti;
 3. controlli mancanti;
 4. correzioni prioritarie.
-```
+</pre>
 
 
 ### Esempio F3 — Verifica finale dell’interpretazione
 
-```text
+<pre class="prompt-docente">
 Regime C — Verifica finale mirata.
 
-Mi sto ficalizzando solo l’interpretazione finale.
+Mi sto focalizzando solo sull’interpretazione finale.
 
-La mia interpretazione  finale è ... . Con riferimento ai grafici prodotti si conferma che... . Con riferimento ai risulti numerici si conferma che ... .
+La mia interpretazione finale è ... . Con riferimento ai grafici prodotti si conferma che... . Con riferimento ai risultati numerici si conferma che ... .
 
 Ti chiedo di verificare se ho incluso gli elementi rilevanti ed eventualmente di modificare / integrare il testo della mia interpretazione.:
 
 Non riscrivere l’intera conclusione.
 Suggerisci solo modifiche puntuali.
-```
+</pre>
 
 ---
 
@@ -733,3 +833,4 @@ I pesi sono indicativi e possono essere modificati dal docente per ciascun eserc
 | Interpretazione critica | 5 | autonomia, coerenza con output, ruolo dell’informazione, limiti del modello |
 
 Totale: 100.
+
