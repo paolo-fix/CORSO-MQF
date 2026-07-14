@@ -658,6 +658,177 @@ di cui la passeggiata aleatoria \`{e} l'analogo discreto.
 \end{frame}%
 %EndExpansion
 
+% --------------------------------------------------------
+% Slide -- Stazionariet\`{a} forte e debole
+% --------------------------------------------------------
+
+\subsection{Stazionariet\`{a} forte e debole}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Stazionariet\`{a} forte e debole}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+La stazionariet\`{a} formalizza l'idea che la struttura probabilistica
+del processo non cambi quando si sposta l'origine del tempo.
+
+\medskip
+
+\begin{stepitemize}
+
+\item \textbf{Stazionariet\`{a} forte}: per ogni scelta di istanti
+$t_1,\ldots,t_n$ e per ogni traslazione ammissibile $h$,
+\[
+(X_{t_1+h},\ldots,X_{t_n+h})
+\quad \hbox{ha la stessa legge di} \quad
+(X_{t_1},\ldots,X_{t_n}).
+\]
+Riguarda l'intera distribuzione congiunta del processo.
+
+\item \textbf{Stazionariet\`{a} debole}: se esistono i momenti secondi,
+\[
+\E[X_t]=\mu, \qquad
+\Cov(X_s,X_t)=\gamma(t-s).
+\]
+Media costante e autocovarianza dipendente solo dalla distanza temporale.
+
+\item La stazionariet\`{a} forte implica quella debole, se i momenti
+secondi esistono; il viceversa non vale in generale.
+
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% --------------------------------------------------------
+% Slide -- Incrementi indipendenti e stazionari
+% --------------------------------------------------------
+
+\subsection{Incrementi indipendenti e stazionari}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Incrementi indipendenti e incrementi stazionari}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Per un processo a tempo discreto, l'incremento elementare \`{e}
+\[
+\Delta X_t = X_t-X_{t-1}.
+\]
+
+\medskip
+
+\begin{stepitemize}
+
+\item \textbf{Incrementi indipendenti}: le variazioni osservate su
+intervalli temporali disgiunti sono variabili casuali indipendenti.
+In particolare, gli shock futuri non dipendono dagli shock passati.
+
+\item \textbf{Incrementi stazionari}: la distribuzione di
+\[
+X_{t+h}-X_t
+\]
+dipende solo dall'ampiezza $h$ dell'intervallo, non dalla posizione
+temporale $t$.
+
+\item Interpretazione finanziaria: gli incrementi descrivono le
+\textbf{innovazioni} del processo. Un modello pu\`{o} avere innovazioni
+stabili nel tempo anche se il livello del processo non \`{e} stazionario.
+
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% --------------------------------------------------------
+% Slide -- Processo e incrementi: propriet\`{a} distinte
+% --------------------------------------------------------
+
+\subsection{Propriet\`{a} distinte}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Processo stazionario e incrementi stazionari}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Non bisogna confondere la stazionariet\`{a} del processo con la
+stazionariet\`{a} dei suoi incrementi.
+
+\medskip
+
+\begin{center}
+{\small
+\begin{tabular}{lcc}
+\hline
+ & \textbf{Processo stazionario} & \textbf{Incrementi stazionari}\\
+\hline
+$R_t=Z_t$ i.i.d. & s\`{i} & --\\
+$X_t=\sum_{k=1}^t Z_k$ & no & s\`{i}\\
+\hline
+\end{tabular}
+}
+\end{center}
+
+\medskip
+
+\begin{stepitemize}
+
+\item I rendimenti i.i.d. hanno distribuzione stabile nel tempo:
+il processo non accumula livello.
+
+\item La passeggiata aleatoria ha invece
+\[
+\Var(X_t)=t\,\tau^2,
+\]
+quindi non \`{e} stazionaria: l'incertezza cresce con l'orizzonte.
+
+\item Tuttavia i suoi incrementi sono proprio gli shock $Z_t$:
+se gli $Z_t$ sono i.i.d., gli incrementi sono indipendenti e stazionari.
+
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
 % ============================================================
 % Slides_Lez_05_Gruppo_04_Filtrazione.tex
 % GRUPPO 4 -- Filtrazione e adattabilità
@@ -1415,44 +1586,87 @@ $k_t=\#\{i\leq t:\omega_i=u\}$.
 %EndExpansion
 
 % --------------------------------------------------------
-% Slide 27 -- Momenti del processo
+% Slide 31b -- Albero binomiale
 % --------------------------------------------------------
-
-\subsection{Momenti}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
-
-\QTR{frametitle}{Momenti del processo binomiale}
-
+ 
+\QTR{frametitle}{L'albero degli scenari}
+ 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
+ 
+\begin{columns}[c]
+ 
+\begin{column}{0.65\textwidth}
+\includegraphics[width=\linewidth]{../graphics/Cap05_Figura_5_1}
+\end{column}
+ 
+\begin{column}{0.35\textwidth}
+L'albero \textbf{ricombina}: al tempo $t$ vi sono $t+1$ nodi
+di prezzo distinti, pur essendovi $2^t$ storie possibili.
+\end{column}
+ 
+\end{columns}
+ 
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
 
+
+% --------------------------------------------------------
+% Slide 27 -- Momenti del processo
+% --------------------------------------------------------
+ 
+\subsection{Momenti}
+ 
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+ 
+\QTR{frametitle}{Momenti del processo binomiale}
+ 
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+ 
 Introducendo il rendimento lordo medio per periodo
 $m=pu+(1-p)d$, le funzioni caratteristiche sono:
-
+ 
 \medskip
-
+ 
 \begin{stepitemize}
-
+ 
 \item \textbf{Media}: $\mu(t)=\E[S_t]=S_0\,m^t$.\\
 Il prezzo atteso cresce geometricamente se $m>1$.
-
-\item \textbf{Varianza}: $\sigma^2(t)=S_0^2(m_2^t-m^{2t})$,
-con $m_2=pu^2+(1-p)d^2$.\\
+ 
+\item \textbf{Varianza}: introdotto il momento secondo del
+fattore di rendimento $m_2=\E[R_t^2]=pu^2+(1-p)d^2$, si ha
+$\E[S_t^2]=S_0^2\,m_2^t$, da cui
+\[
+\sigma^2(t)=S_0^2\bigl(m_2^t-m^{2t}\bigr).
+\]
 La varianza cresce nel tempo: l'incertezza si accumula.
-
+ 
 \item \textbf{Covarianza}: per $s\leq t$,
 $c(s,t)=S_0^2(m_2^s\,m^{t-s}-m^{s+t})$.\\
 Positiva: prezzi alti oggi tendono ad accompagnarsi a
 prezzi alti in futuro.
-
+ 
 \end{stepitemize}
-
+ 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout
@@ -1518,43 +1732,7 @@ su alberi con molti periodi in modo efficiente.
 \end{frame}%
 %EndExpansion
 
-% --------------------------------------------------------
-% Slide 31b -- Albero binomiale
-% --------------------------------------------------------
 
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
- 
-\QTR{frametitle}{L'albero degli scenari}
- 
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
- 
-\begin{columns}[c]
- 
-\begin{column}{0.65\textwidth}
-\includegraphics[width=\linewidth]{../graphics/Cap05_Figura_5_1}
-\end{column}
- 
-\begin{column}{0.35\textwidth}
-L'albero \textbf{ricombina}: al tempo $t$ vi sono $t+1$ nodi
-di prezzo distinti, pur essendovi $2^t$ storie possibili.
-\end{column}
- 
-\end{columns}
- 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
 
 % --------------------------------------------------------
 % Slide 28 -- Sigma-algebre e partizioni sull'albero
@@ -1633,7 +1811,7 @@ osservato fino a $t$.
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Il processo delle previsioni sull'albero}
+\QTR{frametitle}{(*) Il processo delle previsioni sull'albero}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -1704,6 +1882,9 @@ $3$ & $133.10$, $108.90$, $89.10$, $72.90$\\
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
+
+Definiamo $H_t=\E[S_3\mid\F_t]$: la previsione del prezzo
+terminale aggiornata all'informazione disponibile al tempo $t$.
 
 \begin{stepitemize}
 
@@ -1858,43 +2039,48 @@ e verificare la propriet\`{a} della torre.
 \end{frame}%
 %EndExpansion
 
-% --------------------------------------------------------
-% Slide -- Esercizio 1: soluzione
-% --------------------------------------------------------
 
+% --------------------------------------------------------
+% Slide -- Esercizio 1: soluzione 1/2 (albero)
+% --------------------------------------------------------
+ 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
-
-\QTR{frametitle}{Esercizio 1: soluzione}
-
+ 
+\QTR{frametitle}{Esercizio 1: soluzione (1/2) -- l'albero}
+ 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
-
+ 
+Il rendimento lordo medio per periodo \`{e}
+$m=pu+(1-p)d=0.5\cdot1.25+0.5\cdot0.8=1.025$.
+ 
+\medskip
+ 
+\begin{center}
+\begin{tabular}{p{2.0cm}p{2.6cm}p{2.6cm}}
+$t=0$ & $t=1$ & $t=2$\\[4pt]
+ & & $S_2^{uu}=125$\\[2pt]
+ & $S_1^u=100$ & \\[2pt]
+$S_0=80$ & & $S_2^{ud}=80$\\[2pt]
+ & $S_1^d=64$ & \\[2pt]
+ & & $S_2^{dd}=51.2$\\
+\end{tabular}
+\end{center}
+ 
+\medskip
+ 
 \begin{stepitemize}
-
-\item $m=pu+(1-p)d=0.5\cdot1.25+0.5\cdot0.8=1.025$.
-\[
-S_1^u=100,\quad S_1^d=64,\qquad
-S_2^{uu}=125,\;\; S_2^{ud}=S_2^{du}=80,\;\; S_2^{dd}=51.2.
-\]
-
-\item $\E[S_2]=0.25\cdot125+0.5\cdot80+0.25\cdot51.2=84.05$.\\
-Verifica: $S_0\,m^2=80\cdot1.025^2=84.05$.
-
-\item Al nodo $u$: $\E[S_2\mid A_u]=0.5\cdot125+0.5\cdot80
-=102.5=100\cdot1.025$.\\
-Al nodo $d$: $\E[S_2\mid A_d]=0.5\cdot80+0.5\cdot51.2
-=65.6=64\cdot1.025$.
-
-\item Torre: $0.5\cdot102.5+0.5\cdot65.6=84.05=\E[S_2]$.
-\checkmark
-
+\item Quattro scenari, ciascuno con probabilit\`{a} $0.25$
+(essendo $p=0.5$): $uu\to125$; $ud$ e $du\to80$; $dd\to51.2$.
+\item L'albero ricombina: al tempo $t=2$ i nodi distinti sono
+$3$, le traiettorie $4$.
 \end{stepitemize}
-
+ 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout
@@ -1903,6 +2089,62 @@ Al nodo $d$: $\E[S_2\mid A_d]=0.5\cdot80+0.5\cdot51.2
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+
+% --------------------------------------------------------
+% Slide -- Esercizio 1: soluzione 2/2 (attese e torre)
+% --------------------------------------------------------
+ 
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+ 
+\QTR{frametitle}{Esercizio 1: soluzione (2/2) -- valori attesi e torre}
+ 
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+ 
+\begin{stepitemize}
+ 
+\item \textbf{Valore atteso terminale}, in due modi:
+\[
+\E[S_2]=0.25\cdot125+0.5\cdot80+0.25\cdot51.2=84.05,
+\]
+in accordo con la formula compatta
+$S_0\,m^2=80\cdot1.025^2=84.05$. Le due strade devono
+coincidere. 
+\item \textbf{Valore atteso condizionato}: $\E[S_2\mid\F_1]$
+\`{e} una \emph{variabile casuale}, con un valore per ciascun
+nodo al tempo $1$:
+\[
+\E[S_2\mid A_u]=0.5\cdot125+0.5\cdot80=102.5=S_1^u\cdot m,
+\]
+\[
+\E[S_2\mid A_d]=0.5\cdot80+0.5\cdot51.2=65.6=S_1^d\cdot m.
+\]
+In ogni nodo, la previsione \`{e} il prezzo corrente
+capitalizzato al rendimento medio.
+ 
+\item \textbf{Propriet\`{a} della torre}: mediando le
+previsioni con le probabilit\`{a} dei nodi,
+\[
+0.5\cdot102.5+0.5\cdot65.6=84.05=\E[S_2]. \;\checkmark
+\]
+La previsione della previsione coincide con la previsione.
+ 
+\end{stepitemize}
+ 
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+ 
 
 % --------------------------------------------------------
 % Slide -- Esercizio 2: interpretazione
@@ -1954,6 +2196,8 @@ rappresenta $\nu$ per un gestore che valuta la strategia?
 \end{frame}%
 %EndExpansion
 
+
+
 % --------------------------------------------------------
 % Slide -- Esercizio 2: soluzione
 % --------------------------------------------------------
@@ -1990,6 +2234,72 @@ costi che superano il rendimento lordo.
 \item Collegamento alla decomposizione di Doob--Meyer
 (Sezione~5.5): $X_t=(X_t-t\nu)+t\nu$, dove $X_t-t\nu$ \`{e}
 la componente di gioco equo e $t\nu$ la tendenza prevedibile.
+
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+% ============================================================
+% SINTESI CONCLUSIVA
+% ============================================================
+
+\section{Sintesi conclusiva}
+
+% --------------------------------------------------------
+% Slide -- Sintesi e collegamenti successivi
+% --------------------------------------------------------
+
+\subsection{Sintesi finale}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Sintesi: processi, informazione e previsioni}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+La Lezione 5 ha introdotto il linguaggio di base per modellare
+l'incertezza che evolve nel tempo.
+
+\medskip
+
+\begin{stepitemize}
+
+\item \textbf{Processo stocastico}: una famiglia
+$\{X_t\}_{t=0}^{T}$ descrive distribuzioni marginali, traiettorie
+e struttura congiunta nel tempo.
+
+\item \textbf{Dipendenza temporale}: media, varianza, autocovarianza,
+stazionariet\`{a} e incrementi descrivono come l'incertezza si
+propaga lungo l'orizzonte.
+
+\item \textbf{Informazione}: la filtrazione
+\[
+\F_0\subseteq\F_1\subseteq\cdots\subseteq\F_T
+\]
+rappresenta ci\`{o} che \`{e} noto progressivamente.
+
+\item \textbf{Martingala}: la condizione
+\[
+\E[X_{t+1}\mid\F_t]=X_t
+\]
+formalizza l'idea di previsione equa rispetto all'informazione disponibile.
+
+\item Questi strumenti saranno riutilizzati nei processi in tempo continuo,
+nelle catene di Markov, nella simulazione per scenari e nei vincoli
+di non anticipativit\`{a} della programmazione stocastica.
 
 \end{stepitemize}
 
