@@ -1,7 +1,7 @@
 # =============================================================
 # Cap05_Albero_binomiale.py
 # Progetto MQF - Capitolo 5: Processi stocastici a tempo discreto
-# Figura 4.1: Albero binomiale completo
+# Figura 5.1: Albero binomiale completo
 #   S0=100, u=1.1, d=0.9, p=0.6, T=3
 #
 # Output: E:\Didattica\MQF\Github\CORSO-MQF\graphics\Cap05_Figura_4_1.png
@@ -28,7 +28,7 @@ T  = 3
 # Percorso di output
 # ------------------------------------------------------------
 OUTPUT_DIR = r"E:\Didattica\MQF\Github\CORSO-MQF\graphics"
-OUTPUT     = os.path.join(OUTPUT_DIR, "Cap05_Figura_4_1.png")
+OUTPUT     = os.path.join(OUTPUT_DIR, "Cap05_Figura_5_1.png")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 # ------------------------------------------------------------
@@ -167,7 +167,9 @@ ax.legend(
 # Margini e salvataggio
 # ------------------------------------------------------------
 x_max = nodes[(T, 0)][0]
-ax.set_xlim(-0.65, x_max + 3.8)
+X_MARGIN_LEFT = 1.05
+X_MARGIN_RIGHT = 1.25
+ax.set_xlim(-X_MARGIN_LEFT, x_max + X_MARGIN_RIGHT)
 ax.set_ylim(y_axis - 0.40, max(y for _, y, _ in nodes.values()) + 0.70)
 
 plt.tight_layout()
