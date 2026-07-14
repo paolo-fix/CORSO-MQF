@@ -1,13 +1,13 @@
 # =============================================================
-# Cap04_Figura_4_1_albero_binomiale.py
-# Progetto MQF - Capitolo 4: Processi stocastici
+# Cap05_Albero_binomiale.py
+# Progetto MQF - Capitolo 5: Processi stocastici a tempo discreto
 # Figura 4.1: Albero binomiale completo
 #   S0=100, u=1.1, d=0.9, p=0.6, T=3
 #
-# Output: E:\Didattica\MQF\Github\CORSO-MQF\graphics\Cap04_Figura_4_1.png
+# Output: E:\Didattica\MQF\Github\CORSO-MQF\graphics\Cap05_Figura_4_1.png
 #
 # Dipendenze: matplotlib
-# Esecuzione: python Cap04_Figura_4_1_albero_binomiale.py
+# Esecuzione: python Cap05_Albero_binomiale.py
 # =============================================================
 
 import os
@@ -28,7 +28,7 @@ T  = 3
 # Percorso di output
 # ------------------------------------------------------------
 OUTPUT_DIR = r"E:\Didattica\MQF\Github\CORSO-MQF\graphics"
-OUTPUT     = os.path.join(OUTPUT_DIR, "Cap04_Figura_4_1.png")
+OUTPUT     = os.path.join(OUTPUT_DIR, "Cap05_Figura_4_1.png")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 # ------------------------------------------------------------
