@@ -486,7 +486,7 @@ un ruolo analogo a quello svolto dalla passeggiata aleatoria nel caso
 discreto: non esaurisce da solo la modellizzazione finanziaria, ma ne
 fornisce la struttura casuale fondamentale.
 
-```latex
+
 \section{Equazioni differenziali stocastiche: struttura generale di una diffusione}
 
 Dopo aver introdotto il moto browniano come processo fondamentale della
@@ -567,7 +567,7 @@ L'utilit\`a di questa formalizzazione risiede nella sua flessibilit\`a.
 Scegliendo opportunamente le funzioni $a$ e $b$, si ottengono modelli con
 propriet\`a economiche differenti. Se il coefficiente di diffusione \`e
 proporzionale al livello della variabile, si possono descrivere prezzi
-positivi con volatilità proporzionale alla scala del fenomeno; se il
+positivi con volatilit\`a  proporzionale alla scala del fenomeno; se il
 drift assume la forma di un richiamo verso un livello di lungo periodo,
 si ottengono modelli \emph{mean-reverting}; se la diffusione dipende
 anch'essa dallo stato, si possono rappresentare situazioni in cui la
@@ -599,7 +599,7 @@ generale entro cui si collocano i principali modelli di diffusione
 utilizzati in finanza. Nelle sezioni successive vedremo come scelte
 specifiche dei coefficienti di drift e diffusione conducano a modelli
 classici come il moto browniano geometrico, il processo di
-Ornstein--Uhlenbeck e il processo di Cox--Ingersoll--Ross.```latex
+Ornstein--Uhlenbeck e il processo di Cox--Ingersoll--Ross.
 \section{Il moto browniano geometrico come modello dei prezzi}
 
 Tra i modelli di diffusione utilizzati in finanza, il pi\`u classico e il
@@ -617,7 +617,7 @@ dS_t=\mu S_t\,dt+\sigma S_t\,dW_t,
 S_0>0,
 \]
 dove $\mu \in \mathbb{R}$ rappresenta il coefficiente di drift,
-$\sigma>0$ il coefficiente di volatilità, e $\{W_t\}_{t\geq 0}$ un moto
+$\sigma>0$ il coefficiente di volatilit\`a, e $\{W_t\}_{t\geq 0}$ un moto
 browniano standard.
 
 La struttura del modello \`e economicamente naturale. Il termine
@@ -913,7 +913,7 @@ Il processo di Ornstein--Uhlenbeck introduce in modo semplice il
 meccanismo di \emph{mean reversion}, ma presenta un limite importante
 quando si vogliono modellizzare variabili che, per ragioni economiche,
 devono rimanere non negative. Tassi di interesse di breve periodo,
-intensit\`{a} di default, volatilità istantanee e altri fattori finanziari
+intensit\`{a} di default, volatilit\`a  istantanee e altri fattori finanziari
 positivi non possono essere rappresentati in modo soddisfacente da un
 processo gaussiano additivo, poich\'{e} quest'ultimo pu\`{o} assumere
 valori negativi.
@@ -1856,8 +1856,8 @@ fattore svolge un ruolo di copertura rispetto a un altro.
 
 Per mostrare l'effetto della correlazione, confrontiamo due simulazioni
 basate sugli stessi shock di base: una con $\rho=0$ e una con
-$\rho=-0.45$. Nel primo caso gli incrementi dei due fattori sono
-indipendenti; nel secondo caso tendono a muoversi in direzioni opposte
+$\rho=0.45$. Nel primo caso gli incrementi dei due fattori sono
+indipendenti; nel secondo caso tendono a muoversi in direzioni dello stesso segno
 con maggiore frequenza.
 
 \begin{figure}[htbp]
@@ -1895,6 +1895,1007 @@ governa la trasmissione congiunta degli shock. Nella lezione applicativa
 successiva questi elementi diventeranno procedure computazionali per
 simulare traiettorie, generare scenari e stimare quantit\`{a} finanziarie
 mediante Monte Carlo.
+
+\section{Applicazioni finanziarie}
+
+I modelli introdotti in questo capitolo hanno una funzione comune:
+descrivere l'evoluzione dinamica di fattori di rischio finanziari e
+fornire una base per la simulazione numerica. Il loro utilizzo non si
+limita alla rappresentazione qualitativa delle traiettorie. Una volta
+specificata una dinamica stocastica, infatti, diventa possibile generare
+scenari, stimare valori attesi, valutare payoff dipendenti dal tempo e
+misurare la distribuzione futura di perdite, esposizioni o flussi di
+cassa.
+
+In questa sezione raccogliamo alcune applicazioni finanziarie tipiche dei
+processi in tempo continuo. L'obiettivo non \`{e} sviluppare modelli
+completi di pricing o di risk management, ma mostrare come GBM, OU, CIR,
+diffusioni multivariate e discretizzazione numerica entrino in problemi
+concreti di finanza quantitativa.
+
+\subsection*{Pricing mediante simulazione Monte Carlo}
+
+Una delle applicazioni pi\`{u} immediate delle SDE \`{e} la valutazione
+Monte Carlo di strumenti finanziari. Supponiamo che il valore di un
+contratto dipenda da un payoff finale o path-dependent indicato con
+$\Phi$. Se il modello del sottostante \`{e} formulato in tempo continuo,
+la simulazione richiede tre passaggi:
+
+\begin{enumerate}
+\item specificare la dinamica stocastica dei fattori di rischio;
+\item discretizzare tale dinamica su una griglia temporale;
+\item stimare il valore atteso scontato del payoff simulato.
+\end{enumerate}
+
+Nel caso pi\`{u} semplice di un payoff europeo dipendente dal solo valore
+finale $S_T$, si pu\`{o} scrivere, in forma schematica,
+\[
+V_0
+=
+e^{-rT}
+\mathbb{E}^{\mathbb{Q}}\left[\Phi(S_T)\right],
+\]
+dove $r$ \`{e} un tasso di sconto costante e $\mathbb{Q}$ indica la
+misura di valutazione risk-neutral. In questo capitolo non sviluppiamo la
+teoria del cambio di misura; ci interessa soprattutto il fatto operativo:
+se \`{e} possibile simulare molte realizzazioni di $S_T$, allora il valore
+atteso pu\`{o} essere stimato numericamente.
+
+Con $M$ traiettorie simulate, lo stimatore Monte Carlo assume la forma
+\[
+\widehat{V}_0
+=
+e^{-rT}
+\frac{1}{M}
+\sum_{j=1}^{M}
+\Phi\left(S_T^{(j)}\right).
+\]
+La qualit\`{a} della stima dipende da due fonti di errore distinte. La
+prima \`{e} l'errore Monte Carlo, legato al numero finito di repliche
+simulate. La seconda \`{e} l'errore di discretizzazione, legato al fatto
+che la dinamica continua viene approssimata su una griglia temporale.
+
+La stessa logica si applica ai payoff path-dependent. Per esempio, nel
+caso di una opzione asiatica aritmetica, il payoff pu\`{o} essere
+rappresentato come
+\[
+\Phi
+=
+\left(
+\frac{1}{N}
+\sum_{n=1}^{N}
+S_{t_n}
+-
+K
+\right)^{+},
+\]
+dove $K$ \`{e} lo strike e $S_{t_1},\ldots,S_{t_N}$ sono i valori simulati
+del sottostante lungo la griglia temporale. In questo caso non basta
+simulare il valore finale $S_T$: occorre simulare l'intera traiettoria.
+
+Questo esempio chiarisce perch\'{e} la discretizzazione delle SDE \`{e}
+centrale. Nei problemi di pricing computazionale il modello teorico
+fornisce la dinamica, ma il calcolo effettivo avviene su traiettorie
+simulate.
+
+\subsection*{Prezzi azionari, indici e variabili positive}
+
+Il moto browniano geometrico \`{e} il modello elementare pi\`{u} utilizzato
+per introdurre la dinamica dei prezzi finanziari positivi. La sua forma
+\[
+dS_t=\mu S_t\,dt+\sigma S_t\,dW_t
+\]
+incorpora tre propriet\`{a} importanti: crescita proporzionale, rumore
+moltiplicativo e positivit\`{a} del prezzo. Per questo motivo il GBM
+rappresenta un punto di partenza naturale per modellizzare prezzi
+azionari, indici, fondi o altre grandezze finanziarie che non possono
+assumere valori negativi.
+
+Il parametro $\mu$ governa la dinamica media del prezzo nella SDE, mentre
+$\sigma$ misura l'intensit\`{a} relativa delle oscillazioni casuali. La
+soluzione esplicita
+\[
+S_t
+=
+S_0
+\exp\left[
+\left(\mu-\frac{1}{2}\sigma^2\right)t+\sigma W_t
+\right]
+\]
+mostra che il log-prezzo \`{e} normale e il prezzo \`{e} lognormale. Questa
+struttura \`{e} matematicamente conveniente, ma implica anche ipotesi
+restrittive: volatilit\`{a} costante, assenza di salti, assenza di
+mean-reversion e distribuzione lognormale dei prezzi.
+
+In applicazioni reali, il GBM va quindi interpretato come modello base,
+non come descrizione definitiva dei mercati. Esso \`{e} utile perch\'{e}
+rende chiaro il rapporto tra drift, volatilit\`{a}, positivit\`{a} e
+simulazione; tuttavia, quando si osservano volatilità variabile, code
+pesanti, salti o regimi di mercato, sono necessari modelli pi\`{u} ricchi.
+
+\subsection*{Tassi, spread e fattori mean-reverting}
+
+Molte variabili finanziarie non si comportano come prezzi azionari. Tassi
+di interesse, spread, livelli di inflazione attesa, convenience yield,
+fattori energetici e variabili macro-finanziarie tendono spesso a essere
+modellizzati come grandezze che oscillano attorno a un livello di
+equilibrio. In questi casi la mean reversion \`{e} una propriet\`{a}
+economicamente rilevante.
+
+Il processo di Ornstein--Uhlenbeck
+\[
+dX_t=\kappa(\theta-X_t)\,dt+\sigma\,dW_t
+\]
+\`{e} adatto a rappresentare fattori che possono assumere valori sia
+positivi sia negativi, come spread, deviazioni da un livello normale o
+componenti transitorie di prezzo. Il parametro $\theta$ rappresenta il
+livello di lungo periodo, mentre $\kappa$ misura la velocit\`{a} con cui
+il processo tende a ritornarvi.
+
+Il processo CIR
+\[
+dr_t=\kappa(\theta-r_t)\,dt+\sigma\sqrt{r_t}\,dW_t
+\]
+aggiunge al meccanismo di mean reversion un vincolo di non negativit\`{a}.
+Per questo motivo \`{e} pi\`{u} naturale quando la variabile modellizzata
+non pu\`{o} assumere valori negativi, come un tasso di interesse, una
+intensit\`{a} di default o una intensit\`{a} di salto.
+
+Nei modelli di tasso, per esempio, il prezzo di uno zero-coupon bond pu\`{o}
+essere collegato alla dinamica del tasso breve attraverso una relazione
+del tipo
+\[
+P(0,T)
+=
+\mathbb{E}^{\mathbb{Q}}
+\left[
+\exp\left(
+-\int_0^T r_s\,ds
+\right)
+\right].
+\]
+Questa formula mostra perch\'{e} non basta conoscere il valore finale
+$r_T$: il prezzo dipende dall'intera traiettoria del tasso breve lungo
+l'intervallo $[0,T]$. La simulazione di processi mean-reverting diventa
+quindi uno strumento naturale per valutare strumenti sensibili
+all'evoluzione dei tassi.
+
+\subsection*{Portafogli multi-asset e scenari correlati}
+
+Nelle applicazioni di risk management raramente il rischio dipende da un
+solo fattore. Un portafoglio pu\`{o} essere esposto simultaneamente a
+azioni, tassi, cambi, spread di credito, materie prime e fattori
+macroeconomici. In questi casi \`{e} necessario modellizzare non solo la
+dinamica marginale di ciascun fattore, ma anche la dipendenza tra gli
+shock che li guidano.
+
+La struttura multivariata
+\[
+dX_t=a(X_t,t)\,dt+B(X_t,t)\,dW_t
+\]
+consente di rappresentare sistemi di fattori di rischio. La correlazione
+istantanea tra le componenti di $W_t$ determina il modo in cui gli shock
+si propagano congiuntamente. In simulazione, questa dipendenza viene
+introdotta generando shock gaussiani correlati:
+\[
+\varepsilon=LZ,
+\qquad
+R=LL',
+\]
+dove $Z\sim\mathcal{N}(0,I)$ \`{e} un vettore di shock indipendenti e
+$R$ \`{e} la matrice di correlazione desiderata.
+
+Questa costruzione ha conseguenze dirette sulla distribuzione delle
+perdite di portafoglio. Consideriamo, in forma semplificata, un
+portafoglio con pesi $w_1,\ldots,w_d$ e rendimenti futuri simulati
+$R_{1,T},\ldots,R_{d,T}$. La perdita di portafoglio pu\`{o} essere
+rappresentata come
+\[
+L_T
+=
+-
+\sum_{i=1}^{d}
+w_i R_{i,T}.
+\]
+La distribuzione di $L_T$ dipende non solo dalle volatilit\`{a} dei singoli
+fattori, ma anche dalla loro correlazione. A parit\`{a} di volatilit\`{a}
+marginali, correlazioni pi\`{u} elevate riducono il beneficio di
+diversificazione e possono aumentare la probabilit\`{a} di perdite
+congiunte rilevanti.
+
+La simulazione multivariata fornisce quindi la base per costruire scenari
+coerenti di portafoglio, stimare distribuzioni di perdita e calcolare
+misure di rischio. Le misure come VaR e CVaR saranno trattate in un
+capitolo successivo; qui \`{e} importante riconoscere che esse richiedono
+una distribuzione delle perdite, e tale distribuzione dipende in modo
+cruciale dalla dinamica congiunta dei fattori.
+
+\subsection*{Energia, commodities e fattori non finanziari}
+
+I processi in tempo continuo non sono utilizzati soltanto per azioni,
+obbligazioni e derivati finanziari standard. Essi trovano applicazione
+anche nei mercati energetici e delle commodities, dove i prezzi sono
+influenzati da domanda, offerta, stagionalit\`{a}, vincoli fisici e shock
+improvvisi.
+
+In questi contesti il GBM pu\`{o} essere utilizzato come modello di primo
+livello per prezzi positivi, ma spesso risulta insufficiente. Prezzi spot
+di energia, gas o altre commodities mostrano frequentemente comportamenti
+di ritorno verso livelli normali, dovuti alla capacit\`{a} produttiva, ai
+costi marginali, allo stoccaggio o alla sostituibilit\`{a} tra fonti. Per
+questo motivo modelli OU o varianti mean-reverting sono spesso pi\`{u}
+adatti a rappresentare componenti transitorie o spread.
+
+Anche la correlazione assume un ruolo rilevante. In un portafoglio
+energetico, prezzi di elettricit\`{a}, gas, petrolio, certificati di
+emissione e produzione rinnovabile possono muoversi in modo dipendente.
+La generazione di scenari correlati consente di valutare l'impatto
+congiunto di pi\`{u} fattori sul margine economico, sul valore di un
+contratto o sulla perdita potenziale.
+
+\subsection*{Limiti modellistici e uso consapevole}
+
+I modelli presentati in questo capitolo sono strumenti fondamentali, ma
+non devono essere interpretati come descrizioni complete della realt\`{a}.
+Ogni SDE incorpora ipotesi precise sulla forma del drift, della
+diffusione e della dipendenza tra fattori. Tali ipotesi rendono il modello
+analizzabile e simulabile, ma introducono anche rischio di modello.
+
+Il GBM assume volatilit\`{a} costante e dinamica lognormale; l'OU consente
+valori negativi; il CIR preserva la non negativit\`{a} nella formulazione
+continua, ma richiede attenzione nella discretizzazione numerica; i
+modelli multivariati basati su correlazioni gaussiane possono non
+catturare adeguatamente dipendenze estreme, code pesanti o cambiamenti di
+regime.
+
+Per questo motivo l'uso finanziario dei processi in tempo continuo
+richiede sempre tre controlli:
+
+\begin{enumerate}
+\item coerenza economica della dinamica scelta;
+\item coerenza numerica dello schema di simulazione;
+\item coerenza statistica dei parametri rispetto ai dati disponibili.
+\end{enumerate}
+
+Il capitolo ha fornito gli strumenti di base per affrontare questi
+controlli. La lezione applicativa successiva tradurr\`{a} tali strumenti in
+procedure Python: simulazione di traiettorie, confronto tra modelli,
+pricing Monte Carlo e analisi di scenari correlati.
+
+\section{Esercizi svolti}
+
+Gli esercizi seguenti riprendono i principali nuclei teorici del
+capitolo e li applicano a semplici problemi finanziari e numerici.
+L'obiettivo non \`{e} soltanto ottenere un risultato quantitativo, ma
+interpretare il ruolo dell'orizzonte temporale, dei parametri del
+modello, della struttura di dipendenza e dello schema di
+discretizzazione.
+
+\subsection*{Esercizio svolto 1: scala temporale degli shock browniani}
+
+\paragraph{Testo.}
+
+Si consideri la componente aleatoria di un log-rendimento modellizzata
+come
+\[
+R_h=\sigma(W_h-W_0),
+\]
+dove $\{W_t\}_{t\geq 0}$ \`{e} un moto browniano standard e
+\[
+\sigma=0.20
+\]
+\`{e} una volatilit\`{a} annualizzata.
+
+Si confrontino un orizzonte giornaliero e un orizzonte settimanale,
+ponendo
+\[
+h_1=\frac{1}{252},
+\qquad
+h_5=\frac{5}{252}.
+\]
+
+Determinare:
+
+\begin{enumerate}
+\item la distribuzione di $R_{h_1}$ e $R_{h_5}$;
+\item la deviazione standard degli shock sui due orizzonti;
+\item il rapporto tra le due deviazioni standard;
+\item la probabilit\`{a} che lo shock giornaliero superi in valore
+assoluto il $2\%$.
+\end{enumerate}
+
+\paragraph{Soluzione.}
+
+Poich\'{e}
+\[
+W_h-W_0\sim\mathcal{N}(0,h),
+\]
+si ha
+\[
+R_h
+=
+\sigma(W_h-W_0)
+\sim
+\mathcal{N}(0,\sigma^2h).
+\]
+
+Pertanto,
+\[
+R_{h_1}
+\sim
+\mathcal{N}
+\left(
+0,
+0.20^2\frac{1}{252}
+\right),
+\]
+e
+\[
+R_{h_5}
+\sim
+\mathcal{N}
+\left(
+0,
+0.20^2\frac{5}{252}
+\right).
+\]
+
+La deviazione standard giornaliera \`{e}
+\[
+\sigma_{1}
+=
+0.20\sqrt{\frac{1}{252}}
+\approx
+0.01260.
+\]
+In termini percentuali,
+\[
+\sigma_1\approx 1.26\%.
+\]
+
+La deviazione standard settimanale \`{e}
+\[
+\sigma_{5}
+=
+0.20\sqrt{\frac{5}{252}}
+\approx
+0.02817,
+\]
+ossia
+\[
+\sigma_5\approx 2.82\%.
+\]
+
+Il rapporto tra le due deviazioni standard \`{e}
+\[
+\frac{\sigma_5}{\sigma_1}
+=
+\sqrt{5}.
+\]
+L'incertezza settimanale non \`{e} quindi cinque volte quella
+giornaliera, ma circa
+\[
+\sqrt{5}\approx 2.236
+\]
+volte pi\`{u} elevata.
+
+Indichiamo con $\Phi$ la funzione di ripartizione della normale standard.
+La probabilit\`{a} richiesta \`{e}
+\[
+\mathbb{P}\left(|R_{h_1}|>0.02\right)
+=
+2\left[
+1-
+\Phi\left(
+\frac{0.02}{0.01260}
+\right)
+\right].
+\]
+Poich\'{e}
+\[
+\frac{0.02}{0.01260}
+\approx
+1.587,
+\]
+si ottiene
+\[
+\mathbb{P}\left(|R_{h_1}|>0.02\right)
+\approx
+0.112.
+\]
+
+Nel modello gaussiano considerato, uno shock giornaliero superiore al
+$2\%$ in valore assoluto ha quindi probabilit\`{a} pari a circa
+l'$11.2\%$.
+
+L'esercizio mostra la regola della radice del tempo: la varianza si
+accumula linearmente con l'orizzonte, mentre la deviazione standard cresce
+con la sua radice quadrata. Questa relazione \`{e} una propriet\`{a} del
+modello browniano e non deve essere applicata automaticamente a dati
+empirici che presentino autocorrelazione, volatilit\`{a} variabile o code
+pesanti.
+
+\subsection*{Esercizio svolto 2: media, mediana e dispersione di un GBM}
+
+\paragraph{Testo.}
+
+Il prezzo di un'attivit\`{a} finanziaria segue il moto browniano
+geometrico
+\[
+dS_t=\mu S_t\,dt+\sigma S_t\,dW_t,
+\]
+con
+\[
+S_0=100,
+\qquad
+\mu=0.08,
+\qquad
+\sigma=0.25.
+\]
+
+Per un orizzonte di un anno, determinare:
+
+\begin{enumerate}
+\item il drift logaritmico;
+\item il valore atteso di $S_1$;
+\item la mediana di $S_1$;
+\item la varianza e la deviazione standard di $S_1$;
+\item l'interpretazione della differenza tra media e mediana.
+\end{enumerate}
+
+\paragraph{Soluzione.}
+
+La soluzione esplicita del GBM \`{e}
+\[
+S_t
+=
+S_0
+\exp\left[
+\left(\mu-\frac{1}{2}\sigma^2\right)t+\sigma W_t
+\right].
+\]
+
+Il drift logaritmico \`{e}
+\[
+m
+=
+\mu-\frac{1}{2}\sigma^2.
+\]
+Sostituendo i valori assegnati,
+\[
+m
+=
+0.08-\frac{1}{2}(0.25)^2
+=
+0.08-0.03125
+=
+0.04875.
+\]
+
+Il valore atteso del prezzo \`{e}
+\[
+\mathbb{E}[S_t]
+=
+S_0e^{\mu t}.
+\]
+Pertanto,
+\[
+\mathbb{E}[S_1]
+=
+100e^{0.08}
+\approx
+108.33.
+\]
+
+Poich\'{e} il log-prezzo \`{e} normalmente distribuito, la mediana di
+$S_1$ si ottiene ponendo uguale a zero la componente browniana:
+\[
+\operatorname{Med}(S_1)
+=
+S_0
+\exp\left(
+\mu-\frac{1}{2}\sigma^2
+\right).
+\]
+Quindi
+\[
+\operatorname{Med}(S_1)
+=
+100e^{0.04875}
+\approx
+105.00.
+\]
+
+La varianza del GBM \`{e}
+\[
+\operatorname{Var}(S_t)
+=
+S_0^2e^{2\mu t}
+\left(
+e^{\sigma^2t}-1
+\right).
+\]
+Per $t=1$,
+\[
+\operatorname{Var}(S_1)
+=
+100^2e^{0.16}
+\left(
+e^{0.0625}-1
+\right)
+\approx
+756.85.
+\]
+
+La deviazione standard \`{e} quindi
+\[
+\operatorname{SD}(S_1)
+=
+\sqrt{756.85}
+\approx
+27.51.
+\]
+
+Si osserva che
+\[
+\mathbb{E}[S_1]
+>
+\operatorname{Med}(S_1).
+\]
+La ragione \`{e} che la distribuzione lognormale \`{e} asimmetrica verso
+destra. Un numero relativamente piccolo di realizzazioni molto elevate
+sposta la media verso l'alto, mentre la mediana individua il valore che
+divide la distribuzione in due parti di uguale probabilit\`{a}.
+
+L'esercizio chiarisce inoltre la distinzione tra drift del prezzo e drift
+logaritmico. Il parametro $\mu$ determina
+\[
+\mathbb{E}[S_t]=S_0e^{\mu t},
+\]
+mentre
+\[
+\mu-\frac{1}{2}\sigma^2
+\]
+determina la posizione centrale della distribuzione del log-prezzo. A
+parit\`{a} di $\mu$, un aumento di $\sigma$ non modifica la media del
+prezzo, ma riduce la mediana e aumenta la dispersione della
+distribuzione.
+
+\subsection*{Esercizio svolto 3: OU e CIR come modelli di un tasso breve}
+
+\paragraph{Testo.}
+
+Si vogliono confrontare due modelli per un tasso di interesse di breve
+periodo. Il primo \`{e} un processo di Ornstein--Uhlenbeck:
+\[
+dX_t
+=
+\kappa(\theta-X_t)\,dt+\sigma\,dW_t.
+\]
+Il secondo \`{e} un processo CIR:
+\[
+dr_t
+=
+\kappa(\theta-r_t)\,dt+\sigma\sqrt{r_t}\,dW_t.
+\]
+
+Si assumano, a scopo illustrativo, i valori numerici
+\[
+X_0=r_0=0.03,
+\qquad
+\theta=0.04,
+\qquad
+\kappa=1.2,
+\qquad
+\sigma=0.03.
+\]
+
+Per un orizzonte di un anno:
+
+\begin{enumerate}
+\item calcolare il valore atteso dei due processi;
+\item calcolare la deviazione standard del processo OU;
+\item determinare la probabilit\`{a} che il processo OU sia negativo;
+\item verificare la condizione di Feller per il CIR;
+\item confrontare l'interpretazione finanziaria dei due modelli.
+\end{enumerate}
+
+\paragraph{Soluzione.}
+
+Per entrambi i processi, la media ha la forma
+\[
+\mathbb{E}[X_t]
+=
+\theta+(X_0-\theta)e^{-\kappa t},
+\]
+oppure, nel caso CIR,
+\[
+\mathbb{E}[r_t]
+=
+\theta+(r_0-\theta)e^{-\kappa t}.
+\]
+
+Pertanto,
+\[
+\mathbb{E}[X_1]
+=
+\mathbb{E}[r_1]
+=
+0.04+(0.03-0.04)e^{-1.2}.
+\]
+Poich\'{e}
+\[
+e^{-1.2}\approx 0.3010,
+\]
+si ottiene
+\[
+\mathbb{E}[X_1]
+=
+\mathbb{E}[r_1]
+\approx
+0.03699.
+\]
+
+Il valore medio atteso dopo un anno \`{e} quindi circa il $3.70\%$,
+intermedio tra il valore iniziale del $3\%$ e il livello di lungo
+periodo del $4\%$.
+
+Per il processo OU,
+\[
+\operatorname{Var}(X_t)
+=
+\frac{\sigma^2}{2\kappa}
+\left(
+1-e^{-2\kappa t}
+\right).
+\]
+Al tempo $t=1$,
+\[
+\operatorname{Var}(X_1)
+=
+\frac{0.03^2}{2(1.2)}
+\left(
+1-e^{-2.4}
+\right)
+\approx
+0.000341.
+\]
+La deviazione standard \`{e}
+\[
+\operatorname{SD}(X_1)
+\approx
+0.01847.
+\]
+
+Poich\'{e} il processo OU \`{e} gaussiano,
+\[
+X_1
+\sim
+\mathcal{N}
+\left(
+0.03699,
+0.01847^2
+\right).
+\]
+La probabilit\`{a} di un valore negativo \`{e}
+\[
+\mathbb{P}(X_1<0)
+=
+\Phi\left(
+\frac{0-0.03699}{0.01847}
+\right).
+\]
+Il corrispondente valore standardizzato \`{e}
+\[
+\frac{-0.03699}{0.01847}
+\approx
+-2.00.
+\]
+Di conseguenza,
+\[
+\mathbb{P}(X_1<0)
+\approx
+0.0226.
+\]
+
+Il modello OU assegna quindi una probabilit\`{a} di circa il $2.3\%$ a
+un tasso negativo dopo un anno.
+
+Per il CIR, la condizione di Feller \`{e}
+\[
+2\kappa\theta\geq\sigma^2.
+\]
+Nel caso considerato,
+\[
+2\kappa\theta
+=
+2(1.2)(0.04)
+=
+0.096,
+\]
+mentre
+\[
+\sigma^2
+=
+0.0009.
+\]
+Poich\'{e}
+\[
+0.096>0.0009,
+\]
+la condizione di Feller \`{e} ampiamente soddisfatta.
+
+I due modelli condividono lo stesso meccanismo di mean reversion e,
+con i valori assegnati, hanno la stessa media. Tuttavia, la loro
+distribuzione \`{e} differente. Il processo OU \`{e} gaussiano e pu\`{o}
+assumere valori negativi; il processo CIR \`{e} costruito per rimanere
+non negativo.
+
+Gli stessi valori numerici di $\sigma$ non rappresentano una identica
+volatilit\`{a} nei due modelli, perch\'{e} nell'OU la diffusione \`{e}
+$\sigma$, mentre nel CIR \`{e} $\sigma\sqrt{r_t}$. Il confronto deve
+quindi essere interpretato come confronto tra strutture modellistiche,
+non come equivalenza tra dispersioni marginali.
+
+\subsection*{Esercizio svolto 4: costruzione di shock negativamente correlati}
+
+\paragraph{Testo.}
+
+Due fattori di rischio devono essere simulati con correlazione
+istantanea
+\[
+\rho=-0.45.
+\]
+Sono disponibili due realizzazioni indipendenti di variabili normali
+standard:
+\[
+Z_1=1.2,
+\qquad
+Z_2=-0.4.
+\]
+
+Si costruiscano gli shock correlati mediante
+\[
+\varepsilon_1=Z_1,
+\qquad
+\varepsilon_2
+=
+\rho Z_1+\sqrt{1-\rho^2}\,Z_2.
+\]
+
+Si determinino inoltre gli incrementi browniani giornalieri ponendo
+\[
+\Delta t=\frac{1}{252}.
+\]
+
+\paragraph{Soluzione.}
+
+Il primo shock \`{e}
+\[
+\varepsilon_1=1.2.
+\]
+
+Per il secondo shock si ha
+\[
+\varepsilon_2
+=
+-0.45(1.2)
++
+\sqrt{1-(-0.45)^2}(-0.4).
+\]
+Poich\'{e}
+\[
+1-\rho^2
+=
+1-0.2025
+=
+0.7975,
+\]
+e
+\[
+\sqrt{0.7975}
+\approx
+0.8930,
+\]
+si ottiene
+\[
+\varepsilon_2
+=
+-0.54-0.8930(0.4)
+\approx
+-0.8972.
+\]
+
+In questa particolare realizzazione, il primo shock \`{e} positivo e il
+secondo negativo. Ci\`{o} \`{e} coerente con una correlazione negativa,
+ma non deve essere interpretato come una regola deterministica: anche
+con $\rho<0$ possono verificarsi shock dello stesso segno.
+
+Gli incrementi browniani sulla griglia giornaliera sono
+\[
+\Delta W_1
+=
+\sqrt{\Delta t}\,\varepsilon_1
+=
+\sqrt{\frac{1}{252}}(1.2)
+\approx
+0.07559,
+\]
+e
+\[
+\Delta W_2
+=
+\sqrt{\Delta t}\,\varepsilon_2
+=
+\sqrt{\frac{1}{252}}(-0.8972)
+\approx
+-0.05652.
+\]
+
+La trasformazione utilizzata garantisce, considerando l'intera
+distribuzione degli shock,
+\[
+\operatorname{Corr}(\varepsilon_1,\varepsilon_2)
+=
+\rho.
+\]
+La correlazione non si verifica osservando una singola coppia di numeri,
+ma emerge sulla distribuzione congiunta di molte repliche simulate.
+
+\subsection*{Esercizio svolto 5: un passo di Eulero--Maruyama per il GBM}
+
+\paragraph{Testo.}
+
+Si consideri il moto browniano geometrico
+\[
+dS_t
+=
+\mu S_t\,dt+\sigma S_t\,dW_t,
+\]
+con
+\[
+S_0=100,
+\qquad
+\mu=0.06,
+\qquad
+\sigma=0.20.
+\]
+
+Si utilizzi un passo temporale mensile
+\[
+\Delta t=\frac{1}{12}
+\]
+e si assuma che l'innovazione gaussiana osservata sia
+\[
+Z_1=-1.1.
+\]
+
+Determinare:
+
+\begin{enumerate}
+\item il valore approssimato mediante Eulero--Maruyama;
+\item il valore ottenuto dalla soluzione esatta del GBM sullo stesso
+incremento browniano;
+\item la differenza tra i due valori;
+\item la possibile perdita della positivit\`{a} nello schema discreto.
+\end{enumerate}
+
+\paragraph{Soluzione.}
+
+Lo schema di Eulero--Maruyama per il GBM \`{e}
+\[
+S_{t+\Delta t}^{(\Delta t)}
+=
+S_t
++
+\mu S_t\,\Delta t
++
+\sigma S_t\sqrt{\Delta t}\,Z.
+\]
+Equivalentemente,
+\[
+S_{t+\Delta t}^{(\Delta t)}
+=
+S_t
+\left[
+1+\mu\Delta t+\sigma\sqrt{\Delta t}\,Z
+\right].
+\]
+
+Sostituendo i valori assegnati,
+\[
+S_{\Delta t}^{(\Delta t)}
+=
+100
+\left[
+1
++
+0.06\frac{1}{12}
++
+0.20\sqrt{\frac{1}{12}}(-1.1)
+\right].
+\]
+Si ottiene
+\[
+S_{\Delta t}^{(\Delta t)}
+\approx
+94.149.
+\]
+
+La soluzione esatta del GBM sullo stesso incremento browniano \`{e}
+\[
+S_{\Delta t}
+=
+S_0
+\exp\left[
+\left(
+\mu-\frac{1}{2}\sigma^2
+\right)\Delta t
++
+\sigma\sqrt{\Delta t}\,Z
+\right].
+\]
+Quindi
+\[
+S_{\Delta t}
+=
+100
+\exp\left[
+\left(
+0.06-\frac{1}{2}(0.20)^2
+\right)\frac{1}{12}
++
+0.20\sqrt{\frac{1}{12}}(-1.1)
+\right],
+\]
+da cui
+\[
+S_{\Delta t}
+\approx
+94.160.
+\]
+
+La differenza \`{e}
+\[
+S_{\Delta t}^{(\Delta t)}-S_{\Delta t}
+\approx
+-0.011.
+\]
+
+In questa particolare realizzazione e con un passo mensile, l'errore
+risulta molto piccolo. Tuttavia, una singola osservazione non dimostra la
+convergenza dello schema. Per valutare la qualit\`{a}
+dell'approssimazione occorre considerare molte traiettorie e diversi
+valori di $\Delta t$.
+
+Lo schema di Eulero--Maruyama produce un valore negativo quando
+\[
+1+\mu\Delta t+\sigma\sqrt{\Delta t}\,Z<0.
+\]
+Questa condizione equivale a
+\[
+Z
+<
+-
+\frac{1+\mu\Delta t}
+{\sigma\sqrt{\Delta t}}.
+\]
+
+Il processo GBM continuo rimane sempre positivo, mentre la sua
+approssimazione di Eulero non preserva automaticamente questa
+propriet\`{a}. Per passi piccoli e valori ordinari dei parametri, un
+valore negativo pu\`{o} essere molto improbabile; con passi pi\`{u}
+ampi, volatilit\`{a} elevate o shock estremi, il problema pu\`{o}
+diventare rilevante.
+
+Gli esercizi svolti mostrano come le formule del capitolo permettano di
+passare dall'interpretazione qualitativa al calcolo. La scala browniana
+governa l'accumulazione dell'incertezza; nel GBM la distinzione tra
+drift del prezzo e drift logaritmico determina media e posizione della
+distribuzione; OU e CIR incorporano diverse propriet\`{a} di supporto;
+la correlazione entra nella generazione congiunta degli shock; lo schema
+di Eulero--Maruyama traduce infine la dinamica continua in una procedura
+numerica.
 
 
 
