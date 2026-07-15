@@ -819,6 +819,450 @@ stati prodotta dalle transizioni successive.}
 \label{fig:Cap08_evoluzione_pi}
 \end{figure}
 
+\section{Struttura dello spazio degli stati}
+
+La matrice di transizione non descrive soltanto le probabilit\`{a} su
+uno o pi\`{u} periodi. Essa determina anche la struttura dei collegamenti
+tra gli stati: alcuni stati possono essere raggiunti da tutti gli altri,
+alcuni formano gruppi separati, altri possono essere abbandonati
+definitivamente.
+
+Queste propriet\`{a} possono essere studiate mediante le potenze della
+matrice di transizione e visualizzate attraverso il grafo della catena.
+
+\subsection{Accessibilit\`{a}, comunicazione e classi comunicanti}
+
+\begin{definition}
+Uno stato \(j\) si dice \emph{accessibile} dallo stato \(i\) se esiste
+un intero \(n\geq 0\) tale che
+
+\[
+p_{ij}^{(n)}>0.
+\]
+
+In questo caso si scrive
+
+\[
+i\rightsquigarrow j.
+\]
+\end{definition}
+
+Per convenzione,
+
+\[
+P^0=I,
+\]
+
+e quindi
+
+\[
+p_{ii}^{(0)}=1.
+\]
+
+Ogni stato risulta pertanto accessibile da se stesso.
+
+La condizione \(i\rightsquigarrow j\) non richiede necessariamente che
+il passaggio da \(i\) a \(j\) avvenga in un solo periodo. Pu\`{o}
+esistere una successione di stati intermedi
+
+\[
+i=i_0\longrightarrow i_1\longrightarrow\cdots
+\longrightarrow i_n=j
+\]
+
+tale che tutte le transizioni del percorso abbiano probabilit\`{a}
+positiva.
+
+\begin{definition}
+Due stati \(i\) e \(j\) si dicono \emph{comunicanti} se ciascuno
+\`{e} accessibile dall'altro:
+
+\[
+i\rightsquigarrow j
+\qquad\text{e}\qquad
+j\rightsquigarrow i.
+\]
+
+In questo caso si scrive
+
+\[
+i\leftrightarrow j.
+\]
+\end{definition}
+
+La comunicazione \`{e} una relazione di equivalenza: \`{e} riflessiva,
+simmetrica e transitiva. Essa suddivide pertanto lo spazio degli stati
+in insiemi disgiunti, detti \emph{classi comunicanti}.
+
+Nel grafo della catena:
+
+\begin{itemize}
+
+\item \(i\rightsquigarrow j\) se esiste un percorso orientato da \(i\)
+a \(j\);
+
+\item \(i\leftrightarrow j\) se esistono percorsi orientati in entrambe
+le direzioni;
+
+\item stati appartenenti a classi differenti non comunicano
+reciprocamente.
+\end{itemize}
+
+La rappresentazione grafica consente quindi di riconoscere propriet\`{a}
+che possono risultare meno immediate dalla sola lettura della matrice.
+
+\subsection{Insiemi chiusi e stati assorbenti}
+
+\begin{definition}
+Un sottoinsieme non vuoto \(C\subseteq\mathcal{I}\) si dice
+\emph{chiuso} se la catena non pu\`{o} uscire da \(C\). Formalmente,
+
+\[
+p_{ij}=0
+\qquad
+\text{per ogni }i\in C
+\text{ e ogni }j\notin C.
+\]
+\end{definition}
+
+Se la catena entra in un insieme chiuso, tutti gli stati successivi
+appartengono allo stesso insieme.
+
+Un caso particolare \`{e} quello di uno stato assorbente.
+
+\begin{definition}
+Uno stato \(i\) si dice \emph{assorbente} se
+
+\[
+p_{ii}=1.
+\]
+\end{definition}
+
+Se \(i\) \`{e} assorbente, allora
+
+\[
+p_{ij}=0
+\qquad
+\text{per ogni }j\neq i,
+\]
+
+e l'insieme formato dal solo stato \(i\) costituisce una classe chiusa.
+
+Consideriamo una catena stilizzata di migrazione del rating con spazio
+degli stati
+
+\[
+\mathcal{I}
+=
+\{
+1=\text{alta qualit\`{a}},
+\,
+2=\text{qualit\`{a} intermedia},
+\,
+3=\text{speculative grade},
+\,
+4=\text{default}
+\}.
+\]
+
+Una possibile matrice di transizione annuale \`{e}
+
+\[
+P=
+\begin{pmatrix}
+0.80 & 0.18 & 0.02 & 0.00\\
+0.08 & 0.75 & 0.14 & 0.03\\
+0.02 & 0.18 & 0.65 & 0.15\\
+0.00 & 0.00 & 0.00 & 1.00
+\end{pmatrix}.
+\]
+
+Gli stati \(1\), \(2\) e \(3\) comunicano tra loro. Un emittente pu\`{o}
+migliorare o peggiorare il proprio merito creditizio e, eventualmente
+attraverso pi\`{u} passaggi, raggiungere ciascuna delle tre classi non
+in default.
+
+Lo stato \(4\), invece, \`{e} assorbente:
+
+\[
+p_{44}=1.
+\]
+
+Il default \`{e} accessibile dagli stati \(2\) e \(3\) direttamente e
+dallo stato \(1\) attraverso stati intermedi. Dal default, tuttavia, non
+\`{e} possibile ritornare nelle altre classi. Ne segue che
+
+\[
+\{1,2,3\}
+\]
+
+\`{e} una classe comunicante non chiusa, mentre
+
+\[
+\{4\}
+\]
+
+\`{e} una classe comunicante chiusa.
+
+La Figura~\ref{fig:Cap08_grafo_rating} rappresenta il grafo associato
+alla matrice.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.95\textwidth]
+{../graphics/Cap08_Grafo_rating_default.png}
+\caption{Grafo degli stati di una catena di migrazione del rating. Gli
+stati non in default comunicano tra loro, ma possono condurre alla
+classe chiusa costituita dal default assorbente.}
+\label{fig:Cap08_grafo_rating}
+\end{figure}
+
+La rappresentazione del default come stato assorbente \`{e} appropriata
+quando il modello segue uno specifico emittente e termina economicamente
+con il suo default. In modelli differenti, ad esempio riferiti a una
+popolazione di imprese continuamente rinnovata, pu\`{o} essere
+necessario adottare una struttura diversa.
+
+\subsection{Stati transitori, stati ricorrenti e irriducibilit\`{a}}
+
+La classificazione in stati transitori e ricorrenti riguarda la
+possibilit\`{a} di ritornare nello stato iniziale.
+
+\begin{definition}
+Uno stato \(i\) si dice \emph{ricorrente} se, partendo da \(i\), la
+probabilit\`{a} di ritornare prima o poi nello stesso stato \`{e} pari
+a uno.
+
+Uno stato \(i\) si dice \emph{transitorio} se tale probabilit\`{a}
+\`{e} minore di uno.
+\end{definition}
+
+Una caratterizzazione equivalente utilizza le probabilit\`{a} di
+ritorno:
+
+\[
+i\text{ \`{e} ricorrente}
+\quad\Longleftrightarrow\quad
+\sum_{n=0}^{\infty}p_{ii}^{(n)}=+\infty,
+\]
+
+mentre
+
+\[
+i\text{ \`{e} transitorio}
+\quad\Longleftrightarrow\quad
+\sum_{n=0}^{\infty}p_{ii}^{(n)}<+\infty.
+\]
+
+Nel caso di una catena finita valgono alcuni risultati particolarmente
+utili:
+
+\begin{itemize}
+
+\item gli stati appartenenti a una classe comunicante chiusa sono
+ricorrenti;
+
+\item gli stati appartenenti a una classe comunicante non chiusa sono
+transitori;
+
+\item almeno una classe comunicante chiusa deve esistere.
+\end{itemize}
+
+Nella catena di rating precedente, gli stati \(1\), \(2\) e \(3\) sono
+transitori. La catena pu\`{o} abbandonare la loro classe entrando nello
+stato di default e, una volta raggiunto il default, non pu\`{o} pi\`{u}
+ritornare agli stati precedenti.
+
+Lo stato \(4\) \`{e} invece ricorrente e assorbente.
+
+\begin{definition}
+Una catena si dice \emph{irriducibile} se tutti gli stati comunicano
+tra loro, ossia se lo spazio degli stati \(\mathcal{I}\) costituisce
+un'unica classe comunicante.
+\end{definition}
+
+Una catena finita irriducibile non possiede stati transitori: tutti gli
+stati sono ricorrenti.
+
+La catena dei regimi del mercato elettrico introdotta nelle sezioni
+precedenti \`{e} irriducibile. Sebbene alcune transizioni dirette
+abbiano probabilit\`{a} nulla, ogni stato pu\`{o} essere raggiunto da
+ogni altro attraverso uno o pi\`{u} passaggi.
+
+Ad esempio, dalla crisi non si pu\`{o} passare direttamente allo stato
+depresso, poich\'{e}
+
+\[
+p_{41}=0.
+\]
+
+Tuttavia, il percorso
+
+\[
+\text{crisi}
+\longrightarrow
+\text{ordinario}
+\longrightarrow
+\text{depresso}
+\]
+
+ha probabilit\`{a} positiva. Pertanto,
+
+\[
+4\rightsquigarrow 1.
+\]
+
+La catena di rating con default assorbente, invece, \`{e} riducibile,
+poich\'{e} lo stato di default non comunica con gli stati non in
+default.
+
+\subsection{Periodicit\`{a} e aperiodicit\`{a}}
+
+La comunicazione stabilisce se sia possibile ritornare a uno stato. La
+periodicit\`{a} riguarda invece gli istanti nei quali tale ritorno pu\`{o}
+avvenire.
+
+\begin{definition}
+Il \emph{periodo} dello stato \(i\) \`{e}
+
+\[
+d(i)
+=
+\gcd
+\{n\geq 1:p_{ii}^{(n)}>0\},
+\]
+
+dove \(\gcd\) indica il massimo comune divisore.
+\end{definition}
+
+Uno stato si dice \emph{aperiodico} se
+
+\[
+d(i)=1.
+\]
+
+Se due stati comunicano, essi hanno lo stesso periodo. Di conseguenza,
+in una catena irriducibile tutti gli stati hanno un periodo comune.
+
+Consideriamo la matrice
+
+\[
+P_{\mathrm{c}}
+=
+\begin{pmatrix}
+0 & 1 & 0\\
+0 & 0 & 1\\
+1 & 0 & 0
+\end{pmatrix}.
+\]
+
+La catena segue deterministicamente il ciclo
+
+\[
+1\longrightarrow 2\longrightarrow 3\longrightarrow 1.
+\]
+
+Partendo dallo stato \(1\), il ritorno pu\`{o} avvenire soltanto dopo
+\(3,6,9,\ldots\) periodi. Pertanto,
+
+\[
+\{n\geq 1:p_{11}^{(n)}>0\}
+=
+\{3,6,9,\ldots\},
+\]
+
+e
+
+\[
+d(1)=3.
+\]
+
+Per la comunicazione tra gli stati,
+
+\[
+d(1)=d(2)=d(3)=3.
+\]
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.62\textwidth]
+{../graphics/Cap08_Esempio_periodico.png}
+\caption{Catena ciclica deterministica. Ogni stato pu\`{o} essere
+rivisitato soltanto dopo un numero di periodi multiplo di tre.}
+\label{fig:Cap08_esempio_periodico}
+\end{figure}
+
+Se la distribuzione iniziale \`{e}
+
+\[
+\pi_0=
+\begin{pmatrix}
+1&0&0
+\end{pmatrix},
+\]
+
+allora
+
+\[
+\pi_1=
+\begin{pmatrix}
+0&1&0
+\end{pmatrix},
+\qquad
+\pi_2=
+\begin{pmatrix}
+0&0&1
+\end{pmatrix},
+\qquad
+\pi_3=
+\begin{pmatrix}
+1&0&0
+\end{pmatrix}.
+\]
+
+La distribuzione continua quindi a oscillare e non converge al crescere
+di \(t\).
+
+Una condizione semplice sufficiente per l'aperiodicit\`{a} di uno stato
+\`{e}
+
+\[
+p_{ii}>0.
+\]
+
+Infatti, la possibilit\`{a} di permanere nello stesso stato implica che
+un ritorno sia possibile dopo un solo periodo e quindi che
+
+\[
+d(i)=1.
+\]
+
+La condizione \(p_{ii}>0\) \`{e} sufficiente, ma non necessaria:
+uno stato pu\`{o} essere aperiodico anche senza possedere una
+transizione diretta verso se stesso.
+
+Nella catena dei regimi del mercato elettrico tutti gli elementi
+diagonali sono positivi:
+
+\[
+p_{11}>0,
+\qquad
+p_{22}>0,
+\qquad
+p_{33}>0,
+\qquad
+p_{44}>0.
+\]
+
+Tutti gli stati sono quindi aperiodici. Poich\'{e} la catena \`{e}
+anche irriducibile, essa costituisce un esempio di catena finita
+irriducibile e aperiodica.
+
+L'irriducibilit\`{a} garantisce che lo spazio degli stati non sia
+separato in componenti dinamicamente isolate; l'aperiodicit\`{a}
+esclude oscillazioni cicliche persistenti. Queste due propriet\`{a}
+saranno decisive per lo studio della distribuzione stazionaria e della
+convergenza di lungo periodo.
 
 Altre informazioni possono essere lette direttamente dalla matrice.
 Se il mercato si trova nello stato di tensione, la probabilit\`{a} di
@@ -877,3 +1321,989 @@ meccanismo locale di transizione e la distribuzione degli stati a un
 orizzonte futuro. Lo studio delle potenze di \(P\) permette di passare
 dalle probabilit\`{a} su un solo periodo alla dinamica complessiva della
 catena.
+
+\section{Distribuzioni stazionarie e comportamento di lungo periodo}
+
+La relazione
+
+\[
+\pi_t=\pi_0P^t
+\]
+
+descrive l'evoluzione della distribuzione degli stati a partire da una
+distribuzione iniziale assegnata. Al crescere dell'orizzonte temporale,
+diventa naturale chiedersi se tale distribuzione tenda a stabilizzarsi
+e se esista una distribuzione che rimanga invariata sotto l'azione
+della matrice di transizione.
+
+\subsection{Definizione e calcolo}
+
+\begin{definition}
+Una distribuzione di probabilit\`{a}
+
+\[
+\pi=
+\begin{pmatrix}
+\pi_1 & \cdots & \pi_m
+\end{pmatrix}
+\]
+
+si dice \emph{stazionaria} per la matrice di transizione \(P\) se
+
+\[
+\pi=\pi P,
+\]
+
+con
+
+\[
+\pi_i\geq 0,
+\qquad
+\sum_{i=1}^{m}\pi_i=1.
+\]
+\end{definition}
+
+Se la distribuzione iniziale coincide con una distribuzione
+stazionaria, allora
+
+\[
+\pi_0=\pi
+\]
+
+implica
+
+\[
+\pi_t=\pi P^t=\pi
+\qquad
+\text{per ogni }t\geq 0.
+\]
+
+La distribuzione degli stati rimane quindi invariata nel tempo, anche
+se la catena continua a transitare casualmente tra gli stati.
+
+Il calcolo di una distribuzione stazionaria richiede la soluzione del
+sistema
+
+\[
+\pi=\pi P
+\]
+
+insieme al vincolo
+
+\[
+\sum_{i=1}^{m}\pi_i=1.
+\]
+
+Le equazioni contenute in \(\pi=\pi P\) non sono tutte linearmente
+indipendenti. Poich\'{e} le righe di \(P\) sommano a uno, una delle
+equazioni pu\`{o} essere eliminata e sostituita dal vincolo di
+normalizzazione.
+
+Riprendiamo la matrice dei regimi del mercato elettrico:
+
+\[
+P=
+\begin{pmatrix}
+0.60 & 0.30 & 0.10 & 0.00\\
+0.10 & 0.65 & 0.20 & 0.05\\
+0.00 & 0.25 & 0.50 & 0.25\\
+0.00 & 0.10 & 0.35 & 0.55
+\end{pmatrix}.
+\]
+
+Ponendo
+
+\[
+\pi=
+\begin{pmatrix}
+\pi_1 & \pi_2 & \pi_3 & \pi_4
+\end{pmatrix},
+\]
+
+la condizione \(\pi=\pi P\) produce il sistema
+
+\[
+\begin{cases}
+\pi_1
+=
+0.60\pi_1+0.10\pi_2,\\
+\pi_2
+=
+0.30\pi_1+0.65\pi_2+0.25\pi_3+0.10\pi_4,\\
+\pi_3
+=
+0.10\pi_1+0.20\pi_2+0.50\pi_3+0.35\pi_4,\\
+\pi_4
+=
+0.05\pi_2+0.25\pi_3+0.55\pi_4,\\
+\pi_1+\pi_2+\pi_3+\pi_4=1.
+\end{cases}
+\]
+
+Una delle prime quattro equazioni \`{e} ridondante. Risolvendo il
+sistema si ottiene
+
+\[
+\pi
+=
+\begin{pmatrix}
+\dfrac{11}{119}
+&
+\dfrac{44}{119}
+&
+\dfrac{38}{119}
+&
+\dfrac{26}{119}
+\end{pmatrix},
+\]
+
+ossia, in forma decimale,
+
+\[
+\pi
+\approx
+\begin{pmatrix}
+0.0924 & 0.3697 & 0.3193 & 0.2185
+\end{pmatrix}.
+\]
+
+La verifica diretta consiste nel controllare che
+
+\[
+\pi P=\pi
+\]
+
+e che le componenti siano non negative e sommino a uno.
+
+\subsection{Esistenza, unicit\`{a} e convergenza}
+
+Occorre distinguere tre risultati differenti: esistenza di una
+distribuzione stazionaria, unicit\`{a} e convergenza della distribuzione
+della catena.
+
+\begin{proposition}
+Ogni catena di Markov con spazio degli stati finito possiede almeno una
+distribuzione stazionaria.
+\end{proposition}
+
+La finitezza dello spazio degli stati garantisce quindi l'esistenza, ma
+non necessariamente l'unicit\`{a}. Una catena riducibile pu\`{o}
+possedere pi\`{u} classi comunicanti chiuse e, di conseguenza, pi\`{u}
+distribuzioni stazionarie.
+
+\begin{theorem}
+Una catena di Markov finita e irriducibile possiede un'unica
+distribuzione stazionaria \(\pi\). Inoltre,
+
+\[
+\pi_i>0
+\qquad
+\text{per ogni }i\in\mathcal{I}.
+\]
+\end{theorem}
+
+L'irriducibilit\`{a} garantisce dunque che tutti gli stati partecipino
+alla distribuzione stazionaria con probabilit\`{a} strettamente
+positiva.
+
+L'unicit\`{a} della distribuzione stazionaria non implica, da sola, che
+la distribuzione della catena converga a essa. Per la convergenza
+occorre escludere oscillazioni periodiche persistenti.
+
+\begin{theorem}
+Se una catena di Markov finita \`{e} irriducibile e aperiodica, allora,
+per ogni distribuzione iniziale \(\pi_0\),
+
+\[
+\pi_0P^t\longrightarrow\pi
+\qquad
+\text{per }t\longrightarrow\infty,
+\]
+
+dove \(\pi\) \`{e} l'unica distribuzione stazionaria.
+\end{theorem}
+
+In forma equivalente,
+
+\[
+P^t
+\longrightarrow
+\begin{pmatrix}
+\pi\\
+\pi\\
+\vdots\\
+\pi
+\end{pmatrix}.
+\]
+
+Al crescere di \(t\), tutte le righe di \(P^t\) convergono quindi alla
+stessa distribuzione. L'effetto dello stato iniziale si attenua
+progressivamente e la distribuzione futura dipende sempre meno dalla
+condizione di partenza.
+
+La catena dei regimi del mercato elettrico \`{e} irriducibile e
+aperiodica. Pertanto la distribuzione calcolata in precedenza \`{e}
+unica e, per ogni \(\pi_0\),
+
+\[
+\pi_0P^t
+\longrightarrow
+\begin{pmatrix}
+0.0924 & 0.3697 & 0.3193 & 0.2185
+\end{pmatrix}.
+\]
+
+L'evoluzione rappresentata nella
+Figura~\ref{fig:Cap08_evoluzione_pi} mostra numericamente questo
+comportamento: le probabilit\`{a} dei quattro stati si avvicinano
+progressivamente ai valori della distribuzione stazionaria.
+
+La distinzione tra unicit\`{a} e convergenza \`{e} essenziale. Una
+catena irriducibile ma periodica possiede un'unica distribuzione
+stazionaria, ma la successione \(\pi_0P^t\) pu\`{o} continuare a
+oscillare senza convergere.
+
+\subsection{Interpretazione economica e limiti}
+
+La distribuzione stazionaria descrive una configurazione probabilistica
+invariante rispetto al meccanismo di transizione. Essa non deve essere
+interpretata automaticamente come un equilibrio economico.
+
+Nel caso di una catena finita irriducibile, la componente \(\pi_i\)
+pu\`{o} essere interpretata come la quota di lungo periodo trascorsa
+dalla catena nello stato \(i\). Pi\`{u} precisamente, indicando con
+
+\[
+N_i(T)
+=
+\sum_{t=0}^{T}
+\mathbf{1}_{\{X_t=i\}}
+\]
+
+il numero di periodi trascorsi nello stato \(i\) fino al tempo \(T\),
+si ha
+
+\[
+\frac{N_i(T)}{T+1}
+\longrightarrow
+\pi_i
+\]
+
+al crescere di \(T\), sotto le usuali condizioni di irriducibilit\`{a}.
+
+Questa interpretazione riguarda le frequenze temporali lungo una
+traiettoria. La convergenza della distribuzione
+
+\[
+\pi_0P^t\longrightarrow\pi
+\]
+
+richiede inoltre l'aperiodicit\`{a}.
+
+Nel caso dei regimi di volatilit\`{a} azionaria, una distribuzione
+stazionaria potrebbe essere interpretata come frequenza teorica di
+lungo periodo degli stati di bassa volatilit\`{a}, condizioni
+ordinarie, tensione e crisi. Tale interpretazione \`{e} valida soltanto
+se la matrice di transizione rappresenta in modo sufficientemente
+stabile la dinamica del mercato nell'orizzonte considerato.
+
+Nel mercato europeo delle quote di emissione, invece, il meccanismo di
+transizione dipende anche dalle regole istituzionali. Una matrice
+stimata prima dell'introduzione della Market Stability Reserve pu\`{o}
+generare una distribuzione stazionaria diversa da quella ottenuta dopo
+la riforma.
+
+La distribuzione stazionaria \`{e} quindi condizionata alla matrice
+adottata:
+
+\[
+P
+\longrightarrow
+\pi.
+\]
+
+Se cambia la regolazione, la struttura produttiva o il comportamento
+degli operatori, pu\`{o} cambiare \(P\) e, di conseguenza, pu\`{o}
+cambiare anche \(\pi\). La stazionariet\`{a} non implica che il sistema
+economico sia strutturalmente immutabile.
+
+Un caso particolarmente istruttivo \`{e} quello della catena di rating
+con default assorbente:
+
+\[
+P=
+\begin{pmatrix}
+0.80 & 0.18 & 0.02 & 0.00\\
+0.08 & 0.75 & 0.14 & 0.03\\
+0.02 & 0.18 & 0.65 & 0.15\\
+0.00 & 0.00 & 0.00 & 1.00
+\end{pmatrix}.
+\]
+
+Poich\'{e} il default \`{e} l'unica classe chiusa, la distribuzione
+stazionaria \`{e}
+
+\[
+\pi_D
+=
+\begin{pmatrix}
+0&0&0&1
+\end{pmatrix}.
+\]
+
+Il risultato indica che, seguendo indefinitamente un singolo emittente
+nel modello, la probabilit\`{a} finisce per concentrarsi sullo stato di
+default.
+
+La conclusione \`{e} matematicamente coerente con la struttura della
+catena, ma non rappresenta necessariamente la distribuzione di lungo
+periodo dei rating osservata in un'intera economia. Una popolazione di
+imprese viene infatti continuamente modificata dall'ingresso di nuovi
+emittenti, dalle fusioni, dalle cessazioni e dalla sostituzione delle
+imprese in default.
+
+La distribuzione
+
+\[
+\begin{pmatrix}
+0&0&0&1
+\end{pmatrix}
+\]
+
+descrive quindi il limite del modello riferito a un singolo emittente,
+non un equilibrio permanente della popolazione delle imprese.
+
+In generale, una distribuzione stazionaria deve essere interpretata
+come propriet\`{a congiunta} della matrice di transizione e del sistema
+rappresentato. Il suo significato economico dipende dalla plausibilit\`{a}
+dell'omogeneit\`{a} temporale, dalla definizione degli stati e dalla
+presenza di ingressi, uscite o cambiamenti strutturali non inclusi nel
+modello.
+
+\section{Applicazioni, esercizi e sintesi}
+
+Questa sezione utilizza gli strumenti introdotti nel capitolo in due
+applicazioni integrate. Le matrici impiegate sono stilizzate e hanno
+finalit\`{a} didattica: non costituiscono stime ottenute da dati
+storici.
+
+\subsection{Applicazione integrata: regimi del mercato elettrico europeo}
+
+Consideriamo quattro possibili condizioni del mercato elettrico:
+
+\[
+\mathcal{I}
+=
+\{
+1=\text{depresso},
+\,
+2=\text{ordinario},
+\,
+3=\text{tensione},
+\,
+4=\text{crisi}
+\}.
+\]
+
+La dinamica annuale dei regimi viene rappresentata dalla matrice
+
+\[
+P=
+\begin{pmatrix}
+0.60 & 0.30 & 0.10 & 0.00\\
+0.10 & 0.65 & 0.20 & 0.05\\
+0.00 & 0.25 & 0.50 & 0.25\\
+0.00 & 0.10 & 0.35 & 0.55
+\end{pmatrix}.
+\]
+
+La matrice sintetizza alcune caratteristiche economicamente
+interpretabili. Gli elementi diagonali relativamente elevati indicano
+persistenza dei regimi. Da uno stato ordinario il mercato pu\`{o}
+passare direttamente a uno stato di tensione o, con probabilit\`{a}
+inferiore, a uno stato di crisi. Da una condizione di crisi il ritorno
+diretto a un mercato depresso \`{e} escluso, ma rimane possibile
+attraverso stati intermedi.
+
+Supponiamo che al tempo iniziale il mercato si trovi certamente nello
+stato ordinario:
+
+\[
+\pi_0=
+\begin{pmatrix}
+0&1&0&0
+\end{pmatrix}.
+\]
+
+Dopo un periodo,
+
+\[
+\pi_1
+=
+\pi_0P
+=
+\begin{pmatrix}
+0.10&0.65&0.20&0.05
+\end{pmatrix}.
+\]
+
+La probabilit\`{a} di permanere nello stato ordinario \`{e} quindi
+\(0.65\), mentre la probabilit\`{a} complessiva di trovarsi in tensione
+o in crisi \`{e}
+
+\[
+0.20+0.05=0.25.
+\]
+
+La matrice delle transizioni a due periodi \`{e}
+
+\[
+P^2
+=
+\begin{pmatrix}
+0.3900 & 0.4000 & 0.1700 & 0.0400\\
+0.1250 & 0.5075 & 0.2575 & 0.1100\\
+0.0250 & 0.3125 & 0.3875 & 0.2750\\
+0.0100 & 0.2075 & 0.3875 & 0.3950
+\end{pmatrix}.
+\]
+
+Pertanto,
+
+\[
+\pi_2
+=
+\pi_0P^2
+=
+\begin{pmatrix}
+0.1250&0.5075&0.2575&0.1100
+\end{pmatrix}.
+\]
+
+Dopo due periodi la probabilit\`{a} di trovarsi nello stato ordinario
+si riduce a \(0.5075\), mentre la probabilit\`{a} di trovarsi in
+tensione o in crisi diventa
+
+\[
+0.2575+0.1100=0.3675.
+\]
+
+Dopo tre periodi,
+
+\[
+P^3
+=
+\begin{pmatrix}
+0.27400 & 0.42350 & 0.21800 & 0.08450\\
+0.12575 & 0.44275 & 0.28125 & 0.15025\\
+0.04625 & 0.33500 & 0.35500 & 0.26375\\
+0.02675 & 0.27425 & 0.37450 & 0.32450
+\end{pmatrix},
+\]
+
+da cui
+
+\[
+\pi_3
+=
+\pi_0P^3
+=
+\begin{pmatrix}
+0.12575&0.44275&0.28125&0.15025
+\end{pmatrix}.
+\]
+
+La probabilit\`{a} che il mercato si trovi in crisi dopo tre periodi
+\`{e} quindi
+
+\[
+\Prob(X_3=4\mid X_0=2)=0.15025.
+\]
+
+Questa quantit\`{a} rappresenta la probabilit\`{a} di occupare lo stato
+di crisi al tempo \(3\), non la probabilit\`{a} che una crisi si sia
+verificata almeno una volta nei primi tre periodi.
+
+Dal grafo della catena si osserva che tutti gli stati comunicano. Ad
+esempio, il passaggio diretto dalla crisi allo stato depresso non
+\`{e} possibile, ma esiste il percorso
+
+\[
+\text{crisi}
+\longrightarrow
+\text{ordinario}
+\longrightarrow
+\text{depresso}.
+\]
+
+La catena \`{e} quindi irriducibile. Inoltre,
+
+\[
+p_{ii}>0
+\qquad
+\text{per ogni }i\in\mathcal{I},
+\]
+
+e pertanto tutti gli stati sono aperiodici.
+
+La distribuzione stazionaria \`{e}
+
+\[
+\pi
+=
+\begin{pmatrix}
+\dfrac{11}{119}
+&
+\dfrac{44}{119}
+&
+\dfrac{38}{119}
+&
+\dfrac{26}{119}
+\end{pmatrix},
+\]
+
+ossia
+
+\[
+\pi
+\approx
+\begin{pmatrix}
+0.0924&0.3697&0.3193&0.2185
+\end{pmatrix}.
+\]
+
+Poich\'{e} la catena \`{e} finita, irriducibile e aperiodica,
+
+\[
+\pi_0P^t\longrightarrow\pi
+\]
+
+per ogni distribuzione iniziale \(\pi_0\).
+
+Nel modello stilizzato, la componente
+
+\[
+\pi_4\approx 0.2185
+\]
+
+pu\`{o} essere interpretata come quota teorica di lungo periodo
+trascorsa nello stato di crisi. Questa interpretazione dipende tuttavia
+dall'ipotesi che la stessa matrice \(P\) rimanga valida nel tempo.
+
+Tale ipotesi \`{e} particolarmente delicata per il periodo 2019--2023.
+La pandemia, l'aumento dei prezzi del gas, la guerra in Ucraina, le
+modifiche dei flussi energetici e gli interventi regolatori possono
+avere alterato il meccanismo di transizione. In un'applicazione
+empirica sarebbe quindi opportuno verificare se il periodo possa essere
+descritto mediante una sola matrice oppure se sia necessario distinguere
+sottoperiodi caratterizzati da matrici differenti.
+
+\subsection{Applicazione integrata: migrazioni dei rating}
+
+Consideriamo ora una catena di migrazione del rating con stati
+
+\[
+\mathcal{I}
+=
+\{
+1=\text{alta qualit\`{a}},
+\,
+2=\text{qualit\`{a} intermedia},
+\,
+3=\text{speculative grade},
+\,
+4=\text{default}
+\}.
+\]
+
+La matrice di transizione annuale stilizzata \`{e}
+
+\[
+P_R
+=
+\begin{pmatrix}
+0.80 & 0.18 & 0.02 & 0.00\\
+0.08 & 0.75 & 0.14 & 0.03\\
+0.02 & 0.18 & 0.65 & 0.15\\
+0.00 & 0.00 & 0.00 & 1.00
+\end{pmatrix}.
+\]
+
+Supponiamo inizialmente che un emittente appartenga con certezza alla
+classe di qualit\`{a} intermedia:
+
+\[
+\pi_0
+=
+\begin{pmatrix}
+0&1&0&0
+\end{pmatrix}.
+\]
+
+Dopo un anno,
+
+\[
+\pi_1
+=
+\pi_0P_R
+=
+\begin{pmatrix}
+0.08&0.75&0.14&0.03
+\end{pmatrix}.
+\]
+
+L'emittente presenta quindi:
+
+\begin{itemize}
+
+\item probabilit\`{a} \(0.08\) di miglioramento;
+
+\item probabilit\`{a} \(0.75\) di permanenza nella classe iniziale;
+
+\item probabilit\`{a} \(0.14\) di deterioramento verso la classe
+speculativa;
+
+\item probabilit\`{a} \(0.03\) di default.
+\end{itemize}
+
+La matrice delle transizioni a due anni \`{e}
+
+\[
+P_R^2
+=
+\begin{pmatrix}
+0.6548 & 0.2826 & 0.0542 & 0.0084\\
+0.1268 & 0.6021 & 0.1976 & 0.0735\\
+0.0434 & 0.2556 & 0.4481 & 0.2529\\
+0.0000 & 0.0000 & 0.0000 & 1.0000
+\end{pmatrix}.
+\]
+
+Condizionatamente al rating iniziale intermedio,
+
+\[
+\pi_2
+=
+\begin{pmatrix}
+0.1268&0.6021&0.1976&0.0735
+\end{pmatrix}.
+\]
+
+Dopo tre anni si ottiene
+
+\[
+\pi_3
+=
+\pi_0P_R^3
+=
+\begin{pmatrix}
+0.15356&0.509967&0.215270&0.121203
+\end{pmatrix}.
+\]
+
+La probabilit\`{a} di miglioramento rispetto al rating iniziale \`{e}
+
+\[
+0.15356,
+\]
+
+la probabilit\`{a} di permanenza nella stessa classe \`{e}
+
+\[
+0.509967,
+\]
+
+mentre la probabilit\`{a} complessiva di deterioramento \`{e}
+
+\[
+0.215270+0.121203
+=
+0.336473.
+\]
+
+Poich\'{e} il default \`{e} assorbente, la probabilit\`{a}
+
+\[
+\Prob(X_3=4\mid X_0=2)=0.121203
+\]
+
+coincide anche con la probabilit\`{a} che il default si sia verificato
+entro il termine del terzo anno. Una volta raggiunto lo stato \(4\),
+infatti, la catena non pu\`{o} uscirne.
+
+La rappresentazione mediante una distribuzione iniziale permette di
+descrivere anche un insieme di emittenti. Supponiamo che un portafoglio
+creditizio presenti inizialmente la distribuzione
+
+\[
+\pi_0
+=
+\begin{pmatrix}
+0.30&0.50&0.20&0
+\end{pmatrix}.
+\]
+
+Dopo tre anni,
+
+\[
+\pi_3
+=
+\pi_0P_R^3
+\approx
+\begin{pmatrix}
+0.2539&0.4129&0.1996&0.1337
+\end{pmatrix}.
+\]
+
+Nel modello, il \(13.37\%\) degli emittenti si trova quindi nello stato
+di default alla fine del terzo anno.
+
+Gli stati \(1\), \(2\) e \(3\) formano una classe comunicante non
+chiusa: gli emittenti possono migrare tra le tre classi, ma possono
+uscirne entrando in default. Questi stati sono pertanto transitori.
+
+Lo stato \(4\) forma invece una classe chiusa ed \`{e} assorbente. La
+catena \`{e} riducibile e la sua distribuzione stazionaria \`{e}
+
+\[
+\pi_D
+=
+\begin{pmatrix}
+0&0&0&1
+\end{pmatrix}.
+\]
+
+L'applicazione si arresta alla determinazione delle probabilit\`{a}
+degli stati futuri. Per ottenere una distribuzione delle perdite
+occorrerebbe associare a ciascuna migrazione conseguenze monetarie,
+esposizioni e tassi di recupero. Questo passaggio verr\`{a} sviluppato
+nel Capitolo~9.
+
+\subsection{Esercizi proposti}
+
+\begin{exercise}
+Si consideri la matrice dei regimi del mercato elettrico
+
+\[
+P=
+\begin{pmatrix}
+0.60 & 0.30 & 0.10 & 0.00\\
+0.10 & 0.65 & 0.20 & 0.05\\
+0.00 & 0.25 & 0.50 & 0.25\\
+0.00 & 0.10 & 0.35 & 0.55
+\end{pmatrix}.
+\]
+
+Il mercato si trova inizialmente nello stato di tensione.
+
+\begin{enumerate}
+
+\item Costruire la distribuzione iniziale \(\pi_0\).
+
+\item Calcolare la distribuzione degli stati dopo due periodi.
+
+\item Determinare la probabilit\`{a} che il mercato sia in condizioni
+ordinarie o depresse dopo due periodi.
+
+\item Confrontare tale probabilit\`{a} con la probabilit\`{a} di
+trovarsi in tensione o in crisi.
+
+\item Spiegare perch\'{e} il risultato non pu\`{o} essere interpretato
+come previsione empirica per il periodo successivo a uno shock
+strutturale senza verificare l'omogeneit\`{a} temporale.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Si consideri la matrice di migrazione del rating
+
+\[
+P_R
+=
+\begin{pmatrix}
+0.80 & 0.18 & 0.02 & 0.00\\
+0.08 & 0.75 & 0.14 & 0.03\\
+0.02 & 0.18 & 0.65 & 0.15\\
+0.00 & 0.00 & 0.00 & 1.00
+\end{pmatrix}.
+\]
+
+\begin{enumerate}
+
+\item Calcolare la distribuzione dei rating dopo tre anni per un
+emittente inizialmente appartenente alla classe \emph{speculative
+grade}.
+
+\item Determinare le probabilit\`{a} di miglioramento, permanenza,
+deterioramento e default.
+
+\item Confrontare la probabilit\`{a} di default a tre anni con quella
+di un emittente inizialmente appartenente alla classe di qualit\`{a}
+intermedia.
+
+\item Individuare le classi comunicanti e stabilire quali siano chiuse.
+
+\item Spiegare perch\'{e} la probabilit\`{a} di trovarsi in default
+alla fine del terzo anno coincide con la probabilit\`{a} di default
+entro tre anni.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Il mercato europeo delle quote di emissione viene rappresentato
+mediante gli stati
+
+\[
+\mathcal{I}
+=
+\{
+1=\text{surplus},
+\,
+2=\text{equilibrio},
+\,
+3=\text{scarsit\`{a}}
+\}.
+\]
+
+Per il periodo precedente a una riforma regolatoria si considera la
+matrice
+
+\[
+P_{\mathrm{pre}}
+=
+\begin{pmatrix}
+0.75&0.20&0.05\\
+0.25&0.60&0.15\\
+0.10&0.35&0.55
+\end{pmatrix},
+\]
+
+mentre per il periodo successivo si considera
+
+\[
+P_{\mathrm{post}}
+=
+\begin{pmatrix}
+0.50&0.40&0.10\\
+0.15&0.65&0.20\\
+0.05&0.30&0.65
+\end{pmatrix}.
+\]
+
+\begin{enumerate}
+
+\item Verificare che entrambe le matrici siano matrici di transizione.
+
+\item Partendo dallo stato di equilibrio, calcolare la distribuzione
+degli stati dopo due periodi sotto ciascuna matrice.
+
+\item Calcolare le due distribuzioni stazionarie.
+
+\item Confrontare la frequenza teorica di lungo periodo dello stato di
+scarsit\`{a} nei due assetti regolatori.
+
+\item Discutere perch\'{e} l'utilizzo di una sola matrice sull'intero
+periodo potrebbe produrre risultati economicamente fuorvianti.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+I regimi di volatilit\`{a} di un mercato azionario sono rappresentati
+dagli stati
+
+\[
+\mathcal{I}
+=
+\{
+1=\text{bassa volatilit\`{a}},
+\,
+2=\text{volatilit\`{a} ordinaria},
+\,
+3=\text{stress}
+\},
+\]
+
+con matrice
+
+\[
+P_V
+=
+\begin{pmatrix}
+0.75&0.23&0.02\\
+0.15&0.75&0.10\\
+0.05&0.35&0.60
+\end{pmatrix}.
+\]
+
+\begin{enumerate}
+
+\item Interpretare gli elementi \(p_{13}\), \(p_{31}\) e \(p_{33}\).
+
+\item Calcolare la probabilit\`{a} che il mercato si trovi ancora in
+stress dopo due periodi, condizionatamente allo stato iniziale di stress.
+
+\item Stabilire se la catena sia irriducibile e aperiodica.
+
+\item Calcolare la distribuzione stazionaria.
+
+\item Interpretare la componente associata allo stato di stress e
+discutere quali cambiamenti economici potrebbero rendere non plausibile
+l'ipotesi di matrice costante.
+\end{enumerate}
+\end{exercise}
+
+\subsection{Sintesi e raccordo con il Capitolo 9}
+
+La costruzione e l'analisi di una catena di Markov finita seguono la
+sequenza
+
+\[
+\text{definizione degli stati}
+\longrightarrow
+P
+\longrightarrow
+P^n
+\longrightarrow
+\pi_t
+\longrightarrow
+\text{struttura degli stati}
+\longrightarrow
+\pi.
+\]
+
+La definizione degli stati trasforma un fenomeno economico in una
+successione discreta di condizioni osservabili. La matrice \(P\)
+descrive le transizioni su un periodo, mentre \(P^n\) determina le
+probabilit\`{a} su orizzonti pi\`{u} lunghi.
+
+La relazione
+
+\[
+\pi_t=\pi_0P^t
+\]
+
+permette di prevedere la distribuzione degli stati futuri. Le nozioni di
+accessibilit\`{a}, comunicazione, chiusura, assorbimento, ricorrenza e
+periodicit\`{a} descrivono la struttura della catena. Infine, la
+condizione
+
+\[
+\pi=\pi P
+\]
+
+identifica le distribuzioni invarianti rispetto al meccanismo di
+transizione.
+
+Questi risultati devono essere interpretati alla luce delle ipotesi del
+modello. La propriet\`{a} di Markov richiede che lo stato corrente
+sintetizzi l'informazione rilevante; l'omogeneit\`{a} richiede che il
+meccanismo di transizione rimanga stabile; la distribuzione stazionaria
+descrive una propriet\`{a} della matrice adottata e non necessariamente
+un equilibrio economico permanente.
+
+Nel Capitolo~8 gli stati futuri sono stati descritti esclusivamente in
+termini probabilistici. Nel Capitolo~9 a ciascuno stato saranno
+associate conseguenze economiche e finanziarie. Nel caso del rischio di
+credito, le probabilit\`{a} di migrazione e di default verranno
+combinate con esposizioni e perdite, ottenendo distribuzioni di perdita
+e misure di rischio quali VaR e CVaR.
