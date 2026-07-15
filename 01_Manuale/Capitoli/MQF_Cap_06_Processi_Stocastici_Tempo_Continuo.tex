@@ -2177,7 +2177,7 @@ struttura di dipendenza e dello schema di discretizzazione.
 \begin{exercise}[Scala temporale degli shock browniani]
 \label{ex:cap06-scala-shock-browniani}
 
-Si consideri la componente aleatoria di un log-rendimento modellizzata
+Si consideri la componente aleatoria di un rendimento $R_h$ osservato dopo un periodo $h$ dal tempo zero e modellizzata
 come
 \[
 R_h=\sigma(W_h-W_0),
@@ -2202,8 +2202,8 @@ Determinare:
 \item la distribuzione di $R_{h_1}$ e $R_{h_5}$;
 \item la deviazione standard degli shock sui due orizzonti;
 \item il rapporto tra le due deviazioni standard;
-\item la probabilit\`{a} che lo shock giornaliero superi in valore
-assoluto il $2\%$.
+\item la probabilit\`{a} che lo shock giornaliero sia inferiore a
+$-0.02$.
 \end{enumerate}
 
 \end{exercise}
@@ -2291,35 +2291,58 @@ ossia
 L'incertezza settimanale non \`{e} quindi cinque volte quella
 giornaliera, ma circa $2.236$ volte pi\`{u} elevata.
 
-\item Indichiamo con $\Phi$ la funzione di ripartizione della normale
-standard. La probabilit\`{a} richiesta \`{e}
+\item La deviazione standard giornaliera \`{e}
 \[
-\Prob\left(|R_{h_1}|>0.02\right)
+\sigma_1
 =
-2\left[
-1-
-\Phi\left(
-\frac{0.02}{0.01260}
-\right)
-\right].
+0.20\sqrt{\frac{1}{252}}
+\approx
+0.01260.
 \]
 
 Poich\'{e}
 \[
-\frac{0.02}{0.01260}
+R_{h_1}
+\sim
+\mathcal{N}(0,\sigma_1^2),
+\]
+la variabile standardizzata
+\[
+Z
+=
+\frac{R_{h_1}}{\sigma_1}
+\]
+ha distribuzione normale standard.
+
+Pertanto,
+\[
+\Prob(R_{h_1}<-0.02)
+=
+\Prob\left(
+Z<
+\frac{-0.02}{0.01260}
+\right).
+\]
+
+Indichiamo con $\Phi$ la funzione di ripartizione della normale
+standard. Poich\'{e}
+\[
+\frac{-0.02}{0.01260}
 \approx
-1.587,
+-1.587,
 \]
 si ottiene
 \[
-\Prob\left(|R_{h_1}|>0.02\right)
+\Prob(R_{h_1}<-0.02)
+=
+\Phi(-1.587)
 \approx
-0.112.
+0.0562.
 \]
 
-Nel modello gaussiano considerato, uno shock giornaliero superiore al
-$2\%$ in valore assoluto ha quindi probabilit\`{a} pari a circa
-l'$11.2\%$.
+Nel modello gaussiano considerato, la probabilit\`{a} che lo shock
+giornaliero sia inferiore al $-2\%$ \`{e} quindi pari a circa il
+$5.62\%$.
 
 \end{enumerate}
 
@@ -2328,10 +2351,6 @@ accumula linearmente con l'orizzonte, mentre la deviazione standard
 cresce con la sua radice quadrata. Il significato grafico di questa
 propriet\`{a} \`{e} illustrato nella
 Figura~\ref{fig:Brownian_incrementi_orizzonti}.
-
-La regola non deve tuttavia essere applicata automaticamente a dati
-empirici caratterizzati da autocorrelazione, volatilit\`{a} variabile
-o code pesanti.
 
 
 \begin{exercise}[Media, mediana e dispersione di un GBM]
@@ -2415,8 +2434,46 @@ Pertanto,
 108.33.
 \]
 
-\item Poich\'{e} il log-prezzo \`{e} normalmente distribuito, la mediana
-di $S_1$ \`{e}
+\item Utilizziamo anzitutto la seguente propriet\`{a} della mediana:
+
+\medskip
+
+\noindent
+\textit{Se $m$ \`{e} una mediana della variabile casuale $W$ e
+$g:\mathbb{R}\rightarrow\mathbb{R}$ \`{e} strettamente crescente,
+allora $g(m)$ \`{e} una mediana della variabile casuale $g(W)$.}
+
+
+Nel caso dell'esercizio, in base alla soluzione esplicita del GBM al tempo
+$t=1$, poniamo dunque:
+\[
+S_1
+= g(W_1)=
+S_0
+\exp\left(
+\mu-\frac{1}{2}\sigma^2+\sigma W_1
+\right).
+\]
+ove $g$ \`{e} chiaramente strettamente crescente, e rammentiamo inoltre che,
+\[
+W_1\sim\mathcal{N}(0,1).
+\]
+Per la simmetria della distribuzione normale standard, $0$ \`{e} una
+mediana di $W_1$:
+\[
+\operatorname{Med}(W_1)=0.
+\]
+
+Applicando la propriet\`{a} precedente,
+\[
+\operatorname{Med}(S_1)
+=
+g\left(\operatorname{Med}(W_1)\right)
+=
+g(0).
+\]
+
+Pertanto,
 \[
 \operatorname{Med}(S_1)
 =
@@ -2426,9 +2483,14 @@ S_0
 \right).
 \]
 
-Quindi
+Sostituendo i parametri,
 \[
 \operatorname{Med}(S_1)
+=
+100
+\exp\left(
+0.08-\frac{1}{2}(0.25)^2
+\right)
 =
 100e^{0.04875}
 \approx
@@ -2478,21 +2540,9 @@ relativamente piccolo di realizzazioni molto elevate sposta la media
 verso l'alto, mentre la mediana individua il valore che divide la
 distribuzione in due parti di uguale probabilit\`{a}.
 
-Il parametro $\mu$ determina
-\[
-\E[S_t]=S_0e^{\mu t},
-\]
-mentre
-\[
-\mu-\frac{1}{2}\sigma^2
-\]
-determina la posizione della distribuzione del log-prezzo. A parit\`{a}
-di $\mu$, un aumento di $\sigma$ non modifica la media del prezzo, ma
-riduce la mediana e aumenta la dispersione.
-
 \end{enumerate}
 
-\begin{figure}[htbp]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=0.78\textwidth]{../graphics/Cap06_Es02_GBM_distribuzione_media_mediana.png}
 \caption{Distribuzione terminale simulata del prezzo $S_1$ nel modello
@@ -2501,11 +2551,6 @@ indicano la media e la mediana teoriche. L'asimmetria verso destra della
 distribuzione lognormale determina una media superiore alla mediana.}
 \label{fig:cap06-es02-gbm-media-mediana}
 \end{figure}
-
-La Figura~\ref{fig:cap06-es02-gbm-media-mediana} mostra che la parte
-centrale della distribuzione si colloca attorno a valori inferiori alla
-media. La coda destra contiene realizzazioni meno frequenti, ma
-sufficientemente elevate da aumentare il valore medio.
 
 
 \begin{exercise}[OU e CIR come modelli di un tasso breve]
@@ -2542,7 +2587,7 @@ Per un orizzonte di un anno:
 \begin{enumerate}
 \item calcolare il valore atteso dei due processi;
 \item calcolare la deviazione standard del processo OU;
-\item determinare la probabilit\`{a} che il processo OU sia negativo;
+\item determinare la probabilit\`{a} che il processo OU sia negativo in $t=1$;
 \item verificare la condizione di Feller per il CIR;
 \item confrontare l'interpretazione finanziaria dei due modelli.
 \end{enumerate}
@@ -2688,9 +2733,21 @@ la condizione di Feller \`{e} ampiamente soddisfatta. Nel modello
 continuo, con valore iniziale positivo, il processo non raggiunge il
 confine zero.
 
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.78\textwidth]{../graphics/Cap06_Es03_OU_CIR_distribuzioni_terminali.png}
+\caption{Distribuzioni terminali simulate dei processi OU e CIR con i
+parametri dell'Esercizio~\ref{ex:cap06-ou-cir-tasso-breve}. Il processo
+OU presenta una coda sul semiasse negativo, mentre il processo CIR
+rimane non negativo. La diversa dispersione riflette la differente
+struttura dei coefficienti di diffusione.}
+\label{fig:cap06-es03-ou-cir-distribuzioni-terminali}
+\end{figure}
+
 \item I due modelli condividono lo stesso meccanismo di mean reversion
 e, con i valori assegnati, hanno la stessa media. Le loro distribuzioni
 sono tuttavia differenti.
+
 
 Il processo OU \`{e} gaussiano e pu\`{o} assumere valori negativi. Il
 processo CIR \`{e} non negativo e presenta una diffusione dipendente
@@ -2706,16 +2763,6 @@ avvicina a zero.
 
 \end{enumerate}
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.78\textwidth]{../graphics/Cap06_Es03_OU_CIR_distribuzioni_terminali.png}
-\caption{Distribuzioni terminali simulate dei processi OU e CIR con i
-parametri dell'Esercizio~\ref{ex:cap06-ou-cir-tasso-breve}. Il processo
-OU presenta una coda sul semiasse negativo, mentre il processo CIR
-rimane non negativo. La diversa dispersione riflette la differente
-struttura dei coefficienti di diffusione.}
-\label{fig:cap06-es03-ou-cir-distribuzioni-terminali}
-\end{figure}
 
 La Figura~\ref{fig:cap06-es03-ou-cir-distribuzioni-terminali} chiarisce
 che l'uguaglianza dei valori attesi non implica l'uguaglianza delle
@@ -2724,24 +2771,46 @@ meccanismo di mean reversion, ma anche dal supporto economicamente
 ammissibile per la variabile modellizzata.
 
 
-\begin{exercise}[Costruzione di shock negativamente correlati]
-\label{ex:cap06-shock-negativamente-correlati}
+\begin{exercise}[Generazione di uno scenario correlato per un portafoglio]
+\label{ex:cap06-scenario-correlato-portafoglio}
 
-Due fattori di rischio devono essere simulati con correlazione
-istantanea
+Un portafoglio \`{e} esposto a due fattori di rischio:
+
+\begin{itemize}
+\item un indice azionario, con esposizione
+\[
+V_1=1\,000\,000
+\]
+e volatilit\`{a} annualizzata
+\[
+\sigma_1=0.20;
+\]
+
+\item un indice obbligazionario, con esposizione
+\[
+V_2=1\,500\,000
+\]
+e volatilit\`{a} annualizzata
+\[
+\sigma_2=0.08.
+\]
+\end{itemize}
+
+Gli shock dei due indici devono avere correlazione istantanea
 \[
 \rho=-0.45.
 \]
 
-Sono disponibili due realizzazioni indipendenti di variabili normali
-standard:
+Per generare gli scenari Monte Carlo si parta da due variabili normali
+standard indipendenti $Z_1$ e $Z_2$. In una particolare iterazione
+della simulazione si supponga di avere ottenuto le realizzazioni
 \[
 Z_1=1.2,
 \qquad
 Z_2=-0.4.
 \]
 
-Gli shock correlati sono costruiti mediante
+Gli shock correlati vengono costruiti mediante
 \[
 \varepsilon_1=Z_1,
 \qquad
@@ -2750,19 +2819,37 @@ Gli shock correlati sono costruiti mediante
 \rho Z_1+\sqrt{1-\rho^2}\,Z_2.
 \]
 
-Si ponga inoltre
+Si consideri un orizzonte giornaliero
 \[
-\Delta t=\frac{1}{252}.
+\Delta t=\frac{1}{252}
+\]
+e si trascuri il drift. Le variazioni relative dei due fattori sono
+approssimate da
+\[
+\Delta R_i
+=
+\sigma_i\sqrt{\Delta t}\,\varepsilon_i,
+\qquad
+i=1,2.
 \]
 
 Determinare:
 
 \begin{enumerate}
-\item i valori di $\varepsilon_1$ e $\varepsilon_2$;
-\item i corrispondenti incrementi browniani giornalieri
-$\Delta W_1$ e $\Delta W_2$;
-\item il significato della correlazione, spiegando perch\'{e} non possa
-essere verificata osservando una singola coppia di shock.
+\item gli shock correlati $\varepsilon_1$ e $\varepsilon_2$;
+\item le variazioni giornaliere $\Delta R_1$ e $\Delta R_2$;
+\item il profitto o la perdita di portafoglio nello scenario simulato,
+definito da
+\[
+\Delta\Pi
+=
+V_1\Delta R_1+V_2\Delta R_2;
+\]
+\item la deviazione standard giornaliera del risultato di portafoglio
+quando $\rho=-0.45$;
+\item la stessa deviazione standard nell'ipotesi di shock indipendenti,
+cio\`{e} con $\rho=0$;
+
 \end{enumerate}
 
 \end{exercise}
@@ -2781,7 +2868,7 @@ Z_1
 1.2.
 \]
 
-Per il secondo shock si ha
+Il secondo shock \`{e}
 \[
 \varepsilon_2
 =
@@ -2792,14 +2879,8 @@ Per il secondo shock si ha
 
 Poich\'{e}
 \[
-1-\rho^2
+\sqrt{1-(-0.45)^2}
 =
-1-0.2025
-=
-0.7975
-\]
-e
-\[
 \sqrt{0.7975}
 \approx
 0.8930,
@@ -2813,78 +2894,209 @@ si ottiene
 -0.8972.
 \]
 
-In questa particolare realizzazione il primo shock \`{e} positivo e il
-secondo negativo. Ci\`{o} \`{e} coerente con una correlazione negativa,
-ma non costituisce una relazione deterministica.
-
-\item Gli incrementi browniani sulla griglia giornaliera sono
+La coppia di shock prodotta nella particolare iterazione \`{e} quindi
 \[
-\Delta W_1
-=
-\sqrt{\Delta t}\,\varepsilon_1
-=
-\sqrt{\frac{1}{252}}(1.2)
+(\varepsilon_1,\varepsilon_2)
 \approx
-0.07559,
+(1.2,-0.8972).
+\]
+
+\item Per il primo fattore,
+\[
+\Delta R_1
+=
+0.20
+\sqrt{\frac{1}{252}}
+(1.2)
+\approx
+0.01512.
+\]
+
+Pertanto,
+\[
+\Delta R_1\approx 1.512\%.
+\]
+
+Per il secondo fattore,
+\[
+\Delta R_2
+=
+0.08
+\sqrt{\frac{1}{252}}
+(-0.8972)
+\approx
+-0.004522.
+\]
+
+Pertanto,
+\[
+\Delta R_2\approx -0.452\%.
+\]
+
+\item Il risultato di portafoglio nello scenario simulato \`{e}
+\[
+\Delta\Pi
+=
+1\,000\,000(0.0151186)
++
+1\,500\,000(-0.0045215).
+\]
+
+Si ottiene
+\[
+\Delta\Pi
+\approx
+15\,118.58-6\,782.28
+=
+8\,336.30.
+\]
+
+Nello scenario considerato, il portafoglio registra quindi un profitto
+di circa
+\[
+8\,336
+\]
+unit\`{a} monetarie.
+
+\item La varianza del risultato giornaliero di portafoglio \`{e}
+\[
+\Var(\Delta\Pi)
+=
+V_1^2\Var(\Delta R_1)
++
+V_2^2\Var(\Delta R_2)
++
+2V_1V_2\Cov(\Delta R_1,\Delta R_2).
+\]
+
+Poich\'{e}
+\[
+\Var(\Delta R_i)
+=
+\sigma_i^2\Delta t
 \]
 e
 \[
-\Delta W_2
+\Cov(\Delta R_1,\Delta R_2)
 =
-\sqrt{\Delta t}\,\varepsilon_2
-=
-\sqrt{\frac{1}{252}}(-0.8972)
-\approx
--0.05652.
+\rho\sigma_1\sigma_2\Delta t,
 \]
-
-\item La trasformazione garantisce, sulla distribuzione congiunta,
+segue
 \[
-\Corr(\varepsilon_1,\varepsilon_2)
+\Var(\Delta\Pi)
 =
-\rho.
+\Delta t
+\left[
+(V_1\sigma_1)^2
++
+(V_2\sigma_2)^2
++
+2\rho V_1V_2\sigma_1\sigma_2
+\right].
 \]
 
-Infatti,
+Sostituendo i valori,
+\[
+\Var(\Delta\Pi)
+=
+\frac{1}{252}
+\left[
+(1\,000\,000\cdot0.20)^2
++
+(1\,500\,000\cdot0.08)^2
+\right.
+\]
+\[
+\left.
++
+2(-0.45)
+(1\,000\,000)
+(1\,500\,000)
+(0.20)
+(0.08)
+\right].
+\]
+
+Si ottiene
+\[
+\Var(\Delta\Pi)
+\approx
+130\,158\,730.16.
+\]
+
+La deviazione standard giornaliera \`{e} quindi
+\[
+\sqrt{\Var(\Delta\Pi)}
+\approx
+11\,408.71.
+\]
+
+\item Nell'ipotesi di indipendenza, il termine di covarianza \`{e} nullo:
+\[
+\rho=0.
+\]
+
+Pertanto,
+\[
+\Var_0(\Delta\Pi)
+=
+\frac{1}{252}
+\left[
+(1\,000\,000\cdot0.20)^2
++
+(1\,500\,000\cdot0.08)^2
+\right].
+\]
+
+Si ottiene
+\[
+\Var_0(\Delta\Pi)
+\approx
+215\,873\,015.87,
+\]
+e quindi
+\[
+\sqrt{\Var_0(\Delta\Pi)}
+\approx
+14\,692.62.
+\]
+
+La correlazione negativa riduce la deviazione standard del portafoglio
+da circa
+\[
+14\,693
+\]
+a circa
+\[
+11\,409.
+\]
+
+La riduzione percentuale \`{e} approssimativamente
+\[
+\frac{14\,692.62-11\,408.71}{14\,692.62}
+\approx
+22.35\%.
+\]
+
+\end{enumerate}
+
+\noindent La trasformazione
 \[
 \varepsilon_1=Z_1,
 \qquad
 \varepsilon_2
 =
-\rho Z_1+\sqrt{1-\rho^2}\,Z_2,
+\rho Z_1+\sqrt{1-\rho^2}\,Z_2
 \]
-con $Z_1$ e $Z_2$ indipendenti. Pertanto,
-\[
-\Cov(\varepsilon_1,\varepsilon_2)
-=
-\rho\Var(Z_1)
-=
-\rho,
-\]
-mentre
-\[
-\Var(\varepsilon_1)
-=
-\Var(\varepsilon_2)
-=
-1.
-\]
+consente quindi di partire da estrazioni gaussiane indipendenti e ottenere
+shock con la struttura di dipendenza richiesta dal modello.
 
-Ne segue che la correlazione \`{e} pari a $\rho$. Tale propriet\`{a}
-riguarda la distribuzione di molte coppie simulate e non pu\`{o} essere
-verificata sulla base di una sola realizzazione.
+La singola coppia numerica calcolata non permette di osservare o
+verificare una correlazione. La correlazione emerge dalla distribuzione
+congiunta di un numero elevato di scenari generati ripetendo la stessa
+procedura.
 
-\end{enumerate}
-
-La Figura~\ref{fig:correlated_gaussian_shocks} mostra il carattere
-distributivo della costruzione per un caso di correlazione positiva.
-Con una correlazione negativa la nuvola di punti risulterebbe invece
-orientata lungo la diagonale decrescente. L'effetto della correlazione
-negativa sulle traiettorie \`{e} illustrato nella
-Figura~\ref{fig:correlazione_traiettorie_rho_m045}.
-
-
-\begin{exercise}[Un passo di Eulero--Maruyama per il GBM]
+\begin{exercise}[Un passo mensile di Eulero--Maruyama per il GBM]
 \label{ex:cap06-eulero-maruyama-gbm}
 
 Si consideri il moto browniano geometrico
@@ -2902,24 +3114,31 @@ S_0=100,
 \sigma=0.20.
 \]
 
-Si utilizzi un passo temporale mensile
+Il tempo \`{e} misurato in anni e il passo temporale \`{e} mensile:
 \[
-\Delta t=\frac{1}{12}
+\Delta t=\frac{1}{12}.
 \]
-e si assuma che l'innovazione gaussiana osservata sia
+
+Si assuma che l'innovazione standardizzata sia
 \[
-Z_1=-1.1.
+Z=-1.1,
+\qquad
+Z\sim\mathcal{N}(0,1),
+\]
+cosicch\'{e} l'incremento browniano mensile \`{e}
+\[
+\Delta W=\sqrt{\Delta t}\,Z.
 \]
 
 Determinare:
 
 \begin{enumerate}
+\item l'incremento browniano mensile $\Delta W$;
 \item il valore approssimato mediante Eulero--Maruyama;
-\item il valore ottenuto dalla soluzione esatta del GBM sullo stesso
-incremento browniano;
-\item la differenza tra i due valori;
+\item il valore esatto del GBM sullo stesso incremento browniano e la
+differenza rispetto all'approssimazione;
 \item la condizione sotto la quale lo schema discreto produce un valore
-negativo e la sua interpretazione.
+negativo.
 \end{enumerate}
 
 \end{exercise}
@@ -2929,50 +3148,39 @@ negativo e la sua interpretazione.
 
 \begin{enumerate}
 
-\item Lo schema di Eulero--Maruyama per il GBM \`{e}
+\item Si ha
 \[
-S_{t+\Delta t}^{(\Delta t)}
+\Delta W
 =
-S_t
-+
-\mu S_t\,\Delta t
-+
-\sigma S_t\sqrt{\Delta t}\,Z.
+\sqrt{\frac{1}{12}}(-1.1)
+\approx
+-0.31754.
 \]
 
-Equivalentemente,
+\item Lo schema di Eulero--Maruyama \`{e}
 \[
-S_{t+\Delta t}^{(\Delta t)}
+S_{\Delta t}^{\mathrm{EM}}
 =
-S_t
-\left[
-1+\mu\Delta t+\sigma\sqrt{\Delta t}\,Z
-\right].
+S_0
+\left(
+1+\mu\Delta t+\sigma\Delta W
+\right).
 \]
 
-Sostituendo i valori assegnati,
+Pertanto,
 \[
-S_{\Delta t}^{(\Delta t)}
+S_{\Delta t}^{\mathrm{EM}}
 =
 100
 \left[
-1
-+
-0.06\frac{1}{12}
-+
-0.20\sqrt{\frac{1}{12}}(-1.1)
-\right].
-\]
-
-Si ottiene
-\[
-S_{\Delta t}^{(\Delta t)}
+1+0.06\frac{1}{12}
++0.20(-0.31754)
+\right]
 \approx
 94.149.
 \]
 
-\item La soluzione esatta del GBM sullo stesso incremento browniano
-\`{e}
+\item La soluzione esatta sullo stesso incremento browniano \`{e}
 \[
 S_{\Delta t}
 =
@@ -2981,8 +3189,7 @@ S_0
 \left(
 \mu-\frac{1}{2}\sigma^2
 \right)\Delta t
-+
-\sigma\sqrt{\Delta t}\,Z
++\sigma\Delta W
 \right].
 \]
 
@@ -2995,65 +3202,52 @@ S_{\Delta t}
 \left(
 0.06-\frac{1}{2}(0.20)^2
 \right)\frac{1}{12}
-+
-0.20\sqrt{\frac{1}{12}}(-1.1)
-\right],
-\]
-da cui
-\[
-S_{\Delta t}
++0.20(-0.31754)
+\right]
 \approx
 94.160.
 \]
 
-\item La differenza tra il valore approssimato e quello esatto \`{e}
+La differenza \`{e}
 \[
-S_{\Delta t}^{(\Delta t)}-S_{\Delta t}
+S_{\Delta t}^{\mathrm{EM}}-S_{\Delta t}
 \approx
-94.149-94.160
-=
 -0.011.
 \]
 
-In questa particolare realizzazione l'errore risulta molto piccolo.
-Una singola osservazione non dimostra tuttavia la convergenza dello
-schema: occorre confrontare molte traiettorie e diversi valori di
-$\Delta t$.
-
-\item Lo schema di Eulero--Maruyama produce un valore negativo quando
+\item Poich\'{e} $S_0>0$, lo schema produce un valore negativo quando
 \[
-1+\mu\Delta t+\sigma\sqrt{\Delta t}\,Z<0.
+1+\mu\Delta t+\sigma\Delta W<0.
 \]
 
-La condizione equivale a
+Pertanto,
+\[
+\Delta W
+<
+-
+\frac{1+\mu\Delta t}{\sigma}
+=
+-5.025.
+\]
+
+Equivalentemente, poich\'{e}
+\[
+\Delta W=\sqrt{\Delta t}\,Z,
+\]
+si deve avere
 \[
 Z
 <
 -
 \frac{1+\mu\Delta t}
-{\sigma\sqrt{\Delta t}}.
-\]
-
-Con i parametri dell'esercizio,
-\[
-Z
-<
--
-\frac{
-1+0.06/12
-}{
-0.20\sqrt{1/12}
-}
+{\sigma\sqrt{\Delta t}}
 \approx
 -17.41.
 \]
 
-La probabilit\`{a} di un simile valore della normale standard \`{e}
-estremamente piccola. Il problema strutturale rimane tuttavia presente:
-il GBM continuo \`{e} sempre positivo, mentre lo schema di
-Eulero--Maruyama non preserva automaticamente la positivit\`{a}.
-L'inconveniente pu\`{o} diventare rilevante con passi temporali ampi,
-volatilit\`{a} elevate o shock estremi.
+Con i parametri considerati l'evento \`{e} estremamente improbabile,
+ma mostra che Eulero--Maruyama non preserva automaticamente la
+positivit\`{a} del GBM.
 
 \end{enumerate}
 
@@ -3072,6 +3266,509 @@ la correlazione entra nella generazione congiunta degli shock; lo schema
 di Eulero--Maruyama traduce infine la dinamica continua in una procedura
 numerica, introducendo un errore di discretizzazione che deve essere
 valutato e controllato.
+
+\section{Esercizi proposti}
+\label{sec:cap06-esercizi-proposti}
+
+Gli esercizi seguenti consolidano le propriet\`{a} dei principali
+processi discussi nel capitolo e richiedono di collegare i risultati
+numerici alla loro interpretazione finanziaria.
+
+\begin{exercise}[Shock browniano su un orizzonte di dieci giorni]
+\label{ex:cap06-proposto-shock-dieci-giorni}
+
+La componente aleatoria di un rendimento \`{e} modellizzata come
+\[
+R_h=\sigma(W_h-W_0),
+\]
+con volatilit\`{a} annualizzata
+\[
+\sigma=0.18
+\]
+e orizzonte
+\[
+h=\frac{10}{252}.
+\]
+
+Determinare:
+
+\begin{enumerate}
+\item la distribuzione di $R_h$;
+\item la sua deviazione standard;
+\item la probabilit\`{a} che $R_h$ sia inferiore a $-0.04$;
+\item il valore positivo $a$ tale che
+\[
+\Prob(R_h<-a)=0.05,
+\]
+utilizzando
+\[
+\Phi^{-1}(0.05)\approx -1.645.
+\]
+\end{enumerate}
+
+\end{exercise}
+
+\noindent
+\textit{Risultati:}
+\[
+R_h\sim\mathcal{N}(0,0.001286),
+\qquad
+\operatorname{sd}(R_h)\approx0.03586,
+\]
+\[
+\Prob(R_h<-0.04)\approx0.1323,
+\qquad
+a\approx0.05898.
+\]
+
+
+\begin{exercise}[Distribuzione terminale di un GBM]
+\label{ex:cap06-proposto-gbm-terminale}
+
+Il prezzo di un'attivit\`{a} segue il moto browniano geometrico
+\[
+dS_t=\mu S_t\,dt+\sigma S_t\,dW_t,
+\]
+con
+\[
+S_0=80,
+\qquad
+\mu=0.07,
+\qquad
+\sigma=0.30.
+\]
+
+Per un orizzonte
+\[
+T=2,
+\]
+determinare:
+
+\begin{enumerate}
+\item la distribuzione di $\log S_T$;
+\item il valore atteso di $S_T$;
+\item la mediana di $S_T$, utilizzando la propriet\`{a} di
+trasformazione della mediana mediante funzioni strettamente crescenti;
+\item la probabilit\`{a} che $S_T$ sia superiore a $100$;
+\item il motivo per cui il valore atteso risulta superiore alla
+mediana.
+\end{enumerate}
+
+\end{exercise}
+
+\noindent
+\textit{Risultati:}
+\[
+\log S_T
+\sim
+\mathcal{N}
+\left(
+\log 80+0.05,\,
+0.18
+\right),
+\]
+\[
+\E[S_T]\approx92.02,
+\qquad
+\operatorname{Med}(S_T)\approx84.10,
+\qquad
+\Prob(S_T>100)\approx0.3416.
+\]
+
+
+\begin{exercise}[Evoluzione di un fattore mean-reverting]
+\label{ex:cap06-proposto-ou-fattore}
+
+Un fattore finanziario segue il processo di Ornstein--Uhlenbeck
+\[
+dX_t
+=
+\kappa(\theta-X_t)\,dt+\sigma\,dW_t,
+\]
+con
+\[
+X_0=0.06,
+\qquad
+\theta=0.035,
+\qquad
+\kappa=0.8,
+\qquad
+\sigma=0.025.
+\]
+
+Al tempo
+\[
+T=2,
+\]
+determinare:
+
+\begin{enumerate}
+\item il valore atteso di $X_T$;
+\item la varianza e la deviazione standard di $X_T$;
+\item la probabilit\`{a} che $X_T$ sia negativo;
+\item la deviazione standard di lungo periodo;
+\item l'effetto della mean reversion sulla media e sulla dispersione.
+\end{enumerate}
+
+\end{exercise}
+
+\noindent
+\textit{Risultati:}
+\[
+\E[X_T]\approx0.04005,
+\qquad
+\Var(X_T)\approx0.0003747,
+\]
+\[
+\operatorname{sd}(X_T)\approx0.01936,
+\qquad
+\Prob(X_T<0)\approx0.0193,
+\]
+\[
+\operatorname{sd}_{\infty}
+=
+\frac{\sigma}{\sqrt{2\kappa}}
+\approx0.01976.
+\]
+
+
+\begin{exercise}[Confronto tra due parametrizzazioni CIR]
+\label{ex:cap06-proposto-cir-parametri}
+
+Si consideri il processo CIR
+\[
+dr_t
+=
+\kappa(\theta-r_t)\,dt+\sigma\sqrt{r_t}\,dW_t,
+\]
+con
+\[
+r_0=0.02,
+\qquad
+\theta=0.04,
+\qquad
+\kappa=0.9.
+\]
+
+Si confrontino le due parametrizzazioni
+\[
+\sigma_A=0.18,
+\qquad
+\sigma_B=0.30.
+\]
+
+Determinare:
+
+\begin{enumerate}
+\item per quale parametrizzazione \`{e} soddisfatta la condizione di
+Feller;
+\item il coefficiente di diffusione locale
+\[
+\sigma\sqrt{r}
+\]
+per $r=0.01$ e $r=0.06$;
+\item il valore atteso del processo dopo un anno;
+\item quali propriet\`{a} sono modificate dal diverso valore di
+$\sigma$ e quali rimangono invariate.
+\end{enumerate}
+
+\end{exercise}
+
+\noindent
+\textit{Risultati:}
+\[
+2\kappa\theta=0.072,
+\qquad
+\sigma_A^2=0.0324,
+\qquad
+\sigma_B^2=0.09.
+\]
+La condizione di Feller \`{e} soddisfatta nel caso $A$, ma non nel
+caso $B$. Inoltre,
+\[
+\sigma_A\sqrt{0.01}=0.018,
+\qquad
+\sigma_A\sqrt{0.06}\approx0.04409,
+\]
+\[
+\sigma_B\sqrt{0.01}=0.030,
+\qquad
+\sigma_B\sqrt{0.06}\approx0.07348,
+\]
+mentre
+\[
+\E[r_1]\approx0.03187
+\]
+in entrambi i casi.
+
+
+\begin{exercise}[Rischio giornaliero di un portafoglio correlato]
+\label{ex:cap06-proposto-portafoglio-correlato}
+
+Un portafoglio presenta due esposizioni
+\[
+V_1=1\,200\,000,
+\qquad
+V_2=800\,000,
+\]
+associate a fattori con volatilit\`{a} annualizzate
+\[
+\sigma_1=0.22,
+\qquad
+\sigma_2=0.12.
+\]
+
+Le innovazioni standardizzate dei due fattori hanno correlazione
+\[
+\rho=-0.35.
+\]
+
+In una simulazione vengono estratti due shock indipendenti
+\[
+Z_1=0.6,
+\qquad
+Z_2=-0.8,
+\]
+dai quali si costruiscono
+\[
+\varepsilon_1=Z_1,
+\qquad
+\varepsilon_2
+=
+\rho Z_1+\sqrt{1-\rho^2}\,Z_2.
+\]
+
+Ponendo
+\[
+\Delta t=\frac{1}{252},
+\qquad
+\Delta R_i=\sigma_i\sqrt{\Delta t}\,\varepsilon_i,
+\]
+determinare:
+
+\begin{enumerate}
+\item gli shock correlati;
+\item le variazioni giornaliere dei due fattori;
+\item il risultato di portafoglio
+\[
+\Delta\Pi
+=
+V_1\Delta R_1+V_2\Delta R_2;
+\]
+\item la deviazione standard giornaliera di $\Delta\Pi$;
+\item la deviazione standard che si otterrebbe ponendo $\rho=0$.
+\end{enumerate}
+
+\end{exercise}
+
+\noindent
+\textit{Risultati:}
+\[
+\varepsilon_1=0.6,
+\qquad
+\varepsilon_2\approx-0.9594,
+\]
+\[
+\Delta R_1\approx0.008315,
+\qquad
+\Delta R_2\approx-0.007252,
+\]
+\[
+\Delta\Pi\approx4\,176.36.
+\]
+La deviazione standard giornaliera \`{e} circa
+\[
+15\,580.21
+\]
+con correlazione $-0.35$ e circa
+\[
+17\,695.84
+\]
+nell'ipotesi di indipendenza.
+
+
+\begin{exercise}[Traiettoria discreta del GBM]
+\label{ex:cap06-proposto-traiettoria-eulero}
+
+Si consideri il GBM
+\[
+dS_t
+=
+\mu S_t\,dt+\sigma S_t\,dW_t,
+\]
+con
+\[
+S_0=100,
+\qquad
+\mu=0.05,
+\qquad
+\sigma=0.25.
+\]
+
+Si utilizzi una griglia trimestrale,
+\[
+\Delta t=\frac{1}{4},
+\]
+e la sequenza di innovazioni standardizzate
+\[
+Z_1=0.2,
+\qquad
+Z_2=-0.7,
+\qquad
+Z_3=0.4,
+\qquad
+Z_4=-0.1.
+\]
+
+Determinare:
+
+\begin{enumerate}
+\item i quattro incrementi browniani
+\[
+\Delta W_n=\sqrt{\Delta t}\,Z_n;
+\]
+\item la traiettoria ottenuta mediante Eulero--Maruyama;
+\item il valore esatto $S_1$ costruito sullo stesso incremento
+browniano complessivo;
+\item l'errore terminale dello schema discreto.
+\end{enumerate}
+
+\end{exercise}
+
+\noindent
+\textit{Risultati:}
+\[
+S_{1/4}^{\mathrm{EM}}=103.750,
+\qquad
+S_{1/2}^{\mathrm{EM}}=95.969,
+\]
+\[
+S_{3/4}^{\mathrm{EM}}=101.967,
+\qquad
+S_1^{\mathrm{EM}}=101.967.
+\]
+Poich\'{e}
+\[
+W_1
+=
+\sum_{n=1}^{4}\Delta W_n
+=
+-0.1,
+\]
+si ottiene
+\[
+S_1\approx99.377,
+\qquad
+S_1^{\mathrm{EM}}-S_1\approx2.590.
+\]
+
+\section{Sintesi del capitolo}
+\label{sec:cap06-sintesi}
+
+Il capitolo ha introdotto i principali strumenti per modellizzare e
+simulare processi finanziari in tempo continuo.
+
+\begin{itemize}
+
+\item Il moto browniano standard ha incrementi indipendenti e
+\[
+W_{t+h}-W_t\sim\mathcal{N}(0,h).
+\]
+La deviazione standard degli incrementi cresce quindi come
+$\sqrt{h}$, non linearmente con l'orizzonte temporale.
+
+\item Una equazione differenziale stocastica della forma
+\[
+dX_t=a(X_t,t)\,dt+b(X_t,t)\,dW_t
+\]
+combina una componente sistematica, descritta dal drift $a$, e una
+componente casuale, descritta dalla diffusione $b$.
+
+\item Nel moto browniano geometrico,
+\[
+dS_t=\mu S_t\,dt+\sigma S_t\,dW_t,
+\]
+la soluzione \`{e}
+\[
+S_t
+=
+S_0
+\exp\left[
+\left(
+\mu-\frac{1}{2}\sigma^2
+\right)t+\sigma W_t
+\right].
+\]
+Il prezzo rimane positivo e ha distribuzione lognormale. Il parametro
+$\mu$ \`{e} il drift del prezzo, mentre
+$\mu-\frac{1}{2}\sigma^2$ \`{e} il drift del log-prezzo.
+
+\item Il processo di Ornstein--Uhlenbeck
+\[
+dX_t=\kappa(\theta-X_t)\,dt+\sigma\,dW_t
+\]
+incorpora mean reversion verso il livello $\theta$. Il processo \`{e}
+gaussiano e pu\`{o} assumere valori negativi.
+
+\item Il processo CIR
+\[
+dr_t
+=
+\kappa(\theta-r_t)\,dt+\sigma\sqrt{r_t}\,dW_t
+\]
+mantiene il meccanismo di mean reversion e preserva la non
+negativit\`{a}. La condizione di Feller
+\[
+2\kappa\theta\geq\sigma^2
+\]
+garantisce, con valore iniziale positivo, che il processo non raggiunga
+il confine zero.
+
+\item Nei modelli multivariati la dipendenza tra fattori viene
+introdotta attraverso shock browniani correlati. A partire da un
+vettore $Z$ di variabili normali standard indipendenti, si possono
+generare innovazioni con matrice di correlazione $R$ mediante
+\[
+\varepsilon=LZ,
+\qquad
+R=LL'.
+\]
+Questa costruzione \`{e} essenziale nella simulazione di portafogli
+esposti a pi\`{u} fattori di rischio.
+
+\item Lo schema di Eulero--Maruyama approssima la dinamica continua
+mediante
+\[
+X_{t_{n+1}}
+=
+X_{t_n}
++
+a(X_{t_n},t_n)\Delta t
++
+b(X_{t_n},t_n)\Delta W_{n+1},
+\]
+dove
+\[
+\Delta W_{n+1}
+=
+\sqrt{\Delta t}\,Z_{n+1},
+\qquad
+Z_{n+1}\sim\mathcal{N}(0,1).
+\]
+La discretizzazione introduce un errore che tende a ridursi al
+diminuire di $\Delta t$, ma pu\`{o} non preservare alcune propriet\`{a}
+del processo continuo, come la positivit\`{a}.
+
+\end{itemize}
+
+La scelta del modello dipende dalla natura economica della variabile:
+il GBM \`{e} adatto a grandezze positive senza mean reversion; l'OU a
+fattori che oscillano attorno a un equilibrio e possono assumere
+valori negativi; il CIR a fattori mean-reverting non negativi.
+
+La lezione applicativa successiva utilizzer\`{a} questi risultati per
+simulare traiettorie in Python, confrontare modelli, generare scenari
+correlati e valutare l'effetto della discretizzazione numerica.
 
 
 

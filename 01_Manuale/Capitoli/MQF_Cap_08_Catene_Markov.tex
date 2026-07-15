@@ -122,57 +122,33 @@ distribuzioni future degli stati;
 
 \section{Dai fenomeni economici a un modello a stati}
 
-Prima di definire formalmente una catena di Markov, occorre chiarire
-come un fenomeno economico osservato possa essere rappresentato
-mediante una successione di stati discreti.
+Una catena di Markov descrive l'evoluzione di un sistema che, in ogni
+periodo, occupa uno tra un numero finito di stati. Prima di introdurre
+formalmente il modello, occorre quindi stabilire come ricavare tali
+stati dal fenomeno economico osservato.
 
-Il punto di partenza \`{e} generalmente costituito da un sistema che
-evolve nel tempo e che pu\`{o} trovarsi in condizioni differenti. Un
-mercato elettrico, ad esempio, pu\`{o} attraversare periodi di prezzi
-contenuti, condizioni ordinarie, fasi di tensione e situazioni di crisi.
-Una simile descrizione non coincide ancora con un modello matematico:
-occorre stabilire quali variabili osservare, come delimitare gli stati e
-quale informazione utilizzare per descrivere le transizioni tra essi.
+Il passaggio essenziale pu\`{o} essere rappresentato come
+
+\[
+\text{fenomeno osservato}
+\longrightarrow
+\text{indicatori}
+\longrightarrow
+\text{criterio di classificazione}
+\longrightarrow
+\text{stato}.
+\]
 
 \subsection{Costruzione degli stati}
 
-La costruzione di un modello a stati richiede di distinguere quattro
-elementi:
+Nel caso dei mercati elettrici, le condizioni del sistema possono
+essere descritte mediante indicatori quali il livello e la
+volatilit\`{a} dei prezzi, la frequenza dei prezzi estremi, il margine
+tra capacit\`{a} disponibile e domanda e le condizioni del mercato del
+gas.
 
-\begin{itemize}
-
-\item il fenomeno economico che si intende rappresentare;
-
-\item le variabili osservabili utilizzate per descriverlo;
-
-\item il criterio con cui i valori osservati vengono classificati;
-
-\item lo stato assegnato al sistema in ciascun periodo.
-
-\end{itemize}
-
-Nel caso di un mercato elettrico, il fenomeno osservato \`{e}
-l'evoluzione delle condizioni di mercato. Tali condizioni possono
-essere descritte mediante differenti indicatori, tra cui:
-
-\begin{itemize}
-
-\item il livello del prezzo dell'energia elettrica;
-
-\item la volatilit\`{a} dei prezzi;
-
-\item la frequenza di valori particolarmente elevati o negativi;
-
-\item il margine tra capacit\`{a} produttiva disponibile e domanda;
-
-\item il prezzo del gas naturale e le condizioni di
-approvvigionamento.
-
-\end{itemize}
-
-A partire da queste informazioni si pu\`{o} assegnare il mercato, in
-ciascun periodo, a uno stato appartenente a un insieme finito. Una
-possibile rappresentazione \`{e}
+Sulla base di tali indicatori, ogni periodo pu\`{o} essere assegnato a
+uno stato appartenente, ad esempio, all'insieme
 
 \[
 \mathcal{I}
@@ -185,51 +161,21 @@ possibile rappresentazione \`{e}
 \}.
 \]
 
-Le denominazioni degli stati devono corrispondere a criteri
-economicamente interpretabili. Ad esempio, lo stato di tensione potrebbe
-essere associato non soltanto a un prezzo superiore a una determinata
-soglia, ma anche a una volatilit\`{a} elevata o a una riduzione del
-margine di capacit\`{a} disponibile.
+Gli stati non sono categorie direttamente fornite dai dati. Essi
+dipendono dalla finalit\`{a} dell'analisi, dagli indicatori scelti,
+dalla frequenza temporale delle osservazioni e dalle regole di
+classificazione adottate.
 
-La scelta degli stati comporta inevitabilmente una perdita di
-informazione. Due periodi caratterizzati da prezzi differenti possono
-essere assegnati allo stesso stato se, secondo il criterio adottato,
-rappresentano condizioni economiche simili. In cambio, la
-discretizzazione permette di concentrare l'analisi sulle transizioni
-tra differenti regimi del sistema.
-
-Gli stati non sono quindi caratteristiche naturali e univoche del
-fenomeno osservato. Essi costituiscono una costruzione modellistica e
-dipendono:
-
-\begin{itemize}
-
-\item dalla domanda economica a cui si vuole rispondere;
-
-\item dalla frequenza temporale delle osservazioni;
-
-\item dalle variabili disponibili;
-
-\item dalle soglie o dalle regole di classificazione adottate.
-
-\end{itemize}
-
-La stessa serie storica pu\`{o} pertanto generare rappresentazioni
-differenti. Un'analisi giornaliera dei prezzi elettrici pu\`{o}
-distinguere eventi estremi di breve durata, mentre un'analisi mensile
-pu\`{o} mettere in evidenza regimi persistenti. La qualit\`{a} del
-modello dipende anche dalla capacit\`{a} degli stati di sintetizzare le
-caratteristiche economicamente rilevanti del sistema.
+La discretizzazione comporta una perdita di dettaglio, poich\'{e}
+osservazioni differenti possono essere assegnate allo stesso stato.
+Essa permette tuttavia di concentrare l'analisi sulla dinamica delle
+transizioni tra differenti condizioni del sistema.
 
 \subsection{Lo stato corrente come sintesi dell'informazione}
 
-Una volta costruita la sequenza degli stati, il problema consiste nel
-descriverne l'evoluzione probabilistica. In termini generali, la storia
-del sistema fino al tempo corrente contiene informazioni che possono
-essere utili per prevedere lo stato successivo.
-
-La logica del modello markoviano pu\`{o} essere rappresentata
-schematicamente come
+Una volta costruita la successione degli stati, occorre descrivere la
+distribuzione probabilistica dello stato futuro. La logica del modello
+markoviano pu\`{o} essere sintetizzata come
 
 \[
 \text{storia passata}
@@ -239,94 +185,695 @@ schematicamente come
 \text{distribuzione dello stato futuro}.
 \]
 
-L'ipotesi centrale \`{e} che lo stato corrente sintetizzi tutta
-l'informazione passata rilevante per la previsione dello stato
-successivo. Se, ad esempio, il mercato elettrico si trova attualmente
-in una condizione di tensione, la distribuzione delle possibili
-condizioni future viene determinata sulla base di questo stato, senza
-utilizzare separatamente l'intera successione degli stati precedenti.
+L'ipotesi centrale \`{e} che lo stato corrente contenga tutta
+l'informazione passata rilevante per prevedere lo stato successivo.
+Ci\`{o} non significa che il passato sia irrilevante, ma che il suo
+effetto sia adeguatamente sintetizzato nello stato corrente.
 
-Questa ipotesi non afferma che il passato sia economicamente
-irrilevante. Afferma invece che l'effetto del passato \`{e} gi\`{a}
-incorporato nello stato corrente. La costruzione degli stati deve
-quindi essere sufficientemente informativa: se due situazioni con
-prospettive future molto differenti vengono classificate nello stesso
-stato, l'ipotesi rischia di risultare poco plausibile.
+La plausibilit\`{a} di questa ipotesi dipende dalla qualit\`{a} della
+rappresentazione a stati. Se situazioni caratterizzate da prospettive
+future molto differenti vengono aggregate nello stesso stato, la
+sintesi informativa pu\`{o} risultare insufficiente.
 
-Il collegamento con i concetti introdotti nei capitoli precedenti
-\`{e} diretto. Nel Capitolo~3 il valore atteso condizionato \`{e} stato
-interpretato come previsione basata sull'informazione disponibile. Nel
-Capitolo~5 una filtrazione ha rappresentato l'informazione accumulata
-nel tempo. Nel modello markoviano si assume che, per prevedere lo stato
-successivo, sia sufficiente condizionare sullo stato corrente anzich\'{e}
-sull'intera informazione storica.
-
-La validit\`{a} di questa semplificazione dipende dal modo in cui gli
-stati sono definiti. Nel caso dei mercati elettrici, il solo livello
-corrente del prezzo potrebbe non contenere informazioni sufficienti:
-due periodi con lo stesso prezzo possono differire per disponibilit\`{a}
-degli impianti, livello degli stoccaggi di gas o condizioni
-meteorologiche. Una definizione pi\`{u} ricca dello stato pu\`{o}
-migliorare la capacit\`{a} del modello di rappresentare la dinamica
-futura.
+L'impostazione richiama i concetti di informazione e condizionamento
+introdotti nel Capitolo~3 e la rappresentazione dinamica
+dell'informazione mediante filtrazioni sviluppata nel Capitolo~5. Nel
+modello markoviano, tuttavia, la previsione dello stato successivo viene
+condizionata sul solo stato corrente.
 
 \subsection{Omogeneit\`{a} temporale e stabilit\`{a} del modello}
 
-La dipendenza dello stato futuro dal solo stato corrente deve essere
-distinta dalla stabilit\`{a} nel tempo delle probabilit\`{a} di
-transizione.
+La dipendenza dal solo stato corrente deve essere distinta dalla
+stabilit\`{a} nel tempo delle probabilit\`{a} di transizione.
 
 La propriet\`{a} di Markov riguarda l'informazione necessaria per
-descrivere lo stato futuro: una volta noto lo stato corrente, gli stati
-precedenti non forniscono informazione aggiuntiva.
-
-L'omogeneit\`{a} temporale riguarda invece il meccanismo di
-transizione: a parit\`{a} di stato corrente, le probabilit\`{a} dei
-possibili stati successivi vengono considerate uguali nei differenti
+descrivere lo stato futuro. L'omogeneit\`{a} temporale riguarda invece
+la permanenza dello stesso meccanismo di transizione nei diversi
 periodi.
 
-Le due ipotesi sono logicamente distinte. Un sistema pu\`{o} soddisfare
-la propriet\`{a} di Markov pur presentando probabilit\`{a} di
-transizione che cambiano nel tempo.
+Le due ipotesi sono distinte: un sistema pu\`{o} essere markoviano anche
+quando le probabilit\`{a} di transizione cambiano nel tempo.
 
-Questa distinzione \`{e} particolarmente importante nelle applicazioni
-economiche. Una matrice di transizione costruita per i mercati
-elettrici europei prima della crisi energetica potrebbe non descrivere
-correttamente le transizioni osservate dopo la riduzione delle forniture
-di gas russo. Analogamente, nel mercato europeo delle quote di
-emissione, l'introduzione della Market Stability Reserve pu\`{o} avere
-modificato la probabilit\`{a} di passare da una condizione di surplus a
-una condizione di maggiore scarsit\`{a}.
+Questa distinzione \`{e} rilevante nei mercati energetici e ambientali.
+Le probabilit\`{a} osservate nei mercati elettrici europei prima della
+crisi energetica possono non essere valide dopo uno shock geopolitico.
+Analogamente, una riforma come l'introduzione della Market Stability
+Reserve pu\`{o} modificare la dinamica del mercato europeo delle quote
+di emissione.
 
-L'utilizzo di una catena omogenea richiede quindi di assumere che il
-meccanismo economico che genera le transizioni rimanga sufficientemente
-stabile nell'orizzonte considerato. Tale ipotesi pu\`{o} risultare
-ragionevole in un periodo caratterizzato da regole e condizioni
-strutturali relativamente costanti, ma deve essere rivalutata in
-presenza di:
+Una catena omogenea si fonda quindi sull'ipotesi che, nell'orizzonte
+considerato, il meccanismo di transizione rimanga sufficientemente
+stabile. L'adeguatezza di tale ipotesi deve essere valutata alla luce
+del contesto economico, delle regole istituzionali e della presenza di
+eventuali cambiamenti strutturali.
+
+\section{Catene di Markov finite: definizione e rappresentazione}
+
+Dopo avere chiarito come un fenomeno economico possa essere descritto
+mediante una successione di stati, possiamo introdurre il modello
+matematico che rappresenta tale dinamica.
+
+L'idea di base \`{e} semplice: in ciascun periodo il sistema si trova in
+uno stato appartenente a un insieme finito e, nel periodo successivo,
+pu\`{o} permanere nello stesso stato oppure transitare verso un altro
+stato. Una catena di Markov descrive queste transizioni in termini
+probabilistici.
+
+\subsection{Definizione di catena di Markov}
+
+Sia
+\[
+\mathcal{I}=\{1,\ldots,m\}
+\]
+un insieme finito di stati e sia
+\[
+\{X_t\}_{t=0}^{T}
+\]
+un processo stocastico tale che, per ogni \(t\),
+\[
+X_t\in\mathcal{I}.
+\]
+
+La variabile casuale \(X_t\) indica lo stato occupato dal sistema al
+tempo \(t\). Nel contesto dei mercati elettrici europei, ad esempio, si
+potrebbe interpretare \(X_t\) come il regime di mercato osservato nel
+periodo \(t\), distinguendo tra condizioni depresse, ordinarie, di
+tensione o di crisi.
+
+Il processo \(\{X_t\}_{t=0}^{T}\) si dice \emph{catena di Markov} se,
+per ogni scelta di stati \(i_0,\ldots,i_{t-1},i,j\in\mathcal{I}\), vale
+la relazione
+\[
+\Prob(X_{t+1}=j \mid X_t=i, X_{t-1}=i_{t-1}, \ldots, X_0=i_0)
+=
+\Prob(X_{t+1}=j \mid X_t=i).
+\]
+
+Questa propriet\`{a} esprime l'idea che, una volta noto lo stato
+corrente, la distribuzione dello stato successivo non dipenda pi\`{u}
+dall'intera storia passata del processo.
+
+In molte applicazioni si introduce inoltre l'ipotesi di
+\emph{omogeneit\`{a} temporale}, secondo cui tali probabilit\`{a} non
+dipendono dal tempo \(t\). In questo caso si scrive
+\[
+\Prob(X_{t+1}=j \mid X_t=i)=p_{ij},
+\]
+dove \(p_{ij}\) rappresenta la probabilit\`{a} di transizione dallo
+stato \(i\) allo stato \(j\) in un periodo.
+
+\`{E} importante distinguere le due ipotesi:
 
 \begin{itemize}
 
-\item crisi economiche o geopolitiche;
+\item la propriet\`{a} di Markov afferma che lo stato futuro dipende dal
+solo stato corrente;
 
-\item cambiamenti regolatori;
-
-\item innovazioni tecnologiche;
-
-\item modifiche strutturali dell'offerta o della domanda;
-
-\item interventi pubblici che alterano il funzionamento del mercato.
+\item l'omogeneit\`{a} temporale afferma che il meccanismo di transizione
+resta invariato nel tempo.
 
 \end{itemize}
 
-Una catena omogenea non costituisce pertanto una descrizione neutrale
-dei dati. Essa \`{e} un modello fondato sull'ipotesi che, nell'intervallo
-temporale considerato, le probabilit\`{a} di transizione possano essere
-trattate come costanti.
+Un processo pu\`{o} dunque essere markoviano senza essere omogeneo.
 
-Nelle sezioni successive questa ipotesi consentir\`{a} di rappresentare
-le transizioni mediante un'unica matrice e di studiare l'evoluzione del
-sistema su pi\`{u} periodi. La sua adeguatezza dovr\`{a} tuttavia essere
-valutata alla luce del contesto economico e dell'orizzonte temporale
-dell'analisi.
+\subsection{Matrice di transizione}
 
+Nel caso omogeneo, le probabilit\`{a} di transizione possono essere
+raccolte nella \emph{matrice di transizione}
+\[
+P=(p_{ij})_{i,j=1}^{m},
+\]
+dove
+\[
+p_{ij}\geq 0,
+\qquad
+\sum_{j=1}^{m} p_{ij}=1
+\qquad
+\text{per ogni } i=1,\ldots,m.
+\]
+
+La seconda condizione riflette il fatto che, fissato lo stato corrente
+\(i\), il sistema deve necessariamente transitare in uno degli stati
+possibili al periodo successivo.
+
+La matrice \(P\) va letta per righe:
+
+\begin{itemize}
+
+\item la riga \(i\) descrive lo stato corrente;
+
+\item la colonna \(j\) descrive lo stato successivo;
+
+\item l'elemento \(p_{ij}\) \`{e} la probabilit\`{a} di passare da \(i\)
+a \(j\).
+
+\end{itemize}
+
+Per fissare le idee, consideriamo una matrice stilizzata relativa a
+quattro regimi del mercato elettrico europeo:
+\[
+\mathcal{I}
+=
+\{
+1=\text{depresso},
+\,
+2=\text{ordinario},
+\,
+3=\text{tensione},
+\,
+4=\text{crisi}
+\}.
+\]
+
+Una possibile matrice di transizione \`{e}
+\[
+P=
+\begin{pmatrix}
+0.60 & 0.30 & 0.10 & 0.00\\
+0.10 & 0.65 & 0.20 & 0.05\\
+0.00 & 0.25 & 0.50 & 0.25\\
+0.00 & 0.10 & 0.35 & 0.55
+\end{pmatrix}.
+\]
+
+L'interpretazione economica di alcuni elementi \`{e} immediata. Ad
+esempio:
+
+\begin{itemize}
+
+\item \(p_{22}=0.65\) indica che, se il mercato \`{e} attualmente in una
+condizione ordinaria, vi rimane nel periodo successivo con probabilit\`{a}
+\(0.65\);
+
+\item \(p_{23}=0.20\) indica che, da una condizione ordinaria, il mercato
+pu\`{o} entrare in tensione con probabilit\`{a} \(0.20\);
+
+\item \(p_{34}=0.25\) indica che uno stato di tensione pu\`{o} evolvere
+in crisi con probabilit\`{a} \(0.25\);
+
+\item \(p_{41}=0.00\) indica che, nel modello adottato, un passaggio
+diretto dalla crisi a una condizione depressa \`{e} considerato
+impossibile in un solo periodo.
+
+\end{itemize}
+
+Una matrice di transizione \`{e} quindi un oggetto matematico semplice,
+ma di forte contenuto economico: sintetizza la persistenza dei regimi,
+la facilit\`{a} di passare da uno stato a un altro e l'esistenza di
+transizioni considerate impossibili o trascurabili.
+
+\subsection{Distribuzione iniziale e rappresentazione mediante grafo}
+
+Per descrivere completamente l'evoluzione della catena non basta
+specificare le probabilit\`{a} di transizione. Occorre anche stabilire
+da quale situazione iniziale parte il sistema.
+
+Se lo stato iniziale non \`{e} noto con certezza, esso viene descritto
+mediante la \emph{distribuzione iniziale}
+\[
+\pi_0=
+\begin{pmatrix}
+\pi_0(1) & \cdots & \pi_0(m)
+\end{pmatrix},
+\]
+dove \(\pi_0(i)=\Prob(X_0=i)\) per ogni \(i\in\mathcal{I}\), con
+\[
+\pi_0(i)\geq 0,
+\qquad
+\sum_{i=1}^{m}\pi_0(i)=1.
+\]
+
+Si devono distinguere tre casi concettualmente diversi:
+
+\begin{itemize}
+
+\item \textbf{stato iniziale noto:} il sistema parte con certezza da uno
+stato specifico;
+
+\item \textbf{stato iniziale incerto:} il sistema pu\`{o} trovarsi in
+pi\`{u} stati possibili, con probabilit\`{a} assegnate;
+
+\item \textbf{distribuzione concentrata in un solo stato:} si tratta di
+un caso particolare di distribuzione iniziale, in cui tutta la massa di
+probabilit\`{a} \`{e} attribuita a un unico stato.
+
+\end{itemize}
+
+Ad esempio, se il mercato si trova certamente nello stato ordinario al
+tempo iniziale, allora
+\[
+\pi_0=
+\begin{pmatrix}
+0 & 1 & 0 & 0
+\end{pmatrix}.
+\]
+Se invece si ritiene che al tempo iniziale il mercato possa trovarsi in
+stato ordinario con probabilit\`{a} \(0.7\) e in stato di tensione con
+probabilit\`{a} \(0.3\), allora
+\[
+\pi_0=
+\begin{pmatrix}
+0 & 0.7 & 0.3 & 0
+\end{pmatrix}.
+\]
+
+Accanto alla rappresentazione matriciale, \`{e} molto utile la
+rappresentazione mediante \emph{grafo orientato}. In essa:
+
+\begin{itemize}
+
+\item ogni stato \`{e} rappresentato da un nodo;
+
+\item ogni transizione con probabilit\`{a} positiva \`{e} rappresentata
+da un arco orientato;
+
+\item il peso dell'arco coincide con la probabilit\`{a} di transizione.
+
+\end{itemize}
+
+Il grafo costituisce una lettura visiva della matrice. Esso mette subito
+in evidenza:
+
+\begin{itemize}
+
+\item quali transizioni sono possibili;
+
+\item quali transizioni sono impossibili;
+
+\item quali stati presentano elevata persistenza;
+
+\item quali percorsi di passaggio collegano due stati.
+
+\end{itemize}
+
+Questa rappresentazione \`{e} particolarmente efficace quando si
+descrivono sistemi con struttura operativa chiara. Nel caso del sistema
+elettrico texano durante Winter Storm Uri, ad esempio, si potrebbero
+distinguere stati quali \emph{normale}, \emph{allerta},
+\emph{emergenza}, \emph{distacco del carico} e \emph{ripristino}. Il
+grafo consentirebbe allora di visualizzare immediatamente che alcune
+transizioni sono naturali, mentre altre risultano implausibili o
+escluse nel modello.
+
+Matrice di transizione e grafo orientato sono quindi due modi
+complementari di rappresentare la stessa struttura probabilistica: la
+prima \`{e} pi\`{u} adatta al calcolo, il secondo \`{e} pi\`{u} adatto
+all'interpretazione.
+
+\section{Dinamica multiperiodale e previsione delle probabilit\`{a} di stato}
+
+La matrice di transizione descrive l'evoluzione della catena su un solo
+periodo. In molte applicazioni interessa tuttavia determinare la
+probabilit\`{a} degli stati futuri su orizzonti pi\`{u} lunghi.
+
+Nel caso dei mercati elettrici, ad esempio, non interessa soltanto la
+probabilit\`{a} che una condizione ordinaria evolva in uno stato di
+tensione nel periodo successivo. Pu\`{o} essere necessario valutare la
+probabilit\`{a} che il mercato si trovi in tensione o in crisi dopo due,
+tre o pi\`{u} periodi.
+
+\subsection{Transizioni a due e pi\`{u} passi}
+
+La probabilit\`{a} di passare dallo stato \(i\) allo stato \(j\) in due
+periodi dipende da tutti i possibili stati intermedi. Condizionando
+rispetto allo stato occupato al tempo \(t+1\), si ottiene
+
+\[
+\begin{split}
+\Prob(X_{t+2}=j\mid X_t=i)
+&=
+\sum_{k=1}^{m}
+\Prob(X_{t+2}=j,X_{t+1}=k\mid X_t=i)
+\\
+&=
+\sum_{k=1}^{m}
+\Prob(X_{t+2}=j\mid X_{t+1}=k,X_t=i)
+\Prob(X_{t+1}=k\mid X_t=i).
+\end{split}
+\]
+
+Per la propriet\`{a} di Markov e per l'omogeneit\`{a} temporale,
+
+\[
+\Prob(X_{t+2}=j\mid X_{t+1}=k,X_t=i)=p_{kj},
+\]
+
+e quindi
+
+\[
+p_{ij}^{(2)}
+=
+\sum_{k=1}^{m}p_{ik}p_{kj}.
+\]
+
+Ogni termine \(p_{ik}p_{kj}\) rappresenta la probabilit\`{a} di uno
+specifico percorso in due periodi:
+
+\[
+i\longrightarrow k\longrightarrow j.
+\]
+
+Riprendiamo la matrice stilizzata dei regimi del mercato elettrico:
+
+\[
+P=
+\begin{pmatrix}
+0.60 & 0.30 & 0.10 & 0.00\\
+0.10 & 0.65 & 0.20 & 0.05\\
+0.00 & 0.25 & 0.50 & 0.25\\
+0.00 & 0.10 & 0.35 & 0.55
+\end{pmatrix},
+\]
+
+dove gli stati sono, nell'ordine,
+
+\[
+\mathcal{I}
+=
+\{
+\text{depresso},
+\text{ordinario},
+\text{tensione},
+\text{crisi}
+\}.
+\]
+
+La probabilit\`{a} di passare dallo stato ordinario allo stato di crisi
+in due periodi \`{e}
+
+\[
+\begin{split}
+p_{24}^{(2)}
+&=
+p_{21}p_{14}
++
+p_{22}p_{24}
++
+p_{23}p_{34}
++
+p_{24}p_{44}
+\\
+&=
+0.10\cdot 0
++
+0.65\cdot 0.05
++
+0.20\cdot 0.25
++
+0.05\cdot 0.55
+\\
+&=
+0.11.
+\end{split}
+\]
+
+Il risultato incorpora quattro possibili stati intermedi. Nel modello
+considerato, il mercato pu\`{o} raggiungere lo stato di crisi dopo due
+periodi:
+
+\begin{itemize}
+
+\item permanendo inizialmente nello stato ordinario e passando
+successivamente alla crisi;
+
+\item passando prima allo stato di tensione e successivamente alla crisi;
+
+\item entrando immediatamente in crisi e permanendovi nel secondo
+periodo.
+
+\end{itemize}
+
+Il percorso attraverso lo stato depresso non contribuisce alla
+probabilit\`{a}, poich\'{e} il passaggio diretto dallo stato depresso
+alla crisi ha probabilit\`{a} nulla.
+
+Pi\`{u} in generale, si definisce probabilit\`{a} di transizione a
+\(n\) passi la quantit\`{a}
+
+\[
+p_{ij}^{(n)}
+=
+\Prob(X_{t+n}=j\mid X_t=i).
+\]
+
+Essa rappresenta la probabilit\`{a} che la catena, partendo dallo stato
+\(i\), si trovi nello stato \(j\) dopo \(n\) periodi, indipendentemente
+dagli stati intermedi attraversati.
+
+\subsection{Equazioni di Chapman--Kolmogorov e potenze della matrice}
+
+Le probabilit\`{a} di transizione a pi\`{u} passi soddisfano una
+relazione fondamentale.
+
+\begin{proposition}
+Per ogni \(n,r\geq 1\) e per ogni \(i,j\in\mathcal{I}\),
+
+\[
+p_{ij}^{(n+r)}
+=
+\sum_{k=1}^{m}
+p_{ik}^{(n)}p_{kj}^{(r)}.
+\]
+\end{proposition}
+
+\begin{proof}
+Per raggiungere lo stato \(j\) dopo \(n+r\) periodi, la catena deve
+trovarsi in uno degli stati \(k\in\mathcal{I}\) dopo i primi \(n\)
+periodi. Applicando la legge della probabilit\`{a} totale,
+
+\[
+\begin{split}
+p_{ij}^{(n+r)}
+&=
+\sum_{k=1}^{m}
+\Prob(X_{t+n+r}=j,X_{t+n}=k\mid X_t=i)
+\\
+&=
+\sum_{k=1}^{m}
+\Prob(X_{t+n+r}=j\mid X_{t+n}=k,X_t=i)
+\Prob(X_{t+n}=k\mid X_t=i).
+\end{split}
+\]
+
+Per la propriet\`{a} di Markov, la prima probabilit\`{a} condizionata
+dipende dal solo stato \(k\); per l'omogeneit\`{a}, essa coincide con
+\(p_{kj}^{(r)}\). La seconda probabilit\`{a} coincide con
+\(p_{ik}^{(n)}\). Segue quindi
+
+\[
+p_{ij}^{(n+r)}
+=
+\sum_{k=1}^{m}
+p_{ik}^{(n)}p_{kj}^{(r)}.
+\]
+\end{proof}
+
+Questa relazione prende il nome di \emph{equazione di
+Chapman--Kolmogorov}. In forma matriciale,
+
+\[
+P^{n+r}=P^nP^r.
+\]
+
+Ne segue che la matrice delle probabilit\`{a} di transizione a \(n\)
+passi coincide con la potenza \(n\)-esima della matrice di transizione:
+
+\[
+P^{(n)}=P^n.
+\]
+
+Per la matrice dell'esempio si ottiene
+
+\[
+P^2
+=
+\begin{pmatrix}
+0.3900 & 0.4000 & 0.1700 & 0.0400\\
+0.1250 & 0.5075 & 0.2575 & 0.1100\\
+0.0250 & 0.3125 & 0.3875 & 0.2750\\
+0.0100 & 0.2075 & 0.3875 & 0.3950
+\end{pmatrix}.
+\]
+
+La seconda riga descrive la distribuzione degli stati dopo due periodi,
+condizionatamente al fatto che il mercato si trovi inizialmente nello
+stato ordinario. In particolare,
+
+\[
+p_{21}^{(2)}=0.125,
+\qquad
+p_{22}^{(2)}=0.5075,
+\qquad
+p_{23}^{(2)}=0.2575,
+\qquad
+p_{24}^{(2)}=0.11.
+\]
+
+Le righe di \(P^n\) continuano a sommare a uno: ciascuna riga
+rappresenta infatti una distribuzione di probabilit\`{a} sugli stati
+futuri.
+
+\subsection{Evoluzione della distribuzione}
+
+Indichiamo con
+
+\[
+\pi_t
+=
+\begin{pmatrix}
+\pi_t(1) & \cdots & \pi_t(m)
+\end{pmatrix}
+\]
+
+il vettore riga delle probabilit\`{a} di stato al tempo \(t\), dove
+
+\[
+\pi_t(i)=\Prob(X_t=i).
+\]
+
+Per ogni stato \(j\), la legge della probabilit\`{a} totale implica
+
+\[
+\pi_{t+1}(j)
+=
+\sum_{i=1}^{m}
+\pi_t(i)p_{ij}.
+\]
+
+In forma matriciale,
+
+\[
+\pi_{t+1}=\pi_tP.
+\]
+
+Applicando ripetutamente la stessa relazione,
+
+\[
+\pi_t=\pi_0P^t.
+\]
+
+Questa formula consente di distinguere due situazioni.
+
+Se lo stato iniziale \`{e} noto, la distribuzione iniziale concentra
+tutta la probabilit\`{a} su un solo stato. Se, ad esempio, il mercato
+parte dallo stato ordinario,
+
+\[
+\pi_0
+=
+\begin{pmatrix}
+0 & 1 & 0 & 0
+\end{pmatrix}.
+\]
+
+Dopo un periodo,
+
+\[
+\pi_1
+=
+\pi_0P
+=
+\begin{pmatrix}
+0.10 & 0.65 & 0.20 & 0.05
+\end{pmatrix}.
+\]
+
+Dopo due periodi,
+
+\[
+\pi_2
+=
+\pi_0P^2
+=
+\begin{pmatrix}
+0.1250 & 0.5075 & 0.2575 & 0.1100
+\end{pmatrix}.
+\]
+
+Dopo tre periodi,
+
+\[
+\pi_3
+=
+\pi_0P^3
+=
+\begin{pmatrix}
+0.12575 & 0.44275 & 0.28125 & 0.15025
+\end{pmatrix}.
+\]
+
+La probabilit\`{a} di trovarsi nello stato di crisi passa quindi da
+\(0.05\) dopo un periodo a \(0.11\) dopo due periodi e a \(0.15025\)
+dopo tre periodi. Queste probabilit\`{a} non rappresentano la
+probabilit\`{a} di entrare per la prima volta in crisi, ma la
+probabilit\`{a} di occupare lo stato di crisi alla data considerata.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.88\textwidth]
+{../graphics/Cap08_Evoluzione_probabilita_stato.png}
+\caption{Evoluzione delle probabilit\`{a} dei quattro stati del mercato
+elettrico, a partire da una condizione iniziale ordinaria. La figura
+mostra la progressiva redistribuzione della probabilit\`{a} tra gli
+stati prodotta dalle transizioni successive.}
+\label{fig:Cap08_evoluzione_pi}
+\end{figure}
+
+
+Altre informazioni possono essere lette direttamente dalla matrice.
+Se il mercato si trova nello stato di tensione, la probabilit\`{a} di
+permanervi nel periodo successivo \`{e}
+
+\[
+p_{33}=0.50,
+\]
+
+mentre la probabilit\`{a} di ritornare allo stato ordinario \`{e}
+
+\[
+p_{32}=0.25.
+\]
+
+Se invece lo stato iniziale non \`{e} noto con certezza, si parte da una
+distribuzione non concentrata. Ad esempio, ponendo
+
+\[
+\pi_0
+=
+\begin{pmatrix}
+0.05 & 0.70 & 0.20 & 0.05
+\end{pmatrix},
+\]
+
+si ottiene
+
+\[
+\pi_1
+=
+\pi_0P
+=
+\begin{pmatrix}
+0.10 & 0.525 & 0.2625 & 0.1125
+\end{pmatrix}.
+\]
+
+In questo caso la distribuzione futura combina le transizioni
+provenienti da tutti gli stati che potevano essere occupati al tempo
+iniziale.
+
+La Figura~\ref{fig:Cap08_evoluzione_pi} rappresenta l'evoluzione delle
+probabilit\`{a} di stato quando il mercato parte con certezza dalla
+condizione ordinaria.
+
+
+La relazione
+
+\[
+\pi_t=\pi_0P^t
+\]
+
+collega quindi tre elementi distinti: la situazione iniziale, il
+meccanismo locale di transizione e la distribuzione degli stati a un
+orizzonte futuro. Lo studio delle potenze di \(P\) permette di passare
+dalle probabilit\`{a} su un solo periodo alla dinamica complessiva della
+catena.
