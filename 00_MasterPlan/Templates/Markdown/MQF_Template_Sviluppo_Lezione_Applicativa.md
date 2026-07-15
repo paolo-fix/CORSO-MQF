@@ -1,19 +1,18 @@
+# Template - Sviluppo di una lezione applicativa
+
 Sto sviluppando una delle cinque lezioni applicative Python del corso magistrale MQF — Metodi Quantitativi per la Finanza.
 
 La lezione applicativa deve essere sviluppata in modo coerente con la teoria dell’uso virtuoso dell’AI già definita nel progetto. In particolare, l’obiettivo non è insegnare Python come contenuto autonomo, ma usare Python e AI per rendere osservabili, simulabili e verificabili modelli quantitativi applicati alla finanza.
 
-Prima di scrivere contenuti, leggi dal sito pubblico del progetto, non guardare altri siti:
-
-https://paolilla25.synology.me/github-publish/public/
-
-in particolare:
+Prima di scrivere contenuti, leggi nel repository del progetto:
 
 1. `00_MasterPlan/MQF_Master_Plan.tex`;
 2. `00_MasterPlan/MQF_Project_Guidelines.md`;
 3. `00_MasterPlan/MQF_Notazione.tex`;
 4. `00_MasterPlan/MQF_Stato_Avanzamento.md`;
-5. il capitolo precedente e, se già disponibile, il capitolo della lezione applicativa in corso;
-6. eventuali notebook o materiali già presenti nella cartella `05_CodiceSt/`.
+5. `00_MasterPlan/Templates/MQF_Catalogo_Template.md`;
+6. il capitolo precedente e, se già disponibile, il capitolo della lezione applicativa in corso;
+7. eventuali notebook o materiali già presenti nella cartella `04_Codice/LezNN/`.
 
 Per questa lezione applicativa occorre progettare:
 

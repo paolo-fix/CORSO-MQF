@@ -1,147 +1,90 @@
-# MQF — Stato di Avanzamento
+# MQF - Stato di avanzamento
 
-## Snapshot al 2026-06-13
+## Funzione del documento
+
+Questo file è l'unica fonte per lo stato corrente del progetto. Registra ciò che è stato realizzato, ciò che è in lavorazione, le prossime priorità e le questioni operative aperte.
+
+Il Master Plan definisce l'architettura didattica e i contenuti previsti. Le Guidelines definiscono le regole stabili. Il Registro decisionale conserva le decisioni progettuali e le relative motivazioni.
+
+## Snapshot al 2026-07-15
 
 |  |  |
 |---|---|
-| **Ultima cosa completata** | Revisione dell'architettura del corso a partire dalla Lezione 4: nuova applicazione Python iniziale, processi stocastici sdoppiati, rimozione dell'applicazione autonoma sugli alberi binomiali, introduzione del Goal Programming. |
-| **Materiale didattico completato** | Cap. 01–03 del manuale; slides Lez. 01–03; esercizi e grafici collegati ai primi tre capitoli. |
-| **Lavoro in corso** | Riallineamento dei documenti di coordinamento: Master Plan, Guidelines, Notazione, Stato Avanzamento, registri e nomi file. |
-| **Prossima priorità** | Cap. 04 — Applicazione in Python: probabilità, variabili casuali e condizionamento. |
+| **Ultima attività completata** | Consolidamento dell'architettura dei template per formato nativo, con catalogo centrale, modelli LaTeX e Markdown e separazione tra regole normative, testi operativi e stato di attuazione. |
+| **Materiale sviluppato** | Capitoli 1-6 del manuale; slides delle Lezioni 1, 2, 3 e 5; pacchetto applicativo della Lezione 4; grafici collegati ai Capitoli 1-6. |
+| **Lavoro in corso** | Completamento dell'adeguamento dei capitoli già sviluppati al nuovo standard degli esercizi e verifica puntuale della compatibilità con Scientific WorkPlace 5.5. |
+| **Prossima priorità** | Completare gli esercizi proposti del Capitolo 6 e normalizzare le etichette delle sezioni degli esercizi nei capitoli storici. |
 
 ---
 
 ## Stato per lezione
 
-Legenda: `✓` completato · `bozza` in lavorazione · `traccia` struttura presente, contenuto da scrivere · `—` non iniziato · `n.a.` non applicabile per questa lezione
+Legenda: `sviluppato` = contenuto sostanziale presente; `parziale` = componente presente ma incompleta; `traccia` = solo struttura iniziale; `-` = non iniziato; `n.a.` = non applicabile.
 
-| Lez. | Tipo | Titolo | Capitolo manuale | Slides | Esercizi | Grafici | Python/Notebook |
+| Lez. | Tipo | Titolo sintetico | Manuale | Slides | Esercizi/materiali operativi | Grafici | Python/Notebook |
 |---:|:---:|---|:---:|:---:|:---:|:---:|:---:|
-| 1 | P | Elementi di probabilità | ✓ | ✓ | ✓ | ✓ | n.a. |
-| 2 | P | Variabili casuali | ✓ | ✓ | ✓ | ✓ | n.a. |
-| 3 | P | Valori attesi condizionati | ✓ | ✓ | ✓ | ✓ | n.a. |
-| 4 | C | Applicazione in Python: probabilità, variabili casuali e condizionamento | traccia | — | — | — | traccia |
-| 5 | P | Processi stocastici in tempo discreto | traccia | — | — | — | n.a. |
-| 6 | P | Processi stocastici in tempo continuo | traccia | — | — | — | n.a. |
-| 7 | C | Applicazione in Python: traiettorie, simulazione e pricing Monte Carlo | traccia | — | — | — | — |
-| 8 | P | Catene di Markov | traccia | — | — | — | n.a. |
-| 9 | P | Catene di Markov e misure di rischio | traccia | — | — | — | n.a. |
-| 10 | C | Applicazione in Python: rischio di credito | traccia | — | — | — | — |
-| 11 | P | Programmazione lineare | traccia | — | — | — | n.a. |
-| 12 | P | Goal Programming | traccia | — | — | — | n.a. |
-| 13 | C | Applicazione in Python: Asset Allocation e ALM | traccia | — | — | — | — |
-| 14 | P | Programmazione stocastica a due stadi | traccia | — | — | — | n.a. |
-| 15 | P | Programmazione stocastica multistadio | traccia | — | — | — | n.a. |
-| 16 | C | Applicazione in Python: programmazione stocastica | traccia | — | — | — | — |
+| 1 | P | Elementi di probabilità | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
+| 2 | P | Variabili casuali | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
+| 3 | P | Valori attesi condizionati | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
+| 4 | C | Python: probabilità e condizionamento | sviluppato | - | sviluppato | sviluppato | sviluppato |
+| 5 | P | Processi stocastici in tempo discreto | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
+| 6 | P | Processi stocastici in tempo continuo | sviluppato | - | parziale | sviluppato | n.a. |
+| 7 | C | Traiettorie, simulazione e pricing | traccia | - | - | - | - |
+| 8 | P | Catene di Markov | traccia | - | - | - | n.a. |
+| 9 | P | Markov e misure di rischio | traccia | - | - | - | n.a. |
+| 10 | C | Python: rischio di credito | traccia | - | - | - | - |
+| 11 | P | Programmazione lineare | traccia | - | - | - | n.a. |
+| 12 | P | Goal Programming | traccia | - | - | - | n.a. |
+| 13 | C | Python: Asset Allocation e ALM | traccia | - | - | - | - |
+| 14 | P | Programmazione stocastica a due stadi | traccia | - | - | - | n.a. |
+| 15 | P | Programmazione stocastica multistadio | traccia | - | - | - | n.a. |
+| 16 | C | Python: programmazione stocastica | traccia | - | - | - | - |
 
 ---
 
-## Nomi file di riferimento
+## Conformità degli esercizi nei capitoli teorici sviluppati
 
-### Manuale
+Lo standard di riferimento è definito nella Sezione 9.1.1 delle Guidelines; il modello operativo è collegato dal Catalogo dei template.
 
-```text
-/01_Manuale
-  MQF_Manuale_Master.tex
+| Capitolo | Esercizi svolti | Esercizi proposti | Stato strutturale | Intervento residuo |
+|---:|---:|---:|---|---|
+| 1 | 2 | 3 | sezioni presenti e soluzioni uniformate | aggiungere etichette alle due sezioni |
+| 2 | 4 | 10 | conforme nella struttura e nelle etichette | nessun intervento urgente |
+| 3 | 4 | 8 | sezioni presenti e soluzioni uniformate | aggiungere etichette alle due sezioni |
+| 5 | 4 | 6 | modello editoriale di riferimento | anteporre `cap5-` alle etichette storiche |
+| 6 | 5 | 0 | esercizi svolti uniformati | aggiungere gli esercizi proposti e le etichette di sezione |
 
-  /Capitoli
-    MQF_Cap_01_Probabilita.tex
-    MQF_Cap_02_Variabili_Casuali.tex
-    MQF_Cap_03_Valori_Attesi_Condizionati.tex
-    MQF_Cap_04_Python_Probabilita_Condizionamento.tex
-    MQF_Cap_05_Processi_Stocastici_Tempo_Discreto.tex
-    MQF_Cap_06_Processi_Stocastici_Tempo_Continuo.tex
-    MQF_Cap_07_Python_Traiettorie_Pricing.tex
-    MQF_Cap_08_Catene_Markov.tex
-    MQF_Cap_09_Markov_Misure_Rischio.tex
-    MQF_Cap_10_Python_Rischio_Credito.tex
-    MQF_Cap_11_Programmazione_Lineare.tex
-    MQF_Cap_12_Goal_Programming.tex
-    MQF_Cap_13_Python_Asset_Allocation_ALM.tex
-    MQF_Cap_14_Programmazione_Stocastica_Due_Stadi.tex
-    MQF_Cap_15_Programmazione_Stocastica_Multistadio.tex
-    MQF_Cap_16_Python_Programmazione_Stocastica.tex
-```
-
-### Slides
-
-```text
-/02_Slides
-  Slides_Lez_01_Elementi_probabilita.tex
-  Slides_Lez_02_Variabili_Casuali.tex
-  Slides_Lez_03_Valori_attesi_condizionati.tex
-  Slides_Lez_04_Python_Probabilita_Condizionamento.tex
-  Slides_Lez_05_Processi_Stocastici_Tempo_Discreto.tex
-  Slides_Lez_06_Processi_Stocastici_Tempo_Continuo.tex
-  Slides_Lez_07_Python_Traiettorie_Pricing.tex
-  Slides_Lez_08_Catene_Markov.tex
-  Slides_Lez_09_Markov_Misure_Rischio.tex
-  Slides_Lez_10_Python_Rischio_Credito.tex
-  Slides_Lez_11_Programmazione_Lineare.tex
-  Slides_Lez_12_Goal_Programming.tex
-  Slides_Lez_13_Python_Asset_Allocation_ALM.tex
-  Slides_Lez_14_Programmazione_Stocastica_Due_Stadi.tex
-  Slides_Lez_15_Programmazione_Stocastica_Multistadio.tex
-  Slides_Lez_16_Python_Programmazione_Stocastica.tex
-```
-
-### Python
-
-```text
-/03_Python
-  MQF_Python_01_Probabilita_Condizionamento.py
-  MQF_Python_02_Traiettorie_Pricing.py
-  MQF_Python_03_Rischio_Credito.py
-  MQF_Python_04_Asset_Allocation_ALM.py
-  MQF_Python_05_Programmazione_Stocastica.py
-```
+Il Capitolo 4 è applicativo e segue la struttura laboratoriale prevista dalle Guidelines; non rientra nel conteggio degli esercizi teorici.
 
 ---
 
-## Note sui grafici delle Lezioni 1–3
+## Stato delle componenti trasversali
 
-I grafici sono presenti nella cartella `01_Manuale/graphics/`.
-
-Grafici disponibili verificati:
-
-- Cap. 01: `Cap01_Eserc_a.png`;
-- Cap. 02: `cap2_cdf_rendimento_discreto`, `cap2_densita_uniforme_rendimento_area_01_05`, `cap2_es3_densita_cdf_affiancati`, `cap2_es4_perdita_normale_quantile_coda`, `cap2_funzione_shortfall_zero`, `cap2_normale_coda_sinistra_quantile_05`, `cap2_probabilita_area_sotto_densita`;
-- Cap. 03: `Figura_3_1`, `Figura_3_2`, `Figura_3_3`, `Figura_3_4`.
-
-Nota: la convenzione `Cap0X_` è applicata sistematicamente dal Cap. 01 in poi solo in parte. I grafici del Cap. 02 e del Cap. 03 usano nomi descrittivi; occorre decidere se rinominarli o registrarli come eccezioni stabili nelle Guidelines.
+| Componente | Stato | Nota operativa |
+|---|:---:|---|
+| Architettura documentale | consolidata | Master Plan, Guidelines, Stato di avanzamento e Registro decisionale hanno funzioni distinte e non sovrapposte. |
+| Standard degli esercizi | consolidato | La struttura editoriale è definita nelle Guidelines e resa operativa dal template LaTeX; resta da completarne l'applicazione ai capitoli indicati sopra. |
+| Sistema dei template | consolidato | I template sono organizzati per formato nativo e censiti nel catalogo centrale. |
+| Compatibilità Scientific WorkPlace 5.5 | in verifica | Si mantiene un'impostazione LaTeX conservativa; le tabelle vengono gestite singolarmente con l'ambiente `tabular`. |
+| Nomenclatura di file, figure ed etichette | parziale | La convenzione aggiornata è applicata ai nuovi materiali; alcuni elementi storici richiedono ancora riallineamento. |
 
 ---
 
-## Questioni aperte operative
+## Questioni operative aperte
 
-1. **Convenzione nomi grafici** — i grafici Cap. 02 e Cap. 03 non seguono integralmente la convenzione `Cap0X_`. Decidere se rinominarli o dichiarare l'eccezione nelle Guidelines.
+1. Completare gli esercizi proposti del Capitolo 6 secondo il nuovo standard.
+2. Normalizzare le etichette di sezione nei Capitoli 1, 3 e 6 e le etichette storiche del Capitolo 5.
+3. Gestire singolarmente le tabelle che producono righe fuori margine, mantenendo l'ambiente standard `tabular` per la compatibilità con Scientific WorkPlace 5.5.
+4. Predisporre le slides delle Lezioni 4 e 6.
+5. Verificare e integrare la notazione relativa a tempo continuo, SDE, processi OU/CIR, correlazione e Goal Programming.
+6. Definire il livello di integrazione tra simulazione di GBM/OU/processi correlati, pricing di opzioni asiatiche e sistema OU-CIR nella Lezione 7.
+7. Stabilire il caso applicativo della Lezione 13 e le librerie di ottimizzazione da utilizzare nelle Lezioni 13 e 16.
+8. Riallineare progressivamente i nomi dei file ancora non conformi alla nomenclatura definitiva del Master Plan.
 
-2. **Template LaTeX manuale** — da consolidare prima della scrittura piena del Cap. 04. I Cap. 01--03 usano shell non del tutto omogenei; verificare se mantenere la differenza o stabilire un template unico.
+---
 
-3. **Riallineamento nomi file pubblicati** — verificare che i file effettivamente presenti sul sito coincidano con i nomi definitivi del nuovo piano, in particolare per Cap. 07, Cap. 14 e Cap. 15.
+## Regola di aggiornamento
 
-4. **File master LaTeX** — verificare che `MQF_Manuale_Master.tex` e gli eventuali file master delle slides includano i nuovi nomi dei capitoli e delle lezioni.
+Aggiornare questo file quando cambia lo stato effettivo di una lezione o di uno dei suoi prodotti. Non trasferire gli indicatori di avanzamento nel Master Plan o nelle Guidelines.
 
-5. **Notazione** — verificare, nello sviluppo dei Capitoli 5--7 e 12--13, la coerenza delle nuove notazioni per martingale, GBM, OU, CIR, correlazione, Eulero--Maruyama e Goal Programming.
-
-6. **Librerie Python ammesse** — da decidere prima della scrittura definitiva del notebook della Lezione 4. Per la prima applicazione è plausibile limitarsi a `numpy`, `pandas` e `matplotlib`; le librerie di ottimizzazione saranno valutate per le applicazioni successive.
-
-7. **Formato applicazioni Python** — il notebook Jupyter è confermato come formato principale delle lezioni applicative. Resta da decidere se esportare sistematicamente anche script `.py`.
-
-8. **Dataset e simulazioni** — per la Lezione 4 si adotta una simulazione controllata con parametri stilizzati. Non è previsto l'uso di dati reali nella prima versione del caso aula.
-
-9. **Pacchetto materiali applicativi** — dopo la prima implementazione completa della Lezione 4 occorre verificare se la lista dei materiali previsti per ogni applicazione sia troppo ampia e quali elementi possano essere accorpati.
-
-10. **Prompt virtuosi** — la procedura distingue prompt zero, prompt breve di tappa e prompt autosufficiente. Dopo la Lezione 4 occorre valutare se questa distinzione debba essere mantenuta integralmente anche nelle successive applicazioni Python.
-
-11. **Tracciato IA studenti** — resta da calibrare il numero minimo e massimo di prompt ammessi per il take-home della Lezione 4.
-
-12. **Rubrica di valutazione** — la struttura generale è stata definita nelle Guidelines; resta da costruire la rubrica specifica per il take-home della Lezione 4.
-
-13. **Lezione 7** — definire il livello di integrazione tra simulazione di GBM/OU/processi correlati, pricing di opzioni asiatiche e sistema OU--CIR per obbligazioni indicizzate all'inflazione.
-
-14. **Goal Programming e ALM** — stabilire il caso applicativo specifico della Lezione 13: asset allocation multicriterio pura, liability matching, oppure formulazione integrata di Asset Liability Management.
-
-15. **Programmazione stocastica** — precisare se la Lezione 16 userà un caso semplificato di asset allocation multistadio o un modello più ricco con vincoli di portafoglio e passività.
-
-16. **Rimozione residui vecchia architettura** — verificare che non restino riferimenti alla vecchia applicazione autonoma sugli alberi binomiali, alla dualità LP come lezione autonoma o alla CVaR via PL come applicazione principale della Lezione 13.
+Quando una questione produce una scelta progettuale stabile, registrare la decisione e la motivazione nel Registro decisionale; in questo file deve restare soltanto il suo eventuale stato di attuazione.

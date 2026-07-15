@@ -1,3 +1,4 @@
+% !TeX root = ../MQF_Manuale_Master.tex
 %2multibyte Version: 5.50.0.2960 CodePage: 65001
 % MQF_Manuale_Master_SW55_Memoir.tex
 % Master del manuale MQF costruito sullo shell SW5.5 "Memoir Class for Configurable Typesetting".
@@ -443,8 +444,9 @@ Nel seguito useremo prevalentemente eventi del tipo
 poich\'{e} sono quelli che permettono di costruire la funzione di
 ripartizione, la funzione di probablit\`{a}, la densit\`{a} e i quantili.
 
-\begin{example}
-[Controimmagini nell'esempio del rendimento discreto]Riprendiamo la variabile
+\begin{example}[Controimmagini]
+\par\smallskip
+Riprendiamo la variabile
 casuale $X$ definita sull'insieme
 \[
 \Omega=\{\omega_{1},\omega_{2},\omega_{3},\omega_{4},\omega_{5},\omega_{6}\}
@@ -1711,7 +1713,8 @@ Il punto essenziale \`{e} che, se si conosce la distribuzione di $X$, \`{e}
 possibile calcolare $\E[g(X)]$ senza determinare preliminarmente la
 distribuzione della nuova variabile casuale $Y=g(X)$.
 
-\begin{proposition}[Valore atteso di una funzione di una variabile casuale]
+\begin{proposition}[Valore atteso di una funzione]
+\par\smallskip
 Sia $X$ una variabile casuale reale e sia $g:\mathbb{R}\to\mathbb{R}$ una
 funzione misurabile.
 
@@ -2735,10 +2738,11 @@ Per calcolare la varianza, usiamo la formula
 \]
 Si ha
 \[
+\begin{aligned}
 \E[X^2]
-=
-(-0.08)^2(0.08)+(-0.03)^2(0.22)+(0.01)^2(0.35)
-+(0.04)^2(0.25)+(0.10)^2(0.10).
+={}&(-0.08)^2(0.08)+(-0.03)^2(0.22)+(0.01)^2(0.35)\\
+&+(0.04)^2(0.25)+(0.10)^2(0.10).
+\end{aligned}
 \]
 Pertanto,
 \[
@@ -2896,7 +2900,8 @@ $S_T$ \`{e} una funzione di $N$; il payoff della call \`{e} una funzione non
 lineare del prezzo finale.
 \end{example}
 
-\begin{example}[Rendimento normale, probabilit\`{a} di perdita e quantile]
+\begin{example}[Rendimento normale e quantile]
+\par\smallskip
 Consideriamo un rendimento aleatorio $R$ con distribuzione normale:
 \[
 R\sim \mathcal{N}(\mu,\sigma^2),
@@ -3037,7 +3042,9 @@ capitolo. L'obiettivo \`{e} applicare in modo integrato funzione di
 probabilit\`{a}, funzione di distribuzione, valore atteso, varianza, valore
 atteso di funzioni di variabili casuali, probabilit\`{a} di coda e quantili.
 
-\subsection*{Esercizio svolto 1 --- Rendimento discreto, funzione di distribuzione e quantili}
+\begin{exercise}[Rendimento discreto: distribuzione e quantili]
+\label{ex:cap2-rendimento-discreto-cdf-quantili}
+\par\smallskip
 
 Si consideri il rendimento aleatorio $X$ di un portafoglio, con distribuzione
 discreta
@@ -3065,7 +3072,10 @@ q_{0.95}(X).
 Si definisca poi la perdita $L=-X$ e si calcolino $q_{0.95}(L)$ e
 $\Prob(L>q_{0.95}(L))$.
 
-\noindent\textbf{Soluzione.}
+\end{exercise}
+
+\noindent
+\textbf{Soluzione.}
 
 La funzione di distribuzione di $X$ si ottiene cumulando la funzione di
 probabilit\`{a}. Si ha
@@ -3165,7 +3175,8 @@ Nel caso discreto, la probabilit\`{a} di superamento di un quantile dipende dai
 salti della funzione di distribuzione. In questo esercizio essa coincide con
 $1-0.95$, ma ci\`{o} non avviene necessariamente per ogni distribuzione discreta.
 
-\subsection*{Esercizio svolto 2 --- Valore atteso di payoff non lineari}
+\begin{exercise}[Valore atteso di payoff non lineari]
+\label{ex:cap2-payoff-non-lineari}
 
 Sia $S_T$ il prezzo futuro di un'attivit\`{a} finanziaria, con distribuzione
 discreta
@@ -3196,7 +3207,10 @@ con
 (\E[S_T]-100)^+.
 \]
 
-\noindent\textbf{Soluzione.}
+\end{exercise}
+
+\noindent
+\textbf{Soluzione.}
 
 Calcoliamo anzitutto i tre payoff in corrispondenza dei possibili valori di
 $S_T$:
@@ -3296,7 +3310,9 @@ In generale, per una funzione non lineare $g$, non vale l'uguaglianza
 \E[g(X)]=g(\E[X]).
 \]
 
-\subsection*{Esercizio svolto 3 --- Densit\`{a} non uniforme, funzione di distribuzione e quantile}
+\begin{exercise}[Densit\`{a}, distribuzione e quantile]
+\label{ex:cap2-densita-cdf-quantile}
+\par\smallskip
 
 Sia $L$ una perdita aleatoria con densit\`{a}
 \[
@@ -3316,7 +3332,10 @@ calcolino
 q_{0.95}(L).
 \]
 
-\noindent\textbf{Soluzione.}
+\end{exercise}
+
+\noindent
+\textbf{Soluzione.}
 
 La costante $c$ si determina imponendo che l'integrale della densit\`{a} sia pari
 a uno:
@@ -3476,7 +3495,8 @@ densit\`{a} \`{e} crescente su $[0,1]$, la distribuzione attribuisce maggiore
 peso alle perdite elevate rispetto a una distribuzione uniforme sullo stesso
 intervallo.
 
-\subsection*{Esercizio svolto 4 --- Rendimento normale, perdita e capitale a rischio}
+\begin{exercise}[Rendimento normale, perdita e capitale a rischio]
+\label{ex:cap2-rendimento-normale-perdita-capitale}
 
 Sia
 \[
@@ -3499,7 +3519,10 @@ q_{0.99}(L),
 \]
 Si interpreti $q_{0.99}(L)$ come soglia di capitale percentuale.
 
-\noindent\textbf{Soluzione.}
+\end{exercise}
+
+\noindent
+\textbf{Soluzione.}
 
 Il rendimento ha media
 \[
@@ -3642,8 +3665,8 @@ funzione di distribuzione, densit\`{a}, valore atteso, varianza, payoff, code e
 quantili. Gli esercizi contrassegnati con un asterisco richiedono un maggiore
 grado di autonomia nell'interpretazione finanziaria dei risultati.
 
-\begin{enumerate}
-\item \textbf{Scenari, sigma-algebra e distribuzione indotta.}
+\begin{exercise}[Scenari, sigma-algebra e distribuzione indotta]
+\label{ex:cap2-prop-distribuzione-indotta}
 
 Si consideri lo spazio campionario
 \[
@@ -3700,7 +3723,10 @@ q_{0.90}(X).
 Verificare inoltre, usando le controimmagini, che gli eventi considerati
 appartengono a $\F$.
 
-\item \textbf{Rendimento discreto, perdita e quantili.}
+\end{exercise}
+
+\begin{exercise}[Rendimento discreto, perdita e quantili]
+\label{ex:cap2-prop-rendimento-perdita-quantili}
 
 Il rendimento aleatorio $X$ di un portafoglio ha distribuzione
 \[
@@ -3739,7 +3765,11 @@ q_{0.95}(L),
 Commentare la differenza tra la coda sinistra del rendimento e la coda destra
 della perdita.
 
-\item \textbf{Funzione di distribuzione a gradini e funzione di probabilit\`{a}.}
+\end{exercise}
+
+\begin{exercise}[Distribuzione a gradini e probabilit\`{a}]
+\label{ex:cap2-prop-cdf-gradini}
+\par\smallskip
 
 Sia $X$ una variabile casuale con funzione di distribuzione
 \[
@@ -3775,7 +3805,10 @@ Calcolare infine
 \]
 usando sia la funzione di distribuzione sia la funzione di probabilit\`{a}.
 
-\item \textbf{Payoff di opzioni e variabili indicatrici.}
+\end{exercise}
+
+\begin{exercise}[Payoff di opzioni e variabili indicatrici]
+\label{ex:cap2-prop-payoff-opzioni-indicatrici}
 
 Il prezzo futuro $S_T$ di un'attivit\`{a} finanziaria ha distribuzione
 \[
@@ -3815,7 +3848,10 @@ con
 Spiegare perch\'{e}, in generale, non si pu\`{o} sostituire
 $\E[g(S_T)]$ con $g(\E[S_T])$ quando $g$ \`{e} non lineare.
 
-\item \textbf{Shortfall rispetto a una soglia.}
+\end{exercise}
+
+\begin{exercise}[Shortfall rispetto a una soglia]
+\label{ex:cap2-prop-shortfall-soglia}
 
 Il rendimento $R$ di una strategia finanziaria ha distribuzione
 \[
@@ -3845,7 +3881,10 @@ U=(R-\tau)^+
 e confrontare $\E[U]$ con $\E[G]$. Interpretare finanziariamente il confronto tra
 upside atteso e shortfall atteso.
 
-\item \textbf{Modello binomiale a quattro periodi.}*
+\end{exercise}
+
+\begin{exercise}[Modello binomiale a quattro periodi (*)]
+\label{ex:cap2-prop-binomiale-quattro-periodi}
 
 Un titolo ha prezzo iniziale
 \[
@@ -3883,7 +3922,10 @@ H=(S_T-107)^+.
 \]
 Spiegare in che senso $S_T$ e $H$ sono funzioni della variabile casuale $N$.
 
-\item \textbf{Densit\`{a} lineare decrescente e quantile.}
+\end{exercise}
+
+\begin{exercise}[Densit\`{a} lineare decrescente e quantile]
+\label{ex:cap2-prop-densita-lineare}
 
 Sia $X$ una variabile casuale assolutamente continua con densit\`{a}
 \[
@@ -3905,7 +3947,11 @@ q_{0.90}(X).
 Interpretare il fatto che la densit\`{a} sia decrescente sull'intervallo
 $[0,2]$.
 
-\item \textbf{Rendimento uniforme e trasformazione non lineare.}
+\end{exercise}
+
+\begin{exercise}[Rendimento uniforme e trasformazione]
+\label{ex:cap2-prop-rendimento-uniforme}
+\par\smallskip
 
 Sia
 \[
@@ -3932,7 +3978,11 @@ Calcolare
 Spiegare perch\'{e} la variabile $G$ non ha la stessa natura distributiva della
 variabile continua $R$.
 
-\item \textbf{Rendimento normale, perdita e capitale a rischio.}*
+\end{exercise}
+
+\begin{exercise}[Rendimento normale e capitale a rischio (*)]
+\label{ex:cap2-prop-rendimento-normale}
+\par\smallskip
 
 Sia
 \[
@@ -3955,7 +4005,10 @@ q_{0.99}(L),
 Interpretare $q_{0.99}(L)$ come soglia di capitale percentuale necessaria a
 coprire la perdita con probabilit\`{a} pari al $99\%$.
 
-\item \textbf{Distribuzione lognormale e prezzo positivo.}*
+\end{exercise}
+
+\begin{exercise}[Distribuzione lognormale e prezzo positivo (*)]
+\label{ex:cap2-prop-lognormale-prezzo}
 
 Sia
 \[
@@ -3979,7 +4032,7 @@ riconducendo l'evento a una disuguaglianza sulla variabile normale $Y$.
 Determinare infine il quantile $q_{0.95}(S_T)$ usando il quantile della normale
 standard. Commentare perch\'{e} la distribuzione lognormale \`{e} adatta a
 rappresentare prezzi positivi.
-\end{enumerate}
+\end{exercise}
 
 \subsection*{Risposte sintetiche agli esercizi proposti}
 
@@ -4445,13 +4498,11 @@ finanziaria della grandezza aleatoria considerata.
 
 Il percorso logico del capitolo pu\`{o} essere riassunto nello schema
 \[
-(\Omega,\F,\Prob)
-\quad\longrightarrow\quad
-X
-\quad\longrightarrow\quad
-\Prob_X,\ F_X,\ p_X,\ f_X
-\quad\longrightarrow\quad
-\E[X],\ \Var(X),\ q_\alpha(X).
+\begin{aligned}
+(\Omega,\F,\Prob)&\longrightarrow X
+\longrightarrow (\Prob_X,F_X,p_X,f_X)\\
+&\longrightarrow (\E[X],\Var(X),q_\alpha(X)).
+\end{aligned}
 \]
 Lo spazio di probabilit\`{a} resta il fondamento formale dell'incertezza; la
 variabile casuale traduce gli esiti in valori numerici; la distribuzione descrive

@@ -221,11 +221,14 @@ La struttura consigliata dei documenti di coordinamento e':
   MQF_Notazione.tex
   MQF_Stato_Avanzamento.md
   MQF_Istruzioni_Studente_Uso_Virtuoso_IA_Casi_Applicativi.md
-  MQF_Modello_Prompt_zero_inizializzazione.md
-  MQF_Modello_Scheda_Costruzione_Caso_Applicativo.md
   MQF_Registro_Esercizi.tex
   MQF_Registro_Grafici.tex
   MQF_Registro_Decisioni.tex
+
+  /Templates
+    MQF_Catalogo_Template.md
+    /LaTeX
+    /Markdown
 ```
 
 Ogni modifica ai nomi dei file deve essere esplicita e deve essere riportata nel Master Plan, nelle Guidelines e, se necessario, nei file master LaTeX che includono i singoli capitoli o le singole lezioni.
@@ -313,6 +316,26 @@ La struttura standard di un capitolo teorico e':
 10. sintesi finale.
 
 Le dimostrazioni devono essere selettive. Devono essere incluse quando rafforzano la comprensione dei meccanismi quantitativi, ma non devono trasformare il corso in un corso astratto di probabilita' o ottimizzazione.
+
+#### 9.1.1 Standard degli esercizi nei capitoli teorici
+
+Ogni capitolo teorico deve contenere, prima della sintesi finale e in questo ordine, le sezioni `Esercizi svolti` ed `Esercizi proposti`. Il riferimento operativo e' il template LaTeX registrato in `Templates/MQF_Catalogo_Template.md`.
+
+Si applicano le seguenti regole:
+
+1. ogni esercizio usa l'ambiente standard `exercise`, gia' definito nel master del manuale;
+2. il titolo facoltativo dell'esercizio deve essere breve, descrittivo e privo di formule inutilmente complesse;
+3. ogni sezione e ogni esercizio deve avere un'etichetta univoca che includa il numero del capitolo, secondo forme quali `sec:cap08-esercizi-svolti` ed `ex:cap08-matrice-transizione`;
+4. l'enunciato deve rendere espliciti dati, unita' di misura, ipotesi e oggetti matematici necessari;
+5. le richieste multiple devono essere organizzate con `enumerate` e devono procedere, quando possibile, dal calcolo o dalla formulazione al controllo e all'interpretazione economico-finanziaria;
+6. negli esercizi svolti la soluzione completa segue immediatamente l'ambiente `exercise`, introdotta da `\noindent` e `\textbf{Soluzione.}`; non si usa un ambiente `solution`;
+7. la soluzione deve riprendere l'ordine e la numerazione delle richieste, motivare i passaggi essenziali e concludersi con un'interpretazione quando il contenuto lo consente;
+8. negli esercizi proposti non si inserisce lo svolgimento completo; si riportano soltanto, quando utili, i risultati essenziali per l'autovalutazione, introdotti da `\textit{Risultati:}`;
+9. gli esercizi proposti devono avere difficolta' progressiva e coprire sia la comprensione matematica sia il significato finanziario dei risultati;
+10. come riferimento orientativo, un capitolo teorico contiene da tre a quattro esercizi svolti e da quattro a sei esercizi proposti; il numero puo' variare in funzione dell'estensione e della difficolta' del capitolo;
+11. la sintassi deve restare prudente e compatibile con Scientific WorkPlace 5.5: ambienti LaTeX standard, formule leggibili e nessun pacchetto aggiuntivo introdotto soltanto per impaginare gli esercizi.
+
+Lo standard disciplina la forma editoriale e didattica, ma non sostituisce il Registro degli esercizi del Master Plan, che definisce gli argomenti da coprire, ne' `MQF_Stato_Avanzamento.md`, che registra lo stato effettivo di realizzazione.
 
 ### 9.2 Capitoli applicativi
 
@@ -782,6 +805,8 @@ Per ogni coppia caso aula / caso take-home devono essere chiari:
 La Scheda Costruzione Caso è il documento interno di progettazione del caso. Essa resta nelle mani del docente, ha funzione creativa primaria e deve essere redatta prima di tutte le altre fasi: prima della Scheda Caso, prima della scomposizione in tappe, prima della sequenza dei prompt e prima della costruzione del notebook.
 
 La Scheda Costruzione Caso deve essere predisposta sia per il caso aula sia per il caso take-home. La sua funzione metodologica è la stessa nei due casi. La differenza riguarda soltanto l’uso didattico successivo dei materiali: nel caso aula il materiale sostiene lo sviluppo guidato in lezione; nel caso take-home sostiene la consegna assegnata agli studenti e la valutazione del notebook e del tracciato IA.
+
+La struttura operativa canonica e' conservata nel template Markdown registrato in `Templates/MQF_Catalogo_Template.md`. Le schede compilate per le singole lezioni sono istanze del template e restano nelle rispettive cartelle applicative.
 
 La Scheda Costruzione Caso deve contenere almeno:
 
@@ -1482,79 +1507,7 @@ Per le lezioni applicative che prevedono uso documentato dell’IA, la sequenza 
 
 Il Prompt zero è il prompt di contesto iniziale. Si usa una sola volta all’inizio di una nuova chat. Serve a definire il perimetro generale della conversazione.
 
-Forma raccomandata della chiusura del Prompt zero generale:
-
-```text
-Devo risolvere un caso del corso magistrale Metodi Quantitativi per la Finanza, destinato a studenti del quinto anno di *Finanza e Risk Management*.
-
-L’obiettivo del lavoro non è imparare Python come contenuto autonomo, ma usare Python e l'Intelligenza Artificiale (AI) per rendere osservabili, simulabili e verificabili concetti quantitativi applicati alla finanza.
-
-Il caso specifico sarà fornito in un prompt successivo. Per ora non devi fare alcuna ipotesi sul contenuto del caso, sul modello, sulle variabili, sui dati, sugli scenari, sui parametri o sugli output.
-
----
-
-## Fasi del Lavoro
-Il lavoro dovrà essere sviluppato in modo ordinato attraverso le seguenti 10 fasi:
-
-1. Lettura della traccia
-2. Costruzione Flusso logico-teorico risolutivo del caso
-3. Validazione Flusso logico-teorico risolutivo
-4. Scomposizione del problema in tappe input-output
-5. Validazione della scomposizione
-6. Costruzione progressiva del notebook
-7. Produzione degli output numerici e grafici
-8. Controlli numerici, logici e interpretativi
-9. Interpretazione critica
-10. Redazione del tracciato AI
-
----
-
-## Regimi di Interazione
-Devi rispettare rigorosamente tre regimi di interazione:
-
-### Regime A — Ricognizione teorico-modellistica
-Puoi aiutarmi a identificare grandezze economico-finanziarie, variabili casuali o decisionali, eventi, stati informativi, scenari, ipotesi, formule e quantità teoriche.
-* Vincoli: Non devi risolvere il problema, non devi scegliere autonomamente il modello finale e non devi scrivere codice.
-
-### Regime B — Traduzione operativa in codice
-Puoi aiutarmi a tradurre una specifica teorica già fissata e validata in codice Python, tabelle, grafici e controlli computazionali.
-* Vincoli: Non devi modificare variabili, formule, ipotesi, stati informativi, scenari o il significato finanziario del problema.
-
-### Regime C — Verifica e interpretazione critica
-Puoi aiutarmi a revisionare controlli, risultati e interpretazioni che io abbia già formulato.
-* Vincoli: Non devi produrre l’interpretazione finale al posto mio.
-
----
-
-## Regole Operative Generali
-1. Devi rispondere solo alla fase o alla tappa richiesta.
-2. Non devi anticipare fasi successive.
-3. Non devi proporre codice se la fase è in *Regime A*.
-4. Non devi modificare il problema assegnato.
-5. Non devi introdurre strumenti teorici non richiesti o non coerenti con la traccia.
-6. Non devi scegliere autonomamente dati, parametri, scenari o formule se non ti viene richiesto esplicitamente.
-7. Non devi produrre una soluzione completa del caso.
-8. Non devi produrre il notebook completo in un unico passaggio.
-9. Non devi produrre l’interpretazione finale al posto mio.
-10. Quando una risposta richiede validazione, devi segnalare che la decisione finale spetta allo studente.
-
----
-
-## Distinzione dei Prodotti Output
-Nel corso del lavoro, dovrai aiutarmi a distinguere chiaramente:
-
-* Tracciato AI: Documento che registra prompt, risposte utilizzate, decisioni dello studente, controlli e collegamenti tra le tappe.
-* Notebook: Prodotto computazionale validato, strutturato con celle Markdown, celle codice, output numerici, grafici, controlli e interpretazioni.
-
----
-
-## Stato Attuale
-Per ora questo è solo un prompt di inizializzazione del contesto.
-
-> IMPORTANTE: Non produrre contenuti teorici, codice, formule, esempi, schede macro, scomposizioni, piani di lavoro o sintesi del caso.
->
-> Rispondi soltanto confermando che hai compreso i vincoli generali e che attenderai il prossimo prompt, nel quale sarà fornita la traccia del caso.
-```
+Il testo fisso canonico del Prompt zero e' conservato nel template Markdown registrato in `Templates/MQF_Catalogo_Template.md`. Deve essere riutilizzato senza riscritture locali; eventuali modifiche generali richiedono prima l'aggiornamento delle presenti Guidelines e poi del template.
 
 #### Prompt 1 — Scheda Caso e cella Markdown iniziale
 
@@ -1574,17 +1527,7 @@ La cella Markdown iniziale deve sintetizzare:
 8. controlli principali;
 9. vincolo che la Scheda Caso non deve essere modificata.
 
-Forma raccomandata della chiusura del Prompt 1:
-
-```text
-Dopo avere acquisito la Scheda Caso, produci una sola cella Markdown iniziale da inserire nel notebook.
-
-La cella deve sintetizzare il caso, la domanda quantitativa, la variabile finale, l'informazione disponibile, le quantità da stimare, gli output richiesti e i controlli principali.
-
-Non produrre codice, non produrre il flusso logico-teorico, non produrre tappe operative, non modificare la Scheda Caso e non anticipare risultati numerici.
-
-Restituisci solo la cella Markdown pronta da copiare nel notebook.
-```
+Il testo canonico del Prompt 1 e' conservato nel corrispondente template Markdown registrato nel Catalogo dei template. La Scheda Caso costituisce la parte variabile; le istruzioni successive costituiscono la parte fissa.
 
 Se l'IA produce formule aggiuntive, codice, tappe operative, interpretazioni o suggerimenti risolutivi, lo studente deve riportarla al vincolo del Prompt 1.
 
@@ -1598,29 +1541,7 @@ Il Prompt 2 deve contenere un contributo esplicito dello studente. Lo studente d
 
 L’IA può aiutare a verificare, completare e ordinare tale sequenza, ma non deve sostituire integralmente il lavoro dello studente. Il contributo iniziale dello studente deve restare visibile nel tracciato IA.
 
-Forma raccomandata del Prompt 2:
-
-```text
-Regime A — Ricognizione teorico-modellistica.
-
-Sulla base della Scheda Caso acquisita, devo costruire il Flusso logico-teorico risolutivo.
-Secondo me gli elementi teorici necessari, nell’ordine logico utile alla soluzione, sono:
-
-1. [parte proposta dallo studente]
-2. [parte proposta dallo studente]
-3. [parte proposta dallo studente]
-
-Ti chiedo di aiutarmi a verificare, completare e ordinare questa sequenza teorica, senza scrivere codice e senza proporre ancora la scomposizione operativa del notebook.
-
-L’output deve essere una tabella con le colonne:
-Passo;
-Finalità risolutiva;
-Formula teorico-matematica / definizione / proprietà / teorema;
-Applicazione nel caso;
-Output o controllo collegato.
-
-Devi segnalare chiaramente eventuali elementi teorici mancanti, ridondanti o fuori ordine rispetto alla soluzione del caso.
-```
+Il testo canonico del Prompt 2 e' conservato nel corrispondente template Markdown. La proposta iniziale dello studente costituisce la parte variabile e non deve essere precompilata dal docente o dall'IA.
 
 L’output obbligatorio del Prompt 2 è la tabella:
 
@@ -1637,27 +1558,7 @@ La finalità del Prompt 3 è trasformare il Flusso logico-teorico risolutivo in 
 
 L'IA può aiutare a verificare, completare e ordinare la scomposizione, ma non deve produrre direttamente il notebook e non deve modificare la Scheda Caso.
 
-Forma raccomandata del Prompt 3:
-
-```text
-Regime A/B — Scomposizione input-output.
-
-Sulla base della Scheda Caso e del Flusso logico-teorico risolutivo, propongo questa prima scomposizione del notebook in tappe:
-
-1. [tappa proposta dallo studente]
-2. [tappa proposta dallo studente]
-3. [tappa proposta dallo studente]
-
-Ti chiedo di verificare, completare e ordinare la scomposizione, senza scrivere ancora il codice completo del notebook.
-
-L'output deve essere una tabella con le colonne:
-Tappa;
-Input;
-Operazione;
-Output;
-Controllo;
-Uso successivo.
-```
+Il testo canonico del Prompt 3 e' conservato nel corrispondente template Markdown. La prima proposta di tappe costituisce la parte variabile e deve rendere visibile il contributo dello studente.
 
 Prompt generici del tipo “dividi il problema in tappe” sono considerati deboli se non rendono visibile una proposta iniziale dello studente.
 
@@ -1683,6 +1584,8 @@ Il prompt di tappa deve indicare almeno:
 
 I prompt brevi di avanzamento, come “ok, tappa k”, sono ammissibili solo se il contesto, la Scheda Caso, il Flusso logico-teorico risolutivo e la scomposizione in tappe sono già stati fissati e validati nella stessa conversazione.
 
+I testi canonici dei prompt di tappa in Regime A, B e C sono conservati in tre template Markdown distinti, registrati nel Catalogo dei template. La separazione evita di confondere il contributo teorico dello studente nei Regimi A e C con la richiesta tecnica semplificata propria del Regime B.
+
 ---
 
 ### 15.7 Grammatica del prompt virtuoso
@@ -1699,31 +1602,7 @@ Un prompt virtuoso deve rendere visibili il contesto, il regime dell'interazione
 8. controllo richiesto;
 9. uso dell'output nella tappa successiva.
 
-La grammatica minima è:
-
-```text
-Sto lavorando su [caso/problema].
-La tappa corrente è [titolo tappa].
-Gli input disponibili sono [input].
-Il regime richiesto è [A/B/C].
-Gli oggetti teorici già fissati sono [oggetti].
-Devi svolgere [compito].
-Non devi [vincoli negativi].
-L'output atteso è [formato].
-L'output sarà usato per [tappa successiva].
-```
-
-Nel Regime A, il prompt deve orientare la ricognizione teorica:
-
-> Aiutami a distinguere grandezze, variabili, eventi, informazione, ipotesi e quantità teoriche. Non risolvere il problema, non scegliere il modello finale e non scrivere codice.
-
-Nel Regime B, il prompt deve vincolare la costruzione computazionale:
-
-> Data questa specifica teorica, costruisci il codice o l'output richiesto. Puoi scegliere la forma tecnica della procedura, ma non modificare variabili, eventi, formule, ipotesi o significato finanziario.
-
-Nel Regime C, il prompt deve partire da un dubbio o da una possibile criticità individuata dallo studente:
-
-> Sto lavorando sulla seguente parte del notebook. Ho individuato questo dubbio o possibile problema. Il mio ragionamento è il seguente. Verifica criticamente il problema e classifica l'esito come criticità respinta oppure criticità accolta. Se la criticità è accolta, produci le versioni sostitutive delle celle della tappa, senza celle extra e senza modificare la Scheda Caso.
+La grammatica minima e le formulazioni operative dei tre regimi sono rese concrete nei template dei prompt di tappa registrati nel Catalogo. Le presenti Guidelines restano la fonte dei vincoli; i template sono la fonte del testo riutilizzabile.
 
 Un prompt privo di contesto, di input e di vincoli tende a produrre risposte generiche. Un prompt troppo ampio, come “risolvi il problema”, trasferisce all'IA responsabilità che nel corso devono restare allo studente.
 
@@ -2027,73 +1906,23 @@ La finalità didattica non è ridurre il lavoro dello studente, ma aumentare la 
 
 ---
 
-## 16. Stato di avanzamento da mantenere aggiornato
+## 16. Gestione dello stato di avanzamento
 
-Il progetto deve mantenere un registro di avanzamento per aree. Tale registro deve essere aggiornato periodicamente e non deve restare fissato allo stato iniziale del progetto.
+L'unica fonte per lo stato corrente del progetto e' `MQF_Stato_Avanzamento.md`. Il file deve essere aggiornato periodicamente e ogni volta che cambia lo stato effettivo di una lezione, di un capitolo o di un prodotto didattico.
 
-| Area | Stato da monitorare | Nota |
-|---|---|---|
-| Struttura delle 16 lezioni | Consolidata nella nuova architettura | Include nuova Lezione 4, processi sdoppiati, Goal Programming e rimozione dell'applicazione binomiale autonoma |
-| Notazione generale | Documento attivo | Da verificare durante lo sviluppo di ogni capitolo e applicazione |
-| Manuale | In sviluppo progressivo | Da aggiornare capitolo per capitolo, mantenendo nomi file esplicativi |
-| Slides | In sviluppo progressivo | Da produrre e revisionare lezione per lezione |
-| Esercizi teorici | In sviluppo progressivo | Da collegare a manuale e slides |
-| Applicazioni Python | Da strutturare secondo il formato laboratoriale | Cinque applicazioni previste alle Lezioni 4, 7, 10, 13 e 16 |
-| Notebook/script Python | Da predisporre per ogni applicazione | Devono includere parti guidate e parti da completare |
-| Dati applicativi | Da definire o simulare | Devono essere coerenti con i casi didattici |
-| Grafici | Da produrre progressivamente | Devono essere coerenti con manuale, slides e codice |
-| Uso dell'IA generativa | Da regolamentare nei materiali applicativi | Solo come supporto controllato |
-| Compatibilita' SWP 5.5 | Da verificare | Evitare pacchetti LaTeX moderni non necessari |
+Le presenti Guidelines definiscono regole stabili e non devono contenere tabelle, conteggi o note sullo stato corrente. Il Master Plan definisce l'architettura didattica, i contenuti previsti e i registri tematici, ma non deve riportare indicatori quali completato, in lavorazione, bozza o da scrivere.
 
-Ogni volta che una lezione viene sviluppata, occorre aggiornare il Master Plan o il registro decisionale con:
+`MQF_Stato_Avanzamento.md` registra almeno:
 
-1. titolo definitivo;
-2. obiettivi didattici;
-3. notazione introdotta;
-4. formule principali;
-5. esercizi prodotti;
-6. grafici previsti o prodotti;
-7. collegamenti Python;
-8. materiali applicativi collegati;
-9. eventuali dataset;
-10. eventuali notebook o script;
-11. questioni aperte.
+1. stato del capitolo, delle slides, degli esercizi, dei grafici e degli eventuali materiali Python per ciascuna lezione;
+2. ultima attivita' completata, lavoro in corso e prossima priorita';
+3. scostamenti rispetto al Master Plan o alle Guidelines;
+4. questioni operative ancora aperte;
+5. verifiche di conformita' rilevanti, comprese la struttura degli esercizi e la compatibilita' con Scientific WorkPlace 5.5.
 
-Per le lezioni applicative, l'aggiornamento deve inoltre indicare:
+Il Registro decisionale resta distinto: documenta le decisioni progettuali e le loro motivazioni, non lo stato di esecuzione delle attivita'.
 
-1. caso applicativo;
-2. prodotto computazionale finale;
-3. strumenti Python introdotti;
-4. tappe operative in aula;
-5. estensione take-home;
-6. criteri per l'eventuale uso dell'IA generativa.
-
-## 17. Questioni aperte
-
-Le principali questioni ancora aperte sono:
-
-1. consolidare il template LaTeX del manuale;
-2. consolidare il template LaTeX delle slides;
-3. decidere se le soluzioni complete degli esercizi saranno incluse nel manuale o in un fascicolo separato;
-4. definire il livello di dettaglio delle dimostrazioni;
-5. verificare la coerenza della notazione introdotta nei nuovi capitoli con il file `MQF_Notazione.tex`;
-6. decidere in modo stabile le librerie Python ammesse nelle applicazioni computazionali;
-7. stabilire una strategia definitiva per la produzione, il salvataggio e il richiamo dei grafici;
-8. decidere se il materiale debba includere criteri di valutazione formale o solo strumenti di autovalutazione e valutazione formativa;
-9. verificare che i file master del manuale e delle slides recepiscano i nuovi nomi dei capitoli e delle lezioni;
-10. verificare che la rimozione della lezione applicativa autonoma sugli alberi binomiali non lasci riferimenti residui nei capitoli, nelle slides o nei registri;
-11. definire una convenzione stabile per i blocchi di codice da completare in aula e nei notebook studente;
-12. calibrare, dopo lo sviluppo completo della Lezione 4, la dimensione effettiva del pacchetto dei materiali applicativi, verificando quali documenti debbano restare autonomi e quali possano essere incorporati nel notebook, nella scheda docente o nel README;
-13. verificare, dopo la prima applicazione Python, se la distinzione tra prompt zero, prompt breve di tappa e prompt autosufficiente debba essere mantenuta per tutte le lezioni applicative o adattata in funzione della complessità del caso;
-14. definire, per ciascuna applicazione successiva, il numero minimo e massimo di prompt ammessi nel tracciato IA dello studente;
-15. precisare se le consegne take-home saranno solo formative, valutabili in itinere o integrate nella valutazione finale;
-16. costruire rubriche specifiche per ciascun caso take-home, sulla base della rubrica generale definita nelle Sezioni 14 e 15;
-17. verificare la coerenza tra notebook docente, notebook studente, tracciato IA e rubrica di valutazione dopo la prima implementazione completa della Lezione 4;
-18. definire il livello di integrazione tra simulazione di GBM/OU/processi correlati, pricing di opzioni asiatiche e sistema OU--CIR nella Lezione 7;
-19. stabilire il caso applicativo specifico della Lezione 13: asset allocation multicriterio pura, liability matching, oppure formulazione integrata di Asset Liability Management;
-20. precisare se la Lezione 16 userà un caso semplificato di asset allocation multistadio o un modello più ricco con vincoli di portafoglio e passività.
-
-## 18. Principio guida finale
+## 17. Principio guida finale
 
 Il corso deve essere rigoroso nella notazione, selettivo nelle dimostrazioni, applicativo nell'interpretazione e coerente nella progressione didattica.
 
