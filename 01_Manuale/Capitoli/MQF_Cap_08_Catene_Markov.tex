@@ -35,5 +35,298 @@
 
 \section{Obiettivi della lezione}
 
-Capitolo in preparazione.
+Tra il 2019 e il 2023 i mercati elettrici europei hanno attraversato
+condizioni molto differenti. Alla fase ordinaria precedente alla
+pandemia sono seguiti la contrazione della domanda nel 2020, la ripresa
+economica, il forte aumento dei prezzi del gas naturale e, nel 2022, le
+tensioni determinate dalla guerra in Ucraina e dalla riduzione delle
+forniture energetiche russe.
+
+Nel corso di pochi anni, lo stesso mercato \`{e} quindi passato
+attraverso fasi caratterizzate da prezzi relativamente contenuti,
+condizioni ordinarie, tensioni persistenti ed episodi di crisi. In una
+situazione di questo tipo non interessa soltanto osservare il prezzo in
+un determinato giorno o mese. Occorre anche comprendere se il mercato
+tenda a permanere nella condizione corrente oppure a transitare verso
+una condizione differente.
+
+Una possibile rappresentazione consiste nell'associare a ogni periodo
+uno stato del mercato, ad esempio
+\[
+\mathcal{I}
+=
+\{
+\text{mercato depresso},
+\text{mercato ordinario},
+\text{tensione},
+\text{crisi}
+\}.
+\]
+
+Il problema guida del capitolo \`{e} il seguente:
+
+\begin{quote}
+\emph{Osservando la successione di condizioni ordinarie, tensioni e
+crisi attraversate dai mercati elettrici europei, come possiamo
+costruire un modello probabilistico degli stati di mercato, prevederne
+l'evoluzione su pi\`{u} periodi e studiarne la persistenza nel tempo?}
+\end{quote}
+
+Per rispondere occorre determinare, per ogni stato corrente, la
+probabilit\`{a} dei possibili stati successivi. Si potr\`{a} cos\`{\i}
+valutare, ad esempio, la probabilit\`{a} che una fase di tensione
+continui, che il mercato ritorni verso condizioni ordinarie oppure che
+evolva verso uno stato di crisi. Il modello dovr\`{a} inoltre consentire
+di determinare la distribuzione dei possibili stati dopo pi\`{u}
+periodi.
+
+La stessa struttura si applica ad altri problemi finanziari ed
+economici. Un emittente pu\`{o} migrare tra differenti classi di rating;
+un mercato azionario pu\`{o} attraversare regimi di bassa o elevata
+volatilit\`{a}; il mercato europeo delle quote di emissione pu\`{o}
+passare da condizioni di surplus a condizioni di maggiore scarsit\`{a}.
+
+L'analisi sar\`{a} accompagnata dalla seguente domanda critica:
+
+\begin{quote}
+\emph{La probabilit\`{a} dello stato futuro pu\`{o} essere ricondotta
+al solo stato corrente e pu\`{o} essere considerata stabile nel tempo,
+anche in presenza di shock geopolitici o cambiamenti regolatori?}
+\end{quote}
+
+Le catene di Markov forniscono il modello matematico per descrivere
+queste dinamiche mediante un insieme finito di stati e le probabilit\`{a}
+di transizione da uno stato all'altro.
+
+Al termine del capitolo lo studente dovr\`{a} essere in grado di:
+
+\begin{itemize}
+
+\item costruire una rappresentazione a stati di un fenomeno economico o
+finanziario;
+
+\item riconoscere e formulare la propriet\`{a} di Markov;
+
+\item costruire, leggere e interpretare una matrice di transizione;
+
+\item calcolare probabilit\`{a} di transizione a pi\`{u} passi e
+distribuzioni future degli stati;
+
+\item analizzare la struttura dello spazio degli stati;
+
+\item determinare e interpretare una distribuzione stazionaria;
+
+\item discutere criticamente le ipotesi su cui si fonda il modello.
+
+\end{itemize}
+
+\section{Dai fenomeni economici a un modello a stati}
+
+Prima di definire formalmente una catena di Markov, occorre chiarire
+come un fenomeno economico osservato possa essere rappresentato
+mediante una successione di stati discreti.
+
+Il punto di partenza \`{e} generalmente costituito da un sistema che
+evolve nel tempo e che pu\`{o} trovarsi in condizioni differenti. Un
+mercato elettrico, ad esempio, pu\`{o} attraversare periodi di prezzi
+contenuti, condizioni ordinarie, fasi di tensione e situazioni di crisi.
+Una simile descrizione non coincide ancora con un modello matematico:
+occorre stabilire quali variabili osservare, come delimitare gli stati e
+quale informazione utilizzare per descrivere le transizioni tra essi.
+
+\subsection{Costruzione degli stati}
+
+La costruzione di un modello a stati richiede di distinguere quattro
+elementi:
+
+\begin{itemize}
+
+\item il fenomeno economico che si intende rappresentare;
+
+\item le variabili osservabili utilizzate per descriverlo;
+
+\item il criterio con cui i valori osservati vengono classificati;
+
+\item lo stato assegnato al sistema in ciascun periodo.
+
+\end{itemize}
+
+Nel caso di un mercato elettrico, il fenomeno osservato \`{e}
+l'evoluzione delle condizioni di mercato. Tali condizioni possono
+essere descritte mediante differenti indicatori, tra cui:
+
+\begin{itemize}
+
+\item il livello del prezzo dell'energia elettrica;
+
+\item la volatilit\`{a} dei prezzi;
+
+\item la frequenza di valori particolarmente elevati o negativi;
+
+\item il margine tra capacit\`{a} produttiva disponibile e domanda;
+
+\item il prezzo del gas naturale e le condizioni di
+approvvigionamento.
+
+\end{itemize}
+
+A partire da queste informazioni si pu\`{o} assegnare il mercato, in
+ciascun periodo, a uno stato appartenente a un insieme finito. Una
+possibile rappresentazione \`{e}
+
+\[
+\mathcal{I}
+=
+\{
+\text{mercato depresso},
+\text{mercato ordinario},
+\text{tensione},
+\text{crisi}
+\}.
+\]
+
+Le denominazioni degli stati devono corrispondere a criteri
+economicamente interpretabili. Ad esempio, lo stato di tensione potrebbe
+essere associato non soltanto a un prezzo superiore a una determinata
+soglia, ma anche a una volatilit\`{a} elevata o a una riduzione del
+margine di capacit\`{a} disponibile.
+
+La scelta degli stati comporta inevitabilmente una perdita di
+informazione. Due periodi caratterizzati da prezzi differenti possono
+essere assegnati allo stesso stato se, secondo il criterio adottato,
+rappresentano condizioni economiche simili. In cambio, la
+discretizzazione permette di concentrare l'analisi sulle transizioni
+tra differenti regimi del sistema.
+
+Gli stati non sono quindi caratteristiche naturali e univoche del
+fenomeno osservato. Essi costituiscono una costruzione modellistica e
+dipendono:
+
+\begin{itemize}
+
+\item dalla domanda economica a cui si vuole rispondere;
+
+\item dalla frequenza temporale delle osservazioni;
+
+\item dalle variabili disponibili;
+
+\item dalle soglie o dalle regole di classificazione adottate.
+
+\end{itemize}
+
+La stessa serie storica pu\`{o} pertanto generare rappresentazioni
+differenti. Un'analisi giornaliera dei prezzi elettrici pu\`{o}
+distinguere eventi estremi di breve durata, mentre un'analisi mensile
+pu\`{o} mettere in evidenza regimi persistenti. La qualit\`{a} del
+modello dipende anche dalla capacit\`{a} degli stati di sintetizzare le
+caratteristiche economicamente rilevanti del sistema.
+
+\subsection{Lo stato corrente come sintesi dell'informazione}
+
+Una volta costruita la sequenza degli stati, il problema consiste nel
+descriverne l'evoluzione probabilistica. In termini generali, la storia
+del sistema fino al tempo corrente contiene informazioni che possono
+essere utili per prevedere lo stato successivo.
+
+La logica del modello markoviano pu\`{o} essere rappresentata
+schematicamente come
+
+\[
+\text{storia passata}
+\longrightarrow
+\text{stato corrente}
+\longrightarrow
+\text{distribuzione dello stato futuro}.
+\]
+
+L'ipotesi centrale \`{e} che lo stato corrente sintetizzi tutta
+l'informazione passata rilevante per la previsione dello stato
+successivo. Se, ad esempio, il mercato elettrico si trova attualmente
+in una condizione di tensione, la distribuzione delle possibili
+condizioni future viene determinata sulla base di questo stato, senza
+utilizzare separatamente l'intera successione degli stati precedenti.
+
+Questa ipotesi non afferma che il passato sia economicamente
+irrilevante. Afferma invece che l'effetto del passato \`{e} gi\`{a}
+incorporato nello stato corrente. La costruzione degli stati deve
+quindi essere sufficientemente informativa: se due situazioni con
+prospettive future molto differenti vengono classificate nello stesso
+stato, l'ipotesi rischia di risultare poco plausibile.
+
+Il collegamento con i concetti introdotti nei capitoli precedenti
+\`{e} diretto. Nel Capitolo~3 il valore atteso condizionato \`{e} stato
+interpretato come previsione basata sull'informazione disponibile. Nel
+Capitolo~5 una filtrazione ha rappresentato l'informazione accumulata
+nel tempo. Nel modello markoviano si assume che, per prevedere lo stato
+successivo, sia sufficiente condizionare sullo stato corrente anzich\'{e}
+sull'intera informazione storica.
+
+La validit\`{a} di questa semplificazione dipende dal modo in cui gli
+stati sono definiti. Nel caso dei mercati elettrici, il solo livello
+corrente del prezzo potrebbe non contenere informazioni sufficienti:
+due periodi con lo stesso prezzo possono differire per disponibilit\`{a}
+degli impianti, livello degli stoccaggi di gas o condizioni
+meteorologiche. Una definizione pi\`{u} ricca dello stato pu\`{o}
+migliorare la capacit\`{a} del modello di rappresentare la dinamica
+futura.
+
+\subsection{Omogeneit\`{a} temporale e stabilit\`{a} del modello}
+
+La dipendenza dello stato futuro dal solo stato corrente deve essere
+distinta dalla stabilit\`{a} nel tempo delle probabilit\`{a} di
+transizione.
+
+La propriet\`{a} di Markov riguarda l'informazione necessaria per
+descrivere lo stato futuro: una volta noto lo stato corrente, gli stati
+precedenti non forniscono informazione aggiuntiva.
+
+L'omogeneit\`{a} temporale riguarda invece il meccanismo di
+transizione: a parit\`{a} di stato corrente, le probabilit\`{a} dei
+possibili stati successivi vengono considerate uguali nei differenti
+periodi.
+
+Le due ipotesi sono logicamente distinte. Un sistema pu\`{o} soddisfare
+la propriet\`{a} di Markov pur presentando probabilit\`{a} di
+transizione che cambiano nel tempo.
+
+Questa distinzione \`{e} particolarmente importante nelle applicazioni
+economiche. Una matrice di transizione costruita per i mercati
+elettrici europei prima della crisi energetica potrebbe non descrivere
+correttamente le transizioni osservate dopo la riduzione delle forniture
+di gas russo. Analogamente, nel mercato europeo delle quote di
+emissione, l'introduzione della Market Stability Reserve pu\`{o} avere
+modificato la probabilit\`{a} di passare da una condizione di surplus a
+una condizione di maggiore scarsit\`{a}.
+
+L'utilizzo di una catena omogenea richiede quindi di assumere che il
+meccanismo economico che genera le transizioni rimanga sufficientemente
+stabile nell'orizzonte considerato. Tale ipotesi pu\`{o} risultare
+ragionevole in un periodo caratterizzato da regole e condizioni
+strutturali relativamente costanti, ma deve essere rivalutata in
+presenza di:
+
+\begin{itemize}
+
+\item crisi economiche o geopolitiche;
+
+\item cambiamenti regolatori;
+
+\item innovazioni tecnologiche;
+
+\item modifiche strutturali dell'offerta o della domanda;
+
+\item interventi pubblici che alterano il funzionamento del mercato.
+
+\end{itemize}
+
+Una catena omogenea non costituisce pertanto una descrizione neutrale
+dei dati. Essa \`{e} un modello fondato sull'ipotesi che, nell'intervallo
+temporale considerato, le probabilit\`{a} di transizione possano essere
+trattate come costanti.
+
+Nelle sezioni successive questa ipotesi consentir\`{a} di rappresentare
+le transizioni mediante un'unica matrice e di studiare l'evoluzione del
+sistema su pi\`{u} periodi. La sua adeguatezza dovr\`{a} tuttavia essere
+valutata alla luce del contesto economico e dell'orizzonte temporale
+dell'analisi.
 
