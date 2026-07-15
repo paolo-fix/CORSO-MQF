@@ -53,10 +53,522 @@
 \institute[]{{\large Dipartimento Economia e Management}}
 \date[]{}
 \titlegraphic{
-\includegraphics[width=3.3cm]{../graphics/logo-Unibs-esteso.png}
-}
+\includegraphics[width=3.3cm]{../graphics/logo-Unibs-esteso.png}}
 
 \begin{document}
 \maketitle
+
+
+% ============================================================
+% GRUPPO 1 -- APERTURA E ORIENTAMENTO
+% Slide 1-3
+% Tempo parziale: 7 minuti | Tempo cumulato: 7 minuti
+% ============================================================
+
+\section{Apertura}
+
+% --------------------------------------------------------
+% Slide 1 -- Collocazione della lezione
+% --------------------------------------------------------
+
+\subsection{Dal tempo discreto al tempo continuo}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Processi stocastici in tempo continuo}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Nella lezione precedente abbiamo costruito il linguaggio generale dei
+processi stocastici:
+
+\[
+\text{traiettorie}
+\quad
+\text{--}
+\quad
+\text{informazione}
+\quad
+\text{--}
+\quad
+\text{martingale}.
+\]
+
+\medskip
+
+Passiamo ora ai principali modelli finanziari in cui il tempo varia
+con continuit\`{a}:
+
+\[
+\{X_t\}_{t\geq 0}.
+\]
+
+\medskip
+
+\begin{stepitemize}
+\item Il processo viene descritto mediante una dinamica locale.
+\item L'incertezza \`{e} generata da incrementi browniani.
+\item Le traiettorie vengono poi costruite su una griglia temporale.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+
+% --------------------------------------------------------
+% Slide 2 -- Motivazione finanziaria
+% --------------------------------------------------------
+
+\subsection{Perch\'{e} servono intere traiettorie}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Perch\'{e} servono intere traiettorie?}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+\begin{stepitemize}
+
+\item Una banca deve valutare un contratto il cui payoff dipende non
+soltanto dal prezzo finale di un titolo, ma anche dai livelli raggiunti
+durante la vita del contratto.
+
+\medskip
+
+\item Un fondo pensione deve valutare un'obbligazione i cui flussi
+dipendono dall'inflazione futura e il cui valore attuale dipende
+dall'evoluzione dei tassi di interesse.
+
+\end{stepitemize}
+
+\medskip
+
+In entrambi i casi non basta descrivere una sola variabile terminale:
+occorre modellizzare l'evoluzione congiunta delle grandezze rilevanti
+lungo l'intero orizzonte temporale.
+
+\medskip
+
+\begin{center}
+{\large Come si descrivono e si generano queste traiettorie?}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+
+% --------------------------------------------------------
+% Slide 3 -- Percorso della lezione
+% --------------------------------------------------------
+
+\subsection{Percorso della lezione}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Percorso della lezione}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+La lezione costruisce il passaggio dal rumore elementare al modello
+finanziario simulabile.
+
+\medskip
+
+\begin{stepenumerate}
+\item[1.] Moto browniano e scala temporale degli incrementi.
+\item[2.] Equazioni differenziali stocastiche: drift e diffusione.
+\item[3.] Moto browniano geometrico per i prezzi.
+\item[4.] Processi mean-reverting: Ornstein--Uhlenbeck e CIR.
+\item[5.] Shock correlati nei modelli a pi\`{u} fattori.
+\item[6.] Discretizzazione mediante Eulero--Maruyama.
+\end{stepenumerate}
+
+\medskip
+
+\[
+\text{modello continuo}
+\longrightarrow
+\text{griglia temporale}
+\longrightarrow
+\text{traiettorie simulate}.
+\]
+
+\begin{center}
+{\small La Lezione 7 tradurr\`{a} questo percorso in procedure Python
+per simulazione e pricing Monte Carlo.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+
+% ============================================================
+% GRUPPO 2 -- DAL TEMPO DISCRETO AL MOTO BROWNIANO
+% Slide 4-7
+% Tempo parziale: 12 minuti | Tempo cumulato: 19 minuti
+% ============================================================
+
+\section{Moto browniano}
+
+% --------------------------------------------------------
+% Slide 4 -- Passeggiata aleatoria riscalata
+% --------------------------------------------------------
+
+\subsection{Passeggiata aleatoria riscalata}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Dalla passeggiata aleatoria alla griglia temporale}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Consideriamo una griglia uniforme dell'intervallo $[0,T]$:
+
+\[
+0=t_0<t_1<\cdots<t_n=T,
+\qquad
+\Delta t=\frac{T}{n}.
+\]
+
+A ogni intervallo associamo una innovazione gaussiana indipendente
+
+\[
+Z_1,\ldots,Z_n\sim\mathcal{N}(0,1).
+\]
+
+La passeggiata aleatoria riscalata \`{e} definita da
+
+\[
+W_{t_j}^{(n)}
+=
+\sum_{k=1}^{j}\sqrt{\Delta t}\,Z_k,
+\qquad
+j=1,\ldots,n.
+\]
+
+Il singolo incremento sulla griglia \`{e}
+
+\[
+W_{t_j}^{(n)}-W_{t_{j-1}}^{(n)}
+=
+\sqrt{\Delta t}\,Z_j.
+\]
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+
+% --------------------------------------------------------
+% Slide 5 -- Raffinamento della griglia
+% --------------------------------------------------------
+
+\subsection{Raffinamento della griglia}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Verso il tempo continuo}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Per ogni incremento della passeggiata riscalata si ha
+
+\[
+\E\left[
+W_{t_j}^{(n)}-W_{t_{j-1}}^{(n)}
+\right]
+=
+0
+\]
+
+e
+
+\[
+\Var\left(
+W_{t_j}^{(n)}-W_{t_{j-1}}^{(n)}
+\right)
+=
+\Delta t.
+\]
+
+\begin{stepitemize}
+
+\item Raffinando la griglia, $\Delta t$ diminuisce e i singoli
+incrementi diventano pi\`{u} piccoli.
+
+\item La varianza accumulata su $[0,T]$ rimane invece
+
+\[
+n\Delta t=T.
+\]
+
+\item Nel passaggio concettuale al tempo continuo si conserva la
+struttura fondamentale:
+
+\[
+\text{incrementi indipendenti con varianza pari alla durata
+dell'intervallo}.
+\]
+
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+
+% --------------------------------------------------------
+% Slide 6 -- Moto browniano standard
+% --------------------------------------------------------
+
+\subsection{Moto browniano standard}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Moto browniano standard}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Un processo $\{W_t\}_{t\geq0}$ \`{e} un \textbf{moto browniano
+standard} se soddisfa le seguenti propriet\`{a}:
+
+\begin{stepenumerate}
+
+\item[1.] Parte dall'origine:
+\[
+W_0=0.
+\]
+
+\item[2.] Le traiettorie $t\mapsto W_t(\omega)$ sono continue.
+
+\item[3.] Gli incrementi relativi a intervalli temporali disgiunti
+sono indipendenti.
+
+\item[4.] Per ogni $0\leq s<t$,
+\[
+W_t-W_s
+\sim
+\mathcal{N}(0,t-s).
+\]
+
+\end{stepenumerate}
+
+La distribuzione dell'incremento dipende soltanto dalla lunghezza
+dell'intervallo $t-s$: gli incrementi sono quindi stazionari.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+
+% --------------------------------------------------------
+% Slide 10 -- Scala della deviazione standard
+% --------------------------------------------------------
+
+\subsection{Scala della deviazione standard}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Soluzione: la regola della radice del tempo}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Poich\'{e}
+
+\[
+R_h\sim\mathcal{N}(0,\sigma^2h),
+\qquad
+\operatorname{sd}(R_h)=\sigma\sqrt{h},
+\]
+
+si ottiene:
+
+\[
+\begin{array}{c@{\qquad}c}
+\operatorname{sd}(R_{1/252})
+=
+0.20\sqrt{\dfrac{1}{252}}
+\approx
+0.0126
+&
+\operatorname{sd}(R_{5/252})
+=
+0.20\sqrt{\dfrac{5}{252}}
+\approx
+0.0282
+\end{array}
+\]
+
+Pertanto,
+
+\[
+\frac{\operatorname{sd}(R_{5/252})}
+{\operatorname{sd}(R_{1/252})}
+=
+\sqrt{5}
+\approx
+2.236.
+\]
+
+La deviazione standard a cinque giorni \`{e} circa $2.24$ volte quella
+giornaliera.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+
+% --------------------------------------------------------
+% Slide 11 -- Probabilita' di coda
+% --------------------------------------------------------
+
+\subsection{Probabilit\`{a} di uno shock negativo}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Probabilit\`{a} di uno shock giornaliero inferiore al $-2\%$}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Lo shock giornaliero ha distribuzione
+
+\[
+R_{1/252}
+\sim
+\mathcal{N}
+\left(
+0, 0.0126
+\right).
+\]
+
+Standardizzando:
+
+\[
+\Prob(R_{1/252}<-0.02)
+=
+\Phi
+\left(
+\frac{-0.02-0}{0.0126}
+\right)=\Phi(-1.587).
+\]
+
+Si ottiene
+
+\[
+\Prob(R_{1/252}<-0.02)
+=
+\Phi(-1.587)
+\approx
+0.0562.
+\]
+
+La probabilit\`{a} di uno shock giornaliero inferiore al $-2\%$
+\`{e} quindi pari a circa il $5.6\%$.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+
+
 
 \end{document}
