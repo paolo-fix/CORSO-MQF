@@ -1710,6 +1710,515 @@ automaticamente come equilibrio economico.
 \end{frame}%
 %EndExpansion
 
+%***********************************************************
+\section{Esercizio in aula: rating e default}
+
+\subsection{Esercizio B: consegna}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Esercizio B: emittente speculative grade}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Un emittente ha oggi rating \textbf{speculative grade} (stato $3$).
+Si utilizzino la matrice $P_R$ e le potenze
+
+{\small
+\[
+P_R^2
+=
+\begin{pmatrix}
+0.655 & 0.283 & 0.054 & 0.008\\
+0.127 & 0.602 & 0.198 & 0.073\\
+0.043 & 0.256 & 0.448 & 0.253\\
+0.000 & 0.000 & 0.000 & 1.000
+\end{pmatrix}
+,
+P_R^3
+=
+\begin{pmatrix}
+0.539 & 0.321 & 0.082 & 0.058\\
+0.154 & 0.510 & 0.215 & 0.121\\
+0.064 & 0.280 & 0.328 & 0.328\\
+0.000 & 0.000 & 0.000 & 1.000
+\end{pmatrix}
+\]
+}
+
+\medskip
+
+\begin{enumerate}
+\item[1.] Costruire la distribuzione iniziale $\pi_{0}$.
+
+\item[2.] Determinare la distribuzione del rating dopo tre anni e la
+probabilit\`{a} di default entro uno, due e tre anni.
+
+\item[3.] Verificare che
+$\pi_{D}=
+\begin{pmatrix}
+0 & 0 & 0 & 1
+\end{pmatrix}$
+\`{e} una distribuzione stazionaria per $P_R$.
+
+\item[4.] Con il grafo della catena: perch\'{e} da ogni stato non in
+default il default \`{e} accessibile, mentre non vale il viceversa?
+\end{enumerate}
+
+\medskip
+
+\begin{center}
+{\small Lavoro individuale o a coppie: circa 9 minuti. Seguir\`{a} la
+discussione.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%***********************************************************
+\subsection{Esercizio B: discussione}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Esercizio B: discussione}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Raccogliamo e verifichiamo i risultati.
+
+\medskip
+
+\begin{stepitemize}
+\item Nella slide sull'evoluzione dal mercato ordinario avevamo
+avvertito: probabilit\`{a} di \emph{occupare} lo stato, non di
+entrarvi per la prima volta. Perch\'{e} qui, invece, la
+probabilit\`{a} di trovarsi in default al terzo anno \textbf{coincide}
+con la probabilit\`{a} di default \emph{entro} tre anni?
+
+\item La catena di rating \`{e} riducibile: eppure la distribuzione
+stazionaria \`{e} unica. Come si concilia con i risultati visti?
+
+\item $\pi_{D}$ dice che nel lungo periodo tutta la probabilit\`{a} si
+concentra nel default. \`{E} una previsione sensata sulla
+distribuzione dei rating di un'economia?
+\end{stepitemize}
+
+\medskip
+
+\begin{center}
+{\small Lo stato assorbente accumula: occupazione ed entrata
+coincidono. La conclusione vale per un singolo emittente seguito
+indefinitamente, non per il sistema economico: nuovi ingressi,
+fusioni, cessazioni e sostituzioni sono fuori dal modello.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%***********************************************************
+\section{Sintesi}
+
+\subsection{Sintesi e raccordo}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Sintesi e raccordo con il Capitolo 9}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Il percorso della lezione:
+
+\[
+\text{stati}
+\longrightarrow
+P
+\longrightarrow
+P^{n}
+\longrightarrow
+\pi_{t}=\pi_{0}P^{t}
+\longrightarrow
+\text{struttura}
+\longrightarrow
+\pi=\pi P.
+\]
+
+\medskip
+
+Tre avvertenze da portare con s\'{e}:
+
+\begin{stepitemize}
+\item la propriet\`{a} di \textbf{Markov} e l'\textbf{omogeneit\`{a}}
+temporale sono ipotesi distinte, ed entrambe vanno giustificate nel
+caso applicativo;
+
+\item $\pi_{t}(i)$ \`{e} la probabilit\`{a} di \emph{occupare} lo stato
+$i$ al tempo $t$; coincide con la probabilit\`{a} di esservi entrati
+solo in casi particolari, come lo stato assorbente;
+
+\item la distribuzione stazionaria \`{e} condizionata alla matrice
+adottata ($P\longrightarrow\pi$) e non va interpretata automaticamente
+come equilibrio economico.
+\end{stepitemize}
+
+\medskip
+
+\begin{center}
+{\small Nel Capitolo 9, agli stati verranno associate esposizioni e
+perdite: dalle probabilit\`{a} di transizione alle misure di rischio
+$\VaR$ e $\CVaR$.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%***********************************************************
+\section{Sintesi}
+
+\subsection{Sintesi e raccordo}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Sintesi e raccordo con il Capitolo 9}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Il percorso della lezione:
+
+\[
+\text{stati}
+\longrightarrow
+P
+\longrightarrow
+P^{n}
+\longrightarrow
+\pi_{t}=\pi_{0}P^{t}
+\longrightarrow
+\text{struttura}
+\longrightarrow
+\pi=\pi P.
+\]
+
+\medskip
+
+Tre avvertenze da portare con s\'{e}:
+
+\begin{stepitemize}
+\item la propriet\`{a} di \textbf{Markov} e l'\textbf{omogeneit\`{a}}
+temporale sono ipotesi distinte, ed entrambe vanno giustificate nel
+caso applicativo;
+
+\item $\pi_{t}(i)$ \`{e} la probabilit\`{a} di \emph{occupare} lo stato
+$i$ al tempo $t$; coincide con la probabilit\`{a} di esservi entrati
+solo in casi particolari, come lo stato assorbente;
+
+\item la distribuzione stazionaria \`{e} condizionata alla matrice
+adottata ($P\longrightarrow\pi$) e non va interpretata automaticamente
+come equilibrio economico.
+\end{stepitemize}
+
+\medskip
+
+\begin{center}
+{\small Nel Capitolo 9, agli stati verranno associate esposizioni e
+perdite: dalle probabilit\`{a} di transizione alle misure di rischio
+$\VaR$ e $\CVaR$.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%***********************************************************
+\section{Back-up ed esercizi}
+
+\subsection{Back-up: periodicit\`{a}}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Back-up: periodicit\`{a} di uno stato}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Il \textbf{periodo} dello stato $i$ \`{e}
+
+\[
+d(i)
+=
+\gcd
+\{
+n\geq 1
+:
+p_{ii}^{(n)}>0
+\},
+\]
+
+il massimo comune divisore delle lunghezze dei possibili ritorni in
+$i$. Lo stato \`{e} \textbf{aperiodico} se $d(i)=1$, \textbf{periodico}
+se $d(i)>1$.
+
+\medskip
+
+Esempio di catena ciclica a tre stati:
+
+\[
+P_{\mathrm{c}}
+=
+\begin{pmatrix}
+0 & 1 & 0\\
+0 & 0 & 1\\
+1 & 0 & 0
+\end{pmatrix}
+\]
+
+\medskip
+
+\begin{stepitemize}
+\item Ogni ritorno allo stato di partenza richiede un multiplo di $3$
+passi: $d(i)=3$ per ogni stato.
+
+\item La condizione $p_{ii}>0$ \`{e} \textbf{sufficiente} ma non
+necessaria per l'aperiodicit\`{a}.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%***********************************************************
+\subsection{Back-up: catena periodica e oscillazione}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Back-up: catena periodica, distribuzione che oscilla}
+
+Per $P_{\mathrm{c}}$, partendo dallo stato $1$, la distribuzione
+$\pi_{t}$ non converge: la massa di probabilit\`{a} ruota tra gli
+stati.
+
+\medskip
+
+\begin{center}
+\includegraphics[width=0.68\textwidth]{../graphics/Cap08_Esempio_periodico.png}
+\end{center}
+
+\medskip
+
+\begin{center}
+{\small La distribuzione stazionaria esiste ed \`{e} unica (catena
+irriducibile), ma la convergenza fallisce: manca l'aperiodicit\`{a}.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%***********************************************************
+\subsection{Back-up: caratterizzazione della ricorrenza}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Back-up: ricorrenza e serie dei ritorni}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+La classificazione degli stati ammette una caratterizzazione mediante
+la serie delle probabilit\`{a} di ritorno:
+
+\begin{stepitemize}
+\item lo stato $i$ \`{e} \textbf{ricorrente} se e solo se
+\[
+\sum_{n=1}^{\infty}p_{ii}^{(n)}=\infty;
+\]
+
+\item lo stato $i$ \`{e} \textbf{transitorio} se e solo se
+\[
+\sum_{n=1}^{\infty}p_{ii}^{(n)}<\infty.
+\]
+\end{stepitemize}
+
+\medskip
+
+\begin{center}
+{\small Intuizione: per uno stato ricorrente i ritorni sono
+infinitamente frequenti; per uno stato transitorio le probabilit\`{a}
+di ritorno si spengono abbastanza in fretta da rendere la serie
+convergente. Dettagli nel manuale.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%***********************************************************
+\subsection{Back-up: esercizio sulle quote di emissione}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Back-up: quote di emissione e cambiamento di regime}
+
+Mercato delle quote di emissione, con matrici stimate prima e dopo una
+riforma regolatoria (si vedano i dati dell'esercizio proposto nel
+capitolo):
+
+\medskip
+
+\begin{enumerate}
+\item[1.] Calcolare la distribuzione stazionaria di
+$P_{\mathrm{pre}}$ e quella di $P_{\mathrm{post}}$.
+
+\item[2.] Confrontare le quote di lungo periodo dei diversi regimi di
+prezzo nei due casi.
+
+\item[3.] Discutere: che cosa \emph{misura} la differenza tra le due
+distribuzioni stazionarie? Quale ipotesi del modello \`{e} venuta meno
+nel passaggio dalla prima alla seconda matrice?
+\end{enumerate}
+
+\medskip
+
+\begin{center}
+{\small \`{E} l'unico esercizio del capitolo che quantifica la rottura
+dell'omogeneit\`{a} temporale confrontando due regimi stazionari.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%***********************************************************
+\subsection{Back-up: esercizio sui regimi di volatilit\`{a}}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Back-up: regimi di volatilit\`{a} azionaria}
+
+Regimi di volatilit\`{a} di un mercato azionario, con
+$\mathcal{I}=\{1=\text{bassa},2=\text{ordinaria},3=\text{stress}\}$ e
+la matrice $P_{V}$ dell'esercizio proposto nel capitolo:
+
+\medskip
+
+\begin{enumerate}
+\item[1.] Interpretare economicamente $p_{13}$, $p_{31}$ e $p_{33}$.
+
+\item[2.] Partendo dallo stato $3$ (stress), calcolare la
+probabilit\`{a} di stress dopo due periodi.
+
+\item[3.] Verificare che la catena \`{e} irriducibile e aperiodica.
+
+\item[4.] Calcolare la distribuzione stazionaria e interpretarne la
+componente di stress.
+
+\item[5.] Quali cambiamenti economici renderebbero non plausibile
+l'ipotesi di matrice costante nel tempo?
+\end{enumerate}
+
+\medskip
+
+\begin{center}
+{\small Esercizio consigliato come lavoro individuale a casa, con
+soluzione nel manuale.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+
 
 
 
