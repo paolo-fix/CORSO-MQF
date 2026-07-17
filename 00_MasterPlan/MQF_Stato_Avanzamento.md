@@ -6,14 +6,14 @@ Questo file è l'unica fonte per lo stato corrente del progetto. Registra ciò c
 
 Il Master Plan definisce l'architettura didattica e i contenuti previsti. Le Guidelines definiscono le regole stabili. Il Registro decisionale conserva le decisioni progettuali e le relative motivazioni.
 
-## Snapshot al 2026-07-15
+## Snapshot al 2026-07-16
 
 |  |  |
 |---|---|
-| **Ultima attività completata** | Consolidamento dell'architettura dei template per formato nativo, con catalogo centrale, modelli LaTeX e Markdown e separazione tra regole normative, testi operativi e stato di attuazione. |
-| **Materiale sviluppato** | Capitoli 1-6 del manuale; slides delle Lezioni 1, 2, 3 e 5; pacchetto applicativo della Lezione 4; grafici collegati ai Capitoli 1-6. |
-| **Lavoro in corso** | Completamento dell'adeguamento dei capitoli già sviluppati al nuovo standard degli esercizi e verifica puntuale della compatibilità con Scientific WorkPlace 5.5. |
-| **Prossima priorità** | Completare gli esercizi proposti del Capitolo 6 e normalizzare le etichette delle sezioni degli esercizi nei capitoli storici. |
+| **Ultima attività completata** | Predisposizione avanzata delle slides della Lezione 8 sulle catene di Markov, con struttura temporale calibrata, due esercizi in aula e grafici dedicati. |
+| **Materiale sviluppato** | Capitoli 1-6 e 8 del manuale; slides delle Lezioni 1, 2, 3, 5, 6 e 8; pacchetto applicativo della Lezione 4; grafici collegati ai Capitoli 1-6 e 8. |
+| **Lavoro in corso** | Allineamento tra Capitolo 8, slides Lezione 8, grafici e piano didattico; taratura tipografica puntuale delle slides della Lezione 6; completamento dell'adeguamento dei capitoli già sviluppati allo standard degli esercizi. |
+| **Prossima priorità** | Chiudere le aperture residue della Lezione 8 e completare gli esercizi proposti del Capitolo 6. |
 
 ---
 
@@ -28,9 +28,9 @@ Legenda: `sviluppato` = contenuto sostanziale presente; `parziale` = componente 
 | 3 | P | Valori attesi condizionati | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
 | 4 | C | Python: probabilità e condizionamento | sviluppato | - | sviluppato | sviluppato | sviluppato |
 | 5 | P | Processi stocastici in tempo discreto | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
-| 6 | P | Processi stocastici in tempo continuo | sviluppato | - | parziale | sviluppato | n.a. |
+| 6 | P | Processi stocastici in tempo continuo | sviluppato | sviluppato | parziale | sviluppato | n.a. |
 | 7 | C | Traiettorie, simulazione e pricing | traccia | - | - | - | - |
-| 8 | P | Catene di Markov | traccia | - | - | - | n.a. |
+| 8 | P | Catene di Markov | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
 | 9 | P | Markov e misure di rischio | traccia | - | - | - | n.a. |
 | 10 | C | Python: rischio di credito | traccia | - | - | - | - |
 | 11 | P | Programmazione lineare | traccia | - | - | - | n.a. |
@@ -39,6 +39,63 @@ Legenda: `sviluppato` = contenuto sostanziale presente; `parziale` = componente 
 | 14 | P | Programmazione stocastica a due stadi | traccia | - | - | - | n.a. |
 | 15 | P | Programmazione stocastica multistadio | traccia | - | - | - | n.a. |
 | 16 | C | Python: programmazione stocastica | traccia | - | - | - | - |
+
+---
+
+## Verifica 2026-07-17 - Lezione 6
+
+Le slides `Slides_Lez_06_Processi_Stocastici_Tempo_Continuo.tex` sono
+sviluppate e compilabili. La struttura copre il passaggio dal tempo discreto al
+moto browniano, le SDE, GBM, processi OU/CIR, shock correlati,
+discretizzazione di Eulero--Maruyama e raccordo con Python. Sono presenti
+figure coerenti con il Capitolo 6, esercizi in aula e una scansione temporale
+interna.
+
+La compilazione genera il PDF senza errori bloccanti. Restano alcuni warning
+tipografici, in particolare overfull verticali nelle parti finali su
+correlazione e discretizzazione; si tratta di taratura locale delle slides, non
+di predisposizione mancante.
+
+---
+
+## Aggiornamento 2026-07-16 - Lezione 8
+
+La Lezione 8 sulle catene di Markov è passata da traccia a sviluppo avanzato.
+Il materiale disponibile comprende il capitolo del manuale, le slides di
+lezione, un insieme di grafici dedicati e lo script sorgente per il grafo del
+mercato elettrico.
+
+### Completato
+
+- Predisposte le slides `Slides_Lez_08_Catene_Markov.tex`, con 32 slides di
+  lezione e 5 slides di back-up. La struttura è stata calibrata per una lezione
+  di 120 minuti, con due esercizi in aula e contenuti tecnici di supporto
+  collocati in back-up.
+- Integrati nelle slides due esercizi collegati agli esercizi proposti del
+  Capitolo 8: dinamica a più passi della catena e catena di rating con default.
+- Prodotti i grafici `Cap08_*`, inclusi il grafo del mercato elettrico, il grafo
+  rating-default, l'evoluzione delle probabilità di stato e il confronto con la
+  distribuzione stazionaria.
+- Archiviato lo script `04_Codice/Lez08/Cap08_grafo_mercato_elettrico.py` per la
+  generazione del grafo del mercato elettrico.
+- Inserita nel Capitolo 8 la figura del grafo del mercato elettrico e corretti
+  il refuso su `proprietà congiunta` e il blocco fuori posto sulla lettura della
+  matrice.
+- Allineato il Master Plan rimuovendo la heatmap della matrice di transizione
+  dai grafici previsti della Lezione 8 e aggiornando il riferimento alla lettura
+  del grafo nella catena di rating.
+
+### Aperture residue
+
+- Verificare la coerenza puntuale tra la consegna dell'Esercizio B nelle slides
+  e il testo dell'esercizio proposto 2 nel Capitolo 8.
+- Verificare se nelle Guidelines restano ulteriori riferimenti testuali, oltre
+  alla tabella delle 16 lezioni, da riallineare alla numerazione corrente.
+- Compilare le slides con le figure definitive e verificare larghezze,
+  leggibilità delle matrici, coerenza degli arrotondamenti e tempi degli
+  esercizi.
+- Non prevedere un take-home per la Lezione 8: le estensioni devono restare nel
+  perimetro degli esercizi proposti del capitolo.
 
 ---
 
@@ -53,6 +110,7 @@ Lo standard di riferimento è definito nella Sezione 9.1.1 delle Guidelines; il 
 | 3 | 4 | 8 | sezioni presenti e soluzioni uniformate | aggiungere etichette alle due sezioni |
 | 5 | 4 | 6 | modello editoriale di riferimento | anteporre `cap5-` alle etichette storiche |
 | 6 | 5 | 0 | esercizi svolti uniformati | aggiungere gli esercizi proposti e le etichette di sezione |
+| 8 | 0 | 4 | esercizi proposti presenti e utilizzati come base per le slides | verificare allineamento puntuale tra consegne del capitolo e formulazione nelle slides |
 
 Il Capitolo 4 è applicativo e segue la struttura laboratoriale prevista dalle Guidelines; non rientra nel conteggio degli esercizi teorici.
 
@@ -73,13 +131,19 @@ Il Capitolo 4 è applicativo e segue la struttura laboratoriale prevista dalle G
 ## Questioni operative aperte
 
 1. Completare gli esercizi proposti del Capitolo 6 secondo il nuovo standard.
-2. Normalizzare le etichette di sezione nei Capitoli 1, 3 e 6 e le etichette storiche del Capitolo 5.
+2. Aggiungere etichette coerenti (\label{...}) di sezione. **Capitoli 1 e 3**
+Hanno le sezioni esercizi, ma manca o non è uniforme la label delle sezioni. 
+**Capitolo 6**
+Ha esercizi svolti, ma va completato con esercizi proposti e relative etichette.
+**Capitolo 5**
+Ha già una struttura più completa, ma alcune etichette sono “storiche”, cioè nate prima della convenzione attuale. Per esempio potrebbero essere troppo generiche o non prefissate con cap5-.
 3. Gestire singolarmente le tabelle che producono righe fuori margine, mantenendo l'ambiente standard `tabular` per la compatibilità con Scientific WorkPlace 5.5.
-4. Predisporre le slides delle Lezioni 4 e 6.
-5. Verificare e integrare la notazione relativa a tempo continuo, SDE, processi OU/CIR, correlazione e Goal Programming.
-6. Definire il livello di integrazione tra simulazione di GBM/OU/processi correlati, pricing di opzioni asiatiche e sistema OU-CIR nella Lezione 7.
-7. Stabilire il caso applicativo della Lezione 13 e le librerie di ottimizzazione da utilizzare nelle Lezioni 13 e 16.
-8. Riallineare progressivamente i nomi dei file ancora non conformi alla nomenclatura definitiva del Master Plan.
+4. Predisporre le slides della Lezione 4.
+5. Chiudere le aperture residue della Lezione 8: confronto esercizio B, verifica Guidelines e compilazione slides.
+6. Verificare e integrare la notazione relativa a tempo continuo, SDE, processi OU/CIR, correlazione e Goal Programming.
+7. Definire il livello di integrazione tra simulazione di GBM/OU/processi correlati, pricing di opzioni asiatiche e sistema OU-CIR nella Lezione 7.
+8. Stabilire il caso applicativo della Lezione 13 e le librerie di ottimizzazione da utilizzare nelle Lezioni 13 e 16.
+9. Riallineare progressivamente i nomi dei file ancora non conformi alla nomenclatura definitiva del Master Plan.
 
 ---
 
