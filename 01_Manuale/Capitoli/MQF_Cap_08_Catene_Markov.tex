@@ -1033,7 +1033,7 @@ alla matrice.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.95\textwidth]
+\includegraphics[width=1.05\textwidth]
 {../graphics/Cap08_Grafo_rating_default.png}
 \caption{Grafo degli stati di una catena di migrazione del rating. Gli
 stati non in default comunicano tra loro, ma possono condurre alla
@@ -1575,13 +1575,124 @@ oscillare senza convergere.
 
 \subsection{Interpretazione economica e limiti}
 
-La distribuzione stazionaria descrive una configurazione probabilistica
-invariante rispetto al meccanismo di transizione. Essa non deve essere
-interpretata automaticamente come un equilibrio economico.
+\`{E} importante distinguere tre livelli di
+interpretazione della distribuzione stazionaria. In primo luogo,
+occorre chiarire quale configurazione probabilistica sia descritta
+dalla condizione
 
-Nel caso di una catena finita irriducibile, la componente \(\pi_i\)
-pu\`{o} essere interpretata come la quota di lungo periodo trascorsa
-dalla catena nello stato \(i\). Pi\`{u} precisamente, indicando con
+\[
+\pi=\pi P.
+\]
+
+In secondo luogo, occorre precisare in quale senso le componenti di
+\(\pi\) possano essere interpretate come quote o frequenze di lungo
+periodo. Infine, occorre stabilire quali condizioni ulteriori siano
+necessarie affinch\'{e} una distribuzione stazionaria possa entrare
+nella definizione di un equilibrio economico stazionario.
+
+\noindent\textbf{Invarianza della composizione tra gli stati}
+
+La distribuzione \(\pi\) pu\`{o} assumere due significati differenti.
+
+Per una singola unit\`{a}, quale un emittente o un mercato osservato in
+un determinato istante, \(\pi_i\) rappresenta la probabilit\`{a} che
+l'unit\`{a} o il mercato osservato si trovino nello stato \(i\).
+
+Per una popolazione di unit\`{a} sottoposte allo stesso meccanismo di
+transizione, \(\pi_i\) pu\`{o} invece rappresentare la quota teorica
+della popolazione appartenente allo stato \(i\).
+
+Se
+
+\[
+\pi=\pi P,
+\]
+
+la distribuzione prevista per il periodo successivo coincide con quella
+corrente. Per ogni stato \(j\),
+
+\[
+\pi_j
+=
+\sum_{i=1}^{m}\pi_i p_{ij}.
+\]
+
+La probabilit\`{a}, o quota teorica, associata allo stato \(j\) nel
+periodo successivo deriva quindi da tutte le unit\`{a} che possono
+raggiungere \(j\), comprese quelle che vi permangono.
+
+Separando la permanenza nello stato \(j\) dalle transizioni provenienti
+dagli altri stati, si ottiene
+
+\[
+\pi_j
+=
+\pi_jp_{jj}
++
+\sum_{i\neq j}\pi_i p_{ij}.
+\]
+
+Poich\'{e}
+
+\[
+1-p_{jj}
+=
+\sum_{k\neq j}p_{jk},
+\]
+
+la condizione precedente pu\`{o} essere riscritta come
+
+\[
+\sum_{i\neq j}\pi_i p_{ij}
+=
+\pi_j\sum_{k\neq j}p_{jk}.
+\]
+
+Il membro sinistro rappresenta il flusso complessivo di probabilit\`{a}
+che entra nello stato \(j\); il membro destro rappresenta il flusso
+complessivo che ne esce. La stazionariet\`{a} richiede quindi che, per
+ciascuno stato, gli afflussi e i deflussi complessivi si compensino.
+
+Non \`{e} necessario che ogni flusso bilaterale sia compensato dal
+flusso opposto. In generale, infatti, non occorre che
+
+\[
+\pi_i p_{ij}
+=
+\pi_j p_{ji}.
+\]
+
+Le singole unit\`{a} possono continuare a spostarsi tra gli stati,
+mentre la composizione probabilistica complessiva si riproduce da un
+periodo al successivo.
+
+Nel caso di una popolazione finita, le quote effettivamente osservate
+possono oscillare casualmente intorno alle quote teoriche. La
+condizione \(\pi=\pi P\) riguarda la distribuzione probabilistica e,
+sotto opportune ipotesi di indipendenza e numerosit\`{a}, la
+composizione attesa della popolazione.
+
+\noindent\textbf{Due interpretazioni del lungo periodo}
+
+La distribuzione stazionaria pu\`{o} essere collegata al lungo periodo
+in due modi distinti.
+
+Il primo riguarda l'evoluzione della distribuzione della catena. Se la
+catena \`{e} finita, irriducibile e aperiodica, allora, per ogni
+distribuzione iniziale \(\pi_0\),
+
+\[
+\pi_0P^t
+\longrightarrow
+\pi.
+\]
+
+In questo caso l'informazione contenuta nella distribuzione iniziale
+perde progressivamente rilevanza e la distribuzione degli stati tende
+alla distribuzione stazionaria.
+
+Il secondo riguarda le frequenze osservate lungo una singola
+traiettoria. Indicando con
 
 \[
 N_i(T)
@@ -1591,40 +1702,118 @@ N_i(T)
 \]
 
 il numero di periodi trascorsi nello stato \(i\) fino al tempo \(T\),
-si ha
+per una catena finita irriducibile si ha, con probabilit\`{a} uno,
 
 \[
 \frac{N_i(T)}{T+1}
 \longrightarrow
-\pi_i
+\pi_i.
 \]
 
-al crescere di \(T\), sotto le usuali condizioni di irriducibilit\`{a}.
+La componente \(\pi_i\) rappresenta quindi la quota di lungo periodo
+trascorsa dalla catena nello stato \(i\).
 
-Questa interpretazione riguarda le frequenze temporali lungo una
-traiettoria. La convergenza della distribuzione
+Le due interpretazioni non sono identiche. La convergenza della
+distribuzione \(\pi_0P^t\) richiede anche l'aperiodicit\`{a}; la
+convergenza delle frequenze temporali, in una catena finita
+irriducibile, non richiede invece tale ipotesi.
+
+Per una serie di regimi di volatilit\`{a} azionaria, ad esempio,
+\(\pi_i\) pu\`{o} essere interpretata come frequenza teorica di lungo
+periodo dello stato \(i\): bassa volatilit\`{a}, condizioni ordinarie,
+tensione o crisi. Questa lettura riguarda il tempo trascorso dal
+mercato nei differenti regimi.
+
+Per un insieme sufficientemente ampio di unit\`{a}, invece, \(\pi_i\)
+pu\`{o} descrivere la quota teorica appartenente allo stato \(i\) in
+una configurazione distributiva che si riproduce nel tempo.
+
+\noindent\textbf{Distribuzione stazionaria ed equilibrio economico}
+
+L'invarianza della composizione tra gli stati rende naturale il
+confronto con la nozione economica di equilibrio stazionario. In
+entrambi i casi si ricerca una configurazione che possa riprodursi nel
+tempo. Le due nozioni non sono tuttavia equivalenti.
+
+Nel modello markoviano sviluppato in questo capitolo, la matrice \(P\)
+\`{e} considerata assegnata o stimata dai dati. Risolvere
 
 \[
-\pi_0P^t\longrightarrow\pi
+\pi=\pi P
 \]
 
-richiede inoltre l'aperiodicit\`{a}.
+significa determinare la distribuzione compatibile con tale legge di
+transizione. La condizione stabilisce una coerenza tra la distribuzione
+degli stati e una dinamica probabilistica gi\`{a} specificata.
 
-Nel caso dei regimi di volatilit\`{a} azionaria, una distribuzione
-stazionaria potrebbe essere interpretata come frequenza teorica di
-lungo periodo degli stati di bassa volatilit\`{a}, condizioni
-ordinarie, tensione e crisi. Tale interpretazione \`{e} valida soltanto
-se la matrice di transizione rappresenta in modo sufficientemente
-stabile la dinamica del mercato nell'orizzonte considerato.
+In un modello economico dinamico di equilibrio, invece, la legge di
+transizione non \`{e} necessariamente un oggetto interamente esogeno.
+Essa pu\`{o} dipendere dalle decisioni degli agenti, dai prezzi, dai
+vincoli, dalle regole istituzionali e dagli shock.
 
-Nel mercato europeo delle quote di emissione, invece, il meccanismo di
-transizione dipende anche dalle regole istituzionali. Una matrice
-stimata prima dell'introduzione della Market Stability Reserve pu\`{o}
-generare una distribuzione stazionaria diversa da quella ottenuta dopo
-la riforma.
+Consideriamo, in termini schematici, un modello competitivo con agenti
+eterogenei. Indichiamo con \(q\) i prezzi, con \(g\) le regole
+decisionali degli agenti e con \(P(q,g)\) la matrice di transizione
+indotta da tali prezzi e decisioni.
 
-La distribuzione stazionaria \`{e} quindi condizionata alla matrice
-adottata:
+Un equilibrio stazionario richiede congiuntamente:
+
+\begin{enumerate}
+
+\item che le regole \(g\) siano ottimali per gli agenti, dati i prezzi
+\(q\) e i rispettivi vincoli;
+
+\item che le decisioni individuali siano compatibili a livello
+aggregato e che siano soddisfatte le condizioni di equilibrio dei
+mercati;
+
+\item che la matrice \(P(q,g)\) sia coerente con le decisioni degli
+agenti, con gli shock e con le regole del modello;
+
+\item che la distribuzione degli agenti sia invariante rispetto alla
+dinamica indotta:
+
+\[
+\pi=\pi P(q,g).
+\]
+\end{enumerate}
+
+La distribuzione stazionaria costituisce quindi una componente della
+definizione di equilibrio stazionario, ma non esaurisce tale
+definizione. La sola condizione
+
+\[
+\pi=\pi P
+\]
+
+non implica che le decisioni siano ottimali, che i prezzi siano
+determinati endogenamente o che i mercati siano in equilibrio.
+
+La relazione logica pu\`{o} essere sintetizzata nel modo seguente:
+
+\[
+\text{equilibrio stazionario}
+\quad\Longrightarrow\quad
+\text{distribuzione invariante coerente con l'equilibrio},
+\]
+
+mentre, in generale,
+
+\[
+\text{distribuzione invariante}
+\quad\not\Longrightarrow\quad
+\text{equilibrio economico}.
+\]
+
+Nel presente capitolo non viene costruito un modello di equilibrio dei
+mercati elettrici, finanziari o creditizi. La distribuzione
+stazionaria descrive il lungo periodo implicato dalla matrice \(P\),
+condizionatamente alla validit\`{a} del modello markoviano adottato.
+
+\noindent\textbf{Dipendenza dalla matrice di transizione}
+
+La distribuzione stazionaria non \`{e} una caratteristica indipendente
+dal modello. Essa dipende dalla matrice di transizione:
 
 \[
 P
@@ -1632,13 +1821,33 @@ P
 \pi.
 \]
 
-Se cambia la regolazione, la struttura produttiva o il comportamento
-degli operatori, pu\`{o} cambiare \(P\) e, di conseguenza, pu\`{o}
-cambiare anche \(\pi\). La stazionariet\`{a} non implica che il sistema
-economico sia strutturalmente immutabile.
+Se cambiano le probabilit\`{a} di transizione, cambia in generale anche
+la distribuzione stazionaria.
 
-Un caso particolarmente istruttivo \`{e} quello della catena di rating
-con default assorbente:
+Nel caso dei regimi di volatilit\`{a}, una matrice stimata in un periodo
+di relativa stabilit\`{a} pu\`{o} non rappresentare adeguatamente una
+fase caratterizzata da crisi finanziarie, cambiamenti nella politica
+monetaria o modifiche della struttura dei mercati.
+
+Il mercato europeo delle quote di emissione fornisce un esempio ancora
+pi\`{u} diretto. L'introduzione della Market Stability Reserve ha
+modificato il meccanismo attraverso cui l'offerta di quote reagisce
+agli squilibri del mercato. Una matrice stimata prima della riforma e
+una matrice stimata dopo la riforma possono quindi produrre
+distribuzioni stazionarie differenti.
+
+Questo risultato non costituisce un'anomalia. Esso mostra che la
+distribuzione stazionaria \`{e} riferita a uno specifico assetto
+istituzionale e a uno specifico meccanismo di transizione. Non pu\`{o}
+essere interpretata come una propriet\`{a} permanente del sistema
+economico se tale meccanismo cambia nel tempo.
+
+\noindent\textbf{Unit\`{a} osservata e dinamica della popolazione}
+
+Un secondo limite interpretativo riguarda la scelta dell'unit\`{a}
+rappresentata dalla catena.
+
+Consideriamo nuovamente la matrice di migrazione dei rating:
 
 \[
 P=
@@ -1650,8 +1859,8 @@ P=
 \end{pmatrix}.
 \]
 
-Poich\'{e} il default \`{e} l'unica classe chiusa, la distribuzione
-stazionaria \`{e}
+Per questa matrice, il default costituisce l'unica classe chiusa e la
+distribuzione stazionaria \`{e}
 
 \[
 \pi_D
@@ -1661,34 +1870,65 @@ stazionaria \`{e}
 \end{pmatrix}.
 \]
 
-Il risultato indica che, seguendo indefinitamente un singolo emittente
-nel modello, la probabilit\`{a} finisce per concentrarsi sullo stato di
-default.
+Se la catena descrive la storia di un singolo emittente e il default
+\`{e} assorbente, il risultato ha un significato preciso: seguendo
+l'emittente indefinitamente nel modello, la probabilit\`{a} finisce per
+concentrarsi sul default.
 
-La conclusione \`{e} matematicamente coerente con la struttura della
-catena, ma non rappresenta necessariamente la distribuzione di lungo
-periodo dei rating osservata in un'intera economia. Una popolazione di
-imprese viene infatti continuamente modificata dall'ingresso di nuovi
-emittenti, dalle fusioni, dalle cessazioni e dalla sostituzione delle
-imprese in default.
-
-La distribuzione
+Non segue, tuttavia, che la distribuzione dei rating dell'intera
+economia debba convergere a
 
 \[
 \begin{pmatrix}
 0&0&0&1
-\end{pmatrix}
+\end{pmatrix}.
 \]
 
-descrive quindi il limite del modello riferito a un singolo emittente,
-non un equilibrio permanente della popolazione delle imprese.
+La popolazione degli emittenti non \`{e} chiusa e immutabile. Nuove
+imprese entrano nel mercato, altre cessano l'attivit\`{a}, le imprese in
+default vengono rimosse o ristrutturate e la composizione della
+popolazione cambia nel tempo.
 
-In generale, una distribuzione stazionaria deve essere interpretata
-come propriet\`{a} congiunta della matrice di transizione e del sistema
-rappresentato. Il suo significato economico dipende dalla plausibilit\`{a}
-dell'omogeneit\`{a} temporale, dalla definizione degli stati e dalla
-presenza di ingressi, uscite o cambiamenti strutturali non inclusi nel
-modello.
+La matrice precedente descrive le transizioni di un emittente gi\`{a}
+presente, ma non include i flussi di entrata e di uscita dalla
+popolazione. Per studiare la distribuzione trasversale permanente dei
+rating sarebbe quindi necessario ampliare il modello, introducendo
+esplicitamente tali flussi.
+
+La distribuzione concentrata sul default \`{e} dunque corretta per il
+problema formulato a livello del singolo emittente. Diventa invece
+inadeguata se viene trasferita meccanicamente a una popolazione
+continuamente rinnovata.
+
+\noindent\textbf{Criteri per l'interpretazione}
+
+Prima di attribuire un significato economico a una distribuzione
+stazionaria occorre quindi chiarire:
+
+\begin{enumerate}
+
+\item quale unit\`{a} economica sia rappresentata dalla catena;
+
+\item se \(\pi\) descriva l'incertezza su una singola unit\`{a}, una
+frequenza temporale o una distribuzione trasversale;
+
+\item se la matrice \(P\) possa essere considerata stabile
+nell'orizzonte analizzato;
+
+\item se \(P\) sia assegnata esogenamente oppure derivi da decisioni,
+prezzi e condizioni di equilibrio;
+
+\item se il modello includa i meccanismi di entrata, uscita e
+sostituzione rilevanti per la popolazione studiata.
+\end{enumerate}
+
+Solo dopo aver precisato questi elementi la distribuzione stazionaria
+pu\`{o} essere interpretata correttamente. Essa pu\`{o} descrivere una
+frequenza di lungo periodo, una composizione distributiva persistente
+o una componente di un equilibrio stazionario. In assenza delle
+condizioni necessarie, rimane una propriet\`{a} della matrice di
+transizione adottata, non una conclusione autonoma sul funzionamento
+dell'economia.
 
 \section{Applicazioni, esercizi e sintesi}
 

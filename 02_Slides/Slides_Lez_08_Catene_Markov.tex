@@ -514,6 +514,47 @@ economico.}
 %EndExpansion
 
 %***********************************************************
+\subsection{Rappresentazione mediante grafo}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Rappresentazione mediante grafo orientato}
+
+Ogni stato \`{e} un nodo; ogni transizione con probabilit\`{a} positiva
+\`{e} un arco orientato, con peso pari alla probabilit\`{a} di
+transizione.
+
+\medskip
+
+\begin{center}
+\includegraphics[width=0.62\textwidth]{../graphics/Cap08_Grafo_mercato_elettrico.png}
+\end{center}
+
+\medskip
+
+Il grafo mette subito in evidenza: transizioni possibili e impossibili,
+stati con elevata persistenza, percorsi di passaggio tra stati.
+
+\medskip
+
+\begin{center}
+{\small La matrice \`{e} pi\`{u} adatta al calcolo; il grafo \`{e}
+pi\`{u} adatto all'interpretazione.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%***********************************************************
 \subsection{Verifica rapida}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
@@ -624,46 +665,6 @@ particolare di distribuzione iniziale.}
 \end{frame}%
 %EndExpansion
 
-%***********************************************************
-\subsection{Rappresentazione mediante grafo}
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\QTR{frametitle}{Rappresentazione mediante grafo orientato}
-
-Ogni stato \`{e} un nodo; ogni transizione con probabilit\`{a} positiva
-\`{e} un arco orientato, con peso pari alla probabilit\`{a} di
-transizione.
-
-\medskip
-
-\begin{center}
-\includegraphics[width=0.62\textwidth]{../graphics/Cap08_Grafo_mercato_elettrico.png}
-\end{center}
-
-\medskip
-
-Il grafo mette subito in evidenza: transizioni possibili e impossibili,
-stati con elevata persistenza, percorsi di passaggio tra stati.
-
-\medskip
-
-\begin{center}
-{\small La matrice \`{e} pi\`{u} adatta al calcolo; il grafo \`{e}
-pi\`{u} adatto all'interpretazione.}
-\end{center}
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout%
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
 
 %***********************************************************
 \section{Dinamica multiperiodale}
@@ -687,11 +688,10 @@ tutti i possibili stati intermedi. Condizionando sullo stato occupato
 al tempo $t+1$:
 
 \[
-\Prob(X_{t+2}=j\mid X_{t}=i)
-=
-\sum_{k=1}^{m}
-\Prob(X_{t+2}=j\mid X_{t+1}=k,X_{t}=i)
-\Prob(X_{t+1}=k\mid X_{t}=i).
+\begin{aligned}
+\Prob(X_{t+2}=j\mid X_{t}=i) = {} & \sum_{k=1}^{m} \Prob(X_{t+2}=j\mid X_{t+1}=k,X_{t}=i) \\
+& \times \Prob(X_{t+1}=k\mid X_{t}=i).
+\end{aligned}
 \]
 
 \medskip
