@@ -34,7 +34,7 @@ Il lavoro resta responsabilità dello studente.
 Per ogni caso applicativo il docente fornisce:
 
 1. Prompt zero;
-2. Prompt 1, contenente la Scheda Caso;
+2. Prompt 1, contenente integralmente la Scheda Caso e le istruzioni fisse per produrre la cella Markdown iniziale del Jupyter Notebook;
 3. Le presenti "Istruzioni" che forniscono:  
     - indicazioni sugli output richiesti
     - indicazioni sulla consegna;
@@ -62,6 +62,8 @@ Per un caso applicativo con uso documentato dell’IA devi consegnare:
 1. notebook Jupyter eseguibile;
 2. stampa PDF della chat IA utilizzata per il lavoro;
 3. eventuali file aggiuntivi richiesti dal docente.
+
+Il Jupyter Notebook deve aprirsi con la cella Markdown iniziale prodotta in risposta al Prompt 1 e verificata dallo studente.
 
 La stampa PDF della chat IA costituisce il tracciato dell’interazione con l’IA.
 
@@ -145,7 +147,7 @@ La sequenza iniziale è:
 | Prompt | Chi lo fornisce | Funzione | Valutazione |
 |---|---|---|---|
 | Prompt zero | docente | inizializza contesto, regimi e regole generali | non valuta il contributo dello studente |
-| Prompt 1 | docente | fornisce la Scheda Caso e chiede acquisizione non produttiva | non valuta il contributo dello studente |
+| Prompt 1 | docente | fornisce integralmente la Scheda Caso come specifica vincolante e richiede la cella Markdown iniziale di inquadramento | non valuta il contributo dello studente |
 | Prompt 2 | studente + IA | costruisce il Flusso logico-teorico risolutivo | valuta contributo iniziale dello studente, ordine logico, collegamento tra teoria, output e controlli |
 | Prompt 3 | studente + IA | costruisce la scomposizione in tappe input-output | valuta la proposta operativa iniziale dello studente |
 | Prompt di tappa | studente + IA | sviluppa, codifica o verifica singole tappe | valuta specificità, controlli e uso critico dell’IA |
@@ -162,21 +164,36 @@ Deve essere usato senza modificarlo, salvo istruzioni esplicite del docente.
 
 ---
 
-## 7. Prompt 1 — Acquisizione della Scheda Caso
+## 7. Prompt 1 — Scheda Caso e cella Markdown iniziale
 
-Il Prompt 1 è fornito dal docente e contiene la Scheda Caso.
+Il Prompt 1 è fornito integralmente dal docente e contiene:
 
-È un prompt non produttivo.
+1. la Scheda Caso, che costituisce la parte variabile riferita allo specifico caso;
+2. le istruzioni fisse che disciplinano la risposta dell’IA.
 
-L’IA deve soltanto acquisire la Scheda Caso come specifica vincolante e rispondere con una conferma minima.
+Il Prompt 1 è produttivo, perché genera la prima cella Markdown del Jupyter Notebook, ma non è valutativo: non richiede un contributo autonomo dello studente.
 
-Risposta attesa:
+L’IA deve acquisire la Scheda Caso come specifica vincolante e non deve modificarne contenuti, variabili, formule, parametri, output, controlli o ipotesi.
 
-<pre class="prompt-docente">
-OK, scheda acquisita.
-</pre>
+La risposta deve consistere in una sola cella Markdown iniziale che:
 
-Se l’IA produce sintesi, codice, formule aggiuntive, tappe operative o suggerimenti, lo studente deve riportarla al vincolo iniziale.
+1. inquadra titolo, contesto, domanda quantitativa, variabile finale e informazione disponibile;
+2. presenta separatamente le quantità da stimare o calcolare;
+3. riporta tutti gli output richiesti conservando categorie e numerazione della Scheda Caso;
+4. dedica una voce distinta a ciascuna tabella e a ciascuna figura;
+5. riporta i controlli richiesti conservando categorie e numerazione;
+6. esplicita che la Scheda Caso costituisce la specifica vincolante del lavoro e non deve essere modificata.
+
+La cella non deve contenere codice, Flusso logico-teorico risolutivo, tappe operative, risultati numerici, conclusioni, interpretazioni o suggerimenti risolutivi.
+
+Prima di inserirla nel notebook, lo studente deve verificare che la cella:
+
+1. sia fedele alla Scheda Caso;
+2. non ometta quantità, tabelle, figure o controlli richiesti;
+3. non introduca contenuti estranei;
+4. rispetti la struttura Markdown prevista.
+
+Se questi vincoli non sono rispettati, lo studente deve chiedere all’IA una correzione prima di proseguire con Prompt 2.
 
 ---
 
@@ -747,15 +764,16 @@ La chat IA consegnata deve documentare l'intero processo di lavoro, inclusivo di
 
 Deve contenere:
 
-1. Prompt zero;
-2. Prompt 1;
-3. Prompt 2;
-4. risposta IA al Prompt 2;
-5. Prompt 3;
-6. risposta IA al Prompt 3;
-7. prompt di tappa e relative risposte IA;
-8. eventuali prompt di verifica e relative risposte IA;
-9. interpretazione finale o verifica dell’interpretazione.
+1. Prompt zero e relativa risposta;
+2. Prompt 1 completo, inclusivo della Scheda Caso e delle istruzioni fisse;
+3. risposta IA al Prompt 1, contenente la cella Markdown iniziale;
+4. Prompt 2;
+5. risposta IA al Prompt 2;
+6. Prompt 3;
+7. risposta IA al Prompt 3;
+8. prompt di tappa e relative risposte IA;
+9. eventuali prompt di verifica e relative risposte IA;
+10. interpretazione finale o verifica dell’interpretazione.
 
 Non deve contenere:
 
