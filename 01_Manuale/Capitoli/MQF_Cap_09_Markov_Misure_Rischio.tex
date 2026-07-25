@@ -2772,7 +2772,7 @@ ripartizione raggiunge almeno $0.95$ \`{e} quindi $8$.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.82\textwidth]
-{graphics/Cap09_funzione_ripartizione_quantile.png}
+{../graphics/Cap09_funzione_ripartizione_quantile.png}
 \caption{Funzione di ripartizione discreta della perdita e quantile di
 livello $0.95$.}
 \label{fig:cap09-cdf-quantile}
@@ -5683,7 +5683,7 @@ come evidenziato nella figura \ref{fig:cap09-cdf-hedged-var-cvar}
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.82\textwidth]
-{./graphics/Cap09_cdf_hedged_var_cvar.png}
+{../graphics/Cap09_cdf_hedged_var_cvar.png}
 \caption{Funzione di ripartizione della perdita della posizione coperta.
 Al livello $\alpha=0.95$, si ha $\VaR_{0.95}^{\Prob}(L^{\mathrm{hedged}})=10$.
 La coda peggiore di probabilit\`{a} $0.05$ \`{e} interamente contenuta
@@ -8901,6 +8901,424 @@ in generale.
 
 \end{enumerate}
 
+\begin{exercise}[Sensibilit\`{a} dello spread equo di un CDS]
+
+\label{ex:cap09-sensibilita-spread-cds}
+
+Si consideri un CDS con nozionale
+
+\[
+N=100
+\]
+
+e scadenza $H=3$. I fattori di sconto sono
+
+\[
+d_1=0.98,
+\qquad
+d_2=0.95,
+\qquad
+d_3=0.92.
+\]
+
+Nel primo scenario, le probabilit\`{a} marginali risk-neutral di
+default sono
+
+\[
+\Prob^{\Q}(\tau_D=1)=0.03,
+\qquad
+\Prob^{\Q}(\tau_D=2)=0.04,
+\qquad
+\Prob^{\Q}(\tau_D=3)=0.05.
+\]
+
+Le probabilit\`{a} di sopravvivenza sono pertanto
+
+\[
+\Prob^{\Q}(\tau_D>1)=0.97,
+\qquad
+\Prob^{\Q}(\tau_D>2)=0.93,
+\qquad
+\Prob^{\Q}(\tau_D>3)=0.88.
+\]
+
+Si assume che il premio alla data $h$ venga pagato soltanto se
+$\tau_D>h$.
+
+\begin{enumerate}
+
+\item Con recovery rate $R=0.40$, calcolare il valore attuale della
+gamba di protezione e il coefficiente della gamba dei premi.
+
+\item Determinare lo spread equo $s^*$.
+
+\item Ripetere il calcolo per $R=0.30$ e $R=0.50$, mantenendo
+invariate le probabilit\`{a} risk-neutral.
+
+\item Considerare un secondo scenario con probabilit\`{a} marginali
+risk-neutral
+
+\[
+0.04,
+\qquad
+0.05,
+\qquad
+0.07.
+\]
+
+Calcolare il nuovo spread equo per $R=0.40$.
+
+\item Interpretare separatamente l'effetto del recovery rate e quello
+delle probabilit\`{a} risk-neutral.
+\end{enumerate}
+\end{exercise}
+
+\noindent
+\textbf{Soluzione.}
+
+\begin{enumerate}
+
+\item Introduciamo il fattore attualizzato associato alla gamba di
+protezione:
+
+\[
+A_{\mathrm{prot}}
+=
+\sum_{h=1}^{3}
+d_h
+\Prob^{\Q}(\tau_D=h).
+\]
+
+Sostituendo i dati:
+
+\[
+\begin{split}
+A_{\mathrm{prot}}
+&=
+(0.98)(0.03)
++
+(0.95)(0.04)
++
+(0.92)(0.05)
+\\
+&=
+0.0294+0.0380+0.0460
+\\
+&=
+0.1134.
+\end{split}
+\]
+
+Il valore attuale della gamba di protezione, per $R=0.40$, \`{e}
+
+\[
+\begin{split}
+\mathrm{PV}_{\mathrm{prot}}
+&=
+N(1-R)A_{\mathrm{prot}}
+\\
+&=
+100(0.60)(0.1134)
+\\
+&=
+6.804.
+\end{split}
+\]
+
+Per la gamba dei premi definiamo
+
+\[
+A_{\mathrm{prem}}
+=
+\sum_{h=1}^{3}
+d_h
+\Prob^{\Q}(\tau_D>h).
+\]
+
+Si ottiene:
+
+\[
+\begin{split}
+A_{\mathrm{prem}}
+&=
+(0.98)(0.97)
++
+(0.95)(0.93)
++
+(0.92)(0.88)
+\\
+&=
+0.9506+0.8835+0.8096
+\\
+&=
+2.6437.
+\end{split}
+\]
+
+Pertanto,
+
+\[
+\mathrm{PV}_{\mathrm{prem}}(s)
+=
+sNA_{\mathrm{prem}}
+=
+264.37s.
+\]
+
+\item Lo spread equo $s^{*}$ rende uguali i valori attuali delle due
+gambe:
+
+\[
+\mathrm{PV}_{\mathrm{prot}}
+=
+\mathrm{PV}_{\mathrm{prem}}(s^{*}).
+\]
+
+Quindi,
+
+\[
+6.804
+=
+264.37s^{*},
+\]
+
+da cui
+
+\[
+s^{*}
+=
+\frac{6.804}{264.37}
+\approx
+0.02574.
+\]
+
+Lo spread equo annuale \`{e} quindi circa
+
+\[
+\boxed{
+s^{*}=2.574\%
+}
+\]
+
+ossia
+
+\[
+\boxed{
+s^{*}\approx257.4\text{ punti base}.
+}
+\]
+
+Il nozionale compare in entrambe le gambe e si semplifica nella
+determinazione dello spread:
+
+\[
+s^{*}
+=
+(1-R)
+\frac{
+A_{\mathrm{prot}}
+}{
+A_{\mathrm{prem}}
+}.
+\]
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]
+{../graphics/Cap09_CDS_equilibrio_gambe.png}
+\caption{Determinazione dello spread equo del CDS. Il valore attuale
+della gamba di protezione non dipende dallo spread contrattuale,
+mentre il valore attuale della gamba dei premi cresce linearmente con
+esso. Il punto di intersezione identifica lo spread equo
+$s^{*}\approx257.4$ punti base, per il quale le due gambe hanno valore
+attuale pari a $6.804$.}
+\label{fig:cap09-cds-equilibrio-gambe}
+\end{figure}
+
+\item Mantenendo invariate le probabilit\`{a} risk-neutral e i fattori
+di sconto, la sensibilit\`{a} rispetto al recovery rate \`{e}
+
+\[
+s^{*}(R)
+=
+(1-R)
+\frac{0.1134}{2.6437}.
+\]
+
+Per $R=0.30$:
+
+\[
+\begin{split}
+s^{*}(0.30)
+&=
+0.70
+\frac{0.1134}{2.6437}
+\\
+&\approx
+0.03003,
+\end{split}
+\]
+
+ossia circa
+
+\[
+\boxed{
+300.3\text{ punti base}.
+}
+\]
+
+Per $R=0.50$:
+
+\[
+\begin{split}
+s^{*}(0.50)
+&=
+0.50
+\frac{0.1134}{2.6437}
+\\
+&\approx
+0.02145,
+\end{split}
+\]
+
+ossia circa
+
+\[
+\boxed{
+214.5\text{ punti base}.
+}
+\]
+
+A parit\`{a} delle altre condizioni, un recovery rate pi\`{u} elevato
+riduce il pagamento atteso della protezione e quindi riduce lo spread
+equo.
+
+\item Nel secondo scenario, le probabilit\`{a} marginali risk-neutral
+di default sono
+
+\[
+0.04,
+\qquad
+0.05,
+\qquad
+0.07.
+\]
+
+Le corrispondenti probabilit\`{a} di sopravvivenza sono:
+
+\[
+\Prob^{\Q}(\tau_D>1)=0.96,
+\]
+
+\[
+\Prob^{\Q}(\tau_D>2)
+=
+1-0.04-0.05
+=
+0.91,
+\]
+
+e
+
+\[
+\Prob^{\Q}(\tau_D>3)
+=
+1-0.04-0.05-0.07
+=
+0.84.
+\]
+
+Il nuovo fattore della gamba di protezione \`{e}
+
+\[
+\begin{split}
+A_{\mathrm{prot}}^{(2)}
+&=
+(0.98)(0.04)
++
+(0.95)(0.05)
++
+(0.92)(0.07)
+\\
+&=
+0.0392+0.0475+0.0644
+\\
+&=
+0.1511.
+\end{split}
+\]
+
+Il fattore della gamba dei premi \`{e}
+
+\[
+\begin{split}
+A_{\mathrm{prem}}^{(2)}
+&=
+(0.98)(0.96)
++
+(0.95)(0.91)
++
+(0.92)(0.84)
+\\
+&=
+0.9408+0.8645+0.7728
+\\
+&=
+2.5781.
+\end{split}
+\]
+
+Con $R=0.40$:
+
+\[
+\begin{split}
+s^{*}_{2}
+&=
+0.60
+\frac{0.1511}{2.5781}
+\\
+&\approx
+0.03517.
+\end{split}
+\]
+
+Il nuovo spread equo \`{e} quindi
+
+\[
+\boxed{
+s^{*}_{2}\approx351.7\text{ punti base}.
+}
+\]
+
+\item Il recovery rate incide sulla severit\`{a} del pagamento di
+protezione:
+
+\[
+N(1-R).
+\]
+
+Mantenendo fisse le probabilit\`{a} risk-neutral, una riduzione di $R$
+aumenta quindi lo spread equo.
+
+Un aumento delle probabilit\`{a} risk-neutral di default produce invece
+due effetti:
+
+\begin{itemize}
+
+\item aumenta il valore attuale della gamba di protezione;
+
+\item riduce le probabilit\`{a} di sopravvivenza e quindi il valore della
+gamba dei premi per ogni unit\`{a} di spread.
+
+\end{itemize}
+
+Entrambi gli effetti determinano un aumento dello spread equo. I
+confronti precedenti sono esercizi di sensibilit\`{a} parziale: ogni
+parametro viene modificato mantenendo invariati gli altri dati del
+modello.
+
+\end{enumerate}
+
 \section{Esercizi proposti}
 
 \label{sec:cap09-esercizi-proposti}
@@ -8985,7 +9403,7 @@ default:
 \[
 L^{\mathrm{DO}}
 =
-60\1_{\{X_1=D\}}.
+60\cdot\1_{\{X_1=D\}}.
 \]
 
 Nel modello \emph{migration-based} si considera invece
@@ -9310,7 +9728,7 @@ L^{\mathrm{hedged}}
 =
 L^{\mathrm{unhedged}}
 -
-50\1_{\{X_1=D\}}
+50\cdot\1_{\{X_1=D\}}
 +
 2.5.
 \]
@@ -9375,126 +9793,6 @@ e
 \[
 \CVaR_{0.95}(L^{\mathrm{hedged}})=14.5.
 \]
-
-\end{exercise}
-
-\begin{exercise}[Sensibilit\`{a} dello spread equo di un CDS]
-
-\label{ex:cap09-sensibilita-spread-cds}
-
-Si consideri un CDS con nozionale
-
-\[
-N=100
-\]
-
-e scadenza $H=3$. I fattori di sconto sono
-
-\[
-d_1=0.98,
-\qquad
-d_2=0.95,
-\qquad
-d_3=0.92.
-\]
-
-Nel primo scenario, le probabilit\`{a} marginali risk-neutral di
-default sono
-
-\[
-\Prob^{\Q}(\tau_D=1)=0.03,
-\qquad
-\Prob^{\Q}(\tau_D=2)=0.04,
-\qquad
-\Prob^{\Q}(\tau_D=3)=0.05.
-\]
-
-Le probabilit\`{a} di sopravvivenza sono pertanto
-
-\[
-\Prob^{\Q}(\tau_D>1)=0.97,
-\qquad
-\Prob^{\Q}(\tau_D>2)=0.93,
-\qquad
-\Prob^{\Q}(\tau_D>3)=0.88.
-\]
-
-Si assume che il premio alla data $h$ venga pagato soltanto se
-$\tau_D>h$.
-
-\begin{enumerate}
-
-\item Con recovery rate $R=0.40$, calcolare il valore attuale della
-gamba di protezione e il coefficiente della gamba dei premi.
-
-\item Determinare lo spread equo $s^*$.
-
-\item Ripetere il calcolo per $R=0.30$ e $R=0.50$, mantenendo
-invariate le probabilit\`{a} risk-neutral.
-
-\item Considerare un secondo scenario con probabilit\`{a} marginali
-risk-neutral
-
-\[
-0.04,
-\qquad
-0.05,
-\qquad
-0.07.
-\]
-
-Calcolare il nuovo spread equo per $R=0.40$.
-
-\item Interpretare separatamente l'effetto del recovery rate e quello
-delle probabilit\`{a} risk-neutral.
-
-\end{enumerate}
-
-\textit{Risultati:} nel primo scenario,
-
-\[
-\sum_{h=1}^{3}
-d_h
-\Prob^{\Q}(\tau_D=h)
-=
-0.1134,
-\]
-
-\[
-\sum_{h=1}^{3}
-d_h
-\Prob^{\Q}(\tau_D>h)
-=
-2.6437.
-\]
-
-Per $R=0.40$,
-
-\[
-\mathrm{PV}_{\mathrm{prot}}=6.804,
-\qquad
-s^*\approx0.02574,
-\]
-
-ossia circa $257.37$ punti base. Inoltre,
-
-\[
-s^*(R=0.30)\approx300.26
-\text{ punti base},
-\]
-
-\[
-s^*(R=0.50)\approx214.47
-\text{ punti base}.
-\]
-
-Nel secondo scenario, con $R=0.40$,
-
-\[
-s^*\approx0.03517,
-\]
-
-ossia circa $351.65$ punti base.
 
 \end{exercise}
 
@@ -9629,13 +9927,15 @@ e
 
 \label{sec:cap09-sintesi-raccordo}
 
-Il capitolo ha mostrato come le probabilit\`{a} di transizione tra
-rating possano essere trasformate in una distribuzione delle perdite
-creditizie. Il percorso richiede di collegare la dinamica degli stati,
-le conseguenze economiche delle migrazioni e le misure utilizzate per
-valutare il rischio.
+Il capitolo ha sviluppato il passaggio dalle probabilit\`{a} di
+transizione tra rating alla distribuzione monetaria delle perdite
+creditizie. La costruzione richiede di collegare tre componenti:
+l'evoluzione probabilistica degli stati, le conseguenze economiche
+associate a ciascuno stato futuro e le misure utilizzate per descrivere
+la distribuzione della perdita.
 
-La sequenza concettuale pu\`{o} essere sintetizzata come segue:
+La sequenza concettuale complessiva pu\`{o} essere sintetizzata come
+segue:
 
 \[
 \boxed{
@@ -9671,68 +9971,111 @@ P^{\Q}\ \text{per il pricing}
 }
 \]
 
-Le potenze della matrice di transizione consentono di ricavare le
-probabilit\`{a} cumulative e marginali di default e le corrispondenti
-probabilit\`{a} di sopravvivenza. Queste quantit\`{a} descrivono
-l'evoluzione probabilistica del rischio creditizio, ma non determinano
-ancora una perdita monetaria.
+Le potenze della matrice di transizione permettono anzitutto di
+determinare la struttura temporale del default. La probabilit\`{a}
+cumulativa misura il rischio di default entro un dato orizzonte; la
+probabilit\`{a} marginale isola il contributo del singolo periodo; la
+probabilit\`{a} di sopravvivenza descrive la permanenza negli stati
+non-default.
 
-Per costruire la distribuzione della perdita occorre integrare le
-probabilit\`{a} di default e di migrazione con l'\emph{Exposure at
-Default} (\emph{EAD}), la \emph{Loss Given Default} (\emph{LGD}) e i
-valori associati alle diverse classi di rating. La funzione di perdita
-trasforma cos\`{\i} ciascuno stato futuro in una conseguenza economica.
+Queste probabilit\`{a} non determinano, da sole, una distribuzione
+monetaria. Occorre associare a ciascuno stato futuro una conseguenza
+economica. Nel modello default-only la perdita dipende essenzialmente
+da \emph{Exposure at Default} (\emph{EAD}) e \emph{Loss Given Default}
+(\emph{LGD}); nel modello basato sulle migrazioni del rating assume
+rilievo anche la variazione del valore dell'esposizione negli stati
+non-default.
 
-Sulla distribuzione ottenuta possono essere calcolate la
-\emph{Expected Loss} (\emph{EL}), il \emph{Value at Risk}
-(\emph{VaR}) e il \emph{Conditional Value at Risk} (\emph{CVaR}).
-La perdita attesa misura il valore medio, il VaR identifica un quantile
-della distribuzione e il CVaR considera la severit\`{a} delle perdite
-nella coda.
-
-La distinzione tra $P^{\Prob}$ e $P^{\Q}$ separa due finalit\`{a}
-differenti. La misura fisica viene utilizzata per prevedere le perdite
-e misurare il rischio; la misura risk-neutral viene utilizzata per il
-pricing dei flussi creditizi e, in particolare, per la valutazione del
-CDS.
-
-Il CDS pu\`{o} ridurre la perdita associata al default, ma la copertura
-rimane esposta ai premi contrattuali, al rischio di migrazione, al
-rischio di controparte, al basis risk e alla liquidit\`{a} del mercato.
-
-Nel passaggio al portafoglio, le distribuzioni individuali devono
-essere integrate con un modello della dipendenza tra debitori. La
-concentrazione, i fattori comuni e il rischio sistematico determinano
-la probabilit\`{a} di perdite congiunte elevate.
-
-La Lezione~10 tradurr\`{a} questa costruzione teorica in una procedura
-computazionale. Mediante la simulazione delle transizioni dei rating,
-dei default, delle esposizioni e dei recuperi verr\`{a} generata una
-distribuzione empirica della perdita di portafoglio, dalla quale
-stimare
+La funzione di perdita realizza tale passaggio:
 
 \[
-\mathrm{EL},
+L_h=\ell(X_h,h),
 \qquad
-\VaR_{\alpha},
-\qquad
-\CVaR_{\alpha}.
+\ell(j,h)=V^{\mathrm{ref}}(h)-V_j(h).
 \]
 
-Il raccordo tra le due lezioni pu\`{o} quindi essere espresso come
+Una volta costruita la distribuzione di $L_h$, la
+\emph{Expected Loss} (\emph{EL}) ne misura il valore medio, mentre il
+\emph{Value at Risk} (\emph{VaR}) e il \emph{Conditional Value at
+Risk} (\emph{CVaR}) descrivono la parte superiore della distribuzione.
+Il VaR individua un quantile della perdita; il CVaR considera anche la
+severit\`{a} degli esiti appartenenti alla coda peggiore. Nel caso di
+distribuzioni discrete, il suo calcolo pu\`{o} richiedere l'inclusione
+parziale della massa associata al valore del VaR.
+
+La distinzione tra misura fisica e misura risk-neutral separa due
+finalit\`{a} differenti. Le probabilit\`{a} sotto $\Prob$ vengono
+utilizzate per prevedere le perdite e misurare il rischio. Le
+probabilit\`{a} sotto $\Q$ vengono invece utilizzate per valutare i
+flussi finanziari coerentemente con i prezzi di mercato.
+
+Nel caso del \emph{Credit Default Swap} (\emph{CDS}), il premio equo
+rende uguali il valore attuale della gamba dei premi e quello della
+gamba di protezione. La copertura modifica la distribuzione della
+perdita, ma non elimina necessariamente tutte le sue componenti. Il
+costo dei premi, le perdite da downgrade, il rischio di controparte e
+il \emph{basis risk} possono produrre una posizione residua ancora
+esposta al rischio creditizio.
+
+Il passaggio dalla singola esposizione al portafoglio introduce infine
+la dipendenza tra i debitori. La perdita aggregata
+
+\[
+L_h^{\mathrm{port}}
+=
+\sum_{n=1}^{N}L_{n,h}
+\]
+
+dipende non soltanto dalle distribuzioni individuali, ma anche dalla
+probabilit\`{a} che downgrade e default si verifichino congiuntamente.
+Concentrazione, fattori macroeconomici comuni e rischio sistematico
+assumono quindi un ruolo essenziale nella determinazione delle perdite
+estreme.
+
+La Lezione~10 svilupper\`{a} operativamente questo ultimo passaggio.
+Per portafogli con molte esposizioni, il numero delle possibili
+configurazioni dei rating cresce rapidamente e rende poco praticabile
+la costruzione analitica della distribuzione congiunta. La simulazione
+permette invece di generare un numero elevato di scenari e di
+ricostruire empiricamente la distribuzione della perdita aggregata.
+
+In ciascuna replica della simulazione si proceder\`{a} a:
+
+\begin{enumerate}
+
+\item generare gli eventuali fattori economici comuni;
+
+\item simulare le transizioni dei singoli emittenti, condizionatamente
+ai rating iniziali e ai fattori comuni;
+
+\item associare a ciascuno stato futuro la corrispondente perdita e
+aggregare le perdite individuali;
+
+\item ripetere la procedura per stimare la distribuzione della perdita
+di portafoglio, la perdita attesa e le misure di rischio di coda.
+
+\end{enumerate}
+
+Il raccordo tra le due lezioni pu\`{o} quindi essere sintetizzato come
+segue:
 
 \[
 \boxed{
 \begin{array}{c}
-\text{costruzione teorica del modello di perdita}
+\text{Lezione 9}
+\\
+\text{costruzione teorica della distribuzione della perdita}
 \\[2mm]
 \downarrow
 \\[2mm]
+\text{Lezione 10}
+\\
 \text{simulazione della distribuzione di portafoglio}
 \\[2mm]
 \downarrow
 \\[2mm]
-\text{stima empirica delle misure di rischio}
+\text{stima empirica di EL, VaR e CVaR}
 \end{array}
 }
 \]
+
