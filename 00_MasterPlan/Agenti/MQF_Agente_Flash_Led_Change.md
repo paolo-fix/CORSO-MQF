@@ -2,9 +2,9 @@
 
 ## Scopo
 
-L'agente Flash Led Change e' una sentinella leggera. Non aggiorna direttamente
-`MQF_Stato_Avanzamento.md`; misura invece quanto le modifiche recenti del
-progetto siano rilevanti rispetto all'ultimo stato di avanzamento salvato.
+L'agente Flash Led Change e' un audit differenziale mirato. Non aggiorna
+direttamente `MQF_Stato_Avanzamento.md`; misura invece quanto il progetto
+corrente si sia allontanato da cio' che lo Stato di Avanzamento dichiara.
 
 Quando il cambiamento supera una soglia critica, l'agente segnala
 l'opportunita' di lanciare l'agente Stato di Avanzamento.
@@ -20,11 +20,12 @@ intelligente dello stato del progetto?
 
 Flash Led Change non sostituisce l'agente Stato di Avanzamento.
 
-- Flash Led Change misura il segnale.
+- Flash Led Change misura il segnale differenziale rispetto allo Stato.
 - Stato di Avanzamento legge, interpreta, verifica e aggiorna.
 
-Il primo deve essere rapido e conservativo; il secondo deve essere accurato e
-argomentato.
+Il primo deve essere piu' rapido del secondo, ma non meccanico: deve leggere
+quanto basta per evitare falsi allarmi e falsi silenzi. Il secondo resta la
+revisione completa, accurata e argomentata.
 
 ## Fonti di segnale
 
@@ -33,6 +34,9 @@ L'agente puo' osservare:
 - `git status --short`;
 - `git diff --stat`;
 - `git diff --name-only`;
+- `git log` dei commit successivi allo snapshot corrente dello Stato di
+  Avanzamento;
+- `git show --stat --name-only` dei commit candidati;
 - differenze rispetto all'ultimo commit;
 - differenze rispetto a `MQF_Stato_Avanzamento.md`;
 - modifiche a manuale, slides, codice, grafici, templates, Guidelines e Master
@@ -41,8 +45,54 @@ L'agente puo' osservare:
 - output tecnici recenti, se disponibili, come PDF compilati, figure generate o
   script aggiunti.
 
-L'agente non deve basarsi solo sul numero di file modificati: deve pesare il
-tipo di file e il ruolo didattico della modifica.
+L'agente non deve basarsi solo sul numero di file modificati o sullo stato del
+worktree. Un worktree pulito non implica che lo Stato di Avanzamento sia
+aggiornato: le novita' rilevanti possono essere gia' state salvate in commit
+recenti.
+
+La baseline principale non e' l'ultimo commit, ma il contenuto corrente di
+`MQF_Stato_Avanzamento.md`: cio' che lo Stato dichiara gia' realizzato,
+parziale, aperto o prioritario.
+
+## Procedura obbligatoria
+
+Ogni esecuzione di Flash Led Change deve seguire questa sequenza minima:
+
+1. leggere `MQF_Stato_Avanzamento.md`;
+2. individuare lo snapshot dichiarato nello Stato;
+3. leggere `git status --short --untracked-files=all`;
+4. leggere i commit successivi allo snapshot o comunque i commit recenti non
+   ancora riflessi nello Stato;
+5. selezionare i file candidati per rilevanza didattica o progettuale;
+6. leggere nel merito i file candidati, almeno tramite struttura, sezioni,
+   esercizi, figure, prompt, istruzioni, output e riferimenti;
+7. confrontare cio' che i file mostrano con cio' che lo Stato dichiara;
+8. stimare solo la novita' non assorbita dallo Stato.
+
+Se il worktree e' pulito, Flash deve comunque controllare la cronologia recente.
+Se trova commit come "completato capitolo", "aggiornate istruzioni",
+"predisposte slides", "aggiunti esercizi" o simili, deve leggerli come segnali
+forti e confrontarli con lo Stato.
+
+## Antifalso allarme e antifalso silenzio
+
+Flash deve evitare due errori:
+
+- falso allarme: dare punteggio alto a modifiche gia' pienamente assorbite
+  nello Stato;
+- falso silenzio: dare punteggio basso solo perche' non ci sono modifiche non
+  committate.
+
+Il caso-guida e':
+
+```text
+Worktree pulito, ma commit recenti completano Capitolo 9 e aggiornano
+Istruzioni Studente / Prompt 1, mentre lo Stato dichiara ancora Lezione 9 come
+traccia.
+```
+
+In questo caso Flash deve dare soglia alta, perche' esiste lavoro concluso non
+registrato nello Stato.
 
 ## Indicatore FLC
 
@@ -93,6 +143,9 @@ aggiornamento dello stato.
   capitolo, pacchetto codice o materiali studente.
 - 40 punti: completata o ristrutturata una lezione intera.
 
+Un commit gia' acquisito nel repository puo' contribuire a `L_concluso` se il
+suo contenuto non e' ancora rappresentato nello Stato di Avanzamento.
+
 ### L_generato: lavoro nuovo reso necessario
 
 Misura quanto lavoro futuro e' stato creato da una modifica recente.
@@ -140,6 +193,10 @@ Guidelines, manuale, slides, codice e materiali studente.
 - 20 punti: una componente principale non e' piu' allineata allo stato.
 - 30 punti: piu' componenti raccontano versioni diverse della stessa lezione.
 - 40 punti: Master Plan o Guidelines sono superati rispetto al lavoro svolto.
+
+Se una lezione e' indicata come `traccia` nello Stato ma il capitolo corrente
+risulta sostanzialmente sviluppato, `C_coerenza` deve essere alto anche in
+assenza di modifiche non committate.
 
 ### U_urgenza: costo di rimandare l'aggiornamento
 
@@ -203,6 +260,8 @@ Il report deve distinguere:
 
 - componenti coinvolte;
 - tipo di novita';
+- se la novita' e' nel worktree o in commit recenti gia' acquisiti;
+- cosa e' gia' assorbito dallo Stato e cosa non lo e';
 - rischio di disallineamento;
 - azione consigliata.
 
@@ -222,6 +281,8 @@ Deve:
 - essere rapido;
 - segnalare quando il cambiamento e' diventato significativo;
 - evitare falsi allarmi per modifiche puramente tecniche o ausiliarie;
+- evitare falsi silenzi quando il worktree e' pulito ma la cronologia recente
+  contiene lavoro non registrato nello Stato;
 - privilegiare il rischio didattico e progettuale rispetto al conteggio dei
   file.
 

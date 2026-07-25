@@ -6,14 +6,14 @@ Questo file è l'unica fonte per lo stato corrente del progetto. Registra ciò c
 
 Il Master Plan definisce l'architettura didattica e i contenuti previsti. Le Guidelines definiscono le regole stabili. Il Registro decisionale conserva le decisioni progettuali e le relative motivazioni.
 
-## Snapshot al 2026-07-16
+## Snapshot al 2026-07-24
 
 |  |  |
 |---|---|
-| **Ultima attività completata** | Predisposizione avanzata delle slides della Lezione 8 sulle catene di Markov, con struttura temporale calibrata, due esercizi in aula e grafici dedicati. |
-| **Materiale sviluppato** | Capitoli 1-6 e 8 del manuale; slides delle Lezioni 1, 2, 3, 5, 6 e 8; pacchetto applicativo della Lezione 4; grafici collegati ai Capitoli 1-6 e 8. |
-| **Lavoro in corso** | Allineamento tra Capitolo 8, slides Lezione 8, grafici e piano didattico; taratura tipografica puntuale delle slides della Lezione 6; completamento dell'adeguamento dei capitoli già sviluppati allo standard degli esercizi. |
-| **Prossima priorità** | Chiudere le aperture residue della Lezione 8 e completare gli esercizi proposti del Capitolo 6. |
+| **Ultima attività completata** | Completamento del Capitolo 9 su catene di Markov e misure di rischio, con esercizi, grafici dedicati e raccordo con la Lezione 10; aggiornamento delle Istruzioni Studente e del template Prompt 1. |
+| **Materiale sviluppato** | Capitoli 1-6, 8 e 9 del manuale; slides delle Lezioni 1, 2, 3, 5, 6 e 8; pacchetto applicativo della Lezione 4; grafici collegati ai Capitoli 1-6, 8 e 9; Istruzioni Studente e template Prompt 1 aggiornati. |
+| **Lavoro in corso** | Predisposizione delle slides della Lezione 9; chiusura delle aperture residue della Lezione 8; completamento dell'adeguamento dei capitoli già sviluppati allo standard degli esercizi. |
+| **Prossima priorità** | Predisporre le slides della Lezione 9 e completare gli esercizi proposti del Capitolo 6. |
 
 ---
 
@@ -31,7 +31,7 @@ Legenda: `sviluppato` = contenuto sostanziale presente; `parziale` = componente 
 | 6 | P | Processi stocastici in tempo continuo | sviluppato | sviluppato | parziale | sviluppato | n.a. |
 | 7 | C | Traiettorie, simulazione e pricing | traccia | - | - | - | - |
 | 8 | P | Catene di Markov | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
-| 9 | P | Markov e misure di rischio | traccia | - | - | - | n.a. |
+| 9 | P | Markov e misure di rischio | sviluppato | - | sviluppato | sviluppato | n.a. |
 | 10 | C | Python: rischio di credito | traccia | - | - | - | - |
 | 11 | P | Programmazione lineare | traccia | - | - | - | n.a. |
 | 12 | P | Goal Programming | traccia | - | - | - | n.a. |
@@ -99,6 +99,41 @@ mercato elettrico.
 
 ---
 
+## Aggiornamento 2026-07-24 - Lezione 9 e Prompt 1
+
+La Lezione 9 su catene di Markov e misure di rischio dispone ora del capitolo
+del manuale sviluppato. Il capitolo è incluso nel master del manuale e copre il
+passaggio dalle transizioni di rating alla costruzione della distribuzione di
+perdita, alle misure VaR e CVaR, al CDS, alla copertura, al portafoglio e ai
+limiti del modello.
+
+### Completato
+
+- Completato `MQF_Cap_09_Markov_Misure_Rischio.tex`, con obiettivi, sezioni
+  teoriche, applicazioni integrate e raccordo con la Lezione 10.
+- Inseriti 3 esercizi svolti e 6 esercizi proposti, con sezioni etichettate
+  `sec:cap09-esercizi-svolti` e `sec:cap09-esercizi-proposti`.
+- Prodotti e collegati i grafici `Cap09_*` sulla funzione di ripartizione,
+  distribuzioni di perdita, VaR/CVaR, term structure di default, posizione
+  coperta e tranche creditizia.
+- Verificata la compilazione del manuale dopo correzione dei percorsi di due
+  figure del Capitolo 9; il PDF viene generato senza errori bloccanti.
+- Aggiornati `MQF_Istruzioni_Studente_Uso_Virtuoso_IA_Casi_Applicativi.md` e
+  `MQF_Template_Prompt_1.md`: il Prompt 1 è separato in parte variabile
+  Scheda Caso e parte fissa, acquisisce la Scheda Caso come specifica
+  vincolante e produce la cella Markdown iniziale del notebook.
+
+### Aperture residue
+
+- Predisporre le slides della Lezione 9 a partire dal capitolo sviluppato.
+- Tarare localmente alcune formule e tabelle del Capitolo 9 che producono
+  overfull in compilazione, senza compromettere la generazione del PDF.
+- Verificare l'allineamento progressivo dei template Prompt 2, Prompt 3 e
+  prompt di tappa alla distinzione fra parte variabile dello studente e parte
+  fissa per l'IA.
+
+---
+
 ## Conformità degli esercizi nei capitoli teorici sviluppati
 
 Lo standard di riferimento è definito nella Sezione 9.1.1 delle Guidelines; il modello operativo è collegato dal Catalogo dei template.
@@ -111,6 +146,7 @@ Lo standard di riferimento è definito nella Sezione 9.1.1 delle Guidelines; il 
 | 5 | 4 | 6 | modello editoriale di riferimento | anteporre `cap5-` alle etichette storiche |
 | 6 | 5 | 0 | esercizi svolti uniformati | aggiungere gli esercizi proposti e le etichette di sezione |
 | 8 | 0 | 4 | esercizi proposti presenti e utilizzati come base per le slides | verificare allineamento puntuale tra consegne del capitolo e formulazione nelle slides |
+| 9 | 3 | 6 | sezioni esercizi presenti e label coerenti | taratura tipografica locale di formule e tabelle |
 
 Il Capitolo 4 è applicativo e segue la struttura laboratoriale prevista dalle Guidelines; non rientra nel conteggio degli esercizi teorici.
 
@@ -122,7 +158,7 @@ Il Capitolo 4 è applicativo e segue la struttura laboratoriale prevista dalle G
 |---|:---:|---|
 | Architettura documentale | consolidata | Master Plan, Guidelines, Stato di avanzamento e Registro decisionale hanno funzioni distinte e non sovrapposte. |
 | Standard degli esercizi | consolidato | La struttura editoriale è definita nelle Guidelines e resa operativa dal template LaTeX; resta da completarne l'applicazione ai capitoli indicati sopra. |
-| Sistema dei template | consolidato | I template sono organizzati per formato nativo e censiti nel catalogo centrale. |
+| Sistema dei template | consolidato | I template sono organizzati per formato nativo e censiti nel catalogo centrale; Prompt 1 è aggiornato alla separazione tra Scheda Caso e istruzioni fisse per l'IA. |
 | Compatibilità Scientific WorkPlace 5.5 | in verifica | Si mantiene un'impostazione LaTeX conservativa; le tabelle vengono gestite singolarmente con l'ambiente `tabular`. |
 | Nomenclatura di file, figure ed etichette | parziale | La convenzione aggiornata è applicata ai nuovi materiali; alcuni elementi storici richiedono ancora riallineamento. |
 
@@ -139,11 +175,13 @@ Ha esercizi svolti, ma va completato con esercizi proposti e relative etichette.
 Ha già una struttura più completa, ma alcune etichette sono “storiche”, cioè nate prima della convenzione attuale. Per esempio potrebbero essere troppo generiche o non prefissate con cap5-.
 3. Gestire singolarmente le tabelle che producono righe fuori margine, mantenendo l'ambiente standard `tabular` per la compatibilità con Scientific WorkPlace 5.5.
 4. Predisporre le slides della Lezione 4.
-5. Chiudere le aperture residue della Lezione 8: confronto esercizio B, verifica Guidelines e compilazione slides.
-6. Verificare e integrare la notazione relativa a tempo continuo, SDE, processi OU/CIR, correlazione e Goal Programming.
-7. Definire il livello di integrazione tra simulazione di GBM/OU/processi correlati, pricing di opzioni asiatiche e sistema OU-CIR nella Lezione 7.
-8. Stabilire il caso applicativo della Lezione 13 e le librerie di ottimizzazione da utilizzare nelle Lezioni 13 e 16.
-9. Riallineare progressivamente i nomi dei file ancora non conformi alla nomenclatura definitiva del Master Plan.
+5. Predisporre le slides della Lezione 9 a partire dal capitolo sviluppato.
+6. Chiudere le aperture residue della Lezione 8: confronto esercizio B, verifica Guidelines e compilazione slides.
+7. Verificare e integrare la notazione relativa a tempo continuo, SDE, processi OU/CIR, correlazione e Goal Programming.
+8. Verificare l'allineamento dei template Prompt 2, Prompt 3 e prompt di tappa alla distinzione tra parte variabile dello studente e parte fissa per l'IA.
+9. Definire il livello di integrazione tra simulazione di GBM/OU/processi correlati, pricing di opzioni asiatiche e sistema OU-CIR nella Lezione 7.
+10. Stabilire il caso applicativo della Lezione 13 e le librerie di ottimizzazione da utilizzare nelle Lezioni 13 e 16.
+11. Riallineare progressivamente i nomi dei file ancora non conformi alla nomenclatura definitiva del Master Plan.
 
 ---
 
