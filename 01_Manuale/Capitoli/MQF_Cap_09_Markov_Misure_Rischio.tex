@@ -4563,7 +4563,7 @@ La perdita attesa sotto la misura fisica \`{e}
 \[
 \mathrm{EL}_{i}^{\Prob}(h)
 =
-\E^{\Prob}[L_h\mid X_0=i]
+\E_{\Prob}[L_h\mid X_0=i]
 =
 \sum_{j\in\mathcal{I}}
 \ell(j,h)
@@ -4661,7 +4661,7 @@ di mercato al tempo zero \`{e}
 \[
 V_0
 =
-\E^{\Q}
+\E_{\Q}
 \left[
 \sum_{t=1}^{T}
 D(0,t)C_t
@@ -4697,7 +4697,7 @@ P^{\Q}
 \longrightarrow
 \text{probabilit\`{a} risk-neutral dei flussi}
 \longrightarrow
-\E^{\Q}
+\E_{\Q}
 \left[
 \text{flussi attualizzati}
 \right]
@@ -4847,10 +4847,10 @@ effettuare il pagamento di protezione in caso di evento creditizio;
 \item la \emph{reference entity}, ossia l'emittente al cui rischio di
 credito \`{e} riferito il contratto;
 
-\item il nozionale $N$, sul quale vengono calcolati sia i premi sia il
+\item il \emph{nozionale} $N$, sul quale vengono calcolati sia i premi sia il
 pagamento di protezione;
 
-\item il premio periodico, determinato mediante uno spread contrattuale
+\item il \emph{premio periodico}, determinato mediante uno spread contrattuale
 $s$;
 
 \item il \emph{credit event}, che nel modello semplificato coincide con
@@ -5035,6 +5035,27 @@ Il premio contrattuale viene moltiplicato per probabilit\`{a} di
 sopravvivenza, poich\'{e} i pagamenti futuri cessano dopo il default
 della reference entity.
 
+Questa \`{e} la convenzione dei premi \textbf{posticipati}: il premio
+del periodo $h$ \`{e} pagato alla fine del periodo, quando la
+sopravvivenza a tale data \`{e} osservabile.
+
+Nel caso limite di un contratto a un periodo con premio interamente
+\textbf{upfront}, versato alla stipula, il pagamento avviene in $t=0$
+ed \`{e} certo: poich\'{e} $d_0=1$ e $\Q(\tau_D>0\mid X_0=i)=1$, la
+gamba dei premi si riduce a
+
+\[
+\mathrm{PV}_{\mathrm{prem}}(s)
+=
+sN.
+\]
+
+Un pagamento pu\`{o} essere condizionato soltanto all'informazione
+disponibile alla data in cui avviene: il premio upfront, versato
+quando la sopravvivenza \`{e} certa, non incorpora alcuna
+probabilit\`{a} n\'{e} alcuno sconto.
+
+
 \subsection{Premio equo del CDS}
 
 \label{subsec:cap9-cds-premio-equilibrio}
@@ -5126,6 +5147,74 @@ La relazione pu\`{o} essere sintetizzata come
 }
 \]
 
+\paragraph{Un esempio sul caso guida.}
+
+Applichiamo la costruzione all'emittente del caso guida
+(Sezione~9.9), con un contratto a un periodo, $H=1$, e premio
+interamente upfront. Il pricing richiede la riga risk-neutral dello
+stato iniziale, che \`{e} assegnata, coerente con i prezzi di mercato:
+
+\[
+\begin{array}{lcccc}
+\hline
+& \text{stato }1 & \text{stato }2 & \text{stato }3 & D\\
+\hline
+\text{riga 2 sotto }\Prob & 0.08 & 0.75 & 0.14 & 0.03\\
+\text{riga 2 sotto }\Q & 0.075 & 0.745 & 0.145 & 0.035\\
+\hline
+\end{array}
+\]
+
+Rispetto alla riga fisica, la riga risk-neutral sposta massa dagli
+stati favorevoli verso il downgrade e il default. \`{E} la traduzione,
+in termini di pesi, del fatto che il mercato, avverso al rischio,
+valuta la protezione pi\`{u} di quanto farebbe un investitore
+neutrale: le probabilit\`{a} di default implicite nei prezzi dei CDS
+risultano sistematicamente superiori a quelle storiche.
+
+Con $R=0.40$ e $d_1=1/1.05$, la gamba di protezione vale
+
+\[
+\mathrm{PV}_{\mathrm{prot}}
+=
+N(1-R)\,d_1\,\Q(\tau_D=1\mid X_0=2)
+=
+100\,(0.60)\,\frac{0.035}{1.05}
+=
+2,
+\]
+
+mentre la gamba dei premi upfront \`{e}
+$\mathrm{PV}_{\mathrm{prem}}(s)=sN$. Il premio equo risolve
+$s^{*}N=\mathrm{PV}_{\mathrm{prot}}$:
+
+\[
+s^{*}
+=
+\frac{2}{100}
+=
+0.02,
+\]
+
+ossia $200$ punti base del nozionale. La
+Figura~\ref{fig:cap09-cds-equilibrio-caso-guida} rappresenta
+l'equilibrio: la gamba di protezione non dipende da $s$ ed \`{e} una
+retta orizzontale; la gamba dei premi cresce linearmente in $s$; il
+premio equo \`{e} l'ascissa dell'intersezione. Il valore
+$s^{*}N=2$ \`{e} il costo dei premi che verr\`{a} utilizzato nella
+costruzione della posizione coperta della Sezione~12.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.82\textwidth]
+{../graphics/Cap09_CDS_equilibrio_gambe_caso_guida.png}
+\caption{Determinazione del premio equo del CDS sul caso guida, con
+contratto a un periodo e premio upfront. La gamba di protezione,
+indipendente da $s$, vale $2$; la gamba dei premi \`{e} $sN$. Il
+premio equo $s^{*}=200$ punti base rende i due valori attuali uguali.}
+\label{fig:cap09-cds-equilibrio-caso-guida}
+\end{figure}
+
 \subsection{Ipotesi semplificatrici}
 
 \label{subsec:cap9-cds-ipotesi}
@@ -5169,6 +5258,12 @@ fondamentale del pricing:
 =
 \text{valore della gamba di protezione}.
 \]
+
+Dal 2009, inoltre, i contratti standard prevedono una cedola corrente
+fissata a valori convenzionali; la differenza rispetto al premio equo
+\`{e} regolata mediante un pagamento upfront alla stipula, di segno
+positivo o negativo. Anche in questo assetto la condizione di
+equilibrio conserva la stessa struttura.
 
 La matrice $P^{\Q}$ collega quindi la dinamica risk-neutral dei rating
 al valore del CDS:
@@ -5329,24 +5424,24 @@ Prendendo il valore atteso sotto la misura fisica, si ottiene
 
 \[
 \begin{split}
-\E^{\Prob}
+\E_{\Prob}
 \left[
 L^{\mathrm{hedged}}
 \right]
 &=
-\E^{\Prob}
+\E_{\Prob}
 \left[
 L^{\mathrm{unhedged}}
 \right]
 -
-\E^{\Prob}
+\E_{\Prob}
 \left[
 \Pi^{\mathrm{CDS}}
 \right]
 \\
 &\quad
 +
-\E^{\Prob}
+\E_{\Prob}
 \left[
 C^{\mathrm{premi}}
 \right].
@@ -5356,22 +5451,22 @@ C^{\mathrm{premi}}
 Pertanto, la variazione della perdita attesa \`{e}
 
 \[
-\E^{\Prob}
+\E_{\Prob}
 \left[
 L^{\mathrm{hedged}}
 \right]
 -
-\E^{\Prob}
+\E_{\Prob}
 \left[
 L^{\mathrm{unhedged}}
 \right]
 =
-\E^{\Prob}
+\E_{\Prob}
 \left[
 C^{\mathrm{premi}}
 \right]
 -
-\E^{\Prob}
+\E_{\Prob}
 \left[
 \Pi^{\mathrm{CDS}}
 \right].
@@ -5402,7 +5497,7 @@ C^{\mathrm{premi}}
 e calcolare separatamente
 
 \[
-\E^{\Prob}
+\E_{\Prob}
 \left[
 L^{\mathrm{hedged}}
 \right],
@@ -5431,8 +5526,9 @@ Sezione~9.9. Supponiamo che il CDS:
 
 \item non effettui alcun pagamento negli altri stati;
 
-\item richieda un premio unico anticipato, espresso in valore
-equivalente alla data di analisi, pari a $2$.
+\item richieda un premio interamente upfront, versato alla stipula,
+pari al premio equo determinato nella Sezione~11:
+$C^{\mathrm{premi}}=s^{*}N=2$.
 
 \end{itemize}
 
@@ -5561,7 +5657,7 @@ possibile valore della perdita, ponderato per la corrispondente
 probabilit\`{a}. In termini simbolici,
 
 \[
-\E^{\Prob}
+\E_{\Prob}
 \left[
 L^{\mathrm{hedged}}
 \mid X_0=2
@@ -5588,7 +5684,7 @@ Sostituendo i valori della distribuzione,
 
 \[
 \begin{split}
-\E^{\Prob}
+\E_{\Prob}
 \left[
 L^{\mathrm{hedged}}
 \mid X_0=2
@@ -5608,7 +5704,7 @@ L^{\mathrm{hedged}}
 Il medesimo risultato pu\`{o} essere ottenuto osservando che
 
 \[
-\E^{\Prob}
+\E_{\Prob}
 \left[
 \Pi^{\mathrm{CDS}}
 \mid X_0=2
@@ -5623,7 +5719,7 @@ Pertanto,
 
 \[
 \begin{split}
-\E^{\Prob}
+\E_{\Prob}
 \left[
 L^{\mathrm{hedged}}
 \mid X_0=2
@@ -5705,7 +5801,7 @@ Il confronto complessivo \`{e}
 \text{posizione coperta}
 \\
 \hline
-\E^{\Prob}[L]
+\E_{\Prob}[L]
 &
 2.68
 &
@@ -5738,7 +5834,7 @@ C^{\mathrm{premi}}
 >
 1.80
 =
-\E^{\Prob}
+\E_{\Prob}
 \left[
 \Pi^{\mathrm{CDS}}
 \right].
@@ -5921,13 +6017,13 @@ L_{n,h}.
 Per linearit\`{a} del valore atteso,
 
 \[
-\E^{\Prob}
+\E_{\Prob}
 \left[
 L_h^{\mathrm{port}}
 \right]
 =
 \sum_{n=1}^{N}
-\E^{\Prob}
+\E_{\Prob}
 \left[
 L_{n,h}
 \right].
@@ -7053,7 +7149,7 @@ perdita lungo la vita residua:
 \begin{split}
 \mathrm{ECL}_{i}^{\mathrm{life}}
 &=
-\E^{\Prob}
+\E_{\Prob}
 \left[
 L_i^{\mathrm{life}}
 \mid X_0=i
@@ -7121,7 +7217,7 @@ predittiva adottata:
 \[
 \mathrm{EL}
 =
-\E^{\Prob}[L].
+\E_{\Prob}[L].
 \]
 
 Essa rappresenta la perdita media associata all'esposizione o al
@@ -8255,7 +8351,7 @@ F_{L_1}(\lambda)
 \item La perdita attesa, condizionatamente al rating iniziale, \`{e}
 
 \[
-\E^{\Prob}[L_1\mid X_0=2]
+\E_{\Prob}[L_1\mid X_0=2]
 =
 \sum_{j\in\mathcal{I}}
 \ell(j,1)
@@ -8313,7 +8409,7 @@ La perdita attesa a un anno \`{e} quindi pari a
 \item Il momento secondo \`{e}
 
 \[
-\E^{\Prob}[L_1^2\mid X_0=2]
+\E_{\Prob}[L_1^2\mid X_0=2]
 =
 \sum_{\lambda}
 \lambda^2
@@ -8324,7 +8420,7 @@ Pertanto,
 
 \[
 \begin{split}
-\E^{\Prob}[L_1^2\mid X_0=2]
+\E_{\Prob}[L_1^2\mid X_0=2]
 &=
 (-4)^2(0.05)
 +
@@ -8356,10 +8452,10 @@ Pertanto,
 \[
 \Var(L_1\mid X_0=2)
 =
-\E^{\Prob}[L_1^2\mid X_0=2]
+\E_{\Prob}[L_1^2\mid X_0=2]
 -
 \left(
-\E^{\Prob}[L_1\mid X_0=2]
+\E_{\Prob}[L_1\mid X_0=2]
 \right)^2.
 \]
 
@@ -8500,7 +8596,7 @@ appartenenti alla coda peggiore del $5\%$.
 \eta
 +
 \frac{1}{1-\alpha}
-\E^{\Prob}
+\E_{\Prob}
 \left[
 (L-\eta)^{+}
 \right]
@@ -8510,7 +8606,7 @@ appartenenti alla coda peggiore del $5\%$.
 \item Calcolare
 
 \[
-\E^{\Prob}
+\E_{\Prob}
 \left[
 L_1
 \mid
@@ -8752,7 +8848,7 @@ Pertanto,
 
 \[
 \begin{split}
-\E^{\Prob}
+\E_{\Prob}
 \left[
 (L_1-10)^{+}
 \mid X_0=2
@@ -8798,7 +8894,7 @@ La massa parzialmente selezionata al quantile di livello $0.95$ non
 compare esplicitamente nel termine
 
 \[
-\E^{\Prob}[(L_1-\eta)^{+}],
+\E_{\Prob}[(L_1-\eta)^{+}],
 \]
 
 poich\'{e} per $L_1=\eta=10$ la parte positiva \`{e} nulla. Il suo
@@ -8828,7 +8924,7 @@ Il corrispondente valore atteso condizionato \`{e}
 
 \[
 \begin{split}
-\E^{\Prob}
+\E_{\Prob}
 \left[
 L_1
 \mid
@@ -8855,7 +8951,7 @@ L_1\geq10,\ X_0=2
 Si ottiene quindi
 
 \[
-\E^{\Prob}
+\E_{\Prob}
 \left[
 L_1
 \mid
@@ -8889,7 +8985,7 @@ In presenza di distribuzioni discrete, pertanto,
 \[
 \CVaR_{\alpha}(L)
 \neq
-\E^{\Prob}
+\E_{\Prob}
 \left[
 L
 \mid
@@ -9881,7 +9977,7 @@ le misure di coda cambiano sensibilmente.
 e
 
 \[
-\E^{\Prob}[L_h^{\mathrm{port}}]=5,
+\E_{\Prob}[L_h^{\mathrm{port}}]=5,
 \qquad
 \VaR_{0.95}(L_h^{\mathrm{port}})=40,
 \]
@@ -9912,7 +10008,7 @@ Sotto dipendenza positiva perfetta,
 e
 
 \[
-\E^{\Prob}[L_h^{\mathrm{port}}]=5,
+\E_{\Prob}[L_h^{\mathrm{port}}]=5,
 \qquad
 \VaR_{0.95}(L_h^{\mathrm{port}})=0,
 \]
