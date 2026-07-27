@@ -551,6 +551,74 @@ La formulazione lineare standard \`{e}
 \]
 Il simbolo $z$ resta riservato ai valori ottimi dei problemi di ottimizzazione.
 
+\section{Rischio di credito e valutazione risk-neutral}
+
+Nel blocco creditizio (Lezioni 8--10) lo stato di default \`{e} indicato con
+$D$ ed \`{e} assorbente. Il tempo di default \`{e}
+\[
+\tau_D=\inf\{h\geq1:X_h=D\},
+\qquad
+\inf\varnothing=+\infty.
+\]
+Le probabilit\`{a} della struttura temporale del default sono indicate con
+\[
+\mathrm{PD}_i^{\mathrm{cum}}(h)=\Prob(\tau_D\leq h\mid X_0=i)=(P^h)_{iD},
+\qquad
+\mathrm{PD}_i^{\mathrm{marg}}(h)=\Prob(\tau_D=h\mid X_0=i),
+\]
+\[
+S_i(h)=\Prob(\tau_D>h\mid X_0=i)=1-\mathrm{PD}_i^{\mathrm{cum}}(h).
+\]
+
+I parametri del rischio di credito sono indicati con $\mathrm{PD}$
+(probabilit\`{a} di default), $\mathrm{EAD}$ (esposizione al default),
+$\mathrm{LGD}$ (perdita in caso di default) e $R=1-\mathrm{LGD}$ (recovery
+rate). Il valore dell'esposizione nello stato $j$ all'orizzonte $h$ \`{e}
+$V_j(h)$; fissato un riferimento $V^{\mathrm{ref}}(h)$, la funzione di
+perdita \`{e}
+\[
+\ell(j,h)=V^{\mathrm{ref}}(h)-V_j(h),
+\qquad
+L_h=\ell(X_h,h).
+\]
+La convenzione sul segno \`{e} quella generale del documento: valori
+pi\`{u} elevati di $L_h$ rappresentano esiti peggiori. Per le
+distribuzioni discrete della perdita, il CVaR si calcola con la
+definizione mediante quantili; l'interpretazione
+$\E[L\mid L\geq\VaR_\alpha(L)]$ resta riservata al caso continuo, come
+indicato nella sezione sulle misure di rischio.
+
+La misura di valutazione risk-neutral \`{e} indicata con $\Q$. Come
+operatore di probabilit\`{a} si scrive $\Q(A)$ e
+$\Q(\,\cdot\mid\cdot\,)$, in analogia con $\Prob$. La matrice di
+transizione sotto la misura risk-neutral \`{e} indicata con $P^{\Q}$:
+l'apice \`{e} un'etichetta di misura, non un esponente, e le potenze si
+scrivono
+\[
+\left(P^{\Q}\right)^h.
+\]
+Sotto la misura fisica la matrice resta indicata con $P$; l'etichetta
+$P^{\Prob}$ \`{e} ammessa solo dove serve il contrasto esplicito tra le
+due misure. I valori attesi portano la misura a pedice: $\E_{\Prob}$ ed
+$\E_{\Q}$, con $\E$ senza pedice che indica $\E_{\Prob}$.
+
+Per il credit default swap, lo spread \`{e} indicato con $s$ e lo spread
+equo con $s^{*}$. I valori attuali delle due gambe sono
+\[
+\mathrm{PV}_{\mathrm{prot}}
+=
+N(1-R)\sum_{h=1}^{H}d_h\,\Q(\tau_D=h\mid X_0=i),
+\qquad
+\mathrm{PV}_{\mathrm{prem}}(s)
+=
+sN\sum_{h=1}^{H}d_h\,\Q(\tau_D>h\mid X_0=i),
+\]
+dove $N$ \`{e} il nozionale, $H$ la scadenza e $d_h$ il fattore di sconto
+all'orizzonte $h$. Il simbolo $d_h$ convive con $d_s$ (costi di recourse
+nella programmazione stocastica): i contesti sono disgiunti e la
+coesistenza \`{e} dichiarata qui. La perdita della posizione coperta \`{e}
+indicata con $L^{\mathrm{hedged}}$.
+
 \section{Modello binomiale come esempio discreto}
 
 Il modello binomiale non costituisce pi\`{u} una lezione autonoma di pricing.
@@ -821,12 +889,20 @@ deviazioni negative e positive devono essere distinte come $d_j^-$ e $d_j^+$.
 \item Non introdurre simboli locali in conflitto con simboli globali gi\`{a}
 definiti in questo documento. Ogni eccezione locale deve essere dichiarata
 esplicitamente nella lezione in cui viene usata.
+
+\item Non scrivere la misura del valore atteso a esponente: $\E^{\Q}$ non
+\`{e} ammesso; la forma corretta \`{e} $\E_{\Q}$. Analogamente per
+$\E_{\Prob}$.
+
+\item Non confondere la $q$ del modello binomiale (probabilit\`{a}
+risk-neutral a un periodo) con $q_{\alpha}$ (quantile di livello
+$\alpha$): il quantile porta sempre il pedice di livello.
 \end{enumerate}
 
 \section{Stato di avanzamento}
 
 \begin{center}
-\begin{tabular}{|p{5.0cm}|p{4.0cm}|p{5.0cm}|}
+\begin{tabular}{|p{5.0cm}|p{2.5cm}|p{5.0cm}|}
 \hline
 \textbf{Area} & \textbf{Stato} & \textbf{Note}\\
 \hline
@@ -838,9 +914,9 @@ Processi stocastici discreti e filtrazioni & Bozza aggiornata & Include adattabi
 \hline
 Processi stocastici continui & Bozza aggiornata & Include Browniano, GBM, OU, CIR, correlazione ed Eulero--Maruyama; da verificare nelle Lezioni 6--7.\\
 \hline
-Catene di Markov & Bozza consolidata & Da verificare con gli esempi di rating e rischio credito.\\
+Catene di Markov & Bozza consolidata & Verificata con il blocco rating/rischio credito del Capitolo 9.\\
 \hline
-Misure di rischio & Bozza consolidata & Da raccordare con il blocco Markov/rischio credito e con eventuali applicazioni di portafoglio.\\
+Misure di rischio & Bozza consolidata & Raccordata con il blocco creditizio; resta il raccordo con le applicazioni di portafoglio (Lezioni 10 e 13).\\
 \hline
 Modello binomiale & Bozza ridimensionata & Mantenuto come esempio strutturale di processo discreto, non come lezione autonoma di pricing.\\
 \hline
@@ -851,6 +927,8 @@ Goal Programming & Nuova sezione & Da verificare nello sviluppo della Lezione 12
 Programmazione stocastica & Bozza aggiornata & Include due stadi, EVPI, VSS, multistadio e non anticipativit\`{a}.\\
 \hline
 Corrispondenza Python & Bozza aggiornata & Da aggiornare quando saranno definiti gli script delle Lezioni 4, 7, 10, 13 e 16.\\
+\hline
+Rischio di credito e risk-neutral & Nuova sezione & Introdotta con il Capitolo 9; da verificare nello sviluppo della Lezione 10 (simulazione di portafoglio).\\
 \hline
 \end{tabular}
 \end{center}
