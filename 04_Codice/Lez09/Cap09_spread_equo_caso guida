@@ -1,0 +1,339 @@
+# -*- coding: utf-8 -*-
+"""
+MQF - Capitolo 9 / Lezione 9
+Determinazione dello spread equo di un CDS nel caso guida.
+
+Calibrazione
+------------
+Il caso guida considera un emittente inizialmente nella classe
+intermedia:
+
+    X_0 = 2.
+
+L'obbligazione ha:
+
+    nozionale N = 100;
+    valore in caso di default V_D(1) = 40;
+    recovery rate R = 0.40;
+    orizzonte temporale h = 1.
+
+La posizione coperta prevede un costo dei premi pari a 2, sostenuto
+alla stipula e quindi presente in tutti gli stati, incluso il default.
+Il premio viene pertanto modellato come pagamento upfront:
+
+    PV_prem(s) = s * N.
+
+La gamba di protezione è invece:
+
+    PV_prot = N * (1 - R) * d_1 * Q(tau_D = 1 | X_0 = 2).
+
+Lo spread equivalente upfront s* è determinato imponendo:
+
+    PV_prem(s*) = PV_prot.
+
+Con i dati adottati risulta:
+
+    PV_prot = 2;
+    s* = 0.02;
+
+ossia 200 punti base del nozionale.
+
+La distribuzione risk-neutral è assegnata e non viene ricavata dalla
+matrice fisica. La riga relativa allo stato iniziale 2 è:
+
+    riga 2 sotto P : (0.080, 0.750, 0.140, 0.030)
+    riga 2 sotto Q : (0.075, 0.745, 0.145, 0.035)
+
+Con un tasso privo di rischio pari al 5%:
+
+    d_1 = 1 / 1.05,
+
+la gamba di protezione ha valore attuale esattamente pari a 2.
+
+Output
+------
+E:\\Didattica\\MQF\\graphics\\Cap09_CDS_equilibrio_gambe_caso_guida.png
+E:\\Didattica\\MQF\\graphics\\Cap09_CDS_equilibrio_gambe_caso_guida.svg
+"""
+
+from pathlib import Path
+
+import matplotlib
+
+# Backend non interattivo: consente di produrre la figura senza
+# aprire una finestra grafica.
+matplotlib.use("Agg")
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+# ----------------------------------------------------------------------
+# Percorso e nomi dei file di output
+# ----------------------------------------------------------------------
+
+OUTPUT_DIR = Path(r"E:\Didattica\MQF\graphics")
+
+PNG_FILENAME = "Cap09_CDS_equilibrio_gambe_caso_guida.png"
+SVG_FILENAME = "Cap09_CDS_equilibrio_gambe_caso_guida.svg"
+
+
+# ----------------------------------------------------------------------
+# Dati del caso guida
+# ----------------------------------------------------------------------
+
+N = 100.0
+"""Nozionale del CDS."""
+
+R = 0.40
+"""Recovery rate: il valore recuperato è 40 su un nozionale pari a 100."""
+
+RISK_FREE_RATE = 0.05
+"""Tasso privo di rischio a un periodo."""
+
+D1 = 1.0 / (1.0 + RISK_FREE_RATE)
+"""Fattore di sconto a un periodo."""
+
+
+# Riga della matrice risk-neutral relativa allo stato iniziale X_0 = 2.
+#
+# Ordine degli stati:
+#   1 = upgrade;
+#   2 = rating invariato;
+#   3 = downgrade;
+#   D = default.
+ROW_Q = np.array([0.075, 0.745, 0.145, 0.035], dtype=float)
+
+
+def validate_inputs() -> None:
+    """Controlla la coerenza dei dati utilizzati nel calcolo."""
+
+    if not np.isclose(ROW_Q.sum(), 1.0, atol=1e-12):
+        raise ValueError(
+            "La riga della matrice P^Q deve contenere probabilità "
+            "non negative che sommano a uno."
+        )
+
+    if np.any(ROW_Q < 0.0):
+        raise ValueError(
+            "Le probabilità della riga della matrice P^Q "
+            "devono essere non negative."
+        )
+
+    if N <= 0.0:
+        raise ValueError("Il nozionale deve essere strettamente positivo.")
+
+    if not 0.0 <= R <= 1.0:
+        raise ValueError("Il recovery rate deve appartenere a [0, 1].")
+
+
+def calculate_cds_values() -> tuple[float, float, float]:
+    """
+    Calcola la gamba di protezione e lo spread upfront equo.
+
+    Returns
+    -------
+    q_default
+        Probabilità risk-neutral di default nel primo periodo.
+
+    pv_protection
+        Valore attuale della gamba di protezione.
+
+    s_star
+        Premio upfront equo espresso come frazione del nozionale.
+    """
+
+    # Poiché l'orizzonte è di un solo periodo, la probabilità di trovarsi
+    # nello stato D coincide con la probabilità che il default avvenga
+    # nel primo periodo.
+    q_default = ROW_Q[3]
+
+    # Pagamento in caso di default:
+    #
+    #     N * (1 - R).
+    #
+    # Il pagamento atteso sotto Q viene attualizzato mediante d_1.
+    pv_protection = N * (1.0 - R) * D1 * q_default
+
+    # Il premio è pagato upfront:
+    #
+    #     PV_prem(s) = s * N.
+    #
+    # La condizione di equilibrio è:
+    #
+    #     s* * N = PV_protection.
+    s_star = pv_protection / N
+
+    return q_default, pv_protection, s_star
+
+
+def create_figure(
+    pv_protection: float,
+    s_star: float,
+) -> plt.Figure:
+    """
+    Costruisce la figura delle due gambe del CDS.
+
+    La gamba di protezione è costante rispetto al premio upfront.
+    La gamba dei premi cresce linearmente con s. Il loro punto di
+    intersezione identifica il valore equo s*.
+    """
+
+    # Valori del premio upfront espressi in punti base del nozionale.
+    s_bp = np.linspace(0.0, 400.0, 401)
+
+    # Conversione da punti base a forma decimale:
+    #
+    #     200 punti base = 0.02.
+    s_decimal = s_bp / 10_000.0
+
+    # Gamba dei premi:
+    #
+    #     PV_prem(s) = s * N.
+    pv_premium = s_decimal * N
+
+    # La gamba di protezione non dipende dal premio contrattuale.
+    pv_protection_line = np.full_like(s_bp, pv_protection)
+
+    # Spread equo espresso in punti base.
+    s_star_bp = s_star * 10_000.0
+
+    fig, ax = plt.subplots(figsize=(8.0, 4.8))
+
+    ax.plot(
+        s_bp,
+        pv_protection_line,
+        linewidth=2.2,
+        label="Gamba di protezione",
+    )
+
+    ax.plot(
+        s_bp,
+        pv_premium,
+        linewidth=2.2,
+        label="Gamba dei premi",
+    )
+
+    # Linea verticale e punto corrispondenti allo spread equo.
+    ax.axvline(
+        s_star_bp,
+        linestyle="--",
+        linewidth=1.4,
+        alpha=0.85,
+    )
+
+    ax.plot(
+        [s_star_bp],
+        [pv_protection],
+        marker="o",
+        markersize=8,
+        zorder=5,
+    )
+
+    annotation = (
+        rf"Premio equo $s^*={s_star_bp:.0f}$ pb"
+        "\n"
+        rf"$\mathrm{{PV}}_{{\mathrm{{prot}}}}"
+        rf"=\mathrm{{PV}}_{{\mathrm{{prem}}}}"
+        rf"={pv_protection:.2f}$"
+    )
+
+    ax.annotate(
+        annotation,
+        xy=(s_star_bp, pv_protection),
+        xytext=(s_star_bp + 55.0, pv_protection - 1.15),
+        arrowprops={
+            "arrowstyle": "->",
+            "linewidth": 1.1,
+        },
+        fontsize=10,
+    )
+
+    ax.set_title(
+        "Determinazione dello spread equo del CDS (caso guida)"
+    )
+
+    ax.set_xlabel(
+        "Premio upfront del CDS (punti base del nozionale)"
+    )
+
+    ax.set_ylabel("Valore attuale")
+
+    ax.set_xlim(0.0, 400.0)
+    ax.set_ylim(0.0, 4.0)
+
+    ax.grid(True, alpha=0.35)
+    ax.legend(loc="upper left")
+
+    fig.tight_layout()
+
+    return fig
+
+
+def save_figure(fig: plt.Figure) -> tuple[Path, Path]:
+    """
+    Salva la figura nei formati PNG e SVG.
+
+    La cartella di destinazione viene creata automaticamente se
+    non esiste.
+    """
+
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+    png_path = OUTPUT_DIR / PNG_FILENAME
+    svg_path = OUTPUT_DIR / SVG_FILENAME
+
+    # Versione raster ad alta risoluzione.
+    fig.savefig(
+        png_path,
+        dpi=300,
+        bbox_inches="tight",
+    )
+
+    # Versione vettoriale, adatta a ridimensionamenti senza perdita
+    # di qualità.
+    fig.savefig(
+        svg_path,
+        format="svg",
+        bbox_inches="tight",
+    )
+
+    return png_path, svg_path
+
+
+def main() -> None:
+    """Esegue i calcoli, genera la figura e salva i file."""
+
+    validate_inputs()
+
+    q_default, pv_protection, s_star = calculate_cds_values()
+
+    print("Dati e risultati del caso guida")
+    print("--------------------------------")
+    print(f"d_1                     = {D1:.6f}")
+    print(f"Q(tau_D = 1 | X_0 = 2) = {q_default:.4f}")
+    print(f"PV_prot                 = {pv_protection:.4f}")
+    print(
+        f"s*                      = {s_star:.6f} "
+        f"({s_star * 10_000.0:.1f} punti base)"
+    )
+    print(f"PV_prem(s*)             = {s_star * N:.4f}")
+
+    fig = create_figure(
+        pv_protection=pv_protection,
+        s_star=s_star,
+    )
+
+    png_path, svg_path = save_figure(fig)
+
+    # Libera la memoria associata alla figura.
+    plt.close(fig)
+
+    print()
+    print("Figure salvate in:")
+    print(png_path)
+    print(svg_path)
+
+
+if __name__ == "__main__":
+    main()
