@@ -4,7 +4,7 @@
 
 [Incollare qui integralmente la Scheda Caso validata dal docente.]
 
-## Parte fissa
+## Parte fissa: istruzioni per IA
 
 La Scheda Caso costituisce specifica vincolante e non deve essere modificata. Dopo averla acquisita, produci una sola cella Markdown iniziale da inserire nel Jupyter Notebook.
 

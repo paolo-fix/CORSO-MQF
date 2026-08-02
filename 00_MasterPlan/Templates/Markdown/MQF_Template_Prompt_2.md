@@ -2,6 +2,8 @@
 
 **Regime A - Ricognizione teorico-modellistica.**
 
+## Parte variabile: contributo studente
+
 Sulla base della Scheda Caso acquisita, devo costruire il Flusso logico-teorico risolutivo.
 
 Secondo me gli elementi teorici necessari, nell'ordine logico utile alla soluzione, sono:
@@ -9,6 +11,8 @@ Secondo me gli elementi teorici necessari, nell'ordine logico utile alla soluzio
 1. [primo elemento proposto dallo studente]
 2. [secondo elemento proposto dallo studente]
 3. [ulteriori elementi proposti dallo studente]
+
+## Parte fissa: istruzioni per IA
 
 Ti chiedo di verificare, completare e ordinare questa sequenza teorica, senza scrivere codice e senza proporre ancora la scomposizione operativa del notebook.
 

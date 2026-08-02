@@ -2,6 +2,8 @@
 
 **Regime C - Verifica e interpretazione critica.**
 
+## Parte variabile: contributo studente
+
 Sto verificando la Tappa [numero] - [titolo] del caso [titolo del caso].
 
 Gli input e gli output disponibili sono [indicare input e output]. Ho individuato questo dubbio o possibile problema: [descrivere la criticità]. Il mio ragionamento è il seguente: [inserire il contributo critico dello studente].
