@@ -373,6 +373,17 @@ dichiarato esplicitamente se si tratta di un modello stilizzato. Non devono
 essere presentati come ricostruzioni empiriche dati, relazioni o risultati
 costruiti esclusivamente a fini didattici.
 
+Quando un caso quantitativo è esplicitamente ispirato a un episodio finanziario
+reale, la calibrazione deve utilizzare dati, proporzioni e ordini di grandezza
+riconducibili a tale episodio. È ammessa la scelta di unità monetarie aggregate,
+l'arrotondamento dei valori e l'accorpamento di poste omogenee, purché tali
+operazioni non alterino il meccanismo economico che giustifica il caso.
+
+Non è ammesso costruire un dataset genericamente plausibile e attribuirgli
+successivamente un riferimento storico soltanto narrativo. Ogni scostamento
+rilevante dai dati originari deve essere motivato da esigenze didattiche,
+numeriche o di coerenza del modello.
+
 #### Validazione numerica
 
 La calibrazione deve essere verificata con un solver prima della redazione
