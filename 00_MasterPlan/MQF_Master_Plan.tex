@@ -1047,55 +1047,119 @@ applicazione Python 3.
 
 \subsection{Lezione 11 -- Ottimizzazione e programmazione lineare}
 
-\textbf{Tipo:} P.\newline\textbf{Domanda guida:} come si formula un problema
-decisionale vincolato in forma lineare e come si interpreta il valore
-marginale dei vincoli?\newline\textbf{Prerequisiti:} algebra lineare
-elementare; interpretazione geometrica dei vincoli.\newline\textbf{Obiettivi
-didattici:} introdurre variabili decisionali, funzione obiettivo, vincoli
-lineari, regione ammissibile, soluzioni di base, valore ottimo e dualit\`{a}
-come contenuto essenziale per l'interpretazione economica.\newline%
-\textbf{Notazione introdotta:} vettore decisionale $x$, matrice dei vincoli
-$A$, vettori $b$ e $c$, valore ottimo $z^{*}$, variabili duali $\lambda
-$.\newline\textbf{Formule principali:}
+\textbf{Tipo:} P.\newline
+\textbf{Domanda guida:} come dovrebbe una banca allocare il proprio attivo
+per sostenere la redditivit\`{a} senza compromettere la capacit\`{a} di
+fronteggiare deflussi di liquidit\`{a} e perdite di valore, e quale costo
+economico comportano i vincoli prudenziali?\newline
+\textbf{Prerequisiti:} algebra lineare elementare; sistemi di equazioni e
+disequazioni lineari; interpretazione economico-finanziaria di rendimento,
+liquidit\`{a} e capitale.\newline
+\textbf{Obiettivi didattici:} formulare un problema di programmazione lineare;
+interpretare regione ammissibile, punti estremi, vincoli attivi e variabili di
+scarto; costruire il duale; dimostrare la dualit\`{a} debole; enunciare la
+dualit\`{a} forte; applicare la complementariet\`{a}; interpretare le variabili
+duali come prezzi ombra.\newline
+\textbf{Caso guida:} allocazione preventiva dell'attivo bancario in un modello
+statico e deterministico, ispirato alle vulnerabilit\`{a} di liquidit\`{a},
+duration e concentrazione emerse nel caso Silicon Valley Bank. La banca ripartisce
+l'attivo tra cassa, titoli liquidi a breve termine, obbligazioni a pi\`{u} lunga
+scadenza e prestiti, sotto vincoli di bilancio, liquidit\`{a} nello stress,
+capacit\`{a} di assorbimento delle perdite, operativit\`{a} minima e concentrazione.
+Il modello completo viene utilizzato anche per l'esempio primale-duale; la
+geometria bidimensionale resta una figura introduttiva autonoma.\newline
+\textbf{Notazione introdotta:} vettore decisionale $x$, matrice $A$, vettori
+$b$ e $c$, valore ottimo $z^{*}$, vettore duale $\lambda$; nel caso guida
+$x_{C}$, $x_{S}$, $x_{B}$ e $x_{P}$.\newline
+\textbf{Formule principali:}
 \[
-\min_{x} \; c^{\prime}x \qquad\hbox{soggetto a} \qquad Ax\geq b,\quad x\geq0.
+\max_{x}\;c'x
+\quad\hbox{soggetto a}\quad
+Ax\leq b,\quad x\geq0,
 \]
 \[
-\max_{\lambda}\; b^{\prime}\lambda\qquad\hbox{soggetto a} \qquad A^{\prime
-}\lambda\leq c,\quad\lambda\geq0.
+\min_{\lambda}\;b'\lambda
+\quad\hbox{soggetto a}\quad
+A'\lambda\geq c,\quad \lambda\geq0,
 \]
-\textbf{Esercizi previsti:} formulazione di un problema di allocazione;
-soluzione grafica in due variabili; identificazione di vincoli attivi;
-costruzione elementare del duale e interpretazione dei prezzi ombra.\newline%
-\textbf{Grafici previsti:} regione ammissibile; rette di livello; punto
-ottimo; interpretazione geometrica di vincoli attivi.\newline%
-\textbf{Applicazioni Python collegate:} Lezione 13 e Lezione 16.
+\[
+c'x\leq\lambda'b,
+\qquad
+c'x^{*}=\lambda^{*'}b,
+\]
+\[
+\lambda_{i}^{*}\left(b_{i}-a_{i}'x^{*}\right)=0,
+\qquad
+x_{j}^{*}\left((A'\lambda^{*})_{j}-c_{j}\right)=0.
+\]
+\textbf{Esercizi previsti:} formulazione del caso bancario; verifica di
+ammissibilit\`{a}; identificazione dei vincoli attivi; costruzione del duale;
+verifica della dualit\`{a} e della complementariet\`{a}; interpretazione dei
+prezzi ombra.\newline
+\textbf{Grafici previsti:} figura bidimensionale autonoma della regione
+ammissibile; schema del caso bancario; corrispondenza tra vincoli primali e
+variabili duali.\newline
+\textbf{Contenuti non sviluppati:} algoritmo del simplesso, tableau, metodo
+Big M, metodo delle due fasi, lemma di Farkas e metodi del punto interno.\newline
+\textbf{Riferimenti scientifici principali:} Rardin, Capitoli 4 e 6;
+Bertsimas e Tsitsiklis, Capitoli 2 e 4; Cornu\'{e}jols, Pe\~{n}a e
+T\"{u}t\"{u}nc\"{u}, Capitoli 1--2.\newline
+\textbf{Applicazioni collegate:} Lezioni 12--16.
+
 
 \subsection{Lezione 12 -- Goal Programming}
 
-\textbf{Tipo:} P.\newline\textbf{Domanda guida:} come si formalizzano
-decisioni finanziarie con pi\`{u} obiettivi, target e trade-off
-conflittuali?\newline\textbf{Prerequisiti:} Lezione 11.\newline%
-\textbf{Obiettivi didattici:} introdurre la programmazione per obiettivi;
-distinguere obiettivi rigidi e target flessibili; rappresentare deviazioni
-positive e negative; discutere pesi, priorit\`{a} e trade-off tra criteri
-conflittuali.\newline\textbf{Notazione introdotta:} criteri $g_{i}(x)$, target
-$b_{i}$, deviazioni $d_{i}^{+}$ e $d_{i}^{-}$, pesi $w_{i}^{+}$ e $w_{i}^{-}%
-$.\newline\textbf{Formule principali:}
+\textbf{Tipo:} P.\newline
+\textbf{Domanda guida:} come pu\`{o} una banca trasformare obiettivi strategici
+conflittuali di redditivit\`{a}, liquidit\`{a}, solidit\`{a} patrimoniale e sostegno
+al credito in una decisione trasparente, senza nascondere i trade-off?\newline
+\textbf{Prerequisiti:} Lezione 11; formulazione di un programma lineare;
+vincoli attivi, dualit\`{a} e prezzi ombra.\newline
+\textbf{Obiettivi didattici:} interpretare la sensitivit\`{a} locale; riconoscere
+i limiti dell'obiettivo unico; definire dominanza ed efficienza; distinguere
+vincoli rigidi e target; rappresentare deviazioni positive e negative;
+formulare modelli ponderati e lessicografici; normalizzare le deviazioni;
+verificare criticamente la soluzione.\newline
+\textbf{Caso guida:} pianificazione strategica bancaria multicriterio. La banca
+distribuisce risorse tra pi\`{u} classi di attivit\`{a} o linee di impiego e
+considera simultaneamente redditivit\`{a}, liquidit\`{a}, perdita o assorbimento
+patrimoniale e continuit\`{a} del credito. Il caso nasce come problema
+multicriterio e utilizza un dataset distinto da quello della Lezione 11. I
+vincoli inderogabili definiscono la regione ammissibile; i target rappresentano
+livelli desiderati non necessariamente conseguibili simultaneamente.\newline
+\textbf{Notazione introdotta:} criteri $g_{i}(x)$, target $b_{i}$, deviazioni
+$d_{i}^{-}$ e $d_{i}^{+}$, pesi $w_{i}$ e scale $s_{i}$.\newline
+\textbf{Formule principali:}
 \[
-g_{i}(x)+d_{i}^{-} - d_{i}^{+} = b_{i}, \qquad d_{i}^{+}\geq0, \quad d_{i}%
-^{-}\geq0, \quad i=1,\ldots,m.
+z^{*}(b+\Delta b)
+\simeq
+z^{*}(b)+\lambda_{i}^{*}\Delta b_{i},
 \]
 \[
-\min\sum_{i=1}^{m}\left( w_{i}^{+}d_{i}^{+} + w_{i}^{-}d_{i}^{-}\right)
+g_{i}(x)+d_{i}^{-}-d_{i}^{+}=b_{i},
+\qquad
+d_{i}^{-},d_{i}^{+}\geq0,
 \]
-con eventuali priorit\`{a} lessicografiche tra gruppi di obiettivi.\newline%
-\textbf{Esercizi previsti:} formulazione di un problema con target di
-rendimento e rischio; distinzione tra deviazioni desiderabili e
-indesiderabili; confronto tra pesi alternativi; interpretazione dei
-trade-off.\newline\textbf{Grafici previsti:} spazio degli obiettivi; frontiera
-dei trade-off; confronto tra soluzioni ottenute con pesi diversi.\newline%
+\[
+\min\;\sum_{i=1}^{p}w_{i}\frac{d_{i}}{s_{i}},
+\]
+dove $d_{i}$ indica la deviazione indesiderata coerente con la direzione del
+target.\newline
+\textbf{Esercizi previsti:} distinzione tra vincoli rigidi e target; scelta
+della deviazione da penalizzare; costruzione delle equazioni-obiettivo;
+formulazione ponderata normalizzata; priorit\`{a} lessicografiche; verifica della
+dominanza; riconoscimento di formulazioni scorrette.\newline
+\textbf{Grafici previsti:} soluzioni dominate e non dominate nello spazio di
+due obiettivi; matrice dei risultati delle ottimizzazioni individuali; confronto
+tra deviazioni e tra soluzioni ponderate e lessicografiche.\newline
+\textbf{Contenuti non sviluppati:} algoritmi generali per la frontiera
+efficiente; Goal Programming fuzzy, stocastico, non lineare o interattivo.\newline
+\textbf{Riferimenti scientifici principali:} Rardin, Capitoli 6 e 8; Jones e
+Tamiz, Capitoli 1--3, 5 e 6; Bertsimas e Tsitsiklis, Capitolo 5; Cornu\'{e}jols,
+Pe\~{n}a e T\"{u}t\"{u}nc\"{u} per la contestualizzazione finanziaria.\newline
 \textbf{Applicazioni Python collegate:} Lezione 13.
+
+
 
 \subsection{Lezione 13 -- Applicazione in Python: Asset Allocation}
 
