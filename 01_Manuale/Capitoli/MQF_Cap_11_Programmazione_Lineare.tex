@@ -3,6 +3,518 @@
 
 \chapter{Programmazione lineare}
 
-\section{Obiettivi della lezione}
+\label{cap:programmazione-lineare}
 
-Capitolo in preparazione.
+\section{Obiettivi della lezione e problema guida}
+
+\label{sec:cap11-obiettivi}
+
+Il fallimento di Silicon Valley Bank nel marzo 2023 ha mostrato come una
+strategia di bilancio possa risultare redditizia in condizioni ordinarie e,
+nello stesso tempo, lasciare una banca fortemente esposta a un cambiamento
+dello scenario finanziario.
+
+La banca aveva raccolto una quota molto elevata di depositi non assicurati,
+concentrati presso imprese tecnologiche e fondi di venture capital, e aveva
+investito una parte rilevante delle risorse in titoli a lunga scadenza.
+L'aumento dei tassi di interesse ne ridusse il valore, mentre il rallentamento
+del settore tecnologico aliment\`{o} i deflussi dei depositi. Quando la banca
+dovette vendere attivit\`{a} e cercare nuovo capitale, la perdita di fiducia
+produsse una corsa agli sportelli di eccezionale rapidit\`{a}.
+
+Il caso suggerisce una domanda che precede la crisi e riguarda la costruzione
+del bilancio:
+
+\begin{quote}
+\emph{Come dovrebbe una banca allocare il proprio attivo per sostenere la
+redditivit\`{a} senza compromettere la capacit\`{a} di fronteggiare deflussi
+di liquidit\`{a} e perdite di valore, e quale costo economico comportano i
+vincoli prudenziali?}
+\end{quote}
+
+La programmazione lineare permette di rappresentare questa decisione mediante
+variabili decisionali, una funzione obiettivo e un sistema di vincoli. La
+dualit\`{a} consente inoltre di stabilire quali requisiti limitino
+effettivamente la scelta e quale valore marginale debba essere attribuito al
+loro allentamento o irrigidimento.
+
+Il percorso concettuale del capitolo \`{e}:
+
+\[
+\begin{array}{c}
+\text{problema finanziario}
+\longrightarrow
+\text{modello lineare}
+\longrightarrow
+\text{regione ammissibile}
+\\[5pt]
+\longrightarrow
+\text{soluzione ottima}
+\longrightarrow
+\text{problema duale}
+\longrightarrow
+\text{prezzi ombra}.
+\end{array}
+\]
+
+Al termine del capitolo lo studente dovr\`{a} essere in grado di formulare un
+problema finanziario in forma lineare, interpretarne la regione ammissibile e
+i vincoli attivi, costruire il problema duale, comprendere i risultati di
+dualit\`{a} debole e forte, applicare le condizioni di complementariet\`{a} e
+attribuire un significato economico-finanziario alle variabili duali.
+
+\section{Il caso Silicon Valley Bank e la decisione preventiva di bilancio}
+
+\label{sec:cap11-caso-svb}
+
+Silicon Valley Bank era specializzata nei servizi finanziari alle imprese
+tecnologiche, alle societ\`{a} innovative e agli operatori di venture capital.
+La forte espansione di questi settori tra il 2019 e il 2021 produsse una rapida
+crescita dei depositi e del totale dell'attivo della banca.
+
+Una quota molto elevata dei depositi superava il limite della garanzia
+pubblica. Alla fine del 2022 circa il $94\%$ dei depositi di Silicon Valley
+Bank non era assicurato. La raccolta era inoltre concentrata presso clienti
+appartenenti allo stesso settore e collegati da relazioni economiche e
+informative particolarmente strette.
+
+La banca invest\`{i} una parte rilevante delle risorse raccolte in titoli
+obbligazionari e mortgage-backed securities a lunga scadenza. Questi strumenti
+presentavano un rischio di credito contenuto, ma erano esposti al rischio di
+tasso: quando i tassi di mercato aumentarono, il valore dei titoli gi\`{a}
+detenuti diminu\`{i}.
+
+Si determin\`{o} pertanto una combinazione critica:
+
+\[
+\begin{array}{c}
+\text{depositi concentrati e potenzialmente instabili}
+\\
++
+\\
+\text{attivit\`{a} a lunga durata e sensibili ai tassi}
+\\
++
+\\
+\text{capacit\`{a} di liquidazione immediata insufficiente}.
+\end{array}
+\]
+
+Il rallentamento della raccolta di capitale nel settore tecnologico spinse
+molti clienti a utilizzare i depositi per finanziare la propria operativit\`{a}.
+La banca dovette quindi affrontare deflussi crescenti proprio mentre il valore
+di mercato di una parte rilevante del portafoglio titoli si era ridotto.
+
+L'8 marzo 2023 Silicon Valley Bank annunci\`{o} la vendita di circa
+21 miliardi di dollari di titoli disponibili per la vendita, con una perdita
+al netto delle imposte di circa 1,8 miliardi, e un progetto di aumento di
+capitale. L'annuncio rese visibile la fragilit\`{a} del bilancio e contribu\`{i}
+alla perdita di fiducia. Il giorno successivo i deflussi dei depositi
+superarono 40 miliardi di dollari; la banca venne chiusa il 10 marzo.
+
+Il fallimento non pu\`{o} essere ricondotto a una sola decisione di
+portafoglio. Vi contribuirono carenze di governo e controllo dei rischi,
+debolezze nella gestione della liquidit\`{a}, concentrazione della raccolta,
+rischio di tasso e insufficiente capacit\`{a} di risposta alla corsa ai
+depositi.
+
+Il capitolo non intende ricostruire integralmente il bilancio di Silicon
+Valley Bank n\'{e} valutare a posteriori tutte le decisioni assunte dalla
+banca. Il caso reale viene utilizzato per formulare un problema preventivo e
+stilizzato:
+
+\begin{quote}
+\emph{come allocare le risorse disponibili prima dello shock, tenendo conto
+congiuntamente di redditivit\`{a}, liquidit\`{a}, perdite potenziali e
+concentrazione?}
+\end{quote}
+
+Consideriamo quindi una banca che, al tempo $t_{0}$, deve distribuire il
+proprio attivo tra:
+
+\[
+x_{C},
+\qquad
+x_{S},
+\qquad
+x_{B},
+\qquad
+x_{P},
+\]
+
+dove $x_{C}$ indica la cassa, $x_{S}$ i titoli liquidi a breve termine,
+$x_{B}$ le obbligazioni a pi\`{u} lunga scadenza e $x_{P}$ i prestiti.
+
+Le quattro classi svolgono funzioni differenti:
+
+\begin{itemize}
+
+\item la cassa garantisce disponibilit\`{a} immediata, ma offre una
+redditivit\`{a} limitata;
+
+\item i titoli a breve termine combinano rendimento e relativa facilit\`{a}
+di monetizzazione;
+
+\item le obbligazioni a lunga scadenza possono offrire un rendimento maggiore,
+ma sono pi\`{u} sensibili a un aumento dei tassi;
+
+\item i prestiti sostengono la funzione commerciale della banca, ma non sono
+normalmente liquidabili in tempi brevi senza costi.
+
+\end{itemize}
+
+La decisione viene assunta prima dello stress. Il modello non descrive quindi
+le operazioni di emergenza effettuate durante una corsa ai depositi, ma la
+composizione dell'attivo che la banca sceglie quando dispone ancora della
+possibilit\`{a} di prevenire la fragilit\`{a}.
+
+La calibrazione numerica sar\`{a} costruita a partire dai dati e dagli ordini
+di grandezza osservati nel bilancio di Silicon Valley Bank prima del
+fallimento. Saranno preservate, per quanto compatibile con la struttura
+semplificata del modello, la rilevanza dei depositi non assicurati, la
+concentrazione del portafoglio in titoli a lunga durata, l'esposizione alle
+perdite da aumento dei tassi e la limitata capacit\`{a} di fronteggiare
+deflussi eccezionalmente rapidi.
+
+Per mantenere leggibili i calcoli, gli importi potranno essere espressi in
+unit\`{a} monetarie aggregate e arrotondati a zero o una cifra decimale. Le
+poste contabili saranno inoltre ricondotte alle quattro classi di attivo del
+modello. Tali semplificazioni non dovranno alterare il meccanismo economico
+fondamentale evidenziato dal caso reale.
+
+\section{Orizzonti temporali, ipotesi e variabili decisionali}
+
+\label{sec:cap11-ipotesi-variabili}
+
+La decisione viene assunta al tempo $t_{0}$, prima che si manifesti lo
+scenario avverso. Il modello considera due orizzonti:
+
+\[
+\tau=t_{0}+30\mbox{ giorni},
+\qquad
+t_{1}=t_{0}+1\mbox{ anno}.
+\]
+
+Al tempo $\tau$ si verifica la capacit\`{a} della banca di fronteggiare
+deflussi dei depositi e perdite di valore. Al tempo $t_{1}$ si valuta invece
+la redditivit\`{a} annuale prodotta dalla composizione dell'attivo.
+
+\subsection{Ipotesi del modello}
+
+Il caso \`{e} costruito sotto le seguenti ipotesi:
+
+\begin{enumerate}
+
+\item la composizione dell'attivo viene scelta una sola volta al tempo $t_{0}$;
+
+\item non sono previste decisioni di ribilanciamento successive;
+
+\item il totale delle fonti disponibili \`{e} noto al tempo $t_{0}$;
+
+\item rendimenti, coefficienti di liquidabilit\`{a} e perdite nello scenario
+di stress sono rappresentati mediante parametri deterministici;
+
+\item costi, rendimenti e assorbimenti sono proporzionali agli importi
+investiti;
+
+\item le quantit\`{a} decisionali possono assumere valori continui e non
+negativi.
+
+\item i parametri numerici sono ottenuti aggregando e arrotondando dati e
+ordini di grandezza riconducibili al bilancio di Silicon Valley Bank; gli
+aggiustamenti didattici devono preservare le principali proporzioni
+economiche del caso reale;
+
+\end{enumerate}
+
+
+
+Le ipotesi di proporzionalit\`{a} e additivit\`{a} permettono di formulare il
+problema come programma lineare. Esse costituiscono una semplificazione:
+nella realt\`{a}, costi di liquidazione, rendimenti e perdite possono dipendere
+dalla dimensione delle posizioni e dalle condizioni di mercato.
+
+\subsection{Fonti disponibili}
+
+Le passivit\`{a} iniziali sono rappresentate da:
+
+\[
+D_{I},
+\qquad
+D_{U},
+\qquad
+F_{0},
+\qquad
+E_{0},
+\]
+
+dove:
+
+\begin{itemize}
+
+\item $D_{I}$ indica i depositi assicurati;
+
+\item $D_{U}$ indica i depositi non assicurati;
+
+\item $F_{0}$ indica le altre fonti di finanziamento;
+
+\item $E_{0}$ indica il capitale iniziale.
+
+\end{itemize}
+
+Il totale delle risorse da allocare \`{e} quindi:
+
+\[
+A_{0}
+=
+D_{I}+D_{U}+F_{0}+E_{0}.
+\]
+
+Le fonti sono dati del problema: la banca decide come impiegare le risorse,
+non come modificarne la composizione.
+
+\subsection{Variabili decisionali}
+
+Le variabili decisionali sono:
+
+\[
+x=
+\begin{pmatrix}
+x_{C}\\
+x_{S}\\
+x_{B}\\
+x_{P}
+\end{pmatrix},
+\]
+
+dove:
+
+\[
+\begin{array}{ll}
+x_{C} & \text{cassa e disponibilit\`{a} immediatamente liquide},\\
+x_{S} & \text{titoli liquidi a breve termine},\\
+x_{B} & \text{obbligazioni a pi\`{u} lunga scadenza},\\
+x_{P} & \text{prestiti}.
+\end{array}
+\]
+
+Per ciascuna classe vale il vincolo di non negativit\`{a}:
+
+\[
+x_{C},x_{S},x_{B},x_{P}\geq0.
+\]
+
+Il vettore $x$ descrive quindi la composizione preventiva dell'attivo scelta
+dalla banca al tempo $t_{0}$.
+
+\section{Costruzione del modello bancario}
+
+\label{sec:cap11-modello-bancario}
+
+La composizione dell'attivo deve rispettare il vincolo di bilancio:
+
+\[
+x_{C}+x_{S}+x_{B}+x_{P}=A_{0}.
+\]
+
+Indichiamo con
+
+\[
+c_{C},\qquad c_{S},\qquad c_{B},\qquad c_{P}
+\]
+
+i rendimenti annui unitari delle quattro classi di attivo. La redditivit\`{a}
+complessiva \`{e} quindi:
+
+\[
+R(x)
+=
+c_{C}x_{C}
++
+c_{S}x_{S}
++
+c_{B}x_{B}
++
+c_{P}x_{P}.
+\]
+
+L'obiettivo della banca consiste nel massimizzare tale quantit\`{a}:
+
+\[
+\max_{x}\;R(x).
+\]
+
+\subsection{Deflusso dei depositi e disponibilit\`{a} nello stress}
+
+Indichiamo con
+
+\[
+\rho_{I}
+\qquad\text{e}\qquad
+\rho_{U}
+\]
+
+le quote dei depositi assicurati e non assicurati che vengono ritirate entro
+l'orizzonte di stress. Il deflusso complessivo da fronteggiare \`{e}:
+
+\[
+\overline{u}
+=
+\rho_{I}D_{I}
++
+\rho_{U}D_{U}.
+\]
+
+La distinzione tra le due categorie di depositi \`{e} rilevante nel caso
+ispirato a Silicon Valley Bank, poich\'{e} una quota particolarmente elevata
+della raccolta non era coperta dalla garanzia sui depositi e poteva quindi
+reagire pi\`{u} rapidamente alla perdita di fiducia.
+
+Non tutte le attivit\`{a} possono essere trasformate in mezzi di pagamento
+nella stessa misura. Introduciamo i coefficienti:
+
+\[
+1,\qquad q_{S},\qquad q_{B},\qquad q_{P},
+\]
+
+con valori compresi tra zero e uno. Essi rappresentano la quota monetizzabile
+di ciascuna classe entro l'orizzonte $\tau$.
+
+La disponibilit\`{a} ottenibile nello scenario di stress \`{e}:
+
+\[
+Q(x)
+=
+x_{C}
++
+q_{S}x_{S}
++
+q_{B}x_{B}
++
+q_{P}x_{P}.
+\]
+
+Il requisito di liquidit\`{a} impone:
+
+\[
+Q(x)\geq\overline{u}.
+\]
+
+La cassa entra con coefficiente unitario. I coefficienti delle altre attivit\`{a}
+possono invece essere inferiori a uno per riflettere tempi di vendita,
+riduzioni di prezzo o difficolt\`{a} di liquidazione.
+
+\subsection{Perdite di valore e capacit\`{a} patrimoniale}
+
+Indichiamo con
+
+\[
+m_{S},\qquad m_{B},\qquad m_{P}
+\]
+
+le perdite unitarie associate allo scenario avverso. La perdita complessiva
+sull'attivo \`{e}:
+
+\[
+M(x)
+=
+m_{S}x_{S}
++
+m_{B}x_{B}
++
+m_{P}x_{P}.
+\]
+
+La cassa non compare nell'espressione, poich\'{e} nel modello non subisce
+perdite di valore nello scenario considerato.
+
+Sia $E_{\min}$ il livello minimo di capitale che la banca intende preservare.
+La capacit\`{a} disponibile per assorbire perdite \`{e}:
+
+\[
+K
+=
+E_{0}-E_{\min}.
+\]
+
+Il vincolo patrimoniale \`{e} quindi:
+
+\[
+M(x)\leq K.
+\]
+
+I coefficienti $q_{j}$ e $m_{j}$ descrivono aspetti distinti. Il coefficiente
+$q_{j}$ misura quanto dell'attivit\`{a} pu\`{o} essere monetizzato entro lo
+stress; il coefficiente $m_{j}$ misura la perdita economica prodotta dallo
+scenario avverso.
+
+\subsection{Vincoli operativi e di concentrazione}
+
+La banca mantiene almeno un livello minimo di cassa:
+
+\[
+x_{C}\geq C_{\min}.
+\]
+
+Per preservare la funzione commerciale e il finanziamento alla clientela,
+impone inoltre:
+
+\[
+x_{P}\geq P_{\min}.
+\]
+
+La concentrazione nelle obbligazioni a lunga scadenza viene limitata mediante:
+
+\[
+x_{B}\leq\alpha_{B}A_{0},
+\]
+
+dove $\alpha_{B}$ rappresenta la quota massima dell'attivo destinabile a tale
+classe.
+
+\subsection{Programma lineare completo}
+
+Il problema decisionale assume quindi la forma:
+
+\[
+\begin{array}{ll}
+\max
+&
+c_{C}x_{C}
++
+c_{S}x_{S}
++
+c_{B}x_{B}
++
+c_{P}x_{P}
+\\[4pt]
+\mbox{soggetto a}
+&
+x_{C}+x_{S}+x_{B}+x_{P}=A_{0},
+\\
+&
+x_{C}+q_{S}x_{S}+q_{B}x_{B}+q_{P}x_{P}
+\geq\overline{u},
+\\
+&
+m_{S}x_{S}+m_{B}x_{B}+m_{P}x_{P}
+\leq K,
+\\
+&
+x_{C}\geq C_{\min},
+\\
+&
+x_{P}\geq P_{\min},
+\\
+&
+x_{B}\leq\alpha_{B}A_{0},
+\\
+&
+x_{C},x_{S},x_{B},x_{P}\geq0.
+\end{array}
+\]
+
+Il modello traduce il problema finanziario in una struttura composta da una
+funzione obiettivo e da un insieme di decisioni ammissibili. La soluzione
+ottima sar\`{a} la composizione dell'attivo che massimizza la redditivit\`{a}
+annua rispettando tutti i requisiti assegnati.
