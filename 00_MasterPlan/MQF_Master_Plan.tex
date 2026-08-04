@@ -1045,90 +1045,110 @@ heatmap della matrice; probabilit\`{a} di default nel tempo; distribuzione
 simulata delle perdite.\newline\textbf{Applicazioni Python collegate:}
 applicazione Python 3.
 
+
 \subsection{Lezione 11 -- Ottimizzazione e programmazione lineare}
 
 \textbf{Tipo:} P.\newline
-\textbf{Domanda guida:} come dovrebbe una banca allocare il proprio attivo
-per sostenere la redditivit\`{a} senza compromettere la capacit\`{a} di
-fronteggiare deflussi di liquidit\`{a} e perdite di valore, e quale costo
-economico comportano i vincoli prudenziali?\newline
+\textbf{Domanda guida:} come si rappresenta e si analizza una decisione
+finanziaria lineare soggetta a risorse limitate e requisiti vincolanti, e
+quale valore economico assumono i vincoli che determinano la soluzione
+ottima?\newline
 \textbf{Prerequisiti:} algebra lineare elementare; sistemi di equazioni e
-disequazioni lineari; interpretazione economico-finanziaria di rendimento,
-liquidit\`{a} e capitale.\newline
-\textbf{Obiettivi didattici:} formulare un problema di programmazione lineare;
-interpretare regione ammissibile, punti estremi, vincoli attivi e variabili di
-scarto; costruire il duale; dimostrare la dualit\`{a} debole; enunciare la
-dualit\`{a} forte; applicare la complementariet\`{a}; interpretare le variabili
-duali come prezzi ombra.\newline
-\textbf{Caso guida:} allocazione preventiva dell'attivo bancario in un modello
-statico e deterministico, ispirato alle vulnerabilit\`{a} di liquidit\`{a},
-duration e concentrazione emerse nel caso Silicon Valley Bank. La banca ripartisce
-l'attivo tra cassa, titoli liquidi a breve termine, obbligazioni a pi\`{u} lunga
-scadenza e prestiti, sotto vincoli di bilancio, liquidit\`{a} nello stress,
-capacit\`{a} di assorbimento delle perdite, operativit\`{a} minima e concentrazione.
-Il modello completo viene utilizzato anche per l'esempio primale-duale; la
-geometria bidimensionale resta una figura introduttiva autonoma.\newline
-\textbf{Notazione introdotta:} vettore decisionale $x$, matrice $A$, vettori
-$b$ e $c$, valore ottimo $z^{*}$, vettore duale $\lambda$; nel caso guida
-$x_{C}$, $x_{S}$, $x_{B}$ e $x_{P}$.\newline
+disequazioni lineari; interpretazione economico-finanziaria di risorse,
+rendimenti e vincoli.\newline
+\textbf{Obiettivi didattici:} distinguere dati, variabili decisionali,
+funzione obiettivo e vincoli; formulare un programma lineare; interpretare
+regione ammissibile, convessit\`{a}, vincoli attivi, variabili di scarto,
+punti estremi e soluzioni di base; costruire il problema duale; dimostrare
+la dualit\`{a} debole; enunciare la dualit\`{a} forte; applicare le
+condizioni di complementariet\`{a}; interpretare le variabili duali come
+prezzi ombra.\newline
+\textbf{Caso motivante e applicazione principale:} il fallimento di Silicon
+Valley Bank viene utilizzato in apertura per motivare il problema della
+composizione preventiva dell'attivo in presenza di redditivit\`{a},
+liquidit\`{a}, perdite di valore e limiti prudenziali. Dopo lo sviluppo
+della teoria generale, viene formulato e analizzato un modello lineare
+stilizzato, calibrato su dati e proporzioni riconducibili al caso SVB. Il
+caso serve ad applicare formulazione, dualit\`{a}, complementariet\`{a} e
+prezzi ombra, ma non determina l'ordine dell'esposizione teorica. La
+geometria bidimensionale resta un esempio introduttivo autonomo.\newline
+\textbf{Notazione introdotta:} vettore decisionale $x$, matrice dei vincoli
+$A$, vettori $b$ e $c$, regione ammissibile, soluzione ottima $x^{*}$,
+valore ottimo $z^{*}$, variabili di scarto e vettore duale $\lambda$.\newline
 \textbf{Formule principali:}
 \[
 \max_{x}\;c'x
 \quad\hbox{soggetto a}\quad
-Ax\leq b,\quad x\geq0,
+Ax\leq b,\qquad x\geq0,
 \]
 \[
 \min_{\lambda}\;b'\lambda
 \quad\hbox{soggetto a}\quad
-A'\lambda\geq c,\quad \lambda\geq0,
+A'\lambda\geq c,\qquad \lambda\geq0,
 \]
 \[
-c'x\leq\lambda'b,
+c'x\leq b'\lambda,
 \qquad
-c'x^{*}=\lambda^{*'}b,
+c'x^{*}=b'\lambda^{*},
 \]
 \[
 \lambda_{i}^{*}\left(b_{i}-a_{i}'x^{*}\right)=0,
 \qquad
 x_{j}^{*}\left((A'\lambda^{*})_{j}-c_{j}\right)=0.
 \]
-\textbf{Esercizi previsti:} formulazione del caso bancario; verifica di
-ammissibilit\`{a}; identificazione dei vincoli attivi; costruzione del duale;
-verifica della dualit\`{a} e della complementariet\`{a}; interpretazione dei
-prezzi ombra.\newline
-\textbf{Grafici previsti:} figura bidimensionale autonoma della regione
-ammissibile; schema del caso bancario; corrispondenza tra vincoli primali e
-variabili duali.\newline
-\textbf{Contenuti non sviluppati:} algoritmo del simplesso, tableau, metodo
-Big M, metodo delle due fasi, lemma di Farkas e metodi del punto interno.\newline
-\textbf{Riferimenti scientifici principali:} Rardin, Capitoli 4 e 6;
-Bertsimas e Tsitsiklis, Capitoli 2 e 4; Cornu\'{e}jols, Pe\~{n}a e
-T\"{u}t\"{u}nc\"{u}, Capitoli 1--2.\newline
+\textbf{Esercizi previsti:} formulazione di problemi decisionali lineari;
+verifica di ammissibilit\`{a}; rappresentazione geometrica; identificazione
+di vincoli attivi e punti estremi; costruzione del duale; verifica della
+dualit\`{a} e della complementariet\`{a}; applicazione conclusiva al caso
+bancario.\newline
+\textbf{Grafici previsti:} regione ammissibile e rette di livello in un
+esempio bidimensionale autonomo; corrispondenza tra primale e duale;
+rappresentazione della complementariet\`{a}; risultati essenziali
+dell'applicazione bancaria.\newline
+\textbf{Contenuti non sviluppati:} algoritmo del simplesso, tableau,
+metodo Big M, metodo delle due fasi, lemma di Farkas, metodi del punto
+interno e programmazione lineare intera.\newline
+\textbf{Riferimenti scientifici principali:} Bertsimas e Tsitsiklis,
+Capitoli 2 e 4, costituiscono il riferimento principale per geometria dei
+poliedri, punti estremi, soluzioni di base, dualit\`{a} e
+complementariet\`{a}. Rardin, Capitoli 1--2 e 6, fornisce il riferimento
+per il processo di modellizzazione di ricerca operativa, l'esposizione
+operativa della dualit\`{a} e l'interpretazione dei prezzi ombra.
+Cornu\'{e}jols, Pe\~{n}a e T\"{u}t\"{u}nc\"{u}, Capitoli 1--3, viene
+utilizzato per la contestualizzazione e la modellizzazione finanziaria. I
+rapporti ufficiali sul fallimento di Silicon Valley Bank vengono impiegati
+esclusivamente per la motivazione e la calibrazione dell'applicazione
+conclusiva.\newline
+\newline
 \textbf{Applicazioni collegate:} Lezioni 12--16.
-
 
 \subsection{Lezione 12 -- Goal Programming}
 
 \textbf{Tipo:} P.\newline
-\textbf{Domanda guida:} come pu\`{o} una banca trasformare obiettivi strategici
-conflittuali di redditivit\`{a}, liquidit\`{a}, solidit\`{a} patrimoniale e sostegno
-al credito in una decisione trasparente, senza nascondere i trade-off?\newline
+\textbf{Domanda guida:} come si formalizza una decisione finanziaria quando
+pi\`{u} risultati desiderati sono conflittuali e non possono essere
+ricondotti, senza perdita di informazione, a un unico obiettivo?\newline
 \textbf{Prerequisiti:} Lezione 11; formulazione di un programma lineare;
-vincoli attivi, dualit\`{a} e prezzi ombra.\newline
-\textbf{Obiettivi didattici:} interpretare la sensitivit\`{a} locale; riconoscere
-i limiti dell'obiettivo unico; definire dominanza ed efficienza; distinguere
-vincoli rigidi e target; rappresentare deviazioni positive e negative;
-formulare modelli ponderati e lessicografici; normalizzare le deviazioni;
-verificare criticamente la soluzione.\newline
-\textbf{Caso guida:} pianificazione strategica bancaria multicriterio. La banca
-distribuisce risorse tra pi\`{u} classi di attivit\`{a} o linee di impiego e
-considera simultaneamente redditivit\`{a}, liquidit\`{a}, perdita o assorbimento
-patrimoniale e continuit\`{a} del credito. Il caso nasce come problema
-multicriterio e utilizza un dataset distinto da quello della Lezione 11. I
-vincoli inderogabili definiscono la regione ammissibile; i target rappresentano
-livelli desiderati non necessariamente conseguibili simultaneamente.\newline
-\textbf{Notazione introdotta:} criteri $g_{i}(x)$, target $b_{i}$, deviazioni
-$d_{i}^{-}$ e $d_{i}^{+}$, pesi $w_{i}$ e scale $s_{i}$.\newline
+vincoli attivi, dualit\`{a}, prezzi ombra e interpretazione locale della
+sensitivit\`{a}.\newline
+\textbf{Obiettivi didattici:} utilizzare la sensitivit\`{a} come raccordo
+con la programmazione lineare; riconoscere i limiti della formulazione a
+obiettivo singolo; definire dominanza ed efficienza; distinguere vincoli
+rigidi, criteri e target; rappresentare deviazioni positive e negative;
+formulare modelli di Goal Programming ponderato e lessicografico;
+normalizzare deviazioni espresse su scale differenti; valutare criticamente
+la soluzione rispetto a pesi, priorit\`{a} ed efficienza.\newline
+\textbf{Caso motivante e applicazione principale:} un problema di
+pianificazione strategica bancaria multicriterio viene utilizzato per
+applicare la teoria a criteri conflittuali di redditivit\`{a},
+liquidit\`{a}, assorbimento patrimoniale e continuit\`{a} del credito. Il
+caso utilizza un dataset distinto da quello della Lezione 11 ed entra dopo
+la presentazione generale di criteri, target, deviazioni, normalizzazione e
+priorit\`{a}. Esso non definisce la struttura teorica del Goal Programming
+e prepara l'applicazione computazionale della Lezione 13.\newline
+\textbf{Notazione introdotta:} criteri $g_{j}(x)$, target $\tau_{j}$,
+deviazioni $d_{j}^{-}$ e $d_{j}^{+}$, pesi $w_{j}$ e scale $s_{j}$.
+\newline
 \textbf{Formule principali:}
 \[
 z^{*}(b+\Delta b)
@@ -1136,30 +1156,39 @@ z^{*}(b+\Delta b)
 z^{*}(b)+\lambda_{i}^{*}\Delta b_{i},
 \]
 \[
-g_{i}(x)+d_{i}^{-}-d_{i}^{+}=b_{i},
+g_{j}(x)+d_{j}^{-}-d_{j}^{+}=\tau_{j},
 \qquad
-d_{i}^{-},d_{i}^{+}\geq0,
+d_{j}^{-},d_{j}^{+}\geq0.
 \]
 \[
-\min\;\sum_{i=1}^{p}w_{i}\frac{d_{i}}{s_{i}},
+\min\;\sum_{j=1}^{J}w_{j}\frac{d_{j}}{s_{j}},
 \]
-dove $d_{i}$ indica la deviazione indesiderata coerente con la direzione del
-target.\newline
-\textbf{Esercizi previsti:} distinzione tra vincoli rigidi e target; scelta
-della deviazione da penalizzare; costruzione delle equazioni-obiettivo;
-formulazione ponderata normalizzata; priorit\`{a} lessicografiche; verifica della
-dominanza; riconoscimento di formulazioni scorrette.\newline
-\textbf{Grafici previsti:} soluzioni dominate e non dominate nello spazio di
-due obiettivi; matrice dei risultati delle ottimizzazioni individuali; confronto
-tra deviazioni e tra soluzioni ponderate e lessicografiche.\newline
-\textbf{Contenuti non sviluppati:} algoritmi generali per la frontiera
-efficiente; Goal Programming fuzzy, stocastico, non lineare o interattivo.\newline
-\textbf{Riferimenti scientifici principali:} Rardin, Capitoli 6 e 8; Jones e
-Tamiz, Capitoli 1--3, 5 e 6; Bertsimas e Tsitsiklis, Capitolo 5; Cornu\'{e}jols,
-Pe\~{n}a e T\"{u}t\"{u}nc\"{u} per la contestualizzazione finanziaria.\newline
+dove $d_{j}$ indica la deviazione indesiderata coerente con la direzione
+del target.\newline
+\textbf{Esercizi previsti:} riconoscimento di criteri conflittuali;
+distinzione tra vincoli rigidi e target; scelta delle deviazioni da
+penalizzare; formulazione di modelli ponderati normalizzati; costruzione di
+priorit\`{a} lessicografiche; verifica della dominanza e individuazione di
+formulazioni scorrette; applicazione conclusiva al caso bancario
+multicriterio.\newline
+\textbf{Grafici previsti:} soluzioni dominate e non dominate nello spazio
+di due obiettivi; matrice dei risultati delle ottimizzazioni individuali;
+confronto tra deviazioni normalizzate; confronto tra soluzioni ponderate e
+lessicografiche.\newline
+\textbf{Contenuti non sviluppati:} teoria generale dell'ottimizzazione
+multiobiettivo; algoritmi completi per la costruzione della frontiera
+efficiente; Goal Programming fuzzy, stocastico, non lineare o interattivo.
+\newline
+\textbf{Riferimenti scientifici principali:} Jones e Tamiz, Capitoli 1--3
+e 6, costituisce il riferimento principale per terminologia, fondamenti,
+varianti ponderata e lessicografica, regole di formulazione ed efficienza
+paretiana. Rardin, Capitolo 8, fornisce un riferimento complementare per
+l'ottimizzazione multiobiettivo, le priorit\`{a} preemptive e le
+applicazioni del Goal Programming. Bertsimas e Tsitsiklis viene utilizzato
+soltanto per il raccordo con dualit\`{a} e sensitivit\`{a} della
+programmazione lineare; Cornu\'{e}jols, Pe\~{n}a e
+T\"{u}t\"{u}nc\"{u} per la contestualizzazione finanziaria.\newline
 \textbf{Applicazioni Python collegate:} Lezione 13.
-
-
 
 \subsection{Lezione 13 -- Applicazione in Python: Asset Allocation}
 

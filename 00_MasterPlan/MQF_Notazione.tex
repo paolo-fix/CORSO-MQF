@@ -664,34 +664,45 @@ nel Master Plan.
 
 \section{Programmazione lineare}
 
-Un problema di programmazione lineare viene scritto, salvo diversa indicazione,
-nella forma
+Un problema di programmazione lineare viene scritto, salvo diversa
+indicazione, nella forma
+
 \[
-\min_x \; c'x
+\max_{x}\;c'x
 \]
+
 soggetto a
+
 \[
-Ax\geq b,
+Ax\leq b,
 \qquad
 x\geq0.
 \]
-Il vettore delle variabili decisionali \`{e} $x$, il valore ottimo \`{e} $z^*$
-e una soluzione ottima \`{e} $x^*$. Le variabili duali sono indicate
-preferibilmente con $\lambda$.
+
+Il vettore delle variabili decisionali \`{e} $x$, la matrice dei coefficienti
+dei vincoli \`{e} $A$, il vettore dei termini noti \`{e} $b$ e il vettore dei
+coefficienti della funzione obiettivo \`{e} $c$.
+
+Il valore ottimo \`{e} indicato con $z^{*}$ e una soluzione ottima con
+$x^{*}$. Le variabili duali sono indicate preferibilmente con $\lambda$.
 
 Per il problema primale precedente, il duale associato \`{e}
+
 \[
-\max_{\lambda} \; b'\lambda
+\min_{\lambda}\;b'\lambda
 \]
+
 soggetto a
+
 \[
-A'\lambda\leq c,
+A'\lambda\geq c,
 \qquad
 \lambda\geq0.
 \]
-La dualit\`{a} resta nel corso come contenuto essenziale della lezione
-introduttiva di programmazione lineare, soprattutto per l'interpretazione
-economica dei vincoli e dei prezzi ombra. Non costituisce una lezione autonoma.
+
+Le formulazioni di minimo con vincoli del tipo $Ax\geq b$ sono ammesse quando
+pi\`{u} naturali per il problema considerato, purch\'{e} la convenzione sia
+dichiarata esplicitamente e il duale sia costruito in modo coerente.
 
 Il simbolo $y_s$ \`{e} riservato alle decisioni di secondo stadio nei problemi
 di programmazione stocastica.
@@ -734,6 +745,24 @@ priorit\`{a}
 \]
 con interpretazione lessicografica. In tal caso gli obiettivi di priorit\`{a}
 superiore vengono trattati prima degli obiettivi di priorit\`{a} inferiore.
+
+Quando le deviazioni relative a obiettivi differenti sono espresse in unit\`{a}
+o ordini di grandezza non confrontabili, si introduce per ciascun obiettivo
+una scala positiva
+
+\[
+s_j>0.
+\]
+
+La deviazione normalizzata \`{e} quindi espressa come
+
+\[
+\frac{d_j^-}{s_j}
+\qquad\hbox{oppure}\qquad
+\frac{d_j^+}{s_j},
+\]
+
+a seconda della direzione della deviazione che si intende penalizzare.
 
 Nelle applicazioni di asset allocation e asset liability management, i target
 possono riguardare rendimento atteso, rischio, esposizioni settoriali,
