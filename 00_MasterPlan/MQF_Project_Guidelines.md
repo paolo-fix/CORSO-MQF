@@ -337,6 +337,126 @@ Si applicano le seguenti regole:
 
 Lo standard disciplina la forma editoriale e didattica, ma non sostituisce il Registro degli esercizi del Master Plan, che definisce gli argomenti da coprire, ne' `MQF_Stato_Avanzamento.md`, che registra lo stato effettivo di realizzazione.
 
+### 9.1.2 Progettazione e validazione dei casi quantitativi
+
+I casi quantitativi dei capitoli teorici devono essere costruiti come problemi
+decisionali dotati di una motivazione economico-finanziaria riconoscibile. Il
+caso non deve essere una semplice cornice narrativa applicata a un esercizio
+matematico già definito.
+
+La tecnica quantitativa deve servire la comprensione del problema. Il problema
+non deve essere impoverito o deformato soltanto per ottenere una
+rappresentazione grafica elementare, coefficienti particolarmente comodi o una
+soluzione facilmente calcolabile a mano.
+
+Non esiste un obbligo di utilizzare lo stesso caso in lezioni consecutive.
+Quando due tecniche svolgono funzioni decisionali differenti, è preferibile
+utilizzare casi distinti ma coerenti con la progressione concettuale del corso.
+La continuità tra le lezioni può essere assicurata dalla domanda teorica e
+finanziaria, senza imporre la continuità del dataset.
+
+#### Definizione preliminare del caso
+
+Prima della scrittura del capitolo devono essere definiti almeno:
+
+1. la decisione che il soggetto economico deve assumere;
+2. il tempo della decisione e l'orizzonte sul quale sono valutati i risultati;
+3. le variabili decisionali e le relative unità di misura;
+4. i dati fissati esternamente al modello;
+5. la funzione obiettivo o i criteri rilevanti;
+6. i vincoli e la loro interpretazione economico-finanziaria;
+7. gli output necessari per la discussione didattica;
+8. i limiti della rappresentazione adottata.
+
+Quando il caso è ispirato a un evento o a un'istituzione reale, deve essere
+dichiarato esplicitamente se si tratta di un modello stilizzato. Non devono
+essere presentati come ricostruzioni empiriche dati, relazioni o risultati
+costruiti esclusivamente a fini didattici.
+
+#### Validazione numerica
+
+La calibrazione deve essere verificata con un solver prima della redazione
+definitiva del capitolo e delle slides.
+
+La verifica deve riguardare almeno:
+
+1. coerenza delle unità di misura;
+2. correttezza dei versi e dei segni dei vincoli;
+3. esistenza di soluzioni ammissibili;
+4. limitatezza del problema;
+5. plausibilità economica della soluzione;
+6. vincoli attivi e non attivi;
+7. stabilità dei risultati rispetto agli arrotondamenti;
+8. coerenza tra output numerici e interpretazione proposta.
+
+Il codice utilizzato per la calibrazione e per i controlli deve essere
+conservato nel progetto, anche quando non viene mostrato integralmente agli
+studenti.
+
+#### Programmazione lineare, dualità e sensitività
+
+Nei casi utilizzati per introdurre la programmazione lineare si applicano le
+seguenti regole:
+
+1. una rappresentazione bidimensionale può essere utilizzata per introdurre
+   regione ammissibile, rette di livello, punti estremi e vincoli attivi, ma
+   non deve imporre la riduzione di un caso finanziario naturalmente
+   multidimensionale;
+2. l'esempio primale-duale deve essere sviluppato su un modello dotato di
+   significato economico, non su un esercizio numerico separato privo di
+   collegamento con il caso guida;
+3. devono essere verificati valore primale, valore duale, vincoli attivi,
+   variabili di scarto e condizioni di complementarità;
+4. le convenzioni di segno adottate per le variabili duali devono essere
+   dichiarate e controllate rispetto agli output del solver;
+5. i prezzi ombra devono essere presentati come valori marginali locali, validi
+   finché non cambia la struttura della soluzione ottima;
+6. quando l'esempio è utilizzato per calcoli manuali, la calibrazione deve
+   evitare degenerazioni o ottimi alternativi non intenzionali, senza
+   sacrificare la plausibilità economico-finanziaria.
+
+#### Ottimizzazione multicriterio e Goal Programming
+
+Nei casi utilizzati per introdurre il Goal Programming si applicano le seguenti
+regole:
+
+1. il problema deve nascere dalla presenza di criteri effettivamente
+   conflittuali, non dalla trasformazione meccanica di vincoli già presenti in
+   un modello a obiettivo singolo;
+2. i vincoli inderogabili devono essere distinti dai target flessibili;
+3. requisiti normativi, soglie di sopravvivenza e condizioni minime di
+   attuabilità non devono essere resi compensabili mediante pesi o penalità;
+4. per ogni target deve essere identificata la deviazione indesiderata:
+   deviazione negativa per un obiettivo di tipo "almeno", deviazione positiva
+   per un obiettivo di tipo "al massimo", entrambe per un target esatto;
+5. prima di fissare i target devono essere ottimizzati separatamente i criteri
+   rilevanti e deve essere costruita una matrice dei risultati incrociati;
+6. deviazioni espresse in unità di misura o scale differenti devono essere
+   normalizzate;
+7. pesi e priorità devono essere motivati come rappresentazione delle
+   preferenze decisionali e non scelti a posteriori per produrre una soluzione
+   desiderata;
+8. la soluzione deve essere sottoposta a controlli rispetto a pesi,
+   normalizzazioni, ottimi alternativi, dominanza ed efficienza;
+9. le priorità lessicografiche devono essere implementate mediante problemi
+   sequenziali, preservando il risultato ottenuto ai livelli superiori.
+
+#### Distribuzione delle informazioni nei documenti di progetto
+
+La distribuzione corretta delle informazioni è la seguente:
+
+1. il Master Plan stabilisce funzione didattica, caso guida, nuclei teorici,
+   perimetro e riferimenti scientifici;
+2. le Guidelines stabiliscono le regole generali di costruzione e validazione;
+3. il capitolo del Manuale contiene formulazione, dati, calibrazione, esempi e
+   interpretazioni;
+4. il codice di supporto contiene le verifiche numeriche e gli output del
+   solver;
+5. il Registro decisionale conserva le scelte progettuali stabili e le relative
+   motivazioni;
+6. lo Stato di avanzamento registra soltanto il livello effettivo di
+   realizzazione dei materiali.
+
 ### 9.2 Capitoli applicativi
 
 La struttura standard di un capitolo con applicazione Python deve essere concepita in modo coerente con la natura laboratoriale della lezione. Il capitolo applicativo non deve limitarsi a presentare codice commentato, ma deve documentare il passaggio dalla formulazione matematica al prodotto computazionale finale.
