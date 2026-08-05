@@ -227,154 +227,6 @@ resilienza.
 
 \section{Formulazione generale di un programma lineare}
 
-\label{sec:cap11-formulazione-generale}
-
-Nel problema bancario richiamato in apertura, una decisione non pu\`{o} essere
-valutata considerando separatamente redditivit\`{a}, liquidit\`{a} e capacit\`{a}
-di assorbire perdite. Una composizione dell'attivo \`{e} accettabile soltanto
-se soddisfa simultaneamente tutti i requisiti rilevanti.
-
-Questa idea conduce alla formulazione generale di un programma lineare.
-Consideriamo $n$ variabili decisionali raccolte nel vettore colonna
-
-\[
-x=
-\begin{pmatrix}
-x_{1}\\
-\vdots\\
-x_{n}
-\end{pmatrix}
-\in\R^{n}.
-\]
-
-Il vettore $c\in\R^{n}$ contiene i coefficienti della funzione obiettivo,
-mentre la matrice $A\in\R^{m\times n}$ e il vettore $b\in\R^{m}$ descrivono
-gli $m$ vincoli del problema.
-
-Nella convenzione adottata nel corso, la forma di riferimento \`{e}
-
-\[
-\begin{array}{ll}
-\min\limits_{x} & c'x \\[3pt]
-\mbox{soggetto a} & Ax\geq b,\\
-& x\geq0.
-\end{array}
-\]
-
-In forma scalare, il problema diventa
-
-\[
-\begin{array}{ll}
-\min & \displaystyle\sum_{j=1}^{n}c_{j}x_{j}\\[8pt]
-\mbox{soggetto a}
-&
-\displaystyle\sum_{j=1}^{n}a_{ij}x_{j}\geq b_{i},
-\qquad i=1,\ldots,m,
-\\[8pt]
-&
-x_{j}\geq0,
-\qquad j=1,\ldots,n.
-\end{array}
-\]
-
-La scrittura matriciale rende visibile la struttura comune a problemi
-decisionali molto diversi. Nel caso bancario, $x_j$ potr\`{a} rappresentare
-l'importo destinato alla classe di attivo $j$; il coefficiente $c_j$ il suo
-contributo al criterio economico; $a_{ij}$ il contributo della stessa
-attivit\`{a} al requisito $i$; $b_i$ il livello minimo richiesto o la
-disponibilit\`{a} associata al vincolo.
-
-\paragraph{Definizione: soluzione ammissibile.}
-
-Un vettore $\bar{x}\in\R^{n}$ \`{e} una \emph{soluzione ammissibile} se
-soddisfa tutti i vincoli:
-
-\[
-A\bar{x}\geq b,
-\qquad
-\bar{x}\geq0.
-\]
-
-L'insieme delle soluzioni ammissibili \`{e}
-
-\[
-\mathcal{X}
-=
-\left\{
-x\in\R^{n}:
-Ax\geq b,\;
-x\geq0
-\right\}.
-\]
-
-L'insieme $\mathcal{X}$ viene chiamato \emph{regione ammissibile}.
-
-Nel problema ispirato a SVB, una composizione dell'attivo appartiene alla
-regione ammissibile soltanto se rispetta contemporaneamente il vincolo di
-bilancio, il requisito di liquidit\`{a}, la capacit\`{a} patrimoniale e gli
-eventuali limiti operativi o di concentrazione. Il rispetto di un singolo
-requisito non rende quindi la decisione ammissibile.
-
-\paragraph{Definizione: soluzione ottima.}
-
-Una soluzione $x^{*}\in\mathcal{X}$ \`{e} ottima se
-
-\[
-c'x^{*}\leq c'x
-\qquad
-\text{per ogni }x\in\mathcal{X}.
-\]
-
-Il corrispondente valore ottimo \`{e}
-
-\[
-z^{*}
-=
-c'x^{*}
-=
-\min_{x\in\mathcal{X}}c'x.
-\]
-
-La soluzione ottima \`{e} dunque la migliore tra le decisioni ammissibili,
-non la migliore tra tutte le decisioni astrattamente possibili. Nel caso
-bancario, un rendimento pi\`{u} elevato ottenuto violando il requisito di
-liquidit\`{a} non costituisce una soluzione alternativa: si trova al di fuori
-della regione ammissibile.
-
-La soluzione ottima non deve necessariamente essere unica. Pi\`{u}
-composizioni possono produrre lo stesso valore della funzione obiettivo,
-pur utilizzando in modo differente le risorse disponibili.
-
-\paragraph{Possibili esiti del problema.}
-
-Un programma lineare pu\`{o} presentare tre esiti fondamentali.
-
-\begin{itemize}
-
-\item La regione ammissibile \`{e} non vuota e il problema possiede un valore
-ottimo finito.
-
-\item La regione ammissibile \`{e} vuota: nessuna decisione soddisfa
-simultaneamente tutti i vincoli.
-
-\item La regione ammissibile \`{e} non vuota, ma la funzione obiettivo pu\`{o}
-diminuire indefinitamente; il problema \`{e} illimitato inferiormente.
-
-\end{itemize}
-
-Questi esiti hanno un contenuto decisionale preciso. Nel caso bancario,
-l'inammissibilit\`{a} segnalerebbe che i requisiti imposti sono reciprocamente
-incompatibili con le risorse disponibili. L'illimitatezza indicherebbe invece,
-con ogni probabilit\`{a}, l'assenza di un limite economico necessario o un
-errore nella formulazione del modello.
-
-La forma adottata in questa sezione \`{e} una convenzione di riferimento.
-Problemi di massimo, vincoli di uguaglianza, disuguaglianze con verso opposto
-e variabili non vincolate nel segno saranno ricondotti a forme equivalenti
-nella sezione successiva.
-
-\section{Formulazione generale di un programma lineare}
-
 \label{sec:cap11-formulazione-pl}
 
 Nel problema bancario richiamato in apertura, una decisione non pu\`{o} essere
@@ -403,8 +255,8 @@ Nella convenzione adottata nel corso, la forma di riferimento \`{e}
 
 \[
 \begin{array}{ll}
-\min\limits_{x} & c'x \\[3pt]
-\mbox{soggetto a} & Ax\geq b,\\
+\max\limits_{x} & c'x \\[3pt]
+\mbox{soggetto a} & Ax\leq b,\\
 & x\geq0.
 \end{array}
 \]
@@ -413,32 +265,39 @@ In forma scalare, il problema diventa
 
 \[
 \begin{array}{ll}
-\min & \displaystyle\sum_{j=1}^{n}c_{j}x_{j}\\[8pt]
+\max & \displaystyle\sum_{j=1}^{n}c_jx_j \\[8pt]
 \mbox{soggetto a}
 &
-\displaystyle\sum_{j=1}^{n}a_{ij}x_{j}\geq b_{i},
+\displaystyle\sum_{j=1}^{n}a_{ij}x_j\leq b_i,
 \qquad i=1,\ldots,m,
 \\[8pt]
 &
-x_{j}\geq0,
+x_j\geq0,
 \qquad j=1,\ldots,n.
 \end{array}
 \]
 
 La scrittura matriciale rende visibile la struttura comune a problemi
-decisionali molto diversi. Nel caso bancario, $x_j$ potr\`{a} rappresentare
-l'importo destinato alla classe di attivo $j$; il coefficiente $c_j$ il suo
-contributo al criterio economico; $a_{ij}$ il contributo della stessa
-attivit\`{a} al requisito $i$; $b_i$ il livello minimo richiesto o la
-disponibilit\`{a} associata al vincolo.
+decisionali molto diversi. Il coefficiente $c_j$ misura il contributo
+unitario della variabile $x_j$ al risultato da massimizzare; il coefficiente
+$a_{ij}$ misura l'impiego della risorsa $i$ prodotto da una unit\`{a} della
+variabile $x_j$; il termine $b_i$ rappresenta la disponibilit\`{a} o il
+limite associato al vincolo $i$.
 
-\paragraph{Definizione: soluzione ammissibile.}
+Nel problema bancario, $x_j$ potr\`{a} rappresentare l'importo destinato alla
+classe di attivo $j$ e $c_j$ la relativa redditivit\`{a} unitaria. Non tutti
+i requisiti bancari assumono per\`{o} direttamente la forma $\leq$: il vincolo
+di bilancio \`{e} un'uguaglianza, mentre un requisito minimo di liquidit\`{a}
+presenta naturalmente verso opposto. La sezione successiva mostrer\`{a} come
+trattare queste forme senza modificarne il significato economico.
 
-Un vettore $\bar{x}\in\R^{n}$ \`{e} una \emph{soluzione ammissibile} se
-soddisfa tutti i vincoli:
+\begin{definition}[Soluzione ammissibile]
+
+Un vettore $\bar{x}\in\R^n$ \`{e} una soluzione ammissibile se soddisfa tutti
+i vincoli:
 
 \[
-A\bar{x}\geq b,
+A\bar{x}\leq b,
 \qquad
 \bar{x}\geq0.
 \]
@@ -449,26 +308,28 @@ L'insieme delle soluzioni ammissibili \`{e}
 \mathcal{X}
 =
 \left\{
-x\in\R^{n}:
-Ax\geq b,\;
+x\in\R^n:
+Ax\leq b,\;
 x\geq0
 \right\}.
 \]
 
 L'insieme $\mathcal{X}$ viene chiamato \emph{regione ammissibile}.
 
+\end{definition}
+
 Nel problema ispirato a SVB, una composizione dell'attivo appartiene alla
-regione ammissibile soltanto se rispetta contemporaneamente il vincolo di
+regione ammissibile soltanto se rispetta simultaneamente il vincolo di
 bilancio, il requisito di liquidit\`{a}, la capacit\`{a} patrimoniale e gli
 eventuali limiti operativi o di concentrazione. Il rispetto di un singolo
 requisito non rende quindi la decisione ammissibile.
 
-\paragraph{Definizione: soluzione ottima.}
+\begin{definition}[Soluzione ottima]
 
-Una soluzione $x^{*}\in\mathcal{X}$ \`{e} ottima se
+Una soluzione $x^*\in\mathcal{X}$ \`{e} ottima se
 
 \[
-c'x^{*}\leq c'x
+c'x^*\geq c'x
 \qquad
 \text{per ogni }x\in\mathcal{X}.
 \]
@@ -476,16 +337,18 @@ c'x^{*}\leq c'x
 Il corrispondente valore ottimo \`{e}
 
 \[
-z^{*}
+z^*
 =
-c'x^{*}
+c'x^*
 =
-\min_{x\in\mathcal{X}}c'x.
+\max_{x\in\mathcal{X}}c'x.
 \]
 
-La soluzione ottima \`{e} dunque la migliore tra le decisioni ammissibili,
-non la migliore tra tutte le decisioni astrattamente possibili. Nel caso
-bancario, un rendimento pi\`{u} elevato ottenuto violando il requisito di
+\end{definition}
+
+La soluzione ottima \`{e} la migliore tra le decisioni ammissibili, non la
+migliore tra tutte le decisioni astrattamente possibili. Nel caso bancario,
+una redditivit\`{a} pi\`{u} elevata ottenuta violando il requisito di
 liquidit\`{a} non costituisce una soluzione alternativa: si trova al di fuori
 della regione ammissibile.
 
@@ -493,7 +356,7 @@ La soluzione ottima non deve necessariamente essere unica. Pi\`{u}
 composizioni possono produrre lo stesso valore della funzione obiettivo,
 pur utilizzando in modo differente le risorse disponibili.
 
-\paragraph{Possibili esiti del problema.}
+\subsection{Possibili esiti del problema}
 
 Un programma lineare pu\`{o} presentare tre esiti fondamentali.
 
@@ -506,7 +369,7 @@ ottimo finito.
 simultaneamente tutti i vincoli.
 
 \item La regione ammissibile \`{e} non vuota, ma la funzione obiettivo pu\`{o}
-diminuire indefinitamente; il problema \`{e} illimitato inferiormente.
+aumentare indefinitamente; il problema \`{e} illimitato superiormente.
 
 \end{itemize}
 
@@ -517,9 +380,9 @@ con ogni probabilit\`{a}, l'assenza di un limite economico necessario o un
 errore nella formulazione del modello.
 
 La forma adottata in questa sezione \`{e} una convenzione di riferimento.
-Problemi di massimo, vincoli di uguaglianza, disuguaglianze con verso opposto
-e variabili non vincolate nel segno saranno ricondotti a forme equivalenti
-nella sezione successiva.
+Problemi di minimo, vincoli di uguaglianza, disuguaglianze con verso opposto
+e variabili non vincolate nel segno saranno trattati mediante trasformazioni
+equivalenti nella sezione successiva.
 
 
 \section{Forme alternative e trasformazioni equivalenti}
@@ -530,67 +393,72 @@ La forma di riferimento
 
 \[
 \begin{array}{ll}
-\min\limits_{x} & c'x\\[3pt]
-\mbox{soggetto a} & Ax\geq b,\\
+\max\limits_x & c'x\\[3pt]
+\mbox{soggetto a} & Ax\leq b,\\
 & x\geq0
 \end{array}
 \]
 
-\`{e} una convenzione utile per enunciare i risultati generali. I problemi
-reali presentano tuttavia funzioni obiettivo di massimo, vincoli con versi
-differenti, uguaglianze e variabili soggette a limiti specifici.
+\`{e} una convenzione utile per presentare in modo unitario i risultati
+generali. I problemi reali possono tuttavia contenere funzioni obiettivo di
+minimo, vincoli con verso opposto, uguaglianze e variabili soggette a limiti
+specifici.
 
-Nel caso bancario, ad esempio, la redditivit\`{a} viene naturalmente
-massimizzata, il totale dell'attivo soddisfa un'uguaglianza, la liquidit\`{a}
-deve superare un livello minimo e la concentrazione in titoli a lunga scadenza
-non deve oltrepassare un limite massimo. Queste forme possono essere ricondotte
+Nel caso bancario, la redditivit\`{a} viene naturalmente massimizzata e un
+limite alla concentrazione assume direttamente la forma $\leq$. Il requisito
+minimo di liquidit\`{a} presenta invece verso $\geq$, mentre il totale
+dell'attivo soddisfa un'uguaglianza. Queste forme possono essere ricondotte
 alla convenzione adottata mediante trasformazioni equivalenti.
 
-\paragraph{Problemi di massimo.}
+\subsection{Problemi di minimo}
 
-Un problema di massimo pu\`{o} essere trasformato in un problema di minimo
+Un problema di minimo pu\`{o} essere trasformato in un problema di massimo
 cambiando il segno della funzione obiettivo:
 
 \[
-\max_{x}\;c'x
+\min_x\;c'x
 \qquad\Longleftrightarrow\qquad
-\min_{x}\;(-c'x).
+\max_x\;(-c'x).
 \]
 
 Le soluzioni ottime coincidono, mentre i valori ottimi hanno segno opposto.
+La trasformazione \`{e} puramente algebrica e non modifica il significato
+della decisione.
 
-Nel problema ispirato a SVB, massimizzare la redditivit\`{a} dell'attivo
-equivale quindi a minimizzarne l'opposto. La trasformazione \`{e} puramente
-algebrica e non modifica il significato della decisione.
-
-\paragraph{Verso dei vincoli.}
+\subsection{Verso dei vincoli}
 
 Un vincolo del tipo
 
 \[
-a_i'x\leq b_i
+a_i'x\geq b_i
 \]
 
 pu\`{o} essere riscritto moltiplicando entrambi i membri per $-1$:
 
 \[
--a_i'x\geq-b_i.
+-a_i'x\leq-b_i.
 \]
 
-Un limite alla quota investita in titoli a lunga scadenza, ad esempio, pu\`{o}
-essere espresso originariamente come vincolo di massimo e successivamente
-ricondotto alla forma di riferimento.
-
-Un requisito minimo di liquidit\`{a} assume invece direttamente la forma
+Nel problema bancario, un requisito minimo di liquidit\`{a}
 
 \[
-a_i'x\geq b_i,
+q'x\geq\overline{u}
 \]
 
-dove il membro sinistro rappresenta la liquidit\`{a} ottenibile dalla
-composizione dell'attivo e $b_i$ il livello minimo richiesto.
+pu\`{o} quindi essere scritto nella forma equivalente
 
-\paragraph{Vincoli di uguaglianza.}
+\[
+-q'x\leq-\overline{u}.
+\]
+
+Un limite massimo alla concentrazione in una classe di attivo assume invece
+direttamente la forma canonica:
+
+\[
+x_B\leq\alpha_BA_0.
+\]
+
+\subsection{Vincoli di uguaglianza}
 
 Il vincolo
 
@@ -601,9 +469,9 @@ a_i'x=b_i
 equivale alla coppia di disuguaglianze
 
 \[
-a_i'x\geq b_i,
+a_i'x\leq b_i,
 \qquad
--a_i'x\geq-b_i.
+-a_i'x\leq-b_i.
 \]
 
 Nel modello bancario, l'identit\`{a} tra risorse disponibili e impieghi
