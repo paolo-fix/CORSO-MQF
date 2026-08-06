@@ -5,267 +5,915 @@
 
 \label{cap:programmazione-lineare}
 
-\section{Obiettivi della lezione e problema guida}
+\section{Dalla misurazione del rischio alla decisione: il caso SVB}
 
-\label{sec:cap11-obiettivi}
+\label{sec:cap11-svb-decisione}
 
 Nei capitoli precedenti sono stati introdotti strumenti per rappresentare
-l'incertezza e misurare il rischio. In questo capitolo il punto di vista
-cambia: occorre scegliere una decisione prima che lo scenario avverso si
-manifesti, tenendo conto delle risorse disponibili e dei requisiti che la
-decisione deve rispettare.
+l'incertezza e misurare le conseguenze economiche degli eventi futuri. Le
+catene di Markov hanno permesso di descrivere l'evoluzione degli stati
+creditizi; associando a ciascuno stato una perdita monetaria, sono state
+costruite distribuzioni di perdita e misure di rischio quali il
+Value-at-Risk e il Conditional Value-at-Risk.
 
-Il fallimento di Silicon Valley Bank nel marzo 2023 offre una motivazione
-concreta. SVB era fortemente specializzata nei servizi a imprese tecnologiche,
-societ\`{a} innovative e operatori di venture capital. Durante la fase di
-rapida espansione di questi settori, tra il 2019 e il 2021, la banca ricevette
-ingenti flussi di depositi e accrebbe rapidamente la dimensione del proprio
-bilancio.
+Il percorso seguito pu\`{o} essere sintetizzato come
 
-La raccolta presentava tuttavia una vulnerabilit\`{a} strutturale. I depositi
-erano concentrati presso clienti appartenenti agli stessi settori e, alla fine
-del 2022, circa il $94\%$ non era coperto dall'assicurazione sui depositi. Una
-parte rilevante delle risorse era stata investita in titoli a lunga scadenza,
-caratterizzati da un rischio di credito limitato ma da una significativa
-sensibilit\`{a} all'aumento dei tassi di interesse.
+\[
+\text{stati futuri}
+\longrightarrow
+\text{probabilit\`{a}}
+\longrightarrow
+\text{perdite}
+\longrightarrow
+\text{misure di rischio}.
+\]
 
-Quando, nel 2022, i tassi aumentarono rapidamente, il valore di mercato di
-questi titoli diminu\`{i}. Nello stesso periodo, il rallentamento degli
-investimenti nel settore tecnologico indusse molte imprese clienti a utilizzare
-i depositi per finanziare la propria operativit\`{a}. La banca si trov\`{o}
-quindi a fronteggiare deflussi crescenti mentre una parte consistente
-dell'attivo poteva essere liquidata soltanto realizzando perdite.
+Questi strumenti rispondono a domande fondamentali: quali eventi avversi
+possono verificarsi, con quale probabilit\`{a}, quali perdite possono
+produrre e quanto risulta rilevante la parte pi\`{u} sfavorevole della
+distribuzione. La misurazione del rischio, tuttavia, non stabilisce
+automaticamente quale decisione debba essere adottata.
 
-L'8 marzo 2023 SVB annunci\`{o} la vendita di circa 21 miliardi di dollari di
-titoli, con una perdita di circa 1,8 miliardi, e un progetto di aumento di
-capitale. L'annuncio rese evidente la fragilit\`{a} del bilancio e acceler\`{o}
-la perdita di fiducia. Il giorno successivo furono richiesti prelievi per oltre
-40 miliardi di dollari; il 10 marzo la banca venne chiusa dalle autorit\`{a}.
-Il fallimento fu favorito anche da gravi carenze nella gestione dei rischi e
-da un'azione di vigilanza insufficiente e tardiva.\footnote{Federal Reserve
-Board, \emph{Review of the Federal Reserve's Supervision and Regulation of
+Un intermediario finanziario deve decidere come impiegare le risorse
+disponibili prima che gli eventi futuri siano osservati. Non deve soltanto
+stimare le perdite potenziali, ma deve anche scegliere quali posizioni
+assumere, quante risorse mantenere liquide e quale livello di
+redditivit\`{a} perseguire, rispettando simultaneamente i requisiti che
+delimitano la propria operativit\`{a}.
+
+Il punto di vista del capitolo diventa quindi
+
+\[
+\text{variabili decisionali}
+\longrightarrow
+\text{vincoli}
+\longrightarrow
+\text{decisioni ammissibili}
+\longrightarrow
+\text{scelta ottima}.
+\]
+
+La crisi di Silicon Valley Bank offre un caso particolarmente utile per
+motivare questo passaggio dalla misurazione alla decisione. Il caso non
+verr\`{a} utilizzato per ricostruire integralmente il fallimento della
+banca e non si sosterr\`{a} che una singola diversa allocazione
+dell'attivo avrebbe necessariamente evitato la crisi. La vicenda permette
+invece di isolare un problema decisionale generale: come comporre il
+bilancio di una banca quando redditivit\`{a}, liquidit\`{a} e
+capacit\`{a} di assorbire perdite richiedono scelte tra loro
+interdipendenti.
+
+Silicon Valley Bank operava principalmente al servizio di imprese
+tecnologiche, societ\`{a} innovative e operatori di venture capital. La
+forte espansione di questi settori produsse una rapida crescita dei
+depositi e della dimensione del bilancio. Tra il 2019 e il 2021, le
+attivit\`{a} del gruppo aumentarono da circa 71 miliardi a oltre 211
+miliardi di dollari. La crescita della raccolta richiese quindi alla banca
+di decidere come investire, in un periodo relativamente breve, un volume
+molto elevato di nuove risorse.\footnote{Federal Reserve Board,
+\emph{Review of the Federal Reserve's Supervision and Regulation of
 Silicon Valley Bank}, aprile 2023.}
 
-La vicenda non dimostra che una singola diversa allocazione dell'attivo avrebbe
-necessariamente evitato il fallimento. Mostra per\`{o} che redditivit\`{a},
-liquidit\`{a}, rischio di tasso, concentrazione della raccolta e capacit\`{a}
-di assorbire perdite non possono essere considerate separatamente.
+La raccolta presentava inoltre un'elevata concentrazione. Una parte
+rilevante dei depositanti apparteneva agli stessi settori economici,
+dipendeva da condizioni finanziarie simili e poteva manifestare esigenze
+di liquidit\`{a} correlate. Alla fine del 2022, circa il $94\%$ dei
+depositi non era coperto dall'assicurazione federale. La disponibilit\`{a}
+di fondi era pertanto ampia, ma la loro stabilit\`{a} dipendeva in misura
+rilevante dall'andamento del settore tecnologico e del mercato del venture
+capital.
 
-La domanda guida del capitolo \`{e} quindi:
+Una parte consistente delle risorse raccolte fu investita in titoli
+pubblici e in mortgage-backed securities a lunga scadenza. Questi
+strumenti presentavano un rischio di credito relativamente contenuto, ma
+un'elevata sensibilit\`{a} alle variazioni dei tassi di interesse. Un
+titolo pu\`{o} essere sicuro rispetto al rimborso del capitale e risultare,
+nello stesso tempo, esposto a una significativa perdita di valore quando i
+tassi di mercato aumentano. Rischio di credito, rischio di tasso e rischio
+di liquidit\`{a} sono quindi dimensioni distinte.
 
-\begin{quote}
-\emph{Prima che la crisi si manifestasse, quale composizione dell'attivo
-avrebbe consentito a una banca con il profilo di Silicon Valley Bank di
-perseguire la redditivit\`{a} senza compromettere la capacit\`{a} di
-fronteggiare deflussi e perdite di valore, e quale costo economico avrebbe
-comportato una maggiore resilienza?}
-\end{quote}
+L'aumento dei tassi verificatosi nel 2022 ridusse il valore di mercato dei
+titoli a pi\`{u} lunga durata. Nello stesso periodo, il rallentamento dei
+finanziamenti alle imprese tecnologiche indusse numerosi clienti a
+utilizzare i depositi per sostenere la propria operativit\`{a}. La banca
+si trov\`{o} cos\`{i} a fronteggiare deflussi crescenti mentre una quota
+rilevante dell'attivo poteva essere monetizzata rapidamente soltanto
+realizzando perdite.
 
-Questa domanda conduce a un problema generale di ricerca operativa. Occorre
-individuare le quantit\`{a} controllabili, definire il risultato da migliorare
-e rappresentare le condizioni che ogni decisione ammissibile deve rispettare.
-La programmazione lineare fornisce il linguaggio matematico per affrontare
-questo problema quando funzione obiettivo e vincoli dipendono linearmente
-dalle variabili decisionali.
+La fragilit\`{a} non dipendeva quindi dalla presenza isolata di una
+particolare classe di attivo, ma dalla relazione tra la struttura
+dell'attivo e quella della raccolta. Attivit\`{a} destinate a essere
+detenute a lungo possono risultare compatibili con passivit\`{a} stabili;
+diventano invece problematiche quando i finanziatori possono richiedere
+rapidamente il rimborso delle proprie risorse.
 
-Il caso SVB accompagner\`{a} lo sviluppo come filo interpretativo. I concetti
-di regione ammissibile, vincolo attivo, punto estremo, dualit\`{a} e prezzo
-ombra saranno introdotti in forma generale e riletti nel problema bancario.
-La formulazione numerica completa sar\`{a} sviluppata nell'applicazione
-conclusiva.
+La liquidit\`{a} di una banca non dipende soltanto dalla qualit\`{a}
+creditizia delle sue attivit\`{a}. Dipende anche dalla possibilit\`{a} di
+trasformare tali attivit\`{a} in mezzi di pagamento nei tempi richiesti e
+senza perdite incompatibili con il capitale disponibile. Una banca pu\`{o}
+quindi possedere attivit\`{a} di buona qualit\`{a} e trovarsi comunque in
+difficolt\`{a} se deve venderle rapidamente in condizioni di mercato
+sfavorevoli.
 
-Il percorso concettuale del capitolo \`{e}:
+Nel marzo 2023, l'annuncio della vendita di una parte del portafoglio
+titoli, accompagnato dalla comunicazione di una perdita e da un progetto
+di aumento di capitale, rese visibili le difficolt\`{a} della banca e
+contribu\`{i} a una rapida perdita di fiducia. Il 9 marzo furono richiesti
+prelievi per oltre 40 miliardi di dollari; il giorno successivo la banca
+venne chiusa dalle autorit\`{a}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]
+{../graphics/Cap11_SVB_meccanismo_fragilita.png}
+\caption{Vulnerabilit\`a, shock e meccanismo di amplificazione nel caso
+Silicon Valley Bank. Lo schema evidenzia le leve sulle quali una decisione
+preventiva di allocazione dell'attivo pu\`o intervenire.}
+\label{fig:cap11-svb-meccanismo-fragilita}
+\end{figure}
+La Figura~\ref{fig:cap11-svb-meccanismo-fragilita} mostra che la crisi non
+deriva da un singolo fattore. La fragilit\`a emerge dall'interazione tra
+struttura della raccolta, composizione dell'attivo, shock sui tassi e
+meccanismi di perdita della fiducia.
+
+Il fallimento coinvolse carenze nella gestione dei rischi, debolezze nella
+pianificazione della liquidit\`{a}, insufficiente controllo del rischio di
+tasso e limiti nell'azione di vigilanza. Sarebbe pertanto scorretto
+ricondurre la crisi a un unico errore di allocazione o trattarla come il
+risultato meccanico di un semplice modello quantitativo.
+
+Il caso mette tuttavia in evidenza quattro elementi che possono essere
+ricondotti a un problema decisionale:
 
 \[
 \begin{array}{c}
-\text{decisione finanziaria}
-\longrightarrow
-\text{modello lineare}
-\longrightarrow
-\text{soluzioni ammissibili}
-\\[5pt]
-\longrightarrow
-\text{soluzione ottima}
-\longrightarrow
-\text{problema duale}
-\longrightarrow
-\text{valore economico dei vincoli}.
+\text{rapida crescita delle risorse da investire},
+\\[4pt]
+\text{concentrazione e instabilit\`{a} potenziale della raccolta},
+\\[4pt]
+\text{investimento in attivit\`{a} a lunga scadenza sensibili ai tassi},
+\\[4pt]
+\text{difficolt\`{a} di liquidazione dell'attivo in presenza di deflussi}.
 \end{array}
 \]
 
-Al termine del capitolo lo studente dovr\`{a} essere in grado di formulare e
-analizzare un programma lineare, interpretarne la struttura geometrica,
-costruire il problema duale, applicare i risultati di dualit\`{a} e
-complementariet\`{a} e leggere le variabili duali come misure del valore
-marginale delle risorse e dei requisiti.
+Considerati separatamente, questi elementi non identificano una decisione
+ottima. Una maggiore quota di attivit\`{a} liquide riduce la
+vulnerabilit\`{a} ai deflussi, ma tende a diminuire la redditivit\`{a}.
+Una maggiore esposizione verso titoli a lunga scadenza pu\`{o} accrescere
+il rendimento corrente, ma aumenta la sensibilit\`{a} del valore
+dell'attivo ai tassi di interesse. Un limite pi\`{u} severo alle perdite
+potenziali migliora la capacit\`{a} di resistere a uno scenario avverso,
+ma restringe l'insieme degli impieghi disponibili.
 
-\section{Problemi decisionali lineari}
+La decisione rilevante non consiste quindi nello scegliere in modo
+astratto tra redditivit\`{a} e sicurezza. Occorre determinare una
+combinazione di attivit\`{a} che utilizzi le risorse disponibili, produca
+un risultato economico soddisfacente e rispetti simultaneamente requisiti
+di liquidit\`{a}, capacit\`{a} di assorbimento delle perdite e limiti di
+concentrazione.
 
-\label{sec:cap11-problemi-lineari}
+Il problema guida del capitolo \`{e} pertanto il seguente:
 
-Prima del manifestarsi della crisi, il problema di una banca con il profilo di
-Silicon Valley Bank non consisteva nello scegliere una singola attivit\`{a}
-sicura o redditizia. Occorreva decidere come distribuire le risorse disponibili
-tra impieghi caratterizzati da rendimenti, liquidabilit\`{a} e sensibilit\`{a}
-ai tassi differenti.
+\begin{quote}
+\emph{Prima che una crisi si manifesti, come pu\`{o} una banca scegliere la
+composizione del proprio attivo perseguendo la redditivit\`{a}, ma
+rispettando simultaneamente requisiti di liquidit\`{a}, limiti alle
+perdite di valore e vincoli di concentrazione? Quale costo economico
+comporta rendere il bilancio pi\`{u} resiliente?}
+\end{quote}
 
-Una maggiore esposizione verso titoli a lunga scadenza poteva sostenere la
-redditivit\`{a}, ma accresceva le perdite potenziali in caso di aumento dei
-tassi. Una maggiore disponibilit\`{a} di cassa o di titoli a breve termine
-riduceva invece la vulnerabilit\`{a} ai deflussi, rinunciando per\`{o} a parte
-del rendimento atteso. Il problema riguardava quindi la scelta di una
-\emph{combinazione} di attivit\`{a}, non la valutazione isolata di ciascuna di
-esse.
+La programmazione lineare fornisce un primo linguaggio per affrontare
+questa domanda. Essa permette di identificare le quantit\`{a}
+controllabili, rappresentare i requisiti che ogni decisione deve
+rispettare, confrontare le alternative ammissibili e misurare il valore
+economico dei vincoli che limitano la scelta.
 
-Questa situazione pu\`{o} essere ricondotta agli elementi fondamentali di un
-problema decisionale:
+Nelle sezioni successive verr\`{a} costruito un modello stilizzato
+ispirato al caso SVB. Il modello non riprodurr\`{a} integralmente il
+bilancio storico della banca, ma isoler\`{a} un numero limitato di classi
+di attivo e di requisiti, in modo da rendere trasparenti i trade-off tra
+redditivit\`{a}, liquidit\`{a} e resilienza.
+
+\section{Che cosa avrebbe potuto decidere la banca?}
+
+\label{sec:cap11-decisioni-banca}
+
+Il fallimento di Silicon Valley Bank pu\`o essere analizzato soltanto dopo
+avere distinto le condizioni esterne dalle decisioni che la banca avrebbe
+potuto assumere prima della crisi. L'aumento dei tassi di interesse,
+l'andamento del settore tecnologico, le richieste di rimborso dei depositanti
+e i prezzi osservati sul mercato non erano direttamente controllabili dalla
+banca. La composizione dell'attivo, la quota di risorse mantenuta liquida, la
+durata media degli investimenti e il grado di concentrazione delle esposizioni
+dipendevano invece, almeno in parte, da decisioni gestionali.
+
+Questa distinzione \`e essenziale. Un modello decisionale non stabilisce quali
+eventi futuri si verificheranno, ma individua quali scelte possono essere
+compiute prima che tali eventi siano osservati. Nel caso di una banca, la
+domanda non \`e soltanto quanto possa diminuire il valore di un portafoglio
+quando i tassi aumentano. Occorre anche chiedersi quale composizione
+dell'attivo renda il bilancio compatibile con una simile eventualit\`a.
+
+Il modello che verr\`a sviluppato non intende riprodurre tutte le componenti
+del bilancio storico di Silicon Valley Bank. Una rappresentazione completa
+dovrebbe distinguere numerose categorie di titoli, prestiti, riserve,
+strumenti derivati, fonti di raccolta e poste patrimoniali. Un modello
+didattico deve invece selezionare un numero limitato di elementi, sufficienti
+a rendere visibile il problema decisionale.
+
+Consideriamo pertanto quattro classi aggregate di attivo.
+
+\begin{description}
+
+\item[Cassa e riserve.]
+
+Comprendono le risorse immediatamente disponibili per soddisfare pagamenti e
+richieste di rimborso. Presentano elevata liquidit\`a e una perdita di valore
+molto contenuta, ma offrono normalmente una redditivit\`a inferiore rispetto
+agli impieghi a pi\`u lunga scadenza.
+
+\item[Titoli a breve scadenza.]
+
+Comprendono strumenti che possono essere convertiti in liquidit\`a in tempi
+relativamente brevi e con una limitata esposizione alle variazioni dei tassi
+di interesse. Possono offrire un rendimento superiore a quello della cassa,
+mantenendo una buona capacit\`a di coprire i deflussi.
+
+\item[Titoli a lunga scadenza.]
+
+Comprendono titoli pubblici e altri strumenti obbligazionari caratterizzati da
+una durata elevata. Possono offrire un rendimento maggiore, ma il loro valore
+di mercato risulta pi\`u sensibile a un aumento dei tassi. La loro
+liquidazione anticipata pu\`o quindi generare perdite significative.
+
+\item[Prestiti e altri impieghi meno liquidi.]
+
+Comprendono attivit\`a destinate a rimanere nel bilancio per un periodo pi\`u
+lungo e non immediatamente negoziabili sul mercato. Possono contribuire in
+misura rilevante al risultato economico della banca, ma presentano una
+capacit\`a limitata di sostenere richieste improvvise di liquidit\`a.
+
+\end{description}
+
+La classificazione non implica che ogni attivit\`a appartenente alla stessa
+categoria presenti caratteristiche identiche. Essa rappresenta una
+semplificazione: a ciascuna classe vengono attribuiti coefficienti medi di
+redditivit\`a, liquidabilit\`a e perdita nello scenario di stress.
+
+Indichiamo con
+\begin{itemize}
+
+\item $x_1$: ammontare destinato a cassa e riserve;
+
+\item $x_2$: ammontare investito in titoli a breve scadenza;
+
+\item $x_3$: ammontare investito in titoli a lunga scadenza;
+
+\item $x_4$: ammontare destinato a prestiti e altri impieghi meno liquidi.
+
+\end{itemize}
+
+Le quantit\`a
+
+\[
+x_1,x_2,x_3,x_4
+\]
+
+sono le \emph{variabili decisionali} del modello. Esse rappresentano le
+quantit\`a che devono essere determinate. Non sono dati osservati e non sono
+risultati prodotti dal modello.
+
+Poich\'e le variabili rappresentano importi investiti, si assume
+
+\[
+x_j\geq 0,
+\qquad
+j=1,\ldots,4.
+\]
+
+La condizione esclude, nel modello considerato, posizioni negative nelle
+singole classi di attivo. Eventuali vendite allo scoperto, posizioni nette o
+strumenti derivati richiederebbero una rappresentazione differente e non sono
+necessari per mettere in evidenza il problema guida del capitolo.
+
+Le variabili decisionali possono essere raccolte nel vettore
+
+\[
+x
+=
+\begin{pmatrix}
+x_1\\
+x_2\\
+x_3\\
+x_4
+\end{pmatrix}.
+\]
+
+La scelta di una composizione dell'attivo corrisponde quindi alla scelta di un
+particolare vettore $x$. Vettori differenti rappresentano politiche di
+allocazione differenti.
+
+Per valutare ciascuna composizione occorrono alcuni dati. Indichiamo con
+$c_j$ il contributo unitario dell'attivit\`a $j$ al risultato economico della
+banca. Il risultato complessivo associato alla composizione $x$ sar\`a quindi
+espresso come
+
+\[
+\sum_{j=1}^{4}c_jx_j.
+\]
+
+Un valore pi\`u elevato di $c_j$ rende, a parit\`a delle altre condizioni,
+pi\`u conveniente aumentare l'investimento nell'attivit\`a $j$. Il
+coefficiente non deve essere necessariamente interpretato come il solo tasso
+di interesse contrattuale. Pu\`o rappresentare un margine economico atteso
+che tenga conto dei costi direttamente attribuibili alla classe di attivo.
+
+La redditivit\`a non \`e tuttavia l'unica caratteristica rilevante. Indichiamo
+con $q_j$ la quota di una unit\`a dell'attivit\`a $j$ che pu\`o essere
+trasformata in mezzi liquidi entro l'orizzonte considerato. La liquidit\`a
+complessivamente disponibile dalla composizione $x$ \`e allora rappresentata
+da
+
+\[
+\sum_{j=1}^{4}q_jx_j.
+\]
+
+Per la cassa e le riserve il coefficiente $q_j$ sar\`a prossimo a uno. Per
+attivit\`a meno liquide sar\`a inferiore. Il coefficiente deve essere
+interpretato rispetto a un orizzonte temporale specifico: un'attivit\`a pu\`o
+essere liquidabile nell'arco di alcuni mesi, ma non essere utile per
+fronteggiare richieste di pagamento concentrate in pochi giorni.
+
+Indichiamo inoltre con $\ell_j$ la perdita unitaria attribuita all'attivit\`a
+$j$ in uno scenario di stress. La perdita complessiva associata alla
+composizione dell'attivo \`e quindi
+
+\[
+\sum_{j=1}^{4}\ell_jx_j.
+\]
+
+I coefficienti $\ell_j$ possono riflettere, in forma semplificata, la
+riduzione del valore di mercato prodotta da un aumento dei tassi o da altre
+condizioni avverse. Per le attivit\`a a lunga scadenza essi saranno
+normalmente pi\`u elevati rispetto a quelli delle attivit\`a liquide o a breve
+scadenza.
+
+I coefficienti $c_j$, $q_j$ e $\ell_j$ sono \emph{parametri} del modello.
+Essi non vengono scelti dalla procedura di ottimizzazione, ma devono essere
+stimati o fissati prima che il problema venga risolto. La qualit\`a della
+decisione dipende quindi anche dalla ragionevolezza dei dati utilizzati.
+
+La distinzione tra decisioni e parametri pu\`o essere sintetizzata come
 
 \[
 \begin{array}{ll}
-\text{quantit\`{a} da scegliere}
+\text{variabili decisionali}
 &
-\longrightarrow\quad
-\text{variabili decisionali},
-\\[3pt]
-\text{risultato da migliorare}
+x_1,x_2,x_3,x_4,
+\\[4pt]
+\text{dati di redditivit\`a}
 &
-\longrightarrow\quad
-\text{funzione obiettivo},
-\\[3pt]
-\text{risorse e requisiti da rispettare}
+c_1,c_2,c_3,c_4,
+\\[4pt]
+\text{dati di liquidabilit\`a}
 &
-\longrightarrow\quad
-\text{vincoli},
-\\[3pt]
-\text{rendimenti, perdite e disponibilit\`{a}}
+q_1,q_2,q_3,q_4,
+\\[4pt]
+\text{dati di perdita sotto stress}
 &
-\longrightarrow\quad
-\text{parametri del modello}.
+\ell_1,\ell_2,\ell_3,\ell_4.
 \end{array}
 \]
 
-Nel caso bancario, le variabili decisionali possono rappresentare gli importi
-destinati alle diverse classi di attivo. La funzione obiettivo misura il
-risultato economico prodotto dalla composizione scelta. I vincoli impongono,
-ad esempio, il rispetto dell'identit\`{a} di bilancio, di un requisito minimo
-di liquidit\`{a}, della capacit\`{a} patrimoniale di assorbire perdite e di
-eventuali limiti di concentrazione.
-
-In termini generali, indichiamo con
+A partire dalle variabili e dai parametri si ottengono alcune grandezze
+aggregate:
 
 \[
-x_{1},x_{2},\ldots,x_{n}
+\begin{array}{ll}
+\displaystyle\sum_{j=1}^{4}c_jx_j
+&
+\text{risultato economico della composizione scelta},
+\\[10pt]
+\displaystyle\sum_{j=1}^{4}q_jx_j
+&
+\text{liquidit\`a disponibile nell'orizzonte considerato},
+\\[10pt]
+\displaystyle\sum_{j=1}^{4}\ell_jx_j
+&
+\text{perdita nello scenario di stress}.
+\end{array}
 \]
 
-le variabili decisionali. Il coefficiente $c_{j}$ misura il contributo unitario
-della variabile $x_{j}$ alla funzione obiettivo, mentre $a_{ij}$ misura il
-contributo della stessa variabile al vincolo $i$. Il termine $b_{i}$ indica il
-livello richiesto, disponibile o massimo associato a quel vincolo.
+Queste grandezze sono \emph{risultati} della decisione. Una volta scelta la
+composizione $x$, esse possono essere calcolate. Il modello dovr\`a stabilire
+quale risultato migliorare e quali livelli minimi o massimi debbano essere
+rispettati.
 
-La programmazione lineare presuppone che tali relazioni siano lineari. Questa
-struttura si fonda su quattro ipotesi.
-
-\paragraph{Proporzionalit\`{a}.}
-
-Il contributo di ciascuna variabile \`{e} proporzionale al suo livello. Se una
-unit\`{a} dell'attivit\`{a} $j$ produce un rendimento $c_{j}$, allora un
-investimento pari a $x_{j}$ produce il contributo
+Nel caso considerato, la banca pu\`o perseguire un risultato economico
+elevato, ma non pu\`o ignorare la necessit\`a di mantenere liquidit\`a
+sufficiente e di contenere le perdite potenziali. Occorre quindi distinguere
+quattro componenti del problema:
 
 \[
-c_{j}x_{j}.
+\begin{array}{c}
+\text{le decisioni che possono essere scelte},
+\\[4pt]
+\text{i dati utilizzati per valutarle},
+\\[4pt]
+\text{i risultati prodotti da ciascuna decisione},
+\\[4pt]
+\text{i requisiti che rendono una decisione accettabile}.
+\end{array}
 \]
 
-Nel caso bancario questa ipotesi implica, ad esempio, che il rendimento e la
-perdita unitaria attribuiti a una classe di attivo non cambino al variare
+La programmazione lineare organizza queste componenti in un unico modello.
+Le variabili rappresentano la composizione dell'attivo; la funzione obiettivo
+esprime il risultato da migliorare; i vincoli traducono le risorse disponibili
+e i requisiti di liquidit\`a, perdita e concentrazione.
+
+La sezione successiva costruir\`a tale modello progressivamente. Ogni
+relazione matematica verr\`a introdotta partendo dal suo significato
+economico, in modo da chiarire quali decisioni ammette, quali esclude e quale
+vulnerabilit\`a del bilancio intende controllare.
+
+\section{Costruire il modello, un vincolo alla volta}
+
+\label{sec:cap11-costruzione-modello}
+
+Le variabili decisionali introdotte nella sezione precedente descrivono come
+la banca distribuisce le risorse disponibili tra quattro classi di attivo:
+
+\[
+x_1,x_2,x_3,x_4.
+\]
+
+Per trasformare questa rappresentazione in un problema decisionale occorre
+specificare:
+
+\begin{itemize}
+
+\item quale risultato la banca intende migliorare;
+
+\item quali risorse sono disponibili;
+
+\item quali requisiti ogni composizione dell'attivo deve rispettare.
+
+\end{itemize}
+
+Il modello viene costruito progressivamente, mantenendo per ogni relazione
+il collegamento tra formula matematica e significato economico.
+
+\subsection{Il vincolo di bilancio}
+
+Sia $A_0$ l'ammontare complessivo delle risorse che devono essere allocate.
+Poich\'e l'intero attivo considerato deve essere distribuito tra le quattro
+classi, si impone
+
+\[
+x_1+x_2+x_3+x_4=A_0.
+\]
+
+Il vincolo non stabilisce come le risorse debbano essere impiegate. Stabilisce
+soltanto che la somma degli impieghi deve coincidere con le risorse
+disponibili.
+
+Una composizione per la quale
+
+\[
+x_1+x_2+x_3+x_4>A_0
+\]
+
+non sarebbe realizzabile, perch\'e richiederebbe risorse superiori a quelle
+disponibili. Una composizione con somma inferiore ad $A_0$ lascerebbe invece
+una parte delle risorse priva di destinazione. Nel modello considerato si
+assume che anche le risorse non investite in titoli o prestiti siano
+rappresentate dalla variabile relativa alla cassa e alle riserve.
+
+\subsection{La funzione obiettivo}
+
+Sia $c_j$ il contributo economico unitario della classe di attivo $j$. Il
+risultato complessivo prodotto dalla composizione $x$ \`e
+
+\[
+c_1x_1+c_2x_2+c_3x_3+c_4x_4.
+\]
+
+Se l'obiettivo della banca \`e massimizzare tale risultato, si scrive
+
+\[
+\max\;
+c_1x_1+c_2x_2+c_3x_3+c_4x_4.
+\]
+
+La funzione obiettivo esprime la direzione nella quale il modello confronta
+le decisioni ammissibili. A parit\`a di tutti i requisiti, viene preferita la
+composizione che produce il risultato economico pi\`u elevato.
+
+La massimizzazione della redditivit\`a non implica che il modello ignori il
+rischio. Redditivit\`a, liquidit\`a e perdite non vengono sommate in un unico
+indicatore. La redditivit\`a costituisce il risultato da migliorare, mentre
+liquidit\`a, perdite e concentrazione delimitano le decisioni che possono
+essere considerate accettabili.
+
+\subsection{Il requisito minimo di liquidit\`a}
+
+Sia $q_j$ la quota dell'attivit\`a $j$ che pu\`o essere trasformata in mezzi
+liquidi entro l'orizzonte temporale considerato. La liquidit\`a disponibile
+dalla composizione dell'attivo \`e
+
+\[
+q_1x_1+q_2x_2+q_3x_3+q_4x_4.
+\]
+
+Se $Q_{\min}$ indica il livello minimo necessario per fronteggiare i deflussi
+previsti nello scenario considerato, il requisito di liquidit\`a \`e
+
+\[
+q_1x_1+q_2x_2+q_3x_3+q_4x_4
+\geq
+Q_{\min}.
+\]
+
+Il vincolo esclude le composizioni che, pur potendo essere redditizie, non
+rendono disponibile un ammontare sufficiente di risorse nei tempi richiesti.
+
+Il coefficiente $q_j$ non misura la qualit\`a creditizia dell'attivit\`a. Un
+titolo pu\`o presentare un rischio di insolvenza molto contenuto e, nello
+stesso tempo, risultare poco adatto a soddisfare un fabbisogno immediato di
+liquidit\`a se la vendita anticipata comporta perdite rilevanti.
+
+Il livello $Q_{\min}$ rappresenta una scelta prudenziale o gestionale. Un suo
+aumento restringe l'insieme delle composizioni ammissibili e tende a spostare
+le risorse verso le attivit\`a maggiormente liquidabili.
+
+\subsection{Il limite alle perdite nello scenario di stress}
+
+Sia $\ell_j$ la perdita unitaria attribuita alla classe di attivo $j$ nello
+scenario di stress. La perdita complessiva associata alla composizione $x$ \`e
+
+\[
+\ell_1x_1+\ell_2x_2+\ell_3x_3+\ell_4x_4.
+\]
+
+Se $K$ indica la perdita massima che la banca ritiene compatibile con la
+propria capacit\`a patrimoniale, si impone
+
+\[
+\ell_1x_1+\ell_2x_2+\ell_3x_3+\ell_4x_4
+\leq
+K.
+\]
+
+Il vincolo non elimina ogni possibilit\`a di perdita. Richiede che la perdita
+stimata nello scenario considerato non superi il livello massimo stabilito.
+
+Nel caso ispirato a SVB, i coefficienti $\ell_j$ possono rappresentare la
+riduzione di valore prodotta da un aumento dei tassi. Le attivit\`a a lunga
+scadenza avranno normalmente un coefficiente di perdita superiore rispetto
+alla cassa e ai titoli a breve scadenza.
+
+Una composizione dell'attivo potrebbe quindi rispettare il requisito di
+liquidit\`a e risultare comunque inammissibile, perch\'e esposta a perdite
+troppo elevate nello scenario di stress. I due vincoli controllano
+vulnerabilit\`a differenti.
+
+\subsection{Il limite di concentrazione}
+
+La vicenda SVB mostra anche che una quota eccessiva delle risorse concentrata
+in attivit\`a con caratteristiche simili pu\`o aumentare la fragilit\`a del
+bilancio.
+
+Per limitare l'esposizione verso i titoli a lunga scadenza si pu\`o imporre
+
+\[
+x_3\leq \alpha A_0,
+\]
+
+dove
+
+\[
+0\leq\alpha\leq1
+\]
+
+rappresenta la quota massima delle risorse complessive che pu\`o essere
+destinata a tale classe.
+
+Il vincolo di concentrazione ha una funzione distinta dal limite alle perdite.
+Il limite alle perdite considera l'effetto economico dello scenario di stress;
+il limite di concentrazione impedisce che il portafoglio dipenda in misura
+eccessiva da una singola classe di attivo, anche quando la perdita stimata
+rimane entro il livello $K$.
+
+\subsection{La non negativit\`a}
+
+Poich\'e le variabili rappresentano importi investiti nelle diverse classi, si
+impone
+
+\[
+x_j\geq0,
+\qquad
+j=1,\ldots,4.
+\]
+
+La condizione esclude posizioni negative e vendite allo scoperto. Essa non \`e
+una conseguenza matematica della programmazione lineare, ma una caratteristica
+economica del problema considerato.
+
+\subsection{Il modello SVB stilizzato}
+
+Riunendo le relazioni precedenti, il problema decisionale diventa
+
+\[
+\begin{array}{ll}
+\max
+&
+c_1x_1+c_2x_2+c_3x_3+c_4x_4
+\\[6pt]
+\mbox{soggetto a}
+&
+x_1+x_2+x_3+x_4=A_0,
+\\[4pt]
+&
+q_1x_1+q_2x_2+q_3x_3+q_4x_4
+\geq Q_{\min},
+\\[4pt]
+&
+\ell_1x_1+\ell_2x_2+\ell_3x_3+\ell_4x_4
+\leq K,
+\\[4pt]
+&
+x_3\leq\alpha A_0,
+\\[4pt]
+&
+x_j\geq0,
+\qquad j=1,\ldots,4.
+\end{array}
+\]
+
+La funzione obiettivo confronta le composizioni dell'attivo in termini di
+risultato economico. I vincoli stabiliscono invece quali composizioni possono
+essere effettivamente considerate:
+
+\begin{itemize}
+
+\item il vincolo di bilancio distribuisce le risorse disponibili;
+
+\item il requisito di liquidit\`a protegge dalla necessit\`a di fronteggiare
+deflussi con attivit\`a difficilmente monetizzabili;
+
+\item il limite alle perdite controlla la vulnerabilit\`a nello scenario di
+stress;
+
+\item il limite di concentrazione contiene l'esposizione verso i titoli a
+lunga scadenza;
+
+\item la non negativit\`a riflette la natura degli importi investiti.
+
+\end{itemize}
+
+Una decisione pu\`o essere molto redditizia e non appartenere comunque
+all'insieme delle alternative accettabili. Il modello non ricerca quindi la
+composizione pi\`u redditizia in assoluto, ma la composizione pi\`u redditizia
+tra quelle che rispettano simultaneamente tutti i requisiti.
+
+I coefficienti e i limiti del modello devono essere fissati prima della
+soluzione. La programmazione lineare non determina autonomamente quale debba
+essere il livello corretto di liquidit\`a, quale perdita sia sostenibile o
+quale concentrazione sia prudente. Essa rende per\`o trasparenti le
+conseguenze delle ipotesi adottate e permette di studiare come la soluzione
+cambi quando tali requisiti vengono modificati.
+
+\section{Quando il modello \`e lineare}
+
+\label{sec:cap11-linearita}
+
+Il modello costruito nella sezione precedente attribuisce a ciascuna classe
+di attivo un rendimento unitario, un coefficiente di liquidabilit\`a e una
+perdita unitaria nello scenario di stress. Redditivit\`a, liquidit\`a e
+perdita complessive vengono ottenute moltiplicando tali coefficienti per gli
+importi investiti e sommando i contributi delle diverse attivit\`a.
+
+Questa struttura rende il modello \emph{lineare}. La linearit\`a non dipende
+dal fatto che il problema sia semplice o contenga poche variabili. Dipende dal
+modo in cui le decisioni entrano nella funzione obiettivo e nei vincoli: ogni
+variabile compare moltiplicata per un coefficiente noto e i diversi contributi
+vengono sommati.
+
+Nel modello bancario, ad esempio, il risultato economico \`e rappresentato da
+
+\[
+c_1x_1+c_2x_2+c_3x_3+c_4x_4,
+\]
+
+mentre la liquidit\`a disponibile \`e
+
+\[
+q_1x_1+q_2x_2+q_3x_3+q_4x_4.
+\]
+
+Non compaiono potenze delle variabili, prodotti tra variabili o coefficienti
+che dipendono dalle quantit\`a investite. Le espressioni
+
+\[
+x_3^2,
+\qquad
+x_2x_3,
+\qquad
+c_3(x_3)x_3
+\]
+
+non sarebbero invece lineari.
+
+La rappresentazione adottata si fonda su quattro ipotesi: proporzionalit\`a,
+additivit\`a, divisibilit\`a e trattamento deterministico dei coefficienti.
+
+\subsection{Proporzionalit\`a}
+
+L'ipotesi di proporzionalit\`a richiede che il contributo di una variabile sia
+proporzionale al suo livello. Se una unit\`a monetaria investita nella classe
+$j$ produce un risultato economico pari a $c_j$, un investimento pari a
+$x_j$ produce il contributo
+
+\[
+c_jx_j.
+\]
+
+Raddoppiando l'importo investito, il contributo alla funzione obiettivo
+raddoppia. La stessa ipotesi viene applicata alla liquidit\`a e alla perdita
+nello scenario di stress:
+
+\[
+q_jx_j,
+\qquad
+\ell_jx_j.
+\]
+
+Nel caso SVB stilizzato, ci\`o significa che rendimento, quota liquidabile e
+perdita unitaria attribuiti a una classe di attivo non cambiano al variare
 dell'importo investito.
 
-\paragraph{Additivit\`{a}.}
+\subsection{Additivit\`a}
 
-Il risultato complessivo si ottiene sommando i contributi delle singole
-variabili:
-
-\[
-c_{1}x_{1}+\cdots+c_{n}x_{n}.
-\]
-
-Non sono quindi rappresentati effetti di interazione come $x_{1}x_{2}$. Nel
-caso SVB stilizzato, ci\`{o} significa che il contributo di una classe di
-attivo alla redditivit\`{a}, alla liquidit\`{a} o alle perdite viene sommato a
-quello delle altre classi.
-
-\paragraph{Divisibilit\`{a}.}
-
-Le variabili decisionali possono assumere valori reali non negativi. L'ipotesi
-\`{e} naturale quando le decisioni riguardano importi monetari o quote di
-portafoglio:
+L'ipotesi di additivit\`a stabilisce che il risultato complessivo sia la somma
+dei contributi delle singole decisioni. La redditivit\`a totale viene quindi
+calcolata come
 
 \[
-x_{j}\geq0.
+\sum_{j=1}^{4}c_jx_j,
 \]
 
-Non sarebbe invece adeguata per decisioni indivisibili, come l'apertura o la
-chiusura di una filiale o l'acquisto di un numero intero di infrastrutture.
+senza introdurre effetti di interazione tra le classi di attivo.
 
-\paragraph{Certezza dei coefficienti.}
-
-I coefficienti $a_{ij}$, $b_{i}$ e $c_{j}$ sono trattati come dati noti. Nel
-modello bancario, rendimenti, quote monetizzabili e perdite nello scenario di
-stress saranno quindi fissati prima della soluzione.
-
-Questa ipotesi non afferma che tali quantit\`{a} siano certe nella realt\`{a}.
-Significa che il modello rappresenta una specifica valutazione preventiva,
-costruita sulla base delle informazioni e dello scenario selezionati. La
-programmazione stocastica, sviluppata nelle lezioni successive, permetter\`{a}
-invece di rappresentare esplicitamente pi\`{u} scenari futuri.
-
-Le ipotesi di proporzionalit\`{a} e additivit\`{a} definiscono propriamente la
-linearit\`{a}. Divisibilit\`{a} e certezza precisano il tipo di decisioni e il
-trattamento dei dati. Nel caso SVB, esse consentono di trasformare una vicenda
-complessa in un modello trasparente, nel quale sia possibile individuare quali
-vincoli limitano la decisione e quale costo economico comporta una maggiore
-resilienza.
-
-\section{Formulazione generale di un programma lineare}
-
-\label{sec:cap11-formulazione-pl}
-
-Nel problema bancario richiamato in apertura, una decisione non pu\`{o} essere
-valutata considerando separatamente redditivit\`{a}, liquidit\`{a} e capacit\`{a}
-di assorbire perdite. Una composizione dell'attivo \`{e} accettabile soltanto
-se soddisfa simultaneamente tutti i requisiti rilevanti.
-
-Questa idea conduce alla formulazione generale di un programma lineare.
-Consideriamo $n$ variabili decisionali raccolte nel vettore colonna
+Nel modello non si considera, ad esempio, che una forte esposizione simultanea
+verso titoli a lunga scadenza e prestiti poco liquidi possa produrre una
+vulnerabilit\`a aggiuntiva superiore alla somma delle due esposizioni. Un
+simile effetto richiederebbe un termine quale
 
 \[
-x=
-\begin{pmatrix}
-x_{1}\\
-\vdots\\
-x_{n}
-\end{pmatrix}
-\in\R^{n}.
+\gamma x_3x_4,
 \]
 
-Il vettore $c\in\R^{n}$ contiene i coefficienti della funzione obiettivo,
-mentre la matrice $A\in\R^{m\times n}$ e il vettore $b\in\R^{m}$ descrivono
-gli $m$ vincoli del problema.
+che renderebbe il modello non lineare.
 
-Nella convenzione adottata nel corso, la forma di riferimento \`{e}
+L'additivit\`a rende trasparente il contributo di ciascuna decisione, ma
+esclude complementariet\`a ed effetti di amplificazione tra le diverse
+componenti del bilancio.
+
+\subsection{Divisibilit\`a}
+
+Le variabili decisionali possono assumere valori reali non negativi:
+
+\[
+x_j\geq 0,
+\qquad
+j=1,\ldots,4.
+\]
+
+Questa ipotesi \`e naturale quando le decisioni rappresentano importi monetari
+o quote di portafoglio. Non sarebbe invece adeguata se la decisione riguardasse
+oggetti indivisibili, come l'apertura di una filiale, l'acquisto di un intero
+portafoglio o l'attivazione di una specifica infrastruttura.
+
+In tali casi sarebbe necessario introdurre variabili intere o binarie. La
+programmazione lineare intera non rientra nel percorso sviluppato in questo
+capitolo.
+
+\subsection{Coefficienti trattati come dati}
+
+I coefficienti
+
+\[
+c_j,
+\qquad
+q_j,
+\qquad
+\ell_j
+\]
+
+e i livelli
+
+\[
+A_0,
+\qquad
+Q_{\min},
+\qquad
+K,
+\qquad
+\alpha
+\]
+
+sono fissati prima della soluzione del problema. Il modello li tratta quindi
+come dati noti.
+
+Questa ipotesi non significa che rendimenti, perdite e fabbisogni di
+liquidit\`a siano certi nella realt\`a. Significa che il programma lineare
+analizza le conseguenze di una specifica valutazione preventiva. I
+coefficienti possono derivare da dati storici, stime, scenari di stress,
+valutazioni regolamentari o decisioni gestionali.
+
+Nel caso considerato, i coefficienti di perdita possono essere costruiti
+rispetto a uno scenario di aumento dei tassi, mentre il livello
+$Q_{\min}$ pu\`o rappresentare un deflusso ritenuto rilevante dalla banca.
+Una diversa scelta dello scenario o dei requisiti produce un diverso problema
+decisionale.
+
+L'incertezza non scompare quindi dalla realt\`a economica. Viene
+temporaneamente incorporata nei coefficienti scelti. Nelle lezioni sulla
+programmazione stocastica, rendimenti, perdite e fabbisogni potranno invece
+dipendere esplicitamente da pi\`u scenari futuri.
+
+\subsection{Limiti della rappresentazione lineare}
+
+Le ipotesi precedenti permettono di costruire un modello leggibile e
+controllabile, ma delimitano il tipo di fenomeni rappresentati.
+
+Nel caso di una crisi bancaria, la vendita di una grande quantit\`a di titoli
+pu\`o ridurne il prezzo di mercato. In presenza di una \emph{fire sale}, la
+perdita unitaria non rimane necessariamente costante al crescere dell'importo
+liquidato. Analogamente, la probabilit\`a e la velocit\`a dei deflussi possono
+dipendere dalle decisioni della banca, dalle informazioni diffuse al mercato
+e dal comportamento degli altri depositanti.
+
+Questi meccanismi non sono descritti dal modello lineare stilizzato. Il modello
+non riproduce l'intera dinamica della crisi SVB, ma isola alcuni trade-off
+preventivi:
+
+\begin{itemize}
+
+\item maggiore redditivit\`a rispetto a maggiore liquidit\`a;
+
+\item investimenti a lunga scadenza rispetto a contenimento delle perdite;
+
+\item concentrazione delle posizioni rispetto a diversificazione dell'attivo.
+
+\end{itemize}
+
+Una semplificazione \`e utile quando permette di rendere visibile la struttura
+della decisione senza alterare il significato degli elementi essenziali. Deve
+per\`o essere accompagnata dall'indicazione esplicita dei fenomeni che lascia
+fuori.
+
+\subsection{Dal caso SVB alla formulazione generale}
+
+La struttura del modello bancario non dipende dal numero specifico di classi
+di attivo considerate. Supponiamo di avere $n$ variabili decisionali:
+
+\[
+x_1,x_2,\ldots,x_n.
+\]
+
+La funzione obiettivo lineare pu\`o essere scritta come
+
+\[
+\max\;
+\sum_{j=1}^{n}c_jx_j,
+\]
+
+dove $c_j$ misura il contributo unitario della variabile $x_j$ al risultato
+da massimizzare.
+
+Consideriamo inoltre $m$ requisiti. Il vincolo $i$ assume, nella forma di
+riferimento, la struttura
+
+\[
+\sum_{j=1}^{n}a_{ij}x_j\leq b_i,
+\qquad
+i=1,\ldots,m.
+\]
+
+Il coefficiente $a_{ij}$ misura il contributo di una unit\`a della variabile
+$x_j$ al vincolo $i$, mentre $b_i$ rappresenta la disponibilit\`a, il limite
+o il livello massimo associato al vincolo.
+
+La formulazione scalare generale \`e quindi
 
 \[
 \begin{array}{ll}
-\max\limits_{x} & c'x \\[3pt]
-\mbox{soggetto a} & Ax\leq b,\\
-& x\geq0.
-\end{array}
-\]
-
-In forma scalare, il problema diventa
-
-\[
-\begin{array}{ll}
-\max & \displaystyle\sum_{j=1}^{n}c_jx_j \\[8pt]
+\max
+&
+\displaystyle\sum_{j=1}^{n}c_jx_j
+\\[8pt]
 \mbox{soggetto a}
 &
 \displaystyle\sum_{j=1}^{n}a_{ij}x_j\leq b_i,
@@ -277,32 +925,149 @@ x_j\geq0,
 \end{array}
 \]
 
-La scrittura matriciale rende visibile la struttura comune a problemi
-decisionali molto diversi. Il coefficiente $c_j$ misura il contributo
-unitario della variabile $x_j$ al risultato da massimizzare; il coefficiente
-$a_{ij}$ misura l'impiego della risorsa $i$ prodotto da una unit\`{a} della
-variabile $x_j$; il termine $b_i$ rappresenta la disponibilit\`{a} o il
-limite associato al vincolo $i$.
+Raccogliamo le variabili nel vettore
 
-Nel problema bancario, $x_j$ potr\`{a} rappresentare l'importo destinato alla
-classe di attivo $j$ e $c_j$ la relativa redditivit\`{a} unitaria. Non tutti
-i requisiti bancari assumono per\`{o} direttamente la forma $\leq$: il vincolo
-di bilancio \`{e} un'uguaglianza, mentre un requisito minimo di liquidit\`{a}
-presenta naturalmente verso opposto. La sezione successiva mostrer\`{a} come
-trattare queste forme senza modificarne il significato economico.
+\[
+x=
+\begin{pmatrix}
+x_1\\
+\vdots\\
+x_n
+\end{pmatrix},
+\]
+
+i coefficienti della funzione obiettivo nel vettore
+
+\[
+c=
+\begin{pmatrix}
+c_1\\
+\vdots\\
+c_n
+\end{pmatrix},
+\]
+
+i termini noti nel vettore
+
+\[
+b=
+\begin{pmatrix}
+b_1\\
+\vdots\\
+b_m
+\end{pmatrix}
+\]
+
+e i coefficienti dei vincoli nella matrice
+
+\[
+A=
+\begin{pmatrix}
+a_{11} & \cdots & a_{1n}\\
+\vdots & \ddots & \vdots\\
+a_{m1} & \cdots & a_{mn}
+\end{pmatrix}.
+\]
+
+Il programma lineare pu\`o allora essere scritto in forma compatta come
+
+\[
+\begin{array}{ll}
+\max\limits_x
+&
+c'x
+\\[4pt]
+\mbox{soggetto a}
+&
+Ax\leq b,
+\\[2pt]
+&
+x\geq0.
+\end{array}
+\]
+
+Ogni riga della matrice $A$ rappresenta un requisito; ogni colonna descrive
+come una variabile decisionale contribuisce ai diversi requisiti. Nel modello
+SVB, una colonna riassume quindi redditivit\`a, liquidabilit\`a, perdita sotto
+stress ed eventuale esposizione ai limiti di concentrazione della
+corrispondente classe di attivo.
+
+La forma con vincoli del tipo $\leq$ costituisce una convenzione di
+riferimento. Nei problemi economici possono comparire anche uguaglianze e
+vincoli del tipo $\geq$, come il vincolo di bilancio e il requisito minimo di
+liquidit\`a del modello SVB. Tali relazioni possono essere mantenute nella
+forma economicamente pi\`u leggibile e, quando necessario, ricondotte
+algebricamente alla forma di riferimento.
+
+Il passaggio dalla formulazione scalare alla formulazione matriciale non
+modifica il problema. Permette di riconoscere la struttura comune a decisioni
+finanziarie differenti e prepara l'analisi delle soluzioni ammissibili, dei
+vincoli attivi e della soluzione ottima.
+
+\section{Decisioni ammissibili e diagnosi del modello}
+
+\label{sec:cap11-ammissibilita}
+
+Il modello SVB stilizzato non confronta tutte le composizioni dell'attivo
+astrattamente possibili. Considera soltanto quelle che rispettano
+simultaneamente il vincolo di bilancio, il requisito minimo di liquidit\`a,
+il limite alle perdite, il limite di concentrazione e le condizioni di non
+negativit\`a.
 
 \begin{definition}[Soluzione ammissibile]
 
-Un vettore $\bar{x}\in\R^n$ \`{e} una soluzione ammissibile se soddisfa tutti
-i vincoli:
+Una composizione dell'attivo
 
 \[
-A\bar{x}\leq b,
-\qquad
-\bar{x}\geq0.
+\bar{x}
+=
+\begin{pmatrix}
+\bar{x}_1\\
+\bar{x}_2\\
+\bar{x}_3\\
+\bar{x}_4
+\end{pmatrix}
 \]
 
-L'insieme delle soluzioni ammissibili \`{e}
+\`e una \emph{soluzione ammissibile} se soddisfa tutti i vincoli del modello:
+
+\[
+\bar{x}_1+\bar{x}_2+\bar{x}_3+\bar{x}_4=A_0,
+\]
+
+\[
+\sum_{j=1}^{4}q_j\bar{x}_j\geq Q_{\min},
+\]
+
+\[
+\sum_{j=1}^{4}\ell_j\bar{x}_j\leq K,
+\]
+
+\[
+\bar{x}_3\leq\alpha A_0,
+\]
+
+\[
+\bar{x}_j\geq0,
+\qquad
+j=1,\ldots,4.
+\]
+
+\end{definition}
+
+Il rispetto di un singolo requisito non rende ammissibile una decisione.
+Una composizione pu\`o disporre di liquidit\`a sufficiente e produrre, nello
+stesso tempo, una perdita eccessiva nello scenario di stress. Analogamente,
+pu\`o rispettare il limite alle perdite ma concentrare una quota troppo elevata
+delle risorse nei titoli a lunga scadenza.
+
+L'insieme di tutte le soluzioni ammissibili viene indicato con
+
+\[
+\mathcal{X}.
+\]
+
+Nella formulazione generale introdotta nella sezione precedente,
 
 \[
 \mathcal{X}
@@ -314,178 +1079,196 @@ x\geq0
 \right\}.
 \]
 
-L'insieme $\mathcal{X}$ viene chiamato \emph{regione ammissibile}.
-
-\end{definition}
-
-Nel problema ispirato a SVB, una composizione dell'attivo appartiene alla
-regione ammissibile soltanto se rispetta simultaneamente il vincolo di
-bilancio, il requisito di liquidit\`{a}, la capacit\`{a} patrimoniale e gli
-eventuali limiti operativi o di concentrazione. Il rispetto di un singolo
-requisito non rende quindi la decisione ammissibile.
-
-\begin{definition}[Soluzione ottima]
-
-Una soluzione $x^*\in\mathcal{X}$ \`{e} ottima se
-
-\[
-c'x^*\geq c'x
-\qquad
-\text{per ogni }x\in\mathcal{X}.
-\]
-
-Il corrispondente valore ottimo \`{e}
+La funzione obiettivo viene quindi massimizzata non su tutto lo spazio
+\(\R^n\), ma sull'insieme \(\mathcal{X}\):
 
 \[
 z^*
 =
-c'x^*
-=
 \max_{x\in\mathcal{X}}c'x.
 \]
 
-\end{definition}
+La distinzione \`e essenziale. Una decisione con un risultato economico molto
+elevato, ma esterna a \(\mathcal{X}\), non costituisce un'alternativa migliore:
+\`e una decisione che il modello considera non realizzabile o non accettabile.
 
-La soluzione ottima \`{e} la migliore tra le decisioni ammissibili, non la
-migliore tra tutte le decisioni astrattamente possibili. Nel caso bancario,
-una redditivit\`{a} pi\`{u} elevata ottenuta violando il requisito di
-liquidit\`{a} non costituisce una soluzione alternativa: si trova al di fuori
-della regione ammissibile.
+\subsection{Verificare una decisione}
 
-La soluzione ottima non deve necessariamente essere unica. Pi\`{u}
-composizioni possono produrre lo stesso valore della funzione obiettivo,
-pur utilizzando in modo differente le risorse disponibili.
-
-\subsection{Possibili esiti del problema}
-
-Un programma lineare pu\`{o} presentare tre esiti fondamentali.
-
-\begin{itemize}
-
-\item La regione ammissibile \`{e} non vuota e il problema possiede un valore
-ottimo finito.
-
-\item La regione ammissibile \`{e} vuota: nessuna decisione soddisfa
-simultaneamente tutti i vincoli.
-
-\item La regione ammissibile \`{e} non vuota, ma la funzione obiettivo pu\`{o}
-aumentare indefinitamente; il problema \`{e} illimitato superiormente.
-
-\end{itemize}
-
-Questi esiti hanno un contenuto decisionale preciso. Nel caso bancario,
-l'inammissibilit\`{a} segnalerebbe che i requisiti imposti sono reciprocamente
-incompatibili con le risorse disponibili. L'illimitatezza indicherebbe invece,
-con ogni probabilit\`{a}, l'assenza di un limite economico necessario o un
-errore nella formulazione del modello.
-
-La forma adottata in questa sezione \`{e} una convenzione di riferimento.
-Problemi di minimo, vincoli di uguaglianza, disuguaglianze con verso opposto
-e variabili non vincolate nel segno saranno trattati mediante trasformazioni
-equivalenti nella sezione successiva.
-
-
-\section{Forme alternative e trasformazioni equivalenti}
-
-\label{sec:cap11-forme-equivalenti}
-
-La forma di riferimento
+Prima di ricercare la soluzione ottima, \`e utile saper verificare se una
+composizione assegnata sia ammissibile. Consideriamo, a scopo illustrativo,
+un modello nel quale gli importi sono espressi in unit\`a monetarie e
 
 \[
-\begin{array}{ll}
-\max\limits_x & c'x\\[3pt]
-\mbox{soggetto a} & Ax\leq b,\\
-& x\geq0
+A_0=100,
+\qquad
+Q_{\min}=55,
+\qquad
+K=7,
+\qquad
+\alpha=0.30.
+\]
+
+I coefficienti ($c_j$, $q_j$, $\ell_j$) attribuiti alle quattro classi di attivo sono:
+
+\[
+\begin{array}{lccc}
+\hline
+\text{Classe di attivo}
+&
+c_j
+&
+q_j
+&
+\ell_j
+\\
+\hline
+\text{$x_1$ Cassa e riserve}
+&
+0.010
+&
+1.00
+&
+0.00
+\\
+\text{$x_2$ Titoli a breve scadenza}
+&
+0.025
+&
+0.90
+&
+0.02
+\\
+\text{$x_3$ Titoli a lunga scadenza}
+&
+0.040
+&
+0.50
+&
+0.15
+\\
+\text{$x_4$ Prestiti e impieghi meno liquidi}
+&
+0.050
+&
+0.20
+&
+0.08
+\\
+\hline
 \end{array}
 \]
 
-\`{e} una convenzione utile per presentare in modo unitario i risultati
-generali. I problemi reali possono tuttavia contenere funzioni obiettivo di
-minimo, vincoli con verso opposto, uguaglianze e variabili soggette a limiti
-specifici.
+I coefficienti hanno una funzione esclusivamente didattica. Essi rendono
+visibile il trade-off tra redditivit\`a, liquidabilit\`a e perdita nello
+scenario di stress, senza pretendere di riprodurre il bilancio storico di SVB.
 
-Nel caso bancario, la redditivit\`{a} viene naturalmente massimizzata e un
-limite alla concentrazione assume direttamente la forma $\leq$. Il requisito
-minimo di liquidit\`{a} presenta invece verso $\geq$, mentre il totale
-dell'attivo soddisfa un'uguaglianza. Queste forme possono essere ricondotte
-alla convenzione adottata mediante trasformazioni equivalenti.
+\begin{example}[Tre possibili composizioni dell'attivo]
 
-\subsection{Problemi di minimo}
-
-Un problema di minimo pu\`{o} essere trasformato in un problema di massimo
-cambiando il segno della funzione obiettivo:
+Consideriamo le seguenti decisioni:
 
 \[
-\min_x\;c'x
-\qquad\Longleftrightarrow\qquad
-\max_x\;(-c'x).
-\]
-
-Le soluzioni ottime coincidono, mentre i valori ottimi hanno segno opposto.
-La trasformazione \`{e} puramente algebrica e non modifica il significato
-della decisione.
-
-\subsection{Verso dei vincoli}
-
-Un vincolo del tipo
-
-\[
-a_i'x\geq b_i
-\]
-
-pu\`{o} essere riscritto moltiplicando entrambi i membri per $-1$:
-
-\[
--a_i'x\leq-b_i.
-\]
-
-Nel problema bancario, un requisito minimo di liquidit\`{a}
-
-\[
-q'x\geq\overline{u}
-\]
-
-pu\`{o} quindi essere scritto nella forma equivalente
-
-\[
--q'x\leq-\overline{u}.
-\]
-
-Un limite massimo alla concentrazione in una classe di attivo assume invece
-direttamente la forma canonica:
-
-\[
-x_B\leq\alpha_BA_0.
-\]
-
-\subsection{Vincoli di uguaglianza}
-
-Il vincolo
-
-\[
-a_i'x=b_i
-\]
-
-equivale alla coppia di disuguaglianze
-
-\[
-a_i'x\leq b_i,
+x^{(A)}
+=
+\begin{pmatrix}
+5\\
+10\\
+45\\
+40
+\end{pmatrix},
 \qquad
--a_i'x\leq-b_i.
+x^{(B)}
+=
+\begin{pmatrix}
+10\\
+30\\
+20\\
+40
+\end{pmatrix},
+\qquad
+x^{(C)}
+=
+\begin{pmatrix}
+30\\
+40\\
+10\\
+20
+\end{pmatrix}.
 \]
 
-Nel modello bancario, l'identit\`{a} tra risorse disponibili e impieghi
-costituisce un vincolo di uguaglianza: l'intero attivo deve essere allocato
-tra le classi considerate.
+Tutte impiegano integralmente le risorse disponibili, poich\'e la somma delle
+quattro componenti \`e pari a \(100\). I risultati rilevanti sono:
 
-Sebbene l'uguaglianza possa essere sostituita con due disuguaglianze, \`{e}
-spesso preferibile conservarla esplicitamente, poich\'{e} mantiene pi\`{u}
-chiara l'interpretazione economica del vincolo.
+\[
+\begin{array}{lcccc}
+\hline
+& 
+&
+&
+&
+\text{Titoli a lunga}
+\\
+\text{Decisione} & \text{Risultato} & \text{Liquidit\`{a}} & \text{Perdita}
+& \text{scademza $(x_3)$}
+\\
+\hline
+x^{(A)}
+&
+4.10
+&
+44.50
+&
+10.15
+&
+45
+\\
+x^{(B)}
+&
+3.65
+&
+55.00
+&
+6.80
+&
+20
+\\
+x^{(C)}
+&
+2.70
+&
+75.00
+&
+3.90
+&
+10
+\\
+\hline
+\end{array}
+\]
 
-\paragraph{Variabili di scarto e di eccedenza.}
+La decisione \(x^{(A)}\) produce il risultato economico pi\`u elevato, ma non
+\`e ammissibile. La liquidit\`a disponibile \`e inferiore a \(55\), la perdita
+supera il limite \(K=7\) e l'investimento in titoli a lunga scadenza eccede il
+massimo consentito:
 
-Un vincolo di disuguaglianza pu\`{o} essere trasformato in un'uguaglianza
-introducendo una variabile non negativa.
+\[
+45>\alpha A_0=30.
+\]
+
+Le decisioni \(x^{(B)}\) e \(x^{(C)}\) sono invece ammissibili. La seconda
+presenta un risultato economico superiore alla terza, ma utilizza interamente
+il margine disponibile rispetto al requisito di liquidit\`a.
+
+\end{example}
+
+L'esempio mostra che la verifica dell'ammissibilit\`a deve precedere il
+confronto dei valori della funzione obiettivo. La decisione \(x^{(A)}\) non
+pu\`o essere preferita a \(x^{(B)}\) soltanto perch\'e produce un risultato
+pi\`u elevato: viola tre requisiti del modello.
+
+\subsection{Margine e vincoli attivi}
+
+Per ogni vincolo di disuguaglianza \`e utile misurare la distanza tra il
+risultato prodotto dalla decisione e il limite imposto.
 
 Per un vincolo del tipo
 
@@ -493,232 +1276,207 @@ Per un vincolo del tipo
 a_i'x\leq b_i,
 \]
 
-si introduce una variabile di scarto $s_i\geq0$:
+il margine disponibile \`e
 
 \[
-a_i'x+s_i=b_i.
+b_i-a_i'x.
 \]
 
-Il valore
-
-\[
-s_i=b_i-a_i'x
-\]
-
-misura la parte non utilizzata del limite disponibile. Nel caso di un limite
-alla concentrazione in titoli a lunga scadenza, $s_i$ rappresenta la distanza
-tra la posizione effettiva e la quota massima consentita.
-
-Per un vincolo del tipo
+Per un requisito minimo del tipo
 
 \[
 a_i'x\geq b_i,
 \]
 
-si introduce invece una variabile di eccedenza $s_i\geq0$:
+il margine \`e invece
 
 \[
-a_i'x-s_i=b_i,
+a_i'x-b_i.
 \]
 
-con
+Una soluzione ammissibile presenta margini non negativi.
+
+\begin{definition}[Vincolo attivo]
+
+Un vincolo \`e \emph{attivo} in una soluzione ammissibile quando viene
+soddisfatto esattamente al proprio limite. Il suo margine \`e quindi uguale
+a zero.
+
+Un vincolo \`e \emph{non attivo} quando viene rispettato con margine
+strettamente positivo.
+
+\end{definition}
+
+Per la decisione \(x^{(B)}\), i margini sono:
 
 \[
-s_i=a_i'x-b_i.
+\begin{array}{ll}
+\text{liquidit\`a}
+&
+55-55=0,
+\\[4pt]
+\text{perdita sotto stress}
+&
+7-6.80=0.20,
+\\[4pt]
+\text{concentrazione nei titoli a lunga scadenza}
+&
+30-20=10.
+\end{array}
 \]
 
-Nel requisito di liquidit\`{a}, tale valore misura quanto la liquidit\`{a}
-disponibile supera il livello minimo richiesto.
+Il requisito di liquidit\`a \`e attivo. Un'ulteriore riduzione delle
+attivit\`a liquide, a parit\`a delle altre componenti, renderebbe la decisione
+inammissibile. I limiti alla perdita e alla concentrazione sono invece
+rispettati con margine.
 
-In entrambi i casi il vincolo \`{e} attivo quando
+Il vincolo di bilancio
 
 \[
-s_i=0.
+x_1+x_2+x_3+x_4=A_0
 \]
 
-Un vincolo attivo viene soddisfatto esattamente al proprio limite; un vincolo
-non attivo presenta invece uno scarto o un'eccedenza strettamente positiva.
+\`e un'uguaglianza e viene sempre soddisfatto esattamente da ogni soluzione
+ammissibile. La sua funzione non \`e lasciare un margine, ma assicurare che
+tutte le risorse considerate siano allocate.
 
-\paragraph{Variabili non vincolate nel segno.}
+I vincoli attivi sono particolarmente importanti perch\'e delimitano
+concretamente la decisione. Non tutti, tuttavia, hanno necessariamente lo
+stesso valore economico. Nelle sezioni successive si vedr\`a che la dualit\`a
+permette di misurare l'effetto marginale di una modifica dei limiti imposti.
 
-Se una variabile $x_j$ pu\`{o} assumere valori positivi o negativi, essa pu\`{o}
-essere rappresentata come differenza di due variabili non negative:
+\subsection{Decisione inammissibile e modello inammissibile}
+
+Occorre distinguere due situazioni.
+
+Una particolare decisione \`e inammissibile quando viola almeno un vincolo,
+ma esistono altre decisioni che rispettano tutti i requisiti. Questo \`e il
+caso di \(x^{(A)}\): la sua esclusione non impedisce a \(x^{(B)}\) e
+\(x^{(C)}\) di appartenere a \(\mathcal{X}\).
+
+Il modello \`e invece \emph{inammissibile} quando
 
 \[
-x_j=x_j^{+}-x_j^{-},
-\qquad
-x_j^{+}\geq0,
-\qquad
-x_j^{-}\geq0.
+\mathcal{X}=\varnothing,
 \]
 
-La sostituzione viene effettuata nella funzione obiettivo e in tutti i vincoli.
+ossia quando nessuna decisione soddisfa simultaneamente tutti i vincoli.
 
-Questa trasformazione non \`{e} necessaria per gli importi investiti nel caso
-bancario, poich\'{e} essi sono naturalmente non negativi. Pu\`{o} invece
-risultare utile in altri problemi finanziari, ad esempio quando una variabile
-rappresenta una posizione netta che pu\`{o} essere lunga o corta.
+Nel problema bancario, una regione ammissibile vuota pu\`o indicare che:
 
-\paragraph{Limiti inferiori e superiori.}
+\begin{itemize}
 
-Se una variabile deve rispettare un limite inferiore
+\item il requisito di liquidit\`a \`e incompatibile con le attivit\`a
+disponibili;
+
+\item il limite alle perdite \`e troppo restrittivo rispetto alle risorse che
+devono essere allocate;
+
+\item i limiti di concentrazione impediscono di impiegare integralmente
+l'attivo;
+
+\item alcuni dati o vincoli sono stati formulati in modo incoerente.
+
+\end{itemize}
+
+L'inammissibilit\`a non deve quindi essere interpretata automaticamente come
+prova dell'impossibilit\`a economica del problema reale. Pu\`o segnalare una
+situazione effettivamente incompatibile, ma anche un errore nei dati, nei versi
+delle disuguaglianze o nei livelli assegnati ai requisiti.
+
+\begin{remark}
+
+La prima operazione da compiere quando un software dichiara il problema
+inammissibile non \`e modificare arbitrariamente i vincoli fino a ottenere una
+soluzione. Occorre identificare quali requisiti sono incompatibili e
+verificare se l'incompatibilit\`a derivi dal problema economico o dalla sua
+formulazione matematica.
+
+\end{remark}
+
+\subsection{Vincoli ridondanti}
+
+Un vincolo \`e ridondante quando la sua eliminazione non modifica l'insieme
+\(\mathcal{X}\). In questo caso, il requisito \`e gi\`a implicitamente
+garantito dagli altri vincoli.
+
+La ridondanza non rende il modello matematicamente errato. Un vincolo
+ridondante pu\`o essere conservato quando rende esplicito un requisito
+economico importante. Deve tuttavia essere riconosciuto, poich\'e non
+contribuisce a restringere le decisioni ammissibili.
+
+La verifica delle decisioni candidate, dei margini e dell'eventuale
+inammissibilit\`a costituisce una prima diagnosi del modello. La sezione
+successiva mostrer\`a come l'insieme \(\mathcal{X}\) possa essere rappresentato
+geometricamente in un problema con due variabili decisionali.
+
+\section{Vedere i trade-off: la geometria in due dimensioni}
+
+\label{sec:cap11-geometria}
+
+Il modello SVB stilizzato contiene quattro variabili decisionali e non pu\`o
+essere rappresentato direttamente su un piano. Una versione ridotta consente
+tuttavia di visualizzare il significato dei vincoli, la regione delle
+decisioni ammissibili e il modo in cui la funzione obiettivo seleziona una
+soluzione.
+
+La rappresentazione geometrica non sostituisce il modello generale. La sua
+funzione \`e rendere visibili alcuni risultati che rimangono validi anche
+quando il numero delle variabili e dei vincoli aumenta.
+
+\subsection{Un modello bancario ridotto}
+
+Soltanto in questa rappresentazione bidimensionale indichiamo con:
+
+\begin{itemize}
+
+\item $x_1$ l'ammontare destinato ad attivit\`a liquide;
+
+\item $x_2$ l'ammontare investito in titoli a lunga scadenza.
+
+\end{itemize}
+
+Le due variabili sono quindi ridefinite rispetto al modello a quattro classi
+di attivo. Questa semplificazione permette di rappresentare ogni decisione
+mediante un punto del piano avente coordinate
 
 \[
-x_j\geq \ell_j,
+(x_1,x_2).
 \]
 
-si pu\`{o} porre
-
-\[
-x_j=\ell_j+y_j,
-\qquad
-y_j\geq0.
-\]
-
-La nuova variabile $y_j$ misura quanto la decisione supera il livello minimo.
-
-Analogamente, se
-
-\[
-x_j\leq u_j,
-\]
-
-si pu\`{o} utilizzare
-
-\[
-x_j=u_j-y_j,
-\qquad
-y_j\geq0.
-\]
-
-Nel problema bancario, queste trasformazioni possono rappresentare un livello
-minimo di attivit\`{a} liquide oppure un limite massimo all'esposizione verso
-una determinata classe di titoli.
-
-Le trasformazioni descritte non modificano il problema decisionale: cambiano
-soltanto la sua rappresentazione algebrica. La formulazione originaria conserva
-spesso l'interpretazione finanziaria pi\`{u} immediata; la forma standard
-facilita invece lo studio della geometria, dell'ottimalit\`{a} e della
-dualit\`{a}.
-
-\section{Geometria della regione ammissibile}
-
-\label{sec:cap11-geometria-regione-ammissibile}
-
-Ogni vincolo lineare individua un insieme di punti che possono essere
-accettati dal modello. La regione ammissibile nasce dall'intersezione di tutti
-questi insiemi.
-
-Consideriamo un singolo vincolo
-
-\[
-a_i'x\geq b_i.
-\]
-
-L'equazione
-
-\[
-a_i'x=b_i
-\]
-
-individua un iperpiano in $\R^n$. La disuguaglianza seleziona uno dei due
-semispazi determinati dall'iperpiano.
-
-Nel caso di due variabili decisionali,
-
-\[
-x=
-\begin{pmatrix}
-x_1\\
-x_2
-\end{pmatrix},
-\]
-
-il vincolo
-
-\[
-a_{i1}x_1+a_{i2}x_2\geq b_i
-\]
-
-ha come frontiera la retta
-
-\[
-a_{i1}x_1+a_{i2}x_2=b_i.
-\]
-
-La regione ammissibile di un programma lineare \`{e} quindi l'intersezione
-dei semispazi generati dai vincoli e, quando richiesto, del primo ortante
-definito da
-
-\[
-x\geq0.
-\]
-
-In forma generale:
-
-\[
-\mathcal{X}
-=
-\left\{
-x\in\R^n:
-Ax\geq b,\;
-x\geq0
-\right\}.
-\]
-
-\paragraph{Una rappresentazione bidimensionale ispirata al caso SVB.}
-
-Per visualizzare la costruzione geometrica, consideriamo una
-rappresentazione ridotta nella quale:
-
-\[
-x_1
-=
-\text{attivit\`{a} immediatamente o rapidamente liquidabili},
-\]
-
-\[
-x_2
-=
-\text{titoli a lunga scadenza sensibili ai tassi}.
-\]
-
-Queste due variabili non costituiscono ancora il modello bancario completo,
-che comprender\`{a} pi\`{u} classi di attivo. Esse permettono per\`{o} di
-interpretare geometricamente alcuni vincoli tipici.
-
-Sia $A_0$ il totale delle risorse disponibili. Il vincolo di bilancio pu\`{o}
-essere rappresentato, nella forma semplificata,
+Sia $A_0$ l'ammontare massimo di risorse che pu\`o essere destinato alle due
+classi considerate. Il vincolo sulle risorse \`e
 
 \[
 x_1+x_2\leq A_0.
 \]
 
-Il parametro $A_0$ determina quindi la dimensione massima complessiva delle
-posizioni considerate.
+La disuguaglianza non implica che una parte del bilancio rimanga priva di
+destinazione. L'ammontare
 
-Se $Q_{\min}$ indica il livello minimo di attivit\`{a} liquidabili necessario
-per fronteggiare possibili deflussi, si impone:
+\[
+A_0-x_1-x_2
+\]
+
+pu\`o essere investito nelle altre classi di attivo, che non vengono
+rappresentate nel grafico.
+
+Introduciamo inoltre due requisiti prudenziali.
+
+La banca deve mantenere almeno $Q_{\min}$ unit\`a di attivit\`a liquide:
 
 \[
 x_1\geq Q_{\min}.
 \]
 
-Il parametro $Q_{\min}$ sposta orizzontalmente la frontiera del vincolo:
-quanto maggiore \`{e} il requisito di liquidit\`{a}, tanto pi\`{u} la regione
-ammissibile si restringe verso destra.
-
-Per contenere la concentrazione in titoli a lunga durata, si pu\`{o} inoltre
-imporre:
+L'investimento in titoli a lunga scadenza non pu\`o superare il limite
+$B_{\max}$:
 
 \[
-x_2\leq B_{\max},
+x_2\leq B_{\max}.
 \]
 
-dove $B_{\max}$ rappresenta il limite massimo compatibile con la politica di
-rischio della banca.
-
-Infine:
+Completano il modello le condizioni di non negativit\`a:
 
 \[
 x_1\geq0,
@@ -726,1120 +1484,2539 @@ x_1\geq0,
 x_2\geq0.
 \]
 
-La regione ammissibile dell'esempio \`{e} pertanto:
+Il modello ridotto \`e pertanto
+
+\[
+\begin{array}{ll}
+\max
+&
+c_1x_1+c_2x_2
+\\[4pt]
+\mbox{soggetto a}
+&
+x_1+x_2\leq A_0,
+\\[2pt]
+&
+x_1\geq Q_{\min},
+\\[2pt]
+&
+x_2\leq B_{\max},
+\\[2pt]
+&
+x_1,x_2\geq0.
+\end{array}
+\]
+
+I coefficienti $c_1$ e $c_2$ rappresentano il contributo economico delle due
+classi di attivo. Il contributo delle attivit\`a non rappresentate viene
+considerato costante e non modifica il confronto tra le decisioni mostrate
+nel piano.
+
+\subsection{Dai singoli vincoli alla regione ammissibile}
+
+Consideriamo i valori
+
+\[
+A_0=10,
+\qquad
+Q_{\min}=3,
+\qquad
+B_{\max}=4.
+\]
+
+Il vincolo sulle risorse diventa
+
+\[
+x_1+x_2\leq10.
+\]
+
+La retta
+
+\[
+x_1+x_2=10
+\]
+
+costituisce la frontiera del vincolo. I punti ammissibili si trovano al di
+sotto della retta, perch\'e le due classi non possono assorbire risorse
+superiori a quelle disponibili.
+
+Il requisito minimo di liquidit\`a diventa
+
+\[
+x_1\geq3.
+\]
+
+La relativa frontiera \`e la retta verticale
+
+\[
+x_1=3.
+\]
+
+Le decisioni ammissibili si trovano alla sua destra: una composizione posta
+alla sinistra della retta conterrebbe una quantit\`a insufficiente di
+attivit\`a liquide.
+
+Il limite sui titoli a lunga scadenza \`e
+
+\[
+x_2\leq4.
+\]
+
+La frontiera \`e la retta orizzontale
+
+\[
+x_2=4,
+\]
+
+e le decisioni ammissibili si trovano al di sotto di essa.
+
+La regione ammissibile \`e quindi
 
 \[
 \mathcal{X}
 =
 \left\{
 (x_1,x_2)\in\R^2:
-x_1+x_2\leq A_0,\;
-x_1\geq Q_{\min},\;
-x_2\leq B_{\max},\;
+\begin{array}{l}
+x_1+x_2\leq10,\\
+x_1\geq3,\\
+x_2\leq4,\\
 x_1,x_2\geq0
+\end{array}
 \right\}.
 \]
 
-La figura seguente mostra come ciascun parametro abbia un ruolo distinto:
-$A_0$ limita le risorse complessive, $Q_{\min}$ impone una dotazione minima
-di liquidit\`{a} e $B_{\max}$ limita l'esposizione verso le attivit\`{a} pi\`{u}
-sensibili ai tassi.
+Essa \`e ottenuta intersecando le aree che soddisfano simultaneamente tutti i
+vincoli.
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.78\textwidth]
+\includegraphics[width=0.90\textwidth]
 {../graphics/cap11_geometria_programmazione_lineare.png}
-\caption{Semispazi e regione ammissibile in un esempio bidimensionale
-ispirato alla composizione dell'attivo bancario.}
+\caption{Vincoli e regione ammissibile nel modello bancario ridotto.}
 \label{fig:cap11-geometria-programmazione-lineare}
 \end{figure}
 
-\paragraph{Convessit\`{a}.}
+La Figura~\ref{fig:cap11-geometria-programmazione-lineare} mostra che il
+rispetto di un singolo requisito non \`e sufficiente. Un punto pu\`o trovarsi
+a destra del requisito minimo di liquidit\`a e violare, nello stesso tempo, il
+limite sulle risorse o quello sui titoli a lunga scadenza.
 
-La regione ammissibile di un programma lineare \`{e} un insieme convesso. Se
-$x^{(1)}$ e $x^{(2)}$ sono due soluzioni ammissibili, allora, per ogni
+La regione ammissibile \`e il quadrilatero avente vertici
 
 \[
-\theta\in[0,1],
+A=(3,0),
+\qquad
+B=(10,0),
+\qquad
+C=(6,4),
+\qquad
+D=(3,4).
 \]
 
-anche la combinazione
+I quattro punti hanno una diversa interpretazione economica:
+
+\begin{itemize}
+
+\item nel punto $A$ la liquidit\`a coincide con il livello minimo richiesto e
+non vengono detenuti titoli a lunga scadenza;
+
+\item nel punto $B$ tutte le risorse considerate sono destinate alle
+attivit\`a liquide;
+
+\item nel punto $C$ sono attivi sia il vincolo sulle risorse sia il limite sui
+titoli a lunga scadenza;
+
+\item nel punto $D$ sono attivi il requisito minimo di liquidit\`a e il limite
+sui titoli a lunga scadenza, mentre una parte delle risorse rimane disponibile
+per le altre classi di attivo.
+
+\end{itemize}
+
+La tabella seguente riassume i vincoli attivi nei quattro vertici:
+
+\[
+\begin{array}{ccl}
+\hline
+\text{Vertice}
+&
+\text{Coordinate}
+&
+\text{Vincoli attivi}
+\\
+\hline
+A
+&
+(3,0)
+&
+x_1=Q_{\min},\quad x_2=0
+\\
+B
+&
+(10,0)
+&
+x_1+x_2=A_0,\quad x_2=0
+\\
+C
+&
+(6,4)
+&
+x_1+x_2=A_0,\quad x_2=B_{\max}
+\\
+D
+&
+(3,4)
+&
+x_1=Q_{\min},\quad x_2=B_{\max}
+\\
+\hline
+\end{array}
+\]
+
+\subsection{Rette di livello e scelta ottima}
+
+La regione ammissibile stabilisce quali decisioni possono essere adottate, ma
+non indica ancora quale debba essere preferita. Per confrontare le decisioni
+occorre considerare la funzione obiettivo:
+
+\[
+z=c_1x_1+c_2x_2.
+\]
+
+Fissato un valore $k$, l'equazione
+
+\[
+c_1x_1+c_2x_2=k
+\]
+
+descrive una retta di livello. Tutti i punti appartenenti alla stessa retta
+producono il medesimo valore della funzione obiettivo.
+
+Se $c_2>0$, la retta pu\`o essere scritta come
+
+\[
+x_2
+=
+\frac{k}{c_2}
+-
+\frac{c_1}{c_2}x_1.
+\]
+
+Al crescere di $k$, la retta si sposta parallelamente nella direzione in cui
+aumenta il risultato economico. La soluzione ottima corrisponde all'ultima
+retta di livello che mantiene almeno un punto di contatto con la regione
+ammissibile.
+
+Nel modello considerato, il confronto tra i vertici $B$ e $C$ \`e
+particolarmente significativo:
+
+\[
+z(B)=10c_1,
+\]
+
+\[
+z(C)=6c_1+4c_2.
+\]
+
+Ne segue che:
+
+\begin{itemize}
+
+\item se $c_2>c_1$, il punto $C$ produce un risultato superiore al punto $B$;
+
+\item se $c_1>c_2$, il punto $B$ produce un risultato superiore al punto $C$;
+
+\item se $c_1=c_2$, tutti i punti del segmento che congiunge $B$ e $C$
+producono lo stesso risultato.
+
+\end{itemize}
+
+Se i titoli a lunga scadenza offrono un contributo unitario maggiore rispetto
+alle attivit\`a liquide, la funzione obiettivo spinge quindi verso il punto
+$C$. Il limite $x_2\leq B_{\max}$ impedisce per\`o che la ricerca di una
+maggiore redditivit\`a produca una concentrazione ancora pi\`u elevata nei
+titoli a lunga scadenza.
+
+La geometria rende cos\`i visibile il trade-off centrale del caso bancario:
+il rendimento orienta la decisione verso le attivit\`a pi\`u remunerative,
+mentre i vincoli di liquidit\`a e concentrazione delimitano quanto lontano sia
+possibile procedere in quella direzione.
+
+\subsection{Convessit\`a e punti estremi}
+
+La regione ammissibile di un programma lineare \`e convessa. Se
+$x^{(a)}$ e $x^{(b)}$ sono due decisioni ammissibili, allora anche la
+combinazione
 
 \[
 x^{(\theta)}
 =
-\theta x^{(1)}
+\theta x^{(a)}
 +
-(1-\theta)x^{(2)}
-\]
-
-\`{e} ammissibile.
-
-Infatti:
-
-\[
-Ax^{(\theta)}
-=
-\theta Ax^{(1)}
-+
-(1-\theta)Ax^{(2)}
-\geq
-\theta b+(1-\theta)b
-=
-b,
-\]
-
-e, poich\'{e} $x^{(1)}\geq0$ e $x^{(2)}\geq0$,
-
-\[
-x^{(\theta)}\geq0.
-\]
-
-Nel problema bancario, la convessit\`{a} implica che una combinazione tra due
-allocazioni ammissibili resta ammissibile. Se due composizioni dell'attivo
-rispettano entrambe i requisiti assegnati, anche una loro combinazione
-proporzionale continua a rispettarli.
-
-La regione ammissibile di un programma lineare \`{e} quindi un poliedro,
-ossia l'intersezione di un numero finito di semispazi. In due dimensioni essa
-appare come un poligono, eventualmente illimitato; in dimensioni superiori
-mantiene la stessa struttura geometrica, anche se non pu\`{o} essere
-rappresentata direttamente.
-
-\section{Soluzioni di base ammissibili}
-
-\label{sec:cap11-soluzioni-base}
-
-La descrizione geometrica mediante punti estremi pu\`{o} essere tradotta in
-termini algebrici. A questo scopo, dopo avere introdotto le opportune variabili
-di scarto o di eccedenza, consideriamo un sistema scritto nella forma
-
-\[
-\widetilde{A}\widetilde{x}=b,
+(1-\theta)x^{(b)},
 \qquad
-\widetilde{x}\geq0,
+0\leq\theta\leq1,
 \]
 
-dove $\widetilde{A}$ ha $m$ righe e $N$ colonne, con
+\`e ammissibile.
 
-\[
-\operatorname{rank}(\widetilde{A})=m.
-\]
+Geometricamente, ci\`o significa che il segmento che congiunge due punti
+della regione rimane interamente al suo interno. Economicamente, una
+combinazione proporzionale di due composizioni ammissibili continua a
+rispettare i requisiti del modello.
 
-Il vettore $\widetilde{x}$ comprende sia le variabili decisionali originarie
-sia le eventuali variabili ausiliarie introdotte per trasformare le
-disuguaglianze in uguaglianze.
+I vertici della regione vengono anche chiamati \emph{punti estremi}. Essi sono
+i punti nei quali si incontrano due o pi\`u frontiere dei vincoli.
 
-\paragraph{Definizione: base.}
+\begin{proposition}[Ottimalit\`a in un punto estremo]
 
-Una \emph{base} \`{e} un insieme di $m$ colonne linearmente indipendenti della
-matrice $\widetilde{A}$. Indichiamo con $\widetilde{A}_{B}$ la matrice
-quadrata formata da tali colonne e con $\widetilde{x}_{B}$ le corrispondenti
-variabili, dette \emph{variabili di base}.
+Se la regione ammissibile di un programma lineare non \`e vuota e la funzione
+obiettivo possiede un massimo finito, esiste almeno una soluzione ottima che
+coincide con un punto estremo della regione ammissibile.
 
-Le restanti variabili, indicate con $\widetilde{x}_{N}$, sono dette
-\emph{non di base}.
-
-Ponendo
-
-\[
-\widetilde{x}_{N}=0,
-\]
-
-il sistema si riduce a
-
-\[
-\widetilde{A}_{B}\widetilde{x}_{B}=b.
-\]
-
-Poich\'{e} le colonne della base sono linearmente indipendenti,
-$\widetilde{A}_{B}$ \`{e} invertibile e quindi
-
-\[
-\widetilde{x}_{B}
-=
-\widetilde{A}_{B}^{-1}b.
-\]
-
-Il vettore cos\`{i} ottenuto \`{e} una \emph{soluzione di base}. Se inoltre
-
-\[
-\widetilde{x}_{B}\geq0,
-\]
-
-la soluzione \`{e} una \emph{soluzione di base ammissibile}.
-
-Una soluzione di base pu\`{o} dunque soddisfare le uguaglianze del sistema ma
-violare la non negativit\`{a}. Solo le soluzioni di base ammissibili
-appartengono alla regione ammissibile del programma lineare.
-
-\paragraph{Corrispondenza con i punti estremi.}
-
-Per un poliedro descritto da vincoli lineari, vale il risultato fondamentale:
-
-\begin{quote}
-un punto della regione ammissibile \`{e} un punto estremo se e solo se
-corrisponde a una soluzione di base ammissibile.
-\end{quote}
-
-La nozione geometrica di vertice e quella algebrica di soluzione di base
-ammissibile descrivono quindi lo stesso oggetto da due punti di vista
-differenti.
-
-Geometricamente, un punto estremo non pu\`{o} essere ottenuto come
-combinazione convessa non banale di altre due soluzioni ammissibili.
-Algebricamente, la sua posizione \`{e} determinata da un insieme sufficiente
-di equazioni linearmente indipendenti, ottenute imponendo l'uguaglianza nei
-vincoli attivi e, quando necessario, nei vincoli di non negativit\`{a}.
-
-\paragraph{Interpretazione nel problema bancario.}
-
-Nel modello ispirato a Silicon Valley Bank, le variabili originarie
-rappresentano gli importi allocati alle diverse classi di attivo. Una
-soluzione di base ammissibile corrisponde a una composizione del bilancio
-determinata da un insieme di requisiti attivi e linearmente indipendenti.
-
-Se, ad esempio, il modello comprende quattro variabili decisionali positive,
-una soluzione di base non degenere pu\`{o} essere determinata da quattro
-relazioni indipendenti, quali:
-
-\[
-\begin{array}{c}
-\text{vincolo di bilancio},
-\\
-\text{requisito di liquidit\`{a} attivo},
-\\
-\text{limite alle perdite attivo},
-\\
-\text{limite di concentrazione attivo}.
-\end{array}
-\]
-
-La soluzione non nasce quindi dall'esame separato dei singoli investimenti:
-\`{e} l'intersezione dei requisiti che risultano simultaneamente determinanti.
-
-Se invece una classe di attivo assume valore nullo, anche il corrispondente
-vincolo di non negativit\`{a} pu\`{o} contribuire a definire la soluzione di
-base.
-
-\paragraph{Degenerazione.}
-
-Una soluzione di base ammissibile \`{e} detta \emph{degenere} quando almeno
-una delle variabili di base assume valore nullo. Se
-
-\[
-B=\{j_{1},\ldots,j_{m}\}
-\]
-
-\`{e} l'insieme degli indici delle colonne che formano la base, la
-degenerazione si verifica quando
-
-\[
-\widetilde{x}_{j_{k}}=0
-\]
-
-per qualche $k=1,\ldots,m$.
-
-In questo caso pi\`{u} vincoli possono risultare attivi di quanti siano
-strettamente necessari per individuare il punto. Di conseguenza, basi
-differenti possono rappresentare la stessa soluzione di base ammissibile.
-
-La distinzione \`{e} importante: una \emph{base} \`{e} una scelta di colonne
-linearmente indipendenti, mentre una \emph{soluzione di base ammissibile}
-\`{e} il punto della regione ammissibile generato da tale scelta. In presenza
-di degenerazione, la corrispondenza tra basi e punti non \`{e} necessariamente
-univoca.
-
-Le soluzioni di base ammissibili costituiscono un insieme finito di candidati
-all'ottimo. La ragione per cui la ricerca pu\`{o} concentrarsi su questi punti
-sar\`{a} precisata nella sezione successiva.
-
-\section{Ottimalit\`{a} nei punti estremi}
-
-\label{sec:cap11-ottimalita-punti-estremi}
-
-La regione ammissibile contiene, in generale, un numero infinito di punti.
-La linearit\`{a} della funzione obiettivo permette tuttavia di concentrare
-l'attenzione sui punti estremi e, in modo equivalente, sulle soluzioni di
-base ammissibili.
-
-Consideriamo il programma lineare
-
-\[
-\min_{x}\;c'x
-\]
-
-soggetto a
-
-\[
-Ax\geq b,
-\qquad
-x\geq0,
-\]
-
-e indichiamo con $\mathcal{X}$ la regione ammissibile.
-
-\paragraph{Teorema fondamentale della programmazione lineare.}
-
-Se $\mathcal{X}$ non \`{e} vuota e il problema possiede un valore ottimo
-finito, allora esiste almeno una soluzione ottima che \`{e} un punto estremo
-di $\mathcal{X}$. Equivalentemente, esiste almeno una soluzione ottima che
-\`{e} una soluzione di base ammissibile.
+\end{proposition}
 
 Il risultato non afferma che ogni punto estremo sia ottimo. Stabilisce che,
-per trovare almeno una soluzione ottima, non \`{e} necessario esaminare tutti
-i punti della regione ammissibile.
+quando il massimo esiste ed \`e finito, almeno una soluzione ottima pu\`o
+essere individuata tra i vertici.
 
-\paragraph{Interpretazione geometrica.}
+La funzione obiettivo pu\`o anche essere parallela a un lato della regione.
+In questo caso tutti i punti del lato producono il medesimo valore ottimo.
+Esistono quindi infinite soluzioni ottime, ma gli estremi del segmento
+rimangono comunque soluzioni ottime.
 
-Le equazioni
+La rappresentazione geometrica permette infine di comprendere il ruolo dei
+vincoli attivi: sono le frontiere che determinano i punti estremi e limitano
+la possibilit\`a di migliorare ulteriormente la funzione obiettivo.
+
+\section{Che cosa significa soluzione ottima}
+
+\label{sec:cap11-significato-ottimo}
+
+Dopo avere definito le decisioni ammissibili, il problema di programmazione
+lineare deve scegliere quella che produce il valore pi\`u elevato della
+funzione obiettivo.
+
+\begin{definition}[Soluzione ottima]
+
+Sia
 
 \[
-c'x=k
+\mathcal{X}
+=
+\left\{
+x\in\R^n:
+Ax\leq b,\;
+x\geq0
+\right\}
 \]
 
-individuano gli insiemi di livello della funzione obiettivo. In due
-dimensioni si tratta di rette parallele per diversi valori di $k$; in dimensioni superiori di
-iperpiani paralleli.
+la regione ammissibile. Una soluzione $x^*\in\mathcal{X}$ \`e
+\emph{ottima} per il problema di massimizzazione se
 
-In un problema di minimo, il valore di $k$ viene progressivamente ridotto
-finch\'{e} l'insieme di livello incontra per l'ultima volta la regione
-ammissibile. Il contatto pu\`{o} avvenire:
+\[
+c'x^*\geq c'x
+\]
+
+per ogni
+
+\[
+x\in\mathcal{X}.
+\]
+
+Il valore
+
+\[
+z^*=c'x^*
+\]
+
+\`e il \emph{valore ottimo} della funzione obiettivo.
+
+\end{definition}
+
+La definizione contiene due condizioni distinte. La soluzione deve essere
+ammissibile, cio\`e rispettare tutti i vincoli, e nessun'altra soluzione
+ammissibile deve produrre un risultato migliore.
+
+Una composizione molto redditizia ma non ammissibile non pu\`o essere
+considerata ottima. Analogamente, una composizione ammissibile non \`e
+necessariamente ottima: pu\`o esistere un'altra decisione che rispetta gli
+stessi requisiti e produce un risultato economico superiore.
+
+L'ottimo deve inoltre essere interpretato rispetto al modello considerato.
+Esso non rappresenta la migliore decisione possibile in senso assoluto, ma la
+migliore decisione rispetto:
 
 \begin{itemize}
 
-\item in un solo punto estremo, nel caso di soluzione ottima unica;
+\item alle variabili decisionali incluse nel modello;
 
-\item lungo un lato o, pi\`{u} in generale, lungo una faccia del poliedro,
-nel caso di soluzioni ottime multiple.
+\item ai coefficienti utilizzati;
+
+\item ai vincoli imposti;
+
+\item alla funzione obiettivo scelta.
 
 \end{itemize}
 
-Nel secondo caso anche i punti interni della faccia sono ottimi, ma almeno
-uno dei suoi punti estremi possiede lo stesso valore ottimo.
+Una modifica dei dati, dei requisiti o delle classi di attivo considerate pu\`o
+quindi produrre una soluzione ottima differente.
 
-\paragraph{Idea del risultato.}
+\subsection{Leggere la soluzione del modello SVB stilizzato}
 
-Supponiamo che una soluzione ottima $x^{*}$ non sia un punto estremo. Essa
-pu\`{o} allora essere rappresentata come combinazione convessa di due
-soluzioni ammissibili distinte:
-
-\[
-x^{*}
-=
-\theta x^{(1)}
-+
-(1-\theta)x^{(2)},
-\qquad
-0<\theta<1.
-\]
-
-Per la linearit\`{a} della funzione obiettivo,
-
-\[
-c'x^{*}
-=
-\theta c'x^{(1)}
-+
-(1-\theta)c'x^{(2)}.
-\]
-
-Poich\'{e} $x^{*}$ \`{e} ottima,
-
-\[
-c'x^{(1)}\geq c'x^{*},
-\qquad
-c'x^{(2)}\geq c'x^{*}.
-\]
-
-L'uguaglianza precedente implica quindi
-
-\[
-c'x^{(1)}
-=
-c'x^{(2)}
-=
-c'x^{*}.
-\]
-
-Anche $x^{(1)}$ e $x^{(2)}$ sono soluzioni ottime. Ripetendo
-l'argomento, si pu\`{o} individuare almeno un punto estremo appartenente
-all'insieme delle soluzioni ottime.
-
-\paragraph{Rilettura nel caso bancario.}
-
-Nel modello ispirato a Silicon Valley Bank, ogni punto della regione
-ammissibile rappresenta una composizione dell'attivo compatibile con tutti
-i requisiti imposti. Il teorema garantisce che almeno una composizione
-ottima pu\`{o} essere individuata tra quelle determinate dall'intersezione
-di un numero sufficiente di vincoli attivi.
-
-Ad esempio, una soluzione ottima potrebbe essere determinata
-simultaneamente da:
-
-\[
-\begin{array}{c}
-\text{identit\`{a} di bilancio},\\
-\text{requisito minimo di liquidit\`{a}},\\
-\text{limite alle perdite nello scenario di stress},\\
-\text{limite alla concentrazione nei titoli a lunga scadenza}.
-\end{array}
-\]
-
-Ci\`{o} non significa che tutti i vincoli del modello debbano essere attivi.
-Alcuni requisiti possono essere rispettati con margine. I vincoli attivi
-sono quelli che, nella soluzione considerata, contribuiscono a determinarne
-la posizione sulla frontiera della regione ammissibile.
-
-Il teorema costituisce il fondamento dei metodi che si spostano tra soluzioni
-di base ammissibili. L'algoritmo del simplesso non verr\`{a} sviluppato nel
-corso; ne viene tuttavia utilizzata l'idea essenziale: la ricerca dell'ottimo
-pu\`{o} concentrarsi sui punti estremi della regione ammissibile.
-
-\section{Costruzione del problema duale}
-
-\label{sec:cap11-costruzione-duale}
-
-A ogni programma lineare, detto \emph{problema primale}, pu\`{o} essere
-associato un secondo programma lineare, detto \emph{problema duale}. Il duale
-non introduce una decisione economica indipendente da quella originaria:
-rappresenta lo stesso problema da un punto di vista diverso, attribuendo
-valori ai requisiti e alle risorse che delimitano la scelta primale.
-
-Consideriamo la forma di riferimento adottata nel corso:
+Riprendiamo il modello a quattro classi di attivo e i dati numerici introdotti
+nella Sezione~\ref{sec:cap11-ammissibilita}. Il problema \`e
 
 \[
 \begin{array}{ll}
-\min\limits_{x} & c'x \\[3pt]
-\mbox{soggetto a} & Ax\geq b,\\
-& x\geq0,
+\max
+&
+0.010x_1+0.025x_2+0.040x_3+0.050x_4
+\\[4pt]
+\mbox{soggetto a}
+&
+x_1+x_2+x_3+x_4=100,
+\\[2pt]
+&
+x_1+0.90x_2+0.50x_3+0.20x_4\geq55,
+\\[2pt]
+&
+0.02x_2+0.15x_3+0.08x_4\leq7,
+\\[2pt]
+&
+x_3\leq30,
+\\[2pt]
+&
+x_j\geq0,
+\qquad
+j=1,\ldots,4.
+\end{array}
+\]
+
+La soluzione numerica \`e, approssimativamente,
+
+\[
+x^*
+=
+\begin{pmatrix}
+0\\
+41.045\\
+20.896\\
+38.060
+\end{pmatrix}.
+\]
+
+La composizione ottima destina quindi:
+
+\begin{itemize}
+
+\item nessuna risorsa alla cassa e alle riserve;
+
+\item circa $41.045$ unit\`a ai titoli a breve scadenza;
+
+\item circa $20.896$ unit\`a ai titoli a lunga scadenza;
+
+\item circa $38.060$ unit\`a ai prestiti e agli impieghi meno liquidi.
+
+\end{itemize}
+
+Il valore ottimo della funzione obiettivo \`e
+
+\[
+z^*
+\approx
+3.765.
+\]
+
+Questo numero deve essere interpretato nella stessa unit\`a utilizzata per i
+coefficienti $c_j$. Se tali coefficienti rappresentano un margine economico
+unitario, $z^*$ rappresenta il margine complessivo prodotto dalla composizione
+ottima.
+
+La soluzione utilizza interamente le risorse disponibili:
+
+\[
+x_1^*+x_2^*+x_3^*+x_4^*
+=
+100.
+\]
+
+La liquidit\`a disponibile \`e
+
+\[
+x_1^*
++
+0.90x_2^*
++
+0.50x_3^*
++
+0.20x_4^*
+\approx
+55,
+\]
+
+mentre la perdita nello scenario di stress \`e
+
+\[
+0.02x_2^*
++
+0.15x_3^*
++
+0.08x_4^*
+\approx
+7.
+\]
+
+Entrambi i requisiti sono quindi soddisfatti esattamente al proprio limite.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]
+{../graphics/Cap11_soluzione_ottima_allocazione.png}
+\caption{Composizione dell'attivo nella soluzione ottima del modello
+SVB stilizzato. La figura mostra l'allocazione tra le quattro classi
+di attivo e richiama i vincoli che risultano attivi nella soluzione.}
+\label{fig:cap11-soluzione-ottima-allocazione}
+\end{figure}
+
+La Figura~\ref{fig:cap11-soluzione-ottima-allocazione} rende immediatamente
+visibile la struttura della soluzione ottima. La banca non detiene cassa e
+riserve, concentra una quota rilevante delle risorse nei titoli a breve
+scadenza e nei prestiti, mentre l'investimento in titoli a lunga scadenza
+rimane positivo ma non raggiunge il limite massimo consentito.
+
+L'investimento in titoli a lunga scadenza rimane invece inferiore al massimo
+consentito:
+
+\[
+x_3^*
+\approx
+20.896
+<
+30.
+\]
+
+Il relativo margine \`e
+
+\[
+30-x_3^*
+\approx
+9.104.
+\]
+
+\subsection{Che cosa rivelano i vincoli attivi}
+
+Nella soluzione ottima sono attivi:
+
+\begin{itemize}
+
+\item il vincolo di bilancio;
+
+\item il requisito minimo di liquidit\`a;
+
+\item il limite alla perdita nello scenario di stress.
+
+\end{itemize}
+
+Il limite di concentrazione sui titoli a lunga scadenza non \`e invece attivo.
+La decisione non viene quindi arrestata da tale limite, ma dalla combinazione
+tra fabbisogno di liquidit\`a e capacit\`a di assorbire perdite.
+
+Questa informazione \`e economicamente pi\`u significativa del solo valore
+della funzione obiettivo. Essa permette di comprendere quali requisiti
+determinano concretamente la composizione scelta.
+
+Il valore
+
+\[
+x_1^*=0
+\]
+
+richiede inoltre un'interpretazione attenta. Non significa che la cassa sia
+priva di utilit\`a. Significa che, dati i coefficienti adottati, il requisito
+di liquidit\`a pu\`o essere soddisfatto attraverso i titoli a breve scadenza,
+che offrono un rendimento superiore.
+
+Se la banca ritiene necessario mantenere comunque una dotazione minima di
+cassa, tale requisito deve essere formulato esplicitamente mediante un vincolo
+del tipo
+
+\[
+x_1\geq C_{\min}.
+\]
+
+La soluzione ottima pu\`o quindi mettere in evidenza non soltanto la decisione
+preferita dal modello, ma anche eventuali requisiti economici che il modello
+non contiene ancora.
+
+\subsection{Unicit\`a e soluzioni ottime multiple}
+
+Una soluzione ottima non \`e necessariamente unica.
+
+Nel caso geometrico della sezione precedente, se la funzione obiettivo \`e
+parallela a un lato della regione ammissibile, tutti i punti appartenenti a
+quel lato producono lo stesso valore ottimo.
+
+Se $x^{(a)}$ e $x^{(b)}$ sono due soluzioni ottime distinte, allora, per la
+linearit\`a del problema, anche ogni combinazione
+
+\[
+x^{(\theta)}
+=
+\theta x^{(a)}
++
+(1-\theta)x^{(b)},
+\qquad
+0\leq\theta\leq1,
+\]
+
+\`e ottima.
+
+La presenza di pi\`u soluzioni ottime non costituisce un errore. Indica che il
+criterio adottato non distingue tra alcune decisioni ammissibili. In questo
+caso il decisore pu\`o scegliere tra esse utilizzando considerazioni non
+rappresentate nella funzione obiettivo, come flessibilit\`a gestionale,
+semplicit\`a operativa o robustezza rispetto agli errori di stima.
+
+\subsection{Quando il modello \`e illimitato}
+
+Un problema di massimizzazione \`e \emph{illimitato} quando esistono soluzioni
+ammissibili che producono valori arbitrariamente elevati della funzione
+obiettivo.
+
+In simboli, per ogni livello $M$ esiste una soluzione $x\in\mathcal{X}$ tale
+che
+
+\[
+c'x>M.
+\]
+
+In un problema finanziario, un risultato di questo tipo non deve essere
+interpretato come la possibilit\`a reale di ottenere profitti infiniti. Esso
+segnala normalmente che manca un vincolo rilevante oppure che una relazione
+\`e stata formulata in modo errato.
+
+Per esempio, se un'attivit\`a produce un rendimento positivo e il modello non
+pone alcun limite alle risorse che possono essere investite, la funzione
+obiettivo pu\`o crescere senza limite.
+
+Il software di ottimizzazione pu\`o quindi restituire tre indicazioni
+fondamentali:
+
+\begin{itemize}
+
+\item una soluzione ottima e il corrispondente valore obiettivo;
+
+\item l'inammissibilit\`a del modello;
+
+\item l'illimitatezza della funzione obiettivo.
+
+\end{itemize}
+
+Il compito del decisore non consiste soltanto nell'accettare il risultato
+numerico, ma nel verificarne il significato economico, leggere i vincoli
+attivi e accertare che la soluzione rifletta correttamente il problema che si
+intende rappresentare.
+
+\section{Il costo di una maggiore prudenza}
+
+\label{sec:cap11-costo-prudenza}
+
+La soluzione ottima della sezione precedente \`e stata ottenuta imponendo un
+requisito minimo di liquidit\`a pari a
+
+\[
+Q_{\min}=55.
+\]
+
+Tale livello non \`e una conseguenza del programma lineare: costituisce un
+dato deciso prima della soluzione, sulla base delle valutazioni di rischio
+della banca. Il modello permette per\`o di studiare quale effetto avrebbe un
+requisito pi\`u prudente.
+
+Consideriamo quindi il livello di liquidit\`a richiesta come un parametro
+variabile e indichiamolo con \(Q\). Il problema diventa
+
+\[
+\begin{array}{ll}
+\max
+&
+0.010x_1+0.025x_2+0.040x_3+0.050x_4
+\\[4pt]
+\mbox{soggetto a}
+&
+x_1+x_2+x_3+x_4=100,
+\\[2pt]
+&
+x_1+0.90x_2+0.50x_3+0.20x_4\geq Q,
+\\[2pt]
+&
+0.02x_2+0.15x_3+0.08x_4\leq7,
+\\[2pt]
+&
+x_3\leq30,
+\\[2pt]
+&
+x_j\geq0,
+\qquad j=1,\ldots,4.
+\end{array}
+\]
+
+Per ogni valore ammissibile di \(Q\), indichiamo con
+
+\[
+z^*(Q)
+\]
+
+il massimo risultato economico ottenibile.
+
+\begin{definition}[Funzione del valore ottimo]
+
+La \emph{funzione del valore ottimo} associa a ogni livello del requisito di
+liquidit\`a il migliore valore della funzione obiettivo compatibile con tale
+requisito:
+
+\[
+z^*(Q)
+=
+\max
+\left\{
+c'x:
+x\in\mathcal{X}(Q)
+\right\},
+\]
+
+dove \(\mathcal{X}(Q)\) indica la regione ammissibile corrispondente al livello
+\(Q\).
+
+\end{definition}
+
+\subsection{Un requisito pi\`u severo restringe le decisioni}
+
+Siano \(Q_1\) e \(Q_2\) due requisiti di liquidit\`a tali che
+
+\[
+Q_2>Q_1.
+\]
+
+Ogni decisione che soddisfa il requisito pi\`u severo \(Q_2\) soddisfa anche
+il requisito \(Q_1\). Ne segue che
+
+\[
+\mathcal{X}(Q_2)
+\subseteq
+\mathcal{X}(Q_1).
+\]
+
+La banca dispone quindi di un insieme pi\`u ristretto di possibili
+composizioni dell'attivo.
+
+\begin{proposition}[Monotonia del valore ottimo]
+
+Nel problema di massimizzazione considerato, il valore ottimo non pu\`o
+aumentare quando il requisito minimo di liquidit\`a viene innalzato:
+
+\[
+Q_2>Q_1
+\quad\Longrightarrow\quad
+z^*(Q_2)\leq z^*(Q_1).
+\]
+
+\end{proposition}
+
+Il risultato non afferma che una maggiore liquidit\`a sia economicamente
+indesiderabile. Afferma che, rispetto alla funzione obiettivo adottata,
+l'imposizione di un requisito pi\`u severo pu\`o escludere alcune allocazioni
+redditizie.
+
+La riduzione di \(z^*(Q)\) misura quindi il costo opportunit\`a della maggiore
+prudenza all'interno del modello.
+
+\subsection{Analisi numerica}
+
+Risolvendo nuovamente il problema per diversi livelli di \(Q\), si ottengono
+i seguenti risultati:
+
+\[
+\begin{array}{ccc}
+\hline
+Q
+&
+z^*(Q)
+&
+\text{Composizione ottima}
+\\
+\hline
+55
+&
+3.7649
+&
+(0,\;41.045,\;20.896,\;38.060)
+\\
+60
+&
+3.5896
+&
+(0,\;46.269,\;25.373,\;28.358)
+\\
+65
+&
+3.4142
+&
+(0,\;51.493,\;29.851,\;18.657)
+\\
+70
+&
+3.2357
+&
+(0,\;58.571,\;30.000,\;11.429)
+\\
+75
+&
+3.0571
+&
+(0,\;65.714,\;30.000,\;4.286)
+\\
+80
+&
+2.8750
+&
+(0,\;75.000,\;25.000,\;0)
+\\
+90
+&
+2.5000
+&
+(0,\;100.000,\;0,\;0)
+\\
+\hline
+\end{array}
+\]
+
+L'aumento del requisito di liquidit\`a modifica progressivamente la
+composizione dell'attivo. Le risorse vengono trasferite verso i titoli a breve
+scadenza, che presentano un coefficiente di liquidabilit\`a elevato, mentre si
+riduce l'investimento negli impieghi meno liquidi.
+
+Tra \(Q=55\) e \(Q=65\), anche l'investimento nei titoli a lunga scadenza
+aumenta. Questo risultato, apparentemente controintuitivo, deriva dalla
+combinazione dei vincoli: la maggiore presenza di titoli a breve permette di
+ridurre gli impieghi meno liquidi e di utilizzare parte della capacit\`a di
+perdita per i titoli a lunga scadenza.
+
+Quando il loro ammontare raggiunge il limite di concentrazione, il vincolo
+
+\[
+x_3\leq30
+\]
+
+diventa attivo. Per livelli ancora maggiori di \(Q\), la composizione deve
+spostarsi ulteriormente verso i titoli a breve scadenza.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.88\textwidth]
+{../graphics/Cap11_valore_ottimo_liquidita.png}
+\caption{Valore ottimo al variare del requisito minimo di liquidit\`a.
+L'aumento di \(Q\) restringe la regione ammissibile e riduce il massimo
+risultato economico ottenibile.}
+\label{fig:cap11-valore-ottimo-liquidita}
+\end{figure}
+
+La Figura~\ref{fig:cap11-valore-ottimo-liquidita} mostra che la relazione tra
+\(Q\) e \(z^*(Q)\) \`e decrescente e composta da tratti lineari. Il cambiamento
+della pendenza segnala che la struttura della soluzione ottima \`e cambiata:
+una variabile pu\`o annullarsi oppure un nuovo vincolo pu\`o diventare attivo.
+
+\subsection{Il costo marginale della liquidit\`a}
+
+Consideriamo una piccola variazione positiva \(\Delta Q\). Il costo economico
+associato all'inasprimento del requisito pu\`o essere misurato mediante
+
+\[
+z^*(Q)-z^*(Q+\Delta Q).
+\]
+
+Per una variazione unitaria, definiamo
+
+\[
+\kappa(Q)
+=
+z^*(Q)-z^*(Q+1).
+\]
+
+In prossimit\`a del livello iniziale \(Q=55\),
+
+\[
+z^*(55)\approx3.7649
+\]
+
+e
+
+\[
+z^*(56)\approx3.7299.
+\]
+
+Pertanto,
+
+\[
+\kappa(55)
+\approx
+3.7649-3.7299
+\approx
+0.0351.
+\]
+
+All'interno di questo intervallo, richiedere una unit\`a aggiuntiva di
+liquidit\`a riduce quindi il massimo risultato economico di circa
+
+\[
+0.0351
+\]
+
+unit\`a della funzione obiettivo.
+
+Questa quantit\`a non rappresenta una spesa contabilmente sostenuta dalla
+banca. \`E un costo opportunit\`a: misura il rendimento massimo al quale il
+modello deve rinunciare per rispettare un requisito leggermente pi\`u severo.
+
+\subsection{Una valutazione locale}
+
+Il costo marginale non deve essere applicato senza limiti. Il valore
+
+\[
+0.0351
+\]
+
+rimane valido finch\'e una piccola variazione di \(Q\) non modifica l'insieme
+dei vincoli che determinano la soluzione ottima.
+
+Quando un vincolo precedentemente non attivo raggiunge il proprio limite, o
+quando una variabile diventa nulla, la pendenza di \(z^*(Q)\) pu\`o cambiare.
+Il costo di un'ulteriore unit\`a di liquidit\`a deve allora essere
+ricalcolato.
+
+\begin{remark}
+
+L'analisi marginale risponde alla domanda:
+
+\begin{quote}
+Quanto risultato economico massimo viene sacrificato imponendo una piccola
+variazione del requisito?
+\end{quote}
+
+Non risponde invece alla domanda normativa su quale debba essere il livello
+corretto di liquidit\`a. Tale scelta richiede valutazioni sul rischio dei
+deflussi, sulla stabilit\`a della raccolta e sulle conseguenze di una crisi,
+che non sono contenute nella sola funzione obiettivo.
+\end{remark}
+
+La procedura seguita finora richiede di risolvere ripetutamente il problema
+per valori differenti di \(Q\). La teoria della dualit\`a permette di ottenere
+la stessa informazione marginale direttamente dalla soluzione del programma
+lineare. Il valore \(0.0351\) verr\`a quindi reinterpretato come prezzo
+implicito del requisito di liquidit\`a.
+
+\section{Il duale come sistema di prezzi impliciti}
+
+\label{sec:cap11-duale}
+
+Nella sezione precedente il costo marginale di un requisito di liquidit\`{a}
+pi\`{u} severo \`{e} stato determinato risolvendo nuovamente il problema per
+diversi valori di \(Q\). La programmazione lineare permette di ottenere questa
+informazione direttamente dalla soluzione di un secondo problema, chiamato
+\emph{problema duale}.
+
+Il problema originario viene detto \emph{primale}. Esso sceglie le variabili
+decisionali e determina la migliore allocazione compatibile con i vincoli. Il
+duale attribuisce invece un valore implicito alle risorse e ai requisiti del
+primale.
+
+\subsection{Dal problema primale al problema duale}
+
+Consideriamo il programma lineare nella forma di riferimento
+
+\[
+\begin{array}{ll}
+\max\limits_x
+&
+c'x
+\\[4pt]
+\mbox{soggetto a}
+&
+Ax\leq b,
+\\[2pt]
+&
+x\geq0,
+\end{array}
+\]
+
+dove \(x\in\R^n\) e il sistema \(Ax\leq b\) contiene \(m\) vincoli.
+
+\begin{definition}[Problema duale]
+
+Il problema duale associato al programma primale precedente \`{e}
+
+\[
+\begin{array}{ll}
+\min\limits_{\lambda}
+&
+b'\lambda
+\\[4pt]
+\mbox{soggetto a}
+&
+A'\lambda\geq c,
+\\[2pt]
+&
+\lambda\geq0,
 \end{array}
 \]
 
 dove
 
 \[
-A\in\R^{m\times n},
-\qquad
-b\in\R^{m},
-\qquad
-c\in\R^{n}.
+\lambda
+=
+\begin{pmatrix}
+\lambda_1\\
+\vdots\\
+\lambda_m
+\end{pmatrix}
 \]
 
-Il problema contiene $n$ variabili decisionali e $m$ vincoli. In forma
-scalare, il vincolo $i$ \`{e}
+\`{e} il vettore delle variabili duali.
+
+\end{definition}
+
+La costruzione segue una corrispondenza precisa:
+
+\begin{itemize}
+
+\item a ciascun vincolo del primale corrisponde una variabile duale;
+
+\item a ciascuna variabile del primale corrisponde un vincolo del duale;
+
+\item il vettore \(b\) entra nella funzione obiettivo duale;
+
+\item il vettore \(c\) compare nel lato destro dei vincoli duali;
+
+\item la matrice dei coefficienti passa da \(A\) ad \(A'\).
+
+\end{itemize}
+
+Il passaggio da \(A\) ad \(A'\) scambia quindi il ruolo delle righe e delle
+colonne. Le righe del primale descrivono i requisiti; le colonne descrivono
+come una variabile decisionale contribuisce ai diversi requisiti. Nel duale,
+ogni colonna del primale genera un confronto tra il valore attribuito alle
+risorse utilizzate e il contributo economico della corrispondente attivit\`{a}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]
+{../graphics/cap11_corrispondenza_primale_duale.png}
+\caption{Corrispondenza strutturale tra problema primale e problema duale.
+A ogni vincolo primale corrisponde una variabile duale, mentre a ogni
+variabile primale corrisponde un vincolo duale.}
+\label{fig:cap11-corrispondenza-primale-duale}
+\end{figure}
+
+\subsection{Le variabili duali come prezzi impliciti}
+
+Supponiamo che il vincolo \(i\) rappresenti la disponibilit\`{a} di una
+risorsa e che \(b_i\) ne misuri la quantit\`{a} disponibile. La variabile
+\(\lambda_i\) pu\`{o} essere interpretata come il valore attribuito a una
+unit\`{a} di tale risorsa.
+
+Il valore complessivo attribuito alle risorse disponibili \`{e}
 
 \[
-\sum_{j=1}^{n}a_{ij}x_{j}\geq b_{i},
-\qquad
-i=1,\ldots,m.
+b'\lambda
+=
+\sum_{i=1}^{m}b_i\lambda_i.
 \]
 
-L'obiettivo della costruzione duale \`{e} ricavare, dai vincoli primali, un
-limite inferiore al valore della funzione obiettivo $c'x$.
-
-\subsection{Dal singolo vincolo alla valutazione duale}
-
-Consideriamo uno dei vincoli del problema primale:
+Consideriamo ora una variabile decisionale \(x_j\). Per produrre una unit\`{a}
+dell'attivit\`{a} \(j\), il modello utilizza \(a_{ij}\) unit\`{a} della
+risorsa \(i\). Il valore implicito delle risorse utilizzate \`{e} pertanto
 
 \[
-a_i'x\geq b_i.
+\sum_{i=1}^{m}a_{ij}\lambda_i.
 \]
 
-Associamo a questo vincolo un coefficiente $\lambda_i\geq0$. Moltiplicando
-entrambi i membri per $\lambda_i$, il verso della disuguaglianza rimane
-invariato:
+Il corrispondente vincolo duale richiede che
 
 \[
-\lambda_i a_i'x\geq\lambda_i b_i.
-\]
-
-Il termine $\lambda_i b_i$ pu\`{o} essere interpretato come il valore
-attribuito al livello richiesto dal vincolo $i$, mentre
-
-\[
-\lambda_i a_i'x
-\]
-
-rappresenta il valore attribuito, attraverso lo stesso vincolo, alla decisione
-$x$.
-
-La condizione $\lambda_i\geq0$ non \`{e} una convenzione arbitraria. Se il
-moltiplicatore fosse negativo, il verso della disuguaglianza si invertirebbe
-e il termine $\lambda_i b_i$ non fornirebbe pi\`{u} un limite coerente con il
-vincolo originario.
-
-Nel problema bancario, se
-
-\[
-q'x\geq\overline{u}
-\]
-
-rappresenta un requisito minimo di liquidit\`{a}, il moltiplicatore
-$\lambda_Q\geq0$ attribuisce un valore unitario al livello di liquidit\`{a}
-richiesto. Moltiplicando il vincolo per $\lambda_Q$ si ottiene
-
-\[
-\lambda_Q q'x
+\sum_{i=1}^{m}a_{ij}\lambda_i
 \geq
-\lambda_Q\overline{u}.
+c_j.
 \]
 
-Il membro destro rappresenta il valore duale assegnato al requisito minimo;
-il membro sinistro attribuisce invece un valore alle diverse attivit\`{a} in
-funzione del loro contributo alla liquidit\`{a}.
+Il valore attribuito alle risorse necessarie per svolgere l'attivit\`{a} non
+deve quindi essere inferiore al contributo \(c_j\) che tale attivit\`{a}
+produce nella funzione obiettivo.
 
-\subsection{Combinazione di tutti i vincoli}
+Il duale ricerca, tra tutti i sistemi di prezzi che rispettano queste
+condizioni, quello che assegna alle risorse disponibili il valore complessivo
+pi\`{u} basso.
 
-Il problema primale contiene $m$ vincoli. Associando a ciascuno di essi un
-moltiplicatore non negativo,
+\subsection{Il duale fornisce un limite al risultato primale}
+
+Sia \(x\) una soluzione ammissibile del primale e sia \(\lambda\) una
+soluzione ammissibile del duale. Dalle condizioni
 
 \[
-\lambda_1,\ldots,\lambda_m\geq0,
+A'\lambda\geq c,
+\qquad
+x\geq0,
 \]
 
-e sommando le disuguaglianze ottenute, si costruisce una combinazione lineare
-dei vincoli primali.
-
-In forma matriciale:
+segue
 
 \[
-Ax\geq b
+c'x\leq\lambda'Ax.
+\]
+
+Inoltre, da
+
+\[
+Ax\leq b,
+\qquad
+\lambda\geq0,
+\]
+
+segue
+
+\[
+\lambda'Ax\leq\lambda'b.
+\]
+
+Pertanto,
+
+\[
+c'x
+\leq
+b'\lambda.
+\]
+
+\begin{proposition}[Dualit\`{a} debole]
+
+Per ogni soluzione ammissibile \(x\) del problema primale e per ogni soluzione
+ammissibile \(\lambda\) del problema duale vale
+
+\[
+c'x\leq b'\lambda.
+\]
+
+\end{proposition}
+
+Nel problema primale \(c'x\) rappresenta un risultato effettivamente
+ottenibile. Nel duale \(b'\lambda\) costituisce invece una valutazione delle
+risorse che non pu\`{o} essere inferiore a nessun risultato primale
+ammissibile.
+
+La dualit\`{a} debole non afferma ancora che il migliore valore primale
+coincida con il migliore valore duale. Questa uguaglianza sar\`{a} introdotta
+nella sezione successiva.
+
+\subsection{Il duale del modello SVB stilizzato}
+
+Riprendiamo il modello numerico della Sezione~\ref{sec:cap11-significato-ottimo}.
+Associamo:
+
+\begin{itemize}
+
+\item la variabile libera \(\eta\) al vincolo di bilancio;
+
+\item la variabile \(\lambda_Q\geq0\) al requisito minimo di liquidit\`{a};
+
+\item la variabile \(\lambda_K\geq0\) al limite sulla perdita sotto stress;
+
+\item la variabile \(\lambda_C\geq0\) al limite di concentrazione nei titoli
+a lunga scadenza.
+
+\end{itemize}
+
+Il vincolo di liquidit\`{a}
+
+\[
+x_1+0.90x_2+0.50x_3+0.20x_4\geq55
+\]
+
+viene scritto nella forma
+
+\[
+-x_1-0.90x_2-0.50x_3-0.20x_4\leq-55.
+\]
+
+Questa trasformazione spiega il segno negativo con cui il requisito di
+liquidit\`{a} compare nella funzione obiettivo duale.
+
+Il problema duale \`{e}
+
+\[
+\begin{array}{ll}
+\min
+&
+100\eta
+-
+55\lambda_Q
++
+7\lambda_K
++
+30\lambda_C
+\\[4pt]
+\mbox{soggetto a}
+&
+\eta-\lambda_Q
+\geq0.010,
+\\[2pt]
+&
+\eta-0.90\lambda_Q+0.02\lambda_K
+\geq0.025,
+\\[2pt]
+&
+\eta-0.50\lambda_Q+0.15\lambda_K+\lambda_C
+\geq0.040,
+\\[2pt]
+&
+\eta-0.20\lambda_Q+0.08\lambda_K
+\geq0.050,
+\\[2pt]
+&
+\lambda_Q,\lambda_K,\lambda_C\geq0,
+\\[2pt]
+&
+\eta\in\R.
+\end{array}
+\]
+
+I quattro vincoli duali corrispondono, nell'ordine, alle quattro classi di
+attivo:
+
+\[
+x_1,\quad x_2,\quad x_3,\quad x_4.
+\]
+
+Per esempio, il vincolo associato ai titoli a breve scadenza \`{e}
+
+\[
+\eta
+-
+0.90\lambda_Q
++
+0.02\lambda_K
+\geq
+0.025.
+\]
+
+Il lato sinistro combina il valore implicito delle risorse di bilancio,
+l'effetto del requisito di liquidit\`{a} e il consumo della capacit\`{a} di
+assorbire perdite. Il lato destro rappresenta il contributo economico unitario
+dei titoli a breve.
+
+\subsection{Interpretazione dei valori duali}
+
+Per il modello con \(Q=55\), la soluzione duale \`{e} approssimativamente
+
+\[
+\eta^*
+=
+0.05642,
+\qquad
+\lambda_Q^*
+=
+0.03507,
+\qquad
+\lambda_K^*
+=
+0.00746,
+\qquad
+\lambda_C^*
+=
+0.
+\]
+
+Il valore
+
+\[
+\lambda_Q^*
+\approx
+0.03507
+\]
+
+coincide con il costo marginale della liquidit\`{a} calcolato nella sezione
+precedente. Un aumento unitario di \(Q\), finch\'{e} la struttura della
+soluzione rimane invariata, riduce il valore ottimo di circa \(0.03507\).
+
+Il segno deve essere interpretato con attenzione. La derivata locale del
+valore ottimo rispetto a \(Q\) \`{e}
+
+\[
+\frac{\partial z^*(Q)}{\partial Q}
+=
+-\lambda_Q^*.
+\]
+
+La quantit\`{a} positiva \(\lambda_Q^*\) misura quindi il costo della maggiore
+prudenza, mentre la variazione del risultato economico ha segno negativo.
+
+Il valore
+
+\[
+\lambda_K^*
+\approx
+0.00746
+\]
+
+misura invece l'aumento locale del risultato massimo ottenibile quando il
+limite alla perdita \(K\) viene ampliato di una unit\`{a}. Una maggiore
+capacit\`{a} di assorbire perdite permette al modello di scegliere
+allocazioni pi\`{u} redditizie.
+
+Il risultato
+
+\[
+\lambda_C^*=0
+\]
+
+indica che un piccolo aumento del limite sui titoli a lunga scadenza non
+migliora il valore ottimo nella situazione considerata. Il limite di
+concentrazione non sta infatti determinando la composizione ottima.
+
+Le variabili duali non sono prezzi osservati sul mercato. Sono valutazioni
+endogene prodotte dal modello e dipendono dai coefficienti, dai vincoli e
+dalla soluzione considerata. La loro validit\`{a} \`{e} inoltre locale: se una
+variazione modifica i vincoli attivi, anche i prezzi impliciti possono
+cambiare.
+
+La sezione successiva chiarisce perch\'{e}, in condizioni appropriate, il
+valore ottimo del primale coincide con quello del duale e come i valori duali
+siano collegati ai margini dei vincoli mediante le condizioni di
+complementariet\`{a}.
+
+\section{Dualit\`a forte e complementariet\`a}
+
+\label{sec:cap11-dualita-forte}
+
+La dualit\`a debole stabilisce che ogni soluzione ammissibile del duale
+fornisce un limite superiore al risultato ottenibile nel primale:
+
+\[
+c'x
+\leq
+b'\lambda.
+\]
+
+Rimane da comprendere se tale limite possa essere raggiunto. Il risultato
+centrale della teoria della programmazione lineare afferma che, quando esiste
+un valore ottimo finito, il migliore valore primale coincide con il migliore
+valore duale.
+
+\subsection{Il teorema di dualit\`a forte}
+
+Consideriamo la coppia di problemi
+
+\[
+\begin{array}{lll}
+\text{primale}
+&
+\displaystyle\max_x c'x
+&
+\text{soggetto a }
+Ax\leq b,\quad x\geq0,
+\\[6pt]
+\text{duale}
+&
+\displaystyle\min_{\lambda} b'\lambda
+&
+\text{soggetto a }
+A'\lambda\geq c,\quad \lambda\geq0.
+\end{array}
+\]
+
+\begin{theorem}[Dualit\`a forte]
+
+Se il problema primale possiede una soluzione ottima finita, anche il
+problema duale possiede una soluzione ottima e i due valori coincidono:
+
+\[
+c'x^*
+=
+b'\lambda^*.
+\]
+
+Lo stesso risultato vale scambiando il ruolo del primale e del duale.
+
+\end{theorem}
+
+La dualit\`a forte attribuisce al problema duale un significato pi\`u profondo
+di quello di un semplice limite superiore. Il primale determina il massimo
+risultato effettivamente ottenibile mediante una decisione ammissibile. Il
+duale determina la minima valutazione complessiva delle risorse e dei
+requisiti compatibile con i contributi economici delle attivit\`a.
+
+All'ottimo, queste due valutazioni coincidono:
+
+\[
+\text{massimo risultato ottenibile}
+=
+\text{minimo valore implicito delle risorse}.
+\]
+
+La differenza
+
+\[
+b'\lambda-c'x
+\]
+
+viene detta \emph{scarto di dualit\`a}. Per una coppia qualsiasi di soluzioni
+ammissibili lo scarto \`e non negativo. Per una coppia di soluzioni ottime,
+la dualit\`a forte implica invece
+
+\[
+b'\lambda^*-c'x^*=0.
+\]
+
+\subsection{Verifica nel modello SVB stilizzato}
+
+Nel modello bancario, la soluzione primale ottenuta nella
+Sezione~\ref{sec:cap11-significato-ottimo} produce
+
+\[
+z^*
+\approx
+3.7649.
+\]
+
+La soluzione duale determinata nella sezione precedente \`e
+
+\[
+\eta^*
+\approx
+0.05642,
+\qquad
+\lambda_Q^*
+\approx
+0.03507,
+\]
+
+\[
+\lambda_K^*
+\approx
+0.00746,
+\qquad
+\lambda_C^*
+=
+0.
+\]
+
+Il valore della funzione obiettivo duale \`e
+
+\[
+100\eta^*
+-
+55\lambda_Q^*
++
+7\lambda_K^*
++
+30\lambda_C^*.
+\]
+
+Sostituendo i valori numerici:
+
+\[
+100(0.05642)
+-
+55(0.03507)
++
+7(0.00746)
++
+30(0)
+\approx
+3.7649.
+\]
+
+Si verifica quindi che
+
+\[
+c'x^*
+=
+b'\lambda^*
+\approx
+3.7649.
+\]
+
+La composizione ottima dell'attivo e il sistema ottimo dei prezzi impliciti
+forniscono due rappresentazioni differenti dello stesso valore economico.
+
+\subsection{Scarti primali e scarti duali}
+
+Per comprendere quali vincoli e quali variabili determinino la soluzione
+ottima, introduciamo gli scarti.
+
+Lo scarto del vincolo primale \(i\) \`e
+
+\[
+s_i
+=
+b_i-a_i'x.
+\]
+
+Per una soluzione primale ammissibile vale
+
+\[
+s_i\geq0.
+\]
+
+Lo scarto del vincolo duale associato alla variabile \(x_j\) \`e invece
+
+\[
+r_j
+=
+(A'\lambda)_j-c_j.
+\]
+
+Per una soluzione duale ammissibile vale
+
+\[
+r_j\geq0.
+\]
+
+Lo scarto di dualit\`a pu\`o essere scritto come
+
+\[
+b'\lambda-c'x
+=
+\lambda'(b-Ax)
++
+x'(A'\lambda-c).
+\]
+
+Equivalentemente,
+
+\[
+b'\lambda-c'x
+=
+\sum_{i=1}^{m}\lambda_i s_i
++
+\sum_{j=1}^{n}x_j r_j.
+\]
+
+Ogni termine della somma \`e non negativo. Se \(x^*\) e \(\lambda^*\) sono
+soluzioni ottime, la dualit\`a forte impone che la somma sia uguale a zero.
+Di conseguenza, ogni prodotto deve annullarsi.
+
+\begin{theorem}[Condizioni di complementariet\`a]
+
+Una coppia di soluzioni ammissibili \(x^*\) e \(\lambda^*\) \`e ottima se e
+solo se soddisfa
+
+\[
+\lambda_i^*
+\left(
+b_i-a_i'x^*
+\right)
+=
+0,
+\qquad
+i=1,\ldots,m,
 \]
 
 e
 
 \[
-\lambda\geq0
-\]
-
-implicano
-
-\[
-\lambda'Ax\geq\lambda'b.
-\]
-
-Poich\'{e}
-
-\[
-\lambda'Ax=(A'\lambda)'x,
-\]
-
-segue che
-
-\[
-(A'\lambda)'x\geq b'\lambda.
-\]
-
-La quantit\`{a} $b'\lambda$ \`{e} dunque un limite inferiore al valore
-attribuito alla decisione $x$ dalla combinazione dei vincoli.
-
-Per ottenere un limite inferiore anche per la funzione obiettivo $c'x$,
-imponiamo
-
-\[
-A'\lambda\leq c.
-\]
-
-Dato che $x\geq0$, questa disuguaglianza implica
-
-\[
-(A'\lambda)'x\leq c'x.
-\]
-
-Combinando le due relazioni:
-
-\[
-b'\lambda
-\leq
-(A'\lambda)'x
-\leq
-c'x.
-\]
-
-Pertanto, ogni vettore $\lambda$ che soddisfa
-
-\[
-A'\lambda\leq c,
-\qquad
-\lambda\geq0
-\]
-
-genera un limite inferiore al valore della funzione obiettivo di ogni
-soluzione primale ammissibile.
-
-Il problema duale ricerca il migliore tra questi limiti:
-
-\[
-\begin{array}{ll}
-\max\limits_{\lambda} & b'\lambda\\[3pt]
-\mbox{soggetto a} & A'\lambda\leq c,\\
-& \lambda\geq0.
-\end{array}
-\]
-
-\begin{definition}[Problema duale]
-
-Il problema duale associato al programma lineare
-
-\[
-\begin{array}{ll}
-\min\limits_x & c'x\\[3pt]
-\mbox{soggetto a} & Ax\geq b,\\
-& x\geq0
-\end{array}
-\]
-
-\`{e}
-
-\[
-\begin{array}{ll}
-\max\limits_{\lambda} & b'\lambda\\[3pt]
-\mbox{soggetto a} & A'\lambda\leq c,\\
-& \lambda\geq0.
-\end{array}
-\]
-
-Il vettore $\lambda\in\R^m$ contiene una variabile duale per ciascun vincolo
-del problema primale.
-
-\end{definition}
-
-La derivazione chiarisce perch\'{e} il duale presenta una funzione obiettivo
-di massimo. Ogni soluzione duale ammissibile produce un limite inferiore al
-costo primale; massimizzare $b'\lambda$ significa selezionare il limite
-inferiore pi\`{u} informativo.
-
-La Sezione~\ref{sec:cap11-dualita-debole} formalizzer\`{a} questa relazione
-come teorema di dualit\`{a} debole.
-
-\subsection{Interpretazione dei vincoli duali}
-
-Il vincolo duale associato alla variabile primale $x_j$ \`{e}
-
-\[
-\sum_{i=1}^{m}a_{ij}\lambda_i\leq c_j,
+x_j^*
+\left[
+(A'\lambda^*)_j-c_j
+\right]
+=
+0,
 \qquad
 j=1,\ldots,n.
-\]
-
-Il coefficiente $a_{ij}$ misura il contributo di una unit\`{a} della
-variabile $x_j$ al vincolo $i$. Se $\lambda_i$ attribuisce un valore unitario
-al requisito $i$, allora
-
-\[
-\sum_{i=1}^{m}a_{ij}\lambda_i
-\]
-
-rappresenta il valore complessivo imputato, attraverso tutti i vincoli, a una
-unit\`{a} della variabile $x_j$.
-
-Il vincolo duale richiede che tale valore imputato non superi il coefficiente
-diretto $c_j$ della funzione obiettivo:
-
-\[
-\underbrace{\sum_{i=1}^{m}a_{ij}\lambda_i}
-_{\text{valore imputato attraverso i vincoli}}
-\leq
-\underbrace{c_j}
-_{\text{coefficiente diretto nell'obiettivo}}.
-\]
-
-Questa relazione spiega la doppia corrispondenza:
-
-\[
-\begin{array}{c}
-\text{un vincolo primale}
-\longleftrightarrow
-\text{una variabile duale},
-\\[5pt]
-\text{una variabile primale}
-\longleftrightarrow
-\text{un vincolo duale}.
-\end{array}
-\]
-
-Il problema primale possiede $m$ vincoli e genera quindi $m$ variabili duali.
-Possiede inoltre $n$ variabili e genera $n$ vincoli duali. La matrice $A$
-compare nei due problemi in forma trasposta perch\'{e} le righe del primale
-devono diventare le colonne del duale:
-
-\[
-A
-\longrightarrow
-A'.
-\]
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=1\textwidth]
-{../graphics/cap11_corrispondenza_primale_duale.png}
-\caption{Corrispondenza tra problema primale e problema duale. Ogni vincolo
-primale genera una variabile duale e ogni variabile primale genera un vincolo
-duale.}
-\label{fig:cap11-corrispondenza-primale-duale}
-\end{figure}
-
-\subsection{Versi dei vincoli e segni delle variabili}
-
-La forma appena derivata presuppone vincoli primali del tipo $\geq$ e
-variabili primali non negative. Quando il problema contiene forme differenti,
-i segni e i versi del duale si modificano in modo coerente.
-
-Per un problema primale formulato in minimizzazione:
-
-\[
-\begin{array}{c|c}
-\text{forma del vincolo primale}
-&
-\text{segno della variabile duale}
-\\
-\hline
-a_i'x\geq b_i
-&
-\lambda_i\geq0
-\\
-a_i'x=b_i
-&
-\lambda_i\text{ libera}
-\\
-a_i'x\leq b_i
-&
-\lambda_i\leq0
-\end{array}
-\]
-
-Analogamente:
-
-\[
-\begin{array}{c|c}
-\text{segno della variabile primale}
-&
-\text{forma del vincolo duale}
-\\
-\hline
-x_j\geq0
-&
-(A'\lambda)_j\leq c_j
-\\
-x_j\text{ libera}
-&
-(A'\lambda)_j=c_j
-\\
-x_j\leq0
-&
-(A'\lambda)_j\geq c_j
-\end{array}
-\]
-
-Il caso dell'uguaglianza merita attenzione. Se
-
-\[
-a_i'x=b_i,
-\]
-
-la relazione pu\`{o} essere utilizzata sia con segno positivo sia con segno
-negativo. La corrispondente variabile duale non deve quindi essere vincolata
-a essere positiva o negativa.
-
-Allo stesso modo, se $x_j$ \`{e} libera nel segno, la disuguaglianza duale
-deve valere sia per valori positivi sia per valori negativi della variabile.
-Ci\`{o} impone l'uguaglianza
-
-\[
-(A'\lambda)_j=c_j.
-\]
-
-\begin{remark}
-
-Le trasformazioni introdotte nella
-Sezione~\ref{sec:cap11-forme-equivalenti} permettono sempre di ricondurre il
-problema alla forma di riferimento. Nella costruzione del duale \`{e} tuttavia
-spesso preferibile conservare la formulazione economica originaria, applicando
-direttamente le regole di corrispondenza. In questo modo non si perde il
-significato dei singoli vincoli.
-
-\end{remark}
-
-\subsection{Rilettura nel caso bancario}
-
-Nel caso ispirato a Silicon Valley Bank, le variabili primali rappresentano
-gli importi allocati alle diverse classi di attivo. I vincoli rappresentano
-invece requisiti di bilancio, liquidit\`{a}, assorbimento delle perdite e
-concentrazione.
-
-Indichiamo schematicamente con
-
-\[
-\mathbf{1}'x=A_0
-\]
-
-il vincolo di bilancio. Essendo un'uguaglianza, esso genera una variabile
-duale $\lambda_A$ libera nel segno.
-
-Un requisito minimo di liquidit\`{a} pu\`{o} essere scritto come
-
-\[
-q'x\geq\overline{u}.
-\]
-
-La corrispondente variabile duale
-
-\[
-\lambda_Q\geq0
-\]
-
-attribuisce un valore al livello minimo di liquidit\`{a} richiesto.
-
-Un limite alle perdite,
-
-\[
-m'x\leq K,
-\]
-
-pu\`{o} essere riscritto nella forma di riferimento:
-
-\[
--m'x\geq-K.
-\]
-
-La variabile duale associata al vincolo trasformato \`{e}
-
-\[
-\lambda_K\geq0.
-\]
-
-Analogamente, un limite alla concentrazione nei titoli a lunga scadenza,
-
-\[
-x_B\leq\alpha_BA_0,
-\]
-
-diventa
-
-\[
--x_B\geq-\alpha_BA_0
-\]
-
-e genera una variabile duale
-
-\[
-\lambda_B\geq0.
-\]
-
-La corrispondenza essenziale \`{e} quindi:
-
-\[
-\begin{array}{c|c}
-\text{vincolo bancario}
-&
-\text{variabile duale}
-\\
-\hline
-\mathbf{1}'x=A_0
-&
-\lambda_A\text{ libera}
-\\
-q'x\geq\overline{u}
-&
-\lambda_Q\geq0
-\\
--m'x\geq-K
-&
-\lambda_K\geq0
-\\
--x_B\geq-\alpha_BA_0
-&
-\lambda_B\geq0
-\end{array}
-\]
-
-Le variabili duali non rappresentano nuove classi di attivo e non descrivono
-ulteriori decisioni di investimento. Esse misurano il valore attribuito ai
-vincoli che delimitano la composizione del bilancio. La loro interpretazione
-come prezzi ombra richieder\`{a} tuttavia la dualit\`{a} forte e sar\`{a}
-sviluppata dopo avere introdotto dualit\`{a} debole e complementariet\`{a}.
-
-
-\section{Dualit\`{a} debole}
-
-\label{sec:cap11-dualita-debole}
-
-La costruzione svolta nella sezione precedente ha mostrato che ogni soluzione
-duale ammissibile produce un limite inferiore al valore della funzione
-obiettivo di qualsiasi soluzione primale ammissibile. La dualit\`{a} debole
-formalizza questa relazione.
-
-Consideriamo la coppia primale-duale:
-
-\[
-\begin{array}{lll}
-\text{Primale}
-&
-\displaystyle
-\min_{x}\;c'x
-&
-\text{soggetto a }
-Ax\geq b,\quad x\geq0,
-\\[8pt]
-\text{Duale}
-&
-\displaystyle
-\max_{\lambda}\;b'\lambda
-&
-\text{soggetto a }
-A'\lambda\leq c,\quad\lambda\geq0.
-\end{array}
-\]
-
-\begin{theorem}[Dualit\`{a} debole]
-\label{thm:cap11-dualita-debole}
-
-Sia $x$ una soluzione ammissibile del problema primale e sia $\lambda$ una
-soluzione ammissibile del problema duale. Allora
-
-\[
-b'\lambda\leq c'x.
 \]
 
 \end{theorem}
 
 \begin{proof}
 
-L'ammissibilit\`{a} primale implica
+Per la dualit\`a debole,
 
 \[
-Ax\geq b.
+b'\lambda-c'x\geq0.
 \]
 
-Poich\'{e} $\lambda\geq0$, moltiplicando componente per componente per le
-variabili duali e sommando si ottiene
+La decomposizione dello scarto di dualit\`a fornisce
 
 \[
-\lambda'Ax\geq\lambda'b=b'\lambda.
-\]
-
-L'ammissibilit\`{a} duale implica invece
-
-\[
-A'\lambda\leq c.
-\]
-
-Poich\'{e} $x\geq0$, segue che
-
-\[
-x'A'\lambda\leq x'c=c'x.
-\]
-
-Inoltre,
-
-\[
-\lambda'Ax=x'A'\lambda.
-\]
-
-Combinando le relazioni precedenti:
-
-\[
-b'\lambda
-\leq
-\lambda'Ax
+b'\lambda-c'x
 =
-x'A'\lambda
-\leq
-c'x.
+\sum_{i=1}^{m}
+\lambda_i
+\left(
+b_i-a_i'x
+\right)
++
+\sum_{j=1}^{n}
+x_j
+\left[
+(A'\lambda)_j-c_j
+\right].
 \]
 
-Pertanto,
-
-\[
-b'\lambda\leq c'x.
-\]
+Tutti i termini sono non negativi. Lo scarto di dualit\`a \`e uguale a zero
+se e solo se ciascun prodotto \`e uguale a zero. Per la dualit\`a forte,
+l'annullamento dello scarto caratterizza una coppia di soluzioni ottime.
 
 \end{proof}
 
-Il risultato confronta qualsiasi soluzione ammissibile del primale con
-qualsiasi soluzione ammissibile del duale. Non richiede che le due soluzioni
-siano ottime.
+\subsection{Interpretazione della complementariet\`a}
 
-Per ogni coppia ammissibile $(x,\lambda)$ vale quindi:
+Le prime condizioni riguardano i vincoli del primale:
 
 \[
-\underbrace{b'\lambda}_{\text{valore duale}}
-\leq
-\underbrace{c'x}_{\text{valore primale}}.
+\lambda_i^*s_i^*=0.
 \]
 
-Il problema duale cerca di aumentare il limite inferiore $b'\lambda$, mentre
-il primale cerca di ridurre il valore $c'x$. I due problemi si avvicinano
-quindi allo stesso valore da direzioni opposte.
-
-\subsection{Il divario primale-duale}
-
-Per una coppia di soluzioni ammissibili si definisce il
-\emph{divario primale-duale}:
-
-\[
-G(x,\lambda)
-=
-c'x-b'\lambda.
-\]
-
-Per la dualit\`{a} debole:
-
-\[
-G(x,\lambda)\geq0.
-\]
-
-Il divario pu\`{o} essere scomposto utilizzando la matrice dei coefficienti:
-
-\[
-\begin{aligned}
-c'x-b'\lambda
-&=
-c'x-x'A'\lambda
-+
-x'A'\lambda-b'\lambda
-\\
-&=
-x'(c-A'\lambda)
-+
-\lambda'(Ax-b).
-\end{aligned}
-\]
-
-Pertanto,
-
-\[
-G(x,\lambda)
-=
-x'(c-A'\lambda)
-+
-\lambda'(Ax-b).
-\]
-
-Le due quantit\`{a} che compaiono nel membro destro sono non negative:
-
-\[
-c-A'\lambda\geq0,
-\qquad
-x\geq0,
-\]
-
-e
-
-\[
-Ax-b\geq0,
-\qquad
-\lambda\geq0.
-\]
-
-La non negativit\`{a} del divario non \`{e} quindi un fatto accidentale:
-deriva dalla somma di due contributi non negativi, associati rispettivamente
-ai vincoli duali e ai vincoli primali.
-
-Questa scomposizione preparer\`{a} le condizioni di complementariet\`{a}. Se
-il divario si annulla, anche i contributi che lo compongono devono annullarsi
-secondo precise relazioni tra variabili e vincoli.
-
-\begin{corollary}[Certificato di ottimalit\`{a}]
-\label{cor:cap11-certificato-ottimalita}
-
-Siano $x$ e $\lambda$ soluzioni ammissibili, rispettivamente, del primale e
-del duale. Se
-
-\[
-c'x=b'\lambda,
-\]
-
-allora $x$ \`{e} una soluzione ottima del primale e $\lambda$ \`{e} una
-soluzione ottima del duale.
-
-\end{corollary}
-
-\begin{proof}
-
-Per ogni soluzione primale ammissibile $\bar{x}$, la dualit\`{a} debole
-implica
-
-\[
-b'\lambda\leq c'\bar{x}.
-\]
-
-Se $c'x=b'\lambda$, allora
-
-\[
-c'x\leq c'\bar{x}
-\]
-
-per ogni $\bar{x}$ ammissibile. Pertanto $x$ \`{e} ottima per il primale.
-
-Analogamente, per ogni soluzione duale ammissibile $\bar{\lambda}$:
-
-\[
-b'\bar{\lambda}\leq c'x=b'\lambda,
-\]
-
-e quindi $\lambda$ \`{e} ottima per il duale.
-
-\end{proof}
-
-Il corollario fornisce un criterio operativo particolarmente importante. Per
-dimostrare che una soluzione primale \`{e} ottima non \`{e} necessario
-confrontarla direttamente con tutte le altre soluzioni ammissibili. \`{E}
-sufficiente costruire una soluzione duale ammissibile con lo stesso valore
-della funzione obiettivo.
-
-La soluzione duale costituisce, in questo senso, un
-\emph{certificato di ottimalit\`{a}} della soluzione primale.
-
-\subsection{Conseguenze su inammissibilit\`{a} e illimitatezza}
-
-La dualit\`{a} debole permette inoltre di collegare alcuni possibili esiti dei
-due problemi.
+Esse implicano che:
 
 \begin{itemize}
 
-\item Se il problema primale \`{e} illimitato inferiormente, il problema duale
-non pu\`{o} possedere una soluzione ammissibile. Una soluzione duale
-ammissibile fornirebbe infatti un limite inferiore finito a tutti i valori
-primali.
+\item se un vincolo presenta margine positivo, la corrispondente variabile
+duale deve essere nulla;
 
-\item Se il problema duale \`{e} illimitato superiormente, il problema primale
-non pu\`{o} possedere una soluzione ammissibile. Una soluzione primale
-ammissibile fornirebbe infatti un limite superiore finito a tutti i valori
-duali.
+\item se una variabile duale \`e positiva, il corrispondente vincolo primale
+deve essere attivo.
 
 \end{itemize}
 
-Le implicazioni inverse non seguono dalla sola dualit\`{a} debole. Ad esempio,
-l'inammissibilit\`{a} di un problema non implica necessariamente
-l'illimitatezza dell'altro: entrambi possono essere inammissibili.
-
-\subsection{Rilettura nel problema bancario}
-
-Nel caso bancario, una soluzione primale ammissibile rappresenta una
-composizione dell'attivo che rispetta tutti i requisiti. Una soluzione duale
-ammissibile assegna invece valori coerenti ai vincoli di bilancio,
-liquidit\`{a}, assorbimento delle perdite e concentrazione.
-
-Nella forma canonica di minimizzazione, ogni vettore duale ammissibile produce
-un valore
+In simboli,
 
 \[
-b'\lambda
+s_i^*>0
+\quad\Longrightarrow\quad
+\lambda_i^*=0,
 \]
 
-che nessuna soluzione primale ammissibile pu\`{o} migliorare verso il basso.
+mentre
 
-Il problema bancario verr\`{a} formulato inizialmente come massimizzazione
-della redditivit\`{a}. Dopo il cambiamento di segno della funzione obiettivo,
-la minimizzazione dell'opposto della redditivit\`{a} rientra nella forma
-adottata nel corso. Equivalentemente, mantenendo direttamente la forma di
-massimo, le soluzioni duali forniscono limiti superiori alla redditivit\`{a}
-conseguibile.
+\[
+\lambda_i^*>0
+\quad\Longrightarrow\quad
+s_i^*=0.
+\]
 
-La dualit\`{a} debole garantisce quindi che una valutazione duale ammissibile
-non possa promettere una performance incompatibile con i requisiti del
-modello. La dualit\`{a} forte stabilir\`{a} una conclusione pi\`{u} profonda:
-quando esistono soluzioni ottime finite, il migliore limite duale coincide
-esattamente con il valore ottimo primale.
+Un requisito non pienamente utilizzato non possiede valore marginale locale.
+Una risorsa alla quale il modello attribuisce un prezzo positivo deve invece
+essere completamente utilizzata.
+
+Le seconde condizioni riguardano le variabili del primale:
+
+\[
+x_j^*r_j^*=0.
+\]
+
+Esse implicano che:
+
+\begin{itemize}
+
+\item se una variabile primale \`e positiva, il corrispondente vincolo duale
+deve essere attivo;
+
+\item se un vincolo duale presenta margine positivo, la corrispondente
+variabile primale deve essere nulla.
+
+\end{itemize}
+
+In simboli,
+
+\[
+x_j^*>0
+\quad\Longrightarrow\quad
+r_j^*=0,
+\]
+
+mentre
+
+\[
+r_j^*>0
+\quad\Longrightarrow\quad
+x_j^*=0.
+\]
+
+Se una classe di attivo entra nella composizione ottima, il suo contributo
+economico unitario deve uguagliare il valore implicito delle risorse che essa
+utilizza. Se tale valore implicito \`e strettamente superiore al contributo
+economico, la classe di attivo non viene utilizzata.
+
+Le implicazioni inverse non valgono necessariamente. Un vincolo pu\`o essere
+attivo e avere variabile duale nulla; analogamente, una variabile primale pu\`o
+essere nulla anche quando il corrispondente vincolo duale \`e attivo. Queste
+situazioni possono verificarsi in presenza di soluzioni degeneri o di
+soluzioni ottime multiple.
+
+\subsection{Complementariet\`a nel modello SVB}
+
+Nel modello bancario, le condizioni relative ai tre vincoli di
+disuguaglianza sono
+
+\[
+\lambda_Q^*
+\left[
+x_1^*
++
+0.90x_2^*
++
+0.50x_3^*
++
+0.20x_4^*
+-
+55
+\right]
+=
+0,
+\]
+
+\[
+\lambda_K^*
+\left[
+7
+-
+0.02x_2^*
+-
+0.15x_3^*
+-
+0.08x_4^*
+\right]
+=
+0,
+\]
+
+\[
+\lambda_C^*
+\left(
+30-x_3^*
+\right)
+=
+0.
+\]
+
+Nella soluzione ottima, la liquidit\`a disponibile coincide con il requisito:
+
+\[
+x_1^*
++
+0.90x_2^*
++
+0.50x_3^*
++
+0.20x_4^*
+=
+55.
+\]
+
+Il vincolo \`e attivo e il relativo valore duale \`e positivo:
+
+\[
+\lambda_Q^*
+\approx
+0.03507.
+\]
+
+Anche il limite alla perdita \`e raggiunto:
+
+\[
+0.02x_2^*
++
+0.15x_3^*
++
+0.08x_4^*
+=
+7,
+\]
+
+e il suo valore duale \`e positivo:
+
+\[
+\lambda_K^*
+\approx
+0.00746.
+\]
+
+Il vincolo di concentrazione presenta invece un margine positivo:
+
+\[
+30-x_3^*
+\approx
+9.104.
+\]
+
+La complementariet\`a impone pertanto
+
+\[
+\lambda_C^*=0.
+\]
+
+Un piccolo aumento del limite di concentrazione non produce alcun
+miglioramento del risultato ottimo, perch\'e il limite non sta condizionando
+la decisione.
+
+\subsection{Le classi di attivo e i vincoli duali}
+
+Le condizioni di complementariet\`a associate alle quattro variabili primali
+sono
+
+\[
+x_1^*
+\left(
+\eta^*-\lambda_Q^*-0.010
+\right)
+=
+0,
+\]
+
+\[
+x_2^*
+\left(
+\eta^*
+-
+0.90\lambda_Q^*
++
+0.02\lambda_K^*
+-
+0.025
+\right)
+=
+0,
+\]
+
+\[
+x_3^*
+\left(
+\eta^*
+-
+0.50\lambda_Q^*
++
+0.15\lambda_K^*
++
+\lambda_C^*
+-
+0.040
+\right)
+=
+0,
+\]
+
+\[
+x_4^*
+\left(
+\eta^*
+-
+0.20\lambda_Q^*
++
+0.08\lambda_K^*
+-
+0.050
+\right)
+=
+0.
+\]
+
+Poich\'e
+
+\[
+x_2^*>0,
+\qquad
+x_3^*>0,
+\qquad
+x_4^*>0,
+\]
+
+i tre corrispondenti vincoli duali sono soddisfatti come uguaglianze. Per
+ciascuna di queste classi, il contributo economico unitario coincide con il
+valore implicito delle risorse e dei requisiti utilizzati.
+
+Per la cassa e le riserve vale invece
+
+\[
+x_1^*=0.
+\]
+
+Il corrispondente scarto duale \`e
+
+\[
+\eta^*
+-
+\lambda_Q^*
+-
+0.010
+\approx
+0.01134
+>
+0.
+\]
+
+Il valore implicito delle risorse assorbite dalla cassa risulta quindi
+superiore al suo contributo alla funzione obiettivo. Per questo motivo il
+modello non assegna risorse a tale classe di attivo.
+
+Questo risultato non implica che la cassa sia economicamente inutile. Indica
+che, con i coefficienti e i vincoli adottati, la liquidit\`a richiesta pu\`o
+essere ottenuta in modo pi\`u redditizio mediante i titoli a breve scadenza.
+Un requisito minimo specifico sulla cassa modificherebbe la regione
+ammissibile e la soluzione ottima.
+
+\begin{remark}
+
+La complementariet\`a permette di leggere congiuntamente decisioni e prezzi
+impliciti:
+
+\[
+\begin{array}{ccl}
+\text{vincolo con margine}
+&
+\longrightarrow
+&
+\text{valore duale nullo},
+\\[3pt]
+\text{valore duale positivo}
+&
+\longrightarrow
+&
+\text{vincolo attivo},
+\\[3pt]
+\text{variabile primale positiva}
+&
+\longrightarrow
+&
+\text{vincolo duale attivo},
+\\[3pt]
+\text{vincolo duale con margine}
+&
+\longrightarrow
+&
+\text{variabile primale nulla}.
+\end{array}
+\]
+
+Queste relazioni trasformano la soluzione del programma lineare in uno
+strumento diagnostico: indicano quali requisiti limitano il risultato, quali
+risorse possiedono valore marginale e quali attivit\`a non risultano
+economicamente competitive rispetto al sistema dei prezzi impliciti.
+
+\end{remark}
+
+\section{Tornare al caso SVB: redditivit\`a e resilienza}
+
+\label{sec:cap11-svb-redditivita-resilienza}
+
+Il programma lineare non stabilisce autonomamente quale grado di prudenza sia
+appropriato. Esso individua la migliore decisione compatibile con i requisiti
+scelti dal decisore.
+
+Per comprendere questa distinzione, confrontiamo due politiche costruite sullo
+stesso modello bancario:
+
+\begin{itemize}
+
+\item una politica orientata prevalentemente alla redditivit\`a, che utilizza
+i requisiti introdotti nelle sezioni precedenti;
+
+\item una politica pi\`u resiliente, che impone un livello maggiore di
+liquidit\`a e una dotazione minima di cassa.
+
+\end{itemize}
+
+Il confronto non costituisce una ricostruzione controfattuale della crisi di
+Silicon Valley Bank. Serve a mostrare come differenti scelte prudenziali
+modifichino l'allocazione ottima, il risultato economico e i vincoli che
+determinano la soluzione.
+
+\subsection{Due politiche a confronto}
+
+Nella prima politica manteniamo i requisiti del modello originario:
+
+\[
+Q_{\min}=55,
+\qquad
+K=7,
+\qquad
+x_3\leq30.
+\]
+
+Non viene imposto un livello minimo specifico di cassa. La soluzione ottima
+\`e
+
+\[
+x^{*(A)}
+=
+\begin{pmatrix}
+0\\
+41.045\\
+20.896\\
+38.060
+\end{pmatrix},
+\]
+
+con valore ottimo
+
+\[
+z^{*(A)}
+\approx
+3.7649.
+\]
+
+Questa soluzione soddisfa il requisito aggregato di liquidit\`a, ma non
+mantiene risorse nella prima classe di attivo. Il modello preferisce i titoli
+a breve scadenza, che contribuiscono alla liquidit\`a e offrono un rendimento
+superiore alla cassa.
+
+Per costruire una politica pi\`u resiliente imponiamo invece
+
+\[
+Q_{\min}=75
+\]
+
+e introduciamo una dotazione minima di cassa:
+
+\[
+x_1\geq C_{\min},
+\qquad
+C_{\min}=10.
+\]
+
+Il limite alla perdita e quello sui titoli a lunga scadenza rimangono
+invariati:
+
+\[
+K=7,
+\qquad
+x_3\leq30.
+\]
+
+La soluzione ottima diventa
+
+\[
+x^{*(B)}
+=
+\begin{pmatrix}
+10\\
+54.286\\
+30\\
+5.714
+\end{pmatrix},
+\]
+
+con valore ottimo
+
+\[
+z^{*(B)}
+\approx
+2.9429.
+\]
+
+La seconda politica non modifica la funzione obiettivo. Modifica l'insieme
+delle decisioni considerate accettabili, escludendo allocazioni che non
+garantiscono il livello di liquidit\`a e di cassa stabilito.
+
+\subsection{Effetti sulla composizione dell'attivo}
+
+Il confronto tra le due soluzioni \`e riassunto nella tabella seguente:
+
+\[
+\begin{array}{lcc}
+\hline
+&
+\mbox{Politica A}
+&
+\mbox{Politica B}
+\\
+&
+\mbox{redditivit\`a}
+&
+\mbox{maggiore resilienza}
+\\
+\hline
+\mbox{Cassa e riserve }x_1
+&
+0.000
+&
+10.000
+\\
+\mbox{Titoli a breve scadenza }x_2
+&
+41.045
+&
+54.286
+\\
+\mbox{Titoli a lunga scadenza }x_3
+&
+20.896
+&
+30.000
+\\
+\mbox{Prestiti e impieghi meno liquidi }x_4
+&
+38.060
+&
+5.714
+\\
+\hline
+\mbox{Risultato ottimo}
+&
+3.7649
+&
+2.9429
+\\
+\mbox{Liquidit\`a disponibile}
+&
+55.000
+&
+75.000
+\\
+\mbox{Perdita sotto stress}
+&
+7.000
+&
+6.043
+\\
+\hline
+\end{array}
+\]
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.95\textwidth]
+{../graphics/Cap11_confronto_redditivita_resilienza.png}
+\caption{Confronto tra la composizione dell'attivo nella politica orientata
+alla redditivit\`a e nella politica caratterizzata da requisiti pi\`u
+prudenti. Le barre rappresentano l'intera dotazione di attivo, pari a 100
+unit\`a. Il riquadro riporta il risultato ottimo, la liquidit\`a disponibile
+e la perdita nello scenario di stress.}
+\label{fig:cap11-confronto-redditivita-resilienza}
+\end{figure}
+
+La Figura~\ref{fig:cap11-confronto-redditivita-resilienza} mostra che la
+maggiore resilienza non viene ottenuta mediante un semplice aumento uniforme
+delle attivit\`a liquide. Essa richiede una ricomposizione complessiva
+dell'attivo: compaiono riserve immediatamente disponibili, aumenta il peso dei
+titoli a breve scadenza e si riduce fortemente quello degli impieghi meno
+liquidi.
+
+La politica pi\`u resiliente produce tre cambiamenti principali.
+
+In primo luogo, compare una dotazione positiva di cassa. Il requisito
+aggregato di liquidit\`a non garantiva da solo questo risultato, poich\'e il
+modello poteva soddisfarlo attraverso i titoli a breve scadenza.
+
+In secondo luogo, si riduce fortemente l'investimento nei prestiti e negli
+impieghi meno liquidi:
+
+\[
+38.060
+\longrightarrow
+5.714.
+\]
+
+Le risorse vengono trasferite verso la cassa e verso i titoli a breve, che
+forniscono un contributo maggiore alla liquidit\`a disponibile.
+
+Infine, i titoli a lunga scadenza raggiungono il limite massimo:
+
+\[
+x_3^{*(B)}=30.
+\]
+
+Questo risultato, visibile anche nella figura, non deve essere interpretato
+come un orientamento generale della politica prudenziale verso titoli a lunga
+scadenza. Esso deriva dalla struttura specifica del modello: l'aumento della
+cassa e dei titoli a breve, insieme alla forte riduzione degli impieghi meno
+liquidi, consente di soddisfare il requisito di liquidit\`a e lascia spazio
+per investire fino al limite nella classe caratterizzata da maggiore
+redditivit\`a.
+
+La figura permette inoltre di distinguere due effetti della politica B. La
+liquidit\`a disponibile aumenta da \(55\) a \(75\), mentre la perdita sotto
+stress diminuisce da \(7.000\) a circa \(6.043\). Il risultato economico
+ottimo si riduce invece da \(3.7649\) a \(2.9429\). La maggiore prudenza
+migliora quindi gli indicatori di resilienza considerati, ma comporta un
+sacrificio di redditivit\`a.
+
+\subsection{Il costo della resilienza}
+
+Il passaggio dalla politica A alla politica B riduce il risultato ottimo di
+
+\[
+z^{*(A)}-z^{*(B)}
+\approx
+3.7649-2.9429
+=
+0.8220.
+\]
+
+In termini relativi, la riduzione \`e pari a circa il
+
+\[
+21.8\%
+\]
+
+del risultato prodotto dalla prima politica.
+
+Questa differenza rappresenta il costo opportunit\`a dei requisiti aggiuntivi
+all'interno del modello. Non misura il costo economico complessivo della
+resilienza e, soprattutto, non considera il beneficio derivante dalla minore
+probabilit\`a o dalla minore gravit\`a di una crisi.
+
+La funzione obiettivo contiene infatti la redditivit\`a ordinaria delle classi
+di attivo, ma non attribuisce direttamente un valore alla continuit\`a
+aziendale, alla fiducia dei depositanti o alla possibilit\`a di evitare una
+vendita forzata.
+
+Il confronto non dimostra quindi che la politica A sia preferibile perch\'e
+produce un valore obiettivo maggiore. Mostra che una maggiore prudenza
+richiede una rinuncia misurabile alla redditivit\`a prevista, data la funzione
+obiettivo adottata.
+
+\subsection{Come cambiano i vincoli determinanti}
+
+Nella politica A risultano attivi:
+
+\begin{itemize}
+
+\item il vincolo di bilancio;
+
+\item il requisito minimo di liquidit\`a;
+
+\item il limite alla perdita sotto stress.
+
+\end{itemize}
+
+Il limite sui titoli a lunga scadenza presenta invece margine positivo.
+
+Nella politica B risultano attivi:
+
+\begin{itemize}
+
+\item il vincolo di bilancio;
+
+\item il requisito minimo di liquidit\`a;
+
+\item il livello minimo di cassa;
+
+\item il limite sui titoli a lunga scadenza.
+
+\end{itemize}
+
+Il limite alla perdita presenta ora un margine pari a circa
+
+\[
+7-6.043
+=
+0.957.
+\]
+
+L'inasprimento dei requisiti modifica quindi non soltanto la composizione
+ottima, ma anche la struttura economica della soluzione. Alcuni vincoli
+cessano di essere determinanti e altri raggiungono il proprio limite. Di
+conseguenza, cambiano anche i relativi prezzi impliciti.
+
+\subsection{La lezione decisionale del caso}
+
+Il modello mette in evidenza una distinzione essenziale tra ottimalit\`a e
+resilienza.
+
+Una composizione dell'attivo pu\`o essere ottima rispetto a una funzione
+obiettivo e a un insieme di vincoli, ma risultare fragile rispetto a fenomeni
+che il modello non rappresenta adeguatamente. L'ottimalit\`a matematica non
+compensa l'assenza di un requisito economicamente rilevante.
+
+Nel caso considerato, il requisito aggregato di liquidit\`a non distingue
+completamente tra:
+
+\begin{itemize}
+
+\item risorse immediatamente disponibili;
+
+\item titoli liquidabili in condizioni ordinarie;
+
+\item attivit\`a che possono perdere valore quando molti operatori cercano di
+venderle contemporaneamente.
+
+\end{itemize}
+
+L'introduzione di un livello minimo di cassa rappresenta una prima risposta,
+ma non esaurisce il problema. Una valutazione pi\`u completa dovrebbe
+considerare anche la velocit\`a dei deflussi, la stabilit\`a della raccolta,
+l'effetto delle vendite forzate sui prezzi e l'incertezza degli scenari di
+stress.
+
+La programmazione lineare fornisce quindi una disciplina per rendere espliciti
+i trade-off. Non sostituisce la responsabilit\`a del decisore nella scelta
+delle variabili, dei coefficienti e dei requisiti prudenziali.
+
+\section{Che cosa il modello non rappresenta}
+
+\label{sec:cap11-limiti-modello}
+
+Il modello sviluppato nel capitolo ha una funzione precisa: mostrare come una
+banca possa scegliere la composizione dell'attivo bilanciando redditivit\`a,
+liquidit\`a, perdita sotto stress e concentrazione.
+
+La soluzione ottima non deve quindi essere interpretata come una
+ricostruzione completa della crisi di Silicon Valley Bank, n\'e come una
+politica bancaria immediatamente applicabile. Essa \`e la migliore decisione
+all'interno della rappresentazione costruita, dati i coefficienti, i vincoli e
+la funzione obiettivo adottati.
+
+Riconoscere ci\`o che il modello non rappresenta \`e parte integrante della
+sua corretta utilizzazione.
+
+\subsection{L'incertezza \`e incorporata nei coefficienti}
+
+Nel programma lineare, i rendimenti unitari, i coefficienti di liquidabilit\`a
+e le perdite sotto stress sono trattati come dati:
+
+\[
+c_j,
+\qquad
+q_j,
+\qquad
+\ell_j.
+\]
+
+Il modello non descrive esplicitamente la loro incertezza. Un titolo a lunga
+scadenza, per esempio, riceve un unico coefficiente di perdita
+\(\ell_j\), anche se la perdita effettiva dipende dall'ampiezza e dalla
+velocit\`a della variazione dei tassi, dall'orizzonte di liquidazione e dalle
+condizioni di mercato.
+
+Analogamente, il requisito
+
+\[
+\sum_{j=1}^{4}q_jx_j\geq Q_{\min}
+\]
+
+utilizza un unico livello di liquidit\`a richiesta. Non considera direttamente
+la distribuzione dei possibili deflussi dei depositi.
+
+Il modello risponde quindi a una domanda condizionata:
+
+\begin{quote}
+Qual \`e la migliore allocazione se i coefficienti e lo scenario di stress
+assumono i valori indicati?
+\end{quote}
+
+Non risponde alla domanda su quanto siano probabili tali valori o su quali
+altri scenari potrebbero verificarsi.
+
+\subsection{La liquidit\`a non \`e soltanto una quantit\`a}
+
+Nel modello, la liquidit\`a disponibile \`e rappresentata da una somma
+lineare:
+
+\[
+\sum_{j=1}^{4}q_jx_j.
+\]
+
+Questa formulazione non distingue completamente tra risorse che possiedono
+caratteristiche economiche differenti.
+
+La cassa \`e immediatamente disponibile e non richiede una vendita. Un titolo
+negoziabile deve invece essere ceduto sul mercato e il ricavo ottenibile pu\`o
+dipendere dal momento della vendita. Un prestito pu\`o essere cedibile solo
+con tempi pi\`u lunghi o con uno sconto rilevante.
+
+Il coefficiente \(q_j\) sintetizza queste differenze, ma non rappresenta:
+
+\begin{itemize}
+
+\item il tempo necessario per trasformare un'attivit\`a in cassa;
+
+\item la profondit\`a del mercato;
+
+\item il costo della liquidazione;
+
+\item la possibilit\`a che la liquidabilit\`a diminuisca durante una crisi.
+
+\end{itemize}
+
+Due portafogli con lo stesso valore dell'indicatore aggregato possono quindi
+avere una diversa capacit\`a di fronteggiare deflussi rapidi.
+
+\subsection{Le vendite non modificano i prezzi}
+
+L'ipotesi di proporzionalit\`a implica che la perdita unitaria rimanga
+costante:
+
+\[
+\ell_jx_j.
+\]
+
+Nella realt\`a, la vendita di una grande posizione pu\`o esercitare una
+pressione sul prezzo. Se molti operatori cercano contemporaneamente di
+liquidare attivit\`a simili, la perdita marginale pu\`o aumentare con la
+quantit\`a venduta.
+
+Il modello non rappresenta quindi direttamente una \emph{fire sale}. Un
+effetto di impatto sul mercato richiederebbe una relazione del tipo
+
+\[
+L_j=L_j(x_j),
+\]
+
+con una perdita unitaria dipendente dalla dimensione della posizione o
+dall'ammontare liquidato. La funzione di perdita complessiva non sarebbe pi\`u
+necessariamente lineare.
+
+La semplificazione \`e accettabile quando le quantit\`a considerate non
+modificano significativamente le condizioni di mercato. Diventa critica
+quando la dimensione della banca o la concentrazione delle posizioni rende
+tale ipotesi poco plausibile.
+
+\subsection{Il modello non descrive la dinamica della raccolta}
+
+La raccolta bancaria compare indirettamente attraverso il requisito
+\(Q_{\min}\). Non viene per\`o modellato il comportamento dei depositanti.
+
+Il programma lineare non descrive:
+
+\begin{itemize}
+
+\item la concentrazione dei depositi presso specifiche categorie di clienti;
+
+\item la quota di depositi non assicurati;
+
+\item la velocit\`a con cui possono essere effettuati i prelievi;
+
+\item la diffusione delle informazioni e la perdita di fiducia;
+
+\item il fatto che i prelievi di alcuni depositanti possano indurre altri
+depositanti ad agire nello stesso modo.
+
+\end{itemize}
+
+Nel meccanismo rappresentato nella
+Figura~\ref{fig:cap11-svb-meccanismo-fragilita}, tali elementi producono una
+retroazione: i deflussi impongono vendite, le vendite rendono visibili le
+perdite e le perdite possono generare ulteriori deflussi.
+
+Il modello di allocazione \`e invece statico. Esso confronta composizioni
+alternative dell'attivo prima dello shock, ma non ricostruisce l'evoluzione
+della crisi nel tempo.
+
+\subsection{Vincoli contabili e istituzionali sono stilizzati}
+
+Le quattro classi di attivo sono aggregazioni didattiche. All'interno di
+ciascuna classe possono esistere strumenti con scadenze, rischi e condizioni
+contrattuali molto differenti.
+
+Il modello non include esplicitamente:
+
+\begin{itemize}
+
+\item la struttura per scadenza di attivit\`a e passivit\`a;
+
+\item la distinzione contabile tra titoli detenuti fino a scadenza e titoli
+valutati al valore di mercato;
+
+\item i requisiti regolamentari di capitale e liquidit\`a nella loro
+formulazione effettiva;
+
+\item la possibilit\`a di ottenere nuova raccolta o finanziamenti di
+emergenza;
+
+\item i costi operativi e le restrizioni contrattuali associate alla
+ricomposizione del bilancio.
+
+\end{itemize}
+
+Il limite
+
+\[
+x_3\leq\alpha A_0
+\]
+
+rappresenta, per esempio, una regola sintetica di concentrazione. Non coincide
+necessariamente con uno specifico requisito normativo.
+
+\subsection{La funzione obiettivo non misura il valore della sopravvivenza}
+
+La funzione obiettivo utilizzata nel capitolo \`e
+
+\[
+\max\sum_{j=1}^{4}c_jx_j.
+\]
+
+Essa misura la redditivit\`a prevista della composizione dell'attivo. Non
+include direttamente il valore economico derivante dall'evitare una crisi.
+
+La continuit\`a aziendale, la fiducia dei depositanti, la reputazione e i
+costi sistemici di un fallimento non compaiono nel valore \(z^*\). Di
+conseguenza, una politica pi\`u resiliente pu\`o risultare meno conveniente
+rispetto alla funzione obiettivo, anche quando sarebbe preferibile dopo avere
+considerato le conseguenze di eventi estremi.
+
+Il confronto svolto nella Sezione~\ref{sec:cap11-svb-redditivita-resilienza}
+non dimostra quindi che la maggiore prudenza distrugga valore. Mostra il
+sacrificio di redditivit\`a ordinaria richiesto dai vincoli pi\`u severi,
+mantenendo invariata la funzione obiettivo.
+
+\begin{remark}
+
+Una soluzione ottima pu\`o essere economicamente inadeguata non perch\'e il
+programma lineare sia stato risolto male, ma perch\'e il problema formulato
+non contiene una dimensione rilevante della decisione.
+
+\end{remark}
+
+\subsection{Dalla semplificazione alle estensioni}
+
+I limiti individuati non rendono inutile il modello. Indicano quali domande
+richiedano strumenti ulteriori.
+
+Quando il decisore vuole perseguire simultaneamente pi\`u obiettivi, senza
+ridurli immediatamente a un unico indicatore di redditivit\`a, pu\`o ricorrere
+alla programmazione a obiettivi. Redditivit\`a, liquidit\`a, concentrazione e
+perdita possono allora essere trattate come aspirazioni distinte, con diverse
+priorit\`a o penalizzazioni associate agli scostamenti.
+
+Quando rendimenti, perdite e deflussi dipendono da scenari futuri, il problema
+pu\`o essere formulato mediante la programmazione stocastica. In tal caso i
+coefficienti non sono pi\`u rappresentati da un unico valore, ma dipendono
+dallo scenario:
+
+\[
+c_j^{(s)},
+\qquad
+q_j^{(s)},
+\qquad
+\ell_j^{(s)},
+\qquad
+s=1,\ldots,S.
+\]
+
+Il decisore deve allora scegliere una politica che tenga conto non soltanto
+del risultato in uno scenario prefissato, ma della distribuzione dei possibili
+risultati.
+
+La programmazione lineare rimane il punto di partenza di queste estensioni.
+Essa obbliga a dichiarare con precisione:
+
+\begin{itemize}
+
+\item quali decisioni possono essere assunte;
+
+\item quale risultato viene perseguito;
+
+\item quali requisiti devono essere rispettati;
+
+\item quali elementi della realt\`a sono trattati come dati;
+
+\item quali fenomeni rimangono fuori dal modello.
+
+\end{itemize}
+
+Il contributo principale del modello non consiste quindi nel produrre una
+risposta automatica, ma nel rendere trasparente la struttura della decisione e
+i trade-off che essa comporta.
+
+
