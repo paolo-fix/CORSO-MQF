@@ -5,6 +5,62 @@
 
 \label{cap:programmazione-lineare}
 
+\medskip
+
+\noindent
+\textbf{Obiettivi della lezione.}
+
+Il capitolo introduce la programmazione lineare come strumento per passare
+dalla misurazione del rischio alla formulazione di una decisione finanziaria.
+Il filo conduttore \`e un problema stilizzato di composizione dell'attivo
+ispirato al caso Silicon Valley Bank, utilizzato per mostrare come
+redditivit\`a, liquidit\`a, capacit\`a di assorbire perdite e limiti di
+concentrazione possano essere tradotti in una struttura quantitativa
+coerente.
+
+Al termine del capitolo lo studente dovr\`a essere in grado di:
+
+\begin{itemize}
+
+\item distinguere, all'interno di un problema finanziario, le variabili
+decisionali, i parametri, la funzione obiettivo e i vincoli;
+
+\item formulare un problema di programmazione lineare a partire da requisiti
+economici e finanziari, riconoscendo le ipotesi che rendono lineare il
+modello;
+
+\item determinare e interpretare l'insieme delle soluzioni ammissibili,
+distinguendo vincoli attivi, vincoli con margine, inammissibilit\`a e
+illimitatezza;
+
+\item utilizzare la rappresentazione geometrica bidimensionale per
+interpretare regione ammissibile, punti estremi, rette di livello e
+soluzione ottima;
+
+\item leggere una soluzione ottima non soltanto attraverso il valore della
+funzione obiettivo, ma anche attraverso la composizione della decisione e i
+vincoli che ne determinano la struttura;
+
+\item analizzare l'effetto di una variazione dei requisiti sul valore ottimo e
+interpretare economicamente il costo marginale di una maggiore prudenza;
+
+\item costruire il problema duale di un programma lineare e interpretare le
+variabili duali come prezzi impliciti delle risorse e dei requisiti;
+
+\item utilizzare dualit\`a forte e condizioni di complementariet\`a per
+collegare soluzione primale, vincoli attivi, margini e valori duali;
+
+\item distinguere tra ottimalit\`a matematica e adeguatezza economica del
+modello, riconoscendo quali aspetti rilevanti della decisione non sono
+rappresentati da una formulazione lineare deterministica.
+
+\end{itemize}
+
+Il capitolo prepara inoltre il passaggio alla programmazione a obiettivi,
+nella quale redditivit\`a, liquidit\`a e altri requisiti potranno essere
+trattati non soltanto come un unico obiettivo accompagnato da vincoli, ma come
+aspirazioni multiple da gestire simultaneamente.
+
 \section{Dalla misurazione del rischio alla decisione: il caso SVB}
 
 \label{sec:cap11-svb-decisione}
@@ -4018,5 +4074,3339 @@ Essa obbliga a dichiarare con precisione:
 Il contributo principale del modello non consiste quindi nel produrre una
 risposta automatica, ma nel rendere trasparente la struttura della decisione e
 i trade-off che essa comporta.
+
+\section{Esercizi svolti}
+
+\label{sec:cap11-esercizi-svolti}
+
+Gli esercizi seguenti riprendono i principali strumenti introdotti nel
+capitolo. L'obiettivo non \`e soltanto determinare una soluzione numerica, ma
+imparare a diagnosticare un modello, interpretare i vincoli che determinano
+la decisione e collegare la soluzione primale alla sua lettura economica.
+
+\begin{exercise}[Ammissibilit\`a e correzione di una allocazione]
+
+\label{ex:cap11-ammissibilita-correzione}
+
+Si consideri il modello bancario con
+
+\[
+A_0=100,
+\qquad
+Q_{\min}=55,
+\qquad
+K=7,
+\qquad
+x_3\leq30,
+\]
+
+e coefficienti
+
+\[
+\begin{array}{c|ccc}
+\text{Classe di attivo}
+&
+c_j
+&
+q_j
+&
+\ell_j
+\\
+\hline
+\text{Cassa e riserve}
+&
+0.010
+&
+1.00
+&
+0
+\\
+\text{Titoli a breve scadenza}
+&
+0.025
+&
+0.90
+&
+0.02
+\\
+\text{Titoli a lunga scadenza}
+&
+0.040
+&
+0.50
+&
+0.15
+\\
+\text{Prestiti e impieghi meno liquidi}
+&
+0.050
+&
+0.20
+&
+0.08
+\end{array}
+\]
+
+Una possibile composizione dell'attivo \`e
+
+\[
+x
+=
+\begin{pmatrix}
+8\\
+32\\
+18\\
+42
+\end{pmatrix}.
+\]
+
+Determinare:
+
+\begin{enumerate}
+
+\item se la composizione rispetta il vincolo di bilancio;
+
+\item la liquidit\`a disponibile;
+
+\item la perdita nello scenario di stress;
+
+\item se la composizione \`e ammissibile;
+
+\item il minimo trasferimento di risorse dai prestiti e impieghi meno
+liquidi ai titoli a breve necessario per rendere attivo il requisito di
+liquidit\`a, mantenendo invariato il totale dell'attivo;
+
+\item l'effetto di tale trasferimento sul risultato economico.
+
+\end{enumerate}
+
+\end{exercise}
+
+\noindent
+\textbf{Soluzione.}
+
+\begin{enumerate}
+
+\item Il vincolo di bilancio richiede, in forma generale,
+
+\[
+\sum_{j=1}^{4}x_j=A_0.
+\]
+
+Nel caso considerato,
+
+\[
+x_1+x_2+x_3+x_4
+=
+8+32+18+42
+=
+100.
+\]
+
+Poich\'e
+
+\[
+100=A_0,
+\]
+
+il vincolo di bilancio \`e rispettato ed \`e attivo.
+
+\item La liquidit\`a associata a una composizione \(x\) \`e definita da
+
+\[
+L(x)
+=
+\sum_{j=1}^{4}q_jx_j.
+\]
+
+Per i coefficienti del problema,
+
+\[
+L(x)
+=
+x_1
++
+0.90x_2
++
+0.50x_3
++
+0.20x_4.
+\]
+
+Sostituendo la composizione proposta,
+
+\[
+L(x)
+=
+8
++
+0.90(32)
++
+0.50(18)
++
+0.20(42).
+\]
+
+Pertanto,
+
+\[
+L(x)
+=
+8+28.8+9+8.4
+=
+54.2.
+\]
+
+Il requisito di liquidit\`a richiede
+
+\[
+L(x)\geq Q_{\min}.
+\]
+
+Poich\'e
+
+\[
+54.2<55,
+\]
+
+il requisito non \`e soddisfatto.
+
+\item La perdita complessiva nello scenario di stress \`e
+
+\[
+S(x)
+=
+\sum_{j=1}^{4}\ell_jx_j.
+\]
+
+Nel modello considerato,
+
+\[
+S(x)
+=
+0.02x_2
++
+0.15x_3
++
+0.08x_4.
+\]
+
+Sostituendo i valori,
+
+\[
+S(x)
+=
+0.02(32)
++
+0.15(18)
++
+0.08(42),
+\]
+
+da cui
+
+\[
+S(x)
+=
+0.64+2.70+3.36
+=
+6.70.
+\]
+
+Il vincolo di stress richiede
+
+\[
+S(x)\leq K.
+\]
+
+Poich\'e
+
+\[
+6.70<7,
+\]
+
+il vincolo \`e rispettato.
+
+Il relativo margine \`e definito da
+
+\[
+s_K
+=
+K-S(x).
+\]
+
+Pertanto,
+
+\[
+s_K
+=
+7-6.70
+=
+0.30.
+\]
+
+Per il vincolo di concentrazione, il margine \`e invece
+
+\[
+s_C
+=
+\alpha A_0-x_3.
+\]
+
+Poich\'e
+
+\[
+\alpha A_0=30,
+\]
+
+si ottiene
+
+\[
+s_C
+=
+30-18
+=
+12.
+\]
+
+Anche il limite di concentrazione \`e quindi rispettato.
+
+\item Una composizione \`e ammissibile se appartiene all'insieme
+
+\[
+\mathcal{X}
+=
+\left\{
+x:
+\begin{array}{l}
+\sum_{j=1}^{4}x_j=A_0,\\
+\sum_{j=1}^{4}q_jx_j\geq Q_{\min},\\
+\sum_{j=1}^{4}\ell_jx_j\leq K,\\
+x_3\leq\alpha A_0,\\
+x_j\geq0
+\end{array}
+\right\}.
+\]
+
+Nel caso considerato tutti i requisiti sono rispettati tranne
+
+\[
+L(x)\geq Q_{\min}.
+\]
+
+Pertanto,
+
+\[
+x\notin\mathcal{X}.
+\]
+
+La composizione non \`e ammissibile.
+
+\item Indichiamo con \(\delta\) la quantit\`a trasferita dalla quarta alla
+seconda classe di attivo. La nuova composizione soddisfa
+
+\[
+x_2^{\mathrm{new}}
+=
+x_2+\delta,
+\]
+
+\[
+x_4^{\mathrm{new}}
+=
+x_4-\delta.
+\]
+
+Poich\'e una stessa quantit\`a viene trasferita da una classe all'altra, il
+vincolo di bilancio rimane invariato.
+
+La variazione della liquidit\`a \`e
+
+\[
+\Delta L
+=
+(q_2-q_4)\delta.
+\]
+
+Per rendere attivo il requisito di liquidit\`a occorre imporre
+
+\[
+L(x)+\Delta L
+=
+Q_{\min}.
+\]
+
+Quindi
+
+\[
+L(x)
++
+(q_2-q_4)\delta
+=
+Q_{\min}.
+\]
+
+Risolvendo rispetto a \(\delta\),
+
+\[
+\delta
+=
+\frac{Q_{\min}-L(x)}
+{q_2-q_4}.
+\]
+
+Sostituendo i dati,
+
+\[
+\delta
+=
+\frac{55-54.2}
+{0.90-0.20}
+=
+\frac{0.8}{0.70}
+\approx
+1.143.
+\]
+
+La nuova composizione \`e pertanto
+
+\[
+x^{\mathrm{new}}
+\approx
+\begin{pmatrix}
+8\\
+33.143\\
+18\\
+40.857
+\end{pmatrix}.
+\]
+
+Per costruzione,
+
+\[
+L(x^{\mathrm{new}})
+=
+Q_{\min}
+=
+55.
+\]
+
+Occorre inoltre verificare che la correzione non produca la violazione del
+vincolo di stress.
+
+La variazione della perdita \`e
+
+\[
+\Delta S
+=
+(\ell_2-\ell_4)\delta.
+\]
+
+Poich\'e
+
+\[
+\ell_2-\ell_4
+=
+0.02-0.08
+=
+-0.06,
+\]
+
+si ha
+
+\[
+\Delta S
+=
+-0.06(1.143)
+\approx
+-0.069.
+\]
+
+La nuova perdita \`e quindi
+
+\[
+S(x^{\mathrm{new}})
+=
+S(x)+\Delta S
+\approx
+6.70-0.069
+=
+6.631.
+\]
+
+Il limite \(K=7\) continua pertanto a essere rispettato.
+
+\item La funzione obiettivo del modello \`e
+
+\[
+z(x)
+=
+\sum_{j=1}^{4}c_jx_j.
+\]
+
+Per la composizione iniziale,
+
+\[
+z(x)
+=
+0.010(8)
++
+0.025(32)
++
+0.040(18)
++
+0.050(42),
+\]
+
+da cui
+
+\[
+z(x)
+=
+3.70.
+\]
+
+Il trasferimento di \(\delta\) unit\`a dalla quarta alla seconda classe
+modifica la funzione obiettivo di
+
+\[
+\Delta z
+=
+(c_2-c_4)\delta.
+\]
+
+Pertanto,
+
+\[
+\Delta z
+=
+(0.025-0.050)(1.143)
+\approx
+-0.0286.
+\]
+
+Il nuovo risultato economico \`e
+
+\[
+z(x^{\mathrm{new}})
+=
+z(x)+\Delta z,
+\]
+
+e quindi
+
+\[
+z(x^{\mathrm{new}})
+\approx
+3.70-0.0286
+=
+3.6714.
+\]
+
+La correzione rende ammissibile la composizione, ma comporta una riduzione
+del risultato economico. La ragione \`e strutturale: una parte delle risorse
+viene trasferita da una classe pi\`u redditizia e meno liquida a una classe
+meno redditizia e pi\`u liquida.
+
+\end{enumerate}
+
+\begin{exercise}[Soluzione geometrica e cambiamento della funzione obiettivo]
+
+\label{ex:cap11-geometria}
+
+Si consideri il problema di programmazione lineare
+
+\[
+\begin{array}{ll}
+\max
+&
+z=2x_1+3x_2
+\\[3pt]
+\mbox{soggetto a}
+&
+x_1+x_2\leq10,
+\\
+&
+x_1\geq3,
+\\
+&
+x_2\leq4,
+\\
+&
+x_1,x_2\geq0.
+\end{array}
+\]
+
+Si richiede di:
+
+\begin{enumerate}
+
+\item rappresentare graficamente i vincoli e determinare la regione
+ammissibile;
+
+\item individuare i vertici della regione ammissibile;
+
+\item determinare la soluzione ottima del problema utilizzando la funzione
+obiettivo
+
+\[
+z=2x_1+3x_2;
+\]
+
+\item indicare quali vincoli risultano attivi nella soluzione ottima;
+
+\item ripetere l'analisi nel caso in cui la funzione obiettivo venga
+sostituita da
+
+\[
+\widetilde z=3x_1+2x_2;
+\]
+
+\item interpretare il significato economico del cambiamento della soluzione
+ottima al variare della funzione obiettivo.
+
+\end{enumerate}
+
+\end{exercise}
+
+\noindent
+\textbf{Soluzione.}
+
+\begin{enumerate}
+
+\item La regione ammissibile \`e l'insieme dei punti del piano che soddisfano
+simultaneamente tutti i vincoli:
+
+\[
+\mathcal{X}
+=
+\left\{
+(x_1,x_2)\in\R^2:
+\begin{array}{l}
+x_1+x_2\leq10,\\
+x_1\geq3,\\
+x_2\leq4,\\
+x_1\geq0,\;x_2\geq0
+\end{array}
+\right\}.
+\]
+
+Interpretando i vincoli uno per uno:
+
+\begin{itemize}
+
+\item il vincolo
+
+\[
+x_1+x_2\leq10
+\]
+
+individua il semipiano posto al di sotto della retta
+
+\[
+x_1+x_2=10;
+\]
+
+\item il vincolo
+
+\[
+x_1\geq3
+\]
+
+individua il semipiano posto a destra della retta verticale
+
+\[
+x_1=3;
+\]
+
+\item il vincolo
+
+\[
+x_2\leq4
+\]
+
+individua il semipiano posto al di sotto della retta orizzontale
+
+\[
+x_2=4;
+\]
+
+\item i vincoli di non negativit\`a impongono che il punto si trovi nel primo
+quadrante.
+
+\end{itemize}
+
+La regione ammissibile \`e quindi un quadrilatero convesso ottenuto
+dall'intersezione di tali semipiani.
+
+\item In un problema lineare bidimensionale, i vertici della regione
+ammissibile si ottengono intersecando le rette di frontiera dei vincoli e
+verificando che i punti ottenuti siano ammissibili.
+
+Dall'intersezione tra
+
+\[
+x_1=3
+\qquad
+\mbox{e}
+\qquad
+x_2=0
+\]
+
+si ottiene il vertice
+
+\[
+A=(3,0).
+\]
+
+Dall'intersezione tra
+
+\[
+x_1+x_2=10
+\qquad
+\mbox{e}
+\qquad
+x_2=0
+\]
+
+si ottiene
+
+\[
+B=(10,0).
+\]
+
+Dall'intersezione tra
+
+\[
+x_1+x_2=10
+\qquad
+\mbox{e}
+\qquad
+x_2=4
+\]
+
+segue
+
+\[
+x_1=10-4=6,
+\]
+
+e quindi
+
+\[
+C=(6,4).
+\]
+
+Infine, dall'intersezione tra
+
+\[
+x_1=3
+\qquad
+\mbox{e}
+\qquad
+x_2=4
+\]
+
+si ottiene
+
+\[
+D=(3,4).
+\]
+
+I vertici della regione ammissibile sono pertanto
+
+\[
+A=(3,0),
+\qquad
+B=(10,0),
+\qquad
+C=(6,4),
+\qquad
+D=(3,4).
+\]
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.88\textwidth]
+{../graphics/Cap11_Es02_geometria_ottimo.png}
+\caption{Regione ammissibile dell'Esercizio~\ref{ex:cap11-geometria},
+vertici e rette di livello di due diverse funzioni obiettivo. La figura
+mostra l'ottimo \(C=(6,4)\) per \(z=2x_1+3x_2\) e l'ottimo \(B=(10,0)\) per
+\(\widetilde z=3x_1+2x_2\).}
+\label{fig:cap11-es02-geometria-ottimo}
+\end{figure}
+
+La Figura~\ref{fig:cap11-es02-geometria-ottimo} sintetizza la geometria del
+problema: i vertici \(A\), \(B\), \(C\), \(D\) delimitano la regione
+ammissibile e permettono di confrontare le due funzioni obiettivo.
+
+\item Per un programma lineare con regione ammissibile non vuota e valore
+ottimo finito, almeno una soluzione ottima si trova in un punto estremo della
+regione ammissibile.
+
+Per determinare l'ottimo \`e quindi sufficiente calcolare la funzione
+obiettivo nei vertici.
+
+La funzione obiettivo \`e
+
+\[
+z(x_1,x_2)=2x_1+3x_2.
+\]
+
+Nel vertice \(A\),
+
+\[
+z(A)=2\cdot3+3\cdot0=6.
+\]
+
+Nel vertice \(B\),
+
+\[
+z(B)=2\cdot10+3\cdot0=20.
+\]
+
+Nel vertice \(C\),
+
+\[
+z(C)=2\cdot6+3\cdot4=12+12=24.
+\]
+
+Nel vertice \(D\),
+
+\[
+z(D)=2\cdot3+3\cdot4=6+12=18.
+\]
+
+Raccogliendo i risultati:
+
+\[
+\begin{array}{c|cccc}
+\text{Vertice}
+&
+A
+&
+B
+&
+C
+&
+D
+\\
+\hline
+z
+&
+6
+&
+20
+&
+24
+&
+18
+\end{array}
+\]
+
+Il valore massimo \`e quindi
+
+\[
+z^*=24,
+\]
+
+ottenuto nel punto
+
+\[
+x^*=(6,4).
+\]
+
+Dal punto di vista geometrico, le rette di livello della funzione obiettivo
+sono date da
+
+\[
+2x_1+3x_2=k.
+\]
+
+Al crescere di \(k\), tali rette si spostano parallelamente nella direzione
+di crescita della funzione obiettivo; l'ultimo punto di contatto con la
+regione ammissibile \`e proprio il vertice \(C\).
+
+\item Un vincolo \`e attivo in corrispondenza della soluzione ottima quando
+viene soddisfatto come uguaglianza.
+
+Nel punto ottimo
+
+\[
+x^*=(6,4)
+\]
+
+si ha
+
+\[
+x_1+x_2=6+4=10,
+\]
+
+quindi il vincolo
+
+\[
+x_1+x_2\leq10
+\]
+
+\`e attivo.
+
+Si ha inoltre
+
+\[
+x_2=4,
+\]
+
+quindi anche il vincolo
+
+\[
+x_2\leq4
+\]
+
+\`e attivo.
+
+Il vincolo
+
+\[
+x_1\geq3
+\]
+
+presenta invece un margine positivo, pari a
+
+\[
+x_1^*-3=6-3=3.
+\]
+
+Esso non \`e quindi attivo.
+
+Anche i vincoli di non negativit\`a non sono attivi, poich\'e
+
+\[
+x_1^*=6>0,
+\qquad
+x_2^*=4>0.
+\]
+
+La soluzione ottima \`e dunque determinata dall'intersezione dei due vincoli
+
+\[
+x_1+x_2=10
+\qquad
+\mbox{e}
+\qquad
+x_2=4.
+\]
+
+\item Consideriamo ora la nuova funzione obiettivo
+
+\[
+\widetilde z(x_1,x_2)=3x_1+2x_2.
+\]
+
+La regione ammissibile non cambia, poich\'e i vincoli sono gli stessi. Cambia
+invece il criterio con cui vengono confrontate le decisioni ammissibili.
+
+Calcoliamo \(\widetilde z\) nei vertici.
+
+Nel vertice \(A\),
+
+\[
+\widetilde z(A)=3\cdot3+2\cdot0=9.
+\]
+
+Nel vertice \(B\),
+
+\[
+\widetilde z(B)=3\cdot10+2\cdot0=30.
+\]
+
+Nel vertice \(C\),
+
+\[
+\widetilde z(C)=3\cdot6+2\cdot4=18+8=26.
+\]
+
+Nel vertice \(D\),
+
+\[
+\widetilde z(D)=3\cdot3+2\cdot4=9+8=17.
+\]
+
+Quindi
+
+\[
+\begin{array}{c|cccc}
+\text{Vertice}
+&
+A
+&
+B
+&
+C
+&
+D
+\\
+\hline
+\widetilde z
+&
+9
+&
+30
+&
+26
+&
+17
+\end{array}
+\]
+
+Il nuovo valore massimo \`e
+
+\[
+\widetilde z^*=30,
+\]
+
+e viene ottenuto nel punto
+
+\[
+\widetilde x^*=(10,0).
+\]
+
+Dal punto di vista geometrico, le rette di livello della nuova funzione
+obiettivo sono
+
+\[
+3x_1+2x_2=h.
+\]
+
+Esse hanno una diversa inclinazione rispetto a quelle della funzione
+precedente. Per questo motivo, spostandole nella direzione di crescita, il
+punto di ultimo contatto con la regione ammissibile non \`e pi\`u \(C\), ma
+\(B\).
+
+\item L'esercizio mette in evidenza una distinzione fondamentale.
+
+I vincoli determinano la regione ammissibile, cio\`e l'insieme delle decisioni
+possibili. La funzione obiettivo, invece, determina quale decisione ammissibile
+viene preferita.
+
+Nel primo caso,
+
+\[
+z=2x_1+3x_2,
+\]
+
+il coefficiente di \(x_2\) \`e relativamente pi\`u elevato rispetto a quello
+di \(x_1\), e il modello attribuisce quindi un peso maggiore alla seconda
+variabile. Per questo motivo la soluzione ottima si colloca nel vertice
+
+\[
+C=(6,4),
+\]
+
+nel quale \(x_2\) assume il suo valore massimo ammissibile.
+
+Nel secondo caso,
+
+\[
+\widetilde z=3x_1+2x_2,
+\]
+
+il peso relativo si sposta invece verso \(x_1\). Di conseguenza, la soluzione
+ottima diventa
+
+\[
+B=(10,0),
+\]
+
+che massimizza la presenza della prima variabile all'interno della regione
+ammissibile.
+
+La lezione teorica \`e quindi la seguente: la geometria dei vincoli definisce
+le alternative possibili, ma la scelta finale tra tali alternative dipende dal
+criterio economico rappresentato dalla funzione obiettivo.
+
+\end{enumerate}
+
+\begin{exercise}[Costo marginale di un requisito di liquidit\`a]
+
+\label{ex:cap11-sensibilita-liquidita}
+
+Riprendiamo il modello bancario del capitolo e consideriamo il requisito minimo
+di liquidit\`a come parametro:
+
+\[
+Q.
+\]
+
+Per
+
+\[
+Q=55
+\]
+
+la soluzione ottima del problema \`e
+
+\[
+x^*(55)
+\approx
+\begin{pmatrix}
+0\\
+41.045\\
+20.896\\
+38.060
+\end{pmatrix},
+\]
+
+con valore ottimo
+
+\[
+z^*(55)
+\approx
+3.7649.
+\]
+
+Per
+
+\[
+Q=60
+\]
+
+si ottiene invece
+
+\[
+x^*(60)
+\approx
+\begin{pmatrix}
+0\\
+46.269\\
+25.373\\
+28.358
+\end{pmatrix},
+\]
+
+con
+
+\[
+z^*(60)
+\approx
+3.5896.
+\]
+
+Nell'intervallo considerato la struttura dei vincoli attivi rimane invariata.
+Il prezzo implicito associato al requisito di liquidit\`a \`e
+
+\[
+\lambda_Q^*
+\approx
+0.03507.
+\]
+
+Si richiede di:
+
+\begin{enumerate}
+
+\item determinare la variazione del valore ottimo quando il requisito passa
+da \(Q=55\) a \(Q=57\);
+
+\item calcolare il valore ottimo \(z^*(57)\);
+
+\item determinare la composizione ottima \(x^*(57)\), utilizzando la
+variazione lineare della soluzione nell'intervallo considerato;
+
+\item verificare direttamente il valore della liquidit\`a della nuova
+composizione;
+
+\item interpretare economicamente il significato di
+\(\lambda_Q^*\);
+
+\item spiegare perch\'e tale interpretazione deve essere considerata locale.
+
+\end{enumerate}
+
+\end{exercise}
+
+\noindent
+\textbf{Soluzione.}
+
+\begin{enumerate}
+
+\item In un intervallo nel quale la struttura della soluzione ottima non
+cambia, il valore duale associato al requisito di liquidit\`a misura la
+variazione marginale del valore ottimo rispetto al parametro \(Q\).
+
+La relazione teorica \`e
+
+\[
+\frac{\partial z^*(Q)}
+{\partial Q}
+=
+-\lambda_Q^*.
+\]
+
+Per una variazione finita contenuta nello stesso intervallo di stabilit\`a,
+si pu\`o scrivere
+
+\[
+\Delta z^*
+=
+-\lambda_Q^*\Delta Q.
+\]
+
+La variazione del requisito \`e
+
+\[
+\Delta Q
+=
+Q_{\mathrm{new}}-Q_{\mathrm{old}}.
+\]
+
+Nel caso considerato,
+
+\[
+\Delta Q
+=
+57-55
+=
+2.
+\]
+
+Pertanto,
+
+\[
+\Delta z^*
+=
+-0.03507(2),
+\]
+
+da cui
+
+\[
+\Delta z^*
+\approx
+-0.07014.
+\]
+
+L'aumento di due unit\`a del requisito di liquidit\`a riduce quindi il massimo
+risultato economico ottenibile di circa \(0.07014\).
+
+\item Il nuovo valore ottimo si ottiene dalla relazione
+
+\[
+z^*(Q_{\mathrm{new}})
+=
+z^*(Q_{\mathrm{old}})
++
+\Delta z^*.
+\]
+
+Sostituendo i valori,
+
+\[
+z^*(57)
+=
+z^*(55)
+-
+\lambda_Q^*(57-55).
+\]
+
+Quindi
+
+\[
+z^*(57)
+\approx
+3.7649
+-
+0.03507(2),
+\]
+
+e pertanto
+
+\[
+z^*(57)
+\approx
+3.6948.
+\]
+
+La riduzione del valore obiettivo rappresenta il costo opportunit\`a della
+maggiore prudenza all'interno del modello.
+
+\item Finche\'e la struttura dei vincoli attivi rimane invariata, la soluzione
+ottima varia in modo affine rispetto al parametro \(Q\).
+
+Tra due valori \(Q_1\) e \(Q_2\), per un valore intermedio \(Q\), si ha
+
+\[
+x^*(Q)
+=
+x^*(Q_1)
++
+\frac{Q-Q_1}{Q_2-Q_1}
+\left[
+x^*(Q_2)-x^*(Q_1)
+\right].
+\]
+
+Nel caso considerato,
+
+\[
+Q_1=55,
+\qquad
+Q_2=60,
+\qquad
+Q=57.
+\]
+
+Il coefficiente di interpolazione \`e quindi
+
+\[
+\theta
+=
+\frac{Q-Q_1}{Q_2-Q_1}.
+\]
+
+Sostituendo,
+
+\[
+\theta
+=
+\frac{57-55}{60-55}
+=
+\frac{2}{5}.
+\]
+
+La soluzione \`e dunque
+
+\[
+x^*(57)
+=
+x^*(55)
++
+\frac{2}{5}
+\left[
+x^*(60)-x^*(55)
+\right].
+\]
+
+Per la prima componente,
+
+\[
+x_1^*(57)
+=
+0
++
+\frac{2}{5}(0-0)
+=
+0.
+\]
+
+Per la seconda componente,
+
+\[
+x_2^*(57)
+=
+41.045
++
+\frac{2}{5}
+(46.269-41.045).
+\]
+
+Quindi
+
+\[
+x_2^*(57)
+\approx
+43.135.
+\]
+
+Per la terza componente,
+
+\[
+x_3^*(57)
+=
+20.896
++
+\frac{2}{5}
+(25.373-20.896),
+\]
+
+da cui
+
+\[
+x_3^*(57)
+\approx
+22.687.
+\]
+
+Per la quarta componente,
+
+\[
+x_4^*(57)
+=
+38.060
++
+\frac{2}{5}
+(28.358-38.060),
+\]
+
+e quindi
+
+\[
+x_4^*(57)
+\approx
+34.179.
+\]
+
+La nuova composizione ottima \`e pertanto
+
+\[
+x^*(57)
+\approx
+\begin{pmatrix}
+0\\
+43.135\\
+22.687\\
+34.179
+\end{pmatrix}.
+\]
+
+Le piccole differenze rispetto alla somma esatta di \(100\) dipendono dagli
+arrotondamenti dei valori utilizzati.
+
+\item La liquidit\`a associata a una composizione \(x\) \`e definita da
+
+\[
+L(x)
+=
+\sum_{j=1}^{4}q_jx_j.
+\]
+
+Nel modello del capitolo,
+
+\[
+L(x)
+=
+x_1
++
+0.90x_2
++
+0.50x_3
++
+0.20x_4.
+\]
+
+Sostituendo la nuova soluzione,
+
+\[
+L(x^*(57))
+=
+0
++
+0.90(43.135)
++
+0.50(22.687)
++
+0.20(34.179).
+\]
+
+Si ottiene
+
+\[
+L(x^*(57))
+\approx
+38.8215
++
+11.3435
++
+6.8358.
+\]
+
+Pertanto,
+
+\[
+L(x^*(57))
+\approx
+57.001.
+\]
+
+La differenza rispetto a \(57\) \`e dovuta esclusivamente
+all'arrotondamento.
+
+Il requisito di liquidit\`a \`e quindi attivo:
+
+\[
+L(x^*(57))
+=
+Q.
+\]
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.88\textwidth]
+{../graphics/Cap11_Es03_sensibilita_liquidita.png}
+\caption{Sensibilit\`a locale del valore ottimo al requisito di
+liquidit\`a. Nell'intervallo considerato la funzione \(z^*(Q)\) \`e
+lineare e la sua pendenza coincide con
+\(-\lambda_Q^*\). Il punto \(Q=57\) viene ricavato direttamente dalla
+relazione marginale.}
+\label{fig:cap11-es03-sensibilita-liquidita}
+\end{figure}
+
+La Figura~\ref{fig:cap11-es03-sensibilita-liquidita} mostra graficamente la
+relazione
+
+\[
+\frac{\partial z^*(Q)}
+{\partial Q}
+=
+-\lambda_Q^*.
+\]
+
+Nell'intervallo compreso tra \(55\) e \(60\), l'aumento del requisito di
+liquidit\`a determina una riduzione lineare del valore ottimo.
+
+\item In termini generali, una variabile duale misura il valore marginale del
+termine noto del vincolo cui \`e associata.
+
+Nel caso del requisito
+
+\[
+\sum_{j=1}^{4}q_jx_j
+\geq
+Q,
+\]
+
+il parametro \(Q\) rappresenta il livello minimo di liquidit\`a richiesto.
+
+Poich\'e un aumento di \(Q\) rende il vincolo pi\`u severo, la relazione
+marginale \`e
+
+\[
+\frac{\partial z^*}{\partial Q}
+=
+-\lambda_Q^*.
+\]
+
+Il valore
+
+\[
+\lambda_Q^*
+\approx
+0.03507
+\]
+
+significa quindi che una unit\`a aggiuntiva di liquidit\`a richiesta riduce il
+massimo risultato economico di circa
+
+\[
+0.03507.
+\]
+
+La quantit\`a
+
+\[
+\lambda_Q^*
+\]
+
+pu\`o essere interpretata come il costo opportunit\`a marginale della maggiore
+prudenza.
+
+Non si tratta di un costo contabile e non \`e un prezzo osservato sul mercato.
+\`E un valore endogeno prodotto dal modello.
+
+\item L'interpretazione del valore duale \`e locale perch\'e dipende dalla
+struttura corrente della soluzione ottima.
+
+Finche\'e rimangono invariati i vincoli attivi, la funzione del valore ottimo
+\`e lineare rispetto a \(Q\) e la pendenza rimane costante:
+
+\[
+\frac{\partial z^*(Q)}
+{\partial Q}
+=
+-\lambda_Q^*.
+\]
+
+Quando una variazione di \(Q\) rende attivo un nuovo vincolo oppure rende
+inattivo un vincolo precedentemente determinante, cambia la base ottima.
+
+In quel punto pu\`o cambiare anche il valore
+
+\[
+\lambda_Q^*.
+\]
+
+Il prezzo implicito non deve quindi essere utilizzato come coefficiente
+costante per variazioni arbitrariamente grandi del requisito.
+
+La lettura corretta \`e:
+
+\begin{quote}
+\emph{dato l'assetto corrente del modello, quanto costa al margine aumentare
+il requisito di liquidit\`a?}
+\end{quote}
+
+\end{enumerate}
+
+L'esercizio mostra il collegamento diretto tra analisi di sensibilit\`a e
+dualit\`a. La variazione di \(Q\) modifica la regione ammissibile; la funzione
+\(z^*(Q)\) misura l'effetto sul risultato ottimo; il valore duale
+\(\lambda_Q^*\) ne rappresenta la pendenza marginale.
+
+\begin{exercise}[Dualit\`a forte e complementariet\`a nel modello bancario]
+
+\label{ex:cap11-dualita-complementarieta}
+
+Si consideri il modello bancario del capitolo con soluzione primale ottima
+
+\[
+x^*
+\approx
+\begin{pmatrix}
+0\\
+41.045\\
+20.896\\
+38.060
+\end{pmatrix},
+\]
+
+e valore ottimo
+
+\[
+z_P^*
+\approx
+3.7649.
+\]
+
+La soluzione duale associata al problema \`e
+
+\[
+\eta^*
+\approx
+0.05642,
+\qquad
+\lambda_Q^*
+\approx
+0.03507,
+\]
+
+\[
+\lambda_K^*
+\approx
+0.00746,
+\qquad
+\lambda_C^*
+=
+0,
+\]
+
+dove:
+
+\begin{itemize}
+
+\item $\eta$ \`e la variabile duale libera associata al vincolo di bilancio;
+
+\item $\lambda_Q$ \`e associata al requisito minimo di liquidit\`a;
+
+\item $\lambda_K$ \`e associata al limite alla perdita nello scenario di
+stress;
+
+\item $\lambda_C$ \`e associata al limite di concentrazione nei titoli a
+lunga scadenza.
+
+\end{itemize}
+
+Si richiede di:
+
+\begin{enumerate}
+
+\item verificare la dualit\`a forte confrontando il valore della funzione
+obiettivo primale con quello della funzione obiettivo duale;
+
+\item calcolare i margini dei vincoli primali di liquidit\`a, perdita sotto
+stress e concentrazione, e verificare le condizioni di complementariet\`a;
+
+\item determinare gli scarti dei quattro vincoli duali;
+
+\item verificare le condizioni di complementariet\`a associate alle variabili
+primali $x_1,x_2,x_3,x_4$;
+
+\item interpretare congiuntamente la soluzione primale e quella duale,
+individuando quali requisiti limitano effettivamente il risultato economico e
+come la complementariet\`a consenta di diagnosticare la struttura
+dell'ottimo.
+
+\end{enumerate}
+
+\end{exercise}
+
+\noindent
+\textbf{Soluzione.}
+
+\begin{enumerate}
+
+\item Il problema primale determina il massimo risultato economico
+compatibile con i vincoli, mentre il problema duale determina la minima
+valutazione implicita delle risorse e dei requisiti.
+
+La dualit\`a forte stabilisce che, se entrambi i problemi possiedono una
+soluzione ottima finita,
+
+\[
+z_P^*
+=
+z_D^*.
+\]
+
+Nel modello bancario, la funzione obiettivo duale \`e
+
+\[
+z_D
+=
+100\eta
+-
+55\lambda_Q
++
+7\lambda_K
++
+30\lambda_C.
+\]
+
+Sostituendo i valori duali ottimi,
+
+\[
+z_D^*
+=
+100(0.05641791)
+-
+55(0.03507463)
++
+7(0.00746269)
++
+30(0).
+\]
+
+Si ottiene
+
+\[
+z_D^*
+\approx
+3.76493.
+\]
+
+Dal problema primale,
+
+\[
+z_P^*
+\approx
+3.76493.
+\]
+
+Pertanto,
+
+\[
+z_P^*
+=
+z_D^*
+\approx
+3.76493.
+\]
+
+La differenza
+
+\[
+z_D^*-z_P^*
+\]
+
+\`e quindi nulla, salvo gli arrotondamenti numerici.
+
+Questo risultato verifica la dualit\`a forte: la migliore allocazione
+ottenibile nel primale e la minima valutazione implicita delle risorse nel
+duale conducono allo stesso valore economico.
+
+\item Per un vincolo primale scritto nella forma
+
+\[
+a_i'x\leq b_i,
+\]
+
+il margine \`e definito da
+
+\[
+s_i
+=
+b_i-a_i'x.
+\]
+
+La condizione di complementariet\`a associata al vincolo \`e
+
+\[
+\lambda_i^*s_i^*
+=
+0.
+\]
+
+Nel modello bancario occorre adattare il segno del margine alla forma
+economica originaria dei singoli vincoli.
+
+Per il requisito minimo di liquidit\`a,
+
+\[
+x_1+0.90x_2+0.50x_3+0.20x_4
+\geq
+55,
+\]
+
+il margine \`e
+
+\[
+s_Q
+=
+\left(
+x_1+0.90x_2+0.50x_3+0.20x_4
+\right)
+-
+55.
+\]
+
+Sostituendo la soluzione ottima,
+
+\[
+s_Q
+=
+0
++
+0.90(41.045)
++
+0.50(20.896)
++
+0.20(38.060)
+-
+55.
+\]
+
+Si ottiene, salvo arrotondamenti,
+
+\[
+s_Q
+\approx
+0.
+\]
+
+Il vincolo di liquidit\`a \`e quindi attivo.
+
+La condizione di complementariet\`a \`e
+
+\[
+\lambda_Q^*s_Q^*
+=
+0.
+\]
+
+Poich\'e
+
+\[
+s_Q^*=0,
+\]
+
+essa \`e soddisfatta anche con
+
+\[
+\lambda_Q^*>0.
+\]
+
+Il requisito di liquidit\`a possiede dunque un valore marginale positivo.
+
+Per il limite alla perdita sotto stress,
+
+\[
+0.02x_2+0.15x_3+0.08x_4
+\leq
+7,
+\]
+
+il margine \`e
+
+\[
+s_K
+=
+7-
+\left(
+0.02x_2+0.15x_3+0.08x_4
+\right).
+\]
+
+Sostituendo,
+
+\[
+s_K
+=
+7
+-
+\left[
+0.02(41.045)
++
+0.15(20.896)
++
+0.08(38.060)
+\right].
+\]
+
+Si ottiene
+
+\[
+s_K
+\approx
+0.
+\]
+
+Anche questo vincolo \`e attivo.
+
+La complementariet\`a richiede
+
+\[
+\lambda_K^*s_K^*
+=
+0.
+\]
+
+Poich\'e
+
+\[
+s_K^*=0
+\]
+
+e
+
+\[
+\lambda_K^*>0,
+\]
+
+la condizione \`e soddisfatta.
+
+Per il limite di concentrazione,
+
+\[
+x_3\leq30,
+\]
+
+il margine \`e
+
+\[
+s_C
+=
+30-x_3^*.
+\]
+
+Sostituendo,
+
+\[
+s_C
+=
+30-20.896
+=
+9.104.
+\]
+
+Pertanto,
+
+\[
+s_C>0.
+\]
+
+Il vincolo di concentrazione non \`e attivo.
+
+La complementariet\`a richiede
+
+\[
+\lambda_C^*s_C^*
+=
+0.
+\]
+
+Poich\'e
+
+\[
+s_C^*>0,
+\]
+
+deve risultare
+
+\[
+\lambda_C^*=0,
+\]
+
+come effettivamente avviene.
+
+Il confronto pu\`o essere sintetizzato come
+
+\[
+\begin{array}{lccc}
+\hline
+\text{Vincolo}
+&
+\text{Margine}
+&
+\text{Stato}
+&
+\text{Variabile duale}
+\\
+\hline
+\text{Liquidit\`a}
+&
+0
+&
+\text{attivo}
+&
+\lambda_Q^*>0
+\\
+\text{Perdita sotto stress}
+&
+0
+&
+\text{attivo}
+&
+\lambda_K^*>0
+\\
+\text{Concentrazione}
+&
+9.104
+&
+\text{non attivo}
+&
+\lambda_C^*=0
+\\
+\hline
+\end{array}
+\]
+
+\item Per ogni variabile primale $x_j$, il corrispondente vincolo duale pu\`o
+essere scritto nella forma
+
+\[
+(A'\lambda)_j
+\geq
+c_j.
+\]
+
+Lo scarto duale \`e definito da
+
+\[
+r_j
+=
+(A'\lambda)_j-c_j.
+\]
+
+Nel modello bancario i quattro scarti sono quindi calcolati separatamente.
+
+Per la cassa e le riserve,
+
+\[
+r_1
+=
+\eta^*
+-
+\lambda_Q^*
+-
+0.010.
+\]
+
+Sostituendo i valori,
+
+\[
+r_1
+=
+0.05641791
+-
+0.03507463
+-
+0.010.
+\]
+
+Si ottiene
+
+\[
+r_1
+\approx
+0.01134.
+\]
+
+Pertanto,
+
+\[
+r_1>0.
+\]
+
+Per i titoli a breve scadenza,
+
+\[
+r_2
+=
+\eta^*
+-
+0.90\lambda_Q^*
++
+0.02\lambda_K^*
+-
+0.025.
+\]
+
+Sostituendo,
+
+\[
+r_2
+=
+0.05641791
+-
+0.90(0.03507463)
++
+0.02(0.00746269)
+-
+0.025.
+\]
+
+Si ottiene, salvo arrotondamenti,
+
+\[
+r_2
+\approx
+0.
+\]
+
+Per i titoli a lunga scadenza,
+
+\[
+r_3
+=
+\eta^*
+-
+0.50\lambda_Q^*
++
+0.15\lambda_K^*
++
+\lambda_C^*
+-
+0.040.
+\]
+
+Sostituendo,
+
+\[
+r_3
+=
+0.05641791
+-
+0.50(0.03507463)
++
+0.15(0.00746269)
++
+0
+-
+0.040,
+\]
+
+da cui
+
+\[
+r_3
+\approx
+0.
+\]
+
+Per i prestiti e gli impieghi meno liquidi,
+
+\[
+r_4
+=
+\eta^*
+-
+0.20\lambda_Q^*
++
+0.08\lambda_K^*
+-
+0.050.
+\]
+
+Sostituendo,
+
+\[
+r_4
+=
+0.05641791
+-
+0.20(0.03507463)
++
+0.08(0.00746269)
+-
+0.050.
+\]
+
+Si ottiene
+
+\[
+r_4
+\approx
+0.
+\]
+
+Gli scarti duali sono quindi
+
+\[
+r_1
+\approx
+0.01134,
+\qquad
+r_2
+\approx
+0,
+\qquad
+r_3
+\approx
+0,
+\qquad
+r_4
+\approx
+0.
+\]
+
+\item La complementariet\`a sul lato delle variabili primali richiede
+
+\[
+x_j^*r_j^*
+=
+0,
+\qquad
+j=1,\ldots,4.
+\]
+
+Questa relazione implica che, se una variabile primale \`e positiva, il
+corrispondente vincolo duale deve essere attivo.
+
+Per la prima classe,
+
+\[
+x_1^*=0
+\]
+
+e
+
+\[
+r_1^*
+\approx
+0.01134>0.
+\]
+
+Pertanto,
+
+\[
+x_1^*r_1^*
+=
+0.
+\]
+
+La condizione di complementariet\`a \`e soddisfatta.
+
+Il fatto che
+
+\[
+r_1^*>0
+\]
+
+indica che, ai prezzi impliciti determinati dal modello, il valore delle
+risorse richieste dalla cassa supera il contributo economico attribuito a
+questa classe nella funzione obiettivo.
+
+Per la seconda classe,
+
+\[
+x_2^*
+\approx
+41.045>0.
+\]
+
+La complementariet\`a richiede quindi
+
+\[
+r_2^*=0.
+\]
+
+Infatti,
+
+\[
+\eta^*
+-
+0.90\lambda_Q^*
++
+0.02\lambda_K^*
+=
+0.025.
+\]
+
+Per la terza classe,
+
+\[
+x_3^*
+\approx
+20.896>0,
+\]
+
+quindi deve essere
+
+\[
+r_3^*=0.
+\]
+
+Pertanto,
+
+\[
+\eta^*
+-
+0.50\lambda_Q^*
++
+0.15\lambda_K^*
++
+\lambda_C^*
+=
+0.040.
+\]
+
+Infine,
+
+\[
+x_4^*
+\approx
+38.060>0,
+\]
+
+per cui
+
+\[
+r_4^*=0
+\]
+
+e dunque
+
+\[
+\eta^*
+-
+0.20\lambda_Q^*
++
+0.08\lambda_K^*
+=
+0.050.
+\]
+
+La struttura complessiva \`e quindi
+
+\[
+\begin{array}{c|cc}
+\hline
+\text{Variabile}
+&
+x_j^*
+&
+r_j^*
+\\
+\hline
+x_1
+&
+0
+&
+0.01134
+\\
+x_2
+&
+41.045
+&
+0
+\\
+x_3
+&
+20.896
+&
+0
+\\
+x_4
+&
+38.060
+&
+0
+\\
+\hline
+\end{array}
+\]
+
+La complementariet\`a mostra quindi una relazione precisa: le attivit\`a
+presenti nella soluzione ottima hanno vincoli duali saturi, mentre una
+attivit\`a assente pu\`o presentare uno scarto duale positivo.
+
+\item La Figura~\ref{fig:cap11-corrispondenza-primale-duale}, introdotta nella
+trattazione teorica, mostra la corrispondenza strutturale tra vincoli primali
+e variabili duali, e tra variabili primali e vincoli duali. L'esercizio
+permette ora di leggere numericamente tale corrispondenza.
+
+Dal lato primale, il modello stabilisce come distribuire le risorse tra le
+quattro classi di attivo.
+
+Dal lato duale, il modello attribuisce un valore marginale ai requisiti che
+limitano la decisione.
+
+Il requisito di liquidit\`a \`e attivo e presenta
+
+\[
+\lambda_Q^*
+\approx
+0.03507.
+\]
+
+Ci\`o significa che un aumento marginale del livello minimo di liquidit\`a
+riduce il valore ottimo secondo
+
+\[
+\frac{\partial z^*}{\partial Q}
+=
+-\lambda_Q^*.
+\]
+
+Il limite alla perdita sotto stress \`e anch'esso attivo e presenta
+
+\[
+\lambda_K^*
+\approx
+0.00746.
+\]
+
+Poich\'e $K$ \`e un limite superiore, un suo piccolo incremento rilassa il
+vincolo e produce localmente un aumento del valore ottimo:
+
+\[
+\frac{\partial z^*}{\partial K}
+=
+\lambda_K^*.
+\]
+
+Il limite di concentrazione presenta invece un margine positivo:
+
+\[
+s_C
+=
+9.104,
+\]
+
+e il relativo prezzo implicito \`e
+
+\[
+\lambda_C^*
+=
+0.
+\]
+
+Un piccolo rilassamento di tale limite non produce quindi alcun beneficio
+economico locale.
+
+Sul lato delle variabili, le tre classi presenti nella soluzione,
+
+\[
+x_2^*>0,
+\qquad
+x_3^*>0,
+\qquad
+x_4^*>0,
+\]
+
+hanno vincoli duali attivi:
+
+\[
+r_2^*
+=
+r_3^*
+=
+r_4^*
+=
+0.
+\]
+
+La cassa, invece, non viene utilizzata:
+
+\[
+x_1^*=0,
+\]
+
+e presenta uno scarto duale positivo:
+
+\[
+r_1^*>0.
+\]
+
+La conclusione non \`e che la cassa sia priva di utilit\`a. Indica soltanto
+che, dati la funzione obiettivo e i requisiti correnti, il modello riesce a
+soddisfare la liquidit\`a utilizzando altre classi di attivo che offrono un
+contributo economico maggiore.
+
+La complementariet\`a trasforma quindi la soluzione numerica in una diagnosi
+economica:
+
+\[
+\begin{array}{c}
+\text{vincolo attivo con prezzo positivo}
+\\
+\Downarrow
+\\
+\text{requisito che limita economicamente l'ottimo},
+\end{array}
+\]
+
+mentre
+
+\[
+\begin{array}{c}
+\text{vincolo con margine positivo}
+\\
+\Downarrow
+\\
+\text{nessun valore marginale locale del suo rilassamento}.
+\end{array}
+\]
+
+Analogamente,
+
+\[
+\begin{array}{c}
+x_j^*>0
+\\
+\Downarrow
+\\
+r_j^*=0,
+\end{array}
+\]
+
+ossia una attivit\`a utilizzata nell'allocazione ottima deve risultare
+competitiva rispetto al sistema dei prezzi impliciti.
+
+Primale e duale non costituiscono quindi due problemi indipendenti. Sono due
+letture complementari della stessa decisione: il primo determina
+l'allocazione, il secondo rivela il valore economico dei vincoli che la
+determinano.
+
+\end{enumerate}
+
+\section{Esercizi proposti}
+
+\label{sec:cap11-esercizi-proposti}
+
+Gli esercizi seguenti consolidano i principali strumenti del capitolo.
+La sequenza procede dalla verifica di una soluzione alla modifica dei
+requisiti, fino alla formulazione autonoma di un problema di programmazione
+lineare.
+
+\begin{exercise}[Verifica di una composizione dell'attivo]
+
+\label{ex:cap11-proposto-ammissibilita}
+
+Si consideri il modello bancario con
+
+\[
+A_0=100,
+\qquad
+Q_{\min}=60,
+\qquad
+K=7,
+\qquad
+x_3\leq30,
+\]
+
+e coefficienti
+
+\[
+q=(1.00,\;0.90,\;0.50,\;0.20)',
+\]
+
+\[
+\ell=(0,\;0.02,\;0.15,\;0.08)'.
+\]
+
+Si consideri la composizione
+
+\[
+x=
+\begin{pmatrix}
+10\\
+35\\
+25\\
+30
+\end{pmatrix}.
+\]
+
+Determinare:
+
+\begin{enumerate}
+
+\item se il vincolo di bilancio \`e rispettato;
+
+\item la liquidit\`a disponibile;
+
+\item la perdita nello scenario di stress;
+
+\item il margine del vincolo di concentrazione;
+
+\item se la composizione \`e ammissibile;
+
+\item quali vincoli risultano attivi.
+
+\end{enumerate}
+
+\end{exercise}
+
+\noindent
+\textit{Risultati:}
+
+\[
+x_1+x_2+x_3+x_4=100,
+\]
+
+\[
+L(x)
+=
+10+0.90(35)+0.50(25)+0.20(30)
+=
+60,
+\]
+
+\[
+S(x)
+=
+0.02(35)+0.15(25)+0.08(30)
+=
+6.85.
+\]
+
+Il margine del limite di concentrazione \`e
+
+\[
+30-25=5.
+\]
+
+La composizione \`e ammissibile. Risultano attivi il vincolo di bilancio e
+il requisito di liquidit\`a.
+
+
+\begin{exercise}[Introduzione di un livello minimo di cassa]
+
+\label{ex:cap11-proposto-cassa-minima}
+
+Si consideri la soluzione ottima del modello base,
+
+\[
+x^*
+\approx
+\begin{pmatrix}
+0\\
+41.045\\
+20.896\\
+38.060
+\end{pmatrix}.
+\]
+
+La banca decide di introdurre il requisito
+
+\[
+x_1\geq8.
+\]
+
+Supponiamo di voler costruire una prima politica ammissibile trasferendo
+esclusivamente risorse dai prestiti e impieghi meno liquidi alla cassa.
+
+Determinare:
+
+\begin{enumerate}
+
+\item la nuova composizione;
+
+\item la liquidit\`a disponibile;
+
+\item la perdita sotto stress;
+
+\item la variazione della funzione obiettivo;
+
+\item se la nuova composizione soddisfa tutti i vincoli del modello base.
+
+\end{enumerate}
+
+\end{exercise}
+
+\noindent
+\textit{Risultati:}
+
+La nuova composizione \`e
+
+\[
+\widetilde x
+\approx
+\begin{pmatrix}
+8\\
+41.045\\
+20.896\\
+30.060
+\end{pmatrix}.
+\]
+
+La variazione della liquidit\`a \`e
+
+\[
+\Delta L
+=
+(1.00-0.20)8
+=
+6.4,
+\]
+
+per cui
+
+\[
+L(\widetilde x)
+\approx
+61.4.
+\]
+
+La variazione della perdita \`e
+
+\[
+\Delta S
+=
+(0-0.08)8
+=
+-0.64,
+\]
+
+quindi
+
+\[
+S(\widetilde x)
+\approx
+6.36.
+\]
+
+La variazione della funzione obiettivo \`e
+
+\[
+\Delta z
+=
+(0.010-0.050)8
+=
+-0.32.
+\]
+
+Pertanto,
+
+\[
+z(\widetilde x)
+\approx
+3.4449.
+\]
+
+La composizione soddisfa tutti i vincoli del modello base e il nuovo
+requisito minimo di cassa.
+
+
+\begin{exercise}[Effetto del limite di concentrazione]
+
+\label{ex:cap11-proposto-concentrazione}
+
+Nel modello base la soluzione ottima presenta
+
+\[
+x_3^*
+\approx
+20.896
+\]
+
+e il limite di concentrazione \`e
+
+\[
+x_3\leq30.
+\]
+
+Determinare:
+
+\begin{enumerate}
+
+\item il margine del vincolo;
+
+\item se una riduzione del limite da \(30\) a \(25\) modifica
+immediatamente la soluzione ottima;
+
+\item se una riduzione del limite a \(20\) rende la soluzione precedente
+ancora ammissibile;
+
+\item quale informazione fornisce il valore duale
+
+\[
+\lambda_C^*=0
+\]
+
+rispetto a piccole variazioni del limite originario.
+
+\end{enumerate}
+
+\end{exercise}
+
+\noindent
+\textit{Risultati:}
+
+Il margine iniziale \`e
+
+\[
+30-20.896
+=
+9.104.
+\]
+
+Il limite
+
+\[
+x_3\leq25
+\]
+
+continua a essere rispettato dalla soluzione originaria.
+
+Il limite
+
+\[
+x_3\leq20
+\]
+
+rende invece la soluzione originaria non ammissibile.
+
+Il valore
+
+\[
+\lambda_C^*=0
+\]
+
+indica che un piccolo rilassamento del limite originario non aumenta il
+valore ottimo. Non implica che variazioni sufficientemente ampie del limite
+siano irrilevanti.
+
+
+\begin{exercise}[Diagnosi di un modello inammissibile]
+
+\label{ex:cap11-proposto-inammissibile}
+
+Si consideri un modello semplificato con due classi di attivo,
+
+\[
+x_1+x_2=100,
+\qquad
+x_1,x_2\geq0,
+\]
+
+e coefficienti di liquidit\`a
+
+\[
+q_1=1,
+\qquad
+q_2=0.60.
+\]
+
+Il decisore impone contemporaneamente
+
+\[
+x_1+0.60x_2\geq90
+\]
+
+e
+
+\[
+x_1\leq20.
+\]
+
+Determinare:
+
+\begin{enumerate}
+
+\item il massimo livello di liquidit\`a ottenibile rispettando il limite
+su \(x_1\);
+
+\item se il modello \`e ammissibile;
+
+\item quale dei due requisiti dovrebbe essere modificato per rendere
+possibile una soluzione.
+
+\end{enumerate}
+
+\end{exercise}
+
+\noindent
+\textit{Risultati:}
+
+Per massimizzare la liquidit\`a rispettando
+
+\[
+x_1\leq20,
+\]
+
+si pone
+
+\[
+x_1=20,
+\qquad
+x_2=80.
+\]
+
+La massima liquidit\`a ottenibile \`e quindi
+
+\[
+20+0.60(80)
+=
+68.
+\]
+
+Poich\'e
+
+\[
+68<90,
+\]
+
+il modello \`e inammissibile.
+
+Per ripristinare l'ammissibilit\`a occorre ridurre il requisito minimo di
+liquidit\`a, aumentare il limite sulla prima classe oppure modificare la
+struttura delle attivit\`a disponibili.
+
+
+\begin{exercise}[Costruzione e interpretazione del duale]
+
+\label{ex:cap11-proposto-duale}
+
+Si consideri il problema
+
+\[
+\begin{array}{ll}
+\max
+&
+4x_1+3x_2
+\\[3pt]
+\mbox{soggetto a}
+&
+2x_1+x_2\leq10,
+\\
+&
+x_1+2x_2\leq8,
+\\
+&
+x_1,x_2\geq0.
+\end{array}
+\]
+
+Determinare:
+
+\begin{enumerate}
+
+\item il problema duale;
+
+\item il significato delle due variabili duali;
+
+\item la soluzione ottima del primale;
+
+\item quali vincoli primali risultano attivi;
+
+\item i valori duali ottimi utilizzando le condizioni di
+complementariet\`a;
+
+\item verificare la dualit\`a forte.
+
+\end{enumerate}
+
+\end{exercise}
+
+\noindent
+\textit{Risultati:}
+
+Il duale \`e
+
+\[
+\begin{array}{ll}
+\min
+&
+10\lambda_1+8\lambda_2
+\\[3pt]
+\mbox{soggetto a}
+&
+2\lambda_1+\lambda_2\geq4,
+\\
+&
+\lambda_1+2\lambda_2\geq3,
+\\
+&
+\lambda_1,\lambda_2\geq0.
+\end{array}
+\]
+
+I due vincoli primali sono attivi nella soluzione ottima:
+
+\[
+2x_1+x_2=10,
+\]
+
+\[
+x_1+2x_2=8.
+\]
+
+Risolvendo il sistema,
+
+\[
+x_1^*=4,
+\qquad
+x_2^*=2.
+\]
+
+Pertanto,
+
+\[
+z_P^*
+=
+4(4)+3(2)
+=
+22.
+\]
+
+Poich\'e entrambe le variabili primali sono positive, i due vincoli duali
+sono attivi:
+
+\[
+2\lambda_1+\lambda_2=4,
+\]
+
+\[
+\lambda_1+2\lambda_2=3.
+\]
+
+Si ottiene
+
+\[
+\lambda_1^*=\frac{5}{3},
+\qquad
+\lambda_2^*=\frac{2}{3}.
+\]
+
+Il valore duale \`e
+
+\[
+z_D^*
+=
+10\frac{5}{3}
++
+8\frac{2}{3}
+=
+22.
+\]
+
+Quindi
+
+\[
+z_P^*=z_D^*=22.
+\]
+
+
+\begin{exercise}[Formulazione di un problema di allocazione bancaria]
+
+\label{ex:cap11-proposto-formulazione}
+
+Una banca deve allocare
+
+\[
+A_0=200
+\]
+
+unit\`a monetarie tra:
+
+\begin{itemize}
+
+\item riserve liquide;
+
+\item titoli obbligazionari;
+
+\item prestiti.
+
+\end{itemize}
+
+Indichiamo con
+
+\[
+x_1,\qquad x_2,\qquad x_3
+\]
+
+gli importi destinati alle tre classi.
+
+I contributi economici unitari sono
+
+\[
+c=(0.01,\;0.035,\;0.055)'.
+\]
+
+I coefficienti di liquidit\`a sono
+
+\[
+q=(1,\;0.70,\;0.20)',
+\]
+
+mentre le perdite unitarie nello scenario di stress sono
+
+\[
+\ell=(0,\;0.05,\;0.12)'.
+\]
+
+La banca richiede:
+
+\[
+\text{liquidit\`a disponibile almeno pari a }100,
+\]
+
+\[
+\text{perdita sotto stress non superiore a }15,
+\]
+
+e stabilisce inoltre che i prestiti non possano superare il \(50\%\)
+dell'attivo.
+
+Formulare il programma lineare completo, identificando:
+
+\begin{enumerate}
+
+\item variabili decisionali;
+
+\item funzione obiettivo;
+
+\item vincolo di bilancio;
+
+\item requisito di liquidit\`a;
+
+\item limite alla perdita;
+
+\item limite di concentrazione;
+
+\item condizioni di non negativit\`a.
+
+\end{enumerate}
+
+\end{exercise}
+
+\noindent
+\textit{Risultato:}
+
+Il modello \`e
+
+\[
+\begin{array}{ll}
+\max
+&
+0.01x_1+0.035x_2+0.055x_3
+\\[4pt]
+\mbox{soggetto a}
+&
+x_1+x_2+x_3=200,
+\\
+&
+x_1+0.70x_2+0.20x_3\geq100,
+\\
+&
+0.05x_2+0.12x_3\leq15,
+\\
+&
+x_3\leq100,
+\\
+&
+x_1,x_2,x_3\geq0.
+\end{array}
+\]
+
+L'esercizio richiede soprattutto di riconoscere la struttura del problema:
+le informazioni economiche devono essere tradotte in variabili, coefficienti,
+obiettivo e vincoli prima che possa essere utilizzato qualsiasi algoritmo di
+ottimizzazione.
+
+\section{Sintesi del capitolo}
+
+\label{sec:cap11-sintesi}
+
+La programmazione lineare ha introdotto nel corso un cambiamento di prospettiva:
+non pi\`u soltanto descrivere l'incertezza o misurare il rischio, ma scegliere
+una decisione compatibile con risorse e requisiti assegnati.
+
+Il percorso del capitolo pu\`o essere sintetizzato come
+
+\[
+\boxed{
+\text{problema economico}
+\longrightarrow
+\text{variabili decisionali}
+\longrightarrow
+\text{obiettivo e vincoli}
+\longrightarrow
+\text{regione ammissibile}
+\longrightarrow
+\text{soluzione ottima}
+\longrightarrow
+\text{valore marginale dei vincoli}
+}
+\]
+
+Il problema primale determina che cosa conviene fare. Nella forma di
+riferimento,
+
+\[
+\max_x c'x
+\]
+
+soggetto a
+
+\[
+Ax\leq b,
+\qquad
+x\geq0,
+\]
+
+il vettore \(x\) raccoglie le decisioni, la funzione \(c'x\) stabilisce il
+criterio con cui esse vengono confrontate e i vincoli delimitano l'insieme
+delle alternative ammissibili.
+
+La soluzione ottima
+
+\[
+x^*
+\]
+
+non deve essere interpretata soltanto attraverso il valore
+
+\[
+z^*=c'x^*.
+\]
+
+Occorre osservare anche quali vincoli risultano attivi, quali presentano
+margine e quali variabili assumono valore positivo. La soluzione di un
+programma lineare fornisce quindi non soltanto una decisione, ma anche una
+diagnosi della struttura economica che la determina.
+
+L'analisi di sensibilit\`a ha mostrato che requisiti pi\`u severi possono
+ridurre il migliore risultato ottenibile. Nel caso del requisito minimo di
+liquidit\`a,
+
+\[
+Q,
+\]
+
+la funzione del valore ottimo
+
+\[
+z^*(Q)
+\]
+
+misura il risultato massimo compatibile con ciascun livello del requisito.
+Localmente,
+
+\[
+\frac{\partial z^*(Q)}{\partial Q}
+=
+-\lambda_Q^*,
+\]
+
+dove \(\lambda_Q^*\) rappresenta il costo opportunit\`a marginale di una
+unit\`a aggiuntiva di liquidit\`a richiesta.
+
+Il problema duale rende sistematica questa lettura economica. Al primale
+
+\[
+\begin{array}{ll}
+\max & c'x\\
+\mbox{soggetto a} & Ax\leq b,\quad x\geq0
+\end{array}
+\]
+
+corrisponde
+
+\[
+\begin{array}{ll}
+\min & b'\lambda\\
+\mbox{soggetto a} & A'\lambda\geq c,\quad \lambda\geq0.
+\end{array}
+\]
+
+A ogni vincolo primale corrisponde una variabile duale, interpretabile come
+valore marginale della risorsa o del requisito corrispondente. La dualit\`a
+forte stabilisce che, all'ottimo,
+
+\[
+c'x^*
+=
+b'\lambda^*.
+\]
+
+Le condizioni di complementariet\`a completano il collegamento tra le due
+letture:
+
+\[
+\lambda_i^*
+\left(
+b_i-a_i'x^*
+\right)
+=
+0,
+\]
+
+\[
+x_j^*
+\left[
+(A'\lambda^*)_j-c_j
+\right]
+=
+0.
+\]
+
+Esse permettono di riconoscere quali vincoli possiedono valore marginale e
+quali attivit\`a risultano competitive rispetto al sistema dei prezzi
+impliciti.
+
+Il caso ispirato a Silicon Valley Bank ha mostrato concretamente che
+redditivit\`a e resilienza possono entrare in conflitto. Requisiti pi\`u
+severi di liquidit\`a e una dotazione minima di cassa modificano la
+composizione ottima dell'attivo e riducono il risultato economico misurato
+dalla funzione obiettivo. Tale riduzione rappresenta un costo opportunit\`a
+all'interno del modello, non il costo complessivo della prudenza.
+
+Questa distinzione conduce alla principale conclusione del capitolo:
+
+\begin{quote}
+\emph{una soluzione \`e ottima soltanto rispetto al problema che \`e stato
+formulato.}
+\end{quote}
+
+L'ottimizzazione non stabilisce autonomamente quali variabili debbano essere
+considerate, quali coefficienti siano appropriati, quale livello di rischio
+sia accettabile o quali dimensioni della decisione debbano entrare nella
+funzione obiettivo. Se una caratteristica economicamente rilevante non viene
+rappresentata, la procedura di ottimizzazione non pu\`o recuperarla.
+
+La programmazione lineare fornisce quindi una disciplina di modellizzazione:
+obbliga a rendere esplicite le decisioni disponibili, il risultato perseguito,
+i requisiti imposti e il costo marginale associato a tali requisiti.
+
+Il capitolo successivo parte proprio dal limite di una funzione obiettivo
+unica. In molte decisioni finanziarie il decisore non vuole soltanto
+massimizzare un risultato rispettando vincoli rigidi, ma perseguire
+simultaneamente pi\`u livelli desiderati di redditivit\`a, liquidit\`a,
+rischio e composizione del portafoglio.
+
+Il passaggio alla \emph{Goal Programming} pu\`o quindi essere sintetizzato
+come
+
+\[
+\boxed{
+\text{un obiettivo da ottimizzare con vincoli}
+\quad\longrightarrow\quad
+\text{pi\`u aspirazioni da perseguire simultaneamente}.
+}
+\]
+
+La struttura lineare sviluppata in questo capitolo rimarr\`a il punto di
+partenza matematico per costruire questa estensione.
+
 
 
