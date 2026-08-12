@@ -24,11 +24,11 @@ LINE_SPACING_SCALE = 1.00
 
 # Dimensioni per categoria.
 FONT_SIZES: dict[str, float] = {
-    "title": 15.0,
-    "axis_label": 11.0,
-    "tick_label": 10.0,
-    "point_label": 8.5,
-    "slope_label": 9.5,
+    "title": 19.0,
+    "axis_label": 16.0,
+    "tick_label": 16.0,
+    "point_label": 14,
+    "slope_label": 14.0,
 }
 
 # Interlinea per categoria.
@@ -37,7 +37,7 @@ LINE_SPACINGS: dict[str, float] = {
     "axis_label": 1.00,
     "tick_label": 1.00,
     "point_label": 1.00,
-    "slope_label": 1.00,
+    "slope_label": 1.10,
 }
 
 plt.rcParams["font.family"] = FONT_FAMILY
@@ -62,7 +62,7 @@ z = [3.7649, 3.5896, 3.4142, 3.2357, 3.0571, 2.8750, 2.5000]
 # Figura
 # ============================================================
 
-fig, ax = plt.subplots(figsize=(9.6, 5.8))
+fig, ax = plt.subplots(figsize=(9.4, 5.6))
 
 ax.plot(Q, z, marker="o", linewidth=2)
 
@@ -72,22 +72,26 @@ ax.set_title(
     linespacing=line_spacing("title")
 )
 ax.set_xlabel(
-    "Requisito minimo di liquidità  $Q$",
+    "Requisito minimo di liquidità $Q$",
     fontsize=font_size("axis_label"),
     linespacing=line_spacing("axis_label")
 )
 ax.set_ylabel(
-    "Valore ottimo  $z^*(Q)$",
+    "Valore ottimo $z^*(Q)$",
     fontsize=font_size("axis_label"),
     linespacing=line_spacing("axis_label")
 )
 ax.tick_params(axis="both", labelsize=font_size("tick_label"))
 
-# Annotazioni dei punti
-for q, val in zip(Q, z):
+# Griglia leggera
+ax.grid(True, alpha=0.4)
+
+# Etichette solo su alcuni punti chiave
+selected_points = [0, 2, 4, 6]
+for i in selected_points:
     ax.annotate(
-        f"({q}, {val:.4f})",
-        (q, val),
+        f"({Q[i]}, {z[i]:.4f})",
+        (Q[i], z[i]),
         textcoords="offset points",
         xytext=(0, 8),
         ha="center",
@@ -95,13 +99,22 @@ for q, val in zip(Q, z):
         linespacing=line_spacing("point_label")
     )
 
-# Evidenziazione della pendenza locale iniziale
+# Evidenziazione del tratto iniziale
+ax.plot(Q[:2], z[:2], linewidth=3)
+
+# Costo marginale iniziale tra 55 e 60
 slope_55_60 = (z[1] - z[0]) / (Q[1] - Q[0])
+
 mid_q = (Q[0] + Q[1]) / 2
 mid_z = (z[0] + z[1]) / 2
 
+annotation_text = (
+    "Costo marginale locale della liquidità\n"
+    f"pendenza ≈ {slope_55_60:.4f}"
+)
+
 ax.annotate(
-    f"pendenza locale ≈ {slope_55_60:.4f}",
+    annotation_text,
     xy=(mid_q, mid_z),
     xycoords="data",
     xytext=(0.97, 0.94),
@@ -111,7 +124,7 @@ ax.annotate(
     fontsize=font_size("slope_label"),
     linespacing=line_spacing("slope_label"),
     bbox=dict(
-        boxstyle="round,pad=0.35",
+        boxstyle="round,pad=0.30",
         facecolor="white",
         edgecolor="#777777"
     ),
@@ -122,7 +135,9 @@ ax.annotate(
     )
 )
 
-ax.grid(True)
+# Margini del grafico
+ax.set_xlim(54, 91)
+ax.set_ylim(2.45, 3.82)
 
 fig.tight_layout()
 fig.savefig(png_path, dpi=220, bbox_inches="tight")
