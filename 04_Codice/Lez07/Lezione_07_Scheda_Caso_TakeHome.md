@@ -133,12 +133,13 @@ La griglia principale è giornaliera, con 252 passi annui. Poiché $252/12=21$, 
 
 Devono essere determinate almeno le seguenti quantità:
 
-1. **prezzo Monte Carlo della call asiatica** $\widehat V_M$;
-2. **errore standard Monte Carlo** e intervallo di confidenza al 95% del prezzo;
+1. media e deviazione standard simulate di $S_T$ e $r_T$.
+2. media e deviazione standard simulate del prezzo medio $A_T$;
 3. **probabilità simulata di esercizio**, $\widehat{\mathbb P}(A_T>K)$;
-4. media e deviazione standard simulate della media asiatica $A_T$;
-5. valore medio del payoff non attualizzato $H_T$;
-6. media e deviazione standard simulate di $S_T$ e $r_T$.
+4. valore medio del payoff non attualizzato $H_T$;
+
+5. **prezzo Monte Carlo della call asiatica** $\widehat V_M$;
+6. **errore standard Monte Carlo** e intervallo di confidenza al 95% del prezzo;
 
 Le quantità devono essere ottenute a partire dai singoli scenari simulati: il payoff deve essere determinato scenario per scenario prima dell'aggregazione Monte Carlo.
 
@@ -151,9 +152,10 @@ Le quantità devono essere ottenute a partire dai singoli scenari simulati: il p
 Produrre:
 
 1. **tabella dei parametri del caso**;
-2. **tabella di sintesi del pricing**, contenente almeno prezzo Monte Carlo, errore standard, intervallo di confidenza al 95%, probabilità di esercizio e payoff medio;
-3. **tabella di diagnostica Monte Carlo** per $M=1\,000,\ 5\,000,\ 10\,000,\ 50\,000$, riportando almeno prezzo stimato ed errore standard;
-4. **tabella delle statistiche terminali**, contenente media e deviazione standard di $S_T$, $r_T$ e $A_T$.
+2. **tabella delle statistiche terminali**, contenente media e deviazione standard di $S_T$, $r_T$ e $A_T$;
+3. **tabella di sintesi del pricing**, contenente almeno prezzo Monte Carlo, errore standard, intervallo di confidenza al 95%, probabilità di esercizio e payoff medio;
+4. **tabella di diagnostica Monte Carlo** per $M=1\,000,\ 5\,000,\ 10\,000,\ 50\,000$, riportando almeno prezzo stimato ed errore standard.
+
 
 ### Grafici
 
