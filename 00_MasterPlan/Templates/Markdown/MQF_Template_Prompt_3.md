@@ -1,4 +1,4 @@
-# Template - Prompt 3
+# Prompt 3
 
 **Regime A/B - Scomposizione input-output.**
 

@@ -1,11 +1,19 @@
-# Template - Prompt di tappa in Regime B
+# Prompt di tappa in Regime B
 
 **Regime B - Traduzione operativa in codice.**
 
-Costruisci la Tappa [numero] - [titolo] del notebook relativo al caso [titolo del caso].
+## Parte variabile: contributo studente
 
-Gli input disponibili sono [indicare gli input]. La specifica teorica già fissata è [indicare formule, variabili, eventi, parametri e ipotesi].
+Costruisci la Tappa [numero].
 
-Produci [indicare celle Markdown, celle Python, tabelle o grafici richiesti] e applica il controllo [indicare controllo]. L'output sarà utilizzato nella Tappa [numero successivo] per [indicare uso successivo].
+Mi sembra utile che l'output sia caratterizzato da ....
+
+## Parte fissa: istruzioni per IA
 
 Puoi scegliere la forma tecnica della procedura, ma non modificare variabili, formule, ipotesi, stati informativi, scenari o significato finanziario del problema. Non anticipare le tappe successive.
+
+L'output atteso è composto da: 
+- una cella md che includa, separatamente, la copia fedele della richiesta dello studente e una sintesi logica degli output previsti dalla successiva cella di codice Python
+- una cella di codice Python da eseguire per ottenere gli output previsti
+
+

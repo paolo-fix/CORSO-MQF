@@ -1160,25 +1160,24 @@ Il notebook non deve essere una semplice raccolta di celle di codice. Deve esser
 La struttura consigliata del notebook, quando l'applicazione prevede uso documentato dell'IA, è:
 
 1. cella Markdown iniziale di inquadramento prodotta dal Prompt 1;
-2. cella Markdown con il Flusso logico-teorico risolutivo prodotto dal Prompt 2;
-3. cella Markdown con la scomposizione in tappe input-output prodotta dal Prompt 3;
-4. librerie Python necessarie;
-5. dati disponibili, parametri o procedura di simulazione;
-6. implementazione progressiva delle tappe;
-7. controlli intermedi;
-8. output numerici;
-9. grafici e tabelle;
-10. verifica conclusiva della coerenza tra notebook e Scheda Caso, se richiesta;
-11. interpretazione critica finale dello studente;
-12. verifica conclusiva dell'interpretazione, se richiesta;
-13. limiti del modello e sintesi finale.
+2. cella Markdown con la scomposizione in tappe input-output prodotta dal Prompt 3;
+3. librerie Python necessarie;
+4. dati disponibili, parametri o procedura di simulazione;
+5. implementazione progressiva delle tappe;
+6. controlli intermedi;
+7. output numerici;
+8. grafici e tabelle;
+9. verifica conclusiva della coerenza tra notebook e Scheda Caso, se richiesta;
+10. interpretazione critica finale dello studente;
+11. verifica conclusiva dell'interpretazione, se richiesta;
+12. limiti del modello e sintesi finale.
 
 Quando l'applicazione non prevede uso documentato dell'IA, la stessa struttura può essere adattata mantenendo comunque il collegamento tra caso, flusso teorico, tappe, output, controlli e interpretazione.
 
 Quando il notebook viene costruito passo passo con supporto dell’IA, ogni prompt di tappa può richiedere simultaneamente:
 
 1. una cella Markdown della tappa;
-2. una cella codice Python, se prevista;
+2. una cella di codice Python, se prevista;
 3. l’elenco degli output attesi;
 4. il controllo da eseguire;
 5. il collegamento con la tappa successiva.
@@ -1515,7 +1514,7 @@ La risposta dell'IA deve classificare l'esito della verifica in uno solo dei due
 
 Se la criticità è respinta, il notebook non viene modificato. La verifica resta documentata nel tracciato IA.
 
-Se la criticità è accolta, il notebook viene corretto senza aggiungere celle extra di verifica. Le celle della tappa interessata vengono sostituite con versioni corrette e informative. La cella Markdown della tappa deve incorporare in modo sintetico:
+Se la criticità è accolta, il notebook viene corretto senza aggiungere celle extra di verifica. Le celle della tappa interessata vengono sostituite con versioni corrette e informative. In questo caso, viene prodotta una cella Markdown che deve incorporare in modo sintetico:
 
 1. la criticità individuata;
 2. l'origine della criticità nella risposta dell'IA;

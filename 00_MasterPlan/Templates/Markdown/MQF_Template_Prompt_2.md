@@ -1,4 +1,4 @@
-# Template - Prompt 2
+# Prompt 2
 
 **Regime A - Ricognizione teorico-modellistica.**
 

@@ -1,4 +1,4 @@
-# Template - Prompt 1
+# Prompt 1
 
 ## Parte variabile: Scheda Caso
 

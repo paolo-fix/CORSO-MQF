@@ -9,18 +9,33 @@ Il caso specifico sarà fornito in un prompt successivo. **Per ora non devi fare
 ---
 
 ## Fasi del Lavoro
-Il lavoro dovrà essere sviluppato in modo ordinato attraverso le seguenti 10 fasi:
+Il lavoro dovrà essere sviluppato in modo ordinato attraverso le seguenti 9 fasi:
 
-1. **Lettura della traccia**
-2. **Costruzione Flusso logico-teorico risolutivo** del caso
-3. **Validazione Flusso logico-teorico risolutivo**
-4. **Scomposizione del problema** in tappe input-output
-5. **Validazione della scomposizione**
-6. **Costruzione progressiva** del notebook
-7. **Produzione degli output** numerici e grafici
-8. **Controlli** numerici, logici e interpretativi
-9. **Interpretazione critica**
-10. **Redazione del tracciato AI**
+<!--
+1. **Inizializzazione** (prompt 0)
+2. **Lettura della traccia** (prompt 1)
+3. **Costruzione Flusso logico-teorico risolutivo** del caso (prompt 2)
+4. **Validazione Flusso logico-teorico risolutivo** (conferma di quanto ottenuto fino a questo punto da parte dello studente)
+5. **Scomposizione del problema** in tappe input-output (prompt 3)
+6. **Validazione della scomposizione** (conferma di quanto ottenuto fino a questo punto da parte dello studente)
+7. **Costruzione progressiva del notebook**
+   **Produzione degli output numerici e grafici**
+   **Controlli numerici, logici e interpretativi**
+8. **Interpretazione critica** (validazione e commento conclusivo dei risultati)
+9. **Redazione del tracciato AI**
+-->
+| Fase | Attività | Riferimento o descrizione |
+|---:|---|---|
+| 1 | **Inizializzazione** | Prompt 0 |
+| 2 | **Lettura della traccia** | Prompt 1 |
+| 3 | **Costruzione del Flusso logico-teorico risolutivo del caso** | Prompt 2 |
+| 4 | **Validazione del Flusso logico-teorico risolutivo** | Conferma dello studente di quanto ottenuto fino a questo punto |
+| 5 | **Scomposizione del problema in tappe input-output** | Prompt 3 |
+| 6 | **Validazione della scomposizione** | Conferma dello studente di quanto ottenuto fino a questo punto |
+| 7 | **Costruzione progressiva del notebook**, **produzione degli output numerici e grafici**, **controlli numerici, logici e interpretativi** | Sviluppo progressivo delle tappe computazionali |
+| 8 | **Interpretazione critica** | Validazione e commento conclusivo dei risultati |
+| 9 | **Redazione del tracciato IA** | Documentazione dell’interazione con l’IA |
+
 
 ---
 

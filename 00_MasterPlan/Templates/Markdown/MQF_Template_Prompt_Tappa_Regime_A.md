@@ -1,19 +1,17 @@
-# Template - Prompt di tappa in Regime A
+# Prompt di tappa in Regime A
 
 **Regime A - Ricognizione teorico-modellistica.**
 
 ## Parte variabile: contributo studente
 
-Sto lavorando sulla Tappa [numero] - [titolo] del caso [titolo del caso].
+Sto lavorando sulla Tappa [numero].
 
-Gli input già disponibili sono [indicare gli input]. Gli oggetti teorici fissati dalla Scheda Caso sono [indicare variabili, eventi, informazione, ipotesi e formule].
-
-Secondo me, per questa tappa è necessario [inserire il contributo teorico dello studente Ciò dovrebbe essere prodotto in output: stime, calcoli, tabelle, figure e relative caratteristiche].
+Secondo me, per questa tappa è necessario [inserire le richieste di stime, calcoli, tabelle, figure e relative caratteristiche ritenute necessarie per le tappe successive].
 
 ## Parte fissa: istruzioni per IA
 
 Ti chiedo di verificare e completare questo ragionamento limitatamente alla tappa corrente. Non risolvere l'intero problema, non scegliere un modello diverso e non scrivere codice.
 
-L'output atteso sono: 
-- una cella md di sintesi, 
-- una (eventuale) cella di codice python per i possibili calcoli o output previsti
+L'output atteso è composto da: 
+- una cella md che includa, separatamente, la copia fedele della richiesta dello studente e una sintesi logica degli output previsti dalla successiva, eventuale, cella di codice Python
+- una (eventuale) cella di codice Python da eseguire per ottenere gli output previsti
