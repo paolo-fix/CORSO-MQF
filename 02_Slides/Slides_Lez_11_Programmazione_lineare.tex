@@ -1,7 +1,7 @@
 %2multibyte Version: 5.50.0.2960 CodePage: 65001
-% !TeX root = ./Slides_Lez_08_Catene_Markov.tex
+% !TeX root = ./Slides_Lez_11_Programmazione_lineare.tex
 % ------------------------------------------------------------
-% Slides Lezione 8 - Catene di Markov: definizioni e proprieta'
+% Slides Lezione 11 - Programmazione Lineare'
 % Progetto MQF - Metodi Quantitativi per la Finanza
 % Macro matematiche ufficiali del progetto MQF
 % Coerenti con MQF_Notazione.tex
@@ -1041,14 +1041,14 @@ modello considera \textbf{non realizzabile}.
 
 %*****************************
 
-\subsection{Margine e vincoli attivi}%
+\subsection{Ammissibilit\`{a} e confronto tra decisioni}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Due composizioni a confronto}
+\QTR{frametitle}{Il risultato pi\`{u} alto non basta}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -1064,10 +1064,10 @@ Con $A_0=100$, $Q_{\min}=55$, $K=7$, $\alpha A_0=30$:
 \begin{tabular}
 [c]{lcccc}\hline
 & \textbf{Risultato} & \textbf{Liquidit\`{a}} & \textbf{Perdita} &
-\textbf{Titoli lunghi}\\\hline
+\textbf{Titoli lunghi}\\
+&  & $\geq55$ & $\leq7$ & $\leq30$\\\hline
 $x^{(A)}=(5,10,45,40)^{\prime}$ & $4.10$ & $44.50$ & $10.15$ & $45$\\
 $x^{(B)}=(10,30,20,40)^{\prime}$ & $3.65$ & $55.00$ & $6.80$ & $20$\\\hline
-\multicolumn{1}{r}{\emph{richiesto}} & & $\geq55$ & $\leq7$ & $\leq30$\\
 \end{tabular}
 }
 \end{center}
@@ -1075,21 +1075,23 @@ $x^{(B)}=(10,30,20,40)^{\prime}$ & $3.65$ & $55.00$ & $6.80$ & $20$\\\hline
 \medskip
 
 \begin{stepitemize}
-\item $x^{(A)}$ produce il risultato pi\`{u} elevato e viola
-\textbf{tre} requisiti. Non pu\`{o} essere preferita a $x^{(B)}$: la
-verifica dell'ammissibilit\`{a} \textbf{precede} il confronto dei valori
-della funzione obiettivo.
+\item $x^{(A)}$ rende di pi\`{u} e viola \textbf{tre} requisiti su tre.
+Non \`{e} un'alternativa migliore: \`{e} fuori da $\mathcal{X}$.
 
-\item Per $x^{(B)}$ i margini sono $55-55=0$ sulla liquidit\`{a},
-$7-6.80=0.20$ sulla perdita, $30-20=10$ sulla concentrazione.
+\item La funzione obiettivo ordina le decisioni, ma ordina soltanto quelle
+ammissibili. L'\textbf{ammissibilit\`{a} precede il confronto dei valori}.
+
+\item Le due composizioni non si distinguono per\`{o} solo in
+ammissibile/non ammissibile: $x^{(B)}$ soddisfa la liquidit\`{a} esattamente
+al limite, la perdita con $0.20$ di margine, la concentrazione con $10$.
 \end{stepitemize}
 
 \medskip
 
-Un vincolo \`{e} \textbf{attivo} quando \`{e} soddisfatto esattamente al
-proprio limite, cio\`{e} quando il suo margine \`{e} nullo. In $x^{(B)}$ il
-requisito di liquidit\`{a} \`{e} attivo: ridurre le attivit\`{a} liquide,
-a parit\`{a} del resto, renderebbe la decisione inammissibile.
+\begin{center}
+{\small Serve una misura di \emph{quanto} una decisione dista dai propri
+limiti.}
+\end{center}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
@@ -1101,6 +1103,66 @@ a parit\`{a} del resto, renderebbe la decisione inammissibile.
 %EndExpansion
 
 %*****************************
+
+\subsection{Margini, vincoli attivi, diagnosi}%
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Margine di un vincolo e vincoli attivi}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Il \textbf{margine} $s_i$ misura quanto la decisione dista dal limite del
+vincolo $i$. L'espressione dipende dal verso:
+\[
+a_i^{\prime}x\leq b_i:
+\quad
+s_i=b_i-a_i^{\prime}x;
+\qquad
+a_i^{\prime}x\geq b_i:
+\quad
+s_i=a_i^{\prime}x-b_i.
+\]
+
+Nel primo caso $s_i$ conta quanto resta prima di superare il limite, nel
+secondo di quanto lo si supera. In entrambi,
+\[
+x\in\mathcal{X}
+\quad\Longleftrightarrow\quad
+s_i\geq0
+\;\text{ per ogni }i.
+\]
+
+Il vincolo \`{e} \textbf{attivo} quando $s_i=0$, cio\`{e} quando \`{e}
+soddisfatto come uguaglianza $a_i^{\prime}x=b_i$: la decisione si trova
+sulla sua frontiera.
+
+\medskip
+
+\begin{stepitemize}
+\item I vincoli attivi sono quelli che stanno \textbf{determinando} la
+decisione. Un vincolo con margine positivo, in quel punto, non morde.
+
+\item Un vincolo di uguaglianza ha margine nullo per costruzione: \`{e}
+attivo in ogni soluzione ammissibile.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%*********************
 
 \subsection{I tre esiti del solver}%
 
@@ -1131,19 +1193,14 @@ segnala normalmente che manca un vincolo rilevante.
 
 \medskip
 
-Nel problema bancario una regione vuota pu\`{o} indicare requisiti
-incompatibili con le attivit\`{a} disponibili, un limite alle perdite
-troppo restrittivo, limiti di concentrazione che impediscono di impiegare
-l'attivo, \emph{oppure} dati e vincoli formulati in modo incoerente.
+Una regione vuota pu\`{o} segnalare requisiti economicamente incompatibili,
+\emph{oppure} dati e vincoli formulati in modo incoerente.
 
 \medskip
 
 \begin{center}
-{\small \emph{La prima operazione da compiere quando un solver dichiara il
-problema inammissibile non \`{e} modificare i vincoli fino a ottenere una
-soluzione. Occorre identificare quali requisiti sono incompatibili e
-stabilire se l'incompatibilit\`{a} derivi dal problema economico o dalla
-sua formulazione.}}
+{\small \emph{Di fronte a un modello inammissibile, la prima operazione non
+\`{e} modificare i vincoli fino a ottenere una soluzione.}}
 \end{center}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
@@ -1445,40 +1502,19 @@ $D$ & $(3,4)$ & liquide al minimo, lunghe al massimo\\\hline
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Fissato un livello $k$, l'equazione $c_1x_1+c_2x_2=k$ descrive una
-\textbf{retta di livello}: tutti i suoi punti danno lo stesso risultato. Al
-crescere di $k$ la retta trasla parallelamente; la soluzione ottima \`{e}
-l'ultimo punto di contatto con la regione.
-
-\medskip
-
-Confrontando i due vertici pi\`{u} lontani nella direzione di crescita:
-\[
-z(B)=10c_1,
-\qquad
-z(C)=6c_1+4c_2.
-\]
-
-\begin{stepitemize}
-\item Se le lunghe rendono pi\`{u} delle liquide, vince $C$; nel caso
-opposto vince $B$; se i due contributi coincidono, tutto il segmento
-$BC$ \`{e} ottimo.
-
-\item Il rendimento spinge verso le attivit\`{a} pi\`{u} remunerative, il
-limite sulle lunghe stabilisce \textbf{fin dove} \`{e} possibile spingersi.
-\end{stepitemize}
-
-\medskip
-
-La regione \`{e} convessa: il segmento che congiunge due decisioni
-ammissibili resta ammissibile. I vertici sono i \textbf{punti estremi}, cio\`{e}
-i punti in cui si incontrano due frontiere.
-
-\medskip
+Stessa regione ammissibile, due criteri diversi: $2x_1+3x_2$ e
+$3x_1+2x_2$.
 
 \begin{center}
-{\small Se la regione non \`{e} vuota e limitata, per trovare l'ottimo basta guardare i vertici.}
+\includegraphics[width=0.60\textwidth]
+{../graphics/Cap11_Es02_geometria_ottimo.png}
 \end{center}
+
+\begin{stepitemize}
+\item Fissato un livello $k$, l'equazione $c_1x_1+c_2x_2=k$ descrive una
+\textbf{retta di livello}: tutti i suoi punti danno lo stesso risultato. Al
+crescere di $k$ la retta trasla parallelamente.
+\end{stepitemize}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
@@ -1492,6 +1528,51 @@ i punti in cui si incontrano due frontiere.
 %*****************************
 
 \section{La soluzione ottima del modello SVB}
+
+\subsection{Vincoli attivi e vertici}%
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Perch\'{e} l'ottimo si trova dove i vincoli stringono}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Un \textbf{vertice} \`{e} il punto in cui si incontrano tante frontiere
+quante sono le variabili. In due dimensioni servono due vincoli attivi; con
+$n$ variabili ne servono $n$.
+
+\begin{stepitemize}
+\item L'ottimo \`{e} l'\textbf{ultimo punto di contatto} con la regione. I
+vincoli non cambiano, cambia l'inclinazione delle rette: l'ottimo si sposta
+da $C$ a $B$.
+
+\item Se le rette fossero parallele a un lato, tutti i punti di quel lato
+sarebbero ottimi. In ogni caso \textbf{almeno un vertice \`{e} ottimo}:
+per cercare l'ottimo basta guardare i vertici.
+\end{stepitemize}
+
+\medskip
+
+\begin{center}
+{\small Cercare l'ottimo significa cercare la \textbf{combinazione di
+vincoli} che lo determina. Il valore di $z^{*}$ dice quanto si ottiene; i
+vincoli attivi dicono \emph{perch\'{e}} non si ottiene di pi\`{u}.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
 
 %*****************************
 
@@ -1514,31 +1595,32 @@ Una soluzione $x^{*}\in\mathcal{X}$ \`{e} \textbf{ottima} se
 c^{\prime}x^{*}\geq c^{\prime}x
 \qquad\text{per ogni }x\in\mathcal{X},
 \]
-e il valore $z^{*}=c^{\prime}x^{*}$ \`{e} il \textbf{valore ottimo}.
+e il valore $z^{*}=c^{\prime}x^{*}$ \`{e} il \textbf{valore ottimo}. La
+definizione richiede due condizioni: ammissibilit\`{a}, e nessuna
+alternativa ammissibile migliore.
 
 \medskip
 
-La definizione contiene due condizioni distinte:
-
 \begin{stepitemize}
-\item la soluzione deve essere \textbf{ammissibile};
+\item Se $\mathcal{X}$ non \`{e} vuoto e il massimo \`{e} finito, almeno una
+soluzione ottima \`{e} un \textbf{punto estremo}. Non ogni vertice \`{e}
+ottimo, ma per cercare l'ottimo basta esaminare i vertici.
 
-\item nessun'altra soluzione ammissibile deve produrre un risultato
-migliore.
+\item Un vertice \`{e} individuato da tante frontiere quante sono le
+variabili: con $n$ variabili, \textbf{$n$ vincoli attivi}. Fra questi
+possono figurare le condizioni di non negativit\`{a}, che sono vincoli a
+tutti gli effetti.
+
+\item Identificare la soluzione ottima significa quindi identificare la
+\textbf{combinazione di vincoli} che la determina.
 \end{stepitemize}
 
 \medskip
 
-Una composizione molto redditizia ma non ammissibile non \`{e} ottima; una
-composizione ammissibile non \`{e} necessariamente ottima.
-
-\medskip
-
 \begin{center}
-{\small L'ottimo va sempre riferito al modello adottato: alle variabili
-incluse, ai coefficienti utilizzati, ai vincoli imposti e alla funzione
-obiettivo scelta. Non \`{e} la migliore decisione possibile in senso
-assoluto.}
+{\small L'ottimo va riferito al modello adottato: variabili incluse,
+coefficienti, vincoli, funzione obiettivo. Non \`{e} la migliore decisione
+possibile in senso assoluto.}
 \end{center}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
@@ -1566,7 +1648,8 @@ assoluto.}
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Risolvendo il modello con $A_0=100$, $Q_{\min}=55$, $K=7$ e
+Quattro variabili: la soluzione ottima sar\`{a} il vertice individuato da
+quattro vincoli attivi. Risolvendo con $A_0=100$, $Q_{\min}=55$, $K=7$ e
 $x_3\leq30$:
 \[
 x^{*}\approx(0;\;41.045;\;20.896;\;38.060)^{\prime},
@@ -1575,12 +1658,17 @@ z^{*}\approx3.7649.
 \]
 
 \begin{center}
-\includegraphics[width=0.72\textwidth]
+\includegraphics[width=0.68\textwidth]
 {../graphics/Cap11_soluzione_ottima_allocazione.png}
 \end{center}
 
 \begin{stepitemize}
-\item Il valore $z^{*}$ va letto nell'unit\`{a} dei coefficienti $c_j$: rendimento percentuale.
+\item La soluzione \`{e} un vettore, non un numero: $z^{*}$ dice quanto si
+ottiene, $x^{*}$ dice come. Due modelli con lo stesso valore ottimo possono
+richiedere decisioni molto diverse.
+
+\item $z^{*}$ ha l'unit\`{a} dei coefficienti $c_j$: \`{e} il margine
+complessivo, che con $A_0=100$ si legge anche come percentuale dell'attivo.
 \end{stepitemize}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
@@ -1601,7 +1689,7 @@ z^{*}\approx3.7649.
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Che cosa determina davvero la composizione}
+\QTR{frametitle}{I vincoli attivi identificano la soluzione}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -1612,11 +1700,12 @@ z^{*}\approx3.7649.
 {\small
 \begin{tabular}
 [c]{lccc}\hline
-\textbf{Requisito} & \textbf{Valore} & \textbf{Limite} & \textbf{Margine}%
+\textbf{Vincolo} & \textbf{Valore} & \textbf{Limite} & \textbf{Margine}%
 \\\hline
 Bilancio & $100$ & $=100$ & $0$ \quad attivo\\
 Liquidit\`{a} & $55.00$ & $\geq55$ & $0$ \quad attivo\\
 Perdita sotto stress & $7.00$ & $\leq7$ & $0$ \quad attivo\\
+Non negativit\`{a} di $x_1$ & $0$ & $\geq0$ & $0$ \quad attivo\\
 Titoli a lunga scadenza & $20.896$ & $\leq30$ & $9.104$\\\hline
 \end{tabular}
 }
@@ -1624,25 +1713,23 @@ Titoli a lunga scadenza & $20.896$ & $\leq30$ & $9.104$\\\hline
 
 \medskip
 
-\begin{stepitemize}
-\item La decisione non \`{e} arrestata dal limite di concentrazione, ma
-dalla combinazione tra \textbf{fabbisogno di liquidit\`{a}} e
-\textbf{capacit\`{a} di assorbire perdite}. Questa informazione \`{e}
-economicamente pi\`{u} significativa del solo valore di $z^{*}$.
-
-\item Cassa nulla non significa cassa inutile: con questi coefficienti il
-requisito di liquidit\`{a} pu\`{o} essere soddisfatto attraverso i titoli a
-breve, che rendono di pi\`{u}. Se la banca ritiene necessaria una dotazione
-minima, deve scriverla come vincolo: $x_1\geq C_{\min}$.
-\end{stepitemize}
+Quattro variabili, quattro vincoli attivi: la soluzione \`{e} il vertice ottimo.
 
 \medskip
 
-\begin{center}
-{\small La soluzione ottima mette in evidenza non soltanto la decisione
-preferita dal modello, ma anche i requisiti economici che il modello non
-contiene ancora.}
-\end{center}
+\begin{stepitemize}
+\item Un vincolo con margine \textbf{positivo} non condiziona la soluzione:
+allentarlo lascerebbe $x^{*}$ invariato. 
+\item Solo un vincolo \textbf{attivo} pu\`{o} avere valore marginale non
+nullo. La decisione \`{e} condizionata dalla
+combinazione tra fabbisogno di liquidit\`{a} e capacit\`{a} di assorbire
+perdite.
+
+\item Un vincolo attivo pu\`{o} rivelare un requisito \textbf{mancante}:
+$x_1^{*}=0$ non significa cassa inutile, ma che nessun vincolo impone di
+detenerne. Se la banca ritiene necessaria una dotazione
+minima, deve scriverla come vincolo: $x_1\geq C_{\min}$.
+\end{stepitemize}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
@@ -1653,11 +1740,7 @@ contiene ancora.}
 \end{frame}%
 %EndExpansion
 
-%*****************************
-
-\section{Il costo di una maggiore prudenza}
-
-%*****************************
+%**************************
 
 \subsection{La funzione del valore ottimo}%
 
@@ -1666,36 +1749,43 @@ contiene ancora.}
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Che cosa accade se il requisito diventa pi\`{u} severo}
+\QTR{frametitle}{Analisi di sensitività: il valore ottimo come funzione di un termine noto}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Il livello $Q_{\min}=55$ non \`{e} prodotto dal modello: \`{e} un dato
-deciso prima della soluzione. Trattiamolo come un \textbf{parametro} $Q$ e
-indichiamo con $z^{*}(Q)$ il migliore risultato compatibile con esso.
+I termini noti $b_i$ non sono prodotti dal modello: sono livelli fissati
+prima della soluzione. Ciascuno pu\`{o} essere trattato come un
+\textbf{parametro} e si pu\`{o} studiare come varia il valore ottimo al suo
+variare.
 
 \medskip
 
-Se $Q_2>Q_1$, ogni decisione che soddisfa il requisito pi\`{u} severo
-soddisfa anche quello pi\`{u} blando:
+Nel modello SVB assumiamo come parametro il requisito di liquidit\`{a} e
+scriviamo $z^{*}(Q)$ per il migliore risultato compatibile con il livello
+$Q$.
+
+\medskip
+
+\begin{stepitemize}
+\item \textbf{Monotonia.} Se $Q_2>Q_1$, ogni decisione che soddisfa il
+requisito pi\`{u} severo soddisfa anche quello pi\`{u} blando:
 \[
 \mathcal{X}(Q_2)\subseteq\mathcal{X}(Q_1)
 \qquad\Longrightarrow\qquad
 z^{*}(Q_2)\leq z^{*}(Q_1).
 \]
 
-\medskip
+\item Il risultato non richiede di risolvere nulla: discende dal fatto che
+\textbf{restringere l'insieme ammissibile non pu\`{o} migliorare il
+massimo}.
 
-\begin{stepitemize}
-\item Il risultato non afferma che una maggiore liquidit\`{a} sia
-indesiderabile. Afferma che un requisito pi\`{u} severo pu\`{o} escludere
-alcune allocazioni redditizie.
-
-\item La riduzione di $z^{*}(Q)$ misura il \textbf{costo opportunit\`{a}}
-della maggiore prudenza \emph{all'interno del modello}.
+\item Non afferma che una maggiore liquidit\`{a} sia indesiderabile:
+afferma che un requisito pi\`{u} severo pu\`{o} escludere allocazioni
+redditizie. La riduzione di $z^{*}$ misura il \textbf{costo
+opportunit\`{a}} della prudenza \emph{all'interno del modello}.
 \end{stepitemize}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
@@ -1729,9 +1819,8 @@ della maggiore prudenza \emph{all'interno del modello}.
 [c]{ccl}\hline
 $Q$ & $z^{*}(Q)$ & \textbf{Composizione ottima}\\\hline
 $55$ & $3.7649$ & $(0;\;41.045;\;20.896;\;38.060)$\\
-$60$ & $3.5896$ & $(0;\;46.269;\;25.373;\;28.358)$\\
-% $65$ & $3.4142$ & $(0;\;51.493;\;29.851;\;18.657)$\\
-$70$ & $3.2357$ & $(0;\;58.571;\;30.000;\;11.429)$\\
+$65$ & $3.4142$ & $(0;\;51.493;\;29.851;\;18.657)$\\
+$75$ & $3.0571$ & $(0;\;65.714;\;30.000;\;4.286)$\\
 $80$ & $2.8750$ & $(0;\;75.000;\;25.000;\;0)$\\\hline
 \end{tabular}
 }
@@ -1742,10 +1831,7 @@ $80$ & $2.8750$ & $(0;\;75.000;\;25.000;\;0)$\\\hline
 {../graphics/Cap11_valore_ottimo_liquidita.png}
 \end{center}
 
-\smallskip
-
-Tra $Q=55$ e $Q=56$ il valore ottimo scende da $3.7649$ a $3.7299$: una
-unit\`{a} aggiuntiva di liquidit\`{a} costa circa $0.0351$.
+$z^{*}(Q)$ \`{e} \textbf{funzione lineare a tratti}. La pendenza cambia quando cambia l'insieme dei vincoli attivi.
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
@@ -1765,7 +1851,7 @@ unit\`{a} aggiuntiva di liquidit\`{a} costa circa $0.0351$.
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Come leggere il costo marginale}
+\QTR{frametitle}{Come si legge un costo marginale}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -1773,28 +1859,83 @@ unit\`{a} aggiuntiva di liquidit\`{a} costa circa $0.0351$.
 %EndExpansion
 
 \begin{stepitemize}
-\item \textbf{Non \`{e} una spesa}. Nessun esborso contabile: \`{e} il
-rendimento massimo al quale il modello deve rinunciare per rispettare un
-requisito leggermente pi\`{u} severo.
+\item \textbf{\`{E} un costo opportunit\`{a}, non una spesa.} Nessun
+esborso contabile: \`{e} il risultato massimo al quale il modello rinuncia
+per rispettare un requisito leggermente pi\`{u} severo.
 
-\item \textbf{La composizione si ricompone}. Le risorse migrano verso i
-titoli a breve, che hanno liquidabilit\`{a} elevata; si riducono gli
-impieghi meno liquidi, che passano da $38$ a zero.
+\item \textbf{Vale localmente.} La derivata di $z^{*}$ rispetto al termine
+noto \`{e} costante finch\'{e} l'insieme dei vincoli attivi non cambia.
+Fuori da quell'intervallo va ricalcolata: un costo marginale senza il
+proprio intervallo di validit\`{a} \`{e} un numero incompleto.
 
-\item \textbf{Il valore \`{e} locale}. Vale finch\'{e} non cambia
-l'insieme dei vincoli che determinano la soluzione. A $Q=70$ i titoli a
-lunga raggiungono il limite di concentrazione: da quel punto in poi il
-costo di un'ulteriore unit\`{a} \`{e} maggiore e va ricalcolato.
+\item \textbf{Si legge nella ricomposizione.} Il costo non nasce dal nulla:
+irrigidire un requisito obbliga a sostituire alcune attivit\`{a} con altre
+meno redditizie. Qui le risorse migrano verso i titoli a breve e i prestiti
+si riducono fino ad azzerarsi.
+
+\item \textbf{Non \`{e} una risposta normativa.} Dice quanto costa la
+prudenza, non quanta prudenza serva: quella scelta richiede valutazioni sul
+rischio dei deflussi e sulla stabilit\`{a} della raccolta, che il modello
+non contiene.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%*****************************
+
+\section{Sensitivit\`{a} e prezzi impliciti}
+
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Ogni vincolo ha un proprio effetto marginale}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+L'analisi condotta su $Q$ non ha nulla di specifico: ogni termine noto
+$b_i$ pu\`{o} essere fatto variare, e a ciascuno corrisponde una derivata
+del valore ottimo. In un modello con $m$ vincoli la sensitivit\`{a} non
+\`{e} un numero, ma un \textbf{vettore di $m$ numeri}:
+\[
+\frac{\partial z^{*}}{\partial b_1},
+\quad
+\frac{\partial z^{*}}{\partial b_2},
+\quad\ldots,\quad
+\frac{\partial z^{*}}{\partial b_m}.
+\]
+
+\begin{stepitemize}
+\item Le $m$ derivate sono \textbf{confrontabili}: dicono quale requisito
+sta costando di pi\`{u} e dove un allentamento produrrebbe il beneficio
+maggiore. \`{E} l'informazione che il decisore cerca.
+
+\item Un vincolo con margine positivo ha derivata \textbf{nulla}:
+allentarlo non modifica la soluzione, quindi non modifica $z^{*}$. Solo i
+vincoli attivi contano.
+
+\item Calcolarle una per una richiede di risolvere il problema $m$ volte,
+con un'ulteriore soluzione per ogni perturbazione. Su modelli reali, con
+centinaia di vincoli, il procedimento non \`{e} praticabile.
 \end{stepitemize}
 
 \medskip
 
 \begin{center}
-{\small L'analisi marginale risponde alla domanda: quanto risultato viene
-sacrificato imponendo una piccola variazione del requisito? Non risponde
-alla domanda normativa su quale debba essere il livello corretto di
-liquidit\`{a}, che richiede valutazioni sul rischio dei deflussi e sulla
-stabilit\`{a} della raccolta.}
+{\small Serve un modo per ottenere tutte le derivate \textbf{in una sola
+soluzione}.}
 \end{center}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
@@ -1807,6 +1948,351 @@ stabilit\`{a} della raccolta.}
 %EndExpansion
 
 %*****************************
+
+\subsection{Il prezzo ombra di un vincolo}%
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Il prezzo ombra di un vincolo}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Si chiama \textbf{prezzo ombra} del vincolo $i$ la derivata del valore
+ottimo rispetto al proprio termine noto,
+\[
+\lambda_i=\frac{\partial z^{*}}{\partial b_i},
+\]
+valida sull'intervallo in cui l'insieme dei vincoli attivi non cambia. Il
+segno dipende dal verso: una risorsa disponibile in maggior quantit\`{a}
+migliora il risultato, un requisito pi\`{u} severo lo peggiora.
+
+\begin{center}
+{\small
+\begin{tabular}
+[c]{lcrl}\hline
+\textbf{Vincolo} & \textbf{Termine noto} & $\lambda_i$ &
+\textbf{Lettura}\\\hline
+Bilancio & $A_0=100$ & $0.05642$ & valore di una risorsa in pi\`{u}\\
+Liquidit\`{a} & $Q=55$ & $-0.03507$ & costo di un requisito pi\`{u} severo\\
+Perdita & $K=7$ & $0.00746$ & valore di un limite pi\`{u} ampio\\
+Concentrazione & $30$ & $0.00000$ & vincolo non attivo\\\hline
+\end{tabular}
+}
+\end{center}
+
+\begin{stepitemize}
+\item Il \textbf{vettore dei prezzi ombra} include $\lambda_Q=-0.03507$ già osservato.
+
+\item $\lambda_C=0$ perch\'{e} il limite di concentrazione ha margine
+$9.104$: \textbf{margine positivo implica prezzo nullo}.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%*****************************
+
+\subsection{L'origine economica del duale}%
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{I prezzi impliciti esauriscono il valore ottimo}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+I prezzi ombra non sono quattro numeri indipendenti. Valutando ogni livello
+al proprio prezzo e sommando:
+\[
+100\,(0.05642)-55\,(0.03507)+7\,(0.00746)+30\,(0)=3.7654\approx z^{*}.
+\]
+
+\medskip
+
+\begin{stepitemize}
+\item Il risultato ottenibile dalla decisione e il \textbf{valore implicito
+delle risorse} coincidono. I prezzi ombra ripartiscono $z^{*}$ tra i
+vincoli: ciascuno riceve la quota di risultato che sta determinando.
+
+\item Il limite di concentrazione riceve zero. Non contribuisce a spiegare
+$z^{*}$ perch\'{e} non lo sta determinando.
+
+\item La relazione $\sum_i b_i\lambda_i=z^{*}$ vale in generale, non solo
+qui: \`{e} il legame tra il problema di \emph{decisione} e un problema di
+\textbf{valutazione}.
+\end{stepitemize}
+
+\medskip
+
+\begin{center}
+{\small Quel problema di valutazione \`{e} un secondo programma lineare, il
+\textbf{duale}: ha per incognite i prezzi $\lambda_i$ e li produce tutti in
+una sola soluzione. La Lezione 12 lo costruisce e lo interpreta.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Esercizio in aula: redditivit\`{a} e resilienza}
+
+%*****************************
+
+\subsection{Enunciato}%
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Esercizio: quali vincoli determineranno la decisione?}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+La banca adotta una \textbf{politica resiliente}: requisito di
+liquidit\`{a} portato a $Q=75$ e dotazione minima di cassa
+$x_1\geq10$. Limite alle perdite e limite di concentrazione restano
+invariati.
+
+\medskip
+
+Nella politica attuale i vincoli attivi erano bilancio, liquidit\`{a},
+perdita e $x_1\geq0$; la concentrazione aveva margine $9.104$.
+
+\medskip
+
+\begin{stepenumerate}
+\item [1.] Il nuovo modello ha cinque vincoli oltre alla non
+negativit\`{a}. \textbf{Quanti} ne saranno attivi nell'ottimo?
+
+\item [2.] \textbf{Quali}? Motivare: quale requisito spinge le risorse
+verso quale classe di attivo.
+
+\item [3.] Per ciascun vincolo che \textbf{cessa} di essere attivo, che
+cosa accade al suo prezzo ombra? E per ciascuno che lo \textbf{diventa}?
+
+\item [4.] Il valore ottimo sar\`{a} maggiore o minore di $3.7649$? Si
+pu\`{o} rispondere senza risolvere?
+\end{stepenumerate}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%*****************************
+
+\subsection{Debrief}%
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{I vincoli si scambiano il ruolo}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+\begin{center}
+{\small
+\begin{tabular}
+[c]{lrrrr}\hline
+& \multicolumn{2}{c}{\textbf{Politica attuale}} &
+\multicolumn{2}{c}{\textbf{Politica resiliente}}\\
+\textbf{Vincolo} & \textbf{margine} & $\lambda_i$ & \textbf{margine} &
+$\lambda_i$\\\hline
+Liquidit\`{a} & $0$ & $-0.03507$ & $0$ & $-0.03571$\\
+Perdita sotto stress & $0$ & $0.00746$ & $0.957$ & $0$\\
+Concentrazione & $9.104$ & $0$ & $0$ & $0.00071$\\
+Cassa minima & --- & --- & $0$ & $-0.01143$\\\hline
+\end{tabular}
+}
+\end{center}
+
+\medskip
+
+$x^{*}=(10;\;54.286;\;30;\;5.714)^{\prime}$, \quad $z^{*}=2.9429$: il costo
+della resilienza \`{e} $0.8221$, il \textbf{21.8\%}.
+
+\medskip
+
+\begin{stepitemize}
+\item Perdita e concentrazione si \textbf{scambiano} margine e prezzo. Il
+vincolo che prima determinava la decisione ora non morde; quello che non
+mordeva ora la determina.
+
+\item Il segno di $z^{*}$ era prevedibile senza risolvere: entrambi i nuovi
+requisiti \textbf{restringono} $\mathcal{X}$, quindi $z^{*}$ non pu\`{o}
+aumentare.
+
+\item Il modello quantifica il costo della resilienza, non il valore della
+sopravvivenza: la funzione obiettivo non contiene la continuit\`{a}
+aziendale.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%*****************************
+
+\section{Limiti del modello e sintesi}
+
+%*****************************
+
+\subsection{Che cosa il modello non rappresenta}%
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{I limiti sono conseguenze delle ipotesi}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Ogni ipotesi di linearit\`{a} dichiarata all'inizio produce un limite
+preciso alla portata dei risultati.
+
+\medskip
+
+\begin{center}
+{\small
+\begin{tabular}
+[c]{ll}\hline
+\textbf{Ipotesi} & \textbf{Limite che ne deriva}\\\hline
+Proporzionalit\`{a} & nessuna \emph{fire sale}: la perdita unitaria non
+cresce\\
+ & con l'importo liquidato\\[3pt]
+Additivit\`{a} & nessuna amplificazione tra classi di attivo\\[3pt]
+Coefficienti dati & un solo scenario di stress; l'incertezza \`{e}
+riassunta\\
+ & in $c_j$, $q_j$, $\ell_j$ e non compare esplicitamente\\\hline
+\end{tabular}
+}
+\end{center}
+
+\medskip
+
+\begin{stepitemize}
+\item Un limite ulteriore non riguarda i vincoli ma la
+\textbf{funzione obiettivo}: massimizzare il margine non attribuisce alcun
+valore alla continuit\`{a} aziendale. Il costo della resilienza \`{e}
+misurato, il beneficio no.
+
+\item Una soluzione pu\`{o} essere inadeguata non perch\'{e} il problema
+sia stato risolto male, ma perch\'{e} il problema \textbf{formulato} non
+contiene una dimensione rilevante.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%*****************************
+
+\subsection{Sintesi}%
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Sintesi: dal vincolo al suo prezzo}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+\begin{stepenumerate}
+\item [1.] \textbf{Formulare.} Variabili decisionali, parametri, funzione
+obiettivo, vincoli: $\max c^{\prime}x$, $Ax\leq b$, $x\geq0$.
+
+\item [2.] \textbf{Delimitare.} $\mathcal{X}$ raccoglie le decisioni
+realizzabili; l'ammissibilit\`{a} precede il confronto dei valori. Il
+margine $s_i$ misura la distanza dal limite.
+
+\item [3.] \textbf{Individuare.} L'ottimo sta in un punto estremo: con $n$
+variabili, $n$ vincoli attivi. Identificare $x^{*}$ significa identificare
+la combinazione di vincoli che lo determina.
+
+\item [4.] \textbf{Valutare al margine.} $z^{*}(b_i)$ \`{e} lineare a
+tratti; la sua derivata \`{e} il prezzo ombra $\lambda_i$, nullo dove il
+margine \`{e} positivo.
+
+\item [5.] \textbf{Prezzare.} I prezzi impliciti esauriscono il valore
+ottimo: $\sum_i b_i\lambda_i=z^{*}$.
+\end{stepenumerate}
+
+\medskip
+
+\begin{center}
+{\small Il vincolo non \`{e} un dettaglio tecnico della formulazione: \`{e}
+la decisione, e ha un prezzo.
+\smallskip
+
+\textbf{Lezione 12}: il duale che produce quei prezzi, e che cosa accade
+quando i requisiti non sono obblighi rigidi ma obiettivi da avvicinare.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%*****************************
+
+
 
 
 %*****************************
