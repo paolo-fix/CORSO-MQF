@@ -4,8 +4,9 @@
 
 - **Lezione:** Lezione 07 — Applicazione in Python: traiettorie, simulazione e pricing Monte Carlo
 - **Tipo di caso:** take-home
-- **Titolo:** *Path-dependence e tassi stocastici: pricing Monte Carlo di un'opzione asiatica*
-- **Contesto:** valutazione di una call asiatica a media aritmetica in presenza di sottostante azionario e tasso nominale stocastici
+- **Titolo:** *Pricing Monte Carlo di una call asiatica sull'EURO STOXX 50 con tasso di interesse stocastico*
+- **Contesto:** valutazione di una call asiatica OTC a media aritmetica su indice azionario, con tasso nominale stocastico
+- **Data di riferimento:** 27 luglio 2026
 - **Uso previsto:** lavoro autonomo mediante notebook Jupyter, successivo al caso sviluppato in aula
 
 Questa Scheda Caso costituisce la **specifica vincolante del lavoro**. Variabili, formule, parametri, output, controlli e ipotesi non devono essere modificati durante lo svolgimento.
@@ -16,22 +17,21 @@ La Scheda Caso non contiene la soluzione del problema: il Flusso logico-teorico 
 
 ## 2. Contesto e domanda quantitativa
 
-Un intermediario finanziario deve valutare una **call asiatica a media aritmetica** scritta su un titolo azionario. A differenza di una call europea ordinaria, il payoff non dipende soltanto dal prezzo terminale del sottostante, ma dalla media dei prezzi osservati in un insieme prefissato di date di fixing.
+Il sottostante è l'**EURO STOXX 50**, uno dei principali benchmark azionari dell'area euro e sottostante di un mercato molto liquido di futures e opzioni vanilla presso Eurex.
 
-Il valore del contratto dipende quindi dalla traiettoria del prezzo azionario. Si assume inoltre che il tasso nominale privo di rischio sia stocastico: il fattore utilizzato per attualizzare il payoff deve essere costruito a partire dalla traiettoria simulata del tasso.
+Il caso è collocato al **27 luglio 2026**. In quella seduta l'indice chiude a circa 6.286 punti, in prossimità della parte alta del range osservato nei dodici mesi precedenti. Lo strike viene fissato a 6.300 punti, quindi in posizione sostanzialmente at-the-money e coerente con la griglia di strike utilizzata per le opzioni EURO STOXX 50 con scadenza 6--12 mesi.
 
-Le due fonti di rischio sono pertanto:
+Il contesto dei tassi riflette l'estate 2026. A giugno la BCE ha aumentato di 25 punti base i tassi ufficiali in risposta alle nuove pressioni inflazionistiche legate allo shock energetico; il 23 luglio ha poi lasciato invariato al 2,25% il tasso sui depositi. Il valore iniziale dello short rate viene ancorato all'€STR del 27 luglio 2026.
 
-1. il **prezzo del sottostante** $S_t$, che determina la media asiatica e quindi il payoff;
-2. il **tasso nominale istantaneo** $r_t$, che determina l'attualizzazione.
+Una **call asiatica a media aritmetica** non dipende soltanto dal livello terminale dell'indice, ma dalla media dei livelli osservati a date prefissate. L'averaging riduce la dipendenza da un singolo fixing e rende il contratto adatto a esposizioni o prodotti il cui riferimento economico è una performance media.
 
-Gli shock che guidano i due processi sono correlati.
+Le opzioni asiatiche sono molto diffuse come average-price options nei mercati delle commodity, dove vengono utilizzate per coprire esposizioni distribuite nel tempo. In ambito azionario strutture Asian-style compaiono soprattutto nel mercato OTC, nei prodotti strutturati e in alcuni contratti equity-linked di investitori istituzionali e compagnie di assicurazione. Nel presente caso si considera un contratto **OTC**: non si assume che la call asiatica sia quotata su Eurex.
 
 La domanda quantitativa è:
 
-> **Qual è il valore corrente della call asiatica, stimato mediante simulazione Monte Carlo, quando il sottostante azionario e il tasso nominale evolvono congiuntamente in modo stocastico?**
+> **Qual è il valore corrente della call asiatica sull'EURO STOXX 50, stimato mediante simulazione Monte Carlo, quando il livello dell'indice e il tasso nominale evolvono congiuntamente in modo stocastico?**
 
-L'oggetto finale della simulazione è il valore attualizzato del payoff ottenuto in ciascuno scenario. Il prezzo dell'opzione è stimato come media Monte Carlo di tali valori.
+L'oggetto finale della simulazione è il valore attualizzato del payoff ottenuto in ciascuno scenario.
 
 ---
 
@@ -39,11 +39,11 @@ L'oggetto finale della simulazione è il valore attualizzato del payoff ottenuto
 
 ### Dinamica del sottostante
 
-Il prezzo azionario segue una dinamica moltiplicativa di tipo GBM, con tasso privo di rischio stocastico:
+Il livello dell'EURO STOXX 50 segue una dinamica moltiplicativa di tipo GBM con short rate stocastico e dividend yield continuo:
 
-$$dS_t=r_tS_t\,dt+\sigma_S S_t\,dW_t^{(S)}.$$
+$$dS_t=(r_t-q)S_t\,dt+\sigma_S S_t\,dW_t^{(S)}.$$
 
-Non sono previsti dividendi.
+Il parametro $q$ rappresenta il dividend yield continuo dell'indice.
 
 ### Dinamica del tasso nominale
 
@@ -55,7 +55,7 @@ I parametri assegnati soddisfano la condizione di Feller:
 
 $$2\kappa_r\theta_r\geq\sigma_r^2.$$
 
-Per la simulazione del CIR deve essere utilizzata la **stessa convenzione numerica adottata nel caso aula**. Non deve essere introdotta autonomamente una tecnica di simulazione differente.
+Per la simulazione del CIR deve essere utilizzata la **stessa convenzione numerica adottata nel caso aula**.
 
 ### Dipendenza tra i fattori
 
@@ -69,7 +69,7 @@ $$Z_{S,k}=Z_{1,k},\qquad Z_{r,k}=\rho Z_{1,k}+\sqrt{1-\rho^2}\,Z_{2,k}.$$
 
 ### Date di fixing e media asiatica
 
-La scadenza è $T=1$ anno. Sono previsti $m=12$ fixing mensili alle date
+La scadenza è $T=1$ anno. Sono previsti $m=12$ fixing mensili:
 
 $$t_j=\frac{j}{12},\qquad j=1,\ldots,12.$$
 
@@ -81,7 +81,7 @@ Il valore iniziale $S_0$ **non** entra nella media.
 
 ### Payoff e attualizzazione
 
-Il payoff della call asiatica a scadenza è:
+Il payoff a scadenza è:
 
 $$H_T=\max(A_T-K,0).$$
 
@@ -89,41 +89,50 @@ Il fattore di sconto associato a una traiettoria del tasso è:
 
 $$D(0,T)=\exp\left(-\int_0^T r_u\,du\right).$$
 
-Per lo scenario simulato $s$, il valore attualizzato è:
+Per lo scenario simulato $s$:
 
 $$V^{(s)}=D^{(s)}(0,T)H_T^{(s)}.$$
 
-Con $M$ traiettorie, il prezzo Monte Carlo è:
+Con $M$ traiettorie:
 
 $$\widehat V_M=\frac{1}{M}\sum_{s=1}^{M}V^{(s)},$$
 
-e il relativo errore standard è:
+e:
 
 $$SE(\widehat V_M)=\frac{s_V}{\sqrt{M}},$$
 
-dove $s_V$ è la deviazione standard campionaria dei valori attualizzati $V^{(s)}$.
+dove $s_V$ è la deviazione standard campionaria dei valori attualizzati.
 
 ---
 
 ## 4. Parametri assegnati
 
-I parametri sono assegnati a fini didattici e **non costituiscono una calibrazione a dati di mercato**.
+I parametri combinano dati osservati, proxy di mercato e scelte modellistiche didattiche. Non costituiscono una calibrazione completa del modello.
 
-| Componente | Parametro | Valore |
-|---|---|---:|
-| Contratto | $S_0$ | 100 |
-| Contratto | $K$ | 100 |
-| Contratto | $T$ | 1 anno |
-| Contratto | fixing | 12 mensili |
-| Sottostante | $\sigma_S$ | 0,20 |
-| Tasso CIR | $r_0$ | 0,030 |
-| Tasso CIR | $\kappa_r$ | 1,50 |
-| Tasso CIR | $\theta_r$ | 0,030 |
-| Tasso CIR | $\sigma_r$ | 0,10 |
-| Dipendenza | $\rho$ | -0,30 |
-| Simulazione | $\Delta t$ | $1/252$ |
-| Simulazione | $M$ | 50.000 |
-| Simulazione | seed | 12345 |
+| Componente | Parametro | Valore | Natura |
+|---|---|---:|---|
+| Data | $t_0$ | 27/07/2026 | data di riferimento |
+| Sottostante | indice | EURO STOXX 50 | dato di mercato |
+| Contratto | $S_0$ | 6.286,35 | chiusura di mercato |
+| Contratto | $K$ | 6.300 | strike quasi ATM |
+| Contratto | $T$ | 1 anno | specifica contrattuale |
+| Contratto | fixing | 12 mensili | specifica contrattuale |
+| Dividendi | $q$ | 0,025 | proxy di mercato arrotondata |
+| Sottostante | $\sigma_S$ | 0,18 | proxy market-consistent |
+| Tasso CIR | $r_0$ | 0,02185 | €STR, 27/07/2026 |
+| Tasso CIR | $\kappa_r$ | 1,25 | parametro didattico |
+| Tasso CIR | $\theta_r$ | 0,0220 | parametro didattico |
+| Tasso CIR | $\sigma_r$ | 0,040 | parametro didattico |
+| Dipendenza | $\rho$ | -0,25 | ipotesi modellistica |
+| Simulazione | $\Delta t$ | $1/252$ | griglia giornaliera |
+| Simulazione | $M$ | 50.000 | numero di traiettorie |
+| Simulazione | seed | 12345 | seme casuale |
+
+La condizione di Feller è soddisfatta:
+
+$$2(1.25)(0.0220)=0.055>0.0016=(0.040)^2.$$
+
+Il dividend yield del 2,5% è una proxy arrotondata coerente con il trailing dividend distribution yield di ETF che replicano l'EURO STOXX 50 a fine luglio 2026. La volatilità del 18% è una proxy coerente con l'ordine di grandezza dei VSTOXX futures osservabili nello stesso periodo. I parametri CIR diversi da $r_0$ e la correlazione $\rho$ sono invece assegnati a fini didattici.
 
 La griglia principale è giornaliera, con 252 passi annui. Poiché $252/12=21$, i fixing mensili corrispondono ai passi $21,42,\ldots,252$.
 
@@ -131,17 +140,16 @@ La griglia principale è giornaliera, con 252 passi annui. Poiché $252/12=21$, 
 
 ## 5. Quantità da stimare o calcolare
 
-Devono essere determinate almeno le seguenti quantità:
+Le quantità richieste devono essere determinate nel seguente **ordine operativo**:
 
-1. media e deviazione standard simulate di $S_T$ e $r_T$.
+1. media e deviazione standard simulate di $S_T$ e $r_T$;
 2. media e deviazione standard simulate del prezzo medio $A_T$;
 3. **probabilità simulata di esercizio**, $\widehat{\mathbb P}(A_T>K)$;
 4. valore medio del payoff non attualizzato $H_T$;
-
 5. **prezzo Monte Carlo della call asiatica** $\widehat V_M$;
-6. **errore standard Monte Carlo** e intervallo di confidenza al 95% del prezzo;
+6. **errore standard Monte Carlo** e intervallo di confidenza al 95% del prezzo.
 
-Le quantità devono essere ottenute a partire dai singoli scenari simulati: il payoff deve essere determinato scenario per scenario prima dell'aggregazione Monte Carlo.
+Le quantità devono essere ottenute a partire dai singoli scenari simulati. In particolare, la media asiatica e il payoff devono essere determinati scenario per scenario prima dell'aggregazione Monte Carlo.
 
 ---
 
@@ -151,17 +159,16 @@ Le quantità devono essere ottenute a partire dai singoli scenari simulati: il p
 
 Produrre:
 
-1. **tabella dei parametri del caso**;
-2. **tabella delle statistiche terminali**, contenente media e deviazione standard di $S_T$, $r_T$ e $A_T$;
-3. **tabella di sintesi del pricing**, contenente almeno prezzo Monte Carlo, errore standard, intervallo di confidenza al 95%, probabilità di esercizio e payoff medio;
+1. **tabella dei parametri del caso**, distinguendo dati osservati, proxy di mercato e parametri didattici;
+2. **tabella delle statistiche dei fattori e della media asiatica**, contenente media e deviazione standard di $S_T$, $r_T$ e $A_T$;
+3. **tabella di sintesi del payoff e del pricing**, contenente probabilità di esercizio, payoff medio, prezzo Monte Carlo, errore standard e intervallo di confidenza al 95%;
 4. **tabella di diagnostica Monte Carlo** per $M=1\,000,\ 5\,000,\ 10\,000,\ 50\,000$, riportando almeno prezzo stimato ed errore standard.
-
 
 ### Grafici
 
 Produrre almeno:
 
-1. alcune traiettorie simulate del sottostante $S_t$;
+1. alcune traiettorie simulate dell'EURO STOXX 50, $S_t$;
 2. alcune traiettorie simulate del tasso nominale $r_t$;
 3. distribuzione simulata di $A_T$, con evidenza dello strike $K$;
 4. distribuzione dei valori attualizzati $V^{(s)}$;
@@ -175,10 +182,10 @@ I grafici devono avere funzione interpretativa e riportare titoli, assi e unità
 
 Il notebook deve verificare esplicitamente che:
 
-1. la correlazione empirica degli shock simulati sia coerente con il valore assegnato $\rho=-0,30$;
+1. la correlazione empirica degli shock simulati sia coerente con il valore assegnato $\rho=-0,25$;
 2. il processo simulato del sottostante soddisfi $S_t>0$;
 3. eventuali valori negativi di $r_t$ prodotti dalla discretizzazione siano rilevati e documentati secondo la convenzione numerica adottata nel caso aula;
-4. per ogni scenario valga $\min_j S_{t_j}\leq A_T\leq\max_j S_{t_j}$;
+4. per ogni scenario valga $\min_jS_{t_j}\leq A_T\leq\max_jS_{t_j}$;
 5. il payoff soddisfi sempre $H_T\geq0$ e sia nullo quando $A_T\leq K$;
 6. il fattore di sconto soddisfi $D(0,T)>0$;
 7. l'errore standard Monte Carlo diminuisca al crescere di $M$, in modo compatibile con l'ordine $1/\sqrt{M}$;
@@ -192,12 +199,14 @@ Il notebook deve verificare esplicitamente che:
 Ai fini di questa applicazione:
 
 1. le dinamiche assegnate sono utilizzate direttamente ai fini del pricing;
-2. i parametri sono costanti e non devono essere stimati o calibrati;
-3. il sottostante non distribuisce dividendi;
-4. volatilità azionaria e correlazione sono costanti;
-5. il tasso nominale è rappresentato da un unico fattore CIR;
-6. i fixing sono mensili ed equidistanti;
-7. non sono considerati rischio di credito, rischio di liquidità, costi di transazione o fiscalità;
-8. non sono richieste formule chiuse di pricing né modelli alternativi;
-9. la convenzione numerica adottata per il CIR è quella già utilizzata nel caso aula e costituisce parte della specifica del lavoro;
-10. il modello ha finalità didattica: il prezzo ottenuto non deve essere interpretato come quotazione operativa di uno specifico contratto di mercato.
+2. $S_0$ e $r_0$ sono ancorati a osservazioni di mercato della data di riferimento;
+3. $q$ e $\sigma_S$ sono proxy di mercato arrotondate, non calibrazioni esatte;
+4. $\kappa_r$, $\theta_r$, $\sigma_r$ e $\rho$ sono parametri modellistici assegnati;
+5. dividend yield, volatilità e correlazione sono costanti;
+6. il tasso nominale è rappresentato da un unico fattore CIR;
+7. i fixing sono mensili ed equidistanti;
+8. non sono considerati rischio di credito, rischio di liquidità, costi di transazione o fiscalità;
+9. non sono richieste formule chiuse di pricing né modelli alternativi;
+10. la convenzione numerica adottata per il CIR è quella già utilizzata nel caso aula;
+11. la call asiatica è un contratto OTC stilizzato e non deve essere confusa con le opzioni vanilla EURO STOXX 50 quotate su Eurex;
+12. il prezzo ottenuto è un risultato del modello assegnato e non una quotazione operativa di mercato.
