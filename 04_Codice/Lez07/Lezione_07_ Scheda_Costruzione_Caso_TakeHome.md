@@ -44,7 +44,7 @@ $$K=6\,300,$$
 
 quindi un livello sostanzialmente at-the-money. La scelta è anche coerente con la griglia degli strike delle opzioni EURO STOXX 50 quotate su Eurex: per scadenze residue tra 6 e 12 mesi gli strike standard sono distanziati di 50 punti.
 
-Il livello iniziale del tasso viene ancorato all'**€STR** del 27 luglio 2026:
+Il livello iniziale del tasso viene ancorato all'**Euro short-term rate** (tasso overnight, sigla €STR) del 27 luglio 2026, pubblicato dalla BCE:
 
 $$r_0=0.02185.$$
 
@@ -66,7 +66,7 @@ Il valore non è una calibrazione della volatilità implicita a un anno. È una 
 
 Le opzioni asiatiche sono contratti path-dependent il cui payoff dipende dalla media dei prezzi osservati durante un intervallo, anziché da un singolo fixing terminale.
 
-Il loro utilizzo è particolarmente diffuso nei mercati delle commodity, dove il prezzo economico di acquisti o vendite ricorrenti è spesso una media di più fixing. Le average-price options consentono quindi di allineare meglio il payoff del derivato all'esposizione economica effettiva e, per effetto dell'averaging, tendono a essere meno sensibili a picchi isolati del prezzo.
+Il loro utilizzo è particolarmente **diffuso nei mercati delle commodity**, dove il prezzo economico di acquisti o vendite ricorrenti è spesso una media di più fixing. Le average-price options consentono quindi di allineare meglio il payoff del derivato all'esposizione economica effettiva e, per effetto dell'averaging, tendono a essere meno sensibili a picchi isolati del prezzo.
 
 In ambito azionario, strutture di tipo Asian compaiono soprattutto nel mercato **OTC** e nei prodotti strutturati o assicurativi equity-linked. L'averaging può essere utilizzato da:
 
@@ -75,7 +75,7 @@ In ambito azionario, strutture di tipo Asian compaiono soprattutto nel mercato *
 - compagnie di assicurazione;
 - gestori che desiderano un payoff indicizzato a una performance media piuttosto che al solo fixing finale.
 
-Nel caso didattico si assume che un intermediario debba valutare una **call asiatica OTC sull'EURO STOXX 50**. Non si afferma che tale contratto sia quotato su Eurex: Eurex viene utilizzata come riferimento per il mercato liquido delle opzioni vanilla sullo stesso indice e per la plausibilità dello strike.
+Nel caso didattico si assume che un intermediario debba valutare una **call asiatica OTC sull'EURO STOXX 50**. 
 
 La scelta dell'opzione asiatica consente di mostrare in modo finanziariamente realistico perché una traiettoria simulata può essere necessaria anche quando il payoff finale è unico.
 
@@ -91,7 +91,14 @@ Qual è il valore corrente di una call asiatica a media aritmetica sull'EURO STO
 
 Lo studente deve costruire autonomamente la catena:
 
-$$\text{fattori stocastici}\rightarrow\text{shock correlati}\rightarrow\text{traiettorie}\rightarrow\text{statistiche terminali}\rightarrow\text{media del sottostante}\rightarrow\text{probabilità di esercizio}\rightarrow\text{payoff}\rightarrow\text{attualizzazione}\rightarrow\text{prezzo Monte Carlo}\rightarrow\text{errore Monte Carlo}.$$
+$$\text{fattori stocastici}\rightarrow\text{shock correlati}\rightarrow\text{traiettorie}\rightarrow\text{statistiche terminali}
+\\
+\rightarrow\text{media del sottostante}\rightarrow\text{probabilità di esercizio}
+\\
+\rightarrow\text{payoff}
+\rightarrow\text{attualizzazione}\rightarrow\text{prezzo Monte Carlo}
+\\
+\rightarrow\text{errore Monte Carlo}.$$
 
 Il caso deve consolidare soprattutto quattro passaggi concettuali:
 
@@ -177,6 +184,8 @@ Il fattore di sconto scenario-specifico è:
 
 $$D(0,T)=\exp\left(-\int_0^T r_u\,du\right).$$
 
+
+
 ### Valore attualizzato per scenario
 
 Per ogni traiettoria:
@@ -252,6 +261,40 @@ Il take-home non deve introdurre autonomamente una diversa tecnica di simulazion
 Per il sottostante è opportuno utilizzare una discretizzazione logaritmica coerente con la struttura moltiplicativa:
 
 $$S_{t+\Delta t}=S_t\exp\left[\left(r_t-q-\frac{1}{2}\sigma_S^2\right)\Delta t+\sigma_S\sqrt{\Delta t}\,Z_S\right].$$
+
+### Approssimazione numerica dell'integrale del tasso
+
+La simulazione fornisce, per ciascuno scenario $s$, i valori del tasso sulla griglia
+
+$$
+0=t_0<t_1<\cdots<t_N=T,
+\qquad
+\Delta t=\frac{T}{N}.
+$$
+
+ove N=252 (giorni di trading). L'integrale del tasso che entra nel fattore di sconto non è quindi disponibile in forma continua e deve essere approssimato numericamente.
+
+Nel caso si utilizza la somma di Riemann sinistra:
+
+$$
+\int_0^T r_u^{(s)}\,du
+\approx
+\sum_{k=0}^{N-1}r_{t_k}^{(s)}\Delta t.
+$$
+
+Il fattore di sconto associato allo scenario $s$ viene pertanto stimato come:
+
+$$
+\widehat D^{(s)}(0,T)
+=
+\exp\left(
+-\sum_{k=0}^{N-1}r_{t_k}^{(s)}\Delta t
+\right).
+$$
+
+La costruzione deve essere effettuata separatamente per ciascuna traiettoria simulata del tasso.
+
+Non deve essere utilizzato il solo valore terminale $r_T$, né un tasso medio calcolato trasversalmente sulle diverse simulazioni.
 
 ### Ipotesi
 
@@ -363,32 +406,28 @@ Confrontare $\rho$ teorico e correlazione empirica degli shock.
 
 ## 7. Scomposizione attesa in tappe
 
-| Tappa | Regime | Input | Operazione | Output | Controllo | Uso successivo |
-|---:|:---:|---|---|---|---|---|
-| 1 | A | Scheda Caso | ricostruire modello e struttura del payoff | mappa teorica | nessuna modifica alla specifica | base risolutiva |
-| 2 | B | parametri, griglia, seed | predisporre ambiente numerico | parametri e calendario | coerenza temporale | simulazione |
-| 3 | B | $\rho$, normali indipendenti | generare shock correlati | shock $Z_S,Z_r$ | correlazione empirica | processi |
-| 4 | B | shock e parametri | simulare $S_t$ e $r_t$ | traiettorie | positività e controllo CIR | statistiche terminali |
-| 5 | B | traiettorie | calcolare statistiche di $S_T$ e $r_T$ | media e deviazione standard | coerenza numerica | fixing |
-| 6 | B | traiettorie $S_t$ | estrarre fixing e calcolare media | $A_T$ e statistiche | min/max della traiettoria | esercizio |
-| 7 | B | $A_T,K$ | stimare esercizio e payoff | probabilità, $H_T$ | non negatività | pricing |
-| 8 | B | traiettorie $r_t$ | costruire fattore di sconto | $D(0,T)$ | positività | pricing |
-| 9 | B | payoff e discount factor | attualizzare e aggregare | $V^{(s)},\widehat V_M,SE$ | coerenza dimensionale | validazione |
-| 10 | C | risultati | verificare convergenza e griglia | tabelle diagnostiche | stabilità | interpretazione |
-| 11 | C | output validati | interpretare risultati | commento finale | coerenza finanziaria | consegna |
+| Tappa | Regime | Input                                 | Operazione principale                                                         | Output essenziali                                                                 | Controlli principali                                     | Uso successivo                      |
+| ----: | :----: | ------------------------------------- | ----------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | -------------------------------------------------------- | ----------------------------------- |
+|     1 |   A/B  | Scheda Caso, parametri, griglia, seed | impostare modello, calendario e shock correlati                               | parametri, griglia, shock (Z_S,Z_r)                                               | calendario corretto; correlazione empirica (\approx\rho) | simulazione congiunta               |
+|     2 |    B   | shock e parametri                     | simulare congiuntamente (S_t) e (r_t)                                         | traiettorie; media e deviazione standard di (S_T) e (r_T)                         | (S_t>0); diagnostica CIR                                 | costruzione media asiatica e sconto |
+|     3 |    B   | traiettorie (S_t)                     | estrarre i 12 fixing e costruire (A_T)                                        | distribuzione di (A_T); media e deviazione standard; (\widehat{\mathbb P}(A_T>K)) | (\min_jS_{t_j}\leq A_T\leq\max_jS_{t_j})                 | payoff                              |
+|     4 |    B   | (A_T), (K), traiettorie (r_t)         | costruire (H_T), approssimare (\int_0^T r_u,du) e calcolare (\widehat D(0,T)) | payoff scenario-specifici; payoff medio; discount factor scenario-specifici       | (H_T\geq0); (D(0,T)>0)                                   | pricing                             |
+|     5 |    B   | (H_T), (\widehat D(0,T))              | calcolare (V^{(s)}) e aggregare Monte Carlo                                   | (\widehat V_M), errore standard, IC 95%                                           | coerenza (V^{(s)}=\widehat D^{(s)}H_T^{(s)})             | validazione                         |
+|     6 |    C   | risultati completi                    | diagnostica Monte Carlo, controllo della griglia e interpretazione            | convergenza rispetto a (M), stabilità rispetto a (\Delta t), commento finanziario | ordine (1/\sqrt M); stabilità numerica                   | conclusione                         |
+
 
 ---
 
 ## 8. Mappa tra prompt e notebook
 
-| Prompt | Regime | Tappa | Celle o output prodotti | Decisione o controllo richiesto |
-|---|:---:|:---:|---|---|
-| Prompt zero | — | — | inizializzazione della chat | rispetto del protocollo |
-| Prompt 1 | — | — | cella Markdown iniziale | fedeltà alla Scheda Caso |
-| Prompt 2 | A | 1 | Flusso logico-teorico | valutazione della proposta iniziale dello studente |
-| Prompt 3 | — | 1–11 | scomposizione input-output | coerenza tra tappe |
-| prompt di tappa | B | 2–9 | Markdown, codice e output | controlli intermedi |
-| prompt di verifica | C | 10–11 | diagnostica e interpretazione | validazione critica |
+| Prompt             | Regime | Tappa | Celle o output prodotti                          | Decisione o controllo richiesto                    |
+| ------------------ | :----: | :---: | ------------------------------------------------- | -------------------------------------------------- |
+| Prompt zero        |    —   |   —   | inizializzazione della chat                      | rispetto del protocollo                            |
+| Prompt 1           |    —   |   —   | cella Markdown iniziale                          | fedeltà alla Scheda Caso                           |
+| Prompt 2           |    A   |   —   | Flusso logico-teorico                            | valutazione della proposta iniziale dello studente |
+| Prompt 3           |    —   |  1–6  | scomposizione input-output                       | coerenza tra le sei tappe                          |
+| prompt di tappa    |    B   |  1–5  | celle Markdown, codice, output e controlli       | validazione progressiva degli output intermedi     |
+| prompt di verifica |    C   |   6   | diagnostica Monte Carlo e interpretazione finale | validazione critica complessiva                    |
 
 La sequenza concreta dei prompt dovrà essere calibrata dopo la validazione del notebook docente.
 
