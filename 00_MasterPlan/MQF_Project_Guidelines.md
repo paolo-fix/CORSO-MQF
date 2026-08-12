@@ -1012,38 +1012,109 @@ La sequenza del flusso logico-teorico deve guidare la successiva scomposizione i
 
 ### 14.3 Scheda Caso
 
-La Scheda Caso è il documento operativo derivato dalla Scheda Costruzione Caso. Essa contiene la descrizione del caso, il contesto, la domanda quantitativa, la specifica teorico-matematica essenziale, i parametri, le ipotesi, gli output richiesti e i controlli essenziali.
+La Scheda Caso è il documento operativo derivato dalla Scheda Costruzione Caso. Essa costituisce la specifica vincolante del lavoro destinata agli studenti e deve contenere soltanto gli elementi necessari per comprendere, formalizzare e sviluppare il caso.
 
-La Scheda Caso non contiene la progettazione docente interna: non contiene la rubrica completa, la calibrazione qualitativa attesa, la struttura dettagliata del notebook, né la sequenza docente completa dei prompt.
+La Scheda Caso non contiene la progettazione docente interna: non contiene la rubrica completa, la calibrazione qualitativa attesa, la struttura dettagliata del notebook, il Flusso logico-teorico risolutivo già svolto, la scomposizione in tappe input-output, né la sequenza docente completa dei prompt.
 
-La Scheda Caso non deve contenere già svolto il Flusso logico-teorico risolutivo completo. Deve però fornire gli elementi necessari affinché docente e studenti possano ricostruirlo: contesto, domanda quantitativa, variabili, eventi, parametri, formule principali, quantità teoriche da stimare, output e controlli richiesti.
+La Scheda Caso deve però fornire tutti gli elementi necessari affinché docente e studenti possano successivamente costruire il Flusso logico-teorico risolutivo e la scomposizione operativa: contesto, domanda quantitativa, oggetti del modello, formule principali, parametri, quantità da determinare, output e controlli.
 
 Per il caso aula, la Scheda Caso è input comune per docente e studenti. Per il caso take-home, la Scheda Caso è input operativo per gli studenti.
 
 Nel lavoro con IA, la Scheda Caso costituisce il contenuto informativo del Prompt 1, successivo al Prompt zero di inizializzazione. La Scheda Caso resta la specifica vincolante del problema e non deve contenere istruzioni operative rivolte all'IA.
 
-Il Prompt 1 concreto può però contenere, dopo la Scheda Caso, un'istruzione operativa esterna alla scheda: produrre una sola cella Markdown iniziale di inquadramento da inserire nel notebook. Questa cella deve sintetizzare il caso senza risolverlo. Non deve introdurre formule, variabili, parametri, ipotesi o output non presenti nella Scheda Caso; non deve produrre codice, flusso logico-teorico, scomposizione in tappe, risultati numerici, interpretazioni o suggerimenti risolutivi.
+Il Prompt 1 concreto può però contenere, dopo la Scheda Caso, un'istruzione operativa esterna alla scheda: produrre una sola cella Markdown iniziale di inquadramento da inserire nel notebook. Questa cella deve sintetizzare il caso senza risolverlo. Non deve introdurre formule, variabili, parametri, ipotesi o output non presenti nella Scheda Caso; non deve produrre codice, Flusso logico-teorico risolutivo, scomposizione in tappe, risultati numerici, interpretazioni o suggerimenti risolutivi.
 
-La Scheda Caso deve indicare almeno:
+#### Struttura canonica
 
-1. titolo del caso;
-2. tipo di caso: aula o take-home;
-3. contesto finanziario, probabilistico o decisionale;
-4. domanda quantitativa;
-5. grandezze economico-finanziarie;
-6. variabili casuali o decisionali;
-7. eventi, stati informativi o scenari;
-8. formule principali;
-9. ipotesi modellistiche;
-10. parametri;
-11. soglie, target o vincoli;
-12. quantità teoriche da stimare o calcolare;
-13. output computazionali attesi;
-14. controlli richiesti;
-15. limiti del modello;
-16. eventuale specifica congelata del caso.
+La Scheda Caso deve essere articolata nelle seguenti otto sezioni.
 
-La Scheda Caso non deve essere una soluzione del problema. Deve delimitare ciò che potrà essere sviluppato nel notebook e ciò che l’IA non potrà modificare.
+1. **Identificazione del caso**
+
+   Deve indicare almeno:
+   - lezione;
+   - tipo di caso: aula o take-home;
+   - titolo;
+   - contesto sintetico;
+   - uso previsto.
+
+   Deve inoltre esplicitare che la Scheda Caso costituisce la specifica vincolante del lavoro e che non contiene la soluzione del problema.
+
+2. **Contesto e domanda quantitativa**
+
+   Deve presentare in forma sintetica il contesto finanziario, probabilistico o decisionale del caso e formulare con precisione la domanda quantitativa centrale.
+
+   Quando rilevante, deve identificare le principali fonti di rischio, gli stati informativi, gli scenari, i vincoli o gli elementi decisionali che caratterizzano il problema.
+
+3. **Modello e struttura del problema**
+
+   Deve raccogliere la specifica teorico-matematica essenziale necessaria per definire il caso:
+   - grandezze economico-finanziarie;
+   - variabili casuali o decisionali;
+   - eventi, stati informativi o scenari;
+   - relazioni strutturali;
+   - formule principali;
+   - eventuali soglie, target o vincoli.
+
+   Questa sezione deve definire il modello, non svilupparne la soluzione.
+
+4. **Parametri assegnati**
+
+   Deve riportare in forma compatta e preferibilmente tabellare:
+   - parametri finanziari;
+   - parametri probabilistici o modellistici;
+   - parametri computazionali;
+   - condizioni iniziali;
+   - eventuali dati assegnati.
+
+   Deve essere esplicitata, quando necessario, la natura didattica, stilizzata o calibrata dei parametri.
+
+5. **Quantità da stimare o calcolare**
+
+   Deve elencare con precisione le quantità teoriche e numeriche che costituiscono gli obiettivi quantitativi del caso.
+
+   Le quantità devono essere formulate matematicamente quando opportuno e devono essere chiaramente distinte dagli output grafici o tabellari attraverso cui verranno successivamente rappresentate.
+
+6. **Output richiesti**
+
+   Deve specificare gli output che devono comparire nel notebook, distinguendo almeno quando rilevante:
+   - stime o risultati numerici;
+   - tabelle;
+   - grafici.
+
+   Ogni output deve avere una funzione informativa o interpretativa esplicita. Grafici e tabelle puramente decorativi non devono essere richiesti.
+
+7. **Controlli richiesti**
+
+   Deve indicare i controlli numerici, logici, teorici o computazionali indispensabili per validare il lavoro.
+
+   I controlli devono essere formulati come verifiche osservabili e devono riguardare, secondo il caso:
+   - coerenza delle simulazioni;
+   - rispetto delle identità o proprietà teoriche;
+   - vincoli del modello;
+   - stabilità numerica;
+   - convergenza;
+   - coerenza dimensionale;
+   - plausibilità degli output.
+
+8. **Ipotesi e limiti del caso**
+
+   Deve esplicitare:
+   - ipotesi modellistiche;
+   - semplificazioni adottate;
+   - elementi deliberatamente esclusi;
+   - limiti dell'interpretazione economico-finanziaria o statistica dei risultati.
+
+   Deve risultare chiaro che il caso applicativo utilizza un modello quantitativo delimitato e che i risultati non devono essere estesi oltre le ipotesi dichiarate.
+
+#### Vincolo di lunghezza
+
+La Scheda Caso deve essere un documento sintetico e operativo.
+
+La sua lunghezza complessiva deve essere contenuta, di norma, entro **3--4 pagine equivalenti in formato A4**, includendo testo, formule e tabelle. La densità del documento deve essere compatibile con una lettura preliminare rapida da parte dello studente prima dell'avvio del lavoro applicativo.
+
+Non devono essere inseriti sviluppi teorici estesi, spiegazioni didattiche già presenti nel manuale, anticipazioni della soluzione, codice, istruzioni dettagliate sui prompt o materiali propri della Scheda Costruzione Caso.
+
+La Scheda Caso non deve essere una soluzione del problema. Deve delimitare con precisione ciò che dovrà essere sviluppato nel notebook e ciò che non potrà essere modificato durante l'interazione con l'IA.
 
 ---
 
