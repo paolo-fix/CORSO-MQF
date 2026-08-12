@@ -85,13 +85,27 @@ Il payoff a scadenza è:
 
 $$H_T=\max(A_T-K,0).$$
 
-Il fattore di sconto associato a una traiettoria del tasso è:
+Il fattore di sconto associato a una traiettoria del tasso è definito in tempo continuo da:
 
 $$D(0,T)=\exp\left(-\int_0^T r_u\,du\right).$$
 
+Nel caso computazionale il tasso è osservato sulla griglia giornaliera
+
+$$0=t_0<t_1<\cdots<t_N=T,\qquad N=252,\qquad \Delta t=\frac{1}{252}.$$
+
+Per ciascuno scenario $s$, l'integrale del tasso viene approssimato mediante somma di Riemann sinistra:
+
+$$\int_0^T r_u^{(s)}\,du\approx\sum_{k=0}^{N-1}r_{t_k}^{(s)}\Delta t.$$
+
+Il fattore di sconto utilizzato nel pricing è quindi stimato scenario per scenario come:
+
+$$\widehat D^{(s)}(0,T)=\exp\left(-\sum_{k=0}^{N-1}r_{t_k}^{(s)}\Delta t\right).$$
+
+Non deve essere utilizzato il solo valore terminale $r_T$, né un tasso medio calcolato trasversalmente sulle diverse simulazioni.
+
 Per lo scenario simulato $s$:
 
-$$V^{(s)}=D^{(s)}(0,T)H_T^{(s)}.$$
+$$V^{(s)}=\widehat D^{(s)}(0,T)H_T^{(s)}.$$
 
 Con $M$ traiettorie:
 
@@ -124,6 +138,7 @@ I parametri combinano dati osservati, proxy di mercato e scelte modellistiche di
 | Tasso CIR | $\theta_r$ | 0,0220 | parametro didattico |
 | Tasso CIR | $\sigma_r$ | 0,040 | parametro didattico |
 | Dipendenza | $\rho$ | -0,25 | ipotesi modellistica |
+| Simulazione | $N$ | 252 | intervalli temporali |
 | Simulazione | $\Delta t$ | $1/252$ | griglia giornaliera |
 | Simulazione | $M$ | 50.000 | numero di traiettorie |
 | Simulazione | seed | 12345 | seme casuale |
@@ -134,7 +149,7 @@ $$2(1.25)(0.0220)=0.055>0.0016=(0.040)^2.$$
 
 Il dividend yield del 2,5% è una proxy arrotondata coerente con il trailing dividend distribution yield di ETF che replicano l'EURO STOXX 50 a fine luglio 2026. La volatilità del 18% è una proxy coerente con l'ordine di grandezza dei VSTOXX futures osservabili nello stesso periodo. I parametri CIR diversi da $r_0$ e la correlazione $\rho$ sono invece assegnati a fini didattici.
 
-La griglia principale è giornaliera, con 252 passi annui. Poiché $252/12=21$, i fixing mensili corrispondono ai passi $21,42,\ldots,252$.
+La griglia principale contiene 252 intervalli annui e 253 punti temporali, incluso $t_0=0$. Poiché $252/12=21$, i fixing mensili corrispondono ai passi $21,42,\ldots,252$.
 
 ---
 
@@ -149,7 +164,7 @@ Le quantità richieste devono essere determinate nel seguente **ordine operativo
 5. **prezzo Monte Carlo della call asiatica** $\widehat V_M$;
 6. **errore standard Monte Carlo** e intervallo di confidenza al 95% del prezzo.
 
-Le quantità devono essere ottenute a partire dai singoli scenari simulati. In particolare, la media asiatica e il payoff devono essere determinati scenario per scenario prima dell'aggregazione Monte Carlo.
+Le quantità devono essere ottenute a partire dai singoli scenari simulati. In particolare, la media asiatica, il payoff e il fattore di sconto devono essere determinati scenario per scenario prima dell'aggregazione Monte Carlo.
 
 ---
 
@@ -187,7 +202,7 @@ Il notebook deve verificare esplicitamente che:
 3. eventuali valori negativi di $r_t$ prodotti dalla discretizzazione siano rilevati e documentati secondo la convenzione numerica adottata nel caso aula;
 4. per ogni scenario valga $\min_jS_{t_j}\leq A_T\leq\max_jS_{t_j}$;
 5. il payoff soddisfi sempre $H_T\geq0$ e sia nullo quando $A_T\leq K$;
-6. il fattore di sconto soddisfi $D(0,T)>0$;
+6. l'integrale del tasso sia costruito utilizzando i valori $r_{t_0},\ldots,r_{t_{N-1}}$ della stessa traiettoria e il fattore di sconto soddisfi $\widehat D^{(s)}(0,T)>0$;
 7. l'errore standard Monte Carlo diminuisca al crescere di $M$, in modo compatibile con l'ordine $1/\sqrt{M}$;
 8. il prezzo sia sufficientemente stabile rispetto a una griglia temporale più fine;
 9. i risultati siano replicabili utilizzando il seed assegnato.
@@ -204,9 +219,10 @@ Ai fini di questa applicazione:
 4. $\kappa_r$, $\theta_r$, $\sigma_r$ e $\rho$ sono parametri modellistici assegnati;
 5. dividend yield, volatilità e correlazione sono costanti;
 6. il tasso nominale è rappresentato da un unico fattore CIR;
-7. i fixing sono mensili ed equidistanti;
-8. non sono considerati rischio di credito, rischio di liquidità, costi di transazione o fiscalità;
-9. non sono richieste formule chiuse di pricing né modelli alternativi;
-10. la convenzione numerica adottata per il CIR è quella già utilizzata nel caso aula;
-11. la call asiatica è un contratto OTC stilizzato e non deve essere confusa con le opzioni vanilla EURO STOXX 50 quotate su Eurex;
-12. il prezzo ottenuto è un risultato del modello assegnato e non una quotazione operativa di mercato.
+7. l'integrale del tasso è approssimato sulla griglia giornaliera mediante somma di Riemann sinistra;
+8. i fixing sono mensili ed equidistanti;
+9. non sono considerati rischio di credito, rischio di liquidità, costi di transazione o fiscalità;
+10. non sono richieste formule chiuse di pricing né modelli alternativi;
+11. la convenzione numerica adottata per il CIR è quella già utilizzata nel caso aula;
+12. la call asiatica è un contratto OTC stilizzato e non deve essere confusa con le opzioni vanilla EURO STOXX 50 quotate su Eurex;
+13. il prezzo ottenuto è un risultato del modello assegnato e non una quotazione operativa di mercato.
