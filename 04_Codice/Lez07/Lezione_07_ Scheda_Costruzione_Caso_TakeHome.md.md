@@ -7,13 +7,15 @@ Documento interno di progettazione docente.
 
 - **Lezione:** 7 — Applicazione in Python: traiettorie, simulazione e pricing Monte Carlo
 - **Tipo di caso:** take-home
-- **Titolo:** *Path-dependence e tassi stocastici: pricing Monte Carlo di un'opzione asiatica*
+- **Titolo:** *Pricing Monte Carlo di una call asiatica sull'EURO STOXX 50 con tasso di interesse stocastico*
 - **Destinatari:** studenti del secondo anno della Laurea Magistrale in Banca e Risk Management
 - **Uso previsto:** lavoro autonomo successivo alla lezione applicativa, sviluppato mediante notebook Jupyter e uso documentato dell'IA secondo il protocollo MQF.
+- **Data di riferimento del caso:** 27 luglio 2026.
 
 Il caso consolida operativamente:
 
-- dinamiche moltiplicative di tipo GBM per prezzi azionari;
+- dinamiche moltiplicative di tipo GBM per un indice azionario;
+- presenza di dividend yield nel drift risk-neutral;
 - processo CIR per il tasso nominale;
 - simulazione di diffusioni correlate;
 - costruzione di un payoff path-dependent;
@@ -26,24 +28,56 @@ Il caso deve essere metodologicamente confrontabile con il caso aula sull'inflat
 
 ## 2. Contesto e motivazione
 
-Un intermediario finanziario deve valutare una call asiatica a media aritmetica scritta su un titolo azionario.
+### Contesto di mercato
 
-A differenza di una call europea ordinaria, il payoff non dipende soltanto dal prezzo terminale del sottostante, ma dalla media dei prezzi osservati a un insieme prefissato di date. Il valore del contratto dipende quindi dall'intera traiettoria rilevante del prezzo azionario.
+Il sottostante scelto è l'**EURO STOXX 50**, uno dei principali benchmark azionari dell'area euro e sottostante di un mercato molto liquido di futures e opzioni vanilla presso Eurex.
 
-Si introduce inoltre un tasso nominale privo di rischio stocastico. Il problema richiede pertanto la simulazione congiunta di:
+La data di riferimento è il **27 luglio 2026**. In quella seduta l'indice si colloca nell'area di 6.300 punti; il valore di chiusura utilizzato come condizione iniziale è:
 
-1. prezzo del sottostante;
-2. short rate;
-3. eventuale dipendenza tra i rispettivi shock.
+$$S_0=6\,286.35.$$
 
-La simulazione assume una funzione finanziaria diversa rispetto al caso aula:
+Il livello è storicamente elevato rispetto al range osservato nei dodici mesi precedenti, che in luglio 2026 si estendeva approssimativamente da 5.155 a 6.431 punti. Il caso è quindi collocato in una fase di mercato in cui l'indice si trova vicino alla parte alta del range annuale.
 
-- nel bond inflation-linked la traiettoria dell'inflazione genera il coefficiente di indicizzazione dei cash flow;
-- nell'opzione asiatica la traiettoria del prezzo azionario entra direttamente nella costruzione del payoff.
+Per lo strike si sceglie:
 
-In entrambi i casi, invece, la traiettoria del tasso determina il fattore di attualizzazione.
+$$K=6\,300,$$
 
-Il caso è costruito per rendere osservabile il concetto di **path-dependence** e per mostrare che il pricing Monte Carlo richiede una trasformazione coerente delle traiettorie simulate in una variabile finanziaria finale.
+quindi un livello sostanzialmente at-the-money. La scelta è anche coerente con la griglia degli strike delle opzioni EURO STOXX 50 quotate su Eurex: per scadenze residue tra 6 e 12 mesi gli strike standard sono distanziati di 50 punti.
+
+Il livello iniziale del tasso viene ancorato all'**€STR** del 27 luglio 2026:
+
+$$r_0=0.02185.$$
+
+Il dato si colloca in un contesto monetario particolare. L'11 giugno 2026 la BCE aveva aumentato di 25 punti base i tassi ufficiali, portando il tasso sui depositi al 2,25%, a fronte delle pressioni inflazionistiche derivanti dallo shock energetico legato al conflitto in Medio Oriente. Il 23 luglio 2026 la BCE aveva poi lasciato invariati i tassi. Il valore di €STR utilizzato nel caso è quindi coerente con il nuovo livello della politica monetaria dell'estate 2026.
+
+Per tenere conto dei dividendi dell'indice si introduce un dividend yield continuo costante:
+
+$$q=0.025.$$
+
+Il valore è una proxy di mercato arrotondata: un ETF fisico che replica l'EURO STOXX 50 riportava a fine luglio 2026 un trailing dividend distribution yield vicino al 2,5%.
+
+Per la volatilità del sottostante si assume:
+
+$$\sigma_S=0.18.$$
+
+Il valore non è una calibrazione della volatilità implicita a un anno. È una proxy market-consistent: all'inizio di luglio 2026 i future VSTOXX sulle scadenze estive quotavano valori nell'area 17--19 punti. Il parametro 18% rende quindi il caso coerente con l'ordine di grandezza della volatilità azionaria osservabile in quel periodo, senza introdurre una calibrazione di superficie non ancora trattata nel corso.
+
+### Chi utilizza opzioni asiatiche e perché
+
+Le opzioni asiatiche sono contratti path-dependent il cui payoff dipende dalla media dei prezzi osservati durante un intervallo, anziché da un singolo fixing terminale.
+
+Il loro utilizzo è particolarmente diffuso nei mercati delle commodity, dove il prezzo economico di acquisti o vendite ricorrenti è spesso una media di più fixing. Le average-price options consentono quindi di allineare meglio il payoff del derivato all'esposizione economica effettiva e, per effetto dell'averaging, tendono a essere meno sensibili a picchi isolati del prezzo.
+
+In ambito azionario, strutture di tipo Asian compaiono soprattutto nel mercato **OTC** e nei prodotti strutturati o assicurativi equity-linked. L'averaging può essere utilizzato da:
+
+- banche e intermediari che strutturano prodotti equity-linked;
+- investitori istituzionali;
+- compagnie di assicurazione;
+- gestori che desiderano un payoff indicizzato a una performance media piuttosto che al solo fixing finale.
+
+Nel caso didattico si assume che un intermediario debba valutare una **call asiatica OTC sull'EURO STOXX 50**. Non si afferma che tale contratto sia quotato su Eurex: Eurex viene utilizzata come riferimento per il mercato liquido delle opzioni vanilla sullo stesso indice e per la plausibilità dello strike.
+
+La scelta dell'opzione asiatica consente di mostrare in modo finanziariamente realistico perché una traiettoria simulata può essere necessaria anche quando il payoff finale è unico.
 
 ---
 
@@ -51,19 +85,20 @@ Il caso è costruito per rendere osservabile il concetto di **path-dependence** 
 
 **Domanda quantitativa**
 
-Qual è il valore corrente di una call asiatica a media aritmetica quando il prezzo del sottostante e il tasso nominale evolvono congiuntamente in modo stocastico? Come si passa dalle traiettorie simulate dei fattori di rischio al payoff e quindi al prezzo Monte Carlo?
+Qual è il valore corrente di una call asiatica a media aritmetica sull'EURO STOXX 50 quando il livello dell'indice e il tasso nominale evolvono congiuntamente in modo stocastico? Come si passa dalle traiettorie simulate dei fattori di rischio al prezzo medio, al payoff e quindi al prezzo Monte Carlo?
 
 **Obiettivo didattico**
 
 Lo studente deve costruire autonomamente la catena:
 
-$$\text{fattori stocastici}\rightarrow\text{shock correlati}\rightarrow\text{traiettorie}\rightarrow\text{media del sottostante}\rightarrow\text{payoff}\rightarrow\text{attualizzazione}\rightarrow\text{prezzo Monte Carlo}\rightarrow\text{controlli}.$$
+$$\text{fattori stocastici}\rightarrow\text{shock correlati}\rightarrow\text{traiettorie}\rightarrow\text{statistiche terminali}\rightarrow\text{media del sottostante}\rightarrow\text{probabilità di esercizio}\rightarrow\text{payoff}\rightarrow\text{attualizzazione}\rightarrow\text{prezzo Monte Carlo}\rightarrow\text{errore Monte Carlo}.$$
 
-Il caso deve consolidare soprattutto tre passaggi concettuali:
+Il caso deve consolidare soprattutto quattro passaggi concettuali:
 
 1. distinguere valore terminale del sottostante e funzionale dell'intera traiettoria;
 2. comprendere che il payoff deve essere costruito scenario per scenario prima dell'aggregazione Monte Carlo;
-3. utilizzare la traiettoria del tasso, e non un unico tasso terminale, per costruire il fattore di sconto.
+3. utilizzare la traiettoria del tasso, e non un unico tasso terminale, per costruire il fattore di sconto;
+4. distinguere parametri osservati o market-consistent da parametri modellistici assegnati a fini didattici.
 
 ---
 
@@ -73,9 +108,10 @@ Il caso deve consolidare soprattutto tre passaggi concettuali:
 
 Si considerano:
 
-- $S_t$: prezzo del sottostante azionario;
+- $S_t$: livello dell'EURO STOXX 50;
 - $r_t$: tasso nominale istantaneo privo di rischio;
-- $A_T$: media aritmetica dei prezzi osservati alle date di fixing;
+- $q$: dividend yield continuo;
+- $A_T$: media aritmetica dei livelli dell'indice osservati alle date di fixing;
 - $K$: strike dell'opzione;
 - $H_T$: payoff dell'opzione;
 - $D(0,T)$: fattore di sconto stocastico;
@@ -87,13 +123,9 @@ Si considerano:
 
 Le dinamiche sono assegnate direttamente ai fini della valutazione sotto la misura di pricing utilizzata nel caso.
 
-Il sottostante segue una dinamica moltiplicativa di tipo GBM con short rate stocastico:
+Il sottostante segue una dinamica moltiplicativa di tipo GBM con short rate stocastico e dividend yield continuo:
 
-$$dS_t=r_tS_t\,dt+\sigma_S S_t\,dW_t^{(S)}.$$
-
-Non vengono considerati dividendi.
-
-La scelta mantiene la struttura moltiplicativa introdotta per il GBM nel Capitolo 6, mentre il drift incorpora il tasso privo di rischio simulato.
+$$dS_t=(r_t-q)S_t\,dt+\sigma_S S_t\,dW_t^{(S)}.$$
 
 ### Dinamica del tasso nominale
 
@@ -123,11 +155,11 @@ $$Z_{r,k}=\rho Z_{1,k}+\sqrt{1-\rho^2}\,Z_{2,k}.$$
 
 ### Media asiatica
 
-Si considera una call asiatica a media aritmetica con $m$ fixing:
+Si considera una call asiatica a media aritmetica con $m=12$ fixing mensili:
 
 $$A_T=\frac{1}{m}\sum_{j=1}^{m}S_{t_j}.$$
 
-La media deve essere costruita utilizzando esclusivamente i prezzi osservati alle date contrattuali di fixing.
+Il valore iniziale $S_0$ non entra nella media.
 
 ### Payoff
 
@@ -163,42 +195,53 @@ $$SE(\widehat V_M)=\frac{s_V}{\sqrt{M}},$$
 
 dove $s_V$ è la deviazione standard campionaria dei valori attualizzati.
 
-### Parametri e dati — calibrazione didattica proposta
+### Parametri e dati
 
-**Contratto**
+**Contratto e mercato**
 
-- $S_0=100$;
-- $K=100$;
+- data di riferimento: 27 luglio 2026;
+- sottostante: EURO STOXX 50;
+- $S_0=6\,286.35$;
+- $K=6\,300$;
 - $T=1$ anno;
 - fixing mensili: $m=12$;
-- nessun dividendo.
-
-**Sottostante**
-
-- $\sigma_S=0.20$.
+- $q=0.025$;
+- $\sigma_S=0.18$.
 
 **Tasso CIR**
 
-- $r_0=0.030$;
-- $\kappa_r=1.50$;
-- $\theta_r=0.030$;
-- $\sigma_r=0.10$.
+- $r_0=0.02185$;
+- $\kappa_r=1.25$;
+- $\theta_r=0.0220$;
+- $\sigma_r=0.040$.
 
 La condizione di Feller è soddisfatta:
 
-$$2(1.50)(0.030)=0.09>0.01=(0.10)^2.$$
+$$2(1.25)(0.0220)=0.055>0.0016=(0.040)^2.$$
 
 **Dipendenza**
 
-- $\rho=-0.30$.
+- $\rho=-0.25$.
+
+La correlazione è un parametro modellistico didattico: non viene presentata come stima empirica o calibrazione di mercato.
 
 **Simulazione**
 
 - orizzonte: 1 anno;
 - griglia principale: giornaliera, $\Delta t=1/252$;
-- fixing mensili estratti dalla griglia;
+- fixing mensili ai passi $21,42,\ldots,252$;
 - $M=50\,000$ traiettorie;
 - seed: 12345.
+
+### Natura dei parametri
+
+La scheda docente deve distinguere:
+
+- **dato osservato:** $S_0$, $r_0$;
+- **proxy di mercato arrotondata:** $q$, $\sigma_S$;
+- **scelta contrattuale coerente con il mercato:** $K$, $T$, calendario dei fixing;
+- **parametri modellistici didattici:** $\kappa_r$, $\theta_r$, $\sigma_r$, $\rho$;
+- **parametri computazionali:** $\Delta t$, $M$, seed.
 
 ### Convenzione numerica
 
@@ -206,33 +249,31 @@ Per il CIR deve essere utilizzata la stessa convenzione numerica discussa e vali
 
 Il take-home non deve introdurre autonomamente una diversa tecnica di simulazione del CIR. Eventuali correzioni della discretizzazione devono essere esplicitate e motivate.
 
-Per il sottostante è opportuno utilizzare una discretizzazione logaritmica coerente con la struttura moltiplicativa del processo:
+Per il sottostante è opportuno utilizzare una discretizzazione logaritmica coerente con la struttura moltiplicativa:
 
-$$S_{t+\Delta t}=S_t\exp\left[\left(r_t-\frac{1}{2}\sigma_S^2\right)\Delta t+\sigma_S\sqrt{\Delta t}\,Z_S\right].$$
+$$S_{t+\Delta t}=S_t\exp\left[\left(r_t-q-\frac{1}{2}\sigma_S^2\right)\Delta t+\sigma_S\sqrt{\Delta t}\,Z_S\right].$$
 
 ### Ipotesi
 
 1. le dinamiche assegnate sono utilizzate direttamente ai fini del pricing;
-2. i parametri sono costanti;
-3. non si richiedono stima o calibrazione;
-4. non sono considerati dividendi;
+2. i parametri del CIR e la correlazione non sono calibrati;
+3. il dividend yield è costante;
+4. la volatilità azionaria è costante;
 5. non sono considerati rischio di credito, liquidità o costi di transazione;
 6. i fixing sono equidistanti e mensili;
 7. strike e calendario sono assegnati;
-8. prezzo azionario e tasso sono simulati sulla stessa griglia;
+8. indice e tasso sono simulati sulla stessa griglia;
 9. la stessa convenzione numerica per il CIR adottata nel caso aula deve essere mantenuta;
 10. il caso non richiede formule chiuse di pricing.
 
-### Quantità finali di interesse
+### Quantità finali di interesse — ordine operativo
 
-- prezzo Monte Carlo della call asiatica;
-- errore standard e intervallo di confidenza;
-- media e deviazione standard di $A_T$;
-- probabilità simulata di esercizio $\mathbb P(A_T>K)$;
-- valore medio del payoff non attualizzato;
-- distribuzione dei payoff attualizzati;
-- statistiche terminali di $S_T$ e $r_T$;
-- effetto della dipendenza tra sottostante e tasso sul pricing.
+1. media e deviazione standard simulate di $S_T$ e $r_T$;
+2. media e deviazione standard simulate del prezzo medio $A_T$;
+3. probabilità simulata di esercizio, $\widehat{\mathbb P}(A_T>K)$;
+4. valore medio del payoff non attualizzato $H_T$;
+5. prezzo Monte Carlo della call asiatica $\widehat V_M$;
+6. errore standard Monte Carlo e intervallo di confidenza al 95% del prezzo.
 
 ---
 
@@ -240,37 +281,40 @@ $$S_{t+\Delta t}=S_t\exp\left[\left(r_t-\frac{1}{2}\sigma_S^2\right)\Delta t+\si
 
 ### Stime o risultati numerici
 
-1. $\widehat V_M$;
-2. errore standard Monte Carlo;
-3. intervallo di confidenza Monte Carlo al 95%;
-4. $\widehat{\mathbb P}(A_T>K)$;
-5. media e deviazione standard di $A_T$;
-6. valore medio di $H_T$;
-7. media e deviazione standard di $S_T$ e $r_T$.
+Gli output numerici devono seguire l'ordine operativo del caso:
+
+1. media e deviazione standard di $S_T$ e $r_T$;
+2. media e deviazione standard di $A_T$;
+3. $\widehat{\mathbb P}(A_T>K)$;
+4. valore medio di $H_T$;
+5. $\widehat V_M$;
+6. errore standard Monte Carlo e intervallo di confidenza al 95%.
 
 ### Tabelle
 
-**Tabella 1 — parametri del modello**
+**Tabella 1 — parametri del modello e natura del dato**
 
-Contratto, sottostante, CIR, correlazione e simulazione.
+Contratto, dati di mercato, proxy, CIR, correlazione e simulazione.
 
-**Tabella 2 — risultati di pricing**
+**Tabella 2 — statistiche dei fattori e della media asiatica**
 
-- prezzo;
-- errore standard;
-- intervallo di confidenza;
+- media e deviazione standard di $S_T$;
+- media e deviazione standard di $r_T$;
+- media e deviazione standard di $A_T$.
+
+**Tabella 3 — payoff e pricing**
+
 - probabilità di esercizio;
-- payoff medio.
+- payoff medio;
+- prezzo Monte Carlo;
+- errore standard;
+- intervallo di confidenza.
 
-**Tabella 3 — diagnostica Monte Carlo**
+**Tabella 4 — diagnostica Monte Carlo**
 
-Per:
+Per $M=1\,000,\ 5\,000,\ 10\,000,\ 50\,000$, riportare prezzo ed errore standard.
 
-$$M=1\,000,\ 5\,000,\ 10\,000,\ 50\,000,$$
-
-riportare prezzo ed errore standard.
-
-**Tabella 4 — controllo della correlazione**
+**Tabella 5 — controllo della correlazione**
 
 Confrontare $\rho$ teorico e correlazione empirica degli shock.
 
@@ -282,15 +326,12 @@ Confrontare $\rho$ teorico e correlazione empirica degli shock.
 4. distribuzione dei payoff attualizzati $V^{(s)}$;
 5. convergenza della stima Monte Carlo al crescere di $M$.
 
-Come nel caso aula, i grafici devono avere funzione interpretativa.
-
 ### Controlli
 
 1. correlazione empirica degli shock prossima a $\rho$;
 2. positività di $S_t$;
 3. monitoraggio di eventuali valori negativi di $r_t$ prodotti dalla discretizzazione;
-4. per ciascuna traiettoria:
-   $$\min_jS_{t_j}\leq A_T\leq\max_jS_{t_j};$$
+4. per ciascuna traiettoria, $\min_jS_{t_j}\leq A_T\leq\max_jS_{t_j}$;
 5. $H_T\geq0$;
 6. $D(0,T)>0$;
 7. payoff nullo quando $A_T\leq K$;
@@ -304,17 +345,19 @@ Come nel caso aula, i grafici devono avere funzione interpretativa.
 
 | Passo | Finalità risolutiva | Formula, definizione, proprietà o teorema | Applicazione nel caso | Output o controllo collegato |
 |---:|---|---|---|---|
-| 1 | Identificare i fattori di rischio | dinamica moltiplicativa e CIR | specificare $S_t$ e $r_t$ | parametri e condizioni iniziali |
+| 1 | Identificare i fattori di rischio | GBM con dividendi e CIR | specificare $S_t$ e $r_t$ | parametri e condizioni iniziali |
 | 2 | Costruire la dipendenza | correlazione tra Browniani | generare shock correlati | correlazione empirica |
-| 3 | Generare le traiettorie | discretizzazione delle SDE | simulare $S_t$ e $r_t$ | grafici e statistiche |
-| 4 | Identificare le osservazioni contrattuali | date di fixing | selezionare $S_{t_j}$ | controllo calendario |
-| 5 | Costruire la variabile path-dependent | media aritmetica | calcolare $A_T$ | distribuzione di $A_T$ |
-| 6 | Trasformare la media in payoff | $(A_T-K)^+$ | calcolare $H_T$ | probabilità di esercizio |
-| 7 | Costruire l'attualizzazione | $\exp(-\int r_tdt)$ | calcolare $D(0,T)$ | controllo discount factor |
-| 8 | Valutare ogni scenario | $D(0,T)H_T$ | calcolare $V^{(s)}$ | distribuzione dei valori |
-| 9 | Aggregare Monte Carlo | media e SE | stimare il prezzo | prezzo e IC |
-| 10 | Validare | convergenza e discretizzazione | variare $M$ e $\Delta t$ | diagnostica |
-| 11 | Interpretare | path-dependence e dipendenza tra fattori | collegare traiettorie, payoff e prezzo | conclusione finanziaria |
+| 3 | Generare le traiettorie | discretizzazione delle SDE | simulare $S_t$ e $r_t$ | traiettorie e statistiche terminali |
+| 4 | Verificare i fattori simulati | momenti empirici | analizzare $S_T$ e $r_T$ | media e deviazione standard |
+| 5 | Identificare le osservazioni contrattuali | date di fixing | selezionare $S_{t_j}$ | controllo calendario |
+| 6 | Costruire la variabile path-dependent | media aritmetica | calcolare $A_T$ | media, deviazione standard e distribuzione |
+| 7 | Identificare l'esercizio | $A_T>K$ | stimare frequenza di esercizio | probabilità di esercizio |
+| 8 | Costruire il payoff | $(A_T-K)^+$ | calcolare $H_T$ | payoff medio |
+| 9 | Costruire l'attualizzazione | $\exp(-\int r_tdt)$ | calcolare $D(0,T)$ | controllo discount factor |
+| 10 | Valutare ogni scenario | $D(0,T)H_T$ | calcolare $V^{(s)}$ | distribuzione dei valori |
+| 11 | Aggregare Monte Carlo | media e SE | stimare il prezzo | prezzo, SE e IC |
+| 12 | Validare | convergenza e discretizzazione | variare $M$ e $\Delta t$ | diagnostica |
+| 13 | Interpretare | path-dependence e dipendenza tra fattori | collegare traiettorie, payoff e prezzo | conclusione finanziaria |
 
 ---
 
@@ -325,13 +368,14 @@ Come nel caso aula, i grafici devono avere funzione interpretativa.
 | 1 | A | Scheda Caso | ricostruire modello e struttura del payoff | mappa teorica | nessuna modifica alla specifica | base risolutiva |
 | 2 | B | parametri, griglia, seed | predisporre ambiente numerico | parametri e calendario | coerenza temporale | simulazione |
 | 3 | B | $\rho$, normali indipendenti | generare shock correlati | shock $Z_S,Z_r$ | correlazione empirica | processi |
-| 4 | B | shock e parametri | simulare $S_t$ e $r_t$ | traiettorie | positività e CIR | fixing |
-| 5 | B | traiettorie $S_t$ | estrarre fixing e calcolare media | $A_T$ | min/max della traiettoria | payoff |
-| 6 | B | $A_T,K$ | costruire payoff | $H_T$ | non negatività | pricing |
-| 7 | B | traiettorie $r_t$ | costruire fattore di sconto | $D(0,T)$ | positività | pricing |
-| 8 | B | payoff e discount factor | attualizzare e aggregare | $V^{(s)},\widehat V_M,SE$ | coerenza dimensionale | validazione |
-| 9 | C | risultati | verificare convergenza e griglia | tabelle diagnostiche | stabilità | interpretazione |
-| 10 | C | output validati | interpretare risultati | commento finale | coerenza finanziaria | consegna |
+| 4 | B | shock e parametri | simulare $S_t$ e $r_t$ | traiettorie | positività e controllo CIR | statistiche terminali |
+| 5 | B | traiettorie | calcolare statistiche di $S_T$ e $r_T$ | media e deviazione standard | coerenza numerica | fixing |
+| 6 | B | traiettorie $S_t$ | estrarre fixing e calcolare media | $A_T$ e statistiche | min/max della traiettoria | esercizio |
+| 7 | B | $A_T,K$ | stimare esercizio e payoff | probabilità, $H_T$ | non negatività | pricing |
+| 8 | B | traiettorie $r_t$ | costruire fattore di sconto | $D(0,T)$ | positività | pricing |
+| 9 | B | payoff e discount factor | attualizzare e aggregare | $V^{(s)},\widehat V_M,SE$ | coerenza dimensionale | validazione |
+| 10 | C | risultati | verificare convergenza e griglia | tabelle diagnostiche | stabilità | interpretazione |
+| 11 | C | output validati | interpretare risultati | commento finale | coerenza finanziaria | consegna |
 
 ---
 
@@ -342,9 +386,9 @@ Come nel caso aula, i grafici devono avere funzione interpretativa.
 | Prompt zero | — | — | inizializzazione della chat | rispetto del protocollo |
 | Prompt 1 | — | — | cella Markdown iniziale | fedeltà alla Scheda Caso |
 | Prompt 2 | A | 1 | Flusso logico-teorico | valutazione della proposta iniziale dello studente |
-| Prompt 3 | — | 1–10 | scomposizione input-output | coerenza tra tappe |
-| prompt di tappa | B | 2–8 | Markdown, codice e output | controlli intermedi |
-| prompt di verifica | C | 9–10 | diagnostica e interpretazione | validazione critica |
+| Prompt 3 | — | 1–11 | scomposizione input-output | coerenza tra tappe |
+| prompt di tappa | B | 2–9 | Markdown, codice e output | controlli intermedi |
+| prompt di verifica | C | 10–11 | diagnostica e interpretazione | validazione critica |
 
 La sequenza concreta dei prompt dovrà essere calibrata dopo la validazione del notebook docente.
 
@@ -352,54 +396,46 @@ La sequenza concreta dei prompt dovrà essere calibrata dopo la validazione del 
 
 ## 9. Struttura attesa del notebook
 
-1. titolo e inquadramento del caso;
-2. specificazione del contratto;
-3. specificazione delle dinamiche di $S_t$ e $r_t$;
-4. parametri e griglia temporale;
-5. calendario dei fixing;
-6. generazione degli shock correlati;
-7. simulazione delle traiettorie;
-8. controlli preliminari sui processi;
-9. estrazione dei fixing;
-10. costruzione di $A_T$;
-11. costruzione del payoff;
-12. costruzione del fattore di sconto;
-13. valore attualizzato scenario per scenario;
-14. pricing Monte Carlo;
-15. errore standard e intervallo di confidenza;
-16. diagnostica della convergenza;
-17. controllo della discretizzazione;
-18. interpretazione finanziaria finale.
-
-Il notebook deve evidenziare con chiarezza la separazione tra:
-
-- simulazione dei fattori;
-- costruzione del payoff;
-- attualizzazione;
-- aggregazione Monte Carlo;
-- validazione.
+1. titolo, data di riferimento e inquadramento del caso;
+2. breve contesto dell'EURO STOXX 50 e natura dell'opzione asiatica;
+3. specificazione del contratto;
+4. specificazione delle dinamiche di $S_t$ e $r_t$;
+5. parametri, natura dei dati e griglia temporale;
+6. calendario dei fixing;
+7. generazione degli shock correlati;
+8. simulazione delle traiettorie;
+9. controlli preliminari sui processi;
+10. statistiche terminali di $S_T$ e $r_T$;
+11. estrazione dei fixing;
+12. costruzione e statistiche di $A_T$;
+13. probabilità di esercizio;
+14. costruzione e media del payoff;
+15. costruzione del fattore di sconto;
+16. valore attualizzato scenario per scenario;
+17. pricing Monte Carlo;
+18. errore standard e intervallo di confidenza;
+19. diagnostica della convergenza;
+20. controllo della discretizzazione;
+21. interpretazione finanziaria finale.
 
 ---
 
 ## 10. Calibrazione docente
 
-### Ordine di grandezza atteso
+### Benchmark preliminare
 
-Con la calibrazione proposta, la simulazione docente preliminare produce un prezzo nell'intorno di **5,6** per unità di contratto, con probabilità di esercizio prossima al **52%**.
+La calibrazione definitiva deve essere validata mediante notebook docente dopo l'adozione della convenzione numerica CIR del caso aula.
 
-Questi valori hanno esclusivamente funzione di benchmark interno e devono essere ricalcolati con la convenzione numerica definitiva utilizzata per il CIR.
+Con i parametri proposti ci si attende:
 
-Il benchmark non deve essere comunicato preventivamente agli studenti.
-
-### Comportamenti attesi
-
-La calibrazione deve produrre:
-
-- una quota significativa sia di payoff nulli sia di payoff positivi;
+- un contratto prossimo all'at-the-money all'origine;
+- una probabilità di esercizio non estrema;
 - una distribuzione di $A_T$ sufficientemente dispersa attorno allo strike;
-- tassi concentrati attorno al livello di lungo periodo;
-- un effetto della correlazione sul prezzo osservabile ma non dominante;
-- errore Monte Carlo chiaramente decrescente al crescere di $M$.
+- tassi concentrati attorno a valori prossimi al 2%;
+- un effetto della correlazione sul pricing visibile ma secondario rispetto alla volatilità azionaria;
+- un errore Monte Carlo chiaramente decrescente al crescere di $M$.
+
+Il benchmark numerico definitivo non deve essere comunicato preventivamente agli studenti.
 
 ### Errori o ambiguità prevedibili
 
@@ -407,42 +443,32 @@ La calibrazione deve produrre:
 2. includere $S_0$ nella media senza che sia una data di fixing;
 3. mediare tutti i punti della griglia anziché i soli fixing;
 4. confondere media aritmetica e geometrica;
-5. costruire il payoff sulla media delle traiettorie anziché scenario per scenario;
-6. calcolare prima il payoff medio e poi applicare il massimo;
-7. attualizzare con $r_T$;
-8. utilizzare un tasso medio comune a tutte le traiettorie;
-9. dimenticare la correlazione;
-10. imporre implicitamente correlazione perfetta usando lo stesso shock;
-11. trattare eventuali valori CIR negativi da discretizzazione come proprietà del modello;
-12. modificare arbitrariamente la convenzione CIR adottata in aula;
-13. trascurare l'errore Monte Carlo;
-14. presentare la simulazione come una formula esatta di pricing.
-
-### Controlli minimi di validazione
-
-- calendario dei fixing;
-- correlazione degli shock;
-- positività di $S_t$;
-- gestione coerente del CIR;
-- relazione min--media--max per $A_T$;
-- non negatività del payoff;
-- coerenza payoff/esercizio;
-- convergenza Monte Carlo;
-- sensibilità alla griglia;
-- replicabilità.
+5. dimenticare il dividend yield $q$ nel drift;
+6. trattare $q=2,5\%$ come dato esatto dell'indice anziché come proxy;
+7. costruire il payoff sulla media delle traiettorie anziché scenario per scenario;
+8. calcolare prima il payoff medio e poi applicare il massimo;
+9. attualizzare con $r_T$;
+10. utilizzare un tasso medio comune a tutte le traiettorie;
+11. dimenticare la correlazione;
+12. trattare $\rho=-0.25$ come correlazione empiricamente calibrata;
+13. imporre implicitamente correlazione perfetta usando lo stesso shock;
+14. trattare eventuali valori CIR negativi da discretizzazione come proprietà del modello;
+15. trascurare l'errore Monte Carlo;
+16. presentare il contratto Asian come opzione quotata su Eurex;
+17. presentare la simulazione come una formula esatta di pricing.
 
 ### Limiti interpretativi
 
 Il caso non rappresenta un modello completo di mercato:
 
 - volatilità azionaria costante;
+- dividend yield costante;
 - short rate a un fattore;
 - correlazione costante;
-- assenza di dividendi;
-- parametri non calibrati;
+- parametri CIR non calibrati;
 - nessuna superficie di volatilità;
-- nessun rischio di credito o liquidità;
-- calendario di fixing semplificato.
+- contratto Asian OTC stilizzato;
+- nessun rischio di credito o liquidità.
 
 L'obiettivo è il consolidamento della simulazione e del pricing path-dependent.
 
@@ -459,14 +485,11 @@ L'obiettivo è il consolidamento della simulazione e del pricing path-dependent.
 - prompt di tappa;
 - almeno un momento esplicito di verifica critica in Regime C.
 
-### Numero di prompt
-
-Da calibrare dopo la costruzione definitiva del notebook. Il numero deve essere sufficiente a rendere osservabile il processo di ragionamento, senza frammentare artificialmente il lavoro.
-
 ### Usi ammessi dell'IA
 
 - chiarimento teorico del problema;
 - verifica della differenza tra $S_T$ e $A_T$;
+- chiarimento della funzione del dividend yield;
 - costruzione controllata di singole tappe Python;
 - verifica del calendario dei fixing;
 - controllo della correlazione;
@@ -480,6 +503,7 @@ Da calibrare dopo la costruzione definitiva del notebook. Il numero deve essere 
 - sostituire autonomamente il modello;
 - cambiare strike, parametri, calendario o payoff;
 - trasformare l'opzione asiatica in una call europea;
+- eliminare il dividend yield;
 - modificare il metodo CIR senza motivazione;
 - introdurre formule chiuse o modelli non previsti;
 - eliminare output o controlli richiesti.
@@ -491,6 +515,7 @@ Da calibrare dopo la costruzione definitiva del notebook. Il numero deve essere 
 ### Criteri per il notebook
 
 - correttezza della simulazione congiunta;
+- corretta inclusione del dividend yield;
 - corretta costruzione delle date di fixing;
 - corretta definizione di $A_T$;
 - corretta costruzione del payoff;
@@ -499,7 +524,8 @@ Da calibrare dopo la costruzione definitiva del notebook. Il numero deve essere 
 - misura dell'errore di simulazione;
 - qualità dei controlli;
 - leggibilità del notebook;
-- interpretazione finanziaria.
+- interpretazione finanziaria;
+- corretta distinzione tra dati osservati, proxy e parametri didattici.
 
 ### Criteri per il tracciato IA
 
@@ -512,17 +538,7 @@ Da calibrare dopo la costruzione definitiva del notebook. Il numero deve essere 
 - capacità di correggere eventuali errori dell'IA;
 - coerenza tra chat e notebook consegnato.
 
-### Peso dei controlli e dell'interpretazione
-
 Il risultato numerico del prezzo non deve essere sufficiente per una valutazione elevata.
-
-Devono avere peso sostanziale:
-
-- correttezza della costruzione del payoff;
-- controlli;
-- diagnostica Monte Carlo;
-- interpretazione della path-dependence;
-- qualità dell'interazione critica con l'IA.
 
 ---
 
@@ -542,25 +558,22 @@ $$\text{due fattori stocastici}\rightarrow\text{shock correlati}\rightarrow\text
 
 ### Caso take-home
 
-- sottostante azionario: dinamica moltiplicativa di tipo GBM;
+- sottostante: EURO STOXX 50;
+- dinamica: GBM con dividend yield;
 - tasso nominale: CIR;
 - funzionale della traiettoria: media aritmetica dei fixing;
-- prodotto: call asiatica;
+- prodotto: call asiatica OTC;
 - output finanziario: payoff opzionale path-dependent.
 
 La struttura computazionale comune rende trasferibili metodo e controlli, ma non la soluzione.
 
-Lo studente non può ottenere il take-home mediante semplice modifica dei parametri del notebook aula, perché deve ricostruire:
+---
 
-1. la variabile path-dependent;
-2. il meccanismo di payoff;
-3. il significato della traiettoria principale;
-4. la relazione tra fattore simulato e valore finanziario.
+### Fonti di calibrazione e contesto per il docente
 
-Nel complesso, la coppia consente di utilizzare operativamente i tre modelli centrali del Capitolo 6:
-
-- OU nel caso aula;
-- GBM nel take-home;
-- CIR in entrambi;
-
-e di confrontare due forme profondamente diverse di dipendenza del valore finanziario dall'intera traiettoria.
+- Eurex, specifiche delle EURO STOXX 50 Index Options (OESX): sottostante, mercato delle opzioni vanilla e griglia degli strike.
+- BCE, €STR con data di riferimento 27 luglio 2026 e decisioni di politica monetaria dell'11 giugno e del 23 luglio 2026.
+- iShares / BlackRock, ETF EURO STOXX 50: trailing dividend distribution yield di fine luglio 2026, utilizzato come proxy del dividend yield.
+- Eurex, VSTOXX futures: livelli delle scadenze estive 2026 utilizzati come riferimento per l'ordine di grandezza della volatilità.
+- CME Group, materiale sulle Average Price Options: utilizzo delle opzioni asiatiche per esposizioni basate su prezzi medi.
+- Letteratura su equity-linked securities e Asian-style options: utilizzo dell'averaging in prodotti strutturati e assicurativi.
