@@ -659,7 +659,7 @@ Confronto, per il portafoglio iniziale, tra scenari con e senza ingresso nel reg
 | Prompt zero | — | — | Nessuna cella specifica del caso | Vincoli generali di interazione con l'IA |
 | Prompt 1 | — | — | Cella Markdown iniziale con la Scheda Caso come specifica vincolante | Acquisizione corretta del problema |
 | Prompt 2 | A | — | Output di progettazione: flusso logico-teorico | Validazione del percorso risolutivo |
-| Prompt 3 | A | — | Output di progettazione: scomposizione nelle cinque tappe | Validazione dei collegamenti input-output |
+| Prompt 3 | A | — | Cella Markdown con scomposizione del processo rislutivo in cinque tappe | Validazione dei collegamenti input-output |
 | Prompt tappa 1 | A | 1 | Celle Markdown di impostazione teorico-matematica | Correttezza del modello, della LGD path-dependent e della politica di concentrazione |
 | Prompt tappa 2 | B | 2 | Celle Markdown e codice per simulazione di regimi, rating e default | Corretta implementazione delle traiettorie |
 | Prompt tappa 3 | B | 3 | Celle Markdown e codice per perdite individuali, due portafogli e aggregazione | Coerenza perdita-regime-investimento e applicazione del limite |
