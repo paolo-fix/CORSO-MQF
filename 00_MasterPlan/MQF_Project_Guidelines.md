@@ -1920,39 +1920,28 @@ La struttura può essere adattata dal docente in funzione della specifica lezion
 
 ---
 
-### 15.11 Valutazione del tracciato IA
+### 15.11 Valutazione della prova di uno studente
 
-La valutazione del tracciato IA riguarda il modo in cui lo studente ha utilizzato l’IA nel processo di costruzione del lavoro. Non riguarda la qualità intrinseca delle risposte prodotte dall’IA.
+La valutazione della prova di uno studente è basata sulla coppia di documenti "Notebook jupyter" e "Traccaiato IA", tipicamente restituiti come soluzione di un caso take-home. La rilevanza del tracciato IA riguarda il modo in cui lo studente ha utilizzato l’IA nel processo di costruzione del lavoro. Non riguarda la qualità intrinseca delle risposte prodotte dall’IA.
 
-Il docente valuta quindi:
+La valutazione complessiva deve quindi considerare sia la qualità del prodotto finale sia la qualità del processo che ha condotto alla sua costruzione. Un notebook quantitativamente corretto non è sufficiente se il tracciato mostra una delega sostanziale del ragionamento all'IA; simmetricamente, un uso metodologicamente corretto dell'IA non compensa errori teorici, computazionali o interpretativi presenti nel notebook.
 
-1. la qualità dei prompt formulati dallo studente;
-2. la chiarezza dei vincoli imposti all’IA;
-3. il rispetto dei regimi A/B/C;
-4. il contributo teorico iniziale dello studente;
-5. la capacità di verificare, correggere o selezionare criticamente le risposte IA;
-6. la tracciabilità del passaggio da prompt a notebook;
-7. la presenza di controlli numerici, logici e interpretativi;
-8. l’autonomia dell’interpretazione finale.
-
-Il tracciato IA è valutato come documento metodologico. Deve rendere visibile il processo seguito dallo studente: che cosa è stato chiesto all’IA, con quali vincoli, quale risposta è stata utilizzata, quale decisione è stata presa dallo studente, quale output è stato trasferito nel notebook e quale controllo è stato svolto.
+Per i casi take-home con uso documentato dell'IA, la valutazione assume come riferimento la seguente articolazione su 100 punti:
 
 #### Oggetto della valutazione
 
 La valutazione deve concentrarsi sui seguenti elementi.
 
-| Area | Cosa si valuta | Indicatori positivi |
-|---|---|---|
-| Prompt zero | Inizializzazione corretta del contesto | il prompt definisce corso, livello, regimi A/B/C, distinzione tra notebook e tracciato IA, e chiede una conferma non produttiva |
-| Prompt 1 | Scheda Caso e cella Markdown iniziale | l’IA riceve la Scheda Caso come specifica vincolante e produce solo la cella Markdown iniziale di inquadramento, senza risolvere il caso |
-| Prompt 2 | Costruzione del Flusso logico-teorico risolutivo | lo studente propone una sequenza teorica iniziale e chiede all’IA di verificarla, completarla e ordinarla |
-| Prompt 3 | Scomposizione input-output | lo studente propone una prima scomposizione in tappe e chiede all’IA di verificarla, completarla e ordinarla |
-| Regime A | Ricognizione teorico-modellistica | l’IA è usata per chiarire oggetti teorici, formule, definizioni, proprietà e collegamenti logici, senza produrre codice |
-| Regime B | Traduzione operativa in codice | l’IA traduce in Python una specifica già validata, senza modificare variabili, formule, scenari, parametri o output richiesti |
-| Regime C | Verifica critica | l’IA verifica un dubbio dello studente e classifica l’esito come criticità respinta oppure criticità accolta |
-| Validazione | Controllo delle risposte IA | lo studente segnala errori, omissioni, ambiguità o modifiche non autorizzate introdotte dall’IA |
-| Collegamento al notebook | Tracciabilità del lavoro | ogni uso dell’IA è collegato a una sezione del notebook, a un output prodotto e a un controllo svolto |
-| Interpretazione finale | Autonomia critica | l’interpretazione finale è scritta dallo studente e l’IA è usata solo per revisione critica, non per sostituzione |
+| Area | Peso | Criteri principali |
+|---|---:|---|
+| **Prompt 2 — Flusso logico-teorico risolutivo** | 30 | contributo iniziale dello studente, ordine logico, collegamento tra teoria, output e controlli |
+| **Prompt 3 — Scomposizione input-output** | 15 | proposta operativa iniziale dello studente |
+| **Notebook Jupyter e output computazionali** | 20 | codice corretto, tabelle, grafici, riproducibilità, output richiesti |
+| **Prompt e uso dei regimi A/B/C** | 15 | qualità dei prompt, rispetto dei vincoli, contributo dello studente, uso appropriato dell'IA |
+| **Verifiche logiche e controlli numerici** | 15 | verifiche su probabilità, simulazioni, formule, quantità condizionate e proprietà teoriche |
+| **Interpretazione critica finale** | 5 | autonomia, coerenza con gli output, interpretazione finanziaria e consapevolezza dei limiti del modello. l’interpretazione finale è scritta dallo studente e l’IA è usata solo per revisione critica, non per sostituzione|
+
+Totale: 100 punti.
 
 #### Valutazione specifica del Prompt 2
 
@@ -2040,39 +2029,7 @@ Occorre distinguere gli errori puramente tecnici di codice dagli errori teorici,
 
 Pertanto, nella valutazione del tracciato IA, il punto centrale non è se l’IA abbia prodotto una risposta perfetta, ma se lo studente abbia mantenuto il controllo teorico, operativo e interpretativo del lavoro.
 
----
-
-### 15.12 Rapporto tra notebook e tracciato IA
-
-Il notebook e il tracciato IA sono artefatti distinti ma collegati.
-
-Il notebook deve mostrare il prodotto computazionale validato:
-
-1. celle Markdown;
-2. celle codice;
-3. output numerici;
-4. tabelle;
-5. grafici;
-6. controlli;
-7. interpretazioni locali e finali.
-
-Il tracciato IA deve mostrare il processo metodologico che ha condotto, con eventuale supporto dell'IA, alla costruzione del notebook:
-
-1. prompt;
-2. regime;
-3. risposta IA utilizzata;
-4. decisione dello studente;
-5. output collegato;
-6. controllo;
-7. uso nella tappa successiva.
-
-Il notebook non deve diventare un archivio completo della conversazione con l'IA. Il tracciato IA non deve sostituire il notebook. Il primo documenta il prodotto operativo; il secondo documenta la qualità del governo dell'interazione con lo strumento.
-
-Output computazionali corretti ma ottenuti attraverso una delega opaca e non controllata non costituiscono uso virtuoso dell'IA. Allo stesso modo, prompt formalmente ordinati ma non collegati agli output effettivi del notebook non sono sufficienti.
-
----
-
-### 15.13 Responsabilità finale dello studente
+####  Responsabilità finale dello studente
 
 La responsabilità dello studente resta distribuita su tre piani:
 
@@ -2104,6 +2061,36 @@ ipotesi
 ```
 
 La finalità didattica non è ridurre il lavoro dello studente, ma aumentare la qualità del suo controllo sul processo quantitativo.
+
+---
+
+### 15.12 Rapporto tra notebook e tracciato IA
+
+Il notebook e il tracciato IA sono artefatti distinti ma collegati.
+
+Il notebook deve mostrare il prodotto computazionale validato:
+
+1. celle Markdown;
+2. celle codice;
+3. output numerici;
+4. tabelle;
+5. grafici;
+6. controlli;
+7. interpretazioni locali e finali.
+
+Il tracciato IA deve mostrare il processo metodologico che ha condotto, con eventuale supporto dell'IA, alla costruzione del notebook:
+
+1. prompt;
+2. regime;
+3. risposta IA utilizzata;
+4. decisione dello studente;
+5. output collegato;
+6. controllo;
+7. uso nella tappa successiva.
+
+Il notebook non deve diventare un archivio completo della conversazione con l'IA. Il tracciato IA non deve sostituire il notebook. Il primo documenta il prodotto operativo; il secondo documenta la qualità del governo dell'interazione con lo strumento.
+
+Output computazionali corretti ma ottenuti attraverso una delega opaca e non controllata non costituiscono uso virtuoso dell'IA. Allo stesso modo, prompt formalmente ordinati ma non collegati agli output effettivi del notebook non sono sufficienti.
 
 ---
 
