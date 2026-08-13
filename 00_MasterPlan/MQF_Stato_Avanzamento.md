@@ -182,6 +182,8 @@ Ha già una struttura più completa, ma alcune etichette sono “storiche”, ci
 9. Definire il livello di integrazione tra simulazione di GBM/OU/processi correlati, pricing di opzioni asiatiche e sistema OU-CIR nella Lezione 7.
 10. Stabilire il caso applicativo della Lezione 13 e le librerie di ottimizzazione da utilizzare nelle Lezioni 13 e 16.
 11. Riallineare progressivamente i nomi dei file ancora non conformi alla nomenclatura definitiva del Master Plan.
+12. Le istruzioni studente uso virtuoso IA casi applicativi vanno integrate nelle guideline.
+13. Eliminare incoerenza di informazioni tra template dei prompt zero, 1, 2 e 3 e di regime e scheda costruzione caso applicativo (aula e take-home) da una parte e guideline dall'altra
 
 ---
 
