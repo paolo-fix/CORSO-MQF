@@ -1,75 +1,91 @@
-# Lezione 10 — Scheda Costruzione Caso Aula
+# Lezione 10 — Scheda Costruzione Caso aula
 
 ## 1. Identificazione del caso
 
 - **Lezione:** 10 — Applicazione in Python: rischio di credito
 - **Tipo di caso:** aula
-- **Titolo:** Lehman Brothers 2008: rischio sistemico, migrazioni creditizie e perdita di portafoglio
-- **Nome file previsto:** `Lezione_10_Scheda_Costruzione_Caso_Aula.md`
+- **Titolo:** China Evergrande 2021: crisi immobiliare, dipendenza sistemica e controllo della concentrazione creditizia
+- **Nome file previsto:** `Lezione_10_Scheda_Costruzione_Caso_TakeHome.md`
 - **Destinatari:** studenti del secondo anno della Laurea Magistrale in Banca e Risk Management
-- **Uso previsto:** caso applicativo guidato per sviluppare mediante simulazione Monte Carlo un modello di rischio creditizio di portafoglio nel quale le migrazioni dei singoli debitori dipendono da un regime sistemico comune che evolve nel tempo.
+- **Uso previsto:** caso applicativo individuale da sviluppare dopo il caso aula, utilizzando una struttura markoviana a due livelli per simulare il rischio di credito di un portafoglio esposto al settore immobiliare cinese e valutare gli effetti di una politica di contenimento della concentrazione single-name.
 
 ## 2. Contesto e motivazione
 
-Il caso è ambientato nel **giugno 2008**, in una fase di crescente tensione del sistema finanziario internazionale e di deterioramento del merito creditizio di Lehman Brothers.
+Il caso è ambientato nell'**estate del 2021**, durante la fase di rapido deterioramento delle condizioni finanziarie del settore immobiliare cinese e del merito creditizio di China Evergrande Group.
 
-Il punto di osservazione è deliberatamente ex ante: il risk manager non conosce ancora l'esito che si realizzerà nei mesi successivi e deve misurare il rischio a un anno di un portafoglio di esposizioni creditizie.
+Il punto di osservazione è deliberatamente ex ante. Lo studente assume il ruolo di un risk manager che deve valutare il rischio a un anno di un portafoglio di esposizioni creditizie verso emittenti cinesi con differenti classi di rating.
 
-Il portafoglio comprende quaranta debitori distribuiti tra differenti classi di rating. Una delle posizioni, identificata con Lehman Brothers, presenta un investimento iniziale significativamente più elevato di quello associato ai singoli altri debitori.
+La posizione verso China Evergrande presenta un investimento iniziale significativamente superiore a quello delle singole altre posizioni. Il portafoglio è quindi esposto contemporaneamente:
 
-L'elemento centrale del caso non è tuttavia il singolo default di Lehman, ma la presenza di un **fattore sistemico comune**. Le condizioni generali del mercato finanziario possono trovarsi in uno stato ordinario, di stress o di crisi e possono cambiare da un trimestre al successivo. A ciascun regime corrisponde una diversa matrice di migrazione dei rating.
+1. al deterioramento creditizio dei singoli debitori;
+2. a un fattore sistemico comune legato alle condizioni del comparto immobiliare e del credito;
+3. alla concentrazione della posizione verso Evergrande.
 
-Le transizioni dei singoli debitori sono assunte indipendenti **condizionatamente alla traiettoria del regime sistemico**, ma non sono indipendenti incondizionatamente. Una traiettoria sistemica sfavorevole modifica contemporaneamente le probabilità di downgrade e default di tutti i debitori.
+Il regime sistemico può trovarsi in una condizione di normalizzazione, stress o crisi e può cambiare da un trimestre al successivo. A ogni regime corrisponde una diversa matrice di migrazione dei rating.
 
-La simulazione Monte Carlo ha pertanto una funzione quantitativa sostanziale: serve a costruire la distribuzione congiunta delle perdite di portafoglio generata dall'interazione fra regime sistemico dinamico, migrazioni creditizie individuali, composizione iniziale del portafoglio e funzione di perdita.
+Le transizioni dei singoli debitori sono indipendenti condizionatamente alla traiettoria del regime sistemico comune, ma non sono indipendenti incondizionatamente.
 
-Il caso comprende inoltre un confronto controfattuale. La posizione Lehman viene eliminata e il corrispondente investimento iniziale viene redistribuito proporzionalmente tra gli altri debitori, mantenendo invariato l'investimento complessivo del portafoglio. Il confronto consente di valutare gli effetti della sostituzione di una posizione fortemente concentrata con una riallocazione proporzionale sulle restanti posizioni.
+Rispetto al caso aula viene introdotto un ulteriore elemento. La severità della perdita in caso di default dipende dalle condizioni sistemiche prevalenti nel periodo nel quale il default si verifica. Una situazione di crisi riduce quindi non soltanto la qualità delle transizioni creditizie, ma anche il recovery rate.
 
-Le matrici di transizione, la composizione del portafoglio e i parametri economici utilizzati nel caso sono **dati didattici calibrati**. Non costituiscono stime storiche delle probabilità effettive di transizione di Lehman Brothers o del sistema finanziario nel 2008.
+La simulazione Monte Carlo è necessaria per generare congiuntamente:
 
-**Riferimenti storici docente:** Lehman Brothers Holdings Inc., Form 10-Q 2008; SEC, documentazione relativa al Chapter 11 del 15 settembre 2008.
+- la traiettoria del regime sistemico;
+- le migrazioni creditizie dei debitori;
+- il momento degli eventuali default;
+- la LGD associata al regime nel quale il default avviene;
+- la perdita aggregata di portafoglio.
+
+Il caso comprende inoltre un confronto con una politica di gestione del rischio. Viene imposto un limite massimo del $10\%$ all'investimento iniziale verso un singolo debitore. La posizione Evergrande viene conseguentemente ridotta e l'investimento liberato viene riallocato sulle posizioni inizialmente classificate BBB e BB.
+
+Le matrici di transizione, la composizione del portafoglio, le LGD e gli altri parametri sono **dati didattici calibrati**. Non costituiscono stime storiche delle probabilità effettive di transizione, delle recovery o delle perdite di China Evergrande Group.
+
+**Riferimenti storici docente:** comunicazioni societarie China Evergrande Group; comunicazioni delle principali agenzie di rating relative ai downgrade del 2021; documentazione relativa al successivo default sulle obbligazioni offshore.
 
 ## 3. Domanda quantitativa e obiettivo didattico
 
 ### Domanda quantitativa
 
-Nel giugno 2008, quale distribuzione della perdita a un anno può essere associata a un portafoglio di esposizioni creditizie se:
+Quale distribuzione della perdita a un anno emerge per il portafoglio se:
 
-1. il regime sistemico evolve trimestralmente secondo una catena di Markov;
+1. le condizioni sistemiche del settore evolvono secondo una catena di Markov;
 2. le probabilità di migrazione dei rating dipendono dal regime sistemico corrente;
 3. i debitori appartengono inizialmente a differenti classi di rating;
-4. le migrazioni individuali sono indipendenti condizionatamente al regime sistemico comune;
-5. a ogni migrazione creditizia è associata una conseguenza economica?
+4. le migrazioni individuali sono indipendenti condizionatamente al regime comune;
+5. la perdita da migrazione dipende dal rating finale;
+6. la LGD in caso di default dipende dal regime sistemico nel quale il default si verifica?
 
 Quali valori assumono perdita attesa, dispersione, VaR e CVaR?
 
-Come cambiano tali quantità se l'investimento inizialmente concentrato su Lehman Brothers viene redistribuito proporzionalmente tra gli altri debitori, mantenendo invariato l'investimento complessivo del portafoglio?
+Come cambia la distribuzione della perdita se viene introdotto un limite di concentrazione single-name pari al $10\%$ dell'investimento complessivo, riducendo la posizione Evergrande e riallocando l'investimento sulle posizioni BBB e BB?
 
 ### Obiettivo didattico
 
-Lo studente deve essere in grado di passare da una struttura markoviana a due livelli a una distribuzione simulata delle perdite di portafoglio:
+Lo studente deve costruire e simulare la sequenza:
 
 $$
 \text{regime sistemico}
 \longrightarrow
-\text{matrici di migrazione condizionate}
+\text{migrazioni creditizie condizionate}
 \longrightarrow
-\text{traiettorie creditizie}
+\text{tempo e regime di eventuale default}
 \longrightarrow
 \text{perdite individuali}
 \longrightarrow
 \text{perdita di portafoglio}
 \longrightarrow
-\widehat{F}_{L^P}
+\widehat F_{L^P}
 \longrightarrow
-\widehat{\mathrm{VaR}},
-\widehat{\mathrm{CVaR}}.
+\widehat{\operatorname{VaR}},
+\widehat{\operatorname{CVaR}}.
 $$
 
-L'applicazione deve inoltre rendere osservabili due meccanismi distinti:
+Il caso deve inoltre consentire di distinguere:
 
-1. il fattore sistemico comune genera dipendenza tra perdite creditizie che sarebbero indipendenti condizionatamente alla traiettoria del regime;
-2. a parità di investimento complessivo, una differente allocazione iniziale delle posizioni modifica la distribuzione della perdita di portafoglio.
+- dipendenza sistemica e rischio idiosincratico;
+- probabilità di default e severità della perdita;
+- rischio di migrazione e rischio di default;
+- composizione iniziale del portafoglio e EAD;
+- misura del rischio e decisione di gestione della concentrazione.
 
 ## 4. Specifica teorico-matematica
 
@@ -86,16 +102,16 @@ con spazio degli stati
 $$
 \mathcal{M}
 =
-\{O,S,C\},
+\{N,S,C\},
 $$
 
 dove:
 
-- $O$ = condizioni ordinarie;
-- $S$ = stress finanziario;
-- $C$ = crisi.
+- $N$ = normalizzazione delle condizioni finanziarie;
+- $S$ = stress del settore immobiliare e del credito;
+- $C$ = crisi settoriale e finanziaria.
 
-Il regime osservato all'inizio del caso è
+Il regime iniziale è
 
 $$
 M_0=S.
@@ -106,9 +122,9 @@ La matrice trimestrale di transizione del regime è
 $$
 Q=
 \begin{pmatrix}
-0.82 & 0.16 & 0.02\\
-0.30 & 0.55 & 0.15\\
-0.10 & 0.35 & 0.55
+0.84 & 0.15 & 0.01\\
+0.20 & 0.62 & 0.18\\
+0.08 & 0.30 & 0.62
 \end{pmatrix}.
 $$
 
@@ -127,56 +143,58 @@ con spazio degli stati
 $$
 \mathcal{I}
 =
-\{A,BBB,BB,B,D\},
+\{BBB,BB,B,CCC,D\}.
 $$
 
-dove $D$ rappresenta il default ed è assorbente.
+Lo stato $D$ rappresenta il default ed è assorbente.
+
+Le classi utilizzate costituiscono bucket interni del modello didattico e non devono essere identificate automaticamente con uno specifico rating storico assegnato da una determinata agenzia.
 
 ### 4.3 Matrici di migrazione condizionate al regime
 
-Se il regime sistemico corrente è ordinario, si utilizza
+Nel regime di normalizzazione:
 
 $$
-P^{(O)}
+P^{(N)}
 =
 \begin{pmatrix}
-0.960 & 0.035 & 0.004 & 0.0005 & 0.0005\\
-0.020 & 0.940 & 0.030 & 0.0070 & 0.0030\\
-0.004 & 0.030 & 0.910 & 0.0460 & 0.0100\\
-0.001 & 0.004 & 0.025 & 0.9400 & 0.0300\\
-0     & 0     & 0     & 0      & 1
+0.955 & 0.038 & 0.005 & 0.001 & 0.001\\
+0.025 & 0.925 & 0.038 & 0.009 & 0.003\\
+0.005 & 0.035 & 0.885 & 0.060 & 0.015\\
+0.001 & 0.004 & 0.025 & 0.900 & 0.070\\
+0     & 0     & 0     & 0     & 1
 \end{pmatrix}.
 $$
 
-Se il regime è di stress,
+Nel regime di stress:
 
 $$
 P^{(S)}
 =
 \begin{pmatrix}
-0.920 & 0.060 & 0.014 & 0.004 & 0.002\\
-0.010 & 0.870 & 0.085 & 0.027 & 0.008\\
-0.002 & 0.018 & 0.820 & 0.135 & 0.025\\
-0     & 0.002 & 0.018 & 0.880 & 0.100\\
+0.925 & 0.060 & 0.011 & 0.003 & 0.001\\
+0.012 & 0.875 & 0.085 & 0.022 & 0.006\\
+0.003 & 0.020 & 0.810 & 0.135 & 0.032\\
+0     & 0.003 & 0.022 & 0.855 & 0.120\\
 0     & 0     & 0     & 0     & 1
 \end{pmatrix}.
 $$
 
-Se il regime è di crisi,
+Nel regime di crisi:
 
 $$
 P^{(C)}
 =
 \begin{pmatrix}
-0.820 & 0.120 & 0.040 & 0.015 & 0.005\\
-0.005 & 0.760 & 0.150 & 0.060 & 0.025\\
-0     & 0.010 & 0.680 & 0.230 & 0.080\\
-0     & 0.001 & 0.009 & 0.740 & 0.250\\
+0.830 & 0.115 & 0.035 & 0.015 & 0.005\\
+0.004 & 0.745 & 0.145 & 0.075 & 0.031\\
+0     & 0.008 & 0.650 & 0.242 & 0.100\\
+0     & 0     & 0.008 & 0.692 & 0.300\\
 0     & 0     & 0     & 0     & 1
 \end{pmatrix}.
 $$
 
-Per ogni debitore $i$,
+Per ogni debitore:
 
 $$
 \Pr
@@ -191,15 +209,15 @@ $$
 
 ### 4.4 Dipendenza tra i debitori
 
-Condizionatamente alla traiettoria
+Condizionatamente alla traiettoria sistemica
 
 $$
 M_0,M_1,M_2,M_3,
 $$
 
-le transizioni dei differenti debitori sono assunte indipendenti.
+le transizioni creditizie dei differenti debitori sono assunte indipendenti.
 
-Pertanto, per $i\neq r$,
+Per $i\neq r$:
 
 $$
 X_{i,t+1}
@@ -209,311 +227,350 @@ X_{r,t+1}
 M_t,X_{i,t},X_{r,t}.
 $$
 
-L'indipendenza condizionata non implica indipendenza incondizionata.
+La dipendenza incondizionata deriva dall'esposizione di tutti i debitori alla stessa traiettoria del regime sistemico.
 
-Tutti i debitori sono infatti esposti alla medesima realizzazione del processo sistemico. Una traiettoria che permane o entra nello stato $C$ applica simultaneamente matrici di migrazione più sfavorevoli all'intero portafoglio.
-
-### 4.5 Portafoglio iniziale concentrato
+### 4.5 Portafoglio iniziale
 
 Indichiamo con $V_{i,0}$ l'investimento iniziale nella posizione creditizia verso il debitore $i$.
 
-Il portafoglio contiene $40$ debitori e presenta un investimento iniziale complessivo pari a
+Il portafoglio contiene $36$ debitori e presenta un investimento complessivo pari a
 
 $$
 V_0^P
 =
-\sum_{i=1}^{40}V_{i,0}
+\sum_{i=1}^{36}V_{i,0}
 =
-173.
+200.
 $$
 
 Gli importi sono espressi in milioni di dollari.
 
 | Gruppo | Numero debitori | Rating iniziale | Investimento iniziale per debitore | Investimento iniziale complessivo |
 |---|---:|:---:|---:|---:|
-| Lehman Brothers | 1 | A | 25 | 25 |
-| Altri debitori A | 11 | A | 5 | 55 |
-| Debitori BBB | 14 | BBB | 4 | 56 |
-| Debitori BB | 9 | BB | 3 | 27 |
-| Debitori B | 5 | B | 2 | 10 |
-| **Totale** | **40** |  |  | **173** |
+| China Evergrande Group | 1 | B | 30 | 30 |
+| Debitori BBB | 10 | BBB | 6 | 60 |
+| Debitori BB | 10 | BB | 5 | 50 |
+| Altri debitori B | 10 | B | 4 | 40 |
+| Debitori CCC | 5 | CCC | 4 | 20 |
+| **Totale** | **36** |  |  | **200** |
 
-Lehman Brothers segue la stessa matrice di migrazione degli altri debitori appartenenti alla medesima classe di rating. La sua specificità nel modello deriva dall'ammontare dell'investimento iniziale.
-
-### 4.6 Portafoglio controfattuale con riallocazione proporzionale
-
-Nel portafoglio controfattuale la posizione Lehman viene eliminata.
-
-L'investimento iniziale associato a Lehman,
+La posizione Evergrande rappresenta quindi
 
 $$
-V_{L,0}=25,
-$$
-
-viene redistribuito tra i restanti $39$ debitori mantenendo inalterate le proporzioni relative dei loro investimenti iniziali.
-
-L'investimento complessivo nei debitori diversi da Lehman è
-
-$$
-\sum_{i\neq L}V_{i,0}
+\frac{30}{200}
 =
-148.
+15\%
 $$
 
-Per ogni debitore $i\neq L$, il nuovo investimento è pertanto
+dell'investimento iniziale complessivo.
 
-$$
-V_{i,0}^{\mathrm{div}}
-=
-V_{i,0}
-+
-25
-\frac{V_{i,0}}{148},
-$$
+Evergrande segue la stessa matrice di migrazione degli altri debitori appartenenti alla medesima classe creditizia. La sua specificità nel modello deriva dall'elevato investimento iniziale.
 
-ossia
+### 4.6 Funzione di perdita in assenza di default
 
-$$
-V_{i,0}^{\mathrm{div}}
-=
-V_{i,0}
-\frac{173}{148}.
-$$
-
-Il fattore di riscalamento è
-
-$$
-\frac{173}{148}
-\approx
-1.168919.
-$$
-
-La nuova struttura del portafoglio è quindi:
-
-| Gruppo | Numero debitori | Rating iniziale | Investimento per debitore | Investimento complessivo |
-|---|---:|:---:|---:|---:|
-| Altri debitori A | 11 | A | 5.8446 | 64.2905 |
-| Debitori BBB | 14 | BBB | 4.6757 | 65.4595 |
-| Debitori BB | 9 | BB | 3.5068 | 31.5608 |
-| Debitori B | 5 | B | 2.3378 | 11.6892 |
-| **Totale** | **39** |  |  | **173.0000** |
-
-I due portafogli presentano quindi lo stesso investimento iniziale complessivo:
-
-$$
-V_0^{P,\mathrm{conc}}
-=
-V_0^{P,\mathrm{div}}
-=
-173.
-$$
-
-Il confronto non deve essere interpretato come una variazione della dimensione del portafoglio, ma come una diversa allocazione dello stesso investimento complessivo.
-
-La riallocazione proporzionale modifica anche la distribuzione dell'investimento tra classi di rating. Il confronto non identifica pertanto un effetto puro e isolato della sola concentrazione, ma misura l'effetto della specifica strategia controfattuale adottata: eliminazione della posizione Lehman e redistribuzione proporzionale dell'investimento sulle posizioni residue.
-
-### 4.7 Funzione di perdita migration-based
-
-La perdita del debitore dipende dal rating iniziale, dal rating finale e dall'ammontare investito nella posizione.
+Se il debitore non entra in default entro l'orizzonte, la perdita dipende dal rating iniziale e dal rating finale.
 
 Si definisce
 
 $$
-L_i
+L_i^{M}
 =
 V_{i,0}\,
 \ell(X_{i,0},X_{i,4}),
 $$
 
-dove $\ell(r_0,r_4)$ è il tasso di perdita rispetto al valore di riferimento iniziale.
+dove $\ell(r_0,r_4)$ rappresenta il tasso di perdita migration-based.
 
 La calibrazione didattica è:
 
-| Rating iniziale $\backslash$ finale | A | BBB | BB | B | D |
-|---|---:|---:|---:|---:|---:|
-| A | 0.00 | 0.03 | 0.10 | 0.22 | 0.65 |
-| BBB | -0.02 | 0.00 | 0.06 | 0.16 | 0.65 |
-| BB | -0.04 | -0.02 | 0.00 | 0.09 | 0.65 |
-| B | -0.06 | -0.04 | -0.02 | 0.00 | 0.65 |
+| Rating iniziale $\backslash$ finale | BBB | BB | B | CCC |
+|---|---:|---:|---:|---:|
+| BBB | 0.00 | 0.04 | 0.11 | 0.26 |
+| BB | -0.03 | 0.00 | 0.07 | 0.19 |
+| B | -0.07 | -0.04 | 0.00 | 0.13 |
+| CCC | -0.12 | -0.08 | -0.04 | 0.00 |
 
-I valori negativi rappresentano incrementi di valore prodotti da un miglioramento del rating rispetto alla classe iniziale.
+I valori negativi rappresentano incrementi di valore rispetto al riferimento iniziale prodotti da un miglioramento del rating.
 
-Nel default,
+### 4.7 Default e LGD dipendente dal regime
 
-$$
-\ell(r_0,D)=0.65.
-$$
-
-Per raccordare questa specificazione con la notazione PD–LGD–EAD del Capitolo 9, nel caso didattico si assume che, in assenza di ammortamenti, utilizzi aggiuntivi o variazioni dell'esposizione nominale,
+Si definisce il tempo di default del debitore $i$ come
 
 $$
-\mathrm{EAD}_i=V_{i,0}.
+\tau_i
+=
+\min
+\left\{
+t\in\{1,\ldots,4\}:
+X_{i,t}=D
+\right\}.
 $$
 
-Questa uguaglianza è una **ipotesi semplificatrice del caso** e non costituisce una identificazione generale tra investimento iniziale ed EAD.
+Se il debitore entra in default durante la transizione dal trimestre $t$ al trimestre $t+1$, la matrice utilizzata per tale transizione è determinata da $M_t$.
 
-Con
+La LGD dipende dal regime sistemico in tale momento:
 
 $$
-\mathrm{LGD}=0.65,
+\operatorname{LGD}^{(N)}
+=
+0.55,
 $$
 
-la perdita in default risulta quindi
+$$
+\operatorname{LGD}^{(S)}
+=
+0.70,
+$$
+
+$$
+\operatorname{LGD}^{(C)}
+=
+0.85.
+$$
+
+Nel caso didattico si assume
+
+$$
+\operatorname{EAD}_i
+=
+V_{i,0}.
+$$
+
+Questa uguaglianza è una ipotesi semplificatrice specifica del caso e non costituisce una identificazione generale tra investimento iniziale ed EAD.
+
+Se $\tau_i=t+1$, la perdita da default è quindi
 
 $$
 L_i^D
 =
-\mathrm{EAD}_i\mathrm{LGD}
-=
-V_{i,0}(0.65).
+V_{i,0}
+\operatorname{LGD}^{(M_t)}.
 $$
 
-Nel portafoglio controfattuale la medesima ipotesi viene applicata ai nuovi investimenti $V_{i,0}^{\mathrm{div}}$.
-
-### 4.8 Perdite di portafoglio e disegno della simulazione
-
-Per la replica Monte Carlo $r$, la perdita del portafoglio concentrato è
+La perdita individuale complessiva è pertanto
 
 $$
-L_{\mathrm{conc}}^{P,(r)}
+L_i
 =
-\sum_{i=1}^{40}
+\begin{cases}
+V_{i,0}\ell(X_{i,0},X_{i,4}),
+&
+\text{se }\tau_i>4,\\[2mm]
+V_{i,0}\operatorname{LGD}^{(M_{\tau_i-1})},
+&
+\text{se }\tau_i\leq4.
+\end{cases}
+$$
+
+La perdita da default dipende quindi non soltanto dallo stato finale, ma anche dalla traiettoria che conduce al default.
+
+### 4.8 Portafoglio con limite di concentrazione
+
+Viene considerata una politica alternativa che impone
+
+$$
+\max_i
+\frac{V_{i,0}}{V_0^P}
+\leq
+10\%.
+$$
+
+Poiché
+
+$$
+V_0^P=200,
+$$
+
+l'investimento massimo consentito verso un singolo debitore è
+
+$$
+20.
+$$
+
+La posizione Evergrande viene pertanto ridotta da
+
+$$
+30
+$$
+
+a
+
+$$
+20.
+$$
+
+L'investimento liberato,
+
+$$
+10,
+$$
+
+viene riallocato esclusivamente sulle posizioni inizialmente classificate BBB e BB, in proporzione ai rispettivi investimenti iniziali.
+
+L'investimento complessivo iniziale di tali gruppi è
+
+$$
+60+50=110.
+$$
+
+Per ciascun debitore BBB:
+
+$$
+V_{i,0}^{\mathrm{lim}}
+=
+6+
+10\frac{6}{110}
+=
+6.54545.
+$$
+
+Per ciascun debitore BB:
+
+$$
+V_{i,0}^{\mathrm{lim}}
+=
+5+
+10\frac{5}{110}
+=
+5.45455.
+$$
+
+Le altre posizioni restano invariate.
+
+La struttura del portafoglio dopo l'applicazione del limite è:
+
+| Gruppo | Numero debitori | Rating iniziale | Investimento per debitore | Investimento complessivo |
+|---|---:|:---:|---:|---:|
+| China Evergrande Group | 1 | B | 20.0000 | 20.0000 |
+| Debitori BBB | 10 | BBB | 6.5455 | 65.4545 |
+| Debitori BB | 10 | BB | 5.4545 | 54.5455 |
+| Altri debitori B | 10 | B | 4.0000 | 40.0000 |
+| Debitori CCC | 5 | CCC | 4.0000 | 20.0000 |
+| **Totale** | **36** |  |  | **200.0000** |
+
+L'investimento complessivo rimane quindi invariato:
+
+$$
+V_0^{P,\mathrm{base}}
+=
+V_0^{P,\mathrm{lim}}
+=
+200.
+$$
+
+La politica non costituisce una semplice eliminazione della posizione Evergrande: essa combina riduzione della concentrazione e riallocazione verso classi creditizie iniziali migliori.
+
+### 4.9 Perdite dei due portafogli
+
+Per la replica Monte Carlo $r$, la perdita del portafoglio iniziale è
+
+$$
+L_{\mathrm{base}}^{P,(r)}
+=
+\sum_{i=1}^{36}
 L_i^{(r)}.
 $$
 
-La perdita del portafoglio controfattuale è
+Applicando agli stessi scenari simulati il vettore degli investimenti soggetto al limite si ottiene
 
 $$
-L_{\mathrm{div}}^{P,(r)}
-=
-\sum_{i\neq L}
-V_{i,0}^{\mathrm{div}}
-\ell
-\left(
-X_{i,0},
-X_{i,4}^{(r)}
-\right).
+L_{\mathrm{lim}}^{P,(r)}.
 $$
 
-Il confronto deve essere effettuato utilizzando **gli stessi scenari Monte Carlo sottostanti**.
+Il confronto deve utilizzare **esattamente le stesse traiettorie sistemiche e creditizie** per i due portafogli.
 
-In particolare:
+Cambiano esclusivamente gli investimenti iniziali attribuiti alle posizioni.
 
-1. la traiettoria del regime sistemico è la stessa per i due portafogli in ciascuna replica;
-2. per i $39$ debitori comuni ai due portafogli vengono utilizzate le stesse traiettorie creditizie;
-3. la traiettoria Lehman entra soltanto nel portafoglio concentrato;
-4. cambiano esclusivamente la presenza della posizione Lehman e gli investimenti iniziali attribuiti alle posizioni residue.
-
-Questa costruzione evita che le differenze tra i due portafogli siano prodotte da scenari casuali differenti.
-
-La simulazione di $N$ repliche produce:
+La simulazione produce quindi i due campioni:
 
 $$
-L_{\mathrm{conc}}^{P,(1)},
+L_{\mathrm{base}}^{P,(1)},
 \ldots,
-L_{\mathrm{conc}}^{P,(N)}
+L_{\mathrm{base}}^{P,(N_{\mathrm{MC}})}
 $$
 
 e
 
 $$
-L_{\mathrm{div}}^{P,(1)},
+L_{\mathrm{lim}}^{P,(1)},
 \ldots,
-L_{\mathrm{div}}^{P,(N)}.
+L_{\mathrm{lim}}^{P,(N_{\mathrm{MC}})}.
 $$
 
-Da tali campioni vengono costruite le distribuzioni empiriche
+Per ciascuna misura di rischio $\rho$ si definisce
 
 $$
-\widehat F_{\mathrm{conc}}
-\qquad\text{e}\qquad
-\widehat F_{\mathrm{div}}.
-$$
-
-Le principali quantità di interesse sono:
-
-$$
-\widehat{\mathbb E}[L^P],
-\qquad
-\widehat{\operatorname{Var}}(L^P),
-\qquad
-\widehat{\mathrm{VaR}}_{0.95},
-\qquad
-\widehat{\mathrm{CVaR}}_{0.95},
-$$
-
-e
-
-$$
-\widehat{\mathrm{VaR}}_{0.99},
-\qquad
-\widehat{\mathrm{CVaR}}_{0.99}.
-$$
-
-Le variazioni prodotte dalla riallocazione possono essere sintetizzate mediante
-
-$$
-\Delta \rho
+\Delta\rho
 =
-\rho(L_{\mathrm{div}}^P)
+\rho(L_{\mathrm{lim}}^P)
 -
-\rho(L_{\mathrm{conc}}^P),
+\rho(L_{\mathrm{base}}^P).
 $$
 
-dove $\rho$ rappresenta, di volta in volta, perdita attesa, deviazione standard, VaR o CVaR.
+Una quantità aggiuntiva utile è la differenza scenario per scenario:
 
-Il CVaR deve essere calcolato secondo la definizione mediante quantili adottata nel Capitolo 9.
+$$
+\Delta L^{(r)}
+=
+L_{\mathrm{lim}}^{P,(r)}
+-
+L_{\mathrm{base}}^{P,(r)}.
+$$
 
-### 4.9 Simulazione di una replica
+### 4.10 Simulazione di una replica
 
 Per ogni replica $r$:
 
 1. si pone $M_0=S$;
-2. per $t=0,\ldots,3$, la transizione creditizia $X_{i,t}\rightarrow X_{i,t+1}$ viene simulata utilizzando $P^{(M_t)}$;
-3. condizionatamente a $M_t$, ogni debitore utilizza una propria estrazione casuale indipendente;
-4. per $t<3$, il regime successivo $M_{t+1}$ viene simulato mediante $Q$;
-5. al termine del quarto trimestre si osservano gli stati $X_{i,4}$;
-6. si calcola la perdita del portafoglio concentrato;
-7. si eliminano la posizione Lehman e la sua traiettoria dal portafoglio controfattuale;
-8. agli stessi stati finali dei $39$ debitori residui vengono applicati gli investimenti iniziali riallocati;
-9. si calcola la perdita del portafoglio controfattuale.
+2. per $t=0,\ldots,3$, le migrazioni dei debitori vengono simulate utilizzando $P^{(M_t)}$;
+3. per ogni debitore che entra per la prima volta in $D$ vengono registrati il tempo di default e il regime $M_t$ che ha governato la transizione;
+4. condizionatamente a $M_t$, le estrazioni individuali dei differenti debitori sono indipendenti;
+5. per $t<3$, il nuovo regime $M_{t+1}$ viene simulato mediante $Q$;
+6. per i debitori sopravvissuti si applica la funzione di perdita migration-based;
+7. per i debitori in default si applica la LGD associata al regime nel quale il default si è verificato;
+8. si calcola la perdita del portafoglio iniziale;
+9. mantenendo invariati gli stessi scenari, si applica il vettore degli investimenti soggetto al limite e si calcola la seconda perdita di portafoglio.
 
-Il numero base di repliche è
-
-$$
-N=50\,000.
-$$
-
-Per la riproducibilità del caso aula viene utilizzato il seed
+Il numero base di simulazioni è
 
 $$
-2026.
+N_{\mathrm{MC}}
+=
+50\,000.
 $$
 
-### 4.10 Ipotesi
+Per la riproducibilità del aula viene utilizzato il seed
+
+$$
+2027.
+$$
+
+### 4.11 Ipotesi
 
 1. Il regime sistemico è markoviano e omogeneo nel tempo.
-2. Le matrici $P^{(O)}$, $P^{(S)}$, $P^{(C)}$ sono omogenee all'interno del rispettivo regime.
+2. Le matrici $P^{(N)}$, $P^{(S)}$ e $P^{(C)}$ sono omogenee all'interno del rispettivo regime.
 3. Il default è assorbente.
-4. A parità di rating corrente e regime sistemico, tutti i debitori condividono la stessa matrice di migrazione.
+4. A parità di rating corrente e regime sistemico, i debitori condividono la stessa matrice di migrazione.
 5. Le transizioni individuali sono indipendenti condizionatamente al regime comune.
 6. Gli investimenti iniziali sono deterministici.
-7. Nel caso base si assume $\mathrm{EAD}_i=V_{i,0}$.
-8. La LGD è deterministica e comune ai debitori.
-9. La funzione di perdita migration-based è deterministica condizionatamente agli stati iniziale e finale.
-10. Il modello utilizza probabilità fisiche.
-11. Non viene modellato il pricing di strumenti derivati o l'impiego di probabilità risk-neutral.
-12. Le matrici e i parametri costituiscono una calibrazione didattica, non una stima storica.
+7. Nel modello didattico si assume $\operatorname{EAD}_i=V_{i,0}$.
+8. La LGD dipende dal regime sistemico che governa la transizione nel default.
+9. Le LGD sono deterministiche condizionatamente al regime.
+10. La funzione di perdita migration-based è deterministica condizionatamente ai rating iniziale e finale.
+11. Il modello utilizza probabilità fisiche.
+12. Non vengono utilizzate probabilità risk-neutral.
+13. Le matrici, le LGD e gli investimenti costituiscono una calibrazione didattica.
 
 ## 5. Output richiesti
 
 ### 5.1 Risultati numerici
 
-Per entrambi i portafogli:
+Per il portafoglio iniziale e per il portafoglio soggetto al limite:
 
 - distribuzione simulata della perdita;
 - perdita media;
-- varianza e deviazione standard;
+- varianza;
+- deviazione standard;
 - $VaR_{0.95}$;
 - $CVaR_{0.95}$;
 - $VaR_{0.99}$;
@@ -521,319 +578,323 @@ Per entrambi i portafogli:
 
 Inoltre:
 
-- differenza tra le misure di rischio dei due portafogli;
-- probabilità simulata che il regime di crisi venga raggiunto almeno una volta nell'orizzonte;
-- perdita media del portafoglio concentrato negli scenari con e senza ingresso nello stato di crisi;
-- distribuzione scenario per scenario della differenza
-
-$$
-\Delta L^{(r)}
-=
-L_{\mathrm{div}}^{P,(r)}
--
-L_{\mathrm{conc}}^{P,(r)}.
-$$
+- numero medio di default;
+- probabilità di raggiungere almeno una volta il regime $C$;
+- perdita media condizionata al raggiungimento o meno del regime $C$;
+- differenze tra le misure di rischio dei due portafogli;
+- distribuzione di $\Delta L$;
+- incidenza della politica di concentrazione sulle misure di coda.
 
 ### 5.2 Tabelle
 
-**Tabella 1 — Portafoglio iniziale concentrato**
+**Tabella 1 — Portafoglio iniziale**
 
-Rating iniziale, numero di debitori, investimento individuale e investimento complessivo.
+Numero di debitori, rating iniziale, investimento individuale e investimento complessivo.
 
-**Tabella 2 — Portafoglio controfattuale**
+**Tabella 2 — Portafoglio soggetto al limite**
 
-Rating iniziale, numero di debitori, investimento individuale riallocato e investimento complessivo.
+Investimenti dopo la riduzione della posizione Evergrande e la riallocazione.
 
 **Tabella 3 — Misure di rischio**
 
 Confronto tra:
 
-- portafoglio concentrato;
-- portafoglio con riallocazione proporzionale;
+- portafoglio iniziale;
+- portafoglio soggetto al limite;
 - differenza tra le rispettive misure.
 
 **Tabella 4 — Regime sistemico e perdita**
 
-Per il portafoglio concentrato, confronto tra:
-
-- scenari nei quali lo stato $C$ non viene mai raggiunto;
-- scenari nei quali lo stato $C$ viene raggiunto almeno una volta.
+Confronto, per il portafoglio iniziale, tra scenari con e senza ingresso nel regime $C$.
 
 ### 5.3 Grafici
 
-1. Distribuzione empirica della perdita del portafoglio concentrato con indicazione di VaR 95% e VaR 99%.
-2. Confronto tra le distribuzioni empiriche delle perdite dei due portafogli, con particolare attenzione alla coda destra.
-3. Confronto delle perdite del portafoglio concentrato negli scenari con e senza ingresso nello stato di crisi.
+1. Distribuzione empirica della perdita del portafoglio iniziale con indicazione di VaR 95% e VaR 99%.
+2. Confronto delle code delle distribuzioni del portafoglio iniziale e del portafoglio soggetto al limite.
+3. Distribuzione di $\Delta L$ oppure confronto delle perdite negli scenari con e senza ingresso nel regime di crisi.
 
 ### 5.4 Controlli
 
 - tutte le righe di $Q$ devono sommare a uno;
 - tutte le righe delle tre matrici $P^{(m)}$ devono sommare a uno;
-- lo stato $D$ deve essere assorbente in tutte le matrici;
-- tutti gli stati simulati devono appartenere agli insiemi previsti;
-- all'interno di una replica la traiettoria sistemica deve essere unica e comune a tutti i debitori;
-- condizionatamente a tale traiettoria, i debitori devono utilizzare estrazioni casuali individuali;
-- il portafoglio concentrato deve contenere $40$ debitori;
-- il portafoglio controfattuale deve contenere $39$ debitori;
-- l'investimento iniziale complessivo deve essere pari a $173$ milioni in entrambi i portafogli;
-- le proporzioni relative degli investimenti dei $39$ debitori residui devono rimanere invariate dopo la riallocazione;
-- i $39$ debitori comuni devono utilizzare gli stessi scenari creditizi nei due portafogli;
-- la perdita di ciascun portafoglio deve coincidere con la somma delle rispettive perdite individuali;
+- lo stato $D$ deve essere assorbente;
+- $M_0=S$ in tutte le repliche;
+- la traiettoria sistemica deve essere unica per tutti i debitori di una replica;
+- le estrazioni individuali devono essere indipendenti condizionatamente al regime;
+- il tempo di default deve coincidere con il primo ingresso nello stato $D$;
+- la LGD deve essere determinata dal regime che governa la transizione nel default;
+- l'investimento complessivo deve essere pari a $200$ milioni in entrambi i portafogli;
+- la posizione Evergrande deve passare da $30$ a $20$ milioni;
+- la riallocazione complessiva deve essere esattamente pari a $10$ milioni;
+- la riallocazione deve interessare esclusivamente i gruppi BBB e BB e rispettarne le proporzioni iniziali;
+- i due portafogli devono utilizzare gli stessi scenari Monte Carlo;
+- la perdita aggregata deve coincidere con la somma delle perdite individuali;
 - i risultati devono essere riproducibili con il seed assegnato;
-- VaR e CVaR devono essere calcolati sulle distribuzioni empiriche delle perdite monetarie.
+- VaR e CVaR devono essere calcolati sulle perdite monetarie.
 
 ## 6. Flusso logico-teorico risolutivo atteso
 
 | Passo | Finalità risolutiva | Formula, definizione, proprietà o teorema | Applicazione nel caso | Output o controllo collegato |
 |---:|---|---|---|---|
-| 1 | Costruire il modello probabilistico e i due portafogli | Catena di Markov; probabilità condizionata; indipendenza condizionata; vincolo di investimento complessivo | Definizione di $M_t$, $X_{i,t}$, $Q$, $P^{(O)}$, $P^{(S)}$, $P^{(C)}$, portafoglio concentrato e portafoglio controfattuale | Specifica teorico-matematica validata |
-| 2 | Generare scenari congiunti di regime e rating | $\Pr(X_{i,t+1}=j\mid X_{i,t}=k,M_t=m)=p_{kj}^{(m)}$ | Simulazione della traiettoria sistemica comune e delle migrazioni individuali condizionate | Stati finali dei debitori e controlli sulle traiettorie |
-| 3 | Trasformare gli stessi scenari creditizi nelle perdite dei due portafogli | $L_i=V_{i,0}\ell(X_{i,0},X_{i,4})$ e aggregazione | Applicazione dei due vettori di investimento agli stessi scenari dei debitori comuni | Campioni $L_{\mathrm{conc}}^{P,(r)}$ e $L_{\mathrm{div}}^{P,(r)}$ |
-| 4 | Stimare e confrontare distribuzioni e rischio di coda | Distribuzione empirica, valore atteso, dispersione, quantile, VaR, CVaR | Stima delle misure per entrambi i portafogli e analisi degli scenari con e senza crisi | Tabelle, grafici e differenze tra misure di rischio |
-| 5 | Verificare criticamente modello e risultati | Ipotesi di Markov, omogeneità, indipendenza condizionata, allocazione, rischio di modello | Interpretazione del ruolo del regime sistemico e della riallocazione dell'investimento Lehman | Criticità accolta/respinta e interpretazione finale |
+| 1 | Costruire il modello probabilistico e la politica di concentrazione | Catene di Markov, probabilità condizionata, indipendenza condizionata, vincolo single-name | Definizione di $M_t$, $X_{i,t}$, matrici, portafoglio iniziale e portafoglio soggetto al limite | Specifica teorico-matematica validata |
+| 2 | Generare gli scenari creditizi con fattore sistemico comune | $\Pr(X_{i,t+1}=j\mid X_{i,t}=k,M_t=m)=p_{kj}^{(m)}$ | Simulazione dei regimi, delle migrazioni e dei tempi di default | Traiettorie simulate e controlli |
+| 3 | Trasformare le traiettorie in perdite monetarie | Perdita migration-based; $\operatorname{EAD}\times\operatorname{LGD}$; LGD dipendente dal regime | Applicazione della perdita non-default o della LGD determinata dal regime al default | Campione delle perdite individuali e di portafoglio |
+| 4 | Stimare e confrontare il rischio dei due portafogli | Distribuzione empirica, valore atteso, dispersione, VaR, CVaR | Stima delle misure e valutazione della politica di concentrazione | Tabelle, grafici e differenze tra misure |
+| 5 | Verificare criticamente modello e risultati | Markovianità, omogeneità, indipendenza condizionata, recovery, concentrazione, rischio di modello | Valutazione delle ipotesi e interpretazione della politica di controllo | Criticità accolta/respinta e interpretazione finale |
 
 ## 7. Scomposizione attesa in tappe
 
 | Tappa | Regime | Input | Operazione | Output | Controllo | Uso successivo |
 |---:|:---:|---|---|---|---|---|
-| 1 | A | Scheda Caso | Identificare i due livelli markoviani, i due portafogli, le ipotesi di dipendenza, la funzione di perdita e le quantità finali | Specifica teorico-matematica ordinata e algoritmo concettuale | Coerenza con la Scheda Caso; distinzione tra investimento iniziale ed EAD; investimento totale invariato nel controfattuale | Base vincolante della simulazione |
-| 2 | B | $Q$, $P^{(O)}$, $P^{(S)}$, $P^{(C)}$, rating iniziali, $N$, seed | Simulare congiuntamente traiettorie sistemiche e creditizie per quattro trimestri | Regimi simulati e stati creditizi finali per ogni replica | Matrici stocastiche; default assorbente; regime comune; estrazioni individuali condizionate | Costruzione delle perdite |
-| 3 | B | Stati simulati, investimenti iniziali, regola di riallocazione, funzione $\ell$ | Costruire i due vettori di investimento, calcolare le perdite individuali e aggregarle sugli stessi scenari | Campioni $L_{\mathrm{conc}}^{P,(r)}$, $L_{\mathrm{div}}^{P,(r)}$ e $\Delta L^{(r)}$ | Investimento totale pari a $173$ in entrambi i portafogli; proporzioni residue conservate; stessi scenari per i debitori comuni | Stima delle distribuzioni |
-| 4 | B | Campioni delle perdite e traiettorie sistemiche | Costruire le distribuzioni empiriche e stimare perdita media, dispersione, VaR e CVaR; confrontare i due portafogli e gli scenari crisi/non crisi | Tabelle, grafici e misure di rischio | Coerenza quantili/CVaR; stabilità Monte Carlo; interpretazione corretta del confronto | Interpretazione finanziaria |
-| 5 | C | Notebook completo, risultati e ipotesi del modello | Formulare una criticità sostanziale, verificarla e svolgere i controlli conclusivi | Eventuale correzione delle celle coinvolte; interpretazione finale | Criticità accolta/respinta; coerenza notebook-Scheda Caso; distinzione tra risultato del modello e realtà storica | Chiusura del caso |
+| 1 | A | Scheda Caso | Identificare i due processi markoviani, il ruolo del tempo di default, la LGD dipendente dal regime, i due portafogli e le quantità finali | Specifica teorico-matematica e algoritmo concettuale | Coerenza con la Scheda; distinzione investimento/EAD; corretta definizione della politica di concentrazione | Base vincolante della simulazione |
+| 2 | B | $Q$, $P^{(N)}$, $P^{(S)}$, $P^{(C)}$, rating iniziali, $N_{\mathrm{MC}}$, seed | Simulare regime sistemico, migrazioni creditizie e primo ingresso nel default | Regimi, stati finali, tempi e regimi di default | Matrici stocastiche; default assorbente; regime comune; indipendenza condizionata | Costruzione delle perdite |
+| 3 | B | Traiettorie simulate, investimenti, funzione $\ell$, LGD per regime | Calcolare le perdite migration-based o da default; costruire i due vettori di investimento e aggregare | $L_{\mathrm{base}}^{P,(r)}$, $L_{\mathrm{lim}}^{P,(r)}$, $\Delta L^{(r)}$ | Corretta LGD al default; investimento totale invariato; stessi scenari nei due portafogli | Stima delle distribuzioni |
+| 4 | B | Campioni delle perdite e informazioni sui regimi | Stimare distribuzioni, perdita media, dispersione, VaR e CVaR; confrontare i portafogli e gli scenari sistemici | Tabelle, grafici e variazioni delle misure di rischio | Coerenza VaR/CVaR; stabilità Monte Carlo; corretta lettura del confronto | Interpretazione finanziaria |
+| 5 | C | Notebook completo, risultati e ipotesi | Formulare e verificare una criticità sostanziale e svolgere i controlli conclusivi | Eventuale correzione delle celle e interpretazione finale | Criticità accolta/respinta; coerenza notebook-Scheda; distinzione modello/realtà storica | Chiusura del caso |
 
 ## 8. Mappa tra prompt e notebook
 
 | Prompt | Regime | Tappa | Celle o output prodotti | Decisione o controllo richiesto |
 |---|:---:|---:|---|---|
-| Prompt zero | — | — | Nessuna cella specifica del caso | Impostazione dei vincoli generali di interazione con l'IA |
-| Prompt 1 | — | — | Cella Markdown iniziale contenente la Scheda Caso come specifica vincolante | Acquisizione corretta del problema |
-| Prompt 2 | A | — | Output di progettazione: flusso logico-teorico | Validazione docente del percorso risolutivo |
-| Prompt 3 | A | — | Cella Markdown con scomposizione del processo risolutivo in cinque tappe | Validazione docente dei collegamenti input-output |
-| Prompt tappa 1 | A | 1 | Celle Markdown di impostazione teorico-matematica e algoritmo concettuale | Correttezza del modello a due livelli, distinzione investimento/EAD e costruzione del controfattuale |
-| Prompt tappa 2 | B | 2 | Celle Markdown e codice per matrici e simulazione delle traiettorie | Corretta implementazione del regime comune e delle transizioni individuali |
-| Prompt tappa 3 | B | 3 | Celle Markdown e codice per i due vettori di investimento, funzione di perdita e aggregazione | Coerenza della riallocazione, stato-perdita e investimento complessivo |
-| Prompt tappa 4 | B | 4 | Celle Markdown, codice, tabelle e grafici per distribuzioni e misure di rischio | Corretta implementazione di VaR/CVaR e confronto fra i portafogli |
+| Prompt zero | — | — | Nessuna cella specifica del caso | Vincoli generali di interazione con l'IA |
+| Prompt 1 | — | — | Cella Markdown iniziale con la Scheda Caso come specifica vincolante | Acquisizione corretta del problema |
+| Prompt 2 | A | — | Output di progettazione: flusso logico-teorico | Validazione del percorso risolutivo |
+| Prompt 3 | A | — | Output di progettazione: scomposizione nelle cinque tappe | Validazione dei collegamenti input-output |
+| Prompt tappa 1 | A | 1 | Celle Markdown di impostazione teorico-matematica | Correttezza del modello, della LGD path-dependent e della politica di concentrazione |
+| Prompt tappa 2 | B | 2 | Celle Markdown e codice per simulazione di regimi, rating e default | Corretta implementazione delle traiettorie |
+| Prompt tappa 3 | B | 3 | Celle Markdown e codice per perdite individuali, due portafogli e aggregazione | Coerenza perdita-regime-investimento e applicazione del limite |
+| Prompt tappa 4 | B | 4 | Celle Markdown, codice, tabelle e grafici per distribuzioni e misure di rischio | Corretta implementazione di VaR/CVaR e confronto |
 | Prompt tappa 5 | C | 5 | Verifica critica ed eventuale sostituzione delle celle coinvolte | Criticità accolta o respinta |
 | Verifica conclusiva 1 | C | 5 | Controllo finale del notebook | Coerenza integrale con la Scheda Caso |
-| Verifica conclusiva 2 | C | 5 | Cella Markdown finale | Verifica critica dell'interpretazione formulata dallo studente |
+| Verifica conclusiva 2 | C | 5 | Cella Markdown finale | Verifica critica dell'interpretazione dello studente |
 
 ## 9. Struttura attesa del notebook
 
-Il notebook deve seguire le cinque tappe risolutive. Ogni tappa costituisce un modulo logico riconoscibile, ma può comprendere più celle Markdown, codice e output.
+Il notebook deve riflettere direttamente le cinque tappe risolutive. Ogni tappa può produrre più celle, purché rimanga riconoscibile come modulo logico unitario.
 
 ### Apertura del notebook
 
 **Prompt di riferimento:** Prompt 1.
 
-- Cella Markdown: titolo del caso, contesto, domanda quantitativa e Scheda Caso come specifica vincolante.
+- Cella Markdown: titolo, contesto Evergrande 2021, domanda quantitativa e Scheda Caso come specifica vincolante.
 
-I risultati dei Prompt 2 e Prompt 3 svolgono funzione di progettazione e validazione del percorso; non devono necessariamente essere riportati integralmente come celle definitive del notebook.
+I risultati dei Prompt 2 e Prompt 3 svolgono funzione di progettazione e validazione del percorso e non devono necessariamente essere riportati integralmente nel notebook definitivo.
 
-### Tappa 1 — Modello teorico e struttura della simulazione
+### Tappa 1 — Modello teorico e politica di concentrazione
 
 **Prompt di riferimento:** Prompt tappa 1 — Regime A.
 
 - Cella Markdown: definizione del processo sistemico $M_t$.
 - Cella Markdown: definizione dei processi creditizi $X_{i,t}$.
-- Cella Markdown: significato di $Q$ e delle tre matrici $P^{(O)}$, $P^{(S)}$, $P^{(C)}$.
-- Cella Markdown: spiegazione dell'indipendenza condizionata e della dipendenza incondizionata.
-- Cella Markdown: definizione dell'investimento iniziale $V_{i,0}$ e distinzione rispetto all'EAD.
-- Cella Markdown: composizione del portafoglio concentrato.
-- Cella Markdown: regola di costruzione del portafoglio controfattuale a investimento totale invariato.
-- Cella Markdown: funzione di perdita e quantità finali di interesse.
-- Cella Markdown: algoritmo concettuale della singola replica Monte Carlo.
+- Cella Markdown: interpretazione di $Q$ e delle matrici $P^{(N)}$, $P^{(S)}$, $P^{(C)}$.
+- Cella Markdown: indipendenza condizionata e dipendenza incondizionata.
+- Cella Markdown: definizione del tempo di default $\tau_i$.
+- Cella Markdown: distinzione tra perdita da migrazione e perdita da default.
+- Cella Markdown: relazione tra investimento iniziale ed EAD come ipotesi specifica del caso.
+- Cella Markdown: portafoglio iniziale e politica del limite single-name.
+- Cella Markdown: algoritmo concettuale della simulazione.
 
-### Tappa 2 — Simulazione congiunta del regime e delle migrazioni
+### Tappa 2 — Simulazione delle traiettorie e dei default
 
 **Prompt di riferimento:** Prompt tappa 2 — Regime B.
 
-- Cella codice: definizione degli stati e delle matrici $Q$, $P^{(O)}$, $P^{(S)}$, $P^{(C)}$.
+- Cella codice: definizione degli stati e delle matrici.
 - Cella codice: controlli sulle matrici.
-- Cella codice: costruzione dei rating iniziali dei $40$ debitori.
-- Cella codice: impostazione del seed e del numero di repliche.
-- Cella codice: simulazione delle traiettorie del regime sistemico.
-- Cella codice: simulazione delle traiettorie creditizie condizionate al regime comune.
-- Output: controlli sul numero e sulla validità degli stati simulati.
-- Output sintetico: alcune traiettorie campione utilizzate esclusivamente per rendere leggibile il meccanismo dinamico.
+- Cella codice: costruzione del portafoglio iniziale.
+- Cella codice: impostazione del seed e di $N_{\mathrm{MC}}$.
+- Cella codice: simulazione delle traiettorie sistemiche.
+- Cella codice: simulazione delle traiettorie creditizie.
+- Cella codice: individuazione del primo ingresso nello stato $D$.
+- Cella codice: registrazione del regime che ha governato ciascun default.
+- Output sintetico: alcune traiettorie campione.
+- Output: controlli sugli stati e sui default.
 
-### Tappa 3 — Dagli scenari creditizi ai due portafogli di perdita
+### Tappa 3 — Costruzione delle perdite
 
 **Prompt di riferimento:** Prompt tappa 3 — Regime B.
 
-- Cella Markdown: definizione operativa della funzione $\ell(r_0,r_4)$.
-- Cella codice: implementazione della matrice dei tassi di perdita.
-- Cella codice: costruzione del vettore degli investimenti del portafoglio concentrato.
-- Cella codice: costruzione del vettore degli investimenti del portafoglio controfattuale.
-- Output: controllo dell'investimento totale e della conservazione delle proporzioni relative.
-- Cella codice: calcolo delle perdite individuali e aggregate del portafoglio concentrato.
-- Cella codice: calcolo delle perdite individuali e aggregate del portafoglio controfattuale utilizzando gli stessi scenari dei $39$ debitori comuni.
-- Output: campioni delle due perdite di portafoglio.
-- Output: differenze scenario per scenario $\Delta L^{(r)}$.
-- Controllo: riconciliazione delle perdite aggregate con le componenti individuali.
+- Cella Markdown: funzione di perdita migration-based e LGD dipendente dal regime.
+- Cella codice: implementazione della matrice delle perdite non-default.
+- Cella codice: associazione della corretta LGD ai debitori in default.
+- Cella codice: costruzione del vettore degli investimenti iniziali.
+- Cella codice: costruzione del vettore soggetto al limite di concentrazione.
+- Output: controllo dell'investimento totale e della riallocazione.
+- Cella codice: perdite individuali e aggregate del portafoglio iniziale.
+- Cella codice: perdite individuali e aggregate del portafoglio soggetto al limite.
+- Output: campioni delle due perdite.
+- Output: $\Delta L^{(r)}$.
 
-### Tappa 4 — Distribuzioni simulate e misure di rischio
+### Tappa 4 — Distribuzioni e misure di rischio
 
 **Prompt di riferimento:** Prompt tappa 4 — Regime B.
 
-- Cella Markdown: funzione delle misure richieste e convenzioni per VaR e CVaR.
-- Cella codice: costruzione delle distribuzioni empiriche dei due portafogli.
+- Cella Markdown: convenzioni operative per perdita attesa, VaR e CVaR.
+- Cella codice: costruzione delle distribuzioni empiriche.
 - Cella codice: perdita media, varianza e deviazione standard.
 - Cella codice: $VaR_{0.95}$, $CVaR_{0.95}$, $VaR_{0.99}$, $CVaR_{0.99}$.
-- Output: tabella comparativa delle misure di rischio e delle rispettive differenze.
-- Cella codice/output: grafico della distribuzione empirica del portafoglio concentrato con indicazione dei VaR.
-- Cella codice/output: confronto delle distribuzioni e delle code dei due portafogli.
-- Cella codice/output: confronto, per il portafoglio concentrato, tra scenari con ingresso nello stato $C$ e scenari senza ingresso nello stato $C$.
-- Controllo: verifica della stabilità delle principali stime rispetto alla dimensione del campione Monte Carlo.
+- Output: tabella comparativa.
+- Cella codice/output: distribuzione della perdita del portafoglio iniziale.
+- Cella codice/output: confronto delle code dei due portafogli.
+- Cella codice/output: confronto tra scenari con e senza ingresso nel regime $C$.
+- Controllo: stabilità delle stime rispetto al numero di repliche.
 
 ### Tappa 5 — Verifica critica e interpretazione
 
 **Prompt di riferimento:** Prompt tappa 5 — Regime C e verifiche conclusive.
 
 - Cella Markdown: criticità sostanziale formulata dallo studente.
-- Classificazione della verifica: criticità accolta oppure criticità respinta.
-- Se la criticità viene accolta, sostituzione delle celle interessate con versioni corrette e informative.
-- Cella Markdown: verifica conclusiva della coerenza tra notebook e Scheda Caso.
+- Classificazione: criticità accolta oppure respinta.
+- Eventuale sostituzione delle celle interessate.
+- Cella Markdown: verifica conclusiva notebook-Scheda Caso.
 - Cella Markdown: interpretazione finanziaria finale dello studente.
 
 L'interpretazione deve distinguere almeno:
 
-- effetto del regime sistemico sulla coda della distribuzione;
-- ruolo della posizione Lehman nel portafoglio concentrato;
-- differenza tra indipendenza condizionata e dipendenza incondizionata;
-- significato di VaR e CVaR;
-- effetto della riallocazione proporzionale dell'investimento Lehman;
-- modifica della composizione per rating prodotta dalla riallocazione;
-- limiti dell'ipotesi di matrici omogenee all'interno dei tre regimi;
-- differenza tra simulazione didattica ex ante e successiva realizzazione storica.
+- ruolo del regime sistemico nelle migrazioni;
+- ruolo del regime sistemico nella severità del default;
+- differenza fra rischio idiosincratico e dipendenza sistemica;
+- effetto della concentrazione Evergrande;
+- effetto del limite single-name;
+- significato finanziario di VaR e CVaR;
+- assenza di dominanza scenario per scenario tra le due allocazioni;
+- limiti delle matrici omogenee e delle LGD deterministiche per regime;
+- differenza tra modello didattico ex ante e successivi eventi storici.
 
 ## 10. Calibrazione docente
 
-La seguente calibrazione è riferita a:
+La calibrazione di riferimento utilizza:
 
 $$
-N=50\,000,
+N_{\mathrm{MC}}
+=
+50\,000,
 \qquad
-\text{seed}=2026.
+\text{seed}=2027.
 $$
 
-I valori sono indicativi e servono al docente per verificare l'ordine di grandezza degli output.
-
-### 10.1 Portafoglio concentrato
+### 10.1 Portafoglio iniziale
 
 | Misura | Valore indicativo, milioni USD |
 |---|---:|
-| Perdita media | 11.11 |
-| Deviazione standard | 6.92 |
-| VaR 95% | 24.73 |
-| CVaR 95% | 29.69 |
-| VaR 99% | 32.78 |
-| CVaR 99% | 37.54 |
+| Perdita media | 26.20 |
+| Deviazione standard | 16.64 |
+| VaR 95% | 60.74 |
+| CVaR 95% | 69.29 |
+| VaR 99% | 74.51 |
+| CVaR 99% | 79.92 |
 
-### 10.2 Portafoglio controfattuale con riallocazione proporzionale
+### 10.2 Portafoglio soggetto al limite di concentrazione
 
 | Misura | Valore indicativo, milioni USD |
 |---|---:|
-| Perdita media | 12.16 |
-| Deviazione standard | 7.26 |
-| VaR 95% | 26.56 |
-| CVaR 95% | 30.92 |
-| VaR 99% | 33.66 |
-| CVaR 99% | 37.03 |
+| Perdita media | 24.91 |
+| Deviazione standard | 15.04 |
+| VaR 95% | 55.52 |
+| CVaR 95% | 63.36 |
+| VaR 99% | 68.20 |
+| CVaR 99% | 73.83 |
 
-### 10.3 Differenze indotte dalla riallocazione
+### 10.3 Effetto della politica di concentrazione
 
 Definendo
 
 $$
 \Delta\rho
 =
-\rho(L_{\mathrm{div}}^P)
+\rho(L_{\mathrm{lim}}^P)
 -
-\rho(L_{\mathrm{conc}}^P),
+\rho(L_{\mathrm{base}}^P),
 $$
 
 si ottengono indicativamente:
 
 | Misura | $\Delta\rho$, milioni USD |
 |---|---:|
-| Perdita media | +1.05 |
-| Deviazione standard | +0.33 |
-| VaR 95% | +1.83 |
-| CVaR 95% | +1.23 |
-| VaR 99% | +0.88 |
-| CVaR 99% | -0.52 |
+| Perdita media | -1.29 |
+| Deviazione standard | -1.60 |
+| VaR 95% | -5.22 |
+| CVaR 95% | -5.93 |
+| VaR 99% | -6.31 |
+| CVaR 99% | -6.09 |
 
-Il risultato non deve essere interpretato mediante l'affermazione semplicistica secondo cui la rimozione della posizione concentrata riduce necessariamente tutte le misure di rischio.
+La riduzione della posizione Evergrande ha quindi un effetto più pronunciato sulle misure di coda che sulla perdita media.
 
-La riallocazione dell'investimento Lehman interessa proporzionalmente anche debitori inizialmente classificati BBB, BB e B. La composizione per rating del portafoglio viene quindi modificata.
+Il risultato non deve tuttavia essere interpretato come una dominanza deterministica del portafoglio soggetto al limite. I due portafogli utilizzano gli stessi scenari, ma in alcune realizzazioni la riallocazione sulle altre posizioni può produrre una perdita superiore a quella del portafoglio iniziale.
 
-Con questa calibrazione, la riallocazione aumenta la perdita attesa e diverse misure di rischio, mentre il CVaR al $99\%$ si riduce leggermente. Quest'ultimo risultato evidenzia che la grande posizione Lehman continua ad avere un effetto rilevante sulle realizzazioni più estreme della coda, anche se la sua eliminazione non produce una riduzione generalizzata delle altre misure.
+La politica viene valutata sulla **distribuzione complessiva delle perdite**, non sulla superiorità in ogni singolo scenario.
 
 ### 10.4 Ruolo del regime sistemico
 
 Con la calibrazione assegnata:
 
-- la probabilità simulata di visitare lo stato $C$ almeno una volta nell'orizzonte è circa il $29.5\%$;
-- la perdita media del portafoglio concentrato negli scenari che visitano $C$ è circa $18.25$ milioni;
-- la perdita media del portafoglio concentrato negli scenari che non visitano $C$ è circa $8.12$ milioni.
+- la probabilità simulata di raggiungere il regime $C$ almeno una volta è circa il $37.1\%$;
+- il numero medio di default è circa $5.36$ per replica;
+- la perdita media del portafoglio iniziale negli scenari che visitano $C$ è circa $40.92$ milioni;
+- la perdita media negli scenari che non visitano $C$ è circa $17.50$ milioni.
 
-Il confronto deve rendere evidente la funzione del fattore sistemico comune.
+Il confronto deve rendere evidente che il regime sistemico agisce attraverso due canali:
+
+1. modifica le probabilità di migrazione e default;
+2. modifica la severità della perdita in caso di default.
 
 ### 10.5 Errori o ambiguità prevedibili
 
-1. Confondere investimento iniziale ed EAD come se fossero concetti identici per definizione.
-2. Eliminare Lehman senza redistribuirne l'investimento, riducendo così la dimensione complessiva del portafoglio.
-3. Redistribuire l'investimento Lehman in parti uguali anziché proporzionalmente agli investimenti residui.
-4. Modificare le proporzioni relative tra i $39$ debitori residui.
-5. Utilizzare simulazioni differenti per confrontare i due portafogli.
-6. Simulare un regime sistemico differente per ciascun debitore.
-7. Utilizzare la stessa estrazione casuale individuale per tutti i debitori, generando comovimento perfetto invece di indipendenza condizionata.
-8. Confondere $Q$ con le matrici di migrazione creditizia.
-9. Utilizzare sempre $P^{(S)}$ perché il regime iniziale è $S$, ignorando l'evoluzione di $M_t$.
-10. Applicare la matrice corrispondente al regime futuro anziché al regime corrente senza dichiarare la convenzione temporale.
-11. Permettere a un debitore in default di uscire dallo stato $D$.
-12. Utilizzare il solo default nella funzione di perdita, ignorando le migrazioni non-default.
-13. Trattare i valori negativi della funzione di perdita come errori anziché come guadagni rispetto al riferimento.
-14. Calcolare VaR e CVaR sui rating o sul numero di default anziché sulle perdite monetarie.
-15. Calcolare il CVaR discreto come semplice media delle osservazioni maggiori o uguali al VaR senza rispettare la massa necessaria a costruire esattamente la coda $1-\alpha$.
-16. Interpretare il confronto tra i due portafogli come misura pura della sola concentrazione, ignorando la modifica della composizione per rating.
-17. Interpretare la simulazione come previsione storica del default di Lehman.
-18. Concludere che la presenza del fattore comune rappresenti integralmente la dipendenza creditizia reale.
+1. Confondere investimento iniziale ed EAD.
+2. Utilizzare la LGD del regime finale anziché quella del regime che governa la transizione nel default.
+3. Continuare a modificare la LGD dopo che il debitore è già entrato nello stato assorbente.
+4. Applicare una perdita migration-based a un debitore già in default.
+5. Applicare contemporaneamente perdita migration-based e perdita da default allo stesso debitore.
+6. Simulare un regime sistemico diverso per ogni debitore.
+7. Utilizzare estrazioni individuali perfettamente comuni ai debitori.
+8. Confondere $Q$ con le matrici di rating.
+9. Utilizzare sempre $P^{(S)}$ perché $M_0=S$.
+10. Permettere l'uscita dallo stato $D$.
+11. Applicare il limite del $10\%$ all'EAD anziché all'investimento iniziale.
+12. Ridurre Evergrande da $30$ a $20$ senza riallocare i $10$ milioni liberati.
+13. Riallocare i $10$ milioni anche sulle classi B o CCC.
+14. Redistribuire l'importo in parti uguali anziché proporzionalmente agli investimenti BBB e BB.
+15. Utilizzare simulazioni differenti per confrontare i due portafogli.
+16. Calcolare VaR e CVaR sui rating o sul numero di default.
+17. Calcolare il CVaR discreto con una convenzione incoerente con il Capitolo 9.
+18. Interpretare i bucket di rating didattici come rating storici esatti di Evergrande.
+19. Interpretare il modello come previsione storica del default avvenuto successivamente.
+20. Considerare la LGD dipendente dal regime come una stima empirica anziché una calibrazione didattica.
 
 ### 10.6 Controlli minimi di validazione
 
 - validazione di $Q$ e delle tre $P^{(m)}$;
 - controllo dello stato assorbente;
-- verifica dell'investimento complessivo di $173$ milioni in entrambi i portafogli;
-- verifica della conservazione delle proporzioni relative tra i $39$ debitori residui;
-- verifica della traiettoria sistemica unica per replica;
-- verifica delle estrazioni individuali indipendenti condizionatamente al regime;
-- verifica dell'utilizzo degli stessi scenari per i debitori comuni ai due portafogli;
-- controllo della funzione di perdita;
-- riconciliazione fra perdite individuali e perdita aggregata;
+- verifica del tempo di primo default;
+- verifica del regime utilizzato per la LGD;
+- verifica dell'investimento totale di $200$ milioni;
+- verifica del limite massimo di $20$ milioni;
+- verifica della riallocazione di esattamente $10$ milioni;
+- verifica dei destinatari BBB e BB della riallocazione;
+- verifica dell'utilizzo degli stessi scenari nei due portafogli;
+- riconciliazione delle perdite individuali e aggregate;
 - riproducibilità;
-- stabilità delle misure di rischio aumentando il numero delle simulazioni;
-- confronto qualitativo tra scenari con e senza condizioni sistemiche di crisi.
+- stabilità delle misure di rischio al crescere delle simulazioni;
+- confronto tra scenari con e senza ingresso nel regime di crisi.
 
 ### 10.7 Limiti interpretativi
 
 Il modello non incorpora:
 
-- matrici di transizione specifiche per singolo emittente;
-- differenze settoriali nelle matrici di migrazione;
-- LGD stocastiche o dipendenti dal regime;
-- EAD stocastiche;
-- evoluzione autonoma dell'EAD rispetto all'investimento iniziale;
-- effetti di contagio diretto tra debitori;
+- matrici specifiche per singolo emittente;
+- matrici differenziate per settore o tipologia di debitore;
+- effetti di contagio diretto tra società immobiliari, banche e altri intermediari;
+- evoluzione stocastica dell'EAD;
+- LGD continua o specifica per singolo debitore;
+- dipendenza della LGD da collateral, seniority o struttura contrattuale;
 - correlazioni ulteriori rispetto al fattore sistemico comune;
-- cambiamenti endogeni delle matrici prodotti dal deterioramento del sistema finanziario;
-- funding liquidity risk;
-- market liquidity risk;
+- variazioni endogene delle matrici di transizione;
+- rischio di liquidità;
+- rischio valutario;
+- interventi governativi o ristrutturazioni;
 - probabilità risk-neutral;
-- pricing di CDS o altri strumenti di copertura.
+- pricing di obbligazioni o CDS.
 
-La distinzione tra $O$, $S$ e $C$ deve essere interpretata come rappresentazione stilizzata di differenti condizioni sistemiche, non come classificazione storicamente stimata dei trimestri del 2008.
+I tre regimi costituiscono una rappresentazione stilizzata delle condizioni del sistema e non una classificazione empirica ufficiale delle fasi della crisi Evergrande.
 
 ## 11. Uso dell'IA e tracciato
 
@@ -863,29 +924,29 @@ N_{\text{prompt}}
 15.
 $$
 
-Il limite definitivo deve essere verificato dopo la costruzione del tracciato docente completo.
-
 ### Usi ammessi dell'IA
 
-- ordinamento e verifica della formulazione teorico-matematica proposta dallo studente;
-- traduzione in codice della specifica validata;
-- costruzione tecnica dell'algoritmo di simulazione;
-- implementazione della riallocazione proporzionale specificata;
-- generazione di tabelle e grafici;
-- implementazione delle misure di rischio;
-- verifica di controlli proposti dallo studente;
-- analisi critica di una possibile incoerenza formulata dallo studente.
+- ordinamento e verifica della specifica teorico-matematica proposta dallo studente;
+- traduzione della specifica validata in codice;
+- implementazione dell'algoritmo di simulazione;
+- registrazione tecnica dei tempi e dei regimi di default;
+- applicazione della LGD secondo la regola assegnata;
+- implementazione della politica di concentrazione;
+- produzione di tabelle e grafici;
+- implementazione di VaR e CVaR;
+- verifica di criticità formulate dallo studente.
 
 ### Usi non ammessi
 
 - modifica autonoma di $Q$;
 - modifica autonoma delle matrici $P^{(m)}$;
+- modifica delle LGD assegnate;
 - modifica della composizione iniziale del portafoglio;
-- modifica autonoma della regola di riallocazione;
-- modifica della funzione di perdita;
-- sostituzione dell'ipotesi di indipendenza condizionata con una diversa struttura di dipendenza;
-- introduzione autonoma di copule, modelli strutturali o modelli a fattori non previsti dalla Scheda Caso;
-- utilizzo di dati storici esterni in sostituzione dei parametri didattici;
+- modifica autonoma del limite del $10\%$;
+- modifica della regola di riallocazione;
+- sostituzione della struttura di dipendenza;
+- introduzione autonoma di copule, modelli a fattori o modelli strutturali;
+- sostituzione dei parametri didattici con dati storici esterni;
 - produzione dell'interpretazione finale al posto dello studente.
 
 ## 12. Valutazione
@@ -893,26 +954,27 @@ Il limite definitivo deve essere verificato dopo la costruzione del tracciato do
 ### Criteri per il notebook
 
 - corretta rappresentazione dei due livelli markoviani;
-- corretta gestione della dipendenza attraverso il regime sistemico comune;
+- corretta simulazione della dipendenza sistemica;
+- corretta individuazione del tempo di default;
+- corretta applicazione della LGD dipendente dal regime;
 - corretta distinzione tra investimento iniziale ed EAD;
-- corretta implementazione della simulazione;
-- corretta costruzione del portafoglio controfattuale;
-- mantenimento dell'investimento complessivo;
-- corretta trasformazione rating-perdita;
-- corretta aggregazione di portafoglio;
+- corretta costruzione del portafoglio soggetto al limite;
+- mantenimento dell'investimento totale;
+- corretto riutilizzo degli stessi scenari nei due portafogli;
+- corretta aggregazione delle perdite;
 - corretta stima delle distribuzioni empiriche;
 - corretta implementazione di VaR e CVaR;
 - qualità dei controlli;
 - chiarezza di tabelle e grafici;
-- capacità di interpretare correttamente il confronto tra le due allocazioni.
+- capacità di interpretare economicamente la politica di concentrazione.
 
 ### Criteri per il tracciato IA
 
 - qualità del contributo iniziale dello studente in Regime A;
 - rispetto della Scheda Caso come specifica vincolante;
-- corretta separazione tra scelte teoriche e traduzione computazionale;
+- corretta separazione tra formulazione teorica e implementazione;
 - qualità della scomposizione del problema;
-- capacità di specificare all'IA input e output di ciascuna tappa;
+- capacità di specificare input e output delle tappe;
 - qualità della verifica critica;
 - capacità di accettare o respingere motivatamente una proposta dell'IA;
 - assenza di delega dell'interpretazione finale.
@@ -921,14 +983,14 @@ Il limite definitivo deve essere verificato dopo la costruzione del tracciato do
 
 La qualità del codice non deve essere valutata per complessità autonoma.
 
-Il nucleo della valutazione è costituito dalla capacità di governare correttamente la catena:
+Il nucleo della valutazione è costituito dalla capacità di governare la sequenza:
 
 $$
-\text{modello probabilistico}
+\text{modello}
 \longrightarrow
 \text{simulazione}
 \longrightarrow
-\text{allocazione}
+\text{default e recovery}
 \longrightarrow
 \text{perdita}
 \longrightarrow
@@ -936,29 +998,25 @@ $$
 \longrightarrow
 \text{misure di rischio}
 \longrightarrow
-\text{confronto}
+\text{politica di concentrazione}
 \longrightarrow
 \text{verifica}
 \longrightarrow
 \text{interpretazione}.
 $$
 
-## 13. Relazione con l'altro caso della lezione
+## 13. Relazione con il caso aula
 
-Il caso take-home sarà contestualizzato nella crisi di **China Evergrande del 2021**.
-
-L'isomorfismo metodologico dovrà riguardare:
+I due casi sono metodologicamente isomorfi perché entrambi utilizzano:
 
 $$
-\text{regime sistemico}
+\text{regime sistemico markoviano}
 \longrightarrow
-\text{migrazioni condizionate}
+\text{matrici di rating condizionate}
 \longrightarrow
-\text{portafoglio}
+\text{simulazione congiunta}
 \longrightarrow
-\text{simulazione}
-\longrightarrow
-\text{perdite}
+\text{perdita di portafoglio}
 \longrightarrow
 VaR/CVaR
 \longrightarrow
@@ -967,20 +1025,23 @@ VaR/CVaR
 \text{verifica critica}.
 $$
 
-Il take-home non dovrà essere una semplice sostituzione dei valori numerici.
+Non costituiscono tuttavia una semplice variazione parametrica.
 
-Dovranno cambiare almeno:
+### Caso aula — Lehman Brothers 2008
 
-- contesto economico e istituzionale;
-- interpretazione dei regimi sistemici;
-- composizione per rating del portafoglio;
-- struttura degli investimenti iniziali;
-- matrici $Q$ e $P^{(m)}$;
-- funzione di perdita o relativa calibrazione;
-- natura della posizione principale;
-- struttura dell'analisi controfattuale;
-- criticità economico-finanziaria da discutere.
+- contesto: crisi del sistema finanziario internazionale;
+- posizione principale inizialmente nella classe A;
+- LGD comune e deterministica;
+- controfattuale: eliminazione della posizione Lehman e riallocazione proporzionale dell'investimento tra tutti i debitori residui;
+- domanda gestionale: conseguenze della sostituzione di una forte concentrazione single-name.
 
-Nel caso aula il fattore sistemico rappresenta la dinamica delle condizioni del sistema finanziario durante la crisi del 2008 e Lehman costituisce la posizione iniziale di maggiore dimensione.
+### Caso aula — China Evergrande 2021
 
-Nel caso take-home il fattore comune dovrà essere reinterpretato in relazione alle condizioni del settore immobiliare e finanziario cinese e la posizione principale sarà associata a Evergrande.
+- contesto: crisi del settore immobiliare e del credito cinese;
+- posizione principale inizialmente nella classe B del modello;
+- LGD dipendente dal regime sistemico nel quale avviene il default;
+- controfattuale: mantenimento di Evergrande ma introduzione di un limite single-name del $10\%$;
+- riallocazione selettiva dell'investimento liberato verso posizioni BBB e BB;
+- domanda gestionale: efficacia di una politica esplicita di controllo della concentrazione in presenza di deterioramento sistemico e recovery pro-ciclica.
+
+Il caso aula richiede quindi allo studente di trasferire la struttura metodologica appresa in aula a un problema nuovo nel quale la perdita presenta una dipendenza più forte dalla traiettoria simulata e il confronto tra portafogli deriva da una vera regola di risk management.
