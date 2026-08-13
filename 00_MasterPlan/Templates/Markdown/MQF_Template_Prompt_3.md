@@ -14,7 +14,7 @@ Sulla base della Scheda Caso e del Flusso logico-teorico risolutivo, propongo qu
 
 Ti chiedo di verificare, completare e ordinare la scomposizione, senza scrivere ancora il codice completo del notebook e senza modificare la Scheda Caso.
 
-L'output deve essere un "blocco markdown" con titolo, inclusivo di una tabella con le colonne:
+L'output deve essere una cella markdown inclusiva di una tabella con le colonne:
 
 | Tappa | Input | Operazione | Output | Controllo | Uso successivo |
 |---:|---|---|---|---|---|
