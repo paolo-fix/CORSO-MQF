@@ -1,0 +1,3361 @@
+% !TeX root = ../MQF_Manuale_Master.tex
+% Capitoli/MQF_Cap_12_Dualita_ALM_Deterministico.tex
+
+\chapter[Dualit\`{a} e ALM deterministico]{Dualit\`{a} e Asset--Liability Management deterministico}
+
+\label{cap:dualita-alm-deterministico}
+
+\medskip
+
+\noindent
+\textbf{Obiettivi della lezione.}
+
+Il Capitolo 11 ha introdotto la programmazione lineare attraverso un problema
+stilizzato di composizione dell'attivo bancario ispirato al caso Silicon
+Valley Bank. La soluzione ottima non \`{e} stata letta soltanto attraverso il
+vettore delle decisioni $x^*$ e il valore ottimo $z^*$, ma anche attraverso i
+vincoli attivi, l'analisi di sensitivit\`{a} e i valori duali associati ai
+diversi requisiti.
+
+Il presente capitolo utilizza questi risultati per compiere un secondo
+passaggio. La composizione dell'attivo e della raccolta di una banca non
+produce infatti conseguenze soltanto in termini aggregati: attivit\`{a} e
+passivit\`{a} generano flussi monetari in date differenti, e una disponibilit\`{a}
+di liquidit\`{a} pu\`{o} risultare abbondante in una data e insufficiente in
+un'altra. Il problema decisionale deve quindi essere esteso dalla composizione
+statica del bilancio al coordinamento intertemporale di attivit\`{a},
+passivit\`{a}, liquidit\`{a} e funding.
+
+Al termine del capitolo lo studente dovr\`{a} essere in grado di:
+
+\begin{itemize}
+
+\item utilizzare la relazione tra problema primale e problema duale per
+interpretare economicamente il valore marginale dei vincoli;
+
+\item utilizzare dualit\`{a} forte e condizioni di complementariet\`{a} per
+collegare soluzione ottima, margini e valori duali;
+
+\item distinguere un requisito aggregato di liquidit\`{a} da un insieme di
+fabbisogni distribuiti lungo diverse date;
+
+\item rappresentare mediante una matrice i cash flow prodotti nel tempo dalle
+diverse classi di attivo;
+
+\item formulare vincoli di bilancio intertemporali nei quali la liquidit\`{a}
+disponibile in un periodo possa essere trasferita al periodo successivo;
+
+\item rappresentare in forma lineare il ricorso a una fonte di funding e il
+corrispondente obbligo di rimborso futuro;
+
+\item formulare e interpretare un modello essenziale di
+Asset--Liability Management deterministico;
+
+\item interpretare i valori duali dei vincoli temporali come valori marginali
+della liquidit\`{a} nelle diverse date;
+
+\item riconoscere quali coefficienti del modello sono trattati come dati
+deterministici e comprendere quale modifica concettuale sar\`{a} necessaria
+quando tali coefficienti verranno considerati incerti.
+
+\end{itemize}
+
+\section{Dal vincolo aggregato alla struttura temporale del bilancio}
+
+\label{sec:cap12-dal-vincolo-al-tempo}
+
+Il modello sviluppato nel Capitolo~\ref{cap:programmazione-lineare} ha
+permesso di isolare alcuni trade-off essenziali nella composizione dell'attivo
+bancario. Nel caso SVB stilizzato, le quattro variabili decisionali
+
+\[
+x_1,\quad x_2,\quad x_3,\quad x_4
+\]
+
+rappresentano rispettivamente cassa e riserve, titoli a breve scadenza, titoli
+a lunga scadenza e prestiti o impieghi meno liquidi. La banca sceglie la
+composizione che massimizza il risultato economico, rispettando un vincolo di
+bilancio, un requisito minimo di liquidit\`a, un limite alla perdita nello
+scenario di stress e un limite di concentrazione.
+
+La soluzione numerica ottenuta nel Capitolo 11 \`e
+
+\[
+x^*
+\approx
+\begin{pmatrix}
+0\\
+41.045\\
+20.896\\
+38.060
+\end{pmatrix},
+\qquad
+z^*
+\approx
+3.765.
+\]
+
+Il requisito di liquidit\`a \`e
+
+\[
+\sum_{j=1}^{4}q_jx_j
+\geq
+Q_{\min},
+\]
+
+e nella soluzione considerata risulta attivo:
+
+\[
+\sum_{j=1}^{4}q_jx_j^*
+=
+Q_{\min}
+=
+55.
+\]
+
+L'analisi di sensitivit\`a e la teoria della dualit\`a sviluppate nel
+Capitolo 11 hanno mostrato che a questo requisito pu\`o essere associato un
+valore marginale. In prossimit\`a della soluzione considerata, il valore duale
+associato al requisito di liquidit\`a \`e
+
+\[
+\lambda_Q^*
+\approx
+0.03507.
+\]
+
+La funzione obiettivo misura il risultato economico che la banca cerca di
+massimizzare. Un requisito di liquidit\`a pi\`u severo restringe invece
+l'insieme delle allocazioni disponibili e pu\`o costringere la banca a
+rinunciare a impieghi pi\`u redditizi.
+
+Per questo motivo $\lambda_Q^*$ pu\`o essere interpretato come il
+\emph{costo marginale della liquidit\`a}: localmente, un aumento unitario del
+requisito $Q_{\min}$ riduce il valore ottimo di circa
+
+\[
+0.03507.
+\]
+
+Equivalentemente, per una piccola variazione del requisito,
+
+\[
+\Delta z^*
+\approx
+-\lambda_Q^*\,\Delta Q_{\min}.
+\]
+
+Il valore duale \`e quindi positivo perch\'e misura il costo marginale della
+maggiore prudenza; l'effetto sul risultato massimo \`e negativo perch\'e tale
+costo si traduce in una riduzione del risultato economico ottenibile.
+
+Questa lettura completa l'analisi del requisito di liquidit\`a nel modello
+statico, ma lascia aperta una questione finanziaria essenziale. Il coefficiente
+$q_j$ riassume in un solo numero la capacit\`a dell'attivit\`a $j$ di
+contribuire alla liquidit\`a disponibile. Il modello non specifica per\`o
+\emph{quando} tale liquidit\`a diventi effettivamente disponibile.
+
+Consideriamo, per esempio, due portafogli che producano cash flow su tre date.
+Il portafoglio $A$ genera il profilo
+
+\[
+(6,\;2,\;2),
+\]
+
+mentre il portafoglio $B$ genera
+
+\[
+(1,\;2,\;7).
+\]
+
+In entrambi i casi il cash flow complessivo sull'intero orizzonte \`e pari a
+
+\[
+10.
+\]
+
+Se si considerasse soltanto questa quantit\`a aggregata, i due portafogli
+apparirebbero equivalenti sotto il profilo della liquidit\`a.
+
+Supponiamo tuttavia che alla prima data la banca debba fronteggiare un
+fabbisogno pari a
+
+\[
+d_1=5.
+\]
+
+Il portafoglio $A$ produce alla data $t=1$ un cash flow pari a $6$ e pu\`o
+quindi soddisfare il fabbisogno. Il portafoglio $B$ produce invece soltanto
+$1$: le ulteriori $9$ unit\`a che saranno incassate nelle date successive non
+possono essere utilizzate retroattivamente per soddisfare un pagamento che
+deve essere effettuato alla prima data.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]
+{../graphics/Cap12_liquidita_aggregata_temporale.png}
+\caption{Due portafogli con lo stesso cash flow complessivo ma con diversa
+distribuzione temporale. Il portafoglio $A$ produce liquidit\`a in misura
+sufficiente a soddisfare il fabbisogno $d_1=5$ alla prima data; il
+portafoglio $B$ concentra invece gran parte dei propri flussi alla data
+finale.}
+\label{fig:cap12-liquidita-aggregata-temporale}
+\end{figure}
+
+La Figura~\ref{fig:cap12-liquidita-aggregata-temporale} mostra quindi che la
+somma dei cash flow lungo l'intero orizzonte non \`e sufficiente per valutare
+la capacit\`a della banca di far fronte ai propri impegni.
+
+La differenza rilevante non riguarda soltanto la quantit\`a complessiva di
+liquidit\`a, ma la sua distribuzione nel tempo:
+
+\[
+\text{quanto}
+\qquad\longrightarrow\qquad
+\text{quanto e quando}.
+\]
+
+Lo stesso problema si presenta dal lato delle passivit\`a. Una banca non deve
+soddisfare un unico fabbisogno aggregato, ma una successione di obblighi,
+rimborsi e deflussi collocati in date differenti. La compatibilit\`a tra
+attivo e passivo richiede pertanto di confrontare, periodo per periodo, i
+flussi prodotti dalle attivit\`a con le risorse richieste dalle passivit\`a.
+
+Introduciamo quindi una sequenza di date
+
+\[
+t=0,1,\ldots,T.
+\]
+
+Il tempo $t=0$ rappresenta la data nella quale viene scelta la composizione
+iniziale del bilancio; le date $t=1,\ldots,T$ rappresentano invece le
+scadenze future nelle quali si manifestano cash flow e fabbisogni.
+
+Il problema non consiste pi\`u soltanto nello scegliere una composizione
+dell'attivo che soddisfi un requisito complessivo di liquidit\`a. Occorre
+scegliere una struttura del bilancio che renda compatibili i flussi generati
+dall'attivo con i fabbisogni del passivo lungo l'intero orizzonte temporale.
+
+Il passaggio centrale pu\`o essere sintetizzato come
+
+\[
+\boxed{
+\text{requisito aggregato di liquidit\`a}
+\quad\longrightarrow\quad
+\text{bilanci di liquidit\`a alle diverse date}.
+}
+\]
+
+Questa estensione costituisce il punto di ingresso
+nell'Asset--Liability Management deterministico. Il problema resta un
+programma lineare: non viene introdotta una nuova classe di ottimizzazione.
+Cambiano invece la struttura dei dati e dei vincoli, perch\'e le decisioni
+devono ora essere coerenti con una successione di cash flow e fabbisogni
+distribuiti nel tempo.
+
+\section{Cash flow degli attivi e fabbisogni alle diverse date}
+
+\label{sec:cap12-cash-flow-fabbisogni}
+
+La sezione precedente ha mostrato che due portafogli con lo stesso cash flow
+complessivo possono avere capacit\`a molto diverse di fronteggiare i
+fabbisogni della banca. Per rappresentare questa differenza occorre descrivere
+separatamente i flussi monetari prodotti alle diverse date.
+
+Consideriamo l'orizzonte discreto
+
+\[
+t=0,1,\ldots,T,
+\]
+
+e manteniamo il vettore delle decisioni iniziali
+
+\[
+x=
+\begin{pmatrix}
+x_1\\
+\vdots\\
+x_n
+\end{pmatrix},
+\]
+
+dove $x_j$ rappresenta l'ammontare destinato alla classe di attivo $j$ al
+tempo $0$.
+
+\subsection{Il profilo temporale dei cash flow}
+
+Per ogni attivit\`a $j$ e per ogni data futura $t$, indichiamo con
+
+\[
+a_{tj}
+\]
+
+il cash flow monetario disponibile alla data $t$ per una unit\`a investita
+nell'attivit\`a $j$ al tempo $0$.
+
+L'investimento $x_j$ produce quindi alla data $t$ il flusso
+
+\[
+a_{tj}x_j.
+\]
+
+Per effetto dell'ipotesi di proporzionalit\`a gi\`a introdotta nel
+Capitolo 11, il coefficiente $a_{tj}$ viene trattato come indipendente
+dall'ammontare investito. Il cash flow complessivamente prodotto dall'attivo
+alla data $t$ \`e pertanto
+
+\[
+\sum_{j=1}^{n}a_{tj}x_j.
+\]
+
+I coefficienti possono essere raccolti nella matrice dei cash flow
+
+\[
+A^{\mathrm{CF}}
+=
+\begin{pmatrix}
+a_{11} & a_{12} & \cdots & a_{1n}\\
+a_{21} & a_{22} & \cdots & a_{2n}\\
+\vdots & \vdots & \ddots & \vdots\\
+a_{T1} & a_{T2} & \cdots & a_{Tn}
+\end{pmatrix}.
+\]
+
+La matrice $A^{\mathrm{CF}}$ ha $T$ righe e $n$ colonne.
+
+Ogni colonna
+
+\[
+\begin{pmatrix}
+a_{1j}\\
+a_{2j}\\
+\vdots\\
+a_{Tj}
+\end{pmatrix}
+\]
+
+descrive il profilo temporale dei cash flow prodotti da una unit\`a della
+classe di attivo $j$.
+
+Ogni riga
+
+\[
+(a_{t1},\ldots,a_{tn})
+\]
+
+descrive invece i cash flow unitari prodotti alla data $t$ dalle diverse
+classi di attivo.
+
+Questa organizzazione mantiene la logica matriciale introdotta nel
+Capitolo 11. Una colonna continua a descrivere come una variabile decisionale
+contribuisce ai diversi requisiti del modello; nel problema multiperiodale,
+tali contributi sono ora distinti anche in base alla data nella quale si
+manifestano.
+
+\subsection{Il profilo dei fabbisogni}
+
+Dal lato delle passivit\`a, indichiamo con
+
+\[
+d_t\geq0
+\]
+
+il fabbisogno monetario che deve essere soddisfatto alla data $t$.
+
+La quantit\`a $d_t$ rappresenta l'ammontare di risorse che la banca deve
+rendere disponibile in quella data. A seconda della specificazione del
+modello, esso pu\`o comprendere rimborsi di passivit\`a, pagamenti
+contrattuali, deflussi della raccolta o altri impieghi di liquidit\`a.
+
+Nel modello deterministico sviluppato in questo capitolo, i valori
+
+\[
+d_1,d_2,\ldots,d_T
+\]
+
+sono trattati come dati noti prima della soluzione del problema e vengono
+raccolti nel vettore
+
+\[
+d=
+\begin{pmatrix}
+d_1\\
+d_2\\
+\vdots\\
+d_T
+\end{pmatrix}.
+\]
+
+La natura deterministica di $d_t$ non implica che i futuri deflussi siano
+certi nella realt\`a. Significa che il modello analizza le conseguenze di uno
+specifico profilo di fabbisogni assunto come dato nella formulazione
+considerata.
+
+Pi\`u avanti il modo in cui tali fabbisogni vengono determinati sar\`a
+collegato in modo esplicito alle condizioni economico-finanziarie e alla
+situazione patrimoniale della banca. Per il momento, tuttavia, interessa
+isolare il problema fondamentale del coordinamento temporale tra risorse
+disponibili e risorse richieste.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\textwidth]
+{../graphics/Cap12_cashflow_attivi_fabbisogni.png}
+\caption{Cash flow prodotti dalle diverse classi di attivo e fabbisogni
+alle quattro date. Pur coincidendo i cash flow complessivi e i fabbisogni
+complessivi sull'intero orizzonte, il profilo temporale presenta surplus
+alle date $t=1$ e $t=3$ e deficit alle date $t=2$ e $t=4$.}
+\label{fig:cap12-cashflow-fabbisogni}
+\end{figure}
+
+La Figura~\ref{fig:cap12-cashflow-fabbisogni} mostra perch\'e il confronto
+aggregato non \`e sufficiente. Sull'intero orizzonte le risorse prodotte
+dagli attivi coincidono con i fabbisogni:
+
+\[
+\sum_{t=1}^{T}CF_t
+=
+\sum_{t=1}^{T}d_t.
+\]
+
+Ci\`o non impedisce tuttavia la presenza di deficit in singole date.
+L'Asset--Liability Management deve quindi verificare non soltanto
+l'equilibrio complessivo delle risorse, ma la loro disponibilit\`a nel
+momento in cui i pagamenti devono essere effettuati.
+
+\subsection{Una prima formulazione: cash-flow matching per data}
+
+Una prima formulazione consiste nel richiedere che, a ciascuna data, i cash
+flow prodotti dagli attivi siano almeno sufficienti a coprire il fabbisogno
+corrispondente:
+
+\[
+\sum_{j=1}^{n}a_{tj}x_j
+\geq
+d_t,
+\qquad
+t=1,\ldots,T.
+\]
+
+In forma matriciale,
+
+\[
+A^{\mathrm{CF}}x
+\geq
+d.
+\]
+
+Il singolo requisito aggregato di liquidit\`a del Capitolo 11 viene quindi
+sostituito da $T$ requisiti distinti. La dimensione temporale non viene pi\`u
+compressa in un unico coefficiente: per ciascuna data il modello confronta le
+risorse monetarie prodotte dall'attivo con il corrispondente fabbisogno.
+
+Questa formulazione rappresenta un primo modello di \emph{cash-flow
+matching}. Una composizione dell'attivo \`e ammissibile soltanto se i cash
+flow disponibili risultano sufficienti in tutte le date considerate.
+
+Il passaggio dal requisito aggregato
+
+\[
+\sum_{j=1}^{n}q_jx_j
+\geq
+Q_{\min}
+\]
+
+ai vincoli
+
+\[
+\sum_{j=1}^{n}a_{tj}x_j
+\geq
+d_t,
+\qquad
+t=1,\ldots,T,
+\]
+
+rende esplicita una differenza fondamentale. Nel primo caso la liquidit\`a
+viene misurata come caratteristica complessiva della composizione
+dell'attivo; nel secondo viene confrontata con fabbisogni che possiedono una
+scadenza precisa.
+
+\subsection{Il limite del matching separato per data}
+
+La formulazione precedente introduce correttamente il tempo, ma considera
+ancora ogni data come se fosse indipendente dalle altre.
+
+Supponiamo che, alla data $t$, il portafoglio produca un cash flow superiore
+al fabbisogno:
+
+\[
+\sum_{j=1}^{n}a_{tj}x_j
+>
+d_t.
+\]
+
+La differenza
+
+\[
+\sum_{j=1}^{n}a_{tj}x_j-d_t
+\]
+
+rappresenta una disponibilit\`a monetaria residua dopo avere soddisfatto il
+fabbisogno della data $t$.
+
+Nei vincoli di cash-flow matching appena formulati, tuttavia, questa
+eccedenza non compare nel periodo successivo. Le risorse disponibili alla
+data $t$ che non vengono utilizzate scompaiono dal modello e non possono
+contribuire alla copertura del fabbisogno alla data $t+1$.
+
+Si tratta di una limitazione economicamente rilevante. Una banca pu\`o
+conservare una parte della liquidit\`a disponibile oppure reinvestirla in una
+forma compatibile con l'orizzonte successivo. La posizione di liquidit\`a di
+una data dipende quindi anche da quanto \`e accaduto nelle date precedenti.
+
+Il problema ALM non pu\`o essere descritto come una semplice successione di
+$T$ vincoli indipendenti. Occorre introdurre una variabile che rappresenti la
+liquidit\`a residua trasferita da un periodo al successivo.
+
+Il passaggio successivo \`e quindi
+
+\[
+\boxed{
+\text{cash-flow matching per data}
+\quad\longrightarrow\quad
+\text{bilanci di liquidit\`a collegati nel tempo}.
+}
+\]
+
+L'introduzione di questa variabile render\`a esplicita la dipendenza tra il
+vincolo relativo alla data $t$ e quello relativo alla data $t+1$ e
+costituir\`a il primo vero elemento intertemporale del modello ALM.
+
+\section{Liquidit\`a residua e bilanci intertemporali}
+
+\label{sec:cap12-bilanci-intertemporali}
+
+Il cash-flow matching introdotto nella
+Sezione~\ref{sec:cap12-cash-flow-fabbisogni} confronta, per ogni data,
+i flussi prodotti dall'attivo con il corrispondente fabbisogno:
+
+\[
+\sum_{j=1}^{n}a_{tj}x_j
+\geq
+d_t,
+\qquad
+t=1,\ldots,T.
+\]
+
+Questa formulazione riconosce che la liquidit\`a deve essere disponibile
+nella data in cui viene richiesta, ma non descrive ancora che cosa accade
+quando i cash flow prodotti in un periodo superano il fabbisogno dello stesso
+periodo.
+
+In una gestione intertemporale, l'eccedenza non scompare. Pu\`o essere
+conservata e utilizzata nelle date successive. Per rappresentare questo
+meccanismo introduciamo una nuova variabile decisionale.
+
+\begin{definition}[Giacenza di liquidit\`a]
+
+Per ogni data $t=1,\ldots,T$, indichiamo con
+
+\[
+g_t\geq0
+\]
+
+la liquidit\`a che rimane disponibile immediatamente dopo avere soddisfatto
+il fabbisogno $d_t$.
+
+\end{definition}
+
+La variabile $g_t$ \`e quindi uno \emph{stock}, misurato in unit\`a
+monetarie. Non rappresenta un nuovo cash flow prodotto dall'attivo, ma la
+parte delle risorse disponibili alla data $t$ che non viene utilizzata e
+viene trasferita al periodo successivo.
+
+\subsection{Il primo bilancio temporale}
+
+Consideriamo inizialmente la prima data, $t=1$.
+
+I cash flow prodotti dall'attivo sono
+
+\[
+\sum_{j=1}^{n}a_{1j}x_j.
+\]
+
+Queste risorse devono essere utilizzate per soddisfare il fabbisogno $d_1$;
+l'eventuale eccedenza costituisce la giacenza $g_1$.
+
+Il bilancio monetario alla prima data \`e quindi
+
+\[
+\sum_{j=1}^{n}a_{1j}x_j
+=
+d_1+g_1.
+\]
+
+La relazione \`e un'uguaglianza, non una disuguaglianza. Tutte le risorse
+monetarie disponibili alla data $1$ devono avere una destinazione: una parte
+viene utilizzata per soddisfare il fabbisogno, la parte restante viene
+conservata come liquidit\`a.
+
+Equivalentemente,
+
+\[
+g_1
+=
+\sum_{j=1}^{n}a_{1j}x_j-d_1.
+\]
+
+La condizione
+
+\[
+g_1\geq0
+\]
+
+garantisce che il fabbisogno della prima data possa essere interamente
+soddisfatto.
+
+\subsection{Il collegamento con la data successiva}
+
+Alla data $t=2$ la banca dispone di due fonti di liquidit\`a:
+
+\begin{itemize}
+
+\item i nuovi cash flow prodotti dagli attivi,
+
+\[
+\sum_{j=1}^{n}a_{2j}x_j;
+\]
+
+\item la giacenza $g_1$ trasferita dalla data precedente.
+
+\end{itemize}
+
+Se, in una prima formulazione, assumiamo che la liquidit\`a trasferita non
+produca rendimento, il bilancio alla seconda data diventa
+
+\[
+\sum_{j=1}^{n}a_{2j}x_j
++
+g_1
+=
+d_2+g_2.
+\]
+
+Pi\`u in generale, per
+
+\[
+t=2,\ldots,T,
+\]
+
+si ottiene
+
+\[
+\sum_{j=1}^{n}a_{tj}x_j
++
+g_{t-1}
+=
+d_t+g_t.
+\]
+
+Il sistema completo dei bilanci temporali \`e pertanto
+
+\[
+\begin{array}{rcl}
+\displaystyle
+\sum_{j=1}^{n}a_{1j}x_j
+-
+g_1
+&=&
+d_1,
+\\[8pt]
+\displaystyle
+\sum_{j=1}^{n}a_{2j}x_j
++
+g_1-g_2
+&=&
+d_2,
+\\
+&\vdots&
+\\
+\displaystyle
+\sum_{j=1}^{n}a_{Tj}x_j
++
+g_{T-1}-g_T
+&=&
+d_T.
+\end{array}
+\]
+
+La differenza rispetto al cash-flow matching separato per data \`e
+fondamentale. La variabile $g_t$ compare contemporaneamente nel bilancio
+della data $t$ e in quello della data $t+1$.
+
+Il vincolo relativo a una data non pu\`o quindi pi\`u essere interpretato
+isolatamente:
+
+\[
+\boxed{
+g_t
+\text{ collega il bilancio della data }t
+\text{ al bilancio della data }t+1.
+}
+\]
+
+Questa \`e la struttura intertemporale essenziale del modello.
+
+\subsection{La liquidit\`a come variabile di stato}
+
+La giacenza $g_t$ possiede una funzione diversa dalle variabili iniziali
+$x_j$.
+
+Le quantit\`a
+
+\[
+x_1,\ldots,x_n
+\]
+
+determinano la composizione dell'attivo \textbf{scelta} al tempo $0$.
+
+La quantit\`a
+
+\[
+g_t
+\]
+
+descrive invece la posizione di liquidit\`a con la quale la banca conclude la
+data $t$ e affronta la data successiva.
+
+In questo senso, $g_t$ pu\`o essere interpretata come una semplice
+\emph{variabile di stato}: sintetizza una conseguenza delle decisioni e dei
+cash flow passati che diventa rilevante per i vincoli futuri.
+
+Dal bilancio temporale segue infatti la relazione ricorsiva
+
+\[
+g_t
+=
+g_{t-1}
++
+\sum_{j=1}^{n}a_{tj}x_j
+-
+d_t,
+\qquad
+t=1,\ldots,T,
+\]
+
+ponendo per il momento
+
+\[
+g_0=0.
+\]
+
+La liquidit\`a disponibile alla fine di ogni data dipende quindi dalla
+liquidit\`a ereditata dal periodo precedente, dai nuovi flussi prodotti
+dall'attivo e dal fabbisogno corrente.
+
+Questa rappresentazione rende esplicito un principio centrale
+dell'Asset--Liability Management:
+
+\[
+\boxed{
+\begin{array}{c}
+\text{la posizione finanziaria a una data dipende anche}\\
+\text{dalle decisioni e dai saldi accumulati nelle date precedenti}
+\end{array}
+}
+\]
+
+\subsection{Il rendimento della liquidit\`a trasferita}
+
+L'ipotesi secondo cui la liquidit\`a trasferita da una data alla successiva
+mantenga invariato il proprio valore \`e utile per isolare la struttura dei
+bilanci, ma pu\`o essere raffinata.
+
+Supponiamo che la giacenza disponibile dopo la data $t-1$ possa essere
+impiegata fino alla data $t$ a un tasso deterministico $r_{t-1}$.
+
+Una unit\`a monetaria detenuta alla fine della data $t-1$ diventa quindi
+
+\[
+1+r_{t-1}
+\]
+
+unit\`a alla data $t$.
+
+Per $t=2,\ldots,T$, il bilancio diventa
+
+\[
+\sum_{j=1}^{n}a_{tj}x_j
++
+(1+r_{t-1})g_{t-1}
+=
+d_t+g_t.
+\]
+
+Per la prima data resta
+
+\[
+\sum_{j=1}^{n}a_{1j}x_j
+=
+d_1+g_1,
+\]
+
+se si assume che non esista una giacenza iniziale separata dalla composizione
+$x$ scelta al tempo $0$.
+
+Il sistema pu\`o quindi essere scritto come
+
+\[
+\begin{array}{rcl}
+\displaystyle
+\sum_{j=1}^{n}a_{1j}x_j-g_1
+&=&
+d_1,
+\\[8pt]
+\displaystyle
+\sum_{j=1}^{n}a_{2j}x_j
++
+(1+r_1)g_1-g_2
+&=&
+d_2,
+\\
+&\vdots&
+\\
+\displaystyle
+\sum_{j=1}^{n}a_{Tj}x_j
++
+(1+r_{T-1})g_{T-1}-g_T
+&=&
+d_T.
+\end{array}
+\]
+
+Il coefficiente $1+r_{t-1}$ non modifica la natura lineare del modello,
+poich\'e il tasso $r_{t-1}$ \`e trattato come un dato deterministico.
+
+\subsection{Condizione finale}
+
+La variabile $g_T$ rappresenta la liquidit\`a residua alla fine
+dell'orizzonte considerato. Il suo trattamento dipende dalla funzione del
+modello.
+
+Se l'orizzonte termina quando tutti gli obblighi rilevanti sono stati
+soddisfatti e non si attribuisce valore alla liquidit\`a residua, pu\`o essere
+imposta la condizione
+
+\[
+g_T=0.
+\]
+
+Se invece la liquidit\`a finale rappresenta una risorsa economicamente utile
+oltre l'orizzonte del modello, essa non deve essere forzata a zero: dovr\`a
+essere mantenuta come variabile oppure valorizzata nella funzione obiettivo.
+
+La condizione terminale non \`e quindi un dettaglio tecnico. Stabilisce che
+cosa il modello considera economicamente rilevante al termine
+dell'orizzonte.
+
+\subsection{Dal matching al bilancio dinamico}
+
+Il passaggio compiuto in questa sezione pu\`o essere riassunto confrontando le
+due formulazioni.
+
+Nel cash-flow matching separato per data:
+
+\[
+\sum_{j=1}^{n}a_{tj}x_j
+\geq
+d_t.
+\]
+
+Nel modello con trasferimento della liquidit\`a:
+
+\[
+\sum_{j=1}^{n}a_{tj}x_j
++
+(1+r_{t-1})g_{t-1}
+=
+d_t+g_t.
+\]
+
+Nel primo caso ciascuna data costituisce un confronto autonomo tra flussi e
+fabbisogni. Nel secondo, il saldo di un periodo diventa una risorsa del
+periodo successivo.
+
+La programmazione rimane lineare, ma la struttura economica del problema
+cambia profondamente: il modello non confronta pi\`u soltanto attivit\`a e
+passivit\`a alle singole date, bens\`i descrive l'evoluzione nel tempo della
+posizione di liquidit\`a della banca.
+
+Questo collegamento prepara il passo successivo. La liquidit\`a accumulata
+internamente non \`e infatti l'unico strumento con cui una banca pu\`o
+fronteggiare un fabbisogno temporaneo. Quando i cash flow dell'attivo e la
+giacenza disponibile non sono sufficienti, la banca pu\`o ricorrere a
+funding esterno. Tale scelta produce liquidit\`a nella data corrente, ma
+genera contemporaneamente un obbligo di rimborso futuro.
+
+\section{Funding esterno e obblighi di rimborso}
+
+\label{sec:cap12-funding}
+
+I bilanci intertemporali introdotti nella
+Sezione~\ref{sec:cap12-bilanci-intertemporali} assumono che la banca possa
+soddisfare i propri fabbisogni utilizzando esclusivamente i cash flow prodotti
+dall'attivo e la liquidit\`a accumulata nelle date precedenti.
+
+Questa rappresentazione mette in evidenza il collegamento temporale tra le
+diverse date, ma trascura una possibilit\`a importante. Se le risorse interne
+non sono sufficienti a soddisfare un fabbisogno corrente, la banca pu\`o
+ricorrere a una fonte esterna di funding.
+
+Il funding modifica la disponibilit\`a di liquidit\`a nella data in cui viene
+raccolto, ma non costituisce una risorsa gratuita. Le somme ottenute devono
+essere rimborsate in una data successiva insieme al relativo costo
+finanziario.
+
+\subsection{Una fonte di funding a un periodo}
+
+Per mantenere leggibile la struttura del modello, consideriamo una sola forma
+stilizzata di funding con durata pari a un periodo.
+
+Per
+
+\[
+t=1,\ldots,T-1,
+\]
+
+indichiamo con
+
+\[
+u_t\geq0
+\]
+
+l'ammontare di funding raccolto alla data $t$.
+
+La quantit\`a $u_t$ \`e immediatamente disponibile e pu\`o quindi essere
+utilizzata per soddisfare il fabbisogno della stessa data.
+
+Supponiamo che il funding raccolto alla data $t$ debba essere rimborsato alla
+data $t+1$ a un tasso deterministico $\rho_t$. L'obbligo di rimborso generato
+da $u_t$ \`e pertanto
+
+\[
+(1+\rho_t)u_t.
+\]
+
+La sequenza economica \`e quindi
+
+\[
+\boxed{
+\begin{array}{c}
+\text{funding raccolto alla data }t:\quad u_t\\[3pt]
+\downarrow\\[3pt]
+\text{liquidit\`a disponibile alla data }t\\[3pt]
+\downarrow\\[3pt]
+\text{rimborso alla data }t+1:\quad (1+\rho_t)u_t
+\end{array}
+}
+\]
+
+Il funding trasferisce quindi risorse dalla data futura alla data corrente:
+aumenta la liquidit\`a disponibile oggi, ma riduce quella disponibile domani.
+
+\subsection{Il bilancio alla prima data}
+
+Alla data $t=1$ la banca dispone dei cash flow prodotti dagli attivi,
+
+\[
+\sum_{j=1}^{n}a_{1j}x_j,
+\]
+
+e pu\`o inoltre raccogliere funding per un ammontare $u_1$.
+
+Le risorse vengono utilizzate per soddisfare il fabbisogno $d_1$ e
+l'eventuale eccedenza viene mantenuta come giacenza $g_1$.
+
+Il bilancio diventa quindi
+
+\[
+\sum_{j=1}^{n}a_{1j}x_j
++
+u_1
+=
+d_1+g_1.
+\]
+
+Rispetto alla formulazione della sezione precedente, il termine $u_1$
+costituisce una nuova fonte di liquidit\`a.
+
+Il suo utilizzo produce tuttavia un effetto sul periodo successivo.
+
+\subsection{Il bilancio nelle date intermedie}
+
+Consideriamo una generica data
+
+\[
+t=2,\ldots,T-1.
+\]
+
+Le risorse disponibili sono ora costituite da tre componenti:
+
+\begin{itemize}
+
+\item i cash flow prodotti dagli attivi,
+
+\[
+\sum_{j=1}^{n}a_{tj}x_j;
+\]
+
+\item la giacenza proveniente dalla data precedente, capitalizzata al tasso
+$r_{t-1}$,
+
+\[
+(1+r_{t-1})g_{t-1};
+\]
+
+\item il nuovo funding raccolto alla data corrente,
+
+\[
+u_t.
+\]
+
+\end{itemize}
+
+A queste risorse si contrappongono tre utilizzi:
+
+\begin{itemize}
+
+\item il fabbisogno corrente $d_t$;
+
+\item il rimborso del funding raccolto alla data precedente,
+
+\[
+(1+\rho_{t-1})u_{t-1};
+\]
+
+\item la nuova giacenza di liquidit\`a $g_t$.
+
+\end{itemize}
+
+Il bilancio intertemporale completo \`e quindi
+
+\[
+\sum_{j=1}^{n}a_{tj}x_j
++
+(1+r_{t-1})g_{t-1}
++
+u_t
+=
+d_t
++
+(1+\rho_{t-1})u_{t-1}
++
+g_t.
+\]
+
+La stessa variabile $u_t$ svolge quindi due ruoli in date consecutive:
+
+\[
+u_t
+\]
+
+\`e una risorsa nel bilancio della data $t$, mentre
+
+\[
+(1+\rho_t)u_t
+\]
+
+diventa un utilizzo nel bilancio della data $t+1$.
+
+Il funding introduce cos\`i un secondo collegamento intertemporale, accanto a
+quello gi\`a prodotto dalla giacenza $g_t$.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.96\textwidth]
+{../graphics/Cap12_bilancio_intertemporale.png}
+\caption{Collegamento tra due bilanci di liquidit\`a consecutivi. La
+giacenza $g_t$ costituisce una risorsa disponibile alla data successiva,
+mentre il funding $u_t$ raccolto alla data corrente genera un obbligo di
+rimborso pari a $(1+\rho_t)u_t$ alla data successiva.}
+\label{fig:cap12-bilancio-intertemporale}
+\end{figure}
+
+La Figura~\ref{fig:cap12-bilancio-intertemporale} rende visibili i due
+collegamenti fondamentali tra date consecutive. La giacenza trasferisce
+risorse verso il futuro; il funding trasferisce invece risorse dal futuro
+al presente e genera per questo un successivo obbligo di rimborso.
+
+Le due variabili hanno quindi effetti temporali opposti:
+
+\[
+g_t
+\quad\text{accumula una risorsa per il periodo successivo},
+\]
+
+mentre
+
+\[
+u_t
+\quad\text{anticipa una risorsa creando un'obbligazione futura}.
+\]
+
+La struttura intertemporale del modello nasce precisamente dalla presenza
+simultanea di questi collegamenti.
+
+\subsection{Il bilancio alla data finale}
+
+Alla data finale $T$ non introduciamo nuovo funding. Questa scelta garantisce
+che ogni posizione di funding aperta all'interno dell'orizzonte venga anche
+rimborsata entro l'orizzonte stesso.
+
+Il bilancio finale \`e pertanto
+
+\[
+\sum_{j=1}^{n}a_{Tj}x_j
++
+(1+r_{T-1})g_{T-1}
+=
+d_T
++
+(1+\rho_{T-1})u_{T-1}
++
+g_T.
+\]
+
+Il sistema completo pu\`o quindi essere scritto come
+
+\[
+\begin{array}{rcl}
+\displaystyle
+\sum_{j=1}^{n}a_{1j}x_j+u_1-g_1
+&=&
+d_1,
+\\[8pt]
+\displaystyle
+\sum_{j=1}^{n}a_{tj}x_j
++
+(1+r_{t-1})g_{t-1}
++
+u_t
+-
+(1+\rho_{t-1})u_{t-1}
+-
+g_t
+&=&
+d_t,
+\\
+&&
+t=2,\ldots,T-1,
+\\[8pt]
+\displaystyle
+\sum_{j=1}^{n}a_{Tj}x_j
++
+(1+r_{T-1})g_{T-1}
+-
+(1+\rho_{T-1})u_{T-1}
+-
+g_T
+&=&
+d_T.
+\end{array}
+\]
+
+Le condizioni di non negativit\`a sono
+
+\[
+g_t\geq0,
+\qquad
+t=1,\ldots,T,
+\]
+
+e
+
+\[
+u_t\geq0,
+\qquad
+t=1,\ldots,T-1.
+\]
+
+\subsection{Limiti alla disponibilit\`a di funding}
+
+La possibilit\`a di raccogliere funding non pu\`o essere considerata
+illimitata.
+
+Introduciamo pertanto, per ogni data,
+
+\[
+\bar{u}_t\geq0,
+\]
+
+che rappresenta l'ammontare massimo di funding accessibile alla banca.
+
+Il vincolo
+
+\[
+0\leq u_t\leq\bar{u}_t,
+\qquad
+t=1,\ldots,T-1,
+\]
+
+pu\`o riflettere limiti contrattuali, capacit\`a di accesso al mercato,
+disponibilit\`a di linee di credito o altri vincoli sulla raccolta
+incrementale.
+
+Il parametro $\bar{u}_t$ ha un significato diverso da $u_t$:
+
+\[
+u_t
+=
+\text{decisione di funding},
+\]
+
+mentre
+
+\[
+\bar{u}_t
+=
+\text{massima capacit\`a di funding disponibile}.
+\]
+
+La banca decide quindi quanto funding utilizzare all'interno di una
+capacit\`a data.
+
+\subsection{Costo del funding e assenza di arbitraggio artificiale}
+
+Il tasso $\rho_t$ rappresenta il costo complessivo della fonte di funding
+utilizzata tra le date $t$ e $t+1$.
+
+Nello stesso intervallo, la giacenza di liquidit\`a produce il rendimento
+$r_t$.
+
+Per evitare che il modello trovi conveniente raccogliere funding unicamente
+per investirlo nella giacenza di liquidit\`a, \`e naturale assumere
+
+\[
+\rho_t\geq r_t.
+\]
+
+In una rappresentazione bancaria realistica ci si attende normalmente
+
+\[
+\rho_t>r_t,
+\]
+
+poich\'e la raccolta esterna incorpora un costo superiore al rendimento di una
+posizione liquida priva di rischio comparabile.
+
+La differenza
+
+\[
+\rho_t-r_t
+\]
+
+rappresenta quindi, in forma stilizzata, il costo aggiuntivo associato
+all'accesso al funding.
+
+Questa condizione non \`e necessaria per la linearit\`a matematica del
+problema, ma evita un comportamento economicamente artificiale del modello.
+
+\subsection{Funding e gestione della liquidit\`a}
+
+L'introduzione di $u_t$ modifica il significato del problema ALM.
+
+Senza funding, un'insufficienza dei cash flow e della liquidit\`a accumulata
+rende il piano non ammissibile.
+
+Con il funding, la banca dispone di una seconda possibilit\`a:
+
+\[
+\text{deficit corrente}
+\quad\longrightarrow\quad
+\text{funding oggi}
+\quad\longrightarrow\quad
+\text{obbligo di rimborso domani}.
+\]
+
+Il funding non elimina quindi il problema della liquidit\`a. Ne modifica la
+distribuzione temporale.
+
+Una scelta di funding che risolve un deficit alla data $t$ pu\`o infatti
+rendere pi\`u difficile soddisfare il bilancio alla data $t+1$, a causa del
+rimborso
+
+\[
+(1+\rho_t)u_t.
+\]
+
+La decisione non pu\`o pertanto essere valutata considerando esclusivamente il
+periodo corrente.
+
+Il modello comincia cos\`i a rappresentare il nucleo dell'Asset--Liability
+Management:
+
+\[
+\boxed{
+\begin{array}{c}
+\text{le risorse disponibili oggi dipendono dalle decisioni passate,}\\
+\text{mentre le decisioni assunte oggi modificano i fabbisogni futuri.}
+\end{array}
+}
+\]
+
+La struttura resta interamente lineare. I coefficienti $a_{tj}$, $d_t$,
+$r_t$, $\rho_t$ e $\bar{u}_t$ sono, in questa fase, dati deterministici;
+$x_j$, $g_t$ e $u_t$ sono invece le variabili attraverso le quali il modello
+descrive la composizione dell'attivo e la gestione intertemporale della
+liquidit\`a.
+
+La sezione successiva preciser\`a come tali coefficienti possano essere
+ricondotti a un ambiente economico-finanziario deterministico e come il
+modello ALM possa essere collegato in modo coerente al caso bancario
+sviluppato nel Capitolo 11.
+
+\section{L'ambiente economico-finanziario deterministico}
+
+\label{sec:cap12-ambiente-deterministico}
+
+Le sezioni precedenti hanno costruito la struttura intertemporale del modello
+ALM. I cash flow degli attivi, la giacenza di liquidit\`a e il funding
+collegano le diverse date attraverso i bilanci
+
+\[
+\sum_{j=1}^{n}a_{tj}x_j
++
+(1+r_{t-1})g_{t-1}
++
+u_t
+=
+d_t
++
+(1+\rho_{t-1})u_{t-1}
++
+g_t.
+\]
+
+Finora i coefficienti
+
+\[
+a_{tj},\qquad r_t,\qquad \rho_t,\qquad \bar{u}_t
+\]
+
+sono stati trattati semplicemente come dati del modello. In un problema
+bancario, tuttavia, tali coefficienti riflettono le condizioni
+economico-finanziarie nelle quali la banca opera.
+
+Per rendere esplicito questo collegamento introduciamo, per ogni data
+$t=0,1,\ldots,T$, il vettore
+
+\[
+\bar{Z}_t
+=
+\left(
+\bar{R}_t,\bar{C}_t,\bar{F}_t
+\right).
+\]
+
+La barra indica che, nel presente capitolo, l'intera traiettoria
+
+\[
+\bar{Z}_0,\bar{Z}_1,\ldots,\bar{Z}_T
+\]
+
+\`e considerata nota al momento della formulazione del problema.
+
+Il modello \`e quindi deterministico, ma i valori dei fattori possono variare
+nel tempo:
+
+\[
+\bar{Z}_t
+\neq
+\bar{Z}_{t+1}.
+\]
+
+La caratteristica deterministica riguarda la conoscenza della traiettoria,
+non la sua costanza.
+
+\subsection{Tre dimensioni dell'ambiente finanziario}
+
+Le tre componenti di $\bar{Z}_t$ hanno funzioni economiche distinte.
+
+Il fattore
+
+\[
+\bar{R}_t
+\]
+
+rappresenta il livello dei tassi privi di rischio rilevante nell'intervallo
+considerato. Esso pu\`o essere interpretato come il \emph{prezzo del tempo}:
+determina il rendimento delle disponibilit\`a liquide e contribuisce alla
+valutazione dei flussi monetari distribuiti nel tempo.
+
+Il fattore
+
+\[
+\bar{C}_t
+\]
+
+rappresenta il livello dello spread di credito osservato sul mercato. Esso
+misura il premio richiesto per detenere esposizioni soggette a rischio di
+credito e pu\`o essere interpretato come il \emph{prezzo del rischio di
+credito}.
+
+Il fattore
+
+\[
+\bar{F}_t
+\]
+
+rappresenta invece lo spread o la tensione associata al funding della banca.
+Esso misura quanto l'accesso alla raccolta esterna sia costoso o difficile
+rispetto a una fonte priva di rischio comparabile e pu\`o essere interpretato
+come il \emph{prezzo della scarsit\`a di funding}.
+
+La distinzione pu\`o essere sintetizzata come
+
+\[
+\boxed{
+\begin{array}{c}
+\bar{R}_t:\ \text{prezzo del tempo},\\[3pt]
+\bar{C}_t:\ \text{prezzo del rischio di credito},\\[3pt]
+\bar{F}_t:\ \text{prezzo della scarsit\`a di funding}.
+\end{array}
+}
+\]
+
+I tre fattori descrivono l'ambiente esterno nel quale la banca opera. Non
+dipendono dalle decisioni $x_j$, $g_t$ o $u_t$ assunte nel modello.
+
+\subsection{Dal livello dei tassi al rendimento della liquidit\`a}
+
+Nella Sezione~\ref{sec:cap12-bilanci-intertemporali} il parametro $r_t$
+rappresenta il rendimento ottenibile mantenendo una giacenza di liquidit\`a
+tra le date $t$ e $t+1$.
+
+Il suo valore pu\`o essere ricondotto al livello del tasso privo di rischio:
+
+\[
+r_t
+=
+r(\bar{R}_t).
+\]
+
+Nella rappresentazione pi\`u semplice, se $\bar{R}_t$ indica direttamente il
+tasso applicabile alla giacenza nell'intervallo considerato, si pu\`o porre
+
+\[
+r_t=\bar{R}_t.
+\]
+
+Il bilancio utilizza quindi
+
+\[
+(1+\bar{R}_t)g_t
+\]
+
+come ammontare disponibile alla data successiva.
+
+La relazione non deve essere interpretata come una legge generale di mercato.
+Essa costituisce una specificazione coerente con un modello nel quale la
+liquidit\`a residua viene investita per un periodo in una forma a rischio
+trascurabile.
+
+\subsection{Il costo del funding}
+
+Il tasso $\rho_t$ introdotto nella
+Sezione~\ref{sec:cap12-funding} rappresenta invece il costo del funding
+raccolto alla data $t$ e rimborsato alla data $t+1$.
+
+Il suo valore dipende sia dal livello generale dei tassi sia dalle condizioni
+specifiche di funding della banca. Una rappresentazione naturale \`e
+
+\[
+\rho_t
+=
+\rho(\bar{R}_t,\bar{F}_t).
+\]
+
+Se $\bar{F}_t$ viene misurato direttamente come spread sul tasso privo di
+rischio, una specificazione particolarmente semplice \`e
+
+\[
+\rho_t
+=
+\bar{R}_t+\bar{F}_t.
+\]
+
+Il rimborso del funding diventa quindi
+
+\[
+\left(
+1+\bar{R}_t+\bar{F}_t
+\right)u_t.
+\]
+
+Questa rappresentazione rende esplicita la differenza tra il rendimento della
+liquidit\`a e il costo della raccolta esterna. Se
+
+\[
+\bar{F}_t>0,
+\]
+
+allora
+
+\[
+\rho_t>r_t,
+\]
+
+coerentemente con l'ipotesi introdotta nella sezione precedente.
+
+Il funding \`e quindi tanto pi\`u costoso quanto maggiore \`e la tensione
+associata alla raccolta della banca.
+
+\subsection{Disponibilit\`a di funding}
+
+Le condizioni di funding possono incidere non soltanto sul costo della
+raccolta, ma anche sull'ammontare massimo accessibile.
+
+Il parametro
+
+\[
+\bar{u}_t
+\]
+
+rappresenta la capacit\`a massima di funding disponibile alla data $t$.
+
+In forma generale si pu\`o scrivere
+
+\[
+\bar{u}_t
+=
+\bar{u}(\bar{F}_t).
+\]
+
+In condizioni di funding favorevoli la banca pu\`o disporre di una maggiore
+capacit\`a di raccolta; in condizioni di stress tale capacit\`a pu\`o
+ridursi.
+
+Non \`e necessario specificare in questa fase una particolare forma
+funzionale. Nel problema deterministico, una volta fissata la traiettoria
+$\bar{F}_t$, anche
+
+\[
+\bar{u}_1,\ldots,\bar{u}_{T-1}
+\]
+
+sono coefficienti noti.
+
+Il vincolo
+
+\[
+0\leq u_t\leq\bar{u}_t
+\]
+
+rimane pertanto lineare.
+
+\subsection{Il ruolo dello spread di credito}
+
+Il fattore $\bar{C}_t$ richiede una precisazione particolare.
+
+Se un'attivit\`a produce cash flow contrattuali certi e viene mantenuta fino
+alla scadenza, una variazione dello spread di credito di mercato non modifica
+automaticamente tali cash flow.
+
+Non sarebbe quindi corretto introdurre $\bar{C}_t$ nei coefficienti
+$a_{tj}$ per il solo fatto che il modello contiene un fattore di credito.
+
+Il fattore $\bar{C}_t$ diventa invece rilevante quando i flussi disponibili
+per l'ALM dipendono dalla qualit\`a creditizia o dal valore economico delle
+attivit\`a. Ci\`o pu\`o accadere, per esempio, quando il modello considera:
+
+\begin{itemize}
+
+\item cash flow corretti per perdite creditizie;
+
+\item valori di realizzo di titoli o prestiti;
+
+\item haircuts applicati alle attivit\`a utilizzate per ottenere liquidit\`a;
+
+\item valori di mercato di esposizioni creditizie.
+
+\end{itemize}
+
+In tali casi i coefficienti dei cash flow possono essere scritti, in forma
+generale, come
+
+\[
+a_{tj}
+=
+a_{tj}
+\left(
+\bar{R}_t,\bar{C}_t
+\right),
+\]
+
+per le classi di attivo sensibili a tali fattori.
+
+Per altre attivit\`a, invece, la dipendenza da $\bar{C}_t$ pu\`o essere
+assente.
+
+Questa distinzione \`e importante: non tutti i fattori economici devono
+entrare in tutti i coefficienti del modello.
+
+\subsection{Fattori esterni e coefficienti del modello}
+
+La relazione tra ambiente esterno e parametri ALM pu\`o essere sintetizzata
+come
+
+\[
+\bar{Z}_t
+=
+(\bar{R}_t,\bar{C}_t,\bar{F}_t)
+\quad\longrightarrow\quad
+\left\{
+a_{tj},\,
+r_t,\,
+\rho_t,\,
+\bar{u}_t
+\right\}.
+\]
+
+Il vettore $\bar{Z}_t$ descrive condizioni economico-finanziarie esterne.
+
+I coefficienti
+
+\[
+a_{tj},\qquad r_t,\qquad \rho_t,\qquad \bar{u}_t
+\]
+
+traducono tali condizioni nella struttura quantitativa del problema ALM.
+
+Una volta fissata la traiettoria
+
+\[
+\bar{Z}_0,\ldots,\bar{Z}_T,
+\]
+
+tutti questi coefficienti sono numeri noti. Il problema rimane quindi un
+programma lineare deterministico.
+
+In particolare, la dipendenza dei coefficienti dall'ambiente esterno non
+introduce non linearit\`a nelle variabili decisionali, poich\'e
+
+\[
+\bar{Z}_t
+\]
+
+non costituisce una variabile scelta dalla banca.
+
+\subsection{Ci\`o che l'ambiente esterno non descrive}
+
+Il vettore $\bar{Z}_t$ non contiene informazioni sulla solidit\`a interna
+della banca.
+
+Due banche possono trovarsi, alla stessa data, nelle medesime condizioni di
+tassi, spread creditizi e funding:
+
+\[
+\bar{Z}_t^{(A)}
+=
+\bar{Z}_t^{(B)},
+\]
+
+ma avere strutture patrimoniali molto differenti.
+
+Una banca pu\`o disporre di abbondante liquidit\`a, perdite contenute e
+capitale elevato; un'altra pu\`o presentare forte esposizione a perdite di
+mercato, liquidit\`a limitata e una struttura di funding pi\`u fragile.
+
+Tali differenze non devono essere incorporate artificialmente nel vettore
+$\bar{Z}_t$. Esse dipendono dallo stato della banca, che \`e a sua volta il
+risultato delle decisioni assunte e dei flussi accumulati nel tempo.
+
+Occorre pertanto distinguere due livelli:
+
+\[
+\boxed{
+\begin{array}{c}
+\bar{Z}_t:
+\text{ condizioni economico-finanziarie esterne},\\[4pt]
+X_t:
+\text{ stato patrimoniale e finanziario della banca}.
+\end{array}
+}
+\]
+
+Il primo \`e esogeno rispetto alle decisioni della banca; il secondo evolve
+anche come conseguenza delle decisioni precedenti.
+
+La sezione successiva introdurr\`a questa distinzione in modo esplicito e
+mostrer\`a come lo stato della banca e l'ambiente esterno concorrano a
+determinare la sua solidit\`a e i fabbisogni di liquidit\`a.
+
+\section{Stato della banca, solidit\`a e fabbisogni di liquidit\`a}
+
+\label{sec:cap12-stato-banca}
+
+La Sezione~\ref{sec:cap12-ambiente-deterministico} ha descritto le condizioni
+economico-finanziarie esterne attraverso il vettore
+
+\[
+\bar Z_t
+=
+(\bar R_t,\bar C_t,\bar F_t).
+\]
+
+Questi fattori incidono sui tassi, sul valore delle attivit\`a e sulle
+condizioni di accesso al funding. Essi non descrivono tuttavia la situazione
+interna della banca.
+
+A parit\`a di condizioni di mercato, due banche possono presentare capacit\`a
+molto diverse di assorbire uno shock di liquidit\`a. Una banca pu\`o disporre
+di abbondanti attivit\`a liquide, capitale elevato e limitata dipendenza dal
+funding; un'altra pu\`o trovarsi nella situazione opposta.
+
+Per distinguere questi due livelli introduciamo lo stato interno della banca.
+
+\begin{definition}[Stato della banca]
+
+Indichiamo con
+
+\[
+X_t
+\]
+
+il vettore che descrive le variabili patrimoniali e finanziarie della banca
+rilevanti alla data $t$.
+
+\end{definition}
+
+Le componenti precise di $X_t$ dipendono dal livello di dettaglio del modello.
+Possono comprendere, per esempio:
+
+\begin{itemize}
+
+\item la composizione e il valore delle attivit\`a;
+
+\item la disponibilit\`a di liquidit\`a;
+
+\item la consistenza del capitale;
+
+\item le passivit\`a in essere;
+
+\item il funding precedentemente raccolto e ancora da rimborsare.
+
+\end{itemize}
+
+Nel modello costruito nelle sezioni precedenti, la giacenza $g_t$ e gli
+obblighi generati dal funding sono quindi esempi di informazioni che
+contribuiscono a determinare lo stato della banca.
+
+\subsection{Ambiente esterno e stato interno}
+
+La distinzione tra $\bar Z_t$ e $X_t$ \`e essenziale.
+
+Il vettore
+
+\[
+\bar Z_t
+\]
+
+descrive condizioni che la singola banca considera esterne alle proprie
+decisioni.
+
+Il vettore
+
+\[
+X_t
+\]
+
+descrive invece la posizione con la quale la banca affronta quelle
+condizioni.
+
+Possiamo quindi rappresentare schematicamente la situazione alla data $t$
+come
+
+\[
+(\bar Z_t,X_t).
+\]
+
+Due banche possono affrontare lo stesso ambiente,
+
+\[
+\bar Z_t^{(A)}
+=
+\bar Z_t^{(B)},
+\]
+
+ma avere stati interni differenti,
+
+\[
+X_t^{(A)}
+\neq
+X_t^{(B)}.
+\]
+
+Esse possono pertanto reagire in modo molto diverso allo stesso shock.
+
+Questa distinzione evita di attribuire all'ambiente di mercato caratteristiche
+che appartengono invece al bilancio della singola banca.
+
+\subsection{Un indicatore di solidit\`a}
+
+Per sintetizzare la capacit\`a della banca di fronteggiare le condizioni
+economico-finanziarie correnti introduciamo un indicatore di solidit\`a o
+resilienza
+
+\[
+h_t.
+\]
+
+In forma generale possiamo scrivere
+
+\[
+h_t
+=
+h(X_t,\bar Z_t).
+\]
+
+L'indicatore dipende quindi sia dallo stato interno della banca sia
+dall'ambiente nel quale tale stato deve essere valutato.
+
+Lo stesso livello di liquidit\`a o di capitale pu\`o infatti assumere un
+significato diverso in condizioni di mercato normali o in presenza di forte
+tensione sul funding e sugli spread.
+
+Non \`e necessario, in questa fase, specificare una particolare funzione
+$h(\cdot)$. Ci interessa soprattutto distinguere le determinanti della
+solidit\`a:
+
+\[
+\boxed{
+\begin{array}{c}
+\text{solidit\`a della banca}\\[3pt]
+\uparrow\\[3pt]
+\text{stato interno }X_t
+\quad+\quad
+\text{ambiente esterno }\bar Z_t.
+\end{array}
+}
+\]
+
+L'indicatore $h_t$ non rappresenta quindi un nuovo fattore di mercato. \`E
+una caratteristica della banca valutata nelle condizioni di mercato
+correnti.
+
+\subsection{Dalla solidit\`a ai deflussi}
+
+La relazione tra stato della banca e liquidit\`a diventa particolarmente
+importante quando si considerano i deflussi della raccolta.
+
+In una rappresentazione pi\`u ricca, il fabbisogno di liquidit\`a alla data
+$t$ non dipenderebbe necessariamente soltanto dall'ambiente esterno.
+Potrebbe dipendere anche dalla solidit\`a percepita della banca.
+
+In termini schematici si potrebbe scrivere
+
+\[
+d_t
+=
+d(\bar Z_t,h_t),
+\]
+
+e quindi
+
+\[
+d_t
+=
+d\left(
+\bar Z_t,
+h(X_t,\bar Z_t)
+\right).
+\]
+
+La struttura esprime un meccanismo economicamente importante:
+
+\[
+\bar Z_t
+\longrightarrow
+h_t
+\longrightarrow
+d_t,
+\]
+
+ma anche
+
+\[
+X_t
+\longrightarrow
+h_t
+\longrightarrow
+d_t.
+\]
+
+Uno shock esterno pu\`o quindi generare conseguenze diverse a seconda della
+condizione patrimoniale con cui la banca lo affronta.
+
+Per esempio, una tensione generalizzata sul funding pu\`o risultare
+gestibile per una banca con ampia disponibilit\`a di attivit\`a liquide e
+capitale elevato, mentre pu\`o produrre un fabbisogno molto pi\`u severo per
+una banca con struttura finanziaria fragile.
+
+\subsection{La retroazione delle decisioni sullo stato della banca}
+
+Lo stato interno non rimane necessariamente invariato nel tempo.
+
+Le decisioni prese alla data $t$ modificano infatti la posizione con la quale
+la banca affronta la data successiva.
+
+In forma generale possiamo rappresentare questa evoluzione come
+
+\[
+X_{t+1}
+=
+G(X_t,u_t,\bar Z_t,d_t),
+\]
+
+dove la funzione $G(\cdot)$ sintetizza le relazioni contabili e finanziarie
+che determinano il nuovo stato.
+
+Il funding $u_t$, per esempio, aumenta le risorse disponibili alla data $t$,
+ma genera un obbligo di rimborso futuro. Analogamente, la liquidit\`a
+residua $g_t$ migliora la posizione con la quale la banca affronta il periodo
+successivo.
+
+La sequenza concettuale diventa quindi
+
+\[
+\boxed{
+\begin{array}{ccccc}
+\bar Z_t
+&
+\longrightarrow
+&
+h_t,\ d_t
+&
+\longrightarrow
+&
+u_t
+\\[3pt]
+&&
+\uparrow
+&&
+\downarrow
+\\[-2pt]
+&&
+X_t
+&&
+X_{t+1}.
+\end{array}
+}
+\]
+
+L'ambiente esterno influenza le condizioni nelle quali la banca opera; lo
+stato interno contribuisce a determinarne la resilienza; le decisioni
+correnti modificano lo stato futuro.
+
+\subsection{Perch\'e nel modello deterministico manteniamo $d_t$ come dato}
+
+La rappresentazione precedente chiarisce il meccanismo economico, ma non
+implica che tutte queste relazioni debbano essere rese endogene nel modello
+di programmazione lineare sviluppato in questo capitolo.
+
+Se il fabbisogno $d_t$ dipendesse direttamente da variabili contenute in
+$X_t$, che a loro volta dipendono dalle decisioni della banca, il termine
+$d_t$ diventerebbe endogeno.
+
+Una specificazione apparentemente semplice del tipo
+
+\[
+d_t
+=
+\delta_t B_t,
+\]
+
+per esempio, non rimane lineare se sia il tasso di deflusso $\delta_t$ sia la
+base $B_t$ dipendono dalle decisioni del modello.
+
+Il problema non \`e puramente tecnico. Una relazione non lineare introdotta
+senza una precisa motivazione economica renderebbe meno trasparente il
+meccanismo che vogliamo studiare.
+
+Nel modello ALM deterministico di questo capitolo adottiamo quindi una scelta
+pi\`u semplice.
+
+Per ogni data viene fissato ex ante un profilo
+
+\[
+d_1,d_2,\ldots,d_T,
+\]
+
+coerente con il percorso economico-finanziario deterministico considerato.
+
+Una volta definito tale profilo, i valori $d_t$ entrano nel programma lineare
+come coefficienti noti.
+
+Possiamo quindi distinguere:
+
+\[
+\boxed{
+\begin{array}{c}
+\text{meccanismo economico generale:}\\[2pt]
+d_t=d(\bar Z_t,h_t),
+\\[8pt]
+\text{specificazione utilizzata nel modello LP del capitolo:}\\[2pt]
+d_t=\bar d_t\quad\text{dato deterministico}.
+\end{array}
+}
+\]
+
+Questa scelta permette di mantenere separati due problemi.
+
+Il primo consiste nel determinare quale profilo di fabbisogni sia appropriato
+per rappresentare un determinato scenario economico e bancario.
+
+Il secondo consiste nel determinare come la banca debba strutturare attivi,
+liquidit\`a e funding per soddisfare quel profilo nel modo economicamente
+migliore.
+
+Il presente capitolo concentra l'attenzione sul secondo problema.
+
+\subsection{Una separazione utile per il modello ALM}
+
+La struttura costruita nelle ultime due sezioni pu\`o essere riassunta
+distinguendo tre livelli:
+
+\[
+\boxed{
+\begin{array}{c}
+\text{ambiente esterno}\\
+\bar Z_t=(\bar R_t,\bar C_t,\bar F_t)
+\\[6pt]
+\downarrow
+\\[6pt]
+\text{stato e solidit\`a della banca}\\
+X_t,\quad h_t
+\\[6pt]
+\downarrow
+\\[6pt]
+\text{fabbisogni e decisioni ALM}\\
+d_t,\quad g_t,\quad u_t.
+\end{array}
+}
+\]
+
+Nel problema deterministico che verr\`a formulato nella sezione successiva,
+la traiettoria dell'ambiente esterno e il profilo dei fabbisogni sono fissati
+prima della soluzione.
+
+Le variabili decisionali determinano invece la composizione dell'attivo, la
+gestione della liquidit\`a e il ricorso al funding.
+
+Questa separazione permette di costruire un programma lineare sufficientemente
+ricco da rappresentare il problema intertemporale senza confondere la
+formulazione ALM con un modello completo della dinamica di una crisi bancaria.
+
+La sezione successiva raccoglier\`a gli elementi introdotti finora in un'unica
+formulazione di Asset--Liability Management deterministico.
+
+\section{Il modello di Asset--Liability Management deterministico}
+
+\label{sec:cap12-modello-alm-completo}
+
+Le sezioni precedenti hanno introdotto separatamente gli elementi necessari
+per descrivere un problema di Asset--Liability Management intertemporale:
+cash flow degli attivi, fabbisogni alle diverse date, giacenze di liquidit\`a,
+funding e condizioni economico-finanziarie esterne.
+
+Possiamo ora raccogliere questi elementi in un unico programma lineare.
+
+L'obiettivo non \`e costruire un modello completo del bilancio bancario, ma
+estendere in modo coerente il problema di allocazione del Capitolo 11,
+sostituendo il requisito aggregato di liquidit\`a con una successione di
+bilanci monetari collegati nel tempo.
+
+\subsection{Ipotesi del modello}
+
+Consideriamo le date
+
+\[
+t=0,1,\ldots,T.
+\]
+
+Al tempo $0$ la banca dispone di risorse iniziali pari ad $A_0$ e sceglie
+l'allocazione
+
+\[
+x=
+\begin{pmatrix}
+x_1\\
+\vdots\\
+x_n
+\end{pmatrix},
+\qquad
+x_j\geq0.
+\]
+
+L'intera traiettoria delle condizioni economico-finanziarie
+
+\[
+\bar Z_0,\bar Z_1,\ldots,\bar Z_T
+\]
+
+\`e assunta nota.
+
+Di conseguenza sono noti anche:
+
+\[
+a_{tj},
+\qquad
+d_t,
+\qquad
+r_t,
+\qquad
+\rho_t,
+\qquad
+\bar u_t.
+\]
+
+In particolare:
+
+\begin{itemize}
+
+\item $a_{tj}$ \`e il cash flow disponibile alla data $t$ per una unit\`a
+investita nella classe di attivo $j$;
+
+\item $d_t$ \`e il fabbisogno di liquidit\`a da soddisfare alla data $t$;
+
+\item $r_t$ \`e il rendimento della liquidit\`a trasferita dalla data $t$
+alla data $t+1$;
+
+\item $\rho_t$ \`e il costo del funding raccolto alla data $t$ e rimborsato
+alla data $t+1$;
+
+\item $\bar u_t$ \`e la massima quantit\`a di funding accessibile alla data
+$t$.
+
+\end{itemize}
+
+Il profilo
+
+\[
+d_1,\ldots,d_T
+\]
+
+viene quindi trattato, nella formulazione operativa del modello, come dato
+deterministico. Le relazioni concettuali tra ambiente esterno, stato della
+banca e fabbisogni discusse nella sezione precedente non vengono rese
+endogene all'interno del programma lineare.
+
+\subsection{Variabili decisionali}
+
+Il modello contiene tre gruppi di variabili.
+
+La composizione iniziale dell'attivo \`e descritta da
+
+\[
+x_j\geq0,
+\qquad
+j=1,\ldots,n.
+\]
+
+La liquidit\`a residua dopo avere soddisfatto il fabbisogno alla data $t$ \`e
+
+\[
+g_t\geq0,
+\qquad
+t=1,\ldots,T.
+\]
+
+Il funding raccolto alla data $t$ \`e
+
+\[
+u_t\geq0,
+\qquad
+t=1,\ldots,T-1.
+\]
+
+Non viene introdotto nuovo funding alla data finale, perch\'e un finanziamento
+raccolto in $T$ produrrebbe un rimborso successivo all'orizzonte del modello.
+
+Nel problema deterministico tutte queste quantit\`a possono essere determinate
+simultaneamente al tempo $0$, poich\'e l'intera traiettoria dei coefficienti
+futuri \`e nota. L'indicizzazione temporale di $g_t$ e $u_t$ descrive quindi
+la data alla quale le decisioni producono i propri effetti, non una reazione
+a informazioni future non ancora note.
+
+\subsection{La funzione obiettivo}
+
+Nel Capitolo 11 la funzione obiettivo
+
+\[
+c'x
+=
+\sum_{j=1}^{n}c_jx_j
+\]
+
+misura il contributo economico prodotto dalla composizione dell'attivo.
+
+Manteniamo la stessa interpretazione, considerando $c_j$ come contributo
+economico unitario della classe $j$ sull'orizzonte del modello.
+
+Nel problema multiperiodale occorre per\`o considerare anche due componenti
+aggiuntive.
+
+La giacenza $g_t$ mantenuta tra le date $t$ e $t+1$ produce un interesse
+
+\[
+r_tg_t.
+\]
+
+Il funding $u_t$ utilizzato nello stesso intervallo produce invece un costo
+
+\[
+\rho_tu_t.
+\]
+
+La funzione obiettivo diventa pertanto
+
+\[
+\max\;
+\Pi(x,g,u)
+=
+\sum_{j=1}^{n}c_jx_j
++
+\sum_{t=1}^{T-1}r_tg_t
+-
+\sum_{t=1}^{T-1}\rho_tu_t.
+\]
+
+I termini
+
+\[
+r_tg_t
+\]
+
+e
+
+\[
+\rho_tu_t
+\]
+
+rappresentano rispettivamente interessi attivi e interessi passivi.
+
+Il capitale del funding, invece, non costituisce un costo economico: $u_t$
+entra come risorsa nel bilancio della data $t$ e viene restituito alla data
+successiva. Per questo motivo nei vincoli compare il rimborso complessivo
+
+\[
+(1+\rho_t)u_t,
+\]
+
+mentre nella funzione obiettivo compare soltanto il costo
+
+\[
+\rho_tu_t.
+\]
+
+Analogamente, il termine
+
+\[
+(1+r_t)g_t
+\]
+
+nei bilanci descrive la disponibilit\`a monetaria alla data successiva,
+mentre $r_tg_t$ rappresenta il corrispondente contributo al risultato
+economico.
+
+\subsection{Il vincolo di bilancio iniziale}
+
+Come nel modello del Capitolo 11, le risorse inizialmente disponibili devono
+essere interamente allocate:
+
+\[
+\sum_{j=1}^{n}x_j
+=
+A_0.
+\]
+
+Il funding futuro non modifica questo vincolo. Le quantit\`a $u_t$ vengono
+raccolte successivamente e servono alla gestione della liquidit\`a nel corso
+dell'orizzonte.
+
+\subsection{I bilanci di liquidit\`a}
+
+Alla prima data il bilancio \`e
+
+\[
+\sum_{j=1}^{n}a_{1j}x_j
++
+u_1
+=
+d_1+g_1.
+\]
+
+Per le date intermedie,
+
+\[
+t=2,\ldots,T-1,
+\]
+
+vale
+
+\[
+\sum_{j=1}^{n}a_{tj}x_j
++
+(1+r_{t-1})g_{t-1}
++
+u_t
+=
+d_t
++
+(1+\rho_{t-1})u_{t-1}
++
+g_t.
+\]
+
+Alla data finale non viene raccolto nuovo funding:
+
+\[
+\sum_{j=1}^{n}a_{Tj}x_j
++
+(1+r_{T-1})g_{T-1}
+=
+d_T
++
+(1+\rho_{T-1})u_{T-1}
++
+g_T.
+\]
+
+Queste uguaglianze costituiscono il nucleo del modello ALM.
+
+Ogni bilancio stabilisce che
+
+\[
+\boxed{
+\begin{array}{c}
+\text{risorse disponibili alla data }t\\
+=\\
+\text{pagamenti dovuti alla data }t
++
+\text{liquidit\`a trasferita alla data successiva}.
+\end{array}
+}
+\]
+
+I bilanci non sono indipendenti. Le variabili $g_t$ e $u_t$ collegano
+direttamente date consecutive.
+
+\subsection{Vincoli sul funding}
+
+Per ogni data nella quale il funding pu\`o essere raccolto imponiamo
+
+\[
+0\leq u_t\leq\bar u_t,
+\qquad
+t=1,\ldots,T-1.
+\]
+
+Il limite $\bar u_t$ impedisce che la banca possa soddisfare qualsiasi
+fabbisogno ricorrendo a una quantit\`a arbitrariamente elevata di raccolta
+esterna.
+
+Le condizioni
+
+\[
+\rho_t>r_t
+\]
+
+escludono inoltre che sia economicamente conveniente raccogliere funding al
+solo scopo di conservarlo come liquidit\`a.
+
+\subsection{I vincoli prudenziali sull'attivo}
+
+L'introduzione della struttura temporale non rende necessariamente
+irrilevanti gli altri requisiti presenti nel modello del Capitolo 11.
+
+Nel caso bancario stilizzato manteniamo il limite alla perdita nello scenario
+di stress:
+
+\[
+\sum_{j=1}^{n}\ell_jx_j
+\leq
+K,
+\]
+
+dove $\ell_j$ rappresenta la perdita unitaria associata alla classe di attivo
+$j$.
+
+Nel caso SVB a quattro classi manteniamo inoltre il limite di concentrazione
+sui titoli a lunga scadenza:
+
+\[
+x_3
+\leq
+\alpha A_0.
+\]
+
+Questi vincoli svolgono una funzione diversa dai bilanci temporali. I bilanci
+garantiscono che i fabbisogni siano finanziabili alle diverse date; il limite
+alle perdite e il limite di concentrazione controllano invece altre
+dimensioni della struttura dell'attivo.
+
+Il requisito aggregato di liquidit\`a
+
+\[
+\sum_{j=1}^{n}q_jx_j
+\geq
+Q_{\min},
+\]
+
+utilizzato nel Capitolo 11, non viene invece mantenuto nella formulazione di
+base.
+
+La sua funzione viene sostituita dai bilanci temporali, che verificano
+direttamente se le risorse monetarie sono disponibili nelle date nelle quali
+devono essere utilizzate.
+
+\subsection{La formulazione completa}
+
+Il modello deterministico pu\`o quindi essere scritto come
+
+\[
+\begin{array}{ll}
+\max\limits_{x,g,u}
+&
+\displaystyle
+\sum_{j=1}^{n}c_jx_j
++
+\sum_{t=1}^{T-1}r_tg_t
+-
+\sum_{t=1}^{T-1}\rho_tu_t
+\\[10pt]
+
+\mbox{soggetto a}
+&
+\displaystyle
+\sum_{j=1}^{n}x_j=A_0,
+\\[10pt]
+
+&
+\displaystyle
+\sum_{j=1}^{n}a_{1j}x_j+u_1-g_1=d_1,
+\\[10pt]
+
+&
+\displaystyle
+\sum_{j=1}^{n}a_{tj}x_j
++
+(1+r_{t-1})g_{t-1}
++
+u_t
+-
+(1+\rho_{t-1})u_{t-1}
+-
+g_t
+=
+d_t,
+\\[-2pt]
+&
+\hfill t=2,\ldots,T-1,
+\\[10pt]
+
+&
+\displaystyle
+\sum_{j=1}^{n}a_{Tj}x_j
++
+(1+r_{T-1})g_{T-1}
+-
+(1+\rho_{T-1})u_{T-1}
+-
+g_T
+=
+d_T,
+\\[10pt]
+
+&
+\displaystyle
+\sum_{j=1}^{n}\ell_jx_j\leq K,
+\\[10pt]
+
+&
+x_3\leq\alpha A_0,
+\\[6pt]
+
+&
+0\leq u_t\leq\bar u_t,
+\qquad
+t=1,\ldots,T-1,
+\\[6pt]
+
+&
+g_t\geq0,
+\qquad
+t=1,\ldots,T,
+\\[6pt]
+
+&
+x_j\geq0,
+\qquad
+j=1,\ldots,n.
+\end{array}
+\]
+
+Il vincolo
+
+\[
+x_3\leq\alpha A_0
+\]
+
+\`e specifico del caso SVB a quattro classi di attivo. In una formulazione
+generale pu\`o essere sostituito da uno o pi\`u vincoli lineari di
+concentrazione appropriati al problema considerato.
+
+\subsection{Perch\'e il problema rimane lineare}
+
+La presenza di pi\`u date non modifica la classe matematica del problema.
+
+Le variabili decisionali sono
+
+\[
+x_j,\qquad g_t,\qquad u_t,
+\]
+
+e tutte compaiono linearmente.
+
+I coefficienti
+
+\[
+a_{tj},
+\quad
+c_j,
+\quad
+\ell_j,
+\quad
+r_t,
+\quad
+\rho_t,
+\quad
+d_t,
+\quad
+\bar u_t
+\]
+
+sono fissati prima della soluzione.
+
+Anche termini quali
+
+\[
+(1+r_{t-1})g_{t-1}
+\]
+
+e
+
+\[
+(1+\rho_{t-1})u_{t-1}
+\]
+
+sono lineari, poich\'e $r_{t-1}$ e $\rho_{t-1}$ sono coefficienti noti e non
+variabili decisionali.
+
+La struttura temporale aumenta quindi il numero e l'organizzazione dei
+vincoli, ma non richiede una nuova tecnica di ottimizzazione:
+
+\[
+\boxed{
+\begin{array}{c}
+\text{ALM deterministico}\\[3pt]
+=\\[3pt]
+\text{programma lineare con vincoli di bilancio collegati nel tempo}.
+\end{array}
+}
+\]
+
+\subsection{Che cosa determina la soluzione}
+
+La soluzione ottima non indica soltanto come allocare le risorse iniziali.
+
+Essa determina simultaneamente
+
+\[
+x^*,
+\qquad
+g_1^*,\ldots,g_T^*,
+\qquad
+u_1^*,\ldots,u_{T-1}^*.
+\]
+
+Il vettore $x^*$ descrive la composizione iniziale dell'attivo.
+
+La sequenza
+
+\[
+g_1^*,\ldots,g_T^*
+\]
+
+descrive l'evoluzione ottima della posizione di liquidit\`a.
+
+La sequenza
+
+\[
+u_1^*,\ldots,u_{T-1}^*
+\]
+
+indica invece quando e in quale misura risulta conveniente o necessario
+ricorrere al funding esterno.
+
+La soluzione deve pertanto essere letta come un piano intertemporale e non
+come una semplice allocazione statica.
+
+Il modello permette di rispondere simultaneamente a tre domande:
+
+\[
+\boxed{
+\begin{array}{c}
+\text{come investire le risorse iniziali?}\\[3pt]
+\text{quanta liquidit\`a trasferire tra le diverse date?}\\[3pt]
+\text{quando ricorrere al funding esterno?}
+\end{array}
+}
+\]
+
+La sezione successiva applicher\`a questa struttura a un caso numerico
+multiperiodale costruito come estensione del modello SVB del Capitolo 11.
+
+\section{Il caso SVB multiperiodale}
+
+\label{sec:cap12-caso-svb-multiperiodale}
+
+La formulazione della Sezione~\ref{sec:cap12-modello-alm-completo} pu\`o ora
+essere applicata al caso bancario utilizzato come filo conduttore nel
+Capitolo~\ref{cap:programmazione-lineare}.
+
+L'obiettivo non \`e ricostruire storicamente la dinamica di Silicon Valley
+Bank. Manteniamo invece la funzione didattica gi\`a adottata nel Capitolo 11:
+costruire un modello stilizzato nel quale sia possibile isolare e interpretare
+i trade-off tra redditivit\`a, struttura temporale dei cash flow, fabbisogni di
+liquidit\`a e ricorso al funding.
+
+La differenza fondamentale rispetto al problema statico \`e che la liquidit\`a
+non viene pi\`u rappresentata mediante un unico coefficiente $q_j$. Per ogni
+classe di attivo viene ora specificato il profilo temporale con cui le risorse
+monetarie diventano disponibili.
+
+\subsection{Le classi di attivo}
+
+Manteniamo le quattro classi considerate nel Capitolo 11:
+
+\[
+\begin{array}{ll}
+x_1 & \text{cassa e riserve},\\
+x_2 & \text{titoli a breve scadenza},\\
+x_3 & \text{titoli a lunga scadenza},\\
+x_4 & \text{prestiti e impieghi meno liquidi}.
+\end{array}
+\]
+
+Le risorse iniziali sono
+
+\[
+A_0=100.
+\]
+
+I coefficienti della funzione obiettivo rimangono
+
+\[
+c=
+\begin{pmatrix}
+0.010\\
+0.025\\
+0.040\\
+0.050
+\end{pmatrix},
+\]
+
+mentre i coefficienti di perdita nello scenario di stress sono
+
+\[
+\ell=
+\begin{pmatrix}
+0\\
+0.02\\
+0.15\\
+0.08
+\end{pmatrix}.
+\]
+
+Manteniamo inoltre
+
+\[
+K=7
+\]
+
+come limite alla perdita sotto stress e
+
+\[
+x_3\leq30
+\]
+
+come limite di concentrazione nei titoli a lunga scadenza.
+
+\subsection{La matrice dei cash flow}
+
+Consideriamo quattro date future,
+
+\[
+t=1,2,3,4.
+\]
+
+La matrice dei cash flow viene fissata come
+
+\[
+A^{\mathrm{CF}}
+=
+\begin{pmatrix}
+1.00 & 0.65 & 0.05 & 0.05\\
+0.00 & 0.35 & 0.10 & 0.15\\
+0.00 & 0.00 & 0.25 & 0.30\\
+0.00 & 0.00 & 0.60 & 0.50
+\end{pmatrix}.
+\]
+
+Ogni colonna somma a uno. I coefficienti descrivono quindi la distribuzione
+temporale delle risorse monetarie rese disponibili da una unit\`a inizialmente
+allocata alla corrispondente classe di attivo.
+
+La cassa e le riserve sono interamente disponibili alla prima data.
+
+I titoli a breve scadenza rendono disponibile il $65\%$ delle risorse alla
+prima data e il restante $35\%$ alla seconda.
+
+I titoli a lunga scadenza producono invece soltanto una quota limitata dei
+propri flussi nelle prime date e concentrano il $60\%$ delle risorse alla
+data finale.
+
+I prestiti presentano un profilo maggiormente distribuito:
+
+\[
+5\%,\quad15\%,\quad30\%,\quad50\%.
+\]
+
+I coefficienti non rappresentano i cash flow storici di SVB. Sono costruiti
+per rendere visibile il diverso profilo temporale delle quattro categorie di
+attivo.
+
+\subsection{Fabbisogni e condizioni di funding}
+
+Il profilo deterministico dei fabbisogni \`e
+
+\[
+d=
+\begin{pmatrix}
+30\\
+30\\
+22\\
+15
+\end{pmatrix}.
+\]
+
+Il fabbisogno complessivo sull'orizzonte \`e quindi
+
+\[
+\sum_{t=1}^{4}d_t
+=
+97.
+\]
+
+Le prime due date risultano particolarmente impegnative: la banca deve
+rendere disponibili $60$ unit\`a monetarie nei primi due periodi.
+
+Per la giacenza di liquidit\`a assumiamo i tassi per periodo
+
+\[
+r_1=0.005,
+\qquad
+r_2=0.006,
+\qquad
+r_3=0.007.
+\]
+
+Il percorso deterministico del costo del funding \`e invece
+
+\[
+\rho_1=0.015,
+\qquad
+\rho_2=0.020,
+\qquad
+\rho_3=0.025.
+\]
+
+Questi valori possono essere letti secondo la struttura introdotta nella
+Sezione~\ref{sec:cap12-ambiente-deterministico}. In particolare, ponendo
+
+\[
+\rho_t
+=
+\bar R_t+\bar F_t,
+\]
+
+si ottiene il seguente percorso:
+
+\[
+\begin{array}{c|ccc}
+\hline
+t & r_t=\bar R_t & \bar F_t & \rho_t\\
+\hline
+1 & 0.005 & 0.010 & 0.015\\
+2 & 0.006 & 0.014 & 0.020\\
+3 & 0.007 & 0.018 & 0.025\\
+\hline
+\end{array}
+\]
+
+La crescita di $\bar F_t$ rappresenta un progressivo peggioramento delle
+condizioni di accesso alla raccolta esterna.
+
+Coerentemente con questa impostazione, anche la capacit\`a massima di funding
+si riduce nel tempo:
+
+\[
+\bar u_1=10,
+\qquad
+\bar u_2=8,
+\qquad
+\bar u_3=6.
+\]
+
+Il fattore di spread creditizio $\bar C_t$ non viene utilizzato direttamente
+in questo caso numerico. I cash flow $a_{tj}$ sono infatti fissati ex ante e
+non modelliamo vendite di attivit\`a, haircuts o variazioni del loro valore di
+mercato. Il rischio sull'attivo continua a essere rappresentato, in forma
+stilizzata, attraverso il vincolo sulla perdita sotto stress.
+
+\subsection{Il programma lineare}
+
+Con questi dati la funzione obiettivo \`e
+
+\[
+\begin{split}
+\max\quad
+&
+0.010x_1
++
+0.025x_2
++
+0.040x_3
++
+0.050x_4
+\\
+&
++
+0.005g_1
++
+0.006g_2
++
+0.007g_3
+\\
+&
+-
+0.015u_1
+-
+0.020u_2
+-
+0.025u_3.
+\end{split}
+\]
+
+Il vincolo di bilancio iniziale \`e
+
+\[
+x_1+x_2+x_3+x_4=100.
+\]
+
+I quattro bilanci temporali sono
+
+\[
+x_1
++
+0.65x_2
++
+0.05x_3
++
+0.05x_4
++
+u_1
+=
+30+g_1,
+\]
+
+\[
+0.35x_2
++
+0.10x_3
++
+0.15x_4
++
+1.005g_1
++
+u_2
+=
+30
++
+1.015u_1
++
+g_2,
+\]
+
+\[
+0.25x_3
++
+0.30x_4
++
+1.006g_2
++
+u_3
+=
+22
++
+1.020u_2
++
+g_3,
+\]
+
+e
+
+\[
+0.60x_3
++
+0.50x_4
++
+1.007g_3
+=
+15
++
+1.025u_3
++
+g_4.
+\]
+
+A questi si aggiungono il limite alla perdita sotto stress,
+
+\[
+0.02x_2
++
+0.15x_3
++
+0.08x_4
+\leq
+7,
+\]
+
+il limite di concentrazione,
+
+\[
+x_3\leq30,
+\]
+
+i limiti sul funding,
+
+\[
+0\leq u_1\leq10,
+\]
+
+\[
+0\leq u_2\leq8,
+\]
+
+\[
+0\leq u_3\leq6,
+\]
+
+e le condizioni di non negativit\`a
+
+\[
+x_j\geq0,
+\qquad
+g_t\geq0.
+\]
+
+\subsection{Perch\'e la soluzione statica non \`e sufficiente}
+
+Prima di risolvere il nuovo problema \`e utile verificare che cosa accadrebbe
+mantenendo la composizione ottima ottenuta nel Capitolo 11:
+
+\[
+x^{\mathrm{stat}}
+\approx
+\begin{pmatrix}
+0\\
+41.045\\
+20.896\\
+38.060
+\end{pmatrix}.
+\]
+
+Questa composizione soddisfa esattamente il requisito aggregato di liquidit\`a
+del problema statico:
+
+\[
+q'x^{\mathrm{stat}}
+=
+55.
+\]
+
+Nel modello temporale, tuttavia, i cash flow prodotti alla prima data sono
+soltanto
+
+\[
+CF_1
+\approx
+29.627.
+\]
+
+Per soddisfare
+
+\[
+d_1=30
+\]
+
+senza lasciare giacenza sarebbe quindi necessario raccogliere almeno
+
+\[
+u_1
+=
+30-29.627
+\approx
+0.373.
+\]
+
+Alla seconda data, i cash flow dell'attivo sarebbero
+
+\[
+CF_2
+\approx
+22.164.
+\]
+
+Anche utilizzando interamente la capacit\`a di funding disponibile,
+
+\[
+u_2=\bar u_2=8,
+\]
+
+le risorse massime sarebbero
+
+\[
+22.164+8
+=
+30.164.
+\]
+
+Gli impieghi minimi comprenderebbero invece il fabbisogno corrente e il
+rimborso del funding raccolto alla data precedente:
+
+\[
+30
++
+1.015(0.373)
+\approx
+30.379.
+\]
+
+Si avrebbe quindi un deficit pari a circa
+
+\[
+30.379-30.164
+\approx
+0.215.
+\]
+
+La soluzione statica non \`e pertanto ammissibile nel modello
+multiperiodale.
+
+Questo risultato rende evidente la differenza tra i due problemi:
+
+\[
+\boxed{
+\begin{array}{c}
+\text{un portafoglio pu\`o soddisfare un requisito aggregato di liquidit\`a}\\
+\text{e non essere in grado di soddisfare i fabbisogni alle singole date.}
+\end{array}
+}
+\]
+
+\subsection{La soluzione ottima multiperiodale}
+
+La soluzione del programma lineare \`e
+
+\[
+x^*
+\approx
+\begin{pmatrix}
+0\\
+51.920\\
+0\\
+48.080
+\end{pmatrix}.
+\]
+
+La composizione dell'attivo cambia quindi sensibilmente rispetto alla
+soluzione statica.
+
+La quota investita nei titoli a breve aumenta da circa $41.045$ a
+
+\[
+51.920,
+\]
+
+mentre i titoli a lunga scadenza scompaiono dalla soluzione:
+
+\[
+x_3^*=0.
+\]
+
+I prestiti e gli impieghi meno liquidi aumentano invece a
+
+\[
+x_4^*
+\approx
+48.080.
+\]
+
+Questo risultato dipende dalla particolare parametrizzazione adottata. I
+prestiti producono cash flow intermedi pi\`u elevati dei titoli a lunga
+scadenza e presentano contemporaneamente un coefficiente di redditivit\`a
+maggiore e una perdita sotto stress inferiore. Il modello non attribuisce
+quindi un vantaggio sufficiente alla classe $x_3$.
+
+La sequenza ottima delle giacenze \`e
+
+\[
+g^*
+\approx
+\begin{pmatrix}
+6.152\\
+1.567\\
+0\\
+2.890
+\end{pmatrix},
+\]
+
+mentre il funding ottimo \`e
+
+\[
+u^*
+=
+\begin{pmatrix}
+0\\
+0\\
+6
+\end{pmatrix}.
+\]
+
+La banca non utilizza quindi funding nelle prime due date, ma alla terza
+data ricorre interamente alla capacit\`a disponibile:
+
+\[
+u_3^*
+=
+\bar u_3
+=
+6.
+\]
+
+\subsection{Lettura dei bilanci temporali}
+
+I cash flow prodotti dall'allocazione ottima sono
+
+\[
+A^{\mathrm{CF}}x^*
+\approx
+\begin{pmatrix}
+36.152\\
+25.384\\
+14.424\\
+24.040
+\end{pmatrix}.
+\]
+
+La dinamica completa pu\`o essere riassunta nella tabella seguente:
+
+\[
+\begin{array}{c|rrrrrr}
+\hline
+t
+&
+CF_t
+&
+(1+r_{t-1})g_{t-1}
+&
+u_t
+&
+d_t
+&
+(1+\rho_{t-1})u_{t-1}
+&
+g_t
+\\
+\hline
+1 & 36.152 & 0     & 0 & 30 & 0    & 6.152\\
+2 & 25.384 & 6.183 & 0 & 30 & 0    & 1.567\\
+3 & 14.424 & 1.576 & 6 & 22 & 0    & 0\\
+4 & 24.040 & 0     & 0 & 15 & 6.150& 2.890\\
+\hline
+\end{array}
+\]
+
+Alla prima data i cash flow degli attivi superano il fabbisogno e generano una
+giacenza
+
+\[
+g_1^*
+\approx
+6.152.
+\]
+
+Questa giacenza contribuisce alla copertura del fabbisogno della seconda data.
+Dopo il pagamento rimangono
+
+\[
+g_2^*
+\approx
+1.567.
+\]
+
+Alla terza data i cash flow degli attivi e la liquidit\`a trasferita non sono
+invece sufficienti. Il modello ricorre quindi al funding:
+
+\[
+14.424
++
+1.576
++
+6
+=
+22.
+\]
+
+La giacenza finale della terza data \`e nulla.
+
+Alla quarta data non viene raccolto nuovo funding. I cash flow prodotti
+dall'attivo sono sufficienti a soddisfare sia il fabbisogno corrente sia il
+rimborso del finanziamento precedente:
+
+\[
+24.040
+=
+15
++
+6.150
++
+2.890.
+\]
+
+Rimane quindi una giacenza finale positiva.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.94\textwidth]
+{../graphics/Cap12_ALM_profili_ottimi.png}
+\caption{Profilo temporale delle risorse e degli impieghi nella soluzione
+ottima del caso SVB multiperiodale. Per ogni data la barra di sinistra
+rappresenta le risorse disponibili e quella di destra i relativi impieghi.
+Alla data $t=3$ il fabbisogno pu\`o essere soddisfatto soltanto ricorrendo
+alla capacit\`a massima di funding disponibile.}
+\label{fig:cap12-alm-profili-ottimi}
+\end{figure}
+
+La Figura~\ref{fig:cap12-alm-profili-ottimi} permette di leggere la soluzione
+come un piano temporale. L'equilibrio non viene ottenuto imponendo che ogni
+classe di attivo produca direttamente i flussi necessari in ogni data:
+surplus, giacenze e funding trasferiscono risorse tra periodi differenti.
+
+\subsection{Redditivit\`a e costo della gestione della liquidit\`a}
+
+Il contributo economico prodotto dalla composizione dell'attivo \`e
+
+\[
+c'x^*
+\approx
+3.7020.
+\]
+
+Gli interessi prodotti dalle giacenze sono
+
+\[
+0.005g_1^*
++
+0.006g_2^*
++
+0.007g_3^*
+\approx
+0.0402.
+\]
+
+Il costo del funding \`e
+
+\[
+0.015u_1^*
++
+0.020u_2^*
++
+0.025u_3^*
+=
+0.1500.
+\]
+
+Il valore della funzione obiettivo \`e quindi
+
+\[
+z^*
+\approx
+3.7020
++
+0.0402
+-
+0.1500
+=
+3.5922.
+\]
+
+Il limite alla perdita sotto stress non risulta attivo:
+
+\[
+0.02x_2^*
++
+0.15x_3^*
++
+0.08x_4^*
+\approx
+4.885
+<
+7.
+\]
+
+Anche il limite di concentrazione sui titoli a lunga scadenza presenta ampio
+margine, poich\'e
+
+\[
+x_3^*=0.
+\]
+
+La struttura della soluzione \`e quindi determinata principalmente dai
+vincoli temporali di liquidit\`a e dalla disponibilit\`a di funding, non dai
+due vincoli prudenziali sull'attivo.
+
+In particolare,
+
+\[
+u_3^*=\bar u_3
+\]
+
+segnala che la terza data costituisce un punto critico del piano. La banca
+utilizza interamente la capacit\`a di funding disponibile per trasferire
+risorse dalla quarta alla terza data.
+
+Questa osservazione prepara l'analisi duale della sezione successiva. I
+bilanci temporali non hanno necessariamente lo stesso valore marginale: una
+unit\`a aggiuntiva di liquidit\`a disponibile in una data critica pu\`o avere
+un valore molto diverso dalla stessa unit\`a disponibile in una data nella
+quale il modello presenta un ampio margine.
