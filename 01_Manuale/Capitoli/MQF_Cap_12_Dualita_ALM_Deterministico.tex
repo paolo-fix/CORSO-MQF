@@ -2627,87 +2627,72 @@ multiperiodale costruito come estensione del modello SVB del Capitolo 11.
 
 \label{sec:cap12-caso-svb-multiperiodale}
 
-La formulazione della Sezione~\ref{sec:cap12-modello-alm-completo} pu\`o ora
-essere applicata al caso bancario utilizzato come filo conduttore nel
+Applichiamo ora il modello della
+Sezione~\ref{sec:cap12-modello-alm-completo} al caso bancario utilizzato nel
 Capitolo~\ref{cap:programmazione-lineare}.
 
-L'obiettivo non \`e ricostruire storicamente la dinamica di Silicon Valley
-Bank. Manteniamo invece la funzione didattica gi\`a adottata nel Capitolo 11:
-costruire un modello stilizzato nel quale sia possibile isolare e interpretare
-i trade-off tra redditivit\`a, struttura temporale dei cash flow, fabbisogni di
-liquidit\`a e ricorso al funding.
+L'obiettivo resta quello adottato nel Capitolo 11: non ricostruire
+storicamente il bilancio di Silicon Valley Bank, ma utilizzare un caso
+stilizzato per isolare alcuni meccanismi quantitativi rilevanti.
 
-La differenza fondamentale rispetto al problema statico \`e che la liquidit\`a
-non viene pi\`u rappresentata mediante un unico coefficiente $q_j$. Per ogni
-classe di attivo viene ora specificato il profilo temporale con cui le risorse
-monetarie diventano disponibili.
+Nel problema statico la liquidit\`a era rappresentata attraverso un unico
+requisito aggregato. Nel modello ALM viene invece specificato il profilo
+temporale con cui le diverse classi di attivo rendono disponibili risorse
+monetarie.
 
-\subsection{Le classi di attivo}
+\subsection{Dati del caso}
 
-Manteniamo le quattro classi considerate nel Capitolo 11:
-
-\[
-\begin{array}{ll}
-x_1 & \text{cassa e riserve},\\
-x_2 & \text{titoli a breve scadenza},\\
-x_3 & \text{titoli a lunga scadenza},\\
-x_4 & \text{prestiti e impieghi meno liquidi}.
-\end{array}
-\]
-
-Le risorse iniziali sono
+Manteniamo le quattro classi di attivo del Capitolo 11 e le risorse iniziali
 
 \[
 A_0=100.
 \]
 
-I coefficienti della funzione obiettivo rimangono
+I coefficienti di redditivit\`a e di perdita sotto stress sono riassunti
+nella tabella seguente:
 
 \[
-c=
-\begin{pmatrix}
-0.010\\
-0.025\\
-0.040\\
-0.050
-\end{pmatrix},
+\begin{array}{c|l|c|c}
+\hline
+j & \text{classe di attivo} & c_j & \ell_j\\
+\hline
+1 & \text{cassa e riserve}                 & 0.010 & 0\\
+2 & \text{titoli a breve scadenza}         & 0.025 & 0.02\\
+3 & \text{titoli a lunga scadenza}         & 0.040 & 0.15\\
+4 & \text{prestiti e impieghi meno liquidi}& 0.050 & 0.08\\
+\hline
+\end{array}
 \]
 
-mentre i coefficienti di perdita nello scenario di stress sono
+Pertanto,
 
 \[
-\ell=
-\begin{pmatrix}
-0\\
-0.02\\
-0.15\\
-0.08
-\end{pmatrix}.
+c'
+=
+(0.010,\;0.025,\;0.040,\;0.050),
 \]
-
-Manteniamo inoltre
 
 \[
-K=7
+\ell'
+=
+(0,\;0.02,\;0.15,\;0.08).
 \]
 
-come limite alla perdita sotto stress e
+Come nel Capitolo 11 imponiamo
 
 \[
-x_3\leq30
+\ell'x\leq K,
+\qquad
+K=7,
 \]
 
-come limite di concentrazione nei titoli a lunga scadenza.
-
-\subsection{La matrice dei cash flow}
-
-Consideriamo quattro date future,
+e il limite di concentrazione
 
 \[
-t=1,2,3,4.
+x_3\leq30.
 \]
 
-La matrice dei cash flow viene fissata come
+Consideriamo quattro date future. La matrice dei cash flow \`e
 
 \[
 A^{\mathrm{CF}}
@@ -2720,120 +2705,178 @@ A^{\mathrm{CF}}
 \end{pmatrix}.
 \]
 
-Ogni colonna somma a uno. I coefficienti descrivono quindi la distribuzione
-temporale delle risorse monetarie rese disponibili da una unit\`a inizialmente
-allocata alla corrispondente classe di attivo.
+Nel presente caso i coefficienti $a_{tj}$ sono interpretati come la quota
+di una unit\`a monetaria investita nella classe di attivo $j$ al tempo $0$
+che diventa disponibile come liquidit\`a alla data $t$.
 
-La cassa e le riserve sono interamente disponibili alla prima data.
-
-I titoli a breve scadenza rendono disponibile il $65\%$ delle risorse alla
-prima data e il restante $35\%$ alla seconda.
-
-I titoli a lunga scadenza producono invece soltanto una quota limitata dei
-propri flussi nelle prime date e concentrano il $60\%$ delle risorse alla
-data finale.
-
-I prestiti presentano un profilo maggiormente distribuito:
+Per esempio, la seconda colonna,
 
 \[
-5\%,\quad15\%,\quad30\%,\quad50\%.
-\]
-
-I coefficienti non rappresentano i cash flow storici di SVB. Sono costruiti
-per rendere visibile il diverso profilo temporale delle quattro categorie di
-attivo.
-
-\subsection{Fabbisogni e condizioni di funding}
-
-Il profilo deterministico dei fabbisogni \`e
-
-\[
-d=
 \begin{pmatrix}
-30\\
-30\\
-22\\
-15
-\end{pmatrix}.
+0.65\\
+0.35\\
+0\\
+0
+\end{pmatrix},
 \]
 
-Il fabbisogno complessivo sull'orizzonte \`e quindi
+indica che, per ogni unit\`a investita inizialmente nei titoli a breve
+scadenza, $0.65$ unit\`a diventano disponibili alla data $1$ e le restanti
+$0.35$ alla data $2$.
+
+In questa specificazione numerica si assume, per semplicit\`a, che
 
 \[
-\sum_{t=1}^{4}d_t
-=
-97.
-\]
-
-Le prime due date risultano particolarmente impegnative: la banca deve
-rendere disponibili $60$ unit\`a monetarie nei primi due periodi.
-
-Per la giacenza di liquidit\`a assumiamo i tassi per periodo
-
-\[
-r_1=0.005,
+\sum_{t=1}^{4}a_{tj}=1,
 \qquad
-r_2=0.006,
-\qquad
-r_3=0.007.
+j=1,\ldots,4.
 \]
 
-Il percorso deterministico del costo del funding \`e invece
+L'intera unit\`a inizialmente investita viene quindi resa disponibile entro
+l'orizzonte del modello; ci\`o che differenzia le classi di attivo \`e il
+profilo temporale con cui tale liquidit\`a emerge.
+
+I restanti parametri temporali sono:
 
 \[
-\rho_1=0.015,
-\qquad
-\rho_2=0.020,
-\qquad
-\rho_3=0.025.
-\]
-
-Questi valori possono essere letti secondo la struttura introdotta nella
-Sezione~\ref{sec:cap12-ambiente-deterministico}. In particolare, ponendo
-
-\[
-\rho_t
-=
-\bar R_t+\bar F_t,
-\]
-
-si ottiene il seguente percorso:
-
-\[
-\begin{array}{c|ccc}
+\begin{array}{c|c|c|c|c}
 \hline
-t & r_t=\bar R_t & \bar F_t & \rho_t\\
+t & d_t & r_t & \rho_t & \bar u_t\\
 \hline
-1 & 0.005 & 0.010 & 0.015\\
-2 & 0.006 & 0.014 & 0.020\\
-3 & 0.007 & 0.018 & 0.025\\
+1 & 30 & 0.005 & 0.015 & 10\\
+2 & 30 & 0.006 & 0.020 & 8\\
+3 & 22 & 0.007 & 0.025 & 6\\
+4 & 15 & -     & -     & -\\
 \hline
 \end{array}
 \]
 
-La crescita di $\bar F_t$ rappresenta un progressivo peggioramento delle
-condizioni di accesso alla raccolta esterna.
-
-Coerentemente con questa impostazione, anche la capacit\`a massima di funding
-si riduce nel tempo:
+e quindi
 
 \[
-\bar u_1=10,
-\qquad
-\bar u_2=8,
-\qquad
-\bar u_3=6.
+d'
+=
+(30,\;30,\;22,\;15),
 \]
 
-Il fattore di spread creditizio $\bar C_t$ non viene utilizzato direttamente
-in questo caso numerico. I cash flow $a_{tj}$ sono infatti fissati ex ante e
-non modelliamo vendite di attivit\`a, haircuts o variazioni del loro valore di
-mercato. Il rischio sull'attivo continua a essere rappresentato, in forma
-stilizzata, attraverso il vincolo sulla perdita sotto stress.
+\[
+r'
+=
+(0.005,\;0.006,\;0.007),
+\]
 
-\subsection{Il programma lineare}
+\[
+\rho'
+=
+(0.015,\;0.020,\;0.025),
+\]
 
-Con questi dati la funzione obiettivo \`e
+\[
+\bar u'
+=
+(10,\;8,\;6).
+\]
+
+Il profilo combina fabbisogni elevati nelle prime date con una capacit\`a di
+funding che si riduce progressivamente. Il caso crea quindi una tensione
+temporale che non pu\`o essere rappresentata dal solo ammontare complessivo
+della liquidit\`a.
+
+\subsection{Formulazione del problema}
+
+Indichiamo con
+
+\[
+a_t'
+=
+(a_{t1},a_{t2},a_{t3},a_{t4})
+\]
+
+la riga $t$ della matrice $A^{\mathrm{CF}}$.
+
+Per $T=4$, la funzione obiettivo della
+Sezione~\ref{sec:cap12-modello-alm-completo} diventa
+
+\[
+\max_{x,g,u}
+\Pi(x,g,u)
+=
+c'x
++
+\sum_{t=1}^{3}r_tg_t
+-
+\sum_{t=1}^{3}\rho_tu_t.
+\]
+
+Il vincolo sulle risorse iniziali \`e
+
+\[
+\sum_{j=1}^{4}x_j=A_0.
+\]
+
+Il primo bilancio di liquidit\`a \`e
+
+\[
+a_1'x+u_1-g_1=d_1.
+\]
+
+Per le date intermedie,
+
+\[
+t=2,3,
+\]
+
+si ha
+
+\[
+a_t'x
++
+(1+r_{t-1})g_{t-1}
++
+u_t
+-
+(1+\rho_{t-1})u_{t-1}
+-
+g_t
+=
+d_t.
+\]
+
+Alla data finale,
+
+\[
+a_4'x
++
+(1+r_3)g_3
+-
+(1+\rho_3)u_3
+-
+g_4
+=
+d_4.
+\]
+
+Completano il modello
+
+\[
+\ell'x\leq K,
+\qquad
+x_3\leq30,
+\]
+
+\[
+0\leq u_t\leq\bar u_t,
+\qquad
+t=1,2,3,
+\]
+
+\[
+x_j\geq0,
+\qquad
+g_t\geq0.
+\]
+
+Sostituendo i dati del caso, la funzione obiettivo \`e
 
 \[
 \begin{split}
@@ -2865,122 +2908,75 @@ Con questi dati la funzione obiettivo \`e
 \end{split}
 \]
 
-Il vincolo di bilancio iniziale \`e
+I vincoli di bilancio temporale diventano
 
 \[
-x_1+x_2+x_3+x_4=100.
-\]
-
-I quattro bilanci temporali sono
-
-\[
+\begin{array}{rcl}
 x_1
-+
-0.65x_2
-+
-0.05x_3
-+
-0.05x_4
-+
-u_1
-=
-30+g_1,
-\]
++0.65x_2
++0.05x_3
++0.05x_4
++u_1-g_1
+&=&30,
+\\[6pt]
 
-\[
 0.35x_2
-+
-0.10x_3
-+
-0.15x_4
-+
-1.005g_1
-+
-u_2
-=
-30
-+
-1.015u_1
-+
-g_2,
-\]
++0.10x_3
++0.15x_4
++1.005g_1
++u_2
+-1.015u_1
+-g_2
+&=&30,
+\\[6pt]
 
-\[
 0.25x_3
-+
-0.30x_4
-+
-1.006g_2
-+
-u_3
-=
-22
-+
-1.020u_2
-+
-g_3,
-\]
++0.30x_4
++1.006g_2
++u_3
+-1.020u_2
+-g_3
+&=&22,
+\\[6pt]
 
-e
-
-\[
 0.60x_3
-+
-0.50x_4
-+
-1.007g_3
-=
-15
-+
-1.025u_3
-+
-g_4.
++0.50x_4
++1.007g_3
+-1.025u_3
+-g_4
+&=&15.
+\end{array}
 \]
 
-A questi si aggiungono il limite alla perdita sotto stress,
+Il vincolo iniziale e i vincoli prudenziali sono
 
 \[
-0.02x_2
-+
-0.15x_3
-+
-0.08x_4
-\leq
-7,
+x_1+x_2+x_3+x_4=100,
 \]
 
-il limite di concentrazione,
-
 \[
+0.02x_2+0.15x_3+0.08x_4\leq7,
+\qquad
 x_3\leq30,
 \]
 
-i limiti sul funding,
+mentre
 
 \[
 0\leq u_1\leq10,
-\]
-
-\[
-0\leq u_2\leq8,
-\]
-
-\[
-0\leq u_3\leq6,
-\]
-
-e le condizioni di non negativit\`a
-
-\[
-x_j\geq0,
 \qquad
-g_t\geq0.
+0\leq u_2\leq8,
+\qquad
+0\leq u_3\leq6.
 \]
 
-\subsection{Perch\'e la soluzione statica non \`e sufficiente}
+La forma numerica rende quindi operativo lo stesso programma lineare
+introdotto nella sezione precedente: cambiano i coefficienti, non la
+struttura matematica.
 
-Prima di risolvere il nuovo problema \`e utile verificare che cosa accadrebbe
-mantenendo la composizione ottima ottenuta nel Capitolo 11:
+\subsection{Che cosa accade alla soluzione statica}
+
+La soluzione ottenuta nel Capitolo 11 era
 
 \[
 x^{\mathrm{stat}}
@@ -2993,31 +2989,23 @@ x^{\mathrm{stat}}
 \end{pmatrix}.
 \]
 
-Questa composizione soddisfa esattamente il requisito aggregato di liquidit\`a
-del problema statico:
+Applicando a tale composizione la matrice dei cash flow si ottiene
 
 \[
-q'x^{\mathrm{stat}}
-=
-55.
-\]
-
-Nel modello temporale, tuttavia, i cash flow prodotti alla prima data sono
-soltanto
-
-\[
-CF_1
+A^{\mathrm{CF}}x^{\mathrm{stat}}
 \approx
-29.627.
+\begin{pmatrix}
+29.627\\
+22.164\\
+16.642\\
+31.568
+\end{pmatrix}.
 \]
 
-Per soddisfare
+Il requisito aggregato del Capitolo 11 risultava soddisfatto, ma il profilo
+temporale rivela un problema.
 
-\[
-d_1=30
-\]
-
-senza lasciare giacenza sarebbe quindi necessario raccogliere almeno
+Alla prima data occorre raccogliere almeno
 
 \[
 u_1
@@ -3027,64 +3015,45 @@ u_1
 0.373.
 \]
 
-Alla seconda data, i cash flow dell'attivo sarebbero
-
-\[
-CF_2
-\approx
-22.164.
-\]
-
-Anche utilizzando interamente la capacit\`a di funding disponibile,
+Alla seconda data, anche utilizzando interamente la capacit\`a disponibile,
 
 \[
 u_2=\bar u_2=8,
 \]
 
-le risorse massime sarebbero
+le risorse massime sono
 
 \[
 22.164+8
 =
-30.164.
+30.164,
 \]
 
-Gli impieghi minimi comprenderebbero invece il fabbisogno corrente e il
-rimborso del funding raccolto alla data precedente:
+mentre il fabbisogno corrente e il rimborso del funding precedente richiedono
 
 \[
-30
-+
-1.015(0.373)
+30+1.015(0.373)
 \approx
 30.379.
 \]
 
-Si avrebbe quindi un deficit pari a circa
+Rimane quindi un deficit di circa
 
 \[
-30.379-30.164
-\approx
 0.215.
 \]
 
-La soluzione statica non \`e pertanto ammissibile nel modello
+La soluzione statica non appartiene all'insieme ammissibile del problema
 multiperiodale.
 
-Questo risultato rende evidente la differenza tra i due problemi:
+Questo \`e il risultato centrale del confronto. Il requisito aggregato di
+liquidit\`a non aveva individuato un disallineamento che emerge invece quando
+i cash flow e i fabbisogni vengono collocati nelle date in cui si
+manifestano.
 
-\[
-\boxed{
-\begin{array}{c}
-\text{un portafoglio pu\`o soddisfare un requisito aggregato di liquidit\`a}\\
-\text{e non essere in grado di soddisfare i fabbisogni alle singole date.}
-\end{array}
-}
-\]
+\subsection{Soluzione ALM e interpretazione}
 
-\subsection{La soluzione ottima multiperiodale}
-
-La soluzione del programma lineare \`e
+La soluzione ottima del problema multiperiodale \`e
 
 \[
 x^*
@@ -3094,41 +3063,8 @@ x^*
 51.920\\
 0\\
 48.080
-\end{pmatrix}.
-\]
-
-La composizione dell'attivo cambia quindi sensibilmente rispetto alla
-soluzione statica.
-
-La quota investita nei titoli a breve aumenta da circa $41.045$ a
-
-\[
-51.920,
-\]
-
-mentre i titoli a lunga scadenza scompaiono dalla soluzione:
-
-\[
-x_3^*=0.
-\]
-
-I prestiti e gli impieghi meno liquidi aumentano invece a
-
-\[
-x_4^*
-\approx
-48.080.
-\]
-
-Questo risultato dipende dalla particolare parametrizzazione adottata. I
-prestiti producono cash flow intermedi pi\`u elevati dei titoli a lunga
-scadenza e presentano contemporaneamente un coefficiente di redditivit\`a
-maggiore e una perdita sotto stress inferiore. Il modello non attribuisce
-quindi un vantaggio sufficiente alla classe $x_3$.
-
-La sequenza ottima delle giacenze \`e
-
-\[
+\end{pmatrix},
+\qquad
 g^*
 \approx
 \begin{pmatrix}
@@ -3137,11 +3073,7 @@ g^*
 0\\
 2.890
 \end{pmatrix},
-\]
-
-mentre il funding ottimo \`e
-
-\[
+\qquad
 u^*
 =
 \begin{pmatrix}
@@ -3151,20 +3083,7 @@ u^*
 \end{pmatrix}.
 \]
 
-La banca non utilizza quindi funding nelle prime due date, ma alla terza
-data ricorre interamente alla capacit\`a disponibile:
-
-\[
-u_3^*
-=
-\bar u_3
-=
-6.
-\]
-
-\subsection{Lettura dei bilanci temporali}
-
-I cash flow prodotti dall'allocazione ottima sono
+I cash flow prodotti dalla nuova composizione dell'attivo sono
 
 \[
 A^{\mathrm{CF}}x^*
@@ -3177,185 +3096,171 @@ A^{\mathrm{CF}}x^*
 \end{pmatrix}.
 \]
 
-La dinamica completa pu\`o essere riassunta nella tabella seguente:
+L'intero piano pu\`o essere verificato in forma compatta attraverso i bilanci
+alle quattro date:
 
 \[
-\begin{array}{c|rrrrrr}
+\begin{array}{c|r|r|r|r|r|r}
 \hline
 t
 &
-CF_t
+a_t'x^*
 &
-(1+r_{t-1})g_{t-1}
+(1+r_{t-1})g_{t-1}^*
 &
-u_t
+u_t^*
 &
 d_t
 &
-(1+\rho_{t-1})u_{t-1}
+(1+\rho_{t-1})u_{t-1}^*
 &
-g_t
+g_t^*
 \\
 \hline
-1 & 36.152 & 0     & 0 & 30 & 0    & 6.152\\
-2 & 25.384 & 6.183 & 0 & 30 & 0    & 1.567\\
-3 & 14.424 & 1.576 & 6 & 22 & 0    & 0\\
-4 & 24.040 & 0     & 0 & 15 & 6.150& 2.890\\
+1 & 36.152 & 0     & 0 & 30 & 0     & 6.152\\
+2 & 25.384 & 6.183 & 0 & 30 & 0     & 1.567\\
+3 & 14.424 & 1.576 & 6 & 22 & 0     & 0\\
+4 & 24.040 & 0     & 0 & 15 & 6.150 & 2.890\\
 \hline
 \end{array}
 \]
 
-Alla prima data i cash flow degli attivi superano il fabbisogno e generano una
-giacenza
-
-\[
-g_1^*
-\approx
-6.152.
-\]
-
-Questa giacenza contribuisce alla copertura del fabbisogno della seconda data.
-Dopo il pagamento rimangono
-
-\[
-g_2^*
-\approx
-1.567.
-\]
-
-Alla terza data i cash flow degli attivi e la liquidit\`a trasferita non sono
-invece sufficienti. Il modello ricorre quindi al funding:
-
-\[
-14.424
-+
-1.576
-+
-6
-=
-22.
-\]
-
-La giacenza finale della terza data \`e nulla.
-
-Alla quarta data non viene raccolto nuovo funding. I cash flow prodotti
-dall'attivo sono sufficienti a soddisfare sia il fabbisogno corrente sia il
-rimborso del finanziamento precedente:
-
-\[
-24.040
-=
-15
-+
-6.150
-+
-2.890.
-\]
-
-Rimane quindi una giacenza finale positiva.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.94\textwidth]
-{../graphics/Cap12_ALM_profili_ottimi.png}
-\caption{Profilo temporale delle risorse e degli impieghi nella soluzione
-ottima del caso SVB multiperiodale. Per ogni data la barra di sinistra
-rappresenta le risorse disponibili e quella di destra i relativi impieghi.
-Alla data $t=3$ il fabbisogno pu\`o essere soddisfatto soltanto ricorrendo
-alla capacit\`a massima di funding disponibile.}
-\label{fig:cap12-alm-profili-ottimi}
-\end{figure}
-
-La Figura~\ref{fig:cap12-alm-profili-ottimi} permette di leggere la soluzione
-come un piano temporale. L'equilibrio non viene ottenuto imponendo che ogni
-classe di attivo produca direttamente i flussi necessari in ogni data:
-surplus, giacenze e funding trasferiscono risorse tra periodi differenti.
-
-\subsection{Redditivit\`a e costo della gestione della liquidit\`a}
-
-Il contributo economico prodotto dalla composizione dell'attivo \`e
-
-\[
-c'x^*
-\approx
-3.7020.
-\]
-
-Gli interessi prodotti dalle giacenze sono
-
-\[
-0.005g_1^*
-+
-0.006g_2^*
-+
-0.007g_3^*
-\approx
-0.0402.
-\]
-
-Il costo del funding \`e
-
-\[
-0.015u_1^*
-+
-0.020u_2^*
-+
-0.025u_3^*
-=
-0.1500.
-\]
-
-Il valore della funzione obiettivo \`e quindi
-
-\[
-z^*
-\approx
-3.7020
-+
-0.0402
--
-0.1500
-=
-3.5922.
-\]
-
-Il limite alla perdita sotto stress non risulta attivo:
-
-\[
-0.02x_2^*
-+
-0.15x_3^*
-+
-0.08x_4^*
-\approx
-4.885
-<
-7.
-\]
-
-Anche il limite di concentrazione sui titoli a lunga scadenza presenta ampio
-margine, poich\'e
+La modifica pi\`u evidente rispetto al problema statico riguarda la
+composizione dell'attivo. La quota di titoli a breve scadenza aumenta, mentre
 
 \[
 x_3^*=0.
 \]
 
-La struttura della soluzione \`e quindi determinata principalmente dai
-vincoli temporali di liquidit\`a e dalla disponibilit\`a di funding, non dai
-due vincoli prudenziali sull'attivo.
-
-In particolare,
+Questo risultato dipende congiuntamente dalla struttura temporale dei cash
+flow e dagli altri coefficienti del caso. Rispetto ai titoli a lunga
+scadenza, i prestiti producono maggiore liquidit\`a nelle due date
+intermedie,
 
 \[
-u_3^*=\bar u_3
+0.15>0.10,
+\qquad
+0.30>0.25,
 \]
 
-segnala che la terza data costituisce un punto critico del piano. La banca
-utilizza interamente la capacit\`a di funding disponibile per trasferire
-risorse dalla quarta alla terza data.
+e presentano contemporaneamente
 
-Questa osservazione prepara l'analisi duale della sezione successiva. I
-bilanci temporali non hanno necessariamente lo stesso valore marginale: una
-unit\`a aggiuntiva di liquidit\`a disponibile in una data critica pu\`o avere
-un valore molto diverso dalla stessa unit\`a disponibile in una data nella
-quale il modello presenta un ampio margine.
+\[
+c_4>c_3,
+\qquad
+\ell_4<\ell_3.
+\]
+
+Il vantaggio dei titoli a lunga scadenza nel cash flow finale non compensa
+quindi, con questi dati, la loro minore convenienza nelle altre dimensioni
+rilevanti del problema.
+
+Il secondo risultato importante riguarda la terza data:
+
+\[
+u_3^*
+=
+\bar u_3
+=
+6.
+\]
+
+La capacit\`a di funding disponibile viene utilizzata interamente. La data
+$t=3$ costituisce quindi il punto nel quale la disponibilit\`a di risorse
+esterne diventa particolarmente rilevante per la soluzione.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.94\textwidth]
+{../graphics/Cap12_ALM_profili_ottimi.png}
+\caption{Risorse e impieghi nelle quattro date della soluzione ottima del
+caso SVB multiperiodale. La liquidit\`a accumulata trasferisce risorse verso
+le date successive, mentre alla data $t=3$ il modello utilizza interamente
+la capacit\`a di funding disponibile.}
+\label{fig:cap12-alm-profili-ottimi}
+\end{figure}
+
+Infine, il contributo della composizione dell'attivo \`e
+
+\[
+c'x^*
+\approx
+3.7020,
+\]
+
+gli interessi sulle giacenze sono
+
+\[
+\sum_{t=1}^{3}r_tg_t^*
+\approx
+0.0402,
+\]
+
+e il costo del funding \`e
+
+\[
+\sum_{t=1}^{3}\rho_tu_t^*
+=
+0.1500.
+\]
+
+Pertanto,
+
+\[
+\Pi^*
+\approx
+3.5922.
+\]
+
+Il confronto diretto tra questo valore e il valore ottimo del problema
+statico,
+
+\[
+z^{\mathrm{stat}}
+\approx
+3.765,
+\]
+
+non sarebbe tuttavia del tutto corretto, poich\'e la funzione obiettivo ALM
+contiene anche interessi sulle giacenze e costi di funding. Per isolare
+l'effetto sulla sola composizione dell'attivo \`e pi\`u informativo confrontare
+
+\[
+c'x^{\mathrm{stat}}
+\approx
+3.765
+\]
+
+con
+
+\[
+c'x^*
+\approx
+3.702.
+\]
+
+I vincoli prudenziali non risultano determinanti nella nuova soluzione:
+
+\[
+\ell'x^*
+\approx
+4.885
+<
+7,
+\qquad
+x_3^*=0<30.
+\]
+
+Al contrario, il limite
+
+\[
+u_3\leq6
+\]
+
+\`e raggiunto.
+
+La sola osservazione dei vincoli attivi indica dove si concentra la scarsit\`a,
+ma non ne misura ancora il valore economico. La domanda naturale diventa
+quindi quale sia il valore marginale di una unit\`a aggiuntiva di risorse
+disponibili nelle diverse date. Questo problema conduce direttamente
+all'interpretazione duale dei bilanci temporali.
