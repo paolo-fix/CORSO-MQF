@@ -306,10 +306,10 @@ Esempi d'uso:
         FONT_FAMILY = "DejaVu Sans"
 
         FONT_SIZES = {
-            "axis_label": 14.0,
-            "tick_label": 13.0,
-            "value_label": 11.5,
-            "annotation": 11.5,
+            "axis_label": 16.0,
+            "tick_label": 15.0,
+            "value_label": 13,
+            "annotation": 13,
         }
 
    I valori possono essere adattati alle esigenze della singola figura.
