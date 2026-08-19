@@ -60,9 +60,9 @@ Il corso deve seguire una progressione logica fondata sui seguenti passaggi conc
 6. processi stocastici in tempo continuo, diffusioni e simulazione;
 7. catene di Markov e rischio di credito;
 8. misure di rischio in contesto markoviano;
-9. programmazione lineare, con dualita' come contenuto essenziale;
-10. goal programming e decisioni multicriterio;
-11. asset allocation multicriterio e asset liability management;
+9. programmazione lineare, dualita' e prezzi ombra;
+10. Asset--Liability Management deterministico e bilanci di liquidita' nel tempo;
+11. consolidamento computazionale in Python della programmazione lineare e dell'ALM deterministico;
 12. programmazione stocastica e decisioni adattate agli scenari.
 
 Questa progressione deve orientare la scrittura del manuale, delle slides, degli esercizi e delle applicazioni Python. In particolare, le lezioni iniziali di probabilita' non devono essere presentate come un richiamo isolato, ma come la base necessaria per i modelli finanziari successivi.
@@ -71,7 +71,11 @@ Il modello binomiale non costituisce piu' una lezione applicativa autonoma di pr
 
 La dualita' nella programmazione lineare non scompare dal corso, ma viene ricondotta alla lezione introduttiva di programmazione lineare come contenuto essenziale per l'interpretazione economica dei vincoli e dei prezzi ombra. Non costituisce piu' una lezione autonoma.
 
-Il goal programming assume invece un ruolo autonomo, come passaggio dalla programmazione lineare a obiettivo singolo alla formulazione di problemi con obiettivi multipli, target, deviazioni e trade-off. Tale passaggio prepara l'applicazione computazionale ad asset allocation multicriterio e asset liability management.
+L'Asset--Liability Management deterministico costituisce il passaggio dalla
+programmazione lineare statica a una decisione nella quale la disponibilita'
+delle risorse deve essere verificata alle diverse date. La dualita' introdotta
+nella Lezione 11 viene utilizzata per interpretare il valore marginale della
+liquidita' e della capacita' di funding.
 
 ## 5. Prodotti finali previsti
 
@@ -104,8 +108,8 @@ La struttura operativa del corso e' la seguente.
 | 9 | P | Catene di Markov e misure di rischio | Transizioni di rating, distribuzioni di perdita, VaR, CVaR |
 | 10 | C | Applicazione in Python: rischio di credito | Simulazione di catene di Markov, portafogli creditizi, misure di rischio |
 | 11 | P | Programmazione lineare | Formulazione, regione ammissibile, soluzioni di base, dualita' essenziale |
-| 12 | P | Goal Programming | Obiettivi multipli, target, deviazioni, priorita', trade-off |
-| 13 | C | Applicazione in Python: Asset Allocation e Asset Liability Management | Asset allocation multicriterio, liability matching, goal programming |
+| 12 | P | Dualita' e Asset--Liability Management deterministico | Cash flow temporali, bilanci di liquidita', funding, valori marginali |
+| 13 | C | Applicazione in Python: programmazione lineare e ALM deterministico | Forma solver, soluzione LP, controlli, valori marginali, analisi what-if |
 | 14 | P | Programmazione stocastica a due stadi | Decisioni sotto incertezza, scenari, recourse, valore atteso |
 | 15 | P | Programmazione stocastica multistadio | Alberi di scenari, informazione progressiva, non anticipativita' |
 | 16 | C | Applicazione in Python: programmazione stocastica | Asset allocation sotto incertezza, scenari, vincoli di non anticipativita' |
@@ -295,6 +299,20 @@ Esempi d'uso:
 * in LaTeX: `\includegraphics[width=0.78\textwidth]{../graphics/Cap06_OU_mean_reversion.png}`
 * in Python: `plt.savefig("./graphics/Cap06_OU_mean_reversion.png", dpi=300, bbox_inches="tight")`
 
+8. Le figure generate con Python devono essere salvate nella cartella locale `E:\Didattica\MQF\graphics`. Per ogni figura definitiva devono essere prodotti dallo stesso script sia il file PNG, con risoluzione 300 dpi, sia il corrispondente file SVG.
+
+9. Gli script di generazione delle figure devono raccogliere all'inizio, in blocchi chiaramente identificati e commentati, i principali parametri modificabili: percorsi di output, tipografia, colori, dimensioni e posizioni. Salvo esigenze specifiche della singola figura, si utilizza `DejaVu Sans`; le dimensioni dei caratteri devono essere definite esplicitamente per categoria. Come riferimento:
+
+        FONT_FAMILY = "DejaVu Sans"
+
+        FONT_SIZES = {
+            "axis_label": 14.0,
+            "tick_label": 13.0,
+            "value_label": 11.5,
+            "annotation": 11.5,
+        }
+
+   I valori possono essere adattati alle esigenze della singola figura.
 
 ## 9. Manuale del corso
 
@@ -334,6 +352,12 @@ Si applicano le seguenti regole:
 9. gli esercizi proposti devono avere difficolta' progressiva e coprire sia la comprensione matematica sia il significato finanziario dei risultati;
 10. come riferimento orientativo, un capitolo teorico contiene da tre a quattro esercizi svolti e da quattro a sei esercizi proposti; il numero puo' variare in funzione dell'estensione e della difficolta' del capitolo;
 11. la sintassi deve restare prudente e compatibile con Scientific WorkPlace 5.5: ambienti LaTeX standard, formule leggibili e nessun pacchetto aggiuntivo introdotto soltanto per impaginare gli esercizi.
+12. Nei capitoli di ottimizzazione almeno un esercizio svolto deve partire
+dalla descrizione economico-finanziaria del problema e richiedere la costruzione delle variabili, dei parametri, del modello matematico e,
+quando pertinente, della forma matriciale utilizzabile da un solver.
+13. I dati necessari allo svolgimento di un esercizio devono essere
+disponibili nell'enunciato o richiamati localmente in forma compatta;
+evitare rinvii a dati dispersi in esercizi precedenti quando non hanno una funzione didattica specifica.
 
 Lo standard disciplina la forma editoriale e didattica, ma non sostituisce il Registro degli esercizi del Master Plan, che definisce gli argomenti da coprire, ne' `MQF_Stato_Avanzamento.md`, che registra lo stato effettivo di realizzazione.
 
@@ -426,31 +450,16 @@ seguenti regole:
    evitare degenerazioni o ottimi alternativi non intenzionali, senza
    sacrificare la plausibilità economico-finanziaria.
 
-#### Ottimizzazione multicriterio e Goal Programming
+#### Asset--Liability Management deterministico
 
-Nei casi utilizzati per introdurre il Goal Programming si applicano le seguenti
-regole:
+Nei casi ALM deterministici:
 
-1. il problema deve nascere dalla presenza di criteri effettivamente
-   conflittuali, non dalla trasformazione meccanica di vincoli già presenti in
-   un modello a obiettivo singolo;
-2. i vincoli inderogabili devono essere distinti dai target flessibili;
-3. requisiti normativi, soglie di sopravvivenza e condizioni minime di
-   attuabilità non devono essere resi compensabili mediante pesi o penalità;
-4. per ogni target deve essere identificata la deviazione indesiderata:
-   deviazione negativa per un obiettivo di tipo "almeno", deviazione positiva
-   per un obiettivo di tipo "al massimo", entrambe per un target esatto;
-5. prima di fissare i target devono essere ottimizzati separatamente i criteri
-   rilevanti e deve essere costruita una matrice dei risultati incrociati;
-6. deviazioni espresse in unità di misura o scale differenti devono essere
-   normalizzate;
-7. pesi e priorità devono essere motivati come rappresentazione delle
-   preferenze decisionali e non scelti a posteriori per produrre una soluzione
-   desiderata;
-8. la soluzione deve essere sottoposta a controlli rispetto a pesi,
-   normalizzazioni, ottimi alternativi, dominanza ed efficienza;
-9. le priorità lessicografiche devono essere implementate mediante problemi
-   sequenziali, preservando il risultato ottenuto ai livelli superiori.
+1. la dimensione temporale deve derivare da cash flow e fabbisogni effettivamente distribuiti su date diverse;
+2. rendimenti economici degli attivi e profilo temporale dei cash flow devono avere significati distinti e non essere contabilizzati due volte;
+3. eventuali normalizzazioni della matrice dei cash flow devono essere dichiarate come ipotesi del caso e non come proprieta' generali;
+4. la soluzione statica, se utilizzata come confronto, deve essere verificata rispetto alla fattibilita' dei bilanci temporali;
+5. i valori duali devono essere interpretati come valori marginali locali e non devono essere introdotte relazioni tra moltiplicatori non motivate matematicamente;
+6. deve essere esplicitato che un modello deterministico assume nota al tempo iniziale la traiettoria futura dei coefficienti, non che tali coefficienti siano costanti nel tempo.
 
 #### Distribuzione delle informazioni nei documenti di progetto
 
@@ -489,6 +498,12 @@ La struttura orientativa di un capitolo applicativo e':
 13. sintesi finale.
 
 Nei capitoli applicativi il codice deve essere presentato come parte integrante della modellizzazione. Ogni blocco computazionale rilevante deve essere preceduto da una motivazione e seguito da un commento interpretativo. Il capitolo deve rendere esplicito che cosa viene calcolato, perche' viene calcolato e come il risultato si collega al modello teorico.
+
+Per le applicazioni di programmazione lineare e ALM deterministico il solver
+di riferimento e' `scipy.optimize.linprog` con `method="highs"`. Il materiale
+deve rendere esplicita la corrispondenza tra formulazione matematica e input
+del solver: ordinamento delle variabili, funzione obiettivo, uguaglianze,
+disuguaglianze e bounds.
 
 ## 10. Slides: principi comuni
 

@@ -93,11 +93,13 @@ La progressione concettuale aggiornata \`{e} la seguente:
 
 \item misure di rischio in contesto markoviano;
 
-\item programmazione lineare, con dualit\`{a} come contenuto essenziale;
+\item programmazione lineare, dualit\`a e prezzi ombra;
 
-\item goal programming e decisioni multicriterio;
+\item Asset--Liability Management deterministico: cash flow temporali,
+bilanci di liquidit\`a e funding;
 
-\item asset allocation multicriterio e asset liability management;
+\item consolidamento computazionale in Python della programmazione lineare
+e dell'ALM deterministico;
 
 \item programmazione stocastica e decisioni adattate agli scenari.
 \end{enumerate}
@@ -402,8 +404,12 @@ loro discretizzazione numerica.
 9 & P & Catene di Markov e misure di rischio & Transizioni di rating, perdite, VaR e CVaR & Capitolo teorico, esercizi e grafici \\
 10 & C & Applicazione in Python: rischio di credito & Simulazione di rating e rischio di portafoglio & Notebook Jupyter, tracciato IA e slides applicative \\
 11 & P & Ottimizzazione e programmazione lineare & Formulazione, soluzioni di base, dualit\`{a} essenziale & Capitolo teorico, esercizi e grafici \\
-12 & P & Goal Programming & Obiettivi multipli, deviazioni, priorit\`{a}, trade-off & Capitolo teorico ed esercizi \\
-13 & C & Applicazione in Python: Asset Allocation & Asset allocation multicriterio e Asset Liability Management & Notebook Jupyter, tracciato IA e slides applicative \\
+12 & P & Dualit\`a e Asset--Liability Management deterministico &
+Cash flow temporali, bilanci di liquidit\`a, funding e valori marginali &
+Capitolo teorico, esercizi e grafici \\
+13 & C & Applicazione in Python: programmazione lineare e ALM deterministico &
+Formulazione per il solver, soluzione, controlli e analisi what-if &
+Notebook Jupyter, tracciato IA e slides applicative \\
 14 & P & Programmazione lineare stocastica I & Decisioni sotto incertezza, modelli a due stadi, scenari & Capitolo teorico ed esercizi \\
 15 & P & Programmazione lineare stocastica II & Modelli multistadio, alberi di scenari, non anticipativit\`{a} & Capitolo teorico ed esercizi \\
 16 & C & Applicazione in Python: programmazione stocastica & Asset allocation sotto incertezza e implementazione a scenari & Notebook Jupyter, tracciato IA e slides applicative \\
@@ -1122,107 +1128,53 @@ conclusiva.\newline
 \newline
 \textbf{Applicazioni collegate:} Lezioni 12--16.
 
-\subsection{Lezione 12 -- Goal Programming}
+\subsection{Lezione 12 -- Dualit\`a e Asset--Liability Management
+deterministico}
 
 \textbf{Tipo:} P.\newline
-\textbf{Domanda guida:} come si formalizza una decisione finanziaria quando
-pi\`{u} risultati desiderati sono conflittuali e non possono essere
-ricondotti, senza perdita di informazione, a un unico obiettivo?\newline
-\textbf{Prerequisiti:} Lezione 11; formulazione di un programma lineare;
-vincoli attivi, dualit\`{a}, prezzi ombra e interpretazione locale della
-sensitivit\`{a}.\newline
-\textbf{Obiettivi didattici:} utilizzare la sensitivit\`{a} come raccordo
-con la programmazione lineare; riconoscere i limiti della formulazione a
-obiettivo singolo; definire dominanza ed efficienza; distinguere vincoli
-rigidi, criteri e target; rappresentare deviazioni positive e negative;
-formulare modelli di Goal Programming ponderato e lessicografico;
-normalizzare deviazioni espresse su scale differenti; valutare criticamente
-la soluzione rispetto a pesi, priorit\`{a} ed efficienza.\newline
-\textbf{Caso motivante e applicazione principale:} un problema di
-pianificazione strategica bancaria multicriterio viene utilizzato per
-applicare la teoria a criteri conflittuali di redditivit\`{a},
-liquidit\`{a}, assorbimento patrimoniale e continuit\`{a} del credito. Il
-caso utilizza un dataset distinto da quello della Lezione 11 ed entra dopo
-la presentazione generale di criteri, target, deviazioni, normalizzazione e
-priorit\`{a}. Esso non definisce la struttura teorica del Goal Programming
-e prepara l'applicazione computazionale della Lezione 13.\newline
-\textbf{Notazione introdotta:} criteri $g_{j}(x)$, target $\tau_{j}$,
-deviazioni $d_{j}^{-}$ e $d_{j}^{+}$, pesi $w_{j}$ e scale $s_{j}$.
-\newline
-\textbf{Formule principali:}
-\[
-z^{*}(b+\Delta b)
-\simeq
-z^{*}(b)+\lambda_{i}^{*}\Delta b_{i},
-\]
-\[
-g_{j}(x)+d_{j}^{-}-d_{j}^{+}=\tau_{j},
-\qquad
-d_{j}^{-},d_{j}^{+}\geq0.
-\]
-\[
-\min\;\sum_{j=1}^{J}w_{j}\frac{d_{j}}{s_{j}},
-\]
-dove $d_{j}$ indica la deviazione indesiderata coerente con la direzione
-del target.\newline
-\textbf{Esercizi previsti:} riconoscimento di criteri conflittuali;
-distinzione tra vincoli rigidi e target; scelta delle deviazioni da
-penalizzare; formulazione di modelli ponderati normalizzati; costruzione di
-priorit\`{a} lessicografiche; verifica della dominanza e individuazione di
-formulazioni scorrette; applicazione conclusiva al caso bancario
-multicriterio.\newline
-\textbf{Grafici previsti:} soluzioni dominate e non dominate nello spazio
-di due obiettivi; matrice dei risultati delle ottimizzazioni individuali;
-confronto tra deviazioni normalizzate; confronto tra soluzioni ponderate e
-lessicografiche.\newline
-\textbf{Contenuti non sviluppati:} teoria generale dell'ottimizzazione
-multiobiettivo; algoritmi completi per la costruzione della frontiera
-efficiente; Goal Programming fuzzy, stocastico, non lineare o interattivo.
-\newline
-\textbf{Riferimenti scientifici principali:} Jones e Tamiz, Capitoli 1--3
-e 6, costituisce il riferimento principale per terminologia, fondamenti,
-varianti ponderata e lessicografica, regole di formulazione ed efficienza
-paretiana. Rardin, Capitolo 8, fornisce un riferimento complementare per
-l'ottimizzazione multiobiettivo, le priorit\`{a} preemptive e le
-applicazioni del Goal Programming. Bertsimas e Tsitsiklis viene utilizzato
-soltanto per il raccordo con dualit\`{a} e sensitivit\`{a} della
-programmazione lineare; Cornu\'{e}jols, Pe\~{n}a e
-T\"{u}t\"{u}nc\"{u} per la contestualizzazione finanziaria.\newline
+\textbf{Domanda guida:} come cambia una decisione bancaria quando la
+liquidit\`a deve essere disponibile nelle specifiche date in cui sorgono i
+fabbisogni?\newline
+\textbf{Prerequisiti:} Lezione 11; programmazione lineare, dualit\`a,
+prezzi ombra e sensitivit\`a locale.\newline
+\textbf{Obiettivi didattici:} distinguere liquidit\`a aggregata e temporale;
+rappresentare i cash flow degli attivi; introdurre giacenze e funding;
+formulare un ALM deterministico come programma lineare; interpretare i
+valori marginali della liquidit\`a alle diverse date; preparare il passaggio
+dalla traiettoria deterministica all'incertezza.\newline
+\textbf{Caso guida:} estensione multiperiodale del caso SVB introdotto nella
+Lezione 11, con cash flow distribuiti nel tempo, fabbisogni, giacenze e
+capacit\`a limitata di funding.\newline
+\textbf{Notazione introdotta:} $A^{\mathrm{CF}}=(a_{tj})$, $d_t$, $g_t$,
+$u_t$, $r_t$, $\rho_t$, $\bar u_t$, $\lambda_t$.\newline
+\textbf{Esercizi previsti:} formulazione ALM a partire dalla descrizione
+finanziaria; traduzione nella forma matriciale per il solver; verifica della
+fattibilit\`a temporale; funding; interpretazione dei valori duali.\newline
+\textbf{Grafici previsti:} liquidit\`a aggregata e temporale; cash flow e
+fabbisogni; bilancio intertemporale; profili ottimi; valori marginali per
+scadenza.\newline
 \textbf{Applicazioni Python collegate:} Lezione 13.
 
-\subsection{Lezione 13 -- Applicazione in Python: Asset Allocation}
+\subsection{Lezione 13 -- Applicazione in Python: programmazione lineare
+e ALM deterministico}
 
-\textbf{Tipo:} C.\newline\textbf{Domanda guida:} come si implementa una
-decisione di portafoglio multicriterio con obiettivi finanziari e vincoli di
-liability matching?\newline\textbf{Prerequisiti:} Lezioni 11--12; basi
-operative di Python.\newline\textbf{Obiettivi didattici:} implementare modelli
-di asset allocation multicriterio; formulare target di rendimento, rischio,
-liquidit\`{a} e liability matching; usare Goal Programming per rappresentare
-deviazioni rispetto agli obiettivi; interpretare la sensibilit\`{a} delle
-soluzioni rispetto ai pesi.\newline\textbf{Notazione introdotta:} pesi di
-portafoglio $x_{i}$, rendimenti attesi $\mu_{i}$, esposizioni $a_{ij}$,
-liability target $B_{t}$, deviazioni $d_{i}^{+}$ e $d_{i}^{-}$.\newline%
-\textbf{Formule principali:}
-\[
-\sum_{i} x_{i}=1, \qquad x_{i}\geq0.
-\]
-\[
-\sum_{i} \mu_{i} x_{i}+d_{R}^{-} - d_{R}^{+} = R^{*},
-\]
-\[
-\sum_{i} a_{it}x_{i}+d_{t}^{-} - d_{t}^{+} = B_{t}, \qquad t=1,\ldots,T.
-\]
-\[
-\min\; w_{R}^{-} d_{R}^{-} + w_{R}^{+} d_{R}^{+} + \sum_{t}\left( w_{t}%
-^{-}d_{t}^{-}+w_{t}^{+}d_{t}^{+}\right) .
-\]
-\textbf{Esercizi previsti:} cambiare target di rendimento; modificare pesi
-degli obiettivi; imporre vincoli di concentrazione; confrontare soluzioni
-orientate a rendimento, rischio e copertura delle passivit\`{a}.\newline%
-\textbf{Grafici previsti:} composizione del portafoglio; deviazioni dagli
-obiettivi; confronto tra scenari di pesi; profilo asset--liability nel
-tempo.\newline\textbf{Applicazioni Python collegate:} applicazione Python
-4.
+\textbf{Tipo:} C.\newline
+\textbf{Domanda guida:} come si traduce un modello di programmazione lineare
+e ALM nella struttura numerica richiesta da un solver e come se ne
+controllano e interpretano i risultati?\newline
+\textbf{Prerequisiti:} Lezioni 11--12; basi operative di Python.\newline
+\textbf{Obiettivi didattici:} costruire vettore delle variabili, funzione
+obiettivo, matrici di uguaglianza e disuguaglianza e bounds; risolvere il
+problema con un solver LP; controllare bilanci, residui, slack e vincoli
+attivi; interpretare i valori marginali; svolgere analisi what-if
+controllate.\newline
+\textbf{Strumento computazionale:} \texttt{scipy.optimize.linprog} con
+metodo \texttt{highs}.\newline
+\textbf{Caso applicativo guida:} implementazione di un problema ALM
+deterministico coerente con il modello della Lezione 12.\newline
+\textbf{Contenuti non sviluppati:} nuova teoria di ottimizzazione o nuova
+teoria ALM.\newline
+\textbf{Applicazioni Python collegate:} applicazione Python 4.
 
 \subsection{Lezione 14 -- Programmazione lineare stocastica I}
 
@@ -1328,8 +1280,12 @@ registrato esclusivamente nel documento dedicato allo stato di avanzamento.
 9 & VaR discreto in modello markoviano & CVaR discreto & Distribuzione delle perdite\\
 10 & Transizioni di rating simulate & Probabilit\`{a} di default & Heatmap e distribuzione perdite\\
 11 & Formulazione PL & Duale essenziale e prezzi ombra & Regione ammissibile\\
-12 & Formulazione Goal Programming & Trade-off tra target & Spazio degli obiettivi\\
-13 & Asset allocation multicriterio & Liability matching & Portafogli e deviazioni dai target\\
+12 & Formulazione ALM da descrizione finanziaria &
+Fattibilit\`a temporale e funding &
+Valori duali e forma matriciale per il solver\\
+13 & Costruzione e soluzione del modello LP &
+Controlli, slack e valori marginali &
+Profili ALM e analisi what-if\\
 14 & Modello a due stadi & Recourse e valore atteso & Albero degli scenari a due stadi\\
 15 & Non anticipativit\`{a} multistadio & EVPI e VSS & Albero multistadio e confronto valori\\
 16 & Modifica degli scenari & Confronto SP/EV/WS & Grafico dei risultati\\
@@ -1351,7 +1307,9 @@ registrato esclusivamente nel documento dedicato allo stato di avanzamento.
 1 & 4 & Probabilit\`{a}, variabili casuali e valori attesi condizionati & Simulazioni di variabili casuali, distribuzioni empiriche, momenti, quantili, stime condizionate. \\
 2 & 7 & Simulazione di traiettorie e pricing & Traiettorie GBM, OU, CIR e correlate; opzioni asiatiche; obbligazioni indicizzate all'inflazione con struttura OU--CIR. \\
 3 & 10 & Rischio di credito & Matrici di transizione, evoluzioni di rating, probabilit\`{a} di default, VaR e CVaR di portafoglio. \\
-4 & 13 & Asset Allocation & Goal Programming, asset allocation multicriterio, asset liability management, analisi dei trade-off. \\
+4 & 13 & Programmazione lineare e ALM deterministico &
+Costruzione delle matrici del solver, soluzione LP, controlli, valori
+marginali e analisi what-if. \\
 5 & 16 & Programmazione stocastica & Scenari, recourse, vincoli di non anticipativit\`{a}, soluzioni SP/EV/WS, EVPI e VSS. \\
 \hline
 \end{longtable}
