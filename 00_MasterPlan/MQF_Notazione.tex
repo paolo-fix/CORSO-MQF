@@ -534,20 +534,20 @@ dove
 \[
 (x)^+=\max\{x,0\}.
 \]
-Nelle formulazioni discrete del CVaR si indicano con $u_s$ le variabili
+Nelle formulazioni discrete del CVaR si indicano con $w_s$ le variabili
 ausiliarie che rappresentano gli eccessi di perdita rispetto alla soglia
 $\eta$:
 \[
-u_s\geq L_s(x)-\eta,
+w_s\geq L_s(x)-\eta,
 \qquad
-u_s\geq0,
+w_s\geq0,
 \qquad
 s\in\mathcal S.
 \]
 La formulazione lineare standard \`{e}
 \[
-\min_{x,\eta,u}
-\eta+\frac{1}{1-\alpha}\sum_{s\in\mathcal S}p_s u_s.
+\min_{x,\eta,w}
+\eta+\frac{1}{1-\alpha}\sum_{s\in\mathcal S}p_s w_s.
 \]
 Il simbolo $z$ resta riservato ai valori ottimi dei problemi di ottimizzazione.
 
@@ -710,66 +710,140 @@ verso opposto o variabili libere sono ammesse quando pi\`{u} naturali per il
 problema considerato, purch\'{e} siano dichiarate esplicitamente e trattate
 in modo coerente.
 
-\section{Goal Programming}
+\section{Asset--Liability Management deterministico}
 
-Nel goal programming si considerano pi\`{u} obiettivi o target. Il target
-associato all'obiettivo $j$ \`{e} indicato con
-\[
- \tau_j.
-\]
-La funzione-obiettivo o grandezza controllata associata al target \`{e}
-indicata con
-\[
- g_j(x).
-\]
-Le deviazioni negativa e positiva rispetto al target sono indicate con
-\[
- d_j^-\geq0,
- \qquad
- d_j^+\geq0.
-\]
-La relazione di goal si scrive
-\[
- g_j(x)+d_j^- - d_j^+=\tau_j.
-\]
-Una forma pesata elementare del problema \`{e}
-\[
- \min_{x,d^-,d^+}
- \sum_{j=1}^{J}\left(w_j^- d_j^-+w_j^+ d_j^+\right)
-\]
-soggetta ai vincoli strutturali del problema e alle relazioni di goal. I pesi
-$w_j^-$ e $w_j^+$ misurano la rilevanza assegnata, rispettivamente, alla
-deviazione negativa e positiva dal target $j$.
+Nei modelli di Asset--Liability Management deterministico si mantiene $x$
+come vettore delle decisioni iniziali di allocazione.
 
-Quando gli obiettivi sono ordinati per priorit\`{a}, si possono usare classi di
-priorit\`{a}
-\[
- \mathcal{J}_1,\mathcal{J}_2,\ldots,\mathcal{J}_K,
-\]
-con interpretazione lessicografica. In tal caso gli obiettivi di priorit\`{a}
-superiore vengono trattati prima degli obiettivi di priorit\`{a} inferiore.
-
-Quando le deviazioni relative a obiettivi differenti sono espresse in unit\`{a}
-o ordini di grandezza non confrontabili, si introduce per ciascun obiettivo
-una scala positiva
+La distribuzione temporale dei cash flow prodotti dagli attivi \`{e} descritta
+dalla matrice
 
 \[
-s_j>0.
+A^{\mathrm{CF}}
+=
+(a_{tj}),
 \]
 
-La deviazione normalizzata \`{e} quindi espressa come
+dove $a_{tj}$ rappresenta il cash flow disponibile alla data $t$ per una
+unit\`{a} investita inizialmente nella classe di attivo $j$.
+
+Il fabbisogno di liquidit\`{a} alla data $t$ \`{e} indicato con
 
 \[
-\frac{d_j^-}{s_j}
-\qquad\hbox{oppure}\qquad
-\frac{d_j^+}{s_j},
+d_t.
 \]
 
-a seconda della direzione della deviazione che si intende penalizzare.
+La giacenza di liquidit\`{a} residua alla data $t$ \`{e} indicata con
 
-Nelle applicazioni di asset allocation e asset liability management, i target
-possono riguardare rendimento atteso, rischio, esposizioni settoriali,
-liquidit\`{a}, duration, funding ratio o matching rispetto a passivit\`{a} future.
+\[
+g_t,
+\]
+
+mentre
+
+\[
+u_t
+\]
+
+indica il nuovo funding raccolto alla data $t$.
+
+I due tassi che collegano date consecutive sono distinti mediante un apice
+che richiama la variabile alla quale ciascuno si applica:
+
+\[
+r_t^{g},
+\qquad
+r_t^{u}.
+\]
+
+Il primo indica il rendimento della giacenza trasferita dalla data $t$ alla
+data $t+1$; il secondo indica il costo del funding raccolto alla data $t$ e
+rimborsato alla data successiva. Nei bilanci temporali compaiono pertanto
+
+\[
+\left(1+r_{t-1}^{g}\right)g_{t-1},
+\qquad
+\left(1+r_{t-1}^{u}\right)u_{t-1}.
+\]
+
+L'apice non \`{e} un'aggiunta ornamentale. Il simbolo $r_t$ \`{e} gi\`{a}
+riservato al rendimento logaritmico e il simbolo $\rho$ al coefficiente di
+correlazione: nessuno dei due pu\`{o} essere riutilizzato nel contesto ALM.
+
+Si assume inoltre
+
+\[
+r_t^{u}\geq r_t^{g},
+\]
+
+condizione che impedisce al modello di raccogliere funding al solo scopo di
+conservarlo come liquidit\`{a}.
+
+La capacit\`{a} massima di funding disponibile alla data $t$ \`{e} indicata con
+
+\[
+\bar u_t.
+\]
+
+I valori marginali associati ai vincoli del problema ALM sono indicati con
+
+\[
+\lambda_0,
+\qquad
+\lambda_t,
+\qquad
+\lambda_{u,t}.
+\]
+
+Il simbolo $\lambda_0$ indica la variabile duale associata al vincolo di
+bilancio iniziale ed \`{e} libera in segno; $\lambda_t$ indica il valore
+marginale del bilancio di liquidit\`{a} alla data $t$, anch'esso libero in
+segno poich\'{e} il vincolo \`{e} un'uguaglianza; $\lambda_{u,t}$ indica il
+valore marginale del limite sulla capacit\`{a} di funding. Il simbolo $\eta$
+resta riservato alla soglia nella formulazione del CVaR e non deve essere
+utilizzato per variabili duali.
+
+La funzione obiettivo del problema ALM \`{e} indicata con
+
+\[
+\Pi(x,g,u),
+\]
+
+e il corrispondente valore ottimo con $\Pi^{*}$.
+
+Nella traduzione del problema in forma matriciale per un solver, le variabili
+decisionali vengono raccolte in un unico vettore
+
+\[
+v
+=
+\begin{pmatrix}
+x_1 & \cdots & x_n &
+g_1 & \cdots & g_T &
+u_1 & \cdots & u_{T-1}
+\end{pmatrix}',
+\]
+
+riservando $z$ ai valori ottimi secondo la convenzione generale.
+
+La notazione temporale dell'ALM deve quindi mantenere distinti:
+
+\[
+a_{tj},\qquad
+d_t,\qquad
+g_t,\qquad
+u_t,\qquad
+r_t^{g},\qquad
+r_t^{u},\qquad
+\bar u_t,\qquad
+\lambda_t.
+\]
+
+Il simbolo $g_t$ \`{e} riservato alla giacenza di liquidit\`{a} e non deve
+essere utilizzato come funzione-obiettivo o criterio. Il simbolo $d_t$ \`{e}
+riservato al fabbisogno di liquidit\`{a} alla data $t$. Il simbolo $u_t$
+\`{e} riservato al funding raccolto alla data $t$; per gli eccessi di perdita
+nella formulazione discreta del CVaR si usa $w_s$.
 
 \section{Programmazione stocastica}
 
@@ -849,13 +923,16 @@ $L$ & \texttt{losses} & Vettore delle perdite.\\
 $\VaR_\alpha$ & \texttt{var\_alpha} & Value-at-Risk al livello $\alpha$.\\
 $\CVaR_\alpha$ & \texttt{cvar\_alpha} & Conditional Value-at-Risk.\\
 $\eta$ & \texttt{eta} & Soglia nella formulazione del CVaR.\\
-$u_s$ & \texttt{u[s]} & Eccesso di perdita nello scenario $s$.\\
+$w_s$ & \texttt{w[s]} & Eccesso di perdita nello scenario $s$.\\
 $x$ & \texttt{x} & Variabili decisionali di primo stadio o di portafoglio.\\
 $\lambda$ & \texttt{lambda\_dual} & Variabili duali nei problemi di programmazione lineare.\\
-$\tau_j$ & \texttt{target[j]} & Target nel goal programming.\\
-$d_j^-$ & \texttt{dev\_minus[j]} & Deviazione negativa dal target.\\
-$d_j^+$ & \texttt{dev\_plus[j]} & Deviazione positiva dal target.\\
-$w_j^-,w_j^+$ & \texttt{w\_minus[j]}, \texttt{w\_plus[j]} & Pesi delle deviazioni nel goal programming.\\
+$A^{\mathrm{CF}}$ & \texttt{A\_cf} & Matrice dei cash flow degli attivi.\\
+$d_t$ & \texttt{d[t]} & Fabbisogno di liquidit\`{a} alla data $t$.\\
+$g_t$ & \texttt{g[t]} & Giacenza di liquidit\`{a} residua.\\
+$u_t$ & \texttt{u[t]} & Funding raccolto alla data $t$.\\
+$r_t^{g},r_t^{u}$ & \texttt{r\_g[t]}, \texttt{r\_u[t]} & Rendimento della giacenza e costo del funding.\\
+$\bar u_t$ & \texttt{u\_max[t]} & Capacit\`{a} massima di funding.\\
+$v$ & \texttt{v} & Vettore impilato delle variabili per il solver.\\
 $y_s$ & \texttt{y[s]} & Variabili di secondo stadio indicizzate per scenario.\\
 $p_s$ & \texttt{p\_s}, \texttt{probabilities} & Probabilit\`{a} degli scenari.\\
 $d_s$ & \texttt{d[s]}, \texttt{recourse\_costs} & Costi di recourse nello scenario $s$.\\
@@ -896,7 +973,8 @@ risk-neutral nel modello binomiale. Per i costi di recourse si usa $d_s$.
 \item Non usare $r_t$ simultaneamente per rendimento logaritmico e tasso
 istantaneo. Se nella stessa lezione compare un tasso istantaneo, il rendimento
 logaritmico deve essere indicato con altra notazione locale esplicita oppure
-il tasso deve essere indicato con $i_t$.
+il tasso deve essere indicato con $i_t$. Nel contesto ALM il conflitto \`{e} risolto mediante gli apici
+$r_t^{g}$ e $r_t^{u}$.
 
 \item Non usare $L$ per livelli o limiti quando nella stessa lezione si lavora
 con perdite. Per valori soglia, limiti o realizzazioni di perdita si preferisce
@@ -904,19 +982,16 @@ $\ell$.
 
 \item Non usare $V_t$ per valori ottimi di problemi di ottimizzazione. Il
 simbolo $V_t$ \`{e} riservato al valore temporale di un derivato o di un
-processo di valore. Per i valori ottimi si usano $z^*$, $z^{SP}$, $z^{WS}$ e
-$z^{EV}$.
+processo di valore. Per i valori ottimi si usano $z^*$, $z^{SP}$, $z^{WS}$ e $z^{EV}$;
+nel contesto ALM il valore ottimo della funzione profitto \`{e} $\Pi^{*}$.
 
 \item Non usare $z_s$ per variabili ausiliarie di scenario nei problemi di CVaR.
-Per gli eccessi di perdita si usa $u_s$; il simbolo $z$ resta riservato ai
+Per gli eccessi di perdita si usa $w_s$; il simbolo $z$ resta riservato ai
 valori ottimi.
 
 \item Non usare $y$ per le variabili duali quando nella stessa parte del corso
 si lavora con programmazione stocastica. Le variabili duali sono indicate con
 $\lambda$, mentre $y_s$ \`{e} riservato alle decisioni di secondo stadio.
-
-\item Non usare $d_j$ in modo indifferenziato nel goal programming. Le
-deviazioni negative e positive devono essere distinte come $d_j^-$ e $d_j^+$.
 
 \item Non introdurre simboli locali in conflitto con simboli globali gi\`{a}
 definiti in questo documento. Ogni eccezione locale deve essere dichiarata

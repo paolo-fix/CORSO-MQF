@@ -772,12 +772,12 @@ mantenga invariato il proprio valore \`e utile per isolare la struttura dei
 bilanci, ma pu\`o essere raffinata.
 
 Supponiamo che la giacenza disponibile dopo la data $t-1$ possa essere
-impiegata fino alla data $t$ a un tasso deterministico $r_{t-1}$.
+impiegata fino alla data $t$ a un tasso deterministico $r^g_{t-1}$.
 
 Una unit\`a monetaria detenuta alla fine della data $t-1$ diventa quindi
 
 \[
-1+r_{t-1}
+1+r^g_{t-1}
 \]
 
 unit\`a alla data $t$.
@@ -787,7 +787,7 @@ Per $t=2,\ldots,T$, il bilancio diventa
 \[
 \sum_{j=1}^{n}a_{tj}x_j
 +
-(1+r_{t-1})g_{t-1}
+(1+r^g_{t-1})g_{t-1}
 =
 d_t+g_t.
 \]
@@ -815,7 +815,7 @@ d_1,
 \displaystyle
 \sum_{j=1}^{n}a_{2j}x_j
 +
-(1+r_1)g_1-g_2
+(1+r_1^{g})g_1-g_2
 &=&
 d_2,
 \\
@@ -824,14 +824,14 @@ d_2,
 \displaystyle
 \sum_{j=1}^{n}a_{Tj}x_j
 +
-(1+r_{T-1})g_{T-1}-g_T
+(1+r_{T-1}^{g})g_{T-1}-g_T
 &=&
 d_T.
 \end{array}
 \]
 
-Il coefficiente $1+r_{t-1}$ non modifica la natura lineare del modello,
-poich\'e il tasso $r_{t-1}$ \`e trattato come un dato deterministico.
+Il coefficiente $1+r^g_{t-1}$ non modifica la natura lineare del modello,
+poich\'e il tasso $r^g_{t-1}$ \`e trattato come un dato deterministico.
 
 \subsection{Condizione finale}
 
@@ -873,7 +873,7 @@ Nel modello con trasferimento della liquidit\`a:
 \[
 \sum_{j=1}^{n}a_{tj}x_j
 +
-(1+r_{t-1})g_{t-1}
+(1+r^g_{t-1})g_{t-1}
 =
 d_t+g_t.
 \]
@@ -936,11 +936,11 @@ La quantit\`a $u_t$ \`e immediatamente disponibile e pu\`o quindi essere
 utilizzata per soddisfare il fabbisogno della stessa data.
 
 Supponiamo che il funding raccolto alla data $t$ debba essere rimborsato alla
-data $t+1$ a un tasso deterministico $\rho_t$. L'obbligo di rimborso generato
+data $t+1$ a un tasso deterministico $r^u_t$. L'obbligo di rimborso generato
 da $u_t$ \`e pertanto
 
 \[
-(1+\rho_t)u_t.
+(1+r^u_t)u_t.
 \]
 
 La sequenza economica \`e quindi
@@ -952,7 +952,7 @@ La sequenza economica \`e quindi
 \downarrow\\[3pt]
 \text{liquidit\`a disponibile alla data }t\\[3pt]
 \downarrow\\[3pt]
-\text{rimborso alla data }t+1:\quad (1+\rho_t)u_t
+\text{rimborso alla data }t+1:\quad (1+r^u_t)u_t
 \end{array}
 }
 \]
@@ -1007,10 +1007,10 @@ Le risorse disponibili sono ora costituite da tre componenti:
 \]
 
 \item la giacenza proveniente dalla data precedente, capitalizzata al tasso
-$r_{t-1}$,
+$r^g_{t-1}$,
 
 \[
-(1+r_{t-1})g_{t-1};
+(1+r^g_{t-1})g_{t-1};
 \]
 
 \item il nuovo funding raccolto alla data corrente,
@@ -1030,7 +1030,7 @@ A queste risorse si contrappongono tre utilizzi:
 \item il rimborso del funding raccolto alla data precedente,
 
 \[
-(1+\rho_{t-1})u_{t-1};
+(1+r^u_{t-1})u_{t-1};
 \]
 
 \item la nuova giacenza di liquidit\`a $g_t$.
@@ -1042,13 +1042,13 @@ Il bilancio intertemporale completo \`e quindi
 \[
 \sum_{j=1}^{n}a_{tj}x_j
 +
-(1+r_{t-1})g_{t-1}
+(1+r^g_{t-1})g_{t-1}
 +
 u_t
 =
 d_t
 +
-(1+\rho_{t-1})u_{t-1}
+(1+r^u_{t-1})u_{t-1}
 +
 g_t.
 \]
@@ -1062,7 +1062,7 @@ u_t
 \`e una risorsa nel bilancio della data $t$, mentre
 
 \[
-(1+\rho_t)u_t
+(1+r^u_t)u_t
 \]
 
 diventa un utilizzo nel bilancio della data $t+1$.
@@ -1077,7 +1077,7 @@ quello gi\`a prodotto dalla giacenza $g_t$.
 \caption{Collegamento tra due bilanci di liquidit\`a consecutivi. La
 giacenza $g_t$ costituisce una risorsa disponibile alla data successiva,
 mentre il funding $u_t$ raccolto alla data corrente genera un obbligo di
-rimborso pari a $(1+\rho_t)u_t$ alla data successiva.}
+rimborso pari a $(1+r^u_t)u_t$ alla data successiva.}
 \label{fig:cap12-bilancio-intertemporale}
 \end{figure}
 
@@ -1114,11 +1114,11 @@ Il bilancio finale \`e pertanto
 \[
 \sum_{j=1}^{n}a_{Tj}x_j
 +
-(1+r_{T-1})g_{T-1}
+(1+r_{T-1}^{g})g_{T-1}
 =
 d_T
 +
-(1+\rho_{T-1})u_{T-1}
+(1+r_{T-1}^{u})u_{T-1}
 +
 g_T.
 \]
@@ -1135,11 +1135,11 @@ d_1,
 \displaystyle
 \sum_{j=1}^{n}a_{tj}x_j
 +
-(1+r_{t-1})g_{t-1}
+(1+r^g_{t-1})g_{t-1}
 +
 u_t
 -
-(1+\rho_{t-1})u_{t-1}
+(1+r^u_{t-1})u_{t-1}
 -
 g_t
 &=&
@@ -1151,9 +1151,9 @@ t=2,\ldots,T-1,
 \displaystyle
 \sum_{j=1}^{n}a_{Tj}x_j
 +
-(1+r_{T-1})g_{T-1}
+(1+r_{T-1}^{g})g_{T-1}
 -
-(1+\rho_{T-1})u_{T-1}
+(1+r_{T-1}^{u})u_{T-1}
 -
 g_T
 &=&
@@ -1223,23 +1223,23 @@ capacit\`a data.
 
 \subsection{Costo del funding e assenza di arbitraggio artificiale}
 
-Il tasso $\rho_t$ rappresenta il costo complessivo della fonte di funding
+Il tasso $r^u_t$ rappresenta il costo complessivo della fonte di funding
 utilizzata tra le date $t$ e $t+1$.
 
 Nello stesso intervallo, la giacenza di liquidit\`a produce il rendimento
-$r_t$.
+$r^g_t$.
 
 Per evitare che il modello trovi conveniente raccogliere funding unicamente
 per investirlo nella giacenza di liquidit\`a, \`e naturale assumere
 
 \[
-\rho_t\geq r_t.
+r^u_t\geq r^g_t.
 \]
 
 In una rappresentazione bancaria realistica ci si attende normalmente
 
 \[
-\rho_t>r_t,
+r^u_t>r^g_t,
 \]
 
 poich\'e la raccolta esterna incorpora un costo superiore al rendimento di una
@@ -1248,7 +1248,7 @@ posizione liquida priva di rischio comparabile.
 La differenza
 
 \[
-\rho_t-r_t
+r^u_t-r^g_t
 \]
 
 rappresenta quindi, in forma stilizzata, il costo aggiuntivo associato
@@ -1282,7 +1282,7 @@ rendere pi\`u difficile soddisfare il bilancio alla data $t+1$, a causa del
 rimborso
 
 \[
-(1+\rho_t)u_t.
+(1+r^u_t)u_t.
 \]
 
 La decisione non pu\`o pertanto essere valutata considerando esclusivamente il
@@ -1301,7 +1301,7 @@ Management:
 \]
 
 La struttura resta interamente lineare. I coefficienti $a_{tj}$, $d_t$,
-$r_t$, $\rho_t$ e $\bar{u}_t$ sono, in questa fase, dati deterministici;
+$r^g_t$, $r^u_t$ e $\bar{u}_t$ sono, in questa fase, dati deterministici;
 $x_j$, $g_t$ e $u_t$ sono invece le variabili attraverso le quali il modello
 descrive la composizione dell'attivo e la gestione intertemporale della
 liquidit\`a.
@@ -1322,13 +1322,13 @@ collegano le diverse date attraverso i bilanci
 \[
 \sum_{j=1}^{n}a_{tj}x_j
 +
-(1+r_{t-1})g_{t-1}
+(1+r^g_{t-1})g_{t-1}
 +
 u_t
 =
 d_t
 +
-(1+\rho_{t-1})u_{t-1}
+(1+r^u_{t-1})u_{t-1}
 +
 g_t.
 \]
@@ -1336,7 +1336,7 @@ g_t.
 Finora i coefficienti
 
 \[
-a_{tj},\qquad r_t,\qquad \rho_t,\qquad \bar{u}_t
+a_{tj},\qquad r^g_t,\qquad r^u_t,\qquad \bar{u}_t
 \]
 
 sono stati trattati semplicemente come dati del modello. In un problema
@@ -1428,23 +1428,23 @@ dipendono dalle decisioni $x_j$, $g_t$ o $u_t$ assunte nel modello.
 
 \subsection{Dal livello dei tassi al rendimento della liquidit\`a}
 
-Nella Sezione~\ref{sec:cap12-bilanci-intertemporali} il parametro $r_t$
+Nella Sezione~\ref{sec:cap12-bilanci-intertemporali} il parametro $r^g_t$
 rappresenta il rendimento ottenibile mantenendo una giacenza di liquidit\`a
 tra le date $t$ e $t+1$.
 
 Il suo valore pu\`o essere ricondotto al livello del tasso privo di rischio:
 
 \[
-r_t
+r^g_t
 =
-r(\bar{R}_t).
+r^g(\bar{R}_t).
 \]
 
 Nella rappresentazione pi\`u semplice, se $\bar{R}_t$ indica direttamente il
 tasso applicabile alla giacenza nell'intervallo considerato, si pu\`o porre
 
 \[
-r_t=\bar{R}_t.
+r^g_t=\bar{R}_t.
 \]
 
 Il bilancio utilizza quindi
@@ -1462,7 +1462,7 @@ trascurabile.
 
 \subsection{Il costo del funding}
 
-Il tasso $\rho_t$ introdotto nella
+Il tasso $r^u_t$ introdotto nella
 Sezione~\ref{sec:cap12-funding} rappresenta invece il costo del funding
 raccolto alla data $t$ e rimborsato alla data $t+1$.
 
@@ -1470,16 +1470,16 @@ Il suo valore dipende sia dal livello generale dei tassi sia dalle condizioni
 specifiche di funding della banca. Una rappresentazione naturale \`e
 
 \[
-\rho_t
+r^u_t
 =
-\rho(\bar{R}_t,\bar{F}_t).
+r^u(\bar{R}_t,\bar{F}_t).
 \]
 
 Se $\bar{F}_t$ viene misurato direttamente come spread sul tasso privo di
 rischio, una specificazione particolarmente semplice \`e
 
 \[
-\rho_t
+r^u_t
 =
 \bar{R}_t+\bar{F}_t.
 \]
@@ -1502,7 +1502,7 @@ liquidit\`a e il costo della raccolta esterna. Se
 allora
 
 \[
-\rho_t>r_t,
+r^u_t>r^g_t,
 \]
 
 coerentemente con l'ipotesi introdotta nella sezione precedente.
@@ -1612,8 +1612,8 @@ come
 \quad\longrightarrow\quad
 \left\{
 a_{tj},\,
-r_t,\,
-\rho_t,\,
+r^g_t,\,
+r^u_t,\,
 \bar{u}_t
 \right\}.
 \]
@@ -1623,7 +1623,7 @@ Il vettore $\bar{Z}_t$ descrive condizioni economico-finanziarie esterne.
 I coefficienti
 
 \[
-a_{tj},\qquad r_t,\qquad \rho_t,\qquad \bar{u}_t
+a_{tj},\qquad r^g_t,\qquad r^u_t,\qquad \bar{u}_t
 \]
 
 traducono tali condizioni nella struttura quantitativa del problema ALM.
@@ -1805,15 +1805,15 @@ economico-finanziarie correnti introduciamo un indicatore di solidit\`a o
 resilienza
 
 \[
-h_t.
+s_t.
 \]
 
 In forma generale possiamo scrivere
 
 \[
-h_t
+s_t
 =
-h(X_t,\bar Z_t).
+s(X_t,\bar Z_t).
 \]
 
 L'indicatore dipende quindi sia dallo stato interno della banca sia
@@ -1824,7 +1824,7 @@ significato diverso in condizioni di mercato normali o in presenza di forte
 tensione sul funding e sugli spread.
 
 Non \`e necessario, in questa fase, specificare una particolare funzione
-$h(\cdot)$. Ci interessa soprattutto distinguere le determinanti della
+$s(\cdot)$. Ci interessa soprattutto distinguere le determinanti della
 solidit\`a:
 
 \[
@@ -1839,7 +1839,7 @@ solidit\`a:
 }
 \]
 
-L'indicatore $h_t$ non rappresenta quindi un nuovo fattore di mercato. \`E
+L'indicatore $s_t$ non rappresenta quindi un nuovo fattore di mercato. \`E
 una caratteristica della banca valutata nelle condizioni di mercato
 correnti.
 
@@ -1857,7 +1857,7 @@ In termini schematici si potrebbe scrivere
 \[
 d_t
 =
-d(\bar Z_t,h_t),
+d(\bar Z_t,s_t),
 \]
 
 e quindi
@@ -1867,7 +1867,7 @@ d_t
 =
 d\left(
 \bar Z_t,
-h(X_t,\bar Z_t)
+s(X_t,\bar Z_t)
 \right).
 \]
 
@@ -1876,7 +1876,7 @@ La struttura esprime un meccanismo economicamente importante:
 \[
 \bar Z_t
 \longrightarrow
-h_t
+s_t
 \longrightarrow
 d_t,
 \]
@@ -1886,7 +1886,7 @@ ma anche
 \[
 X_t
 \longrightarrow
-h_t
+s_t
 \longrightarrow
 d_t.
 \]
@@ -1931,7 +1931,7 @@ La sequenza concettuale diventa quindi
 &
 \longrightarrow
 &
-h_t,\ d_t
+s_t,\ d_t
 &
 \longrightarrow
 &
@@ -1999,7 +1999,7 @@ Possiamo quindi distinguere:
 \boxed{
 \begin{array}{c}
 \text{meccanismo economico generale:}\\[2pt]
-d_t=d(\bar Z_t,h_t),
+d_t=d(\bar Z_t,s_t),
 \\[8pt]
 \text{specificazione utilizzata nel modello LP del capitolo:}\\[2pt]
 d_t=\bar d_t\quad\text{dato deterministico}.
@@ -2032,7 +2032,7 @@ distinguendo tre livelli:
 \downarrow
 \\[6pt]
 \text{stato e solidit\`a della banca}\\
-X_t,\quad h_t
+X_t,\quad s_t
 \\[6pt]
 \downarrow
 \\[6pt]
@@ -2109,9 +2109,9 @@ a_{tj},
 \qquad
 d_t,
 \qquad
-r_t,
+r^g_t,
 \qquad
-\rho_t,
+r^u_t,
 \qquad
 \bar u_t.
 \]
@@ -2125,10 +2125,10 @@ investita nella classe di attivo $j$;
 
 \item $d_t$ \`e il fabbisogno di liquidit\`a da soddisfare alla data $t$;
 
-\item $r_t$ \`e il rendimento della liquidit\`a trasferita dalla data $t$
+\item $r^g_t$ \`e il rendimento della liquidit\`a trasferita dalla data $t$
 alla data $t+1$;
 
-\item $\rho_t$ \`e il costo del funding raccolto alla data $t$ e rimborsato
+\item $r^u_t$ \`e il costo del funding raccolto alla data $t$ e rimborsato
 alla data $t+1$;
 
 \item $\bar u_t$ \`e la massima quantit\`a di funding accessibile alla data
@@ -2233,13 +2233,13 @@ aggiuntive.
 La giacenza $g_t$ mantenuta tra le date $t$ e $t+1$ produce un interesse
 
 \[
-r_tg_t.
+r^g_tg_t.
 \]
 
 Il funding $u_t$ utilizzato nello stesso intervallo produce invece un costo
 
 \[
-\rho_tu_t.
+r^u_tu_t.
 \]
 
 La funzione obiettivo diventa pertanto
@@ -2250,21 +2250,21 @@ La funzione obiettivo diventa pertanto
 =
 \sum_{j=1}^{n}c_jx_j
 +
-\sum_{t=1}^{T-1}r_tg_t
+\sum_{t=1}^{T-1}r^g_tg_t
 -
-\sum_{t=1}^{T-1}\rho_tu_t.
+\sum_{t=1}^{T-1}r^u_tu_t.
 \]
 
 I termini
 
 \[
-r_tg_t
+r^g_tg_t
 \]
 
 e
 
 \[
-\rho_tu_t
+r^u_tu_t
 \]
 
 rappresentano rispettivamente interessi attivi e interessi passivi.
@@ -2274,23 +2274,23 @@ entra come risorsa nel bilancio della data $t$ e viene restituito alla data
 successiva. Per questo motivo nei vincoli compare il rimborso complessivo
 
 \[
-(1+\rho_t)u_t,
+(1+r^u_t)u_t,
 \]
 
 mentre nella funzione obiettivo compare soltanto il costo
 
 \[
-\rho_tu_t.
+r^u_tu_t.
 \]
 
 Analogamente, il termine
 
 \[
-(1+r_t)g_t
+(1+r^g_t)g_t
 \]
 
 nei bilanci descrive la disponibilit\`a monetaria alla data successiva,
-mentre $r_tg_t$ rappresenta il corrispondente contributo al risultato
+mentre $r^g_tg_t$ rappresenta il corrispondente contributo al risultato
 economico.
 
 \subsection{Il vincolo di bilancio iniziale}
@@ -2331,13 +2331,13 @@ vale
 \[
 \sum_{j=1}^{n}a_{tj}x_j
 +
-(1+r_{t-1})g_{t-1}
+(1+r^g_{t-1})g_{t-1}
 +
 u_t
 =
 d_t
 +
-(1+\rho_{t-1})u_{t-1}
+(1+r^u_{t-1})u_{t-1}
 +
 g_t.
 \]
@@ -2347,11 +2347,11 @@ Alla data finale non viene raccolto nuovo funding:
 \[
 \sum_{j=1}^{n}a_{Tj}x_j
 +
-(1+r_{T-1})g_{T-1}
+(1+r_{T-1}^{g})g_{T-1}
 =
 d_T
 +
-(1+\rho_{T-1})u_{T-1}
+(1+r_{T-1}^{u})u_{T-1}
 +
 g_T.
 \]
@@ -2392,7 +2392,7 @@ esterna.
 Le condizioni
 
 \[
-\rho_t>r_t
+r^u_t>r^g_t
 \]
 
 escludono inoltre che sia economicamente conveniente raccogliere funding al
@@ -2455,9 +2455,9 @@ Il modello deterministico pu\`o quindi essere scritto come
 \displaystyle
 \sum_{j=1}^{n}c_jx_j
 +
-\sum_{t=1}^{T-1}r_tg_t
+\sum_{t=1}^{T-1}r^g_tg_t
 -
-\sum_{t=1}^{T-1}\rho_tu_t
+\sum_{t=1}^{T-1}r^u_tu_t
 \\[10pt]
 
 \mbox{soggetto a}
@@ -2475,11 +2475,11 @@ Il modello deterministico pu\`o quindi essere scritto come
 \displaystyle
 \sum_{j=1}^{n}a_{tj}x_j
 +
-(1+r_{t-1})g_{t-1}
+(1+r^g_{t-1})g_{t-1}
 +
 u_t
 -
-(1+\rho_{t-1})u_{t-1}
+(1+r^u_{t-1})u_{t-1}
 -
 g_t
 =
@@ -2493,9 +2493,9 @@ d_t,
 \displaystyle
 \sum_{j=1}^{n}a_{Tj}x_j
 +
-(1+r_{T-1})g_{T-1}
+(1+r_{T-1}^{g})g_{T-1}
 -
-(1+\rho_{T-1})u_{T-1}
+(1+r_{T-1}^{u})u_{T-1}
 -
 g_T
 =
@@ -2561,9 +2561,9 @@ c_j,
 \quad
 \ell_j,
 \quad
-r_t,
+r^g_t,
 \quad
-\rho_t,
+r^u_t,
 \quad
 d_t,
 \quad
@@ -2575,16 +2575,16 @@ sono fissati prima della soluzione.
 Anche termini quali
 
 \[
-(1+r_{t-1})g_{t-1}
+(1+r^g_{t-1})g_{t-1}
 \]
 
 e
 
 \[
-(1+\rho_{t-1})u_{t-1}
+(1+r^u_{t-1})u_{t-1}
 \]
 
-sono lineari, poich\'e $r_{t-1}$ e $\rho_{t-1}$ sono coefficienti noti e non
+sono lineari, poich\'e $r^g_{t-1}$ e $r^u_{t-1}$ sono coefficienti noti e non
 variabili decisionali.
 
 La struttura temporale aumenta quindi il numero e l'organizzazione dei
@@ -2610,7 +2610,7 @@ richiesta dal solver, conviene raccogliere tutte le variabili in un unico
 vettore. Con l'ordinamento
 
 \[
-z
+v
 =
 \begin{pmatrix}
 x_1 & \cdots & x_n &
@@ -2622,7 +2622,7 @@ u_1 & \cdots & u_{T-1}
 la funzione obiettivo pu\`o essere scritta come
 
 \[
-\max\; (c^{\mathrm{ALM}})'z,
+\max\; (c^{\mathrm{ALM}})'v,
 \]
 
 dove
@@ -2632,21 +2632,21 @@ c^{\mathrm{ALM}}
 =
 \begin{pmatrix}
 c_1 & \cdots & c_n &
-r_1 & \cdots & r_{T-1} & 0 &
--\rho_1 & \cdots & -\rho_{T-1}
+r_1^{g} & \cdots & r_{T-1}^{g} & 0 &
+-r_1^{u} & \cdots & -r_{T-1}^{u}
 \end{pmatrix}'.
 \]
 
 I vincoli possono quindi essere organizzati nella forma matriciale
 
 \[
-A_{\mathrm{eq}}z=b_{\mathrm{eq}},
+A_{\mathrm{eq}}v=b_{\mathrm{eq}},
 \]
 
 per il vincolo di bilancio iniziale e i bilanci di liquidit\`a, e
 
 \[
-A_{\mathrm{ub}}z\leq b_{\mathrm{ub}},
+A_{\mathrm{ub}}v\leq b_{\mathrm{ub}},
 \]
 
 per i vincoli prudenziali e gli eventuali altri limiti espressi come
@@ -2656,7 +2656,7 @@ I limiti inferiori e superiori sulle singole variabili completano la
 specificazione:
 
 \[
-\underline z\leq z\leq\overline z.
+\underline v\leq v\leq\overline v.
 \]
 
 Questa \`e la rappresentazione direttamente utilizzabile da un solver di
@@ -2667,13 +2667,13 @@ Nell'applicazione Python della Lezione 13 utilizzeremo
 \texttt{linprog} formula il problema come minimizzazione, il problema
 
 \[
-\max\;(c^{\mathrm{ALM}})'z
+\max\;(c^{\mathrm{ALM}})'v
 \]
 
 viene passato al solver come
 
 \[
-\min\;-(c^{\mathrm{ALM}})'z.
+\min\;-(c^{\mathrm{ALM}})'v.
 \]
 
 La traduzione in forma matriciale non modifica quindi il modello economico:
@@ -2849,7 +2849,7 @@ I restanti parametri temporali sono:
 \[
 \begin{array}{c|c|c|c|c}
 \hline
-t & d_t & r_t & \rho_t & \bar u_t\\
+t & d_t & r^g_t & r^u_t & \bar u_t\\
 \hline
 1 & 30 & 0.005 & 0.015 & 10\\
 2 & 30 & 0.006 & 0.020 & 8\\
@@ -2868,13 +2868,13 @@ d'
 \]
 
 \[
-r'
+{r^{g}}'
 =
 (0.005,\;0.006,\;0.007),
 \]
 
 \[
-\rho'
+{r^{u}}'
 =
 (0.015,\;0.020,\;0.025),
 \]
@@ -2911,9 +2911,9 @@ Sezione~\ref{sec:cap12-modello-alm-completo} diventa
 =
 c'x
 +
-\sum_{t=1}^{3}r_tg_t
+\sum_{t=1}^{3}r^g_tg_t
 -
-\sum_{t=1}^{3}\rho_tu_t.
+\sum_{t=1}^{3}r^u_tu_t.
 \]
 
 Il vincolo sulle risorse iniziali \`e
@@ -2939,11 +2939,11 @@ si ha
 \[
 a_t'x
 +
-(1+r_{t-1})g_{t-1}
+(1+r^g_{t-1})g_{t-1}
 +
 u_t
 -
-(1+\rho_{t-1})u_{t-1}
+(1+r^u_{t-1})u_{t-1}
 -
 g_t
 =
@@ -2955,9 +2955,9 @@ Alla data finale,
 \[
 a_4'x
 +
-(1+r_3)g_3
+(1+r_3^{g})g_3
 -
-(1+\rho_3)u_3
+(1+r_3^{u})u_3
 -
 g_4
 =
@@ -3214,13 +3214,13 @@ t
 &
 a_t'x^*
 &
-(1+r_{t-1})g_{t-1}^*
+(1+r^g_{t-1})g_{t-1}^*
 &
 u_t^*
 &
 d_t
 &
-(1+\rho_{t-1})u_{t-1}^*
+(1+r^u_{t-1})u_{t-1}^*
 &
 g_t^*
 \\
@@ -3299,7 +3299,7 @@ c'x^*
 gli interessi sulle giacenze sono
 
 \[
-\sum_{t=1}^{3}r_tg_t^*
+\sum_{t=1}^{3}r^g_tg_t^*
 \approx
 0.0402,
 \]
@@ -3307,7 +3307,7 @@ gli interessi sulle giacenze sono
 e il costo del funding \`e
 
 \[
-\sum_{t=1}^{3}\rho_tu_t^*
+\sum_{t=1}^{3}r^u_tu_t^*
 =
 0.1500.
 \]
@@ -3388,11 +3388,11 @@ Esiste un bilancio monetario per ciascuna data:
 \[
 a_t'x
 +
-(1+r_{t-1})g_{t-1}
+(1+r^g_{t-1})g_{t-1}
 +
 u_t
 -
-(1+\rho_{t-1})u_{t-1}
+(1+r^u_{t-1})u_{t-1}
 -
 g_t
 =
@@ -3648,9 +3648,9 @@ A^{\mathrm{CF}},
 \qquad
 d_t,
 \qquad
-r_t,
+r^g_t,
 \qquad
-\rho_t,
+r^u_t,
 \qquad
 \bar u_t.
 \]
@@ -3659,7 +3659,7 @@ L'ipotesi deterministica non richiede che tali coefficienti siano costanti
 nel tempo. Nel caso SVB multiperiodale, per esempio,
 
 \[
-r_1\neq r_2\neq r_3
+r_1^{g}\neq r_2^{g}\neq r_3^{g}
 \]
 
 e anche la capacit\`a di funding varia:
@@ -3675,8 +3675,8 @@ l'intero percorso
 \left\{
 A^{\mathrm{CF}},
 d_t,
-r_t,
-\rho_t,
+r^g_t,
+r^u_t,
 \bar u_t
 \right\}_{t=1}^{T}
 \]
@@ -3750,7 +3750,7 @@ schematica,
 \[
 Z_t
 \quad\longrightarrow\quad
-r_t,\ \rho_t,\ \bar u_t,
+r^g_t,\ r^u_t,\ \bar u_t,
 \]
 
 e, quando economicamente appropriato, anche ai cash flow disponibili e ai
@@ -3776,15 +3776,15 @@ Sezione~\ref{sec:cap12-stato-banca} suggerisce pi\`u precisamente
 \[
 D_t
 =
-d(Z_t,h_t),
+d(Z_t,s_t),
 \]
 
 dove
 
 \[
-h_t
+s_t
 =
-h(X_t,Z_t)
+s(X_t,Z_t)
 \]
 
 dipende sia dall'ambiente esterno sia dallo stato della banca.
@@ -3931,15 +3931,15 @@ A partire esclusivamente da queste informazioni:
 \item scrivere il vincolo sulle risorse iniziali, i tre bilanci di liquidit\`a,
 i vincoli prudenziali, i limiti sul funding e le condizioni di non negativit\`a;
 
-\item raccogliere tutte le variabili in un unico vettore $z$ e scrivere il
+\item raccogliere tutte le variabili in un unico vettore $v$ e scrivere il
 problema nella forma matriciale necessaria per l'utilizzo di un solver LP:
 
 \[
-\min\;\widetilde c'z,
+\min\;\widetilde c'v,
 \qquad
-A_{\mathrm{ub}}z\leq b_{\mathrm{ub}},
+A_{\mathrm{ub}}v\leq b_{\mathrm{ub}},
 \qquad
-A_{\mathrm{eq}}z=b_{\mathrm{eq}},
+A_{\mathrm{eq}}v=b_{\mathrm{eq}},
 \]
 
 specificando inoltre i bounds delle variabili.
@@ -4042,17 +4042,17 @@ d
 I rendimenti delle giacenze sono
 
 \[
-r_1=0.005,
+r_1^{g}=0.005,
 \qquad
-r_2=0.006,
+r_2^{g}=0.006,
 \]
 
 mentre i costi del funding sono
 
 \[
-\rho_1=0.015,
+r_1^{u}=0.015,
 \qquad
-\rho_2=0.020.
+r_2^{u}=0.020.
 \]
 
 La capacit\`a massima di funding \`e
@@ -4099,9 +4099,9 @@ obiettivo \`e
 =
 c'x
 +
-\sum_{t=1}^{2}r_tg_t
+\sum_{t=1}^{2}r^g_tg_t
 -
-\sum_{t=1}^{2}\rho_tu_t.
+\sum_{t=1}^{2}r^u_tu_t.
 \]
 
 Sostituendo i valori numerici si ottiene
@@ -4326,7 +4326,7 @@ x_1,x_2,x_3,g_1,g_2,g_3\geq0.
 Raccogliamo le variabili secondo l'ordine
 
 \[
-z
+v
 =
 \begin{pmatrix}
 x_1&
@@ -4387,7 +4387,7 @@ e quindi
 Il problema passato al solver ha pertanto funzione obiettivo
 
 \[
-\min\;\widetilde c'z.
+\min\;\widetilde c'v.
 \]
 
 Il vincolo sulle risorse iniziali e i tre bilanci temporali sono uguaglianze.
@@ -4471,13 +4471,13 @@ specificata da
 \boxed{
 \begin{array}{c}
 \displaystyle
-\min\;\widetilde c'z
+\min\;\widetilde c'v
 \\[6pt]
-A_{\mathrm{eq}}z=b_{\mathrm{eq}},
+A_{\mathrm{eq}}v=b_{\mathrm{eq}},
 \\[4pt]
-A_{\mathrm{ub}}z\leq b_{\mathrm{ub}},
+A_{\mathrm{ub}}v\leq b_{\mathrm{ub}},
 \\[4pt]
-\underline z\leq z\leq\overline z.
+\underline v\leq v\leq\overline v.
 \end{array}
 }
 \]
@@ -4531,7 +4531,7 @@ La liquidit\`a residua alla prima data pu\`o essere trasferita alla seconda
 con rendimento
 
 \[
-r_1=0.005.
+r_1^{g}=0.005.
 \]
 
 Si assume che non venga raccolto funding alla prima data,
@@ -4544,7 +4544,7 @@ mentre alla seconda data la banca pu\`o ricorrere a funding che dovr\`a essere
 rimborsato alla data finale con costo
 
 \[
-\rho_2=0.020.
+r_2^{u}=0.020.
 \]
 
 In condizioni ordinarie la capacit\`a di funding alla seconda data \`e
@@ -4641,7 +4641,14 @@ Il punto importante \`e che l'insufficienza emerge alla seconda data:
 non pu\`o essere compensata utilizzando anticipatamente il cash flow pari a
 $12$ che sar\`a disponibile soltanto alla data successiva.
 
-\item Ponendo $g_2=0$, il bilancio della seconda data richiede
+\item Per determinare il funding minimo necessario alla seconda data non deve
+rimanere liquidit\`a inutilizzata alla stessa data; si pone quindi
+
+\[
+g_2=0.
+\]
+
+Il bilancio della seconda data richiede allora
 
 \[
 12
@@ -4700,7 +4707,7 @@ terza un rimborso pari a $1.0149$.
 \bar u_2=0.8,
 \]
 
-il funding massimo disponibile sarebbe inferiore al fabbisogno minimo
+il funding massimo disponibile sarebbe inferiore al funding minimo necessario:
 
 \[
 u_2^{\min}=0.995.
@@ -4914,13 +4921,13 @@ d'
 Si assumano, per semplicit\`a,
 
 \[
-r_1=r_2=0.
+r_1^{g}=r_2^{g}=0.
 \]
 
 Alla seconda data la banca pu\`o raccogliere funding al tasso
 
 \[
-\rho_2=0.02.
+r_2^{u}=0.02.
 \]
 
 \begin{enumerate}
@@ -5041,15 +5048,15 @@ d'
 I parametri finanziari sono
 
 \[
-r_1=0.004,
+r_1^{g}=0.004,
 \qquad
-r_2=0.005,
+r_2^{g}=0.005,
 \]
 
 \[
-\rho_1=0.014,
+r_1^{u}=0.014,
 \qquad
-\rho_2=0.018,
+r_2^{u}=0.018,
 \]
 
 con
@@ -5173,7 +5180,7 @@ I parametri temporali sono
 \[
 \begin{array}{c|cccc}
 \hline
-t & d_t & r_t & \rho_t & \bar u_t\\
+t & d_t & r^g_t & r^u_t & \bar u_t\\
 \hline
 1 & 20 & 0.004 & 0.014 & 5\\
 2 & 18 & 0.005 & 0.018 & 4\\
@@ -5361,9 +5368,9 @@ Nel modello ALM deterministico, al tempo $0$ sono considerati noti
 \[
 d_t,
 \qquad
-r_t,
+r^g_t,
 \qquad
-\rho_t,
+r^u_t,
 \qquad
 \bar u_t,
 \]
@@ -5462,7 +5469,7 @@ g_t
 trasferisce liquidit\`a verso la data successiva e diventa
 
 \[
-(1+r_t)g_t.
+(1+r^g_t)g_t.
 \]
 
 Il funding
@@ -5475,7 +5482,7 @@ produce invece liquidit\`a alla data corrente ma genera alla data successiva
 un obbligo pari a
 
 \[
-(1+\rho_t)u_t.
+(1+r^u_t)u_t.
 \]
 
 I due strumenti realizzano quindi collegamenti intertemporali di segno
@@ -5503,9 +5510,9 @@ funding:
 =
 \sum_{j=1}^{n}c_jx_j
 +
-\sum_{t=1}^{T-1}r_tg_t
+\sum_{t=1}^{T-1}r^g_tg_t
 -
-\sum_{t=1}^{T-1}\rho_tu_t.
+\sum_{t=1}^{T-1}r^u_tu_t.
 \]
 
 I bilanci temporali, i limiti alla disponibilit\`a di funding e gli eventuali

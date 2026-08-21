@@ -1,8 +1,6 @@
 %2multibyte Version: 5.50.0.2960 CodePage: 65001
 % Master Plan del corso "Metodi Quantitativi per la Finanza"
 % Versione aggiornata: nuova Lezione 4 applicativa, sdoppiamento processi,
-% eliminazione applicazione autonoma sugli alberi binomiali, introduzione
-% del Goal Programming.
 % Versione predisposta per Scientific Workplace 5.5.
 % Scelte LaTeX conservative: pacchetti standard, tabelle semplici,
 % accenti italiani in forma esplicita, ad esempio probabilit\`{a}.
@@ -307,9 +305,10 @@ diventa ricorrente nel manuale, nelle slides o nel codice Python.
 \end{enumerate}
 
 In coerenza con il documento \texttt{MQF\_Notazione.tex}, si adottano le
-seguenti convenzioni generali. Le integrazioni relative al tempo continuo e al
-Goal Programming devono essere verificate nel file di notazione prima della
-scrittura definitiva dei capitoli corrispondenti.
+seguenti convenzioni generali. Le integrazioni relative al tempo continuo e
+all'Asset--Liability Management deterministico devono essere verificate nel
+file di notazione prima della scrittura definitiva dei capitoli
+corrispondenti.
 
 \begin{center}%
 \begin{tabular}
@@ -348,10 +347,10 @@ se usata.\\
 ottimizzazione.\\
 \multicolumn{1}{l}{$\lambda$} & Variabile duale o prezzo ombra in
 programmazione lineare.\\
-\multicolumn{1}{l}{$g_{i}(x)$} & Valore del criterio o obiettivo $i$ in un
-modello di Goal Programming.\\
-\multicolumn{1}{l}{$b_{i}$, $d_{i}^{+}$, $d_{i}^{-}$} & Target e deviazioni
-positive/negative dall'obiettivo $i$.\\
+\multicolumn{1}{l}{$g_{t}$} & Giacenza di liquidit\`a residua alla data $t$
+nei modelli ALM.\\
+\multicolumn{1}{l}{$u_{t}$, $\bar u_{t}$} & Funding raccolto alla data $t$ e
+relativa capacit\`a massima.\\
 \multicolumn{1}{l}{$\omega\in\Omega$} & Esito elementare nello spazio
 campionario.\\
 \multicolumn{1}{l}{$\xi$} & Vettore aleatorio o informazione incerta nei
@@ -1146,10 +1145,9 @@ dalla traiettoria deterministica all'incertezza.\newline
 Lezione 11, con cash flow distribuiti nel tempo, fabbisogni, giacenze e
 capacit\`a limitata di funding.\newline
 \textbf{Notazione introdotta:} $A^{\mathrm{CF}}=(a_{tj})$, $d_t$, $g_t$,
-$u_t$, $r_t$, $\rho_t$, $\bar u_t$, $\lambda_t$.\newline
-\textbf{Esercizi previsti:} formulazione ALM a partire dalla descrizione
-finanziaria; traduzione nella forma matriciale per il solver; verifica della
-fattibilit\`a temporale; funding; interpretazione dei valori duali.\newline
+$u_t$, $r_t^{g}$, $r_t^{u}$, $\bar u_t$, $\lambda_0$, $\lambda_t$,
+$\lambda_{u,t}$, $\Pi$, $v$; eccezioni locali dichiarate: $X_t$ (stato
+patrimoniale della banca), $s_t$ (indicatore di solidit\`a).\newline
 \textbf{Grafici previsti:} liquidit\`a aggregata e temporale; cash flow e
 fabbisogni; bilancio intertemporale; profili ottimi; valori marginali per
 scadenza.\newline
