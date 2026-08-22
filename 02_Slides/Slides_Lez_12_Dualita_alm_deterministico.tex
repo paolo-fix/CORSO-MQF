@@ -2549,6 +2549,297 @@ per ogni data.}}
 \end{frame}%
 %EndExpansion
 
+%****************************************
+% MATERIALE DI BACK-UP
+% Da inserire dopo la slide 42 e prima di \end{document}
+% Le slide in appendice non entrano nella numerazione
+% n\'{e} nella barra di navigazione.
+%****************************************
+
+\section{Back-up}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\vfill
+\begin{center}
+{\Huge\bfseries Back-up}
+\end{center}
+\vfill
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%****************************************
+
+\subsection{Dalla formulazione al solver}%
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle} {come si passa il problema a un solver}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Tutte le variabili in un unico vettore, nell'ordine
+$x$, poi $g$, poi $u$:
+
+{\small
+\[
+v
+=
+\begin{pmatrix}
+x_1 & \cdots & x_n &
+g_1 & \cdots & g_T &
+u_1 & \cdots & u_{T-1}
+\end{pmatrix}',
+\qquad
+\max\;(c^{\mathrm{ALM}})'v,
+\]
+}
+
+{\small
+\[
+c^{\mathrm{ALM}}
+=
+\begin{pmatrix}
+c_1 & \cdots & c_n &
+r_1^{g} & \cdots & r_{T-1}^{g} & 0 &
+-r_1^{u} & \cdots & -r_{T-1}^{u}
+\end{pmatrix}'.
+\]
+}
+
+\medskip
+
+\begin{stepitemize}
+\item Il vincolo di bilancio iniziale e i $T$ bilanci di liquidit\`{a} sono
+uguaglianze: $A_{\mathrm{eq}}v=b_{\mathrm{eq}}$.
+
+\item I limiti prudenziali sono disuguaglianze:
+$A_{\mathrm{ub}}v\leq b_{\mathrm{ub}}$.
+
+\item I limiti sulle singole variabili completano la specificazione:
+$\underline v\leq v\leq\overline v$, con $u_t\in[0,\bar u_t]$.
+
+\item \texttt{scipy.optimize.linprog} minimizza, quindi si passa
+$\widetilde c=-c^{\mathrm{ALM}}$. Metodo \texttt{highs}.
+\end{stepitemize}
+
+\medskip
+
+{\footnotesize Il passaggio decisivo non \`{e} il solver, ma la traduzione
+della descrizione finanziaria in variabili, coefficienti e vincoli.
+\textbf{Lezione 13.}}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%****************************************
+
+\subsection{La condizione terminale}%
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{che cosa fare della liquidit\`{a} finale}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+La variabile $g_T$ non \`{e} un residuo tecnico: dichiara che cosa il modello
+considera economicamente rilevante alla fine dell'orizzonte.
+
+\medskip
+
+{\footnotesize
+\[
+\begin{array}{l|l|l}
+\hline
+\mbox{scelta} & \mbox{significato} & \mbox{effetto su }\lambda_T^{*}\\
+\hline
+g_T=0
+& \mbox{nulla deve avanzare}
+& \mbox{in generale }\lambda_T^{*}\neq0\\
+g_T\geq0\mbox{, non valorizzata}
+& \mbox{l'avanzo \`{e} ammesso ma non premiato}
+& \lambda_T^{*}=0\mbox{ se }g_T^{*}>0\\
+g_T\mbox{ nell'obiettivo}
+& \mbox{l'avanzo ha valore oltre l'orizzonte}
+& \mbox{riflette quel valore}\\
+\hline
+\end{array}
+\]
+}
+
+\medskip
+
+\begin{stepitemize}
+\item Nel caso SVB abbiamo adottato la seconda: $g_4^{*}\approx2.890$
+\`{e} ammesso e non premiato, e infatti $\lambda_4^{*}=0$.
+
+\item \textbf{Il prezzo nullo dell'ultima data non \`{e} una propriet\`{a}
+dell'ALM}: dipende da questa scelta. Con $g_T=0$ imposto, l'ultima data
+avrebbe un prezzo come le altre.
+
+\item Se la banca prosegue l'attivit\`{a} oltre $T$, forzare $g_T=0$ \`{e}
+economicamente improprio: l'orizzonte del modello non \`{e} la fine della
+banca.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%****************************************
+
+\subsection{Dualita debole}%
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{perch\'{e} il duale sta sempre sopra}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Siano $x$ ammissibile per il primale ($Ax\leq b$, $x\geq0$) e $\lambda$
+ammissibile per il duale ($A'\lambda\geq c$, $\lambda\geq0$).
+
+\medskip
+
+{\small
+\[
+c'x
+\;\underbrace{\leq}_{A'\lambda\geq c,\ x\geq0}\;
+(A'\lambda)'x
+=
+\lambda'Ax
+\;\underbrace{\leq}_{Ax\leq b,\ \lambda\geq0}\;
+\lambda'b
+=
+b'\lambda.
+\]
+}
+
+\medskip
+
+\begin{stepitemize}
+\item Due sole disuguaglianze, ciascuna ottenuta moltiplicando un vincolo per
+un vettore non negativo. Nessun'altra ipotesi.
+
+\item Conseguenza: \textbf{ogni} soluzione duale ammissibile fornisce un
+limite superiore al primale, e viceversa.
+
+\item Se per una coppia ammissibile risulta $c'x=b'\lambda$, allora
+\textbf{entrambe sono ottime}: non serve risolvere per saperlo.
+
+\item La dualit\`{a} \emph{forte} aggiunge che quella coincidenza si verifica
+sempre, quando l'ottimo esiste finito.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%****************************************
+
+\subsection{Ambiente esterno e stato interno}%
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{l'ambiente economico-finanziario}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Le tre componenti di $\bar Z_t=(\bar Z_t^{R},\bar Z_t^{C},\bar Z_t^{F})$
+hanno funzioni economiche distinte:
+
+\medskip
+
+{\small
+\[
+\begin{array}{l|l|l}
+\hline
+\bar Z_t^{R} & \mbox{livello dei tassi privi di rischio} & \mbox{prezzo del tempo}\\
+\bar Z_t^{C} & \mbox{spread di credito di mercato} & \mbox{prezzo del rischio di credito}\\
+\bar Z_t^{F} & \mbox{tensione sul funding della banca} & \mbox{prezzo della scarsit\`{a} di funding}\\
+\hline
+\end{array}
+\]
+}
+
+\medskip
+
+\begin{stepitemize}
+\item Da qui i coefficienti: $r_t^{g}=r^{g}(\bar Z_t^{R})$,
+$r_t^{u}=\bar Z_t^{R}+\bar Z_t^{F}$, $\bar u_t=\bar u(\bar Z_t^{F})$. Se
+$\bar Z_t^{F}>0$, allora $r_t^{u}>r_t^{g}$.
+
+\item $\bar Z_t^{C}$ entra nei cash flow \textbf{solo se} i flussi
+dipendono dalla qualit\`{a} creditizia: perdite attese, valori di realizzo,
+haircut. Non per il solo fatto che il modello contiene un fattore di credito.
+
+\item Le decisioni retroagiscono sullo stato:
+$X_{t+1}=G(X_t,u_t,\bar Z_t,d_t)$. Il funding di oggi peggiora la posizione
+di domani; la giacenza la migliora.
+
+\item \textbf{Deterministico} significa che l'intera traiettoria
+$\bar Z_0,\ldots,\bar Z_T$ \`{e} nota al tempo $0$ -- non che sia costante.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
 
 
 
