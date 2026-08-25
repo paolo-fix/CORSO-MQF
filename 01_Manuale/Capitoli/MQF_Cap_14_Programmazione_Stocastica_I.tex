@@ -1,8 +1,383 @@
 % !TeX root = ../MQF_Manuale_Master.tex
 % Capitoli/MQF_Cap_14_Programmazione_Stocastica_I.tex
 
-\chapter{Programmazione lineare stocastica I}
+\chapter{Programmazione stocastica a due stadi}
 
-\section{Obiettivi della lezione}
+\label{cap:programmazione-stocastica-due-stadi}
 
-Capitolo in preparazione.
+\medskip
+
+\noindent
+\textbf{Obiettivi della lezione.}
+
+Il Capitolo 12 ha formulato un problema di Asset--Liability Management
+deterministico nel quale la composizione iniziale dell'attivo, le giacenze
+di liquidit\`{a} e il funding vengono coordinati lungo pi\`{u} date. La
+dimensione temporale \`{e} esplicita, ma l'intera traiettoria dei coefficienti
+futuri \`{e} considerata nota al tempo $0$. In queste condizioni il modello
+pu\`{o} determinare fin dall'inizio un unico piano completo.
+
+Il presente capitolo abbandona questa ipotesi. Il problema non consiste
+semplicemente nel sostituire alcuni coefficienti deterministici con
+quantit\`{a} aleatorie. Quando il futuro non \`{e} noto, occorre specificare
+anche \emph{quando} le decisioni vengono assunte, \emph{quale informazione}
+sia disponibile in quel momento e \emph{quali decisioni} possano essere
+modificate dopo avere osservato l'esito dell'incertezza.
+
+Questa struttura conduce alla programmazione stocastica a due stadi. Una
+prima decisione viene assunta prima della rivelazione dell'incertezza; una
+seconda decisione pu\`{o} invece reagire all'informazione successivamente
+osservata. La soluzione non \`{e} quindi costituita soltanto da una scelta
+iniziale, ma comprende anche una politica di risposta contingente ai
+possibili esiti futuri.
+
+Il capitolo sviluppa questa metodologia mantenendo in parallelo due contesti
+applicativi. Il caso bancario prosegue il problema SVB dei Capitoli 11--12 e
+interpreta il secondo stadio attraverso le decisioni di liquidit\`{a} e
+funding disponibili dopo uno shock. Un secondo caso, ispirato al problema di
+approvvigionamento energetico di Alcoa San Cipri\'{a}n, considera invece una
+decisione contrattuale assunta prima di conoscere completamente le condizioni
+future di prezzo e fabbisogno e le successive decisioni correttive di
+approvvigionamento.
+
+I due casi hanno natura economica differente, ma condividono la stessa
+struttura decisionale. Essi verranno utilizzati per mostrare come il
+formalismo della programmazione stocastica permetta di distinguere la scelta
+preventiva dalla flessibilit\`{a} successiva e di attribuire un valore
+economico alla possibilit\`{a} di reagire all'informazione.
+
+Al termine del capitolo lo studente dovr\`{a} essere in grado di:
+
+\begin{itemize}
+
+\item distinguere periodo temporale, stadio decisionale e momento di
+rivelazione dell'informazione;
+
+\item distinguere una decisione assunta prima della rivelazione
+dell'incertezza da una decisione che pu\`{o} dipendere dall'esito osservato;
+
+\item rappresentare l'incertezza mediante un vettore aleatorio $\xi$ e
+mediante un insieme finito di scenari
+$\{(\xi_s,p_s):s\in\mathcal S\}$;
+
+\item comprendere come un insieme di scenari possa essere costruito a partire
+da un modello probabilistico discreto oppure mediante simulazione;
+
+\item formulare un problema di programmazione stocastica a due stadi con
+recourse;
+
+\item definire e interpretare economicamente la funzione di recourse
+$Q(x,\xi)$;
+
+\item passare dalla formulazione mediante valore atteso alla forma estesa
+del problema con un numero finito di scenari;
+
+\item distinguere ammissibilit\`{a} della decisione di primo stadio e
+fattibilit\`{a} delle decisioni di recourse nei diversi scenari;
+
+\item interpretare la struttura matematica del modello nei casi SVB e
+Alcoa, individuando decisioni preventive, dati incerti e decisioni
+correttive;
+
+\item distinguere i problemi stochastic programming, wait-and-see ed
+expected value e utilizzare i confronti tra i rispettivi valori ottimi per
+interpretare EVPI e VSS;
+
+\item riconoscere il limite della struttura a due stadi e comprendere perch\'{e}
+la rivelazione progressiva dell'informazione richieda una formulazione
+multistadio.
+
+\end{itemize}
+
+\section{Decisioni sotto incertezza: scegliere prima, reagire dopo}
+
+\label{sec:cap14-scegliere-reagire}
+
+Nel modello deterministico del Capitolo 12 la banca affronta un problema
+intertemporale, ma non un problema decisionale sotto incertezza. I cash flow
+degli attivi, i fabbisogni di liquidit\`{a}, i tassi e la capacit\`{a} di
+funding possono variare da una data all'altra, ma l'intera traiettoria viene
+considerata nota al tempo $0$.
+
+Questa ipotesi permette di determinare simultaneamente tutte le variabili del
+piano:
+
+\[
+x,
+\qquad
+g_1,\ldots,g_T,
+\qquad
+u_1,\ldots,u_{T-1}.
+\]
+
+La variabile $u_3$, per esempio, pu\`{o} essere determinata quando il problema
+viene risolto al tempo $0$, anche se rappresenta funding che verr\`{a}
+effettivamente raccolto soltanto alla data $3$. Non esiste alcuna nuova
+informazione che possa modificare quella decisione: il futuro rilevante per
+il modello \`{e} gi\`{a} conosciuto.
+
+L'introduzione dell'incertezza modifica questa struttura in modo pi\`{u}
+profondo di quanto suggerirebbe la semplice sostituzione di un coefficiente
+deterministico con una variabile casuale.
+
+Supponiamo, per esempio, che il fabbisogno futuro di liquidit\`{a} possa
+assumere valori differenti. Indicare tale fabbisogno con una quantit\`{a}
+aleatoria descrive l'incertezza, ma non specifica ancora il problema
+decisionale. Occorre anche stabilire se il funding necessario a fronteggiare
+quel fabbisogno debba essere deciso prima di conoscerlo oppure possa essere
+determinato dopo averlo osservato.
+
+Le due formulazioni descrivono problemi economicamente diversi.
+
+Nel primo caso una decisione unica deve essere utilizzata qualunque sia
+l'esito futuro:
+
+\[
+u
+\quad\longrightarrow\quad
+\xi.
+\]
+
+Nel secondo caso la decisione pu\`{o} reagire all'esito osservato:
+
+\[
+\xi
+\quad\longrightarrow\quad
+u(\xi).
+\]
+
+L'ordine temporale e informativo delle operazioni diventa quindi parte della
+formulazione matematica.
+
+\subsection{Una decisione prima e una decisione dopo}
+
+Consideriamo in termini generali una decisione iniziale rappresentata dal
+vettore
+
+\[
+x.
+\]
+
+Essa deve essere assunta prima che venga conosciuto il valore di un vettore
+aleatorio
+
+\[
+\xi,
+\]
+
+che raccoglie i dati incerti rilevanti per il problema.
+
+Dopo che l'incertezza si \`{e} realizzata e il valore di $\xi$ \`{e} stato
+osservato, pu\`{o} essere disponibile una seconda decisione, indicata con
+
+\[
+y(\xi).
+\]
+
+La sequenza fondamentale \`{e} quindi
+
+\[
+\boxed{
+x
+\quad\longrightarrow\quad
+\xi
+\quad\longrightarrow\quad
+y(\xi).
+}
+\]
+
+I tre elementi hanno ruoli differenti.
+
+La decisione $x$ viene assunta senza conoscere quale valore di $\xi$ si
+realizzer\`{a}. Deve quindi essere scelta tenendo conto delle conseguenze che
+potr\`{a} produrre in pi\`{u} condizioni future.
+
+Il vettore $\xi$ non \`{e} una decisione: rappresenta l'incertezza esogena
+rilevante per il problema.
+
+La decisione $y(\xi)$ viene invece assunta quando l'esito \`{e} noto e pu\`{o}
+pertanto essere adattata alle condizioni effettivamente osservate.
+
+Questa seconda possibilit\`{a} di intervento viene indicata nella
+programmazione stocastica come \emph{recourse}. Il termine non identifica una
+specifica operazione economica. Indica il fatto che una parte delle decisioni
+pu\`{o} essere modificata dopo la rivelazione dell'incertezza.
+
+La soluzione del problema non consiste pertanto soltanto nel determinare una
+decisione iniziale ottima $x^*$. Occorre determinare anche come reagire ai
+possibili esiti futuri:
+
+\[
+\boxed{
+\text{soluzione}
+=
+\text{decisione iniziale}
++
+\text{politica di recourse}.
+}
+\]
+
+Nel seguito questa idea verr\`{a} resa progressivamente pi\`{u} precisa. Quando
+l'incertezza sar\`{a} rappresentata mediante un numero finito di scenari, la
+politica $y(\xi)$ verr\`{a} descritta attraverso una decisione distinta
+
+\[
+y_s
+\]
+
+per ciascuno scenario $s$.
+
+\subsection{Il caso bancario}
+
+Nel caso SVB sviluppato nei capitoli precedenti, una possibile decisione di
+primo stadio riguarda la struttura del bilancio scelta prima di conoscere le
+condizioni future.
+
+In forma schematica,
+
+\[
+x
+=
+\text{composizione iniziale dell'attivo}.
+\]
+
+Le condizioni future possono modificare, tra gli altri elementi, i
+fabbisogni di liquidit\`{a}, il costo del funding e la capacit\`{a} di
+accedere a nuova raccolta.
+
+Tali condizioni vengono raccolte, nella formulazione stocastica, tra i dati
+incerti rappresentati da $\xi$.
+
+Una volta osservato lo scenario effettivamente realizzato, la banca pu\`{o}
+disporre di decisioni correttive. Il funding utilizzato e la gestione della
+liquidit\`{a} costituiscono esempi naturali di decisioni di recourse.
+
+La struttura diventa quindi
+
+\[
+\boxed{
+\begin{array}{c}
+\text{struttura preventiva del bilancio}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{condizioni economico-finanziarie osservate}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{decisioni di liquidit\`{a} e funding}.
+\end{array}
+}
+\]
+
+Il problema non consiste nel trovare la migliore composizione dell'attivo
+per un singolo futuro ipotizzato. La decisione iniziale deve risultare
+appropriata considerando contemporaneamente pi\`{u} evoluzioni possibili e
+la capacit\`{a} della banca di reagire in ciascuna di esse.
+
+\subsection{Un secondo contesto: approvvigionamento energetico}
+
+La stessa struttura compare in un problema economicamente molto diverso.
+
+Consideriamo un'impresa energivora che debba programmare il proprio
+approvvigionamento elettrico. Utilizzeremo in seguito un caso stilizzato
+ispirato ad Alcoa San Cipri\'{a}n; il modello didattico non intende
+ricostruire i contratti effettivamente sottoscritti dall'impresa, ma isolare
+la struttura quantitativa della decisione sotto incertezza.
+
+Una parte dell'approvvigionamento pu\`{o} essere stabilita prima di conoscere
+completamente le condizioni future:
+
+\[
+x
+=
+\text{quantit\`{a} coperta contrattualmente ex ante}.
+\]
+
+Successivamente si manifestano le condizioni rilevanti, rappresentate dal
+vettore
+
+\[
+\xi,
+\]
+
+che pu\`{o} comprendere, nella specificazione del caso, il prezzo dell'energia
+e il fabbisogno effettivo.
+
+Dopo avere osservato tali condizioni, l'impresa pu\`{o} completare o correggere
+l'approvvigionamento attraverso una decisione
+
+\[
+y(\xi).
+\]
+
+La struttura \`{e} quindi ancora
+
+\[
+\boxed{
+\text{copertura preventiva}
+\quad\longrightarrow\quad
+\text{prezzo e fabbisogno osservati}
+\quad\longrightarrow\quad
+\text{approvvigionamento correttivo}.
+}
+\]
+
+Il significato economico delle variabili \`{e} diverso da quello del caso
+bancario, ma la struttura matematica della decisione \`{e} la stessa.
+
+\subsection{La questione centrale della programmazione stocastica}
+
+I due casi mettono in evidenza tre componenti che devono essere specificate
+congiuntamente.
+
+La prima \`{e} la struttura delle decisioni: quali scelte devono essere
+assunte prima e quali possono essere modificate successivamente.
+
+La seconda \`{e} la rappresentazione probabilistica dell'incertezza: quali
+quantit\`{a} sono aleatorie e come vengono descritti i loro possibili esiti.
+
+La terza \`{e} la struttura informativa: quali esiti sono conosciuti nel
+momento in cui ciascuna decisione viene assunta.
+
+La programmazione stocastica combina questi tre elementi con il modello di
+ottimizzazione:
+
+\[
+\boxed{
+\begin{array}{c}
+\text{decisioni}
++
+\text{incertezza}
++
+\text{informazione}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{problema di ottimizzazione stocastica}.
+\end{array}
+}
+\]
+
+Non \`{e} quindi sufficiente dichiarare che alcuni coefficienti sono
+aleatori. Due problemi con la stessa distribuzione di $\xi$ possono condurre
+a decisioni molto diverse se cambia il momento nel quale l'informazione viene
+osservata oppure se cambia la possibilit\`{a} di intervenire dopo tale
+osservazione.
+
+Nel modello a due stadi che verr\`{a} sviluppato nelle sezioni successive, la
+sequenza informativa viene ridotta alla forma essenziale
+
+\[
+x
+\quad\longrightarrow\quad
+\xi
+\quad\longrightarrow\quad
+y(\xi).
+\]
+
+Questa struttura consente di isolare il primo problema fondamentale della
+programmazione stocastica: scegliere oggi tenendo conto non soltanto di ci\`{o}
+che potr\`{a} accadere domani, ma anche delle possibilit\`{a} di reazione che
+saranno disponibili dopo avere osservato ci\`{o} che \`{e} effettivamente
+accaduto.
