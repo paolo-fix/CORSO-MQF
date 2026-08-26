@@ -8,7 +8,7 @@
 \medskip
 
 \noindent
-\textbf{Obiettivi della lezione.}
+\textbf{Obiettivi della lezione}
 
 Il Capitolo 12 ha formulato un problema di Asset--Liability Management
 deterministico nel quale la composizione iniziale dell'attivo, le giacenze
@@ -31,76 +31,133 @@ osservata. La soluzione non \`{e} quindi costituita soltanto da una scelta
 iniziale, ma comprende anche una politica di risposta contingente ai
 possibili esiti futuri.
 
-Il capitolo sviluppa questa metodologia mantenendo in parallelo due contesti
-applicativi. Il caso bancario prosegue il problema SVB dei Capitoli 11--12 e
-interpreta il secondo stadio attraverso le decisioni di liquidit\`{a} e
-funding disponibili dopo uno shock. Un secondo caso, ispirato al problema di
-approvvigionamento energetico di Alcoa San Cipri\'{a}n, considera invece una
-decisione contrattuale assunta prima di conoscere completamente le condizioni
-future di prezzo e fabbisogno e le successive decisioni correttive di
-approvvigionamento.
+Il capitolo sviluppa questa metodologia mantenendo in parallelo due casi
+guida, scelti perch\'e permettono di osservare la stessa struttura matematica
+in contesti finanziari ed economici differenti.
 
-I due casi hanno natura economica differente, ma condividono la stessa
-struttura decisionale. Essi verranno utilizzati per mostrare come il
-formalismo della programmazione stocastica permetta di distinguere la scelta
-preventiva dalla flessibilit\`{a} successiva e di attribuire un valore
-economico alla possibilit\`{a} di reagire all'informazione.
+Il primo caso prosegue il problema SVB sviluppato nei Capitoli 11--12. Nel
+modello deterministico la banca costruisce il proprio piano conoscendo
+l'intera traiettoria dei dati futuri. La formulazione stocastica elimina
+questa ipotesi: alcune decisioni devono essere assunte prima di conoscere
+l'evoluzione delle condizioni economico-finanziarie, mentre altre decisioni
+di liquidit\`a e funding possono essere adattate all'informazione
+successivamente osservata.
 
-Al termine del capitolo lo studente dovr\`{a} essere in grado di:
+Il secondo caso \`e ispirato al complesso industriale Alcoa di San
+Cipri\'an, situato in Galizia, nella provincia di Lugo, tra i comuni di
+Cervo e Xove. Il sito, operativo dal 1980, comprende una raffineria di
+allumina e un impianto per la produzione di alluminio primario. La produzione
+di alluminio mediante elettrolisi rende il costo e la disponibilit\`a
+dell'energia elementi economicamente rilevanti per l'attivit\`a produttiva.
+Negli anni recenti proprio le condizioni di approvvigionamento energetico
+hanno avuto un ruolo centrale nel dibattito sulla continuit\`a e sulla
+competitivit\`a dell'impianto.
+
+Il caso utilizzato nel capitolo \`e una rappresentazione stilizzata e non
+una ricostruzione dei contratti effettivamente sottoscritti da Alcoa. Il suo
+interesse risiede nella struttura della decisione. Una parte
+dell'approvvigionamento pu\`o essere definita anticipatamente mediante
+decisioni contrattuali, mentre quantit\`a e costi correttivi possono essere
+determinati dopo l'osservazione delle condizioni future. Il problema combina
+quindi rischio di prezzo, decisioni intertemporali e flessibilit\`a
+contrattuale.
+
+Dal punto di vista matematico, il caso \`e particolarmente utile perch\'e
+l'incertezza riguarda grandezze che evolvono nel tempo e che possono essere
+dipendenti tra loro. Esso consente quindi di collegare i processi stocastici
+e la simulazione di traiettorie studiati nei capitoli precedenti alla
+costruzione di scenari per un problema di ottimizzazione. Il confronto con
+il caso SVB permette inoltre di mostrare due modi differenti di ottenere una
+rappresentazione finita dell'incertezza: a partire da un modello
+probabilistico discreto nel primo caso e mediante simulazione e successiva
+riduzione degli scenari nel secondo.
+
+Al termine del capitolo lo studente dovr\`a essere in grado di:
 
 \begin{itemize}
 
-\item distinguere periodo temporale, stadio decisionale e momento di
-rivelazione dell'informazione;
+\item riconoscere la struttura temporale e informativa di un problema
+decisionale sotto incertezza, distinguendo decisioni preventive e decisioni
+di recourse;
 
-\item distinguere una decisione assunta prima della rivelazione
-dell'incertezza da una decisione che pu\`{o} dipendere dall'esito osservato;
+\item rappresentare i dati aleatori mediante processi stocastici e scenari
+finiti, comprendendo la relazione tra modello probabilistico e
+rappresentazione utilizzata nell'ottimizzazione;
 
-\item rappresentare l'incertezza mediante un vettore aleatorio $\xi$ e
-mediante un insieme finito di scenari
-$\{(\xi_s,p_s):s\in\mathcal S\}$;
+\item formulare e interpretare un problema di programmazione stocastica a
+due stadi, dalla funzione di recourse alla forma estesa per scenari;
 
-\item comprendere come un insieme di scenari possa essere costruito a partire
-da un modello probabilistico discreto oppure mediante simulazione;
+\item valutare il ruolo economico della flessibilit\`a decisionale e
+dell'informazione attraverso i problemi stochastic programming,
+wait-and-see ed expected value e gli indicatori EVPI e VSS;
 
-\item formulare un problema di programmazione stocastica a due stadi con
-recourse;
-
-\item definire e interpretare economicamente la funzione di recourse
-$Q(x,\xi)$;
-
-\item passare dalla formulazione mediante valore atteso alla forma estesa
-del problema con un numero finito di scenari;
-
-\item distinguere ammissibilit\`{a} della decisione di primo stadio e
-fattibilit\`{a} delle decisioni di recourse nei diversi scenari;
-
-\item interpretare la struttura matematica del modello nei casi SVB e
-Alcoa, individuando decisioni preventive, dati incerti e decisioni
-correttive;
-
-\item distinguere i problemi stochastic programming, wait-and-see ed
-expected value e utilizzare i confronti tra i rispettivi valori ottimi per
-interpretare EVPI e VSS;
-
-\item riconoscere il limite della struttura a due stadi e comprendere perch\'{e}
-la rivelazione progressiva dell'informazione richieda una formulazione
-multistadio.
+\item applicare il formalismo ai casi SVB--ALM e Alcoa, riconoscendo al
+tempo stesso il limite della struttura a due stadi quando l'informazione
+viene rivelata progressivamente.
 
 \end{itemize}
 
-\section{Decisioni sotto incertezza: scegliere prima, reagire dopo}
+\section{Decisioni nel tempo sotto incertezza}
 
 \label{sec:cap14-scegliere-reagire}
 
-Nel modello deterministico del Capitolo 12 la banca affronta un problema
-intertemporale, ma non un problema decisionale sotto incertezza. I cash flow
-degli attivi, i fabbisogni di liquidit\`{a}, i tassi e la capacit\`{a} di
-funding possono variare da una data all'altra, ma l'intera traiettoria viene
-considerata nota al tempo $0$.
+Il modello di Asset--Liability Management del Capitolo 12 \`e
+multiperiodale: cash flow, fabbisogni di liquidit\`a, giacenze e funding
+sono distribuiti lungo un insieme di date
 
-Questa ipotesi permette di determinare simultaneamente tutte le variabili del
-piano:
+\[
+\mathcal T=\{0,1,\ldots,T\}.
+\]
+
+La presenza di pi\`u date non rende tuttavia il problema stocastico. Nel
+modello deterministico i dati esogeni relativi alle date future sono
+considerati noti quando il problema viene risolto al tempo iniziale. Di
+conseguenza, l'intero piano pu\`o essere determinato utilizzando fin
+dall'inizio informazioni relative a tutto l'orizzonte.
+
+Il passaggio alla programmazione stocastica richiede di modificare questa
+ipotesi. Occorre anzitutto rappresentare matematicamente l'evoluzione
+temporale dei dati incerti e, successivamente, stabilire quale parte di tale
+informazione sia disponibile quando vengono assunte le diverse decisioni.
+
+\subsection{Dalla traiettoria deterministica al processo dei dati incerti}
+
+Supponiamo che alla data $t$ il modello utilizzi $m$ parametri esogeni.
+Nel problema deterministico essi possono essere raccolti nel vettore
+
+\[
+\bar\xi_t
+=
+\begin{pmatrix}
+\bar\xi_{t1}\\
+\vdots\\
+\bar\xi_{tm}
+\end{pmatrix}
+\in\R^m,
+\qquad
+t\in\mathcal T.
+\]
+
+La successione
+
+\[
+\{\bar\xi_t\}_{t\in\mathcal T}
+\]
+
+descrive quindi una traiettoria deterministica dei dati esogeni lungo
+l'orizzonte. La barra sovrapposta indica che tali valori sono trattati come
+deterministici e fissati; non indica un valore atteso.
+
+Quando il problema viene risolto al tempo $0$, l'intera traiettoria
+
+\[
+\bar\xi_0,\bar\xi_1,\ldots,\bar\xi_T
+\]
+
+\`e assunta nota.
+
+Nel caso ALM del Capitolo 12 questa ipotesi permette di determinare
+congiuntamente le variabili del piano,
 
 \[
 x,
@@ -110,274 +167,1254 @@ g_1,\ldots,g_T,
 u_1,\ldots,u_{T-1}.
 \]
 
-La variabile $u_3$, per esempio, pu\`{o} essere determinata quando il problema
-viene risolto al tempo $0$, anche se rappresenta funding che verr\`{a}
-effettivamente raccolto soltanto alla data $3$. Non esiste alcuna nuova
-informazione che possa modificare quella decisione: il futuro rilevante per
-il modello \`{e} gi\`{a} conosciuto.
+Una variabile come $u_3$ riguarda una decisione di funding riferita alla
+data $3$, ma il suo valore pu\`o essere determinato quando il problema viene
+risolto al tempo $0$, poich\'e i dati necessari per calcolarlo sono gi\`a
+noti. La data alla quale una decisione produce i propri effetti economici
+non coincide quindi necessariamente con il momento nel quale l'informazione
+utilizzata per determinarla diventa disponibile.
 
-L'introduzione dell'incertezza modifica questa struttura in modo pi\`{u}
-profondo di quanto suggerirebbe la semplice sostituzione di un coefficiente
-deterministico con una variabile casuale.
-
-Supponiamo, per esempio, che il fabbisogno futuro di liquidit\`{a} possa
-assumere valori differenti. Indicare tale fabbisogno con una quantit\`{a}
-aleatoria descrive l'incertezza, ma non specifica ancora il problema
-decisionale. Occorre anche stabilire se il funding necessario a fronteggiare
-quel fabbisogno debba essere deciso prima di conoscerlo oppure possa essere
-determinato dopo averlo osservato.
-
-Le due formulazioni descrivono problemi economicamente diversi.
-
-Nel primo caso una decisione unica deve essere utilizzata qualunque sia
-l'esito futuro:
-
-\[
-u
-\quad\longrightarrow\quad
-\xi.
-\]
-
-Nel secondo caso la decisione pu\`{o} reagire all'esito osservato:
-
-\[
-\xi
-\quad\longrightarrow\quad
-u(\xi).
-\]
-
-L'ordine temporale e informativo delle operazioni diventa quindi parte della
-formulazione matematica.
-
-\subsection{Una decisione prima e una decisione dopo}
-
-Consideriamo in termini generali una decisione iniziale rappresentata dal
-vettore
-
-\[
-x.
-\]
-
-Essa deve essere assunta prima che venga conosciuto il valore di un vettore
+Abbandoniamo ora l'ipotesi che la traiettoria dei dati esogeni sia nota.
+Alla data $t$ gli stessi $m$ parametri vengono rappresentati dal vettore
 aleatorio
 
 \[
-\xi,
+\xi_t
+=
+\begin{pmatrix}
+\xi_{t1}\\
+\vdots\\
+\xi_{tm}
+\end{pmatrix},
 \]
 
-che raccoglie i dati incerti rilevanti per il problema.
-
-Dopo che l'incertezza si \`{e} realizzata e il valore di $\xi$ \`{e} stato
-osservato, pu\`{o} essere disponibile una seconda decisione, indicata con
+dove
 
 \[
-y(\xi).
+\xi_t:(\Omega,\F)\longrightarrow
+(\R^m,\B(\R^m)).
 \]
 
-La sequenza fondamentale \`{e} quindi
+La famiglia
 
 \[
-\boxed{
-x
-\quad\longrightarrow\quad
+\{\xi_t\}_{t\in\mathcal T}
+\]
+
+costituisce pertanto un processo stocastico vettoriale. Equivalentemente,
+l'intero processo pu\`o essere letto attraverso l'applicazione
+
+\[
+(t,\omega)
+\longmapsto
+\xi_t(\omega),
+\qquad
+(t,\omega)\in\mathcal T\times\Omega.
+\]
+
+Questa rappresentazione riprende direttamente il formalismo dei processi
+stocastici introdotto nel Capitolo 5, estendendo lo spazio degli stati dal
+caso scalare al caso vettoriale.
+
+Per ogni $t$ fissato,
+
+\[
+\omega\longmapsto\xi_t(\omega)
+\]
+
+\`e un vettore aleatorio che descrive congiuntamente i parametri incerti
+riferiti alla data $t$. Per ogni $\omega$ fissato, invece,
+
+\[
+t\longmapsto\xi_t(\omega)
+\]
+
+descrive una traiettoria del processo, cio\`e una possibile evoluzione
+congiunta dei dati esogeni lungo il tempo.
+
+La natura vettoriale di $\xi_t$ consente di rappresentare simultaneamente
+pi\`u fonti di incertezza alla stessa data, mentre la successione temporale
+
+\[
+\xi_0,\xi_1,\ldots,\xi_T
+\]
+
+consente di rappresentarne l'evoluzione. Nessuna ipotesi di indipendenza
+tra le componenti di $\xi_t$, n\'e tra valori assunti a date differenti,
+\`e implicata da questa notazione: tali dipendenze fanno parte della legge
+congiunta del processo.
+
+\subsection{Dal processo stocastico al vettore dei dati aleatori}
+
+La programmazione stocastica a due stadi utilizza normalmente una notazione
+pi\`u compatta. I dati incerti che diventano rilevanti tra il primo e il
+secondo stadio vengono raccolti in un unico vettore aleatorio, indicato con
+
+\[
+\xi.
+\]
+
+Quando il problema utilizza l'intera evoluzione futura del processo e i dati
+al tempo $0$ sono gi\`a osservati, tale vettore pu\`o essere costruito
+impilando i valori futuri:
+
+\[
 \xi
-\quad\longrightarrow\quad
-y(\xi).
-}
-\]
-
-I tre elementi hanno ruoli differenti.
-
-La decisione $x$ viene assunta senza conoscere quale valore di $\xi$ si
-realizzer\`{a}. Deve quindi essere scelta tenendo conto delle conseguenze che
-potr\`{a} produrre in pi\`{u} condizioni future.
-
-Il vettore $\xi$ non \`{e} una decisione: rappresenta l'incertezza esogena
-rilevante per il problema.
-
-La decisione $y(\xi)$ viene invece assunta quando l'esito \`{e} noto e pu\`{o}
-pertanto essere adattata alle condizioni effettivamente osservate.
-
-Questa seconda possibilit\`{a} di intervento viene indicata nella
-programmazione stocastica come \emph{recourse}. Il termine non identifica una
-specifica operazione economica. Indica il fatto che una parte delle decisioni
-pu\`{o} essere modificata dopo la rivelazione dell'incertezza.
-
-La soluzione del problema non consiste pertanto soltanto nel determinare una
-decisione iniziale ottima $x^*$. Occorre determinare anche come reagire ai
-possibili esiti futuri:
-
-\[
-\boxed{
-\text{soluzione}
 =
-\text{decisione iniziale}
-+
-\text{politica di recourse}.
-}
+\begin{pmatrix}
+\xi_1\\
+\vdots\\
+\xi_T
+\end{pmatrix}
+=
+\begin{pmatrix}
+\xi_1' & \cdots & \xi_T'
+\end{pmatrix}',
 \]
 
-Nel seguito questa idea verr\`{a} resa progressivamente pi\`{u} precisa. Quando
-l'incertezza sar\`{a} rappresentata mediante un numero finito di scenari, la
-politica $y(\xi)$ verr\`{a} descritta attraverso una decisione distinta
+e quindi
 
 \[
-y_s
+\xi:\mathcal T \times\Omega\longrightarrow\Xi\subseteq\R^{m}.
 \]
 
-per ciascuno scenario $s$.
+Per ogni $\omega\in\Omega$,
 
-\subsection{Il caso bancario}
+\[
+\xi(\omega)
+=
+\begin{pmatrix}
+\xi_1(\omega)\\
+\vdots\\
+\xi_T(\omega)
+\end{pmatrix}
+\]
 
-Nel caso SVB sviluppato nei capitoli precedenti, una possibile decisione di
-primo stadio riguarda la struttura del bilancio scelta prima di conoscere le
-condizioni future.
+rappresenta una possibile traiettoria congiunta dei dati incerti, espressa
+come un unico vettore.
 
-In forma schematica,
+Non tutti i problemi richiedono necessariamente l'intera traiettoria. Se
+soltanto alcuni valori del processo sono rilevanti per il secondo stadio,
+$\xi$ raccoglie soltanto tali dati. Il simbolo $\xi$ indica quindi il
+vettore aleatorio dei dati che entrano nella formulazione stocastica,
+mentre $\{\xi_t\}_{t\in\mathcal T}$ descrive il processo temporale dal quale
+tali dati hanno origine.
+
+Questa distinzione sar\`a utile nei due casi guida del capitolo. Nel caso
+SVB--ALM la distribuzione dei dati del secondo stadio verr\`a costruita a
+partire dall'evoluzione dello stato economico-finanziario. Nel caso di
+approvvigionamento energetico, invece, una realizzazione di $\xi$ potr\`a
+raccogliere una traiettoria di dati simulati lungo pi\`u date.
+
+\subsection{Informazione disponibile e possibilit\`a di reazione}
+
+La specificazione del processo
+
+\[
+\{\xi_t\}_{t\in\mathcal T}
+\]
+
+descrive come possono evolvere i dati esogeni. Essa non determina per\`o,
+da sola, la struttura del problema decisionale. Occorre stabilire quali
+informazioni siano disponibili nel momento in cui una decisione viene
+assunta.
+
+Consideriamo una decisione iniziale
+
+\[
+x
+\]
+
+che deve essere scelta prima che siano osservati i dati aleatori raccolti
+in $\xi$. Poich\'e la realizzazione futura non \`e ancora nota, $x$ non
+pu\`o essere scelta separatamente per ciascuna possibile realizzazione
+$\xi(\omega)$.
+
+Supponiamo che, dopo la rivelazione dell'informazione rappresentata da
+$\xi$, sia possibile assumere una seconda decisione. Poich\'e questa
+decisione viene presa dopo l'osservazione dell'esito, essa pu\`o dipendere
+dalla realizzazione osservata e viene indicata con
+
+\[
+y(\xi).
+\]
+
+La struttura essenziale del problema a due stadi pu\`o quindi essere
+rappresentata come
+
+\[
+x
+\longrightarrow
+\xi
+\longrightarrow
+y(\xi).
+\]
+
+\begin{definition}[Decisione di primo stadio e decisione di recourse]
+La decisione $x$, che deve essere assunta prima della rivelazione
+dell'informazione rappresentata da $\xi$, si dice \emph{decisione di primo
+stadio}.
+
+La decisione $y(\xi)$, assunta dopo tale rivelazione e quindi adattabile
+alla realizzazione osservata, si dice \emph{decisione di secondo stadio} o
+\emph{decisione di recourse}.
+\end{definition}
+
+Il termine \emph{recourse} non identifica una specifica operazione
+economica. Esprime la possibilit\`a di reagire alle condizioni che si sono
+effettivamente manifestate dopo che la decisione iniziale \`e stata fissata.
+
+La legge del processo stocastico e la struttura delle decisioni svolgono
+pertanto funzioni differenti. La prima descrive l'incertezza; la seconda
+specifica quali decisioni devono essere fissate prima che tale incertezza
+sia osservata e quali possano invece utilizzare l'informazione
+successivamente disponibile.
+
+\begin{remark}[Date temporali e stadi decisionali]
+L'indice $t$ di $\xi_t$ identifica la data alla quale si riferiscono i dati
+aleatori. Esso non identifica automaticamente uno stadio decisionale.
+
+Un problema pu\`o contenere dati riferiti a molte date,
+
+\[
+\xi_1,\ldots,\xi_T,
+\]
+
+e avere tuttavia soltanto due stadi decisionali. Ci\`o accade quando, ai
+fini del modello, i dati raccolti nel vettore $\xi$ vengono rivelati nello
+stesso passaggio informativo prima delle decisioni di secondo stadio.
+
+La distinzione tra periodo temporale e stadio decisionale dipende quindi
+dalla struttura dell'informazione, non dal numero di indici temporali
+presenti nel modello.
+\end{remark}
+
+Questa osservazione individua il punto nel quale la programmazione stocastica
+si collega alla teoria dell'informazione sviluppata nei capitoli precedenti.
+Dire che una decisione viene assunta ``prima'' o ``dopo'' l'osservazione di
+$\xi$ deve essere tradotto matematicamente specificando rispetto a quale
+sigma-algebra essa sia misurabile. Tale formalizzazione verr\`a sviluppata
+nella sezione successiva mediante la filtrazione.
+
+\subsection{Caso SVB--ALM}
+
+La struttura astratta
+
+\[
+x
+\longrightarrow
+\xi
+\longrightarrow
+y(\xi)
+\]
+
+pu\`o ora essere letta utilizzando direttamente le variabili dei due casi
+guida. In questo modo la distinzione tra decisioni preventive, dati incerti
+e decisioni di recourse assume un contenuto economico preciso.
+
+Nel caso SVB la composizione iniziale dell'attivo rimane quella introdotta
+nel Capitolo 11:
+
+\[
+x=
+\begin{pmatrix}
+x_1\\
+x_2\\
+x_3\\
+x_4
+\end{pmatrix},
+\]
+
+dove
+
+\[
+\begin{array}{ll}
+x_1 & \text{cassa e riserve},\\
+x_2 & \text{titoli a breve scadenza},\\
+x_3 & \text{titoli a lunga scadenza},\\
+x_4 & \text{prestiti e altri impieghi meno liquidi}.
+\end{array}
+\]
+
+Queste quattro variabili sono scelte al tempo $0$ e soddisfano il vincolo
+
+\[
+x_1+x_2+x_3+x_4=A_0.
+\]
+
+Il passaggio al modello ALM del Capitolo 12 non modifica la natura di $x$.
+Introduce invece quattro date future e la matrice
+
+\[
+A^{\mathrm{CF}}
+=
+(a_{tj}),
+\qquad
+t=1,\ldots,4,
+\qquad
+j=1,\ldots,4,
+\]
+
+che determina la distribuzione temporale dei cash flow prodotti dalle quattro
+classi di attivo.
+
+Alle diverse date la banca deve soddisfare i fabbisogni
+
+\[
+d_1,d_2,d_3,d_4.
+\]
+
+Le decisioni che consentono di gestire la liquidit\`a nel corso
+dell'orizzonte sono
+
+\[
+g_1,g_2,g_3,g_4,
+\]
+
+dove $g_t$ rappresenta la giacenza di liquidit\`a dopo il soddisfacimento
+del fabbisogno alla data $t$, e
+
+\[
+u_1,u_2,u_3,
+\]
+
+dove $u_t$ rappresenta il funding raccolto alla data $t$ e rimborsato alla
+data successiva.
+
+Nel Capitolo 12 l'ambiente economico-finanziario \`e rappresentato dalla
+traiettoria deterministica
+
+\[
+\bar Z_t
+=
+(\bar R_t,\bar C_t,\bar F_t),
+\]
+
+considerata interamente nota al tempo $0$. Nel passaggio al modello
+stocastico questa ipotesi viene modificata esplicitamente: l'ambiente esterno
+\`e descritto dal processo
+
+\[
+Z_t
+=
+(Z_t^R,Z_t^C,Z_t^F),
+\]
+
+la cui evoluzione futura non \`e nota quando viene scelta la composizione
+iniziale $x$.
+
+In particolare, il fabbisogno di liquidit\`a viene ora fatto dipendere dallo
+stato esterno:
+
+\[
+d_t=d(Z_t).
+\]
+
+Si tratta di una modifica rispetto al modello deterministico, nel quale
+$d_t$ era un coefficiente noto al tempo $0$. Le altre relazioni del caso
+SVB--ALM conservano invece il significato attribuito loro nel Capitolo 12
+finch\'e non venga esplicitamente dichiarata una diversa specificazione.
+
+La struttura decisionale diventa quindi
+
+\[
+\begin{array}{ccccc}
+x
+&
+\longrightarrow
+&
+Z_t
+&
+\longrightarrow
+&
+g_t,\;u_t,
+\end{array}
+\]
+
+con
+
+\[
+d_t=d(Z_t).
+\]
+
+Il vettore $x$ deve essere fissato senza conoscere gli stati futuri. Le
+variabili $g_t$ e $u_t$, che nel modello deterministico potevano essere
+calcolate tutte al tempo $0$, acquistano nel modello stocastico il ruolo di
+decisioni di recourse: il loro valore pu\`o dipendere dall'informazione
+rivelata dopo la decisione iniziale.
+
+In termini della notazione generale della programmazione stocastica,
 
 \[
 x
 =
-\text{composizione iniziale dell'attivo}.
+\begin{pmatrix}
+x_1\\
+x_2\\
+x_3\\
+x_4
+\end{pmatrix}
 \]
 
-Le condizioni future possono modificare, tra gli altri elementi, i
-fabbisogni di liquidit\`{a}, il costo del funding e la capacit\`{a} di
-accedere a nuova raccolta.
+\`e quindi la decisione di primo stadio, mentre le variabili
 
-Tali condizioni vengono raccolte, nella formulazione stocastica, tra i dati
-incerti rappresentati da $\xi$.
+\[
+g_1,\ldots,g_4,
+\qquad
+u_1,u_2,u_3
+\]
 
-Una volta osservato lo scenario effettivamente realizzato, la banca pu\`{o}
-disporre di decisioni correttive. Il funding utilizzato e la gestione della
-liquidit\`{a} costituiscono esempi naturali di decisioni di recourse.
+costituiscono le componenti economicamente rilevanti della decisione di
+recourse $y(\xi)$.
 
-La struttura diventa quindi
+\section{Il caso Alcoa: mercato elettrico e struttura della decisione}
+
+\label{sec:cap14-alcoa-mercato}
+
+Il secondo caso guida considera il problema di approvvigionamento elettrico
+di un grande consumatore industriale. Il riferimento metodologico \`e il
+modello di grande consumatore sviluppato da Conejo, Carri\'on e
+Morales.\footnote{A. J. Conejo, M. Carri\'on e J. M. Morales,
+\emph{Decision Making Under Uncertainty in Electricity Markets},
+Springer, 2010, Capitolo 9.}
+
+La produzione di alluminio costituisce un contesto naturale per questo tipo
+di problema, poich\'e il consumo di energia elettrica rappresenta una
+componente rilevante del processo produttivo e del costo industriale.
+Utilizzeremo pertanto Alcoa San Cipri\'an come riferimento economico del
+caso.
+
+Il modello che verr\`a costruito non intende tuttavia ricostruire i contratti
+effettivamente sottoscritti da Alcoa, n\'e riprodurre integralmente il
+modello di Conejo et al. L'obiettivo \`e isolare una struttura sufficientemente
+realistica da rendere economicamente significativa la decisione, ma
+sufficientemente semplice da poter essere studiata come problema lineare di
+programmazione stocastica a due stadi.
+
+\subsection{Il mercato dell'energia elettrica}
+
+L'energia elettrica presenta caratteristiche che rendono il suo mercato
+diverso da quello di molte altre commodity. Produzione e consumo devono
+rimanere continuamente bilanciati e le possibilit\`a di immagazzinamento,
+pur crescenti, restano limitate rispetto alla dimensione complessiva del
+sistema. Il valore dell'energia dipende quindi non soltanto dalla quantit\`a,
+ma anche dal periodo nel quale essa viene resa disponibile.
+
+Nel mercato all'ingrosso operano diversi soggetti. I produttori immettono
+energia nel sistema; grossisti e trader acquistano e vendono energia e
+strumenti collegati; societ\`a di vendita e grandi consumatori acquistano
+energia per soddisfare il proprio fabbisogno. Gli operatori di mercato
+organizzano le piattaforme di negoziazione, mentre il gestore della rete di
+trasmissione assicura l'equilibrio fisico del sistema.
+
+Le transazioni possono essere concluse su mercati organizzati oppure
+direttamente tra controparti. In quest'ultimo caso si parla di negoziazione
+\emph{over the counter} (OTC). Un contratto OTC pu\`o essere costruito sulle
+esigenze delle parti specificando quantit\`a, periodo di fornitura, profilo
+temporale e regola di prezzo. I contratti bilaterali di approvvigionamento
+costituiscono un esempio importante di questa forma di negoziazione.
+
+Su un orizzonte pi\`u lungo operano anche i mercati dei derivati
+sull'elettricit\`a. Tra gli strumenti pi\`u diffusi vi sono i futures, cio\`e
+contratti standardizzati negoziati su mercati organizzati il cui valore
+dipende dal prezzo futuro dell'energia. Essi permettono a produttori,
+intermediari e consumatori di ridurre l'esposizione alle variazioni dei
+prezzi che si realizzeranno successivamente sul mercato spot.
+
+Il termine \emph{spot} comprende invece le negoziazioni prossime al momento
+della fornitura fisica. Nel mercato \emph{day-ahead} vengono scambiate
+quantit\`a di energia per il giorno successivo. I mercati
+\emph{intraday} consentono di modificare successivamente le posizioni,
+avvicinandole alle condizioni di produzione e consumo che diventano
+progressivamente osservabili.
+
+A ridosso della consegna interviene infine il meccanismo di bilanciamento,
+attraverso il quale il gestore della rete corregge gli scostamenti tra
+immissioni e prelievi e mantiene l'equilibrio fisico del sistema. Il mercato
+di bilanciamento svolge quindi una funzione diversa da quella dei mercati
+utilizzati principalmente per l'approvvigionamento o per la copertura del
+rischio di prezzo.
+
+Per il problema che svilupperemo sono particolarmente rilevanti tre
+possibilit\`a:
+
+\begin{itemize}
+
+\item stipulare anticipatamente contratti bilaterali OTC per assicurarsi una
+parte dell'energia futura a condizioni definite;
+
+\item utilizzare contratti futures per coprire finanziariamente
+l'esposizione alle variazioni dei prezzi;
+
+\item acquistare o vendere energia sul mercato spot quando ci si avvicina al
+periodo di consumo.
+
+\end{itemize}
+
+La dimensione temporale \`e particolarmente importante. La domanda di
+elettricit\`a varia durante la giornata e, insieme alle condizioni
+dell'offerta, determina profili di prezzo differenti nelle diverse ore.
+
+Per descrivere questa variazione senza lavorare necessariamente a frequenza
+oraria, \`e utile raggruppare le ore della giornata in \emph{fasce di
+carico}. Una classificazione semplice distingue:
+
+\begin{itemize}
+
+\item \emph{base}, per le ore caratterizzate da domanda relativamente
+bassa;
+
+\item \emph{shoulder}, per le ore con condizioni intermedie;
+
+\item \emph{peak}, per le ore nelle quali la domanda sul sistema \`e
+relativamente elevata.
+
+\end{itemize}
+
+I confini esatti di queste fasce dipendono dal mercato e dal prodotto
+considerato: base, shoulder e peak devono quindi essere intese come
+categorie economiche utili a rappresentare differenti condizioni
+intragiornaliere, non come una suddivisione universale delle ventiquattro
+ore.
+
+La stessa struttura temporale compare nei prodotti di approvvigionamento.
+Un profilo \emph{base} prevede una fornitura costante lungo tutti i periodi
+compresi nell'intervallo contrattuale; un profilo \emph{peak} concentra
+invece la fornitura nei periodi di maggiore carico. Contratti con profili
+differenti permettono quindi a un consumatore di costruire una copertura
+pi\`u vicina alla forma temporale del proprio fabbisogno.
+
+Per un grande consumatore industriale il problema non consiste pertanto
+soltanto nell'acquistare una certa quantit\`a complessiva di elettricit\`a.
+Occorre decidere quanto approvvigionamento fissare anticipatamente, quale
+profilo temporale coprire e quanta esposizione lasciare alle condizioni che
+si manifesteranno successivamente sul mercato spot.
+
+\subsection{Un grande consumatore nel mercato elettrico}
+
+Un grande consumatore industriale deve garantire, periodo per periodo, la
+disponibilit\`a dell'energia necessaria al processo produttivo. Nel caso di
+un impianto per la produzione di alluminio, il costo dell'elettricit\`a
+rappresenta inoltre una componente rilevante del costo industriale.
+
+Il problema di approvvigionamento combina quindi due esigenze: assicurare la
+copertura del fabbisogno fisico e limitare l'esposizione a prezzi futuri
+sfavorevoli.
+
+Nel caso Alcoa consideriamo tre strumenti: contratti bilaterali stipulati
+anticipatamente, transazioni successive sul pool e autoproduzione. La
+decisione assume pertanto una struttura naturale:
+
 
 \[
 \boxed{
 \begin{array}{c}
-\text{struttura preventiva del bilancio}
+\text{scelta dei tre contratti bilaterali}
 \\[3pt]
 \downarrow
 \\[3pt]
-\text{condizioni economico-finanziarie osservate}
+\text{rivelazione della traiettoria dei prezzi spot}
 \\[3pt]
 \downarrow
 \\[3pt]
-\text{decisioni di liquidit\`{a} e funding}.
+\text{transazioni spot e autoproduzione}.
 \end{array}
 }
 \]
 
-Il problema non consiste nel trovare la migliore composizione dell'attivo
-per un singolo futuro ipotizzato. La decisione iniziale deve risultare
-appropriata considerando contemporaneamente pi\`{u} evoluzioni possibili e
-la capacit\`{a} della banca di reagire in ciascuna di esse.
 
-\subsection{Un secondo contesto: approvvigionamento energetico}
+La prima scelta deve essere effettuata prima di conoscere i prezzi futuri;
+le decisioni successive possono invece adattarsi alle condizioni che si
+realizzano. Dopo la rivelazione dei prezzi l'impresa pu\`o acquistare o vendere energia
+sul mercato spot e utilizzare la propria capacit\`a di autoproduzione.
+Quest'ultima \`e rappresentata mediante un costo marginale costante e un
+limite di capacit\`a.
 
-La stessa struttura compare in un problema economicamente molto diverso.
+La rivelazione progressiva dell'informazione su pi\`u date verr\`a considerata nel
+capitolo successivo attraverso una formulazione multistadio.
 
-Consideriamo un'impresa energivora che debba programmare il proprio
-approvvigionamento elettrico. Utilizzeremo in seguito un caso stilizzato
-ispirato ad Alcoa San Cipri\'{a}n; il modello didattico non intende
-ricostruire i contratti effettivamente sottoscritti dall'impresa, ma isolare
-la struttura quantitativa della decisione sotto incertezza.
+\subsection{Orizzonte temporale, periodi e consumo}
 
-Una parte dell'approvvigionamento pu\`{o} essere stabilita prima di conoscere
-completamente le condizioni future:
+L'orizzonte di pianificazione \`e di quattro settimane. Ogni giornata viene
+suddivisa in tre periodi di otto ore, associati alle fasce base, shoulder e
+peak. Si ottengono quindi $84$ periodi operativi.
+
+Indichiamo l'insieme dei periodi con $\mathcal T=\{1,\ldots,84\}$ e con
+
+\[
+\mathcal T_{\mathrm{shoulder}}
+=
+\{2,5,8,\ldots,83\}, \qquad \mathcal T_{\mathrm{peak}}
+=
+\{3,6,9,\ldots,84\}
+\]
+
+l'insieme dei periodi shoulder e peak. Ciascun periodo ha durata
+
+\[
+\Delta_t=8
+\]
+
+ore, ove il pedice $t$ identifica l'intervallo temporale di otto ore, non un
+istante.
+
+Consideriamo tre contratti bilaterali, con profilo rispettivamente base,
+shoulder e peak. La struttura temporale e la copertura offerta dai tre contratti bilaterali
+sono illustrate nella Tabella~\ref{tab:alcoa-periodi}.
+
+\begin{table}[!ht]
+\centering
+\caption{Fasce temporali e copertura dei consumi dei contratti bilaterali}
+\label{tab:alcoa-periodi}
+\small
+\begin{tabular}{|l|ccccccccccc|}
+\hline
+Periodo
+& 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & $\cdots$ & 84 \\
+\hline
+Fascia
+& B & S & P
+& B & S & P
+& B & S & P
+& $\cdots$ & P \\
+\hline
+Contratto base
+& $\times$ & $\times$ & $\times$
+& $\times$ & $\times$ & $\times$
+& $\times$ & $\times$ & $\times$
+& $\cdots$ & $\times$ \\
+Contratto shoulder
+& & $\times$ &
+& & $\times$ &
+& & $\times$ &
+& $\cdots$ & \\
+Contratto peak
+& & & $\times$
+& & & $\times$
+& & & $\times$
+& $\cdots$ & $\times$ \\
+\hline
+\end{tabular}
+\end{table}
+
+Indichiamo con
+
+\[
+C_t
+\]
+
+il consumo elettrico dello stabilimento nel periodo $t$, espresso in MWh.
+Nel modello il profilo dei consumi
+
+\[
+C_1,\ldots,C_{84}
+\]
+
+\`e noto. L'incertezza riguarda invece il prezzo futuro dell'energia sul
+mercato spot.
+
+
+\subsection{La decisione preventiva: i contratti bilaterali}
+
+Indichiamo con
+
+\[
+x_{\mathrm B},
+\qquad
+x_{\mathrm{Sh}},
+\qquad
+x_{\mathrm P}
+\]
+
+le potenze, espresse in MW, contrattate rispettivamente mediante il contratto
+base, shoulder e peak. Le quantit\`a contrattate sono grandezze continue e vengono tutte decise nel primo stadio.
+
+La decisione di primo stadio \`e quindi
 
 \[
 x
 =
-\text{quantit\`{a} coperta contrattualmente ex ante}.
+\begin{pmatrix}
+x_{\mathrm B}\\
+x_{\mathrm{Sh}}\\
+x_{\mathrm P}
+\end{pmatrix}.
 \]
 
-Successivamente si manifestano le condizioni rilevanti, rappresentate dal
-vettore
+Il contratto base opera in tutti i periodi dell'orizzonte; il contratto
+shoulder soltanto per $t\in\mathcal T_{\mathrm{shoulder}}$; il contratto
+peak soltanto per $t\in\mathcal T_{\mathrm{peak}}$.
+
+Indichiamo con
 
 \[
-\xi,
+c_{\mathrm B}^{B},
+\qquad
+c_{\mathrm{Sh}}^{B},
+\qquad
+c_{\mathrm P}^{B}
 \]
 
-che pu\`{o} comprendere, nella specificazione del caso, il prezzo dell'energia
-e il fabbisogno effettivo.
-
-Dopo avere osservato tali condizioni, l'impresa pu\`{o} completare o correggere
-l'approvvigionamento attraverso una decisione
+i rispettivi prezzi contrattuali, espressi in euro/MWh, e con
 
 \[
-y(\xi).
+\bar x_{\mathrm B},
+\qquad
+\bar x_{\mathrm{Sh}},
+\qquad
+\bar x_{\mathrm P}
 \]
 
-La struttura \`{e} quindi ancora
+le massime potenze contrattabili. Le decisioni soddisfano quindi
+
+\[
+0\leq x_{\mathrm B}\leq\bar x_{\mathrm B},
+\qquad
+0\leq x_{\mathrm{Sh}}\leq\bar x_{\mathrm{Sh}},
+\qquad
+0\leq x_{\mathrm P}\leq\bar x_{\mathrm P}.
+\]
+
+L'energia fornita dai contratti nel periodo $t$ \`e
+
+\[
+\Delta_t
+\left[
+x_{\mathrm B}
++
+\1_{\{t\in\mathcal T_{\mathrm{shoulder}}\}}x_{\mathrm{Sh}}
++
+\1_{\{t\in\mathcal T_{\mathrm{peak}}\}}x_{\mathrm P}
+\right].
+\]
+
+Il costo complessivo della copertura contrattuale \`e
+
+\[
+c_{\mathrm B}^{B}x_{\mathrm B}
+\sum_{t\in\mathcal T}\Delta_t
++
+c_{\mathrm{Sh}}^{B}x_{\mathrm{Sh}}
+\sum_{t\in\mathcal T_{\mathrm{shoulder}}}\Delta_t
++
+c_{\mathrm P}^{B}x_{\mathrm P}
+\sum_{t\in\mathcal T_{\mathrm{peak}}}\Delta_t.
+\]
+
+
+\subsection{Il prezzo spot e le decisioni di recourse}
+
+Indichiamo con
+
+\[
+c_t^{\mathrm{sp}}
+\]
+
+il prezzo dell'energia sul mercato spot nel periodo $t$, espresso in
+euro/MWh. Al momento della scelta di $x$ i valori futuri di
+$c_t^{\mathrm{sp}}$ non sono noti.
+
+Nel formalismo generale del capitolo poniamo
+
+\[
+\xi_t=c_t^{\mathrm{sp}},
+\qquad
+t\in\mathcal T,
+\]
+
+cosicch\'e il processo
+
+\[
+\{\xi_t\}_{t\in\mathcal T}
+=
+\{c_t^{\mathrm{sp}}\}_{t\in\mathcal T}
+\]
+
+rappresenta l'incertezza del caso.
+
+Dopo la rivelazione dei prezzi, indichiamo con
+
+\[
+y_t^{\mathrm{sp}}(\xi)\in\R
+\]
+
+la posizione netta sul mercato spot nel periodo $t$. Adottiamo la convenzione
+
+\[
+y_t^{\mathrm{sp}}(\xi)>0
+\quad\text{per un acquisto},
+\qquad
+y_t^{\mathrm{sp}}(\xi)<0
+\quad\text{per una vendita}.
+\]
+
+Indichiamo inoltre con
+
+\[
+y_t^G(\xi)\geq0
+\]
+
+l'energia autoprodotta nel periodo $t$. La capacit\`a disponibile impone
+
+\[
+0
+\leq
+y_t^G(\xi)
+\leq
+\bar y_t^G,
+\]
+
+mentre
+
+\[
+c^G
+\]
+
+indica il costo marginale unitario dell'autoproduzione.
+
+Le quantit\`a
+
+\[
+y_t^{\mathrm{sp}}(\xi),
+\qquad
+y_t^G(\xi),
+\qquad
+t\in\mathcal T,
+\]
+
+costituiscono le decisioni operative di secondo stadio.
+
+\subsection{Il bilancio energetico}
+
+In ogni periodo $t\in\mathcal T$ l'energia disponibile deve essere sufficiente
+a soddisfare il consumo $C_t$. Come gi\`a indicato, la componente fornita dai contratti bilaterali \`e
+
+\[
+\Delta_t
+\left[
+x_{\mathrm B}
++
+\1_{\{t\in\mathcal T_{\mathrm{shoulder}}\}}x_{\mathrm{Sh}}
++
+\1_{\{t\in\mathcal T_{\mathrm{peak}}\}}x_{\mathrm P}
+\right].
+\]
+
+A questa si aggiungono l'autoproduzione $y_t^G(\xi)$ e la posizione netta sul
+mercato spot $y_t^{\mathrm{sp}}(\xi)$. Il bilancio energetico \`e quindi
 
 \[
 \boxed{
-\text{copertura preventiva}
-\quad\longrightarrow\quad
-\text{prezzo e fabbisogno osservati}
-\quad\longrightarrow\quad
-\text{approvvigionamento correttivo}.
+\Delta_t
+\left[
+x_{\mathrm B}
++
+\1_{\{t\in\mathcal T_{\mathrm{shoulder}}\}}x_{\mathrm{Sh}}
++
+\1_{\{t\in\mathcal T_{\mathrm{peak}}\}}x_{\mathrm P}
+\right]
++
+y_t^G(\xi)
++
+y_t^{\mathrm{sp}}(\xi)
+=
+C_t,
+\qquad
+t\in\mathcal T.
 }
 \]
 
-Il significato economico delle variabili \`{e} diverso da quello del caso
-bancario, ma la struttura matematica della decisione \`{e} la stessa.
+Poich\'e $y_t^{\mathrm{sp}}(\xi)$ \`e libera in segno, lo stesso vincolo
+permette sia un acquisto sia una vendita sul mercato spot. Se contratti e
+autoproduzione non coprono il consumo, deve risultare
+$y_t^{\mathrm{sp}}(\xi)>0$; se generano un'eccedenza, pu\`o risultare
+$y_t^{\mathrm{sp}}(\xi)<0$.
 
-\subsection{La questione centrale della programmazione stocastica}
+Il bilancio collega quindi direttamente la decisione preventiva $x$ alle
+decisioni di recourse: diversi contratti bilaterali modificano le
+quantit\`a che dovranno essere acquistate, vendute o autoprodotte dopo
+l'osservazione dei prezzi.
 
-I due casi mettono in evidenza tre componenti che devono essere specificate
-congiuntamente.
 
-La prima \`{e} la struttura delle decisioni: quali scelte devono essere
-assunte prima e quali possono essere modificate successivamente.
+\subsection{Struttura dei costi e natura della decisione}
 
-La seconda \`{e} la rappresentazione probabilistica dell'incertezza: quali
-quantit\`{a} sono aleatorie e come vengono descritti i loro possibili esiti.
+La componente di costo determinata nel primo stadio \`e quella relativa ai
+contratti bilaterali. Poich\'e il contratto base opera in $84$ periodi,
+mentre i contratti shoulder e peak operano ciascuno in $28$ periodi, e
+$\Delta_t=8$, il costo contrattuale \`e
 
-La terza \`{e} la struttura informativa: quali esiti sono conosciuti nel
+\[
+C^B(x)
+=
+8
+\left[
+84\,c_{\mathrm B}^{B}x_{\mathrm B}
++
+28\,c_{\mathrm{Sh}}^{B}x_{\mathrm{Sh}}
++
+28\,c_{\mathrm P}^{B}x_{\mathrm P}
+\right].
+\]
+
+Dopo la rivelazione dei prezzi spot, la componente gestionale (trading sul mercato spot e autoproduzione) del costo \`e
+
+\[
+C^R(y(\xi),\xi)
+=
+\sum_{t=1}^{84}
+\left[
+c_t^{\mathrm{sp}}y_t^{\mathrm{sp}}(\xi)
++
+c^G y_t^G(\xi)
+\right].
+\]
+
+Quando $y_t^{\mathrm{sp}}(\xi)<0$, il termine
+$c_t^{\mathrm{sp}}y_t^{\mathrm{sp}}(\xi)$ \`e negativo e rappresenta il
+ricavo derivante dalla vendita di energia sul mercato spot. La decisione di vendere energia  non \`e affatto irrealistica. Essa pu\`o verificarsi in diversi casi quali, ad esempio se in certo tempo $t$ si verificasse,
+\[
+c_t^{\mathrm{sp}}(\xi) > c^G.
+\]
+converrebbe autogenerare energia e vendere l'eventuale eccesso non consumato sul mercato spot.
+
+Il costo complessivo associato alla decisione iniziale $x$ e alla
+realizzazione dell'incertezza \`e pertanto
+
+\[
+\Psi(x,y(\xi),\xi)
+=
+C^B(x)
++
+C^R(y(\xi),\xi).
+\]
+
+La struttura del caso pu\`o essere sintetizzata come
+
+\[
+\boxed{
+x
+\quad\longrightarrow\quad
+\{c_t^{\mathrm{sp}}\}_{t\in\mathcal T}
+\quad\longrightarrow\quad
+y(\xi).
+}
+\]
+
+La decisione $x$ determina anticipatamente il livello e il profilo temporale
+della copertura contrattuale. Le decisioni di secondo stadio permettono
+invece di adattare l'approvvigionamento ai prezzi effettivamente osservati.
+
+Una maggiore copertura contrattuale riduce il fabbisogno da soddisfare
+successivamente sul mercato spot, ma vincola anticipatamente l'impresa a
+prezzi prefissati. Una copertura minore aumenta la flessibilit\`a, ma lascia
+una quota maggiore del consumo esposta all'incertezza dei prezzi.
+
+Nelle sezioni successive questa struttura verr\`a completata introducendo
+gli scenari e le loro probabilit\`a. Il costo atteso costituir\`a il criterio
+di riferimento; per il caso Alcoa verr\`a inoltre considerato il
+Conditional Value-at-Risk del costo complessivo, cos\`i da distinguere la
+soluzione risk-neutral da quella di un consumatore avverso al rischio.
+
+\section{Stadi decisionali e struttura dell'informazione}
+
+\label{sec:cap14-stadi-informazione}
+
+La programmazione stocastica richiede di specificare non soltanto quali
+quantit\`a siano incerte, ma anche quale informazione sia disponibile nel
 momento in cui ciascuna decisione viene assunta.
 
-La programmazione stocastica combina questi tre elementi con il modello di
-ottimizzazione:
+Il Capitolo~5 ha rappresentato il flusso dell'informazione mediante una
+filtrazione
 
 \[
-\boxed{
-\begin{array}{c}
-\text{decisioni}
-+
-\text{incertezza}
-+
-\text{informazione}
-\\[3pt]
-\downarrow
-\\[3pt]
-\text{problema di ottimizzazione stocastica}.
-\end{array}
-}
+\{\F_t\}_{t\in\mathcal T},
 \]
 
-Non \`{e} quindi sufficiente dichiarare che alcuni coefficienti sono
-aleatori. Due problemi con la stessa distribuzione di $\xi$ possono condurre
-a decisioni molto diverse se cambia il momento nel quale l'informazione viene
-osservata oppure se cambia la possibilit\`{a} di intervenire dopo tale
-osservazione.
+con
 
-Nel modello a due stadi che verr\`{a} sviluppato nelle sezioni successive, la
-sequenza informativa viene ridotta alla forma essenziale
+\[
+\F_s\subseteq\F_t
+\qquad
+\text{per }s\leq t.
+\]
+
+Riprendiamo ora questa struttura per stabilire quali decisioni siano
+ammissibili prima e dopo la rivelazione dell'incertezza.
+
+
+\subsection{Periodi temporali e stadi decisionali}
+
+Un \emph{periodo temporale} identifica un intervallo dell'orizzonte
+economico. Uno \emph{stadio decisionale} identifica invece un momento nel
+quale viene assunta una decisione sulla base dell'informazione allora
+disponibile.
+
+I due concetti non coincidono.
+
+Il caso Alcoa, per esempio, contiene $84$ periodi operativi, ma nel modello
+del presente capitolo soltanto due stadi decisionali. Nel primo vengono
+scelti i contratti bilaterali; nel secondo vengono determinate le decisioni
+di spot e autoproduzione dopo la rivelazione dell'incertezza rilevante.
+
+In generale, pi\`u decisioni appartengono allo stesso stadio quando vengono
+assunte sulla base della stessa informazione. Un nuovo stadio si apre quando
+l'arrivo di nuova informazione consente di differenziare le decisioni in
+funzione di quanto osservato.
+
+Per rappresentare i due livelli informativi indichiamo con
+
+\[
+\F^{(1)}
+\qquad\text{e}\qquad
+\F^{(2)}
+\]
+
+le sigma-algebre disponibili rispettivamente al primo e al secondo stadio,
+con
+
+\[
+\F^{(1)}
+\subseteq
+\F^{(2)}
+\subseteq
+\F.
+\]
+
+Esse possono essere interpretate come due livelli della filtrazione
+corrispondenti ai momenti nei quali vengono assunte le decisioni.
+
+
+\subsection{Informazione disponibile e decisioni ammissibili}
+
+La decisione di primo stadio
+
+\[
+x
+\]
+
+deve utilizzare soltanto l'informazione disponibile prima della rivelazione
+dell'incertezza. Formalmente, le sue componenti devono essere
+$\F^{(1)}$-misurabili.
+
+Quando l'informazione iniziale \`e fissata nel momento in cui il problema
+viene risolto, $x$ viene quindi rappresentato semplicemente come un vettore
+deterministico.
+
+La decisione di secondo stadio
+
+\[
+y(\xi)
+\]
+
+pu\`o invece utilizzare l'informazione successivamente acquisita e deve
+essere $\F^{(2)}$-misurabile.
+
+La misurabilit\`a esprime un vincolo economico essenziale: una decisione pu\`o
+dipendere da ci\`o che \`e gi\`a stato osservato, ma non da informazioni che
+non sono ancora disponibili.
+
+Non si deve quindi scrivere
+
+\[
+x\in\F^{(1)}
+\qquad\text{o}\qquad
+y(\xi)\in\F^{(2)}.
+\]
+
+Le sigma-algebre sono insiemi di eventi; una decisione \`e invece una
+variabile o un vettore di variabili. La formulazione corretta richiede che
+la decisione sia \emph{misurabile rispetto} alla sigma-algebra informativa
+corrispondente.
+
+
+\subsection{Rivelazione dell'incertezza nel modello a due stadi}
+
+Il processo stocastico
+
+\[
+\{\xi_t\}_{t\in\mathcal T}
+\]
+
+rappresenta l'evoluzione dei dati esogeni incerti. L'informazione generata
+dalla sua traiettoria sull'orizzonte pu\`o essere indicata con
+
+\[
+\sigma\left(\xi_t:t\in\mathcal T\right).
+\]
+
+Nel modello a due stadi assumiamo che l'informazione rilevante per il
+recourse sia disponibile prima della decisione di secondo stadio. Possiamo
+quindi rappresentare il secondo livello informativo come
+
+\[
+\F^{(2)}
+=
+\F^{(1)}
+\vee
+\sigma\left(\xi_t:t\in\mathcal T\right),
+\]
+
+dove $\vee$ indica la pi\`u piccola sigma-algebra contenente entrambe le
+fonti di informazione.
+
+La sequenza
 
 \[
 x
 \quad\longrightarrow\quad
 \xi
 \quad\longrightarrow\quad
-y(\xi).
+y(\xi)
 \]
 
-Questa struttura consente di isolare il primo problema fondamentale della
-programmazione stocastica: scegliere oggi tenendo conto non soltanto di ci\`{o}
-che potr\`{a} accadere domani, ma anche delle possibilit\`{a} di reazione che
-saranno disponibili dopo avere osservato ci\`{o} che \`{e} effettivamente
-accaduto.
+acquista cos\`i un significato preciso:
+
+\[
+\begin{array}{ccl}
+x
+&:&
+\F^{(1)}\text{-misurabile},
+\\[3pt]
+\xi
+&:&
+\text{incertezza esogena rivelata tra i due stadi},
+\\[3pt]
+y(\xi)
+&:&
+\F^{(2)}\text{-misurabile}.
+\end{array}
+\]
+
+Questa struttura implica che la decisione $x$ non possa essere modificata
+in funzione della realizzazione futura di $\xi$, mentre il recourse pu\`o
+differire tra realizzazioni diverse.
+
+Quando nella sezione successiva l'incertezza verr\`a rappresentata mediante
+scenari, questa distinzione avr\`a una conseguenza immediata: la decisione
+$x$ sar\`a unica per tutti gli scenari, mentre a scenari differenti potranno
+corrispondere decisioni di secondo stadio differenti.
+
+
+\subsection{Valutazione condizionata all'informazione corrente}
+
+La stessa struttura informativa entra nella valutazione economica delle
+decisioni.
+
+Sia
+
+\[
+\Psi(x,y(\xi),\xi)
+\]
+
+un criterio integrabile associato alla decisione iniziale, al recourse e
+alla realizzazione dell'incertezza. Dal punto di vista del decisore al primo
+stadio, la quantit\`a rilevante \`e
+
+\[
+\E
+\left[
+\Psi(x,y(\xi),\xi)
+\mid
+\F^{(1)}
+\right].
+\]
+
+Il valore atteso condizionato utilizza quindi esattamente la nozione
+introdotta nei Capitoli~3 e~5: valuta le conseguenze future utilizzando
+soltanto l'informazione disponibile nel momento della decisione.
+
+Quando l'informazione iniziale \`e fissata e non contiene ulteriore
+incertezza rilevante, il criterio si riduce al consueto valore atteso
+
+\[
+\E
+\left[
+\Psi(x,y(\xi),\xi)
+\right].
+\]
+
+La formulazione a scenari che verr\`a introdotta nel seguito fornir\`a una
+rappresentazione finita di questo valore atteso.
+
+
+\subsection{La struttura informativa nei due casi guida}
+
+Nel caso Alcoa la decisione
+
+\[
+x
+=
+\begin{pmatrix}
+x_{\mathrm B}\\
+x_{\mathrm{Sh}}\\
+x_{\mathrm P}
+\end{pmatrix}
+\]
+
+viene assunta prima di conoscere la traiettoria dei prezzi spot. Poich\'e
+
+\[
+\xi_t=c_t^{\mathrm{sp}},
+\]
+
+nel modello a due stadi il secondo livello informativo contiene
+
+\[
+\sigma
+\left(
+c_t^{\mathrm{sp}}:
+t\in\mathcal T
+\right).
+\]
+
+Le decisioni $y_t^{\mathrm{sp}}(\xi)$ e $y_t^G(\xi)$ possono quindi dipendere
+dalla traiettoria dei prezzi rivelata, mentre i tre contratti iniziali non
+possono essere modificati.
+
+Nel caso SVB--ALM l'incertezza esogena viene invece rappresentata mediante
+il processo di stato
+
+\[
+\{Z_t\}.
+\]
+
+Quando $Z_t$ segue una catena di Markov rispetto alla filtrazione considerata,
+
+\[
+\Prob
+\left(
+Z_{t+1}=z_j
+\mid
+\F_t
+\right)
+=
+\Prob
+\left(
+Z_{t+1}=z_j
+\mid
+Z_t
+\right).
+\]
+
+Se lo stato corrente \`e noto ed \`e pari a $z_i$, si ha quindi
+
+\[
+\Prob
+\left(
+Z_{t+1}=z_j
+\mid
+Z_t=z_i
+\right)
+=
+p_{ij}.
+\]
+
+L'informazione contenuta nell'intera storia passata viene cos\`i sintetizzata,
+per la distribuzione dello stato successivo, dallo stato corrente. La riga
+$i$ della matrice di transizione determina le probabilit\`a dei possibili
+stati futuri.
+
+I due casi utilizzano quindi modelli probabilistici differenti, ma rispettano
+lo stesso principio informativo: la decisione iniziale utilizza soltanto
+l'informazione corrente, mentre il recourse pu\`o reagire all'informazione
+resa disponibile tra i due stadi.
