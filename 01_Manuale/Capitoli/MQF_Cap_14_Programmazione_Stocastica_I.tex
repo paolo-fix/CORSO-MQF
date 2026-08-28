@@ -2145,9 +2145,9 @@ mentre i vincoli di primo stadio compaiono una sola volta.
 
 \subsection{Struttura a blocchi}
 
-La forma estesa possiede una struttura matriciale caratteristica. Se, per
-semplicit\`a, consideriamo tre scenari, i vincoli possono essere rappresentati
-schematicamente come
+La forma estesa possiede una struttura matriciale caratteristica. Per
+evidenziarla, consideriamo per semplicit\`a il caso di tre scenari.
+I vincoli di secondo stadio possono essere raccolti nella forma
 
 \[
 \begin{pmatrix}
@@ -2169,61 +2169,90 @@ h_3
 \end{pmatrix}.
 \]
 
-La stessa decisione $x$ compare in tutti i blocchi di scenario. Le variabili
-$y_1,y_2,y_3$, invece, appartengono ciascuna soltanto al proprio blocco.
+La struttura a blocchi mette in evidenza due fatti essenziali. In primo
+luogo, la decisione di primo stadio $x$ compare in tutti i blocchi di
+scenario. In secondo luogo, ciascun vettore di recourse $y_s$ compare
+soltanto nei vincoli del proprio scenario.
 
-Questa struttura riflette direttamente l'ordine informativo del problema:
-la decisione iniziale deve essere compatibile con tutte le possibili
-realizzazioni future, mentre la risposta di secondo stadio pu\`o essere
-specifica dello scenario osservato.
+Una rappresentazione grafica sintetica di questa struttura \`e riportata
+nella Figura~\ref{fig:cap14-forma-estesa-blocchi}.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.92\textwidth]
+{../graphics/Cap14_forma_estesa_blocchi.png}
+\caption{Struttura della forma estesa di un programma stocastico lineare
+a due stadi. La decisione di primo stadio $x$ \`e comune a tutti gli
+scenari, mentre per ciascuno scenario viene introdotto uno specifico
+vettore di recourse $y_s$ con i corrispondenti vincoli
+$T_sx+W_sy_s=h_s$.}
+\label{fig:cap14-forma-estesa-blocchi}
+\end{figure}
+
+La Figura~\ref{fig:cap14-forma-estesa-blocchi} chiarisce quindi il senso
+della forma estesa: il problema stocastico a due stadi viene trasformato
+in un unico programma lineare deterministico nel quale i vincoli di
+secondo stadio sono replicati per scenario, mentre la decisione iniziale
+rimane unica.
 
 \subsection{Non anticipativit\`a}
 
-La forma estesa rende particolarmente evidente un principio fondamentale
-della programmazione stocastica: una decisione non pu\`o dipendere da
-informazioni che non sono ancora disponibili nel momento in cui viene
-assunta.
+La struttura appena descritta consente di formulare in modo preciso il
+principio di non anticipativit\`a.
 
 \begin{definition}[Non anticipativit\`a]
-Una decisione soddisfa il principio di \emph{non anticipativit\`a} se dipende
-soltanto dall'informazione disponibile nel momento in cui viene scelta.
+Una decisione soddisfa il principio di \emph{non anticipativit\`a} se
+dipende soltanto dall'informazione disponibile nel momento in cui viene
+assunta.
 \end{definition}
 
-Nel problema a due stadi, la decisione $x$ viene presa prima
-dell'osservazione dello scenario. Essa deve quindi essere la stessa in tutti
-gli scenari.
-
-Non sarebbe corretto introdurre decisioni
-
-\[
-x_1,x_2,\ldots,x_s,\ldots
-\]
-
-distinte per scenario e scegliere ciascuna di esse conoscendo gi\`a quale
-scenario si realizzer\`a. Una formulazione di questo tipo attribuirebbe al
-decisore un'informazione futura non disponibile al primo stadio.
-
-La non anticipativit\`a del primo stadio \`e quindi incorporata nella forma
-estesa attraverso l'utilizzo di un unico vettore
+Nel problema a due stadi, la decisione $x$ viene scelta prima
+dell'osservazione dello scenario. Essa non pu\`o quindi dipendere da
+quale scenario si realizzer\`a e deve essere la stessa in tutti i casi.
+La non anticipativit\`a del primo stadio \`e dunque incorporata nella
+forma estesa attraverso la presenza di un unico vettore
 
 \[
 x.
 \]
 
-Le decisioni di secondo stadio possono invece differire:
+Le decisioni di secondo stadio possono invece differire da uno scenario
+all'altro. Per ogni $s\in\mathcal S$, il vettore
 
 \[
-y_s\neq y_{s'}
+y_s
 \]
 
-per $s\neq s'$, poich\'e vengono assunte dopo l'osservazione dello scenario.
+viene scelto dopo l'osservazione dello scenario e pu\`o quindi dipendere
+da esso.
+
+La distinzione fondamentale \`e quindi la seguente:
+
+\[
+\boxed{
+x \text{ \`e unico e comune a tutti gli scenari,}
+\qquad
+y_s \text{ dipende dallo scenario } s.
+}
+\]
+
+Questo \`e esattamente il contenuto informativo della struttura a due
+stadi. Se si introducessero decisioni di primo stadio distinte per
+scenario, ad esempio
+
+\[
+x_1,x_2,\ldots,x_{|\mathcal S|},
+\]
+
+si attribuirebbe indebitamente al decisore la conoscenza anticipata
+dello scenario futuro.
 
 \begin{remark}
-Nel problema a due stadi la non anticipativit\`a non richiede vincoli
-aggiuntivi se la formulazione utilizza direttamente un'unica variabile $x$
-comune a tutti gli scenari. I vincoli di non anticipativit\`a diventano
-espliciti quando si introducono copie della stessa decisione per scenario
-oppure nei modelli con pi\`u stadi decisionali.
+Nel problema a due stadi, quando la formulazione utilizza direttamente
+un unico vettore $x$, non occorre introdurre vincoli aggiuntivi di non
+anticipativit\`a. Tali vincoli diventano invece espliciti quando si
+introducono copie scenario-specifiche di una stessa decisione oppure nei
+modelli multistadio.
 \end{remark}
 
 \subsection{Forma estesa del caso SVB--ALM}
@@ -2312,16 +2341,1278 @@ di scenari.
 
 La forma estesa conclude quindi il passaggio fondamentale sviluppato nel
 capitolo:
-
 \[
-\text{modello probabilistico}
+\begin{aligned}
+&\text{modello probabilistico}
 \longrightarrow
 \text{scenari}
 \longrightarrow
 \text{recourse}
+\\
+&\hspace{2.0cm}
 \longrightarrow
 \text{programma stocastico}
 \longrightarrow
 \text{LP deterministico equivalente}.
+\end{aligned}
 \]
+
+\section{Esercizi svolti}
+
+\label{sec:cap14-esercizi-svolti}
+
+Gli esercizi seguenti consolidano tre passaggi centrali del capitolo: la
+costruzione delle probabilit\`a degli scenari a partire da una dinamica
+Markoviana, il calcolo della funzione di recourse per una decisione iniziale
+assegnata e la costruzione della forma estesa di un programma stocastico a
+due stadi.
+
+\begin{exercise}[Probabilit\`a di traiettoria e probabilit\`a terminale]
+
+\label{ex:cap14-traiettoria-markov}
+
+Si consideri una catena di Markov con spazio degli stati
+
+\[
+\mathcal I=\{z_1,z_2,z_3\}
+\]
+
+e matrice di transizione
+
+\[
+P=
+\begin{pmatrix}
+0.7 & 0.2 & 0.1\\
+0.1 & 0.6 & 0.3\\
+0.2 & 0.3 & 0.5
+\end{pmatrix}.
+\]
+
+Al tempo iniziale lo stato osservato \`e
+
+\[
+Z_0=z_1.
+\]
+
+Si consideri un orizzonte di due periodi.
+
+\begin{enumerate}
+
+\item Calcolare la probabilit\`a dello scenario
+
+\[
+\xi_s=(z_2,z_3).
+\]
+
+\item Individuare tutte le traiettorie che terminano nello stato $z_3$ alla
+data $t=2$ e calcolarne le probabilit\`a.
+
+\item Determinare
+
+\[
+\Prob(Z_2=z_3\mid Z_0=z_1)
+\]
+
+sommando le probabilit\`a delle traiettorie ottenute al punto precedente.
+
+\item Verificare il risultato utilizzando la matrice $P^2$ e spiegare la
+differenza tra probabilit\`a di una traiettoria e probabilit\`a dello stato
+terminale.
+
+\end{enumerate}
+
+\end{exercise}
+
+\noindent
+\textbf{Soluzione.}
+
+\begin{enumerate}
+
+\item Lo scenario considerato corrisponde alla traiettoria
+
+\[
+z_1
+\longrightarrow
+z_2
+\longrightarrow
+z_3.
+\]
+
+Per la propriet\`a di Markov, la probabilit\`a della traiettoria \`e il
+prodotto delle probabilit\`a delle due transizioni:
+
+\[
+p_s
+=
+p_{12}p_{23}.
+\]
+
+Dalla matrice $P$,
+
+\[
+p_{12}=0.2,
+\qquad
+p_{23}=0.3,
+\]
+
+e quindi
+
+\[
+p_s
+=
+0.2\cdot0.3
+=
+0.06.
+\]
+
+\item Per raggiungere $z_3$ alla data $2$, partendo da $z_1$, sono possibili
+tre traiettorie:
+
+\[
+z_1\longrightarrow z_1\longrightarrow z_3,
+\]
+
+\[
+z_1\longrightarrow z_2\longrightarrow z_3,
+\]
+
+\[
+z_1\longrightarrow z_3\longrightarrow z_3.
+\]
+
+Le rispettive probabilit\`a sono
+
+\[
+0.7\cdot0.1
+=
+0.07,
+\]
+
+\[
+0.2\cdot0.3
+=
+0.06,
+\]
+
+e
+
+\[
+0.1\cdot0.5
+=
+0.05.
+\]
+
+\item L'evento terminale
+
+\[
+\{Z_2=z_3\}
+\]
+
+pu\`o verificarsi attraverso ciascuna delle tre traiettorie considerate.
+Pertanto,
+
+\[
+\Prob(Z_2=z_3\mid Z_0=z_1)
+=
+0.07+0.06+0.05
+=
+0.18.
+\]
+
+\item La probabilit\`a terminale pu\`o essere ottenuta anche dalla matrice
+di transizione a due passi:
+
+\[
+\Prob(Z_2=z_3\mid Z_0=z_1)
+=
+(P^2)_{13}.
+\]
+
+L'elemento $(1,3)$ di $P^2$ \`e
+
+\[
+(P^2)_{13}
+=
+0.7(0.1)+0.2(0.3)+0.1(0.5)
+=
+0.18,
+\]
+
+in accordo con il calcolo precedente.
+
+\end{enumerate}
+
+La distinzione \`e essenziale nella costruzione degli scenari. Una
+\emph{traiettoria} specifica l'intera successione degli stati osservati e ha
+una propria probabilit\`a $p_s$. La probabilit\`a di uno stato terminale
+raccoglie invece le probabilit\`a di tutte le traiettorie che conducono a
+quello stesso stato.
+
+
+\begin{exercise}[Funzione di recourse per una decisione assegnata]
+
+\label{ex:cap14-recourse-assegnata}
+
+Un intermediario ha gi\`a assunto la decisione di primo stadio
+
+\[
+x=
+\begin{pmatrix}
+4\\
+6
+\end{pmatrix}.
+\]
+
+Alla data successiva deve soddisfare un fabbisogno di liquidit\`a pari a
+
+\[
+d=8.
+\]
+
+Sono possibili due scenari,
+
+\[
+\mathcal S=\{1,2\},
+\qquad
+p_1=0.8,
+\qquad
+p_2=0.2.
+\]
+
+Nel primo scenario i coefficienti di liquidit\`a delle due attivit\`a sono
+
+\[
+a_1'
+=
+(1,\;0.8),
+\]
+
+mentre nel secondo scenario sono
+
+\[
+a_2'
+=
+(1,\;0.3).
+\]
+
+Dopo l'osservazione dello scenario l'intermediario pu\`o ricorrere a funding
+$u_s\geq0$ oppure mantenere liquidit\`a residua $g_s\geq0$. Il bilancio di
+secondo stadio \`e
+
+\[
+a_s'x+u_s
+=
+d+g_s.
+\]
+
+Il costo unitario del funding \`e pari a $1$ nello scenario 1 e a $4$ nello
+scenario 2. La liquidit\`a residua non produce rendimento all'interno
+dell'orizzonte considerato.
+
+\begin{enumerate}
+
+\item Formulare le due funzioni di recourse $Q_1(x)$ e $Q_2(x)$.
+
+\item Determinare le decisioni ottime di secondo stadio nei due scenari.
+
+\item Calcolare
+
+\[
+Q_1(x),
+\qquad
+Q_2(x)
+\]
+
+e il valore atteso della recourse.
+
+\item Se il contributo economico di primo stadio \`e
+
+\[
+c'x
+=
+x_1+2x_2,
+\]
+
+calcolare il valore complessivo della decisione assegnata.
+
+\end{enumerate}
+
+\end{exercise}
+
+\noindent
+\textbf{Soluzione.}
+
+\begin{enumerate}
+
+\item Nel primo scenario la funzione di recourse \`e
+
+\[
+Q_1(x)
+=
+\max_{g_1,u_1\geq0}
+\left\{
+-u_1:
+a_1'x+u_1=8+g_1
+\right\}.
+\]
+
+Nel secondo scenario,
+
+\[
+Q_2(x)
+=
+\max_{g_2,u_2\geq0}
+\left\{
+-4u_2:
+a_2'x+u_2=8+g_2
+\right\}.
+\]
+
+\item Nello scenario 1, la liquidit\`a prodotta dall'allocazione iniziale \`e
+
+\[
+a_1'x
+=
+4+0.8(6)
+=
+8.8.
+\]
+
+Il fabbisogno \`e pari a $8$, quindi non occorre funding:
+
+\[
+u_1^*=0.
+\]
+
+La liquidit\`a residua \`e
+
+\[
+g_1^*
+=
+8.8-8
+=
+0.8.
+\]
+
+Nello scenario 2 si ha invece
+
+\[
+a_2'x
+=
+4+0.3(6)
+=
+5.8.
+\]
+
+Per soddisfare il fabbisogno occorre quindi raccogliere
+
+\[
+u_2^*
+=
+8-5.8
+=
+2.2,
+\]
+
+senza lasciare liquidit\`a residua:
+
+\[
+g_2^*=0.
+\]
+
+\item Nel primo scenario,
+
+\[
+Q_1(x)
+=
+-u_1^*
+=
+0.
+\]
+
+Nel secondo,
+
+\[
+Q_2(x)
+=
+-4u_2^*
+=
+-4(2.2)
+=
+-8.8.
+\]
+
+Il valore atteso della recourse \`e pertanto
+
+\[
+\sum_{s\in\mathcal S}p_sQ_s(x)
+=
+0.8(0)+0.2(-8.8)
+=
+-1.76.
+\]
+
+\item Il contributo di primo stadio \`e
+
+\[
+c'x
+=
+4+2(6)
+=
+16.
+\]
+
+Il valore complessivo della decisione \`e quindi
+
+\[
+c'x
++
+\sum_{s\in\mathcal S}p_sQ_s(x)
+=
+16-1.76
+=
+14.24.
+\]
+
+\end{enumerate}
+
+L'esercizio mostra perch\`e il valore di una decisione di primo stadio non
+pu\`o essere valutato considerando soltanto il contributo $c'x$. La stessa
+allocazione pu\`o produrre conseguenze molto diverse nei diversi scenari, e la
+funzione di recourse traduce tali conseguenze in un valore economico
+scenario-specifico.
+
+
+\begin{exercise}[Forma estesa e non anticipativit\`a]
+
+\label{ex:cap14-forma-estesa-nonanticipativita}
+
+Si consideri un programma stocastico a due stadi con due scenari,
+
+\[
+\mathcal S=\{1,2\},
+\qquad
+p_1=0.6,
+\qquad
+p_2=0.4.
+\]
+
+La decisione iniziale \`e
+
+\[
+x=
+\begin{pmatrix}
+x_1\\
+x_2
+\end{pmatrix},
+\]
+
+con
+
+\[
+x_1+x_2=10,
+\qquad
+x_1,x_2\geq0.
+\]
+
+Il contributo economico di primo stadio \`e
+
+\[
+c'x
+=
+x_1+1.5x_2.
+\]
+
+In ciascuno scenario vengono introdotte le decisioni di recourse
+
+\[
+y_s=
+\begin{pmatrix}
+g_s\\
+u_s
+\end{pmatrix},
+\qquad
+g_s,u_s\geq0.
+\]
+
+I bilanci di liquidit\`a sono
+
+\[
+x_1+0.9x_2+u_1
+=
+7+g_1
+\]
+
+nello scenario 1 e
+
+\[
+x_1+0.4x_2+u_2
+=
+7+g_2
+\]
+
+nello scenario 2.
+
+Il funding ha costo unitario pari a $1$ nel primo scenario e a $3$ nel
+secondo.
+
+\begin{enumerate}
+
+\item Scrivere la forma estesa del programma stocastico.
+
+\item Individuare quali variabili sono comuni ai due scenari e quali sono
+scenario-specifiche.
+
+\item Spiegare perch\`e una formulazione che introducesse due decisioni
+iniziali indipendenti
+
+\[
+x^{(1)}
+\qquad\text{e}\qquad
+x^{(2)}
+\]
+
+non rappresenterebbe correttamente il problema a due stadi.
+
+\item Mostrare come sarebbe possibile utilizzare copie scenario-specifiche
+della decisione iniziale mantenendo tuttavia la non anticipativit\`a.
+
+\end{enumerate}
+
+\end{exercise}
+
+\noindent
+\textbf{Soluzione.}
+
+\begin{enumerate}
+
+\item Il problema contiene una sola decisione di primo stadio e due coppie
+di variabili di recourse. La forma estesa \`e
+
+\[
+\begin{array}{ll}
+\max\limits_{x_1,x_2,g_1,g_2,u_1,u_2}
+&
+\displaystyle
+x_1+1.5x_2
++
+0.6(-u_1)
++
+0.4(-3u_2)
+\\[8pt]
+
+\mbox{soggetto a}
+&
+x_1+x_2=10,
+\\[6pt]
+
+&
+x_1+0.9x_2+u_1-g_1=7,
+\\[6pt]
+
+&
+x_1+0.4x_2+u_2-g_2=7,
+\\[6pt]
+
+&
+x_1,x_2,g_1,g_2,u_1,u_2\geq0.
+\end{array}
+\]
+
+La funzione obiettivo pu\`o essere scritta anche come
+
+\[
+\max\;
+x_1+1.5x_2
+-
+0.6u_1
+-
+1.2u_2.
+\]
+
+\item Le variabili
+
+\[
+x_1,\qquad x_2
+\]
+
+sono decisioni di primo stadio e sono quindi comuni ai due scenari.
+
+Le variabili
+
+\[
+g_1,u_1
+\]
+
+appartengono esclusivamente allo scenario 1, mentre
+
+\[
+g_2,u_2
+\]
+
+appartengono esclusivamente allo scenario 2.
+
+La struttura \`e quindi
+
+\[
+x
+\quad\longrightarrow\quad
+\begin{cases}
+y_1, & \text{scenario 1},\\
+y_2, & \text{scenario 2}.
+\end{cases}
+\]
+
+\item Se si introducessero due vettori iniziali indipendenti
+
+\[
+x^{(1)}
+\qquad\text{e}\qquad
+x^{(2)},
+\]
+
+il modello potrebbe scegliere una diversa allocazione iniziale a seconda dello
+scenario che successivamente si realizzer\`a.
+
+Ci\`o significherebbe utilizzare al primo stadio un'informazione che diventa
+disponibile soltanto al secondo stadio. La formulazione violerebbe quindi il
+principio di non anticipativit\`a.
+
+La decisione iniziale deve essere assunta prima di conoscere lo scenario e
+deve pertanto essere unica:
+
+\[
+x^{(1)}
+=
+x^{(2)}
+=
+x.
+\]
+
+\item Una formulazione equivalente pu\`o introdurre formalmente due copie
+
+\[
+x^{(1)},
+\qquad
+x^{(2)},
+\]
+
+purch\`e venga imposto il vincolo di non anticipativit\`a
+
+\[
+x^{(1)}
+=
+x^{(2)}.
+\]
+
+In questo caso le due copie non rappresentano decisioni economicamente
+distinte. Il vincolo impedisce al modello di adattare retroattivamente la
+decisione iniziale allo scenario futuro.
+
+Nel problema a due stadi \`e per questo pi\`u semplice utilizzare direttamente
+un unico vettore $x$ comune a tutti gli scenari.
+
+\end{enumerate}
+
+La forma estesa rende quindi visibile la struttura informativa del problema:
+i vincoli e le decisioni di recourse vengono replicati scenario per scenario,
+mentre la decisione di primo stadio rimane comune a tutte le possibili
+realizzazioni dell'incertezza.
+
+\section{Esercizi proposti}
+
+\label{sec:cap14-esercizi-proposti}
+
+Gli esercizi seguenti riprendono i principali passaggi del capitolo senza
+fornire lo svolgimento. L'obiettivo \`e verificare la capacit\`a di passare
+dalla rappresentazione dell'incertezza alla formulazione di un programma
+stocastico a due stadi, distinguendo correttamente scenari, decisioni di
+primo stadio, recourse e vincoli di non anticipativit\`a.
+
+\begin{exercise}[Probabilit\`a di scenari generati da una catena di Markov]
+
+\label{ex:cap14-proposto-markov}
+
+Si consideri una catena di Markov con spazio degli stati
+
+\[
+\mathcal I=\{z_1,z_2,z_3\}
+\]
+
+e matrice di transizione
+
+\[
+P=
+\begin{pmatrix}
+0.5 & 0.3 & 0.2\\
+0.2 & 0.6 & 0.2\\
+0.1 & 0.4 & 0.5
+\end{pmatrix}.
+\]
+
+Lo stato iniziale \`e
+
+\[
+Z_0=z_2.
+\]
+
+Si consideri un orizzonte di tre periodi.
+
+\begin{enumerate}
+
+\item Calcolare la probabilit\`a dello scenario
+
+\[
+\xi_s=(z_1,z_2,z_3).
+\]
+
+\item Calcolare la probabilit\`a dello scenario
+
+\[
+\xi_{s'}=(z_3,z_3,z_2).
+\]
+
+\item Determinare la probabilit\`a
+
+\[
+\Prob(Z_3=z_3\mid Z_0=z_2)
+\]
+
+utilizzando la matrice $P^3$.
+
+\item Spiegare perch\`e la probabilit\`a ottenuta al punto precedente non
+coincide, in generale, con la probabilit\`a di uno specifico scenario che
+termina in $z_3$.
+
+\end{enumerate}
+
+\end{exercise}
+
+
+\begin{exercise}[Recourse con due scenari]
+
+\label{ex:cap14-proposto-recourse}
+
+Un intermediario assume al primo stadio la decisione
+
+\[
+x=
+\begin{pmatrix}
+5\\
+5
+\end{pmatrix}.
+\]
+
+Il fabbisogno futuro di liquidit\`a \`e
+
+\[
+d=7.
+\]
+
+Sono possibili due scenari,
+
+\[
+\mathcal S=\{1,2\},
+\qquad
+p_1=0.7,
+\qquad
+p_2=0.3.
+\]
+
+I coefficienti di liquidit\`a sono
+
+\[
+a_1'
+=
+(1,\;0.9)
+\]
+
+nello scenario 1 e
+
+\[
+a_2'
+=
+(1,\;0.4)
+\]
+
+nello scenario 2.
+
+Dopo l'osservazione dello scenario possono essere utilizzate una giacenza
+$g_s\geq0$ e una quantit\`a di funding $u_s\geq0$, con bilancio
+
+\[
+a_s'x+u_s
+=
+d+g_s.
+\]
+
+Il costo unitario del funding \`e pari a $1$ nello scenario 1 e a $5$ nello
+scenario 2.
+
+\begin{enumerate}
+
+\item Scrivere $Q_1(x)$ e $Q_2(x)$.
+
+\item Determinare $g_s^*$ e $u_s^*$ nei due scenari.
+
+\item Calcolare
+
+\[
+Q_1(x),
+\qquad
+Q_2(x)
+\]
+
+e
+
+\[
+\sum_{s\in\mathcal S}p_sQ_s(x).
+\]
+
+\item Interpretare economicamente la differenza tra i valori delle due
+funzioni di recourse.
+
+\end{enumerate}
+
+\end{exercise}
+
+
+\begin{exercise}[Scelta ottima e probabilit\`a dello scenario avverso]
+
+\label{ex:cap14-proposto-probabilita-avversa}
+
+Un intermediario dispone di risorse iniziali pari a
+
+\[
+A_0=10
+\]
+
+e sceglie
+
+\[
+x_1+x_2=10,
+\qquad
+x_1,x_2\geq0.
+\]
+
+Il contributo economico di primo stadio \`e
+
+\[
+c'x
+=
+x_1+2x_2.
+\]
+
+Sono possibili due scenari. Nel primo scenario il secondo attivo produce
+liquidit\`a con coefficiente $0.8$, mentre nel secondo il coefficiente \`e
+$0.2$. Il primo attivo produce sempre una unit\`a di liquidit\`a per unit\`a
+investita.
+
+Il fabbisogno \`e
+
+\[
+d=6.
+\]
+
+Nel primo scenario il costo unitario del funding \`e pari a $1$, mentre nel
+secondo \`e pari a $6$.
+
+Indichiamo con
+
+\[
+p
+\]
+
+la probabilit\`a dello scenario avverso.
+
+\begin{enumerate}
+
+\item Determinare le funzioni di recourse dei due scenari come funzioni di
+$x_2$.
+
+\item Scrivere la funzione obiettivo complessiva come funzione di $x_2$ e di
+$p$.
+
+\item Determinare per quali valori di $p$ l'allocazione
+
+\[
+x_2=10
+\]
+
+\`e preferibile all'allocazione
+
+\[
+x_2=5.
+\]
+
+\item Interpretare il risultato in termini di compromesso tra maggiore
+redditivit\`a iniziale e costo atteso della recourse.
+
+\end{enumerate}
+
+\end{exercise}
+
+
+\begin{exercise}[Limite alla capacit\`a di funding]
+
+\label{ex:cap14-proposto-limite-funding}
+
+Si consideri la decisione di primo stadio
+
+\[
+x=
+\begin{pmatrix}
+3\\
+7
+\end{pmatrix}
+\]
+
+e uno scenario avverso nel quale il vettore dei coefficienti di liquidit\`a
+\`e
+
+\[
+a'
+=
+(1,\;0.25).
+\]
+
+Il fabbisogno \`e
+
+\[
+d=6.
+\]
+
+La recourse utilizza le variabili
+
+\[
+g\geq0,
+\qquad
+0\leq u\leq\bar u,
+\]
+
+con vincolo
+
+\[
+a'x+u
+=
+d+g.
+\]
+
+\begin{enumerate}
+
+\item Determinare il funding minimo necessario per rendere ammissibile la
+decisione assegnata.
+
+\item Stabilire se il problema di secondo stadio \`e ammissibile per
+
+\[
+\bar u=2.
+\]
+
+\item Ripetere l'analisi per
+
+\[
+\bar u=1.
+\]
+
+\item Spiegare come il limite alla capacit\`a di funding modifica il
+significato della funzione di recourse.
+
+\end{enumerate}
+
+\end{exercise}
+
+
+\begin{exercise}[Forma estesa a tre scenari]
+
+\label{ex:cap14-proposto-forma-estesa}
+
+Si consideri un programma stocastico a due stadi con
+
+\[
+\mathcal S=\{1,2,3\}
+\]
+
+e probabilit\`a
+
+\[
+p_1=0.5,
+\qquad
+p_2=0.3,
+\qquad
+p_3=0.2.
+\]
+
+La decisione di primo stadio \`e
+
+\[
+x=
+\begin{pmatrix}
+x_1\\
+x_2
+\end{pmatrix},
+\]
+
+con
+
+\[
+x_1+x_2=12,
+\qquad
+x_1,x_2\geq0.
+\]
+
+Il contributo economico di primo stadio \`e
+
+\[
+c'x
+=
+1.2x_1+1.8x_2.
+\]
+
+Per ogni scenario $s$ sono disponibili le variabili di recourse
+
+\[
+y_s=
+\begin{pmatrix}
+g_s\\
+u_s
+\end{pmatrix},
+\qquad
+g_s,u_s\geq0.
+\]
+
+I vincoli di secondo stadio sono
+
+\[
+x_1+0.9x_2+u_1-g_1=8,
+\]
+
+\[
+x_1+0.6x_2+u_2-g_2=8,
+\]
+
+\[
+x_1+0.3x_2+u_3-g_3=8.
+\]
+
+I costi unitari del funding sono rispettivamente
+
+\[
+1,
+\qquad
+2,
+\qquad
+5.
+\]
+
+\begin{enumerate}
+
+\item Scrivere la forma estesa completa del problema.
+
+\item Identificare le variabili di primo e di secondo stadio.
+
+\item Scrivere la struttura matriciale a blocchi dei vincoli di secondo
+stadio.
+
+\item Spiegare perch\`e il vettore $x$ compare in tutti i blocchi mentre
+ciascun $y_s$ compare in uno solo.
+
+\end{enumerate}
+
+\end{exercise}
+
+
+\begin{exercise}[Non anticipativit\`a]
+
+\label{ex:cap14-proposto-nonanticipativita}
+
+Un modello a due stadi viene scritto introducendo tre copie della decisione
+iniziale,
+
+\[
+x^{(1)},
+\qquad
+x^{(2)},
+\qquad
+x^{(3)},
+\]
+
+una per ciascuno dei tre scenari.
+
+\begin{enumerate}
+
+\item Spiegare perch\`e lasciare libere le tre copie produce una formulazione
+non corretta del problema stocastico.
+
+\item Scrivere un insieme di vincoli di non anticipativit\`a che renda
+equivalenti le tre decisioni.
+
+\item Mostrare come la stessa formulazione possa essere riscritta utilizzando
+direttamente un unico vettore $x$.
+
+\item Spiegare perch\`e, invece, non deve essere imposto in generale
+
+\[
+y_1=y_2=y_3.
+\]
+
+\end{enumerate}
+
+\end{exercise}
+
+\section{Sintesi finale}
+
+\label{sec:cap14-sintesi-finale}
+
+Il capitolo ha introdotto la programmazione stocastica a due stadi come
+estensione naturale dei problemi di ottimizzazione deterministica sviluppati
+nei capitoli precedenti.
+
+Nel modello deterministico, i coefficienti futuri sono considerati noti al
+momento della decisione. Nel problema stocastico, invece, la decisione iniziale
+deve essere assunta prima di conoscere quale scenario si realizzer\`a.
+
+Il primo passaggio concettuale \`e quindi
+
+\[
+\text{un unico futuro noto}
+\qquad\longrightarrow\qquad
+\text{pi\`u futuri possibili}.
+\]
+
+L'incertezza viene rappresentata mediante un vettore casuale $\xi$ e,
+nel caso discreto, attraverso un insieme finito di scenari
+
+\[
+s\in\mathcal S,
+\]
+
+ciascuno caratterizzato da una realizzazione $\xi_s$ e da una probabilit\`a
+$p_s$.
+
+Quando gli scenari derivano da una dinamica Markoviana, la probabilit\`a di
+una traiettoria completa si ottiene moltiplicando le probabilit\`a delle
+transizioni che la compongono. Questo passaggio permette di collegare
+direttamente la teoria delle catene di Markov alla costruzione degli scenari
+utilizzati nel problema di ottimizzazione.
+
+Una volta fissata la decisione di primo stadio $x$, ciascuno scenario genera
+un problema di secondo stadio. Il suo valore ottimo \`e descritto dalla
+funzione di recourse
+
+\[
+Q(x,\xi_s).
+\]
+
+La recourse misura quindi il valore della migliore risposta disponibile dopo
+che l'incertezza si \`e realizzata, mantenendo fissa la decisione assunta prima
+dell'osservazione dello scenario.
+
+Nel caso lineare, il problema di secondo stadio pu\`o essere scritto nella
+forma
+
+\[
+Q_s(x)
+=
+\max_{y_s\in\mathcal X_s}
+\left\{
+q_s'y_s:
+T_sx+W_sy_s=h_s
+\right\}.
+\]
+
+La decisione $x$ influenza quindi tutti gli scenari, mentre il vettore $y_s$
+pu\`o adattarsi alla specifica realizzazione osservata.
+
+Con un insieme finito di scenari, il programma stocastico a due stadi assume
+la forma
+
+\[
+\max_{x\in\mathcal X}
+\left\{
+c'x
++
+\sum_{s\in\mathcal S}
+p_sQ_s(x)
+\right\}.
+\]
+
+La funzione obiettivo combina due componenti:
+
+\[
+\text{valore della decisione iniziale}
+\qquad+\qquad
+\text{valore atteso della recourse}.
+\]
+
+La scelta ottima non deve quindi massimizzare soltanto il risultato immediato.
+Deve considerare anche le conseguenze che quella stessa decisione produce nei
+diversi scenari futuri.
+
+Nel caso ALM sviluppato nel capitolo, questo principio significa scegliere
+oggi la composizione dell'attivo tenendo conto dei possibili cash flow,
+fabbisogni, costi di funding e limiti operativi che potranno manifestarsi
+successivamente.
+
+La formulazione a scenari finiti pu\`o infine essere riscritta come un unico
+programma lineare deterministico, la \emph{forma estesa}. La sua struttura
+contiene una sola decisione di primo stadio e un blocco di variabili e vincoli
+di secondo stadio per ciascuno scenario.
+
+La struttura fondamentale \`e
+
+\[
+\begin{aligned}
+&\text{un unico }x
+\\
+&\qquad\downarrow
+\\
+&\{y_s,\;T_sx+W_sy_s=h_s\}_{s\in\mathcal S}.
+\end{aligned}
+\]
+
+Questa rappresentazione rende evidente il principio di non anticipativit\`a:
+la decisione $x$, assunta prima dell'osservazione dello scenario, deve essere
+la stessa in tutte le possibili realizzazioni; le decisioni $y_s$, assunte
+dopo l'osservazione, possono invece differire da scenario a scenario.
+
+Il percorso complessivo del capitolo pu\`o quindi essere sintetizzato come
+
+\[
+\begin{aligned}
+&\text{modello probabilistico}
+\longrightarrow
+\text{scenari}
+\longrightarrow
+\text{recourse}
+\\
+&\hspace{2.0cm}
+\longrightarrow
+\text{programma stocastico}
+\longrightarrow
+\text{forma estesa}.
+\end{aligned}
+\]
+
+Il risultato centrale non consiste soltanto nell'avere introdotto una nuova
+formulazione matematica. Il cambiamento riguarda il modo stesso di descrivere
+la decisione: non si cerca pi\`u un piano ottimo per un futuro considerato
+noto, ma una decisione iniziale che tenga conto delle diverse evoluzioni
+possibili e delle azioni correttive che potranno essere adottate dopo
+l'osservazione dell'incertezza.
+
+Il capitolo ha mantenuto deliberatamente una struttura a due stadi. Le
+traiettorie possono contenere pi\`u date e pi\`u stati dell'ambiente
+economico-finanziario, ma l'informazione viene utilizzata secondo due soli
+momenti decisionali: una decisione iniziale comune e una decisione di
+recourse successiva.
+
+Il passo successivo consiste nell'abbandonare questa separazione in due soli
+stadi e permettere che nuove decisioni vengano assunte progressivamente,
+man mano che l'informazione si rende disponibile. In quel caso diventeranno
+centrali la storia osservata, i nodi informativi e i vincoli di
+non anticipativit\`a tra scenari che condividono la stessa informazione fino a
+una determinata data.
+
+
 
