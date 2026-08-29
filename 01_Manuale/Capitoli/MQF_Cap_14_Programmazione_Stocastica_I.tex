@@ -42,7 +42,7 @@ successivamente ricondotti al problema SVB--ALM.
 In particolare, il capitolo svilupper\`a la rappresentazione dell'incertezza
 mediante scenari, la costruzione degli scenari a partire da un modello
 probabilistico, la distinzione tra decisioni di primo e di secondo stadio, la
-funzione di recourse, la formulazione lineare a due stadi e la corrispondente
+funzione di ricorso, la formulazione lineare a due stadi e la corrispondente
 forma estesa. Nel caso guida, la generazione degli scenari permetter\`a inoltre
 di raccordare la programmazione stocastica alle catene di Markov introdotte
 nei capitoli precedenti.
@@ -62,7 +62,7 @@ decisionale sotto incertezza;
 \item distinguere periodi temporali e stadi decisionali;
 
 \item identificare decisioni di primo stadio, dati aleatori e decisioni di
-recourse;
+ricorso;
 
 \item rappresentare una distribuzione discreta dell'incertezza mediante
 scenari e relative probabilit\`a;
@@ -70,7 +70,7 @@ scenari e relative probabilit\`a;
 \item comprendere come un modello probabilistico discreto possa generare gli
 scenari utilizzati nel problema di ottimizzazione;
 
-\item definire e interpretare la funzione di recourse;
+\item definire e interpretare la funzione di ricorso;
 
 \item formulare un problema lineare stocastico a due stadi;
 
@@ -202,7 +202,7 @@ rispetto alle decisioni.
 Nel modello a due stadi, la decisione di primo stadio viene assunta prima di
 conoscere la realizzazione di $\xi$. Dopo che tale realizzazione \`e stata
 osservata, viene assunta la decisione di secondo stadio, o decisione di
-\emph{recourse}.
+\emph{ricorso}.
 
 La struttura informativa caratteristica del modello \`e quindi
 
@@ -219,7 +219,7 @@ La struttura informativa essenziale del problema a due stadi \`e
 rappresentata nella Figura~\ref{fig:cap14-struttura-two-stage}. La
 decisione $x$ viene assunta prima che l'incertezza si realizzi; dopo
 l'osservazione di $\xi$ diventa invece possibile scegliere la decisione
-di recourse $y(x,\xi)$.
+di ricorso $y(x,\xi)$.
 
 \begin{figure}[h]
 \centering
@@ -227,7 +227,7 @@ di recourse $y(x,\xi)$.
 {../graphics/Cap14_struttura_two_stage.png}
 \caption{Struttura informativa di un problema di programmazione
 stocastica a due stadi. La decisione di primo stadio precede la
-rivelazione dell'incertezza; la decisione di recourse viene assunta
+rivelazione dell'incertezza; la decisione di ricorso viene assunta
 successivamente, conoscendo la realizzazione di $\xi$.}
 \label{fig:cap14-struttura-two-stage}
 \end{figure}
@@ -244,7 +244,7 @@ di secondo stadio pu\`o dipendere sia dai dati osservati sia dalla scelta
 iniziale gi\`a effettuata. Per questo motivo viene indicata con
 $y(x,\xi)$.
 
-La dipendenza da $x$ \`e sostanziale. Il recourse non permette di annullare
+La dipendenza da $x$ \`e sostanziale. Il ricorso non permette di annullare
 la decisione iniziale e ricominciare il problema dopo avere osservato
 l'incertezza: permette invece di reagire alle condizioni osservate
 all'interno delle possibilit\`a lasciate aperte dalla scelta effettuata al
@@ -263,7 +263,7 @@ Se il vettore $\xi$ raccoglie dati relativi a pi\`u date future, il modello
 a due stadi assume che l'intera realizzazione rilevante di $\xi$ sia nota
 prima della scelta di $y(x,\xi)$. L'informazione futura non viene quindi
 rivelata progressivamente all'interno del secondo stadio: i diversi periodi
-fisici contenuti nel recourse condividono lo stesso livello informativo.
+fisici contenuti nel ricorso condividono lo stesso livello informativo.
 
 Questa ipotesi permette di mantenere distinti due concetti:
 
@@ -319,7 +319,7 @@ u_3
 \end{equation}
 
 Nel modello a due stadi, quando vengono determinate le componenti del
-vettore di recourse nella
+vettore di ricorso nella
 \eqref{eq:cap14-svb-struttura-two-stage}, l'intera realizzazione di $\xi$
 rilevante per le quattro date future \`e considerata nota. Di conseguenza,
 anche una decisione riferita alla prima data futura pu\`o dipendere dai dati
@@ -728,7 +728,7 @@ rappresentazione della legge probabilistica del processo. I livelli
 $t=1,\ldots,4$ descrivono l'evoluzione possibile degli stati nel tempo,
 ma non introducono ulteriori stadi decisionali. Nel modello a due stadi
 l'intera traiettoria costituisce una singola realizzazione
-dell'incertezza osservata prima della decisione di recourse.
+dell'incertezza osservata prima della decisione di ricorso.
 
 La probabilit\`a associata a una traiettoria si ottiene applicando la
 regola del prodotto delle probabilit\`a condizionate. Per lo scenario
@@ -828,11 +828,11 @@ La costruzione degli scenari completa la descrizione probabilistica del
 problema. Il passo successivo consiste nel determinare, fissata la
 decisione iniziale $x$ e osservato lo scenario $\xi_s$, quali decisioni
 di secondo stadio risultino ammissibili e quale valore economico esse
-generino. Questo conduce alla funzione di recourse.
+generino. Questo conduce alla funzione di ricorso.
 
-\section{La funzione di recourse}
+\section{La funzione di ricorso}
 
-\label{sec:cap14-recourse}
+\label{sec:cap14-ricorso}
 
 Nel problema a due stadi, la decisione $x$ viene scelta prima che
 l'incertezza sia osservata. Dopo la realizzazione di $\xi$, il decisore
@@ -842,7 +842,7 @@ Per ogni realizzazione $\xi$, i vincoli del problema di secondo stadio individua
 \[
 \mathcal X(\xi).
 \]
-Una decisione di recourse $y$ \`e ammissibile per la realizzazione $\xi$
+Una decisione di ricorso $y$ \`e ammissibile per la realizzazione $\xi$
 se
 \[
 y\in\mathcal X(\xi).
@@ -859,15 +859,15 @@ Q(x,\xi)
 q(\xi)'y:
 T(\xi)x+W(\xi)y=h(\xi)
 \right\}.
-\label{eq:cap14-funzione-recourse-generale}
+\label{eq:cap14-funzione-ricorso-generale}
 \end{equation}
 
-La quantit\`a $Q(x,\xi)$ prende il nome di \emph{funzione di recourse}.
+La quantit\`a $Q(x,\xi)$ prende il nome di \emph{funzione di ricorso}.
 Essa associa alla decisione iniziale $x$ e alla realizzazione
 dell'incertezza $\xi$ il valore ottimo del problema di secondo stadio.
 
 La relazione
-\eqref{eq:cap14-funzione-recourse-generale} contiene cinque oggetti
+\eqref{eq:cap14-funzione-ricorso-generale} contiene cinque oggetti
 distinti.
 
 Il vettore
@@ -883,7 +883,7 @@ secondo stadio. Il prodotto
 q(\xi)'y
 \]
 
-misura quindi il contributo economico della recourse nella realizzazione
+misura quindi il contributo economico del ricorso nella realizzazione
 $\xi$.
 
 La matrice
@@ -908,7 +908,7 @@ La matrice
 W(\xi)
 \]
 
-raccoglie invece i coefficienti delle variabili di recourse. Il prodotto
+raccoglie invece i coefficienti delle variabili di ricorso. Il prodotto
 
 \[
 W(\xi)y
@@ -940,7 +940,7 @@ La struttura del problema pu\`o quindi essere letta come
 \[
 \underbrace{T(\xi)x}_{\text{effetto della decisione iniziale}}
 +
-\underbrace{W(\xi)y}_{\text{effetto della recourse}}
+\underbrace{W(\xi)y}_{\text{effetto del ricorso}}
 =
 \underbrace{h(\xi)}_{\text{termine noto}},
 \]
@@ -959,7 +959,7 @@ economici: fornisce una rappresentazione matriciale generale dei
 coefficienti che, nelle singole applicazioni, assumono significati
 specifici.
 
-\begin{definition}[Funzione di recourse]
+\begin{definition}[Funzione di ricorso]
 Fissata una decisione di primo stadio $x$ e osservata una realizzazione
 $\xi$ dell'incertezza, si considera il problema di secondo stadio
 
@@ -971,7 +971,7 @@ T(\xi)x+W(\xi)y=h(\xi)
 \right\}.
 \]
 
-Si definisce \emph{funzione di recourse} la funzione
+Si definisce \emph{funzione di ricorso} la funzione
 
 \[
 Q:X\times\Xi\longrightarrow\R\cup\{-\infty,+\infty\}
@@ -988,7 +988,7 @@ Q(x,\xi)
 q(\xi)'y:
 T(\xi)x+W(\xi)y=h(\xi)
 \right\}.
-\label{eq:cap14-definizione-formale-recourse}
+\label{eq:cap14-definizione-formale-ricorso}
 \end{equation}
 
 Pertanto $Q(x,\xi)$ non \`e una decisione, ma il valore ottimo ottenibile
@@ -1005,14 +1005,14 @@ La regione ammissibile di secondo stadio nello scenario $s$ \`e quindi
 \mathcal X(\xi_s).
 \]
 
-Pertanto una decisione di recourse $y_s$ \`e ammissibile nello scenario
+Pertanto una decisione di ricorso $y_s$ \`e ammissibile nello scenario
 $s$ se
 
 \[
 y_s\in\mathcal X_s.
 \]
 
-La funzione di recourse diventa quindi
+La funzione di ricorso diventa quindi
 
 \begin{equation}
 Q_s(x)
@@ -1024,7 +1024,7 @@ Q(x,\xi_s)
 q_s'y_s:
 T_sx+W_sy_s=h_s
 \right\},
-\label{eq:cap14-recourse-scenario}
+\label{eq:cap14-ricorso-scenario}
 \end{equation}
 
 dove
@@ -1050,7 +1050,7 @@ Se il massimo viene raggiunto, indichiamo con
 y_s^*(x)
 \]
 
-una soluzione ottima del problema di recourse nello scenario $s$.
+una soluzione ottima del problema di ricorso nello scenario $s$.
 Occorre quindi distinguere:
 
 \[
@@ -1074,7 +1074,7 @@ come valore ottimo prodotto da tale decisione.
 \subsection{Identificazione dei coefficienti nel caso SVB--ALM}
 
 Nel caso SVB--ALM la forma generale
-\eqref{eq:cap14-recourse-scenario} pu\`o essere ricondotta direttamente
+\eqref{eq:cap14-ricorso-scenario} pu\`o essere ricondotta direttamente
 alla notazione gi\`a introdotta nel Capitolo~12.
 
 La decisione di primo stadio \`e
@@ -1089,7 +1089,7 @@ x_4
 \end{pmatrix},
 \]
 
-mentre il vettore di recourse nello scenario $s$ \`e
+mentre il vettore di ricorso nello scenario $s$ \`e
 
 \[
 y_s=
@@ -1185,7 +1185,7 @@ T_sx+W_sy_s=h_s
 
 riproduce esattamente i quattro bilanci di liquidit\`a dello scenario.
 
-Infine, i coefficienti economici della recourse sono raccolti nel
+Infine, i coefficienti economici del ricorso sono raccolti nel
 vettore
 
 \[
@@ -1253,14 +1253,14 @@ che indichiamo con
 [0,\bar u_3^s].
 \]
 
-Una decisione di recourse $y_s$ \`e quindi ammissibile nello scenario $s$
+Una decisione di ricorso $y_s$ \`e quindi ammissibile nello scenario $s$
 se e solo se
 
 \[
 y_s\in\mathcal X_s.
 \]
 
-Nel caso SVB--ALM, la funzione di recourse assume pertanto la forma
+Nel caso SVB--ALM, la funzione di ricorso assume pertanto la forma
 
 \[
 Q_s(x)
@@ -1280,12 +1280,11 @@ T_s & = & A^{CF,s},\\[0.1cm]
 h_s & = & (d_1^s,d_2^s,d_3^s,d_4^s)',\\[0.1cm]
 W_s & = & \text{matrice dei bilanci intertemporali},\\[0.1cm]
 q_s & = & \text{coefficienti economici di liquidit\`a e funding},\\[0.1cm]
-Y_s & = & \text{vincoli operativi sulle variabili di recourse}.
+Y_s & = & \text{vincoli operativi sulle variabili di ricorso}.
 \end{array}
 \]
 
-Il caso SVB--ALM mostra quindi come la formulazione generale della
-recourse non introduca un secondo linguaggio matematico, ma raccolga in
+Il caso SVB--ALM mostra quindi come la formulazione generale del ricorso non introduca un secondo linguaggio matematico, ma raccolga in
 forma compatta gli stessi coefficienti e vincoli gi\`a presenti nel
 modello finanziario.
 
@@ -1297,7 +1296,7 @@ possibili risposte di secondo stadio.
 
 \label{sec:cap14-programma-due-stadi}
 
-La funzione di recourse introdotta nella Sezione~\ref{sec:cap14-recourse}
+La funzione di ricorso introdotta nella Sezione~\ref{sec:cap14-ricorso}
 descrive il miglior risultato ottenibile nel secondo stadio quando la
 decisione iniziale $x$ \`e gi\`a stata assunta e l'incertezza $\xi$ \`e stata
 osservata.
@@ -1305,8 +1304,7 @@ osservata.
 Il problema decisionale complessivo richiede invece di scegliere $x$ prima
 di conoscere quale realizzazione dell'incertezza si verificher\`a. La
 decisione di primo stadio deve pertanto essere valutata considerando
-congiuntamente il suo risultato immediato e i possibili valori futuri della
-recourse.
+congiuntamente il suo risultato immediato e i possibili valori futuri del ricorso.
 
 \begin{definition}[Programma stocastico lineare a due stadi]
 Sia $x\in\mathcal X$ la decisione di primo stadio e sia
@@ -1315,7 +1313,7 @@ Sia $x\in\mathcal X$ la decisione di primo stadio e sia
 Q(x,\xi)
 \]
 
-la funzione di recourse associata alla realizzazione $\xi$. Un programma
+la funzione di ricorso associata alla realizzazione $\xi$. Un programma
 stocastico lineare a due stadi di massimizzazione ha la forma
 
 \begin{equation}
@@ -1346,7 +1344,7 @@ La formulazione
 \eqref{eq:cap14-programma-stocastico-generale} mette in evidenza il principio
 fondamentale del problema a due stadi. Per ogni possibile scelta $x$, il
 decisore non considera una sola conseguenza futura, ma l'intera distribuzione
-dei valori di recourse generati dalle diverse realizzazioni
+dei valori di ricorso generati dalle diverse realizzazioni
 dell'incertezza.
 
 Il problema pu\`o essere letto attraverso la sequenza
@@ -1386,7 +1384,7 @@ Per ogni scenario $s$,
 Q_s(x)=Q(x,\xi_s).
 \]
 
-Il valore atteso della recourse diventa quindi
+Il valore atteso del ricorso diventa quindi
 
 \[
 \E[Q(x,\xi)]
@@ -1405,7 +1403,7 @@ c'x+
 \label{eq:cap14-programma-stocastico-scenari}
 \end{equation}
 
-La probabilit\`a $p_s$ non modifica il problema di recourse dello scenario
+La probabilit\`a $p_s$ non modifica il problema di ricorso dello scenario
 $s$: essa determina il peso con cui il relativo valore ottimo entra nella
 decisione di primo stadio.
 
@@ -1422,7 +1420,7 @@ T_sx+W_sy_s=h_s
 \]
 
 il programma stocastico pu\`o essere scritto esplicitando una decisione di
-recourse per ciascuno scenario:
+ricorso per ciascuno scenario:
 
 \begin{equation}
 \begin{aligned}
@@ -1457,7 +1455,7 @@ stadi:
 \boxed{
 \text{un'unica decisione }x
 \quad\text{e}\quad
-\text{una decisione di recourse }y_s\text{ per ogni scenario}.
+\text{una decisione di ricorso }y_s\text{ per ogni scenario}.
 }
 \]
 
@@ -1470,7 +1468,7 @@ x=
 (x_1,x_2,x_3,x_4)',
 \]
 
-mentre ogni scenario possiede il proprio vettore di recourse
+mentre ogni scenario possiede il proprio vettore di ricorso
 
 \[
 y_s=
@@ -1558,7 +1556,7 @@ r_t^{u,s},
 \bar u_t^s,
 \]
 
-e genera differenti problemi di recourse. La decisione di primo stadio deve
+e genera differenti problemi di ricorso. La decisione di primo stadio deve
 essere scelta considerando simultaneamente tutte queste possibili
 conseguenze.
 
@@ -1567,7 +1565,7 @@ conseguenze.
 L'esempio seguente ha una funzione esclusivamente didattica. I valori
 numerici non costituiscono una calibrazione del caso SVB: sono scelti in
 modo da rendere trasparente il compromesso tra rendimento della decisione
-iniziale e costo atteso della recourse.
+iniziale e costo atteso del ricorso.
 
 \begin{example}[Allocazione iniziale e funding in due scenari]
 
@@ -1652,7 +1650,7 @@ unit\`a di liquidit\`a nello scenario ordinario e soltanto
 
 unit\`a nello scenario avverso.
 
-I flussi disponibili prima della recourse sono quindi
+I flussi disponibili prima del ricorso sono quindi
 
 \[
 x_1+0.8x_2
@@ -1714,7 +1712,7 @@ r_2^u=6
 nello scenario avverso. La liquidit\`a residua non produce invece alcun
 rendimento nell'orizzonte considerato.
 
-Le funzioni di recourse sono pertanto
+Le funzioni di ricorso sono pertanto
 
 \[
 Q_1(x)
@@ -1761,7 +1759,7 @@ x_1,x_2\geq0.
 
 \end{example}
 
-\subsubsection{Determinazione delle funzioni di recourse}
+\subsubsection{Determinazione delle funzioni di ricorso}
 
 Dal vincolo di bilancio iniziale si ricava
 
@@ -1771,7 +1769,7 @@ x_1=10-x_2,
 0\leq x_2\leq10.
 \]
 
-Nello scenario ordinario, la liquidit\`a disponibile prima della recourse
+Nello scenario ordinario, la liquidit\`a disponibile prima del ricorso
 \`e
 
 \[
@@ -2025,8 +2023,7 @@ c'x+\sum_{s\in\mathcal S}p_sQ_s(x)
 \]
 
 L'allocazione completamente concentrata nell'attivit\`a pi\`u redditizia
-produce un risultato di primo stadio maggiore, ma il costo atteso della
-recourse ne riduce il valore complessivo. L'allocazione bilanciata
+produce un risultato di primo stadio maggiore, ma il costo atteso del ricorso ne riduce il valore complessivo. L'allocazione bilanciata
 
 \[
 x^*=
@@ -2042,7 +2039,7 @@ risulta quindi preferibile.
 L'allocazione bilanciata non \`e stata imposta mediante un vincolo di
 prudenza. Essa emerge endogenamente dall'ottimizzazione. Fino a
 $x_2=5$, aumentare l'investimento nell'attivit\`a pi\`u redditizia accresce
-il valore del portafoglio senza generare costi di recourse. Oltre tale
+il valore del portafoglio senza generare costi di ricorso. Oltre tale
 soglia, invece, il beneficio marginale della maggiore redditivit\`a viene
 pi\`u che compensato dal costo atteso del funding nello scenario avverso.
 \end{remark}
@@ -2063,7 +2060,7 @@ c'x+\sum_{s\in\mathcal S}p_sQ_s(x)
 
 incorpora precisamente questo confronto: il primo termine remunera la
 decisione assunta prima dell'incertezza, mentre il secondo valuta il
-risultato atteso delle decisioni di recourse.
+risultato atteso delle decisioni di ricorso.
 
 Nella sezione successiva questa struttura verr\`a riscritta nella forma
 estesa del programma lineare, nella quale le variabili di secondo stadio
@@ -2101,7 +2098,7 @@ livelli possono essere riuniti in un unico programma lineare.
 \begin{definition}[Forma estesa]
 Si definisce \emph{forma estesa} del programma stocastico lineare a due
 stadi la formulazione deterministica ottenuta introducendo esplicitamente
-una copia delle variabili di recourse per ciascuno scenario:
+una copia delle variabili di ricorso per ciascuno scenario:
 
 \begin{equation}
 \begin{aligned}
@@ -2171,7 +2168,7 @@ h_3
 
 La struttura a blocchi mette in evidenza due fatti essenziali. In primo
 luogo, la decisione di primo stadio $x$ compare in tutti i blocchi di
-scenario. In secondo luogo, ciascun vettore di recourse $y_s$ compare
+scenario. In secondo luogo, ciascun vettore di ricorso $y_s$ compare
 soltanto nei vincoli del proprio scenario.
 
 Una rappresentazione grafica sintetica di questa struttura \`e riportata
@@ -2184,7 +2181,7 @@ nella Figura~\ref{fig:cap14-forma-estesa-blocchi}.
 \caption{Struttura della forma estesa di un programma stocastico lineare
 a due stadi. La decisione di primo stadio $x$ \`e comune a tutti gli
 scenari, mentre per ciascuno scenario viene introdotto uno specifico
-vettore di recourse $y_s$ con i corrispondenti vincoli
+vettore di ricorso $y_s$ con i corrispondenti vincoli
 $T_sx+W_sy_s=h_s$.}
 \label{fig:cap14-forma-estesa-blocchi}
 \end{figure}
@@ -2298,7 +2295,7 @@ La struttura complessiva \`e quindi
 \begin{array}{c}
 \text{un solo portafoglio iniziale }x,
 \\[0.2cm]
-\text{pi\`u piani di recourse }y_s,
+\text{pi\`u piani di ricorso }y_s,
 \\[0.2cm]
 \text{uno per ciascuna traiettoria possibile dell'incertezza.}
 \end{array}
@@ -2306,14 +2303,14 @@ La struttura complessiva \`e quindi
 
 La presenza di pi\`u date all'interno dello scenario non modifica questa
 struttura a due stadi. Gli stati $Z_1^s,\ldots,Z_4^s$ descrivono
-l'evoluzione temporale dell'incertezza, ma la decisione di recourse viene
+l'evoluzione temporale dell'incertezza, ma la decisione di ricorso viene
 formulata dopo l'osservazione dell'intera traiettoria $\xi_s$.
 
 \subsection{Dimensione della forma estesa}
 
 La semplicit\`a concettuale della forma estesa ha un costo computazionale.
 Se il vettore $x$ contiene $n_x$ variabili e ogni scenario introduce
-$n_y$ variabili di recourse, il numero complessivo di variabili \`e
+$n_y$ variabili di ricorso, il numero complessivo di variabili \`e
 
 \[
 n_x+|\mathcal S|\,n_y.
@@ -2329,7 +2326,7 @@ il numero di tali vincoli cresce come
 Il numero degli scenari diventa quindi un elemento centrale della dimensione
 del problema deterministico equivalente.
 
-Nel caso SVB--ALM, ogni scenario introduce sette variabili di recourse e
+Nel caso SVB--ALM, ogni scenario introduce sette variabili di ricorso e
 quattro bilanci temporali, oltre ai relativi vincoli operativi. La crescita
 del numero di scenari produce pertanto una rapida espansione della forma
 estesa.
@@ -2347,7 +2344,7 @@ capitolo:
 \longrightarrow
 \text{scenari}
 \longrightarrow
-\text{recourse}
+\text{ricorso}
 \\
 &\hspace{2.0cm}
 \longrightarrow
@@ -2363,7 +2360,7 @@ capitolo:
 
 Gli esercizi seguenti consolidano tre passaggi centrali del capitolo: la
 costruzione delle probabilit\`a degli scenari a partire da una dinamica
-Markoviana, il calcolo della funzione di recourse per una decisione iniziale
+Markoviana, il calcolo della funzione di ricorso per una decisione iniziale
 assegnata e la costruzione della forma estesa di un programma stocastico a
 due stadi.
 
@@ -2549,9 +2546,9 @@ raccoglie invece le probabilit\`a di tutte le traiettorie che conducono a
 quello stesso stato.
 
 
-\begin{exercise}[Funzione di recourse per una decisione assegnata]
+\begin{exercise}[Funzione di ricorso per una decisione assegnata]
 
-\label{ex:cap14-recourse-assegnata}
+\label{ex:cap14-ricorso-assegnata}
 
 Un intermediario ha gi\`a assunto la decisione di primo stadio
 
@@ -2611,7 +2608,7 @@ dell'orizzonte considerato.
 
 \begin{enumerate}
 
-\item Formulare le due funzioni di recourse $Q_1(x)$ e $Q_2(x)$.
+\item Formulare le due funzioni di ricorso $Q_1(x)$ e $Q_2(x)$.
 
 \item Determinare le decisioni ottime di secondo stadio nei due scenari.
 
@@ -2623,7 +2620,7 @@ Q_1(x),
 Q_2(x)
 \]
 
-e il valore atteso della recourse.
+e il valore atteso del ricorso.
 
 \item Se il contributo economico di primo stadio \`e
 
@@ -2644,7 +2641,7 @@ calcolare il valore complessivo della decisione assegnata.
 
 \begin{enumerate}
 
-\item Nel primo scenario la funzione di recourse \`e
+\item Nel primo scenario la funzione di ricorso \`e
 
 \[
 Q_1(x)
@@ -2742,7 +2739,7 @@ Q_2(x)
 -8.8.
 \]
 
-Il valore atteso della recourse \`e pertanto
+Il valore atteso del ricorso \`e pertanto
 
 \[
 \sum_{s\in\mathcal S}p_sQ_s(x)
@@ -2779,7 +2776,7 @@ c'x
 L'esercizio mostra perch\`e il valore di una decisione di primo stadio non
 pu\`o essere valutato considerando soltanto il contributo $c'x$. La stessa
 allocazione pu\`o produrre conseguenze molto diverse nei diversi scenari, e la
-funzione di recourse traduce tali conseguenze in un valore economico
+funzione di ricorso traduce tali conseguenze in un valore economico
 scenario-specifico.
 
 
@@ -2823,7 +2820,7 @@ c'x
 x_1+1.5x_2.
 \]
 
-In ciascuno scenario vengono introdotte le decisioni di recourse
+In ciascuno scenario vengono introdotte le decisioni di ricorso
 
 \[
 y_s=
@@ -2887,7 +2884,7 @@ della decisione iniziale mantenendo tuttavia la non anticipativit\`a.
 \begin{enumerate}
 
 \item Il problema contiene una sola decisione di primo stadio e due coppie
-di variabili di recourse. La forma estesa \`e
+di variabili di ricorso. La forma estesa \`e
 
 \[
 \begin{array}{ll}
@@ -3015,7 +3012,7 @@ un unico vettore $x$ comune a tutti gli scenari.
 \end{enumerate}
 
 La forma estesa rende quindi visibile la struttura informativa del problema:
-i vincoli e le decisioni di recourse vengono replicati scenario per scenario,
+i vincoli e le decisioni di ricorso vengono replicati scenario per scenario,
 mentre la decisione di primo stadio rimane comune a tutte le possibili
 realizzazioni dell'incertezza.
 
@@ -3027,7 +3024,7 @@ Gli esercizi seguenti riprendono i principali passaggi del capitolo senza
 fornire lo svolgimento. L'obiettivo \`e verificare la capacit\`a di passare
 dalla rappresentazione dell'incertezza alla formulazione di un programma
 stocastico a due stadi, distinguendo correttamente scenari, decisioni di
-primo stadio, recourse e vincoli di non anticipativit\`a.
+primo stadio, ricorso e vincoli di non anticipativit\`a.
 
 \begin{exercise}[Probabilit\`a di scenari generati da una catena di Markov]
 
@@ -3086,12 +3083,25 @@ termina in $z_3$.
 
 \end{enumerate}
 
+\medskip
+
+\noindent
+\textit{Esiti per la verifica:}
+
+\[
+p_s=0.012,
+\qquad
+p_{s'}=0.040,
+\qquad
+\Prob(Z_3=z_3\mid Z_0=z_2)=0.278.
+\]
+
 \end{exercise}
 
 
 \begin{exercise}[Recourse con due scenari]
 
-\label{ex:cap14-proposto-recourse}
+\label{ex:cap14-proposto-ricorso}
 
 Un intermediario assume al primo stadio la decisione
 
@@ -3132,7 +3142,7 @@ nello scenario 1 e
 \[
 a_2'
 =
-(1,\;0.4)
+(1,\;0.3)
 \]
 
 nello scenario 2.
@@ -3170,9 +3180,38 @@ e
 \]
 
 \item Interpretare economicamente la differenza tra i valori delle due
-funzioni di recourse.
+funzioni di ricorso.
 
 \end{enumerate}
+
+\medskip
+
+\noindent
+\textit{Esiti per la verifica:}
+
+\[
+g_1^*=2.5,
+\qquad
+u_1^*=0,
+\qquad
+Q_1(x)=0,
+\]
+
+\[
+g_2^*=0,
+\qquad
+u_2^*=0.5,
+\qquad
+Q_2(x)=-2.5,
+\]
+
+e quindi
+
+\[
+\sum_{s\in\mathcal S}p_sQ_s(x)
+=
+-0.75.
+\]
 
 \end{exercise}
 
@@ -3227,7 +3266,7 @@ la probabilit\`a dello scenario avverso.
 
 \begin{enumerate}
 
-\item Determinare le funzioni di recourse dei due scenari come funzioni di
+\item Determinare le funzioni di ricorso dei due scenari come funzioni di
 $x_2$.
 
 \item Scrivere la funzione obiettivo complessiva come funzione di $x_2$ e di
@@ -3246,9 +3285,62 @@ x_2=5.
 \]
 
 \item Interpretare il risultato in termini di compromesso tra maggiore
-redditivit\`a iniziale e costo atteso della recourse.
+redditivit\`a iniziale e costo atteso del ricorso.
 
 \end{enumerate}
+
+\medskip
+
+\noindent
+\textit{Esiti per la verifica:}
+
+\[
+Q_1(x_2)=0,
+\]
+
+\[
+Q_2(x_2)
+=
+-6\max\{0,\;0.8x_2-4\},
+\]
+
+\[
+V(x_2;p)
+=
+10+x_2
+-
+6p\max\{0,\;0.8x_2-4\}.
+\]
+
+Per le due allocazioni richieste,
+
+\[
+V(10;p)=20-24p,
+\qquad
+V(5;p)=15.
+\]
+
+Pertanto,
+
+\[
+x_2=10
+\]
+
+\`e preferibile a $x_2=5$ se e solo se
+
+\[
+p<\frac{5}{24}
+\approx
+0.2083.
+\]
+
+Per
+
+\[
+p=\frac{5}{24}
+\]
+
+le due allocazioni sono equivalenti.
 
 \end{exercise}
 
@@ -3282,7 +3374,7 @@ Il fabbisogno \`e
 d=6.
 \]
 
-La recourse utilizza le variabili
+Il ricorso utilizza le variabili
 
 \[
 g\geq0,
@@ -3316,9 +3408,32 @@ decisione assegnata.
 \]
 
 \item Spiegare come il limite alla capacit\`a di funding modifica il
-significato della funzione di recourse.
+significato della funzione di ricorso.
 
 \end{enumerate}
+
+\medskip
+
+\noindent
+\textit{Esiti per la verifica:}
+
+\[
+a'x=4.75,
+\qquad
+u^{\min}=1.25.
+\]
+
+Il problema di secondo stadio \`e ammissibile per
+
+\[
+\bar u=2,
+\]
+
+mentre non \`e ammissibile per
+
+\[
+\bar u=1.
+\]
 
 \end{exercise}
 
@@ -3369,7 +3484,7 @@ c'x
 1.2x_1+1.8x_2.
 \]
 
-Per ogni scenario $s$ sono disponibili le variabili di recourse
+Per ogni scenario $s$ sono disponibili le variabili di ricorso
 
 \[
 y_s=
@@ -3419,6 +3534,46 @@ ciascun $y_s$ compare in uno solo.
 
 \end{enumerate}
 
+\medskip
+
+\noindent
+\textit{Esiti per la verifica:}
+
+La funzione obiettivo della forma estesa \`e
+
+\[
+\max\;
+1.2x_1+1.8x_2
+-
+0.5u_1
+-
+0.6u_2
+-
+u_3.
+\]
+
+Le variabili complessive sono
+
+\[
+x_1,\ x_2,\ g_1,\ u_1,\ g_2,\ u_2,\ g_3,\ u_3.
+\]
+
+La decisione di primo stadio \`e unica,
+
+\[
+x=(x_1,x_2)',
+\]
+
+mentre i vettori di ricorso sono
+
+\[
+y_1=(g_1,u_1)',
+\qquad
+y_2=(g_2,u_2)',
+\qquad
+y_3=(g_3,u_3)'.
+\]
+
 \end{exercise}
 
 
@@ -3457,6 +3612,40 @@ y_1=y_2=y_3.
 \]
 
 \end{enumerate}
+
+\medskip
+
+\noindent
+\textit{Esiti per la verifica:}
+
+Una possibile rappresentazione dei vincoli di non anticipativit\`a \`e
+
+\[
+x^{(1)}=x^{(2)},
+\qquad
+x^{(2)}=x^{(3)}.
+\]
+
+Equivalentemente,
+
+\[
+x^{(1)}
+=
+x^{(2)}
+=
+x^{(3)}
+=
+x.
+\]
+
+Non deve invece essere imposto, in generale,
+
+\[
+y_1=y_2=y_3,
+\]
+
+poich\'e le decisioni di secondo stadio possono dipendere dallo scenario
+osservato.
 
 \end{exercise}
 
@@ -3498,13 +3687,13 @@ utilizzati nel problema di ottimizzazione.
 
 Una volta fissata la decisione di primo stadio $x$, ciascuno scenario genera
 un problema di secondo stadio. Il suo valore ottimo \`e descritto dalla
-funzione di recourse
+funzione di ricorso
 
 \[
 Q(x,\xi_s).
 \]
 
-La recourse misura quindi il valore della migliore risposta disponibile dopo
+Il ricorso misura quindi il valore della migliore risposta disponibile dopo
 che l'incertezza si \`e realizzata, mantenendo fissa la decisione assunta prima
 dell'osservazione dello scenario.
 
@@ -3542,7 +3731,7 @@ La funzione obiettivo combina due componenti:
 \[
 \text{valore della decisione iniziale}
 \qquad+\qquad
-\text{valore atteso della recourse}.
+\text{valore atteso del ricorso}.
 \]
 
 La scelta ottima non deve quindi massimizzare soltanto il risultato immediato.
@@ -3584,7 +3773,7 @@ Il percorso complessivo del capitolo pu\`o quindi essere sintetizzato come
 \longrightarrow
 \text{scenari}
 \longrightarrow
-\text{recourse}
+\text{ricorso}
 \\
 &\hspace{2.0cm}
 \longrightarrow
@@ -3605,7 +3794,7 @@ Il capitolo ha mantenuto deliberatamente una struttura a due stadi. Le
 traiettorie possono contenere pi\`u date e pi\`u stati dell'ambiente
 economico-finanziario, ma l'informazione viene utilizzata secondo due soli
 momenti decisionali: una decisione iniziale comune e una decisione di
-recourse successiva.
+ricorso successiva.
 
 Il passo successivo consiste nell'abbandonare questa separazione in due soli
 stadi e permettere che nuove decisioni vengano assunte progressivamente,
