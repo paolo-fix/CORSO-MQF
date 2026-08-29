@@ -275,7 +275,7 @@ ricorso relativamente completo.
 Le due nozioni possono essere sintetizzate come segue.
 
 \begin{center}
-\begin{tabular}{p{4.3cm}p{10.0cm}}
+\begin{tabular}{p{3.3cm}p{8.0cm}}
 \hline
 \textbf{Propriet\`a} & \textbf{Significato} \\
 \hline
@@ -582,3 +582,384 @@ decisione stocastica. Soltanto dopo avere verificato l'esistenza delle
 decisioni di ricorso ha senso studiarne il valore economico. La sezione
 successiva analizza precisamente come la funzione $Q_s(x)$ varia al variare
 della decisione iniziale.
+
+\section{Propriet\`a della funzione di ricorso}
+
+\label{sec:cap15-proprieta-funzione-ricorso}
+
+La sezione precedente ha mostrato che, prima di valutarne il contributo
+economico, il problema di secondo stadio deve essere ammissibile. Una volta
+garantita la fattibilit\`a, la quantit\`a centrale diventa la \emph{funzione di
+ricorso}, che associa a ogni decisione iniziale il valore della migliore
+correzione disponibile dopo l'osservazione dello scenario.
+
+Per lo scenario $s$, essa \`e data da
+
+\[
+Q_s(x)
+=
+\max_{y_s\in\mathcal X_s}
+\left\{
+q_s'y_s:
+T_sx+W_sy_s=h_s
+\right\}.
+\]
+
+La funzione $Q_s(x)$ non descrive quindi una nuova decisione di primo stadio,
+ma il valore ottimo del problema di secondo stadio quando la decisione iniziale
+$x$ \`e gi\`a stata fissata.
+
+\subsection{Dipendenza dalla decisione iniziale}
+
+La dipendenza da $x$ entra nel problema di ricorso attraverso il termine
+
+\[
+h_s-T_sx.
+\]
+
+Modificare la decisione iniziale altera dunque le condizioni con cui il
+secondo stadio deve operare. In un problema di gestione della liquidit\`a,
+per esempio, una composizione iniziale pi\`u prudente pu\`o ridurre il deficit
+da colmare negli scenari avversi; una composizione pi\`u redditizia ma meno
+liquida pu\`o invece accrescere il bisogno di correzioni successive.
+
+La funzione di ricorso traduce esattamente questo effetto in termini di
+valore ottimo. Per due decisioni iniziali diverse,
+
+\[
+x'
+\qquad\text{e}\qquad
+x'',
+\]
+
+si ottengono in generale due problemi di secondo stadio diversi e, quindi,
+due valori diversi
+
+\[
+Q_s(x')
+\qquad\text{e}\qquad
+Q_s(x'').
+\]
+
+Ne segue che la qualit\`a di una decisione iniziale non pu\`o essere valutata
+considerando soltanto il contributo diretto $c'x$. Occorre anche comprendere
+come essa modifichi il valore delle migliori decisioni di ricorso nei diversi
+scenari.
+
+\subsection{Struttura nel caso lineare}
+
+Nel contesto del programma lineare stocastico a due stadi, la funzione di
+ricorso possiede una struttura regolare che ne rende possibile l'analisi.
+
+\begin{proposition}
+Si consideri, per uno scenario fissato $s$, la funzione di ricorso
+
+\[
+Q_s(x)
+=
+\max_{y_s\in\mathcal X_s}
+\left\{
+q_s'y_s:
+T_sx+W_sy_s=h_s
+\right\},
+\]
+
+supponendo che il problema di secondo stadio sia ammissibile per i valori di
+$x$ considerati e che il valore ottimo sia finito. Allora $Q_s(x)$ \`e una
+funzione concava e lineare a tratti rispetto a $x$ sul proprio dominio di
+fattibilit\`a.
+\end{proposition}
+
+Il risultato \`e coerente con la natura parametrica del problema. Infatti, per
+uno scenario fissato, la decisione iniziale compare soltanto nel termine noto
+del sistema di vincoli; il valore ottimo di un programma lineare, visto come
+funzione del termine noto, \`e lineare a tratti. Poich\'e nel nostro caso il
+problema di secondo stadio \`e scritto come un problema di massimizzazione, la
+funzione risultante \`e concava.
+
+Questa propriet\`a \`e importante per due ragioni. In primo luogo, mostra che
+piccole variazioni di $x$ non producono necessariamente piccole variazioni
+uniformi del valore di ricorso: la pendenza della funzione pu\`o cambiare nei
+punti in cui cambia la base ottima del problema lineare di secondo stadio. In
+secondo luogo, essa prepara la lettura computazionale del problema, poich\'e la
+forma lineare a tratti \`e alla base dei metodi di decomposizione discussi pi\`u
+avanti.
+
+\subsection{Un esempio unidimensionale}
+
+Consideriamo un problema ALM ridotto a due classi di attivo. Il patrimonio
+inizialmente allocabile \`e pari a
+
+\[
+A_0=10\,000
+\]
+
+milioni di euro. Indichiamo con $x_1$ l'investimento nell'attivo pi\`u
+liquido e con $x_2$ l'investimento nell'attivo meno liquido. L'intero
+ammontare disponibile viene investito, per cui
+
+\[
+x_1+x_2=10\,000,
+\qquad
+x_1,x_2\geq0.
+\]
+
+Consideriamo uno scenario avverso, indicato con $s=2$. Alla data di
+riequilibrio, l'attivo pi\`u liquido rende disponibile integralmente il
+capitale investito, mentre dell'attivo meno liquido risulta disponibile
+soltanto il $20\%$ del valore iniziale. La liquidit\`a generata dal
+portafoglio \`e quindi
+
+\[
+L_2=x_1+0.2x_2.
+\]
+
+Il coefficiente $0.2$ non rappresenta un rendimento dell'attivo, ma la quota
+dell'investimento che nello scenario avverso risulta disponibile alla data
+in cui deve essere soddisfatto il fabbisogno di liquidit\`a.
+
+Supponiamo che tale fabbisogno sia pari a
+
+\[
+d=6\,000
+\]
+
+milioni di euro. Se la liquidit\`a prodotta dagli attivi non \`e sufficiente,
+la banca pu\`o raccogliere nuovo funding $u_2\geq0$. Se invece la liquidit\`a
+eccede il fabbisogno, l'eccedenza viene mantenuta come giacenza
+$g_2\geq0$. Il bilancio di secondo stadio \`e pertanto
+
+\[
+x_1+0.2x_2+u_2
+=
+6\,000+g_2.
+\]
+
+Assumiamo che, nell'orizzonte temporale considerato, il nuovo funding comporti
+un costo complessivo pari al $3\%$ dell'ammontare raccolto. Indicando con
+
+\[
+c_u=0.03
+\]
+
+il relativo coefficiente di costo, il problema di ricorso nello scenario
+avverso pu\`o essere scritto come
+
+\[
+Q_2
+=
+\max_{g_2,u_2\geq0}
+\left\{
+-0.03u_2:
+x_1+0.2x_2+u_2=6\,000+g_2
+\right\}.
+\]
+
+La distinzione tra costo e valore del ricorso \`e essenziale. Il costo del
+funding \`e
+
+\[
+C_2=0.03u_2,
+\]
+
+mentre la funzione $Q_2$ entra in un problema di massimizzazione e incorpora
+tale costo con segno negativo. Pertanto
+
+\[
+Q_2=-C_2.
+\]
+
+Un maggiore fabbisogno di funding fa aumentare il costo del ricorso e,
+corrispondentemente, riduce il valore $Q_2$.
+
+\medskip
+
+\noindent
+\textbf{Parametrizzazione rispetto all'attivo pi\`u liquido.}
+
+Utilizziamo dapprima $x_1$ come variabile indipendente. Dal vincolo di
+bilancio iniziale,
+
+\[
+x_2=10\,000-x_1.
+\]
+
+La liquidit\`a disponibile nello scenario avverso diventa
+
+\[
+L_2(x_1)
+=
+x_1+0.2(10\,000-x_1)
+=
+2\,000+0.8x_1.
+\]
+
+Il funding minimo necessario \`e quindi
+
+\[
+u_2^*(x_1)
+=
+\max\{0,\;6\,000-L_2(x_1)\}
+=
+\max\{0,\;4\,000-0.8x_1\}.
+\]
+
+Per $x_1<5\,000$ il portafoglio non produce liquidit\`a sufficiente e la
+banca deve ricorrere a funding. Per $x_1\geq5\,000$, invece, il fabbisogno
+pu\`o essere soddisfatto senza raccolta aggiuntiva.
+
+Il costo ottimo del ricorso \`e
+
+\[
+C_2(x_1)
+=
+0.03u_2^*(x_1)
+=
+\begin{cases}
+120-0.024x_1, & 0\leq x_1\leq5\,000,\\[4pt]
+0, & 5\,000\leq x_1\leq10\,000,
+\end{cases}
+\]
+
+e quindi il valore della funzione di ricorso \`e
+
+\[
+Q_2(x_1)
+=
+\begin{cases}
+-120+0.024x_1, & 0\leq x_1\leq5\,000,\\[4pt]
+0, & 5\,000\leq x_1\leq10\,000.
+\end{cases}
+\]
+
+Sia $x_1$ sia $Q_2(x_1)$ sono espressi in milioni di euro. Ad esempio, per
+
+\[
+x_1=2\,000,
+\]
+
+il funding richiesto \`e
+
+\[
+u_2^*(2\,000)
+=
+4\,000-0.8(2\,000)
+=
+2\,400,
+\]
+
+con un costo pari a
+
+\[
+C_2(2\,000)
+=
+0.03(2\,400)
+=
+72
+\]
+
+milioni di euro. Ne segue
+
+\[
+Q_2(2\,000)=-72.
+\]
+
+All'aumentare di $x_1$, la posizione iniziale diventa pi\`u liquida, il
+funding necessario diminuisce e $Q_2(x_1)$ cresce verso zero.
+
+\medskip
+
+\noindent
+\textbf{Parametrizzazione rispetto all'attivo meno liquido.}
+
+Lo stesso problema pu\`o essere descritto utilizzando $x_2$ come variabile
+indipendente. In questo caso
+
+\[
+x_1=10\,000-x_2,
+\]
+
+e pertanto
+
+\[
+L_2(x_2)
+=
+(10\,000-x_2)+0.2x_2
+=
+10\,000-0.8x_2.
+\]
+
+La Figura~\ref{fig:cap15-funzione-ricorso-piecewise} confronta direttamente
+le due parametrizzazioni.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]
+{../graphics/Cap15_funzione_ricorso_piecewise.png}
+\caption{Funzione di ricorso nello scenario avverso secondo due
+parametrizzazioni equivalenti della decisione iniziale. Nel pannello di
+sinistra la variabile \`e l'investimento $x_1$ nell'attivo pi\`u liquido;
+nel pannello di destra \`e l'investimento $x_2$ nell'attivo meno liquido.
+Tutte le quantit\`a monetarie sono espresse in milioni di euro e
+$A_0=10\,000$.}
+\label{fig:cap15-funzione-ricorso-piecewise}
+\end{figure}
+
+Il funding minimo necessario diventa
+
+\[
+u_2^*(x_2)
+=
+\max\{0,\;6\,000-L_2(x_2)\}
+=
+\max\{0,\;0.8x_2-4\,000\}.
+\]
+
+Il costo ottimo del ricorso \`e
+
+\[
+C_2(x_2)
+=
+\begin{cases}
+0, & 0\leq x_2\leq5\,000,\\[4pt]
+0.024x_2-120, & 5\,000\leq x_2\leq10\,000,
+\end{cases}
+\]
+
+mentre il valore della funzione di ricorso \`e
+
+\[
+Q_2(x_2)
+=
+\begin{cases}
+0, & 0\leq x_2\leq5\,000,\\[4pt]
+120-0.024x_2, & 5\,000\leq x_2\leq10\,000.
+\end{cases}
+\]
+
+Aumentare $x_2$ significa ora aumentare l'investimento nell'attivo meno
+liquido. Per $x_2\leq5\,000$ la liquidit\`a disponibile rimane sufficiente
+a soddisfare il fabbisogno. Superata tale soglia, il funding diventa
+necessario e il valore $Q_2(x_2)$ diminuisce progressivamente.
+
+Le due parametrizzazioni sono legate dalla relazione
+
+\[
+x_2=A_0-x_1=10\,000-x_1
+\]
+
+e descrivono quindi esattamente gli stessi portafogli. Il diverso andamento
+grafico della funzione di ricorso dipende esclusivamente dalla scelta della
+variabile utilizzata sull'asse orizzontale.
+
+La figura \ref{fig:cap15-funzione-ricorso-piecewise} evidenzia che i due grafici descrivono la stessa relazione economica.
+Aumentare $x_1$ significa aumentare la quota investita nell'attivo pi\`u
+liquido e quindi ridurre il fabbisogno di funding; aumentare $x_2$ significa
+invece aumentare la quota investita nell'attivo meno liquido e quindi
+accrescere il funding necessario. Per questo $Q_2$ cresce rispetto a $x_1$
+e diminuisce rispetto a $x_2$, pur rappresentando in entrambi i casi la stessa
+funzione di ricorso.
+
+
+
+
