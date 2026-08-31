@@ -963,3 +963,156 @@ funzione di ricorso.
 
 
 
+
+
+La propriet\`a appena dimostrata non \`e circoscritta al caso a due stadi: la Sezione~\ref{sec:cap15-programma-multistadio} mostra che essa si estende alla funzione di valore multistadio $Q_{t+1}(X_t,Z_t)$, ed \`e proprio questa estensione a rendere possibili i metodi di decomposizione presentati pi\`u avanti nel capitolo.
+
+
+\section{Perch\`e il modello a due stadi non basta}
+
+\label{sec:cap15-motivazione-multistadio}
+
+Le due sezioni precedenti hanno studiato il problema di secondo stadio
+$Q_s(x)$ nella sua fisionomia a due stadi: una decisione iniziale $x$,
+seguita, una volta osservata l'intera realizzazione dello scenario $s$, da
+un'unica decisione di ricorso $y_s$. Questa struttura resta uno strumento
+corretto per valutare $x$, ma solleva una domanda finora lasciata sullo
+sfondo: quando $y_s$ raccoglie in un unico vettore decisioni che, nella
+realt\`a, vanno assunte in momenti diversi, in che senso pu\`o dirsi presa
+``dopo aver osservato $s$''? Rispondere richiede di precisare a quale
+informazione ciascuna componente di $y_s$ ha effettivamente accesso, e
+conduce in modo naturale all'estensione multistadio che occupa il resto del
+capitolo.
+
+\subsection{Il criterio operativo per l'assegnazione degli stadi}
+
+L'assegnazione di una decisione a uno stadio non \`e una scelta di comodo
+formale. Segue un criterio operativo, gi\`a implicito nella distinzione tra
+stadi decisionali e periodi temporali introdotta nel
+Capitolo~\ref{cap:programmazione-stocastica-due-stadi}.
+
+\begin{criterion}[Assegnazione dello stadio]
+
+\label{crit:cap15-assegnazione-stadio}
+
+Una decisione appartiene allo stadio $t$ se $t$ \`e il momento in cui essa
+deve effettivamente essere posta in atto: n\'e prima, perch\'e l'informazione
+necessaria non \`e ancora disponibile; n\'e dopo, perch\'e la sua esecuzione
+non pu\`o essere rinviata oltre quella data.
+
+\end{criterion}
+
+\`E lo stesso criterio, reso qui esplicito, che governa la prassi consolidata
+nei problemi di localizzazione di impianti: una decisione di apertura di uno
+stabilimento \`e di primo stadio perch\'e la sua realizzazione richiede
+tempo, non perch\'e sia comodo trattarla come tale \cite{BirgeLouveaux}.
+Applicato al modello del Capitolo~\ref{cap:programmazione-stocastica-due-stadi},
+il criterio mostra il limite della struttura a due stadi: se $y_s$ raggruppa
+decisioni riferite a pi\`u date, e tali decisioni vanno effettivamente
+eseguite alle rispettive date, trattarle come un unico blocco deciso ``dopo
+aver osservato $s$'' \`e un'approssimazione utile per valutare $x$, non una
+descrizione fedele del momento in cui le decisioni vengono prese.
+
+\subsection{Misurabilit\`a delle decisioni intermedie}
+
+Sia $\{\mathcal F_t\}_{t=0}^T$ la filtrazione che rappresenta l'informazione
+via via disponibile, e sia $x_t^s$, come gi\`a introdotto in Notazione, la
+decisione al tempo $t$ nello scenario $s$.
+
+\begin{definition}[Decisione adattata alla storia osservata]
+
+\label{def:cap15-decisione-adattata}
+
+La decisione $x_t^s$ \`e \emph{adattata} alla storia osservata fino al tempo
+$t$ se dipende dallo scenario $s$ soltanto attraverso l'informazione
+contenuta in $\mathcal F_t$, cio\`e se
+
+\[
+x_t^s=x_t^{s'}
+\]
+
+per ogni coppia di scenari $s,s'$ che condividono la stessa storia fino al
+tempo $t$.
+
+\end{definition}
+
+Questa \`e, riscritta in generale, la condizione di non anticipativit\`a
+gi\`a introdotta in Notazione. Il Criterio~\ref{crit:cap15-assegnazione-stadio}
+la rende operativa: una decisione riferita al periodo $t$ deve essere
+adattata a $\mathcal F_t$, non a un'informazione successiva.
+
+\begin{remark}
+
+Nel modello a due stadi, $y_s$ \`e adattata a $\mathcal F_T$, l'informazione
+completa: nessun vincolo lega $y_s$ a $y_{s'}$ per scenari con storia
+parzialmente comune. Se $y_s$ raccoglie decisioni riferite a date $t<T$,
+questa adattabilit\`a a $\mathcal F_T$ eccede quanto il
+Criterio~\ref{crit:cap15-assegnazione-stadio} richiederebbe per quelle
+singole componenti. Il modello resta corretto per il proprio scopo --
+valutare $x$ -- ma la sua $y_s$ non va letta come un piano eseguibile
+componente per componente: nella pratica, una volta osservata la prima parte
+dello scenario, il problema viene ridefinito e risolto di nuovo con
+l'informazione allora disponibile, e solo la parte di decisione riferita al
+presente viene effettivamente eseguita \cite{BirgeLouveaux}.
+
+\end{remark}
+
+\subsection{Un esempio: dal due al quattro stadi}
+
+Fissiamo un orizzonte $T=4$ e riprendiamo, in forma volutamente astratta, la
+struttura del Capitolo~\ref{cap:programmazione-stocastica-due-stadi}: una
+decisione iniziale $x$ e decisioni successive $x_1^s,x_2^s,x_3^s,x_4^s$,
+riferite rispettivamente ai quattro periodi dell'orizzonte.
+
+\medskip
+\noindent
+\textbf{Versione a due stadi.} Le quattro decisioni successive sono raccolte
+in un unico vettore di ricorso,
+
+\[
+y_s=(x_1^s,x_2^s,x_3^s,x_4^s),
+\]
+
+adattato a $\mathcal F_4$: libero di variare da uno scenario all'altro, anche
+tra scenari che condividono i primi periodi della storia.
+
+\medskip
+\noindent
+\textbf{Versione a tre stadi.} Supponiamo ora che due soli scenari, $s_1$ e
+$s_2$, condividano la stessa realizzazione al tempo $1$, pur differendo nei
+periodi successivi. Il Criterio~\ref{crit:cap15-assegnazione-stadio} impone
+che la decisione riferita al primo periodo sia adattata a $\mathcal F_1$, non
+a $\mathcal F_4$:
+
+\[
+x_1^{s_1}=x_1^{s_2}.
+\]
+
+Le rimanenti decisioni, $x_2^s,x_3^s,x_4^s$, restano invece raggruppate in un
+unico blocco adattato a $\mathcal F_4$, esattamente come nella versione a due
+stadi. \`E l'unica differenza tra le due formulazioni: stessa funzione
+obiettivo, stessi vincoli operativi, un solo vincolo di non anticipativit\`a
+in pi\`u.
+
+\medskip
+\noindent
+\textbf{Versione a quattro stadi.} Applicando lo stesso argomento, un periodo
+alla volta, a $x_2^s$ e poi a $x_3^s$, si ottiene il modello pienamente
+multistadio:
+
+\[
+x_1^{s}=x_1^{s'}\ \text{se}\ s,s'\ \text{condividono la storia fino a}\ t=1,
+\]
+\[
+x_2^{s}=x_2^{s'}\ \text{se}\ s,s'\ \text{condividono la storia fino a}\ t=2,
+\]
+\[
+x_3^{s}=x_3^{s'}\ \text{se}\ s,s'\ \text{condividono la storia fino a}\ t=3,
+\]
+
+mentre $x_4^s$ resta libero per scenario, essendo l'ultima decisione
+dell'orizzonte. Ogni passaggio aggiunge un vincolo di non anticipativit\`a,
+senza modificare n\'e l'obiettivo n\'e i vincoli operativi ereditati dal
+Capitolo~\ref{cap:programmazione-stocastica-due-stadi}. La Sezione~\ref{sec:cap15-programma-multistadio}
+scrive questa struttura nella sua forma generale, a nodi, e ne mostra
+l'istanza per il caso guida SVB--ALM.
