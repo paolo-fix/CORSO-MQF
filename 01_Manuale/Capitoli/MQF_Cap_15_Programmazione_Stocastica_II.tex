@@ -1116,3 +1116,464 @@ senza modificare n\'e l'obiettivo n\'e i vincoli operativi ereditati dal
 Capitolo~\ref{cap:programmazione-stocastica-due-stadi}. La Sezione~\ref{sec:cap15-programma-multistadio}
 scrive questa struttura nella sua forma generale, a nodi, e ne mostra
 l'istanza per il caso guida SVB--ALM.
+
+\section{Due letture dello stesso problema: programmazione stocastica e
+programmazione dinamica}
+
+\label{sec:cap15-ps-vs-dsp}
+
+La Sezione~\ref{sec:cap15-motivazione-multistadio} ha mostrato che il
+passaggio dal due al quattro stadi si ottiene aggiungendo, un periodo alla
+volta, vincoli di non anticipativit\`a. Il prezzo di questa correttezza \`e
+per\`o evidente: il numero di traiettorie possibili cresce rapidamente con
+l'orizzonte, fino a coinvolgere l'intero albero degli scenari. Nel caso
+guida SVB--ALM, con $8$ stati esogeni per data e $T=4$, le traiettorie
+possibili sono $8^4=4096$ (Capitolo~\ref{cap:programmazione-stocastica-due-stadi}).
+Rappresentare esplicitamente ogni nodo di un albero di queste dimensioni
+diventa rapidamente impraticabile, anche per problemi di dimensioni
+moderate.
+
+Questa difficolt\`a non \`e specifica del caso guida: \`e la ragione per cui
+la letteratura sulla programmazione stocastica multistadio distingue due
+modi di rappresentare e risolvere lo stesso problema.
+
+\subsection{Programmazione stocastica generale e programmazione dinamica
+stocastica}
+
+Nella sua formulazione pi\`u generale, un programma stocastico multistadio
+indicizza le decisioni sui nodi di un albero di scenari, senza assumere che
+la storia rilevante per una decisione sia riassumibile in un oggetto a
+bassa dimensione. Ogni nodo porta con s\'e la propria storia completa, e il
+problema si risolve come un unico programma lineare estremamente
+strutturato, ma di grandi dimensioni.
+
+Un approccio alternativo assume invece che esista uno stato
+\emph{sufficiente}: un oggetto a dimensione fissata che riassume, ai fini
+delle decisioni future, tutta l'informazione rilevante contenuta nella
+storia osservata. Se questa ipotesi \`e soddisfatta, il problema pu\`o
+essere risolto per ricorsione all'indietro su tale stato, anzich\'e
+sull'intero albero. Questa \`e l'impostazione della programmazione dinamica
+stocastica, di cui i processi decisionali di Markov (MDP) sono
+l'esempio pi\`u noto \cite{BirgeLouveaux}.
+
+Le due impostazioni non sono in conflitto: la seconda \`e un modo di
+risolvere in modo pi\`u efficiente un problema che, in linea di principio,
+resta descrivibile nella prima forma. La convenienza dell'una o dell'altra
+dipende dalla struttura del problema, non dalla sua natura.
+
+\subsection{Lo stato aumentato}
+
+\begin{definition}[Stato aumentato]
+
+\label{def:cap15-stato-aumentato}
+
+Si dice che $(X_t,Z_t)$ costituisce uno \emph{stato aumentato sufficiente}
+per un problema multistadio se, per ogni $t$, le decisioni ottime successive
+alla data $t$ dipendono dalla storia osservata soltanto attraverso la
+coppia $(X_t,Z_t)$, e se $X_t$ stesso evolve secondo una legge che dipende
+soltanto da $(X_{t-1},Z_t)$ e dalla decisione assunta alla data $t$, non da
+informazioni pi\`u remote.
+
+\end{definition}
+
+La seconda condizione della Definizione~\ref{def:cap15-stato-aumentato} non
+\`e superflua: se $X_t$ dipendesse dall'intera storia passata, l'aver
+aggiunto $X_t$ allo stato non avrebbe eliminato il problema originario, ma
+soltanto rinominato l'albero completo con un simbolo diverso.
+
+Indichiamo con
+
+\[
+Q_{t+1}(X_t,Z_t)
+\]
+
+il valore ottimo atteso delle decisioni successive alla data $t$, condizionato
+alla conoscenza dello stato aumentato $(X_t,Z_t)$. La ricorsione, coerente
+con la convenzione di massimizzazione gi\`a adottata nella
+Sezione~\ref{sec:cap14-ricorso} del Capitolo~\ref{cap:programmazione-stocastica-due-stadi},
+si scrive
+
+\begin{equation}
+Q_{t+1}(X_t,Z_t)
+=
+\E
+\left[
+\max_{u_{t+1}}
+\left\{
+q_{t+1}'u_{t+1}
++
+Q_{t+2}(X_{t+1},Z_{t+1})
+\right\}
+\ \middle|\
+Z_t
+\right],
+\label{eq:cap15-bellman-generale}
+\end{equation}
+
+dove $X_{t+1}$ \`e determinato da $X_t$, da $u_{t+1}$ e dallo stato esogeno
+$Z_{t+1}$ appena osservato, e dove si pone convenzionalmente
+$Q_{T+1}(X_T,Z_T)=0$ per chiudere la ricorsione all'ultima data
+dell'orizzonte.
+
+\begin{remark}
+
+La funzione $Q_{t+1}(X_t,Z_t)$ generalizza la funzione di ricorso
+$Q_s(x)$ del Capitolo~\ref{cap:programmazione-stocastica-due-stadi}: quest'ultima
+corrisponde al caso in cui \emph{tutte} le decisioni successive al primo
+stadio sono raggruppate in un unico blocco adattato a $\mathcal F_T$, cio\`e
+al caso degenere in cui lo stato aumentato non viene mai aggiornato prima
+della decisione finale. La Sezione~\ref{sec:cap15-programma-multistadio}
+mostra come le due formulazioni si ricongiungano nel caso guida.
+
+\end{remark}
+
+\subsection{Perch\'e nel caso SVB--ALM conviene lo stato aumentato}
+
+Il caso guida illustra bene quando la sovrapposizione della lettura DSP al
+problema PS \`e vantaggiosa. Enumerare esplicitamente i $4096$ nodi
+terminali dell'albero a quattro date, insieme a tutti i nodi intermedi,
+\`e concettualmente corretto ma operativamente pesante. Se invece \`e
+possibile identificare uno stato aumentato $(X_t,Z_t)$ che soddisfi la
+Definizione~\ref{def:cap15-stato-aumentato}, la ricorsione
+\eqref{eq:cap15-bellman-generale} permette di risolvere il problema
+condizionando soltanto sullo stato corrente, senza dover distinguere fra
+loro i molti nodi che condividono lo stesso stato aumentato.
+
+Se questa condizione sia soddisfatta, e con quale specificazione di $X_t$,
+\`e per\`o una domanda che richiede di scendere nel dettaglio del modello:
+non pu\`o essere risolta in astratto. La
+Sezione~\ref{sec:cap15-programma-multistadio} costruisce esplicitamente lo
+stato aumentato per il caso SVB--ALM e ne verifica le propriet\`a.
+
+\section{Il programma stocastico multistadio: formulazione generale e
+caso SVB--ALM}
+
+\label{sec:cap15-programma-multistadio}
+
+\subsection{Nodi, antenati e probabilit\`a di nodo}
+
+La Sezione~\ref{sec:cap15-motivazione-multistadio} ha costruito il modello
+multistadio aggiungendo, un periodo alla volta, vincoli di non
+anticipativit\`a al modello a due stadi. Questa sottosezione ne d\`a la
+formulazione generale, valida per un orizzonte $T$ qualunque.
+
+Un \emph{albero degli scenari} \`e costituito da un insieme di nodi. Il nodo
+radice rappresenta l'istante $t=0$, nel quale viene assunta la decisione di
+primo stadio $x$. Ogni altro nodo $n$ rappresenta una data $t(n)\in\{1,\ldots,T\}$
+e una storia osservata fino a quella data. Indichiamo con $a(n)$
+l'unico nodo alla data $t(n)-1$ dal quale $n$\`e
+raggiungibile.
+Alla decisione assunta nel nodo $n$ associamo la probabilit\`a
+di nodo
+
+\[
+p_n
+=
+\Prob\left(\text{la storia osservata percorra il nodo } n\right),
+\]
+
+con $\sum_{n:\,t(n)=1}p_n=1$ e, per ogni nodo $n$ non terminale,
+$\sum_{n':\,a(n')=n}p_{n'}=p_n$. Prima di procedere, verifichiamo che questa formulazione generale non sia
+un modello diverso da quello gi\`a noto, ma lo contenga come caso
+particolare: se l'albero ha un'unica diramazione dopo $t=0$ -- un nodo per ciascuno scenario $s\in\mathcal S$, tutti alla stessa profondit\`a $t=T$ e
+quindi privi di ulteriori diramazioni a valle -- si ottiene esattamente la struttura a ``ventaglio'' del Capitolo~\ref{cap:programmazione-stocastica-due-stadi}, con $p_n=p_s$ (qui $n$ e $s$ coincidono).
+
+La decisione assunta nel nodo $n$ \`e indicata con 
+
+\[
+u_n.
+\]
+
+\subsection{Non anticipativit\`a implicita ed esplicita}
+
+Indicizzare le decisioni per nodo, come in $u_n$ soddisfa automaticamente la non anticipativit\`a: due scenari con la stessa
+storia fino a $t$ attraversano lo stesso nodo a quella profondit\`a, e
+quindi condividono, per costruzione, la stessa decisione. Questa \`e la
+forma \emph{implicita} del vincolo.
+
+In alternativa, si pu\`o mantenere l'indicizzazione per scenario gi\`a usata
+nel Capitolo~\ref{cap:programmazione-stocastica-due-stadi}, cio\`e $x_t^s$
+per ogni $t$ e ogni $s\in\mathcal S$, e imporre esplicitamente
+
+\[
+x_t^s=x_t^{s'}
+\]
+
+per ogni coppia di scenari $s,s'$ con la stessa storia fino a $t$ --
+esattamente la condizione gi\`a introdotta in Notazione e utilizzata nella
+Definizione~\ref{def:cap15-decisione-adattata}. Questa \`e la forma
+\emph{esplicita} dello stesso vincolo.
+
+Le due forme sono equivalenti: la prima elimina la ridondanza usando
+un'unica variabile per nodo, la seconda la mantiene esplicita come equazione.
+La scelta fra le due \`e una questione di rappresentazione, non di
+sostanza del modello.
+
+\subsection{Forma estesa generale}
+
+Sia $q_n$ il vettore dei coefficienti economici del nodo $n$, e siano
+$T_n,W_n$ i coefficienti che legano $u_n$ alla decisione dell'antenato $a(n)$
+(o a $x$, se $t(n)=1$). Nella convenzione di massimizzazione gi\`a adottata
+nella Sezione~\ref{sec:cap14-ricorso} del
+Capitolo~\ref{cap:programmazione-stocastica-due-stadi}, la forma estesa del
+programma stocastico multistadio \`e
+
+\begin{equation}
+\max_{x,\,\{u_n\}}
+\left\{
+c'x
++
+\sum_{n}p_nq_n'u_n
+\right\}
+\label{eq:cap15-obiettivo-multistadio}
+\end{equation}
+
+soggetta a
+
+\begin{equation}
+T_nx+W_nu_n=h_n,
+\qquad
+t(n)=1,
+\label{eq:cap15-vincolo-primo-livello}
+\end{equation}
+
+\begin{equation}
+B_nu_{a(n)}+A_nu_n=h_n,
+\qquad
+t(n)\geq2,
+\label{eq:cap15-vincolo-nodi-successivi}
+\end{equation}
+
+oltre agli eventuali vincoli operativi propri di ciascun nodo. La
+\eqref{eq:cap15-vincolo-primo-livello} riproduce, nodo per nodo, il legame
+$T_sx+W_sy_s=h_s$ gi\`a visto nel caso a due stadi; la
+\eqref{eq:cap15-vincolo-nodi-successivi} generalizza lo stesso legame a
+ogni coppia antenato--discendente lungo l'albero. Se l'albero \`e un
+ventaglio a un solo livello, la \eqref{eq:cap15-vincolo-nodi-successivi}
+scompare e si ritrova esattamente il modello del
+Capitolo~\ref{cap:programmazione-stocastica-due-stadi}.
+
+\subsection{Forma ricorsiva generale}
+
+Se lo stato aumentato $(X_t,Z_t)$ della
+Definizione~\ref{def:cap15-stato-aumentato} \`e sufficiente, la forma estesa
+\eqref{eq:cap15-obiettivo-multistadio}--\eqref{eq:cap15-vincolo-nodi-successivi}
+ammette la rappresentazione ricorsiva gi\`a introdotta nella
+Sezione~\ref{sec:cap15-ps-vs-dsp},
+
+\[
+Q_{t+1}(X_t,Z_t)
+=
+\E
+\left[
+\max_{u_{t+1}}
+\left\{
+q_{t+1}'u_{t+1}
++
+Q_{t+2}(X_{t+1},Z_{t+1})
+\right\}
+\ \middle|\
+Z_t
+\right],
+\]
+
+e il problema di primo stadio diventa
+
+\[
+z^{\text{multistadio}}
+=
+\max_{x\in\mathcal X}
+\left\{
+c'x+Q_1(X_0,Z_0)
+\right\}.
+\]
+
+\begin{remark}
+
+La propriet\`a di concavit\`a e linearit\`a a tratti di $Q_s(x)$, dimostrata
+nella Sezione~\ref{sec:cap15-proprieta-funzione-ricorso} per il caso a due
+stadi, si estende per induzione a ritroso a ciascuna $Q_{t+1}(X_t,Z_t)$:
+$Q_{T+1}\equiv0$ \`e banalmente concava, e se $Q_{t+2}$ \`e concava e
+lineare a tratti in $X_{t+1}$, la sua composizione con la dinamica affine di
+$X_{t+1}$ e la massimizzazione su $u_{t+1}$ preservano la propriet\`a per
+$Q_{t+1}$. Questa \`e la propriet\`a gi\`a annunciata in chiusura della
+Sezione~\ref{sec:cap15-proprieta-funzione-ricorso}, ed \`e ci\`o che rende implementabili i metodi di decomposizione a ritroso richiamati pi\`u avanti nel capitolo.
+
+\end{remark}
+
+La sottosezione successiva istanzia questa formulazione generale nel caso
+guida SVB--ALM, verificando esplicitamente che lo stato aumentato
+$(X_t,Z_t)$ costruito per quel caso soddisfa la
+Definizione~\ref{def:cap15-stato-aumentato}.
+
+\subsection{Identificazione dei coefficienti nel caso SVB--ALM}
+
+Nel caso guida, l'albero degli scenari \`e generato dalla catena di Markov
+a otto stati gi\`a costruita nella Sezione~\ref{sec:cap14-ricorso} del
+Capitolo~\ref{cap:programmazione-stocastica-due-stadi}: ogni nodo a
+profondit\`a $t$ corrisponde a una storia $(Z_1,\ldots,Z_t)$ osservabile
+della catena. A differenza del modello a due stadi, qui ciascuna decisione
+di funding $u_t^s$ ($t=1,2,3$) \`e vincolata a essere $\mathcal
+F_t$-misurabile: non pi\`u un'unica decisione presa conoscendo l'intero
+scenario, ma tre decisioni distinte, ciascuna presa con l'informazione
+disponibile alla propria data. \`E la realizzazione, per il caso concreto,
+della costruzione a stadi crescenti della
+Sezione~\ref{sec:cap15-motivazione-multistadio}.
+
+Nella forma esplicita, la misurabilit\`a si scrive
+
+\[
+u_t^s=u_t^{s'}
+\qquad
+\text{per ogni } t=1,2,3 \text{ e ogni coppia } s,s' \text{ con la stessa
+storia fino a } t;
+\]
+
+nella forma implicita, equivalente, si introduce una variabile $u_t(z_1,\ldots,z_t)$
+per ciascun nodo raggiungibile della catena.
+
+I bilanci di liquidit\`a sono, data per data, gli stessi gi\`a identificati
+nel Capitolo~\ref{cap:programmazione-stocastica-due-stadi}, dove $\ell=1,\ldots,4$
+indicizza le quattro classi di attivo che compongono $x$ e $a_{t\ell}^s$ \`e
+il cash flow unitario della classe $\ell$ alla data $t$ nello scenario $s$:
+
+\begin{equation}
+\sum_{\ell=1}^{4}a_{1\ell}^sx_\ell+u_1^s=d_1^s+g_1^s,
+\label{eq:cap15-bilancio-t1}
+\end{equation}
+
+\begin{equation}
+\sum_{\ell=1}^{4}a_{t\ell}^sx_\ell
++(1+r_{t-1}^{g,s})g_{t-1}^s
++u_t^s
+=
+d_t^s+(1+r_{t-1}^{u,s})u_{t-1}^s+g_t^s,
+\qquad t=2,3,
+\label{eq:cap15-bilancio-tintermedie}
+\end{equation}
+
+\begin{equation}
+\sum_{\ell=1}^{4}a_{4\ell}^sx_\ell+(1+r_3^{g,s})g_3^s
+=
+d_4^s+(1+r_3^{u,s})u_3^s+g_4^s,
+\label{eq:cap15-bilancio-t4}
+\end{equation}
+
+Ricordiamo che il fabbisogno di liquidit\`a dipende soltanto dall'ambiente esogeno, $d_t=d(Z_t)$. 
+Poich\'e $Z_t$ assume soltanto otto valori possibili, questa dipendenza non richiede alcuna forma algebrica: la funzione $d(\cdot)$ \`e completamente specificata da una tabella di otto numeri, uno per stato,
+
+\[
+d(z)=\sum_{j=1}^{8}d_j\1_{\{z=z_j\}},
+\]
+
+cio\`e $d_t=d_j$ quando $Z_t=z_j$; nello scenario $s$, $d_t^s=d(Z_t^s)$. A
+differenza di $\kappa_t$, non viene introdotta alcuna dipendenza aggiuntiva
+da $\kappa_t$ o da $X_t$: il fabbisogno resta un dato di scenario, generato
+dall'ambiente esogeno, non retroagito dalla solidit\`a interna della banca.
+
+con $g_t^s\geq0$ per $t=1,\ldots,4$ e $0\leq u_t^s\leq\bar u_t^s$ per
+$t=1,2,3$. Ci\`o che cambia rispetto al Capitolo~\ref{cap:programmazione-stocastica-due-stadi}
+non \`e la forma dei vincoli, ma la misurabilit\`a delle variabili che vi
+compaiono.
+
+Allo stato operativo $(g_t^s,u_t^s)$ affianchiamo lo stato interno della
+banca, gi\`a introdotto in Notazione. L'inizializzazione dipende dalla
+decisione di primo stadio,
+
+\[
+X_0=\phi_0+\Phi_xx,
+\]
+
+e la dinamica, condizionata allo stato esogeno appena osservato, \`e
+
+\[
+X_{t+1}^s=A_{i_{t+1}^s}X_t^s+B_{i_{t+1}^s}u_t^s+\alpha_{i_{t+1}^s},
+\qquad t=0,1,2,
+\]
+
+dove $Z_{t+1}^s=z_{i_{t+1}^s}$ (con $X_1^s=A_{i_1^s}X_0+\alpha_{i_1^s}$ per
+$t=0$, non essendovi funding prima della prima data). 
+Ricordiamo, da Notazione, la funzione che misura la pressione dell'ambiente
+esogeno sulla solidit\`a bancaria,
+
+\[
+h_Z(z)=\gamma_Rz^R+\gamma_Cz^C+\gamma_Fz^F+\gamma_I\left(z^Rz^C+z^Rz^F+z^Cz^F\right).
+\]
+
+I coefficienti $\gamma_R,\gamma_C,\gamma_F$ misurano l'effetto marginale di ciascun fattore di stress preso singolarmente; $\gamma_I$ misura l'effetto
+addizionale che si manifesta quando due fattori si presentano insieme in regime alto -- una tensione simultanea su tassi e funding, per esempio, pesa pi\`u della somma dei due effetti separati. 
+Non viene introdotto un termine di interazione tripla. La solidit\`a bancaria \`e
+
+\[
+\kappa_t^s=\kappa_0+\beta'X_t^s-h_Z(Z_t^s),
+\qquad t=1,\ldots,4,
+\]
+
+soggetta al requisito prudenziale
+
+\[
+\kappa_t^s\geq\underline\kappa,
+\qquad t=1,\ldots,4.
+\]
+
+Le variabili $X_t^s,\kappa_t^s$ non sono decisioni: sono variabili di stato
+ausiliarie, definite dalle equazioni precedenti in funzione di $x$ e dei
+$u_t^s$ gi\`a introdotti. Non si aggiunge quindi alcuna nuova decisione al
+modello del Capitolo~\ref{cap:programmazione-stocastica-due-stadi}: si
+aggiunge soltanto una traiettoria, calcolabile, che ne verifica
+un'implicazione patrimoniale.
+
+\begin{remark}
+
+Poich\'e $u_t^s$ \`e $\mathcal F_t$-misurabile e $X_{t+1}^s$ dipende soltanto
+da $X_t^s$, da $u_t^s$ e dallo stato esogeno appena osservato $Z_{t+1}^s$,
+per induzione ogni $X_t^s$ (e quindi ogni $\kappa_t^s$) \`e a sua volta
+$\mathcal F_t$-misurabile: il vincolo $\kappa_t^s\geq\underline\kappa$ pu\`o
+essere verificato con l'informazione disponibile alla data $t$, senza alcun
+ricorso a conoscenza futura. Nel modello a due stadi del
+Capitolo~\ref{cap:programmazione-stocastica-due-stadi} questo non
+accadrebbe: $u_t^s$ vi \`e $\mathcal F_T$-misurabile per ogni $t$, e un
+vincolo di solidit\`a intermedio richiederebbe implicitamente la stessa
+finzione informativa discussa nella
+Sezione~\ref{sec:cap15-motivazione-multistadio}. Il requisito prudenziale
+trova quindi nel modello multistadio la sua collocazione naturale.
+
+\end{remark}
+
+L'obiettivo mantiene la stessa struttura economica del caso a due stadi:
+
+\[
+\max_{x\in\mathcal X,\,\{u_t^s,g_t^s,X_t^s,\kappa_t^s\}}
+\left\{
+c'x
++
+\sum_{s\in\mathcal S}p_s
+\left[
+\sum_{t=1}^{3}r_t^{g,s}g_t^s-\sum_{t=1}^{3}r_t^{u,s}u_t^s
+\right]
+\right\},
+\]
+
+soggetto ai vincoli
+\eqref{eq:cap15-bilancio-t1}--\eqref{eq:cap15-bilancio-t4}, alla dinamica di
+$X_t^s$, al requisito di solidit\`a e alla misurabilit\`a $\mathcal
+F_t$ di ciascun $u_t^s$.
+
+\begin{remark}[Coerenza con il modello a due stadi]
+
+Le decisioni $u_1^s,u_2^s,u_3^s$ non sono nuove rispetto al
+Capitolo~\ref{cap:programmazione-stocastica-due-stadi}. Ci\`o che il passaggio al multistadio ha cambiato non \`e quindi
+l'insieme delle decisioni, ma quanta informazione ciascuna di esse pu\`o usare. 
+Nel modello a due stadi $u_1^s,u_2^s,u_3^s$ sono $\mathcal F_T$-misurabili: decise come se l'intero scenario fosse gi\`a noto. Aggiungere uno stadio non significa aggiungere una decisione: significa anticipare, per una di esse,
+il momento in cui viene ``tagliata fuori'' dall'informazione futura, ancorandola alla propria data anzich\'e alla fine dell'orizzonte.
+
+Se si rimuovono i vincoli  di misurabilit\`a $\mathcal
+F_t$ di ciascun $u_t^s$-- lasciando $u_1^s,u_2^s,u_3^s$
+$\mathcal F_T$-misurabili come nel modello originario -- funzione obiettivo
+e vincoli operativi tornano esattamente quelli del
+Capitolo~\ref{cap:programmazione-stocastica-due-stadi}. La differenza fra le versioni a 2 stadi e multistadio
+\`e soltanto il numero di tagli temporali di
+conoscibilit\`a imposti alle decisioni intermedie.
+
+\end{remark}
+

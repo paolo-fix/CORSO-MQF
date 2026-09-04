@@ -965,7 +965,7 @@ h_Z(Z_t)
 \gamma_R Z_t^R
 +\gamma_C Z_t^C
 +\gamma_F Z_t^F
-+\eta
++\gamma_I
 \left(
 Z_t^RZ_t^C
 +Z_t^RZ_t^F
@@ -981,6 +981,40 @@ pu\`o essere rappresentata come
 =
 \kappa_0+\beta'X_t-h_Z(Z_t).
 \]
+
+Lo stato interno $X_t\in\R^q$ \`e endogeno ed \`e inizializzato dalla
+decisione di primo stadio mediante una funzione affine:
+
+\[
+X_0=\phi_0+\Phi_xx,
+\qquad
+\phi_0\in\R^q,
+\quad
+\Phi_x\in\R^{q\times4}.
+\]
+
+La sua evoluzione, condizionata allo stato esogeno che si realizza alla
+data successiva, \`e anch'essa affine:
+
+\[
+X_{t+1}=A_jX_t+B_ju_t+\alpha_j
+\qquad
+\text{quando } Z_{t+1}=z_j,
+\]
+
+con $A_j\in\R^{q\times q}$, $B_j\in\R^q$, $\alpha_j\in\R^q$. La solidit\`a
+iniziale $\kappa_0$ \`e un dato osservato al tempo $0$, distinto dalla
+formula di $\kappa_t$ che si applica per $t\geq1$. Il requisito prudenziale
+si esprime come
+
+\[
+\kappa_t\geq\underline\kappa.
+\]
+
+Le variabili $X_t^s,\kappa_t^s$ sono variabili di stato ausiliarie,
+definite dalle equazioni precedenti in funzione di $x$ e $u_t^s$: non
+fanno parte del vettore di ricorso $y_s$ gi\`a introdotto per il caso
+SVB--ALM a due stadi.
 
 \section{Corrispondenza tra notazione matematica e Python}
 
