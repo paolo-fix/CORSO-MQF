@@ -1,8 +1,3807 @@
 % !TeX root = ../MQF_Manuale_Master.tex
 % Capitoli/MQF_Cap_14_Programmazione_Stocastica_I.tex
 
-\chapter{Programmazione lineare stocastica I}
+\chapter{Programmazione stocastica a due stadi}
 
-\section{Obiettivi della lezione}
+\label{cap:programmazione-stocastica-due-stadi}
 
-Capitolo in preparazione.
+\medskip
+
+Il Capitolo 12 ha sviluppato un problema di Asset--Liability Management
+multiperiodale nel quale l'intera traiettoria dei coefficienti futuri viene
+trattata come nota al momento della decisione iniziale. Questa ipotesi ha
+permesso di determinare congiuntamente la composizione dell'attivo, la
+gestione della liquidit\`a e il ricorso al funding lungo tutto l'orizzonte.
+
+Il presente capitolo rimuove questa ipotesi e introduce la
+\emph{programmazione stocastica a due stadi}, nella quale una parte delle
+decisioni deve essere assunta prima di conoscere il futuro, mentre altre
+decisioni possono essere prese dopo la rivelazione dell'incertezza.
+
+\medskip
+
+\noindent
+\textbf{Domanda guida:} come si decide oggi quando il futuro pu\`o evolvere
+in modi diversi e le possibilit\`a di reagire domani dipendono dalle scelte
+fatte oggi?
+
+\medskip
+
+Il problema SVB--ALM sviluppato nei Capitoli 11--12 accompagner\`a
+l'esposizione come caso guida. La composizione iniziale dell'attivo dovr\`a
+essere scelta prima di conoscere l'evoluzione futura delle condizioni
+economico-finanziarie; successivamente, la banca potr\`a utilizzare strumenti
+di gestione della liquidit\`a e del funding coerenti con lo scenario
+realizzato.
+
+Il caso non costituisce l'oggetto del capitolo, ma servir\`a a istanziare
+progressivamente la metodologia generale. I concetti della programmazione
+stocastica verranno dapprima introdotti e formalizzati in termini generali e
+successivamente ricondotti al problema SVB--ALM.
+
+In particolare, il capitolo svilupper\`a la rappresentazione dell'incertezza
+mediante scenari, la costruzione degli scenari a partire da un modello
+probabilistico, la distinzione tra decisioni di primo e di secondo stadio, la
+funzione di ricorso, la formulazione lineare a due stadi e la corrispondente
+forma estesa. Nel caso guida, la generazione degli scenari permetter\`a inoltre
+di raccordare la programmazione stocastica alle catene di Markov introdotte
+nei capitoli precedenti.
+
+\medskip
+
+\noindent
+\textbf{Obiettivi della lezione.}
+
+Al termine del capitolo lo studente dovr\`a essere in grado di:
+
+\begin{itemize}
+
+\item distinguere un problema multiperiodale deterministico da un problema
+decisionale sotto incertezza;
+
+\item distinguere periodi temporali e stadi decisionali;
+
+\item identificare decisioni di primo stadio, dati aleatori e decisioni di
+ricorso;
+
+\item rappresentare una distribuzione discreta dell'incertezza mediante
+scenari e relative probabilit\`a;
+
+\item comprendere come un modello probabilistico discreto possa generare gli
+scenari utilizzati nel problema di ottimizzazione;
+
+\item definire e interpretare la funzione di ricorso;
+
+\item formulare un problema lineare stocastico a due stadi;
+
+\item costruire e interpretare la corrispondente forma estesa, riconoscendo il
+ruolo della non anticipativit\`a.
+
+\end{itemize}
+
+\section{Dal piano deterministico alla decisione sotto incertezza}
+
+\label{sec:cap14-dal-piano-incertezza}
+
+Il modello ALM del Capitolo 12 si sviluppa lungo pi\`u date, ma rimane
+deterministico. Quando il problema viene risolto al tempo iniziale, i
+coefficienti che descrivono i cash flow, i fabbisogni e le condizioni di
+funding lungo l'intero orizzonte sono trattati come dati noti. Di conseguenza,
+anche le decisioni riferite a date future possono essere determinate
+congiuntamente.
+
+La distinzione essenziale \`e quindi tra dimensione temporale e incertezza:
+un problema pu\`o essere multiperiodale senza essere stocastico.
+
+\subsection{Dalla traiettoria deterministica ai dati aleatori}
+
+Supponiamo che alla data $t$ le condizioni esogene rilevanti per il modello
+siano descritte da un vettore di $m$ componenti. Nel caso deterministico
+scriviamo
+
+\begin{equation}
+\bar\xi_t
+=
+\begin{pmatrix}
+\bar\xi_{t1}\\
+\vdots\\
+\bar\xi_{tm}
+\end{pmatrix}
+\in\R^m,
+\qquad
+t\in\mathcal T.
+\label{eq:cap14-dati-deterministici}
+\end{equation}
+
+La successione
+$\{\bar\xi_t\}_{t\in\mathcal T}$
+rappresenta una traiettoria deterministica dei dati esogeni. La barra indica
+che tali quantit\`a vengono trattate come valori fissati nel problema; non
+indica che esse siano valori attesi.
+
+Quando l'evoluzione futura non \`e nota al tempo iniziale, gli stessi dati
+vengono rappresentati mediante vettori aleatori
+
+\begin{equation}
+\xi_t:
+(\Omega,\F)
+\longrightarrow
+(\R^m,\B(\R^m)),
+\qquad
+t\in\mathcal T.
+\label{eq:cap14-processo-dati}
+\end{equation}
+
+La famiglia
+$\{\xi_t\}_{t\in\mathcal T}$
+costituisce allora un processo stocastico vettoriale. Per ogni
+$\omega\in\Omega$, la successione
+
+\[
+\xi_0(\omega),\xi_1(\omega),\ldots,\xi_T(\omega)
+\]
+
+descrive una possibile traiettoria dei dati esogeni. La notazione non
+introduce alcuna ipotesi di indipendenza tra componenti o tra date
+differenti: tali dipendenze appartengono alla legge congiunta del processo.
+
+Nel problema di programmazione stocastica \`e spesso conveniente raccogliere
+in un unico vettore i dati aleatori rilevanti per la decisione. Se sono
+rilevanti tutti i vettori futuri, possiamo porre
+
+\begin{equation}
+\xi
+=
+\begin{pmatrix}
+\xi_1\\
+\vdots\\
+\xi_T
+\end{pmatrix}.
+\label{eq:cap14-vettore-dati-aleatori}
+\end{equation}
+
+Una realizzazione $\xi(\omega)$ identifica quindi congiuntamente i valori
+assunti dai dati futuri che entreranno nel problema di ottimizzazione. Se
+soltanto alcune componenti o alcune date sono rilevanti, il vettore $\xi$
+raccoglie esclusivamente tali quantit\`a.
+
+Le equazioni~\eqref{eq:cap14-dati-deterministici}--%
+\eqref{eq:cap14-vettore-dati-aleatori} descrivono quindi il passaggio da una
+traiettoria fissata a una rappresentazione probabilistica dei dati che
+entrano nel problema decisionale.
+
+Nel caso guida SVB--ALM, questa transizione corrisponde al passaggio
+
+\begin{equation}
+\bar Z_t=(\bar R_t,\bar C_t,\bar F_t)
+\qquad\longrightarrow\qquad
+Z_t=(Z_t^R,Z_t^C,Z_t^F).
+\label{eq:cap14-svb-ambiente-stocastico}
+\end{equation}
+
+Nel Capitolo 12 il primo membro della
+\eqref{eq:cap14-svb-ambiente-stocastico} descrive una traiettoria
+economico-finanziaria fissata; nel presente capitolo il secondo membro verr\`a
+dotato di una specificazione probabilistica e utilizzato per costruire gli
+scenari del problema SVB--ALM.
+
+Le equazioni~\eqref{eq:cap14-processo-dati} e
+\eqref{eq:cap14-vettore-dati-aleatori} descrivono l'incertezza che entra nel
+modello, ma non stabiliscono ancora quando essa venga osservata rispetto alle
+decisioni. Questo \`e il passaggio affrontato nella sezione successiva.
+
+\section{Stadi decisionali e struttura dell'informazione}
+
+\label{sec:cap14-stadi-informazione}
+
+La Sezione~\ref{sec:cap14-dal-piano-incertezza} ha introdotto il vettore
+aleatorio $\xi$ come rappresentazione dei dati incerti rilevanti per il
+problema. Occorre ora stabilire quando tale informazione diventi disponibile
+rispetto alle decisioni.
+
+Nel modello a due stadi, la decisione di primo stadio viene assunta prima di
+conoscere la realizzazione di $\xi$. Dopo che tale realizzazione \`e stata
+osservata, viene assunta la decisione di secondo stadio, o decisione di
+\emph{ricorso}.
+
+La struttura informativa caratteristica del modello \`e quindi
+
+\begin{equation}
+x
+\longrightarrow
+\xi
+\longrightarrow
+y(x,\xi).
+\label{eq:cap14-struttura-two-stage}
+\end{equation}
+
+La struttura informativa essenziale del problema a due stadi \`e
+rappresentata nella Figura~\ref{fig:cap14-struttura-two-stage}. La
+decisione $x$ viene assunta prima che l'incertezza si realizzi; dopo
+l'osservazione di $\xi$ diventa invece possibile scegliere la decisione
+di ricorso $y(x,\xi)$.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.84\textwidth]
+{../graphics/Cap14_struttura_two_stage.png}
+\caption{Struttura informativa di un problema di programmazione
+stocastica a due stadi. La decisione di primo stadio precede la
+rivelazione dell'incertezza; la decisione di ricorso viene assunta
+successivamente, conoscendo la realizzazione di $\xi$.}
+\label{fig:cap14-struttura-two-stage}
+\end{figure}
+
+La Figura~\ref{fig:cap14-struttura-two-stage} rappresenta una sequenza
+informativa, non una successione di periodi temporali. Il primo e il
+secondo stadio sono definiti dal momento in cui l'informazione diventa
+disponibile rispetto alle decisioni, non dal numero di date contenute
+nel problema.
+
+Il vettore $x$ rappresenta la decisione assunta prima della rivelazione
+dell'incertezza. Una volta osservata la realizzazione di $\xi$, la decisione
+di secondo stadio pu\`o dipendere sia dai dati osservati sia dalla scelta
+iniziale gi\`a effettuata. Per questo motivo viene indicata con
+$y(x,\xi)$.
+
+La dipendenza da $x$ \`e sostanziale. Il ricorso non permette di annullare
+la decisione iniziale e ricominciare il problema dopo avere osservato
+l'incertezza: permette invece di reagire alle condizioni osservate
+all'interno delle possibilit\`a lasciate aperte dalla scelta effettuata al
+primo stadio.
+
+\subsection{Stadi decisionali e periodi temporali}
+
+La distinzione tra stadi decisionali e periodi temporali \`e essenziale.
+
+Un problema pu\`o svilupparsi lungo numerose date e rimanere un problema a
+due stadi. Nel modello considerato, ci\`o che separa i due stadi non \`e il
+numero delle date economiche, ma la posizione delle decisioni rispetto alla
+rivelazione dell'incertezza.
+
+Se il vettore $\xi$ raccoglie dati relativi a pi\`u date future, il modello
+a due stadi assume che l'intera realizzazione rilevante di $\xi$ sia nota
+prima della scelta di $y(x,\xi)$. L'informazione futura non viene quindi
+rivelata progressivamente all'interno del secondo stadio: i diversi periodi
+fisici contenuti nel ricorso condividono lo stesso livello informativo.
+
+Questa ipotesi permette di mantenere distinti due concetti:
+
+\[
+\text{numero dei periodi economici}
+\qquad\text{e}\qquad
+\text{numero degli stadi decisionali}.
+\]
+
+Il primo descrive l'estensione temporale del problema; il secondo descrive
+la successione dei livelli informativi nei quali vengono assunte le
+decisioni.
+
+\subsection{La struttura informativa nel caso SVB--ALM}
+
+Nel caso guida SVB--ALM, la decisione di primo stadio \`e la composizione
+iniziale dell'attivo
+
+\[
+x=
+\begin{pmatrix}
+x_1\\
+x_2\\
+x_3\\
+x_4
+\end{pmatrix},
+\]
+
+che deve essere fissata prima di conoscere l'evoluzione futura
+dell'ambiente economico-finanziario.
+
+Le decisioni di secondo stadio comprendono invece le giacenze di liquidit\`a
+e il ricorso al funding lungo le quattro date future. In termini della
+notazione generale, la corrispondenza \`e
+
+\begin{equation}
+x
+\longrightarrow
+\xi
+\longrightarrow
+y(x,\xi)
+=
+\begin{pmatrix}
+g_1\\
+g_2\\
+g_3\\
+g_4\\
+u_1\\
+u_2\\
+u_3
+\end{pmatrix}.
+\label{eq:cap14-svb-struttura-two-stage}
+\end{equation}
+
+Nel modello a due stadi, quando vengono determinate le componenti del
+vettore di ricorso nella
+\eqref{eq:cap14-svb-struttura-two-stage}, l'intera realizzazione di $\xi$
+rilevante per le quattro date future \`e considerata nota. Di conseguenza,
+anche una decisione riferita alla prima data futura pu\`o dipendere dai dati
+contenuti nella realizzazione completa di $\xi$.
+
+Questa caratteristica non deriva dalla struttura temporale dell'ALM, ma
+dall'ipotesi informativa propria della formulazione a due stadi. Essa dovr\`a
+essere tenuta distinta dalla rivelazione progressiva dell'informazione che
+caratterizzerebbe un modello multistadio.
+
+Le equazioni~\eqref{eq:cap14-struttura-two-stage} e
+\eqref{eq:cap14-svb-struttura-two-stage} specificano quando vengono assunte
+le decisioni, ma non descrivono ancora quali realizzazioni di $\xi$ siano
+possibili n\`e quale probabilit\`a debba essere loro attribuita. Questo
+richiede l'introduzione della rappresentazione dell'incertezza mediante
+scenari.
+
+\section{Scenari e rappresentazione discreta dell'incertezza}
+
+\label{sec:cap14-scenari}
+
+Il vettore aleatorio $\xi$ descrive i dati incerti rilevanti per il problema.
+Una rappresentazione finita dell'incertezza \`e costituita da un insieme di
+scenari
+
+\[
+\xi_s,
+\qquad
+s\in\mathcal S=\{1,\ldots,N\},
+\]
+
+ai quali sono associati pesi probabilistici
+
+\[
+p_s\geq0,
+\qquad
+\sum_{s\in\mathcal S}p_s=1.
+\]
+
+La rappresentazione a scenari \`e quindi descritta dall'insieme
+
+\begin{equation}
+\left\{(\xi_s,p_s):s\in\mathcal S\right\}.
+\label{eq:cap14-rappresentazione-scenari}
+\end{equation}
+
+Indipendentemente dal metodo utilizzato per costruirli, il risultato
+finale \`e un insieme finito di possibili scenari, ciascuno associato a
+una probabilit\`a. Questa rappresentazione \`e illustrata nella
+Figura~\ref{fig:cap14-rappresentazione-scenari}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.82\textwidth]
+{../graphics/Cap14_rappresentazione_scenari.png}
+\caption{Rappresentazione discreta dell'incertezza mediante un insieme
+finito di scenari. A ciascuno scenario \`e associata una probabilit\`a;
+$N$ indica il numero complessivo degli scenari considerati.}
+\label{fig:cap14-rappresentazione-scenari}
+\end{figure}
+
+La figura non specifica come gli scenari vengano costruiti. Essi possono
+derivare direttamente da una distribuzione discreta, essere ottenuti
+mediante simulazione o moment matching, oppure risultare da una
+procedura di riduzione. Il punto comune \`e che il problema di
+programmazione stocastica utilizza infine un numero finito di possibili
+realizzazioni dell'incertezza e le rispettive probabilit\`a.
+
+Se $\xi$ possiede una distribuzione discreta con supporto finito e tutti i
+possibili valori vengono inclusi, allora
+
+\[
+p_s=\Prob(\xi=\xi_s)
+\]
+
+e la rappresentazione \`e esatta. Per ogni funzione integrabile $\varphi$,
+
+\begin{equation}
+\E[\varphi(\xi)]
+=
+\sum_{s\in\mathcal S}p_s\varphi(\xi_s).
+\label{eq:cap14-attesa-scenari}
+\end{equation}
+
+Se invece la distribuzione di $\xi$ \`e continua, oppure il suo supporto
+discreto \`e troppo ampio per essere utilizzato integralmente, si costruisce
+un insieme finito di coppie $(\xi_s,p_s)$ che approssima la distribuzione
+originaria. In tal caso, per le quantit\`a rilevanti nel problema,
+
+\[
+\E[\varphi(\xi)]
+\approx
+\sum_{s\in\mathcal S}p_s\varphi(\xi_s).
+\]
+
+\subsection{Scenari come traiettorie}
+
+Quando l'incertezza riguarda pi\`u date, il vettore $\xi$ contiene l'intera
+successione dei dati futuri rilevanti. Uno scenario non coincide quindi, in
+generale, con lo stato osservato in una singola data.
+
+Se
+
+\[
+\xi=(\xi_1,\ldots,\xi_T),
+\]
+
+lo scenario $s$ \`e la realizzazione completa
+
+\begin{equation}
+\xi_s=
+\left(
+\xi_1^s,\ldots,\xi_T^s
+\right).
+\label{eq:cap14-scenario-traiettoria}
+\end{equation}
+
+Il singolo $\xi_t^s$ descrive i dati alla data $t$ lungo la realizzazione
+$s$; il vettore $\xi_s$ descrive invece l'intera traiettoria utilizzata come
+scenario.
+
+Nel modello a due stadi questa distinzione \`e essenziale. Le diverse date
+contenute nella \eqref{eq:cap14-scenario-traiettoria} descrivono
+l'evoluzione temporale dell'incertezza, ma non costituiscono nuovi stadi
+decisionali: al secondo stadio viene considerato noto l'intero scenario
+$\xi_s$.
+
+\subsection{Costruzione della distribuzione discreta}
+
+La costruzione degli scenari consiste nel determinare i valori $\xi_s$ e i
+pesi $p_s$ della distribuzione discreta di $\xi$. I principali
+approcci possono essere sintetizzati come segue.
+
+\paragraph{Enumerazione esatta.}
+
+Se il modello probabilistico possiede un numero finito e gestibile di
+realizzazioni, si utilizza direttamente il suo supporto:
+
+\[
+\{\xi_1,\ldots,\xi_N\},
+\qquad
+p_s=\Prob(\xi=\xi_s).
+\]
+
+Non viene introdotta alcuna approssimazione probabilistica.
+
+\paragraph{Generazione di traiettorie.}
+
+Se \`e disponibile un modello probabilistico dal quale sia possibile
+simulare $\xi$, si generano realizzazioni
+
+\[
+\xi^{(1)},\ldots,\xi^{(M)}.
+\]
+
+Nel campionamento Monte Carlo elementare, utilizzando tutte le realizzazioni
+generate come scenari,
+
+\[
+\xi_s=\xi^{(s)},
+\qquad
+p_s=\frac{1}{M},
+\qquad
+s=1,\ldots,M,
+\]
+
+e quindi
+
+\[
+\E[\varphi(\xi)]
+\approx
+\frac{1}{M}
+\sum_{s=1}^{M}\varphi(\xi^{(s)}).
+\]
+
+Il modello generatore pu\`o essere una distribuzione multivariata, un modello
+di serie storica oppure un processo stocastico.
+
+Un caso particolare importante si presenta quando il processo possiede un
+numero finito di stati e sono note le probabilit\`a delle possibili
+transizioni. Gli scenari possono allora essere costruiti enumerando le
+traiettorie ammissibili e assegnando a ciascuna la probabilit\`a indotta dal
+modello di transizione. Le catene di Markov appartengono a questa classe.
+
+\paragraph{Moment matching.}
+
+Gli scenari possono anche essere scelti in modo che la distribuzione discreta
+riproduca determinate caratteristiche della distribuzione originaria.
+Indicando con
+
+\[
+\mu_k=\E[g_k(\xi)],
+\qquad
+k=1,\ldots,K,
+\]
+
+i momenti o, pi\`u generalmente, le caratteristiche da preservare, si cercano
+$\xi_s$ e $p_s$ tali che
+
+\[
+\sum_{s\in\mathcal S}
+p_s g_k(\xi_s)
+\approx
+\mu_k,
+\qquad
+k=1,\ldots,K.
+\]
+
+Per esempio, scegliendo opportunamente le funzioni $g_k$, si possono
+riprodurre media, varianza, covarianze o altri momenti ritenuti rilevanti.
+
+\paragraph{Campionamento interno.}
+
+In alcuni metodi gli scenari non vengono fissati una volta per tutte prima
+dell'ottimizzazione, ma vengono campionati durante la procedura di soluzione.
+Questa impostazione, detta \emph{internal sampling}, non verr\`a sviluppata
+nel corso.
+
+\paragraph{Riduzione degli scenari.}
+
+Se un insieme iniziale contiene un numero molto elevato di scenari,
+
+\[
+\mathcal S_0=\{1,\ldots,M\},
+\]
+
+si pu\`o selezionare un sottoinsieme
+
+\[
+\mathcal S_R\subset\mathcal S_0,
+\qquad
+|\mathcal S_R|=N<M,
+\]
+
+e riassegnare le probabilit\`a agli scenari conservati:
+
+\[
+\widetilde p_s\geq0,
+\qquad
+\sum_{s\in\mathcal S_R}\widetilde p_s=1.
+\]
+
+La scelta del sottoinsieme e dei nuovi pesi viene effettuata cercando di
+mantenere la distribuzione ridotta sufficientemente vicina alla
+distribuzione discreta originaria secondo un opportuno criterio di distanza.
+Gli algoritmi di scenario reduction non verranno sviluppati nel corso.
+
+\subsection{Il caso SVB--ALM}
+
+Nel caso guida non \`e necessario approssimare una distribuzione continua.
+L'incertezza \`e descritta dal processo a stati finiti
+
+\[
+Z_t=(Z_t^R,Z_t^C,Z_t^F),
+\]
+
+la cui dinamica \`e governata da una catena di Markov.
+
+Il caso SVB--ALM rientra quindi nell'enumerazione delle traiettorie di un
+modello discreto di transizione. Uno scenario avr\`a la forma
+
+\[
+\xi_s=
+\left(
+Z_1^s,Z_2^s,Z_3^s,Z_4^s
+\right),
+\]
+
+e la sua probabilit\`a sar\`a determinata dalle probabilit\`a di transizione
+lungo la traiettoria.
+
+La sezione successiva sviluppa formalmente questa costruzione e mostra come
+dalla matrice di transizione della catena si ottengano l'insieme degli
+scenari e le probabilit\`a $p_s$.
+
+\section{Dalla legge probabilistica agli scenari: il caso Markoviano}
+
+\label{sec:cap14-scenari-markov}
+
+La Sezione~\ref{sec:cap14-scenari} ha mostrato come l'incertezza possa
+essere rappresentata mediante un insieme finito di scenari e delle
+rispettive probabilit\`a. Resta da chiarire come tali scenari possano
+essere ottenuti a partire da un modello probabilistico.
+
+Nel caso SVB--ALM l'incertezza \`e descritta da una catena di Markov
+finita. Il modello probabilistico non fornisce direttamente gli scenari
+del problema di programmazione stocastica: esso descrive le probabilit\`a
+di transizione tra gli stati. Gli scenari vengono invece costruiti
+considerando le possibili traiettorie del processo sull'orizzonte
+temporale rilevante.
+
+Sia
+
+\[
+\mathcal I=\{z_1,\ldots,z_8\}
+\]
+
+lo spazio degli stati e sia
+
+\[
+Z_t\in\mathcal I
+\]
+
+lo stato dell'ambiente esterno alla data $t$. Nel caso SVB--ALM ogni
+stato combina una condizione relativa al tasso di interesse, al rischio
+di credito e alla tensione sul funding:
+
+\[
+\mathcal I
+=
+\{R_L,R_H\}
+\times
+\{C_L,C_H\}
+\times
+\{F_L,F_H\}.
+\]
+
+La dinamica \`e descritta da una catena di Markov omogenea con matrice di
+transizione
+
+\[
+P=(p_{ij})_{i,j=1}^{8},
+\]
+
+dove
+
+\begin{equation}
+p_{ij}
+=
+\Prob(Z_{t+1}=z_j\mid Z_t=z_i).
+\label{eq:cap14-transizione-markov}
+\end{equation}
+
+La matrice $P$ descrive congiuntamente l'evoluzione degli otto stati.
+Non viene quindi introdotta alcuna ipotesi di indipendenza tra le tre
+componenti che definiscono lo stato.
+
+Nel problema considerato lo stato iniziale
+
+\[
+Z_0=z_{i_0}
+\]
+
+\`e noto al momento della decisione di primo stadio. L'incertezza riguarda
+invece gli stati futuri
+
+\[
+Z_1,\ldots,Z_4.
+\]
+
+Una possibile evoluzione del processo \`e identificata dalla sequenza
+
+\[
+s=(i_1^s,i_2^s,i_3^s,i_4^s),
+\]
+
+alla quale corrisponde la traiettoria
+
+\begin{equation}
+\xi_s
+=
+\left(
+Z_1^s,Z_2^s,Z_3^s,Z_4^s
+\right)
+=
+\left(
+z_{i_1^s},z_{i_2^s},z_{i_3^s},z_{i_4^s}
+\right).
+\label{eq:cap14-scenario-markov}
+\end{equation}
+
+Lo scenario \`e quindi una realizzazione completa del processo
+nell'orizzonte considerato. Esso non coincide con lo stato raggiunto in
+una singola data: due traiettorie differenti possono attraversare stati
+diversi ai tempi intermedi pur terminando nello stesso stato finale.
+
+Fissato lo stato iniziale $z_{i_0}$, una traiettoria \`e ammissibile se
+tutte le transizioni che la compongono hanno probabilit\`a positiva. In
+particolare, se
+
+\[
+p_{i_0i_1^s}
+p_{i_1^si_2^s}
+p_{i_2^si_3^s}
+p_{i_3^si_4^s}>0,
+\]
+
+la traiettoria $s$ appartiene all'insieme degli scenari considerati.
+
+La Figura~\ref{fig:cap14-albero-markoviano} rappresenta schematicamente
+questa costruzione per l'orizzonte $T=4$ del caso SVB--ALM.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.98\textwidth]
+{../graphics/Cap14_albero_markoviano_scenari.png}
+\caption{Generazione degli scenari da una catena di Markov a pi\`u
+periodi. Ogni cammino completo dallo stato iniziale a $t=4$ identifica
+uno scenario. I nodi intermedi rappresentano stati del processo e non
+stadi decisionali.}
+\label{fig:cap14-albero-markoviano}
+\end{figure}
+
+La Figura~\ref{fig:cap14-albero-markoviano} deve essere letta come una
+rappresentazione della legge probabilistica del processo. I livelli
+$t=1,\ldots,4$ descrivono l'evoluzione possibile degli stati nel tempo,
+ma non introducono ulteriori stadi decisionali. Nel modello a due stadi
+l'intera traiettoria costituisce una singola realizzazione
+dell'incertezza osservata prima della decisione di ricorso.
+
+La probabilit\`a associata a una traiettoria si ottiene applicando la
+regola del prodotto delle probabilit\`a condizionate. Per lo scenario
+$s$,
+
+\[
+\begin{split}
+p_s
+&=
+\Prob(
+Z_1=Z_1^s,
+Z_2=Z_2^s,
+Z_3=Z_3^s,
+Z_4=Z_4^s
+\mid Z_0=z_{i_0}
+).
+\end{split}
+\]
+
+La propriet\`a di Markov implica che, condizionatamente allo stato
+corrente, la probabilit\`a dello stato successivo non dipenda dagli stati
+precedentemente attraversati. Ne segue
+
+\begin{equation}
+p_s
+=
+p_{i_0i_1^s}
+p_{i_1^si_2^s}
+p_{i_2^si_3^s}
+p_{i_3^si_4^s}.
+\label{eq:cap14-probabilita-traiettoria}
+\end{equation}
+
+In questo modo la matrice di transizione determina sia le traiettorie
+ammissibili sia le rispettive probabilit\`a. Il passaggio dal modello
+probabilistico alla rappresentazione utilizzata dal problema
+stocastico pu\`o quindi essere sintetizzato come
+
+\[
+P
+\longrightarrow
+\text{traiettorie ammissibili}
+\longrightarrow
+\{(\xi_s,p_s)\}.
+\]
+
+Va distinta la probabilit\`a di una traiettoria dalla probabilit\`a di
+trovarsi in un determinato stato alla data finale. Dal Capitolo~8
+sappiamo infatti che
+
+\[
+(P^4)_{i_0j}
+=
+\Prob(Z_4=z_j\mid Z_0=z_{i_0}).
+\]
+
+Questa quantit\`a aggrega le probabilit\`a di tutte le traiettorie che,
+partendo da $z_{i_0}$, terminano nello stato $z_j$. In particolare,
+
+\begin{equation}
+(P^4)_{i_0j}
+=
+\sum_{\substack{s:\, Z_4^s=z_j}}
+p_s.
+\label{eq:cap14-probabilita-terminale}
+\end{equation}
+
+La distribuzione terminale non contiene quindi l'informazione sugli
+stati attraversati alle date intermedie. Nel problema SVB--ALM tale
+informazione \`e rilevante, poich\'e lo stato $Z_t^s$ determina i
+coefficienti del modello alla data $t$.
+
+Per ogni scenario $s$ e per ogni $t=1,\ldots,4$,
+
+\[
+Z_t^s
+\longmapsto
+\left(
+a_{t1}^s,\ldots,a_{t4}^s,
+d_t^s,
+r_t^{g,s},
+r_t^{u,s},
+\bar u_t^s
+\right).
+\]
+
+La traiettoria
+
+\[
+\xi_s=(Z_1^s,Z_2^s,Z_3^s,Z_4^s)
+\]
+
+determina quindi l'insieme completo dei dati incerti utilizzati nel
+problema ALM sotto lo scenario $s$.
+
+La costruzione degli scenari completa la descrizione probabilistica del
+problema. Il passo successivo consiste nel determinare, fissata la
+decisione iniziale $x$ e osservato lo scenario $\xi_s$, quali decisioni
+di secondo stadio risultino ammissibili e quale valore economico esse
+generino. Questo conduce alla funzione di ricorso.
+
+\section{La funzione di ricorso}
+
+\label{sec:cap14-ricorso}
+
+Nel problema a due stadi, la decisione $x$ viene scelta prima che
+l'incertezza sia osservata. Dopo la realizzazione di $\xi$, il decisore
+pu\`o reagire mediante una decisione di secondo stadio $y$.
+
+Per ogni realizzazione $\xi$, i vincoli del problema di secondo stadio individuano una regione ammissibile che indichiamo con
+\[
+\mathcal X(\xi).
+\]
+Una decisione di ricorso $y$ \`e ammissibile per la realizzazione $\xi$
+se
+\[
+y\in\mathcal X(\xi).
+\]
+Fissati $x$ e $\xi$, il problema di secondo stadio \`e un problema di
+ottimizzazione deterministico. Nel caso lineare di massimizzazione, una
+forma generale, spesso utilizzata nei testi su Programmazione Stocastica, \`e
+
+\begin{equation}
+Q(x,\xi)
+=
+\max_{y\in Y(\xi)}
+\left\{
+q(\xi)'y:
+T(\xi)x+W(\xi)y=h(\xi)
+\right\}.
+\label{eq:cap14-funzione-ricorso-generale}
+\end{equation}
+
+La quantit\`a $Q(x,\xi)$ prende il nome di \emph{funzione di ricorso}.
+Essa associa alla decisione iniziale $x$ e alla realizzazione
+dell'incertezza $\xi$ il valore ottimo del problema di secondo stadio.
+
+La relazione
+\eqref{eq:cap14-funzione-ricorso-generale} contiene cinque oggetti
+distinti.
+
+Il vettore
+
+\[
+q(\xi)
+\]
+
+raccoglie i coefficienti della funzione obiettivo delle decisioni di
+secondo stadio. Il prodotto
+
+\[
+q(\xi)'y
+\]
+
+misura quindi il contributo economico del ricorso nella realizzazione
+$\xi$.
+
+La matrice
+
+\[
+T(\xi)
+\]
+
+descrive il modo in cui la decisione di primo stadio $x$ contribuisce ai
+vincoli del secondo stadio. Il termine
+
+\[
+T(\xi)x
+\]
+
+rappresenta pertanto la parte delle risorse, dei flussi o dei fabbisogni
+del secondo stadio determinata dalla scelta iniziale.
+
+La matrice
+
+\[
+W(\xi)
+\]
+
+raccoglie invece i coefficienti delle variabili di ricorso. Il prodotto
+
+\[
+W(\xi)y
+\]
+
+descrive il contributo delle decisioni di secondo stadio ai vincoli del
+problema.
+
+Il vettore
+
+\[
+h(\xi)
+\]
+
+rappresenta il termine noto dei vincoli nella realizzazione $\xi$.
+
+Infine,
+
+\[
+Y(\xi)
+\]
+
+rappresenta l'insieme dei vincoli direttamente imposti alle variabili di
+secondo stadio, quali condizioni di non negativit\`a, limiti inferiori o
+superiori e altri vincoli operativi.
+
+La struttura del problema pu\`o quindi essere letta come
+
+\[
+\underbrace{T(\xi)x}_{\text{effetto della decisione iniziale}}
++
+\underbrace{W(\xi)y}_{\text{effetto del ricorso}}
+=
+\underbrace{h(\xi)}_{\text{termine noto}},
+\]
+
+mentre
+
+\[
+q(\xi)'y
+\]
+
+misura il valore economico prodotto dalle decisioni di secondo stadio.
+
+La notazione $q(\xi)$, $T(\xi)$, $W(\xi)$ e $h(\xi)$ \`e standard nella
+programmazione stocastica lineare. Essa non introduce nuovi oggetti
+economici: fornisce una rappresentazione matriciale generale dei
+coefficienti che, nelle singole applicazioni, assumono significati
+specifici.
+
+\begin{definition}[Funzione di ricorso]
+Fissata una decisione di primo stadio $x$ e osservata una realizzazione
+$\xi$ dell'incertezza, si considera il problema di secondo stadio
+
+\[
+\max_{y\in Y(\xi)}
+\left\{
+q(\xi)'y:
+T(\xi)x+W(\xi)y=h(\xi)
+\right\}.
+\]
+
+Si definisce \emph{funzione di ricorso} la funzione
+
+\[
+Q:X\times\Xi\longrightarrow\R\cup\{-\infty,+\infty\}
+\]
+
+che associa a ogni coppia $(x,\xi)$ il valore ottimo del corrispondente
+problema di secondo stadio:
+
+\begin{equation}
+Q(x,\xi)
+=
+\max_{y\in Y(\xi)}
+\left\{
+q(\xi)'y:
+T(\xi)x+W(\xi)y=h(\xi)
+\right\}.
+\label{eq:cap14-definizione-formale-ricorso}
+\end{equation}
+
+Pertanto $Q(x,\xi)$ non \`e una decisione, ma il valore ottimo ottenibile
+dopo aver fissato $x$ e osservato $\xi$.
+\end{definition}
+
+\subsection{Rappresentazione a scenari}
+
+La regione ammissibile di secondo stadio nello scenario $s$ \`e quindi
+
+\[
+\mathcal X_s
+=
+\mathcal X(\xi_s).
+\]
+
+Pertanto una decisione di ricorso $y_s$ \`e ammissibile nello scenario
+$s$ se
+
+\[
+y_s\in\mathcal X_s.
+\]
+
+La funzione di ricorso diventa quindi
+
+\begin{equation}
+Q_s(x)
+=
+Q(x,\xi_s)
+=
+\max_{y_s\in\mathcal X_s}
+\left\{
+q_s'y_s:
+T_sx+W_sy_s=h_s
+\right\},
+\label{eq:cap14-ricorso-scenario}
+\end{equation}
+
+dove
+
+\[
+q_s=q(\xi_s),
+\qquad
+T_s=T(\xi_s),
+\qquad
+W_s=W(\xi_s),
+\qquad
+h_s=h(\xi_s),
+\qquad
+\mathcal X_s=\mathcal X(\xi_s).
+\]
+
+La notazione con il pedice $s$ rende esplicito che i coefficienti del
+problema di secondo stadio possono cambiare da uno scenario all'altro.
+
+Se il massimo viene raggiunto, indichiamo con
+
+\[
+y_s^*(x)
+\]
+
+una soluzione ottima del problema di ricorso nello scenario $s$.
+Occorre quindi distinguere:
+
+\[
+y_s
+\]
+
+come generica decisione di secondo stadio ammissibile,
+
+\[
+y_s^*(x)
+\]
+
+come decisione ottima di secondo stadio, e
+
+\[
+Q_s(x)
+\]
+
+come valore ottimo prodotto da tale decisione.
+
+\subsection{Identificazione dei coefficienti nel caso SVB--ALM}
+
+Nel caso SVB--ALM la forma generale
+\eqref{eq:cap14-ricorso-scenario} pu\`o essere ricondotta direttamente
+alla notazione gi\`a introdotta nel Capitolo~12.
+
+La decisione di primo stadio \`e
+
+\[
+x=
+\begin{pmatrix}
+x_1\\
+x_2\\
+x_3\\
+x_4
+\end{pmatrix},
+\]
+
+mentre il vettore di ricorso nello scenario $s$ \`e
+
+\[
+y_s=
+\begin{pmatrix}
+g_1^s\\
+g_2^s\\
+g_3^s\\
+g_4^s\\
+u_1^s\\
+u_2^s\\
+u_3^s
+\end{pmatrix}.
+\]
+
+La matrice
+
+\[
+T_s
+\]
+
+coincide con la matrice dei cash flow dello scenario:
+
+\[
+T_s
+=
+A^{CF,s}
+=
+\begin{pmatrix}
+a_{11}^s & a_{12}^s & a_{13}^s & a_{14}^s\\
+a_{21}^s & a_{22}^s & a_{23}^s & a_{24}^s\\
+a_{31}^s & a_{32}^s & a_{33}^s & a_{34}^s\\
+a_{41}^s & a_{42}^s & a_{43}^s & a_{44}^s
+\end{pmatrix}.
+\]
+
+Pertanto
+
+\[
+T_sx
+=
+\begin{pmatrix}
+\sum_{j=1}^{4}a_{1j}^s x_j\\
+\sum_{j=1}^{4}a_{2j}^s x_j\\
+\sum_{j=1}^{4}a_{3j}^s x_j\\
+\sum_{j=1}^{4}a_{4j}^s x_j
+\end{pmatrix}
+\]
+
+raccoglie i cash flow prodotti dalla decisione iniziale alle quattro
+date.
+
+Il vettore
+
+\[
+h_s
+\]
+
+raccoglie i fabbisogni di liquidit\`a dello scenario:
+
+\[
+h_s
+=
+\begin{pmatrix}
+d_1^s\\
+d_2^s\\
+d_3^s\\
+d_4^s
+\end{pmatrix}.
+\]
+
+La matrice $W_s$ rappresenta invece la struttura intertemporale della
+liquidit\`a e del funding:
+
+\[
+W_s
+=
+\begin{pmatrix}
+-1 & 0 & 0 & 0 & 1 & 0 & 0\\
+1+r_1^{g,s} & -1 & 0 & 0 &
+-(1+r_1^{u,s}) & 1 & 0\\
+0 & 1+r_2^{g,s} & -1 & 0 &
+0 & -(1+r_2^{u,s}) & 1\\
+0 & 0 & 1+r_3^{g,s} & -1 &
+0 & 0 & -(1+r_3^{u,s})
+\end{pmatrix}.
+\]
+
+Con l'ordinamento scelto per $y_s$, la relazione
+
+\[
+T_sx+W_sy_s=h_s
+\]
+
+riproduce esattamente i quattro bilanci di liquidit\`a dello scenario.
+
+Infine, i coefficienti economici del ricorso sono raccolti nel
+vettore
+
+\[
+q_s
+=
+\begin{pmatrix}
+r_1^{g,s}\\
+r_2^{g,s}\\
+r_3^{g,s}\\
+0\\
+-r_1^{u,s}\\
+-r_2^{u,s}\\
+-r_3^{u,s}
+\end{pmatrix},
+\]
+
+cosicch\'e
+
+\[
+q_s'y_s
+=
+\sum_{t=1}^{3}r_t^{g,s}g_t^s
+-
+\sum_{t=1}^{3}r_t^{u,s}u_t^s.
+\]
+
+Le decisioni di secondo stadio nello scenario $s$ sono rappresentate dal
+vettore
+
+\[
+y_s
+=
+(g_1^s,g_2^s,g_3^s,g_4^s,u_1^s,u_2^s,u_3^s)'.
+\]
+
+Non ogni vettore $y_s$ \`e tuttavia ammissibile. I vincoli operativi dello
+scenario $s$ sono
+
+\[
+g_t^s\geq0,
+\qquad
+t=1,\ldots,4,
+\]
+
+e
+
+\[
+0\leq u_t^s\leq\bar u_t^s,
+\qquad
+t=1,2,3.
+\]
+
+Essi individuano la regione ammissibile delle decisioni di secondo stadio,
+che indichiamo con
+
+\[
+\mathcal X_s
+=
+\R_+^4
+\times
+[0,\bar u_1^s]
+\times
+[0,\bar u_2^s]
+\times
+[0,\bar u_3^s].
+\]
+
+Una decisione di ricorso $y_s$ \`e quindi ammissibile nello scenario $s$
+se e solo se
+
+\[
+y_s\in\mathcal X_s.
+\]
+
+Nel caso SVB--ALM, la funzione di ricorso assume pertanto la forma
+
+\[
+Q_s(x)
+=
+\max_{y_s\in\mathcal X_s}
+\left\{
+q_s'y_s:
+T_sx+W_sy_s=h_s
+\right\}.
+\]
+
+La corrispondenza tra notazione generale e caso applicato \`e quindi
+
+\[
+\begin{array}{ccl}
+T_s & = & A^{CF,s},\\[0.1cm]
+h_s & = & (d_1^s,d_2^s,d_3^s,d_4^s)',\\[0.1cm]
+W_s & = & \text{matrice dei bilanci intertemporali},\\[0.1cm]
+q_s & = & \text{coefficienti economici di liquidit\`a e funding},\\[0.1cm]
+Y_s & = & \text{vincoli operativi sulle variabili di ricorso}.
+\end{array}
+\]
+
+Il caso SVB--ALM mostra quindi come la formulazione generale del ricorso non introduca un secondo linguaggio matematico, ma raccolga in
+forma compatta gli stessi coefficienti e vincoli gi\`a presenti nel
+modello finanziario.
+
+La sezione successiva utilizza la funzione $Q_s(x)$ per combinare il
+risultato della decisione di primo stadio con il valore atteso delle
+possibili risposte di secondo stadio.
+
+\section{Il programma lineare stocastico a due stadi}
+
+\label{sec:cap14-programma-due-stadi}
+
+La funzione di ricorso introdotta nella Sezione~\ref{sec:cap14-ricorso}
+descrive il miglior risultato ottenibile nel secondo stadio quando la
+decisione iniziale $x$ \`e gi\`a stata assunta e l'incertezza $\xi$ \`e stata
+osservata.
+
+Il problema decisionale complessivo richiede invece di scegliere $x$ prima
+di conoscere quale realizzazione dell'incertezza si verificher\`a. La
+decisione di primo stadio deve pertanto essere valutata considerando
+congiuntamente il suo risultato immediato e i possibili valori futuri del ricorso.
+
+\begin{definition}[Programma stocastico lineare a due stadi]
+Sia $x\in\mathcal X$ la decisione di primo stadio e sia
+
+\[
+Q(x,\xi)
+\]
+
+la funzione di ricorso associata alla realizzazione $\xi$. Un programma
+stocastico lineare a due stadi di massimizzazione ha la forma
+
+\begin{equation}
+\max_{x\in\mathcal X}
+\left\{
+c'x+\E[Q(x,\xi)]
+\right\}.
+\label{eq:cap14-programma-stocastico-generale}
+\end{equation}
+
+La decisione $x$ viene scelta prima dell'osservazione di $\xi$; il termine
+
+\[
+c'x
+\]
+
+rappresenta il contributo economico direttamente associato alla decisione di
+primo stadio, mentre
+
+\[
+\E[Q(x,\xi)]
+\]
+
+rappresenta il valore atteso della risposta ottimale di secondo stadio.
+\end{definition}
+
+La formulazione
+\eqref{eq:cap14-programma-stocastico-generale} mette in evidenza il principio
+fondamentale del problema a due stadi. Per ogni possibile scelta $x$, il
+decisore non considera una sola conseguenza futura, ma l'intera distribuzione
+dei valori di ricorso generati dalle diverse realizzazioni
+dell'incertezza.
+
+Il problema pu\`o essere letto attraverso la sequenza
+
+\[
+x
+\longrightarrow
+Q(x,\xi)
+\longrightarrow
+\E[Q(x,\xi)].
+\]
+
+La prima freccia rappresenta l'effetto della decisione iniziale sui problemi
+di secondo stadio; la seconda aggrega le conseguenze future utilizzando la
+legge probabilistica di $\xi$.
+
+\subsection{Formulazione con un numero finito di scenari}
+
+Supponiamo ora che l'incertezza sia rappresentata mediante un insieme finito
+di scenari
+
+\[
+\mathcal S,
+\]
+
+con probabilit\`a
+
+\[
+p_s\geq0,
+\qquad
+\sum_{s\in\mathcal S}p_s=1.
+\]
+
+Per ogni scenario $s$,
+
+\[
+Q_s(x)=Q(x,\xi_s).
+\]
+
+Il valore atteso del ricorso diventa quindi
+
+\[
+\E[Q(x,\xi)]
+=
+\sum_{s\in\mathcal S}p_s Q_s(x).
+\]
+
+Ne segue la formulazione a scenari finiti
+
+\begin{equation}
+\max_{x\in\mathcal X}
+\left\{
+c'x+
+\sum_{s\in\mathcal S}p_s Q_s(x)
+\right\}.
+\label{eq:cap14-programma-stocastico-scenari}
+\end{equation}
+
+La probabilit\`a $p_s$ non modifica il problema di ricorso dello scenario
+$s$: essa determina il peso con cui il relativo valore ottimo entra nella
+decisione di primo stadio.
+
+Se, come nella sezione precedente,
+
+\[
+Q_s(x)
+=
+\max_{y_s\in\mathcal X_s}
+\left\{
+q_s'y_s:
+T_sx+W_sy_s=h_s
+\right\},
+\]
+
+il programma stocastico pu\`o essere scritto esplicitando una decisione di
+ricorso per ciascuno scenario:
+
+\begin{equation}
+\begin{aligned}
+\max_{x,\{y_s\}_{s\in\mathcal S}}
+\quad&
+c'x+
+\sum_{s\in\mathcal S}p_s q_s'y_s
+\\
+\text{soggetto a}\quad&
+x\in\mathcal X,
+\\
+&
+T_sx+W_sy_s=h_s,
+\qquad s\in\mathcal S,
+\\
+&
+y_s\in\mathcal X_s,
+\qquad s\in\mathcal S.
+\end{aligned}
+\label{eq:cap14-programma-stocastico-lineare}
+\end{equation}
+
+La stessa decisione $x$ compare in tutti gli scenari, perch\'e viene assunta
+prima che lo scenario sia noto. Le decisioni $y_s$, invece, possono essere
+diverse da uno scenario all'altro, poich\'e vengono assunte dopo
+l'osservazione dell'incertezza.
+
+Questa asimmetria costituisce l'elemento essenziale della struttura a due
+stadi:
+
+\[
+\boxed{
+\text{un'unica decisione }x
+\quad\text{e}\quad
+\text{una decisione di ricorso }y_s\text{ per ogni scenario}.
+}
+\]
+
+\subsection{La struttura del problema SVB--ALM}
+
+Nel caso SVB--ALM, la decisione di primo stadio \`e
+
+\[
+x=
+(x_1,x_2,x_3,x_4)',
+\]
+
+mentre ogni scenario possiede il proprio vettore di ricorso
+
+\[
+y_s=
+(g_1^s,g_2^s,g_3^s,g_4^s,
+u_1^s,u_2^s,u_3^s)'.
+\]
+
+Per ogni scenario $s$, la relazione
+
+\[
+T_sx+W_sy_s=h_s
+\]
+
+rappresenta i quattro bilanci temporali di liquidit\`a. In forma esplicita,
+essi sono
+
+\[
+\sum_{j=1}^{4}a_{1j}^s x_j+u_1^s
+=
+d_1^s+g_1^s,
+\]
+
+\[
+\sum_{j=1}^{4}a_{tj}^s x_j
++
+(1+r_{t-1}^{g,s})g_{t-1}^s
++
+u_t^s
+=
+d_t^s
++
+(1+r_{t-1}^{u,s})u_{t-1}^s
++
+g_t^s,
+\qquad t=2,3,
+\]
+
+e
+
+\[
+\sum_{j=1}^{4}a_{4j}^s x_j
++
+(1+r_3^{g,s})g_3^s
+=
+d_4^s
++
+(1+r_3^{u,s})u_3^s
++
+g_4^s.
+\]
+
+Questi vincoli vengono replicati per ogni scenario
+
+\[
+s\in\mathcal S.
+\]
+
+La decisione iniziale $x$ rimane invece unica.
+
+Il problema SVB--ALM assume quindi la struttura
+
+\[
+\max
+\left\{
+c'x+
+\sum_{s\in\mathcal S}p_s q_s'y_s
+\right\},
+\]
+
+soggetta ai vincoli di primo stadio su $x$ e, per ciascuno scenario $s$, ai
+corrispondenti bilanci di liquidit\`a e ai vincoli operativi sulle variabili
+$g_t^s$ e $u_t^s$.
+
+L'incertezza modifica pertanto i coefficienti
+
+\[
+a_{tj}^s,
+\qquad
+d_t^s,
+\qquad
+r_t^{g,s},
+\qquad
+r_t^{u,s},
+\qquad
+\bar u_t^s,
+\]
+
+e genera differenti problemi di ricorso. La decisione di primo stadio deve
+essere scelta considerando simultaneamente tutte queste possibili
+conseguenze.
+
+\subsection{Esempio numerico guidato: due scenari}
+
+L'esempio seguente ha una funzione esclusivamente didattica. I valori
+numerici non costituiscono una calibrazione del caso SVB: sono scelti in
+modo da rendere trasparente il compromesso tra rendimento della decisione
+iniziale e costo atteso del ricorso.
+
+\begin{example}[Allocazione iniziale e funding in due scenari]
+
+Una banca deve allocare al tempo $0$ un ammontare
+
+\[
+A_0=10
+\]
+
+tra due classi di attivo. Indichiamo con
+
+\[
+x_1
+\]
+
+l'investimento nell'attivit\`a maggiormente liquida e con
+
+\[
+x_2
+\]
+
+l'investimento nell'attivit\`a pi\`u redditizia ma meno liquida.
+
+Le decisioni di primo stadio devono soddisfare
+
+\[
+x_1+x_2=10,
+\qquad
+x_1,x_2\geq0.
+\]
+
+Il contributo economico unitario delle due attivit\`a \`e rispettivamente
+
+\[
+c_1=1,
+\qquad
+c_2=2.
+\]
+
+La funzione obiettivo di primo stadio \`e quindi
+
+\[
+c'x=x_1+2x_2.
+\]
+
+Se si considerasse soltanto questo termine, sarebbe conveniente investire
+tutte le risorse nella seconda attivit\`a.
+
+Alla data futura pu\`o tuttavia verificarsi uno dei due scenari
+
+\[
+\mathcal S=\{1,2\},
+\]
+
+con probabilit\`a
+
+\[
+p_1=0.75,
+\qquad
+p_2=0.25.
+\]
+
+In entrambi gli scenari la banca deve soddisfare un fabbisogno di
+liquidit\`a pari a
+
+\[
+d=6.
+\]
+
+Una unit\`a investita nell'attivit\`a liquida genera una unit\`a di
+liquidit\`a in entrambi gli scenari. La seconda attivit\`a genera invece
+
+\[
+0.8
+\]
+
+unit\`a di liquidit\`a nello scenario ordinario e soltanto
+
+\[
+0.2
+\]
+
+unit\`a nello scenario avverso.
+
+I flussi disponibili prima del ricorso sono quindi
+
+\[
+x_1+0.8x_2
+\]
+
+nello scenario $1$ e
+
+\[
+x_1+0.2x_2
+\]
+
+nello scenario $2$.
+
+Se tali flussi non sono sufficienti, la banca pu\`o raccogliere funding
+d'emergenza. Indichiamo con
+
+\[
+u_s\geq0
+\]
+
+il funding raccolto nello scenario $s$ e con
+
+\[
+g_s\geq0
+\]
+
+l'eventuale liquidit\`a residua dopo aver soddisfatto il fabbisogno.
+
+I bilanci di liquidit\`a sono
+
+\[
+x_1+0.8x_2+u_1
+=
+6+g_1
+\]
+
+nello scenario ordinario e
+
+\[
+x_1+0.2x_2+u_2
+=
+6+g_2
+\]
+
+nello scenario avverso.
+
+Supponiamo che il costo unitario del funding sia
+
+\[
+r_1^u=1
+\]
+
+nello scenario ordinario e
+
+\[
+r_2^u=6
+\]
+
+nello scenario avverso. La liquidit\`a residua non produce invece alcun
+rendimento nell'orizzonte considerato.
+
+Le funzioni di ricorso sono pertanto
+
+\[
+Q_1(x)
+=
+\max_{g_1,u_1\geq0}
+\left\{
+-u_1:
+x_1+0.8x_2+u_1=6+g_1
+\right\},
+\]
+
+e
+
+\[
+Q_2(x)
+=
+\max_{g_2,u_2\geq0}
+\left\{
+-6u_2:
+x_1+0.2x_2+u_2=6+g_2
+\right\}.
+\]
+
+Il programma stocastico a due stadi \`e quindi
+
+\[
+\max
+\left\{
+x_1+2x_2
++
+0.75Q_1(x)
++
+0.25Q_2(x)
+\right\}
+\]
+
+soggetto a
+
+\[
+x_1+x_2=10,
+\qquad
+x_1,x_2\geq0.
+\]
+
+\end{example}
+
+\subsubsection{Determinazione delle funzioni di ricorso}
+
+Dal vincolo di bilancio iniziale si ricava
+
+\[
+x_1=10-x_2,
+\qquad
+0\leq x_2\leq10.
+\]
+
+Nello scenario ordinario, la liquidit\`a disponibile prima del ricorso
+\`e
+
+\[
+x_1+0.8x_2
+=
+10-0.2x_2.
+\]
+
+Poich\'e
+
+\[
+10-0.2x_2\geq8>6
+\]
+
+per ogni $0\leq x_2\leq10$, nello scenario ordinario non \`e mai
+necessario ricorrere al funding. Ne segue
+
+\[
+u_1^*(x)=0
+\]
+
+e quindi
+
+\[
+Q_1(x)=0.
+\]
+
+Nello scenario avverso, invece, la liquidit\`a disponibile \`e
+
+\[
+x_1+0.2x_2
+=
+10-0.8x_2.
+\]
+
+Il funding necessario \`e pertanto
+
+\[
+u_2^*(x)
+=
+\max
+\left\{
+0,\,
+6-(10-0.8x_2)
+\right\},
+\]
+
+ossia
+
+\[
+u_2^*(x)
+=
+\max
+\left\{
+0,\,
+0.8x_2-4
+\right\}.
+\]
+
+Di conseguenza,
+
+\[
+Q_2(x)
+=
+-6
+\max
+\left\{
+0,\,
+0.8x_2-4
+\right\}.
+\]
+
+Il punto
+
+\[
+x_2=5
+\]
+
+separa quindi due regioni economicamente differenti. Per
+
+\[
+x_2\leq5
+\]
+
+la banca dispone di liquidit\`a sufficiente anche nello scenario avverso;
+per
+
+\[
+x_2>5
+\]
+
+l'investimento nella seconda attivit\`a rende necessario funding
+d'emergenza qualora si realizzi lo scenario avverso.
+
+\subsubsection{Funzione obiettivo e soluzione ottima}
+
+Sostituendo $x_1=10-x_2$, il contributo economico di primo stadio diventa
+
+\[
+x_1+2x_2
+=
+10+x_2.
+\]
+
+La funzione obiettivo complessiva pu\`o quindi essere scritta come
+
+\begin{equation}
+V(x_2)
+=
+10+x_2
+-
+0.25(6)
+\max
+\left\{
+0,\,
+0.8x_2-4
+\right\}.
+\label{eq:cap14-esempio-due-scenari}
+\end{equation}
+
+Per
+
+\[
+0\leq x_2\leq5,
+\]
+
+non viene utilizzato funding in nessuno dei due scenari e quindi
+
+\[
+V(x_2)=10+x_2.
+\]
+
+In questa regione il valore cresce con $x_2$.
+
+Per
+
+\[
+5<x_2\leq10,
+\]
+
+il funding diventa necessario nello scenario avverso. In questo caso
+
+\[
+\begin{split}
+V(x_2)
+&=
+10+x_2
+-
+0.25(6)(0.8x_2-4)
+\\
+&=
+16-0.2x_2.
+\end{split}
+\]
+
+In questa seconda regione il valore diminuisce con $x_2$.
+
+Il massimo viene quindi raggiunto esattamente nel punto di raccordo:
+
+\[
+x_2^*=5,
+\qquad
+x_1^*=5.
+\]
+
+La decisione ottima \`e pertanto
+
+\[
+x^*
+=
+\begin{pmatrix}
+5\\
+5
+\end{pmatrix}.
+\]
+
+Per questa allocazione,
+
+\[
+x_1^*+0.8x_2^*
+=
+9
+\]
+
+nello scenario ordinario e
+
+\[
+x_1^*+0.2x_2^*
+=
+6
+\]
+
+nello scenario avverso. Pertanto
+
+\[
+u_1^*=u_2^*=0
+\]
+
+e
+
+\[
+Q_1(x^*)=Q_2(x^*)=0.
+\]
+
+Il valore ottimo \`e
+
+\[
+V(x_2^*)=15.
+\]
+
+Per confronto, consideriamo anche l'allocazione completamente concentrata
+nell'attivit\`a pi\`u redditizia,
+
+\[
+x=
+\begin{pmatrix}
+0\\
+10
+\end{pmatrix}.
+\]
+
+I risultati delle due allocazioni rilevanti sono:
+
+\[
+\begin{array}{c|c|c|c}
+\text{decisione}
+&
+c'x
+&
+\sum_{s\in\mathcal S}p_sQ_s(x)
+&
+c'x+\sum_{s\in\mathcal S}p_sQ_s(x)
+\\
+\hline
+(0,10)'
+&
+20
+&
+-6
+&
+14
+\\
+(5,5)'
+&
+15
+&
+0
+&
+15
+\end{array}
+\]
+
+L'allocazione completamente concentrata nell'attivit\`a pi\`u redditizia
+produce un risultato di primo stadio maggiore, ma il costo atteso del ricorso ne riduce il valore complessivo. L'allocazione bilanciata
+
+\[
+x^*=
+\begin{pmatrix}
+5\\
+5
+\end{pmatrix}
+\]
+
+risulta quindi preferibile.
+
+\begin{remark}
+L'allocazione bilanciata non \`e stata imposta mediante un vincolo di
+prudenza. Essa emerge endogenamente dall'ottimizzazione. Fino a
+$x_2=5$, aumentare l'investimento nell'attivit\`a pi\`u redditizia accresce
+il valore del portafoglio senza generare costi di ricorso. Oltre tale
+soglia, invece, il beneficio marginale della maggiore redditivit\`a viene
+pi\`u che compensato dal costo atteso del funding nello scenario avverso.
+\end{remark}
+
+L'esempio evidenzia cos\`i il meccanismo essenziale della programmazione
+stocastica a due stadi. La decisione iniziale non viene scelta soltanto in
+base al rendimento immediato, ma considerando come essa modifica le
+possibilit\`a e i costi di reazione nei diversi scenari.
+
+La formulazione generale
+
+\[
+\max_{x\in\mathcal X}
+\left\{
+c'x+\sum_{s\in\mathcal S}p_sQ_s(x)
+\right\}
+\]
+
+incorpora precisamente questo confronto: il primo termine remunera la
+decisione assunta prima dell'incertezza, mentre il secondo valuta il
+risultato atteso delle decisioni di ricorso.
+
+Nella sezione successiva questa struttura verr\`a riscritta nella forma
+estesa del programma lineare, nella quale le variabili di secondo stadio
+e i relativi vincoli compaiono esplicitamente per ciascuno scenario.
+
+\section{Forma estesa e non anticipativit\`a}
+
+\label{sec:cap14-forma-estesa}
+
+La formulazione a scenari finiti introdotta nella sezione precedente \`e
+
+\[
+\max_{x\in\mathcal X}
+\left\{
+c'x+\sum_{s\in\mathcal S}p_sQ_s(x)
+\right\},
+\]
+
+dove, per ogni scenario $s$,
+
+\[
+Q_s(x)
+=
+\max_{y_s\in\mathcal X_s}
+\left\{
+q_s'y_s:
+T_sx+W_sy_s=h_s
+\right\}.
+\]
+
+Questa rappresentazione mette in evidenza la separazione concettuale tra
+primo e secondo stadio. Dal punto di vista computazionale, tuttavia, i due
+livelli possono essere riuniti in un unico programma lineare.
+
+\begin{definition}[Forma estesa]
+Si definisce \emph{forma estesa} del programma stocastico lineare a due
+stadi la formulazione deterministica ottenuta introducendo esplicitamente
+una copia delle variabili di ricorso per ciascuno scenario:
+
+\begin{equation}
+\begin{aligned}
+\max_{x,\{y_s\}_{s\in\mathcal S}}
+\quad&
+c'x+\sum_{s\in\mathcal S}p_s q_s'y_s
+\\
+\text{soggetto a}\quad&
+x\in\mathcal X,
+\\
+&
+T_sx+W_sy_s=h_s,
+\qquad s\in\mathcal S,
+\\
+&
+y_s\in\mathcal X_s,
+\qquad s\in\mathcal S.
+\end{aligned}
+\label{eq:cap14-forma-estesa}
+\end{equation}
+\end{definition}
+
+La forma estesa \`e un programma lineare deterministico di dimensione
+maggiore. L'incertezza non compare pi\`u come variabile casuale nella
+formulazione: essa \`e rappresentata attraverso la presenza simultanea di
+tutti gli scenari e dei rispettivi pesi probabilistici.
+
+La struttura pu\`o essere letta come
+
+\[
+\begin{array}{c}
+\text{una sola decisione di primo stadio }x,
+\\[0.2cm]
+\text{una copia delle decisioni di secondo stadio }y_s
+\text{ per ogni }s\in\mathcal S.
+\end{array}
+\]
+
+I vincoli di secondo stadio sono quindi replicati scenario per scenario,
+mentre i vincoli di primo stadio compaiono una sola volta.
+
+\subsection{Struttura a blocchi}
+
+La forma estesa possiede una struttura matriciale caratteristica. Per
+evidenziarla, consideriamo per semplicit\`a il caso di tre scenari.
+I vincoli di secondo stadio possono essere raccolti nella forma
+
+\[
+\begin{pmatrix}
+T_1 & W_1 & 0   & 0\\
+T_2 & 0   & W_2 & 0\\
+T_3 & 0   & 0   & W_3
+\end{pmatrix}
+\begin{pmatrix}
+x\\
+y_1\\
+y_2\\
+y_3
+\end{pmatrix}
+=
+\begin{pmatrix}
+h_1\\
+h_2\\
+h_3
+\end{pmatrix}.
+\]
+
+La struttura a blocchi mette in evidenza due fatti essenziali. In primo
+luogo, la decisione di primo stadio $x$ compare in tutti i blocchi di
+scenario. In secondo luogo, ciascun vettore di ricorso $y_s$ compare
+soltanto nei vincoli del proprio scenario.
+
+Una rappresentazione grafica sintetica di questa struttura \`e riportata
+nella Figura~\ref{fig:cap14-forma-estesa-blocchi}.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.92\textwidth]
+{../graphics/Cap14_forma_estesa_blocchi.png}
+\caption{Struttura della forma estesa di un programma stocastico lineare
+a due stadi. La decisione di primo stadio $x$ \`e comune a tutti gli
+scenari, mentre per ciascuno scenario viene introdotto uno specifico
+vettore di ricorso $y_s$ con i corrispondenti vincoli
+$T_sx+W_sy_s=h_s$.}
+\label{fig:cap14-forma-estesa-blocchi}
+\end{figure}
+
+La Figura~\ref{fig:cap14-forma-estesa-blocchi} chiarisce quindi il senso
+della forma estesa: il problema stocastico a due stadi viene trasformato
+in un unico programma lineare deterministico nel quale i vincoli di
+secondo stadio sono replicati per scenario, mentre la decisione iniziale
+rimane unica.
+
+\subsection{Non anticipativit\`a}
+
+La struttura appena descritta consente di formulare in modo preciso il
+principio di non anticipativit\`a.
+
+\begin{definition}[Non anticipativit\`a]
+Una decisione soddisfa il principio di \emph{non anticipativit\`a} se
+dipende soltanto dall'informazione disponibile nel momento in cui viene
+assunta.
+\end{definition}
+
+Nel problema a due stadi, la decisione $x$ viene scelta prima
+dell'osservazione dello scenario. Essa non pu\`o quindi dipendere da
+quale scenario si realizzer\`a e deve essere la stessa in tutti i casi.
+La non anticipativit\`a del primo stadio \`e dunque incorporata nella
+forma estesa attraverso la presenza di un unico vettore
+
+\[
+x.
+\]
+
+Le decisioni di secondo stadio possono invece differire da uno scenario
+all'altro. Per ogni $s\in\mathcal S$, il vettore
+
+\[
+y_s
+\]
+
+viene scelto dopo l'osservazione dello scenario e pu\`o quindi dipendere
+da esso.
+
+La distinzione fondamentale \`e quindi la seguente:
+
+\[
+\boxed{
+x \text{ \`e unico e comune a tutti gli scenari,}
+\qquad
+y_s \text{ dipende dallo scenario } s.
+}
+\]
+
+Questo \`e esattamente il contenuto informativo della struttura a due
+stadi. Se si introducessero decisioni di primo stadio distinte per
+scenario, ad esempio
+
+\[
+x_1,x_2,\ldots,x_{|\mathcal S|},
+\]
+
+si attribuirebbe indebitamente al decisore la conoscenza anticipata
+dello scenario futuro.
+
+\begin{remark}
+Nel problema a due stadi, quando la formulazione utilizza direttamente
+un unico vettore $x$, non occorre introdurre vincoli aggiuntivi di non
+anticipativit\`a. Tali vincoli diventano invece espliciti quando si
+introducono copie scenario-specifiche di una stessa decisione oppure nei
+modelli multistadio.
+\end{remark}
+
+\subsection{Forma estesa del caso SVB--ALM}
+
+Nel caso SVB--ALM, la decisione di primo stadio
+
+\[
+x=(x_1,x_2,x_3,x_4)'
+\]
+
+\`e unica per tutti gli scenari.
+
+Per ciascuno scenario $s$ viene invece introdotto il vettore
+
+\[
+y_s=
+(g_1^s,g_2^s,g_3^s,g_4^s,
+u_1^s,u_2^s,u_3^s)'.
+\]
+
+La forma estesa contiene quindi, per ogni $s\in\mathcal S$, i quattro
+bilanci di liquidit\`a
+
+\[
+T_sx+W_sy_s=h_s
+\]
+
+e le condizioni di ammissibilit\`a
+
+\[
+y_s\in\mathcal X_s.
+\]
+
+La funzione obiettivo \`e
+
+\[
+c'x+\sum_{s\in\mathcal S}p_s q_s'y_s.
+\]
+
+La struttura complessiva \`e quindi
+
+\[
+\begin{array}{c}
+\text{un solo portafoglio iniziale }x,
+\\[0.2cm]
+\text{pi\`u piani di ricorso }y_s,
+\\[0.2cm]
+\text{uno per ciascuna traiettoria possibile dell'incertezza.}
+\end{array}
+\]
+
+La presenza di pi\`u date all'interno dello scenario non modifica questa
+struttura a due stadi. Gli stati $Z_1^s,\ldots,Z_4^s$ descrivono
+l'evoluzione temporale dell'incertezza, ma la decisione di ricorso viene
+formulata dopo l'osservazione dell'intera traiettoria $\xi_s$.
+
+\subsection{Dimensione della forma estesa}
+
+La semplicit\`a concettuale della forma estesa ha un costo computazionale.
+Se il vettore $x$ contiene $n_x$ variabili e ogni scenario introduce
+$n_y$ variabili di ricorso, il numero complessivo di variabili \`e
+
+\[
+n_x+|\mathcal S|\,n_y.
+\]
+
+Analogamente, se ogni scenario contiene $m_y$ vincoli di secondo stadio,
+il numero di tali vincoli cresce come
+
+\[
+|\mathcal S|\,m_y.
+\]
+
+Il numero degli scenari diventa quindi un elemento centrale della dimensione
+del problema deterministico equivalente.
+
+Nel caso SVB--ALM, ogni scenario introduce sette variabili di ricorso e
+quattro bilanci temporali, oltre ai relativi vincoli operativi. La crescita
+del numero di scenari produce pertanto una rapida espansione della forma
+estesa.
+
+Questo aspetto non modifica la formulazione teorica, ma anticipa il problema
+computazionale che sar\`a affrontato nelle lezioni successive: come risolvere
+in modo efficiente programmi stocastici caratterizzati da un numero elevato
+di scenari.
+
+La forma estesa conclude quindi il passaggio fondamentale sviluppato nel
+capitolo:
+\[
+\begin{aligned}
+&\text{modello probabilistico}
+\longrightarrow
+\text{scenari}
+\longrightarrow
+\text{ricorso}
+\\
+&\hspace{2.0cm}
+\longrightarrow
+\text{programma stocastico}
+\longrightarrow
+\text{LP deterministico equivalente}.
+\end{aligned}
+\]
+
+\section{Esercizi svolti}
+
+\label{sec:cap14-esercizi-svolti}
+
+Gli esercizi seguenti consolidano tre passaggi centrali del capitolo: la
+costruzione delle probabilit\`a degli scenari a partire da una dinamica
+Markoviana, il calcolo della funzione di ricorso per una decisione iniziale
+assegnata e la costruzione della forma estesa di un programma stocastico a
+due stadi.
+
+\begin{exercise}[Probabilit\`a di traiettoria e probabilit\`a terminale]
+
+\label{ex:cap14-traiettoria-markov}
+
+Si consideri una catena di Markov con spazio degli stati
+
+\[
+\mathcal I=\{z_1,z_2,z_3\}
+\]
+
+e matrice di transizione
+
+\[
+P=
+\begin{pmatrix}
+0.7 & 0.2 & 0.1\\
+0.1 & 0.6 & 0.3\\
+0.2 & 0.3 & 0.5
+\end{pmatrix}.
+\]
+
+Al tempo iniziale lo stato osservato \`e
+
+\[
+Z_0=z_1.
+\]
+
+Si consideri un orizzonte di due periodi.
+
+\begin{enumerate}
+
+\item Calcolare la probabilit\`a dello scenario
+
+\[
+\xi_s=(z_2,z_3).
+\]
+
+\item Individuare tutte le traiettorie che terminano nello stato $z_3$ alla
+data $t=2$ e calcolarne le probabilit\`a.
+
+\item Determinare
+
+\[
+\Prob(Z_2=z_3\mid Z_0=z_1)
+\]
+
+sommando le probabilit\`a delle traiettorie ottenute al punto precedente.
+
+\item Verificare il risultato utilizzando la matrice $P^2$ e spiegare la
+differenza tra probabilit\`a di una traiettoria e probabilit\`a dello stato
+terminale.
+
+\end{enumerate}
+
+\end{exercise}
+
+\noindent
+\textbf{Soluzione.}
+
+\begin{enumerate}
+
+\item Lo scenario considerato corrisponde alla traiettoria
+
+\[
+z_1
+\longrightarrow
+z_2
+\longrightarrow
+z_3.
+\]
+
+Per la propriet\`a di Markov, la probabilit\`a della traiettoria \`e il
+prodotto delle probabilit\`a delle due transizioni:
+
+\[
+p_s
+=
+p_{12}p_{23}.
+\]
+
+Dalla matrice $P$,
+
+\[
+p_{12}=0.2,
+\qquad
+p_{23}=0.3,
+\]
+
+e quindi
+
+\[
+p_s
+=
+0.2\cdot0.3
+=
+0.06.
+\]
+
+\item Per raggiungere $z_3$ alla data $2$, partendo da $z_1$, sono possibili
+tre traiettorie:
+
+\[
+z_1\longrightarrow z_1\longrightarrow z_3,
+\]
+
+\[
+z_1\longrightarrow z_2\longrightarrow z_3,
+\]
+
+\[
+z_1\longrightarrow z_3\longrightarrow z_3.
+\]
+
+Le rispettive probabilit\`a sono
+
+\[
+0.7\cdot0.1
+=
+0.07,
+\]
+
+\[
+0.2\cdot0.3
+=
+0.06,
+\]
+
+e
+
+\[
+0.1\cdot0.5
+=
+0.05.
+\]
+
+\item L'evento terminale
+
+\[
+\{Z_2=z_3\}
+\]
+
+pu\`o verificarsi attraverso ciascuna delle tre traiettorie considerate.
+Pertanto,
+
+\[
+\Prob(Z_2=z_3\mid Z_0=z_1)
+=
+0.07+0.06+0.05
+=
+0.18.
+\]
+
+\item La probabilit\`a terminale pu\`o essere ottenuta anche dalla matrice
+di transizione a due passi:
+
+\[
+\Prob(Z_2=z_3\mid Z_0=z_1)
+=
+(P^2)_{13}.
+\]
+
+L'elemento $(1,3)$ di $P^2$ \`e
+
+\[
+(P^2)_{13}
+=
+0.7(0.1)+0.2(0.3)+0.1(0.5)
+=
+0.18,
+\]
+
+in accordo con il calcolo precedente.
+
+\end{enumerate}
+
+La distinzione \`e essenziale nella costruzione degli scenari. Una
+\emph{traiettoria} specifica l'intera successione degli stati osservati e ha
+una propria probabilit\`a $p_s$. La probabilit\`a di uno stato terminale
+raccoglie invece le probabilit\`a di tutte le traiettorie che conducono a
+quello stesso stato.
+
+
+\begin{exercise}[Funzione di ricorso per una decisione assegnata]
+
+\label{ex:cap14-ricorso-assegnata}
+
+Un intermediario ha gi\`a assunto la decisione di primo stadio
+
+\[
+x=
+\begin{pmatrix}
+4\\
+6
+\end{pmatrix}.
+\]
+
+Alla data successiva deve soddisfare un fabbisogno di liquidit\`a pari a
+
+\[
+d=8.
+\]
+
+Sono possibili due scenari,
+
+\[
+\mathcal S=\{1,2\},
+\qquad
+p_1=0.8,
+\qquad
+p_2=0.2.
+\]
+
+Nel primo scenario i coefficienti di liquidit\`a delle due attivit\`a sono
+
+\[
+a_1'
+=
+(1,\;0.8),
+\]
+
+mentre nel secondo scenario sono
+
+\[
+a_2'
+=
+(1,\;0.3).
+\]
+
+Dopo l'osservazione dello scenario l'intermediario pu\`o ricorrere a funding
+$u_s\geq0$ oppure mantenere liquidit\`a residua $g_s\geq0$. Il bilancio di
+secondo stadio \`e
+
+\[
+a_s'x+u_s
+=
+d+g_s.
+\]
+
+Il costo unitario del funding \`e pari a $1$ nello scenario 1 e a $4$ nello
+scenario 2. La liquidit\`a residua non produce rendimento all'interno
+dell'orizzonte considerato.
+
+\begin{enumerate}
+
+\item Formulare le due funzioni di ricorso $Q_1(x)$ e $Q_2(x)$.
+
+\item Determinare le decisioni ottime di secondo stadio nei due scenari.
+
+\item Calcolare
+
+\[
+Q_1(x),
+\qquad
+Q_2(x)
+\]
+
+e il valore atteso del ricorso.
+
+\item Se il contributo economico di primo stadio \`e
+
+\[
+c'x
+=
+x_1+2x_2,
+\]
+
+calcolare il valore complessivo della decisione assegnata.
+
+\end{enumerate}
+
+\end{exercise}
+
+\noindent
+\textbf{Soluzione.}
+
+\begin{enumerate}
+
+\item Nel primo scenario la funzione di ricorso \`e
+
+\[
+Q_1(x)
+=
+\max_{g_1,u_1\geq0}
+\left\{
+-u_1:
+a_1'x+u_1=8+g_1
+\right\}.
+\]
+
+Nel secondo scenario,
+
+\[
+Q_2(x)
+=
+\max_{g_2,u_2\geq0}
+\left\{
+-4u_2:
+a_2'x+u_2=8+g_2
+\right\}.
+\]
+
+\item Nello scenario 1, la liquidit\`a prodotta dall'allocazione iniziale \`e
+
+\[
+a_1'x
+=
+4+0.8(6)
+=
+8.8.
+\]
+
+Il fabbisogno \`e pari a $8$, quindi non occorre funding:
+
+\[
+u_1^*=0.
+\]
+
+La liquidit\`a residua \`e
+
+\[
+g_1^*
+=
+8.8-8
+=
+0.8.
+\]
+
+Nello scenario 2 si ha invece
+
+\[
+a_2'x
+=
+4+0.3(6)
+=
+5.8.
+\]
+
+Per soddisfare il fabbisogno occorre quindi raccogliere
+
+\[
+u_2^*
+=
+8-5.8
+=
+2.2,
+\]
+
+senza lasciare liquidit\`a residua:
+
+\[
+g_2^*=0.
+\]
+
+\item Nel primo scenario,
+
+\[
+Q_1(x)
+=
+-u_1^*
+=
+0.
+\]
+
+Nel secondo,
+
+\[
+Q_2(x)
+=
+-4u_2^*
+=
+-4(2.2)
+=
+-8.8.
+\]
+
+Il valore atteso del ricorso \`e pertanto
+
+\[
+\sum_{s\in\mathcal S}p_sQ_s(x)
+=
+0.8(0)+0.2(-8.8)
+=
+-1.76.
+\]
+
+\item Il contributo di primo stadio \`e
+
+\[
+c'x
+=
+4+2(6)
+=
+16.
+\]
+
+Il valore complessivo della decisione \`e quindi
+
+\[
+c'x
++
+\sum_{s\in\mathcal S}p_sQ_s(x)
+=
+16-1.76
+=
+14.24.
+\]
+
+\end{enumerate}
+
+L'esercizio mostra perch\`e il valore di una decisione di primo stadio non
+pu\`o essere valutato considerando soltanto il contributo $c'x$. La stessa
+allocazione pu\`o produrre conseguenze molto diverse nei diversi scenari, e la
+funzione di ricorso traduce tali conseguenze in un valore economico
+scenario-specifico.
+
+
+\begin{exercise}[Forma estesa e non anticipativit\`a]
+
+\label{ex:cap14-forma-estesa-nonanticipativita}
+
+Si consideri un programma stocastico a due stadi con due scenari,
+
+\[
+\mathcal S=\{1,2\},
+\qquad
+p_1=0.6,
+\qquad
+p_2=0.4.
+\]
+
+La decisione iniziale \`e
+
+\[
+x=
+\begin{pmatrix}
+x_1\\
+x_2
+\end{pmatrix},
+\]
+
+con
+
+\[
+x_1+x_2=10,
+\qquad
+x_1,x_2\geq0.
+\]
+
+Il contributo economico di primo stadio \`e
+
+\[
+c'x
+=
+x_1+1.5x_2.
+\]
+
+In ciascuno scenario vengono introdotte le decisioni di ricorso
+
+\[
+y_s=
+\begin{pmatrix}
+g_s\\
+u_s
+\end{pmatrix},
+\qquad
+g_s,u_s\geq0.
+\]
+
+I bilanci di liquidit\`a sono
+
+\[
+x_1+0.9x_2+u_1
+=
+7+g_1
+\]
+
+nello scenario 1 e
+
+\[
+x_1+0.4x_2+u_2
+=
+7+g_2
+\]
+
+nello scenario 2.
+
+Il funding ha costo unitario pari a $1$ nel primo scenario e a $3$ nel
+secondo.
+
+\begin{enumerate}
+
+\item Scrivere la forma estesa del programma stocastico.
+
+\item Individuare quali variabili sono comuni ai due scenari e quali sono
+scenario-specifiche.
+
+\item Spiegare perch\`e una formulazione che introducesse due decisioni
+iniziali indipendenti
+
+\[
+x^{(1)}
+\qquad\text{e}\qquad
+x^{(2)}
+\]
+
+non rappresenterebbe correttamente il problema a due stadi.
+
+\item Mostrare come sarebbe possibile utilizzare copie scenario-specifiche
+della decisione iniziale mantenendo tuttavia la non anticipativit\`a.
+
+\end{enumerate}
+
+\end{exercise}
+
+\noindent
+\textbf{Soluzione.}
+
+\begin{enumerate}
+
+\item Il problema contiene una sola decisione di primo stadio e due coppie
+di variabili di ricorso. La forma estesa \`e
+
+\[
+\begin{array}{ll}
+\max\limits_{x_1,x_2,g_1,g_2,u_1,u_2}
+&
+\displaystyle
+x_1+1.5x_2
++
+0.6(-u_1)
++
+0.4(-3u_2)
+\\[8pt]
+
+\mbox{soggetto a}
+&
+x_1+x_2=10,
+\\[6pt]
+
+&
+x_1+0.9x_2+u_1-g_1=7,
+\\[6pt]
+
+&
+x_1+0.4x_2+u_2-g_2=7,
+\\[6pt]
+
+&
+x_1,x_2,g_1,g_2,u_1,u_2\geq0.
+\end{array}
+\]
+
+La funzione obiettivo pu\`o essere scritta anche come
+
+\[
+\max\;
+x_1+1.5x_2
+-
+0.6u_1
+-
+1.2u_2.
+\]
+
+\item Le variabili
+
+\[
+x_1,\qquad x_2
+\]
+
+sono decisioni di primo stadio e sono quindi comuni ai due scenari.
+
+Le variabili
+
+\[
+g_1,u_1
+\]
+
+appartengono esclusivamente allo scenario 1, mentre
+
+\[
+g_2,u_2
+\]
+
+appartengono esclusivamente allo scenario 2.
+
+La struttura \`e quindi
+
+\[
+x
+\quad\longrightarrow\quad
+\begin{cases}
+y_1, & \text{scenario 1},\\
+y_2, & \text{scenario 2}.
+\end{cases}
+\]
+
+\item Se si introducessero due vettori iniziali indipendenti
+
+\[
+x^{(1)}
+\qquad\text{e}\qquad
+x^{(2)},
+\]
+
+il modello potrebbe scegliere una diversa allocazione iniziale a seconda dello
+scenario che successivamente si realizzer\`a.
+
+Ci\`o significherebbe utilizzare al primo stadio un'informazione che diventa
+disponibile soltanto al secondo stadio. La formulazione violerebbe quindi il
+principio di non anticipativit\`a.
+
+La decisione iniziale deve essere assunta prima di conoscere lo scenario e
+deve pertanto essere unica:
+
+\[
+x^{(1)}
+=
+x^{(2)}
+=
+x.
+\]
+
+\item Una formulazione equivalente pu\`o introdurre formalmente due copie
+
+\[
+x^{(1)},
+\qquad
+x^{(2)},
+\]
+
+purch\`e venga imposto il vincolo di non anticipativit\`a
+
+\[
+x^{(1)}
+=
+x^{(2)}.
+\]
+
+In questo caso le due copie non rappresentano decisioni economicamente
+distinte. Il vincolo impedisce al modello di adattare retroattivamente la
+decisione iniziale allo scenario futuro.
+
+Nel problema a due stadi \`e per questo pi\`u semplice utilizzare direttamente
+un unico vettore $x$ comune a tutti gli scenari.
+
+\end{enumerate}
+
+La forma estesa rende quindi visibile la struttura informativa del problema:
+i vincoli e le decisioni di ricorso vengono replicati scenario per scenario,
+mentre la decisione di primo stadio rimane comune a tutte le possibili
+realizzazioni dell'incertezza.
+
+\section{Esercizi proposti}
+
+\label{sec:cap14-esercizi-proposti}
+
+Gli esercizi seguenti riprendono i principali passaggi del capitolo senza
+fornire lo svolgimento. L'obiettivo \`e verificare la capacit\`a di passare
+dalla rappresentazione dell'incertezza alla formulazione di un programma
+stocastico a due stadi, distinguendo correttamente scenari, decisioni di
+primo stadio, ricorso e vincoli di non anticipativit\`a.
+
+\begin{exercise}[Probabilit\`a di scenari generati da una catena di Markov]
+
+\label{ex:cap14-proposto-markov}
+
+Si consideri una catena di Markov con spazio degli stati
+
+\[
+\mathcal I=\{z_1,z_2,z_3\}
+\]
+
+e matrice di transizione
+
+\[
+P=
+\begin{pmatrix}
+0.5 & 0.3 & 0.2\\
+0.2 & 0.6 & 0.2\\
+0.1 & 0.4 & 0.5
+\end{pmatrix}.
+\]
+
+Lo stato iniziale \`e
+
+\[
+Z_0=z_2.
+\]
+
+Si consideri un orizzonte di tre periodi.
+
+\begin{enumerate}
+
+\item Calcolare la probabilit\`a dello scenario
+
+\[
+\xi_s=(z_1,z_2,z_3).
+\]
+
+\item Calcolare la probabilit\`a dello scenario
+
+\[
+\xi_{s'}=(z_3,z_3,z_2).
+\]
+
+\item Determinare la probabilit\`a
+
+\[
+\Prob(Z_3=z_3\mid Z_0=z_2)
+\]
+
+utilizzando la matrice $P^3$.
+
+\item Spiegare perch\`e la probabilit\`a ottenuta al punto precedente non
+coincide, in generale, con la probabilit\`a di uno specifico scenario che
+termina in $z_3$.
+
+\end{enumerate}
+
+\medskip
+
+\noindent
+\textit{Esiti per la verifica:}
+
+\[
+p_s=0.012,
+\qquad
+p_{s'}=0.040,
+\qquad
+\Prob(Z_3=z_3\mid Z_0=z_2)=0.278.
+\]
+
+\end{exercise}
+
+
+\begin{exercise}[Recourse con due scenari]
+
+\label{ex:cap14-proposto-ricorso}
+
+Un intermediario assume al primo stadio la decisione
+
+\[
+x=
+\begin{pmatrix}
+5\\
+5
+\end{pmatrix}.
+\]
+
+Il fabbisogno futuro di liquidit\`a \`e
+
+\[
+d=7.
+\]
+
+Sono possibili due scenari,
+
+\[
+\mathcal S=\{1,2\},
+\qquad
+p_1=0.7,
+\qquad
+p_2=0.3.
+\]
+
+I coefficienti di liquidit\`a sono
+
+\[
+a_1'
+=
+(1,\;0.9)
+\]
+
+nello scenario 1 e
+
+\[
+a_2'
+=
+(1,\;0.3)
+\]
+
+nello scenario 2.
+
+Dopo l'osservazione dello scenario possono essere utilizzate una giacenza
+$g_s\geq0$ e una quantit\`a di funding $u_s\geq0$, con bilancio
+
+\[
+a_s'x+u_s
+=
+d+g_s.
+\]
+
+Il costo unitario del funding \`e pari a $1$ nello scenario 1 e a $5$ nello
+scenario 2.
+
+\begin{enumerate}
+
+\item Scrivere $Q_1(x)$ e $Q_2(x)$.
+
+\item Determinare $g_s^*$ e $u_s^*$ nei due scenari.
+
+\item Calcolare
+
+\[
+Q_1(x),
+\qquad
+Q_2(x)
+\]
+
+e
+
+\[
+\sum_{s\in\mathcal S}p_sQ_s(x).
+\]
+
+\item Interpretare economicamente la differenza tra i valori delle due
+funzioni di ricorso.
+
+\end{enumerate}
+
+\medskip
+
+\noindent
+\textit{Esiti per la verifica:}
+
+\[
+g_1^*=2.5,
+\qquad
+u_1^*=0,
+\qquad
+Q_1(x)=0,
+\]
+
+\[
+g_2^*=0,
+\qquad
+u_2^*=0.5,
+\qquad
+Q_2(x)=-2.5,
+\]
+
+e quindi
+
+\[
+\sum_{s\in\mathcal S}p_sQ_s(x)
+=
+-0.75.
+\]
+
+\end{exercise}
+
+
+\begin{exercise}[Scelta ottima e probabilit\`a dello scenario avverso]
+
+\label{ex:cap14-proposto-probabilita-avversa}
+
+Un intermediario dispone di risorse iniziali pari a
+
+\[
+A_0=10
+\]
+
+e sceglie
+
+\[
+x_1+x_2=10,
+\qquad
+x_1,x_2\geq0.
+\]
+
+Il contributo economico di primo stadio \`e
+
+\[
+c'x
+=
+x_1+2x_2.
+\]
+
+Sono possibili due scenari. Nel primo scenario il secondo attivo produce
+liquidit\`a con coefficiente $0.8$, mentre nel secondo il coefficiente \`e
+$0.2$. Il primo attivo produce sempre una unit\`a di liquidit\`a per unit\`a
+investita.
+
+Il fabbisogno \`e
+
+\[
+d=6.
+\]
+
+Nel primo scenario il costo unitario del funding \`e pari a $1$, mentre nel
+secondo \`e pari a $6$.
+
+Indichiamo con
+
+\[
+p
+\]
+
+la probabilit\`a dello scenario avverso.
+
+\begin{enumerate}
+
+\item Determinare le funzioni di ricorso dei due scenari come funzioni di
+$x_2$.
+
+\item Scrivere la funzione obiettivo complessiva come funzione di $x_2$ e di
+$p$.
+
+\item Determinare per quali valori di $p$ l'allocazione
+
+\[
+x_2=10
+\]
+
+\`e preferibile all'allocazione
+
+\[
+x_2=5.
+\]
+
+\item Interpretare il risultato in termini di compromesso tra maggiore
+redditivit\`a iniziale e costo atteso del ricorso.
+
+\end{enumerate}
+
+\medskip
+
+\noindent
+\textit{Esiti per la verifica:}
+
+\[
+Q_1(x_2)=0,
+\]
+
+\[
+Q_2(x_2)
+=
+-6\max\{0,\;0.8x_2-4\},
+\]
+
+\[
+V(x_2;p)
+=
+10+x_2
+-
+6p\max\{0,\;0.8x_2-4\}.
+\]
+
+Per le due allocazioni richieste,
+
+\[
+V(10;p)=20-24p,
+\qquad
+V(5;p)=15.
+\]
+
+Pertanto,
+
+\[
+x_2=10
+\]
+
+\`e preferibile a $x_2=5$ se e solo se
+
+\[
+p<\frac{5}{24}
+\approx
+0.2083.
+\]
+
+Per
+
+\[
+p=\frac{5}{24}
+\]
+
+le due allocazioni sono equivalenti.
+
+\end{exercise}
+
+
+\begin{exercise}[Limite alla capacit\`a di funding]
+
+\label{ex:cap14-proposto-limite-funding}
+
+Si consideri la decisione di primo stadio
+
+\[
+x=
+\begin{pmatrix}
+3\\
+7
+\end{pmatrix}
+\]
+
+e uno scenario avverso nel quale il vettore dei coefficienti di liquidit\`a
+\`e
+
+\[
+a'
+=
+(1,\;0.25).
+\]
+
+Il fabbisogno \`e
+
+\[
+d=6.
+\]
+
+Il ricorso utilizza le variabili
+
+\[
+g\geq0,
+\qquad
+0\leq u\leq\bar u,
+\]
+
+con vincolo
+
+\[
+a'x+u
+=
+d+g.
+\]
+
+\begin{enumerate}
+
+\item Determinare il funding minimo necessario per rendere ammissibile la
+decisione assegnata.
+
+\item Stabilire se il problema di secondo stadio \`e ammissibile per
+
+\[
+\bar u=2.
+\]
+
+\item Ripetere l'analisi per
+
+\[
+\bar u=1.
+\]
+
+\item Spiegare come il limite alla capacit\`a di funding modifica il
+significato della funzione di ricorso.
+
+\end{enumerate}
+
+\medskip
+
+\noindent
+\textit{Esiti per la verifica:}
+
+\[
+a'x=4.75,
+\qquad
+u^{\min}=1.25.
+\]
+
+Il problema di secondo stadio \`e ammissibile per
+
+\[
+\bar u=2,
+\]
+
+mentre non \`e ammissibile per
+
+\[
+\bar u=1.
+\]
+
+\end{exercise}
+
+
+\begin{exercise}[Forma estesa a tre scenari]
+
+\label{ex:cap14-proposto-forma-estesa}
+
+Si consideri un programma stocastico a due stadi con
+
+\[
+\mathcal S=\{1,2,3\}
+\]
+
+e probabilit\`a
+
+\[
+p_1=0.5,
+\qquad
+p_2=0.3,
+\qquad
+p_3=0.2.
+\]
+
+La decisione di primo stadio \`e
+
+\[
+x=
+\begin{pmatrix}
+x_1\\
+x_2
+\end{pmatrix},
+\]
+
+con
+
+\[
+x_1+x_2=12,
+\qquad
+x_1,x_2\geq0.
+\]
+
+Il contributo economico di primo stadio \`e
+
+\[
+c'x
+=
+1.2x_1+1.8x_2.
+\]
+
+Per ogni scenario $s$ sono disponibili le variabili di ricorso
+
+\[
+y_s=
+\begin{pmatrix}
+g_s\\
+u_s
+\end{pmatrix},
+\qquad
+g_s,u_s\geq0.
+\]
+
+I vincoli di secondo stadio sono
+
+\[
+x_1+0.9x_2+u_1-g_1=8,
+\]
+
+\[
+x_1+0.6x_2+u_2-g_2=8,
+\]
+
+\[
+x_1+0.3x_2+u_3-g_3=8.
+\]
+
+I costi unitari del funding sono rispettivamente
+
+\[
+1,
+\qquad
+2,
+\qquad
+5.
+\]
+
+\begin{enumerate}
+
+\item Scrivere la forma estesa completa del problema.
+
+\item Identificare le variabili di primo e di secondo stadio.
+
+\item Scrivere la struttura matriciale a blocchi dei vincoli di secondo
+stadio.
+
+\item Spiegare perch\`e il vettore $x$ compare in tutti i blocchi mentre
+ciascun $y_s$ compare in uno solo.
+
+\end{enumerate}
+
+\medskip
+
+\noindent
+\textit{Esiti per la verifica:}
+
+La funzione obiettivo della forma estesa \`e
+
+\[
+\max\;
+1.2x_1+1.8x_2
+-
+0.5u_1
+-
+0.6u_2
+-
+u_3.
+\]
+
+Le variabili complessive sono
+
+\[
+x_1,\ x_2,\ g_1,\ u_1,\ g_2,\ u_2,\ g_3,\ u_3.
+\]
+
+La decisione di primo stadio \`e unica,
+
+\[
+x=(x_1,x_2)',
+\]
+
+mentre i vettori di ricorso sono
+
+\[
+y_1=(g_1,u_1)',
+\qquad
+y_2=(g_2,u_2)',
+\qquad
+y_3=(g_3,u_3)'.
+\]
+
+\end{exercise}
+
+
+\begin{exercise}[Non anticipativit\`a]
+
+\label{ex:cap14-proposto-nonanticipativita}
+
+Un modello a due stadi viene scritto introducendo tre copie della decisione
+iniziale,
+
+\[
+x^{(1)},
+\qquad
+x^{(2)},
+\qquad
+x^{(3)},
+\]
+
+una per ciascuno dei tre scenari.
+
+\begin{enumerate}
+
+\item Spiegare perch\`e lasciare libere le tre copie produce una formulazione
+non corretta del problema stocastico.
+
+\item Scrivere un insieme di vincoli di non anticipativit\`a che renda
+equivalenti le tre decisioni.
+
+\item Mostrare come la stessa formulazione possa essere riscritta utilizzando
+direttamente un unico vettore $x$.
+
+\item Spiegare perch\`e, invece, non deve essere imposto in generale
+
+\[
+y_1=y_2=y_3.
+\]
+
+\end{enumerate}
+
+\medskip
+
+\noindent
+\textit{Esiti per la verifica:}
+
+Una possibile rappresentazione dei vincoli di non anticipativit\`a \`e
+
+\[
+x^{(1)}=x^{(2)},
+\qquad
+x^{(2)}=x^{(3)}.
+\]
+
+Equivalentemente,
+
+\[
+x^{(1)}
+=
+x^{(2)}
+=
+x^{(3)}
+=
+x.
+\]
+
+Non deve invece essere imposto, in generale,
+
+\[
+y_1=y_2=y_3,
+\]
+
+poich\'e le decisioni di secondo stadio possono dipendere dallo scenario
+osservato.
+
+\end{exercise}
+
+\section{Sintesi finale}
+
+\label{sec:cap14-sintesi-finale}
+
+Il capitolo ha introdotto la programmazione stocastica a due stadi come
+estensione naturale dei problemi di ottimizzazione deterministica sviluppati
+nei capitoli precedenti.
+
+Nel modello deterministico, i coefficienti futuri sono considerati noti al
+momento della decisione. Nel problema stocastico, invece, la decisione iniziale
+deve essere assunta prima di conoscere quale scenario si realizzer\`a.
+
+Il primo passaggio concettuale \`e quindi
+
+\[
+\text{un unico futuro noto}
+\qquad\longrightarrow\qquad
+\text{pi\`u futuri possibili}.
+\]
+
+L'incertezza viene rappresentata mediante un vettore casuale $\xi$ e,
+nel caso discreto, attraverso un insieme finito di scenari
+
+\[
+s\in\mathcal S,
+\]
+
+ciascuno caratterizzato da una realizzazione $\xi_s$ e da una probabilit\`a
+$p_s$.
+
+Quando gli scenari derivano da una dinamica Markoviana, la probabilit\`a di
+una traiettoria completa si ottiene moltiplicando le probabilit\`a delle
+transizioni che la compongono. Questo passaggio permette di collegare
+direttamente la teoria delle catene di Markov alla costruzione degli scenari
+utilizzati nel problema di ottimizzazione.
+
+Una volta fissata la decisione di primo stadio $x$, ciascuno scenario genera
+un problema di secondo stadio. Il suo valore ottimo \`e descritto dalla
+funzione di ricorso
+
+\[
+Q(x,\xi_s).
+\]
+
+Il ricorso misura quindi il valore della migliore risposta disponibile dopo
+che l'incertezza si \`e realizzata, mantenendo fissa la decisione assunta prima
+dell'osservazione dello scenario.
+
+Nel caso lineare, il problema di secondo stadio pu\`o essere scritto nella
+forma
+
+\[
+Q_s(x)
+=
+\max_{y_s\in\mathcal X_s}
+\left\{
+q_s'y_s:
+T_sx+W_sy_s=h_s
+\right\}.
+\]
+
+La decisione $x$ influenza quindi tutti gli scenari, mentre il vettore $y_s$
+pu\`o adattarsi alla specifica realizzazione osservata.
+
+Con un insieme finito di scenari, il programma stocastico a due stadi assume
+la forma
+
+\[
+\max_{x\in\mathcal X}
+\left\{
+c'x
++
+\sum_{s\in\mathcal S}
+p_sQ_s(x)
+\right\}.
+\]
+
+La funzione obiettivo combina due componenti:
+
+\[
+\text{valore della decisione iniziale}
+\qquad+\qquad
+\text{valore atteso del ricorso}.
+\]
+
+La scelta ottima non deve quindi massimizzare soltanto il risultato immediato.
+Deve considerare anche le conseguenze che quella stessa decisione produce nei
+diversi scenari futuri.
+
+Nel caso ALM sviluppato nel capitolo, questo principio significa scegliere
+oggi la composizione dell'attivo tenendo conto dei possibili cash flow,
+fabbisogni, costi di funding e limiti operativi che potranno manifestarsi
+successivamente.
+
+La formulazione a scenari finiti pu\`o infine essere riscritta come un unico
+programma lineare deterministico, la \emph{forma estesa}. La sua struttura
+contiene una sola decisione di primo stadio e un blocco di variabili e vincoli
+di secondo stadio per ciascuno scenario.
+
+La struttura fondamentale \`e
+
+\[
+\begin{aligned}
+&\text{un unico }x
+\\
+&\qquad\downarrow
+\\
+&\{y_s,\;T_sx+W_sy_s=h_s\}_{s\in\mathcal S}.
+\end{aligned}
+\]
+
+Questa rappresentazione rende evidente il principio di non anticipativit\`a:
+la decisione $x$, assunta prima dell'osservazione dello scenario, deve essere
+la stessa in tutte le possibili realizzazioni; le decisioni $y_s$, assunte
+dopo l'osservazione, possono invece differire da scenario a scenario.
+
+Il percorso complessivo del capitolo pu\`o quindi essere sintetizzato come
+
+\[
+\begin{aligned}
+&\text{modello probabilistico}
+\longrightarrow
+\text{scenari}
+\longrightarrow
+\text{ricorso}
+\\
+&\hspace{2.0cm}
+\longrightarrow
+\text{programma stocastico}
+\longrightarrow
+\text{forma estesa}.
+\end{aligned}
+\]
+
+Il risultato centrale non consiste soltanto nell'avere introdotto una nuova
+formulazione matematica. Il cambiamento riguarda il modo stesso di descrivere
+la decisione: non si cerca pi\`u un piano ottimo per un futuro considerato
+noto, ma una decisione iniziale che tenga conto delle diverse evoluzioni
+possibili e delle azioni correttive che potranno essere adottate dopo
+l'osservazione dell'incertezza.
+
+Il capitolo ha mantenuto deliberatamente una struttura a due stadi. Le
+traiettorie possono contenere pi\`u date e pi\`u stati dell'ambiente
+economico-finanziario, ma l'informazione viene utilizzata secondo due soli
+momenti decisionali: una decisione iniziale comune e una decisione di
+ricorso successiva.
+
+Il passo successivo consiste nell'abbandonare questa separazione in due soli
+stadi e permettere che nuove decisioni vengano assunte progressivamente,
+man mano che l'informazione si rende disponibile. In quel caso diventeranno
+centrali la storia osservata, i nodi informativi e i vincoli di
+non anticipativit\`a tra scenari che condividono la stessa informazione fino a
+una determinata data.
+
+
+
