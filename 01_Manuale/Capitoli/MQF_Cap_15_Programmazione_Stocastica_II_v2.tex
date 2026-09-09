@@ -90,78 +90,109 @@ specifica: la decisione iniziale viene presa senza conoscere lo scenario
 futuro, mentre l'intero blocco di ricorso viene formulato dopo che
 l'incertezza rilevante \`e stata osservata.
 
-Molti problemi finanziari hanno una struttura diversa. L'informazione arriva
-progressivamente e l'orizzonte decisionale pu\`o essere suddiviso in pi\`u
-stadi, ciascuno dei quali pu\`o comprendere uno o pi\`u tempi.
+Molti problemi finanziari hanno una struttura informativa pi\`u articolata.
+L'informazione arriva progressivamente e l'orizzonte successivo alla
+decisione iniziale pu\`o essere suddiviso in pi\`u stadi decisionali.
 
-Siano
+La decisione iniziale continua a essere indicata con $x$ ed \`e assunta al
+tempo $t=0$, prima della rivelazione dell'incertezza futura. Come nel modello
+a due stadi, essa \`e quindi comune a tutti gli scenari.
 
-\[
-0=t_0<t_1<\cdots<t_K=T
-\]
-
-gli estremi degli stadi decisionali. Lo stadio $k$ comprende quindi i tempi
-
-\[
-t_{k-1}+1,\ldots,t_k.
-\]
-
-Indichiamo con $y_k^s$ il vettore delle decisioni appartenenti allo stadio
-$k$ nello scenario $s$. Tali decisioni vengono formulate utilizzando
-l'informazione disponibile al termine dello stadio e sono quindi adattate
-alla filtrazione
+La differenza riguarda le decisioni successive. Nel modello a due stadi tutte
+le decisioni di ricorso sono raccolte in un unico vettore $y_s$. Nel modello
+multistadio, invece, l'orizzonte \`e suddiviso in $K$ stadi e le decisioni di
+ricorso sono distinte come
 
 \[
-\mathcal F_{t_k}.
+y_1^s,\ldots,y_K^s.
 \]
 
-Il modello multistadio conserva cos\`i, all'interno di ciascuno stadio, la
-logica gi\`a presente nel modello a due stadi: le decisioni raccolte nello
-stesso blocco possono utilizzare l'informazione disponibile fino al termine
-di quel blocco. Ci\`o che cambia \`e che l'orizzonte viene suddiviso in pi\`u
-stadi informativi, anzich\`e concentrare tutte le decisioni di ricorso in un
-unico secondo stadio adattato a $\mathcal F_T$.
+Uno stadio pu\`o comprendere uno o pi\`u tempi del modello. L'insieme ordinato
+dei tempi appartenenti allo stadio $k$ \`e indicato con
 
-La Sezione~\ref{sec:cap15-motivazione-multistadio-v2} sviluppa questo
-passaggio e introduce la condizione di non anticipativit\`a: due scenari che
-presentano la stessa storia osservata fino al termine dello stadio $k$ devono
-condividere la stessa decisione $y_k^s$.
+\[
+\mathcal T_k
+=
+\{t_{k,1},\ldots,t_{k,n_k}\},
+\]
 
-Da qui nasce il programma stocastico multistadio. Le decisioni non possono
-pi\`u essere associate soltanto allo scenario terminale, ma devono essere
-collegate alla storia informativa effettivamente disponibile. La stessa idea
-pu\`o essere rappresentata in due modi complementari.
+mentre il suo tempo terminale \`e
 
-La prima rappresentazione utilizza direttamente l'albero degli scenari e
-associa le decisioni ai suoi nodi. La seconda cerca invece di sintetizzare la
-storia rilevante mediante uno stato sufficiente e conduce a una formulazione
-ricorsiva. Il rapporto tra queste due letture verr\`a discusso nella
-Sezione~\ref{sec:cap15-ps-vs-dsp-v2}.
+\[
+\bar t_k
+=
+t_{k,n_k}.
+\]
 
-La formulazione generale del programma multistadio sar\`a poi sviluppata nella
-Sezione~\ref{sec:cap15-programma-multistadio-v2}, dapprima nella forma estesa
-a nodi e successivamente nella forma ricorsiva.
+La struttura multistadio conserva il principio informativo gi\`a presente
+nel modello a due stadi. La differenza riguarda il numero di stadi nei quali
+il ricorso viene distribuito lungo l'orizzonte.
 
-Il caso guida SVB--ALM accompagner\`a questa costruzione con una funzione
+\begin{center}
+\begin{tabular}{|p{2.8cm}|p{3.7cm}|p{3.7cm}|}
+\hline
+ & \textbf{Modello a due stadi} & \textbf{Modello multistadio} \\
+\hline
+\raggedright Decisione iniziale
+&
+$x$, comune a tutti gli scenari
+&
+$x$, comune a tutti gli scenari
+\\
+\hline
+\raggedright Decisione di ricorso
+&
+$y_s$
+&
+$y_k^s$, \quad $k=1,\ldots,K$
+\\
+\hline
+\raggedright Condizione di adattamento
+&
+$y_s$ adattata a $\mathcal F_T$
+&
+$y_k^s$ adattata a $\mathcal F_{\bar t_k}$
+\\
+\hline
+\end{tabular}
+\end{center}
+
+Ci\`o che cambia non \`e dunque la logica del ricorso, ma la struttura
+temporale con cui essa viene applicata. Nel modello a due stadi esiste un
+unico momento di adattamento successivo alla decisione iniziale; nel modello
+multistadio il ricorso viene invece distribuito lungo l'orizzonte attraverso
+pi\`u stadi decisionali.
+
+Il vantaggio della formulazione multistadio consiste proprio in questa
+maggiore capacit\`a di adattamento. Le decisioni possono essere aggiornate
+progressivamente al procedere dell'informazione, anzich\`e concentrare
+l'intero aggiustamento in un unico secondo stadio. Questo vantaggio richiede,
+come contropartita, una rappresentazione pi\`u accurata della sequenza con cui
+informazione e decisioni si succedono. Il passaggio dal modello a due stadi
+al modello multistadio sar\`a sviluppato nella
+Sezione~\ref{sec:cap15-motivazione-multistadio-v2}.
+
+La formulazione generale del programma multistadio sar\`a poi introdotta
+nella Sezione~\ref{sec:cap15-programma-multistadio-v2}.
+
+Il caso guida SVB--ALM accompagner\`a questa costruzione con funzione
 illustrativa. Nel modello a due stadi, $x^{SP}$ rappresenta una composizione
-iniziale dell'attivo comune a tutte le possibili evoluzioni future, mentre le
-decisioni di liquidit\`a e funding possono adattarsi allo scenario osservato.
-Nel modello multistadio, le stesse decisioni devono invece adattarsi
-progressivamente all'informazione disponibile alle diverse date.
+iniziale dell'attivo comune a tutte le possibili evoluzioni future, mentre
+le decisioni di liquidit\`a e funding costituiscono il ricorso successivo.
+Nel modello multistadio, tali decisioni possono invece essere aggiornate
+progressivamente nei diversi stadi, in funzione dell'informazione disponibile.
 
 Il caso guida servir\`a quindi a mostrare come le strutture matematiche
-introdotte si traducano in un problema finanziario concreto. Non modifica
-per\`o la natura generale del metodo: fattibilit\`a del ricorso,
-non anticipativit\`a, rappresentazione per nodi, stato sufficiente e funzioni
-valore sono propriet\`a della programmazione stocastica e non del particolare
-problema ALM utilizzato per illustrarle.
+introdotte si traducano in un problema finanziario concreto, senza modificare
+la natura generale del metodo. Fattibilit\`a del ricorso, struttura
+informativa delle decisioni e adattamento progressivo restano propriet\`a
+della programmazione stocastica, non del particolare problema ALM utilizzato
+per illustrarle.
 
-La parte conclusiva del capitolo torner\`a alla struttura computazionale del
-problema. Nel modello a due stadi, una volta fissata la decisione $x$, i
-problemi di ricorso associati ai diversi scenari possono essere trattati
-separatamente. Nel caso multistadio, una struttura analoga compare lungo
-l'albero e nella ricorsione delle funzioni valore. Questa propriet\`a fornisce
-il principio matematico su cui si basano i metodi di decomposizione.
+La parte conclusiva del capitolo torner\`a infine alla struttura
+computazionale del problema e al principio della decomposizione, mostrando
+come la struttura del ricorso possa essere sfruttata anche sul piano
+risolutivo.
 
 \medskip
 
@@ -172,27 +203,800 @@ Al termine del capitolo lo studente dovr\`a essere in grado di:
 
 \begin{itemize}
 
-\item analizzare la fattibilit\`a del ricorso e le principali propriet\`a
-della funzione di ricorso in un programma stocastico lineare;
-
-\item interpretare la soluzione stocastica come risultato congiunto della
-decisione iniziale e delle decisioni di ricorso disponibili nei diversi
-scenari;
+\item analizzare la fattibilit\`a del ricorso, le principali propriet\`a
+della funzione di ricorso e il ruolo congiunto della decisione iniziale e
+delle decisioni di ricorso nei diversi scenari;
 
 \item costruire e confrontare soluzione stocastica, Expected Value e
-wait-and-see, interpretando $\EVPI$ e $\VSS$;
+wait-and-see, interpretando il significato economico di $\EVPI$ e $\VSS$;
 
-\item comprendere il passaggio dal modello a due stadi a un modello
-multistadio con informazione progressiva;
+\item comprendere il passaggio dal modello a due stadi al modello multistadio,
+formalizzando l'adattamento progressivo delle decisioni all'informazione
+disponibile e il principio di non anticipativit\`a;
 
-\item formulare il principio di non anticipativit\`a e riconoscerne la
-relazione con la misurabilit\`a delle decisioni rispetto all'informazione
-disponibile;
-
-\item distinguere la rappresentazione mediante albero degli scenari dalla
-rappresentazione mediante stato sufficiente e comprenderne il diverso ruolo;
-
-\item riconoscere la struttura di separabilit\`a che motiva i metodi di
-decomposizione.
+\item distinguere le principali rappresentazioni del problema multistadio e
+riconoscere la struttura che consente di formulare il problema mediante alberi
+degli scenari, stati sufficienti e metodi di decomposizione.
 
 \end{itemize}
+
+\section{Fattibilit\`a del ricorso}
+
+\label{sec:cap15-fattibilita-ricorso-v2}
+
+Nel programma stocastico a due stadi introdotto nel
+Capitolo~\ref{cap:programmazione-stocastica-due-stadi}, la decisione iniziale
+$x$ viene scelta tenendo conto delle migliori decisioni di ricorso disponibili
+nei diversi scenari.
+
+Prima di studiare il valore economico del ricorso occorre tuttavia risolvere
+una questione preliminare: una volta fissata $x$ e osservato lo scenario $s$,
+esiste almeno una decisione di secondo stadio che soddisfa i vincoli del
+problema?
+
+Per lo scenario $s$, il problema di ricorso \`e
+
+\[
+Q_s(x)
+=
+\max_{y_s\in\mathcal X_s}
+\left\{
+q_s'y_s:
+T_sx+W_sy_s=h_s
+\right\}.
+\]
+
+La quantit\`a $Q_s(x)$ rappresenta il valore della migliore risposta
+disponibile nello scenario $s$, ma tale valore pu\`o essere definito come
+valore ottimo del problema di secondo stadio soltanto quando l'insieme delle
+decisioni di ricorso ammissibili $\mathcal X_s$ non \`e vuoto.
+
+\begin{definition}[Ricorso ammissibile]
+
+Fissati una decisione di primo stadio $x\in\mathcal X$ e uno scenario
+$s\in\mathcal S$, il ricorso \`e \emph{ammissibile} se esiste almeno una
+decisione
+
+\[
+y_s\in\mathcal X_s
+\]
+
+tale che
+
+\[
+T_sx+W_sy_s=h_s.
+\]
+
+\end{definition}
+
+La definizione riguarda una specifica coppia $(x,s)$. Una decisione iniziale
+pu\`o quindi ammettere ricorso in uno scenario e non ammetterlo in un altro.
+Inoltre, la fattibilit\`a non dice ancora nulla sulla convenienza economica
+della risposta: due decisioni iniziali possono entrambe ammettere ricorso e
+produrre valori di $Q_s(x)$ molto diversi.
+
+Occorre ora distinguere questa propriet\`a locale da due propriet\`a pi\`u
+generali della struttura di ricorso.
+
+\begin{definition}[Ricorso completo]
+
+Il problema possiede \emph{ricorso completo} se, per ogni possibile vettore
+$b$ compatibile con le dimensioni del sistema di secondo stadio, esiste una
+decisione di ricorso ammissibile tale che
+
+\[
+W_sy_s=b.
+\]
+
+Equivalentemente, nella relazione
+
+\[
+W_sy_s=h_s-T_sx,
+\]
+
+la struttura di ricorso \`e in grado di soddisfare qualunque possibile valore
+del termine noto.
+
+\end{definition}
+
+Il ricorso completo \`e quindi una propriet\`a della capacit\`a correttiva
+offerta dal secondo stadio. Non si limita ai valori di $h_s-T_sx$ che possono
+effettivamente verificarsi nel modello, ma richiede che il sistema di ricorso
+sia in grado di compensare un termine noto arbitrario.
+
+Questa condizione \`e spesso pi\`u forte di quanto sia necessario nelle
+applicazioni. Per la soluzione del programma stocastico interessa infatti
+soprattutto sapere se il ricorso \`e possibile per le decisioni di primo
+stadio e per gli scenari che il modello considera effettivamente.
+
+\begin{definition}[Ricorso relativamente completo]
+
+Un programma stocastico a due stadi possiede
+\emph{ricorso relativamente completo} se, per ogni decisione ammissibile di
+primo stadio
+
+\[
+x\in\mathcal X
+\]
+
+e per ogni scenario
+
+\[
+s\in\mathcal S,
+\]
+
+esiste almeno una decisione di ricorso
+
+\[
+y_s\in\mathcal X_s
+\]
+
+tale che
+
+\[
+T_sx+W_sy_s=h_s.
+\]
+
+\end{definition}
+
+La differenza tra le due propriet\`a riguarda dunque l'insieme dei termini
+noti per i quali viene richiesta la fattibilit\`a del secondo stadio. Il
+ricorso completo considera tutti i termini noti possibili; il ricorso
+relativamente completo considera soltanto quelli generati dalle decisioni
+ammissibili $x\in\mathcal X$ e dagli scenari inclusi nel modello.
+
+\begin{center}
+\begin{tabular}{p{3.5cm}p{8.0cm}}
+\hline
+\textbf{Propriet\`a} & \textbf{Condizione richiesta} \\
+\hline
+
+\emph{Ricorso completo}
+&
+Il secondo stadio \`e ammissibile per qualunque possibile termine noto del
+sistema di ricorso.
+\\[4pt]
+
+\emph{Ricorso relativamente completo}
+&
+Il secondo stadio \`e ammissibile per tutti i termini noti effettivamente
+generati da $x\in\mathcal X$ e dagli scenari del modello.
+\\
+\hline
+\end{tabular}
+\end{center}
+
+Il ricorso completo implica quindi il ricorso relativamente completo, ma non
+vale in generale il contrario. Quest'ultima propriet\`a dipende infatti anche
+dall'insieme $\mathcal X$ e dagli scenari considerati: restringendo l'insieme
+delle decisioni ammissibili di primo stadio si pu\`o ottenere ricorso
+relativamente completo anche quando la struttura di secondo stadio non
+possiede ricorso completo.
+
+Nel caso ALM la distinzione ha un'interpretazione immediata. La banca dispone
+di strumenti di riequilibrio, come la raccolta di nuovo funding, ma tali
+strumenti possono essere soggetti a limiti di capacit\`a. Non \`e quindi
+necessario n\'e realistico richiedere che qualsiasi deficit di liquidit\`a
+immaginabile possa essere compensato. Occorre invece verificare che tutte le
+decisioni iniziali considerate ammissibili lascino una capacit\`a di
+correzione sufficiente negli scenari inclusi nel modello.
+
+\subsection{Un esempio con capacit\`a limitata di funding}
+
+Consideriamo un problema ridotto con due classi di attivo e risorse iniziali
+
+\[
+A_0=10.
+\]
+
+Indichiamo con $x$ l'ammontare investito nella classe di attivo pi\`u liquida.
+La composizione iniziale \`e pertanto
+
+\[
+\begin{pmatrix}
+x\\
+10-x
+\end{pmatrix},
+\qquad
+0\leq x\leq10.
+\]
+
+Alla data di ricorso deve essere soddisfatto un fabbisogno di liquidit\`a
+
+\[
+d=8.
+\]
+
+Consideriamo due scenari. Nello scenario ordinario, i coefficienti che
+trasformano le due posizioni iniziali in liquidit\`a disponibile sono
+
+\[
+a_1'
+=
+(1,\;0.6),
+\]
+
+mentre nello scenario avverso sono
+
+\[
+a_2'
+=
+(1,\;0.2).
+\]
+
+La prima classe mantiene quindi la propria capacit\`a di generare liquidit\`a,
+mentre la seconda diventa molto meno efficace nello scenario avverso.
+
+Dopo l'osservazione dello scenario la banca pu\`o utilizzare nuovo funding
+$u_s$ e mantenere un'eventuale giacenza residua $g_s$, con
+
+\[
+g_s\geq0,
+\qquad
+0\leq u_s\leq\bar u_s.
+\]
+
+Le capacit\`a massime di funding sono
+
+\[
+\bar u_1=1,
+\qquad
+\bar u_2=2.
+\]
+
+Il bilancio di secondo stadio \`e
+
+\[
+a_s'
+\begin{pmatrix}
+x\\
+10-x
+\end{pmatrix}
++
+u_s
+=
+8+g_s.
+\]
+
+Poich\`e $g_s\geq0$, il funding minimo necessario nello scenario $s$ coincide
+con il deficit di liquidit\`a quando tale deficit \`e positivo.
+
+Nello scenario ordinario la liquidit\`a generata dagli attivi \`e
+
+\[
+x+0.6(10-x)
+=
+6+0.4x.
+\]
+
+Il funding minimo richiesto \`e quindi
+
+\[
+u_1^{\min}(x)
+=
+\max\{0,\;2-0.4x\}.
+\]
+
+Il ricorso \`e ammissibile se
+
+\[
+u_1^{\min}(x)
+\leq
+\bar u_1=1,
+\]
+
+ossia se
+
+\[
+x\geq2.5.
+\]
+
+Nello scenario avverso la liquidit\`a disponibile \`e invece
+
+\[
+x+0.2(10-x)
+=
+2+0.8x,
+\]
+
+da cui
+
+\[
+u_2^{\min}(x)
+=
+\max\{0,\;6-0.8x\}.
+\]
+
+La condizione
+
+\[
+u_2^{\min}(x)
+\leq
+\bar u_2=2
+\]
+
+richiede
+
+\[
+x\geq5.
+\]
+
+Lo scenario avverso impone quindi il requisito pi\`u severo sulla decisione
+iniziale.
+
+Per esempio, se
+
+\[
+x=4,
+\]
+
+nello scenario ordinario si ha
+
+\[
+u_1^{\min}(4)=0.4<1,
+\]
+
+e il ricorso \`e ammissibile. Nello scenario avverso, invece,
+
+\[
+u_2^{\min}(4)=2.8>2.
+\]
+
+La capacit\`a massima di funding non \`e sufficiente e il problema di secondo
+stadio non ammette soluzioni. La stessa decisione iniziale risulta quindi
+compatibile con uno scenario ma non con l'altro.
+
+Se invece
+
+\[
+x=6,
+\]
+
+si ottiene
+
+\[
+u_1^{\min}(6)=0
+\]
+
+nello scenario ordinario e
+
+\[
+u_2^{\min}(6)=1.2<2
+\]
+
+nello scenario avverso. La decisione $x=6$ ammette quindi ricorso in entrambi
+gli scenari.
+
+La Figura~\ref{fig:cap15-fattibilita-ricorso-v2} mostra il risultato per tutti
+i valori di $x$ compresi tra $0$ e $10$.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.94\textwidth]
+{../graphics/Cap15_fattibilita_ricorso.png}
+\caption{Funding minimo richiesto nei due scenari al variare
+dell'allocazione iniziale nella classe di attivo pi\`u liquida.
+L'intersezione tra $u_s^{\min}(x)$ e la corrispondente capacit\`a massima
+$\bar u_s$ individua la soglia oltre la quale il ricorso diventa ammissibile
+nello scenario. Per $x\geq5$ il problema di secondo stadio \`e ammissibile in
+entrambi gli scenari.}
+\label{fig:cap15-fattibilita-ricorso-v2}
+\end{figure}
+
+La figura individua tre regioni. Per
+
+\[
+0\leq x<2.5,
+\]
+
+la capacit\`a di funding non \`e sufficiente nemmeno nello scenario ordinario.
+Per
+
+\[
+2.5\leq x<5,
+\]
+
+il ricorso \`e ammissibile nello scenario ordinario ma non in quello avverso.
+Infine, per
+
+\[
+x\geq5,
+\]
+
+entrambi i problemi di secondo stadio sono ammissibili.
+
+L'esempio consente anche di distinguere le due propriet\`a generali appena
+definite. Se
+
+\[
+\mathcal X=[0,10],
+\]
+
+il modello non possiede ricorso relativamente completo, perch\`e esistono
+decisioni ammissibili di primo stadio, come $x=4$, che rendono inammissibile
+il ricorso in almeno uno scenario.
+
+Se invece ulteriori vincoli di primo stadio restringono l'insieme a
+
+\[
+\mathcal X=[5,10],
+\]
+
+allora ogni $x\in\mathcal X$ ammette ricorso in entrambi gli scenari e il
+problema possiede ricorso relativamente completo.
+
+Ci\`o non implica ricorso completo. La capacit\`a di funding resta limitata:
+un deficit sufficientemente elevato non potrebbe essere compensato da alcuna
+decisione $u_s\leq\bar u_s$. La struttura di ricorso non \`e quindi in grado
+di soddisfare un termine noto arbitrario.
+
+Nel caso SVB--ALM completo lo stesso meccanismo opera attraverso pi\`u date,
+pi\`u classi di attivo e pi\`u limiti di funding. Una composizione iniziale
+pu\`o essere ammissibile al primo stadio ma lasciare la banca incapace di
+soddisfare uno dei successivi bilanci di liquidit\`a in uno scenario severo.
+
+La fattibilit\`a costituisce quindi il primo filtro nella valutazione di una
+decisione stocastica. Soltanto dopo avere verificato l'esistenza delle
+decisioni di ricorso ha senso studiarne il valore economico. La sezione
+successiva analizza come la funzione $Q_s(x)$ varia al variare della decisione
+iniziale.
+
+\section{Propriet\`a della funzione di ricorso}
+
+\label{sec:cap15-proprieta-funzione-ricorso-v2}
+
+La sezione precedente ha mostrato che il valore del ricorso pu\`o essere
+studiato soltanto quando il problema di secondo stadio \`e ammissibile.
+Assumiamo ora che questa condizione sia soddisfatta e consideriamo la funzione
+di ricorso introdotta nella
+\eqref{eq:cap14-ricorso-scenario}:
+
+\[
+Q_s(x)
+=
+\max_{y_s\in\mathcal X_s}
+\left\{
+q_s'y_s:
+T_sx+W_sy_s=h_s
+\right\}.
+\]
+
+Per ogni decisione iniziale $x$, la quantit\`a $Q_s(x)$ rappresenta il valore
+ottimo della migliore risposta disponibile dopo l'osservazione dello
+scenario $s$. La funzione di ricorso descrive quindi come il valore delle
+possibilit\`a di adattamento future dipenda dalla decisione presa al primo
+stadio.
+
+\subsection{Dipendenza dalla decisione iniziale}
+
+Una volta fissato lo scenario $s$, la decisione iniziale $x$ entra nei vincoli
+del problema di ricorso attraverso il termine
+
+\[
+h_s-T_sx.
+\]
+
+Modificare $x$ significa pertanto modificare le condizioni nelle quali il
+secondo stadio dovr\`a operare. In un problema di gestione della liquidit\`a,
+per esempio, una composizione iniziale pi\`u liquida pu\`o ridurre il deficit
+da finanziare negli scenari avversi; una composizione meno liquida pu\`o
+invece aumentare il ricorso al funding.
+
+Per due decisioni iniziali
+
+\[
+x'
+\qquad\text{e}\qquad
+x'',
+\]
+
+si ottengono quindi, in generale, valori differenti
+
+\[
+Q_s(x')
+\qquad\text{e}\qquad
+Q_s(x'').
+\]
+
+La qualit\`a della decisione iniziale non pu\`o essere valutata considerando
+soltanto il contributo diretto $c'x$: occorre tenere conto anche dell'effetto
+che $x$ produce sul valore delle decisioni di ricorso disponibili nei diversi
+scenari.
+
+\subsection{Struttura nel caso lineare}
+
+Nel programma stocastico lineare a due stadi, questa dipendenza possiede una
+struttura particolarmente regolare.
+
+\begin{proposition}
+
+Si consideri, per uno scenario fissato $s$, la funzione
+
+\[
+Q_s(x)
+=
+\max_{y_s\in\mathcal X_s}
+\left\{
+q_s'y_s:
+T_sx+W_sy_s=h_s
+\right\}.
+\]
+
+Se il problema di secondo stadio \`e ammissibile per i valori di $x$
+considerati e possiede valore ottimo finito, allora $Q_s(x)$ \`e concava e
+lineare a tratti rispetto a $x$ sul proprio dominio di fattibilit\`a.
+
+\end{proposition}
+
+Il risultato deriva dalla struttura parametrica del problema lineare.
+Fissato lo scenario, $x$ modifica il termine noto
+
+\[
+h_s-T_sx,
+\]
+
+mentre la struttura del problema di secondo stadio rimane lineare. Il valore
+ottimo varia quindi per tratti lineari al variare di $x$. Poich\`e il
+problema di ricorso \`e formulato come una massimizzazione, la funzione
+risultante \`e concava rispetto alla decisione iniziale $x$ sul
+proprio dominio di fattibilit\`a..
+
+I punti nei quali cambia la pendenza di $Q_s(x)$ corrispondono a cambiamenti
+nella struttura della soluzione ottima del problema di secondo stadio. 
+La linearit\`a a tratti implica che il valore marginale di una variazione di $x$ sia costante all'interno di ciascun tratto lineare, ma in generale cambi
+quando si passa da un tratto all'altro.
+
+Questa propriet\`a ha anche un'importante conseguenza computazionale: la
+struttura lineare a tratti della funzione di ricorso \`e uno degli elementi
+che rendono possibile sfruttare separatamente i problemi di secondo stadio
+nei metodi di decomposizione. Questo aspetto verr\`a ripreso nella parte
+conclusiva del capitolo.
+
+\subsection{Un esempio unidimensionale}
+
+Consideriamo un problema ALM ridotto a due classi di attivo. Il patrimonio
+inizialmente allocabile \`e
+
+\[
+A_0=10\,000
+\]
+
+milioni di euro. Indichiamo con $x_1$ l'investimento nell'attivo pi\`u
+liquido e con $x_2$ l'investimento nell'attivo meno liquido. L'intero
+patrimonio viene investito:
+
+\[
+x_1+x_2=10\,000,
+\qquad
+x_1,x_2\geq0.
+\]
+
+Consideriamo lo scenario avverso $s=2$. Alla data di ricorso, l'attivo
+pi\`u liquido rende disponibile integralmente il capitale investito, mentre
+dell'attivo meno liquido \`e disponibile soltanto il $20\%$ del valore
+iniziale. La liquidit\`a generata dal portafoglio \`e quindi
+
+\[
+L_2
+=
+x_1+0.2x_2.
+\]
+
+Il coefficiente $0.2$ rappresenta la quota dell'investimento disponibile
+alla data in cui deve essere soddisfatto il fabbisogno di liquidit\`a; non
+rappresenta il rendimento dell'attivo.
+
+Supponiamo che il fabbisogno sia
+
+\[
+d=6\,000
+\]
+
+milioni di euro. La banca pu\`o raccogliere nuovo funding $u_2\geq0$ oppure
+mantenere come giacenza l'eventuale liquidit\`a eccedente, $g_2\geq0$. Il
+bilancio di secondo stadio \`e
+
+\[
+x_1+0.2x_2+u_2
+=
+6\,000+g_2.
+\]
+
+Assumiamo che il funding abbia un costo complessivo pari al $3\%$
+dell'ammontare raccolto. Il problema di ricorso nello scenario avverso
+diventa
+
+\[
+Q_2(x)
+=
+\max_{g_2,u_2\geq0}
+\left\{
+-0.03u_2:
+x_1+0.2x_2+u_2=6\,000+g_2
+\right\}.
+\]
+
+Poich\`e il problema complessivo \`e formulato come una massimizzazione, il
+costo del funding entra nella funzione di ricorso con segno negativo. Se
+
+\[
+C_2=0.03u_2,
+\]
+
+allora
+
+\[
+Q_2=-C_2.
+\]
+
+Un maggiore fabbisogno di funding aumenta quindi il costo del ricorso e
+riduce il valore di $Q_2$.
+
+\medskip
+
+\noindent
+\textbf{Parametrizzazione rispetto all'attivo pi\`u liquido.}
+
+Utilizziamo dapprima $x_1$ come variabile indipendente. Poich\`e
+
+\[
+x_2=10\,000-x_1,
+\]
+
+la liquidit\`a disponibile diventa
+
+\[
+L_2(x_1)
+=
+x_1+0.2(10\,000-x_1)
+=
+2\,000+0.8x_1.
+\]
+
+Il funding minimo necessario \`e
+
+\[
+u_2^*(x_1)
+=
+\max\{0,\;6\,000-L_2(x_1)\}
+=
+\max\{0,\;4\,000-0.8x_1\}.
+\]
+
+Per $x_1<5\,000$ \`e necessario ricorrere al funding; per
+$x_1\geq5\,000$ la liquidit\`a prodotta dagli attivi \`e invece sufficiente.
+
+Il costo ottimo del ricorso \`e
+
+\[
+C_2(x_1)
+=
+\begin{cases}
+120-0.024x_1, & 0\leq x_1\leq5\,000,\\[4pt]
+0, & 5\,000\leq x_1\leq10\,000,
+\end{cases}
+\]
+
+e quindi
+
+\[
+Q_2(x_1)
+=
+\begin{cases}
+-120+0.024x_1, & 0\leq x_1\leq5\,000,\\[4pt]
+0, & 5\,000\leq x_1\leq10\,000.
+\end{cases}
+\]
+
+Sia $x_1$ sia $Q_2(x_1)$ sono espressi in milioni di euro. Per esempio, con
+
+\[
+x_1=2\,000
+\]
+
+si ottiene
+
+\[
+u_2^*(2\,000)
+=
+4\,000-0.8(2\,000)
+=
+2\,400,
+\]
+
+e quindi
+
+\[
+C_2(2\,000)=72,
+\qquad
+Q_2(2\,000)=-72.
+\]
+
+All'aumentare dell'investimento nell'attivo pi\`u liquido, il funding
+necessario diminuisce e la funzione di ricorso cresce fino a raggiungere
+zero.
+
+\medskip
+
+\noindent
+\textbf{Parametrizzazione rispetto all'attivo meno liquido.}
+
+Lo stesso problema pu\`o essere descritto utilizzando $x_2$ come variabile
+indipendente. Poich\`e
+
+\[
+x_1=10\,000-x_2,
+\]
+
+la liquidit\`a disponibile \`e
+
+\[
+L_2(x_2)
+=
+(10\,000-x_2)+0.2x_2
+=
+10\,000-0.8x_2.
+\]
+
+Il funding minimo necessario diventa
+
+\[
+u_2^*(x_2)
+=
+\max\{0,\;0.8x_2-4\,000\},
+\]
+
+e quindi
+
+\[
+Q_2(x_2)
+=
+\begin{cases}
+0, & 0\leq x_2\leq5\,000,\\[4pt]
+120-0.024x_2, & 5\,000\leq x_2\leq10\,000.
+\end{cases}
+\]
+
+La Figura~\ref{fig:cap15-funzione-ricorso-piecewise-v2} confronta le due
+parametrizzazioni.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]
+{../graphics/Cap15_funzione_ricorso_piecewise.png}
+\caption{Funzione di ricorso nello scenario avverso secondo due
+parametrizzazioni equivalenti della decisione iniziale. Nel pannello di
+sinistra la variabile \`e l'investimento $x_1$ nell'attivo pi\`u liquido;
+nel pannello di destra \`e l'investimento $x_2$ nell'attivo meno liquido.
+Tutte le quantit\`a monetarie sono espresse in milioni di euro e
+$A_0=10\,000$.}
+\label{fig:cap15-funzione-ricorso-piecewise-v2}
+\end{figure}
+
+Le due rappresentazioni descrivono gli stessi portafogli, poich\`e
+
+\[
+x_2
+=
+10\,000-x_1.
+\]
+
+Il diverso andamento dei due grafici dipende soltanto dalla variabile scelta
+sull'asse orizzontale. Aumentare $x_1$ significa rendere il portafoglio
+iniziale pi\`u liquido e ridurre il funding necessario; aumentare $x_2$
+produce l'effetto opposto. Per questo $Q_2$ cresce rispetto a $x_1$ e
+diminuisce rispetto a $x_2$.
+
+L'esempio rende visibili le due propriet\`a appena introdotte. La funzione di
+ricorso \`e lineare all'interno di ciascuna regione e cambia pendenza in
+
+\[
+x_1=5\,000
+\qquad\text{oppure, equivalentemente,}\qquad
+x_2=5\,000,
+\]
+
+quando il funding ottimo passa da un valore positivo a zero. Nel problema
+generale lo stesso principio opera in dimensione maggiore: al variare della
+decisione iniziale possono cambiare le decisioni ottime di secondo stadio e,
+con esse, la pendenza della funzione di ricorso.
