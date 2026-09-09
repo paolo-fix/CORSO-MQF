@@ -1000,3 +1000,737 @@ quando il funding ottimo passa da un valore positivo a zero. Nel problema
 generale lo stesso principio opera in dimensione maggiore: al variare della
 decisione iniziale possono cambiare le decisioni ottime di secondo stadio e,
 con esse, la pendenza della funzione di ricorso.
+
+\section{Perch\`e il modello a due stadi non basta}
+
+\label{sec:cap15-motivazione-multistadio-v2}
+
+Le sezioni precedenti hanno studiato il ricorso nella struttura a due stadi.
+La decisione iniziale $x$ viene assunta prima della rivelazione
+dell'incertezza; successivamente, dopo avere osservato lo scenario $s$, il
+decisore sceglie un unico vettore di ricorso $y_s$.
+
+Nel modello introdotto nel Capitolo~\ref{cap:programmazione-stocastica-due-stadi},
+lo scenario $s$ contiene l'intera traiettoria futura rilevante. Il vettore
+$y_s$ pu\`o quindi utilizzare tutta l'informazione contenuta nello scenario
+ed \`e adattato a
+
+\[
+\mathcal F_T.
+\]
+
+Questa struttura \`e appropriata quando si vuole distinguere una decisione
+iniziale da un unico blocco successivo di decisioni. Diventa invece
+restrittiva quando l'informazione rilevante viene resa disponibile
+progressivamente e il decisore deve poter modificare le proprie scelte in
+pi\`u momenti dell'orizzonte.
+
+Il passaggio al modello multistadio consiste precisamente nel suddividere il
+ricorso in pi\`u blocchi decisionali.
+
+\subsection{Stadi decisionali e informazione disponibile}
+
+Nel modello multistadio l'orizzonte successivo alla decisione iniziale \`e
+suddiviso in
+
+\[
+k=1,\ldots,K
+\]
+
+stadi decisionali.
+
+Come stabilito nella Notazione, lo stadio $k$ pu\`o comprendere pi\`u tempi,
+
+\[
+\mathcal T_k
+=
+\{t_{k,1},\ldots,t_{k,n_k}\},
+\]
+
+e il suo tempo terminale \`e
+
+\[
+\bar t_k
+=
+t_{k,n_k}.
+\]
+
+La decisione di ricorso associata allo stadio $k$ nello scenario $s$ \`e
+
+\[
+y_k^s.
+\]
+
+Essa viene formulata utilizzando l'informazione disponibile nello stadio e
+deve quindi essere adattata a
+
+\[
+\mathcal F_{\bar t_k}.
+\]
+
+La distinzione fondamentale non \`e quindi tra singole date, ma tra livelli
+successivi di informazione. Pi\`u tempi possono appartenere allo stesso
+stadio se le corrispondenti decisioni vengono trattate come un unico blocco
+rispetto alla struttura informativa del modello.
+
+Nel modello a due stadi esiste un solo blocco di ricorso, adattato
+all'informazione completa $\mathcal F_T$. Nel modello multistadio lo stesso
+principio viene applicato ripetutamente:
+
+\[
+y_1^s
+\text{ adattata a }
+\mathcal F_{\bar t_1},
+\qquad
+\ldots,
+\qquad
+y_K^s
+\text{ adattata a }
+\mathcal F_{\bar t_K}.
+\]
+
+Poich\`e l'ultimo stadio termina con l'orizzonte del problema,
+
+\[
+\bar t_K=T,
+\]
+
+l'ultima decisione di ricorso pu\`o utilizzare l'informazione completa,
+mentre le decisioni precedenti devono rispettare l'informazione disponibile
+nei rispettivi stadi.
+
+\subsection{Non anticipativit\`a}
+
+La struttura informativa impone una condizione essenziale. Una decisione non
+pu\`o dipendere da informazioni che non sono ancora disponibili nello stadio
+in cui essa viene assunta.
+
+\begin{definition}[Decisione adattata alla storia osservata]
+
+\label{def:cap15-decisione-adattata-v2}
+
+La decisione di ricorso $y_k^s$ \`e \emph{adattata} all'informazione
+disponibile nello stadio $k$ se \`e
+$\mathcal F_{\bar t_k}$-misurabile.
+
+Equivalentemente, se due scenari $s$ e $s'$ condividono la stessa storia
+informativa fino al tempo $\bar t_k$, allora
+
+\[
+y_k^s
+=
+y_k^{s'}.
+\]
+
+\end{definition}
+
+Quest'ultima uguaglianza esprime il principio di
+\emph{non anticipativit\`a}. Due scenari che fino allo stadio $k$ sono
+indistinguibili devono produrre la stessa decisione in quello stadio. La
+decisione pu\`o differenziarsi soltanto quando sia stata osservata
+un'informazione che consente di distinguere le due storie.
+
+Il vincolo di non anticipativit\`a non limita quindi artificialmente la
+capacit\`a di adattamento del modello. Impedisce, al contrario, che il
+decisore utilizzi informazione futura prima che essa sia disponibile.
+
+\subsection{Dal modello a due stadi al modello multistadio}
+
+Il rapporto tra le due formulazioni pu\`o essere visto con un esempio
+astratto.
+
+Supponiamo che l'orizzonte successivo alla decisione iniziale contenga
+quattro tempi,
+
+\[
+t=1,2,3,4.
+\]
+
+Nel modello a due stadi questi quattro tempi appartengono a un unico blocco
+di ricorso. Dopo avere osservato l'intero scenario $s$, il decisore sceglie
+
+\[
+y_s,
+\]
+
+adattato a
+
+\[
+\mathcal F_4.
+\]
+
+Supponiamo ora di suddividere lo stesso orizzonte in tre stadi:
+
+\[
+\mathcal T_1=\{1\},
+\qquad
+\mathcal T_2=\{2,3\},
+\qquad
+\mathcal T_3=\{4\}.
+\]
+
+I rispettivi tempi terminali sono
+
+\[
+\bar t_1=1,
+\qquad
+\bar t_2=3,
+\qquad
+\bar t_3=4.
+\]
+
+Il ricorso viene allora rappresentato mediante tre decisioni,
+
+\[
+y_1^s,
+\qquad
+y_2^s,
+\qquad
+y_3^s,
+\]
+
+adattate rispettivamente a
+
+\[
+\mathcal F_1,
+\qquad
+\mathcal F_3,
+\qquad
+\mathcal F_4.
+\]
+
+Se due scenari $s$ e $s'$ coincidono fino al tempo $1$, il primo blocco
+decisionale deve soddisfare
+
+\[
+y_1^s=y_1^{s'}.
+\]
+
+Se le due storie coincidono fino al tempo $3$, deve inoltre valere
+
+\[
+y_2^s=y_2^{s'}.
+\]
+
+Soltanto dopo che le traiettorie diventano distinguibili le decisioni
+successive possono differenziarsi.
+
+L'esempio mostra che il passaggio al multistadio non richiede di modificare
+la logica economica del problema. Cambia la struttura informativa con cui le
+decisioni di ricorso vengono organizzate. Un unico vettore $y_s$, costruito
+conoscendo l'intero scenario, viene sostituito da una sequenza
+
+\[
+y_1^s,\ldots,y_K^s,
+\]
+
+nella quale ciascuna decisione utilizza soltanto l'informazione disponibile
+nel proprio stadio.
+
+Questo rende il modello pi\`u fedele ai problemi nei quali l'incertezza si
+rivela progressivamente, ma introduce anche una struttura pi\`u articolata:
+le decisioni devono essere associate alle diverse storie informative e
+vincolate dalla non anticipativit\`a. Le sezioni successive sviluppano le
+rappresentazioni che permettono di organizzare questa struttura.
+
+\section{Programmazione stocastica e programmazione dinamica stocastica}
+
+\label{sec:cap15-ps-vs-dsp-v2}
+
+La Sezione~\ref{sec:cap15-motivazione-multistadio-v2} ha introdotto una
+sequenza di decisioni di ricorso
+
+\[
+y_1^s,\ldots,y_K^s,
+\]
+
+nella quale $y_k^s$ \`e adattata all'informazione disponibile nello stadio
+$k$. Questa formulazione rende esplicito il carattere progressivo delle
+decisioni, ma introduce anche una difficolt\`a: al crescere del numero degli
+stadi aumenta rapidamente il numero delle possibili storie dell'incertezza.
+
+Una rappresentazione generale consiste nel mantenere distinte tali storie.
+Nel caso di scenari finiti esse possono essere organizzate mediante un albero
+degli scenari: ogni nodo identifica una storia osservata e la decisione
+assunta in quel nodo dipende dall'informazione disponibile fino a quel punto.
+
+Se a ciascuna delle $T$ date future sono possibili $m$ stati, il numero delle
+traiettorie complete pu\`o crescere come
+
+\[
+m^T.
+\]
+
+Nel caso guida SVB--ALM, con otto stati esogeni e quattro date future, il
+numero massimo di traiettorie complete \`e
+
+\[
+8^4=4096.
+\]
+
+La difficolt\`a non riguarda soltanto il numero degli scenari terminali. Ogni
+storia intermedia pu\`o richiedere una decisione distinta, e quindi la
+dimensione della rappresentazione cresce insieme all'intero albero.
+
+Questa osservazione introduce due modi differenti di organizzare lo stesso
+problema decisionale sequenziale: la formulazione generale della
+\emph{programmazione stocastica multistadio} e, quando la struttura del
+problema lo consente, la \emph{programmazione dinamica stocastica}.
+
+\subsection{Programmazione stocastica multistadio e programmazione dinamica
+stocastica}
+
+Nella formulazione generale della programmazione stocastica multistadio, la
+decisione
+
+\[
+y_k^s
+\]
+
+\`e associata alla storia informativa dello scenario $s$ disponibile allo
+stadio $k$. Due scenari che condividono la stessa storia fino a quello stadio
+devono condividere la stessa decisione; quando le storie si separano, anche
+le decisioni successive possono differenziarsi.
+
+La rappresentazione conserva quindi esplicitamente la storia
+
+\[
+\left(
+x,\,
+y_1^s,\ldots,y_{k-1}^s;\,
+\text{informazione osservata fino allo stadio }k
+\right).
+\]
+
+Non \`e necessario supporre che questa storia possa essere sintetizzata in
+un numero ridotto di variabili. Questa generalit\`a costituisce uno dei punti
+di forza della programmazione stocastica multistadio.
+
+La programmazione dinamica stocastica utilizza invece una struttura
+ulteriore. Essa richiede che, ai fini delle decisioni future, la storia
+osservata possa essere sostituita da uno \emph{stato sufficiente}.
+
+Il passaggio non consiste quindi in un semplice cambio di notazione. Consiste
+nella possibilit\`a di sostituire
+
+\[
+\text{storia completa}
+\]
+
+con
+
+\[
+\text{stato corrente},
+\]
+
+senza perdere informazione rilevante per le decisioni successive.
+
+Quando tale sostituzione \`e possibile, il problema pu\`o essere formulato
+ricorsivamente. Quando non lo \`e, la storia deve continuare a essere
+rappresentata esplicitamente.
+
+\subsection{Dalle decisioni di ricorso allo stato del sistema}
+
+Per rendere confrontabili le due formulazioni occorre costruire il legame
+tra la notazione gi\`a introdotta,
+
+\[
+x,
+\qquad
+y_1^s,\ldots,y_K^s,
+\]
+
+e la notazione utilizzata nella formulazione dinamica.
+
+Indichiamo con
+
+\[
+X_k^s
+\]
+
+lo \emph{stato endogeno} del sistema al termine dello stadio $k$. Esso
+raccoglie le grandezze prodotte dalle decisioni precedenti che devono essere
+conservate per determinare le possibilit\`a future.
+
+Lo stato iniziale dipende dalla decisione di primo stadio. In forma generale
+possiamo scrivere
+
+\[
+X_0=G(x),
+\]
+
+dove la funzione $G$ dipende dalla particolare applicazione. Se la decisione
+$x$ contiene gi\`a tutte le informazioni necessarie a descrivere lo stato
+endogeno iniziale, si pu\`o avere semplicemente
+
+\[
+X_0=x.
+\]
+
+Indichiamo inoltre con
+
+\[
+Z_k^s
+\]
+
+lo stato esogeno rilevante nello stadio $k$, cio\`e la parte dell'ambiente
+incerto osservata e necessaria per determinare la decisione e l'evoluzione
+successiva del sistema.
+
+La decisione di ricorso $y_k^s$ trasforma allora lo stato corrente nello stato
+successivo secondo una relazione del tipo
+
+\[
+X_k^s
+=
+F_k
+\left(
+X_{k-1}^s,
+Z_k^s,
+y_k^s
+\right),
+\]
+
+dove $F_k$ rappresenta la dinamica endogena del problema.
+
+La sequenza decisionale pu\`o quindi essere letta come
+
+\[
+x
+\longrightarrow
+X_0
+\longrightarrow
+(Z_1^s,y_1^s,X_1^s)
+\longrightarrow
+\cdots
+\longrightarrow
+(Z_K^s,y_K^s,X_K^s).
+\]
+
+Questa rappresentazione non modifica il problema. Introduce semplicemente una
+variabile di stato che registra l'effetto cumulato delle decisioni passate.
+
+Il punto decisivo \`e stabilire se, una volta conosciuti $X_{k-1}^s$ e
+$Z_k^s$, sia ancora necessario conoscere anche l'intera storia attraverso la
+quale tali valori sono stati raggiunti.
+
+\subsection{Lo stato aumentato sufficiente}
+
+\begin{definition}[Stato aumentato sufficiente]
+
+\label{def:cap15-stato-aumentato-v2}
+
+La coppia
+
+\[
+(X_{k-1},Z_k)
+\]
+
+costituisce uno \emph{stato aumentato sufficiente} per la decisione dello
+stadio $k$ se, condizionatamente al suo valore corrente, il problema
+decisionale residuo non dipende ulteriormente dalla storia precedente.
+
+In particolare, se due storie differenti conducono allo stesso stato
+
+\[
+(X_{k-1},Z_k),
+\]
+
+esse generano lo stesso insieme delle decisioni ammissibili correnti, la
+stessa dinamica futura e lo stesso problema di ottimizzazione a partire dallo
+stadio $k$.
+
+\end{definition}
+
+Il termine \emph{aumentato} sottolinea che lo stato rilevante non coincide
+necessariamente con il solo stato esogeno $Z_k$. Le decisioni future possono
+dipendere anche da grandezze endogene prodotte dalle scelte precedenti e
+raccolte in $X_{k-1}$.
+
+In un problema finanziario, conoscere soltanto le condizioni correnti del
+mercato pu\`o non essere sufficiente. Occorre anche conoscere, per esempio,
+la posizione corrente del portafoglio, la liquidit\`a accumulata oppure
+l'ammontare del funding ancora in essere.
+
+La definizione implica una conseguenza importante. Se due scenari $s$ e $s'$
+hanno storie differenti ma conducono allo stesso stato aumentato,
+
+\[
+(X_{k-1}^s,Z_k^s)
+=
+(X_{k-1}^{s'},Z_k^{s'}),
+\]
+
+allora, dal punto di vista delle decisioni future, le due storie possono
+essere trattate allo stesso modo.
+
+La decisione scenario-specifica pu\`o quindi essere rappresentata mediante
+una funzione dello stato:
+
+\[
+y_k^s
+=
+\mu_k
+\left(
+X_{k-1}^s,Z_k^s
+\right),
+\]
+
+dove $\mu_k$ rappresenta la regola decisionale dello stadio $k$.
+
+La relazione precedente costituisce il ponte tra le due formulazioni. Nella
+programmazione stocastica la decisione \`e identificata dalla storia dello
+scenario; nella programmazione dinamica la stessa decisione viene
+identificata dallo stato sufficiente raggiunto da quella storia.
+
+In simboli,
+
+\[
+\underbrace{
+\left(
+x,\,
+y_1^s,\ldots,y_{k-1}^s;\,
+Z_1^s,\ldots,Z_k^s
+\right)
+}_{\text{storia esplicita}}
+\qquad\longrightarrow\qquad
+\underbrace{
+(X_{k-1}^s,Z_k^s)
+}_{\text{stato sufficiente}}.
+\]
+
+La freccia rappresenta una compressione dell'informazione, non una semplice
+rinominazione.
+
+\subsection{Il principio di Bellman}
+
+L'esistenza di uno stato sufficiente rende possibile scomporre il problema
+sequenziale in una successione di problemi pi\`u piccoli.
+
+Il principio che giustifica questa scomposizione \`e il
+\emph{principio di ottimalit\`a di Bellman}: se una politica \`e ottima
+dall'inizio dell'orizzonte, allora, qualunque sia lo stato raggiunto dopo le
+prime decisioni, la parte restante della politica deve essere ottima per il
+problema che inizia da quello stato.
+
+In altri termini, una volta raggiunto lo stato corrente, la scelta ottima
+delle decisioni future pu\`o essere determinata senza ricostruire il percorso
+precedente, purch\`e lo stato sia sufficiente.
+
+Indichiamo con
+
+\[
+V_k(X_{k-1},Z_k)
+\]
+
+il valore ottimo atteso del problema residuo a partire dallo stadio $k$,
+quando lo stato disponibile per la decisione \`e $(X_{k-1},Z_k)$.
+
+La decisione corrente $y_k$ produce un contributo economico
+
+\[
+r_k(X_{k-1},Z_k,y_k)
+\]
+
+e determina, insieme all'evoluzione dell'incertezza, lo stato endogeno
+successivo
+
+\[
+X_k
+=
+F_k(X_{k-1},Z_k,y_k).
+\]
+
+La ricorsione di Bellman assume allora la forma
+
+\begin{equation}
+V_k(X_{k-1},Z_k)
+=
+\max_{y_k\in\mathcal A_k(X_{k-1},Z_k)}
+\left\{
+r_k(X_{k-1},Z_k,y_k)
++
+\E
+\left[
+V_{k+1}(X_k,Z_{k+1})
+\mid
+X_{k-1},Z_k,y_k
+\right]
+\right\},
+\label{eq:cap15-bellman-generale-v2}
+\end{equation}
+
+dove
+
+\[
+\mathcal A_k(X_{k-1},Z_k)
+\]
+
+\`e l'insieme delle decisioni ammissibili nello stato corrente.
+
+La relazione~\eqref{eq:cap15-bellman-generale-v2} separa quindi due
+componenti:
+
+\[
+\underbrace{
+r_k(X_{k-1},Z_k,y_k)
+}_{\text{valore prodotto nello stadio corrente}}
+\]
+
+e
+
+\[
+\underbrace{
+\E
+\left[
+V_{k+1}(X_k,Z_{k+1})
+\mid
+X_{k-1},Z_k,y_k
+\right]
+}_{\text{valore ottimo atteso degli stadi successivi}}.
+\]
+
+La decisione ottima dello stadio $k$ deve tenere conto di entrambe. Una scelta
+che produce un vantaggio immediato pu\`o infatti modificare $X_k$ e rendere
+meno favorevoli le possibilit\`a decisionali successive.
+
+All'ultimo stadio non esistono ulteriori decisioni future. La ricorsione viene
+quindi chiusa ponendo, secondo la convenzione adottata,
+
+\[
+V_{K+1}=0,
+\]
+
+oppure incorporando direttamente nell'ultimo stadio l'eventuale valore
+terminale del problema.
+
+Determinato il valore dell'ultimo stadio, la ricorsione procede a ritroso:
+
+\[
+V_K
+\longrightarrow
+V_{K-1}
+\longrightarrow
+\cdots
+\longrightarrow
+V_1.
+\]
+
+Il principio di Bellman non \`e quindi un algoritmo aggiunto dall'esterno al
+problema multistadio. \`E la conseguenza della possibilit\`a di descrivere il
+problema residuo mediante uno stato sufficiente.
+
+\subsection{Albero degli scenari e ricorsione: il confronto}
+
+Possiamo ora confrontare con precisione le due rappresentazioni.
+
+Nella programmazione stocastica multistadio per scenari, ogni nodo
+rappresenta una storia informativa. Due storie differenti rimangono, in
+generale, due nodi distinti anche quando conducono a condizioni che potrebbero
+risultare equivalenti per le decisioni future.
+
+Nella programmazione dinamica stocastica, invece, due storie possono essere
+ricondotte allo stesso problema residuo se conducono allo stesso stato
+sufficiente.
+
+La differenza pu\`o essere sintetizzata come
+
+\[
+\boxed{
+\text{programmazione stocastica per scenari}
+=
+\text{storia esplicita}
+}
+\]
+
+e
+
+\[
+\boxed{
+\text{programmazione dinamica stocastica}
+=
+\text{stato sufficiente + ricorsione}
+}.
+\]
+
+\begin{center}
+\begin{tabular}{p{3.6cm}p{4.4cm}p{4.4cm}}
+\hline
+&
+\textbf{Programmazione stocastica}
+&
+\textbf{Programmazione dinamica stocastica}
+\\
+\hline
+
+Oggetto che identifica la decisione
+&
+Storia informativa o nodo
+&
+Stato sufficiente
+\\[4pt]
+
+Decisione allo stadio $k$
+&
+$y_k^s$
+&
+$y_k=\mu_k(X_{k-1},Z_k)$
+\\[4pt]
+
+Informazione conservata
+&
+Storia esplicita
+&
+Solo l'informazione contenuta nello stato
+\\[4pt]
+
+Struttura del problema
+&
+Forma estesa sull'albero
+&
+Ricorsione di Bellman
+\\[4pt]
+
+Condizione aggiuntiva
+&
+Non richiede una compressione della storia
+&
+Richiede l'esistenza di uno stato sufficiente
+\\
+\hline
+\end{tabular}
+\end{center}
+
+La programmazione dinamica non sostituisce quindi automaticamente la
+programmazione stocastica multistadio. Essa diventa una rappresentazione
+valida quando \`e possibile identificare uno stato che conservi tutta
+l'informazione rilevante per il futuro.
+
+Quando tale stato esiste ed \`e di dimensione gestibile, molte storie diverse
+possono essere aggregate nello stesso problema residuo e la ricorsione pu\`o
+evitare di trattarle separatamente. Quando questa compressione non \`e
+possibile, oppure produce uno stato di dimensione troppo elevata, la
+rappresentazione esplicita mediante scenari rimane quella naturale.
+
+Il confronto pu\`o quindi essere riassunto nella sequenza
+
+\[
+\text{storie degli scenari}
+\longrightarrow
+\text{stato sufficiente}
+\longrightarrow
+\text{politica } \mu_k
+\longrightarrow
+\text{ricorsione di Bellman}.
+\]
+
+Il secondo passaggio non \`e sempre disponibile: \`e precisamente l'ipotesi
+strutturale che distingue la formulazione dinamica dalla rappresentazione
+generale per scenari.
+
+Nel caso SVB--ALM, la questione sar\`a concreta. Lo stato esogeno descrive le
+condizioni economico-finanziarie, mentre lo stato endogeno deve conservare
+le conseguenze delle decisioni gi\`a assunte che influenzano i bilanci e le
+possibilit\`a di ricorso successive. La sezione seguente costruisce la
+formulazione generale multistadio e mostra come questi oggetti emergano nel
+caso guida.
