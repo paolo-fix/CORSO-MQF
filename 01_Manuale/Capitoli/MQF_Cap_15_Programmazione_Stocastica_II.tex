@@ -1257,6 +1257,18 @@ multistadio aggiungendo, un periodo alla volta, vincoli di non
 anticipativit\`a al modello a due stadi. Questa sottosezione ne d\`a la
 formulazione generale, valida per un orizzonte $T$ qualunque.
 
+Quando l'insieme degli scenari \`e finito e le storie condivise si
+organizzano gerarchicamente -- come nel caso guida, generato da una
+catena di Markov a stati discreti -- \`e conveniente rappresentare la
+non anticipativit\`a attraverso un \emph{albero degli scenari}. Va
+detto subito che la rappresentazione degli scenari attraverso alberi non \`e
+l'unico modo utilizzato. Gli scenari con cui si rappresenta un futuro incerto possono essere le
+traiettorie di un processo stocastico generico (e.g. moto browniano, processi Ito, di Poisson,...), ove la nozione di nodo e di antenato non \`e nemmeno definibile. Il vincolo di non anticipativit\`a resta
+comunque lo stesso, ed \`e gi\`a espresso in piena generalit\`a dalla
+misurabilit\`a $\mathcal F_t$ della Definizione~\ref{def:cap15-decisione-adattata}.
+Nel seguito di questa sottosezione ci limitiamo al caso a scenari
+finiti, in cui l'albero \`e effettivamente una soluzione naturale.
+
 Un \emph{albero degli scenari} \`e costituito da un insieme di nodi. Il nodo
 radice rappresenta l'istante $t=0$, nel quale viene assunta la decisione di
 primo stadio $x$. Ogni altro nodo $n$ rappresenta una data $t(n)\in\{1,\ldots,T\}$
@@ -1273,7 +1285,27 @@ p_n
 \]
 
 con $\sum_{n:\,t(n)=1}p_n=1$ e, per ogni nodo $n$ non terminale,
-$\sum_{n':\,a(n')=n}p_{n'}=p_n$. Prima di procedere, verifichiamo che questa formulazione generale non sia
+$\sum_{n':\,a(n')=n}p_{n'}=p_n$.
+
+con $\sum_{n:\,t(n)=1}p_n=1$ e, per ogni nodo $n$ non terminale,
+$\sum_{n':\,a(n')=n}p_{n'}=p_n$.
+
+La Figura~\ref{fig:cap15-albero-generico} illustra questi elementi su un
+albero con un numero di figli volutamente diverso da nodo a nodo: la
+struttura a nodi non presuppone alcun branching specifico, ne\'
+tantomeno un orizzonte $T$ fissato.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.7\linewidth]{../graphics/Cap15_albero_multistadio_generico}
+\caption{Albero degli scenari con branching irregolare (2 figli sotto la
+radice, poi 3 e 2): il numero di figli per nodo \`e un dato del modello,
+non un vincolo della teoria. \`E evidenziato un nodo $n$ e il suo
+antenato $a(n)$.}
+\label{fig:cap15-albero-generico}
+\end{figure}
+
+Prima di procedere, verifichiamo che questa formulazione generale non sia
 un modello diverso da quello gi\`a noto, ma lo contenga come caso
 particolare: se l'albero ha un'unica diramazione dopo $t=0$ -- un nodo per ciascuno scenario $s\in\mathcal S$, tutti alla stessa profondit\`a $t=T$ e
 quindi privi di ulteriori diramazioni a valle -- si ottiene esattamente la struttura a ``ventaglio'' del Capitolo~\ref{cap:programmazione-stocastica-due-stadi}, con $p_n=p_s$ (qui $n$ e $s$ coincidono).
@@ -1522,6 +1554,22 @@ $u_t^s$ gi\`a introdotti. Non si aggiunge quindi alcuna nuova decisione al
 modello del Capitolo~\ref{cap:programmazione-stocastica-due-stadi}: si
 aggiunge soltanto una traiettoria, calcolabile, che ne verifica
 un'implicazione patrimoniale.
+La Figura~\ref{fig:cap15-schema-causale-svb-alm} riassume graficamente la
+catena causale appena costruita: l'ambiente esogeno $Z_t$ alimenta sia la
+solidit\`a $\kappa_t$ (attraverso $X_t$ e $h_Z(Z_t)$) sia il fabbisogno
+$d_t$; queste due grandezze concorrono a determinare le decisioni operative
+$(g_t,u_t)$, che a loro volta aggiornano lo stato interno $X_{t+1}$; la
+retroazione $X_{t+1}\to\kappa_{t+1}$ chiude il ciclo alla data successiva,
+rendendo esplicito perch\'e il requisito di solidit\`a non sia un vincolo
+statico ma parte di una dinamica che si ripete stadio dopo stadio.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\textwidth]{graphics/Cap15_schema_causale_svb_alm.png}
+\caption{Schema causale del caso guida SVB--ALM: dall'ambiente esogeno
+$Z_t$ alle decisioni operative, allo stato interno $X_{t+1}$, con
+retroazione sulla solidit\`a alla data successiva.}
+\label{fig:cap15-schema-causale-svb-alm}
+\end{figure}
 
 \begin{remark}
 
@@ -1574,6 +1622,120 @@ e vincoli operativi tornano esattamente quelli del
 Capitolo~\ref{cap:programmazione-stocastica-due-stadi}. La differenza fra le versioni a 2 stadi e multistadio
 \`e soltanto il numero di tagli temporali di
 conoscibilit\`a imposti alle decisioni intermedie.
-
 \end{remark}
+
+\subsection{Esercizi}
+
+\begin{exercise}[Il caso SVB--ALM con orizzonte ridotto a $T=2$]
+
+\label{ex:cap15-svb-t2}
+
+Si consideri il caso guida SVB--ALM con orizzonte ridotto a due date,
+$T=2$, mantenendo gli otto stati esogeni $Z_t\in\{z_1,\ldots,z_8\}$ e la
+stessa struttura di cash flow, giacenza e funding del
+Capitolo~\ref{cap:programmazione-stocastica-due-stadi}. Si rimuova ogni
+vincolo di misurabilit\`a intermedia, lasciando $g_1^s,g_2^s,u_1^s$ liberi
+per scenario $s\in\mathcal S$. Si istanzi la forma estesa generale
+\eqref{eq:cap15-obiettivo-multistadio}--\eqref{eq:cap15-vincolo-nodi-successivi}
+a questo caso, identificando esplicitamente $T_s,W_s,h_s,q_s,\mathcal X_s$, e
+si verifichi che il risultato coincide, salvo la dimensione, con la
+funzione di ricorso \eqref{eq:cap14-ricorso-scenario} del
+Capitolo~\ref{cap:programmazione-stocastica-due-stadi}.
+
+\end{exercise}
+
+\noindent\textbf{Soluzione.} Con $T=2$ il vettore di ricorso si riduce a
+
+\[
+y_s=(g_1^s,g_2^s,u_1^s)',
+\]
+
+poich\'e non vi \`e funding all'ultima data, cos\`i come nel caso a quattro
+date non vi \`e $u_4^s$. I bilanci di liquidit\`a sono
+
+\[
+\sum_{\ell=1}^{4}a_{1\ell}^sx_\ell+u_1^s=d_1^s+g_1^s,
+\qquad
+\sum_{\ell=1}^{4}a_{2\ell}^sx_\ell+(1+r_1^{g,s})g_1^s
+=
+d_2^s+(1+r_1^{u,s})u_1^s+g_2^s,
+\]
+
+la seconda delle quali gioca, per $T=2$, il ruolo che
+\eqref{eq:cap15-bilancio-t4} gioca per $T=4$: \`e l'equazione dell'ultima
+data, senza termine di funding in uscita. Ne segue
+
+\[
+T_s=
+\begin{pmatrix}
+a_{11}^s&a_{12}^s&a_{13}^s&a_{14}^s\\
+a_{21}^s&a_{22}^s&a_{23}^s&a_{24}^s
+\end{pmatrix},
+\qquad
+h_s=
+\begin{pmatrix}
+d_1^s\\d_2^s
+\end{pmatrix},
+\]
+
+\[
+W_s=
+\begin{pmatrix}
+-1&0&1\\
+1+r_1^{g,s}&-1&-(1+r_1^{u,s})
+\end{pmatrix},
+\qquad
+q_s=
+\begin{pmatrix}
+r_1^{g,s}\\0\\-r_1^{u,s}
+\end{pmatrix},
+\]
+
+con $\mathcal X_s=\R_+^2\times[0,\bar u_1^s]$. La funzione di ricorso
+
+\[
+Q_s(x)=\max_{y_s\in\mathcal X_s}\left\{q_s'y_s:T_sx+W_sy_s=h_s\right\}
+\]
+
+ha quindi esattamente la forma \eqref{eq:cap14-ricorso-scenario}, con
+matrici di dimensione ridotta ma identica struttura: due righe di bilancio
+invece di quattro, una sola variabile di funding invece di tre, coefficiente
+nullo su $g_2^s$ come su $g_4^s$ nel caso a quattro date. La formulazione
+generale della Sezione~\ref{sec:cap15-programma-multistadio}, privata di
+ogni vincolo intermedio, riproduce dunque il modello del
+Capitolo~\ref{cap:programmazione-stocastica-due-stadi} qualunque sia $T$,
+non soltanto per $T=4$.
+
+\begin{exercise}[Una catena a tre stati]
+
+Si sostituisca la catena a otto stati del caso guida con una catena
+omogenea a tre stati esogeni, $Z_t\in\{z_1,z_2,z_3\}$, con matrice di
+transizione $P=(p_{ij})_{i,j=1}^{3}$ assegnata, mantenendo l'orizzonte
+pieno $T=4$ e la misurabilit\`a $\mathcal F_t$ di ciascun $u_t^s$
+($t=1,2,3$). Si chiede di: (i) enumerare l'insieme degli scenari
+$\mathcal S$ e calcolarne le probabilit\`a $p_s$; (ii) scrivere la
+condizione di non anticipativit\`a esplicita per $u_1^s$ e per $u_2^s$; (iii)
+specializzare la dinamica dello stato interno $X_{t+1}^s=A_{i_{t+1}^s}X_t^s+B_{i_{t+1}^s}u_t^s+\alpha_{i_{t+1}^s}$
+a questo caso, indicando quante matrici $A_j,B_j,\alpha_j$ occorre calibrare.
+
+\end{exercise}
+
+\medskip
+\noindent\textit{Esiti per la verifica:} (i) $|\mathcal S|=3^4=81$, con
+$p_s$ prodotto di quattro transizioni lungo il cammino, come in
+\eqref{eq:cap14-probabilita-traiettoria} del Capitolo~\ref{cap:programmazione-stocastica-due-stadi}
+ma su una catena a tre, non otto, stati; (ii) $u_1^s=u_1^{s'}$ se
+$Z_1^s=Z_1^{s'}$, e $u_2^s=u_2^{s'}$ se $Z_1^s=Z_1^{s'}$ e $Z_2^s=Z_2^{s'}$;
+(iii) tre coppie $(A_j,B_j,\alpha_j)$, $j=1,2,3$, invece delle otto del
+caso guida -- un decimo circa dei parametri di dinamica interna da
+calibrare, a parit\`a di orizzonte.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\linewidth]{../graphics/Cap15_albero_ternario_non_anticipativita}
+\caption{Struttura ad albero dell'Esercizio: catena omogenea a tre stati, $T=4$ (i livelli $t=3,4$ non sono disegnati; $|\mathcal S|=3^4=81$). Le tre bande colorate corrispondono ai tre valori possibili di $Z_1$: entro ciascuna banda $u_1^s$ \`e costante, per il punto (ii) dell'esercizio. Gli scenari $s$ che proseguono oltre il nodo $(Z_1=z_1,Z_2=z_2)$ condivideranno le decisioni $u^s_1,u^s_2$.}
+\label{fig:cap15-albero-esercizio-tre-stati}
+\end{figure}
+
+
 
