@@ -1551,20 +1551,24 @@ $u_t^s$ gi\`a introdotti. Non si aggiunge quindi alcuna nuova decisione al
 modello del Capitolo~\ref{cap:programmazione-stocastica-due-stadi}: si
 aggiunge soltanto una traiettoria, calcolabile, che ne verifica
 un'implicazione patrimoniale.
+
 La Figura~\ref{fig:cap15-schema-causale-svb-alm} riassume graficamente la
-catena causale appena costruita: l'ambiente esogeno $Z_t$ alimenta sia la
-solidit\`a $\kappa_t$ (attraverso $X_t$ e $h_Z(Z_t)$) sia il fabbisogno
-$d_t$; queste due grandezze concorrono a determinare le decisioni operative
-$(g_t,u_t)$, che a loro volta aggiornano lo stato interno $X_{t+1}$; la
-retroazione $X_{t+1}\to\kappa_{t+1}$ chiude il ciclo alla data successiva,
-rendendo esplicito perch\'e il requisito di solidit\`a non sia un vincolo
-statico ma parte di una dinamica che si ripete stadio dopo stadio.
+catena causale di un singolo passo $t\to t+1$: lo stato ereditato $X_t$ e
+la nuova osservazione esogena $Z_t$ determinano insieme la solidit\`a
+$\kappa_t$, mentre $Z_t$ da solo determina il fabbisogno $d_t$; $\kappa_t$
+e $d_t$ concorrono a determinare le decisioni operative $(g_t,u_t)$, che
+insieme allo stesso $X_t$ aggiornano lo stato interno in
+$X_{t+1}=AX_t+Bu_t+\alpha$ (da cui il collegamento diretto, in figura, fra
+$X_t$ e $X_{t+1}$). Lo stesso passo si ripete, con $t$ che scorre in
+avanti, per ciascuna data dell'orizzonte: la catena
+$X_0\to X_1\to\cdots\to X_4$ \`e lineare, non si richiude mai su se
+stessa.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.85\textwidth]{graphics/Cap15_schema_causale_svb_alm.png}
-\caption{Schema causale del caso guida SVB--ALM: dall'ambiente esogeno
-$Z_t$ alle decisioni operative, allo stato interno $X_{t+1}$, con
-retroazione sulla solidit\`a alla data successiva.}
+\caption{Schema causale di un passo $t\to t+1$ del caso guida SVB--ALM:
+dall'ambiente esogeno $Z_t$ e dallo stato ereditato $X_t$ alle decisioni
+operative, allo stato aggiornato $X_{t+1}$.}
 \label{fig:cap15-schema-causale-svb-alm}
 \end{figure}
 
@@ -1734,5 +1738,170 @@ calibrare, a parit\`a di orizzonte.
 \label{fig:cap15-albero-esercizio-tre-stati}
 \end{figure}
 
+\section{La catena a 8 stati e la matrice $P$ del caso guida}
+\label{sec:cap15-catena-otto-stati}
 
+Le sezioni precedenti hanno trattato la catena di Markov del caso guida
+in forma interamente simbolica: lo spazio degli stati
+$\mathcal I=\{z_1,\ldots,z_8\}$, la matrice di transizione
+$P=(p_{ij})_{i,j=1}^{8}$, il fabbisogno $d_t=d(Z_t)$ e i tassi
+$r_t^{g,s},r_t^{u,s}$ sono stati usati come dati assegnati, senza mai
+prendere un valore numerico. Da qui in avanti -- per svolgere un esercizio
+completo, e in vista del notebook Python del
+Capitolo~\ref{cap:applicazione-python-programmazione-stocastica} -- servono
+numeri veri. Questa sezione li fissa. Si tratta di una calibrazione
+\emph{illustrativa}, scelta per essere plausibile e per generare un caso
+guida con propriet\`a interessanti da discutere, non di una stima su dati
+reali.
+
+\subsection{Enumerazione degli otto stati}
+
+Riprendendo la Notazione, lo stato esogeno \`e la terna binaria
+$Z_t=(Z_t^R,Z_t^C,Z_t^F)\in\{0,1\}^3$, dove $0$ indica il regime basso e
+$1$ il regime alto per tasso risk-free, rischio di credito e tensione sul
+funding rispettivamente. Enumeriamo le otto combinazioni nell'ordine
+binario standard:
+
+\begin{center}
+\begin{tabular}{c|ccc|c}
+stato & $Z^R$ & $Z^C$ & $Z^F$ & etichetta \\
+\hline
+$z_1$ & 0 & 0 & 0 & $(R_L,C_L,F_L)$ \\
+$z_2$ & 0 & 0 & 1 & $(R_L,C_L,F_H)$ \\
+$z_3$ & 0 & 1 & 0 & $(R_L,C_H,F_L)$ \\
+$z_4$ & 0 & 1 & 1 & $(R_L,C_H,F_H)$ \\
+$z_5$ & 1 & 0 & 0 & $(R_H,C_L,F_L)$ \\
+$z_6$ & 1 & 0 & 1 & $(R_H,C_L,F_H)$ \\
+$z_7$ & 1 & 1 & 0 & $(R_H,C_H,F_L)$ \\
+$z_8$ & 1 & 1 & 1 & $(R_H,C_H,F_H)$ \\
+\end{tabular}
+\end{center}
+
+Il caso guida parte da condizioni distese su tutti e tre i fattori:
+
+\[
+Z_0=z_1=(R_L,C_L,F_L).
+\]
+
+\subsection{La matrice di transizione}
+
+Costruiamo $P$ da una regola economica, non da una stima statistica.
+Ciascun fattore ha una propria probabilit\`a di ``ribaltarsi'' da un
+periodo al successivo -- $12\%$ per il tasso, $15\%$ per il credito,
+$18\%$ per il funding, riflettendo il fatto che le tensioni di funding
+tendono a insorgere e a rientrare pi\`u rapidamente delle altre due. A
+questo si aggiunge una spinta verso gli stati in cui \emph{almeno due}
+fattori sono contemporaneamente alti ($+35\%$ di peso relativo su quelle
+destinazioni): una forma di conglomerazione dello stress, coerente con il
+termine di interazione $\gamma_I$ gi\`a introdotto in $h_Z(\cdot)$, e che
+impedisce a $P$ di ridursi al semplice prodotto di tre catene binarie
+indipendenti. Con questa regola, e normalizzando ogni riga a somma $1$:
+
+\[
+P=
+\begin{pmatrix}
+0.61 & 0.13 & 0.11 & 0.03 & 0.08 & 0.02 & 0.02 & 0.00 \\
+0.13 & 0.56 & 0.02 & 0.14 & 0.02 & 0.11 & 0.00 & 0.02 \\
+0.10 & 0.02 & 0.58 & 0.17 & 0.01 & 0.00 & 0.10 & 0.02 \\
+0.02 & 0.09 & 0.11 & 0.65 & 0.00 & 0.02 & 0.02 & 0.09 \\
+0.08 & 0.02 & 0.01 & 0.00 & 0.56 & 0.17 & 0.13 & 0.03 \\
+0.01 & 0.07 & 0.00 & 0.02 & 0.11 & 0.64 & 0.03 & 0.12 \\
+0.01 & 0.00 & 0.07 & 0.02 & 0.08 & 0.03 & 0.65 & 0.14 \\
+0.00 & 0.01 & 0.01 & 0.08 & 0.02 & 0.11 & 0.14 & 0.63
+\end{pmatrix}.
+\label{eq:cap15-matrice-p-guida}
+\]
+
+\begin{remark}
+
+Ogni riga di \eqref{eq:cap15-matrice-p-guida} somma a $1$, come richiesto
+da una matrice di transizione. La diagonale, fra $0.56$ e $0.65$, riflette
+una persistenza marcata: lo stato tende a restare dov'\`e per pi\`u di un
+periodo. Le celle pi\`u basse sono quelle che richiederebbero il
+ribaltamento simultaneo di tutti e tre i fattori (ad esempio da $z_1$ a
+$z_8$, $0.00$): eventi non impossibili, ma di probabilit\`a trascurabile
+su un solo passo.
+
+\end{remark}
+
+\subsection{Fabbisogno di liquidit\`a e tassi}
+
+Poniamo, coerentemente con la forma $d(z)=\sum_{j=1}^{8}d_j\1_{\{z=z_j\}}$
+gi\`a introdotta nella Sezione~\ref{sec:cap15-programma-multistadio},
+
+\[
+d(z)=100+10\,z^R+15\,z^C+25\,z^F,
+\]
+
+dove il fabbisogno cresce pi\`u marcatamente con la tensione di funding
+che con gli altri due fattori. Per i tassi, coerentemente con
+$r_t^{g,s}=r^g(Z_t^s)$ e $r_t^{u,s}=r^u(Z_t^s)$,
+
+\[
+r^g(z)=0.020+0.015\,z^R+0.002\,z^C+0.002\,z^F,
+\qquad
+r^u(z)=0.030+0.015\,z^R+0.020\,z^C+0.030\,z^F.
+\]
+
+\begin{remark}
+
+Per costruzione $r^u(z)\geq r^g(z)$ per ogni $z\in\mathcal I$: il termine
+noto ($0.030\geq0.020$) e ciascun incremento marginale
+($0.015\geq0.015$, $0.020\geq0.002$, $0.030\geq0.002$) rispettano la
+condizione $r_t^u\geq r_t^g$ di Notazione, e la dominanza si mantiene
+quindi per ogni combinazione di fattori, senza bisogno di verificarla
+stato per stato.
+
+\end{remark}
+
+\subsection{Coefficienti di $h_Z$ e requisito di solidit\`a}
+
+Per la funzione $h_Z(\cdot)$ e per la solidit\`a $\kappa_t$ poniamo
+
+\[
+\gamma_R=0.5,\qquad\gamma_C=0.8,\qquad\gamma_F=1.0,\qquad\gamma_I=0.4,
+\qquad
+\kappa_0=8,\qquad\underline\kappa=5.
+\]
+
+La Tabella~\ref{tab:cap15-calibrazione-otto-stati} raccoglie, per ciascuno
+degli otto stati, i valori numerici cos\`i ottenuti.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+$z$ & $(Z^R,Z^C,Z^F)$ & $d(z)$ & $r^g(z)$ & $r^u(z)$ & $h_Z(z)$\\
+\hline
+$z_1$ & $(0,0,0)$ & $100$ & $0.020$ & $0.030$ & $0.00$\\
+$z_2$ & $(0,0,1)$ & $125$ & $0.022$ & $0.060$ & $1.00$\\
+$z_3$ & $(0,1,0)$ & $115$ & $0.022$ & $0.050$ & $0.80$\\
+$z_4$ & $(0,1,1)$ & $140$ & $0.024$ & $0.080$ & $2.20$\\
+$z_5$ & $(1,0,0)$ & $110$ & $0.035$ & $0.045$ & $0.50$\\
+$z_6$ & $(1,0,1)$ & $135$ & $0.037$ & $0.075$ & $1.90$\\
+$z_7$ & $(1,1,0)$ & $125$ & $0.037$ & $0.065$ & $1.70$\\
+$z_8$ & $(1,1,1)$ & $150$ & $0.039$ & $0.095$ & $3.50$\\
+\hline
+\end{tabular}
+\caption{Calibrazione numerica del caso guida sugli otto stati $z_1,\ldots,z_8$: fabbisogno di liquidit\`{a} $d(z)$, tassi $r^g(z)$ e $r^u(z)$, e componente $h_Z(z)$ del requisito di solidit\`{a}.}
+\label{tab:cap15-calibrazione-otto-stati}
+\end{table}
+
+\begin{remark}
+
+Si noti $h_Z(z_8)=3.5$: con $\kappa_0=8$ e $\underline\kappa=5$, lo stress
+simultaneo su tutti e tre i fattori porta da solo $\kappa_t$ a ridosso del
+requisito prudenziale, prima ancora di considerare l'effetto di
+$\beta'X_t$. Non \`e un caso: la calibrazione \`e stata scelta apposta
+perch\'e il vincolo di solidit\`a risultasse realmente stringente in
+qualche stato, e non un'ipotesi che non interviene mai negli esercizi.
+
+\end{remark}
+
+I coefficienti $\beta,\phi_0,\Phi_x$ e le terne $A_j,B_j,\alpha_j$ della
+dinamica dello stato interno $X_t$ restano da fissare: la loro calibrazione
+richiede di aver deciso la dimensione $q$ e l'interpretazione operativa di
+$X_t$, e viene rimandata al
+Capitolo~\ref{cap:applicazione-python-programmazione-stocastica}, dove
+sar\`a definita insieme all'implementazione Python del caso guida.
 

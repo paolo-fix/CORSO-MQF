@@ -1,0 +1,198 @@
+% !TeX root = ../MQF_Manuale_Master.tex
+% Capitoli/MQF_Cap_15_Programmazione_Stocastica_II_v2.tex
+
+\chapter{Soluzione e valore dell'informazione}
+
+\label{cap:soluzione-valore-informazione-v2}
+
+\medskip
+
+Il Capitolo~\ref{cap:programmazione-stocastica-due-stadi} ha introdotto il
+programma stocastico lineare a due stadi. La decisione iniziale $x$ viene
+assunta prima di conoscere quale scenario si realizzer\`a. Dopo
+l'osservazione dello scenario $s$, il decisore pu\`o invece adattare il piano
+attraverso una decisione di ricorso $y_s$.
+
+Con un insieme finito di scenari, il problema \`e stato scritto nella forma
+
+\[
+\max_{x\in\mathcal X}
+\left\{
+c'x+
+\sum_{s\in\mathcal S}p_sQ_s(x)
+\right\},
+\]
+
+dove $Q_s(x)$ \`e il valore ottimo del problema di secondo stadio nello
+scenario $s$.
+Questa formulazione chiarisce la struttura fondamentale di una decisione
+sotto incertezza, ma lascia aperte alcune questioni che riguardano direttamente
+la soluzione del problema.
+
+La prima \`e una questione di fattibilit\`a. Una decisione $x$ ammissibile al
+primo stadio non garantisce, in generale, che esista una decisione di ricorso
+ammissibile in ogni scenario. Prima di attribuire un significato economico a
+$Q_s(x)$ occorre quindi verificare che il problema di secondo stadio possa
+effettivamente essere risolto. Questo problema sar\`a affrontato nella
+Sezione~\ref{sec:cap15-fattibilita-ricorso-v2}.
+
+La seconda questione riguarda la dipendenza del ricorso dalla decisione
+iniziale. Scegliere $x$ significa infatti determinare le risorse e i vincoli
+con i quali il decisore affronter\`a gli scenari futuri. Decisioni iniziali
+diverse generano quindi, in generale, problemi di secondo stadio diversi e
+valori diversi di $Q_s(x)$. Nel caso lineare questa dipendenza presenta una
+struttura precisa, studiata nella
+Sezione~\ref{sec:cap15-proprieta-funzione-ricorso-v2}.
+
+Indicheremo con
+
+\[
+x^{SP}
+\]
+
+la soluzione ottima del programma stocastico e con
+
+\[
+z^{SP}
+\]
+
+il corrispondente valore ottimo.
+
+La soluzione $x^{SP}$ non \`e la decisione migliore per uno specifico
+scenario. \`E una decisione unica, assunta prima che l'incertezza venga
+rivelata, che tiene conto congiuntamente degli scenari considerati, delle loro
+probabilit\`a e delle possibilit\`a di adattamento disponibili dopo la loro
+osservazione.
+
+Questo punto \`e essenziale. La programmazione stocastica non sceglie oggi
+ci\`o che sarebbe ottimo conoscendo gi\`a il futuro. Cerca invece la migliore
+decisione compatibile con l'informazione disponibile nel momento in cui essa
+deve essere assunta.
+
+\medskip
+
+\noindent
+\textbf{Domanda guida:} quali propriet\`a deve possedere una decisione
+stocastica, come si determina il compromesso tra scenari differenti e quanto
+vale disporre di una migliore informazione sul futuro?
+
+\medskip
+
+Le prime sezioni del capitolo rispondono a queste domande restando ancora nel
+quadro a due stadi. Dopo avere studiato la fattibilit\`a e le propriet\`a
+della funzione di ricorso, confronteremo la soluzione stocastica con soluzioni
+costruite sotto ipotesi informative differenti. Questo consentir\`a di
+distinguere il valore prodotto dall'uso esplicito della distribuzione degli
+scenari dal valore attribuibile a una conoscenza pi\`u completa del futuro.
+
+Il modello a due stadi incorpora per\`o una struttura informativa molto
+specifica: la decisione iniziale viene presa senza conoscere lo scenario
+futuro, mentre l'intero blocco di ricorso viene formulato dopo che
+l'incertezza rilevante \`e stata osservata.
+
+Molti problemi finanziari hanno una struttura diversa. L'informazione arriva
+progressivamente e l'orizzonte decisionale pu\`o essere suddiviso in pi\`u
+stadi, ciascuno dei quali pu\`o comprendere uno o pi\`u tempi.
+
+Siano
+
+\[
+0=t_0<t_1<\cdots<t_K=T
+\]
+
+gli estremi degli stadi decisionali. Lo stadio $k$ comprende quindi i tempi
+
+\[
+t_{k-1}+1,\ldots,t_k.
+\]
+
+Indichiamo con $y_k^s$ il vettore delle decisioni appartenenti allo stadio
+$k$ nello scenario $s$. Tali decisioni vengono formulate utilizzando
+l'informazione disponibile al termine dello stadio e sono quindi adattate
+alla filtrazione
+
+\[
+\mathcal F_{t_k}.
+\]
+
+Il modello multistadio conserva cos\`i, all'interno di ciascuno stadio, la
+logica gi\`a presente nel modello a due stadi: le decisioni raccolte nello
+stesso blocco possono utilizzare l'informazione disponibile fino al termine
+di quel blocco. Ci\`o che cambia \`e che l'orizzonte viene suddiviso in pi\`u
+stadi informativi, anzich\`e concentrare tutte le decisioni di ricorso in un
+unico secondo stadio adattato a $\mathcal F_T$.
+
+La Sezione~\ref{sec:cap15-motivazione-multistadio-v2} sviluppa questo
+passaggio e introduce la condizione di non anticipativit\`a: due scenari che
+presentano la stessa storia osservata fino al termine dello stadio $k$ devono
+condividere la stessa decisione $y_k^s$.
+
+Da qui nasce il programma stocastico multistadio. Le decisioni non possono
+pi\`u essere associate soltanto allo scenario terminale, ma devono essere
+collegate alla storia informativa effettivamente disponibile. La stessa idea
+pu\`o essere rappresentata in due modi complementari.
+
+La prima rappresentazione utilizza direttamente l'albero degli scenari e
+associa le decisioni ai suoi nodi. La seconda cerca invece di sintetizzare la
+storia rilevante mediante uno stato sufficiente e conduce a una formulazione
+ricorsiva. Il rapporto tra queste due letture verr\`a discusso nella
+Sezione~\ref{sec:cap15-ps-vs-dsp-v2}.
+
+La formulazione generale del programma multistadio sar\`a poi sviluppata nella
+Sezione~\ref{sec:cap15-programma-multistadio-v2}, dapprima nella forma estesa
+a nodi e successivamente nella forma ricorsiva.
+
+Il caso guida SVB--ALM accompagner\`a questa costruzione con una funzione
+illustrativa. Nel modello a due stadi, $x^{SP}$ rappresenta una composizione
+iniziale dell'attivo comune a tutte le possibili evoluzioni future, mentre le
+decisioni di liquidit\`a e funding possono adattarsi allo scenario osservato.
+Nel modello multistadio, le stesse decisioni devono invece adattarsi
+progressivamente all'informazione disponibile alle diverse date.
+
+Il caso guida servir\`a quindi a mostrare come le strutture matematiche
+introdotte si traducano in un problema finanziario concreto. Non modifica
+per\`o la natura generale del metodo: fattibilit\`a del ricorso,
+non anticipativit\`a, rappresentazione per nodi, stato sufficiente e funzioni
+valore sono propriet\`a della programmazione stocastica e non del particolare
+problema ALM utilizzato per illustrarle.
+
+La parte conclusiva del capitolo torner\`a alla struttura computazionale del
+problema. Nel modello a due stadi, una volta fissata la decisione $x$, i
+problemi di ricorso associati ai diversi scenari possono essere trattati
+separatamente. Nel caso multistadio, una struttura analoga compare lungo
+l'albero e nella ricorsione delle funzioni valore. Questa propriet\`a fornisce
+il principio matematico su cui si basano i metodi di decomposizione.
+
+\medskip
+
+\noindent
+\textbf{Obiettivi della lezione.}
+
+Al termine del capitolo lo studente dovr\`a essere in grado di:
+
+\begin{itemize}
+
+\item analizzare la fattibilit\`a del ricorso e le principali propriet\`a
+della funzione di ricorso in un programma stocastico lineare;
+
+\item interpretare la soluzione stocastica come risultato congiunto della
+decisione iniziale e delle decisioni di ricorso disponibili nei diversi
+scenari;
+
+\item costruire e confrontare soluzione stocastica, Expected Value e
+wait-and-see, interpretando $\EVPI$ e $\VSS$;
+
+\item comprendere il passaggio dal modello a due stadi a un modello
+multistadio con informazione progressiva;
+
+\item formulare il principio di non anticipativit\`a e riconoscerne la
+relazione con la misurabilit\`a delle decisioni rispetto all'informazione
+disponibile;
+
+\item distinguere la rappresentazione mediante albero degli scenari dalla
+rappresentazione mediante stato sufficiente e comprenderne il diverso ruolo;
+
+\item riconoscere la struttura di separabilit\`a che motiva i metodi di
+decomposizione.
+
+\end{itemize}
