@@ -6,14 +6,14 @@ Questo file è l'unica fonte per lo stato corrente del progetto. Registra ciò c
 
 Il Master Plan definisce l'architettura didattica e i contenuti previsti. Le Guidelines definiscono le regole stabili. Il Registro decisionale conserva le decisioni progettuali e le relative motivazioni.
 
-## Snapshot al 2026-08-23
+## Snapshot al 2026-09-15
 
 |  |  |
 |---|---|
-| **Ultima attività completata** | Sviluppo del Capitolo 12 e delle slides della Lezione 12 su dualità e ALM deterministico, con esercizi, grafici, codice sorgente delle figure e raccordo con la Lezione 13; aggiornamento dei promemoria delle Lezioni 11-12. |
-| **Materiale sviluppato** | Capitoli 1-6, 8-9 e 11-12 del manuale; slides delle Lezioni 1, 2, 3, 5, 6, 8, 9, 11 e 12; pacchetto applicativo della Lezione 4; schede e notebook parziali della Lezione 7; schede caso della Lezione 10; grafici collegati ai Capitoli 1-6, 8-9 e 11-12. |
-| **Lavoro in corso** | Chiusura delle tarature editoriali e tecniche delle Lezioni 9, 11 e 12; completamento dei pacchetti applicativi delle Lezioni 7 e 10; riallineamento puntuale dei template IA. |
-| **Prossima priorità** | Predisporre il pacchetto applicativo della Lezione 13 su programmazione lineare e ALM deterministico, archiviando prima il codice solver di validazione dei casi delle Lezioni 11-12. |
+| **Ultima attività completata** | Sviluppo del Capitolo 14 sulla programmazione stocastica a due stadi, con esercizi, quattro figure e script sorgenti; avvio strutturato del Capitolo 15 sul passaggio al multistadio. |
+| **Materiale sviluppato** | Capitoli 1-6, 8-9, 11-12 e 14 del manuale; Capitolo 15 in sviluppo avanzato; slides delle Lezioni 1, 2, 3, 5, 6, 8, 9, 11 e 12; pacchetto applicativo della Lezione 4; schede e notebook parziali della Lezione 7; schede caso della Lezione 10; grafici collegati ai Capitoli 1-6, 8-9, 11-12, 14 e in parte 15. |
+| **Lavoro in corso** | Completamento del Capitolo 15 nelle parti su SP/EV/WS, EVPI e VSS; predisposizione delle slides delle Lezioni 14-15; completamento dei pacchetti applicativi delle Lezioni 7, 10 e 13; riallineamento puntuale dei template IA. |
+| **Prossima priorità** | Completare il Capitolo 15 e i relativi esercizi sui confronti SP/EV/WS, EVPI e VSS; archiviare poi il solver riproducibile necessario al pacchetto applicativo della Lezione 13. |
 
 ---
 
@@ -36,8 +36,8 @@ Legenda: `sviluppato` = contenuto sostanziale presente; `parziale` = componente 
 | 11 | P | Programmazione lineare | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
 | 12 | P | Dualità e ALM deterministico | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
 | 13 | C | Python: programmazione lineare e ALM deterministico | traccia | - | - | - | - |
-| 14 | P | Programmazione stocastica a due stadi | traccia | - | - | - | n.a. |
-| 15 | P | Programmazione stocastica multistadio | traccia | - | - | - | n.a. |
+| 14 | P | Programmazione stocastica a due stadi | sviluppato | - | sviluppato | sviluppato | n.a. |
+| 15 | P | Programmazione stocastica multistadio | parziale | - | parziale | parziale | n.a. |
 | 16 | C | Python: programmazione stocastica | traccia | - | - | - | - |
 
 ---
@@ -200,6 +200,30 @@ più dedicata alla Goal Programming.
 
 ---
 
+## Verifica 2026-09-15 - Lezioni 14 e 15
+
+La Lezione 14 è passata da traccia a sviluppo sostanziale. Il Capitolo 14 è
+incluso nel manuale e tratta decisione sotto incertezza, scenari, funzione di
+ricorso, formulazione lineare a due stadi, forma estesa e non anticipatività,
+con raccordo al caso SVB--ALM. Contiene tre esercizi svolti, sei proposti e una
+sintesi finale. Le quattro figure richiamate nel capitolo sono presenti in
+`graphics/`; gli script sorgenti sono archiviati in `04_Codice/Lez14/`.
+Non risultano ancora slides.
+
+La Lezione 15 è passata da traccia a stato parziale. Il Capitolo 15 sviluppa
+fattibilità e proprietà del ricorso, passaggio a più stadi, decisioni adattate,
+nodi informativi, non anticipatività e formulazione multistadio, con cinque
+figure e relativi script in `04_Codice/Lez15/`. Restano da sviluppare in modo
+esplicito i confronti fra soluzione stocastica, Expected Value e wait-and-see,
+con EVPI e VSS, che sono obiettivi del Master Plan; mancano inoltre slides e
+una sezione completa di esercizi e sintesi finale.
+
+Non è stata eseguita una nuova compilazione LaTeX in questa verifica. Gli
+script delle figure non sono stati rieseguiti: sono stati considerati già
+utilizzati e funzionanti secondo l'indicazione ricevuta.
+
+---
+
 ## Conformità degli esercizi nei capitoli teorici sviluppati
 
 Lo standard di riferimento è definito nella Sezione 9.1.1 delle Guidelines; il modello operativo è collegato dal Catalogo dei template.
@@ -247,9 +271,11 @@ Il Capitolo 4 è applicativo e segue la struttura laboratoriale prevista dalle G
 8. Tarare gli overfull delle Lezioni 9, 11 e 12 e completare la compilazione finale del manuale; correggere anche il magic comment delle slides della Lezione 12.
 9. Archiviare uno script solver riproducibile per la validazione numerica dei casi delle Lezioni 11-12, coerente con `scipy.optimize.linprog(method="highs")`.
 10. Riallineare Prompt 3 e prompt di tappa alle Istruzioni Studente e alle Guidelines, eliminando le incongruenze su Regime A/B e produzione di codice in Regime A.
-11. Predisporre il caso e il pacchetto applicativo della Lezione 13 utilizzando il solver già stabilito nelle Guidelines e raccordandolo al modello ALM della Lezione 12.
-12. Verificare la notazione nello sviluppo delle Lezioni 7, 10 e 13 e aggiornare la corrispondenza Python quando i relativi script saranno definitivi.
-13. Riallineare progressivamente i nomi dei file ancora non conformi alla nomenclatura definitiva del Master Plan.
+11. Completare la Lezione 15 con confronti espliciti tra soluzione stocastica, Expected Value e wait-and-see, includendo EVPI e VSS, esercizi e sintesi finale.
+12. Predisporre le slides delle Lezioni 14 e 15, selezionando il materiale già sviluppato nei capitoli senza duplicarne l'esposizione.
+13. Predisporre il caso e il pacchetto applicativo della Lezione 13 utilizzando il solver già stabilito nelle Guidelines e raccordandolo al modello ALM della Lezione 12.
+14. Verificare la notazione nello sviluppo delle Lezioni 7, 10 e 13 e aggiornare la corrispondenza Python quando i relativi script saranno definitivi.
+15. Riallineare progressivamente i nomi dei file ancora non conformi alla nomenclatura definitiva del Master Plan.
 
 ---
 

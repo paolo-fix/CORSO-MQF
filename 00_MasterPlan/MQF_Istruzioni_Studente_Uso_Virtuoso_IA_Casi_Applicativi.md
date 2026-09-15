@@ -205,6 +205,8 @@ Serve a costruire il Flusso logico-teorico risolutivo.
 
 Lo studente deve proporre una prima sequenza di elementi teorici. L’IA può completare, correggere e ordinare.
 
+La risposta dell'IA a questo prompt (titolo e tabella del flusso) alimenta una nuova cella markdwon del notebook. 
+
 ### Esempio di prompt virtuoso
 
 <pre class="prompt-docente">
@@ -248,6 +250,8 @@ Serve a trasformare il Flusso logico-teorico in una sequenza operativa di tappe.
 
 Lo studente deve proporre una prima ipotesi di tappe. L’IA può modificarla, integrarla e ordinarla.
 
+La risposta dell'IA a questo prompt (titolo, tabella con scomposizione in tappe) alimenta una nuova cella Markdown del notebook.
+
 ### Esempio di prompt virtuoso
 
 <pre class="prompt-docente">
@@ -283,7 +287,9 @@ Non modificare la Scheda Caso.
 
 ---
 
-## 10. Libreria di prompt virtuosi
+## 10. Libreria di "Prompt di tappa" virtuosi
+
+A seguito del Prompt 3, inizia una successione di "Prompt di tappa" in cui si eseguono con l'ausilio dell'IA le attività previste in ciascuna tappa.
 
 Gli esempi seguenti devono essere adattati al caso specifico.
 
@@ -299,7 +305,7 @@ Non devono essere copiati meccanicamente. Un prompt virtuoso deve sempre indicar
 
 ## 10.1 Prompt di tappa in Regime A — Chiarimento teorico
 
-Per il Regime A la parte variabile deve mostrare un ragionamento iniziale dello studente, mentre l’IA riceve istruzioni abbastanza precise.
+Lo scopo delle tappe in regime A è la "comprensione" degli aspetti del caso. Per il Regime A la parte variabile deve mostrare un ragionamento iniziale dello studente alla base della interrogazione. L’IA deve ricevere istruzioni abbastanza precise.
 
 
 <pre class="prompt-docente">
@@ -308,7 +314,7 @@ Regime A — Ricognizione teorico-modellistica.
 PARTE VARIABILE — contributo iniziale dello studente
 
 Sto lavorando sulla seguente parte del caso:
-[indicare Prompt 2 oppure la tappa interessata]
+[indicare la tappa interessata]
 
 Secondo me gli elementi teorici rilevanti sono:
 [descrivere in forma discorsiva gli oggetti teorici che sembrano necessari: variabili, eventi, informazione, distribuzioni, formule, quantità da stimare, controlli]

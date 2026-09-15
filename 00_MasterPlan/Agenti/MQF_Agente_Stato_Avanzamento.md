@@ -82,6 +82,48 @@ L'agente non deve sovrascrivere modifiche manuali dell'utente. Se un file e'
 aperto o appena modificato, deve leggere lo stato su disco e, prima di editare,
 segnalare il rischio di conflitto.
 
+## Workflow semi-automatico di aggiornamento
+
+Quando la richiesta e' ``aggiorna lo Stato di Avanzamento'' senza una lezione
+specificata, l'agente deve eseguire questo workflow completo. Non deve fermarsi
+dopo una ricognizione iniziale o limitarsi a dichiarare l'avvio dell'agente.
+
+1. Eseguire una sola volta l'audit locale:
+
+   ```powershell
+   conda run -n quick_env python tools/audit_stato_avanzamento.py
+   ```
+
+   Lo script legge la data dell'ultimo snapshot, le modifiche Git successive,
+   lo stato del worktree e l'inventario dei materiali delle lezioni coinvolte.
+   Non assegna stati e non modifica documenti.
+2. Usare l'output dell'audit per delimitare le lezioni e le componenti da
+   verificare. Leggere sempre Master Plan, Guidelines e Stato di Avanzamento;
+   leggere poi soltanto i materiali pertinenti alle lezioni emerse, non
+   l'intero progetto.
+3. Confrontare contenuti e obiettivi, distinguendo materiale sostanziale,
+   struttura iniziale e componenti mancanti. L'esistenza di un file o di un
+   commit non basta per promuovere uno stato.
+4. Eseguire codice o compilazioni soltanto se sono necessari per risolvere un
+   dubbio di classificazione. Se l'utente dichiara che uno script e' gia' stato
+   usato con successo, registrare l'assunzione e non rieseguirlo.
+5. Aggiornare direttamente `MQF_Stato_Avanzamento.md` quando le evidenze sono
+   univoche: snapshot, tabella, nota di verifica e priorita' devono restare
+   coerenti. Usare una data di verifica esplicita e dichiarare le verifiche non
+   svolte.
+6. Chiedere istruzioni solo per i casi previsti dai guardrail decisionali:
+   conflitto tra fonti autorevoli, scelta didattica non determinabile,
+   eliminazione o spostamento di materiali, oppure modifica manuale non
+   conciliabile. Non chiedere conferma per normali letture, controlli,
+   classificazioni motivate o aggiornamenti editoriali reversibili.
+7. Eseguire un controllo finale del diff e riferire in una risposta sola:
+   modifiche applicate, fonti, verifiche, assunzioni e residui.
+
+L'audit concentra la ricognizione tecnica in un solo comando. Le autorizzazioni
+dell'ambiente restano esterne al progetto, ma l'agente deve evitare di
+moltiplicare comandi di sola lettura quando l'audit contiene gia' l'evidenza
+necessaria.
+
 ## Scala di stato
 
 - `-`: componente non iniziata o non trovata.
