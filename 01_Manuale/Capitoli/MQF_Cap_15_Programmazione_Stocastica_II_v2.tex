@@ -1280,120 +1280,193 @@ problema lo consente, la \emph{programmazione dinamica stocastica}.
 \subsection{Programmazione stocastica multistadio e programmazione dinamica
 stocastica}
 
-Nella formulazione generale della programmazione stocastica multistadio, la
-decisione
+Nella rappresentazione a scenari finiti, $\xi_s$ raccoglie i dati aleatori
+dell'intero scenario $s$. Esso descrive quindi una realizzazione completa
+dell'incertezza lungo l'orizzonte del problema.
+
+Allo stadio $k$, tuttavia, il decisore non dispone necessariamente
+dell'intera informazione contenuta in $\xi_s$. Ci\`o che \`e stato osservato
+fino al termine dello stadio \`e rappresentato dalla sigma-algebra
 
 \[
-y_k^s
+\mathcal F_{\bar t_k}.
 \]
 
-\`e associata alla storia informativa dello scenario $s$ disponibile allo
-stadio $k$. Due scenari che condividono la stessa storia fino a quello stadio
-devono condividere la stessa decisione; quando le storie si separano, anche
-le decisioni successive possono differenziarsi.
-
-La rappresentazione conserva quindi esplicitamente la storia
+I due oggetti hanno quindi ruoli distinti:
 
 \[
-\left(
-x,\,
-y_1^s,\ldots,y_{k-1}^s;\,
-\text{informazione osservata fino allo stadio }k
-\right).
+\xi_s
+\qquad
+\text{dati aleatori dello scenario completo},
 \]
-
-Non \`e necessario supporre che questa storia possa essere sintetizzata in
-un numero ridotto di variabili. Questa generalit\`a costituisce uno dei punti
-di forza della programmazione stocastica multistadio.
-
-La programmazione dinamica stocastica utilizza invece una struttura
-ulteriore. Essa richiede che, ai fini delle decisioni future, la storia
-osservata possa essere sostituita da uno \emph{stato sufficiente}.
-
-Il passaggio non consiste quindi in un semplice cambio di notazione. Consiste
-nella possibilit\`a di sostituire
 
 \[
-\text{storia completa}
+\mathcal F_{\bar t_k}
+\qquad
+\text{informazione disponibile allo stadio }k.
 \]
 
-con
+La decisione di ricorso $y_k^s$ deve essere adattata a
+$\mathcal F_{\bar t_k}$. Essa pu\`o quindi dipendere soltanto
+dall'informazione gi\`a rivelata allo stadio $k$, non dalle componenti dello
+scenario $\xi_s$ che appartengono ancora al futuro.
+
+Ne segue che due scenari che fino a $\bar t_k$ risultano indistinguibili
+devono produrre la stessa decisione $y_k^s$. Solo quando le rispettive storie
+informative si separano possono differenziarsi anche le decisioni successive.
+
+La programmazione stocastica multistadio conserva esplicitamente questa
+struttura informativa. Nel caso di scenari finiti, le diverse storie possono
+essere organizzate mediante un albero: ogni nodo rappresenta l'informazione
+osservata fino a uno stadio e le decisioni vengono associate ai nodi oppure
+agli scenari, imponendo in quest'ultimo caso i corrispondenti vincoli di non
+anticipativit\`a.
+
+Questa rappresentazione \`e generale. Per formulare il problema non \`e
+necessario supporre che l'informazione contenuta nella storia osservata possa
+essere riassunta mediante un numero ridotto di variabili. La storia stessa
+identifica le condizioni nelle quali viene assunta la decisione.
+
+La programmazione dinamica stocastica adotta un principio di organizzazione
+differente. Invece di conservare esplicitamente l'intera storia, cerca di
+individuare uno \emph{stato} che contenga tutta l'informazione del passato
+rilevante per le decisioni future.
+
+Il punto essenziale non \`e quindi la semplice introduzione di nuove
+variabili. Occorre che, una volta conosciuto lo stato corrente, il problema
+decisionale residuo non dipenda ulteriormente dalla particolare storia
+attraverso la quale quello stato \`e stato raggiunto.
+
+Se questa propriet\`a \`e soddisfatta, storie differenti che conducono allo
+stesso stato possono essere ricondotte allo stesso problema futuro. Diventa
+allora possibile organizzare la soluzione in forma ricorsiva: si determina
+la decisione ottima in funzione dello stato corrente e del valore delle
+possibilit\`a decisionali successive.
+
+Programmazione stocastica multistadio e programmazione dinamica stocastica
+non descrivono quindi, in questo confronto, due problemi economici diversi.
+Possono descrivere lo stesso problema decisionale sequenziale, ma ne
+organizzano diversamente l'informazione:
 
 \[
-\text{stato corrente},
+\begin{array}{c}
+\text{programmazione stocastica multistadio}
+\\[2pt]
+\text{storie informative rappresentate esplicitamente}
+\end{array}
+\qquad\longleftrightarrow\qquad
+\begin{array}{c}
+\text{programmazione dinamica stocastica}
+\\[2pt]
+\text{storia sostituita da uno stato sufficiente}.
+\end{array}
 \]
 
-senza perdere informazione rilevante per le decisioni successive.
+La seconda rappresentazione richiede quindi una propriet\`a strutturale
+aggiuntiva: deve essere possibile identificare uno stato che conservi tutta
+l'informazione rilevante per il problema residuo. Se lo stato necessario
+coincidesse, di fatto, con l'intera storia osservata, la formulazione
+ricorsiva resterebbe formalmente possibile ma non produrrebbe alcuna reale
+compressione della rappresentazione.
 
-Quando tale sostituzione \`e possibile, il problema pu\`o essere formulato
-ricorsivamente. Quando non lo \`e, la storia deve continuare a essere
-rappresentata esplicitamente.
-
-\subsection{Dalle decisioni di ricorso allo stato del sistema}
-
-Per rendere confrontabili le due formulazioni occorre costruire il legame
-tra la notazione gi\`a introdotta,
+Il problema diventa dunque concreto: partendo dagli oggetti gi\`a introdotti
+nella formulazione multistadio,
 
 \[
 x,
 \qquad
+y_k^s,
+\qquad
+\mathcal F_{\bar t_k},
+\]
+
+quali grandezze devono essere conservate per determinare correttamente le
+decisioni successive? La sottosezione seguente costruisce precisamente questo
+passaggio.
+
+\subsection{Dalle decisioni di ricorso allo stato del sistema}
+
+La formulazione multistadio costruita finora descrive il problema attraverso
+la decisione iniziale
+
+\[
+x
+\]
+
+e le successive decisioni di ricorso
+
+\[
 y_1^s,\ldots,y_K^s,
 \]
 
-e la notazione utilizzata nella formulazione dinamica.
+con $y_k^s$ adattata a $\mathcal F_{\bar t_k}$. Questa notazione stabilisce
+quale informazione pu\`o essere utilizzata da ciascuna decisione, ma non
+esplicita ancora quali conseguenze delle decisioni precedenti debbano essere
+trasferite agli stadi successivi.
+
+Per costruire una rappresentazione ricorsiva occorre distinguere due tipi di
+informazione.
 
 Indichiamo con
+
+\[
+Z_k^s
+\]
+
+lo \emph{stato esogeno} rilevante nello stadio $k$ dello scenario $s$. Esso
+descrive le condizioni esterne al sistema che sono state osservate e che
+influenzano la decisione corrente: ad esempio condizioni di mercato, tassi,
+regimi economici o altri fattori aleatori.
+
+Lo stato esogeno $Z_k^s$ deriva quindi dall'informazione contenuta in
+
+\[
+\mathcal F_{\bar t_k},
+\]
+
+ma non coincide necessariamente con l'intera storia informativa disponibile.
+
+Indichiamo invece con
 
 \[
 X_k^s
 \]
 
 lo \emph{stato endogeno} del sistema al termine dello stadio $k$. Esso
-raccoglie le grandezze prodotte dalle decisioni precedenti che devono essere
-conservate per determinare le possibilit\`a future.
+raccoglie le conseguenze delle decisioni gi\`a assunte che devono essere
+trasmesse agli stadi successivi.
 
-Lo stato iniziale dipende dalla decisione di primo stadio. In forma generale
-possiamo scrivere
+La decisione iniziale $x$ determina lo stato endogeno iniziale $X_0$. I due
+oggetti non devono necessariamente coincidere: $x$ rappresenta la scelta
+assunta al tempo iniziale, mentre $X_0$ contiene le grandezze che tale scelta
+lascia in eredit\`a al problema successivo.
 
-\[
-X_0=G(x),
-\]
-
-dove la funzione $G$ dipende dalla particolare applicazione. Se la decisione
-$x$ contiene gi\`a tutte le informazioni necessarie a descrivere lo stato
-endogeno iniziale, si pu\`o avere semplicemente
+Allo stadio $k$, la decisione $y_k^s$ viene quindi assunta tenendo conto
+dello stato endogeno ereditato dallo stadio precedente e delle condizioni
+esogene osservate nello stadio corrente. In forma schematica,
 
 \[
-X_0=x.
-\]
-
-Indichiamo inoltre con
-
-\[
-Z_k^s
-\]
-
-lo stato esogeno rilevante nello stadio $k$, cio\`e la parte dell'ambiente
-incerto osservata e necessaria per determinare la decisione e l'evoluzione
-successiva del sistema.
-
-La decisione di ricorso $y_k^s$ trasforma allora lo stato corrente nello stato
-successivo secondo una relazione del tipo
-
-\[
-X_k^s
-=
-F_k
-\left(
-X_{k-1}^s,
-Z_k^s,
+(X_{k-1}^s,Z_k^s)
+\longrightarrow
 y_k^s
-\right),
+\longrightarrow
+X_k^s.
 \]
 
-dove $F_k$ rappresenta la dinamica endogena del problema.
+Il passaggio da uno stadio al successivo pu\`o essere rappresentato come
 
-La sequenza decisionale pu\`o quindi essere letta come
+\[
+(X_{k-1}^s,Z_k^s,y_k^s)
+\longmapsto
+X_k^s.
+\]
+
+Non introduciamo qui una specifica funzione di transizione, poich\`e la sua
+forma dipende dal modello considerato. Ci interessa soltanto rendere
+esplicito che lo stato endogeno successivo dipende dalla posizione ereditata,
+dalle condizioni esogene osservate e dalla decisione corrente.
+
+La sequenza completa pu\`o allora essere letta come
 
 \[
 x
@@ -1407,330 +1480,46 @@ X_0
 (Z_K^s,y_K^s,X_K^s).
 \]
 
-Questa rappresentazione non modifica il problema. Introduce semplicemente una
-variabile di stato che registra l'effetto cumulato delle decisioni passate.
-
-Il punto decisivo \`e stabilire se, una volta conosciuti $X_{k-1}^s$ e
-$Z_k^s$, sia ancora necessario conoscere anche l'intera storia attraverso la
-quale tali valori sono stati raggiunti.
-
-\subsection{Lo stato aumentato sufficiente}
-
-\begin{definition}[Stato aumentato sufficiente]
-
-\label{def:cap15-stato-aumentato-v2}
-
-La coppia
+Questa rappresentazione deve essere confrontata con quella gi\`a nota della
+programmazione stocastica multistadio,
 
 \[
-(X_{k-1},Z_k)
-\]
-
-costituisce uno \emph{stato aumentato sufficiente} per la decisione dello
-stadio $k$ se, condizionatamente al suo valore corrente, il problema
-decisionale residuo non dipende ulteriormente dalla storia precedente.
-
-In particolare, se due storie differenti conducono allo stesso stato
-
-\[
-(X_{k-1},Z_k),
-\]
-
-esse generano lo stesso insieme delle decisioni ammissibili correnti, la
-stessa dinamica futura e lo stesso problema di ottimizzazione a partire dallo
-stadio $k$.
-
-\end{definition}
-
-Il termine \emph{aumentato} sottolinea che lo stato rilevante non coincide
-necessariamente con il solo stato esogeno $Z_k$. Le decisioni future possono
-dipendere anche da grandezze endogene prodotte dalle scelte precedenti e
-raccolte in $X_{k-1}$.
-
-In un problema finanziario, conoscere soltanto le condizioni correnti del
-mercato pu\`o non essere sufficiente. Occorre anche conoscere, per esempio,
-la posizione corrente del portafoglio, la liquidit\`a accumulata oppure
-l'ammontare del funding ancora in essere.
-
-La definizione implica una conseguenza importante. Se due scenari $s$ e $s'$
-hanno storie differenti ma conducono allo stesso stato aumentato,
-
-\[
-(X_{k-1}^s,Z_k^s)
-=
-(X_{k-1}^{s'},Z_k^{s'}),
-\]
-
-allora, dal punto di vista delle decisioni future, le due storie possono
-essere trattate allo stesso modo.
-
-La decisione scenario-specifica pu\`o quindi essere rappresentata mediante
-una funzione dello stato:
-
-\[
-y_k^s
-=
-\mu_k
-\left(
-X_{k-1}^s,Z_k^s
-\right),
-\]
-
-dove $\mu_k$ rappresenta la regola decisionale dello stadio $k$.
-
-La relazione precedente costituisce il ponte tra le due formulazioni. Nella
-programmazione stocastica la decisione \`e identificata dalla storia dello
-scenario; nella programmazione dinamica la stessa decisione viene
-identificata dallo stato sufficiente raggiunto da quella storia.
-
-In simboli,
-
-\[
-\underbrace{
-\left(
-x,\,
-y_1^s,\ldots,y_{k-1}^s;\,
-Z_1^s,\ldots,Z_k^s
-\right)
-}_{\text{storia esplicita}}
-\qquad\longrightarrow\qquad
-\underbrace{
-(X_{k-1}^s,Z_k^s)
-}_{\text{stato sufficiente}}.
-\]
-
-La freccia rappresenta una compressione dell'informazione, non una semplice
-rinominazione.
-
-\subsection{Il principio di Bellman}
-
-L'esistenza di uno stato sufficiente rende possibile scomporre il problema
-sequenziale in una successione di problemi pi\`u piccoli.
-
-Il principio che giustifica questa scomposizione \`e il
-\emph{principio di ottimalit\`a di Bellman}: se una politica \`e ottima
-dall'inizio dell'orizzonte, allora, qualunque sia lo stato raggiunto dopo le
-prime decisioni, la parte restante della politica deve essere ottima per il
-problema che inizia da quello stato.
-
-In altri termini, una volta raggiunto lo stato corrente, la scelta ottima
-delle decisioni future pu\`o essere determinata senza ricostruire il percorso
-precedente, purch\`e lo stato sia sufficiente.
-
-Indichiamo con
-
-\[
-V_k(X_{k-1},Z_k)
-\]
-
-il valore ottimo atteso del problema residuo a partire dallo stadio $k$,
-quando lo stato disponibile per la decisione \`e $(X_{k-1},Z_k)$.
-
-La decisione corrente $y_k$ produce un contributo economico
-
-\[
-r_k(X_{k-1},Z_k,y_k)
-\]
-
-e determina, insieme all'evoluzione dell'incertezza, lo stato endogeno
-successivo
-
-\[
-X_k
-=
-F_k(X_{k-1},Z_k,y_k).
-\]
-
-La ricorsione di Bellman assume allora la forma
-
-\begin{equation}
-V_k(X_{k-1},Z_k)
-=
-\max_{y_k\in\mathcal A_k(X_{k-1},Z_k)}
-\left\{
-r_k(X_{k-1},Z_k,y_k)
-+
-\E
-\left[
-V_{k+1}(X_k,Z_{k+1})
-\mid
-X_{k-1},Z_k,y_k
-\right]
-\right\},
-\label{eq:cap15-bellman-generale-v2}
-\end{equation}
-
-dove
-
-\[
-\mathcal A_k(X_{k-1},Z_k)
-\]
-
-\`e l'insieme delle decisioni ammissibili nello stato corrente.
-
-La relazione~\eqref{eq:cap15-bellman-generale-v2} separa quindi due
-componenti:
-
-\[
-\underbrace{
-r_k(X_{k-1},Z_k,y_k)
-}_{\text{valore prodotto nello stadio corrente}}
-\]
-
-e
-
-\[
-\underbrace{
-\E
-\left[
-V_{k+1}(X_k,Z_{k+1})
-\mid
-X_{k-1},Z_k,y_k
-\right]
-}_{\text{valore ottimo atteso degli stadi successivi}}.
-\]
-
-La decisione ottima dello stadio $k$ deve tenere conto di entrambe. Una scelta
-che produce un vantaggio immediato pu\`o infatti modificare $X_k$ e rendere
-meno favorevoli le possibilit\`a decisionali successive.
-
-All'ultimo stadio non esistono ulteriori decisioni future. La ricorsione viene
-quindi chiusa ponendo, secondo la convenzione adottata,
-
-\[
-V_{K+1}=0,
-\]
-
-oppure incorporando direttamente nell'ultimo stadio l'eventuale valore
-terminale del problema.
-
-Determinato il valore dell'ultimo stadio, la ricorsione procede a ritroso:
-
-\[
-V_K
+x
 \longrightarrow
-V_{K-1}
+y_1^s
+\longrightarrow
+y_2^s
 \longrightarrow
 \cdots
 \longrightarrow
-V_1.
+y_K^s,
+\qquad
+y_k^s\ \text{adattata a}\ \mathcal F_{\bar t_k}.
 \]
 
-Il principio di Bellman non \`e quindi un algoritmo aggiunto dall'esterno al
-problema multistadio. \`E la conseguenza della possibilit\`a di descrivere il
-problema residuo mediante uno stato sufficiente.
+Le decisioni sono le stesse. La seconda rappresentazione aggiunge gli stati
+$X_k^s$ e $Z_k^s$ per rendere esplicito attraverso quali grandezze
+l'informazione passata influenza le decisioni future.
 
-\subsection{Albero degli scenari e ricorsione: il confronto}
+A questo punto, tuttavia, non abbiamo ancora ottenuto una formulazione di
+programmazione dinamica. Abbiamo soltanto riscritto la sequenza decisionale
+mettendo in evidenza lo stato del sistema.
 
-Possiamo ora confrontare con precisione le due rappresentazioni.
-
-Nella programmazione stocastica multistadio per scenari, ogni nodo
-rappresenta una storia informativa. Due storie differenti rimangono, in
-generale, due nodi distinti anche quando conducono a condizioni che potrebbero
-risultare equivalenti per le decisioni future.
-
-Nella programmazione dinamica stocastica, invece, due storie possono essere
-ricondotte allo stesso problema residuo se conducono allo stesso stato
-sufficiente.
-
-La differenza pu\`o essere sintetizzata come
+La questione decisiva \`e pi\`u forte: occorre stabilire se, per decidere allo
+stadio $k$, la conoscenza della coppia
 
 \[
-\boxed{
-\text{programmazione stocastica per scenari}
-=
-\text{storia esplicita}
-}
+(X_{k-1}^s,Z_k^s)
 \]
 
-e
+possa sostituire l'intera informazione disponibile
 
 \[
-\boxed{
-\text{programmazione dinamica stocastica}
-=
-\text{stato sufficiente + ricorsione}
-}.
+\mathcal F_{\bar t_k}
 \]
 
-\begin{center}
-\begin{tabular}{p{3.6cm}p{4.4cm}p{4.4cm}}
-\hline
-&
-\textbf{Programmazione stocastica}
-&
-\textbf{Programmazione dinamica stocastica}
-\\
-\hline
+senza perdere alcuna informazione rilevante per il problema residuo.
 
-Oggetto che identifica la decisione
-&
-Storia informativa o nodo
-&
-Stato sufficiente
-\\[4pt]
-
-Decisione allo stadio $k$
-&
-$y_k^s$
-&
-$y_k=\mu_k(X_{k-1},Z_k)$
-\\[4pt]
-
-Informazione conservata
-&
-Storia esplicita
-&
-Solo l'informazione contenuta nello stato
-\\[4pt]
-
-Struttura del problema
-&
-Forma estesa sull'albero
-&
-Ricorsione di Bellman
-\\[4pt]
-
-Condizione aggiuntiva
-&
-Non richiede una compressione della storia
-&
-Richiede l'esistenza di uno stato sufficiente
-\\
-\hline
-\end{tabular}
-\end{center}
-
-La programmazione dinamica non sostituisce quindi automaticamente la
-programmazione stocastica multistadio. Essa diventa una rappresentazione
-valida quando \`e possibile identificare uno stato che conservi tutta
-l'informazione rilevante per il futuro.
-
-Quando tale stato esiste ed \`e di dimensione gestibile, molte storie diverse
-possono essere aggregate nello stesso problema residuo e la ricorsione pu\`o
-evitare di trattarle separatamente. Quando questa compressione non \`e
-possibile, oppure produce uno stato di dimensione troppo elevata, la
-rappresentazione esplicita mediante scenari rimane quella naturale.
-
-Il confronto pu\`o quindi essere riassunto nella sequenza
-
-\[
-\text{storie degli scenari}
-\longrightarrow
-\text{stato sufficiente}
-\longrightarrow
-\text{politica } \mu_k
-\longrightarrow
-\text{ricorsione di Bellman}.
-\]
-
-Il secondo passaggio non \`e sempre disponibile: \`e precisamente l'ipotesi
-strutturale che distingue la formulazione dinamica dalla rappresentazione
-generale per scenari.
-
-Nel caso SVB--ALM, la questione sar\`a concreta. Lo stato esogeno descrive le
-condizioni economico-finanziarie, mentre lo stato endogeno deve conservare
-le conseguenze delle decisioni gi\`a assunte che influenzano i bilanci e le
-possibilit\`a di ricorso successive. La sezione seguente costruisce la
-formulazione generale multistadio e mostra come questi oggetti emergano nel
-caso guida.
+Soltanto quando questa propriet\`a \`e soddisfatta la coppia
+$(X_{k-1}^s,Z_k^s)$ pu\`o essere utilizzata come stato sufficiente e la
+sequenza multistadio pu\`o essere organizzata in forma ricorsiva.

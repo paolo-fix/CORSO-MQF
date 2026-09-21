@@ -1,0 +1,1526 @@
+%2multibyte Version: 5.50.0.2960 CodePage: 65001
+% !TeX root = ./Slides_Lez_04_Python_Probabilita_Condizionamento.tex
+% ------------------------------------------------------------
+% Macro matematiche ufficiali del progetto MQF
+% Coerenti con MQF_Notazione.tex
+% ------------------------------------------------------------
+% Fallback utile per compilazione esterna se qualche titolo resta scritto come \QTR.
+% Scientific WorkPlace usa \QTR internamente; in Beamer \QTR{frametitle}{Titolo}
+% deve espandersi in \frametitle{Titolo}.
+
+\documentclass[handout]{beamer}%
+\usepackage{mathpazo}
+%\usepackage{hyperref}
+\usepackage{multimedia}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}%
+\setcounter{MaxMatrixCols}{30}
+%TCIDATA{OutputFilter=latex2.dll}
+%TCIDATA{Version=5.50.0.2960}
+%TCIDATA{Codepage=65001}
+%TCIDATA{CSTFile=beamer.cst}
+%TCIDATA{Created=Saturday, May 16, 2026 09:09:59}
+%TCIDATA{LastRevised=Saturday, May 16, 2026 11:24:58}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="2">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Other Documents\SW\Slides - Beamer">}
+%BeginMSIPreambleData
+\graphicspath{{../graphics/}}
+\providecommand{\U}[1]{\protect\rule{.1in}{.1in}}
+%EndMSIPreambleData
+\newenvironment{stepenumerate}{\begin{enumerate}[<+->]}{\end{enumerate}}
+\newenvironment{stepitemize}{\begin{itemize}[<+->]}{\end{itemize} }
+\newenvironment{stepenumeratewithalert}{\begin{enumerate}[<+-| alert@+>]}{\end{enumerate}}
+\newenvironment{stepitemizewithalert}{\begin{itemize}[<+-| alert@+>]}{\end{itemize} }
+\usetheme{Madrid}
+
+
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=.20\paperwidth,ht=2.25ex,dp=1ex,center]
+      {author in head/foot}%
+      \usebeamerfont{author in head/foot}\insertshortauthor
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.60\paperwidth,ht=2.25ex,dp=1ex,center]
+      {title in head/foot}%
+      \usebeamerfont{title in head/foot}\insertshorttitle
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.20\paperwidth,ht=2.25ex,dp=1ex,right]
+      {date in head/foot}%
+      \usebeamerfont{date in head/foot}%
+      \insertshortdate{}\hspace*{2em}%
+      \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+    \end{beamercolorbox}%
+  }%
+  \vskip0pt%
+}
+
+
+
+
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\E}{\mathbb{E}}
+\providecommand{\Prob}{\mathbb{P}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\F}{\mathcal{F}}
+\providecommand{\B}{\mathcal{B}}
+\providecommand{\G}{\mathcal{G}}
+\providecommand{\1}{\mathbf{1}}
+\providecommand{\Var}{\operatorname{Var}}
+\providecommand{\Cov}{\operatorname{Cov}}
+\providecommand{\VaR}{\operatorname{VaR}}
+\providecommand{\CVaR}{\operatorname{CVaR}}
+\providecommand{\argmin}{\operatorname*{arg\,min}}
+\providecommand{\argmax}{\operatorname*{arg\,max}}
+\providecommand{\EVPI}{\operatorname{EVPI}}
+\providecommand{\VSS}{\operatorname{VSS}}
+\providecommand{\QTR}[2]{\csname #1\endcsname{#2}}
+%BeginMSIPreambleData
+\ifx\pdfoutput\relax\let\pdfoutput=\undefined\fi
+\newcount\msipdfoutput
+\ifx\pdfoutput\undefined\else
+\ifcase\pdfoutput\else
+\msipdfoutput=1
+\ifx\paperwidth\undefined\else
+\ifdim\paperheight=0pt\relax\else\pdfpageheight\paperheight\fi
+\ifdim\paperwidth=0pt\relax\else\pdfpagewidth\paperwidth\fi
+\fi\fi\fi
+%EndMSIPreambleData
+
+%******************
+% Slide 1
+%******************
+
+\title[Lez. 4 - Python, probabilit\`a e condizionamento]{Lezione 4 - Python, Probabilita e Condizionamento}
+\subtitle{Metodi Quantitativi per la Finanza}
+\author[P. Falbo, C. Pelizzari]{{\LARGE Paolo Falbo, Cristian Pelizzari}}
+\institute[]{{\large Dipartimento di Economia e Management}}
+\date[]{}
+\titlegraphic{
+\includegraphics[width=3.3cm]{../graphics/logo-Unibs-esteso.png}
+}
+
+\begin{document}
+\maketitle
+
+
+
+
+\section{Apertura della lezione}
+
+%******************
+% Slide 2
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Lezione 4: la prima lezione applicativa}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+\begin{center}
+{\Large Applicazione in Python: probabilit\`a, variabili casuali e
+condizionamento}
+\end{center}
+
+\vspace{0.4cm}
+
+Questa lezione inaugura il formato delle lezioni \textbf{applicative} del
+corso.
+
+\vspace{0.3cm}
+
+L'obiettivo non \`e imparare Python come contenuto autonomo, ma utilizzare
+\textbf{modelli quantitativi, Python e Intelligenza Artificiale} in un unico
+processo di lavoro:
+
+\[
+\text{teoria}
+\;\longrightarrow\;
+\text{formulazione}
+\;\longrightarrow\;
+\text{calcolo}
+\;\longrightarrow\;
+\text{controllo}
+\;\longrightarrow\;
+\text{interpretazione}.
+\]
+
+\vspace{0.3cm}
+
+Il metodo introdotto oggi verr\`a riutilizzato nelle successive lezioni
+applicative.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+% Slide 3
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Obiettivi della lezione}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Al termine della lezione dovremo avere chiarito quattro aspetti.
+
+\begin{enumerate}
+
+\item \textbf{Il metodo delle lezioni applicative}
+
+Come utilizzare l'IA senza delegarle la formulazione del problema, il
+controllo dei risultati e l'interpretazione finale.
+
+\item \textbf{Il caso aula}
+
+Come trasformare probabilit\`a, variabili casuali e condizionamento in una
+procedura computazionale verificabile.
+
+\item \textbf{Il caso take-home}
+
+Come trasferire autonomamente lo stesso metodo di lavoro a un nuovo problema
+quantitativo, che sar\`a oggetto di valutazione individuale (vedi il syllabus).
+
+\item \textbf{Un piccolo approfondimento Python}
+
+Quando utile, isolare una scelta tecnica del codice che merita di essere
+compresa e non semplicemente eseguita.
+
+\end{enumerate}
+
+\vspace{0.2cm}
+
+\textbf{Priorit\`a:} i primi tre obiettivi sono parte essenziale della
+lezione; l'approfondimento Python \`e subordinato al tempo disponibile.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+
+
+\section{Idea guida e prodotti delle lezioni applicative}
+
+%******************
+% Slide 4
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{L'idea guida delle lezioni applicative}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Una lezione applicativa non parte dal codice. Il percorso corretto \`e:
+\[
+\text{teoria quantitativa}
+\longrightarrow
+\text{formulazione problema}
+\longrightarrow
+\text{uso controllato IA}
+\]
+\vspace{-0.7cm}
+\[
+\longrightarrow
+\text{implementazione Python}
+\longrightarrow
+\text{output}
+\longrightarrow
+\text{controlli}
+\longrightarrow
+\text{interpretazione}.
+\]
+\vspace{-0.4cm}
+
+L'IA interviene lungo il percorso, ma non sostituisce:
+
+\begin{itemize}
+
+\item la scelta e la comprensione degli oggetti teorici;
+
+\item la verifica della coerenza del modello;
+
+\item il controllo degli output;
+
+\item l'interpretazione economico-finanziaria finale.
+
+\end{itemize}
+
+\vspace{0.2cm}
+
+\textbf{Principio guida:} l'obiettivo non \`e ottenere rapidamente un
+risultato, ma costruire un risultato \textbf{comprensibile, verificabile e
+documentato}.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+% Slide 5
+%******************
+
+
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Studente, IA e docente: ruoli diversi}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Nel laboratorio interagiscono tre soggetti con funzioni differenti.
+
+\vspace{0.3cm}
+
+\begin{description}
+
+\item[\textbf{Docente}]
+predispone prima della lezione il caso aula e il caso take-home,
+definisce la Scheda Caso, i dati, gli output richiesti, i controlli e i
+vincoli di lavoro.
+
+\vspace{0.2cm}
+
+\item[\textbf{Studente}]
+riceve il caso come specifica vincolante, propone il percorso
+teorico-operativo, interagisce con l'IA, costruisce il notebook,
+controlla gli output e formula l'interpretazione finale.
+
+\vspace{0.2cm}
+
+\item[\textbf{IA}]
+aiuta a verificare e ordinare la struttura proposta dallo studente,
+traduce in codice specifiche gi\`a validate e supporta i controlli
+critici, senza modificare autonomamente il caso assegnato.
+
+\end{description}
+
+\vspace{0.4cm}
+
+\begin{center}
+\textbf{Il caso \`e un input; la responsabilit\`a del percorso e della
+soluzione resta allo studente.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+
+%******************
+% Slide 6
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{I due prodotti del lavoro}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Il lavoro produce due documenti distinti e complementari.
+
+\vspace{0.4cm}
+
+\begin{description}
+
+\item[\textbf{Notebook}]
+contiene il prodotto computazionale validato:
+
+\begin{itemize}
+
+\item celle Markdown e celle di codice;
+
+\item output numerici e grafici;
+
+\item controlli;
+
+\item interpretazioni.
+
+\end{itemize}
+
+\vspace{0.3cm}
+
+\item[\textbf{Tracciato IA}]
+documenta il processo di costruzione:
+
+\begin{itemize}
+
+\item prompt utilizzati;
+
+\item risposte dell'IA rilevanti;
+
+\item dubbi e verifiche;
+
+\item correzioni e decisioni dello studente.
+
+\end{itemize}
+
+\end{description}
+
+\vspace{0.3cm}
+
+Il notebook mostra \textbf{che cosa} \`e stato costruito.
+
+Il tracciato IA mostra \textbf{come} \`e stato costruito e controllato.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+
+\section{Regimi di interazione con l'IA e valutazione}
+
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Regime A: ricognizione teorico-modellistica}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Il Regime A riguarda la costruzione e la verifica della
+\textbf{struttura teorica del problema}.
+
+\vspace{0.3cm}
+
+Lo studente propone un contributo iniziale e pu\`o chiedere all'IA di:
+
+\begin{itemize}
+
+\item verificare gli oggetti teorici rilevanti;
+
+\item completare elementi mancanti;
+
+\item correggere errori concettuali;
+
+\item ordinare i passaggi in una sequenza logicamente coerente.
+
+\end{itemize}
+
+\vspace{0.3cm}
+
+In questo regime l'IA non deve:
+
+\begin{itemize}
+
+\item modificare la Scheda Caso;
+
+\item scegliere autonomamente un modello diverso;
+
+\item sostituire il contributo iniziale dello studente;
+
+\item anticipare la soluzione operativa o scrivere il notebook.
+
+\end{itemize}
+
+\vspace{0.2cm}
+
+\begin{center}
+\textbf{Regime A: prima comprendere e strutturare, poi calcolare.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Regime B: traduzione operativa in codice}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Il Regime B inizia quando la specifica teorica della tappa
+\`e gi\`a stata definita e validata.
+
+\vspace{0.3cm}
+
+L'IA pu\`o aiutare a tradurre tale specifica in:
+
+\begin{itemize}
+
+\item codice Python;
+
+\item tabelle e grafici;
+
+\item procedure di simulazione o calcolo;
+
+\item controlli numerici e logici.
+
+\end{itemize}
+
+\vspace{0.3cm}
+
+L'IA pu\`o scegliere la \textbf{forma tecnica} dell'implementazione, ma non
+pu\`o modificare:
+
+\begin{itemize}
+
+\item variabili e formule fissati nel caso;
+
+\item dati e parametri assegnati;
+
+\item eventi, stati informativi o scenari;
+
+\item significato economico-finanziario del problema.
+
+\end{itemize}
+
+\vspace{0.2cm}
+
+\begin{center}
+\textbf{Regime B: il codice implementa il modello, non lo ridefinisce.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Regime C: verificare, contestare, correggere}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Il Regime C nasce da un \textbf{dubbio formulato dallo studente} su un
+passaggio gi\`a costruito.
+
+\vspace{0.3cm}
+
+Lo studente deve indicare:
+
+\begin{itemize}
+
+\item quale tappa, formula, codice o output sta controllando;
+
+\item quale possibile problema ha individuato;
+
+\item perch\'e ritiene necessaria una verifica.
+
+\end{itemize}
+
+\vspace{0.3cm}
+
+L'IA deve classificare l'esito:
+
+\[
+\boxed{\text{criticit\`a respinta}}
+\qquad\text{oppure}\qquad
+\boxed{\text{criticit\`a accolta}}.
+\]
+
+Se la criticit\`a \`e respinta, il notebook non viene modificato.
+
+Se la criticit\`a \`e accolta, si correggono le celle coinvolte mantenendo
+il notebook lineare e coerente.
+
+\vspace{0.2cm}
+
+\begin{center}
+\textbf{Il controllo non \`e delegato all'IA: nasce da una domanda dello
+studente.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Come viene valutato il lavoro}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+La valutazione riguarda congiuntamente \textbf{notebook e tracciato IA}.
+
+\vspace{0.3cm}
+
+\begin{center}
+\begin{tabular}{l r}
+\hline
+\textbf{Componente} & \textbf{Peso} \\
+\hline
+Prompt 2: contributo teorico dello studente & 30 \\
+Prompt 3: proposta della scomposizione & 15 \\
+Notebook e output & 20 \\
+Prompt di tappa e uso dei Regimi A/B/C & 15 \\
+Controlli logici e numerici & 15 \\
+Interpretazione critica finale & 5 \\
+\hline
+\textbf{Totale} & \textbf{100} \\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{0.35cm}
+
+Non viene premiata la complessit\`a del codice in quanto tale.
+
+\vspace{0.15cm}
+
+Viene valutata la capacit\`a dello studente di
+\textbf{costruire, controllare e comprendere} il percorso risolutivo.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+
+%******************
+
+\section{La sequenza iniziale dei prompt}
+
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Dal caso assegnato al notebook progressivo}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Il notebook viene costruito progressivamente fin dai primi prompt.
+
+\[
+\boxed{\begin{array}{c}
+\text{Prompt zero} \\
+\end{array}}
+\longrightarrow
+\boxed{\begin{array}{c}
+\text{Prompt 1} \\
+\textbf{Markdown iniziale}
+\end{array}}
+\longrightarrow
+\boxed{\begin{array}{c}
+\text{Prompt 2} \\
+\textbf{Markdown: Flusso}
+\end{array}}
+\]
+
+\[
+\longrightarrow
+\boxed{\begin{array}{c}
+\text{Prompt 3} \\
+\textbf{Markdown: tappe}
+\end{array}}
+\longrightarrow
+\boxed{\begin{array}{c}
+\text{Prompt di tappa} \\
+\textbf{Markdown, codice, controlli}
+\end{array}}
+\]
+
+\vspace{0.3cm}
+
+\begin{center}
+\textbf{Il notebook non nasce alla fine: viene costruito e validato passo dopo
+passo.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Prompt zero e Prompt 1: fissare il contesto}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+\textbf{Prompt zero}
+
+\vspace{0.15cm}
+
+Viene fornito dal docente e inizializza l'interazione con l'IA:
+
+\begin{itemize}
+
+\item definisce il metodo di lavoro;
+
+\item introduce i Regimi A, B e C;
+
+\item stabilisce i vincoli generali;
+
+\item distingue notebook e tracciato IA.
+
+\end{itemize}
+
+\vspace{0.3cm}
+
+\textbf{Prompt 1}
+
+\vspace{0.15cm}
+
+Contiene la \textbf{Scheda Caso}, che deve essere acquisita come
+specifica vincolante.
+
+L'IA produce soltanto la prima cella Markdown del notebook, riportando:
+
+\begin{itemize}
+
+\item contesto e domanda quantitativa;
+
+\item quantit\`a richieste;
+
+\item output e controlli previsti.
+
+\end{itemize}
+
+\vspace{0.25cm}
+
+\begin{center}
+\textbf{Prompt zero e Prompt 1 sono forniti dal docente.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Prompt 2: costruire il Flusso logico-teorico}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Il Prompt 2 apre il primo vero contributo dello studente.
+
+\vspace{0.3cm}
+
+\textbf{Siamo in regime A: ricognizione teorico-modellistica.}
+
+\vspace{0.25cm}
+
+Lo studente indica, con parole proprie:
+
+\begin{itemize}
+
+\item quali elementi teorici ritiene necessari;
+
+\item in quale ordine pensa debbano essere utilizzati;
+
+\item quali collegamenti vede con la Scheda Caso.
+
+\end{itemize}
+
+\vspace{0.3cm}
+
+L'IA deve quindi \textbf{verificare, completare e ordinare} la proposta,
+senza modificare il caso e senza passare al codice.
+
+\vspace{0.35cm}
+
+L'output richiesto \`e il \textbf{Flusso logico-teorico risolutivo}.
+
+\vspace{0.25cm}
+
+\begin{center}
+\textbf{Il valore del Prompt 2 sta nel contributo iniziale dello studente.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Prompt 3: dal flusso alle tappe operative}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Dopo la validazione del Flusso logico-teorico, lo studente propone una
+prima scomposizione del problema in tappe consecutive.
+
+\vspace{0.3cm}
+
+L'IA verifica e completa la proposta predisponendo una tabella che include per ogni tappa la struttura:
+
+\[
+\boxed{\text{Input}}
+\longrightarrow
+\boxed{\text{Operazione}}
+\longrightarrow
+\boxed{\text{Output}}
+\longrightarrow
+\boxed{\text{Controllo}}
+\]
+
+\[
+\longrightarrow
+\boxed{\text{Uso nella tappa successiva}}.
+\]
+
+\vspace{0.4cm}
+
+Il Prompt 3 produce pertanto \textbf{la guida per procedere con i Prompt di tappa successivi}.
+Serve a stabilire:
+
+\begin{itemize}
+
+\item che cosa deve essere prodotto in ciascuna tappa;
+
+\item da quali risultati precedenti dipende;
+
+\item come verr\`a controllato prima di procedere.
+
+\end{itemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+
+\section{Prompt di tappa e costruzione progressiva del notebook}
+
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Dopo il Prompt 3: si lavora per tappe}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Dopo il Prompt 3 il caso viene sviluppato \textbf{una tappa alla volta}.
+
+\vspace{0.3cm}
+
+Per ciascuna tappa lo studente deve sapere:
+
+\begin{itemize}
+
+\item quali input sono disponibili;
+
+\item quale operazione deve essere svolta;
+
+\item quale output deve essere prodotto;
+
+\item quale controllo deve essere eseguito;
+
+\item come il risultato verr\`a utilizzato nella tappa successiva.
+
+\end{itemize}
+
+\vspace{0.3cm}
+
+Il notebook cresce quindi per blocchi successivi, coerenti con la
+scomposizione definita nel Prompt 3.
+
+\vspace{0.2cm}
+
+\begin{center}
+\textbf{Ogni tappa produce materiale utile al notebook e prepara la tappa
+successiva.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Prompt di tappa in Regime A}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Il Regime A serve a comprendere e precisare la tappa prima della sua
+implementazione.
+
+\vspace{0.3cm}
+
+La parte variabile del prompt deve contenere un contributo iniziale dello
+studente:
+
+\begin{itemize}
+
+\item quali oggetti teorici ritiene rilevanti;
+
+\item quale sequenza logica propone;
+
+\item quali collegamenti vede con output e controlli;
+
+\item quali dubbi o alternative vuole verificare.
+
+\end{itemize}
+
+\vspace{0.3cm}
+
+L'IA deve verificare, completare e ordinare la proposta.
+
+\vspace{0.3cm}
+
+L'output tipico \`e una \textbf{cella Markdown della tappa} che chiarisce:
+
+\[
+\text{obiettivo}
+\longrightarrow
+\text{input}
+\longrightarrow
+\text{oggetti teorici}
+\longrightarrow
+\text{output}
+\longrightarrow
+\text{controllo}.
+\]
+
+\vspace{0.2cm}
+
+\begin{center}
+\textbf{In Regime A si chiarisce la tappa; non si anticipa il codice.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Prompt di tappa in Regime B}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Il Regime B traduce in Python una tappa gi\`a definita.
+
+\vspace{0.3cm}
+
+Il prompt deve indicare con precisione:
+
+\begin{itemize}
+
+\item la tappa da implementare;
+
+\item gli input disponibili;
+
+\item le formule da utilizzare;
+
+\item gli output richiesti;
+
+\item i controlli da includere;
+
+\item i vincoli della Scheda Caso.
+
+\end{itemize}
+
+\vspace{0.3cm}
+
+L'IA pu\`o produrre:
+
+\begin{itemize}
+
+\item una cella Markdown sintetica;
+
+\item una cella Python, che va eseguita per ottenere gli output previsti.
+
+\end{itemize}
+
+\vspace{0.25cm}
+
+\begin{center}
+\textbf{Il codice deve realizzare la tappa definita, non ridefinirla.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Prompt di tappa in Regime C}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Il Regime C interviene quando lo studente individua un dubbio o una
+possibile criticit\`a nel materiale gi\`a prodotto.
+
+\vspace{0.3cm}
+
+Il prompt deve specificare:
+
+\begin{itemize}
+
+\item tappa, formula, output, grafico, tabella, cella interessati;
+
+\item dubbio individuato;
+
+\item motivo per cui il risultato non convince;
+
+\item materiale che deve essere verificato.
+
+\end{itemize}
+
+\vspace{0.3cm}
+
+L'IA deve classificare l'esito:
+
+\[
+\boxed{\text{criticit\`a respinta}}
+\qquad\text{oppure}\qquad
+\boxed{\text{criticit\`a accolta}}.
+\]
+
+\vspace{0.3cm}
+
+Se la criticit\`a \`e respinta, il notebook non cambia.
+
+Se la criticit\`a \`e accolta, le celle interessate vengono
+\textbf{sostituite} con versioni corrette. Le criticità accettate \textbf{concorrono significativamente  alla valutazione}.
+
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\begin{center}
+
+\vspace{1.8cm}
+
+{\LARGE \textbf{Caso Aula}}
+
+\vspace{0.8cm}
+
+{\large Perdita obbligazionaria condizionata a regimi di tasso}
+
+\vspace{0.8cm}
+
+\textit{Dalla struttura metodologica delle lezioni applicative\\
+alla costruzione concreta del notebook}
+
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+
+\section{Il caso aula: perdita obbligazionaria e informazione condizionata}
+
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Il problema finanziario}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Consideriamo un portafoglio obbligazionario a tasso fisso con valore iniziale
+\(V_0\) e duration modificata \(D\).
+
+\vspace{0.3cm}
+
+Per piccoli shock del rendimento \(\Delta y\): $\Delta V \simeq -D V_0 \Delta y.$
+
+\vspace{0.3cm}
+
+Definiamo quindi la perdita: \( L=-\Delta V \simeq D V_0 \Delta y.\)
+
+\vspace{0.3cm}
+
+Il problema quantitativo \`e studiare la distribuzione di \(L\) quando lo
+shock di rendimento dipende dal regime di mercato osservato.
+
+\vspace{0.3cm}
+
+In particolare, vogliamo stimare:
+
+\[
+\E[L], \qquad
+\Prob(L>\ell), \qquad
+q_{\alpha}(L),
+\]
+
+e confrontare queste quantit\`a con quelle ottenute condizionando
+l'informazione al regime.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{I regimi di tasso}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+L'informazione disponibile distingue tre regimi di mercato:
+
+\vspace{0.3cm}
+
+\begin{center}
+\begin{tabular}{llccc}
+\hline
+ \textbf{Evento} & \textbf{Regime} & \textbf{Prob.} & \(\boldsymbol{\mu_g}\) & \(\boldsymbol{\sigma_g}\) \\
+\hline
+$A_1$ & Disinflazione ordinata & 0.35 & -0.001 & 0.004 \\
+$A_2$ & Inflazione persistente & 0.45 & 0.003 & 0.006 \\
+$A_3$ & Repricing severo & 0.20 & 0.010 & 0.010 \\
+\hline
+\end{tabular}
+\end{center}
+
+
+
+Chiamiamo $\G$ la $\sigma$-algebra generata dai tre eventi.
+
+\vspace{0.3cm}
+
+Lo shock di rendimento ha distribuzione condizionata:
+
+\[
+\Delta y\mid A_g
+\sim
+\mathcal{N}(\mu_g,\sigma_g^2).
+\]
+
+\vspace{0.25cm}
+
+\begin{center}
+\textbf{Il regime cambia la distribuzione dello shock, non elimina
+l'incertezza.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Dalla teoria dei Capitoli 1--3 al caso}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Il caso utilizza direttamente gli oggetti introdotti nelle prime tre lezioni.
+
+\vspace{0.3cm}
+
+\begin{itemize}
+
+\item Gli eventi \(A_1,A_2,A_3\) formano una partizione dello spazio degli
+esiti e rappresentano i possibili regimi osservati.
+
+\item La variabile casuale \(\Delta y\) descrive lo shock di rendimento,
+mentre \(L=D V_0\Delta y\) \`e la variabile finanziaria di interesse.
+
+\item La sigma-algebra $\G=\sigma(A_1,A_2,A_3)$
+rappresenta l'informazione disponibile sul regime.
+
+\item Le quantit\`a $\E[L\mid A_g]$ 
+descrivono la perdita attesa all'interno di ciascun regime.
+
+\item La variabile
+
+\[
+\E[L\mid\G]
+=
+\sum_{g=1}^{3}
+\E[L\mid A_g]\1_{A_g}
+\]
+
+rende esplicito come la previsione della perdita cambia al variare
+dell'informazione osservata.
+
+\end{itemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Che cosa dovremo osservare nel notebook}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Il notebook dovr\`a rendere visibili sia la distribuzione complessiva sia
+la struttura condizionata del problema.
+
+\vspace{0.3cm}
+
+Dovremo osservare:
+
+\begin{itemize}
+
+\item la simulazione dei regimi secondo le probabilit\`a assegnate;
+
+\item la simulazione di \(\Delta y\) condizionatamente al regime estratto;
+
+\item la trasformazione $L=D V_0\Delta y;$
+
+\item le statistiche non condizionate di \(L\);
+
+\item le medie condizionate
+
+\[
+\E[L\mid A_1],\qquad
+\E[L\mid A_2],\qquad
+\E[L\mid A_3];
+\]
+
+\item la verifica della formula del valore atteso totale:
+
+\[
+\E[L]
+=
+\sum_{g=1}^{3}
+\Prob(A_g)\E[L\mid A_g].
+\]
+
+\end{itemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+
+\section{Dal caso aula al Caso TakeHome}
+
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Come affrontare il caso TakeHome}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Il Caso TakeHome deve essere affrontato autonomamente ripetendo il metodo
+utilizzato per il Caso Aula.
+
+\vspace{0.3cm}
+
+\begin{enumerate}
+
+\item avviare una chat dedicata con il \textbf{Prompt zero} e inserire il
+\textbf{Prompt 1} fornito dal docente;
+
+\item costruire il \textbf{Prompt 2} e il \textbf{Prompt 3}, proponendo
+prima il Flusso logico-teorico e poi la scomposizione in tappe;
+
+\item sviluppare le tappe usando i Regimi A, B e C;
+
+\item concludere con controlli finali e interpretazione critica.
+
+\end{enumerate}
+
+\vspace{0.35cm}
+
+\begin{center}
+\textbf{Consegna}
+\end{center}
+
+\begin{itemize}
+
+\item \textbf{Notebook eseguito}, completo di celle Markdown,
+codice, output e controlli;
+
+\item \textbf{Tracciato IA}, costituito dalla stampa PDF della chat dedicata
+al caso (tutto incluso, anche prompt imprevisti).
+
+\end{itemize}
+
+\vspace{0.25cm}
+
+\begin{center}
+\textbf{Nel TakeHome cambia il caso, non cambia il metodo di lavoro.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+
+
+\end{document}
