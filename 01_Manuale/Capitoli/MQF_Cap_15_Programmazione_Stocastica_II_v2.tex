@@ -1245,21 +1245,26 @@ rappresentazioni che permettono di organizzare questa struttura.
 
 \label{sec:cap15-programma-multistadio-v2}
 
-La Sezione~\ref{sec:cap15-motivazione-multistadio-v2} ha mostrato come il
-ricorso possa essere suddiviso in pi\`u stadi decisionali. In ciascuno
-stadio il decisore utilizza l'informazione disponibile in quel momento,
-senza conoscere le realizzazioni dell'incertezza appartenenti agli stadi
-successivi.
+La Sezione~\ref{sec:cap15-motivazione-multistadio-v2} ha introdotto
+la successione delle decisioni di ricorso $y_k^s$ e la condizione
+di non anticipativit\`a
+\eqref{eq:cap15-non-anticipativita-multistadio-v2}.
+Possiamo ora formulare il problema di ottimizzazione che comprende
+la decisione iniziale $x$ e le decisioni assunte nei diversi stadi.
 
-Passiamo ora dalla descrizione della struttura informativa alla
-formulazione matematica del programma multistadio. Consideriamo un
-insieme finito di scenari completi
+Il passaggio dal modello a due stadi al multistadio richiede di
+specificare quali evoluzioni future rimangano possibili dopo
+ciascuna storia osservata. Su questa struttura informativa
+vengono poi definiti la funzione obiettivo e i vincoli che
+collegano le decisioni successive.
 
-\[
-\mathcal S=\{1,\ldots,N\},
-\]
 
-con probabilit\`a
+\subsection{La struttura degli scenari}
+
+Consideriamo un insieme finito $\mathcal S$ di scenari completi.
+Lo scenario $s$ identifica una possibile traiettoria
+dell'incertezza sull'intero orizzonte ed \`e associato
+a una probabilit\`a $p_s$, con
 
 \[
 p_s>0,
@@ -1267,585 +1272,434 @@ p_s>0,
 \sum_{s\in\mathcal S}p_s=1.
 \]
 
-Ogni scenario identifica una possibile traiettoria dell'incertezza
-sull'intero orizzonte:
+Nel modello a due stadi del Capitolo~
+\ref{cap:programmazione-stocastica-due-stadi}, il ricorso
+viene scelto dopo l'osservazione dello scenario completo.
+Nel modello multistadio, invece, dopo uno stadio intermedio
+possono rimanere possibili pi\`u prosecuzioni della storia
+osservata.
 
-\[
-\xi_s=(\xi_1^s,\ldots,\xi_T^s).
-\]
+Per rappresentare questa struttura utilizziamo un
+\emph{albero degli scenari}. La radice corrisponde
+all'informazione disponibile al tempo $0$, prima
+della scelta di $x$. Ciascun nodo di uno stadio
+successivo identifica una storia osservata fino
+al termine di quello stadio.
 
-La decisione iniziale $x$ \`e comune a tutti gli scenari ed \`e assunta
-al tempo $t=0$. Le successive decisioni di ricorso sono
-
-\[
-y_1^s,\ldots,y_K^s,
-\qquad s\in\mathcal S.
-\]
-
-Per ogni stadio $k$, il vettore $y_k^s$ viene scelto dopo
-l'osservazione dell'intero blocco di incertezza appartenente a
-$\mathcal T_k$. Esso pu\`o quindi dipendere dalla storia
-
-\[
-(\xi_1^s,\ldots,\xi_{\bar t_k}^s),
-\]
-
-ma non dalle realizzazioni successive.
-
-Questa struttura pu\`o essere rappresentata in due modi equivalenti:
-mediante decisioni associate alle storie informative, organizzate in
-un albero, oppure mediante decisioni distinte per scenario e vincoli
-espliciti di non anticipativit\`a.
-
-
-\subsection{Scenari, storie informative e nodi dell'albero}
-
-Uno scenario completo descrive una traiettoria dell'incertezza
-sull'intero orizzonte. Una storia informativa descrive invece
-soltanto la parte della traiettoria gi\`a osservata al momento
-in cui deve essere assunta una decisione.
-
-Allo stadio $k$, la storia osservata nello scenario $s$ \`e
-
-\[
-(\xi_1^s,\ldots,\xi_{\bar t_k}^s).
-\]
-
-Due scenari possono avere lo stesso prefisso fino al tempo
-$\bar t_k$ e differire nelle realizzazioni successive. In tal
-caso il decisore non \`e ancora in grado di distinguerli
-quando sceglie la decisione di ricorso dello stadio $k$.
-
-Per organizzare queste relazioni utilizziamo un
-\emph{albero degli scenari}. La radice rappresenta il
-tempo iniziale $t=0$, quando viene scelta $x$ e l'incertezza
-futura non \`e ancora osservata. A ciascuno stadio di
-ricorso corrisponde un livello successivo dell'albero.
-
-Un nodo $n$ dello stadio $k$ rappresenta una particolare
-storia informativa
-
-\[
-(\xi_1,\ldots,\xi_{\bar t_k})
-\]
-
-che pu\`o essere osservata al termine dello stadio.
-
-Tutti gli scenari completi che condividono questa storia
-attraversano lo stesso nodo. Gli scenari si separano in
-nodi differenti soltanto quando le loro storie osservate
-diventano diverse.
-
+Un nodo $n$ pu\`o avere pi\`u figli, corrispondenti
+a differenti prosecuzioni della medesima storia.
 Ogni nodo diverso dalla radice ha un unico predecessore,
-indicato con
+indicato con $a(n)$. Un percorso dalla radice a un
+nodo terminale identifica uno scenario completo.
 
-\[
-a(n).
-\]
-
-Il predecessore rappresenta la storia informativa disponibile
-al termine dello stadio decisionale precedente.
-
-La probabilit\`a di raggiungere il nodo $n$ \`e
-
-\[
-p_n
-=
-\sum_{\substack{s\in\mathcal S:\\
-                 s\text{ attraversa }n}}
-p_s.
-\]
-
-Pertanto $p_n$ \`e la probabilit\`a complessiva degli scenari
-completi compatibili con la storia rappresentata dal nodo.
-
-La somma delle probabilit\`a dei nodi appartenenti a uno stesso
-livello \`e pari a uno. Inoltre, per ogni nodo non terminale,
-la somma delle probabilit\`a dei suoi figli coincide con la
-probabilit\`a del nodo stesso.
-
-Se $n$ \`e figlio di $a(n)$, la probabilit\`a condizionata
-di raggiungere $n$, dato che \`e stato raggiunto il suo
-predecessore, \`e
-
-\[
-\frac{p_n}{p_{a(n)}}.
-\]
-
-Il rapporto precedente non coincide in generale con $p_n$:
-il primo \`e una probabilit\`a condizionata alla storia
-gi\`a osservata, mentre il secondo \`e la probabilit\`a
-non condizionata di raggiungere il nodo.
-
-La Figura~\ref{fig:cap15-albero-generico-v2} illustra
-un albero con ramificazioni differenti nei diversi nodi.
-La costruzione non richiede che da ogni nodo si sviluppi
-lo stesso numero di scenari successivi.
+La Figura~\ref{fig:cap15-albero-generico-v2}
+illustra questa costruzione.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.7\textwidth]
+\includegraphics[width=0.70\textwidth]
 {../graphics/Cap15_albero_multistadio_generico.png}
-\caption{Rappresentazione di un programma stocastico multistadio
-mediante un albero degli scenari. Ogni nodo identifica una storia
-informativa osservata; i suoi figli rappresentano le possibili
-prosecuzioni di quella storia. Il nodo $a(n)$ \`e il predecessore
-di $n$. Il numero di ramificazioni pu\`o variare da nodo a nodo.}
+\caption{Rappresentazione ad albero degli scenari.
+La radice corrisponde alla decisione iniziale;
+i nodi successivi identificano le storie informative
+osservate. Da un nodo possono svilupparsi differenti
+prosecuzioni della medesima storia. Un percorso dalla
+radice a un nodo terminale rappresenta uno scenario
+completo.}
 \label{fig:cap15-albero-generico-v2}
 \end{figure}
 
-\begin{remark}
+A ciascun nodo $n$ dello stadio $k$ pu\`o essere
+associata una sola decisione di ricorso $y_n$.
+Nella rappresentazione per scenari completi,
+la stessa decisione viene invece indicata con
+$y_k^s$ per tutti gli scenari $s$ che attraversano
+quel nodo. Le due scritture corrispondono alla
+medesima struttura decisionale; nella seconda,
+la coincidenza delle decisioni \`e imposta dalla
+\eqref{eq:cap15-non-anticipativita-multistadio-v2}.
 
-Nell'albero utilizzato per la formulazione multistadio, i livelli
-decisionali sono associati ai tempi terminali degli stadi
+Nel seguito utilizziamo la rappresentazione
+per scenari completi, che permette di mantenere
+la continuit\`a con il Capitolo 14. La struttura
+ad albero rimane sottostante alla formulazione
+anche quando i nodi non compaiono esplicitamente
+fra gli indici delle variabili.
 
-\[
-\bar t_1,\ldots,\bar t_K.
-\]
+\medskip
 
-Se uno stadio comprende pi\`u tempi fisici, il passaggio al livello
-successivo dell'albero incorpora l'osservazione dell'intero blocco
-di incertezza compreso in quello stadio.
+\noindent
+\textbf{Scenari simulati e struttura informativa.}
 
-Non occorre introdurre un nuovo stadio decisionale per ogni tempo
-fisico: la partizione dell'orizzonte in stadi resta quella definita
-nella Sezione~\ref{sec:cap15-motivazione-multistadio-v2}.
+Le traiettorie di un processo stocastico possono
+essere generate mediante simulazione Monte Carlo.
+Tuttavia, un campione di traiettorie complete
+generate indipendentemente non costituisce,
+di per s\'e, una rappresentazione adeguata
+del ricorso multistadio.
 
-\end{remark}
+Consideriamo, ad esempio, un campione di traiettorie
+di un processo a valori continui. Se le storie
+osservate al termine del primo stadio sono tutte
+differenti, nel campione finito ciascuna di esse
+identifica gi\`a uno scenario completo. A quella
+storia corrisponde quindi una sola prosecuzione
+futura nel modello campionario.
 
+Il problema risultante conserva pi\`u blocchi
+decisionali e pi\`u vincoli temporali, ma non
+rappresenta un'effettiva incertezza sulle
+prosecuzioni successive alla prima osservazione.
+Sotto il profilo informativo, il ricorso pu\`o
+essere determinato conoscendo l'intera traiettoria,
+come in un problema a due stadi.
 
-\subsection{Non anticipativit\`a implicita ed esplicita}
+Per costruire un'approssimazione finita
+multistadio mediante scenari \`e pertanto
+necessario conservare le alternative future
+dopo le storie intermedie. La simulazione
+pu\`o essere utilizzata a questo scopo
+generando, a partire da una storia comune,
+differenti prosecuzioni nei successivi
+stadi decisionali.
 
-L'albero permette di rappresentare direttamente il principio di
-non anticipativit\`a introdotto nella
-Definizione~\ref{def:cap15-decisione-adattata-v2}.
-
-Consideriamo un nodo $n$ appartenente allo stadio $k$.
-In tale nodo il decisore dispone della storia osservata
-fino al tempo $\bar t_k$. Alla storia rappresentata dal
-nodo associamo un unico vettore decisionale
-
-\[
-y_n.
-\]
-
-Questo vettore \`e utilizzato da tutti gli scenari completi
-che attraversano il nodo $n$.
-
-Se due scenari $s$ e $s'$ coincidono fino al tempo
-$\bar t_k$, essi attraversano lo stesso nodo dello
-stadio $k$. La decisione assegnata a entrambi \`e
-quindi necessariamente la stessa.
-
-L'indicizzazione per nodo soddisfa pertanto la
-non anticipativit\`a per costruzione: non \`e
-necessario introdurre ulteriori uguaglianze fra
-decisioni che appartengono alla stessa storia informativa.
-
-Questa \`e la rappresentazione \emph{implicita}
-della non anticipativit\`a.
-
-Un'alternativa consiste nel conservare, come nella
-formulazione a due stadi del
-Capitolo~\ref{cap:programmazione-stocastica-due-stadi},
-una copia delle decisioni di ricorso per ogni
-scenario completo:
-
-\[
-y_k^s,
-\qquad
-k=1,\ldots,K,
-\quad
-s\in\mathcal S.
-\]
-
-In questo caso le decisioni dei diversi scenari sono
-inizialmente variabili distinte del programma matematico.
-Occorre quindi imporre esplicitamente
-
-\begin{equation}
-y_k^s=y_k^{s'}
-\quad
-\text{se}
-\quad
-(\xi_1^s,\ldots,\xi_{\bar t_k}^s)
-=
-(\xi_1^{s'},\ldots,\xi_{\bar t_k}^{s'}),
-\label{eq:cap15-non-anticipativita-multistadio-v2}
-\end{equation}
-
-per ogni stadio $k$ e per ogni coppia di scenari
-con la stessa storia fino al termine dello stadio.
-
-Questa \`e la rappresentazione \emph{esplicita}
-della non anticipativit\`a.
-
-Le due rappresentazioni producono lo stesso insieme
-di decisioni ammissibili dal punto di vista informativo.
-La corrispondenza \`e immediata: se lo scenario $s$
-attraversa il nodo $n$ dello stadio $k$, si pone
-
-\[
-y_k^s=y_n.
-\]
-
-Viceversa, le uguaglianze
-\eqref{eq:cap15-non-anticipativita-multistadio-v2}
-garantiscono che tutte le copie scenario-specifiche
-associate al medesimo nodo abbiano lo stesso valore.
-A tale valore comune pu\`o essere associata
-un'unica variabile $y_n$.
-
-L'equivalenza non richiede che le decisioni di nodi
-differenti siano necessariamente diverse: due storie
-distinguibili possono comunque condurre, per ragioni
-economiche o operative, alla stessa scelta ottima.
-
-\begin{remark}
-
-La condizione di non anticipativit\`a riguarda l'intero
-vettore $y_k^s$, non soltanto alcune sue componenti.
-Se due scenari hanno la stessa storia fino a
-$\bar t_k$, devono coincidere tutte le componenti
-del blocco decisionale dello stadio $k$.
-
-La coincidenza delle sole osservazioni riferite
-all'ultimo tempo dello stadio,
-
-\[
-\xi_{\bar t_k}^s=\xi_{\bar t_k}^{s'},
-\]
-
-non \`e invece sufficiente, in generale, per imporre
-l'uguaglianza delle decisioni: le due storie precedenti
-potrebbero essere differenti.
-
-\end{remark}
+L'albero non richiede che ogni nodo abbia
+lo stesso numero di figli, n\'e che tutti
+gli scenari completi abbiano la stessa
+probabilit\`a. Nella formulazione che segue
+i pesi $p_s$ sono le probabilit\`a degli
+scenari completi, indipendentemente dalla
+particolare procedura utilizzata per
+costruire l'albero.
 
 
-\subsection{Forma estesa generale}
+\subsection{Il programma lineare multistadio}
 
-La rappresentazione per scenari consente di riunire
-in un unico problema di ottimizzazione la decisione
-iniziale e tutte le decisioni di ricorso successive.
+La struttura degli scenari definisce quali informazioni sono
+disponibili quando vengono assunte le decisioni. Occorre ora
+specificare il problema di ottimizzazione: il criterio economico
+da massimizzare e i vincoli che collegano la decisione iniziale
+alle decisioni dei diversi stadi.
 
-Consideriamo un programma stocastico lineare formulato
-in massimizzazione. Manteniamo $c'x$ come contributo
-della decisione iniziale e indichiamo con
+Concentriamo l'analisi sui programmi stocastici lineari.
+La linearit\`a non \`e una propriet\`a necessaria della
+programmazione stocastica, ma individua una classe di modelli
+particolarmente rilevante per il corso, sia sul piano
+matematico sia su quello applicativo.
 
-\[
-(q_k^s)'y_k^s
-\]
+Dal punto di vista matematico, quando la funzione obiettivo
+e i vincoli sono lineari, un modello multistadio con un
+numero finito di scenari pu\`o essere ricondotto a un
+programma lineare deterministico. Le decisioni dei diversi
+stadi e scenari diventano variabili di un unico problema;
+anche i vincoli di non anticipativit\`a sono uguaglianze
+lineari. Possiamo quindi utilizzare i metodi risolutivi
+della programmazione lineare gi\`a studiati nel corso,
+senza introdurre una nuova classe di algoritmi di
+ottimizzazione.
 
-il contributo lineare attribuito al blocco decisionale
-dello stadio $k$ nello scenario $s$.
+La formulazione lineare rende inoltre esplicita la
+struttura dei collegamenti tra stadi. Questa struttura
+pu\`o essere sfruttata dai metodi di decomposizione
+quando il numero degli scenari rende onerosa la
+soluzione diretta del problema complessivo.
 
-Assumiamo che i coefficienti economici e i dati dei
-vincoli propri dello stadio $k$ siano determinati
-dall'informazione disponibile fino a $\bar t_k$.
-Eventuali conseguenze economiche che si manifestano
-soltanto negli stadi successivi vengono contabilizzate
-nei corrispondenti contributi futuri.
+Dal punto di vista applicativo, numerosi problemi
+finanziari comprendono relazioni naturalmente lineari:
+i vincoli di bilancio, la somma dei flussi di cassa,
+la ripartizione di risorse disponibili, i limiti
+di investimento e le condizioni di equilibrio
+tra fonti e impieghi. I coefficienti di tali
+relazioni possono cambiare con lo scenario senza
+che venga meno la linearit\`a rispetto alle
+variabili decisionali.
 
-Il valore complessivo nello scenario $s$ \`e
-quindi
+Il caso lineare permette pertanto di studiare
+congiuntamente tre aspetti essenziali:
+la scelta iniziale sotto incertezza, l'adattamento
+progressivo delle decisioni e il rispetto dei
+vincoli finanziari lungo l'orizzonte. Eventuali
+relazioni economiche non lineari richiedono
+invece modelli o approssimazioni ulteriori,
+che non sono necessari per sviluppare
+i principi del programma multistadio qui considerato.
+
+\medskip
+
+\noindent
+\textbf{Funzione obiettivo.}
+
+Manteniamo la convenzione di massimizzazione adottata
+nel Capitolo~\ref{cap:programmazione-stocastica-due-stadi}.
+Indichiamo con $c$ il vettore dei coefficienti economici
+della decisione iniziale $x$ e con $q_k^s$ il vettore
+dei coefficienti economici del blocco decisionale
+$y_k^s$ nello scenario $s$.
+
+In una formulazione lineare, il contributo economico
+delle decisioni nello scenario $s$ \`e rappresentato da
 
 \[
 c'x+\sum_{k=1}^{K}(q_k^s)'y_k^s.
 \]
 
-L'obiettivo del programma stocastico \`e massimizzarne
-il valore atteso:
+La decisione iniziale contribuisce una sola volta
+al risultato economico. Le decisioni successive
+contribuiscono attraverso i rispettivi blocchi,
+con coefficienti che possono essere differenti
+nei diversi stadi e scenari.
 
-\[
+Ponderando il risultato di ciascuno scenario
+con la probabilit\`a $p_s$, otteniamo la
+funzione obiettivo
+
+\begin{equation}
+\max_{x,\{y_k^s\}}
+\left\{
 c'x+
-\sum_{s\in\mathcal S}
-p_s\sum_{k=1}^{K}(q_k^s)'y_k^s.
-\]
+\sum_{s\in\mathcal S}p_s
+\sum_{k=1}^{K}(q_k^s)'y_k^s
+\right\}.
+\label{eq:cap15-obiettivo-lineare-multistadio-v2}
+\end{equation}
 
-Occorre inoltre rappresentare i vincoli che collegano
-le decisioni assunte nei diversi stadi.
+L'espressione
+\eqref{eq:cap15-obiettivo-lineare-multistadio-v2}
+specifica il criterio economico, ma non costituisce
+ancora il programma multistadio completo. Le decisioni
+devono soddisfare i vincoli iniziali, i vincoli di
+collegamento tra stadi e la condizione informativa
+\eqref{eq:cap15-non-anticipativita-multistadio-v2}.
 
-Nel caso lineare, i vincoli relativi allo stadio $k$
-possono dipendere dalla decisione iniziale $x$ e
-dalle decisioni di ricorso assunte fino a quello stadio.
-Una scrittura generale, con vincoli di uguaglianza, \`e
+\medskip
 
-\[
-T_k^s x+
-\sum_{j=1}^{k}W_{k,j}^s y_j^s
+\noindent
+\textbf{Vincoli iniziali e vincoli di collegamento.}
+
+L'insieme $\mathcal X$ contiene i vincoli
+iniziali, formulati con dati noti al tempo
+$0$. Tali vincoli restano distinti dai
+vincoli relativi agli stadi successivi.
+
+Per questi ultimi adottiamo la forma
+matriciale di uguaglianza
+
+\begin{equation}
+T_{s,k}x+
+\sum_{j=1}^{k}W_{s,k,j}y_j^s
 =
-h_k^s.
-\]
+h_{s,k},
+\qquad
+k=1,\ldots,K,\quad s\in\mathcal S.
+\label{eq:cap15-vincoli-stadio-v2}
+\end{equation}
 
-Le matrici $T_k^s$ e $W_{k,j}^s$ e il vettore
-$h_k^s$ descrivono i dati dei vincoli dello stadio
-$k$ nello scenario $s$. Il termine
-$W_{k,j}^s y_j^s$ rappresenta l'effetto di una
-decisione assunta nello stadio $j$ sui vincoli
-dello stadio $k$.
+La matrice $T_{s,k}$ descrive il contributo
+della decisione iniziale $x$ ai vincoli
+dello stadio $k$ nello scenario $s$.
+Non \`e la matrice dei vincoli imposti
+alla decisione iniziale al tempo $0$.
 
-La somma comprende soltanto gli stadi
+La matrice $W_{s,k,j}$ descrive il
+contributo della decisione assunta
+nello stadio $j$ ai vincoli dello
+stadio $k$. Il vettore $h_{s,k}$
+raccoglie i termini noti di tali vincoli.
+
+Il pedice $s$ identifica lo scenario;
+$k$ identifica lo stadio al quale
+appartengono le equazioni e $j$
+identifica lo stadio della decisione
+che compare nelle equazioni.
+
+La somma nella
+\eqref{eq:cap15-vincoli-stadio-v2}
+comprende soltanto le decisioni
+assunte fino allo stadio corrente.
+I vincoli dello stadio $k$ non
+dipendono dalle decisioni degli
+stadi successivi.
+
+\medskip
+
+\noindent
+\textbf{Dimensioni delle matrici.}
+
+Indichiamo con $n_x$ il numero delle
+componenti della decisione iniziale,
+con $d_j$ il numero delle componenti
+del blocco decisionale $y_j^s$
+e con $m_k$ il numero delle equazioni
+di collegamento dello stadio $k$.
+
+Assumendo che queste dimensioni
+non dipendano dallo scenario, abbiamo
 
 \[
-j=1,\ldots,k:
+\begin{aligned}
+x&\in\R^{n_x},
+&
+y_j^s&\in\R^{d_j},
+\\[3pt]
+T_{s,k}&\in\R^{m_k\times n_x},
+&
+W_{s,k,j}&\in\R^{m_k\times d_j},
+\\[3pt]
+h_{s,k}&\in\R^{m_k}.
+\end{aligned}
 \]
 
-i vincoli dello stadio corrente non dipendono da
-decisioni che saranno assunte in stadi successivi.
+Il numero $m_k$ conta le equazioni
+di collegamento dello stadio $k$,
+mentre $d_j$ conta le variabili
+decisionali del blocco $j$.
+Stadi differenti possono avere
+numeri diversi di variabili e
+di equazioni.
 
-Indichiamo con $\mathcal X$ l'insieme delle decisioni
-iniziali ammissibili e con $\mathcal X_k^s$
-l'insieme degli eventuali vincoli operativi propri
-del blocco decisionale $y_k^s$.
+Il simbolo $d_j$ \`e distinto
+da $n_j$, gi\`a utilizzato
+per indicare il numero di tempi
+fisici appartenenti allo stadio $j$.
 
-La \emph{forma estesa} del programma stocastico
-multistadio pu\`o allora essere scritta come
+Le matrici $T_{s,k}$ e
+$W_{s,k,j}$ e il vettore
+$h_{s,k}$ possono variare
+per scenario e per stadio.
+I loro valori, quando compaiono
+nei vincoli attribuiti allo
+stadio $k$, sono determinati
+dalla storia informativa
+disponibile entro $\bar t_k$.
+
+\medskip
+
+\noindent
+\textbf{Forma estesa.}
+
+Indichiamo con $\mathcal X_{s,k}$
+l'insieme degli eventuali vincoli
+operativi propri del blocco
+$y_k^s$, quali limiti inferiori
+e superiori sulle sue componenti.
+
+Il programma lineare multistadio
+pu\`o essere scritto nella
+seguente forma estesa:
 
 \begin{equation}
 \begin{aligned}
 \max_{x,\{y_k^s\}}
 \quad&
 c'x+
-\sum_{s\in\mathcal S}
-p_s\sum_{k=1}^{K}(q_k^s)'y_k^s
+\sum_{s\in\mathcal S}p_s
+\sum_{k=1}^{K}(q_k^s)'y_k^s
 \\[4pt]
 \text{soggetto a}\quad&
 x\in\mathcal X,
 \\[4pt]
 &
-T_k^s x+
-\sum_{j=1}^{k}W_{k,j}^s y_j^s
+T_{s,k}x+
+\sum_{j=1}^{k}W_{s,k,j}y_j^s
 =
-h_k^s,
-\qquad
-k=1,\ldots,K,
-\quad s\in\mathcal S,
+h_{s,k},
+\\
+&
+\hspace{1.0cm}
+k=1,\ldots,K,\quad s\in\mathcal S,
 \\[4pt]
 &
-y_k^s\in\mathcal X_k^s,
-\qquad
-k=1,\ldots,K,
-\quad s\in\mathcal S,
-\\[4pt]
+y_k^s\in\mathcal X_{s,k},
+\\
 &
-y_k^s=y_k^{s'}
-\quad
-\text{se}\quad
-(\xi_1^s,\ldots,\xi_{\bar t_k}^s)
-=
-(\xi_1^{s'},\ldots,\xi_{\bar t_k}^{s'}),
-\\[-1pt]
-&
-\hspace{2.1cm}
-k=1,\ldots,K,
-\quad s,s'\in\mathcal S.
+\hspace{1.0cm}
+k=1,\ldots,K,\quad s\in\mathcal S.
 \end{aligned}
 \label{eq:cap15-forma-estesa-multistadio-v2}
 \end{equation}
 
-Le uguaglianze considerate rappresentano i vincoli
-lineari di collegamento tra le decisioni. Quando il
-modello economico richiede disuguaglianze, limiti
-di capacit\`a o altre condizioni lineari,
-queste possono essere incluse negli insiemi
-di ammissibilit\`a oppure aggiunte esplicitamente
-al sistema.
-
-La formulazione
+Alla
 \eqref{eq:cap15-forma-estesa-multistadio-v2}
-contiene tre elementi distinti.
+si aggiungono i vincoli di non
+anticipativit\`a
+\eqref{eq:cap15-non-anticipativita-multistadio-v2}.
 
-La decisione iniziale $x$ compare una sola volta:
-il decisore non pu\`o scegliere un portafoglio
-iniziale diverso in funzione dello scenario
-che si realizzer\`a successivamente.
+La forma estesa riunisce tutte
+le decisioni e tutti gli scenari
+in un unico programma lineare
+deterministico. I pesi $p_s$
+compaiono nella funzione obiettivo,
+mentre la struttura ad albero
+determina quali decisioni
+scenario-specifiche devono
+coincidere.
 
-Le decisioni $y_k^s$ sono invece replicate per
-scenario e per stadio. Questa replicazione permette
-di rappresentare tutti i possibili adattamenti
-futuri alle diverse realizzazioni dell'incertezza.
-
-Infine, i vincoli di non anticipativit\`a
-collegano le copie delle decisioni che, al
-momento della scelta, dispongono della stessa
-informazione.
-
-Senza tali vincoli, le decisioni
-scenario-specifiche potrebbero differire
-anche tra scenari che non sono ancora
-distinguibili. Si otterrebbe quindi un
-problema con possibilit\`a decisionali
-pi\`u ampie di quelle effettivamente
-consentite dalla struttura informativa
-del modello.
+La rappresentazione mediante
+uguaglianze non esclude altri
+vincoli lineari: disuguaglianze
+e limiti di capacit\`a possono
+essere aggiunti esplicitamente
+oppure ricondotti, quando
+opportuno, alla forma di
+uguaglianza mediante variabili
+ausiliarie.
 
 \medskip
 
 \noindent
-\textbf{Forma estesa con decisioni associate ai nodi.}
+\textbf{Raccordo con la notazione a due stadi.}
 
-La stessa struttura pu\`o essere rappresentata
-utilizzando un'unica decisione $y_n$ per ogni nodo
-informativo.
+Le matrici e i vettori dello
+stadio $k$ possono essere letti
+come blocchi degli oggetti
+matriciali complessivi dello
+scenario $s$.
 
-Sotto l'ipotesi che i coefficienti economici dello
-stadio siano determinati dalla storia rappresentata
-dal nodo, al nodo $n$ corrisponde un vettore
-di coefficienti $q_n$.
+Raccogliendo per righe i blocchi
+$T_{s,k}$ e i vettori $h_{s,k}$
+si ottengono rispettivamente
+$T_s$ e $h_s$. Ordinando i
+blocchi decisionali per stadio,
+si ottiene una matrice complessiva
+$W_s$ con struttura triangolare
+inferiore a blocchi: i blocchi
+sopra la diagonale sono nulli,
+poich\`e i vincoli correnti
+non coinvolgono decisioni future.
 
-Il contributo atteso delle decisioni di ricorso
-pu\`o allora essere scritto come
+Questa lettura conserva la
+convenzione $T_s$, $W_s$ e
+$h_s$ introdotta nel
+Capitolo~\ref{cap:programmazione-stocastica-due-stadi},
+senza imporre che i coefficienti
+dei diversi blocchi siano uguali.
 
-\[
-\sum_n p_n q_n'y_n,
-\]
-
-dove la somma \`e estesa ai nodi decisionali
-successivi alla radice.
-
-Infatti, la probabilit\`a del nodo $n$ \`e
-la somma delle probabilit\`a di tutti gli
-scenari che lo attraversano. Poich\`e tali
-scenari condividono sia la decisione $y_n$
-sia il relativo contributo economico dello
-stadio, sommare i contributi per scenario
-oppure per nodo produce lo stesso valore atteso.
-
-Anche i vincoli possono essere organizzati
-per nodo e per storia antecedente. In questa
-rappresentazione la non anticipativit\`a
-\`e incorporata nella scelta di un'unica
-variabile decisionale per ogni nodo.
-
-La forma estesa per scenari e la forma estesa
-per nodi descrivono dunque lo stesso problema
-decisionale. Esse differiscono nel modo in
-cui organizzano le variabili e i vincoli,
-non nell'informazione che il decisore
-pu\`o utilizzare.
-
-
-\subsection{Raccordo con il modello a due stadi}
-
-Verifichiamo infine che la formulazione
-multistadio comprenda come caso particolare
-il programma a due stadi introdotto nel
-Capitolo~\ref{cap:programmazione-stocastica-due-stadi}.
-
-Supponiamo che l'intero orizzonte successivo
-alla decisione iniziale appartenga a un
-unico stadio di ricorso:
-
-\[
-K=1,
-\qquad
-\mathcal T_1=\{1,\ldots,T\},
-\qquad
-\bar t_1=T.
-\]
-
-Il vettore $y_1^s$ viene scelto dopo
-l'osservazione dell'intero scenario
-
-\[
-\xi_s=(\xi_1^s,\ldots,\xi_T^s)
-\]
-
-ed \`e quindi adattato a $\mathcal F_T$.
-
-Non esistono decisioni di ricorso intermedie.
-La forma estesa
-\eqref{eq:cap15-forma-estesa-multistadio-v2}
-si riduce a
+Se l'intero orizzonte successivo
+al tempo iniziale costituisce
+un unico stadio di ricorso,
+si pone $K=1$. Identificando
 
 \[
 \begin{aligned}
-\max_{x,\{y_1^s\}}
-\quad&
-c'x+
-\sum_{s\in\mathcal S}
-p_s(q_1^s)'y_1^s
-\\
-\text{soggetto a}\quad&
-x\in\mathcal X,
-\\
+y_1^s&=y_s,
 &
-T_1^s x+W_{1,1}^s y_1^s=h_1^s,
-\qquad s\in\mathcal S,
+q_1^s&=q_s,
 \\
+T_{s,1}&=T_s,
 &
-y_1^s\in\mathcal X_1^s,
-\qquad s\in\mathcal S.
+W_{s,1,1}&=W_s,
+&
+h_{s,1}&=h_s,
 \end{aligned}
 \]
 
-Se gli scenari completi sono distinti, non
-occorrono ulteriori uguaglianze tra le
-decisioni di ricorso: una volta osservato
-l'intero scenario, il decisore dispone
-dell'informazione necessaria per distinguerlo
-dagli altri.
-
-Riprendendo la notazione del Capitolo 14,
-
-\[
-y_1^s=y_s,
-\qquad
-q_1^s=q_s,
-\qquad
-T_1^s=T_s,
-\qquad
-W_{1,1}^s=W_s,
-\qquad
-h_1^s=h_s,
-\]
-
-si ottiene
-
-\[
-\max_{x,\{y_s\}}
-\left\{
-c'x+
-\sum_{s\in\mathcal S}p_s q_s'y_s
-\right\},
-\]
-
-soggetto a
-
-\[
-x\in\mathcal X,
-\]
-
-\[
-T_sx+W_sy_s=h_s,
-\qquad
-y_s\in\mathcal X_s,
-\qquad
-s\in\mathcal S.
-\]
-
-Questa \`e precisamente la forma estesa
-del programma stocastico a due stadi
-presentata nella
+la formulazione multistadio
+si riconduce alla forma estesa
+a due stadi
 \eqref{eq:cap14-forma-estesa}.
 
-La differenza tra le due formulazioni
-non consiste pertanto nell'introdurre
-un diverso tipo di problema di ricorso.
-Nel modello a due stadi tutte le
-decisioni correttive sono raccolte in
-un unico vettore scelto dopo
-l'osservazione dello scenario completo;
-nel modello multistadio il ricorso
-\`e suddiviso in pi\`u blocchi,
-ciascuno vincolato all'informazione
-disponibile nel momento in cui
-viene assunto.
-
-La formulazione generale \`e ora
-disponibile. Nella sezione successiva
-la specializzeremo al caso SVB--ALM,
-identificando le decisioni iniziali,
-i blocchi di ricorso e i vincoli
-finanziari che collegano gli stadi.
+La sezione successiva specializza
+la formulazione generale al caso
+SVB--ALM, identificando le
+decisioni, i coefficienti e
+i vincoli finanziari del modello.
