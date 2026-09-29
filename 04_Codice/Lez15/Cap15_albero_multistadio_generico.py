@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import TypeAlias
 
 import matplotlib.pyplot as plt
 
@@ -48,6 +49,11 @@ NODE_B = (1, -1.8)    # nodo di profondita' 1, con 2 figli
 CHILDREN_A = [(2, 2.6), (2, 1.5), (2, 0.4)]
 CHILDREN_B = [(2, -1.0), (2, -2.6)]
 
+# Tipi espliciti: impediscono a Pylance di restringere i nodi iniziali
+# ai literal (0, ...) e (1, ...) quando si costruisce la lista degli archi.
+Node: TypeAlias = tuple[int, float]
+Edge: TypeAlias = tuple[Node, Node]
+
 # Nodo evidenziato n e relativo antenato a(n)
 N_NODE = CHILDREN_A[1]
 A_NODE = NODE_A
@@ -75,7 +81,7 @@ ax.set_xlim(-0.5, 2.7)
 ax.set_ylim(-3.2, 3.2)
 ax.axis("off")
 
-edges = [(ROOT, NODE_A), (ROOT, NODE_B)]
+edges: list[Edge] = [(ROOT, NODE_A), (ROOT, NODE_B)]
 for c in CHILDREN_A:
     edges.append((NODE_A, c))
 for c in CHILDREN_B:
