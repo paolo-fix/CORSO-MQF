@@ -1034,7 +1034,7 @@ Nel modello multistadio l'orizzonte successivo alla decisione iniziale \`e
 suddiviso in
 
 \[
-k=1,\ldots,K
+k=2,\ldots,K
 \]
 
 stadi decisionali.
@@ -1139,30 +1139,26 @@ decisore utilizzi informazione futura prima che essa sia disponibile.
 
 \subsection{Dal modello a due stadi al modello multistadio}
 
-Il rapporto tra le due formulazioni pu\`o essere visto con un esempio
-astratto.
-
-Supponiamo che l'orizzonte successivo alla decisione iniziale contenga
-quattro tempi,
+Consideriamo un orizzonte che, dopo la decisione iniziale
+al tempo $0$, comprende quattro tempi fisici:
 
 \[
 t=1,2,3,4.
 \]
 
-Nel modello a due stadi questi quattro tempi appartengono a un unico blocco
-di ricorso. Dopo avere osservato l'intero scenario $s$, il decisore sceglie
+Nel modello a due stadi, l'intero orizzonte successivo
+alla decisione iniziale costituisce un unico stadio
+di ricorso. Dopo avere osservato lo scenario completo
+$s$, il decisore sceglie il vettore $y_s$, adattato
+a $\mathcal F_4$. Il vettore pu\`{o} comprendere
+decisioni operative riferite a tutti e quattro
+i tempi fisici.
 
-\[
-y_s,
-\]
-
-adattato a
-
-\[
-\mathcal F_4.
-\]
-
-Supponiamo ora di suddividere lo stesso orizzonte in tre stadi:
+Consideriamo ora un problema con quattro stadi
+decisionali complessivi: lo stadio iniziale,
+nel quale viene scelta $x$, e tre successivi
+stadi di ricorso. Suddividiamo l'orizzonte
+successivo al tempo $0$ in
 
 \[
 \mathcal T_1=\{1\},
@@ -1182,17 +1178,38 @@ I rispettivi tempi terminali sono
 \bar t_3=4.
 \]
 
-Il ricorso viene allora rappresentato mediante tre decisioni,
+La Figura~\ref{fig:cap15-albero-generico-v2}
+rappresenta questa successione informativa.
+La decisione iniziale $x$ viene assunta
+alla radice, prima della rivelazione
+dell'incertezza futura.
 
-\[
-y_1^s,
-\qquad
-y_2^s,
-\qquad
-y_3^s,
-\]
+Nel primo stadio di ricorso, dopo
+l'osservazione di $Z_1$, viene scelto
+il blocco decisionale $y_1^s$.
+Nell'esempio della figura, esso
+contiene la decisione operativa $u_1^s$.
 
-adattate rispettivamente a
+Il secondo stadio di ricorso comprende
+i tempi fisici $2$ e $3$.
+Dopo avere osservato $(Z_2,Z_3)$,
+il decisore sceglie il blocco $y_2^s$,
+che contiene le componenti operative
+$(u_2^s,u_3^s)$. La componente
+$u_2^s$ si riferisce al tempo fisico
+$2$, ma appartiene al piano
+determinato unitariamente al termine
+dello stadio, con l'informazione
+$\mathcal F_3$.
+
+Nel terzo stadio di ricorso,
+dopo l'osservazione di $Z_4$,
+viene scelto $y_3^s$, che
+nell'esempio contiene $u_4^s$.
+
+La successione delle informazioni
+disponibili per i tre blocchi di ricorso
+\`{e} pertanto
 
 \[
 \mathcal F_1,
@@ -1202,69 +1219,88 @@ adattate rispettivamente a
 \mathcal F_4.
 \]
 
-La condizione~\eqref{eq:cap15-non-anticipativita-multistadio-v2}
-si applica separatamente a ciascuno dei tre blocchi decisionali.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]
+{../graphics/Cap15_albero_multistadio.png}
+\caption{Esempio con quattro stadi decisionali:
+la decisione iniziale $x$ e tre successivi
+stadi di ricorso. Il primo blocco comprende
+$u_1$, il secondo comprende $(u_2,u_3)$
+e il terzo comprende $u_4$. I nodi
+rappresentano le storie informative
+disponibili nei momenti decisionali.
+Il percorso evidenziato mostra che
+il blocco $(u_2,u_3)$ viene scelto
+al termine dello stadio che comprende
+i tempi fisici $2$ e $3$.}
+\label{fig:cap15-albero-generico-v2}
+\end{figure}
 
-Se due scenari $s$ e $s'$ coincidono fino al tempo $1$, il primo
-blocco decisionale deve soddisfare
+La figura permette anche di leggere
+la condizione di non anticipativit\`{a}
+\eqref{eq:cap15-non-anticipativita-multistadio-v2}.
+Gli scenari $s_1,\ldots,s_4$ condividono
+la storia osservata al tempo $1$,
+identificata da $Z_1=A$. Pertanto
+la decisione del primo stadio
+di ricorso deve coincidere:
 
 \[
-y_1^s=y_1^{s'}.
+y_1^{s_1}=y_1^{s_2}=y_1^{s_3}=y_1^{s_4}.
 \]
 
-Se le due storie coincidono fino al tempo $3$, deve inoltre valere
+Gli scenari $s_3$ e $s_4$ condividono
+inoltre la storia osservata fino
+al tempo $3$, identificata nella
+figura dal nodo evidenziato.
+Ne segue che
 
 \[
-y_2^s=y_2^{s'}.
+y_2^{s_3}=y_2^{s_4}.
 \]
 
-La decisione del terzo stadio \`e invece assunta dopo
-l'osservazione dell'intero scenario. Di conseguenza, le decisioni
-$y_3^s$ e $y_3^{s'}$ possono differire quando gli scenari completi
-sono distinguibili.
+Dopo l'osservazione di $Z_4$,
+invece, i due scenari risultano
+distinguibili e le rispettive
+decisioni del terzo stadio
+di ricorso possono differire.
 
-L'esempio mostra che il passaggio al multistadio non richiede di modificare
-la logica economica del problema. Cambia la struttura informativa con cui le
-decisioni di ricorso vengono organizzate. Un unico vettore $y_s$, costruito
-conoscendo l'intero scenario, viene sostituito da una sequenza
+Il passaggio dal modello a due stadi
+al multistadio non richiede quindi
+di associare uno stadio decisionale
+a ogni tempo fisico. Richiede
+di suddividere il ricorso in blocchi
+scelti con informazioni progressivamente
+pi\`{u} complete. La struttura
+delle storie informative determina
+quali decisioni possono differenziarsi
+e quali devono rimanere comuni
+a pi\`{u} scenari.
 
-\[
-y_1^s,\ldots,y_K^s,
-\]
-
-nella quale ciascuna decisione utilizza soltanto l'informazione disponibile
-nel proprio stadio.
-
-Questo rende il modello pi\`u fedele ai problemi nei quali l'incertezza si
-rivela progressivamente, ma introduce anche una struttura pi\`u articolata:
-le decisioni devono essere associate alle diverse storie informative e
-vincolate dalla non anticipativit\`a. Le sezioni successive sviluppano le
-rappresentazioni che permettono di organizzare questa struttura.
-
-\section{Il programma stocastico multistadio: formulazione generale}
+\section{Il programma lineare stocastico multistadio}
 
 \label{sec:cap15-programma-multistadio-v2}
 
-La Sezione~\ref{sec:cap15-motivazione-multistadio-v2} ha introdotto
-la successione delle decisioni di ricorso $y_k^s$ e la condizione
-di non anticipativit\`a
+La Sezione~\ref{sec:cap15-motivazione-multistadio-v2}
+ha introdotto le decisioni di ricorso
+$y_2^s,\ldots,y_K^s$ e la condizione
+di non anticipativit\`{a}
 \eqref{eq:cap15-non-anticipativita-multistadio-v2}.
-Possiamo ora formulare il problema di ottimizzazione che comprende
-la decisione iniziale $x$ e le decisioni assunte nei diversi stadi.
-
-Il passaggio dal modello a due stadi al multistadio richiede di
-specificare quali evoluzioni future rimangano possibili dopo
-ciascuna storia osservata. Su questa struttura informativa
-vengono poi definiti la funzione obiettivo e i vincoli che
-collegano le decisioni successive.
+Formuliamo ora il problema di ottimizzazione
+che comprende la decisione iniziale e
+i successivi blocchi di ricorso.
 
 
-\subsection{La struttura degli scenari}
+\subsection{Dalle storie informative agli scenari completi}
 
-Consideriamo un insieme finito $\mathcal S$ di scenari completi.
-Lo scenario $s$ identifica una possibile traiettoria
-dell'incertezza sull'intero orizzonte ed \`e associato
-a una probabilit\`a $p_s$, con
+Consideriamo un insieme finito di scenari completi
+
+\[
+\mathcal S=\{1,\ldots,N\},
+\]
+
+con probabilit\`{a}
 
 \[
 p_s>0,
@@ -1272,217 +1308,122 @@ p_s>0,
 \sum_{s\in\mathcal S}p_s=1.
 \]
 
-Nel modello a due stadi del Capitolo~
-\ref{cap:programmazione-stocastica-due-stadi}, il ricorso
-viene scelto dopo l'osservazione dello scenario completo.
-Nel modello multistadio, invece, dopo uno stadio intermedio
-possono rimanere possibili pi\`u prosecuzioni della storia
-osservata.
+Ogni scenario $s$ identifica una traiettoria
+completa dell'incertezza. Nella rappresentazione
+ad albero, esso corrisponde a un percorso
+dalla radice a un nodo terminale.
 
-Per rappresentare questa struttura utilizziamo un
-\emph{albero degli scenari}. La radice corrisponde
-all'informazione disponibile al tempo $0$, prima
-della scelta di $x$. Ciascun nodo di uno stadio
-successivo identifica una storia osservata fino
-al termine di quello stadio.
+Un nodo dello stadio di ricorso $k$
+identifica la storia osservata fino
+al tempo $\bar t_k$. Gli scenari
+che attraversano quel nodo
+condividono la stessa informazione
+al momento della decisione.
 
-Un nodo $n$ pu\`o avere pi\`u figli, corrispondenti
-a differenti prosecuzioni della medesima storia.
-Ogni nodo diverso dalla radice ha un unico predecessore,
-indicato con $a(n)$. Un percorso dalla radice a un
-nodo terminale identifica uno scenario completo.
-
-La Figura~\ref{fig:cap15-albero-generico-v2}
-illustra questa costruzione.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.70\textwidth]
-{../graphics/Cap15_albero_multistadio_generico.png}
-\caption{Rappresentazione ad albero degli scenari.
-La radice corrisponde alla decisione iniziale;
-i nodi successivi identificano le storie informative
-osservate. Da un nodo possono svilupparsi differenti
-prosecuzioni della medesima storia. Un percorso dalla
-radice a un nodo terminale rappresenta uno scenario
-completo.}
-\label{fig:cap15-albero-generico-v2}
-\end{figure}
-
-A ciascun nodo $n$ dello stadio $k$ pu\`o essere
-associata una sola decisione di ricorso $y_n$.
-Nella rappresentazione per scenari completi,
-la stessa decisione viene invece indicata con
-$y_k^s$ per tutti gli scenari $s$ che attraversano
-quel nodo. Le due scritture corrispondono alla
-medesima struttura decisionale; nella seconda,
-la coincidenza delle decisioni \`e imposta dalla
+La Figura~\ref{fig:cap15-albero-generico-v2},
+introdotta nella sezione precedente,
+mostra questa struttura per un problema
+con tre stadi di ricorso. Nella formulazione
+per scenari completi, le decisioni
+$y_k^s$ relative alla medesima storia
+devono soddisfare la condizione
 \eqref{eq:cap15-non-anticipativita-multistadio-v2}.
 
-Nel seguito utilizziamo la rappresentazione
-per scenari completi, che permette di mantenere
-la continuit\`a con il Capitolo 14. La struttura
-ad albero rimane sottostante alla formulazione
-anche quando i nodi non compaiono esplicitamente
-fra gli indici delle variabili.
+Possiamo quindi mantenere l'indicizzazione
+per scenario, gi\`{a} utilizzata
+nel Capitolo~\ref{cap:programmazione-stocastica-due-stadi},
+senza perdere la struttura informativa
+del problema multistadio.
+
+
+\subsection{La formulazione lineare: variabili,
+funzione obiettivo e vincoli}
+
+La programmazione stocastica multistadio
+non richiede, in generale, che la funzione
+obiettivo e i vincoli siano lineari.
+Tuttavia, noi concentriamo l'analisi sul caso lineare
+per la sua rilevanza matematica e applicativa. In ambito finanziario, molte relazioni quali
+equilibri di bilancio, flussi di cassa,
+disponibilit\`{a} di risorse e limiti
+operativi possono spesso essere
+rappresentate mediante vincoli lineari.
+
+Con un numero finito di scenari,
+una funzione obiettivo lineare e
+vincoli lineari consentono di formulare
+un unico programma lineare deterministico.
+
 
 \medskip
 
 \noindent
-\textbf{Scenari simulati e struttura informativa.}
+\textbf{Variabili e funzione obiettivo}
 
-Le traiettorie di un processo stocastico possono
-essere generate mediante simulazione Monte Carlo.
-Tuttavia, un campione di traiettorie complete
-generate indipendentemente non costituisce,
-di per s\'e, una rappresentazione adeguata
-del ricorso multistadio.
+La decisione iniziale $x$ viene assunta
+al tempo $0$, prima della rivelazione
+dell'incertezza futura, ed \`{e}
+comune a tutti gli scenari.
 
-Consideriamo, ad esempio, un campione di traiettorie
-di un processo a valori continui. Se le storie
-osservate al termine del primo stadio sono tutte
-differenti, nel campione finito ciascuna di esse
-identifica gi\`a uno scenario completo. A quella
-storia corrisponde quindi una sola prosecuzione
-futura nel modello campionario.
-
-Il problema risultante conserva pi\`u blocchi
-decisionali e pi\`u vincoli temporali, ma non
-rappresenta un'effettiva incertezza sulle
-prosecuzioni successive alla prima osservazione.
-Sotto il profilo informativo, il ricorso pu\`o
-essere determinato conoscendo l'intera traiettoria,
-come in un problema a due stadi.
-
-Per costruire un'approssimazione finita
-multistadio mediante scenari \`e pertanto
-necessario conservare le alternative future
-dopo le storie intermedie. La simulazione
-pu\`o essere utilizzata a questo scopo
-generando, a partire da una storia comune,
-differenti prosecuzioni nei successivi
-stadi decisionali.
-
-L'albero non richiede che ogni nodo abbia
-lo stesso numero di figli, n\'e che tutti
-gli scenari completi abbiano la stessa
-probabilit\`a. Nella formulazione che segue
-i pesi $p_s$ sono le probabilit\`a degli
-scenari completi, indipendentemente dalla
-particolare procedura utilizzata per
-costruire l'albero.
-
-
-\subsection{Il programma lineare multistadio}
-
-La struttura degli scenari definisce quali informazioni sono
-disponibili quando vengono assunte le decisioni. Occorre ora
-specificare il problema di ottimizzazione: il criterio economico
-da massimizzare e i vincoli che collegano la decisione iniziale
-alle decisioni dei diversi stadi.
-
-Concentriamo l'analisi sui programmi stocastici lineari.
-La linearit\`a non \`e una propriet\`a necessaria della
-programmazione stocastica, ma individua una classe di modelli
-particolarmente rilevante per il corso, sia sul piano
-matematico sia su quello applicativo.
-
-Dal punto di vista matematico, quando la funzione obiettivo
-e i vincoli sono lineari, un modello multistadio con un
-numero finito di scenari pu\`o essere ricondotto a un
-programma lineare deterministico. Le decisioni dei diversi
-stadi e scenari diventano variabili di un unico problema;
-anche i vincoli di non anticipativit\`a sono uguaglianze
-lineari. Possiamo quindi utilizzare i metodi risolutivi
-della programmazione lineare gi\`a studiati nel corso,
-senza introdurre una nuova classe di algoritmi di
-ottimizzazione.
-
-La formulazione lineare rende inoltre esplicita la
-struttura dei collegamenti tra stadi. Questa struttura
-pu\`o essere sfruttata dai metodi di decomposizione
-quando il numero degli scenari rende onerosa la
-soluzione diretta del problema complessivo.
-
-Dal punto di vista applicativo, numerosi problemi
-finanziari comprendono relazioni naturalmente lineari:
-i vincoli di bilancio, la somma dei flussi di cassa,
-la ripartizione di risorse disponibili, i limiti
-di investimento e le condizioni di equilibrio
-tra fonti e impieghi. I coefficienti di tali
-relazioni possono cambiare con lo scenario senza
-che venga meno la linearit\`a rispetto alle
-variabili decisionali.
-
-Il caso lineare permette pertanto di studiare
-congiuntamente tre aspetti essenziali:
-la scelta iniziale sotto incertezza, l'adattamento
-progressivo delle decisioni e il rispetto dei
-vincoli finanziari lungo l'orizzonte. Eventuali
-relazioni economiche non lineari richiedono
-invece modelli o approssimazioni ulteriori,
-che non sono necessari per sviluppare
-i principi del programma multistadio qui considerato.
-
-\medskip
-
-\noindent
-\textbf{Funzione obiettivo.}
-
-Manteniamo la convenzione di massimizzazione adottata
-nel Capitolo~\ref{cap:programmazione-stocastica-due-stadi}.
-Indichiamo con $c$ il vettore dei coefficienti economici
-della decisione iniziale $x$ e con $q_k^s$ il vettore
-dei coefficienti economici del blocco decisionale
-$y_k^s$ nello scenario $s$.
-
-In una formulazione lineare, il contributo economico
-delle decisioni nello scenario $s$ \`e rappresentato da
+L'insieme delle decisioni iniziali
+ammissibili \`{e} indicato con
+$\mathcal X$, per cui
 
 \[
-c'x+\sum_{k=1}^{K}(q_k^s)'y_k^s.
+x\in\mathcal X.
 \]
 
-La decisione iniziale contribuisce una sola volta
-al risultato economico. Le decisioni successive
-contribuiscono attraverso i rispettivi blocchi,
-con coefficienti che possono essere differenti
-nei diversi stadi e scenari.
+In un problema a $K$ stadi decisionali, la decisione iniziale
+$x$ viene assunta nello stadio $1$. Seguono $K-1$ stadi
+di ricorso, con decisioni
 
-Ponderando il risultato di ciascuno scenario
-con la probabilit\`a $p_s$, otteniamo la
-funzione obiettivo
+\[
+y_k^s,
+\qquad k=2,\ldots,K,
+\quad s\in\mathcal S.
+\]
 
-\begin{equation}
-\max_{x,\{y_k^s\}}
-\left\{
+Indichiamo con $c$ il vettore
+dei coefficienti economici di $x$
+e con $q_k^s$ il vettore dei
+coefficienti economici di $y_k^s$
+nello scenario $s$.
+
+Assumiamo che il risultato economico
+dello scenario sia espresso mediante
+contributi lineari delle decisioni.
+Il valore atteso da massimizzare \`{e}
+
+\[
 c'x+
 \sum_{s\in\mathcal S}p_s
-\sum_{k=1}^{K}(q_k^s)'y_k^s
-\right\}.
-\label{eq:cap15-obiettivo-lineare-multistadio-v2}
-\end{equation}
+\sum_{k=2}^{K}(q_k^s)'y_k^s.
+\]
 
-L'espressione
-\eqref{eq:cap15-obiettivo-lineare-multistadio-v2}
-specifica il criterio economico, ma non costituisce
-ancora il programma multistadio completo. Le decisioni
-devono soddisfare i vincoli iniziali, i vincoli di
-collegamento tra stadi e la condizione informativa
-\eqref{eq:cap15-non-anticipativita-multistadio-v2}.
+Il contributo $c'x$ compare una sola
+volta, poich\`{e} la decisione iniziale
+non dipende dallo scenario. I coefficienti
+$q_k^s$ possono invece variare
+fra stadi e scenari.
 
 \medskip
 
 \noindent
-\textbf{Vincoli iniziali e vincoli di collegamento.}
+\textbf{Vincoli degli stadi e significato delle matrici.}
 
-L'insieme $\mathcal X$ contiene i vincoli
-iniziali, formulati con dati noti al tempo
-$0$. Tali vincoli restano distinti dai
-vincoli relativi agli stadi successivi.
+L'insieme $\mathcal X$ contiene
+i vincoli imposti alla decisione
+iniziale con i dati disponibili
+al tempo $0$. Distintamente,
+i vincoli degli stadi successivi
+includono gli effetti di $x$
+e delle decisioni di ricorso
+lungo le diverse evoluzioni
+dell'incertezza.
 
-Per questi ultimi adottiamo la forma
-matriciale di uguaglianza
+Per i vincoli lineari attribuiti
+allo stadio $k$ nello scenario
+$s$ adottiamo la scrittura
 
 \begin{equation}
 T_{s,k}x+
@@ -1490,102 +1431,158 @@ T_{s,k}x+
 =
 h_{s,k},
 \qquad
-k=1,\ldots,K,\quad s\in\mathcal S.
+k=2,\ldots,K,\quad s\in\mathcal S.
 \label{eq:cap15-vincoli-stadio-v2}
 \end{equation}
 
-La matrice $T_{s,k}$ descrive il contributo
-della decisione iniziale $x$ ai vincoli
+Gli oggetti che compaiono nella
+\eqref{eq:cap15-vincoli-stadio-v2}
+hanno il seguente significato:
+
+\begin{itemize}
+
+\item $T_{s,k}$ \`{e} la matrice
+dei coefficienti della decisione
+iniziale $x$ nei vincoli dello
+stadio $k$ dello scenario $s$.
+Non rappresenta i vincoli iniziali
+gi\`{a} contenuti in $\mathcal X$.
+
+\item $W_{s,k,j}$ \`{e} la matrice
+dei coefficienti della decisione
+$y_j^s$ nei vincoli dello stadio
+$k$ dello scenario $s$.
+L'indice $j=2,...,k$ identifica lo stadio
+della decisione; l'indice $k$
+identifica lo stadio cui
+appartengono i vincoli.
+
+\item $h_{s,k}$ \`{e} il vettore
+dei termini noti dei vincoli
 dello stadio $k$ nello scenario $s$.
-Non \`e la matrice dei vincoli imposti
-alla decisione iniziale al tempo $0$.
 
-La matrice $W_{s,k,j}$ descrive il
-contributo della decisione assunta
-nello stadio $j$ ai vincoli dello
-stadio $k$. Il vettore $h_{s,k}$
-raccoglie i termini noti di tali vincoli.
+\end{itemize}
 
-Il pedice $s$ identifica lo scenario;
-$k$ identifica lo stadio al quale
-appartengono le equazioni e $j$
-identifica lo stadio della decisione
-che compare nelle equazioni.
+Per i primi due stadi di ricorso,
+la \eqref{eq:cap15-vincoli-stadio-v2}
+si esplicita in
+
+\[
+\begin{aligned}
+T_{s,2}x+
+W_{s,2,2}y_2^s
+&=h_{s,2},
+\\[4pt]
+T_{s,3}x+
+W_{s,3,2}y_2^s+
+W_{s,3,3}y_3^s
+&=h_{s,3}.
+\end{aligned}
+\]
+
+La seconda equazione mostra che
+i vincoli dello stadio $3$
+dipendono direttamente
+dalla decisione iniziale $x$,
+dalla decisione precedente
+$y_2^s$ e dalla decisione
+corrente $y_3^s$.
+
+In generale,
+un vincolo dello stadio $k$
+pu\`{o} coinvolgere tutte
+le decisioni antecedenti
+rilevanti. Se una decisione di ricorso $y_k^s$
+non interviene nel vincolo,
+il relativo blocco di
+coefficienti \`{e} nullo.
 
 La somma nella
 \eqref{eq:cap15-vincoli-stadio-v2}
-comprende soltanto le decisioni
-assunte fino allo stadio corrente.
-I vincoli dello stadio $k$ non
-dipendono dalle decisioni degli
-stadi successivi.
+si arresta a $j=k$:
+un vincolo attribuito allo
+stadio corrente non coinvolge
+decisioni che saranno assunte
+negli stadi successivi.
+I dati dei vincoli attribuiti
+allo stadio $k$ sono determinati
+dall'informazione disponibile
+entro $\bar t_k$.
 
 \medskip
 
 \noindent
 \textbf{Dimensioni delle matrici.}
 
-Indichiamo con $n_x$ il numero delle
-componenti della decisione iniziale,
-con $d_j$ il numero delle componenti
-del blocco decisionale $y_j^s$
-e con $m_k$ il numero delle equazioni
-di collegamento dello stadio $k$.
+Indichiamo con $n_x$ il numero
+delle componenti di $x$,
+con $d_j$ il numero delle
+componenti di $y_j^s$ e
+con $m_k$ il numero delle
+equazioni dello stadio $k$.
+Per semplicit\`{a}, assumiamo
+che queste dimensioni non
+dipendano dallo scenario.
 
-Assumendo che queste dimensioni
-non dipendano dallo scenario, abbiamo
+Le dimensioni degli oggetti
+della \eqref{eq:cap15-vincoli-stadio-v2}
+sono pertanto
 
 \[
 \begin{aligned}
 x&\in\R^{n_x},
 &
 y_j^s&\in\R^{d_j},
-\\[3pt]
+\\[4pt]
 T_{s,k}&\in\R^{m_k\times n_x},
 &
 W_{s,k,j}&\in\R^{m_k\times d_j},
-\\[3pt]
+\\[4pt]
 h_{s,k}&\in\R^{m_k}.
 \end{aligned}
 \]
 
-Il numero $m_k$ conta le equazioni
-di collegamento dello stadio $k$,
-mentre $d_j$ conta le variabili
-decisionali del blocco $j$.
-Stadi differenti possono avere
-numeri diversi di variabili e
-di equazioni.
+Ogni termine del membro sinistro
+della \eqref{eq:cap15-vincoli-stadio-v2}
+appartiene quindi a $\R^{m_k}$,
+come il membro destro.
 
-Il simbolo $d_j$ \`e distinto
-da $n_j$, gi\`a utilizzato
-per indicare il numero di tempi
-fisici appartenenti allo stadio $j$.
+Il simbolo $d_j$ conta le
+componenti del blocco decisionale
+ed \`{e} distinto da $n_j$,
+che conta i tempi fisici
+appartenenti allo stadio $j$.
 
-Le matrici $T_{s,k}$ e
-$W_{s,k,j}$ e il vettore
-$h_{s,k}$ possono variare
-per scenario e per stadio.
-I loro valori, quando compaiono
-nei vincoli attribuiti allo
-stadio $k$, sono determinati
-dalla storia informativa
-disponibile entro $\bar t_k$.
 
-\medskip
-
-\noindent
-\textbf{Forma estesa.}
+\subsection{Forma estesa e raccordo
+con il modello a due stadi}
 
 Indichiamo con $\mathcal X_{s,k}$
-l'insieme degli eventuali vincoli
+l'insieme degli ulteriori vincoli
 operativi propri del blocco
-$y_k^s$, quali limiti inferiori
-e superiori sulle sue componenti.
+decisionale $y_k^s$, ad esempio
+limiti inferiori e superiori
+sulle sue componenti.
 
-Il programma lineare multistadio
-pu\`o essere scritto nella
-seguente forma estesa:
+Assumiamo che $\mathcal X$
+e gli insiemi $\mathcal X_{s,k}$
+siano poliedrici, ossia descritti
+mediante un numero finito di
+uguaglianze e disuguaglianze
+lineari. Assumiamo inoltre
+che i dati dei vincoli operativi
+dello stadio $k$ siano disponibili
+entro $\bar t_k$.
+
+La decisione iniziale,
+tutti i blocchi di ricorso
+e i relativi vincoli possono
+allora essere riuniti
+nel seguente programma
+lineare deterministico,
+denominato \emph{forma estesa}
+del programma lineare
+stocastico multistadio:
 
 \begin{equation}
 \begin{aligned}
@@ -1593,113 +1590,1985 @@ seguente forma estesa:
 \quad&
 c'x+
 \sum_{s\in\mathcal S}p_s
-\sum_{k=1}^{K}(q_k^s)'y_k^s
+\sum_{k=2}^{K}(q_k^s)'y_k^s
 \\[4pt]
 \text{soggetto a}\quad&
 x\in\mathcal X,
 \\[4pt]
 &
 T_{s,k}x+
-\sum_{j=1}^{k}W_{s,k,j}y_j^s
-=
-h_{s,k},
+\sum_{j=2}^{k}W_{s,k,j}y_j^s
+=h_{s,k},
 \\
 &
-\hspace{1.0cm}
-k=1,\ldots,K,\quad s\in\mathcal S,
+\hspace{1cm}
+k=2,\ldots,K,\quad s\in\mathcal S,
 \\[4pt]
 &
 y_k^s\in\mathcal X_{s,k},
 \\
 &
-\hspace{1.0cm}
-k=1,\ldots,K,\quad s\in\mathcal S.
+\hspace{1cm}
+k=2,\ldots,K,\quad s\in\mathcal S,
+\\[4pt]
+&
+\text{vincoli di non anticipativit\`a
+\eqref{eq:cap15-non-anticipativita-multistadio-v2}.}
 \end{aligned}
 \label{eq:cap15-forma-estesa-multistadio-v2}
 \end{equation}
 
-Alla
-\eqref{eq:cap15-forma-estesa-multistadio-v2}
-si aggiungono i vincoli di non
-anticipativit\`a
-\eqref{eq:cap15-non-anticipativita-multistadio-v2}.
+La forma estesa contiene
+una sola decisione iniziale $x$,
+mentre le decisioni di ricorso
+sono rappresentate separatamente
+per stadio e scenario.
+Questa replicazione consente
+l'adattamento alle differenti
+evoluzioni dell'incertezza.
 
-La forma estesa riunisce tutte
-le decisioni e tutti gli scenari
-in un unico programma lineare
-deterministico. I pesi $p_s$
-compaiono nella funzione obiettivo,
-mentre la struttura ad albero
-determina quali decisioni
-scenario-specifiche devono
-coincidere.
-
-La rappresentazione mediante
-uguaglianze non esclude altri
-vincoli lineari: disuguaglianze
-e limiti di capacit\`a possono
-essere aggiunti esplicitamente
-oppure ricondotti, quando
-opportuno, alla forma di
-uguaglianza mediante variabili
-ausiliarie.
+I vincoli di non anticipativit\`{a},
+parte integrante del programma,
+impongono invece che le decisioni
+relative alla medesima storia
+informativa coincidano.
+La forma estesa rappresenta
+cos\`{i} tutte le alternative
+future senza attribuire
+al decisore informazioni
+non ancora disponibili
+nel momento della scelta.
 
 \medskip
 
 \noindent
-\textbf{Raccordo con la notazione a due stadi.}
+\textbf{Raccordo con il modello a due stadi.}
 
-Le matrici e i vettori dello
-stadio $k$ possono essere letti
-come blocchi degli oggetti
-matriciali complessivi dello
-scenario $s$.
-
-Raccogliendo per righe i blocchi
-$T_{s,k}$ e i vettori $h_{s,k}$
-si ottengono rispettivamente
-$T_s$ e $h_s$. Ordinando i
-blocchi decisionali per stadio,
-si ottiene una matrice complessiva
-$W_s$ con struttura triangolare
-inferiore a blocchi: i blocchi
-sopra la diagonale sono nulli,
-poich\`e i vincoli correnti
-non coinvolgono decisioni future.
-
-Questa lettura conserva la
-convenzione $T_s$, $W_s$ e
-$h_s$ introdotta nel
-Capitolo~\ref{cap:programmazione-stocastica-due-stadi},
-senza imporre che i coefficienti
-dei diversi blocchi siano uguali.
-
-Se l'intero orizzonte successivo
-al tempo iniziale costituisce
-un unico stadio di ricorso,
-si pone $K=1$. Identificando
+Se tutto l'orizzonte successivo
+alla decisione iniziale viene
+rappresentato mediante un unico
+stadio di ricorso, si ha $K=2$.
+Identificando
 
 \[
 \begin{aligned}
 y_1^s&=y_s,
 &
 q_1^s&=q_s,
-\\
-T_{s,1}&=T_s,
+\\[4pt]
+T_{s,2}&=T_s,
 &
-W_{s,1,1}&=W_s,
+W_{s,2,2}&=W_s,
 &
-h_{s,1}&=h_s,
+h_{s,2}&=h_s,
 \end{aligned}
 \]
 
-la formulazione multistadio
+e ponendo
+$\mathcal X_{s,1}=\mathcal X_s$,
+la formulazione
+\eqref{eq:cap15-forma-estesa-multistadio-v2}
 si riconduce alla forma estesa
 a due stadi
 \eqref{eq:cap14-forma-estesa}.
 
-La sezione successiva specializza
-la formulazione generale al caso
-SVB--ALM, identificando le
-decisioni, i coefficienti e
-i vincoli finanziari del modello.
+Il programma lineare multistadio
+estende pertanto quello a due stadi
+senza modificare la natura lineare
+della funzione obiettivo e dei vincoli.
+Cambia la struttura informativa:
+il ricorso viene suddiviso in
+blocchi che possono essere scelti
+in momenti successivi, ciascuno
+nel rispetto dell'informazione
+allora disponibile.
+
+Nella sezione successiva
+specializzeremo questa
+formulazione al caso SVB--ALM.
+
+\section{Il caso SVB--ALM: dal modello a due stadi al multistadio}
+
+\label{sec:cap15-svb-alm-multistadio-v2}
+
+Nel Capitolo~\ref{cap:programmazione-stocastica-due-stadi}
+il caso SVB--ALM \`{e} stato formulato come un problema
+stocastico lineare a due stadi. La banca sceglie
+inizialmente la composizione dell'attivo $x$; dopo
+l'osservazione dello scenario completo determina
+un unico piano di ricorso $y_s$, comprendente
+le giacenze di liquidit\`{a} e il funding
+alle diverse date.
+
+Consideriamo ora lo stesso problema in una
+formulazione multistadio. Manteniamo la legge
+probabilistica dell'incertezza, le variabili
+finanziarie, i bilanci di liquidit\`{a} e il
+criterio economico gi\`{a} introdotti.
+Modifichiamo soltanto la struttura informativa:
+il piano di ricorso viene suddiviso in blocchi
+scelti in stadi successivi.
+
+\subsection{Gli scenari del caso finanziario}
+
+Nel caso SVB--ALM l'incertezza \`{e} descritta
+dalla catena di Markov introdotta nella
+Sezione~\ref{sec:cap14-scenari-markov}.
+Lo stato esogeno
+
+\[
+Z_t=(Z_t^R,Z_t^C,Z_t^F)\in\{0,1\}^3
+\]
+
+combina tre condizioni economico-finanziarie:
+il livello dei tassi risk-free, dei credit spread
+e dei funding spread. Le combinazioni possibili
+individuano otto stati, raccolti nell'insieme
+
+\[
+\mathcal I=\{z_1,\ldots,z_8\}.
+\]
+
+Lo stato iniziale $Z_0$ \`{e} noto.
+L'evoluzione successiva \`{e} governata
+dalla matrice di transizione $P=(p_{ij})$,
+che determina le probabilit\`{a} di passaggio
+fra gli otto stati.
+
+Uno scenario completo coincide con una traiettoria
+di stati futuri, cioè con i valori del vettore $Z_t$, con $t=1,2,3,4$:
+
+\[
+\xi_s=(Z_1^s,Z_2^s,Z_3^s,Z_4^s).
+\]
+
+Se tutte le transizioni hanno probabilit\`{a}
+positiva, ciascuno degli 8 stati è possibile per ogni $t$. Il numero
+di scenari completi \`{e} pertanto
+
+\[
+|\mathcal S|=8^4=4096.
+\]
+
+Se alcune transizioni hanno probabilit\`{a}
+nulla, si considerano soltanto le traiettorie
+ammissibili e il loro numero si riduce.
+
+La probabilit\`{a} $p_s$ di ciascuna traiettoria
+si calcola mediante il prodotto delle
+probabilit\`{a} di transizione, secondo
+la \eqref{eq:cap14-probabilita-traiettoria}.
+
+Nel passaggio dal modello a due stadi
+al multistadio manteniamo la stessa
+catena di Markov, gli stessi scenari
+e le rispettive probabilit\`{a}.
+Cambia soltanto la struttura decisionale:
+anzich\`{e} determinare l'intero ricorso
+dopo avere osservato la traiettoria completa,
+la banca assume decisioni successive
+utilizzando l'informazione progressivamente
+disponibile.
+
+\subsection{Stadi decisionali e variabili di ricorso}
+
+Consideriamo quattro stadi decisionali
+complessivi. Nello stadio $1$, al tempo $0$, la banca dispone di risorse
+iniziali pari a $A_0=100$ e sceglie la composizione dell'attivo
+
+\[
+x=(x_1,x_2,x_3,x_4)'.
+\]
+
+Richiamiamo le quattro classi di attivo e i relativi
+coefficienti economici e di perdita sotto stress:
+
+\[
+\begin{array}{c|l|c|c}
+\hline
+\text{Variabile} & \text{Classe di attivo}
+& c_j & \ell_j\\
+\hline
+x_1 & \text{Cassa e riserve}                  & 0.010 & 0\\
+x_2 & \text{Titoli a breve scadenza}          & 0.025 & 0.02\\
+x_3 & \text{Titoli a lunga scadenza}          & 0.040 & 0.15\\
+x_4 & \text{Prestiti e impieghi meno liquidi} & 0.050 & 0.08\\
+\hline
+\end{array}
+\]
+
+Il coefficiente $c_j$ rappresenta la redditivit\`{a}
+unitaria dell'investimento nella classe di attivo $j$,
+mentre $\ell_j$ rappresenta la corrispondente perdita
+unitaria nello scenario di stress. La decisione iniziale \`{e} soggetta
+ai vincoli gi\`{a} definiti per il caso SVB--ALM:
+
+\[
+\begin{aligned}
+x_1+x_2+x_3+x_4&=100,\\
+0.02x_2+0.15x_3+0.08x_4&\leq7,\\
+x_3&\leq30,\\
+x_j&\geq0,\qquad j=1,\ldots,4.
+\end{aligned}
+\]
+
+I successivi tre stadi di ricorso
+comprendono i tempi fisici
+
+\[
+\mathcal T_2=\{1\},
+\qquad
+\mathcal T_3=\{2,3\},
+\qquad
+\mathcal T_4=\{4\},
+\]
+
+con tempi terminali
+
+\[
+\bar t_2=1,
+\qquad
+\bar t_3=3,
+\qquad
+\bar t_4=4.
+\]
+
+Nel modello a due stadi il vettore
+di ricorso dello scenario $s$ era
+
+\[
+y_s=
+(g_1^s,g_2^s,g_3^s,g_4^s,
+u_1^s,u_2^s,u_3^s)'.
+\]
+
+Nel modello a quattro stadi
+le medesime variabili operative
+vengono ripartite nei blocchi
+
+\[
+\begin{aligned}
+y_2^s
+&=
+(g_1^s,u_1^s)',
+\\[4pt]
+y_3^s
+&=
+(g_2^s,g_3^s,u_2^s,u_3^s)',
+\\[4pt]
+y_4^s
+&=
+(g_4^s).
+\end{aligned}
+\]
+
+Il primo blocco viene scelto
+con l'informazione disponibile
+al tempo $1$.
+
+Il secondo comprende le variabili
+operative riferite ai tempi $2$ e $3$.
+Come previsto dalla definizione
+degli stadi decisionali,
+il blocco $y_3^s$ viene determinato
+unitariamente dopo l'osservazione
+dell'incertezza dello stadio,
+con l'informazione $\mathcal F_3$.
+
+Il terzo blocco viene determinato
+al tempo $4$, quando \`{e} nota
+l'intera traiettoria dell'incertezza.
+
+La specificazione del Capitolo 14
+prevede funding ai tempi $1$, $2$ e $3$,
+ma non al tempo $4$. L'ultima
+componente del ricorso \`{e} quindi
+la giacenza terminale $g_4^s$.
+La ripartizione in blocchi
+non introduce nuove variabili
+operative nel problema finanziario.
+
+
+\subsection{Dalla catena di Markov alle storie informative}
+
+La catena di Markov descrive l'evoluzione
+probabilistica dello stato esogeno.
+La struttura multistadio richiede,
+inoltre, di identificare le informazioni
+disponibili quando viene scelto
+ciascun blocco di ricorso.
+
+Nello stadio $2$, due scenari
+appartengono alla medesima storia
+informativa se condividono
+lo stato osservato al tempo $1$:
+
+\[
+Z_1^s=Z_1^{s'}.
+\]
+
+Nello stadio $3$, la storia osservata
+comprende invece gli stati raggiunti
+ai tempi $1$, $2$ e $3$:
+
+\[
+(Z_1^s,Z_2^s,Z_3^s)
+=
+(Z_1^{s'},Z_2^{s'},Z_3^{s'}).
+\]
+
+Nello stadio $4$ \`{e} nota
+la traiettoria completa.
+
+Queste condizioni individuano
+i gruppi di scenari che devono
+condividere le decisioni nei
+rispettivi stadi. Esse non
+dipendono dal numero di stati
+della catena, ma dalle storie
+effettivamente osservate.
+
+La propriet\`{a} di Markov
+stabilisce che, dato lo stato
+esogeno corrente, la distribuzione
+dello stato esogeno successivo
+non dipende dagli stati precedenti.
+Non implica, tuttavia, che
+due scenari giunti allo stesso
+stato attraverso storie differenti
+debbano condividere la medesima
+decisione di ricorso.
+
+Nel problema ALM, infatti,
+le decisioni precedenti possono
+avere determinato giacenze
+e posizioni di funding differenti.
+Per applicare la condizione
+di non anticipativit\`{a}
+continuiamo quindi a confrontare
+le storie informative, come
+stabilito nella
+\eqref{eq:cap15-non-anticipativita-multistadio-v2}.
+
+\subsection{I bilanci di liquidit\`{a} nei diversi stadi}
+
+\medskip
+
+\noindent
+\textbf{Richiamo al modello a due stadi.}
+
+Nel Capitolo 14 i quattro bilanci di liquidit\`{a}
+del caso SVB--ALM sono stati rappresentati,
+per ogni scenario $s$, mediante il sistema
+
+\[
+T_sx+W_sy_s=h_s.
+\]
+
+La matrice $T_s$ contiene i coefficienti
+dei cash flow prodotti dal portafoglio iniziale:
+
+\[
+T_s=A^{CF,s}
+=
+\begin{pmatrix}
+a_{11}^s&a_{12}^s&a_{13}^s&a_{14}^s\\
+a_{21}^s&a_{22}^s&a_{23}^s&a_{24}^s\\
+a_{31}^s&a_{32}^s&a_{33}^s&a_{34}^s\\
+a_{41}^s&a_{42}^s&a_{43}^s&a_{44}^s
+\end{pmatrix}.
+\]
+
+Il coefficiente $a_{tj}^s$ rappresenta la liquidit\`{a}
+disponibile al tempo $t$ per unit\`{a} investita
+inizialmente nella classe di attivo $j$.
+
+Nel caso stocastico, tale coefficiente dipende
+dallo stato economico-finanziario raggiunto
+alla data corrispondente:
+
+\[
+a_{tj}^s=a_{tj}(Z_t^s).
+\]
+
+Questa relazione identifica la dipendenza
+dallo stato markoviano. Le funzioni
+$a_{tj}(\cdot)$, tuttavia, non sono
+ancora state parametrizzate numericamente.
+
+La matrice $W_s$ raccoglie i coefficienti
+delle variabili di giacenza e funding,
+compresi i rispettivi rendimenti e costi.
+Il vettore
+
+\[
+h_s=(d_1^s,d_2^s,d_3^s,d_4^s)'
+\]
+
+raccoglie invece i fabbisogni di liquidit\`{a}.
+
+Nel modello a due stadi, tutte le variabili
+operative appartengono a un unico vettore
+di ricorso $y_s$.
+
+\medskip
+
+\noindent
+\medskip
+
+\noindent
+\textbf{La formulazione multistadio}
+
+La decisione iniziale, assunta al tempo $0$ prima
+della rivelazione dell'incertezza futura, \`{e}
+
+\[
+x=
+\begin{pmatrix}
+x_1\\
+x_2\\
+x_3\\
+x_4
+\end{pmatrix},
+\]
+
+dove le quattro componenti rappresentano
+gli importi inizialmente destinati, rispettivamente,
+a cassa e riserve, titoli a breve scadenza,
+titoli a lunga scadenza e prestiti meno liquidi.
+
+Il vettore $x$ \`{e} comune a tutti gli scenari
+e soddisfa i vincoli iniziali del problema ALM.
+
+Le decisioni successive riguardano invece
+la gestione della liquidit\`{a}. Per ogni
+scenario $s$, indichiamo con $g_t^s$
+la giacenza residua alla data $t$
+e con $u_t^s$ il funding raccolto
+alla medesima data.
+
+Manteniamo i quattro bilanci finanziari
+del Capitolo 14, ma organizziamo
+le decisioni di ricorso in tre stadi:
+
+\[
+\mathcal T_2=\{1\},
+\qquad
+\mathcal T_3=\{2,3\},
+\qquad
+\mathcal T_4=\{4\}.
+\]
+
+I corrispondenti vettori decisionali sono
+
+\[
+y_2^s=
+\begin{pmatrix}
+g_1^s\\
+u_1^s
+\end{pmatrix},
+\qquad
+y_3^s=
+\begin{pmatrix}
+g_2^s\\
+g_3^s\\
+u_2^s\\
+u_3^s
+\end{pmatrix},
+\qquad
+y_4^s=
+\begin{pmatrix}
+g_4^s
+\end{pmatrix}.
+\]
+
+Il blocco $y_2^s$ viene scelto con
+l'informazione $\mathcal F_1$.
+Il blocco $y_3^s$, che comprende
+le variabili operative dei tempi $2$ e $3$,
+viene scelto, secondo la convenzione
+di aggregazione adottata, con
+l'informazione $\mathcal F_3$.
+Infine, $y_4^s$ viene scelto
+con l'informazione $\mathcal F_4$.
+
+Non \`{e} previsto nuovo funding al tempo
+terminale $4$: l'ultimo blocco contiene
+soltanto la giacenza finale $g_4^s$.
+
+Precisate le variabili decisionali,
+possiamo specificare per ciascuno stadio
+le matrici della formulazione generale
+
+\[
+T_{s,k}x+
+\sum_{j=2}^{k}W_{s,k,j}y_j^s
+=
+h_{s,k},
+\qquad k=2,3,4.
+\]
+
+\medskip
+
+\noindent
+\textbf{Stadio 2: tempo fisico 1.}
+
+Il primo blocco di ricorso \`{e} il vettore
+$y_2^s$, che nel caso SVB--ALM ha due componenti:
+
+\[
+y_2^s
+=
+\begin{pmatrix}
+y_{2,1}^s\\
+y_{2,2}^s
+\end{pmatrix}
+=
+\begin{pmatrix}
+g_1^s\\
+u_1^s
+\end{pmatrix}.
+\]
+
+La prima componente rappresenta la giacenza
+di liquidit\`{a} al tempo $1$; la seconda
+rappresenta il funding raccolto alla medesima
+data. Entrambe le decisioni sono assunte
+con l'informazione $\mathcal F_1$.
+
+Il bilancio dello stadio assume la forma
+
+\[
+T_{s,2}x+W_{s,2,2}y_2^s=h_{s,2}.
+\]
+
+con
+
+\[
+T_{s,2}
+=
+\begin{pmatrix}
+a_{11}^s&a_{12}^s&a_{13}^s&a_{14}^s
+\end{pmatrix},
+\]
+
+\[
+W_{s,2,2}
+=
+\begin{pmatrix}
+-1&1
+\end{pmatrix},
+\qquad
+h_{s,2}=
+\begin{pmatrix}
+d_1^s
+\end{pmatrix}.
+\]
+
+La matrice $T_{s,2}$ contiene
+i coefficienti dei cash flow disponibili
+al tempo $1$.
+
+Nella matrice $W_{s,2,2}$,
+il coefficiente $-1$ indica
+la liquidit\`{a} trattenuta come giacenza
+$g_1^s$, mentre il coefficiente $1$
+indica le risorse acquisite mediante
+il funding $u_1^s$.
+
+\medskip
+
+\noindent
+\textbf{Stadio 3: tempi fisici 2 e 3.}
+
+Il secondo blocco di ricorso \`{e} il vettore
+$y_3^s$, che nel caso SVB--ALM ha quattro componenti:
+
+\[
+y_3^s
+=
+\begin{pmatrix}
+y_{3,1}^s\\
+y_{3,2}^s\\
+y_{3,3}^s\\
+y_{3,4}^s
+\end{pmatrix}
+=
+\begin{pmatrix}
+g_2^s\\
+g_3^s\\
+u_2^s\\
+u_3^s
+\end{pmatrix}.
+\]
+
+Le prime due componenti rappresentano
+le giacenze di liquidit\`{a} ai tempi $2$ e $3$;
+le ultime due rappresentano il funding
+raccolto alle medesime date.
+
+Le quattro decisioni appartengono a un unico
+blocco di ricorso, assunto con l'informazione
+$\mathcal F_3$, secondo la convenzione
+di aggregazione adottata.
+
+Lo stadio comprende due equazioni di bilancio,
+che coinvolgono il portafoglio iniziale $x$,
+il ricorso precedente $y_2^s$
+e il ricorso corrente $y_3^s$:
+
+\[
+T_{s,3}x+
+W_{s,3,2}y_2^s+
+W_{s,3,3}y_3^s
+=
+h_{s,3}.
+\]
+
+****
+
+
+I coefficienti del portafoglio iniziale
+e i fabbisogni sono raccolti in
+
+\[
+T_{s,3}
+=
+\begin{pmatrix}
+a_{21}^s&a_{22}^s&a_{23}^s&a_{24}^s\\
+a_{31}^s&a_{32}^s&a_{33}^s&a_{34}^s
+\end{pmatrix},
+\qquad
+h_{s,3}
+=
+\begin{pmatrix}
+d_2^s\\
+d_3^s
+\end{pmatrix}.
+\]
+
+Il contributo delle decisioni
+dello stadio precedente \`{e} descritto da
+
+\[
+W_{s,3,2}
+=
+\begin{pmatrix}
+1+r_1^{g,s}&-(1+r_1^{u,s})\\
+0&0
+\end{pmatrix}.
+\]
+
+La prima riga rappresenta la giacenza
+$g_1^s$ trasferita al tempo $2$
+con il relativo rendimento e il rimborso
+del funding $u_1^s$, comprensivo
+degli interessi. La seconda riga
+\`{e} nulla, poich\`{e} tali variabili
+non compaiono direttamente nel bilancio
+del tempo $3$.
+
+Le variabili del blocco corrente
+entrano invece attraverso
+
+\[
+W_{s,3,3}
+=
+\begin{pmatrix}
+-1&0&1&0\\
+1+r_2^{g,s}&-1&-(1+r_2^{u,s})&1
+\end{pmatrix}.
+\]
+
+Le colonne seguono l'ordine
+$(g_2^s,g_3^s,u_2^s,u_3^s)$.
+
+La prima riga contiene i coefficienti
+delle decisioni relative al bilancio
+del tempo $2$.
+La seconda comprende anche
+il trasferimento della giacenza $g_2^s$
+e il rimborso del funding $u_2^s$
+al tempo $3$.
+
+\medskip
+
+\noindent
+\textbf{Stadio 4: tempo fisico 4.}
+
+L'ultimo blocco di ricorso contiene
+la sola giacenza terminale $g_4^s$.
+Il relativo bilancio dipende
+dal portafoglio iniziale e dalle
+decisioni assunte negli stadi precedenti:
+
+\[
+T_{s,4}x+
+W_{s,4,2}y_2^s+
+W_{s,4,3}y_3^s+
+W_{s,4,4}y_4^s
+=
+h_{s,4}.
+\]
+
+I coefficienti dei cash flow terminali
+e il fabbisogno sono
+
+\[
+T_{s,4}
+=
+\begin{pmatrix}
+a_{41}^s&a_{42}^s&a_{43}^s&a_{44}^s
+\end{pmatrix},
+\qquad
+h_{s,4}
+=
+\begin{pmatrix}
+d_4^s
+\end{pmatrix}.
+\]
+
+Le matrici relative ai tre blocchi
+di ricorso sono
+
+\[
+W_{s,4,2}
+=
+\begin{pmatrix}
+0&0
+\end{pmatrix},
+\]
+
+\[
+W_{s,4,3}
+=
+\begin{pmatrix}
+0&1+r_3^{g,s}&0&-(1+r_3^{u,s})
+\end{pmatrix},
+\]
+
+\[
+W_{s,4,4}
+=
+\begin{pmatrix}
+-1
+\end{pmatrix}.
+\]
+
+La matrice nulla $W_{s,4,2}$
+indica che le variabili del primo
+blocco di ricorso non intervengono
+direttamente nel bilancio terminale.
+
+La matrice $W_{s,4,3}$,
+le cui colonne corrispondono
+a $(g_2^s,g_3^s,u_2^s,u_3^s)$,
+contiene soltanto due coefficienti
+non nulli: il valore della giacenza
+$g_3^s$ trasferita al tempo $4$
+e il rimborso del funding $u_3^s$.
+
+Infine, $W_{s,4,4}$ contiene
+il coefficiente della giacenza
+terminale $g_4^s$, unica variabile
+del blocco $y_4^s$.
+
+\medskip
+
+\noindent
+\textbf{Raccordo fra le due formulazioni.}
+
+I blocchi appena specificati
+ricostruiscono i quattro bilanci
+della formulazione a due stadi.
+
+In particolare,
+
+\[
+T_s=
+\begin{pmatrix}
+T_{s,2}\\
+T_{s,3}\\
+T_{s,4}
+\end{pmatrix},
+\qquad
+h_s=
+\begin{pmatrix}
+h_{s,2}\\
+h_{s,3}\\
+h_{s,4}
+\end{pmatrix}.
+\]
+
+La matrice $W_s$ viene analogamente
+ripartita in blocchi di righe
+e di colonne, dopo avere riordinato
+le variabili secondo gli stadi
+di appartenenza.
+
+Il contenuto finanziario dei vincoli
+rimane invariato. La differenza
+fra le due formulazioni risiede
+nella struttura informativa
+delle decisioni di ricorso:
+nel modello multistadio i blocchi
+$y_2^s$, $y_3^s$ e $y_4^s$
+devono rispettare le condizioni
+di non anticipativit\`{a}
+dei rispettivi stadi.
+
+*****
+
+\subsection{I bilanci di liquidit\`{a} nei diversi stadi}
+
+Il passaggio alla formulazione multistadio non modifica
+i quattro bilanci di liquidit\`{a} del Capitolo 14.
+Cambia soltanto la loro organizzazione nei diversi
+stadi decisionali.
+
+\medskip
+
+\noindent
+\textbf{Dallo stato economico-finanziario ai coefficienti
+dei cash flow.}
+
+Richiamiamo innanzitutto il significato dei coefficienti
+$a_{tj}^s$.
+
+Il coefficiente $a_{tj}^s$ indica la quantit\`{a}
+di liquidit\`{a} disponibile al tempo $t$ per ogni
+unit\`{a} monetaria inizialmente investita nella classe
+di attivo $j$, sotto lo scenario $s$.
+
+Pertanto,
+
+\[
+\sum_{j=1}^{4}a_{tj}^s x_j
+\]
+
+rappresenta il cash flow complessivo del portafoglio
+alla medesima data.
+
+I coefficienti $a_{tj}^s$ sono dati del problema,
+determinati dalle condizioni economico-finanziarie
+dello scenario. Gli importi $x_j$ sono invece
+variabili decisionali, fissate al tempo $0$.
+
+\medskip
+
+\noindent
+\textbf{Il collegamento con la formulazione matriciale.}
+
+Nel Capitolo 14 abbiamo raccolto i quattro bilanci
+di liquidit\`{a} dello scenario $s$ nella relazione
+
+\[
+T_sx+W_sy_s=h_s.
+\]
+
+Per comprendere la sua estensione multistadio
+occorre precisare come la traiettoria markoviana
+determini i coefficienti di questo sistema.
+
+Consideriamo innanzitutto la matrice $T_s$,
+che raccoglie i cash flow prodotti dal portafoglio
+iniziale alle quattro date:
+
+\[
+T_s=A^{CF,s}
+=
+\begin{pmatrix}
+a_{11}^s&a_{12}^s&a_{13}^s&a_{14}^s\\
+a_{21}^s&a_{22}^s&a_{23}^s&a_{24}^s\\
+a_{31}^s&a_{32}^s&a_{33}^s&a_{34}^s\\
+a_{41}^s&a_{42}^s&a_{43}^s&a_{44}^s
+\end{pmatrix}.
+\]
+
+Ogni riga corrisponde a una data futura,
+mentre ogni colonna corrisponde a una classe
+di attivo.
+
+Nel modello stocastico, i coefficienti
+della riga relativa al tempo $t$
+dipendono dallo stato economico-finanziario
+$Z_t^s$ raggiunto alla stessa data.
+Questa dipendenza viene rappresentata
+dalla relazione
+
+\[
+a_{tj}^s=a_{tj}(Z_t^s),
+\qquad
+t=1,\ldots,4,\quad j=1,\ldots,4.
+\]
+
+La relazione esprime la struttura del modello:
+a ciascuno degli otto stati possono corrispondere
+coefficienti di cash flow differenti.
+Le funzioni $a_{tj}(\cdot)$ non sono tuttavia
+ancora state specificate numericamente.
+
+La matrice di transizione $P$ governa
+le probabilit\`{a} delle traiettorie
+markoviane; non determina, da sola,
+i coefficienti finanziari associati
+ai singoli stati. Questi ultimi richiedono
+una specificazione distinta.
+
+Per una traiettoria $s$ assegnata,
+una volta determinati i coefficienti
+$a_{tj}^s$, il prodotto
+
+\[
+T_sx
+=
+\begin{pmatrix}
+\displaystyle\sum_{j=1}^{4}a_{1j}^s x_j\\[5pt]
+\displaystyle\sum_{j=1}^{4}a_{2j}^s x_j\\[5pt]
+\displaystyle\sum_{j=1}^{4}a_{3j}^s x_j\\[5pt]
+\displaystyle\sum_{j=1}^{4}a_{4j}^s x_j
+\end{pmatrix}
+\]
+
+raccoglie i flussi monetari resi disponibili
+dal portafoglio iniziale alle quattro date.
+
+Nel passaggio al multistadio,
+questi quattro flussi non cambiano:
+vengono semplicemente raggruppati
+secondo gli stadi decisionali
+
+\[
+\mathcal T_2=\{1\},
+\qquad
+\mathcal T_3=\{2,3\},
+\qquad
+\mathcal T_4=\{4\}.
+\]
+
+Pertanto, la matrice $T_s$ viene suddivisa
+nei tre blocchi di righe
+
+\[
+T_s=
+\begin{pmatrix}
+T_{s,2}\\
+T_{s,3}\\
+T_{s,4}
+\end{pmatrix},
+\]
+
+dove $T_{s,2}$ contiene la riga del tempo $1$,
+$T_{s,3}$ contiene le righe dei tempi $2$ e $3$,
+e $T_{s,4}$ contiene la riga del tempo $4$.
+
+Gli altri elementi della formulazione matriciale
+hanno un significato altrettanto preciso.
+
+Il vettore $h_s$ raccoglie i fabbisogni
+di liquidit\`{a} $d_t^s$, determinati
+dagli stati dello scenario alle rispettive date:
+
+\[
+h_s=
+\begin{pmatrix}
+d_1^s\\
+d_2^s\\
+d_3^s\\
+d_4^s
+\end{pmatrix}
+=
+\begin{pmatrix}
+h_{s,2}\\
+h_{s,3}\\
+h_{s,4}
+\end{pmatrix},
+\]
+
+con
+
+\[
+h_{s,2}=(d_1^s),
+\qquad
+h_{s,3}=
+\begin{pmatrix}
+d_2^s\\
+d_3^s
+\end{pmatrix},
+\qquad
+h_{s,4}=(d_4^s).
+\]
+
+La matrice $W_s$ descrive invece
+il contributo delle decisioni di giacenza
+$g_t^s$ e di funding $u_t^s$ ai bilanci.
+I suoi coefficienti comprendono
+i rendimenti $r_t^{g,s}$ delle giacenze
+e i costi $r_t^{u,s}$ del funding,
+anch'essi dipendenti dallo scenario.
+
+Nella formulazione multistadio,
+riordinando le variabili di ricorso
+secondo i blocchi $y_2^s$, $y_3^s$
+e $y_4^s$, la matrice $W_s$
+viene rappresentata attraverso
+i blocchi $W_{s,k,j}$ della
+\eqref{eq:cap15-vincoli-stadio-v2}.
+
+Restano distinti i limiti di funding
+$0\leq u_t^s\leq\bar u_t^s$:
+essi appartengono ai vincoli operativi
+dei rispettivi stadi.
+
+Abbiamo cos\`{i} identificato il significato
+finanziario dei tre elementi della
+formulazione generale:
+
+\[
+\begin{array}{c|l}
+\hline
+T_{s,k}
+&
+\text{Cash flow del portafoglio iniziale}
+\\
+W_{s,k,j}
+&
+\text{Effetti delle decisioni di giacenza e funding}
+\\
+h_{s,k}
+&
+\text{Fabbisogni di liquidit\`{a}}
+\\
+\hline
+\end{array}
+\]
+
+Possiamo ora costruire esplicitamente
+i bilanci dei tre stadi di ricorso,
+identificando le matrici corrispondenti.
+
+\noindent
+\textbf{Stadio 2: il bilancio del tempo 1.}
+
+Il primo stadio di ricorso comprende il solo tempo fisico $1$.
+Dopo l'osservazione dello stato $Z_1^s$, la banca determina
+
+\[
+y_2^s=
+\begin{pmatrix}
+g_1^s\\
+u_1^s
+\end{pmatrix},
+\]
+
+dove $g_1^s$ \`{e} la giacenza di liquidit\`{a}
+residua e $u_1^s$ \`{e} il funding raccolto
+al tempo $1$.
+
+Il bilancio finanziario \`{e}
+
+\[
+\underbrace{\sum_{j=1}^{4}a_{1j}^s x_j}
+_{\text{cash flow degli attivi}}
++
+\underbrace{u_1^s}_{\text{nuovo funding}}
+=
+\underbrace{d_1^s}_{\text{fabbisogno}}
++
+\underbrace{g_1^s}_{\text{giacenza residua}}.
+\]
+
+Portando a sinistra tutte le variabili decisionali,
+otteniamo
+
+\[
+\sum_{j=1}^{4}a_{1j}^s x_j
+-g_1^s+u_1^s=d_1^s.
+\]
+
+La corrispondente formulazione matriciale \`{e}
+
+\[
+T_{s,2}x+W_{s,2,2}y_2^s=h_{s,2},
+\]
+
+con
+
+\[
+\begin{aligned}
+T_{s,2}
+&=
+\begin{pmatrix}
+a_{11}^s&a_{12}^s&a_{13}^s&a_{14}^s
+\end{pmatrix},
+\\[4pt]
+W_{s,2,2}
+&=
+\begin{pmatrix}
+-1&1
+\end{pmatrix},
+\\[4pt]
+h_{s,2}
+&=
+\begin{pmatrix}
+d_1^s
+\end{pmatrix}.
+\end{aligned}
+\]
+
+La matrice $T_{s,2}$ contiene i coefficienti
+dei cash flow prodotti dal portafoglio iniziale.
+La matrice $W_{s,2,2}$ contiene invece
+i coefficienti delle due decisioni di ricorso:
+la giacenza compare con segno negativo
+e il nuovo funding con segno positivo.
+
+Poich\`{e} lo stadio comprende un solo bilancio,
+le due matrici hanno una sola riga.
+
+\medskip
+
+\noindent
+\textbf{Stadio 3: i bilanci dei tempi 2 e 3.}
+
+Il secondo stadio di ricorso comprende i tempi fisici
+$2$ e $3$. Il blocco decisionale \`{e}
+
+\[
+y_3^s=
+\begin{pmatrix}
+g_2^s\\
+g_3^s\\
+u_2^s\\
+u_3^s
+\end{pmatrix}.
+\]
+
+Come stabilito nella Sezione~\ref{sec:cap15-motivazione-multistadio-v2},
+tutte le componenti di questo blocco vengono determinate
+con l'informazione disponibile al termine dello stadio,
+cio\`{e} al tempo $3$.
+
+Il bilancio del tempo $2$ \`{e}
+
+\[
+\begin{aligned}
+\sum_{j=1}^{4}a_{2j}^s x_j
+&+(1+r_1^{g,s})g_1^s+u_2^s
+\\
+&=
+d_2^s+(1+r_1^{u,s})u_1^s+g_2^s.
+\end{aligned}
+\]
+
+Rispetto al bilancio del tempo $1$ compaiono
+due elementi aggiuntivi: la giacenza $g_1^s$
+trasferita dalla data precedente, con il relativo
+rendimento, e il rimborso del funding $u_1^s$,
+comprensivo del suo costo.
+
+Le variabili $g_1^s$ e $u_1^s$ appartengono
+al blocco $y_2^s$, gi\`{a} scelto nello stadio
+precedente. Le variabili $g_2^s$ e $u_2^s$
+appartengono invece al blocco corrente $y_3^s$.
+
+Il bilancio del tempo $3$ ha la stessa struttura:
+
+\[
+\begin{aligned}
+\sum_{j=1}^{4}a_{3j}^s x_j
+&+(1+r_2^{g,s})g_2^s+u_3^s
+\\
+&=
+d_3^s+(1+r_2^{u,s})u_2^s+g_3^s.
+\end{aligned}
+\]
+
+In questo secondo bilancio le variabili di giacenza
+e funding appartengono tutte al blocco $y_3^s$.
+
+Raccogliamo ora i due bilanci in un unico sistema.
+La loro formulazione matriciale \`{e}
+
+\[
+T_{s,3}x+
+W_{s,3,2}y_2^s+
+W_{s,3,3}y_3^s
+=
+h_{s,3}.
+\]
+
+Le matrici sono
+
+\[
+T_{s,3}=
+\begin{pmatrix}
+a_{21}^s&a_{22}^s&a_{23}^s&a_{24}^s\\
+a_{31}^s&a_{32}^s&a_{33}^s&a_{34}^s
+\end{pmatrix},
+\]
+
+\[
+W_{s,3,2}=
+\begin{pmatrix}
+1+r_1^{g,s}&-(1+r_1^{u,s})\\
+0&0
+\end{pmatrix},
+\]
+
+\[
+W_{s,3,3}=
+\begin{pmatrix}
+-1&0&1&0\\
+1+r_2^{g,s}&-1&-(1+r_2^{u,s})&1
+\end{pmatrix},
+\]
+
+e
+
+\[
+h_{s,3}=
+\begin{pmatrix}
+d_2^s\\
+d_3^s
+\end{pmatrix}.
+\]
+
+Ciascuna riga del sistema corrisponde a un bilancio
+di liquidit\`{a}: la prima al tempo $2$, la seconda
+al tempo $3$.
+
+La matrice $T_{s,3}$ raccoglie i cash flow
+prodotti dal portafoglio iniziale alle due date.
+La matrice $W_{s,3,2}$ raccoglie gli effetti
+delle decisioni dello stadio precedente:
+essi compaiono nel primo bilancio, ma non nel secondo.
+
+La matrice $W_{s,3,3}$ raccoglie gli effetti
+delle quattro componenti del blocco corrente.
+I suoi coefficienti descrivono sia il bilancio
+del tempo $2$, sia il trasferimento di liquidit\`{a}
+e il rimborso del funding tra i tempi $2$ e $3$.
+
+In questo modo, le due righe del sistema mostrano
+concretamente perch\`{e} i vincoli di uno stadio
+possono dipendere sia dalle decisioni correnti,
+sia da quelle degli stadi precedenti.
+
+\medskip
+
+\noindent
+\textbf{Stadio 4: il bilancio terminale del tempo 4.}
+
+L'ultimo stadio di ricorso comprende il solo
+tempo fisico $4$. Il suo blocco decisionale \`{e}
+
+\[
+y_4^s=
+\begin{pmatrix}
+g_4^s
+\end{pmatrix}.
+\]
+
+Non viene introdotto nuovo funding al tempo $4$:
+la variabile $u_3^s$ rappresenta l'ultima raccolta
+prevista dal modello e il suo rimborso avviene
+alla data terminale.
+
+Il bilancio finanziario \`{e}
+
+\[
+\begin{aligned}
+\sum_{j=1}^{4}a_{4j}^s x_j
+&+(1+r_3^{g,s})g_3^s
+\\
+&=
+d_4^s+(1+r_3^{u,s})u_3^s+g_4^s.
+\end{aligned}
+\]
+
+Il bilancio coinvolge il portafoglio iniziale $x$,
+due componenti del precedente blocco $y_3^s$
+e la giacenza terminale $g_4^s$.
+Non coinvolge direttamente le componenti
+del blocco $y_2^s$.
+
+La sua formulazione matriciale completa \`{e}
+
+\[
+T_{s,4}x+
+W_{s,4,2}y_2^s+
+W_{s,4,3}y_3^s+
+W_{s,4,4}y_4^s
+=
+h_{s,4},
+\]
+
+dove
+
+\[
+T_{s,4}=
+\begin{pmatrix}
+a_{41}^s&a_{42}^s&a_{43}^s&a_{44}^s
+\end{pmatrix},
+\]
+
+\[
+W_{s,4,2}=
+\begin{pmatrix}
+0&0
+\end{pmatrix},
+\]
+
+\[
+W_{s,4,3}=
+\begin{pmatrix}
+0&1+r_3^{g,s}&0&-(1+r_3^{u,s})
+\end{pmatrix},
+\]
+
+\[
+W_{s,4,4}=
+\begin{pmatrix}
+-1
+\end{pmatrix},
+\qquad
+h_{s,4}=
+\begin{pmatrix}
+d_4^s
+\end{pmatrix}.
+\]
+
+La matrice nulla $W_{s,4,2}$ segnala
+che le decisioni dello stadio $2$
+non compaiono direttamente nel bilancio terminale.
+Le loro conseguenze finanziarie sono gi\`{a}
+incorporate nelle giacenze e nelle posizioni
+di funding determinate negli stadi successivi.
+
+\medskip
+
+\noindent
+\textbf{Lettura complessiva.}
+
+I tre sistemi matriciali ottenuti hanno
+la stessa struttura dei vincoli generali
+della \eqref{eq:cap15-vincoli-stadio-v2}.
+In ciascuno stadio, $T_{s,k}$ raccoglie
+i coefficienti del portafoglio iniziale,
+$W_{s,k,j}$ raccoglie i coefficienti
+delle decisioni del blocco $j$
+e $h_{s,k}$ raccoglie i fabbisogni
+di liquidit\`{a} delle date comprese
+nello stadio.
+
+Le matrici non introducono nuove relazioni
+finanziarie: ripartiscono i quattro bilanci
+gi\`{a} studiati in funzione dello stadio
+decisionale al quale appartengono.
+
+
+\subsection{La non anticipativit\`{a} nelle decisioni finanziarie}
+
+Nella forma estesa multistadio
+vengono introdotte variabili
+di ricorso per ogni scenario
+completo. La coincidenza
+delle decisioni relative
+alla stessa storia informativa
+deve essere imposta
+mediante i vincoli
+di non anticipativit\`{a}.
+
+Consideriamo due traiettorie
+ammissibili della catena di Markov
+che condividono il primo stato
+futuro e si differenziano
+soltanto in una data successiva.
+Al termine del tempo $1$
+la banca non pu\`{o} ancora
+distinguere quale delle due
+traiettorie si realizzer\`{a}.
+
+Poich\`{e} le due traiettorie
+condividono la storia osservata
+nello stadio $2$, deve valere
+
+\[
+y_2^s=y_2^{s'},
+\]
+
+ossia
+
+\[
+g_1^s=g_1^{s'},
+\qquad
+u_1^s=u_1^{s'}.
+\]
+
+La banca non pu\`{o}, quindi,
+scegliere due diverse quantit\`{a}
+di funding al tempo $1$
+utilizzando informazioni relative
+agli stati che saranno osservati
+soltanto in seguito.
+
+Se le due traiettorie condividono
+l'intera storia fino al tempo $3$,
+deve valere anche
+
+\[
+y_3^s=y_3^{s'},
+\]
+
+cio\`{e}
+
+\[
+\begin{aligned}
+g_2^s&=g_2^{s'},
+&
+g_3^s&=g_3^{s'},
+\\[4pt]
+u_2^s&=u_2^{s'},
+&
+u_3^s&=u_3^{s'}.
+\end{aligned}
+\]
+
+Se le traiettorie divergono
+soltanto al tempo $4$,
+la giacenza terminale
+pu\`{o} invece assumere
+valori differenti:
+
+\[
+g_4^s\ne g_4^{s'}.
+\]
+
+Tale differenza \`{e} ammissibile
+perch\`{e} il blocco $y_4^s$
+viene determinato dopo
+l'osservazione dello stato
+terminale.
+
+Le uguaglianze precedenti
+illustrano l'applicazione
+della non anticipativit\`{a}
+alle variabili del caso ALM.
+Nella formulazione completa
+esse devono essere imposte
+per tutte le coppie di scenari
+che condividono la storia
+informativa richiesta
+dal rispettivo stadio.
+
+
+\subsection{Criterio economico e raccordo con il modello a due stadi}
+
+Il criterio economico rimane
+quello del Capitolo 14.
+Il risultato atteso comprende
+il contributo del portafoglio
+iniziale, i rendimenti
+delle giacenze e i costi
+del funding:
+
+\[
+c'x+
+\sum_{s\in\mathcal S}p_s
+\left[
+\sum_{t=1}^{3}r_t^{g,s}g_t^s
+-
+\sum_{t=1}^{3}r_t^{u,s}u_t^s
+\right].
+\]
+
+La stessa espressione pu\`{o}
+essere organizzata per blocchi
+decisionali:
+
+\[
+c'x+
+\sum_{s\in\mathcal S}p_s
+\left[
+(q_2^s)'y_2^s
++
+(q_3^s)'y_3^s
++
+(q_4^s)'y_4^s
+\right],
+\]
+
+con
+
+\[
+q_2^s=
+\begin{pmatrix}
+r_1^{g,s}\\
+-r_1^{u,s}
+\end{pmatrix},
+\qquad
+q_3^s=
+\begin{pmatrix}
+r_2^{g,s}\\
+r_3^{g,s}\\
+-r_2^{u,s}\\
+-r_3^{u,s}
+\end{pmatrix},
+\qquad
+q_4^s=(0).
+\]
+
+La giacenza terminale $g_4^s$
+non contribuisce direttamente
+al criterio economico qui adottato,
+ma deve soddisfare il bilancio
+di liquidit\`{a} del tempo $4$
+e i corrispondenti vincoli
+di ammissibilit\`{a}.
+
+Nel modello a due stadi,
+l'intero piano di ricorso
+$y_s$ viene determinato
+dopo avere osservato
+la traiettoria completa
+$\xi_s$.
+
+Nel modello multistadio,
+le stesse variabili
+sono suddivise nei blocchi
+$y_2^s$, $y_3^s$ e $y_4^s$.
+Ogni blocco viene determinato
+con l'informazione disponibile
+al termine del proprio stadio,
+nel rispetto dei vincoli
+di non anticipativit\`{a}.
+
+La legge probabilistica
+dell'incertezza resta invariata:
+gli scenari completi e le loro
+probabilit\`{a} continuano
+a essere determinati dalla
+catena di Markov a otto stati.
+Restano invariati anche
+i bilanci di liquidit\`{a},
+i vincoli operativi
+e il criterio economico.
+
+La differenza fra le due
+formulazioni riguarda
+la possibilit\`{a} di adattare
+progressivamente il piano
+finanziario alle informazioni
+via via osservate, anzich\`{e}
+determinarlo in un unico blocco
+conoscendo gi\`{a} l'intera
+traiettoria futura.
+
+\section{Valore dell'informazione e della soluzione stocastica}
+
+\label{sec:cap15-valore-informazione-v2}
+
+La formulazione stocastica utilizza una distribuzione di scenari
+per scegliere decisioni compatibili con l'informazione effettivamente
+disponibile. Per valutare il significato economico di questa scelta
+\`{e} utile confrontarla con due situazioni di riferimento.
+
+La prima attribuisce al decisore una conoscenza perfetta del futuro
+prima di assumere qualsiasi decisione. La seconda sostituisce invece
+l'incertezza con valori medi e determina la decisione iniziale come
+se tali valori fossero certi.
+
+Otteniamo cos\`{i} tre benchmark:
+
+\[
+\begin{array}{c|l}
+\hline
+\text{Benchmark} & \text{Informazione disponibile}\\
+\hline
+SP &
+\text{distribuzione degli scenari nota, futuro non ancora osservato}\\
+WS &
+\text{scenario futuro completamente noto prima della decisione iniziale}\\
+EV &
+\text{incertezza sostituita con dati medi}\\
+\hline
+\end{array}
+\]
+
+Il confronto fra questi tre problemi permette di separare
+due questioni differenti:
+
+\[
+\text{quanto varrebbe conoscere perfettamente il futuro?}
+\]
+
+e
+
+\[
+\text{quanto si guadagna modellando esplicitamente l'incertezza
+invece di utilizzare soltanto valori medi?}
+\]
+
+\subsection{La soluzione stocastica: SP}
+
+Indichiamo con
+
+\[
+x^{SP}
+\]
+
+la decisione iniziale ottima del problema stocastico e con
+
+\[
+z^{SP}
+\]
+
+il corrispondente valore ottimo.
+
+Nel problema multistadio, $x^{SP}$ viene scelta al tempo $0$,
+prima di conoscere la traiettoria futura. Le decisioni di ricorso
+vengono invece adattate progressivamente all'informazione osservata,
+nel rispetto dei vincoli di non anticipativit\`{a}.
+
+Il valore $z^{SP}$ \`{e} quindi ottenuto utilizzando
+la distribuzione degli scenari, ma senza attribuire al decisore
+informazioni che non siano ancora disponibili quando le decisioni
+devono essere assunte.
+
+Nel caso SVB--ALM, la banca conosce lo stato iniziale $Z_0$,
+la matrice di transizione $P$ e quindi la distribuzione delle
+possibili traiettorie future. Non conosce per\`{o}, al tempo $0$,
+quale particolare traiettoria
+
+\[
+(Z_1,Z_2,Z_3,Z_4)
+\]
+
+si realizzer\`a.
+
+La composizione iniziale dell'attivo deve pertanto essere unica
+per tutte le possibili evoluzioni future.
+
+\subsection{Il benchmark wait-and-see}
+
+Consideriamo ora una situazione ipotetica nella quale il decisore
+conosca lo scenario completo prima di scegliere anche la decisione
+iniziale.
+
+Per ogni scenario $s$, possiamo allora risolvere separatamente
+il problema deterministico corrispondente e indicarne il valore
+ottimo con
+
+\[
+z_s^{WS}.
+\]
+
+Il valore \emph{wait-and-see} \`{e} il valore atteso di questi
+ottimi scenario-specifici:
+
+\[
+z^{WS}
+=
+\sum_{s\in\mathcal S}p_s z_s^{WS}.
+\]
+
+La differenza rispetto al problema stocastico \`{e} sostanziale.
+Nel problema SP la decisione iniziale deve essere scelta senza
+conoscere lo scenario futuro. Nel problema WS, invece, anche
+la decisione iniziale pu\`{o} essere adattata allo scenario.
+
+Possiamo rappresentare schematicamente la differenza come
+
+\[
+\begin{array}{ccl}
+SP
+&:&
+\text{un'unica decisione iniziale }x^{SP}
+\text{ per tutti gli scenari},
+\\[2mm]
+WS
+&:&
+\text{una decisione iniziale ottima distinta per ciascuno scenario}.
+\end{array}
+\]
+
+Nel modello multistadio, il benchmark WS equivale a conoscere
+fin dall'inizio l'intera traiettoria futura. Viene quindi meno
+la restrizione informativa che rende necessaria la
+non anticipativit\`{a}.
+
+Nel caso SVB--ALM ci\`{o} significherebbe conoscere gi\`{a}
+al tempo $0$ tutti gli stati futuri
+
+\[
+Z_1^s,Z_2^s,Z_3^s,Z_4^s
+\]
+
+e poter scegliere la composizione dell'attivo sapendo in anticipo
+come evolveranno tassi, credit spread e condizioni di funding.
+
+Il problema WS non descrive quindi una strategia realizzabile.
+Costituisce un benchmark con informazione perfetta.
+
+\subsection{Il problema con dati medi}
+
+Il benchmark opposto consiste nel non rappresentare esplicitamente
+la distribuzione degli scenari e nel sostituire i dati incerti
+con i rispettivi valori attesi.
+
+Se $\xi$ raccoglie i dati aleatori del problema, si considera
+
+\[
+\bar\xi=\E[\xi]
+\]
+
+e si risolve il corrispondente problema deterministico.
+
+Indichiamo con
+
+\[
+x^{EV}
+\]
+
+la decisione iniziale ottima ottenuta in questo modo.
+
+Nel caso SVB--ALM, ad esempio, i coefficienti medi dei cash flow
+e i fabbisogni medi alle diverse date sono
+
+\[
+\bar a_{tj}
+=
+\sum_{s\in\mathcal S}p_s a_{tj}^s,
+\qquad
+\bar d_t
+=
+\sum_{s\in\mathcal S}p_s d_t^s,
+\]
+
+e analogamente possono essere calcolati i valori medi degli altri
+coefficienti scenario-specifici.
+
+Il problema deterministico costruito con questi valori produce
+la decisione $x^{EV}$.
+
+Occorre per\`{o} distinguere con attenzione due quantit\`{a}.
+Il valore ottimo del problema deterministico medio non misura
+la qualit\`{a} di $x^{EV}$ quando il futuro \`{e} effettivamente
+incerto.
+
+Per valutarla correttamente bisogna riportare la decisione
+$x^{EV}$ nel problema stocastico originario.
+
+Manteniamo quindi fissata
+
+\[
+x=x^{EV}
+\]
+
+e ottimizziamo nuovamente le decisioni di ricorso utilizzando
+gli scenari originali, le loro probabilit\`{a} e la struttura
+informativa effettiva.
+
+Il valore atteso cos\`{i} ottenuto \`{e} indicato nel corso con
+
+\[
+z^{EV}.
+\]
+
+Pertanto $z^{EV}$ non \`{e} il valore ottimo del problema medio.
+\`{E} il valore che la decisione iniziale $x^{EV}$ produce
+quando viene valutata nel problema stocastico effettivo.
+
+Questa distinzione \`{e} essenziale per confrontare correttamente
+la soluzione basata sui valori medi con la soluzione stocastica.
+
+Nel caso multistadio, una volta fissata $x=x^{EV}$,
+le decisioni successive rimangono decisioni di ricorso:
+vengono ottimizzate sotto gli scenari originari e devono rispettare
+la medesima struttura di non anticipativit\`{a} del problema SP.
+
+\subsection{L'ordinamento dei tre valori}
+
+Per un problema formulato in massimizzazione valgono,
+sotto le usuali condizioni di ammissibilit\`{a}, le relazioni
+
+\[
+z^{WS}\geq z^{SP}\geq z^{EV}.
+\]
+
+La prima disuguaglianza deriva dal vantaggio informativo
+attribuito al problema wait-and-see. Il decisore WS pu\`{o}
+scegliere conoscendo gi\`{a} lo scenario e dispone quindi
+di un insieme di possibilit\`{a} almeno altrettanto ampio
+di quello disponibile nel problema stocastico.
+
+La seconda disuguaglianza ha una ragione differente.
+La decisione $x^{EV}$ \`{e} una specifica decisione iniziale
+che viene valutata nel problema stocastico. Il problema SP,
+invece, sceglie la decisione iniziale ottima tenendo conto
+direttamente dell'intera distribuzione degli scenari.
+
+Possiamo riassumere i tre benchmark come
+
+\[
+\boxed{
+z^{WS}
+\;\geq\;
+z^{SP}
+\;\geq\;
+z^{EV}
+}
+\]
+
+per problemi di massimizzazione.
+
+\begin{remark}
+L'ordinamento presuppone che $x^{EV}$ sia ammissibile
+nel problema stocastico e che il ricorso necessario
+per valutarla sia ben definito. Le questioni di fattibilit\`{a}
+studiate nella Sezione~\ref{sec:cap15-fattibilita-ricorso-v2}
+rimangono quindi rilevanti anche nella costruzione
+del benchmark EV.
+\end{remark}
+
+\subsection{Expected Value of Perfect Information}
+
+La differenza fra il benchmark wait-and-see e la soluzione
+stocastica misura il valore della conoscenza perfetta
+dello scenario futuro.
+
+Per un problema di massimizzazione definiamo
+
+\begin{equation}
+\EVPI
+=
+z^{WS}-z^{SP}.
+\label{eq:cap15-evpi-v2}
+\end{equation}
+
+Dall'ordinamento precedente segue
+
+\[
+\EVPI\geq0.
+\]
+
+L'EVPI risponde alla domanda:
+
+\[
+\boxed{
+\text{quanto migliorerebbe il valore atteso se il futuro
+fosse conosciuto perfettamente prima di decidere?}
+}
+\]
+
+Esso fornisce quindi un limite superiore al valore economico
+attribuibile a un'informazione capace di rivelare perfettamente
+lo scenario futuro prima della decisione iniziale.
+
+Nel caso SVB--ALM, l'EVPI misura il vantaggio che deriverebbe
+dal conoscere anticipatamente l'intera traiettoria futura
+delle condizioni economico-finanziarie prima di scegliere
+la composizione dell'attivo.
+
+Non misura il valore di una specifica previsione o di uno
+specifico segnale informativo: il benchmark assume una
+conoscenza perfetta dell'intero scenario.
+
+\subsection{Value of the Stochastic Solution}
+
+Il secondo confronto riguarda l'utilit\`{a} di rappresentare
+esplicitamente l'incertezza invece di sostituirla con dati medi.
+
+Per un problema di massimizzazione definiamo
+
+\begin{equation}
+\VSS
+=
+z^{SP}-z^{EV}.
+\label{eq:cap15-vss-v2}
+\end{equation}
+
+Poich\`{e}
+
+\[
+z^{SP}\geq z^{EV},
+\]
+
+si ha
+
+\[
+\VSS\geq0.
+\]
+
+Il VSS risponde alla domanda:
+
+\[
+\boxed{
+\text{quanto vale scegliere la decisione iniziale utilizzando
+il modello stocastico invece del problema costruito sui valori medi?}
+}
+\]
+
+Nel caso SVB--ALM, un VSS elevato segnala che la composizione
+dell'attivo ottenuta utilizzando soltanto condizioni medie
+risulta sensibilmente meno efficace quando viene esposta
+alle effettive traiettorie possibili della catena di Markov.
+
+Un VSS piccolo indica invece che, per il problema e per
+la distribuzione degli scenari considerati, la decisione
+iniziale ottenuta dal problema medio produce un valore
+vicino a quello della soluzione stocastica.
+
+Ci\`{o} non significa che l'incertezza sia trascurabile:
+significa soltanto che, rispetto al criterio economico
+e ai vincoli del modello, l'uso esplicito della distribuzione
+degli scenari modifica poco il valore ottenibile dalla
+decisione iniziale.
+
+\subsection{Due misure con significati diversi}
+
+EVPI e VSS confrontano entrambi valori del problema,
+ma rispondono a domande differenti:
+
+\[
+\begin{array}{c|l}
+\hline
+\text{Indicatore} & \text{Confronto}\\
+\hline
+\EVPI
+&
+\text{informazione perfetta contro informazione effettivamente disponibile}
+\\
+\VSS
+&
+\text{modello stocastico contro decisione costruita sui valori medi}
+\\
+\hline
+\end{array}
+\]
+
+L'EVPI riguarda quindi il valore dell'informazione.
+Il VSS riguarda invece il valore della modellizzazione
+stocastica nella scelta della decisione iniziale.
+
+I due indicatori non devono essere confusi.
+Un problema pu\`{o} presentare un elevato valore
+dell'informazione perfetta e, contemporaneamente,
+una decisione basata sui valori medi relativamente
+vicina alla soluzione stocastica; oppure pu\`{o}
+mostrare la situazione opposta.
+
+I valori
+
+\[
+z^{WS},
+\qquad
+z^{SP},
+\qquad
+z^{EV}
+\]
+
+forniscono pertanto tre punti di riferimento complementari
+per interpretare economicamente la soluzione del problema
+stocastico.

@@ -137,9 +137,11 @@ Lo stile deve rispettare i seguenti criteri:
 Quando si scrive in LaTeX per il manuale o per le slides, usare per le vocali accentate italiane la notazione del tipo:
 
 ```latex
-\`{a}, \`{e}, \`{i}, \`{o}, \`{u}
+\`a, \`e, \`i, \`o, \`u
 ```
+Non utilizzare le forme con parentesi graffe (`\`{a}`, `\`{e}`, ecc.) e non inserire direttamente i caratteri accentati nei nuovi sorgenti LaTeX.
 
+La convenzione deve essere rispettata anche nel codice LaTeX prodotto nelle chat di lavoro. Non richiede la conversione retroattiva dei documenti già realizzati.
 salvo diversa indicazione tecnica.
 
 ## 8. Vincoli LaTeX e compatibilita' Scientific WorkPlace 5.5
