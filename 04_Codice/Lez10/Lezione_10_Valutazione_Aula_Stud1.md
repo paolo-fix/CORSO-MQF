@@ -1,114 +1,94 @@
-# Valutazione dello studente 1 sul caso aula della lezione 10
+# Valutazione del caso aula della lezione 10 — Studente 1
 
-Data della valutazione: 29 settembre 2026.
+Data: 2 ottobre 2026.
 
-**Valutazione proposta: 72/100.** Il lavoro presenta un impianto computazionale sostanzialmente corretto e contributi iniziali pertinenti dello studente. La qualità della verifica è disomogenea e manca una vera interpretazione economico-finanziaria conclusiva. Il risultato non giustifica pertanto una valutazione di eccellenza.
+**Valutazione proposta: 72/100.** Il lavoro presenta un contributo iniziale pertinente e un modello computazionale sostanzialmente corretto. Le verifiche documentate sono disomogenee e manca l'interpretazione critica finale autonoma.
 
-Si applicano i sei pesi della sezione 15.11 delle [Guidelines](../../00_MasterPlan/MQF_Project_Guidelines.md), come richiesto dal docente anche per questo caso aula. La griglia è formulata nelle Guidelines con riferimento ai take-home: l'applicazione al caso aula è qui esplicita. I punteggi interni alle sei aree sono giudizi motivati del valutatore; le Guidelines non stabiliscono detrazioni automatiche per ciascun difetto. L'eventuale conversione lineare è **21,6/30**, senza applicare regole di arrotondamento non previste.
+## Materiali e criterio
 
-## Materiali ed evidenze
+La fonte del processo IA è esclusivamente [il tracciato DOCX](Lezione_10_Tracciato_Aula_Stud1.docx). Il PDF e il link web non sono utilizzati nella presente valutazione. Il prodotto computazionale è valutato attraverso [il notebook del caso aula](Lezione_10_Notebook_Aula_Stud1.ipynb). La specifica del caso è quella riportata nel Prompt 1 del DOCX.
 
-- [Scheda Caso Aula](Lezione_10_Scheda_Caso_Aula.md), assunta come specifica vincolante.
-- [Notebook dello studente](Lezione_10_Notebook_Aula_Stud1.ipynb), composto da 15 celle, di cui 6 di codice; numerazione delle celle in questa relazione a partire da 1.
-- [Tracciato IA in Word](Lezione_10_Tracciato_Aula_Stud1.docx), contenente l'esportazione della conversazione, inclusi i prompt dello studente e le risposte IA.
-- [Rinvio al tracciato condiviso](Lezione_10_Tracciato_Aula_Stud1.md): <https://share.gemini.google/9t7cvvReRUxr>.
-- [Scheda Costruzione Caso Aula](Lezione_10_Scheda_Costruzione_Caso_Aula.md), per i criteri metodologici pertinenti, e [Capitolo 9](../../01_Manuale/Capitoli/MQF_Cap_09_Markov_Misure_Rischio.tex), per la convenzione del CVaR discreto.
+Si applicano i sei pesi della [sezione 15.11 delle Guidelines](../../00_MasterPlan/MQF_Project_Guidelines.md), con le indicazioni sulla validazione e sul tracciato delle sezioni 15.8–15.10. La griglia numerica, presentata con riferimento ai take-home, è applicata a questo caso aula su richiesta del docente. I massimi derivano dalle Guidelines; i punteggi entro ciascuna area sono giudizi motivati, perché non sono previste detrazioni automatiche per ogni difetto.
 
-Il link condiviso è stato contattato e reindirizza a una pagina Gemini; l'accesso HTTP disponibile ha restituito l'involucro della pagina, senza il testo della conversazione. La valutazione del processo si basa quindi sull'esportazione locale Word, che contiene il percorso di lavoro fino alla validazione finale. Non si afferma di avere verificato l'identità tra l'esportazione e la versione attualmente pubblicata sul web. Il limite tecnico di accesso al link non determina alcuna penalizzazione.
+La conversione puramente lineare è **21,6/30**; non si applicano arrotondamenti non prescritti. Si valuta il contributo osservabile dello studente, senza inferenze sull'intera storia privata del lavoro con IA.
 
-La Scheda Costruzione presenta nella sezione 13 un richiamo a Lehman Brothers incoerente con il caso Evergrande assegnato. Questo refuso del materiale docente non è imputato allo studente e non modifica la specifica di valutazione.
+## Punteggi
 
-## Punteggi per area
-
-| Area delle Guidelines | Massimo | Assegnato | Motivazione sintetica |
+| Area | Massimo | Assegnato | Motivazione sintetica |
 |---|---:|---:|---|
-| Prompt 2 — Flusso logico-teorico risolutivo | 30 | **23** | Contributo iniziale concreto e ordinato; formalizzazione e alcuni collegamenti decisivi sono completati dall'IA, con validazione dello studente poco argomentata. |
-| Prompt 3 — Scomposizione input-output | 15 | **11** | Proposta iniziale presente e pertinente, con riuso degli stessi scenari; input, output intermedi e controlli non sono ancora esplicitati sistematicamente dallo studente. |
-| Notebook Jupyter e output computazionali | 20 | **17** | Esecuzione riuscita, risultati riprodotti, parametri e meccanismo delle perdite corretti, quattro tabelle e tre figure; convenzione del CVaR da correggere e distribuzione delle differenze non esposta. |
-| Prompt e uso dei regimi A/B/C | 15 | **12** | Contesto e vincoli fissati, validazioni anteriori al codice, uso pertinente del Regime C; documentazione delle verifiche sulle singole tappe e chiusura metodologica incomplete. |
-| Verifiche logiche e controlli numerici | 15 | **9** | Controlli effettivi su diversi vincoli e buona correzione dimensionale; alcune verifiche sono tautologiche, dichiarative o troppo circoscritte. |
-| Interpretazione critica finale | 5 | **0** | Non è presente un commento autonomo che interpreti risultati, politica di concentrazione e limiti del modello. |
+| Prompt 2 — Flusso logico-teorico risolutivo | 30 | **23** | Proposta personale concreta e ordinata; formalizzazione e collegamenti specifici completati dall'IA, con validazione poco argomentata. |
+| Prompt 3 — Scomposizione input-output | 15 | **11** | Proposta operativa pertinente, con riuso degli scenari; input, output intermedi e controlli non ancora esplicitati sistematicamente dallo studente. |
+| Notebook Jupyter e output computazionali | 20 | **17** | Modello corretto, esecuzione riuscita, tabelle e grafici presenti; convenzione del CVaR da correggere e distribuzione delle differenze non adeguatamente presentata. |
+| Prompt e uso dei regimi A/B/C | 15 | **12** | Contesto e vincoli fissati, validazioni prima del codice, sviluppo progressivo e uso effettivo del Regime C; controlli delle risposte di tappa poco documentati. |
+| Verifiche logiche e controlli numerici | 15 | **9** | Controlli effettivi su diversi vincoli e buona critica dimensionale; alcune verifiche sono dichiarative, troppo circoscritte o non dimostrano la proprietà annunciata. |
+| Interpretazione critica finale | 5 | **0** | Nessuna conclusione autonoma quantitativa sul significato finanziario dei risultati e sui limiti del modello. |
 | **Totale** | **100** | **72** | |
 
-Le criticità del codice incidono nell'area del prodotto; la debolezza delle verifiche incide nell'area del controllo. L'assenza dell'interpretazione è valutata nella sua area specifica, senza ulteriori detrazioni automatiche nelle altre aree.
+L'uso dell'IA non costituisce di per sé motivo di penalizzazione. I difetti del prodotto e quelli delle verifiche sono trattati nelle rispettive aree; l'assenza della conclusione è valutata nell'area dedicata.
 
-## Motivazione analitica
+## Evidenze e motivazioni
 
-### Prompt 2
+I riferimenti agli interventi indicano l'ordine dei 19 paragrafi del DOCX che iniziano con `User prompt:`. Le celle del notebook sono numerate a partire da 1.
 
-Lo studente propone una sequenza teorica non vuota: regime sistemico, migrazioni condizionate, default assorbente, distinzione tra perdite da migrazione e da default, aggregazione, distribuzione Monte Carlo, misure di rischio, concentrazione e confronto tra scenari con e senza crisi. Chiede espressamente di verificare, completare e ordinare la proposta, senza codice e senza cambiare modello. Sono evidenze positive del contributo personale osservabile, senza inferenze sulla storia privata del lavoro.
+### Prompt 2 — 23/30
 
-Nella proposta iniziale non sono però formalizzati il regime preciso della LGD, la riallocazione proporzionale, il confronto a traiettorie identiche e le definizioni operative delle misure di coda. Questi elementi vengono esplicitati dall'IA. La richiesta successiva di compattare il flusso in sei tappe è una scelta organizzativa dello studente, ma il raggruppamento concreto è elaborato dall'IA. La validazione «Valido la tua proposta» non documenta una verifica puntuale delle integrazioni.
+Nell'intervento 5 lo studente propone regime sistemico, migrazioni condizionate, default assorbente, distinzione tra perdite da migrazione e default, aggregazione, distribuzione Monte Carlo, misure di rischio, concentrazione e confronto tra scenari con e senza crisi. Chiede all'IA di verificare, completare e ordinare la sequenza senza codice e senza cambiare modello. Il contributo è concreto e collegato alla domanda quantitativa, non una richiesta generica di soluzione.
 
-Il flusso finale della cella 2 è coerente nell'impianto, ma la tappa sulle misure di rischio ne elenca i nomi senza fissarne le convenzioni. La prima risposta IA al Prompt 2 identifica inoltre il CVaR con la media condizionata sopra il VaR, senza la cautela necessaria per distribuzioni discrete; tale convenzione passa poi nel codice. Il rilievo non penalizza l'errore dell'IA in sé, ma il suo recepimento senza correzione.
+La proposta resta prevalentemente descrittiva: non formalizza il regime preciso della LGD al primo default, la riallocazione proporzionale, il confronto a traiettorie identiche e le convenzioni delle misure di coda. Questi aspetti sono completati dall'IA. Nell'intervento 6 lo studente sceglie di compattare il flusso in sei tappe, ma il raggruppamento concreto è elaborato dall'assistente. La conferma dell'intervento 7, «Valido la tua proposta», è accettazione osservabile, senza verifica puntuale delle integrazioni. La tabella finale della cella 2 è coerente nell'impianto; non esplicita le convenzioni del CVaR.
 
-### Prompt 3
+### Prompt 3 — 11/15
 
-Lo studente propone sei passaggi operativi, distingue simulazione e valorizzazione, e indica esplicitamente di ricalcolare le perdite del portafoglio limitato sugli stessi scenari. Chiede una tabella con input, operazione, output, controllo e uso successivo: il collegamento con il flusso teorico è riconoscibile.
+Nell'intervento 9 lo studente distingue dati, simulazione, valorizzazione, misure di rischio, portafoglio limitato e output. Specifica di ricalcolare le perdite sugli stessi scenari simulati e richiede una tabella con input, operazione, output, controllo e uso successivo. Questi elementi soddisfano diversi indicatori positivi delle Guidelines.
 
-La proposta personale resta tuttavia descrittiva. I controlli sono concentrati alla fine e gli oggetti intermedi non sono identificati puntualmente. La tabella dettagliata della cella 3 è prodotta dall'IA e convalidata senza motivazione analitica. Il punteggio riconosce la buona base iniziale, senza attribuire integralmente allo studente il dettaglio introdotto dall'assistente.
+La proposta personale non identifica però in modo sistematico gli oggetti intermedi e concentra i controlli alla fine. Il dettaglio della tabella input-output è introdotto dall'IA; l'intervento 10 convalida la scomposizione senza motivazione analitica. Il punteggio riconosce la base operativa personale, senza attribuire integralmente allo studente il dettaglio dell'assistente.
 
-### Notebook e output
+### Notebook e output — 17/20
 
-Le sei celle di codice sono state eseguite in sequenza in un processo Python pulito, con backend grafico non interattivo. Non si sono verificati errori; gli assert sono passati e le tabelle numeriche coincidono con gli output salvati alla precisione esposta. Le tre immagini incorporate sono state ispezionate: sono leggibili e pertinenti. La figura 2 potrebbe usare una scala verticale più adatta alla coda, ma resta interpretabile.
+Il notebook contiene 15 celle, 6 di codice. Le celle computazionali sono state rieseguite in sequenza: tutti gli assert passano. Sono corretti i parametri assegnati, la composizione dei due portafogli, il totale di 200 milioni, Evergrande a 20 milioni e la riallocazione proporzionale a BBB e BB. Le due valorizzazioni usano gli stessi array sistemici e creditizi.
 
-Sono corretti i parametri, la composizione dei portafogli, il totale di 200 milioni, la riduzione di Evergrande a 20 milioni, la riallocazione BBB/BB e l'impiego delle stesse traiettorie. La simulazione conserva M0,...,M3 e usa Mt per la transizione creditizia t→t+1. Il tempo di primo default e la LGD al regime M_(tau-1) sono implementati correttamente; le perdite da migrazione si applicano soltanto ai non-default.
+La simulazione conserva M0,…,M3 e usa Mt per la transizione creditizia t→t+1. Il tempo di primo default e la LGD al regime M_(tau−1) sono implementati correttamente. Le perdite migration-based si applicano ai soli non-default. Sono presenti quattro tabelle e tre figure pertinenti, già verificate nella riesecuzione del medesimo notebook durante questa sessione.
 
-La cella 11 costruisce `delta_L_sim`: il campione empirico delle differenze esiste, ma non viene esposto mediante una distribuzione, una tabella o una sintesi adeguata oltre alla media. Non si tratta quindi di un calcolo mancante, bensì di una restituzione incompleta dell'output richiesto. Non si impone una quarta figura come requisito autonomo: la Scheda Caso ne richiede tre.
+La cella 11 calcola `delta_L_sim`, ma ne presenta solo la media. Il campione delle differenze esiste; manca una restituzione adeguata della distribuzione empirica richiesta nel Prompt 1. Non si impone una quarta figura come requisito autonomo.
 
-La cella 13 usa `np.percentile` con interpolazione predefinita e `mean(loss_vec[loss_vec >= var_alpha])`. Nel caso discreto, quest'ultima espressione include tutta la massa al quantile e non garantisce una coda di probabilità esattamente 1-alpha. Il Capitolo 9 distingue esplicitamente questa media condizionata dal CVaR. Con 50.000 osservazioni, per i livelli assegnati, il CVaR empirico coerente si ottiene mediando rispettivamente le peggiori 2.500 e 500 perdite ordinate.
+La cella 13 definisce il CVaR come `mean(loss_vec[loss_vec >= var_alpha])`. Su una distribuzione discreta la formula può includere troppa massa al VaR: il CVaR deve considerare una coda di probabilità esattamente 1−alpha. Con 50.000 osservazioni, ai livelli assegnati, si ottiene mediando le peggiori 2.500 e 500 perdite ordinate. La differenza è teoricamente rilevante ma numericamente piccola in questo campione:
 
-| Misura | Notebook base | CVaR corretto base | Notebook limite | CVaR corretto limite |
+| CVaR, milioni USD | Notebook base | Corretto base | Notebook limite | Corretto limite |
 |---|---:|---:|---:|---:|
-| CVaR 95%, milioni USD | 69,037542 | 69,044556 | 63,225760 | 63,228954 |
-| CVaR 99%, milioni USD | 79,636240 | 79,636240 | 73,446910 | 73,456771 |
+| 95% | 69,037542 | 69,044556 | 63,225760 | 63,228954 |
+| 99% | 79,636240 | 79,636240 | 73,446910 | 73,456771 |
 
-L'impatto numerico è piccolo su questo campione, ma la distinzione teorica è rilevante. Anche il VaR empirico andrebbe allineato al quantile inverso della funzione di ripartizione: il VaR 99% base è 74,7200, contro 74,7201 prodotto dall'interpolazione. Non è un errore sostanziale della simulazione del rischio di credito.
+Il VaR empirico con interpolazione predefinita andrebbe allineato al quantile inverso della funzione di ripartizione: il VaR 99% base è 74,7200, contro 74,7201 restituito dal notebook. Questi riscontri sono calcoli del valutatore già verificati sullo stesso notebook nella sessione; non sono attribuiti allo studente.
 
-### Uso dei regimi e qualità del tracciato
+### Prompt e regimi — 12/15
 
-Sono presenti Prompt zero, Scheda Caso nel Prompt 1, proposta teorica, proposta operativa, validazioni esplicite, sei richieste progressive di implementazione e una verifica critica in Regime C. Il codice arriva dopo la convalida della specifica e della scomposizione. Il notebook recepisce la sostituzione della Tappa 5 richiesta dopo la correzione delle unità.
+Sono presenti Prompt zero, Scheda Caso nel Prompt 1, contributi iniziali ai Prompt 2 e 3, validazioni esplicite e sei richieste progressive di implementazione. Il codice arriva dopo la convalida della specifica e della scomposizione. I prompt brevi «Tappa 3», «Tappa 4» e analoghi sono collegati al contesto iniziale, come ammesso dalla sezione 15.9.
 
-I prompt «Tappa 3», «Tappa 4» e analoghi sono brevi ma legati al contesto già fissato: la sezione 15.9 ammette espressamente questa forma dopo il Prompt zero. Non sono trattati come deleghe generiche dell'intero caso. Rimane poco documentata l'analisi degli output effettivi dopo ciascuna tappa: il passaggio successivo indica prosecuzione, non dimostra da solo una verifica.
+L'intervento 17 formula in Regime C una criticità specifica sulle unità della varianza, distingue errore di intestazione e possibile errore di calcolo, chiede un esito esplicito e celle sostitutive. Il notebook recepisce la correzione `(M$)^2`. È una buona evidenza di controllo dell'IA. Rimane poco documentata la verifica degli output effettivi di ciascuna tappa: la prosecuzione del lavoro non equivale da sola a controllo.
 
-Il tracciato contiene 19 interventi utente, contando apertura, conferme e richieste di formato. L'intervallo 11–15 compare nella Scheda Costruzione come indicazione preliminare, ma non nella Scheda Caso consegnata. Non si applica una penalizzazione automatica per il conteggio, anche perché non tutti gli interventi costituiscono prompt metodologici autonomi.
+I 19 interventi includono identificazione del caso, conferme e richieste di formato. Non si applica una penalizzazione automatica per il loro numero: nel Prompt 1 non è comunicato un intervallo obbligatorio e non tutti gli interventi sono prompt metodologici autonomi.
 
-### Controlli
+### Verifiche — 9/15
 
-La criticità formulata dallo studente sulle unità della varianza è pertinente e ha valore didattico: lo studente distingue un possibile errore di etichetta da un errore di calcolo e chiede una verifica circoscritta. La correzione a `(M$)^2` è presente nel notebook finale. Si riconosce quindi un uso effettivo del Regime C.
+La critica dimensionale della varianza è pertinente e ha valore didattico. Sono inoltre effettivi i controlli sulle somme delle righe, sull'assorbimento, sul primo ingresso in default e sui vincoli della riallocazione. Il report finale con 17 esiti `True` sovrastima però alcune verifiche:
 
-Il report finale con 17 esiti `True` sovrastima però la forza di alcune verifiche:
+- Cella 9, controllo 6: `ctrl_6 = True` è una dichiarazione; l'indipendenza delle estrazioni è giustificata dalla struttura del generatore, non dal booleano.
+- Cella 9, controllo 15: verifica solo l'inizializzazione in S delle prime tre repliche; `expected_M_head` non è usato. Non prova la riproducibilità.
+- Cella 11, controlli 8 e 10: verificano un solo debitore in default e un solo non-default, entrambi nel portafoglio base.
+- Cella 11, controllo 13: verifica dimensioni degli array, che non dimostrano il riuso delle traiettorie. Il riuso è comunque corretto nel codice.
+- Cella 11, controllo 14: ripete la somma già utilizzata per costruire il totale, con limitata indipendenza rispetto alla costruzione della perdita.
+- Cella 13, controllo 16: confronta 25.000 e 50.000 osservazioni solo per media e VaR 95% base; non copre CVaR, livello 99% e portafoglio limitato.
+- Cella 13, controllo 17: verifica ordinamenti necessari delle misure, che non garantiscono la corretta convenzione del CVaR.
 
-- **Controllo 6, cella 9:** `ctrl_6 = True` non è un test. Le estrazioni indipendenti sono giustificate dalla struttura del generatore e del codice, che è corretta; il booleano non costituisce una verifica aggiuntiva.
-- **Controllo 15, cella 9:** controlla soltanto che i primi tre scenari partano da S. L'array `expected_M_head` non viene usato. Non verifica la riproducibilità dichiarata.
-- **Controlli 8 e 10, cella 11:** verificano un solo caso in default e un solo caso senza default, entrambi sul portafoglio base. Non giustificano da soli le affermazioni generali stampate.
-- **Controllo 13, cella 11:** controlla dimensioni degli array; il riuso delle traiettorie è effettivo nelle chiamate alle funzioni, ma non viene provato dal test dimensionale.
-- **Controllo 14:** ricalcola la medesima somma utilizzata per costruire il totale; utile contro modifiche accidentali, poco indipendente come verifica del modello.
-- **Controllo 16, cella 13:** confronta 25.000 e 50.000 osservazioni, ma soltanto per media e VaR 95% del portafoglio base. È un controllo reale, tuttavia non copre CVaR, livello 99% e portafoglio limitato.
-- **Controllo 17:** verifica ordinamenti necessari delle misure, ma tali disuguaglianze non certificano la corretta convenzione del CVaR.
+La riproducibilità effettiva del codice è stata confermata dal valutatore nella sessione con una seconda simulazione a seed identico; questo non trasforma il controllo 15 dello studente in una prova adeguata.
 
-La riesecuzione indipendente del valutatore con lo stesso seed ha restituito array M, X e tau identici. Questo conferma che il codice è riproducibile, ma non trasforma retroattivamente il controllo 15 dello studente in una prova adeguata.
+### Interpretazione finale — 0/5
 
-### Interpretazione finale
+Nell'intervento 19 lo studente scrive: «Dopo una rilettura complessiva, trovo i risultati consistenti con le richieste del caso». Segue una validazione del lavoro. Questa è una dichiarazione sintetica di accettazione, non un'interpretazione finanziaria dei risultati. Il notebook termina con il report dei controlli.
 
-Il notebook termina con il report dei controlli. Nel tracciato lo studente conclude che i risultati sono consistenti e valida tutto il lavoro, ma non interpreta quantitativamente gli esiti. Non discute la riduzione delle misure di coda, la persistenza del rischio sistemico, l'assenza di miglioramento in ogni singolo scenario o i limiti della calibrazione didattica.
+Manca una discussione autonoma della riduzione delle misure di coda, del rischio sistemico residuo, del comportamento scenario per scenario e dei limiti della calibrazione didattica. Non si assume che l'interpretazione sia stata delegata all'IA: l'interpretazione manca nel materiale consegnato.
 
-Non vi è evidenza di un'interpretazione finale delegata all'IA: l'interpretazione semplicemente manca. La dichiarazione di validazione non soddisfa il criterio delle Guidelines e non consente di assegnare punti nell'area dedicata.
+## Risultati e restituzione
 
-## Risultati verificati dal valutatore
+La riesecuzione restituisce perdita media base di 26,233737 milioni e limite di 24,913819 milioni; VaR 95% rispettivamente 60,27 e 55,24 milioni. Le riduzioni sono circa il 5,03% per la media e l'8,35% per il VaR 95%. Sono risultati che avrebbero potuto sostenere una conclusione autonoma, senza confondere il miglioramento delle misure aggregate con una riduzione della perdita in ogni scenario.
 
-| Quantità | Portafoglio base | Portafoglio limite | Differenza limite meno base |
-|---|---:|---:|---:|
-| Perdita media, milioni USD | 26,2337 | 24,9138 | -1,3199 |
-| Varianza, milioni USD al quadrato | 276,6052 | 225,6674 | -50,9379 |
-| Deviazione standard, milioni USD | 16,6315 | 15,0222 | -1,6092 |
-| VaR 95% del notebook, milioni USD | 60,2700 | 55,2400 | -5,0300 |
-| VaR 99% del notebook, milioni USD | 74,7201 | 68,5164 | -6,2037 |
-
-La probabilità simulata di raggiungere C in M0,...,M3 è 0,37146, coerente con il valore esatto 0,371112 ottenuto dalla sottomatrice di Q sugli stati N e S. I default medi sono 5,34604. Le perdite medie base con e senza ingresso in C sono rispettivamente circa 40,9945 e 17,5103 milioni.
-
-La riduzione media della perdita è circa il 5,03%; quella del VaR 95% è circa l'8,35%. Il portafoglio limitato presenta però una perdita maggiore nel 52,506% delle repliche. Le misure aggregate migliorano grazie alla dimensione delle riduzioni negli scenari sfavorevoli, non perché la politica riduca la perdita in ogni scenario. Questo dato, calcolato dal valutatore, è un esempio di analisi che avrebbe potuto sostenere la conclusione dello studente: non gli viene attribuito come lavoro svolto.
-
-## Restituzione allo studente
-
-Il contributo iniziale e la costruzione del modello sono buoni. Per migliorare il lavoro occorre formalizzare le convenzioni di VaR e CVaR, rendere i controlli coerenti con ciò che dichiarano di verificare, presentare la distribuzione delle differenze di perdita e scrivere una conclusione autonoma fondata sui risultati e sui limiti del caso. La correzione delle unità della varianza è un esempio positivo del tipo di controllo critico da estendere al resto del notebook.
+Il contributo iniziale e la costruzione del modello sono buoni. Per migliorare il lavoro occorre formalizzare VaR e CVaR discreti, rendere i controlli coerenti con le proprietà dichiarate, presentare la distribuzione delle differenze e scrivere una conclusione autonoma fondata sui risultati e sui limiti del caso. Il rilievo sulle unità della varianza è un esempio positivo del controllo critico da estendere al resto del lavoro.
