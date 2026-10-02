@@ -981,6 +981,6 @@ Dovranno cambiare almeno:
 - struttura dell'analisi controfattuale;
 - criticità economico-finanziaria da discutere.
 
-Nel caso take-home il fattore sistemico rappresenta la dinamica delle condizioni del sistema finanziario durante la crisi del 2008 e Lehman costituisce la posizione iniziale di maggiore dimensione.
+Nel caso take-home, il fattore sistemico rappresenta la dinamica delle condizioni del sistema finanziario durante la crisi del 2008 e Lehman costituisce la posizione iniziale di maggiore dimensione.
 
 Nel caso take-home il fattore comune dovrà essere reinterpretato in relazione alle condizioni del settore immobiliare e finanziario cinese e la posizione principale sarà associata a Evergrande.
