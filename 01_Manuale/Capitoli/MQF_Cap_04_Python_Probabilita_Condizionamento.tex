@@ -32,265 +32,2347 @@
 
 \chapter[Applicazioni con IA e Python]{Scenario analysis e informazione condizionata con IA e Python}
 
-\section{Uso virtuoso dell'IA nelle applicazioni quantitative}
+Questo capitolo mostra come gli strumenti teorici introdotti nei Capitoli
+1--3 possano essere utilizzati per affrontare casi quantitativi assegnati,
+trasformando definizioni e propriet\`{a} matematiche in procedure
+computazionali verificabili.
 
-\subsection{Perch\`{e} ammettere l'IA in un corso di finanza quantitativa}
+Il punto di partenza \`{e} costituito dai concetti di probabilit\`{a},
+variabile casuale, distribuzione, probabilit\`{a} condizionata e valore atteso
+condizionato. In un problema applicativo, tuttavia, non \`{e} sufficiente
+riconoscere tali oggetti in forma astratta. Occorre stabilire quali grandezze
+del caso corrispondano agli oggetti teorici, quali relazioni matematiche siano
+necessarie, quali quantit\`{a} debbano essere stimate e in quale ordine debbano
+essere svolti i diversi passaggi.
 
-L'uso dell'intelligenza artificiale generativa nella didattica universitaria
-presenta un rischio evidente. Lo studente pu\`{o} utilizzarla per evitare ogni
-sforzo intellettuale: chiedere allo strumento di capire il problema, scegliere
-il modello, scrivere il codice, produrre i risultati e formulare
-l'interpretazione finale. In questo caso, il prodotto consegnato viene
-presentato come se fosse frutto del lavoro dello studente, mentre in realt\`{a}
-\`{e} stato generato artificialmente senza controllo sostanziale.
+Python viene utilizzato come strumento per rendere operative queste relazioni.
+Attraverso la simulazione Monte Carlo \`{e} possibile generare scenari,
+costruire distribuzioni empiriche, stimare probabilit\`{a}, momenti e quantili,
+calcolare quantit\`{a} condizionate e verificare numericamente propriet\`{a}
+teoriche. Il codice non costituisce quindi un fine autonomo, ma la traduzione
+computazionale di una struttura teorica gi\`{a} definita.
 
-Questo \`{e} l'uso vizioso dell'IA. Esso non consiste semplicemente nell'usare
-uno strumento generativo, ma nel trasferire allo strumento la responsabilit\`{a}
-cognitiva del lavoro. In un corso di finanza quantitativa, tale uso \`{e}
-particolarmente problematico, perch\`{e} pu\`{o} produrre codice, tabelle e
-grafici formalmente plausibili senza che lo studente abbia compreso gli oggetti
-matematici, le ipotesi del modello o il significato finanziario dei risultati.
+Anche l'intelligenza artificiale viene utilizzata come strumento di supporto
+alla soluzione del caso. Il suo impiego \`{e} utile soprattutto quando occorre
+passare dalla formulazione del problema alla sua organizzazione operativa:
+riconoscere gli oggetti teorici rilevanti, ordinare i passaggi risolutivi,
+tradurre una specifica matematica in codice, individuare controlli adeguati e
+verificare la coerenza degli output. L'IA non sostituisce per\`{o} il controllo
+teorico e interpretativo: ogni risposta ottenuta deve essere confrontata con la
+struttura del problema, con le ipotesi assegnate e con i risultati effettivamente
+prodotti dal notebook.
 
-L'IA viene tuttavia ammessa nelle lezioni applicative perch\`{e} esiste anche un
-uso virtuoso. In questo secondo caso, lo studente non usa l'IA per sottrarsi al
-ragionamento, ma per rendere pi\`{u} efficace il lavoro sui modelli. L'IA pu\`{o}
-aiutare a chiarire concetti, proporre domande di controllo, tradurre una
-specificazione teorica in una procedura computazionale, generare codice,
-costruire output e revisionare criticamente un'interpretazione gi\`{a}
-formulata.
+Un passaggio particolarmente delicato consiste nel ricavare dalla traccia un
+\emph{flusso logico-teorico risolutivo}. Prima di procedere al codice occorre
+individuare le grandezze assegnate, la variabile o le variabili di interesse,
+gli eventi rilevanti, l'informazione disponibile, le relazioni funzionali, le
+quantit\`{a} teoriche da calcolare e le propriet\`{a} che consentono di
+collegarle. Il flusso deve inoltre rispettare un ordine logico: ogni passaggio
+deve utilizzare oggetti gi\`{a} definiti e preparare il passaggio successivo.
 
-La distinzione fondamentale \`{e} quindi la seguente:
-\begin{center}
-\begin{tabular}{p{5.2cm}p{6.8cm}}
-Uso virtuoso & l'IA aiuta lo studente a lavorare meglio su un problema di cui
-egli conserva il controllo teorico, computazionale e interpretativo; \\
-Uso vizioso & l'IA sostituisce lo studente nei passaggi essenziali e consente
-di presentare come proprio un prodotto non realmente governato.
-\end{tabular}
-\end{center}
+Una volta definito il flusso teorico, il problema deve essere tradotto in una
+\emph{scomposizione operativa del notebook in tappe input--output}. Ogni tappa
+deve specificare quali input vengono utilizzati, quale operazione viene
+eseguita, quale output deve essere prodotto e quale controllo deve consentire
+di valutarne la coerenza. In questo modo il notebook non diventa una semplice
+sequenza di istruzioni Python, ma una rappresentazione osservabile del
+ragionamento quantitativo.
 
-Nel corso, Python non viene introdotto come contenuto autonomo di
-programmazione. Esso serve a rendere osservabili modelli quantitativi gi\`{a}
-discussi sul piano teorico. Per questa ragione, l'IA pu\`{o} essere utilizzata
-per ridurre la frizione tecnico-computazionale, ma non per eliminare il lavoro
-di comprensione, controllo e interpretazione.
+Il caso sviluppato in questo capitolo riguarda la perdita di un portafoglio
+obbligazionario a un periodo in presenza di differenti regimi informativi del
+mercato dei tassi. La struttura del problema consente di utilizzare
+congiuntamente una partizione dello spazio degli eventi, distribuzioni
+condizionate, una variabile casuale di perdita, probabilit\`{a} di superamento
+di soglia, valori attesi condizionati e formula del valore atteso totale. La
+simulazione consente di osservare come queste quantit\`{a} cambino al variare
+dell'informazione disponibile e di confrontare sistematicamente formulazione
+teorica e stima empirica.
 
-La regola didattica generale \`{e}:
-\begin{center}
-\begin{tabular}{c}
-lo studente chiarisce il significato del problema; \\
-l'IA pu\`{o} aiutare a renderlo computabile; \\
-lo studente verifica e interpreta i risultati.
-\end{tabular}
-\end{center}
+Accanto al caso sviluppato nel capitolo viene considerato un secondo caso, da
+affrontare in autonomia. Il contesto economico cambia, ma resta invariato il
+metodo di lavoro: riconoscimento degli oggetti teorici, costruzione del flusso
+risolutivo, scomposizione del notebook, formulazione dei prompt, implementazione
+in Python, verifica degli output e interpretazione finale.
 
-L'uso dell'IA non viene quindi valutato in base alla quantit\`{a} di assistenza
-ricevuta, ma in base alla qualit\`{a} del controllo esercitato dallo studente.
+L'obiettivo del capitolo \`{e} quindi duplice. Da un lato, mostrare come i
+concetti probabilistici e condizionati dei capitoli precedenti vengano
+utilizzati nella soluzione di un caso quantitativo. Dall'altro, sviluppare un
+metodo di lavoro riutilizzabile, nel quale teoria finanziaria, Python e
+intelligenza artificiale contribuiscono a funzioni diverse ma coordinate della
+stessa procedura risolutiva.
 
-\subsection{Dall'uso virtuoso all'uso vizioso}
+\section{Obiettivi del capitolo e raccordo con i Capitoli 1--3}
 
-L'interazione con l'IA pu\`{o} essere collocata lungo una scala. Ai livelli pi\`{u}
-virtuosi, lo strumento sostiene il ragionamento dello studente; ai livelli pi\`{u}
-problematici, lo sostituisce.
+I primi tre capitoli hanno costruito progressivamente il linguaggio necessario
+per rappresentare l'incertezza finanziaria. Il Capitolo 1 ha introdotto eventi,
+probabilit\`{a}, partizioni e condizionamento; il Capitolo 2 ha trasformato gli
+esiti aleatori in grandezze numeriche mediante le variabili casuali e le loro
+distribuzioni; il Capitolo 3 ha mostrato come la valutazione di tali grandezze
+cambi quando si dispone di informazione parziale.
 
-\begin{center}
-\small
-\begin{tabular}{p{2.3cm}p{4.4cm}p{4.2cm}}
-Ruolo dell'IA & Funzione didattica IA & Valutazione nel corso \\ \hline
-Tutor & Aiuta a chiarire concetti, richiamare definizioni, proporre domande e
-guidare il ragionamento. & Uso ammesso, purch\`{e} lo studente validi quanto
-riceve. \\
-Sparring partner & Confronta una soluzione dello studente con alternative,
-obiezioni o casi particolari. & Uso ammesso, perch\`{e} stimola controllo e
-revisione. \\
-Revisore & Segnala ambiguit\`{a}, errori, passaggi mancanti o conclusioni troppo
-forti. & Uso ammesso, se esiste gi\`{a} una produzione dello studente. \\
-Automazione produttiva & Genera codice, testo, sintesi, tabelle o grafici. &
-Uso delicato: ammesso solo se vincolato da una specifica teorica e seguito da
-controllo. \\
-Autore occulto & Produce il lavoro sostituendo la responsabilit\`{a} cognitiva
-dello studente. & Uso improprio: il prodotto non documenta apprendimento.
-\end{tabular}
-\end{center}
+In questo capitolo questi concetti vengono utilizzati congiuntamente per
+risolvere casi quantitativi mediante simulazione. L'obiettivo non \`{e}
+introdurre nuovi risultati probabilistici, ma imparare a riconoscere, all'interno
+di un problema finanziario assegnato, quali strumenti teorici siano necessari e
+come debbano essere tradotti in una procedura computazionale controllabile.
 
-La categoria pi\`{u} delicata \`{e} l'automazione produttiva. In un corso che usa
-Python, una parte del codice pu\`{o} essere prodotta con l'aiuto dell'IA. Questo
-non \`{e} automaticamente scorretto. Diventa per\`{o} scorretto se il codice
-viene accettato senza sapere quale quantit\`{a} calcola, quali ipotesi utilizza
-e quali controlli richiede.
-
-Per questo motivo, l'automazione produttiva non \`{e} mai sufficiente da sola.
-Essa deve essere collocata tra una specificazione teorica preliminare e una
-verifica successiva. Il codice generato dall'IA pu\`{o} essere utile; un codice
-generato, non compreso e non controllato non ha valore formativo.
-
-\subsection{I tre regimi dell'interazione studente--IA}
-
-Per disciplinare l'uso dell'IA nelle lezioni applicative, distinguiamo tre
-regimi. Essi corrispondono a tre momenti diversi del lavoro quantitativo.
-
-\begin{center}
-\small
-\begin{tabular}{p{1.5cm}p{3.2cm}p{5.7cm}}
-Regime & Funzione IA & Responsabilit\`{a} principale \\ \hline
-A & Ricognizione teorico-modellistica & Lo studente identifica grandezze,
-variabili casuali o decisionali, eventi, informazione, ipotesi e quantit\`{a} da
-calcolare. L'IA pu\`{o} aiutare a ordinare i concetti, a ricavare una mappa concettuale, a scomporre un problema complessivo in sotto-blocchi, ma non deve risolvere il
-problema. \\
-B & Scrittura codice & L'IA pu\`{o} costruire codice,
-strutture dati, tabelle e grafici, ma deve rispettare la specifica teorica
-validata dallo studente. \\
-C & Verifica e interpretazione critica & Lo studente controlla output, formule
-e significato finanziario. L'IA pu\`{o} agire come revisore, non come autore
-della conclusione.
-\end{tabular}
-\end{center}
-
-Nel Regime A, l'IA viene usata per orientare il ragionamento teorico. Una
-richiesta o \textit{prompt} ammesso non chiede di risolvere il caso, ma di distinguere gli
-oggetti concettuali coinvolti.
-
-\begin{quote}
-\small
-\noindent{\ttfamily\raggedright
-sto lavorando su un problema di perdita di portafoglio in diversi stati di
-mercato; aiutami a distinguere variabili casuali, eventi, informazione
-disponibile, quantit\`{a} teoriche e ipotesi rilevanti, senza risolvere il
-problema e senza scrivere codice.\par}
-\end{quote}
-
-Nel Regime B, l'IA viene usata per costruire l'apparato computazionale. La
-delega tecnica pu\`{o} essere ampia, ma deve essere vincolata.
-
-\begin{quote}
-\small
-\noindent{\ttfamily\raggedright
-data la variabile di perdita L, l'evento di stress S e la formula della media
-empirica condizionata, costruisci una procedura Python coerente; puoi scegliere
-la struttura tecnica del codice, ma non modificare variabile, evento e formula.\par}
-\end{quote}
-
-Nel Regime C, l'IA viene usata come revisore critico. La condizione essenziale
-\`{e} che lo studente abbia gi\`{a} prodotto una verifica o un'interpretazione.
-
-\begin{quote}
-\small
-\noindent{\ttfamily\raggedright
-ho scritto questa interpretazione del risultato; valuta se distingue
-correttamente quantit\`{a} teorica e stima empirica, se \`{e} coerente con le
-ipotesi del modello e se contiene conclusioni troppo forti; non riscrivere il
-testo al posto mio.\par}
-\end{quote}
-
-I tre regimi non servono a limitare meccanicamente l'uso dell'IA, ma a chiarire
-che cosa pu\`{o} essere delegato e che cosa deve restare sotto responsabilit\`{a}
-dello studente. Il Regime A protegge la comprensione del problema; il Regime B
-rende possibile il lavoro computazionale; il Regime C protegge il controllo e
-l'interpretazione.
-
-\subsection{Dal problema complessivo alle tappe operative}
-
-L'IA pu\`{o} essere utilizzata a due scale diverse. La prima \`{e} la scala del
-problema complessivo. A questo livello, il compito non \`{e} ancora ottenere la
-soluzione, ma costruire il percorso di soluzione: individuare gli oggetti
-teorici, ordinare le tappe, stabilire quali output saranno necessari e chiarire
-quali controlli dovranno essere svolti.
-
-La seconda \`{e} la scala della singola tappa. A questo livello si lavora su un
-passaggio specifico: definire una variabile, costruire un evento, simulare una
-quantit\`{a}, calcolare una stima, produrre una tabella, generare un grafico o
-svolgere un controllo.
-
-La struttura generale \`{e}:
+Il passaggio fondamentale pu\`{o} essere rappresentato schematicamente come
+segue:
 \[
-(A_0 \to B_0 \to C_0)
-\quad \to \quad
-\left[
-(A_1 \to B_1 \to C_1),\ldots,
-(A_K \to B_K \to C_K)
-\right],
+\begin{array}{c}
+\text{problema finanziario assegnato}
+\\[4pt]
+\downarrow
+\\[4pt]
+\text{oggetti teorici rilevanti}
+\\[4pt]
+\downarrow
+\\[4pt]
+\text{quantit\`{a} da calcolare o stimare}
+\\[4pt]
+\downarrow
+\\[4pt]
+\text{procedura computazionale}
+\\[4pt]
+\downarrow
+\\[4pt]
+\text{output, controlli e interpretazione}.
+\end{array}
 \]
-dove il pedice $0$ indica il problema complessivo e il pedice $k$ indica la
-tappa $k$-esima.
 
-Ogni tappa deve avere una struttura input--output:
-\begin{center}
-\begin{tabular}{c}
-input disponibili $\to$ trasformazione richiesta $\to$ output prodotto \\
-$\to$ uso dell'output nella tappa successiva.
-\end{tabular}
-\end{center}
+Python interviene soprattutto negli ultimi tre passaggi, mentre l'identificazione
+degli oggetti teorici deve precedere la costruzione del codice. L'intelligenza
+artificiale pu\`{o} assistere entrambe le fasi, ma il suo utilizzo rimane
+subordinato alla corretta specificazione del problema e alla verifica dei
+risultati prodotti.
 
-Questa struttura \`{e} importante perch\`{e} impedisce di usare l'IA per produrre
-blocchi isolati di codice. Un blocco pu\`{o} essere sintatticamente corretto e
-tuttavia inutile se non si capisce quali input utilizza, quale output produce e
-perch\`{e} quell'output serve nel seguito dell'analisi.
+\subsection{Dagli eventi agli scenari informativi}
 
-Una tappa ben formulata deve chiarire:
+Nel Capitolo 1 una partizione
+\[
+\{A_{1},\ldots,A_{m}\}
+\]
+dello spazio campionario \`{e} stata introdotta come una famiglia di eventi
+disgiunti la cui unione coincide con $\Omega$. In un caso applicativo, i blocchi
+della partizione possono rappresentare differenti condizioni di mercato,
+regimi macroeconomici, stati di credito o altre forme di informazione rilevante.
+
+La struttura
+\[
+\Omega=A_{1}\cup\cdots\cup A_{m},
+\qquad
+A_{i}\cap A_{j}=\emptyset
+\quad\text{per }i\neq j,
+\]
+con
+\[
+\sum_{g=1}^{m}\Prob(A_{g})=1,
+\]
+non deve essere considerata soltanto come una definizione astratta. In una
+simulazione essa diventa una regola per generare scenari appartenenti a
+differenti classi informative.
+
+La probabilit\`{a} teorica $\Prob(A_{g})$ trova quindi una controparte
+empirica nella frequenza con cui il regime $A_{g}$ compare nel campione
+simulato. Se vengono generate $M$ simulazioni e $M_{g}$ di esse appartengono
+ad $A_{g}$, si ottiene
+\[
+\widehat{\Prob}(A_{g})
+=
+\frac{M_{g}}{M}.
+\]
+
+Il confronto tra
+\[
+\Prob(A_{g})
+\qquad\text{e}\qquad
+\widehat{\Prob}(A_{g})
+\]
+costituisce gi\`{a} un primo controllo del procedimento computazionale.
+
+\subsection{Dalle variabili casuali alle distribuzioni empiriche}
+
+Il Capitolo 2 ha introdotto una variabile casuale come funzione
+\[
+X:\Omega\longrightarrow\mathbb{R}.
+\]
+Nei casi quantitativi, la variabile casuale rappresenta una grandezza
+finanziariamente osservabile: un rendimento, una variazione di tasso, una
+perdita, un costo o un payoff.
+
+La distribuzione teorica di $X$ descrive i valori possibili e le relative
+probabilit\`{a}. In una simulazione Monte Carlo essa viene approssimata mediante
+un campione
+\[
+X^{(1)},X^{(2)},\ldots,X^{(M)}.
+\]
+
+Da questo campione possono essere ricavate quantit\`{a} empiriche che
+corrispondono direttamente agli oggetti teorici studiati nel Capitolo 2. Ad
+esempio,
+\[
+\widehat{\E}[X]
+=
+\frac{1}{M}\sum_{k=1}^{M}X^{(k)}
+\]
+costituisce la media campionaria, mentre una probabilit\`{a} di superamento di
+soglia pu\`{o} essere stimata mediante
+\[
+\widehat{\Prob}(X>x)
+=
+\frac{1}{M}
+\sum_{k=1}^{M}
+\1_{\{X^{(k)}>x\}}.
+\]
+
+Allo stesso modo, la distribuzione empirica consente di calcolare deviazione
+standard, quantili e altre statistiche descrittive. Il passaggio dalla
+distribuzione teorica al campione simulato non modifica quindi la natura della
+quantit\`{a} studiata: ne costruisce una rappresentazione empirica sulla quale
+possono essere svolti controlli numerici e grafici.
+
+\subsection{Dal condizionamento teorico alle stime per gruppi informativi}
+
+Il Capitolo 3 ha mostrato che il valore atteso condizionato rispetto a un
+evento $A_{g}$,
+\[
+\E[X\mid A_{g}],
+\]
+rappresenta la valutazione media di $X$ quando \`{e} noto che l'evento
+$A_{g}$ si \`{e} verificato.
+
+Nel campione simulato la stessa idea viene tradotta selezionando soltanto le
+osservazioni appartenenti al regime considerato. Se
+\[
+I_{g}
+=
+\{k:\omega_{k}\in A_{g}\},
+\qquad
+M_{g}=\# I_{g},
+\]
+la corrispondente stima Monte Carlo \`{e}
+\[
+\widehat{\E}[X\mid A_{g}]
+=
+\frac{1}{M_{g}}
+\sum_{k\in I_{g}}X^{(k)}.
+\]
+
+Il condizionamento diventa quindi un'operazione osservabile sul campione:
+suddividere le simulazioni secondo l'informazione disponibile e confrontare le
+quantit\`{a} ottenute nei diversi gruppi.
+
+Se
+\[
+\G=\sigma(A_{1},\ldots,A_{m}),
+\]
+il valore atteso condizionato rispetto all'informazione generata dalla
+partizione assume la forma
+\[
+\E[X\mid\G]
+=
+\sum_{g=1}^{m}
+\E[X\mid A_{g}]\,\1_{A_{g}}.
+\]
+Nella simulazione, a ogni scenario appartenente ad $A_{g}$ viene quindi
+associata la media condizionata stimata per quel gruppo. Si ottiene una
+variabile empirica costante all'interno di ciascun blocco informativo.
+
+La formula del valore atteso totale fornisce infine un controllo particolarmente
+importante:
+\[
+\E[X]
+=
+\sum_{g=1}^{m}
+\Prob(A_{g})\E[X\mid A_{g}].
+\]
+La corrispondente identit\`{a} campionaria pu\`{o} essere verificata
+ricomponendo la media complessiva mediante frequenze empiriche e medie
+condizionate:
+\[
+\widehat{\E}[X]
+=
+\sum_{g=1}^{m}
+\widehat{\Prob}(A_{g})
+\widehat{\E}[X\mid A_{g}].
+\]
+
+Questa relazione mostra un principio che sar\`{a} ricorrente nel capitolo:
+una propriet\`{a} teorica non viene richiamata soltanto per giustificare un
+calcolo, ma pu\`{o} diventare anche uno strumento di controllo del notebook.
+
+\subsection{Obiettivi operativi}
+
+Al termine del capitolo dovr\`{a} risultare possibile:
+
 \begin{enumerate}
-    \item quali oggetti sono gi\`{a} disponibili;
+\item riconoscere in un caso assegnato eventi, variabili casuali, stati
+informativi e quantit\`{a} condizionate gi\`{a} introdotti nei Capitoli 1--3;
 
-    \item quale trasformazione deve essere realizzata;
+\item distinguere una quantit\`{a} teorica dalla corrispondente stima empirica
+ottenuta mediante simulazione;
 
-    \item quale output deve essere prodotto;
+\item individuare le relazioni matematiche necessarie per collegare gli input
+del problema alla variabile finale di interesse;
 
-    \item quale controllo deve essere svolto;
+\item organizzare tali relazioni in un ordine logico risolutivo prima della
+scrittura del codice;
 
-    \item come l'output sar\`{a} utilizzato nella tappa successiva.
+\item trasformare il percorso teorico in una sequenza di operazioni Python con
+input, output e controlli espliciti;
+
+\item utilizzare l'IA come supporto alla ricognizione, alla traduzione
+computazionale e alla verifica, senza delegare la definizione del significato
+del problema;
+
+\item valutare la coerenza di tabelle, grafici e risultati numerici rispetto
+alle ipotesi e alle propriet\`{a} teoriche utilizzate;
+
+\item trasferire la stessa procedura di lavoro a un caso differente da quello
+sviluppato nel capitolo.
 \end{enumerate}
 
-In questo modo, il notebook non \`{e} una sequenza di celle generate con l'IA,
-ma una catena di oggetti teorico-computazionali collegati tra loro.
+Il raccordo tra teoria e applicazione non consiste quindi nel sostituire le
+formule con il codice. Consiste nel riconoscere la stessa struttura
+quantitativa in due rappresentazioni differenti: prima come modello
+probabilistico e finanziario, poi come procedura computazionale verificabile.
 
-\subsection{Prompt, output e controlli}
 
-Un prompt ammesso deve rendere visibile il ruolo assegnato all'IA. Non basta
-chiedere allo strumento di ``fare'' qualcosa. Occorre indicare il contesto, gli
-input disponibili, il regime di lavoro, il compito richiesto e i vincoli da
-rispettare.
+\section{Il metodo di lavoro nei capitoli applicativi}
+
+Nei capitoli applicativi il problema quantitativo non viene affrontato
+scrivendo immediatamente il codice. La procedura parte dalla comprensione della
+traccia, passa attraverso la ricostruzione del modello teorico e soltanto in un
+momento successivo conduce alla costruzione del notebook Jupyter.
+
+L'obiettivo \`{e} mantenere riconoscibile, durante tutto il lavoro, la
+corrispondenza
+\[
+\text{problema finanziario}
+\longrightarrow
+\text{modello teorico}
+\longrightarrow
+\text{procedura computazionale}
+\longrightarrow
+\text{output}
+\longrightarrow
+\text{controllo e interpretazione}.
+\]
+
+L'intelligenza artificiale pu\`{o} assistere questo percorso, ma non deve
+trasformarlo in una procedura automatica. Il suo impiego viene quindi
+organizzato in modo che le diverse funzioni svolte dallo strumento siano
+riconoscibili e verificabili.
+
+\subsection{La Scheda Caso come specifica del problema}
+
+Ogni applicazione prende avvio da una Scheda Caso. Essa definisce gli elementi
+che non devono essere modificati durante lo svolgimento:
+
+\begin{itemize}
+\item il contesto economico-finanziario;
+
+\item la domanda quantitativa;
+
+\item le grandezze e le variabili coinvolte;
+
+\item le ipotesi del modello;
+
+\item i parametri assegnati;
+
+\item le quantit\`{a} da calcolare o stimare;
+
+\item gli output richiesti;
+
+\item i controlli da effettuare;
+
+\item i limiti entro i quali i risultati devono essere interpretati.
+\end{itemize}
+
+La Scheda Caso non contiene la soluzione. Essa stabilisce invece il perimetro
+entro il quale deve essere costruita la soluzione.
+
+Questa distinzione \`{e} importante anche nell'interazione con l'IA. Una
+risposta che modifica autonomamente una variabile, una distribuzione, una
+soglia, un'ipotesi o il significato finanziario del problema non costituisce
+un miglioramento del modello: costituisce una deviazione dalla specifica
+assegnata.
+
+Il primo controllo da mantenere durante tutto il lavoro \`{e} quindi molto
+semplice:
+
+\begin{center}
+\begin{tabular}{p{4.2cm}p{7.4cm}}
+Scheda Caso & definisce che cosa deve essere risolto; \\
+Interazione con l'IA & aiuta a organizzare e rendere computabile la soluzione; \\
+Notebook Jupyter & documenta la procedura effettivamente implementata; \\
+Controlli & verificano la coerenza tra specifica, codice e risultati.
+\end{tabular}
+\end{center}
+
+\subsection{Caso sviluppato e caso autonomo}
+
+Il lavoro applicativo utilizza due casi con funzioni differenti.
+
+Il primo caso viene sviluppato nel capitolo e costituisce il riferimento per
+comprendere il metodo. Il suo scopo non \`{e} soltanto ottenere risultati
+numerici, ma rendere osservabile l'intera sequenza di lavoro: ricognizione
+teorica, organizzazione dei passaggi, costruzione del notebook, controllo degli
+output e interpretazione.
+
+Il secondo caso, indicato come Caso TakeHome, richiede invece il trasferimento
+autonomo dello stesso metodo a un problema differente. Non si tratta quindi di
+riprodurre il notebook del primo caso cambiando alcuni parametri. Devono essere
+nuovamente riconosciuti gli oggetti teorici rilevanti, ricostruito il percorso
+risolutivo e organizzata la procedura computazionale.
+
+Tra i due casi cambia il contenuto finanziario; rimane invariata la struttura
+del lavoro.
+
+\subsection{Tre funzioni dell'interazione con l'IA}
+
+L'interazione con l'IA viene distinta in tre regimi, ciascuno associato a una
+funzione specifica.
 
 \begin{center}
 \small
-\begin{tabular}{p{3.0cm}p{8.6cm}}
-Elemento del prompt & Funzione \\ \hline
-Contesto & chiarisce il problema economico-finanziario; \\
-Input disponibili & indica che cosa \`{e} gi\`{a} stato definito o prodotto; \\
-Regime richiesto & distingue ricognizione, computazione e revisione critica; \\
-Compito & specifica che cosa l'IA deve fare; \\
-Vincoli & indica che cosa l'IA non deve modificare o decidere; \\
-Output richiesto & chiarisce la forma attesa della risposta; \\
-Uso successivo & collega l'output alla tappa corrente o successiva.
+\begin{tabular}{p{1.7cm}p{2.9cm}p{6.1cm}}
+Regime & Funzione prevalente & Attivit\`{a} principale \\
+\hline
+A & Ricognizione teorico-modellistica &
+riconoscere gli oggetti teorici, verificare relazioni, ordinare il
+ragionamento e individuare quantit\`{a} rilevanti; \\
+
+B & Traduzione operativa &
+trasformare una specifica teorica gi\`{a} validata in celle Markdown,
+codice Python, tabelle, grafici e output numerici; \\
+
+C & Verifica critica &
+controllare errori, incoerenze, anomalie negli output, interpretazioni troppo
+forti o difformit\`{a} rispetto alla Scheda Caso.
 \end{tabular}
 \end{center}
 
-Gli output prodotti con l'aiuto dell'IA devono essere trattati come oggetti da
-controllare, non come risultati da accettare. Stime, tabelle e grafici sono
-utili solo se rispondono a una quantit\`{a} teorica, a un confronto tra scenari
-o a una propriet\`{a} del modello.
+La distinzione tra i tre regimi evita che compiti concettualmente diversi
+vengano confusi nello stesso prompt.
 
-Per i grafici, la distinzione \`{e} particolarmente importante. L'IA pu\`{o}
-scrivere il codice necessario a produrre la figura, ma lo studente deve
-specificare che cosa il grafico deve mostrare: quale variabile, quale
-confronto, quale soglia, quale scenario, quale propriet\`{a} del modello. Un
-grafico generato senza una domanda informativa \`{e} un oggetto decorativo, non
-uno strumento di analisi.
+Nel Regime A non dovrebbe essere richiesto direttamente il codice. Prima deve
+essere chiarito che cosa deve essere calcolato e perch\'{e}.
 
-Ogni output deve essere accompagnato da controlli. I controlli possono
-riguardare dimensioni, domini, segni, coerenza con la formula, casi limite,
-stabilit\`{a} numerica o plausibilit\`{a} finanziaria. L'IA pu\`{o} suggerire
-controlli e produrre codice per realizzarli, ma non pu\`{o} certificare la
-correttezza del risultato. La correttezza deve essere argomentata dallo
-studente, collegando output, formula e ipotesi.
+Nel Regime B il modello non deve essere ridefinito. Il compito consiste nel
+tradurre in forma computazionale oggetti e relazioni gi\`{a} stabiliti.
 
-La regola conclusiva \`{e}:
+Nel Regime C non viene richiesta una nuova soluzione del problema, ma una
+verifica mirata di quanto \`{e} stato prodotto.
+
+\subsection{La sequenza dei prompt}
+
+L'interazione viene organizzata mediante una sequenza di prompt con funzioni
+distinte. La successione generale \`{e}
+
+\[
+\begin{array}{c}
+\text{Prompt zero}
+\\
+\downarrow
+\\
+\text{Prompt 1}
+\\
+\downarrow
+\\
+\text{Prompt 2}
+\\
+\downarrow
+\\
+\text{Prompt 3}
+\\
+\downarrow
+\\
+\text{prompt di tappa}
+\\
+\downarrow
+\\
+\text{eventuali verifiche in Regime C}.
+\end{array}
+\]
+
+Il \textbf{Prompt zero} definisce il contesto generale dell'interazione e le
+regole con cui l'IA deve operare.
+
+Il \textbf{Prompt 1} acquisisce la Scheda Caso come specifica vincolante e
+produce l'inquadramento iniziale da riportare nel notebook.
+
+Il \textbf{Prompt 2} riguarda la costruzione del flusso logico-teorico
+risolutivo. La sua parte pi\`{u} importante non consiste nella formulazione
+linguistica del prompt, ma nella proposta iniziale elaborata prima
+dell'interazione con l'IA. Tale proposta deve rendere visibili gli elementi
+teorici ritenuti necessari per risolvere il problema.
+
+Il \textbf{Prompt 3} trasforma il flusso teorico validato in una
+scomposizione operativa del notebook. Anche in questo caso deve essere
+predisposta preliminarmente una proposta: le tappe non devono essere generate
+dall'IA senza una struttura iniziale.
+
+I \textbf{prompt di tappa} vengono utilizzati soltanto dopo che il percorso
+teorico e la scomposizione operativa sono stati definiti. Essi possono
+richiedere codice, output, grafici o controlli relativi a una singola parte del
+notebook.
+
+Le eventuali richieste in \textbf{Regime C} intervengono quando emerge una
+criticità: un risultato inatteso, un errore di codice, un grafico incoerente,
+una discrepanza rispetto alla teoria o un dubbio interpretativo.
+
+La sequenza non ha quindi soltanto una funzione organizzativa. Impedisce che
+la scrittura del codice preceda la comprensione del problema.
+
+\subsection{Il notebook come rappresentazione del ragionamento}
+
+Il notebook Jupyter non deve essere costituito da una successione di celle di
+codice prive di raccordo. La sua struttura deve permettere di ricostruire il
+percorso seguito.
+
+Una tappa operativa comprende normalmente:
+
+\begin{enumerate}
+\item una cella Markdown che ne definisce obiettivo e significato;
+
+\item uno o pi\`{u} blocchi di codice che realizzano l'operazione prevista;
+
+\item uno o pi\`{u} output osservabili;
+
+\item un controllo numerico, logico o grafico;
+
+\item quando necessario, un breve commento interpretativo.
+\end{enumerate}
+
+Il codice deve quindi rispondere a una domanda gi\`{a} formulata. Una tabella
+deve rappresentare una quantit\`{a} che era stata precedentemente individuata.
+Un grafico deve rendere osservabile una propriet\`{a} del modello o degli
+scenari simulati. Un controllo deve verificare una relazione che possiede un
+significato teorico o computazionale preciso.
+
+\subsection{Il tracciato dell'interazione}
+
+Quando richiesto, l'interazione con l'IA viene documentata mediante un
+tracciato separato dal notebook.
+
+La funzione del tracciato non \`{e} certificare che ogni passaggio sia stato
+eseguito senza assistenza. Al contrario, deve rendere osservabile il modo in
+cui l'assistenza \`{e} stata utilizzata.
+
+Nel tracciato devono risultare riconoscibili:
+
+\begin{itemize}
+\item la richiesta formulata;
+
+\item il regime di interazione utilizzato;
+
+\item il contributo iniziale proposto prima della risposta dell'IA;
+
+\item la risposta ricevuta;
+
+\item l'eventuale accettazione, modifica o rifiuto della proposta;
+
+\item i controlli successivamente effettuati.
+\end{itemize}
+
+Una risposta dell'IA non diventa corretta per il solo fatto di essere
+formalmente ben scritta. Pu\`{o} contenere errori matematici, modificare
+implicitamente il modello, confondere quantit\`{a} teoriche e stime empiriche
+oppure produrre codice che non realizza quanto richiesto.
+
+Per questo motivo, il criterio generale dell'interazione \`{e}
+
+\[
+\text{proposta}
+\longrightarrow
+\text{risposta IA}
+\longrightarrow
+\text{verifica}
+\longrightarrow
+\text{decisione}.
+\]
+
+Il passaggio decisivo rimane la verifica. L'uso dell'IA diventa formativo
+quando la risposta ricevuta viene trattata come una proposta da controllare,
+non come una soluzione da assumere automaticamente.
+
+
+
+\section{Dal Caso Aula al flusso logico-teorico risolutivo}
+
+Il primo passaggio realmente autonomo nella soluzione di un caso consiste nel
+ricostruire la struttura teorica del problema prima di procedere alla
+programmazione.
+
+La Scheda Caso fornisce variabili, parametri, ipotesi, output richiesti e
+controlli. Non fornisce per\`{o} l'ordine logico con cui tali elementi devono
+essere utilizzati. Questo ordine deve essere ricostruito.
+
+Nel caso sviluppato in questo capitolo si considera un portafoglio
+obbligazionario a tasso fisso esposto a uno shock del rendimento di mercato.
+L'informazione disponibile distingue tre regimi:
+\[
+A_{1},\qquad A_{2},\qquad A_{3},
+\]
+che formano una partizione dello spazio degli eventi. Condizionatamente al
+regime realizzato, lo shock di rendimento $\Delta y$ segue una distribuzione
+normale con parametri specifici:
+\[
+\Delta y\mid A_{g}
+\sim
+\mathcal{N}(\mu_{g},\sigma_{g}^{2}).
+\]
+
+La variazione del valore del portafoglio viene approssimata mediante la
+duration modificata. Indicando con $V_{0}$ il valore iniziale del portafoglio
+e con $D$ la duration modificata, la perdita viene definita come
+\[
+L=D V_{0}\Delta y.
+\]
+
+La quantit\`{a} $L$ costituisce la variabile centrale del caso. Gli output
+richiesti riguardano la sua distribuzione empirica, la probabilit\`{a} di
+superamento di una soglia, le medie condizionate rispetto ai regimi
+informativi e la ricomposizione della media complessiva.
+
+Queste informazioni sono sufficienti per definire il problema, ma non ancora
+per stabilire come risolverlo. Occorre trasformarle in una sequenza teorica
+ordinata.
+
+\subsection{La funzione del Prompt 2}
+
+Il Prompt 2 ha lo scopo di costruire il \emph{flusso logico-teorico
+risolutivo}. La sua parte variabile deve essere preparata prima dell'interazione
+con l'IA.
+
+Non \`{e} quindi sufficiente formulare una richiesta del tipo:
+
+\begin{quote}
+\small
+\noindent{\ttfamily\raggedright
+Costruisci il flusso logico-teorico risolutivo del caso.\par}
+\end{quote}
+
+Una richiesta di questo tipo trasferirebbe all'IA il compito di individuare
+gli elementi teorici rilevanti e di scegliere la struttura della soluzione.
+
+La parte variabile del Prompt 2 deve invece contenere una prima ricognizione
+proposta autonomamente. Tale ricognizione non deve essere necessariamente
+completa o perfettamente ordinata. Deve per\`{o} mostrare che sono stati
+riconosciuti gli oggetti fondamentali del problema.
+
+L'IA interviene successivamente per verificare, completare e ordinare la
+proposta.
+
+\subsection{Come leggere una Scheda Caso prima di formulare il Prompt 2}
+
+Una lettura efficace della Scheda Caso pu\`{o} essere organizzata attraverso
+alcune domande successive. Le domande non costituiscono una formula da
+applicare meccanicamente, ma una guida per separare gli elementi che svolgono
+funzioni differenti nella soluzione.
+
+\paragraph{1. Qual \`{e} la variabile finale di interesse?}
+
+Occorre innanzitutto individuare la grandezza sulla quale si concentrano gli
+output e l'interpretazione.
+
+Nel caso considerato la variabile centrale \`{e}
+\[
+L=D V_{0}\Delta y.
+\]
+
+Questa identificazione orienta l'intera ricognizione. Le altre grandezze
+devono essere considerate in funzione del ruolo che svolgono nella
+determinazione o nell'analisi di $L$.
+
+\paragraph{2. Da quali grandezze dipende la variabile finale?}
+
+Una volta identificata la variabile centrale, occorre risalire alle grandezze
+che la generano.
+
+Nel caso in esame:
+\[
+\Delta y
+\longrightarrow
+L.
+\]
+
+La relazione
+\[
+L=D V_{0}\Delta y
+\]
+mostra che $V_{0}$ e $D$ sono parametri assegnati, mentre $\Delta y$ \`{e} la
+variabile casuale che genera l'incertezza della perdita.
+
+Questo passaggio permette di distinguere tra:
+
+\begin{itemize}
+\item parametri deterministici;
+\item variabili casuali;
+\item variabili ottenute mediante trasformazione di altre variabili.
+\end{itemize}
+
+\paragraph{3. Da dove deriva l'incertezza della variabile di input?}
+
+La distribuzione di $\Delta y$ non \`{e} unica. Dipende dal regime
+informativo realizzato.
+
+Occorre quindi riconoscere la struttura
+\[
+A_{g}
+\longrightarrow
+\Delta y\mid A_{g}
+\longrightarrow
+L.
+\]
+
+Gli eventi $A_{1},A_{2},A_{3}$ non rappresentano semplicemente etichette
+descrittive. Determinano quale distribuzione condizionata viene utilizzata
+nella generazione dello shock.
+
+Il richiamo teorico rilevante appartiene quindi al Capitolo 1, per la
+partizione degli eventi, e al Capitolo 3, per il ruolo dell'informazione
+condizionante.
+
+\paragraph{4. Quali quantit\`{a} devono essere calcolate sulla variabile finale?}
+
+Dalla Scheda Caso devono essere estratte le domande quantitative.
+
+Nel caso considerato esse comprendono, tra le altre:
+\[
+\E[L],
+\qquad
+\Prob(L>\ell),
+\qquad
+\E[L\mid A_{g}],
+\qquad
+\E[L\mid\G].
+\]
+
+Questa fase \`{e} importante perch\'{e} impedisce di confondere la variabile
+centrale con le quantit\`{a} che devono essere calcolate su di essa.
+
+$L$ \`{e} una variabile casuale; $\E[L]$ \`{e} una sua caratteristica media;
+$\Prob(L>\ell)$ \`{e} una probabilit\`{a} di coda;
+$\E[L\mid A_{g}]$ \`{e} una media condizionata.
+
+\paragraph{5. Quali propriet\`{a} teoriche collegano le quantit\`{a} richieste?}
+
+Non tutti gli output devono essere trattati come calcoli indipendenti.
+
+La partizione informativa
+\[
+\G=\sigma(A_{1},A_{2},A_{3})
+\]
+consente di scrivere
+\[
+\E[L\mid\G]
+=
+\sum_{g=1}^{3}
+\E[L\mid A_{g}]\1_{A_{g}}.
+\]
+
+La formula del valore atteso totale permette inoltre di ricomporre
+\[
+\E[L]
+=
+\sum_{g=1}^{3}
+\Prob(A_{g})\E[L\mid A_{g}].
+\]
+
+Questa relazione non produce soltanto una quantit\`{a} aggiuntiva. Fornisce
+anche un controllo teorico sulla coerenza della soluzione.
+
+\paragraph{6. Quali risultati teorici possono diventare controlli?}
+
+Durante la ricognizione conviene distinguere tra formule utilizzate per
+ottenere un risultato e formule utilizzate per verificarlo.
+
+Ad esempio:
+\[
+\sum_{g=1}^{3}\Prob(A_{g})=1
+\]
+\`{e} una propriet\`{a} della partizione probabilistica;
+
+\[
+L>\ell
+\quad\Longleftrightarrow\quad
+\Delta y>\frac{\ell}{D V_{0}}
+\]
+fornisce un'equivalenza tra due rappresentazioni dello stesso evento;
+
+\[
+\E[L]
+=
+\E\left[\E[L\mid\G]\right]
+\]
+fornisce una condizione di ricomposizione.
+
+Tutte queste relazioni possono diventare controlli del successivo
+procedimento computazionale.
+
+\subsection{Costruire una catena di dipendenze}
+
+Le risposte alle domande precedenti devono essere trasformate in una sequenza.
+
+Un modo utile per farlo consiste nel chiedersi, per ogni elemento individuato:
+
+\begin{quote}
+\small
+\noindent{\ttfamily\raggedright
+Questo oggetto deve essere conosciuto prima o dopo gli altri?
+Da quale informazione dipende?
+Quale quantit\`{a} permette di costruire?
+\par}
+\end{quote}
+
+Nel caso considerato emerge una catena essenziale:
+\[
+\{A_{1},A_{2},A_{3}\}
+\longrightarrow
+\Delta y\mid A_{g}
+\longrightarrow
+\Delta y
+\longrightarrow
+L
+\longrightarrow
+\left\{
+\begin{array}{c}
+\Prob(L>\ell),\\
+\E[L],\\
+\E[L\mid A_{g}]
+\end{array}
+\right\}
+\longrightarrow
+\E[L\mid\G]
+\longrightarrow
+\E[\E[L\mid\G]].
+\]
+
+Questa rappresentazione non costituisce ancora il flusso definitivo, ma
+consente di controllare che non siano stati invertiti rapporti di dipendenza.
+
+Non sarebbe, ad esempio, possibile analizzare la distribuzione della perdita
+prima di avere definito come viene generato $\Delta y$, oppure costruire
+$\E[L\mid\G]$ prima di avere determinato i valori condizionati
+$\E[L\mid A_{g}]$.
+
+\subsection{Teoria e controparte Monte Carlo}
+
+Un'ulteriore distinzione deve essere effettuata prima della formulazione del
+Prompt 2: quella tra quantit\`{a} teorica e quantit\`{a} empirica.
+
+La quantit\`{a}
+\[
+\E[L\mid A_{g}]
+\]
+\`{e} un oggetto teorico.
+
+Nel campione Monte Carlo, la sua controparte \`{e}
+\[
+\widehat{\E}[L\mid A_{g}]
+=
+\frac{1}{M_{g}}
+\sum_{k\in I_{g}}L^{(k)}.
+\]
+
+Analogamente,
+\[
+\Prob(L>\ell)
+\]
+ha come controparte empirica
+\[
+\widehat{\Prob}(L>\ell)
+=
+\frac{1}{M}
+\sum_{k=1}^{M}
+\1_{\{L^{(k)}>\ell\}}.
+\]
+
+La distinzione \`{e} essenziale. Il flusso logico-teorico deve identificare
+l'oggetto matematico che interessa; il notebook dovr\`{a} successivamente
+costruirne la stima empirica.
+
+Confondere i due livelli pu\`{o} produrre formulazioni improprie. Ad esempio,
+una definizione analitica mediante integrale pu\`{o} essere corretta sul piano
+teorico ma poco informativa quando l'obiettivo della tappa \`{e} specificare
+come una quantit\`{a} verr\`{a} stimata nel campione simulato.
+
+\subsection{Preparare la parte variabile del Prompt 2}
+
+Dopo la ricognizione, la parte variabile del Prompt 2 pu\`{o} essere formulata
+come una proposta sintetica.
+
+Non \`{e} necessario anticipare una soluzione completa. Una proposta iniziale
+pu\`{o} assumere, ad esempio, la forma:
+
+\begin{quote}
+\small
+\noindent{\ttfamily\raggedright
+Gli elementi che sembrano necessari per costruire il flusso risolutivo sono:
+la partizione dei tre regimi informativi; la distribuzione dello shock
+condizionata al regime; la relazione tra shock e perdita; il superamento della
+soglia di perdita; il calcolo delle medie condizionate nei diversi regimi; la
+costruzione del valore atteso condizionato rispetto all'informazione generata
+dalla partizione; la verifica finale mediante il valore atteso totale.
+
+Verifica se questi elementi sono sufficienti, se l'ordine \`{e} corretto e se
+manca qualche passaggio teorico necessario. Non modificare la Scheda Caso e
+non produrre ancora codice Python.
+\par}
+\end{quote}
+
+La qualit\`{a} della proposta non dipende dal fatto che tutti gli elementi
+siano gi\`{a} collocati nella posizione definitiva. La funzione
+dell'interazione in questa fase \`{e} proprio verificare e ordinare la
+ricognizione.
+
+Deve invece essere riconoscibile il contributo autonomo iniziale: le
+principali componenti teoriche devono essere state individuate prima della
+risposta dell'IA.
+
+\subsection{Dalla proposta iniziale al flusso validato}
+
+La risposta dell'IA deve essere valutata sulla base di alcuni criteri.
+
+Occorre verificare che:
+
+\begin{enumerate}
+\item tutti i passaggi derivino dalla Scheda Caso;
+
+\item non vengano introdotte variabili o ipotesi non previste;
+
+\item l'ordine rispetti le dipendenze logiche tra gli oggetti;
+
+\item siano distinte quantit\`{a} teoriche e stime empiriche;
+
+\item ogni formula abbia una funzione effettiva nella soluzione;
+
+\item i controlli proposti siano collegati a propriet\`{a} verificabili;
+
+\item non venga anticipato codice Python.
+\end{enumerate}
+
+Nel caso considerato, il flusso validato pu\`{o} essere sintetizzato come segue.
+
 \begin{center}
-\begin{tabular}{p{3.4cm}p{8.4cm}}
-Stime e tabelle & devono rispondere a una quantit\`{a} teorica o a un confronto
-definito; \\
-Grafici & devono rendere osservabile una propriet\`{a} del modello o degli
-scenari; \\
-Controlli & devono collegare output, formula e ipotesi; \\
-Interpretazione & deve restare proporzionata ai controlli effettivamente
-svolti.
+\small
+\begin{tabular}{p{0.8cm}p{2.7cm}p{3.6cm}p{3.5cm}p{2.4cm}}
+\textbf{Passo} &
+\textbf{Finalit\`{a}} &
+\textbf{Oggetto teorico} &
+\textbf{Applicazione nel caso} &
+\textbf{Output o controllo}
+\\ \hline
+
+1 &
+Rappresentare l'informazione &
+Partizione
+$\{A_{1},A_{2},A_{3}\}$ &
+Identificazione dei tre regimi del mercato dei tassi &
+Somma delle probabilit\`{a} pari a uno
+\\
+
+2 &
+Specificare l'incertezza condizionata &
+$\Delta y\mid A_{g}\sim
+\mathcal{N}(\mu_{g},\sigma_{g}^{2})$ &
+Distribuzione dello shock diversa nei tre regimi &
+Confronto tra parametri teorici e campionari
+\\
+
+3 &
+Generare lo shock non condizionato &
+Combinazione delle distribuzioni condizionate secondo
+$\Prob(A_{g})$ &
+Estrazione del regime e successiva estrazione di $\Delta y$ &
+Frequenze empiriche dei regimi
+\\
+
+4 &
+Costruire la perdita &
+$L=D V_{0}\Delta y$ &
+Trasformazione dello shock in perdita monetaria &
+Coerenza della trasformazione e dei segni
+\\
+
+5 &
+Analizzare il rischio di soglia &
+$\Prob(L>\ell)$ e
+$L>\ell\Longleftrightarrow
+\Delta y>\ell/(D V_{0})$ &
+Probabilit\`{a} di perdita superiore alla soglia assegnata &
+Equivalenza dei due eventi
+\\
+
+6 &
+Valutare la perdita nei diversi regimi &
+$\E[L\mid A_{g}]$ &
+Media della perdita condizionata al regime osservato &
+Confronto tra i tre valori condizionati
+\\
+
+7 &
+Rappresentare la valutazione coerente con l'informazione &
+$\E[L\mid\G]$ &
+Valore costante su ciascun blocco della partizione &
+Tre valori associati ai tre regimi
+\\
+
+8 &
+Ricomporre la valutazione complessiva &
+$\E[L]=\E[\E[L\mid\G]]$ &
+Confronto tra media globale e media delle medie condizionate &
+Verifica del valore atteso totale
 \end{tabular}
 \end{center}
+
+La tabella non deve essere interpretata come uno schema da memorizzare. Essa
+\`{e} il risultato della ricognizione svolta sullo specifico problema.
+
+In un caso differente potranno cambiare variabili, formule, propriet\`{a} e
+numero dei passaggi. Rimane invece invariato il metodo utilizzato per
+ricavarli:
+
+\[
+\text{variabile finale}
+\longrightarrow
+\text{dipendenze}
+\longrightarrow
+\text{informazione}
+\longrightarrow
+\text{quantit\`{a} richieste}
+\longrightarrow
+\text{propriet\`{a} teoriche}
+\longrightarrow
+\text{controlli}
+\longrightarrow
+\text{ordine logico}.
+\]
+
+Il Prompt 2 diventa cos\`{\i} il punto di arrivo di una ricognizione teorica,
+non il suo punto di partenza.
+
+
+\section{Dal flusso teorico alle tappe del notebook}
+
+Il flusso logico-teorico risolutivo stabilisce quali oggetti devono essere
+utilizzati e in quale ordine logico. Non stabilisce ancora come il lavoro debba
+essere organizzato nel notebook Jupyter.
+
+Il passaggio successivo consiste quindi nel trasformare il flusso teorico in
+una successione di tappe operative. Ogni tappa deve costituire un'unit\`{a} di
+lavoro sufficientemente autonoma, ma deve anche collegarsi alle tappe
+precedenti e successive.
+
+La struttura generale \`{e}
+
+\[
+\text{flusso logico-teorico}
+\longrightarrow
+\text{tappe operative}
+\longrightarrow
+\text{notebook Jupyter}.
+\]
+
+Il Prompt 3 viene utilizzato per verificare questa trasformazione. Anche in
+questo caso, tuttavia, la parte variabile del prompt deve contenere una prima
+proposta elaborata prima dell'interazione con l'IA.
+
+\subsection{La funzione del Prompt 3}
+
+Il Prompt 3 non deve chiedere all'IA di costruire liberamente il notebook.
+
+Una richiesta del tipo
+
+\begin{quote}
+\small
+\noindent{\ttfamily\raggedright
+Dividi il problema in tappe e costruisci il notebook.
+\par}
+\end{quote}
+
+sarebbe troppo generica. L'IA dovrebbe decidere autonomamente quali operazioni
+raggruppare, quali output produrre, quali controlli inserire e quale ordine
+computazionale seguire.
+
+La funzione del Prompt 3 \`{e} invece pi\`{u} delimitata: partire dal flusso
+teorico gi\`{a} validato e verificare una proposta iniziale di scomposizione
+operativa.
+
+La parte variabile deve quindi rendere visibile una prima risposta alla
+domanda:
+
+\begin{quote}
+\small
+\noindent{\ttfamily\raggedright
+Come pu\`{o} essere trasformato il flusso teorico in una successione di
+blocchi computazionali collegati tra loro?
+\par}
+\end{quote}
+
+\subsection{Dai passi teorici alle operazioni}
+
+Non esiste necessariamente una corrispondenza uno-a-uno tra passi teorici e
+tappe del notebook.
+
+Alcuni passaggi teorici possono essere realizzati nella stessa tappa
+computazionale. Al contrario, un singolo oggetto teorico pu\`{o} richiedere
+pi\`{u} operazioni quando la sua costruzione comporta simulazione, produzione
+di output e controllo.
+
+Per decidere come raggruppare i passaggi conviene esaminare ciascun elemento
+del flusso attraverso quattro domande:
+
+\begin{enumerate}
+\item quali informazioni devono essere gi\`{a} disponibili?
+
+\item quale operazione deve essere eseguita?
+
+\item quale risultato osservabile deve essere prodotto?
+
+\item quale controllo deve essere effettuato prima di procedere?
+\end{enumerate}
+
+Queste quattro domande definiscono la struttura elementare di una tappa:
+
+\[
+\boxed{
+\text{input}
+\longrightarrow
+\text{operazione}
+\longrightarrow
+\text{output}
+\longrightarrow
+\text{controllo}
+}
+\]
+
+L'output prodotto pu\`{o} inoltre diventare un input della tappa successiva.
+Per questa ragione la scomposizione deve essere considerata come una catena di
+dipendenze, non come un semplice elenco di attivit\`{a}.
+
+\subsection{Individuare gli input}
+
+Gli input di una tappa comprendono tutto ci\`{o} che deve essere disponibile
+prima che l'operazione possa essere eseguita.
+
+Possono essere:
+
+\begin{itemize}
+\item parametri assegnati dalla Scheda Caso;
+
+\item distribuzioni teoriche gi\`{a} specificate;
+
+\item variabili simulate in una tappa precedente;
+
+\item tabelle o vettori prodotti precedentemente;
+
+\item soglie o altri valori necessari al calcolo.
+\end{itemize}
+
+Nel caso sviluppato, ad esempio, la simulazione dello shock di rendimento non
+pu\`{o} essere effettuata senza avere prima definito:
+
+\[
+\Prob(A_{g}),\qquad
+\mu_{g},\qquad
+\sigma_{g},
+\]
+per ciascun regime.
+
+Analogamente, la perdita
+\[
+L=D V_{0}\Delta y
+\]
+non pu\`{o} essere calcolata prima di disporre dello shock simulato
+$\Delta y$ e dei parametri $D$ e $V_{0}$.
+
+L'identificazione degli input impedisce quindi di collocare una tappa in una
+posizione incompatibile con le sue dipendenze.
+
+\subsection{Definire l'operazione}
+
+L'operazione descrive che cosa deve essere fatto utilizzando gli input
+disponibili.
+
+La descrizione deve rimanere indipendente dalla sintassi Python. In questa fase
+non interessa ancora stabilire quale funzione o quale libreria verr\`{a}
+utilizzata. Interessa stabilire il significato quantitativo dell'operazione.
+
+Sono esempi di operazioni:
+
+\begin{itemize}
+\item simulare il regime informativo secondo le probabilit\`{a} assegnate;
+
+\item simulare lo shock condizionatamente al regime;
+
+\item trasformare lo shock nella perdita monetaria;
+
+\item calcolare statistiche descrittive della perdita;
+
+\item identificare le osservazioni che superano una soglia;
+
+\item raggruppare le perdite per regime informativo;
+
+\item calcolare medie e probabilit\`{a} condizionate;
+
+\item ricomporre la media complessiva mediante le frequenze dei regimi.
+\end{itemize}
+
+Una buona descrizione dell'operazione risponde quindi alla domanda
+\emph{che cosa deve essere calcolato?}, non ancora alla domanda
+\emph{con quale istruzione Python deve essere calcolato?}.
+
+\subsection{Definire l'output}
+
+Ogni tappa deve produrre almeno un risultato osservabile.
+
+Un output pu\`{o} assumere forme differenti:
+
+\begin{itemize}
+\item una variabile simulata;
+
+\item un vettore di osservazioni;
+
+\item una tabella;
+
+\item una statistica;
+
+\item una probabilit\`{a} stimata;
+
+\item un grafico;
+
+\item una quantit\`{a} che verr\`{a} utilizzata nella tappa successiva.
+\end{itemize}
+
+La presenza di un output esplicito svolge una funzione importante. Permette di
+stabilire se la tappa ha realmente prodotto ci\`{o} che il flusso teorico
+richiedeva.
+
+Ad esempio, la tappa dedicata alla simulazione dei regimi non dovrebbe
+limitarsi a creare un vettore di etichette. Deve rendere osservabile almeno la
+distribuzione delle frequenze simulate, perch\'{e} queste ultime possono essere
+confrontate con le probabilit\`{a} teoriche assegnate.
+
+\subsection{Associare un controllo a ogni tappa}
+
+Il controllo non deve essere aggiunto soltanto alla fine del notebook.
+
+Ogni tappa dovrebbe concludersi, quando possibile, con una verifica coerente
+con la natura dell'operazione svolta.
+
+Nel caso considerato possono essere utilizzati, ad esempio:
+
+\[
+\sum_{g=1}^{3}\widehat{\Prob}(A_{g})=1,
+\]
+
+il confronto tra
+\[
+\widehat{\Prob}(A_{g})
+\qquad\text{e}\qquad
+\Prob(A_{g}),
+\]
+
+la verifica che nessun regime risulti privo di osservazioni,
+
+l'equivalenza
+\[
+L>\ell
+\quad\Longleftrightarrow\quad
+\Delta y>\frac{\ell}{D V_{0}},
+\]
+
+oppure la ricomposizione
+\[
+\widehat{\E}[L]
+=
+\sum_{g=1}^{3}
+\widehat{\Prob}(A_{g})
+\widehat{\E}[L\mid A_{g}].
+\]
+
+Il controllo deve essere scelto prima della scrittura del codice, perch\'{e}
+esso fa parte della specifica della tappa.
+
+\subsection{Costruire i collegamenti tra le tappe}
+
+Una volta individuati input, operazione, output e controllo, occorre verificare
+come le diverse tappe siano collegate.
+
+Un criterio utile consiste nel chiedersi:
+
+\begin{quote}
+\small
+\noindent{\ttfamily\raggedright
+Quale output di questa tappa viene utilizzato successivamente?
+Se questa tappa venisse eliminata, quale parte del lavoro non potrebbe essere
+eseguita?
+\par}
+\end{quote}
+
+Nel caso considerato, ad esempio,
+
+\[
+\text{regimi simulati}
+\longrightarrow
+\text{shock condizionati}
+\longrightarrow
+\text{perdite simulate}
+\]
+
+costituisce una dipendenza necessaria.
+
+Le perdite simulate diventano poi input sia per l'analisi non condizionata sia
+per quella condizionata:
+
+\[
+L^{(1)},\ldots,L^{(M)}
+\longrightarrow
+\left\{
+\begin{array}{c}
+\text{distribuzione complessiva},\\
+\text{probabilit\`{a} di soglia},\\
+\text{medie per regime}.
+\end{array}
+\right.
+\]
+
+La struttura del notebook assume quindi la forma di una rete ordinata di
+dipendenze, anche quando viene presentata come successione lineare di celle.
+
+\subsection{Quando due passaggi devono appartenere alla stessa tappa}
+
+Una scomposizione eccessivamente fine produce un notebook frammentato. Una
+scomposizione troppo aggregata rende invece difficile individuare errori e
+controllare i risultati.
+
+Due operazioni possono essere raggruppate nella stessa tappa quando:
+
+\begin{itemize}
+\item perseguono la stessa finalit\`{a} quantitativa;
+
+\item utilizzano gli stessi input principali;
+
+\item producono output strettamente collegati;
+
+\item possono essere sottoposte allo stesso controllo logico.
+\end{itemize}
+
+Devono invece essere separate quando l'output della prima costituisce un input
+necessario della seconda oppure quando richiedono controlli concettualmente
+differenti.
+
+Ad esempio, l'estrazione del regime e la generazione dello shock
+condizionato possono essere considerate parti della stessa fase di simulazione,
+mentre la trasformazione dello shock nella perdita appartiene a un passaggio
+successivo, perch\'{e} introduce una nuova grandezza finanziaria e richiede una
+verifica specifica della relazione
+\[
+L=D V_{0}\Delta y.
+\]
+
+\subsection{Una prima proposta di scomposizione}
+
+Applicando i criteri precedenti al flusso teorico del caso, una prima
+scomposizione pu\`{o} essere formulata come segue:
+
+\begin{center}
+\small
+\begin{tabular}{p{0.9cm}p{2.4cm}p{3.0cm}p{3.0cm}p{3.0cm}}
+\textbf{Tappa} &
+\textbf{Input} &
+\textbf{Operazione} &
+\textbf{Output} &
+\textbf{Controllo}
+\\ \hline
+
+1 &
+Parametri finanziari e probabilistici &
+Organizzare i parametri del caso &
+Tabelle dei parametri &
+Coerenza con la Scheda Caso
+\\
+
+2 &
+Probabilit\`{a} dei regimi e parametri condizionati &
+Simulare regimi e shock $\Delta y$ &
+Campione dei regimi e degli shock &
+Frequenze dei regimi e coerenza delle distribuzioni simulate
+\\
+
+3 &
+$\Delta y$, $D$, $V_{0}$ &
+Calcolare $L=D V_{0}\Delta y$ e descriverne la distribuzione &
+Campione delle perdite e statistiche descrittive &
+Coerenza della trasformazione e plausibilit\`{a} degli output
+\\
+
+4 &
+$L$ e soglia $\ell$ &
+Stimare il superamento della soglia &
+$\widehat{\Prob}(L>\ell)$ &
+Confronto con la soglia equivalente su $\Delta y$
+\\
+
+5 &
+Perdite e regimi simulati &
+Calcolare quantit\`{a} condizionate per regime &
+Medie e probabilit\`{a} condizionate; stima di $\E[L\mid\G]$ &
+Confronto tra gruppi e assenza di classi vuote
+\\
+
+6 &
+Frequenze e medie condizionate &
+Ricomporre il valore atteso complessivo &
+Media ricomposta &
+Verifica del valore atteso totale
+\end{tabular}
+\end{center}
+
+Questa tabella costituisce una proposta iniziale, non ancora una specifica
+definitiva del notebook.
+
+\subsection{Preparare la parte variabile del Prompt 3}
+
+La parte variabile del Prompt 3 deve mostrare la scomposizione proposta e
+chiedere all'IA di verificarla senza produrre direttamente il notebook.
+
+Una formulazione possibile \`{e}:
+
+\begin{quote}
+\small
+\noindent{\ttfamily\raggedright
+A partire dal flusso logico-teorico gi\`{a} validato, propongo di organizzare
+il notebook in sei tappe: organizzazione dei parametri; simulazione dei regimi
+e degli shock condizionati; costruzione e descrizione della perdita; analisi
+del superamento della soglia; analisi condizionata per regime; verifica finale
+del valore atteso totale.
+
+Per ciascuna tappa ho individuato input, operazione, output e controllo.
+Verifica se la scomposizione rispetta le dipendenze del flusso teorico, se
+alcune tappe devono essere aggregate o separate e se manca qualche output o
+controllo necessario. Non produrre ancora il codice Python e non modificare la
+Scheda Caso.
+\par}
+\end{quote}
+
+Anche in questo caso l'obiettivo non \`{e} formulare immediatamente una
+struttura perfetta. L'elemento essenziale \`{e} che la prima scomposizione sia
+stata proposta prima della risposta dell'IA.
+
+\subsection{Validare la scomposizione proposta}
+
+La risposta dell'IA pu\`{o} essere accolta soltanto dopo aver verificato che la
+nuova struttura:
+
+\begin{enumerate}
+\item mantenga tutti gli elementi necessari del flusso teorico;
+
+\item non introduca nuove ipotesi o nuove quantit\`{a} non richieste;
+
+\item rispetti le dipendenze tra input e output;
+
+\item associ a ogni tappa almeno un risultato osservabile;
+
+\item preveda controlli coerenti con gli oggetti calcolati;
+
+\item non anticipi interpretazioni che dipendono da risultati ancora non
+prodotti;
+
+\item mantenga il carattere a un periodo del modello;
+
+\item prepari una struttura sufficientemente chiara per i successivi prompt di
+tappa.
+\end{enumerate}
+
+La scomposizione validata diventa quindi la specifica operativa del notebook.
+
+Soltanto a questo punto risulta appropriato procedere con i prompt di tappa in
+Regime B e chiedere la traduzione delle singole operazioni in codice Python.
+
+Il percorso complessivo pu\`{o} essere sintetizzato come
+
+\[
+\text{flusso teorico validato}
+\longrightarrow
+\text{input}
+\longrightarrow
+\text{operazioni}
+\longrightarrow
+\text{output}
+\longrightarrow
+\text{controlli}
+\longrightarrow
+\text{tappe del notebook}.
+\]
+
+Il Prompt 3, come il Prompt 2, non costituisce quindi il punto di partenza del
+ragionamento. Rende esplicita e sottopone a verifica una struttura che deve
+essere stata preliminarmente elaborata.
+
+
+\section{Dalle tappe al notebook: simulazione, output e verifica}
+
+Una volta validata la scomposizione in tappe input--output, la struttura
+concettuale del notebook \`{e} definita. Soltanto a questo punto risulta
+appropriato procedere alla traduzione delle singole tappe in celle Markdown,
+codice Python, tabelle e grafici.
+
+Il passaggio pu\`{o} essere rappresentato come
+\[
+\text{tappa validata}
+\longrightarrow
+\text{prompt di tappa}
+\longrightarrow
+\text{risposta IA}
+\longrightarrow
+\text{validazione}
+\longrightarrow
+\text{cella notebook}
+\longrightarrow
+\text{output}
+\longrightarrow
+\text{controllo}.
+\]
+
+La sequenza non deve essere ridotta a
+\[
+\text{prompt}\longrightarrow\text{codice}\longrightarrow\text{risultato}.
+\]
+Una risposta dell'IA pu\`{o} infatti essere formalmente corretta dal punto di
+vista sintattico e risultare comunque incoerente con il modello, con gli input
+disponibili o con gli output richiesti.
+
+In questa fase l'IA pu\`{o} assumere un ruolo pi\`{u} operativo rispetto alle
+fasi precedenti, ma la specifica teorica e la struttura delle tappe non devono
+pi\`{u} essere modificate.
+
+\subsection{Dal prompt di tappa alla cella del notebook}
+
+Ogni prompt di tappa parte da una struttura gi\`{a} definita. Devono quindi
+essere disponibili almeno:
+
+\begin{itemize}
+\item il numero e il titolo della tappa;
+
+\item gli input utilizzabili;
+
+\item l'operazione da realizzare;
+
+\item gli output richiesti;
+
+\item il controllo da effettuare;
+
+\item il collegamento con la tappa successiva.
+\end{itemize}
+
+Il prompt non deve chiedere genericamente di ``scrivere il codice''. Deve
+specificare quale parte della procedura computazionale deve essere realizzata.
+
+Una formulazione tipica pu\`{o} assumere la forma:
+
+\begin{quote}
+\small
+\noindent{\ttfamily\raggedright
+Sviluppa la tappa indicata utilizzando esclusivamente gli input disponibili e
+senza modificare la specifica teorica. Produci una breve cella Markdown, il
+codice Python necessario, gli output richiesti e il controllo previsto.
+Mantieni nomi delle variabili coerenti con quelli gi\`{a} utilizzati nel
+notebook.
+\par}
+\end{quote}
+
+La richiesta delimita il compito dell'IA. La scelta di che cosa debba essere
+calcolato \`{e} gi\`{a} stata effettuata nelle fasi precedenti; l'IA viene
+utilizzata principalmente per stabilire come realizzare tecnicamente il
+calcolo.
+
+\subsection{Il Regime B: tradurre senza modificare}
+
+La traduzione operativa in codice avviene prevalentemente in Regime B.
+
+In questo regime possono essere delegate all'IA attivit\`{a} quali:
+
+\begin{itemize}
+\item costruzione delle strutture dati;
+
+\item simulazione delle variabili specificate;
+
+\item organizzazione delle celle del notebook;
+
+\item scrittura del codice Python;
+
+\item costruzione di tabelle;
+
+\item calcolo delle statistiche richieste;
+
+\item realizzazione tecnica dei grafici;
+
+\item implementazione dei controlli gi\`{a} individuati.
+\end{itemize}
+
+La delega riguarda la realizzazione computazionale, non il significato del
+problema.
+
+Se, ad esempio, la specifica stabilisce
+\[
+\Delta y\mid A_{g}
+\sim
+\mathcal{N}(\mu_{g},\sigma_{g}^{2}),
+\]
+l'IA pu\`{o} proporre il codice necessario per estrarre gli shock nei diversi
+regimi. Non pu\`{o} sostituire la distribuzione normale con una distribuzione
+differente, modificare i parametri o ridefinire i regimi.
+
+Analogamente, se la perdita \`{e} definita da
+\[
+L=D V_{0}\Delta y,
+\]
+il codice deve implementare precisamente questa trasformazione. Un'espressione
+computazionalmente plausibile ma diversa dalla relazione assegnata non
+costituisce una variante del codice: modifica il modello.
+
+La regola generale \`{e} quindi
+\[
+\boxed{
+\text{flessibilit\`{a} tecnica}
+\qquad\text{ma}\qquad
+\text{invarianza della specifica teorica}.
+}
+\]
+
+\subsection{Simulare significa rendere osservabile il modello}
+
+Nel caso sviluppato, la simulazione procede gerarchicamente.
+
+Per ogni scenario viene innanzitutto simulato il regime informativo
+\[
+Z\in\{1,2,3\}
+\]
+secondo le probabilit\`{a} assegnate. Condizionatamente al valore assunto da
+$Z$, viene successivamente simulato lo shock
+\[
+\Delta y\mid A_{g}.
+\]
+
+La sequenza computazionale riflette quindi la struttura probabilistica:
+\[
+Z^{(k)}
+\longrightarrow
+\Delta y^{(k)}
+\longrightarrow
+L^{(k)}
+=
+D V_{0}\Delta y^{(k)}.
+\]
+
+Il campione
+\[
+L^{(1)},\ldots,L^{(M)}
+\]
+rende osservabile la distribuzione empirica della perdita.
+
+Da esso possono essere ottenuti media, deviazione standard, quantili e
+probabilit\`{a} di superamento di soglia. Tali valori non sono oggetti nuovi
+rispetto alla teoria: sono stime campionarie delle quantit\`{a} individuate
+nelle fasi precedenti.
+
+Questa corrispondenza deve rimanere leggibile nel notebook. La cella Markdown
+spiega quale oggetto viene stimato; il codice esegue il calcolo; l'output rende
+visibile il risultato.
+
+\subsection{Un output non \`{e} ancora una verifica}
+
+La produzione di un numero, di una tabella o di un grafico non dimostra che il
+calcolo sia corretto.
+
+Ogni output deve essere confrontato con almeno una propriet\`{a} che permetta
+di valutarne la coerenza.
+
+Per la simulazione dei regimi, ad esempio, devono valere
+\[
+\sum_{g=1}^{3}\widehat{\Prob}(A_{g})=1
+\]
+e frequenze empiriche ragionevolmente vicine alle probabilit\`{a} teoriche per
+un campione sufficientemente ampio.
+
+Per la trasformazione
+\[
+L=D V_{0}\Delta y,
+\]
+con $D>0$ e $V_{0}>0$, deve essere verificata la coerenza del segno:
+\[
+\Delta y>0
+\quad\Longleftrightarrow\quad
+L>0.
+\]
+
+Per una soglia $\ell>0$ deve inoltre risultare
+\[
+L>\ell
+\quad\Longleftrightarrow\quad
+\Delta y>\frac{\ell}{D V_{0}}.
+\]
+
+La probabilit\`{a} empirica del primo evento e quella ottenuta utilizzando la
+soglia equivalente sullo shock devono quindi coincidere, a parit\`{a} di
+campione.
+
+Nell'analisi condizionata, infine, deve essere possibile ricomporre la media
+globale:
+\[
+\widehat{\E}[L]
+=
+\sum_{g=1}^{3}
+\widehat{\Prob}(A_{g})
+\widehat{\E}[L\mid A_{g}].
+\]
+
+Il controllo non costituisce quindi un'aggiunta ornamentale al notebook. Fa
+parte del calcolo stesso, perch\'{e} stabilisce se l'output ottenuto conserva le
+propriet\`{a} che il modello richiede.
+
+\subsection{Controllare anche ci\`{o} che appare plausibile}
+
+Gli errori pi\`{u} insidiosi non producono necessariamente messaggi di errore
+Python. Possono produrre risultati apparentemente plausibili.
+
+Una frequenza simulata pu\`{o} essere formalmente compresa tra zero e uno e
+risultare tuttavia incompatibile con la probabilit\`{a} teorica assegnata.
+
+Un istogramma pu\`{o} essere costruito correttamente dal programma e mostrare
+una forma inattesa rispetto alla struttura distributiva specificata.
+
+Una tabella pu\`{o} contenere numeri correttamente calcolati ma riferiti a
+gruppi costruiti in modo errato.
+
+Una descrizione testuale pu\`{o} introdurre una lettura dinamica di un modello
+che, invece, \`{e} stato definito a un solo periodo.
+
+Per questa ragione, la validazione deve riguardare almeno tre livelli:
+\[
+\begin{array}{c}
+\text{correttezza tecnica del codice}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{coerenza quantitativa dell'output}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{coerenza con il modello finanziario}.
+\end{array}
+\]
+
+Il superamento del primo livello non garantisce il superamento degli altri due.
+
+\subsection{Grafici: prima la domanda, poi la realizzazione}
+
+Anche un grafico deve avere una funzione definita prima della sua costruzione.
+
+Nel caso considerato, un istogramma della perdita pu\`{o} servire a rendere
+visibile:
+
+\begin{itemize}
+\item la forma della distribuzione empirica;
+
+\item la dispersione delle perdite;
+
+\item la posizione della soglia $\ell$ rispetto alla distribuzione;
+
+\item l'effetto della combinazione dei diversi regimi.
+\end{itemize}
+
+Analogamente, un confronto grafico tra gruppi informativi pu\`{o} rendere
+visibili differenze tra distribuzioni o valori medi condizionati.
+
+L'IA pu\`{o} essere utilizzata per scegliere le istruzioni di
+\texttt{matplotlib}, le etichette degli assi o la disposizione tecnica della
+figura. Non dovrebbe invece stabilire autonomamente quale confronto sia
+informativo.
+
+La sequenza corretta \`{e}
+\[
+\text{domanda quantitativa}
+\longrightarrow
+\text{informazione da rendere visibile}
+\longrightarrow
+\text{grafico appropriato}
+\longrightarrow
+\text{codice}.
+\]
+
+\subsection{Quando utilizzare il Regime C}
+
+Il Regime C viene utilizzato quando esiste una criticit\`{a} concreta da
+verificare.
+
+Non \`{e} sufficiente formulare una richiesta del tipo:
+
+\begin{quote}
+\small
+\noindent{\ttfamily\raggedright
+Controlla se il notebook \`{e} corretto.
+\par}
+\end{quote}
+
+Una richiesta cos\`{\i} formulata trasferirebbe nuovamente all'IA il compito
+di decidere che cosa debba essere controllato.
+
+Un prompt in Regime C deve invece partire da un dubbio gi\`{a} individuato.
+Occorre indicare:
+
+\begin{itemize}
+\item la tappa interessata;
+
+\item l'output, il codice o il testo che genera il dubbio;
+
+\item il motivo per cui il risultato non appare coerente;
+
+\item il materiale necessario alla verifica.
+\end{itemize}
+
+Ad esempio:
+
+\begin{quote}
+\small
+\noindent{\ttfamily\raggedright
+Nella simulazione dei regimi le frequenze empiriche risultano molto lontane
+dalle probabilit\`{a} teoriche, nonostante il numero elevato di simulazioni.
+Verifica la parte di codice riportata e stabilisci se esiste una criticit\`{a}.
+Non modificare i parametri teorici del caso.
+\par}
+\end{quote}
+
+Oppure:
+
+\begin{quote}
+\small
+\noindent{\ttfamily\raggedright
+Il testo prodotto descrive le righe simulate come osservazioni riferite a
+periodi successivi. Il modello assegnato \`{e} invece a un solo periodo e le
+simulazioni rappresentano scenari alternativi. Verifica se la descrizione deve
+essere corretta.
+\par}
+\end{quote}
+
+In entrambi i casi il controllo nasce da un confronto tra ci\`{o} che il
+notebook mostra e ci\`{o} che il modello richiede.
+
+\subsection{Criticit\`{a} respinta e criticit\`{a} accolta}
+
+La verifica in Regime C deve concludersi con uno dei due esiti:
+
+\begin{center}
+\begin{tabular}{p{3.5cm}p{8.0cm}}
+Criticit\`{a} respinta &
+il dubbio non individua un problema effettivo; il notebook non viene
+modificato; \\[4pt]
+
+Criticit\`{a} accolta &
+il dubbio individua un errore, un'incoerenza o una debolezza effettiva; la
+parte interessata del notebook viene corretta.
+\end{tabular}
+\end{center}
+
+Se la criticit\`{a} viene accolta, non \`{e} opportuno conservare nel notebook
+una successione di celle errate e celle di correzione.
+
+Il notebook deve rappresentare il prodotto finale validato. La cella
+interessata viene quindi sostituita con la versione corretta.
+
+Il processo che ha condotto alla correzione rimane invece documentato nel
+tracciato dell'interazione con l'IA.
+
+Si mantiene cos\`{\i} una distinzione precisa:
+\[
+\boxed{
+\begin{array}{l}
+\text{notebook: prodotto quantitativo validato;}\\
+\text{tracciato IA: processo attraverso cui il prodotto \`{e} stato costruito
+e verificato.}
+\end{array}
+}
+\]
+
+\subsection{Interpretare soltanto ci\`{o} che \`{e} stato verificato}
+
+L'ultima operazione di una tappa non consiste necessariamente nel commentare
+immediatamente qualsiasi numero prodotto.
+
+L'interpretazione deve seguire il controllo.
+
+Se le medie condizionate risultano differenti nei tre regimi, \`{e} possibile
+affermare che l'informazione rappresentata dalla partizione distingue differenti
+livelli medi di perdita nel modello simulato.
+
+Non sarebbe invece corretto attribuire automaticamente tali differenze a
+meccanismi economici non inclusi nella Scheda Caso oppure interpretarle come
+previsioni empiriche sull'andamento futuro dei tassi.
+
+Analogamente, una probabilit\`{a} elevata di superamento della soglia ha
+significato rispetto al modello e ai parametri assegnati. Non costituisce, da
+sola, una stima del rischio effettivo di uno specifico portafoglio reale.
+
+L'interpretazione deve quindi restare proporzionata a ci\`{o} che \`{e} stato
+effettivamente simulato e controllato.
+
+Il percorso completo della singola tappa pu\`{o} essere riassunto come
+\[
+\text{specifica}
+\longrightarrow
+\text{codice}
+\longrightarrow
+\text{output}
+\longrightarrow
+\text{controllo}
+\longrightarrow
+\text{interpretazione}.
+\]
+
+La qualit\`{a} del notebook non dipende dalla quantit\`{a} di codice prodotto,
+ma dalla possibilit\`{a} di ricostruire questa corrispondenza in ogni passaggio
+rilevante.
+
+\section{Dal Caso Aula al Caso TakeHome: trasferire il metodo}
+
+Il Caso TakeHome richiede di applicare autonomamente il metodo sviluppato nelle
+sezioni precedenti a un problema economico-finanziario differente.
+
+Il passaggio non consiste nel riutilizzare il notebook del Caso Aula cambiando
+nomi e parametri. Il nuovo caso possiede variabili, relazioni economiche,
+soglie e output propri. Deve quindi essere nuovamente analizzato a partire
+dalla relativa Scheda Caso.
+
+Ci\`{o} che pu\`{o} essere trasferito \`{e} invece il metodo:
+
+\[
+\text{Scheda Caso}
+\longrightarrow
+\text{ricognizione teorica}
+\longrightarrow
+\text{flusso logico-teorico}
+\longrightarrow
+\text{tappe input--output}
+\longrightarrow
+\text{notebook}
+\longrightarrow
+\text{controlli e interpretazione}.
+\]
+
+L'autonomia richiesta consiste precisamente nel riconoscere questa struttura
+all'interno di un problema che non coincide con quello gi\`{a} sviluppato.
+
+\subsection{Un nuovo problema: lo shortfall di margine}
+
+Il Caso TakeHome riguarda un'impresa manifatturiera energivora esposta
+all'incertezza del prezzo unitario dell'energia.
+
+La grandezza aleatoria iniziale \`{e} il prezzo energetico $P_E$. Il costo
+energetico totale \`{e} definito da
+
+\[
+C_E=Q_E P_E,
+\]
+
+mentre il margine operativo dopo il costo energetico \`{e}
+
+\[
+M=G_0-Q_E P_E.
+\]
+
+Fissato un margine minimo desiderato $m^\star$, lo shortfall di margine \`{e}
+
+\[
+S=(m^\star-M)^+.
+\]
+
+La variabile finale di interesse non \`{e} quindi pi\`{u} una perdita
+obbligazionaria lineare nello shock di tasso, ma una grandezza ottenuta mediante
+una trasformazione che incorpora la parte positiva.
+
+Anche l'informazione \`{e} rappresentata mediante una partizione:
+
+\[
+\Omega=A_1\cup A_2\cup A_3,
+\qquad
+A_i\cap A_j=\emptyset
+\quad\text{per }i\neq j,
+\]
+
+con
+
+\[
+P_E\mid A_g
+\sim
+\mathcal{N}(\mu_g,\sigma_g^2).
+\]
+
+I tre eventi rappresentano rispettivamente un regime di normalizzazione
+energetica, una situazione di tensione persistente e uno shock energetico
+severo.
+
+Il problema richiede quindi ancora di collegare informazione, distribuzioni
+condizionate, variabili casuali, probabilit\`{a} di soglia e valori attesi
+condizionati. Cambia per\`{o} la struttura economica attraverso cui il fattore
+di rischio viene trasformato nella variabile finale.
+
+\subsection{Che cosa rimane invariato}
+
+Tra il Caso Aula e il Caso TakeHome rimangono invariati alcuni principi di
+lavoro.
+
+In entrambi i casi occorre:
+
+\begin{itemize}
+\item partire dalla Scheda Caso senza modificarne la specifica;
+
+\item riconoscere la variabile finale di interesse;
+
+\item risalire alle grandezze da cui essa dipende;
+
+\item individuare il ruolo della partizione informativa;
+
+\item distinguere quantit\`{a} teoriche e corrispondenti stime Monte Carlo;
+
+\item costruire il flusso logico-teorico prima del notebook;
+
+\item trasformare il flusso in tappe input--output;
+
+\item associare controlli alle principali operazioni;
+
+\item utilizzare l'IA in modo diverso nelle fasi di ricognizione, traduzione
+operativa e verifica;
+
+\item interpretare i risultati entro i limiti del modello assegnato.
+\end{itemize}
+
+Rimangono inoltre centrali le relazioni
+
+\[
+\E[S\mid A_g],
+\]
+
+\[
+\E[S\mid\G]
+=
+\sum_{g=1}^{3}
+\E[S\mid A_g]\1_{A_g},
+\]
+
+e
+
+\[
+\E[S]
+=
+\sum_{g=1}^{3}
+\Prob(A_g)\E[S\mid A_g].
+\]
+
+La struttura probabilistica del condizionamento \`{e} quindi la stessa, anche
+se cambia la variabile economica sulla quale viene applicata.
+
+\subsection{Che cosa deve essere ricostruito}
+
+Il trasferimento del metodo non deve diventare una copia meccanica.
+
+Nel nuovo caso devono essere ricostruiti almeno quattro elementi.
+
+Il primo riguarda la \textbf{catena economica delle dipendenze}. La struttura
+
+\[
+P_E
+\longrightarrow
+C_E
+\longrightarrow
+M
+\longrightarrow
+S
+\]
+
+non coincide con quella utilizzata nel Caso Aula e deve essere riconosciuta
+autonomamente.
+
+Il secondo riguarda le \textbf{soglie implicite}. Dalla definizione dello
+shortfall si ricava
+
+\[
+S>0
+\quad\Longleftrightarrow\quad
+P_E>
+\frac{G_0-m^\star}{Q_E},
+\]
+
+mentre, fissata una soglia severa $s^\star$,
+
+\[
+S>s^\star
+\quad\Longleftrightarrow\quad
+P_E>
+\frac{G_0-m^\star+s^\star}{Q_E}.
+\]
+
+Queste equivalenze collegano direttamente il fattore di rischio alle condizioni
+economiche di interesse e costituiscono anche possibili controlli del notebook.
+
+Il terzo elemento riguarda la \textbf{forma della variabile finale}. Poich\'{e}
+
+\[
+S=(m^\star-M)^+,
+\]
+
+lo shortfall non pu\`{o} assumere valori negativi e pu\`{o} presentare una
+massa di probabilit\`{a} in zero. Questa caratteristica deve essere riconosciuta
+prima della produzione dei grafici e della loro interpretazione.
+
+Il quarto elemento riguarda i \textbf{limiti specifici del modello}. La
+distribuzione normale assegnata al prezzo dell'energia pu\`{o} produrre valori
+negativi. Tali valori non devono essere eliminati automaticamente, poich\'{e}
+la Scheda Caso richiede che vengano rilevati e discussi come limite della
+specificazione adottata.
+
+\subsection{Ricostruire autonomamente il Prompt 2}
+
+Anche nel Caso TakeHome la parte variabile del Prompt 2 deve essere preparata
+prima dell'interazione con l'IA.
+
+Pu\`{o} essere utile ripercorrere le stesse domande utilizzate nel Caso Aula:
+
+\begin{enumerate}
+\item qual \`{e} la variabile finale di interesse?
+
+\item da quali grandezze dipende?
+
+\item quale variabile genera l'incertezza iniziale?
+
+\item quale ruolo svolgono gli eventi informativi?
+
+\item quali quantit\`{a} devono essere calcolate?
+
+\item quali propriet\`{a} teoriche collegano tali quantit\`{a}?
+
+\item quali relazioni possono diventare controlli?
+\end{enumerate}
+
+Le risposte saranno differenti da quelle ottenute nel Caso Aula. La procedura
+utilizzata per trovarle rimane invece la stessa.
+
+Una buona proposta iniziale deve quindi rendere riconoscibili almeno la
+partizione informativa, la distribuzione condizionata di $P_E$, la catena che
+conduce allo shortfall, le probabilit\`{a} di soglia, i valori attesi
+condizionati e la verifica del valore atteso totale.
+
+Non \`{e} necessario che l'ordine sia gi\`{a} definitivo. Deve per\`{o}
+essere visibile una ricognizione teorica autonoma.
+
+\subsection{Ricostruire autonomamente il Prompt 3}
+
+Una volta validato il nuovo flusso teorico, deve essere costruita anche una
+nuova scomposizione operativa.
+
+Non \`{e} corretto assumere che il numero o il contenuto delle tappe debbano
+coincidere con quelli del Caso Aula.
+
+Per ciascun blocco del nuovo problema devono essere nuovamente identificati
+
+\[
+\text{input}
+\longrightarrow
+\text{operazione}
+\longrightarrow
+\text{output}
+\longrightarrow
+\text{controllo}.
+\]
+
+Ad esempio, una tappa dedicata alla costruzione dello shortfall deve disporre
+come input almeno del margine simulato e del valore $m^\star$, deve applicare
+la trasformazione
+
+\[
+S=(m^\star-M)^+,
+\]
+
+deve produrre il vettore simulato degli shortfall e deve consentire di
+verificare almeno che
+
+\[
+S\geq0.
+\]
+
+In modo analogo, la tappa dedicata all'analisi delle soglie deve permettere di
+confrontare gli eventi definiti direttamente su $S$ con le corrispondenti
+soglie implicite su $P_E$.
+
+Il Prompt 3 deve quindi nascere dalla struttura specifica del nuovo caso, pur
+utilizzando la stessa grammatica di decomposizione appresa in precedenza.
+
+\subsection{Trasferire il metodo, non la soluzione}
+
+Il passaggio dal Caso Aula al Caso TakeHome pu\`{o} essere sintetizzato nella
+distinzione seguente:
+
+\begin{center}
+\small
+\begin{tabular}{p{5.2cm}p{6.6cm}}
+\textbf{Si trasferisce} & \textbf{Deve essere ricostruito} \\
+\hline
+metodo di lettura della Scheda Caso &
+catena economica delle variabili \\
+
+procedura per costruire il Prompt 2 &
+flusso logico-teorico specifico \\
+
+schema input--operazione--output--controllo &
+tappe effettive del notebook \\
+
+distinzione tra teoria e stima empirica &
+quantit\`{a} specifiche da stimare \\
+
+uso dei Regimi A, B e C &
+prompt concretamente necessari \\
+
+principio di validazione &
+controlli adatti al nuovo modello
+\end{tabular}
+\end{center}
+
+La capacit\`{a} di affrontare autonomamente un nuovo caso non coincide quindi
+con la capacit\`{a} di riprodurre una soluzione gi\`{a} osservata. Consiste
+nel riconoscere quali elementi del metodo siano generali e quali debbano essere
+ricostruiti a partire dalla nuova specifica.
+
+Il Caso TakeHome verifica precisamente questa capacit\`{a} di trasferimento.
+
+
+\section{Sintesi finale}
+
+Questo capitolo ha mostrato come gli strumenti teorici introdotti nei Capitoli
+1--3 possano essere utilizzati nella soluzione di casi quantitativi mediante
+Python e intelligenza artificiale.
+
+Il punto di partenza rimane sempre la teoria. Eventi, partizioni informative,
+variabili casuali, distribuzioni, probabilit\`{a} di soglia, valori attesi e
+valori attesi condizionati non vengono sostituiti dalla simulazione. Vengono
+tradotti in quantit\`{a} empiriche che possono essere calcolate, rappresentate
+e controllate nel notebook.
+
+La sequenza generale pu\`{o} essere sintetizzata come
+
+\[
+\boxed{
+\text{Scheda Caso}
+\longrightarrow
+\text{flusso logico-teorico}
+\longrightarrow
+\text{tappe input--output}
+\longrightarrow
+\text{notebook}
+\longrightarrow
+\text{controlli}
+\longrightarrow
+\text{interpretazione}.
+}
+\]
+
+I passaggi pi\`{u} delicati sono quelli che precedono la scrittura del codice.
+
+Il \textbf{Prompt 2} richiede di ricostruire il flusso logico-teorico
+risolutivo. Per preparare autonomamente la sua parte variabile occorre
+individuare:
+
+\begin{itemize}
+\item la variabile finale di interesse;
+
+\item le grandezze da cui essa dipende;
+
+\item la fonte dell'incertezza;
+
+\item il ruolo dell'informazione disponibile;
+
+\item le quantit\`{a} da calcolare o stimare;
+
+\item le propriet\`{a} teoriche che collegano tali quantit\`{a};
+
+\item i risultati teorici che possono diventare controlli.
+\end{itemize}
+
+Il Prompt 2 non serve quindi a chiedere all'IA di individuare la soluzione.
+Serve a sottoporre a verifica una prima struttura teorica gi\`{a} riconosciuta.
+
+Il \textbf{Prompt 3} interviene soltanto dopo la validazione del flusso.
+La sua funzione \`{e} trasformare le dipendenze teoriche in una struttura
+computazionale. Ogni tappa deve essere riconducibile allo schema
+
+\[
+\boxed{
+\text{input}
+\longrightarrow
+\text{operazione}
+\longrightarrow
+\text{output}
+\longrightarrow
+\text{controllo}.
+}
+\]
+
+La parte variabile del Prompt 3 deve quindi contenere una prima proposta di
+scomposizione del notebook. L'IA pu\`{o} aiutare a verificare l'ordine delle
+tappe, i collegamenti tra input e output, l'adeguatezza dei controlli e
+l'eventuale necessit\`{a} di aggregare o separare alcune operazioni.
+
+Soltanto dopo questi due passaggi risulta appropriato utilizzare l'IA per la
+traduzione operativa in codice. In questa fase Python rende computabile una
+specifica teorica gi\`{a} definita, mentre l'IA pu\`{o} contribuire alla
+costruzione tecnica delle celle, delle tabelle, dei grafici e dei controlli.
+
+La risposta dell'IA non deve tuttavia essere trasferita automaticamente nel
+notebook. Il processo corretto rimane
+
+\[
+\text{prompt}
+\longrightarrow
+\text{risposta IA}
+\longrightarrow
+\text{validazione}
+\longrightarrow
+\text{notebook}.
+\]
+
+La validazione deve riguardare non soltanto l'esecuzione tecnica del codice, ma
+anche la coerenza quantitativa degli output e la loro compatibilit\`{a} con il
+modello finanziario assegnato.
+
+Quando emerge un dubbio specifico, l'IA pu\`{o} essere utilizzata in Regime C
+come strumento di verifica critica. Il controllo deve partire da una possibile
+anomalia gi\`{a} individuata e deve concludersi stabilendo se la criticit\`{a}
+sia respinta oppure accolta. Nel secondo caso viene corretto il notebook; il
+percorso che ha condotto alla correzione rimane documentato nel tracciato
+dell'interazione.
+
+Il confronto tra il caso sviluppato e il Caso TakeHome ha infine mostrato che
+non deve essere trasferita una soluzione specifica, ma un metodo. Cambiano le
+variabili, le relazioni economiche, le soglie e le quantit\`{a} di interesse;
+rimangono invece invariati i principi con cui il problema viene analizzato,
+scomposto, reso computabile e verificato.
+
+L'obiettivo finale consiste quindi nel rendere progressivamente autonomo il
+passaggio
+
+\[
+\text{teoria}
+\longrightarrow
+\text{struttura della soluzione}
+\longrightarrow
+\text{procedura computazionale}
+\longrightarrow
+\text{risultati controllati}.
+\]
+
+Python e l'intelligenza artificiale svolgono funzioni importanti all'interno
+di questo percorso, ma il significato del problema, la scelta degli oggetti
+teorici rilevanti e la valutazione della coerenza dei risultati rimangono
+elementi essenziali della soluzione quantitativa.
