@@ -981,6 +981,6 @@ Dovranno cambiare almeno:
 - struttura dell'analisi controfattuale;
 - criticità economico-finanziaria da discutere.
 
-Nel caso take-home, il fattore sistemico rappresenta il deterioramento delle condizioni finanziarie del settore immobiliare cinese nel 2021, in un contesto di restrizione del credito e riduzione della leva dei developer. Evergrande costituisce la posizione iniziale di maggiore dimensione e, per la sua elevata fragilità finanziaria, risulta particolarmente esposta a tale deterioramento.
+Nel caso take-home, il fattore sistemico rappresenta la dinamica delle condizioni del sistema finanziario durante la crisi del 2008 e Lehman costituisce la posizione iniziale di maggiore dimensione.
 
 Nel caso take-home il fattore comune dovrà essere reinterpretato in relazione alle condizioni del settore immobiliare e finanziario cinese e la posizione principale sarà associata a Evergrande.
