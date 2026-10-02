@@ -113,8 +113,8 @@ dei tempi appartenenti allo stadio $k$ \`e indicato con
 \[
 \mathcal T_k
 =
-\{t_{k,1},\ldots,t_{k,n_k}\},
-\]
+\{t_{k,1},\ldots,t_{k,n_k}\}, \quad k=2,...,K
+\] 
 
 mentre il suo tempo terminale \`e
 
@@ -1155,27 +1155,27 @@ decisioni operative riferite a tutti e quattro
 i tempi fisici.
 
 Consideriamo ora un problema con quattro stadi
-decisionali complessivi: lo stadio iniziale,
+decisionali complessivi: lo stadio iniziale $\mathcal T_1=\{0\}$,
 nel quale viene scelta $x$, e tre successivi
 stadi di ricorso. Suddividiamo l'orizzonte
 successivo al tempo $0$ in
 
 \[
-\mathcal T_1=\{1\},
+\mathcal T_2=\{1\},
 \qquad
-\mathcal T_2=\{2,3\},
+\mathcal T_3=\{2,3\},
 \qquad
-\mathcal T_3=\{4\}.
+\mathcal T_4=\{4\}.
 \]
 
 I rispettivi tempi terminali sono
 
 \[
-\bar t_1=1,
+\bar t_2=1,
 \qquad
-\bar t_2=3,
+\bar t_3=3,
 \qquad
-\bar t_3=4.
+\bar t_4=4.
 \]
 
 La Figura~\ref{fig:cap15-albero-generico-v2}
@@ -1205,7 +1205,7 @@ $\mathcal F_3$.
 Nel terzo stadio di ricorso,
 dopo l'osservazione di $Z_4$,
 viene scelto $y_4^s$, che
-nell'esempio contiene $u_4^s$.
+nell'esempio contiene $g_4^s$.
 
 La successione delle informazioni
 disponibili per i tre blocchi di ricorso
@@ -1227,7 +1227,7 @@ disponibili per i tre blocchi di ricorso
 la decisione iniziale $x$ e tre successivi
 stadi di ricorso. Il primo blocco comprende
 $u_1$, il secondo comprende $(u_2,u_3)$
-e il terzo comprende $u_4$. I nodi
+e il terzo comprende $g_4$. I nodi
 rappresentano le storie informative
 disponibili nei momenti decisionali.
 Il percorso evidenziato mostra che
@@ -1427,7 +1427,7 @@ $s$ adottiamo la scrittura
 
 \begin{equation}
 T_{s,k}x+
-\sum_{j=1}^{k}W_{s,k,j}y_j^s
+\sum_{j=2}^{k}W_{s,k,j}y_j^s
 =
 h_{s,k},
 \qquad
@@ -1652,7 +1652,7 @@ Identificando
 
 \[
 \begin{aligned}
-y_1^s&=y_s,
+y_2^s&=y_s,
 &
 q_1^s&=q_s,
 \\[4pt]
@@ -1665,7 +1665,7 @@ h_{s,2}&=h_s,
 \]
 
 e ponendo
-$\mathcal X_{s,1}=\mathcal X_s$,
+$\mathcal X_{s,2}=\mathcal X_s$,
 la formulazione
 \eqref{eq:cap15-forma-estesa-multistadio-v2}
 si riconduce alla forma estesa
@@ -2544,12 +2544,22 @@ valori attesi:
 \]
 
 Indichiamo con $\bar{\mathcal Y}$ l'insieme
-dei vincoli operativi del problema medio,
-ottenuto sostituendo con i valori attesi
+dei vettori di ricorso che soddisfano
+i vincoli operativi del problema medio,
+ottenuti sostituendo con i valori attesi
 gli eventuali limiti incerti.
 
+Fissata la decisione iniziale $x$,
+un vettore $\bar y\in\bar{\mathcal Y}$
+costituisce un ricorso ammissibile
+se soddisfa anche il vincolo di bilancio
+
+\[
+\bar T x+\bar W\bar y=\bar h.
+\]
+
 La funzione di ricorso del problema medio
-\`{e}
+\`{e} pertanto
 
 \[
 \bar Q(x)
@@ -2920,3 +2930,1411 @@ L'EVPI misura il valore di un'informazione
 aggiuntiva; il VSS misura il valore
 della modellizzazione dell'incertezza
 nella scelta iniziale.
+
+\medskip
+
+La Figura~\ref{fig:cap15-confronto-benchmark-v2}
+rappresenta l'ordinamento dei tre valori
+nel caso di un problema di massimizzazione
+e visualizza le differenze che definiscono
+EVPI e VSS.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.96\textwidth]
+{../graphics/Cap15_confronto_SP_EV_WS.png}
+\caption{Confronto fra i tre benchmark
+della programmazione stocastica:
+$z^{EV}\leq z^{SP}\leq z^{WS}$.
+La distanza fra $z^{EV}$ e $z^{SP}$
+rappresenta il VSS; quella fra
+$z^{SP}$ e $z^{WS}$ rappresenta
+l'EVPI. Lo schema \`{e} qualitativo
+e non riproduce valori numerici
+o distanze in scala.}
+\label{fig:cap15-confronto-benchmark-v2}
+\end{figure}
+
+La figura evidenzia che i due indicatori
+misurano vantaggi economici distinti.
+Non esiste, in generale, una relazione
+d'ordine fra EVPI e VSS: uno dei due
+pu\`{o} essere nullo anche quando
+l'altro \`{e} positivo.
+
+\section{Esercizi svolti}
+
+\label{sec:cap15-esercizi-svolti}
+
+Gli esercizi seguenti consolidano tre aspetti
+della programmazione stocastica multistadio:
+la costruzione dell'albero degli scenari,
+l'identificazione dei vincoli di non anticipativit\`{a}
+e la valutazione economica delle soluzioni
+SP, WS ed EV.
+
+
+%****************************************************
+% ESERCIZIO 1
+%****************************************************
+
+\begin{exercise}[Costruzione di un albero multistadio]
+
+\label{ex:cap15-albero-probabilita}
+
+Un intermediario deve pianificare le proprie
+decisioni finanziarie su quattro stadi decisionali.
+La decisione iniziale viene assunta al tempo $0$;
+le successive decisioni di ricorso sono associate
+agli insiemi temporali
+
+\[
+\mathcal T_2=\{1\},
+\qquad
+\mathcal T_3=\{2,3\},
+\qquad
+\mathcal T_4=\{4\}.
+\]
+
+Al tempo $1$ viene osservato uno dei due stati
+economico-finanziari $A$ e $B$, con probabilit\`{a}
+
+\[
+\Prob(Z_1=A)=0.6,
+\qquad
+\Prob(Z_1=B)=0.4.
+\]
+
+Il secondo blocco informativo comprende
+le osservazioni dei tempi $2$ e $3$.
+Le possibili realizzazioni del blocco
+sono indicate sinteticamente con $C_1$ e $C_2$.
+
+Le rispettive probabilit\`{a} condizionate sono
+
+\[
+\begin{array}{c|cc}
+\hline
+ & C_1 & C_2\\
+\hline
+Z_1=A & 0.5 & 0.5\\
+Z_1=B & 0.25 & 0.75\\
+\hline
+\end{array}
+\]
+
+Al tempo terminale si osserva
+una delle due realizzazioni $D_1$ e $D_2$.
+Le probabilit\`{a} di $D_1$,
+condizionate alla storia precedente, sono
+
+\[
+\begin{array}{c|c}
+\hline
+\text{Storia fino al tempo }3
+&
+\Prob(D_1\mid\text{storia})\\
+\hline
+(A,C_1)&0.8\\
+(A,C_2)&0.4\\
+(B,C_1)&0.5\\
+(B,C_2)&0.2\\
+\hline
+\end{array}
+\]
+
+Le probabilit\`{a} condizionate di $D_2$
+sono i complementi delle probabilit\`{a}
+riportate nella tabella.
+
+\begin{enumerate}
+
+\item Costruire l'albero degli scenari,
+identificando i nodi appartenenti
+a ciascuno stadio decisionale.
+
+\item Determinare tutte le traiettorie complete
+e le rispettive probabilit\`{a}.
+
+\item Calcolare le probabilit\`{a} dei nodi
+del terzo stadio decisionale.
+
+\item Verificare che le probabilit\`{a}
+degli scenari completi sommino a $1$
+e spiegare perch\'{e} la probabilit\`{a}
+di un nodo intermedio non coincide,
+in generale, con quella di uno scenario completo.
+
+\end{enumerate}
+
+\end{exercise}
+
+\noindent
+\textbf{Soluzione.}
+
+\begin{enumerate}
+
+\item Lo stadio iniziale comprende un solo nodo,
+nel quale viene scelta la decisione $x$.
+
+Al tempo $1$ l'albero si divide nei due nodi
+corrispondenti agli stati $A$ e $B$.
+
+Al termine del terzo stadio decisionale,
+cio\`{e} al tempo fisico $3$,
+le possibili storie informative sono
+
+\[
+(A,C_1),\quad
+(A,C_2),\quad
+(B,C_1),\quad
+(B,C_2).
+\]
+
+Ciascuna storia si divide ulteriormente
+nei due possibili esiti terminali
+$D_1$ e $D_2$.
+
+Il numero dei nodi per stadio \`{e}
+quindi
+
+\[
+\begin{array}{c|cccc}
+\hline
+\text{Stadio} & 1&2&3&4\\
+\hline
+\text{Numero di nodi} &1&2&4&8\\
+\hline
+\end{array}
+\]
+
+L'albero contiene complessivamente
+$15$ nodi, di cui $8$ terminali.
+
+\item Uno scenario completo specifica
+la successione delle realizzazioni
+dell'incertezza nei tre blocchi informativi.
+
+Ad esempio, per lo scenario
+
+\[
+s_1=(A,C_1,D_1)
+\]
+
+la probabilit\`{a} \`{e}
+
+\[
+p_1
+=
+0.6\cdot0.5\cdot0.8
+=
+0.24.
+\]
+
+Applicando la stessa regola del prodotto
+a tutte le traiettorie, si ottiene
+
+\[
+\begin{array}{c|c|c}
+\hline
+\text{Scenario}
+&
+\text{Traiettoria}
+&
+p_s\\
+\hline
+s_1&(A,C_1,D_1)&0.24\\
+s_2&(A,C_1,D_2)&0.06\\
+s_3&(A,C_2,D_1)&0.12\\
+s_4&(A,C_2,D_2)&0.18\\
+s_5&(B,C_1,D_1)&0.05\\
+s_6&(B,C_1,D_2)&0.05\\
+s_7&(B,C_2,D_1)&0.06\\
+s_8&(B,C_2,D_2)&0.24\\
+\hline
+\end{array}
+\]
+
+\item La probabilit\`{a} di un nodo
+\`{e} la probabilit\`{a} di raggiungere
+la corrispondente storia informativa.
+
+Per esempio,
+
+\[
+\Prob(A,C_1)
+=
+0.6\cdot0.5
+=
+0.30.
+\]
+
+Equivalentemente, essa si ottiene
+sommando le probabilit\`{a}
+degli scenari che attraversano il nodo:
+
+\[
+\Prob(A,C_1)
+=
+p_1+p_2
+=
+0.24+0.06
+=
+0.30.
+\]
+
+Le probabilit\`{a} dei quattro nodi
+del terzo stadio sono
+
+\[
+\begin{array}{c|c}
+\hline
+\text{Nodo}
+&
+\text{Probabilit\`{a}}\\
+\hline
+(A,C_1)&0.30\\
+(A,C_2)&0.30\\
+(B,C_1)&0.10\\
+(B,C_2)&0.30\\
+\hline
+\end{array}
+\]
+
+La somma \`{e} pari a $1$.
+
+\item Le probabilit\`{a}
+degli otto scenari completi soddisfano
+
+\[
+\sum_{s=1}^{8}p_s
+=
+0.24+0.06+0.12+0.18
++0.05+0.05+0.06+0.24
+=
+1.
+\]
+
+Un nodo intermedio identifica
+una storia osservata fino a una certa data,
+ma non specifica ancora
+come l'incertezza si evolver\`{a}
+successivamente.
+
+La sua probabilit\`{a} raccoglie quindi
+le probabilit\`{a} di tutte
+le traiettorie complete che attraversano
+quella storia.
+
+\end{enumerate}
+
+La distinzione tra nodo e scenario completo
+\`{e} fondamentale: una decisione assunta
+in un nodo deve essere comune
+a tutti gli scenari che attraversano
+quel nodo, anche se le loro evoluzioni
+future saranno differenti.
+
+
+%****************************************************
+% ESERCIZIO 2
+%****************************************************
+
+\begin{exercise}[Non anticipativit\`{a} e ricorso finanziario]
+
+\label{ex:cap15-nonanticipativita-finanziaria}
+
+Una banca ha gi\`{a} scelto la composizione
+iniziale del proprio portafoglio $x$.
+Deve ora pianificare le decisioni
+di giacenza di liquidit\`{a} e funding
+in un modello con quattro stadi decisionali.
+
+Come nel caso SVB--ALM, i vettori
+di ricorso sono
+
+\[
+\begin{aligned}
+y_2^s
+&=
+(g_1^s,u_1^s)',
+\\[4pt]
+y_3^s
+&=
+(g_2^s,g_3^s,u_2^s,u_3^s)',
+\\[4pt]
+y_4^s
+&=
+(g_4^s).
+\end{aligned}
+\]
+
+Il primo blocco di ricorso
+utilizza l'informazione $\mathcal F_1$;
+il secondo utilizza $\mathcal F_3$;
+il terzo utilizza $\mathcal F_4$.
+
+Si considerino quattro scenari,
+caratterizzati dalle seguenti
+storie informative:
+
+\[
+\begin{array}{c|ccc}
+\hline
+\text{Scenario}
+&
+Z_1
+&
+(Z_2,Z_3)
+&
+Z_4\\
+\hline
+s_1&A&C_1&D_1\\
+s_2&A&C_1&D_2\\
+s_3&A&C_2&D_1\\
+s_4&B&C_2&D_1\\
+\hline
+\end{array}
+\]
+
+Le sigle $C_1$ e $C_2$ indicano
+due possibili realizzazioni del blocco
+informativo relativo ai tempi $2$ e $3$.
+
+Un procedimento di ottimizzazione
+ha prodotto il seguente piano
+di ricorso, espresso in milioni di euro:
+
+\[
+\begin{array}{c|cc|cccc|c}
+\hline
+s
+&
+g_1^s&u_1^s
+&
+g_2^s&g_3^s&u_2^s&u_3^s
+&
+g_4^s\\
+\hline
+s_1&1&2&2&1&3&0&0\\
+s_2&1&1&2&1&3&0&1\\
+s_3&1&2&1&1&2&1&0\\
+s_4&0&1&0&1&1&1&2\\
+\hline
+\end{array}
+\]
+
+Ai fini dell'esercizio si richiede
+di verificare esclusivamente
+la non anticipativit\`{a};
+non si considerano i vincoli
+dei bilanci di liquidit\`{a}.
+
+\begin{enumerate}
+
+\item Individuare i gruppi di scenari
+che condividono la stessa informazione
+nei tre stadi di ricorso.
+
+\item Scrivere i vincoli di non anticipativit\`{a}
+in forma vettoriale e determinarne
+il numero di uguaglianze scalari indipendenti.
+
+\item Verificare se il piano riportato
+nella tabella rispetta la non anticipativit\`{a}.
+Se necessario, individuare una correzione
+delle componenti che violano tale propriet\`{a}.
+
+\item Confrontare il numero di variabili
+di ricorso nella rappresentazione
+per scenario con quello della rappresentazione
+che assegna un solo vettore decisionale
+a ciascun nodo dell'albero.
+
+\end{enumerate}
+
+\end{exercise}
+
+\noindent
+\textbf{Soluzione.}
+
+\begin{enumerate}
+
+\item Nello stadio $2$,
+dopo l'osservazione di $Z_1$,
+gli scenari si dividono nei gruppi
+
+\[
+\{s_1,s_2,s_3\},
+\qquad
+\{s_4\}.
+\]
+
+I primi tre scenari condividono
+lo stato osservato $A$;
+il quarto appartiene allo stato $B$.
+
+Nello stadio $3$ la storia informativa
+comprende anche il blocco $(Z_2,Z_3)$.
+I gruppi sono
+
+\[
+\{s_1,s_2\},
+\qquad
+\{s_3\},
+\qquad
+\{s_4\}.
+\]
+
+Gli scenari $s_3$ e $s_4$
+presentano entrambi la realizzazione $C_2$,
+ma non condividono la stessa storia:
+al tempo $1$ hanno infatti osservato
+stati differenti.
+
+Nello stadio $4$, dopo l'osservazione
+di $Z_4$, tutte le traiettorie
+sono distinguibili.
+
+\item I vincoli di non anticipativit\`{a}
+del primo blocco di ricorso sono
+
+\[
+y_2^{s_1}
+=
+y_2^{s_2}
+=
+y_2^{s_3}.
+\]
+
+Poich\'{e} ciascun vettore $y_2^s$
+contiene due componenti,
+bastano due uguaglianze vettoriali
+indipendenti, equivalenti a quattro
+uguaglianze scalari:
+
+\[
+\begin{aligned}
+g_1^{s_1}&=g_1^{s_2},
+&
+u_1^{s_1}&=u_1^{s_2},
+\\
+g_1^{s_1}&=g_1^{s_3},
+&
+u_1^{s_1}&=u_1^{s_3}.
+\end{aligned}
+\]
+
+Nel secondo blocco di ricorso
+occorre imporre
+
+\[
+y_3^{s_1}=y_3^{s_2}.
+\]
+
+Il vettore ha quattro componenti,
+per cui il vincolo equivale
+ad altre quattro uguaglianze scalari.
+
+Non sono richieste uguaglianze
+fra scenari differenti per $y_4^s$,
+poich\'{e} le traiettorie complete
+sono ormai distinguibili.
+
+In totale il numero delle uguaglianze
+scalari indipendenti \`{e}
+
+\[
+4+4=8.
+\]
+
+\item Il primo blocco del piano
+non rispetta la non anticipativit\`{a}.
+
+Infatti,
+
+\[
+u_1^{s_1}=2,
+\qquad
+u_1^{s_2}=1,
+\qquad
+u_1^{s_3}=2.
+\]
+
+La banca non pu\`{o} scegliere
+un funding diverso nello scenario $s_2$,
+perch\'{e} al tempo $1$
+non dispone ancora di informazioni
+che distinguano questo scenario
+dagli scenari $s_1$ e $s_3$.
+
+Una correzione che ripristina
+la non anticipativit\`{a}
+del piano riportato consiste nel porre
+
+\[
+u_1^{s_2}=2.
+\]
+
+Le altre componenti soddisfano
+le uguaglianze informative richieste.
+
+Questa correzione garantisce
+la sola coerenza informativa:
+la fattibilit\`{a} finanziaria completa
+richiederebbe anche la verifica
+dei bilanci di liquidit\`{a}.
+
+\item Nella rappresentazione per scenario,
+ciascuna traiettoria contiene
+
+\[
+2+4+1=7
+\]
+
+variabili di ricorso.
+
+Con quattro scenari si introducono quindi
+
+\[
+4\cdot7=28
+\]
+
+componenti decisionali,
+prima di imporre la non anticipativit\`{a}.
+
+Nella rappresentazione per nodo
+occorrono invece:
+
+\[
+\begin{array}{c|c|c|c}
+\hline
+\text{Stadio}
+&
+\text{Nodi}
+&
+\text{Variabili per nodo}
+&
+\text{Totale}\\
+\hline
+2&2&2&4\\
+3&3&4&12\\
+4&4&1&4\\
+\hline
+&&&20\\
+\hline
+\end{array}
+\]
+
+La differenza \`{e}
+
+\[
+28-20=8,
+\]
+
+pari al numero delle uguaglianze
+scalari indipendenti di non anticipativit\`{a}.
+
+Le due rappresentazioni descrivono
+lo stesso insieme di decisioni
+informativamente ammissibili:
+la prima impone esplicitamente
+le uguaglianze fra scenari,
+mentre la seconda utilizza direttamente
+un'unica variabile per ciascun nodo.
+
+\end{enumerate}
+
+
+%****************************************************
+% ESERCIZIO 3
+%****************************************************
+
+\begin{exercise}[Valore dell'informazione e della soluzione stocastica]
+
+\label{ex:cap15-sp-ws-ev}
+
+Una banca dispone inizialmente
+di $10$ milioni di euro, da allocare
+fra due classi di attivo:
+
+\begin{itemize}
+
+\item cassa e riserve, con investimento $x_1$
+e rendimento unitario pari a $0.01$;
+
+\item titoli meno liquidi, con investimento $x_2$
+e rendimento unitario pari a $0.05$.
+
+\end{itemize}
+
+Il vincolo iniziale \`{e}
+
+\[
+x_1+x_2=10,
+\qquad
+x_1,x_2\geq0.
+\]
+
+Alla data futura la banca deve soddisfare
+un fabbisogno di liquidit\`{a}
+pari a $8$ milioni di euro.
+
+Si considerano due scenari
+equiprobabili:
+
+\[
+p_1=p_2=0.5.
+\]
+
+Nel primo scenario, caratterizzato
+da condizioni finanziarie ordinarie,
+ogni unit\`{a} investita nei titoli
+genera $0.9$ unit\`{a} di liquidit\`{a}.
+
+Nel secondo scenario, caratterizzato
+da condizioni di stress,
+lo stesso investimento genera
+soltanto $0.5$ unit\`{a} di liquidit\`{a}.
+
+La cassa produce invece un'unit\`{a}
+di liquidit\`{a} per unit\`{a} investita
+in entrambi gli scenari.
+
+I coefficienti di liquidit\`{a} sono dunque
+
+\[
+a_1'=(1,\;0.9),
+\qquad
+a_2'=(1,\;0.5).
+\]
+
+Dopo aver osservato lo scenario,
+la banca pu\`{o} raccogliere funding $u_s$
+oppure mantenere una giacenza residua $g_s$.
+
+Il funding disponibile \`{e} limitato:
+
+\[
+0\leq u_s\leq3,
+\qquad
+g_s\geq0.
+\]
+
+Il costo unitario del funding \`{e}
+
+\[
+\gamma_1=0.02,
+\qquad
+\gamma_2=0.20.
+\]
+
+La giacenza terminale non produce
+ulteriori interessi nell'orizzonte
+considerato.
+
+Tutte le grandezze monetarie
+sono espresse in milioni di euro.
+I coefficienti sono dati didattici
+di un modello ALM stilizzato,
+non una calibrazione storica.
+
+\begin{enumerate}
+
+\item Definire le variabili,
+formulare i problemi di ricorso $Q_s(x)$
+e identificare le matrici
+$T_s$, $W_s$ e i vettori $h_s$, $q_s$.
+
+\item Determinare le funzioni di ricorso
+e risolvere il problema stocastico,
+calcolando $x^{SP}$ e $z^{SP}$.
+
+\item Risolvere i due problemi
+wait-and-see e calcolare $z^{WS}$.
+
+\item Costruire il problema deterministico
+con coefficienti medi, determinare
+$x^{EV}$ e calcolare $z^{EV}$
+mediante i problemi di ricorso originari.
+
+\item Calcolare EVPI e VSS,
+verificare l'ordinamento dei tre valori
+e interpretare il significato economico
+dei risultati.
+
+\end{enumerate}
+
+\end{exercise}
+
+\noindent
+\textbf{Soluzione.}
+
+\begin{enumerate}
+
+\item La decisione iniziale \`{e}
+
+\[
+x=
+\begin{pmatrix}
+x_1\\
+x_2
+\end{pmatrix},
+\]
+
+mentre il ricorso nello scenario $s$
+\`{e} rappresentato dal vettore
+
+\[
+y_s=
+\begin{pmatrix}
+g_s\\
+u_s
+\end{pmatrix}.
+\]
+
+Il bilancio di liquidit\`{a}
+\`{e}
+
+\[
+a_s'x+u_s=8+g_s.
+\]
+
+La funzione di ricorso dello scenario $s$
+\`{e} quindi
+
+\[
+Q_s(x)
+=
+\max_{\substack{g_s\geq0\\0\leq u_s\leq3}}
+\left\{
+-\gamma_su_s:
+a_s'x+u_s-g_s=8
+\right\}.
+\]
+
+Nella forma matriciale
+
+\[
+T_sx+W_sy_s=h_s
+\]
+
+si identificano
+
+\[
+T_s=
+\begin{pmatrix}
+1&a_{s2}
+\end{pmatrix},
+\qquad
+W_s=
+\begin{pmatrix}
+-1&1
+\end{pmatrix},
+\qquad
+h_s=
+\begin{pmatrix}
+8
+\end{pmatrix}.
+\]
+
+Il vettore dei coefficienti economici
+del ricorso \`{e}
+
+\[
+q_s=
+\begin{pmatrix}
+0\\
+-\gamma_s
+\end{pmatrix}.
+\]
+
+La funzione obiettivo del programma
+stocastico \`{e} pertanto
+
+\[
+\max_{x_1,x_2}
+\left\{
+0.01x_1+0.05x_2
++\frac12 Q_1(x)
++\frac12 Q_2(x)
+\right\},
+\]
+
+con
+
+\[
+x_1+x_2=10,
+\qquad
+x_1,x_2\geq0.
+\]
+
+\item Utilizziamo il vincolo di bilancio
+iniziale per eliminare una variabile:
+
+\[
+x_1=10-x_2,
+\qquad
+0\leq x_2\leq10.
+\]
+
+Il rendimento degli investimenti
+diventa
+
+\[
+0.01x_1+0.05x_2
+=
+0.10+0.04x_2.
+\]
+
+Nello scenario $1$,
+la liquidit\`{a} disponibile
+prima del ricorso \`{e}
+
+\[
+x_1+0.9x_2
+=
+10-0.1x_2.
+\]
+
+Poich\'{e}
+
+\[
+10-0.1x_2\geq9>8
+\]
+
+per ogni portafoglio ammissibile,
+non \`{e} mai necessario raccogliere funding.
+
+Segue che
+
+\[
+Q_1(x)=0.
+\]
+
+Nello scenario $2$, invece,
+la liquidit\`{a} disponibile \`{e}
+
+\[
+x_1+0.5x_2
+=
+10-0.5x_2.
+\]
+
+Il fabbisogno di funding
+\`{e} quindi
+
+\[
+u_2^*
+=
+\max\{0,\;0.5x_2-2\}.
+\]
+
+Per $0\leq x_2\leq10$,
+esso non supera il limite di $3$.
+
+La funzione di ricorso \`{e}
+
+\[
+Q_2(x)
+=
+-0.20\max\{0,\;0.5x_2-2\}.
+\]
+
+Sostituendo nella funzione obiettivo
+si ottiene un problema
+in una sola variabile:
+
+\[
+z^{SP}
+=
+\max_{0\leq x_2\leq10}
+\left\{
+0.10+0.04x_2
+-0.10\max\{0,\;0.5x_2-2\}
+\right\}.
+\]
+
+La funzione obiettivo \`{e}
+lineare a tratti:
+
+\[
+\Pi^{SP}(x_2)
+=
+\begin{cases}
+0.10+0.04x_2,
+&
+0\leq x_2\leq4,
+\\[4pt]
+0.30-0.01x_2,
+&
+4\leq x_2\leq10.
+\end{cases}
+\]
+
+Il valore cresce fino a $x_2=4$
+e successivamente diminuisce.
+
+La decisione iniziale ottima \`{e}
+
+\[
+\boxed{
+x^{SP}
+=
+\begin{pmatrix}
+6\\
+4
+\end{pmatrix}.
+}
+\]
+
+In entrambi gli scenari
+il fabbisogno viene soddisfatto
+senza ricorrere al funding.
+
+Il valore ottimo risulta
+
+\[
+\boxed{
+z^{SP}
+=
+0.10+0.04(4)
+=
+0.26.
+}
+\]
+
+Il risultato economico atteso
+\`{e} quindi pari a $0.26$
+milioni di euro.
+
+\item Nel problema wait-and-see
+la banca conosce lo scenario futuro
+prima di scegliere il portafoglio.
+
+Nello scenario $1$ non occorre funding
+per nessun portafoglio ammissibile.
+La banca massimizza quindi
+
+\[
+0.10+0.04x_2,
+\qquad
+0\leq x_2\leq10.
+\]
+
+La soluzione \`{e}
+
+\[
+x_2^{WS,1}=10,
+\qquad
+x_1^{WS,1}=0,
+\]
+
+con valore
+
+\[
+z_1^{WS}=0.50.
+\]
+
+Nello scenario $2$
+la funzione obiettivo \`{e}
+
+\[
+\Pi_2(x_2)
+=
+0.10+0.04x_2
+-0.20\max\{0,\;0.5x_2-2\}.
+\]
+
+Esplicitando i due tratti,
+
+\[
+\Pi_2(x_2)
+=
+\begin{cases}
+0.10+0.04x_2,
+&
+0\leq x_2\leq4,
+\\[4pt]
+0.50-0.06x_2,
+&
+4\leq x_2\leq10.
+\end{cases}
+\]
+
+Il massimo si ottiene in
+
+\[
+x_2^{WS,2}=4,
+\qquad
+x_1^{WS,2}=6,
+\]
+
+con
+
+\[
+z_2^{WS}=0.26.
+\]
+
+Il valore wait-and-see
+\`{e} la media ponderata
+dei due ottimi scenario-specifici:
+
+\[
+\begin{aligned}
+z^{WS}
+&=
+0.5z_1^{WS}+0.5z_2^{WS}
+\\
+&=
+0.5(0.50)+0.5(0.26).
+\end{aligned}
+\]
+
+Pertanto,
+
+\[
+\boxed{
+z^{WS}=0.38.
+}
+\]
+
+La differenza rispetto a SP
+deriva dalla possibilit\`{a}
+di scegliere il portafoglio iniziale
+dopo aver conosciuto lo scenario.
+
+\item Per costruire il problema medio,
+calcoliamo innanzitutto
+il coefficiente medio di liquidit\`{a}
+dei titoli:
+
+\[
+\bar a_2
+=
+0.5(0.9)+0.5(0.5)
+=
+0.7.
+\]
+
+Il costo unitario medio del funding \`{e}
+
+\[
+\bar\gamma
+=
+0.5(0.02)+0.5(0.20)
+=
+0.11.
+\]
+
+Il fabbisogno e il limite di funding
+sono deterministici e rimangono
+rispettivamente pari a $8$ e $3$.
+
+Il problema deterministico medio \`{e}
+
+\[
+\begin{aligned}
+\max_{x_1,x_2,\bar g,\bar u}
+\quad&
+0.01x_1+0.05x_2
+-0.11\bar u
+\\[4pt]
+\text{soggetto a}\quad&
+x_1+x_2=10,
+\\
+&
+x_1+0.7x_2+\bar u-\bar g=8,
+\\
+&
+x_1,x_2,\bar g\geq0,
+\\
+&
+0\leq\bar u\leq3.
+\end{aligned}
+\]
+
+Eliminando $x_1$,
+la liquidit\`{a} disponibile
+prima del ricorso \`{e}
+
+\[
+10-0.3x_2.
+\]
+
+Il funding ottimo del problema medio
+\`{e} quindi
+
+\[
+\bar u^*
+=
+\max\{0,\;0.3x_2-2\}.
+\]
+
+La funzione obiettivo diventa
+
+\[
+\Pi^{EV}(x_2)
+=
+0.10+0.04x_2
+-0.11\max\{0,\;0.3x_2-2\}.
+\]
+
+Il punto di cambiamento
+si trova in
+
+\[
+0.3x_2-2=0,
+\qquad
+x_2=\frac{20}{3}.
+\]
+
+Pertanto,
+
+\[
+\Pi^{EV}(x_2)
+=
+\begin{cases}
+0.10+0.04x_2,
+&
+0\leq x_2\leq20/3,
+\\[4pt]
+0.32+0.007x_2,
+&
+20/3\leq x_2\leq10.
+\end{cases}
+\]
+
+La funzione cresce in entrambi
+gli intervalli, per cui il massimo
+si ottiene in $x_2=10$.
+
+La soluzione del problema medio \`{e}
+
+\[
+\boxed{
+x^{EV}
+=
+\begin{pmatrix}
+0\\
+10
+\end{pmatrix},
+\qquad
+\bar y^{EV}
+=
+\begin{pmatrix}
+\bar g^{EV}\\
+\bar u^{EV}
+\end{pmatrix}
+=
+\begin{pmatrix}
+0\\
+1
+\end{pmatrix}.
+}
+\]
+
+Il valore ottimo
+del problema deterministico medio \`{e}
+
+\[
+0.50-0.11(1)=0.39.
+\]
+
+Questo valore non \`{e} $z^{EV}$.
+
+Per determinare $z^{EV}$
+occorre valutare la decisione
+iniziale $x^{EV}$ negli scenari originari.
+
+Nel primo scenario, fissato
+
+\[
+x^{EV}=(0,10)',
+\]
+
+il problema di ricorso \`{e}
+
+\[
+Q_1(x^{EV})
+=
+\max_{\substack{g_1\geq0\\0\leq u_1\leq3}}
+\left\{
+-0.02u_1:
+9+u_1-g_1=8
+\right\}.
+\]
+
+La soluzione ottima \`{e}
+
+\[
+u_1^*=0,
+\qquad
+g_1^*=1,
+\]
+
+e quindi
+
+\[
+Q_1(x^{EV})=0.
+\]
+
+Nel secondo scenario
+il problema di ricorso \`{e}
+
+\[
+Q_2(x^{EV})
+=
+\max_{\substack{g_2\geq0\\0\leq u_2\leq3}}
+\left\{
+-0.20u_2:
+5+u_2-g_2=8
+\right\}.
+\]
+
+La soluzione ottima richiede
+
+\[
+u_2^*=3,
+\qquad
+g_2^*=0,
+\]
+
+con
+
+\[
+Q_2(x^{EV})
+=
+-0.20(3)
+=
+-0.60.
+\]
+
+Possiamo ora calcolare
+
+\[
+\begin{aligned}
+z^{EV}
+&=
+c'x^{EV}
++
+\sum_{s=1}^{2}p_sQ_s(x^{EV})
+\\
+&=
+0.50
++
+0.5(0)
++
+0.5(-0.60).
+\end{aligned}
+\]
+
+Il risultato \`{e}
+
+\[
+\boxed{
+z^{EV}=0.20.
+}
+\]
+
+La decisione basata sui valori medi
+genera quindi un risultato atteso
+inferiore a quello della decisione
+stocastica ottima.
+
+La differenza fra $0.39$ e $0.20$
+mostra inoltre che il valore ottimo
+del problema medio non coincide
+con il risultato ottenuto valutando
+$x^{EV}$ sotto l'incertezza effettiva.
+
+\item I tre valori calcolati sono
+
+\[
+\boxed{
+z^{EV}=0.20,
+\qquad
+z^{SP}=0.26,
+\qquad
+z^{WS}=0.38.
+}
+\]
+
+Essi soddisfano l'ordinamento
+
+\[
+z^{WS}>z^{SP}>z^{EV}.
+\]
+
+Il valore dell'informazione perfetta \`{e}
+
+\[
+\begin{aligned}
+\EVPI
+&=
+z^{WS}-z^{SP}
+\\
+&=
+0.38-0.26
+\\
+&=
+\boxed{0.12}.
+\end{aligned}
+\]
+
+Il valore della soluzione stocastica \`{e}
+
+\[
+\begin{aligned}
+\VSS
+&=
+z^{SP}-z^{EV}
+\\
+&=
+0.26-0.20
+\\
+&=
+\boxed{0.06}.
+\end{aligned}
+\]
+
+Tutte le grandezze sono espresse
+in milioni di euro.
+
+L'EVPI pari a $0.12$ indica
+che la conoscenza anticipata
+dello scenario consentirebbe,
+nel modello considerato,
+un incremento del risultato atteso
+di $120\,000$ euro.
+
+Il VSS pari a $0.06$ indica invece
+che scegliere il portafoglio iniziale
+mediante il programma stocastico,
+anzich\'{e} mediante il problema medio,
+produce un incremento del risultato
+atteso di $60\,000$ euro.
+
+Il meccanismo economico \`{e} preciso.
+Il problema medio favorisce
+l'investimento completo
+nei titoli meno liquidi,
+perch\'{e} sottostima
+l'effetto delle condizioni di stress
+sul costo atteso del funding.
+
+Il programma stocastico sceglie invece
+una quota maggiore di liquidit\`{a}
+iniziale, rinunciando a una parte
+del rendimento degli investimenti
+per evitare il funding oneroso
+nello scenario avverso.
+
+La soluzione wait-and-see
+ottiene un risultato superiore
+perch\'{e} pu\`{o} effettuare
+questa scelta soltanto quando
+sa che si verificher\`{a}
+lo scenario di stress.
+
+\end{enumerate}
