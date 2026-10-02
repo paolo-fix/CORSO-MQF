@@ -1,7 +1,7 @@
 """
 Cap15_albero_scenari_stadi.py
 Albero degli scenari a 4 stadi decisionali, T = 4:
-  T_1={0} (x),  T_2={1} (u_1),  T_3={2,3} (u_2,u_3),  T_4={4} (u_4).
+  T_1={0} (x),  T_2={1} (u_1),  T_3={2,3} (u_2,u_3),  T_4={4} (g_4).
 Esempio illustrativo: Z_1 in {A,B}; proseguimenti C_1,C_2 per (Z_2,Z_3);
 proseguimenti D_1,D_2 per Z_4. Otto scenari.
 """
@@ -97,7 +97,7 @@ bande = [
     (1, -1.0, 0.45, r"$\mathcal{T}_1=\{0\}$", "decide $x$", "#eef2f8"),
     (2, 0.45, 2.45, r"$\mathcal{T}_2=\{1\}$", "osserva $Z_1$\ndecide $u_1$", "#f7f3ee"),
     (3, 2.45, 6.45, r"$\mathcal{T}_3=\{2,3\}$", "osserva $(Z_2,Z_3)$\ndecide $(u_2,u_3)$", "#eef2f8"),
-    (4, 6.45, FINE_STADIO_4, r"$\mathcal{T}_4=\{4\}$", "osserva $Z_4$\ndecide $u_4$", "#f7f3ee"),
+    (4, 6.45, FINE_STADIO_4, r"$\mathcal{T}_4=\{4\}$", "osserva $Z_4$\ndecide $g_4$", "#f7f3ee"),
 ]
 for k, x0, x1, T, testo, col in bande:
     ax.add_patch(Rectangle((x0, ymin), x1 - x0, ymax - ymin, color=col, lw=0, zorder=0))
