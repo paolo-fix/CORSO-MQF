@@ -1,5 +1,5 @@
 %2multibyte Version: 5.50.0.2960 CodePage: 65001
-% !TeX root = ./Slides_Lez_07_Python_Traiettorie_Pricing.tex
+% !TeX root = ./Slides_Lez_10_Python_Rischio_Credito.tex
 % ------------------------------------------------------------
 % Macro matematiche ufficiali del progetto MQF
 % Coerenti con MQF_Notazione.tex
@@ -97,7 +97,7 @@
 % Slide 1
 %******************
 
-\title[Lez. 7 - Python, traiettorie e pricing]{Lezione 7 - Python, traiettorie e pricing}
+\title[Lez. 10 - Python, rischio di credito]{Lezione 10 - Python, rischio di credito}
 \subtitle{Metodi Quantitativi per la Finanza}
 \author[P. Falbo, C. Pelizzari]{{\LARGE Paolo Falbo, Cristian Pelizzari}}
 \institute[]{{\large Dipartimento di Economia e Management}}
@@ -110,70 +110,52 @@
 \maketitle
 
 
-% ============================================================
-% GRUPPO 0 -- APERTURA
-% Slide 1-2
-% Tempo parziale: 5 minuti | Tempo cumulato: 5 minuti
-% ============================================================
 
-\section{Apertura}
+\section{Apertura della lezione}
 
-% --------------------------------------------------------
-% Slide 1 -- Dalla teoria alla simulazione
-% --------------------------------------------------------
-
-\subsection{Dalla teoria alla simulazione}
+%******************
+% Slide 2
+%******************
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Dalla teoria alla simulazione}
+\QTR{frametitle}{Obiettivi della lezione}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Nelle due lezioni precedenti abbiamo costruito i modelli necessari
-per descrivere l'evoluzione di grandezze finanziarie nel tempo:
+La Lezione 10 ha tre obiettivi irrinunciabili.
 
-\[
-\begin{array}{ccl}
-\text{Lezione 5} &:&
-\text{traiettorie, informazione, martingale},\\[2mm]
-\text{Lezione 6} &:&
-\text{Browniano, SDE, GBM, OU, CIR, correlazione}.
-\end{array}
-\]
+\begin{enumerate}
 
-\medskip
+\item \textbf{Un piccolo approfondimento Python}
 
-Oggi passiamo dalla \textbf{formulazione del modello} alla sua
-\textbf{implementazione computazionale}:
+Utilizzare maschere booleane e selezioni condizionali per rendere
+operativi eventi definiti probabilisticamente.
 
-\[
-\text{modello}
-\;\longrightarrow\;
-\text{traiettorie simulate}
-\]
-\\
-\vspace{-0.5cm}
-\[
-\;\longrightarrow\;
-\text{quantit\`a finanziarie}
-\;\longrightarrow\;
-\text{pricing Monte Carlo}.
-\]
+\item \textbf{Il Caso Aula: China Evergrande 2021}
 
-\medskip
+Trasformare la teoria delle catene di Markov e delle misure di rischio
+in un modello Monte Carlo per la perdita di un portafoglio creditizio.
 
-L'obiettivo non \`e studiare Python come contenuto autonomo, ma
-utilizzarlo per rendere \textbf{osservabili, simulabili e verificabili}
-i modelli quantitativi gi\`a introdotti.
+\item \textbf{Il Caso TakeHome: Lehman Brothers 2008}
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+Trasferire autonomamente la stessa architettura metodologica a un
+problema finanziario distinto, che non verr\`a sviluppato in aula.
+
+\end{enumerate}
+
+\vspace{0.3cm}
+
+Il protocollo generale delle lezioni applicative, introdotto nella
+Lezione 4, verr\`a richiamato solo quando necessario.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
@@ -183,568 +165,70 @@ i modelli quantitativi gi\`a introdotti.
 %EndExpansion
 
 
-% --------------------------------------------------------
-% Slide 2 -- Il percorso della lezione
-% --------------------------------------------------------
-
-\subsection{Il percorso della lezione}
+%******************
+% Slide 3
+%******************
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Il percorso della lezione}
+\QTR{frametitle}{Dove siamo nel corso}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-La lezione segue tre passaggi.
+La Lezione 10 porta sul piano computazionale gli strumenti sviluppati
+nei due capitoli precedenti.
 
-\medskip
+\vspace{0.3cm}
 
-\begin{stepenumerate}
+\begin{description}
 
-\item \textbf{Python per molte traiettorie}
+\item[\textbf{Capitolo 8}]
+catene di Markov, matrici di transizione, distribuzioni degli stati e
+dinamica multi-periodale.
 
-Array, matrici e vettorizzazione come strumenti per organizzare
-un campione di simulazioni.
+\vspace{0.2cm}
 
-\medskip
+\item[\textbf{Capitolo 9}]
+migrazioni creditizie, distribuzione delle perdite e misure di rischio,
+con particolare attenzione a VaR e CVaR.
 
-\item \textbf{Caso Aula: inflation-linked bond}
+\end{description}
 
-Inflazione OU e tasso CIR correlati:
-dalle traiettorie ai flussi indicizzati, all'attualizzazione
-e al prezzo Monte Carlo.
+\vspace{0.4cm}
 
-\medskip
-
-\item \textbf{Caso TakeHome: Asian call}
-
-Lo stesso metodo viene trasferito a un nuovo problema:
-GBM, tasso CIR, media asiatica e payoff path-dependent.
-
-\end{stepenumerate}
-
-\medskip
-
-\begin{center}
-\textbf{Prima parte:} slide e impostazione del problema
-\\
-\textbf{Seconda parte:} laboratorio in VS Code/Jupyter
-\end{center}
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout%
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-% ============================================================
-% GRUPPO 1 -- PYTHON PER SIMULARE MOLTE TRAIETTORIE
-% Slide 3-6
-% Tempo parziale: 10 minuti | Tempo cumulato: 15 minuti
-% ============================================================
-
-\section{Python per simulare molte traiettorie}
-
-% --------------------------------------------------------
-% Slide 3 -- Da una traiettoria a molte traiettorie
-% --------------------------------------------------------
-
-\subsection{Array e matrici di simulazione}
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\QTR{frametitle}{Da una traiettoria a molte traiettorie}
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
-
-Una traiettoria discretizzata di un processo stocastico contiene i suoi valori
-sulla griglia temporale
+Nella lezione di oggi, il passaggio centrale \`e:
 
 \[
-t_0,t_1,\ldots,t_N.
+\text{regime sistemico}
+\longrightarrow
+\text{migrazioni creditizie}
+\longrightarrow
+\text{perdite individuali}
 \]
-
-\medskip
-
-Se simuliamo $M$ traiettorie del processo stocastico $X$ discretizzato in $N+1$ istanti temporali, possiamo organizzarle in un unico array (matrice):
-
+\vspace{-0.2cm}
 \[
-X=
-\begin{pmatrix}
-X_0^{(1)} & X_1^{(1)} & \cdots & X_N^{(1)}\\
-X_0^{(2)} & X_1^{(2)} & \cdots & X_N^{(2)}\\
-\vdots & \vdots & \ddots & \vdots\\
-X_0^{(M)} & X_1^{(M)} & \cdots & X_N^{(M)}
-\end{pmatrix}.
+\longrightarrow
+\text{perdita di portafoglio}
+\longrightarrow
+\text{distribuzione simulata}
+\longrightarrow
+\text{VaR e CVaR}.
 \]
 
-\medskip
 
-\begin{center}
-\textbf{righe = traiettorie simulate}
-\qquad
-\textbf{colonne = istanti temporali}
-\end{center}
-
-\medskip
-
-Questa struttura verr\`a utilizzata per shock, fattori di rischio
-e quantit\`a costruite lungo ciascuna traiettoria.
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout%
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-% --------------------------------------------------------
-% Slide 4 -- Aggregare per tempo o per scenario?
-% --------------------------------------------------------
-
-\subsection{Operazioni lungo gli assi}
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\QTR{frametitle}{Aggregare per tempo o per scenario?}
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
-
-Su una matrice di traiettorie possiamo formulare due domande diverse.
-
-\medskip
-
-\begin{columns}[T]
-
-\column{0.47\textwidth}
-
-\textbf{Tra scenari}
-
-\[
-X_j^{(1)},X_j^{(2)},\ldots,X_j^{(M)}
-\]
-
-Fissiamo un istante $t_j$ e confrontiamo le diverse simulazioni.
-
-\medskip
-
-Esempio:
-
-\begin{center}
-media di $X_T$ tra le $M$ traiettorie.
-\end{center}
-
-\column{0.47\textwidth}
-
-\textbf{Lungo il tempo}
-
-\[
-X_0^{(k)},X_1^{(k)},\ldots,X_N^{(k)}
-\]
-
-Fissiamo una traiettoria $k$ e aggreghiamo i suoi valori nel tempo.
-
-\medskip
-
-Esempio:
-
-\begin{center}
-media o somma temporale nella traiettoria $k$.
-\end{center}
-
-\end{columns}
-
-\medskip
-
-In NumPy questa distinzione viene espressa mediante l'argomento
-\texttt{axis}:
-
-\[
-\texttt{axis=0}
-\;\longleftrightarrow\;
-\text{aggregazione tra righe},
-\]
-\\
-\vspace{-0.4cm}
-\[
-\texttt{axis=1}
-\;\longleftrightarrow\;
-\text{aggregazione tra colonne}.
-\]
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout%
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-% --------------------------------------------------------
-% Slide 5 -- Selezionare le date che servono
-% --------------------------------------------------------
-
-\subsection{Indicizzazione temporale}
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\QTR{frametitle}{Selezionare le date che servono}
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
-
-Non tutte le operazioni finanziarie utilizzano tutti i punti
-della griglia temporale.
-
-\medskip
-
-Data una matrice di traiettorie, possiamo selezionare:
-
-\begin{stepitemize}
-
-\item il valore iniziale $X_0$;
-
-\item il valore terminale $X_T$;
-
-\item un insieme di date contrattuali
-$t_{j_1},\ldots,t_{j_m}$;
-
-\item una parte della traiettoria necessaria per costruire
-una somma o un integrale discretizzato.
-
-\end{stepitemize}
-
-\medskip
-
-Per esempio, in NumPy:
-
-\[
-\begin{array}{rcl}
-\texttt{X[:, -1]} &:& \text{valore terminale in tutti gli scenari},\\[1mm]
-\texttt{X[:, indici]} &:& \text{valori alle date selezionate}.
-\end{array}
-\]
-
-\medskip
-
-\begin{center}
-\textbf{L'indicizzazione deve riprodurre la struttura temporale
-del problema finanziario.}
-\end{center}
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout%
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-% --------------------------------------------------------
-% Slide 6 -- Pensare per array, non per singolo scenario
-% --------------------------------------------------------
-
-\subsection{Vettorizzazione}
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\QTR{frametitle}{Pensare per array, non per singolo scenario}
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
-
-Una simulazione Monte Carlo richiede di applicare le stesse
-operazioni a un grande numero di traiettorie.
-
-\medskip
-
-Possiamo pensare alla procedura in due modi:
-
-\[
-\begin{array}{ccc}
-\text{una traiettoria alla volta}
-& \qquad\longrightarrow\qquad &
-\text{operazioni sull'intero array}\\[2mm]
-\text{ciclo sugli scenari}
-&&
-\text{vettorizzazione}.
-\end{array}
-\]
-
-\medskip
-
-Con NumPy, operazioni come
-
-\[
-\texttt{np.mean},
-\qquad
-\texttt{np.sum},
-\qquad
-\texttt{np.exp},
-\qquad
-\texttt{np.maximum}
-\]
-
-possono essere applicate direttamente a vettori e matrici.
-
-\medskip
-
-\begin{center}
-\textbf{La vettorizzazione non cambia il modello:}\\
-cambia il modo in cui lo stesso calcolo viene eseguito
-sulle $M$ traiettorie.
-\end{center}
-
-\medskip
-
-Questo sar\`a il linguaggio computazionale utilizzato nel Caso Aula.
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout%
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-% ============================================================
-% GRUPPO 2 -- DAL CAP05--06 AL PROBLEMA COMPUTAZIONALE
-% Slide 8-10
-% Tempo parziale: 8 minuti | Tempo cumulato: 23 minuti
-% ============================================================
-
-\section{Dal modello al problema computazionale}
-
-% --------------------------------------------------------
-% Slide 8 -- Dal processo alle traiettorie simulate
-% --------------------------------------------------------
-
-\subsection{Processi e simulazione}
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\QTR{frametitle}{Dal processo alle traiettorie simulate}
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
-
-Nel Capitolo 5, abbiamo distinto il \textbf{processo stocastico}
-dalle sue possibili traiettorie:
-
-\[
-\{X_t\}_{t\in\mathcal{T}}
-\qquad\longrightarrow\qquad
-X^{(1)},X^{(2)},\ldots,X^{(M)}.
-\]
-
-\medskip
-
-Il modello specifica la legge probabilistica dell'evoluzione nel tempo;
-la simulazione genera un campione di traiettorie compatibili con tale
-modello.
-
-\medskip
-
-Nel Monte Carlo, la sola generazione delle traiettorie non \`e l'unico elemento del metodo:
-
-\[
-\boxed{
-\text{modello probabilistico}
-\;\longrightarrow\;
-}
-\]
-\\
-\[
-\boxed{
-\text{campione di traiettorie}
-\;\longrightarrow\;
-\text{distribuzione degli esiti}
-}
-\]
-
-\medskip
-
-Per i contratti \textbf{path-dependent}, interessa l'intera evoluzione delle grandezze rilevanti, non soltanto il loro valore terminale.
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout%
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-% --------------------------------------------------------
-% Slide 9 -- Dal tempo continuo alla griglia
-% --------------------------------------------------------
-
-\subsection{Discretizzazione}
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\QTR{frametitle}{Dal tempo continuo alla griglia}
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
-
-Nel Capitolo 6, abbiamo descritto una diffusione mediante una SDE:
-
-\[
-dX_t=a(X_t,t)\,dt+b(X_t,t)\,dW_t.
-\]
-
-Il computer lavora invece su una griglia:
-
-\[
-0=t_0<t_1<\cdots<t_N=T,
-\qquad
-\Delta t=t_{j+1}-t_j.
-\]
-
-\medskip
-
-Con Euler--Maruyama:
-
-\[
-X_{t_{j+1}}
-=
-X_{t_j}
-+
-a(X_{t_j},t_j)\Delta t
-+
-b(X_{t_j},t_j)\sqrt{\Delta t}\,Z_{j+1},
-\]
-
-con
-
-\[
-Z_{j+1}\sim\mathcal{N}(0,1).
-\]
-
-\medskip
-
-\begin{center}
-\textbf{Il notebook non simula il tempo continuo:}\\[1mm]
-costruisce una rappresentazione del processo sulla griglia scelta.
-\end{center}
-
-\medskip
-
-La scelta di $\Delta t$ diventa quindi parte del problema numerico
-e dovr\`a essere sottoposta a controllo.
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout%
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-% --------------------------------------------------------
-% Slide 10 -- Dalle traiettorie al valore finanziario
-% --------------------------------------------------------
-
-\subsection{La catena computazionale}
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\QTR{frametitle}{Dalle traiettorie al valore finanziario}
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
-
-La simulazione delle traiettorie \`e soltanto una parte del problema.
-
-\medskip
-
-In un'applicazione di pricing Monte Carlo, dobbiamo collegare:
-
-\[
-\boxed{
-\begin{array}{c}
-\text{modello stocastico}\\
-\downarrow\\
-\text{shock simulati}\\
-\downarrow\\
-\text{traiettorie}\\
-\downarrow\\
-\text{quantit\`a contrattuali}\\
-\downarrow\\
-\text{cash flow o payoff}\\
-\downarrow\\
-\text{valore attuale per traiettoria}\\
-\downarrow\\
-\text{stima Monte Carlo}
-\end{array}
-}
-\]
-
-%\medskip
-
-%Ogni passaggio deve essere coerente con il precedente e deve poter essere sottoposto a \textbf{controlli quantitativi}.
-
-%\medskip
 
 %\begin{center}
-%\textbf{Simulare correttamente un processo non basta:}\\
-%occorre trasformare correttamente le traiettorie in valori %finanziari.
+%\textbf{Obiettivo: rendere simulabile e verificabile il collegamento
+%tra dinamica creditizia e rischio di portafoglio.}
 %\end{center}
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
@@ -753,330 +237,125 @@ In un'applicazione di pricing Monte Carlo, dobbiamo collegare:
 \end{frame}%
 %EndExpansion
 
-% ============================================================
-% GRUPPO 3 -- CASO AULA: PROBLEMA E MODELLO
-% Slide 11-15
-% Tempo parziale: 13 minuti | Tempo cumulato: 36 minuti
-% ============================================================
 
-\section{Caso Aula: problema e modello}
+%============================================================
+% SEZIONE 1 — PICCOLO FOCUS PYTHON
+%============================================================
 
-% --------------------------------------------------------
-% Slide 11 -- Il Caso Aula: un inflation-linked bond
-% --------------------------------------------------------
+\section{Piccolo focus Python}
 
-\subsection{La domanda finanziaria}
+%******************
+% Slide 4
+%******************
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Il Caso Aula: un inflation-linked bond}
+\QTR{frametitle}{Da un evento probabilistico a una condizione logica}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Consideriamo un investitore istituzionale che deve valutare
-un'\textbf{obbligazione indicizzata all'inflazione}.
-
-\medskip
-
-Il contratto prevede:
-
-\begin{stepitemize}
-
-\item cedole indicizzate all'evoluzione del livello dei prezzi;
-
-\item rimborso del capitale anch'esso indicizzato;
-
-\item protezione del capitale nominale a scadenza in caso di
-deflazione cumulata.
-
-\end{stepitemize}
-
-\medskip
-
-Il valore del contratto dipende congiuntamente da due fonti di rischio:
+Nel Caso Aula, considereremo, tra gli altri, l'evento
 
 \[
-\boxed{
-\begin{array}{ccc}
-\text{inflazione}
-& \qquad & 
-\text{tasso nominale}\\[1mm]
-\downarrow && \downarrow\\
-\text{indicizzazione dei flussi}
-&&
-\text{attualizzazione}
-\end{array}}
+\{\exists t : M_t=C\},
 \]
 
-\medskip
+cio\`e l'evento in cui la traiettoria del regime sistemico visita almeno
+una volta lo stato di crisi.
 
-\begin{center}
-\textbf{Domanda quantitativa:}\\
-come ottenere il valore del contratto mediante simulazione Monte Carlo
-quando inflazione e tasso sono stocastici e correlati?
-\end{center}
+\vspace{0.4cm}
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout%
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-
-% --------------------------------------------------------
-% Slide 12 -- La Scheda Caso e' la specifica del problema
-% --------------------------------------------------------
-
-\subsection{La specifica vincolante}
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\QTR{frametitle}{La Scheda Caso \`e la specifica del problema}
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
-
-Nel lavoro applicativo, la \textbf{Scheda Caso} costituisce la
-specifica vincolante del problema.
-
-\medskip
-
-Sono assegnati:
-
-\begin{stepitemize}
-
-\item il contesto finanziario e le grandezze da modellizzare;
-
-\item i modelli stocastici e le relazioni contrattuali;
-
-\item i parametri e la struttura temporale;
-
-\item gli output da produrre e i controlli da eseguire;
-
-\item le ipotesi e i limiti dell'esercizio.
-
-\end{stepitemize}
-
-\medskip
-
-Durante il lavoro, questi elementi \textbf{non devono essere ridefiniti}
-autonomamente n\'e dallo studente n\'e dall'IA.
-
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout%
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-
-% --------------------------------------------------------
-% Slide 13 -- L'inflazione: un processo OU
-% --------------------------------------------------------
-
-\subsection{Il fattore inflazione}
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\QTR{frametitle}{L'inflazione: un processo OU}
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
-
-Il tasso istantaneo di inflazione $i_t$ segue un processo
-di Ornstein--Uhlenbeck:
+In una simulazione Monte Carlo, disponiamo di molte traiettorie:
 
 \[
-di_t
+M^{(1)},M^{(2)},\ldots,M^{(N_{\mathrm{MC}})}.
+\]
+
+Per ciascuna replica dobbiamo quindi rispondere a una domanda logica:
+
+\begin{center}
+\textbf{la traiettoria contiene almeno una volta lo stato \(C\)?}
+\end{center}
+
+\vspace{0.3cm}
+
+La risposta \`e: \texttt{True} \text{oppure} \texttt{False}.
+
+\vspace{0.2cm}
+
+Python traduce cos\`i un evento probabilistico in una condizione
+verificabile replica per replica.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%******************
+% Slide 5
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Maschere booleane e \texttt{np.any}}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Supponiamo che l'array \texttt{M} contenga le traiettorie simulate del
+regime sistemico:
+
+\[
+\texttt{M.shape}
 =
-\kappa_i(\theta_i-i_t)\,dt
-+
-\sigma_i\,dW_t^{(i)}.
+(N_{\mathrm{MC}},T).
 \]
 
-\medskip
+Il confronto \texttt{M == C} produce un array booleano della stessa dimensione.
+
+\vspace{0.3cm}
+
+Per verificare se una traiettoria visita almeno una volta lo stato \(C\)
+possiamo usare:
 
 \begin{center}
-\begin{tabular}{ccl}
-$\kappa_i$ &:& velocit\`a di mean-reversion,\\
-$\theta_i$ &:& livello di lungo periodo,\\
-$\sigma_i$ &:& volatilit\`a dell'inflazione.
-\end{tabular}
+\texttt{crisis = np.any(M == C, axis=1)}
 \end{center}
 
-\medskip
+\vspace{0.3cm}
 
-Il modello implica una dinamica \textbf{mean-reverting}: quando $i_t$
-si allontana da $\theta_i$, il drift tende a riportarlo verso il
-livello di lungo periodo.
+Il parametro \texttt{axis=1} indica che il controllo viene effettuato
+lungo il tempo, separatamente per ciascuna replica.
 
-\medskip
+\vspace{0.3cm}
 
-\begin{center}
-\fbox{\parbox{0.82\textwidth}{
-\textbf{Attenzione:} $i_t$ \`e un tasso di inflazione istantaneo.
-Non \`e l'indice dei prezzi utilizzato per indicizzare i flussi.
-}}
-\end{center}
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout%
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-% --------------------------------------------------------
-% Slide 14 -- Il tasso nominale: un processo CIR
-% --------------------------------------------------------
-
-\subsection{Il fattore tasso}
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\QTR{frametitle}{Il tasso nominale: un processo CIR}
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
-
-Il tasso nominale istantaneo $r_t$ segue un processo CIR:
+L'output \`e un vettore:
 
 \[
-dr_t
+\texttt{crisis}
 =
-\kappa_r(\theta_r-r_t)\,dt
-+
-\sigma_r\sqrt{r_t}\,dW_t^{(r)}.
+(\texttt{True},\texttt{False},\ldots),
 \]
 
-\medskip
+con una componente per ogni scenario Monte Carlo.
 
-Il modello combina:
-
-\begin{stepitemize}
-
-\item mean-reversion verso il livello $\theta_r$;
-
-\item volatilit\`a dipendente dal livello del tasso;
-
-\item una struttura pensata per tassi non negativi.
-
-\end{stepitemize}
-
-\medskip
-
-La condizione di Feller
-
-\[
-2\kappa_r\theta_r\geq\sigma_r^2
-\]
-
-pu\`o essere verificata sui parametri assegnati.
-
-\medskip
-
-\begin{center}
-\textbf{Modello continuo e discretizzazione numerica non coincidono:}\\
-eventuali valori negativi prodotti dallo schema numerico
-devono essere evitati.
-\end{center}
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout%
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-% --------------------------------------------------------
-% Slide 15 -- Due rischi, shock correlati
-% --------------------------------------------------------
-
-\subsection{Dipendenza tra i fattori}
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\QTR{frametitle}{Due rischi, shock correlati}
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
-
-Inflazione e tasso nominale non vengono simulati indipendentemente.
-
-La Scheda Caso assegna
-
-\[
-dW_t^{(i)}\,dW_t^{(r)}=\rho\,dt.
-\]
-
-\medskip
-
-Partendo da due variabili indipendenti
-
-\[
-Z_1,Z_2\sim\mathcal{N}(0,1),
-\]
-
-possiamo costruire gli shock
-
-\[
-\varepsilon_i=Z_1,
-\qquad
-\varepsilon_r=
-\rho Z_1+\sqrt{1-\rho^2}\,Z_2.
-\]
-
-Questo comporta che $\operatorname{Corr}(\varepsilon_i,\varepsilon_r)=\rho$.
-
-\medskip
-
-Nel notebook, la correlazione assegnata diventa anche una quantit\`a
-da controllare empiricamente sulle simulazioni generate.
-
-\medskip
-
-\begin{center}
-\textbf{Correlazione degli shock $\neq$ correlazione dei livelli
-simulati dei due processi.}
-\end{center}
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
@@ -1086,131 +365,268 @@ simulati dei due processi.}
 %EndExpansion
 
 
-% ============================================================
-% GRUPPO 4 -- CASO AULA: DALLE TRAIETTORIE AL PREZZO
-% Slide 16-20
-% Tempo parziale: 13 minuti | Tempo cumulato: 49 minuti
-% ============================================================
-
-\section{Caso Aula: dalle traiettorie al prezzo}
-
-% --------------------------------------------------------
-% Slide 16 -- Dall'inflazione all'indice dei prezzi
-% --------------------------------------------------------
-
-\subsection{Indicizzazione}
+%******************
+% Slide 6
+%******************
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Dall'inflazione all'indice dei prezzi}
+\QTR{frametitle}{Selezionare sottocampioni con una maschera}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-La traiettoria di $i_t$ descrive il \textbf{tasso istantaneo di inflazione}.
-Per indicizzare i flussi occorre invece costruire la variazione cumulata
-del livello dei prezzi.
+Una maschera booleana pu\`o essere utilizzata per selezionare solo le
+osservazioni che soddisfano una determinata condizione.
 
-\medskip
 
-Definiamo il fattore di indicizzazione
+
+Se \texttt{loss} contiene le perdite di portafoglio simulate, allora:
+
+\begin{center}
+\texttt{loss[crisis]}
+\end{center}
+
+seleziona le perdite associate agli scenari in cui il regime sistemico
+entra almeno una volta nello stato \(C\).
+
+Analogamente:
+
+\begin{center}
+\texttt{loss[{\raise.17ex\hbox{$\scriptstyle\sim$}}crisis]}
+\end{center}
+
+seleziona gli scenari senza ingresso nello stato di crisi.
+
+
+
+Sul piano probabilistico stiamo costruendo due sottocampioni:
 
 \[
-J_t
-=
-\exp\left(\int_0^t i_s\,ds\right).
+L^P \mid \text{Crisi}
+\qquad\text{e}\qquad
+L^P \mid \text{No Crisi}.
 \]
 
-\medskip
+\vspace{0.3cm}
 
-Sulla griglia temporale, l'integrale viene approssimato mediante
-i valori simulati dell'inflazione:
+\begin{center}
+\textbf{La maschera booleana rende operativa una partizione del campione
+definita dal modello probabilistico.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%============================================================
+% SEZIONE 2 — DAI CAPITOLI 8–9 AL PROBLEMA COMPUTAZIONALE
+%============================================================
+
+\section{Dai Capitoli 8--9 al problema computazionale}
+
+%******************
+% Slide 7
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Dal Capitolo 8: il regime sistemico come catena di Markov}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Nel Caso Aula, il contesto macro-finanziario viene rappresentato da un
+processo a stati discreti
 
 \[
-\int_0^{t_j}i_s\,ds
-\quad\longrightarrow\quad
-\sum_{\ell=0}^{j-1}i_{t_\ell}\Delta t.
+M_t \in \{N,S,C\},
 \]
 
-Pertanto, per ogni traiettoria $k$,
+dove:
+
+\begin{itemize}
+
+\item \(N\) indica un regime normale;
+
+\item \(S\) un regime di stress;
+
+\item \(C\) un regime di crisi.
+
+\end{itemize}
+
+%\vspace{0.1cm}
+
+L'evoluzione del regime \`e descritta da una matrice di transizione
 
 \[
-J_{t_j}^{(k)}
+Q=(q_{rs}),
+\]
+
+con stato iniziale $M_0=S$.
+
+%\vspace{0.3cm}
+
+Il primo problema computazionale consiste quindi nel simulare
+molte traiettorie $M_0,M_1,\ldots,M_T$.
+
+\begin{center}
+\textbf{Il Capitolo 8 fornisce il modello; Python genera le traiettorie.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%******************
+% Slide 8
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Dal Capitolo 8: migrazioni creditizie condizionate al regime}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Per ciascun debitore \(i\), il rating evolve secondo un processo $X_{i,t}$.
+
+Nel Caso Aula, gli stati creditizi sono:
+
+\[
+\{BBB,BB,B,CCC,D\},
+\]
+
+con \(D\) stato assorbente.
+
+%\vspace{0.3cm}
+
+La matrice di transizione dipende dal regime sistemico corrente:
+
+\[
+P^{(N)},\qquad
+P^{(S)},\qquad
+P^{(C)}.
+\]
+
+In particolare,
+
+\[
+\Pr
+\left(
+X_{i,t+1}=j
+\mid
+X_{i,t}=k,M_t=m
+\right)
 =
-\exp\left(
-\sum_{\ell=0}^{j-1}i_{t_\ell}^{(k)}\Delta t
+p_{kj}^{(m)}.
+\]
+
+\vspace{0.3cm}
+
+Quindi il regime \(M_t\) determina quale matrice di migrazione
+utilizzare nella transizione successiva.
+
+\begin{center}
+\textbf{La dinamica creditizia individuale \`e condizionata dallo
+stato sistemico comune.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%******************
+% Slide 9
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Dipendenza sistemica: condizionare cambia la struttura}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+In ogni replica Monte Carlo, tutti i debitori condividono la stessa traiettoria sistemica:
+
+\vspace{-0.2cm}
+
+\[
+M^{(r)}
+=
+\left(
+M_0^{(r)},M_1^{(r)},\ldots,M_T^{(r)}
 \right).
 \]
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout%
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
+%\vspace{0.3cm}
 
-% --------------------------------------------------------
-% Slide 17 -- Dal tasso nominale al fattore di sconto
-% --------------------------------------------------------
+Condizionatamente a questa traiettoria, le migrazioni dei singoli debitori sono simulate indipendentemente.
 
-\subsection{Attualizzazione}
+%\vspace{0.3cm}
 
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\QTR{frametitle}{Dal tasso nominale al fattore di sconto}
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
-
-La traiettoria del tasso nominale determina il fattore di sconto dei flussi:
+Ma, senza condizionare sul regime sistemico, le perdite dei debitori non sono indipendenti: risentono tutte dello stesso fattore comune.
 
 \[
-D(0,t)
-=
-\exp\left(-\int_0^t r_s\,ds\right).
+M_t
+\longrightarrow
+\begin{cases}
+X_{1,t+1}\\
+X_{2,t+1}\\
+\vdots\\
+X_{n,t+1}
+\end{cases}
 \]
 
-\medskip
-
-Sulla griglia temporale:
-
-\[
-\int_0^{t_j}r_s\,ds
-\quad\longrightarrow\quad
-\sum_{\ell=0}^{j-1}r_{t_\ell}\Delta t.
-\]
-
-Per la traiettoria $k$, otteniamo
-
-\[
-D^{(k)}(0,t_j)
-=
-\exp\left(
--\sum_{\ell=0}^{j-1}r_{t_\ell}^{(k)}\Delta t
-\right).
-\]
-
-\medskip
+\vspace{0.3cm}
 
 \begin{center}
-\textbf{Non basta conoscere il tasso terminale $r_T$:}\\
-il fattore di sconto dipende dalla traiettoria del tasso
-fino alla data del flusso.
+\textbf{Indipendenza condizionata non significa indipendenza
+incondizionata.}
 \end{center}
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+Il regime sistemico introduce cos\`i dipendenza tra le perdite
+individuali senza imporre traiettorie creditizie identiche.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
@@ -1219,51 +635,63 @@ fino alla data del flusso.
 \end{frame}%
 %EndExpansion
 
-% --------------------------------------------------------
-% Slide 18 -- Dall'indice ai flussi contrattuali
-% --------------------------------------------------------
 
-\subsection{Cedole e rimborso}
+%******************
+% Slide 10
+%******************
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Dall'indice ai flussi contrattuali}
+\QTR{frametitle}{Dal Capitolo 9: dalla migrazione alla perdita monetaria}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Le cedole sono semestrali e vengono indicizzate mediante $J_{t_j}$.
+La simulazione dei rating non \`e ancora il risultato finale.
 
-Per un valore nominale $N$ e un tasso cedolare annuo $c$:
+\vspace{0.3cm}
+
+Per ogni debitore, dobbiamo trasformare la traiettoria creditizia in una perdita monetaria.
+
+\vspace{0.3cm}
+
+Nel Caso Aula, distingueremo due situazioni:
+
+\begin{description}
+
+\item[\textbf{Nessun default}]
+la perdita dipende dalla migrazione tra rating iniziale e rating finale;
+
+\vspace{0.2cm}
+
+\item[\textbf{Default}]
+la perdita dipende dall'esposizione e dalla severit\`a della perdita
+in caso di default.
+
+\end{description}
+
+\vspace{0.4cm}
+
+Il passaggio concettuale \`e quindi:
 
 \[
-C_{t_j}^{(k)}
-=
-\frac{c}{2}\,N\,J_{t_j}^{(k)}.
+\text{traiettoria di rating}
+\longrightarrow
+\text{perdita individuale}
+\longrightarrow
+\text{perdita di portafoglio}.
 \]
 
-\medskip
+%\begin{center}
+%\textbf{Gli stati creditizi diventano quantit\`a monetarie.}
+%\end{center}
 
-A scadenza, il capitale rimborsato \`e
-
-\[
-R_T^{(k)}
-=
-N\max\left(J_T^{(k)},1\right).
-\]
-
-\medskip
-
-\begin{center}
-\textbf{Il floor protegge il capitale rimborsato a scadenza.}
-\end{center}
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
@@ -1272,125 +700,154 @@ N\max\left(J_T^{(k)},1\right).
 \end{frame}%
 %EndExpansion
 
-% --------------------------------------------------------
-% Slide 19 -- Il valore nasce scenario per scenario
-% --------------------------------------------------------
 
-\subsection{Valore attuale per traiettoria}
+%******************
+% Slide 11
+%******************
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Il valore nasce scenario per scenario}
+\QTR{frametitle}{Dal Capitolo 9: dalla perdita alle misure di rischio}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Ogni traiettoria $k$ produce contemporaneamente:
+Ogni replica Monte Carlo produce una perdita complessiva di portafoglio:
 
 \[
-J_{t_j}^{(k)},
+L^{P,(r)},
 \qquad
-C_{t_j}^{(k)},
-\qquad
-R_T^{(k)},
-\qquad
-D^{(k)}(0,t_j).
+r=1,\ldots,N_{\mathrm{MC}}.
 \]
 
-\medskip
-
-Il valore attuale associato alla stessa traiettoria \`e
+L'insieme delle perdite simulate
 
 \[
-V^{(k)}
-=
-\sum_j
-D^{(k)}(0,t_j)C_{t_j}^{(k)}
-+
-D^{(k)}(0,T)R_T^{(k)}.
+\left\{
+L^{P,(1)},
+L^{P,(2)},
+\ldots,
+L^{P,(N_{\mathrm{MC}})}
+\right\}
 \]
 
-\medskip
+costituisce il campione empirico della distribuzione di \(L^P\).
 
-Otteniamo cos\`i un campione di valori:
+%\vspace{0.3cm}
+
+Su questa distribuzione possiamo calcolare:
+
+\begin{itemize}
+
+\item perdita media;
+
+\item varianza e deviazione standard;
+
+\item VaR a diversi livelli di confidenza;
+
+\item CVaR a diversi livelli di confidenza.
+
+\end{itemize}
+
+%\vspace{0.3cm}
+
+Il percorso completo diventa quindi:
 
 \[
-V^{(1)},V^{(2)},\ldots,V^{(M)}.
+\text{Markov}
+\longrightarrow
+\text{migrazioni}
+\longrightarrow
+L^P
+\longrightarrow
+\text{distribuzione empirica}
+\longrightarrow
+\text{VaR e CVaR}.
 \]
 
-\medskip
+%\begin{center}
+%\textbf{Il Caso Aula costruir\`a operativamente questa catena.}
+%\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%============================================================
+% SEZIONE 3 — CASO AULA: EVERGRANDE 2021 — PROBLEMA E MODELLO
+%============================================================
+
+\section{Caso Aula: Evergrande 2021}
+
+%******************
+% Slide 12
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Caso Aula: China Evergrande 2021}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Siamo nell'estate 2021 e osserviamo il problema dalla prospettiva di un risk manager.
+
+\vspace{0.3cm}
+
+Il portafoglio contiene:
+
+\begin{itemize}
+
+\item \(36\) debitori;
+
+\item un investimento complessivo di \(200\) MUSD;
+
+\item una posizione particolarmente concentrata su China Evergrande;
+
+\item esposizioni distribuite tra diversi rating creditizi.
+
+\end{itemize}
+
+\vspace{0.4cm}
+
+La domanda quantitativa \`e:
 
 \begin{center}
-\fbox{\parbox{0.84\textwidth}{
-\textbf{Ordine delle operazioni:}
-prima si costruiscono cash flow, fattori di sconto e valore attuale
-all'interno di ciascuna traiettoria; soltanto dopo si aggregano
-le $M$ simulazioni.
-}}
+\textbf{come cambia la distribuzione della perdita di portafoglio se
+introduciamo un limite single-name del \(10\%\)?}
 \end{center}
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout%
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
+\vspace{0.3cm}
 
-% --------------------------------------------------------
-% Slide 20 -- Dal campione al prezzo Monte Carlo
-% --------------------------------------------------------
-
-\subsection{Stima e precisione}
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\QTR{frametitle}{Dal campione al prezzo Monte Carlo}
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
-
-Dai valori attuali simulati, $V^{(1)},V^{(2)},\ldots,V^{(M)}$, otteniamo la stima Monte Carlo:
+Il confronto deve tenere conto contemporaneamente di:
 
 \[
-\widehat V_M
-=
-\frac{1}{M}\sum_{k=1}^{M}V^{(k)}.
+\text{regime sistemico}
+\;+\;
+\text{migrazioni creditizie}
+\;+\;
+\text{default}
+\;+\;
+\text{severit\`a}.
 \]
 
-\medskip
-
-Indicando con $s_V$ la deviazione standard campionaria dei valori
-$V^{(k)}$, l'errore standard della stima \`e
-
-\[
-SE(\widehat V_M)
-=
-\frac{s_V}{\sqrt{M}}.
-\]
-
-Un intervallo di confidenza approssimato al $95\%$ per $\widehat V_M$ \`e $\widehat V_M
-\pm
-1.96\,SE(\widehat V_M)$.
-
-
-\medskip
-
-Aumentare $M$ riduce l'\textbf{errore di stima} con ordine
-$1/\sqrt{M}$, ma non elimina n\'e l'\textbf{errore di discretizzazione} n\'e l'\textbf{errore di modello}.
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
@@ -1399,128 +856,57 @@ $1/\sqrt{M}$, ma non elimina n\'e l'\textbf{errore di discretizzazione} n\'e l'\
 \end{frame}%
 %EndExpansion
 
-% ============================================================
-% GRUPPO 5 -- COME AFFRONTEREMO IL CASO AULA
-% Slide 21-23
-% Tempo parziale: 8 minuti | Tempo cumulato: 57 minuti
-% ============================================================
 
-\section{Come affronteremo il Caso Aula}
-
-% --------------------------------------------------------
-% Slide 21 -- L'IA non sostituisce il processo di soluzione
-% --------------------------------------------------------
-
-\subsection{Il ruolo dell'IA}
+%******************
+% Slide 13
+%******************
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{L'IA non sostituisce il processo di soluzione}
+\QTR{frametitle}{Il portafoglio iniziale: dove nasce la concentrazione}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Nel Caso Aula, utilizzeremo l'IA con tre modalit\`a di lavoro.
+Il portafoglio iniziale ha valore complessivo $V_0^P=200\text{ MUSD}$.
 
-\medskip
-
-\begin{stepitemize}
-
-\item \textbf{Regime A -- ricognizione teorico-modellistica}
-
-Chiarire struttura del problema, relazioni teoriche e ordine logico,
-partendo da un contributo iniziale dello studente.
-
-\medskip
-
-\item \textbf{Regime B -- traduzione operativa}
-
-Trasformare una tappa gi\`a definita in codice, output e controlli,
-senza modificare la Scheda Caso.
-
-\medskip
-
-\item \textbf{Regime C -- verifica critica}
-
-Partire da un dubbio, da un controllo, o da un risultato prodotto
-per individuare e correggere eventuali criticit\`a.
-
-\end{stepitemize}
-
-\medskip
+La composizione \`e:
 
 \begin{center}
-\textbf{L'IA supporta analisi, implementazione e verifica;}\\
-\textbf{le decisioni e la validazione restano responsabilit\`a dello studente.}
-\end{center}
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout%
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-% --------------------------------------------------------
-% Slide 22 -- Prima del codice: Prompt 0, 1, 2, 3
-% --------------------------------------------------------
-
-\subsection{La sequenza iniziale}
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\QTR{frametitle}{Prima del codice: Prompt 0, 1, 2, 3}
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
-
-Il lavoro inizia con una sequenza obbligatoria.
-
-\medskip
-
-\begin{center}
-\begin{tabular}{c|l|l}
-\textbf{Prompt} & \textbf{Funzione} & \textbf{Iniziativa}\\
+\begin{tabular}{lccc}
 \hline
-0 & contesto, regimi e regole di lavoro & docente\\
-1 & Scheda Caso e cella Markdown iniziale & docente\\
-2 & flusso logico-teorico della soluzione & studente + IA\\
-3 & articolazione del lavoro in tappe input-output & studente + IA
+\textbf{Classe} & \textbf{Numero} & \textbf{MUSD per nome} & \textbf{Totale} \\
+\hline
+Evergrande, \(B\) & 1 & 30 & 30 \\
+\(BBB\) & 10 & 6 & 60 \\
+\(BB\) & 10 & 5 & 50 \\
+altri \(B\) & 10 & 4 & 40 \\
+\(CCC\) & 5 & 4 & 20 \\
+\hline
+ & 36 &  & 200 \\
+\hline
 \end{tabular}
 \end{center}
 
-\medskip
+\vspace{0.3cm}
 
-Nel \textbf{Prompt 2}, lo studente presenta una propria proposta
-di lettura teorica del problema.
+La quota iniziale di Evergrande \`e
 
-Nel \textbf{Prompt 3}, propone una prima articolazione operativa
-delle tappe di lavoro.
-
-\medskip
-
-Solo dopo questa fase si passa ai prompt relativi alle singole tappe
-del notebook.
-
-\medskip
+\[
+\frac{30}{200}=15\%.
+\]
 
 \begin{center}
-\textbf{Prima si struttura il problema, poi si scrive il codice.}
+\textbf{Il problema di concentrazione nasce dalla dimensione della
+posizione rispetto al portafoglio.}
 \end{center}
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
@@ -1530,136 +916,64 @@ del notebook.
 %EndExpansion
 
 
-% --------------------------------------------------------
-% Slide 23 -- Il notebook deve essere verificabile
-% --------------------------------------------------------
-
-\subsection{Controlli e passaggio al laboratorio}
+%******************
+% Slide 14
+%******************
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Il notebook deve essere verificabile}
+\QTR{frametitle}{Il modello: due livelli stocastici}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Produrre un prezzo non conclude il lavoro.
-Il notebook deve permettere di verificare i passaggi che lo generano.
+Il modello combina una dinamica sistemica e una dinamica creditizia.
 
-\medskip
+\vspace{0.3cm}
 
-Nel Caso Aula, dovremo controllare, tra l'altro:
-
-\begin{stepitemize}
-
-\item la correlazione empirica degli shock simulati;
-
-\item il comportamento mean-reverting dei fattori e gli eventuali
-valori negativi prodotti dalla discretizzazione CIR;
-
-\item la coerenza delle quantit\`a costruite lungo le traiettorie,
-in particolare $J_t>0$ e $R_T\geq N$;
-
-\item la costruzione pathwise dei fattori di sconto;
-
-\item la precisione Monte Carlo e il comportamento del
-$SE$ al crescere di $M$;
-
-\item la stabilit\`a dei risultati rispetto alla griglia temporale.
-
-\end{stepitemize}
-
-
-
-\medskip
-
-\begin{center}
-\textbf{Da questo punto il lavoro prosegue direttamente
-in VS Code/Jupyter.}
-\end{center}
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout%
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-% ============================================================
-% GRUPPO 6 -- CASO TAKEHOME
-% Slide 24-26
-% Tempo parziale: 8 minuti | Tempo cumulato slide: 65 minuti circa
-% Collocazione: dopo il laboratorio sul Caso Aula
-% ============================================================
-
-\section{Caso TakeHome}
-
-% --------------------------------------------------------
-% Slide 24 -- Caso TakeHome: una Asian call
-% --------------------------------------------------------
-
-\subsection{La nuova domanda finanziaria}
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\QTR{frametitle}{Caso TakeHome: una Asian call}
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
-
-Il Caso TakeHome considera una \textbf{Asian call}
-sull'indice EURO STOXX 50 con tasso di interesse stocastico.
-
-\medskip
-
-I due fattori di rischio seguono:
+\textbf{Livello 1: regime sistemico}
 
 \[
-dS_t
-=
-(r_t-q)S_t\,dt
-+
-\sigma_S S_t\,dW_t^{(S)},
-\]
-
-\[
-dr_t
-=
-\kappa_r(\theta_r-r_t)\,dt
-+
-\sigma_r\sqrt{r_t}\,dW_t^{(r)},
-\]
-
-con $dW_t^{(S)}\,dW_t^{(r)}=\rho\,dt$.
-
-Il payoff dipende dalla media aritmetica di $12$ fixing mensili:
-
-\[
-A_T=\frac{1}{12}\sum_{j=1}^{12}S_{t_j},
+M_t\in\{N,S,C\},
 \qquad
-H_T=\max(A_T-K,0).
+M_0=S.
 \]
 
-\medskip
+Il regime evolve secondo la matrice di transizione \(Q\).
+
+\vspace{0.4cm}
+
+\textbf{Livello 2: rating dei debitori}
+
+\[
+X_{i,t}\in\{BBB,BB,B,CCC,D\},
+\]
+
+con \(D\) stato assorbente.
+
+La matrice utilizzata nella transizione \(t\to t+1\) dipende da \(M_t\):
+
+\[
+M_t
+\longrightarrow
+P^{(M_t)}
+\longrightarrow
+X_{i,t+1}.
+\]
+
+\vspace{0.3cm}
 
 \begin{center}
-\textbf{Il valore dipende nuovamente dalle traiettorie,}\\
-non soltanto dai valori terminali dei fattori di rischio.
+\textbf{Il regime comune modifica la dinamica creditizia di tutti i
+debitori.}
 \end{center}
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
@@ -1668,47 +982,69 @@ non soltanto dai valori terminali dei fattori di rischio.
 \end{frame}%
 %EndExpansion
 
-% --------------------------------------------------------
-% Slide 25 -- Che cosa cambia, che cosa rimane
-% --------------------------------------------------------
-
-\subsection{Trasferire il metodo}
+%******************
+% Slide 15
+%******************
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Che cosa cambia, che cosa rimane}
+\QTR{frametitle}{Default e severit\`a: il regime conta due volte}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Il Caso TakeHome richiede di trasferire il metodo del Caso Aula
-a un diverso problema finanziario.
+Definiamo il tempo di default del debitore \(i\):
 
-\medskip
+\[
+\tau_i
+=
+\min
+\left\{
+t\in\{1,\ldots,4\}:X_{i,t}=D
+\right\}.
+\]
 
-\begin{center}
-\begin{tabular}{c|c}
-\textbf{Caso Aula} & \textbf{Caso TakeHome}\\
-\hline
-inflazione OU + tasso CIR & indice GBM + tasso CIR\\[1mm]
-fattore $J_t$ & traiettoria $S_t$\\[1mm]
-cedole indicizzate & fixing mensili\\[1mm]
-rimborso con floor & media fixing e payoff\\[1mm]
-attualizzazione pathwise & attualizzazione pathwise\\[1mm]
-pricing Monte Carlo & pricing Monte Carlo\\[1mm]
-controlli quantitativi & controlli quantitativi
-\end{tabular}
-\end{center}
+\vspace{0.3cm}
 
-\medskip
+Il regime sistemico influenza la perdita attraverso due canali.
 
+\begin{enumerate}
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+\item \textbf{Probabilit\`a di migrazione e default}
+
+La matrice di transizione del rating dipende da \(M_t\).
+
+\item \textbf{Severit\`a della perdita}
+
+La LGD dipende dal regime sistemico:
+
+\[
+\operatorname{LGD}^{(N)}=0.55,
+\qquad
+\operatorname{LGD}^{(S)}=0.70,
+\qquad
+\operatorname{LGD}^{(C)}=0.85.
+\]
+
+\end{enumerate}
+
+\vspace{0.3cm}
+
+Se il debitore entra in default al tempo \(\tau_i\), il default si
+realizza nella transizione da \(\tau_i-1\) a \(\tau_i\).
+
+La LGD applicata \`e, quindi, quella associata al regime sistemico
+
+\[
+M_{\tau_i-1}.
+\]
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
@@ -1717,76 +1053,573 @@ controlli quantitativi & controlli quantitativi
 \end{frame}%
 %EndExpansion
 
-% --------------------------------------------------------
-% Slide 26 -- TakeHome: che cosa deve essere consegnato
-% --------------------------------------------------------
-
-\subsection{Consegna}
+%******************
+% Slide 16
+%******************
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{TakeHome: che cosa deve essere consegnato}
+\QTR{frametitle}{Dalla traiettoria creditizia alla perdita}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Il lavoro sul Caso TakeHome deve produrre due documenti coerenti
-ma con funzioni diverse:
+Per ogni debitore \(i\):
 
-\medskip
+\begin{itemize}
 
-\begin{stepitemize}
+\item \(V_{i,0}\): esposizione iniziale, misurata in MUSD;
 
-\item \textbf{Notebook Jupyter eseguibile}
+\item \(\ell(X_{i,0},X_{i,4})\): quota dell'esposizione persa per
+effetto della migrazione di rating, quindi una quantit\`a adimensionale;
 
-Deve contenere il percorso computazionale validato, gli output,
-i controlli richiesti e l'interpretazione finale.
+\item \(EAD_i\): esposizione al momento del default, misurata in MUSD;
 
-\medskip
+\item \(\operatorname{LGD}\): quota dell'EAD persa in caso di default,
+quindi una quantit\`a adimensionale.
 
-\item \textbf{Tracciato completo dell'interazione con l'IA}
+\end{itemize}
 
-La chat dedicata al caso deve essere conservata in ordine cronologico
-ed esportata integralmente in PDF.
+%\vspace{0.2cm}
 
-\end{stepitemize}
+Nel caso didattico, assumiamo $EAD_i=V_{i,0}$.
 
-
-Nel percorso, devono essere riconoscibili:
+Se non si verifica default:
 
 \[
-\text{Prompt 0}
-\rightarrow
-\text{Prompt 1}
-\rightarrow
-\]
-\[
-\text{Prompt 2}
-\rightarrow
-\text{Prompt 3}
-\rightarrow
-\text{tappe}
-\rightarrow
-\text{verifiche mirate}.
+L_i
+=
+V_{i,0}\,
+\ell(X_{i,0},X_{i,4}),
+\qquad
+\tau_i>4.
 \]
 
-\medskip
+Se si verifica default:
+
+\[
+L_i
+=
+V_{i,0}\,
+\operatorname{LGD}^{(M_{\tau_i-1})},
+\qquad
+\tau_i\leq 4.
+\]
+
+%\vspace{0.2cm}
+
+%In entrambi i casi:
+
+%\[
+%\text{MUSD}\times\text{quota di perdita}
+%=
+%\text{MUSD}.
+%\]
+
+La perdita di portafoglio \`e, quindi, $L^P=\sum_{i=1}^{36}L_i$.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%******************
+% Slide 17
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{La politica di concentrazione: dal 15\% al 10\%}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Imponiamo il vincolo
+
+\[
+\max_i
+\frac{V_{i,0}}{V_0^P}
+\leq 10\%.
+\]
+
+%\vspace{0.3cm}
+
+Poich\'e il portafoglio vale \(200\) MUSD, la posizione massima
+ammessa \`e
+
+\[
+20\text{ MUSD}.
+\]
+
+Evergrande passa quindi da
+
+\[
+30\text{ MUSD}
+\qquad\text{a}\qquad
+20\text{ MUSD}.
+\]
+
+%\vspace{0.3cm}
+
+I \(10\) MUSD liberati vengono riallocati:
+
+\begin{itemize}
+
+\item esclusivamente ai debitori inizialmente \(BBB\) e \(BB\);
+
+\item in proporzione agli investimenti iniziali nelle due classi.
+
+\end{itemize}
+
+%\vspace{0.3cm}
+
+Il capitale complessivo resta invariato:
+
+\[
+V_0^{P,\mathrm{base}}
+=
+V_0^{P,\mathrm{lim}}
+=
+200\text{ MUSD}.
+\]
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%******************
+% Slide 18
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Confrontare i due portafogli sugli stessi scenari}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Per confrontare correttamente il portafoglio base e quello soggetto al
+limite, utilizziamo gli stessi scenari simulati.
+
+\vspace{0.3cm}
+
+In ogni replica \(r\):
+
+\begin{itemize}
+
+\item la traiettoria sistemica \`e la stessa;
+
+\item le traiettorie creditizie dei debitori sono le stesse;
+
+\item cambia soltanto il vettore degli investimenti.
+
+\end{itemize}
+
+\vspace{0.4cm}
+
+Possiamo quindi definire, scenario per scenario,
+
+\[
+\Delta L^{(r)}
+=
+L_{\mathrm{lim}}^{P,(r)}
+-
+L_{\mathrm{base}}^{P,(r)}.
+\]
+
+\vspace{0.3cm}
+
+Questa scelta consente di isolare l'effetto della politica di
+concentrazione dagli effetti della variabilit\`a casuale della
+simulazione.
+
+\vspace{0.3cm}
 
 \begin{center}
-\fbox{\parbox{0.86\textwidth}{
-\textbf{Responsabilit\`a dello studente:}
-proporre il ragionamento iniziale, organizzare le tappe,
-valutare criticamente le risposte dell'IA, verificare gli output
-e formulare l'interpretazione finale.
-}}
+\textbf{Stessi shock, portafogli diversi: il confronto diventa
+economicamente interpretabile.}
 \end{center}
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%============================================================
+% SEZIONE 4 — CASO AULA: DALLA STRUTTURA TEORICA AL NOTEBOOK
+%============================================================
+
+\section{Caso Aula: dalla struttura teorica al notebook}
+
+%******************
+% Slide 19
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Dal modello alla sequenza operativa}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+La struttura teorica del caso deve ora diventare una sequenza
+computazionale.
+
+\vspace{0.3cm}
+
+\[
+\text{regime sistemico}
+\longrightarrow
+\text{migrazioni creditizie}
+\longrightarrow
+\text{tempi di default}
+\]
+
+\[
+\longrightarrow
+\text{perdite individuali}
+\longrightarrow
+\text{perdita di portafoglio}
+\longrightarrow
+\text{misure di rischio}.
+\]
+
+\vspace{0.4cm}
+
+Nel notebook dovremo:
+
+\begin{enumerate}
+
+\item simulare le traiettorie del regime \(M_t\);
+
+\item simulare le traiettorie creditizie \(X_{i,t}\);
+
+\item individuare gli eventuali tempi di default \(\tau_i\);
+
+\item trasformare ogni traiettoria in una perdita monetaria;
+
+\item aggregare le perdite e confrontare i due portafogli.
+
+\end{enumerate}
+
+\vspace{0.3cm}
+
+\begin{center}
+\textbf{Il codice deve rispettare l'ordine logico del modello.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%******************
+% Slide 20
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Quali output dovremo ottenere?}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+La simulazione Monte Carlo produce due distribuzioni di perdita:
+
+\[
+L_{\mathrm{base}}^P
+\qquad\text{e}\qquad
+L_{\mathrm{lim}}^P.
+\]
+
+\vspace{0.3cm}
+
+Per entrambe, dovremo calcolare:
+
+\begin{itemize}
+
+\item perdita media, varianza e deviazione standard;
+
+\item VaR e CVaR ai livelli di confidenza previsti;
+
+\item perdita media negli scenari con crisi e senza crisi.
+
+\end{itemize}
+
+\vspace{0.3cm}
+
+Il confronto tra le due politiche richiede inoltre:
+
+\[
+\Delta L^{(r)}
+=
+L_{\mathrm{lim}}^{P,(r)}
+-
+L_{\mathrm{base}}^{P,(r)}.
+\]
+
+\vspace{0.3cm}
+
+\begin{center}
+\textbf{Non cerchiamo un solo numero: confrontiamo due distribuzioni
+di perdita e il loro comportamento in coda.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%******************
+% Slide 21
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Prima degli output: che cosa dobbiamo controllare?}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Un notebook corretto non deve soltanto produrre risultati: deve
+verificare che la simulazione rispetti il modello.
+
+%\vspace{0.3cm}
+
+I controlli principali riguardano:
+
+\begin{itemize}
+
+\item correttezza delle matrici di transizione e dello stato iniziale;
+
+\item assorbimento dello stato \(D\);
+
+\item coerenza tra \(\tau_i\), regime sistemico e LGD applicata;
+
+\item conservazione del valore complessivo del portafoglio dopo
+l'applicazione del limite;
+
+\item utilizzo degli stessi scenari per portafoglio base e portafoglio
+con limite;
+
+\item coerenza dimensionale delle quantit\`a monetarie e delle misure di
+rischio.
+
+\end{itemize}
+
+%\vspace{0.4cm}
+
+\begin{center}
+\textbf{Da questo punto il lavoro prosegue direttamente in
+VS Code/Jupyter.}
+\end{center}
+
+%\vspace{0.2cm}
+
+Il notebook dovr\`a costruire progressivamente simulazioni, output,
+controlli e interpretazione finale.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%============================================================
+% SEZIONE 5 — CASO TAKEHOME: LEHMAN BROTHERS 2008
+%============================================================
+
+\section{Caso TakeHome: Lehman Brothers 2008}
+
+%******************
+% Slide 22
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Caso TakeHome: Lehman Brothers 2008}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Siamo nel giugno 2008 e analizziamo un portafoglio creditizio con una
+posizione rilevante su Lehman Brothers.
+
+%\vspace{0.3cm}
+
+Il portafoglio iniziale contiene:
+
+\begin{itemize}
+
+\item \(40\) debitori;
+
+\item un investimento complessivo di \(173\) MUSD;
+
+\item una posizione Lehman di \(25\) MUSD;
+
+\item esposizioni distribuite tra rating \(A\), \(BBB\), \(BB\) e \(B\).
+
+\end{itemize}
+
+%\vspace{0.4cm}
+
+Il controfattuale elimina la posizione Lehman e redistribuisce il
+capitale sui \(39\) debitori residui, mantenendo invariato il valore
+complessivo del portafoglio.
+
+%\vspace{0.3cm}
+
+La domanda quantitativa \`e:
+
+\begin{center}
+\textbf{come cambia la distribuzione della perdita quando la
+concentrazione su Lehman viene eliminata?}
+\end{center}
+
+%\vspace{0.3cm}
+
+Anche in questo caso il confronto dovr\`a riguardare l'intera
+distribuzione delle perdite, non soltanto la perdita media.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%******************
+% Slide 23
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Che cosa resta uguale e che cosa cambia?}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+L'architettura metodologica resta la stessa del Caso Aula:
+
+\begin{itemize}
+
+\item regime sistemico markoviano;
+
+\item migrazioni creditizie condizionate al regime;
+
+\item simulazione Monte Carlo;
+
+\item costruzione della perdita di portafoglio;
+
+\item VaR, CVaR e confronto controfattuale;
+
+\item stessi scenari per i debitori comuni ai due portafogli.
+
+\end{itemize}
+
+%\vspace{0.3cm}
+
+Cambiano invece alcuni elementi del modello:
+
+\begin{itemize}
+
+\item il regime sistemico assume gli stati \(O,S,C\);
+
+\item la LGD \`e costante e pari a \(0.65\);
+
+\item la posizione Lehman viene eliminata completamente;
+
+\item il capitale viene redistribuito proporzionalmente sui \(39\)
+debitori residui.
+
+\end{itemize}
+
+%\vspace{0.3cm}
+
+\begin{center}
+\textbf{Il TakeHome riutilizza lo stesso metodo, ma non riproduce lo
+stesso problema.}
+\end{center}
+
+%\vspace{0.2cm}
+
+La riallocazione modifica anche la composizione per rating del
+portafoglio: il confronto non \`e quindi un puro esperimento sulla
+concentrazione.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion

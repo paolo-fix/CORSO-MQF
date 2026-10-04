@@ -29,11 +29,266 @@
 
 % Capitoli/MQF_Cap_07_Python_Traiettorie_Pricing.tex
 
-\chapter{Applicazione in Python: simulazione di traiettorie e pricing}
+\chapter[Dalle traiettorie al prezzo]{Dalle traiettorie al prezzo: simulazione Monte Carlo in Python}
 
 \label{cap:python-traiettorie-pricing}
 
-\section{Obiettivi della lezione}
 
-Capitolo in preparazione.
 
+I Capitoli 5 e 6 hanno costruito il quadro teorico necessario per
+descrivere l'evoluzione dell'incertezza nel tempo. Il primo ha introdotto
+processi stocastici, traiettorie, scenari e simulazione Monte Carlo; il
+secondo ha sviluppato i principali modelli in tempo continuo, mostrando
+come equazioni differenziali stocastiche, dipendenza tra fattori e
+discretizzazione numerica consentano di rappresentare prezzi, tassi e
+altre grandezze finanziarie dinamiche.
+
+Questo capitolo compie il passaggio successivo. L'obiettivo non \`e
+introdurre nuovi modelli stocastici, ma utilizzare quelli gi\`a
+studiati per costruire una procedura completa di valutazione numerica.
+Le traiettorie simulate cessano quindi di essere soltanto
+rappresentazioni dell'evoluzione possibile di un fattore di rischio e
+diventano l'input per determinare flussi di cassa, payoff e valori
+attuali scenario per scenario.
+
+Il problema applicativo assume cos\`i una struttura diversa da quella
+dei capitoli teorici. Non basta specificare una dinamica continua e
+discretizzarla correttamente. Occorre organizzare simultaneamente un
+numero elevato di traiettorie, conservare la dipendenza tra i fattori,
+ricostruire lungo ciascuno scenario le grandezze finanziarie rilevanti
+e infine aggregare i valori ottenuti mediante una stima Monte Carlo.
+La correttezza della valutazione dipende quindi sia dalla coerenza del
+modello sia dalla qualit\`a della sua implementazione numerica.
+
+Il filo conduttore del capitolo \`e costituito da un Caso Aula dedicato
+alla valutazione di un'obbligazione indicizzata all'inflazione. Il valore
+del titolo dipende congiuntamente dall'evoluzione futura dell'inflazione
+e del tasso di interesse nominale. I due fattori sono modellizzati
+mediante processi in tempo continuo e sono sottoposti a shock correlati.
+Le loro traiettorie determinano, da un lato, l'indicizzazione delle
+cedole e del rimborso e, dall'altro, i fattori di sconto utilizzati per
+riportare i flussi al tempo iniziale.
+
+Il caso consente di rendere operativi diversi elementi gi\`a introdotti
+nel Capitolo 6: processi mean-reverting, dinamica CIR, shock gaussiani
+correlati, discretizzazione su una griglia temporale e approssimazione di
+integrali lungo la traiettoria. La novit\`a consiste nel collegare
+questi elementi all'architettura finanziaria del contratto e nel
+costruire, per ogni scenario simulato, un valore attuale complessivo.
+La distribuzione dei valori scenario-specifici diventa quindi la base
+per stimare il prezzo e valutarne la precisione numerica.
+
+Particolare attenzione sar\`a dedicata ai controlli. Una simulazione
+che produce risultati numerici senza errori di esecuzione non \`e
+necessariamente corretta. Occorre verificare la struttura di
+correlazione degli shock, la coerenza delle traiettorie con le
+propriet\`a dei modelli utilizzati, la corretta costruzione dei flussi,
+la decomposizione del valore attuale e la stabilit\`a della stima.
+Saranno inoltre distinti due problemi differenti: l'incertezza dovuta
+al numero finito di simulazioni e l'approssimazione introdotta dalla
+discretizzazione temporale.
+
+Il metodo di lavoro rimane quello introdotto nel Capitolo 4 per i
+capitoli applicativi. La Scheda Caso definisce la specifica del problema,
+il flusso logico-teorico precede la costruzione del notebook e le tappe
+computazionali devono mantenere riconoscibili input, operazioni, output
+e controlli. Tali principi non vengono quindi ripresentati in questo
+capitolo: vengono utilizzati come struttura di lavoro gi\`a acquisita,
+concentrando l'attenzione sugli aspetti specifici della simulazione di
+processi in tempo continuo e del pricing per traiettorie.
+
+Accanto al Caso Aula viene proposto un Caso TakeHome dedicato alla
+valutazione Monte Carlo di una call asiatica su un indice azionario in
+presenza di un tasso di interesse stocastico. Il contesto finanziario e
+la struttura del payoff cambiano, ma rimane invariato il problema
+fondamentale: trasformare fattori di rischio simulati in una quantit\`a
+finanziaria dipendente dalla traiettoria e successivamente in una stima
+di valore accompagnata da controlli numerici.
+
+L'obiettivo complessivo del capitolo \`e quindi rendere operativo il
+passaggio dalla formulazione di un modello stocastico alla valutazione
+di un contratto finanziario. Python costituisce lo strumento con cui la
+legge dei processi viene trasformata in un insieme di scenari
+osservabili; il contratto trasforma tali scenari in flussi o payoff; la
+simulazione Monte Carlo consente infine di aggregare i valori ottenuti
+in una stima quantitativa verificabile.
+
+\section{Dai processi stocastici alla valutazione per traiettorie}
+
+Il problema affrontato in questo capitolo non richiede di costruire nuovamente
+la teoria dei processi stocastici. Gli elementi necessari sono gi\`a stati
+introdotti nei Capitoli 5 e 6 e devono ora essere utilizzati con una funzione
+diversa: non soltanto descrivere l'evoluzione aleatoria di una grandezza, ma
+costruire una valutazione finanziaria a partire dalle sue possibili
+traiettorie.
+
+La distinzione \`e importante. Nei capitoli precedenti l'attenzione era
+rivolta principalmente alla specificazione del processo, alle sue propriet\`a
+e alla relazione tra modello continuo e rappresentazione discreta. In una
+procedura di pricing occorre compiere un ulteriore passaggio: associare a ogni
+traiettoria simulata le grandezze economiche generate dal contratto e
+trasformarle in un valore finanziario confrontabile tra scenari.
+
+\subsection{Gli elementi gi\`a acquisiti}
+
+Il Capitolo 5 ha introdotto la nozione di processo stocastico come famiglia di
+variabili casuali indicizzate dal tempo e ha distinto il processo dalla
+singola traiettoria osservata o simulata. Ha inoltre mostrato come la
+simulazione Monte Carlo permetta di generare molte repliche indipendenti di
+una stessa struttura probabilistica e di utilizzare il campione risultante
+per stimare quantit\`a attese.
+
+Indicando con
+\[
+\left\{X_{t_0}^{(s)},X_{t_1}^{(s)},\ldots,X_{t_N}^{(s)}\right\},
+\qquad
+s=1,\ldots,M,
+\]
+le traiettorie simulate di un processo sulla griglia
+\[
+0=t_0<t_1<\cdots<t_N=T,
+\]
+la simulazione produce quindi non un singolo esito, ma un insieme di
+evoluzioni possibili dello stesso fattore di rischio.
+
+Il Capitolo 6 ha fornito gli strumenti necessari per costruire tali
+traiettorie quando il modello \`e formulato in tempo continuo. Una dinamica
+del tipo
+\[
+dX_t
+=
+a(X_t,t)\,dt
++
+b(X_t,t)\,dW_t
+\]
+pu\`o essere rappresentata numericamente su una griglia mediante uno schema
+ricorsivo. Nel caso di Eulero--Maruyama,
+\[
+X_{t_{n+1}}
+=
+X_{t_n}
++
+a(X_{t_n},t_n)\Delta t
++
+b(X_{t_n},t_n)\sqrt{\Delta t}\,Z_{n+1},
+\]
+con
+\[
+Z_{n+1}\sim\mathcal{N}(0,1).
+\]
+
+Sono gi\`a stati inoltre introdotti i modelli che verranno utilizzati nel Caso
+Aula, la costruzione di shock gaussiani correlati e la distinzione tra errore
+di simulazione Monte Carlo ed errore dovuto alla discretizzazione temporale.
+Questi elementi costituiscono quindi input teorici del capitolo corrente e
+non devono essere nuovamente derivati.
+
+\subsection{Dalla traiettoria simulata alla quantit\`a finanziaria}
+
+Una traiettoria di un fattore di rischio non coincide ancora con un valore
+finanziario. Per ottenere quest'ultimo occorre specificare come il contratto
+utilizzi l'evoluzione simulata.
+
+In alcuni problemi \`e sufficiente osservare il valore terminale
+\[
+X_T.
+\]
+In altri casi il risultato dipende invece da pi\`u date o dall'intera
+traiettoria. Una media temporale, un indice cumulato, un fattore di sconto o
+una sequenza di flussi possono dipendere da
+\[
+X_{t_0},X_{t_1},\ldots,X_{t_N}
+\]
+e non soltanto dal valore finale.
+
+Questa distinzione modifica il problema computazionale. Per ogni scenario
+\(s\), la simulazione deve conservare le informazioni necessarie per
+costruire una quantit\`a del tipo
+\[
+G^{(s)}
+=
+G\left(
+X_{t_0}^{(s)},
+X_{t_1}^{(s)},
+\ldots,
+X_{t_N}^{(s)}
+\right),
+\]
+dove \(G\) rappresenta la trasformazione finanziaria richiesta dal
+contratto.
+
+Nel pricing, tale trasformazione pu\`o comprendere pi\`u passaggi. Le
+traiettorie dei fattori determinano i flussi o il payoff; i tassi simulati
+determinano i fattori di sconto; dalla loro combinazione si ottiene quindi un
+valore attuale specifico dello scenario,
+\[
+V^{(s)}.
+\]
+
+Solo dopo avere costruito
+\[
+V^{(1)},V^{(2)},\ldots,V^{(M)}
+\]
+ha senso applicare l'aggregazione Monte Carlo. La stima del valore assume
+allora la forma
+\[
+\widehat V_M
+=
+\frac{1}{M}
+\sum_{s=1}^{M}
+V^{(s)}.
+\]
+
+Il punto essenziale \`e quindi che la simulazione non genera direttamente il
+prezzo. Genera le traiettorie dei fattori di rischio; il contratto trasforma
+tali traiettorie in valori scenario-specifici; la media Monte Carlo interviene
+soltanto nell'ultima fase.
+
+\subsection{La catena computazionale}
+
+Il passaggio dai modelli studiati nei capitoli precedenti al pricing pu\`o
+essere sintetizzato nella sequenza
+
+\[
+\begin{array}{c}
+\text{modello stocastico}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{discretizzazione temporale}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{shock simulati}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{traiettorie dei fattori}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{flussi o payoff per scenario}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{valore attuale per scenario}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{stima Monte Carlo}.
+\end{array}
+\]
+
+Questa catena costituisce la struttura computazionale specifica del capitolo.
+Il metodo generale con cui il problema viene analizzato, scomposto e
+controllato rimane invece quello introdotto nel Capitolo 4. Non vengono quindi
+ripresentati la funzione della Scheda Caso, i regimi di utilizzo
+dell'intelligenza artificiale o la struttura generale delle tappe del
+notebook. Tali elementi vengono assunti come gi\`a acquisiti.
+
+Ci\`o che deve essere chiarito ora \`e come realizzare concretamente la
+catena precedente quando il numero delle traiettorie \`e elevato, i fattori di
+rischio sono pi\`u di uno e le quantit\`a finanziarie dipendono dall'intero
+percorso temporale. Il primo problema diventa quindi organizzare in Python una
+simulazione nella quale scenari e date siano rappresentati in modo coerente e
+possano essere utilizzati nelle successive operazioni di valutazione.
