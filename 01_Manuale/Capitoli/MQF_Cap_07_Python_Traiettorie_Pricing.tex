@@ -34,203 +34,1978 @@
 \label{cap:python-traiettorie-pricing}
 
 
-
 I Capitoli 5 e 6 hanno costruito il quadro teorico necessario per
 descrivere l'evoluzione dell'incertezza nel tempo. Il primo ha introdotto
 processi stocastici, traiettorie, scenari e simulazione Monte Carlo; il
-secondo ha sviluppato i principali modelli in tempo continuo, mostrando
-come equazioni differenziali stocastiche, dipendenza tra fattori e
-discretizzazione numerica consentano di rappresentare prezzi, tassi e
-altre grandezze finanziarie dinamiche.
+secondo ha sviluppato i principali modelli in tempo continuo e gli
+strumenti necessari per rappresentarli numericamente su una griglia
+temporale.
 
 Questo capitolo compie il passaggio successivo. L'obiettivo non \`e
-introdurre nuovi modelli stocastici, ma utilizzare quelli gi\`a
-studiati per costruire una procedura completa di valutazione numerica.
-Le traiettorie simulate cessano quindi di essere soltanto
-rappresentazioni dell'evoluzione possibile di un fattore di rischio e
-diventano l'input per determinare flussi di cassa, payoff e valori
+introdurre nuovi modelli stocastici, ma utilizzare quelli gi\`a studiati
+per costruire una procedura completa di valutazione numerica. Le
+traiettorie simulate cessano quindi di essere soltanto rappresentazioni
+dell'evoluzione possibile di un fattore di rischio e diventano l'input
+per determinare quantit\`a finanziarie, flussi di cassa, payoff e valori
 attuali scenario per scenario.
 
-Il problema applicativo assume cos\`i una struttura diversa da quella
-dei capitoli teorici. Non basta specificare una dinamica continua e
-discretizzarla correttamente. Occorre organizzare simultaneamente un
-numero elevato di traiettorie, conservare la dipendenza tra i fattori,
-ricostruire lungo ciascuno scenario le grandezze finanziarie rilevanti
-e infine aggregare i valori ottenuti mediante una stima Monte Carlo.
-La correttezza della valutazione dipende quindi sia dalla coerenza del
-modello sia dalla qualit\`a della sua implementazione numerica.
+Il problema applicativo assume cos\`i una struttura specifica. Occorre
+organizzare simultaneamente un numero elevato di traiettorie, mantenere
+coerente la dimensione temporale della simulazione, preservare la
+dipendenza tra i fattori di rischio e trasformare le grandezze simulate
+nelle quantit\`a richieste dal contratto finanziario. Soltanto dopo
+questa trasformazione i valori scenario-specifici possono essere
+aggregati mediante una stima Monte Carlo.
 
 Il filo conduttore del capitolo \`e costituito da un Caso Aula dedicato
 alla valutazione di un'obbligazione indicizzata all'inflazione. Il valore
 del titolo dipende congiuntamente dall'evoluzione futura dell'inflazione
-e del tasso di interesse nominale. I due fattori sono modellizzati
-mediante processi in tempo continuo e sono sottoposti a shock correlati.
-Le loro traiettorie determinano, da un lato, l'indicizzazione delle
-cedole e del rimborso e, dall'altro, i fattori di sconto utilizzati per
-riportare i flussi al tempo iniziale.
+e del tasso di interesse nominale. Le traiettorie dei due fattori
+determinano, da un lato, l'indicizzazione dei flussi e, dall'altro, i
+fattori di sconto utilizzati per riportarli al tempo iniziale.
 
 Il caso consente di rendere operativi diversi elementi gi\`a introdotti
-nel Capitolo 6: processi mean-reverting, dinamica CIR, shock gaussiani
-correlati, discretizzazione su una griglia temporale e approssimazione di
-integrali lungo la traiettoria. La novit\`a consiste nel collegare
-questi elementi all'architettura finanziaria del contratto e nel
-costruire, per ogni scenario simulato, un valore attuale complessivo.
-La distribuzione dei valori scenario-specifici diventa quindi la base
-per stimare il prezzo e valutarne la precisione numerica.
+nel Capitolo 6: dinamiche mean-reverting, processo CIR, shock gaussiani
+correlati, discretizzazione temporale e approssimazione di integrali
+lungo la traiettoria. La novit\`a consiste nel collegare questi elementi
+alla struttura finanziaria del contratto e nel costruire, per ogni
+scenario simulato, un valore attuale complessivo.
 
-Particolare attenzione sar\`a dedicata ai controlli. Una simulazione
-che produce risultati numerici senza errori di esecuzione non \`e
+Particolare attenzione sar\`a dedicata ai controlli. Una simulazione che
+produce risultati numerici senza errori di esecuzione non \`e
 necessariamente corretta. Occorre verificare la struttura di
 correlazione degli shock, la coerenza delle traiettorie con le
-propriet\`a dei modelli utilizzati, la corretta costruzione dei flussi,
-la decomposizione del valore attuale e la stabilit\`a della stima.
-Saranno inoltre distinti due problemi differenti: l'incertezza dovuta
-al numero finito di simulazioni e l'approssimazione introdotta dalla
-discretizzazione temporale.
+propriet\`a dei modelli utilizzati, la corretta costruzione delle
+quantit\`a path-dependent, la decomposizione del valore attuale e la
+stabilit\`a della stima.
+
+Saranno inoltre distinti tre livelli di errore che non devono essere
+confusi: l'incertezza Monte Carlo dovuta al numero finito di
+simulazioni, l'approssimazione introdotta dalla discretizzazione
+temporale e l'errore di modello connesso alle ipotesi finanziarie
+adottate.
 
 Il metodo di lavoro rimane quello introdotto nel Capitolo 4 per i
 capitoli applicativi. La Scheda Caso definisce la specifica del problema,
 il flusso logico-teorico precede la costruzione del notebook e le tappe
 computazionali devono mantenere riconoscibili input, operazioni, output
-e controlli. Tali principi non vengono quindi ripresentati in questo
-capitolo: vengono utilizzati come struttura di lavoro gi\`a acquisita,
-concentrando l'attenzione sugli aspetti specifici della simulazione di
-processi in tempo continuo e del pricing per traiettorie.
+e controlli. Tali principi non vengono ripresentati in questo capitolo,
+ma vengono assunti come struttura di lavoro gi\`a acquisita.
 
 Accanto al Caso Aula viene proposto un Caso TakeHome dedicato alla
 valutazione Monte Carlo di una call asiatica su un indice azionario in
-presenza di un tasso di interesse stocastico. Il contesto finanziario e
-la struttura del payoff cambiano, ma rimane invariato il problema
-fondamentale: trasformare fattori di rischio simulati in una quantit\`a
-finanziaria dipendente dalla traiettoria e successivamente in una stima
-di valore accompagnata da controlli numerici.
+presenza di un tasso di interesse stocastico. Cambiano il contesto
+finanziario e la struttura del payoff, mentre rimane invariato il
+problema fondamentale: trasformare fattori di rischio simulati in una
+quantit\`a finanziaria dipendente dalla traiettoria e successivamente
+in una stima di valore accompagnata da controlli numerici.
 
 L'obiettivo complessivo del capitolo \`e quindi rendere operativo il
 passaggio dalla formulazione di un modello stocastico alla valutazione
 di un contratto finanziario. Python costituisce lo strumento con cui la
-legge dei processi viene trasformata in un insieme di scenari
-osservabili; il contratto trasforma tali scenari in flussi o payoff; la
-simulazione Monte Carlo consente infine di aggregare i valori ottenuti
-in una stima quantitativa verificabile.
+legge dei processi viene trasformata in un insieme di traiettorie
+osservabili; il contratto trasforma tali traiettorie in quantit\`a
+finanziarie; la simulazione Monte Carlo consente infine di aggregare i
+valori ottenuti in una stima quantitativa verificabile.
 
-\section{Dai processi stocastici alla valutazione per traiettorie}
 
-Il problema affrontato in questo capitolo non richiede di costruire nuovamente
-la teoria dei processi stocastici. Gli elementi necessari sono gi\`a stati
-introdotti nei Capitoli 5 e 6 e devono ora essere utilizzati con una funzione
-diversa: non soltanto descrivere l'evoluzione aleatoria di una grandezza, ma
-costruire una valutazione finanziaria a partire dalle sue possibili
-traiettorie.
+\section{Python per simulare molte traiettorie}
 
-La distinzione \`e importante. Nei capitoli precedenti l'attenzione era
-rivolta principalmente alla specificazione del processo, alle sue propriet\`a
-e alla relazione tra modello continuo e rappresentazione discreta. In una
-procedura di pricing occorre compiere un ulteriore passaggio: associare a ogni
-traiettoria simulata le grandezze economiche generate dal contratto e
-trasformarle in un valore finanziario confrontabile tra scenari.
+Nei capitoli precedenti una traiettoria \`e stata introdotta come una
+possibile realizzazione temporale di un processo stocastico. Nel lavoro
+computazionale, tuttavia, non interessa simulare una sola evoluzione, ma
+un insieme numeroso di traiettorie compatibili con lo stesso modello.
 
-\subsection{Gli elementi gi\`a acquisiti}
+La prima questione diventa quindi come rappresentare in Python un
+campione Monte Carlo nel quale siano contemporaneamente presenti la
+dimensione degli scenari e la dimensione temporale.
 
-Il Capitolo 5 ha introdotto la nozione di processo stocastico come famiglia di
-variabili casuali indicizzate dal tempo e ha distinto il processo dalla
-singola traiettoria osservata o simulata. Ha inoltre mostrato come la
-simulazione Monte Carlo permetta di generare molte repliche indipendenti di
-una stessa struttura probabilistica e di utilizzare il campione risultante
-per stimare quantit\`a attese.
+\subsection{Da una traiettoria a una matrice di simulazione}
 
-Indicando con
+Consideriamo una griglia temporale
 \[
-\left\{X_{t_0}^{(s)},X_{t_1}^{(s)},\ldots,X_{t_N}^{(s)}\right\},
+t_0,t_1,\ldots,t_N
+\]
+e supponiamo di simulare \(M\) traiettorie di un processo \(X\).
+
+I valori simulati possono essere organizzati nella matrice
+\[
+X=
+\begin{pmatrix}
+X_{t_0}^{(1)} & X_{t_1}^{(1)} & \cdots & X_{t_N}^{(1)}\\
+X_{t_0}^{(2)} & X_{t_1}^{(2)} & \cdots & X_{t_N}^{(2)}\\
+\vdots & \vdots & \ddots & \vdots\\
+X_{t_0}^{(M)} & X_{t_1}^{(M)} & \cdots & X_{t_N}^{(M)}
+\end{pmatrix}.
+\]
+
+Le righe rappresentano le traiettorie simulate, mentre le colonne
+rappresentano gli istanti temporali.
+
+La struttura computazionale \`e quindi
+\[
+M\times(N+1).
+\]
+
+In NumPy, un array costruito secondo questa convenzione avr\`a
+\[
+\texttt{shape}=(M,N+1).
+\]
+
+Questa rappresentazione non \`e soltanto una scelta tecnica. Riflette
+direttamente la struttura economica della simulazione: per ogni scenario
+occorre conservare l'intera evoluzione temporale delle grandezze
+necessarie alla valutazione.
+
+\subsection{Operare tra scenari oppure lungo il tempo}
+
+Una matrice di traiettorie permette di formulare due tipi di domande
+distinte.
+
+Fissando una data \(t_j\), possiamo osservare
+\[
+X_{t_j}^{(1)},
+X_{t_j}^{(2)},
+\ldots,
+X_{t_j}^{(M)}
+\]
+e confrontare il comportamento della grandezza tra i diversi scenari.
+
+In questo caso l'aggregazione avviene tra le righe della matrice.
+
+Fissando invece uno scenario \(k\), possiamo osservare
+\[
+X_{t_0}^{(k)},
+X_{t_1}^{(k)},
+\ldots,
+X_{t_N}^{(k)}
+\]
+e aggregare i valori lungo la traiettoria.
+
+In questo caso l'operazione riguarda la dimensione temporale.
+
+In NumPy la distinzione viene espressa mediante l'argomento
+\texttt{axis}. Con la convenzione adottata:
+\[
+\texttt{axis=0}
+\]
+indica un'aggregazione tra scenari a parit\`a di data, mentre
+\[
+\texttt{axis=1}
+\]
+indica un'aggregazione lungo il tempo all'interno di ciascuna
+traiettoria.
+
+La distinzione \`e essenziale. Una media tra scenari e una media lungo
+la traiettoria possono utilizzare la stessa funzione Python ma
+rappresentano quantit\`a finanziarie completamente diverse.
+
+\subsection{Selezionare le date rilevanti}
+
+La griglia utilizzata per simulare un processo pu\`o contenere molte
+pi\`u date di quelle direttamente rilevanti per il contratto.
+
+Data una matrice di traiettorie, pu\`o essere necessario selezionare:
+\begin{itemize}
+\item il valore iniziale;
+\item il valore terminale;
+\item un insieme di date contrattuali;
+\item una parte della traiettoria utilizzata per costruire una media,
+una somma o un integrale discretizzato.
+\end{itemize}
+
+Ad esempio, se le colonne della matrice rappresentano il tempo,
+\[
+\texttt{X[:, -1]}
+\]
+seleziona il valore terminale di \(X\) in tutti gli scenari, mentre
+\[
+\texttt{X[:, indici]}
+\]
+seleziona, per tutte le traiettorie, le date individuate dal vettore
+\texttt{indici}.
+
+L'indicizzazione non deve quindi essere considerata come un dettaglio
+sintattico. Deve riprodurre correttamente la struttura temporale del
+problema finanziario.
+
+\subsection{Vettorizzazione}
+
+Una simulazione Monte Carlo richiede di applicare le stesse operazioni a
+un numero elevato di traiettorie.
+
+In linea di principio, sarebbe possibile procedere scenario per
+scenario, ripetendo le stesse istruzioni mediante un ciclo. NumPy
+permette invece di applicare molte operazioni direttamente a interi
+vettori o matrici.
+
+Funzioni come
+\[
+\texttt{np.mean},
 \qquad
-s=1,\ldots,M,
+\texttt{np.sum},
+\qquad
+\texttt{np.exp},
+\qquad
+\texttt{np.maximum}
 \]
-le traiettorie simulate di un processo sulla griglia
-\[
-0=t_0<t_1<\cdots<t_N=T,
-\]
-la simulazione produce quindi non un singolo esito, ma un insieme di
-evoluzioni possibili dello stesso fattore di rischio.
+possono essere applicate simultaneamente a molte osservazioni.
 
-Il Capitolo 6 ha fornito gli strumenti necessari per costruire tali
-traiettorie quando il modello \`e formulato in tempo continuo. Una dinamica
-del tipo
+Questa modalit\`a di lavoro prende il nome di vettorizzazione.
+
+La vettorizzazione non modifica il modello matematico e non cambia la
+quantit\`a calcolata. Cambia il modo in cui la stessa operazione viene
+realizzata sulle \(M\) traiettorie simulate.
+
+Nel seguito, la rappresentazione matriciale e la vettorizzazione
+costituiranno il linguaggio computazionale utilizzato per costruire
+shock, fattori di rischio, quantit\`a path-dependent, flussi finanziari
+e valori attuali.
+
+\subsection{Dal Capitolo 5 e dal Capitolo 6 al problema computazionale}
+
+Gli strumenti Python appena introdotti acquistano significato soltanto
+se collegati alla struttura teorica gi\`a sviluppata.
+
+Il Capitolo 5 ha distinto il processo stocastico dalle sue possibili
+traiettorie e ha introdotto la simulazione Monte Carlo come strumento
+per generare un campione di scenari.
+
+Il Capitolo 6 ha mostrato come un processo definito in tempo continuo
+possa essere rappresentato numericamente su una griglia. Per una
+dinamica
 \[
 dX_t
 =
 a(X_t,t)\,dt
 +
-b(X_t,t)\,dW_t
+b(X_t,t)\,dW_t,
 \]
-pu\`o essere rappresentata numericamente su una griglia mediante uno schema
-ricorsivo. Nel caso di Eulero--Maruyama,
+lo schema di Eulero--Maruyama assume la forma
 \[
-X_{t_{n+1}}
+X_{t_{j+1}}
 =
-X_{t_n}
+X_{t_j}
 +
-a(X_{t_n},t_n)\Delta t
+a(X_{t_j},t_j)\Delta t
 +
-b(X_{t_n},t_n)\sqrt{\Delta t}\,Z_{n+1},
+b(X_{t_j},t_j)\sqrt{\Delta t}\,Z_{j+1},
 \]
 con
 \[
-Z_{n+1}\sim\mathcal{N}(0,1).
+Z_{j+1}\sim\mathcal{N}(0,1).
 \]
 
-Sono gi\`a stati inoltre introdotti i modelli che verranno utilizzati nel Caso
-Aula, la costruzione di shock gaussiani correlati e la distinzione tra errore
-di simulazione Monte Carlo ed errore dovuto alla discretizzazione temporale.
-Questi elementi costituiscono quindi input teorici del capitolo corrente e
-non devono essere nuovamente derivati.
+La simulazione numerica consiste quindi nel costruire ricorsivamente i
+valori del processo sulle colonne della matrice, mantenendo nelle righe
+le diverse traiettorie Monte Carlo.
 
-\subsection{Dalla traiettoria simulata alla quantit\`a finanziaria}
-
-Una traiettoria di un fattore di rischio non coincide ancora con un valore
-finanziario. Per ottenere quest'ultimo occorre specificare come il contratto
-utilizzi l'evoluzione simulata.
-
-In alcuni problemi \`e sufficiente osservare il valore terminale
+Il problema computazionale pu\`o essere sintetizzato come
 \[
-X_T.
+\begin{array}{c}
+\text{modello stocastico}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{shock simulati}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{matrici di traiettorie}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{quantit\`a contrattuali}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{cash flow o payoff}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{valore attuale per traiettoria}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{stima Monte Carlo}.
+\end{array}
 \]
-In altri casi il risultato dipende invece da pi\`u date o dall'intera
-traiettoria. Una media temporale, un indice cumulato, un fattore di sconto o
-una sequenza di flussi possono dipendere da
+
+La simulazione delle traiettorie costituisce quindi soltanto una parte
+del problema. Il passaggio decisivo consiste nel trasformare
+correttamente la struttura simulata nelle quantit\`a finanziarie
+richieste dal contratto.
+
+Nel Caso Aula questa catena verr\`a applicata a due fattori di rischio
+stocastici e correlati: inflazione e tasso di interesse nominale.
+
+
+\section{Dal modello continuo al problema computazionale}
+
+La rappresentazione matriciale introdotta nella sezione precedente stabilisce
+come organizzare molte traiettorie. Rimane ora da chiarire come tali
+traiettorie vengano costruite quando il punto di partenza \`e un modello
+formulato in tempo continuo.
+
+Il passaggio non \`e puramente tecnico. Una diffusione specifica una dinamica
+istantanea, mentre il computer produce valori soltanto in un insieme finito
+di date. La simulazione richiede quindi di trasformare il modello continuo
+in una successione di aggiornamenti discreti e di mantenere coerenti, lungo
+questa trasformazione, tempo, shock aleatori e dipendenze tra i fattori.
+
+\subsection{Dal tempo continuo alla griglia di simulazione}
+
+Consideriamo una dinamica generale
+\[
+dX_t
+=
+a(X_t,t)\,dt
++
+b(X_t,t)\,dW_t,
+\qquad
+t\in[0,T].
+\]
+
+Il modello descrive l'evoluzione di $X_t$ in tempo continuo. Una simulazione
+numerica introduce invece una griglia
+\[
+0=t_0<t_1<\cdots<t_N=T.
+\]
+
+Nel caso di una griglia uniforme,
+\[
+\Delta t
+=
+t_{j+1}-t_j
+=
+\frac{T}{N}.
+\]
+
+Il notebook non osserva quindi l'intera traiettoria continua. Costruisce i
+valori
 \[
 X_{t_0},X_{t_1},\ldots,X_{t_N}
 \]
-e non soltanto dal valore finale.
+e utilizza tali valori come rappresentazione numerica del processo.
 
-Questa distinzione modifica il problema computazionale. Per ogni scenario
-\(s\), la simulazione deve conservare le informazioni necessarie per
-costruire una quantit\`a del tipo
+Con lo schema di Eulero--Maruyama, gi\`a introdotto nel Capitolo 6,
+l'aggiornamento assume la forma
 \[
-G^{(s)}
+X_{t_{j+1}}
 =
-G\left(
-X_{t_0}^{(s)},
-X_{t_1}^{(s)},
+X_{t_j}
++
+a(X_{t_j},t_j)\Delta t
++
+b(X_{t_j},t_j)\sqrt{\Delta t}\,Z_{j+1},
+\]
+dove
+\[
+Z_{j+1}\sim\mathcal{N}(0,1).
+\]
+
+In una simulazione Monte Carlo, questo aggiornamento viene applicato alle
+$M$ traiettorie. A ogni data $t_j$ lo stato corrente delle simulazioni
+pu\`o essere rappresentato dal vettore
+\[
+\left(
+X_{t_j}^{(1)},
+X_{t_j}^{(2)},
 \ldots,
-X_{t_N}^{(s)}
+X_{t_j}^{(M)}
 \right),
 \]
-dove \(G\) rappresenta la trasformazione finanziaria richiesta dal
-contratto.
+che viene trasformato nel vettore relativo alla data successiva mediante
+nuovi shock casuali.
 
-Nel pricing, tale trasformazione pu\`o comprendere pi\`u passaggi. Le
-traiettorie dei fattori determinano i flussi o il payoff; i tassi simulati
-determinano i fattori di sconto; dalla loro combinazione si ottiene quindi un
-valore attuale specifico dello scenario,
+La ricorsione temporale e la vettorizzazione operano quindi su due
+dimensioni differenti: la prima collega $t_j$ a $t_{j+1}$, mentre la
+seconda permette di aggiornare simultaneamente le $M$ traiettorie alla
+stessa data.
+
+\subsection{Gli shock come motore della simulazione}
+
+La componente aleatoria dell'aggiornamento \`e determinata dagli
+incrementi browniani. Sulla griglia,
 \[
-V^{(s)}.
+\Delta W_j
+=
+W_{t_{j+1}}-W_{t_j}
+\]
+ha distribuzione
+\[
+\Delta W_j
+\sim
+\mathcal{N}(0,\Delta t),
+\]
+e pu\`o quindi essere rappresentato come
+\[
+\Delta W_j
+=
+\sqrt{\Delta t}\,Z_{j+1},
+\qquad
+Z_{j+1}\sim\mathcal{N}(0,1).
 \]
 
-Solo dopo avere costruito
+Per $M$ traiettorie e $N$ intervalli temporali occorre pertanto generare
+un insieme di shock compatibile con entrambe le dimensioni della
+simulazione.
+
+Nel caso di un solo fattore, possiamo rappresentare gli shock mediante
+una matrice
 \[
-V^{(1)},V^{(2)},\ldots,V^{(M)}
+Z=
+\begin{pmatrix}
+Z_1^{(1)} & \cdots & Z_N^{(1)}\\
+Z_1^{(2)} & \cdots & Z_N^{(2)}\\
+\vdots & \ddots & \vdots\\
+Z_1^{(M)} & \cdots & Z_N^{(M)}
+\end{pmatrix}.
 \]
-ha senso applicare l'aggregazione Monte Carlo. La stima del valore assume
-allora la forma
+
+Ogni riga contiene gli shock che alimentano una traiettoria; ogni colonna
+contiene gli shock applicati ai diversi scenari nello stesso intervallo
+temporale.
+
+La riproducibilit\`a richiede inoltre di fissare esplicitamente il seme
+del generatore pseudo-casuale. Il seme non modifica il modello
+probabilistico, ma permette di ricostruire esattamente lo stesso campione
+simulato durante le fasi di sviluppo, confronto e verifica del notebook.
+
+\subsection{Pi\`u fattori e dipendenza contemporanea}
+
+Molti problemi finanziari dipendono da pi\`u fattori di rischio. In tal
+caso non basta generare separatamente le loro traiettorie: occorre
+riprodurre anche la struttura di dipendenza specificata dal modello.
+
+Consideriamo due moti browniani tali che
+\[
+dW_t^{(1)}dW_t^{(2)}
+=
+\rho\,dt.
+\]
+
+Sulla griglia, una costruzione possibile parte da due variabili gaussiane
+standard indipendenti,
+\[
+Z_{1,j},Z_{2,j}\sim\mathcal{N}(0,1),
+\]
+e definisce
+\[
+\widetilde Z_{1,j}
+=
+Z_{1,j},
+\]
+\[
+\widetilde Z_{2,j}
+=
+\rho Z_{1,j}
++
+\sqrt{1-\rho^2}\,Z_{2,j}.
+\]
+
+Si ottiene cos\`i
+\[
+\operatorname{Corr}
+\left(
+\widetilde Z_{1,j},
+\widetilde Z_{2,j}
+\right)
+=
+\rho.
+\]
+
+Gli stessi shock correlati devono alimentare, allo stesso intervallo
+temporale e nello stesso scenario, gli aggiornamenti dei due fattori.
+
+Questo punto \`e essenziale. La correlazione non deve essere ricostruita
+a posteriori tra traiettorie generate indipendentemente: deve entrare
+nella simulazione nel momento in cui vengono generati gli shock che
+producono le variazioni dei fattori.
+
+Con un numero maggiore di fattori, la stessa logica pu\`o essere
+generalizzata utilizzando una matrice di correlazione e una sua
+fattorizzazione appropriata, come discusso nel Capitolo 6.
+
+\subsection{Dai fattori simulati alle quantit\`a costruite lungo la traiettoria}
+
+Le traiettorie dei fattori di rischio non sono necessariamente le
+quantit\`a utilizzate direttamente dal contratto.
+
+A partire da esse possono essere costruite grandezze che dipendono dalla
+storia del processo. Un caso frequente \`e un integrale temporale
+\[
+A_t
+=
+\int_0^t X_s\,ds.
+\]
+
+Sulla griglia, tale quantit\`a deve essere approssimata numericamente. Con
+una somma di Riemann sinistra,
+\[
+A_{t_j}
+\approx
+\sum_{\ell=0}^{j-1}
+X_{t_\ell}\Delta t.
+\]
+
+Per ogni scenario $k$,
+\[
+A_{t_j}^{(k)}
+\approx
+\sum_{\ell=0}^{j-1}
+X_{t_\ell}^{(k)}\Delta t.
+\]
+
+La quantit\`a derivata conserva quindi la dimensione scenario-specifica:
+ogni traiettoria del fattore genera una propria traiettoria della
+quantit\`a costruita.
+
+Questo passaggio compare frequentemente nel pricing. Un integrale di un
+tasso pu\`o determinare un fattore di sconto; l'integrale di un tasso di
+inflazione pu\`o determinare l'evoluzione di un indice; una media di
+osservazioni a date prefissate pu\`o entrare direttamente nella
+definizione di un payoff.
+
+\subsection{Griglia numerica e date contrattuali}
+
+La griglia di simulazione e le date rilevanti per il contratto svolgono
+funzioni differenti.
+
+La prima serve a rappresentare numericamente la dinamica del processo:
+\[
+t_0,t_1,\ldots,t_N.
+\]
+
+Le seconde identificano invece le date in cui il contratto richiede una
+specifica operazione, per esempio il pagamento di una cedola, un fixing
+o il rimborso finale:
+\[
+\tau_1,\tau_2,\ldots,\tau_m.
+\]
+
+Quando le date contrattuali appartengono alla griglia, occorre individuarne
+correttamente le colonne corrispondenti. In questo modo una matrice
+simulata sull'intera griglia pu\`o essere utilizzata soltanto nelle date
+necessarie alla costruzione dei flussi o del payoff.
+
+La scelta della griglia deve quindi essere coerente sia con il modello
+numerico sia con la struttura temporale del contratto. Una discretizzazione
+pi\`u fitta produce una rappresentazione temporale pi\`u fine, ma aumenta
+anche il numero di operazioni e la memoria necessaria per conservare le
+traiettorie.
+
+\subsection{Due dimensioni del problema numerico}
+
+Una simulazione per pricing contiene almeno due scelte numeriche distinte.
+
+La prima riguarda il numero di traiettorie,
+\[
+M,
+\]
+che determina la dimensione del campione Monte Carlo.
+
+La seconda riguarda il numero di intervalli temporali,
+\[
+N,
+\]
+o, equivalentemente, l'ampiezza
+\[
+\Delta t.
+\]
+
+Le due scelte non risolvono lo stesso problema. Aumentare $M$ rende pi\`u
+precisa l'aggregazione Monte Carlo a parit\`a di discretizzazione.
+Ridurre $\Delta t$ modifica invece la rappresentazione numerica delle
+traiettorie a parit\`a di modello continuo.
+
+Di conseguenza, una stima pu\`o essere molto stabile rispetto al numero
+di simulazioni e al tempo stesso risentire ancora della discretizzazione
+temporale. La valutazione quantitativa di questi due aspetti verr\`a
+ripresa nella sezione dedicata a precisione, convergenza e diagnostica.
+
+A questo punto sono disponibili tutti gli elementi necessari per passare
+da una specificazione teorica a una simulazione organizzata: griglia
+temporale, shock, eventuale dipendenza tra fattori, ricorsione numerica e
+costruzione di quantit\`a lungo le traiettorie. Il Caso Aula permetter\`a
+ora di applicare questa architettura a un contratto nel quale inflazione
+e tasso di interesse intervengono con funzioni finanziarie differenti.
+
+
+\section{Caso Aula: inflation-linked bond --- problema e modello}
+
+Il Caso Aula considera la valutazione di un'obbligazione indicizzata
+all'inflazione mediante simulazione Monte Carlo.
+
+La finalit\`a del caso non \`e costruire un modello operativo di mercato,
+ma utilizzare in modo integrato gli strumenti sviluppati nei Capitoli 5
+e 6: processi stocastici, dinamiche mean-reverting, simulazione di
+diffusioni correlate, discretizzazione temporale e valutazione per
+scenari.
+
+\subsection{La domanda finanziaria}
+
+Un investitore deve attribuire un valore corrente a un'obbligazione i cui
+flussi dipendono dall'evoluzione futura del livello generale dei prezzi.
+
+Il contratto presenta tre caratteristiche essenziali:
+
+\begin{itemize}
+
+\item le cedole sono indicizzate all'inflazione;
+
+\item il capitale rimborsato a scadenza dipende anch'esso
+dall'indicizzazione;
+
+\item il valore nominale del capitale \`e protetto: in presenza di
+deflazione cumulata, il rimborso non pu\`o scendere sotto il valore
+facciale.
+
+\end{itemize}
+
+La valutazione dipende quindi congiuntamente da due fattori di rischio.
+
+Il primo \`e il tasso istantaneo di inflazione \(i_t\), che determina
+l'evoluzione dell'indice dei prezzi e quindi l'indicizzazione dei flussi.
+
+Il secondo \`e il tasso nominale istantaneo privo di rischio \(r_t\),
+che determina l'attualizzazione dei flussi futuri.
+
+I due fattori sono stocastici e i loro shock sono correlati.
+
+La domanda quantitativa del caso pu\`o essere formulata nel modo
+seguente:
+
+\begin{quote}
+Quale valore corrente attribuire all'inflation-linked bond mediante
+simulazione Monte Carlo, tenendo conto congiuntamente
+dell'indicizzazione, della protezione del capitale e della dipendenza
+tra inflazione e tasso nominale?
+\end{quote}
+
+\subsection{Il modello dell'inflazione}
+
+Il tasso istantaneo di inflazione segue un processo di
+Ornstein--Uhlenbeck:
+
+\[
+di_t
+=
+\kappa_i(\theta_i-i_t)\,dt
++
+\sigma_i\,dW_t^{(i)}.
+\]
+
+I parametri hanno la seguente interpretazione:
+
+\[
+\kappa_i>0
+\]
+
+misura la velocit\`a di mean reversion,
+
+\[
+\theta_i
+\]
+
+rappresenta il livello di lungo periodo dell'inflazione, mentre
+
+\[
+\sigma_i>0
+\]
+
+determina l'intensit\`a della componente aleatoria.
+
+La scelta del processo OU permette al tasso di inflazione di assumere
+anche valori negativi. Il modello pu\`o quindi rappresentare scenari di
+deflazione.
+
+Nel caso vengono assegnati:
+
+\[
+i_0=0.025,
+\qquad
+\kappa_i=0.80,
+\qquad
+\theta_i=0.020,
+\qquad
+\sigma_i=0.015.
+\]
+
+\subsection{Il modello del tasso nominale}
+
+Il tasso nominale istantaneo privo di rischio segue un processo CIR:
+
+\[
+dr_t
+=
+\kappa_r(\theta_r-r_t)\,dt
++
+\sigma_r\sqrt{r_t}\,dW_t^{(r)}.
+\]
+
+Anche in questo caso \(\kappa_r\) governa la velocit\`a di mean
+reversion, \(\theta_r\) il livello di lungo periodo e \(\sigma_r\) la
+volatilit\`a del processo.
+
+I parametri assegnati sono
+
+\[
+r_0=0.030,
+\qquad
+\kappa_r=1.20,
+\qquad
+\theta_r=0.030,
+\qquad
+\sigma_r=0.10.
+\]
+
+Essi soddisfano la condizione di Feller
+
+\[
+2\kappa_r\theta_r
+\geq
+\sigma_r^2.
+\]
+
+Nel modello continuo questa condizione contribuisce a preservare la
+non negativit\`a del processo. Nella simulazione numerica, tuttavia,
+la discretizzazione potr\`a ancora richiedere controlli specifici,
+che verranno discussi successivamente.
+
+\subsection{Dipendenza tra inflazione e tasso nominale}
+
+Le due fonti di rischio non vengono simulate indipendentemente.
+
+I moti browniani soddisfano
+
+\[
+dW_t^{(i)}\,dW_t^{(r)}
+=
+\rho\,dt,
+\]
+
+con
+
+\[
+\rho=0.25.
+\]
+
+La correlazione positiva implica che gli shock istantanei dei due
+fattori tendono, in media, a presentare una componente comune dello
+stesso segno.
+
+Questa dipendenza \`e rilevante ai fini del pricing perch\'e
+inflazione e tasso nominale intervengono in parti differenti della
+valutazione: la prima modifica i flussi contrattuali, il secondo modifica
+il loro valore attuale.
+
+La simulazione dovr\`a quindi preservare la dipendenza tra i due fattori
+all'interno di ciascuno scenario.
+
+\subsection{Dall'inflazione al coefficiente di indicizzazione}
+
+Sia \(I_t\) il livello dell'indice dei prezzi e sia \(I_0\) il suo
+valore iniziale.
+
+Nel caso
+
+\[
+I_0=100.
+\]
+
+Il coefficiente cumulato di indicizzazione \`e definito come
+
+\[
+J_t
+=
+\frac{I_t}{I_0}.
+\]
+
+La relazione tra tasso istantaneo di inflazione e indice dei prezzi \`e
+
+\[
+J_t
+=
+\exp\left(
+\int_0^t i_s\,ds
+\right).
+\]
+
+Il valore
+
+\[
+J_t>1
+\]
+
+corrisponde a un aumento cumulato dell'indice rispetto al livello
+iniziale, mentre
+
+\[
+J_t<1
+\]
+
+corrisponde a una diminuzione cumulata.
+
+Poich\'e \(J_t\) \`e definito mediante una funzione esponenziale,
+
+\[
+J_t>0
+\]
+
+per costruzione.
+
+\subsection{Il fattore di sconto}
+
+Il tasso nominale determina il fattore di sconto stocastico
+
+\[
+D(0,t)
+=
+\exp\left(
+-\int_0^t r_s\,ds
+\right).
+\]
+
+Di conseguenza, il valore attuale di un flusso dipende non soltanto dal
+tasso osservato alla data di pagamento, ma dall'intera traiettoria del
+tasso nominale fino a quella data.
+
+Il caso presenta quindi due quantit\`a path-dependent fondamentali:
+
+\[
+J_t
+=
+\exp\left(
+\int_0^t i_s\,ds
+\right)
+\]
+
+e
+
+\[
+D(0,t)
+=
+\exp\left(
+-\int_0^t r_s\,ds
+\right).
+\]
+
+La loro costruzione numerica richieder\`a l'approssimazione degli
+integrali sulle traiettorie simulate.
+
+\subsection{La struttura del contratto}
+
+Il valore facciale del bond \`e
+
+\[
+N=100,
+\]
+
+la scadenza \`e
+
+\[
+T=5
+\]
+
+anni e il tasso cedolare annuo \`e
+
+\[
+c=0.015.
+\]
+
+Le cedole sono semestrali.
+
+Alla data di pagamento \(t_j\), la cedola \`e
+
+\[
+C_{t_j}
+=
+\frac{c}{2}N J_{t_j}.
+\]
+
+Le cedole seguono quindi integralmente l'indicizzazione. In presenza di
+deflazione cumulata possono risultare inferiori alla cedola nominale.
+
+Il capitale rimborsato a scadenza \`e invece
+
+\[
+R_T
+=
+N\max(J_T,1).
+\]
+
+La presenza del massimo introduce la protezione del capitale nominale.
+
+Se
+
+\[
+J_T\geq1,
+\]
+
+il capitale viene rivalutato in proporzione all'indice.
+
+Se invece
+
+\[
+J_T<1,
+\]
+
+il rimborso rimane pari a
+
+\[
+N.
+\]
+
+La protezione riguarda quindi il capitale e non le cedole.
+
+\subsection{Specificazione numerica del caso}
+
+La griglia temporale principale \`e mensile:
+
+\[
+\Delta t
+=
+\frac{1}{12}.
+\]
+
+Su un orizzonte di cinque anni vengono pertanto utilizzati
+
+\[
+N_{\mathrm{step}}
+=
+60
+\]
+
+intervalli temporali.
+
+Le date delle cedole semestrali appartengono alla stessa griglia e
+corrispondono a multipli di sei mesi.
+
+L'analisi principale utilizza
+
+\[
+M=50\,000
+\]
+
+traiettorie Monte Carlo e un seme pseudo-casuale fissato pari a
+
+\[
+12345.
+\]
+
+La scelta del seme rende replicabile il campione simulato e facilita il
+confronto tra versioni successive del notebook.
+
+\subsection{Ipotesi e limiti}
+
+La specificazione deve essere interpretata come esercizio didattico di
+simulazione e pricing.
+
+In particolare:
+
+\begin{itemize}
+
+\item i parametri dei processi sono costanti e assegnati;
+
+\item non vengono effettuate stima econometrica o calibrazione a dati di
+mercato;
+
+\item le dinamiche specificate vengono utilizzate direttamente ai fini
+della valutazione;
+
+\item non viene derivato un cambio di misura;
+
+\item non vengono considerati rischio di credito, rischio di liquidit\`a
+o fiscalit\`a;
+
+\item l'indicizzazione \`e semplificata e non replica integralmente le
+convenzioni operative dei titoli inflation-linked reali;
+
+\item non vengono introdotti publication lag o regole di interpolazione
+dell'indice dei prezzi.
+
+\end{itemize}
+
+Il caso deve quindi essere letto come un laboratorio quantitativo nel
+quale il punto centrale non \`e la calibrazione del modello, ma la
+trasformazione coerente di due processi stocastici correlati in
+grandezze finanziarie utilizzabili per il pricing.
+
+La sezione successiva affronta il primo passaggio operativo: la
+simulazione congiunta delle traiettorie di inflazione e tasso nominale.
+
+
+\section{Caso Aula: simulare congiuntamente inflazione e tasso di interesse}
+
+La specificazione del Caso Aula richiede di simulare congiuntamente due
+fattori di rischio: il tasso istantaneo di inflazione \(i_t\) e il tasso
+nominale istantaneo \(r_t\).
+
+Il problema non consiste quindi nella semplice generazione di due insiemi
+separati di traiettorie. La dipendenza tra i due processi deve essere
+preservata all'interno di ciascuno scenario e a ciascun passo temporale.
+
+La sequenza operativa \`e:
+
+\[
+\text{normali indipendenti}
+\longrightarrow
+\text{shock correlati}
+\longrightarrow
+\text{traiettorie di } i_t
+\text{ e } r_t
+\longrightarrow
+\text{controlli}.
+\]
+
+\subsection{La griglia temporale}
+
+Il caso utilizza una griglia mensile su un orizzonte di cinque anni:
+
+\[
+T=5,
+\qquad
+\Delta t=\frac{1}{12}.
+\]
+
+Il numero di intervalli temporali \`e quindi
+
+\[
+N_{\mathrm{step}}
+=
+\frac{T}{\Delta t}
+=
+60.
+\]
+
+La griglia pu\`o essere rappresentata come
+
+\[
+0=t_0<t_1<\cdots<t_{60}=5.
+\]
+
+Per ciascuno dei \(M=50\,000\) scenari devono essere generati gli shock
+necessari ai sessanta aggiornamenti mensili.
+
+La struttura degli shock sar\`a quindi una matrice di dimensione
+
+\[
+M\times N_{\mathrm{step}}.
+\]
+
+Le traiettorie dei processi, invece, comprendono anche il valore iniziale
+e avranno dimensione
+
+\[
+M\times(N_{\mathrm{step}}+1).
+\]
+
+\subsection{Costruire shock correlati}
+
+A ogni intervallo temporale servono due shock gaussiani standard con
+correlazione
+
+\[
+\rho=0.25.
+\]
+
+Si parte da due variabili gaussiane standard indipendenti,
+
+\[
+Z_{1,j}^{(s)}
+\sim
+\mathcal{N}(0,1),
+\qquad
+Z_{2,j}^{(s)}
+\sim
+\mathcal{N}(0,1),
+\]
+
+con
+
+\[
+\operatorname{Corr}
+\left(
+Z_{1,j}^{(s)},
+Z_{2,j}^{(s)}
+\right)
+=
+0.
+\]
+
+Gli shock destinati ai due fattori vengono poi costruiti come
+
+\[
+Z_{i,j}^{(s)}
+=
+Z_{1,j}^{(s)},
+\]
+
+\[
+Z_{r,j}^{(s)}
+=
+\rho Z_{1,j}^{(s)}
++
+\sqrt{1-\rho^2}\,Z_{2,j}^{(s)}.
+\]
+
+Per costruzione,
+
+\[
+\operatorname{Corr}
+\left(
+Z_{i,j}^{(s)},
+Z_{r,j}^{(s)}
+\right)
+=
+\rho.
+\]
+
+Questa relazione rappresenta, nel caso bivariato, la forma elementare
+della costruzione mediante fattorizzazione della matrice di correlazione.
+
+Gli incrementi browniani sono quindi rappresentati da
+
+\[
+\Delta W_{i,j}^{(s)}
+=
+\sqrt{\Delta t}\,
+Z_{i,j}^{(s)},
+\]
+
+\[
+\Delta W_{r,j}^{(s)}
+=
+\sqrt{\Delta t}\,
+Z_{r,j}^{(s)}.
+\]
+
+La correlazione deve essere introdotta a questo livello, prima della
+costruzione delle traiettorie. In questo modo, all'interno dello stesso
+scenario e dello stesso intervallo temporale, inflazione e tasso nominale
+ricevono shock coerenti con la dipendenza assegnata.
+
+\subsection{Un primo controllo: la correlazione empirica}
+
+La relazione
+
+\[
+\operatorname{Corr}(Z_i,Z_r)=\rho
+\]
+
+\`e una propriet\`a teorica della costruzione.
+
+Nel campione simulato la correlazione osservata non coincide
+necessariamente in modo esatto con \(0.25\), perch\'e viene calcolata su
+un numero finito di estrazioni.
+
+Un controllo naturale consiste quindi nel calcolare
+
+\[
+\widehat\rho
+=
+\operatorname{Corr}_{\mathrm{emp}}
+(Z_i,Z_r)
+\]
+
+utilizzando gli shock prodotti nella simulazione.
+
+Con \(M=50\,000\) traiettorie e sessanta passi temporali, il campione di
+coppie di shock \`e molto ampio e ci si attende che
+
+\[
+\widehat\rho
+\]
+
+sia vicino al valore assegnato
+
+\[
+\rho=0.25.
+\]
+
+Questo controllo precede la simulazione dei processi. Se la dipendenza
+degli shock non \`e stata costruita correttamente, anche tutte le
+traiettorie successive risultano incoerenti con il modello.
+
+\subsection{Discretizzazione del processo OU}
+
+Per l'inflazione,
+
+\[
+di_t
+=
+\kappa_i(\theta_i-i_t)\,dt
++
+\sigma_i\,dW_t^{(i)}.
+\]
+
+Applicando Eulero--Maruyama sulla griglia mensile si ottiene
+
+\[
+i_{t_{j+1}}^{(s)}
+=
+i_{t_j}^{(s)}
++
+\kappa_i
+\left(
+\theta_i-i_{t_j}^{(s)}
+\right)
+\Delta t
++
+\sigma_i
+\sqrt{\Delta t}\,
+Z_{i,j+1}^{(s)}.
+\]
+
+La formula viene applicata ricorsivamente per
+
+\[
+j=0,\ldots,N_{\mathrm{step}}-1
+\]
+
+e per tutte le traiettorie
+
+\[
+s=1,\ldots,M.
+\]
+
+Il valore iniziale \`e comune a tutti gli scenari:
+
+\[
+i_{t_0}^{(s)}
+=
+i_0
+=
+0.025.
+\]
+
+Per ogni data \(t_j\), l'aggiornamento pu\`o essere eseguito
+simultaneamente sulle \(M\) traiettorie mediante operazioni vettoriali.
+
+La componente
+
+\[
+\kappa_i
+\left(
+\theta_i-i_{t_j}^{(s)}
+\right)
+\Delta t
+\]
+
+introduce mean reversion verso \(\theta_i\), mentre il termine
+
+\[
+\sigma_i
+\sqrt{\Delta t}\,
+Z_{i,j+1}^{(s)}
+\]
+
+genera la dispersione tra gli scenari.
+
+Poich\'e il processo OU non impone positivit\`a, eventuali valori
+negativi di \(i_t\) non costituiscono un'anomalia numerica: rappresentano
+scenari di inflazione negativa coerenti con la specificazione del modello.
+
+\subsection{Discretizzazione del processo CIR}
+
+Per il tasso nominale,
+
+\[
+dr_t
+=
+\kappa_r(\theta_r-r_t)\,dt
++
+\sigma_r\sqrt{r_t}\,dW_t^{(r)}.
+\]
+
+Lo schema discreto utilizzato nel notebook \`e
+
+\[
+r_{t_{j+1}}^{(s)}
+=
+r_{t_j}^{(s)}
++
+\kappa_r
+\left(
+\theta_r-r_{t_j}^{(s)}
+\right)
+\Delta t
++
+\sigma_r
+\sqrt{
+\max\left(r_{t_j}^{(s)},0\right)
+}
+\sqrt{\Delta t}\,
+Z_{r,j+1}^{(s)}.
+\]
+
+Il valore iniziale \`e
+
+\[
+r_{t_0}^{(s)}
+=
+r_0
+=
+0.030.
+\]
+
+L'operatore
+
+\[
+\max(r_{t_j}^{(s)},0)
+\]
+
+viene utilizzato all'interno della radice quadrata per evitare che un
+valore negativo prodotto numericamente renda indefinito il termine di
+diffusione.
+
+Questa scelta richiede attenzione interpretativa.
+
+Il processo CIR continuo, con i parametri assegnati, soddisfa la
+condizione di Feller. Ci\`o non implica tuttavia che una discretizzazione
+di Eulero su griglia finita conservi automaticamente la non negativit\`a
+in ogni scenario.
+
+Per questa ragione il valore aggiornato
+
+\[
+r_{t_{j+1}}^{(s)}
+\]
+
+non viene forzato sistematicamente a essere non negativo. Gli eventuali
+valori
+
+\[
+r_{t_j}^{(s)}<0
+\]
+
+vengono invece rilevati e conteggiati come possibile anomalia numerica
+della discretizzazione.
+
+In questo modo il controllo non viene nascosto da una correzione
+automatica delle traiettorie.
+
+\subsection{La struttura matriciale delle due simulazioni}
+
+Al termine della ricorsione si ottengono due matrici:
+
+\[
+I=
+\begin{pmatrix}
+i_{t_0}^{(1)} & i_{t_1}^{(1)} & \cdots & i_{t_N}^{(1)}\\
+i_{t_0}^{(2)} & i_{t_1}^{(2)} & \cdots & i_{t_N}^{(2)}\\
+\vdots & \vdots & \ddots & \vdots\\
+i_{t_0}^{(M)} & i_{t_1}^{(M)} & \cdots & i_{t_N}^{(M)}
+\end{pmatrix},
+\]
+
+e
+
+\[
+R=
+\begin{pmatrix}
+r_{t_0}^{(1)} & r_{t_1}^{(1)} & \cdots & r_{t_N}^{(1)}\\
+r_{t_0}^{(2)} & r_{t_1}^{(2)} & \cdots & r_{t_N}^{(2)}\\
+\vdots & \vdots & \ddots & \vdots\\
+r_{t_0}^{(M)} & r_{t_1}^{(M)} & \cdots & r_{t_N}^{(M)}
+\end{pmatrix}.
+\]
+
+Entrambe hanno dimensione
+
+\[
+M\times(N_{\mathrm{step}}+1).
+\]
+
+La riga \(s\) delle due matrici deve essere letta congiuntamente:
+
+\[
+\left\{
+i_{t_j}^{(s)},
+r_{t_j}^{(s)}
+\right\}_{j=0}^{N_{\mathrm{step}}}.
+\]
+
+Essa rappresenta uno stesso scenario economico-finanziario, nel quale i
+due fattori evolvono sotto shock correlati.
+
+Questo legame tra righe corrispondenti non deve essere perso nelle
+operazioni successive. L'indicizzazione e l'attualizzazione devono essere
+costruite utilizzando inflazione e tasso appartenenti allo stesso
+scenario.
+
+\subsection{Che cosa controllare nelle traiettorie}
+
+La produzione delle matrici \(I\) e \(R\) non conclude la fase di
+simulazione.
+
+Occorre verificare almeno tre aspetti.
+
+Il primo riguarda la dipendenza:
+
+\[
+\widehat\rho
+\approx
+0.25.
+\]
+
+Il secondo riguarda la dinamica dei processi. Le traiettorie devono
+mostrare un comportamento compatibile con la mean reversion prevista dai
+due modelli, senza interpretare tuttavia poche traiettorie selezionate
+come prova formale delle propriet\`a teoriche.
+
+Il terzo riguarda il CIR discretizzato. Devono essere conteggiati e
+documentati gli eventuali valori negativi prodotti numericamente.
+
+Sono inoltre utili le statistiche terminali
+
+\[
+\overline i_T,
+\qquad
+s(i_T),
+\qquad
+\overline r_T,
+\qquad
+s(r_T),
+\]
+
+che riassumono la distribuzione simulata dei due fattori alla scadenza.
+
+I grafici di alcune traiettorie di \(i_t\) e \(r_t\) hanno quindi una
+funzione diagnostica: permettono di osservare la dispersione tra
+scenari, la tendenza alla mean reversion e la presenza di eventuali
+comportamenti numericamente anomali.
+
+\subsection{Dalle traiettorie dei fattori alle grandezze finanziarie}
+
+A questo punto la simulazione ha prodotto
+
+\[
+i_t^{(s)}
+\qquad\text{e}\qquad
+r_t^{(s)}
+\]
+
+per ogni scenario e per ogni data della griglia.
+
+Queste traiettorie non costituiscono ancora il prezzo del bond.
+
+Devono essere trasformate, scenario per scenario, nelle due grandezze che
+entrano direttamente nella struttura del contratto:
+
+\[
+J_t^{(s)}
+=
+\exp\left(
+\int_0^t i_u^{(s)}\,du
+\right),
+\]
+
+e
+
+\[
+D^{(s)}(0,t)
+=
+\exp\left(
+-\int_0^t r_u^{(s)}\,du
+\right).
+\]
+
+Il primo oggetto governa l'indicizzazione dei flussi; il secondo governa
+la loro attualizzazione.
+
+La costruzione numerica di queste quantit\`a, dei flussi contrattuali e
+del valore attuale per scenario costituisce il passaggio successivo.
+
+\section{Caso Aula: dalle traiettorie ai flussi e al prezzo}
+
+Le simulazioni della sezione precedente hanno prodotto, per ogni scenario,
+le traiettorie del tasso di inflazione e del tasso nominale:
+
+\[
+i_{t_j}^{(s)},
+\qquad
+r_{t_j}^{(s)},
+\qquad
+s=1,\ldots,M.
+\]
+
+Queste grandezze descrivono l'evoluzione dei fattori di rischio, ma non sono
+ancora i flussi del contratto.
+
+Il passaggio successivo consiste nel trasformare ciascuna coppia di
+traiettorie in:
+
+\[
+\text{indice di indicizzazione}
+\longrightarrow
+\text{flussi contrattuali}
+\]
+
+e, contemporaneamente,
+
+\[
+\text{traiettoria del tasso}
+\longrightarrow
+\text{fattori di sconto}.
+\]
+
+Solo combinando queste due componenti si ottiene il valore attuale del bond
+all'interno dello scenario considerato.
+
+\subsection{Dalla traiettoria dell'inflazione all'indice}
+
+Per ogni scenario \(s\), il coefficiente cumulato di indicizzazione \`e
+
+\[
+J_t^{(s)}
+=
+\exp\left(
+\int_0^t i_u^{(s)}\,du
+\right).
+\]
+
+Sulla griglia mensile l'integrale viene approssimato mediante una somma di
+Riemann sinistra:
+
+\[
+\int_0^{t_j}
+i_u^{(s)}\,du
+\approx
+\sum_{\ell=0}^{j-1}
+i_{t_\ell}^{(s)}\Delta t.
+\]
+
+Si ottiene quindi
+
+\[
+J_{t_j}^{(s)}
+=
+\exp\left(
+\sum_{\ell=0}^{j-1}
+i_{t_\ell}^{(s)}\Delta t
+\right).
+\]
+
+L'operazione deve essere eseguita cumulativamente lungo il tempo per ciascuna
+traiettoria.
+
+In termini computazionali, la struttura \`e quindi quella di una somma
+cumulata lungo le colonne della matrice delle traiettorie.
+
+Il valore iniziale soddisfa
+
+\[
+J_0^{(s)}=1
+\]
+
+per ogni scenario.
+
+Poich\'e l'esponenziale \`e sempre positivo,
+
+\[
+J_{t_j}^{(s)}>0
+\]
+
+per ogni \(s\) e per ogni data della griglia.
+
+Questo costituisce un primo controllo strutturale immediato.
+
+\subsection{Dalla traiettoria del tasso al fattore di sconto}
+
+La stessa logica viene applicata al tasso nominale.
+
+Per lo scenario \(s\),
+
+\[
+D^{(s)}(0,t)
+=
+\exp\left(
+-\int_0^t r_u^{(s)}\,du
+\right).
+\]
+
+Sulla griglia,
+
+\[
+\int_0^{t_j}
+r_u^{(s)}\,du
+\approx
+\sum_{\ell=0}^{j-1}
+r_{t_\ell}^{(s)}\Delta t,
+\]
+
+e quindi
+
+\[
+D^{(s)}(0,t_j)
+=
+\exp\left(
+-
+\sum_{\ell=0}^{j-1}
+r_{t_\ell}^{(s)}\Delta t
+\right).
+\]
+
+Anche in questo caso il calcolo \`e cumulativo lungo ciascuna traiettoria.
+
+La distinzione tra valore terminale del tasso e fattore di sconto \`e
+fondamentale. Per scontare un flusso al tempo \(t_j\) non basta conoscere
+
+\[
+r_{t_j}^{(s)}.
+\]
+
+Occorre utilizzare l'intera sequenza
+
+\[
+r_{t_0}^{(s)},
+r_{t_1}^{(s)},
+\ldots,
+r_{t_{j-1}}^{(s)},
+\]
+
+perch\'e il fattore di sconto dipende dall'integrale accumulato del tasso.
+
+\subsection{Due trasformazioni parallele}
+
+A questo punto, per ogni scenario \(s\), le due traiettorie originarie
+
+\[
+\left\{
+i_{t_j}^{(s)}
+\right\}
+\qquad\text{e}\qquad
+\left\{
+r_{t_j}^{(s)}
+\right\}
+\]
+
+sono state trasformate rispettivamente in
+
+\[
+\left\{
+J_{t_j}^{(s)}
+\right\}
+\qquad\text{e}\qquad
+\left\{
+D^{(s)}(0,t_j)
+\right\}.
+\]
+
+Le due trasformazioni svolgono funzioni economiche differenti:
+
+\[
+J_{t_j}^{(s)}
+\longrightarrow
+\text{determinazione dei flussi},
+\]
+
+\[
+D^{(s)}(0,t_j)
+\longrightarrow
+\text{attualizzazione dei flussi}.
+\]
+
+La valutazione richiede quindi di mantenere allineate queste quantit\`a
+all'interno dello stesso scenario.
+
+Non avrebbe significato, per esempio, utilizzare l'indicizzazione prodotta
+dallo scenario \(s\) e scontarla mediante la traiettoria dei tassi di uno
+scenario differente.
+
+\subsection{Individuare le date delle cedole}
+
+La griglia di simulazione \`e mensile, mentre le cedole vengono pagate ogni
+sei mesi.
+
+Su un orizzonte di cinque anni vi sono quindi
+
+\[
+m=10
+\]
+
+date di pagamento:
+
+\[
+t_1=0.5,
+\quad
+t_2=1,
+\quad
+\ldots,
+\quad
+t_{10}=5.
+\]
+
+Poich\'e la griglia \`e mensile, queste date corrispondono alle colonne
+
+\[
+6,12,18,\ldots,60.
+\]
+
+La selezione delle date contrattuali permette quindi di estrarre, per tutte
+le traiettorie,
+
+\[
+J_{t_1}^{(s)},
+\ldots,
+J_{t_m}^{(s)}
+\]
+
+e
+
+\[
+D^{(s)}(0,t_1),
+\ldots,
+D^{(s)}(0,t_m).
+\]
+
+Questo passaggio mostra concretamente il ruolo dell'indicizzazione temporale
+discussa nella prima parte del capitolo: la griglia numerica contiene tutte
+le date necessarie alla simulazione, mentre il contratto utilizza soltanto
+alcune di esse per generare i flussi.
+
+\subsection{Cedole indicizzate}
+
+Alla data semestrale \(t_j\), la cedola dello scenario \(s\) \`e
+
+\[
+C_{t_j}^{(s)}
+=
+\frac{c}{2}
+N
+J_{t_j}^{(s)}.
+\]
+
+Con
+
+\[
+c=0.015
+\qquad\text{e}\qquad
+N=100,
+\]
+
+la cedola nominale semestrale sarebbe
+
+\[
+\frac{c}{2}N
+=
+0.75.
+\]
+
+L'indicizzazione trasforma tale importo in
+
+\[
+0.75\,J_{t_j}^{(s)}.
+\]
+
+Se
+
+\[
+J_{t_j}^{(s)}>1,
+\]
+
+la cedola risulta superiore a quella nominale.
+
+Se invece
+
+\[
+J_{t_j}^{(s)}<1,
+\]
+
+la cedola viene ridotta.
+
+La protezione contro la deflazione non si applica infatti alle cedole.
+
+\subsection{Il rimborso protetto}
+
+Alla scadenza \(T\), il capitale rimborsato nello scenario \(s\) \`e
+
+\[
+R_T^{(s)}
+=
+N
+\max
+\left(
+J_T^{(s)},1
+\right).
+\]
+
+La struttura pu\`o essere letta in due casi.
+
+Se
+
+\[
+J_T^{(s)}\geq1,
+\]
+
+allora
+
+\[
+R_T^{(s)}
+=
+N J_T^{(s)}.
+\]
+
+Se invece
+
+\[
+J_T^{(s)}<1,
+\]
+
+allora
+
+\[
+R_T^{(s)}
+=
+N.
+\]
+
+Ne segue immediatamente il controllo
+
+\[
+R_T^{(s)}
+\geq
+N
+\]
+
+per ogni scenario.
+
+Il rimborso pu\`o inoltre essere scritto come
+
+\[
+R_T^{(s)}
+=
+N
++
+N
+\max
+\left(
+J_T^{(s)}-1,0
+\right).
+\]
+
+Questa decomposizione separa il capitale nominale dalla componente di
+rivalutazione legata all'inflazione positiva cumulata.
+
+\subsection{Attualizzare i flussi scenario per scenario}
+
+Una volta determinati cedole e rimborso, ciascun flusso deve essere
+moltiplicato per il fattore di sconto appartenente allo stesso scenario.
+
+Il valore attuale della cedola pagata al tempo \(t_j\) \`e
+
+\[
+PV_{C,j}^{(s)}
+=
+D^{(s)}(0,t_j)
+C_{t_j}^{(s)}.
+\]
+
+Il valore attuale complessivo delle cedole nello scenario \(s\) \`e quindi
+
+\[
+PV_C^{(s)}
+=
+\sum_{j=1}^{m}
+D^{(s)}(0,t_j)
+C_{t_j}^{(s)}.
+\]
+
+Il valore attuale del rimborso \`e
+
+\[
+PV_R^{(s)}
+=
+D^{(s)}(0,T)
+R_T^{(s)}.
+\]
+
+Il valore del bond nello scenario \(s\) risulta
+
+\[
+V^{(s)}
+=
+PV_C^{(s)}
++
+PV_R^{(s)}.
+\]
+
+Equivalentemente,
+
+\[
+V^{(s)}
+=
+\sum_{j=1}^{m}
+D^{(s)}(0,t_j)
+C_{t_j}^{(s)}
++
+D^{(s)}(0,T)
+R_T^{(s)}.
+\]
+
+Questo \`e il passaggio centrale dell'intero caso.
+
+Il prezzo non viene costruito direttamente dalla media delle traiettorie di
+inflazione o di tasso. Prima si genera un valore finanziario completo
+all'interno di ciascuno scenario; soltanto successivamente tali valori
+vengono aggregati.
+
+\subsection{La distribuzione dei valori scenario-specifici}
+
+Dopo avere applicato la procedura alle \(M\) simulazioni si ottiene il
+campione
+
+\[
+V^{(1)},
+V^{(2)},
+\ldots,
+V^{(M)}.
+\]
+
+Ogni elemento incorpora congiuntamente:
+
+\[
+\text{traiettoria dell'inflazione},
+\]
+
+\[
+\text{traiettoria del tasso},
+\]
+
+\[
+\text{indicizzazione dei flussi},
+\]
+
+\[
+\text{protezione del capitale},
+\]
+
+e
+
+\[
+\text{attualizzazione}.
+\]
+
+La dispersione dei valori \(V^{(s)}\) rappresenta quindi la variabilit\`a
+della valutazione indotta dal modello stocastico assegnato.
+
+Un istogramma della distribuzione di
+
+\[
+V^{(s)}
+\]
+
+non deve essere interpretato come una distribuzione osservata di prezzi di
+mercato, ma come la distribuzione dei valori attuali scenario-specifici
+generati dal modello.
+
+\subsection{Dal campione al prezzo Monte Carlo}
+
+Il prezzo Monte Carlo viene stimato come media dei valori attuali
+scenario-specifici:
+
 \[
 \widehat V_M
 =
@@ -239,35 +2014,1448 @@ allora la forma
 V^{(s)}.
 \]
 
-Il punto essenziale \`e quindi che la simulazione non genera direttamente il
-prezzo. Genera le traiettorie dei fattori di rischio; il contratto trasforma
-tali traiettorie in valori scenario-specifici; la media Monte Carlo interviene
-soltanto nell'ultima fase.
+La stessa logica permette di decomporre il prezzo nelle due componenti
+principali.
 
-\subsection{La catena computazionale}
+Il valore attuale medio delle cedole \`e
 
-Il passaggio dai modelli studiati nei capitoli precedenti al pricing pu\`o
-essere sintetizzato nella sequenza
+\[
+\widehat{PV}_C
+=
+\frac{1}{M}
+\sum_{s=1}^{M}
+PV_C^{(s)},
+\]
+
+mentre il valore attuale atteso del rimborso \`e stimato da
+
+\[
+\widehat{PV}_R
+=
+\frac{1}{M}
+\sum_{s=1}^{M}
+PV_R^{(s)}.
+\]
+
+Per linearit\`a della media campionaria,
+
+\[
+\widehat V_M
+=
+\widehat{PV}_C
++
+\widehat{PV}_R.
+\]
+
+Questa uguaglianza costituisce un controllo diretto della coerenza
+dell'implementazione.
+
+Se la somma delle due componenti non coincide con il prezzo totale, il
+problema non \`e di natura probabilistica ma riguarda la costruzione o
+l'aggregazione dei flussi.
+
+\subsection{Deflazione cumulata e significato del floor}
+
+Una quantit\`a particolarmente informativa \`e la probabilit\`a simulata di
+
+\[
+J_T<1.
+\]
+
+Essa viene stimata come
+
+\[
+\widehat{\Prob}(J_T<1)
+=
+\frac{1}{M}
+\sum_{s=1}^{M}
+\1_{\{J_T^{(s)}<1\}}.
+\]
+
+Questa frequenza misura la quota di scenari nei quali l'indice dei prezzi
+alla scadenza risulta inferiore al livello iniziale.
+
+Proprio in tali scenari il floor sul capitale diventa attivo.
+
+La presenza del floor modifica quindi il rimborso secondo una regola
+asimmetrica:
+
+\[
+\text{inflazione cumulata positiva}
+\longrightarrow
+\text{rivalutazione del capitale},
+\]
+
+\[
+\text{deflazione cumulata}
+\longrightarrow
+\text{protezione al valore nominale}.
+\]
+
+La probabilit\`a di \(J_T<1\) fornisce perci\`o anche un'indicazione della
+frequenza con cui la clausola di protezione entra effettivamente in funzione
+nel campione simulato.
+
+\subsection{Statistiche terminali e interpretazione}
+
+Accanto al prezzo sono richieste alcune statistiche terminali:
+
+\[
+i_T,
+\qquad
+r_T,
+\qquad
+J_T.
+\]
+
+Per ciascuna grandezza vengono calcolate almeno media e deviazione standard
+campionarie.
+
+Questi risultati non hanno la stessa funzione del prezzo.
+
+Le statistiche di \(i_T\) e \(r_T\) descrivono il comportamento terminale
+dei due fattori di rischio simulati.
+
+Le statistiche di \(J_T\) descrivono invece l'effetto cumulato della
+traiettoria dell'inflazione sull'indice dei prezzi.
+
+Il prezzo Monte Carlo
+
+\[
+\widehat V_M
+\]
+
+rappresenta infine l'aggregazione finanziaria di tutte queste dinamiche dopo
+che esse sono state trasformate in flussi e fattori di sconto.
+
+La catena completa del Caso Aula pu\`o quindi essere sintetizzata come
 
 \[
 \begin{array}{c}
+\text{inflazione OU e tasso CIR}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{traiettorie correlate}
+\\[3pt]
+\downarrow
+\\[3pt]
+J_t
+\quad\text{e}\quad
+D(0,t)
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{cedole e rimborso}
+\\[3pt]
+\downarrow
+\\[3pt]
+V^{(s)}
+\\[3pt]
+\downarrow
+\\[3pt]
+\widehat V_M.
+\end{array}
+\]
+
+Il fatto che la procedura produca un prezzo non conclude tuttavia
+l'analisi. Rimane da verificare quanto tale stima sia precisa e quanto sia
+stabile rispetto alle principali scelte numeriche. Questo \`e l'oggetto
+della sezione successiva.
+
+
+\section{Precisione numerica, convergenza e diagnostica}
+
+La simulazione produce una stima del prezzo, ma il valore numerico ottenuto
+non deve essere interpretato come un risultato esatto.
+
+Nel Caso Aula intervengono almeno due fonti distinte di approssimazione:
+
+\begin{itemize}
+
+\item l'errore Monte Carlo, dovuto al numero finito di traiettorie simulate;
+
+\item l'errore di discretizzazione, dovuto alla rappresentazione dei processi
+continui su una griglia temporale finita.
+
+\end{itemize}
+
+Le due componenti hanno natura diversa e devono essere controllate
+separatamente. Aumentare il numero di simulazioni non corregge una
+discretizzazione troppo grossolana; allo stesso modo, utilizzare una griglia
+pi\`u fine non elimina la variabilit\`a campionaria della stima Monte Carlo.
+
+\subsection{L'errore standard Monte Carlo}
+
+Il prezzo stimato \`e
+
+\[
+\widehat V_M
+=
+\frac{1}{M}
+\sum_{s=1}^{M}
+V^{(s)}.
+\]
+
+Indicando con \(s_V\) la deviazione standard campionaria dei valori attuali
+
+\[
+V^{(1)},V^{(2)},\ldots,V^{(M)},
+\]
+
+l'errore standard della media Monte Carlo \`e stimato da
+
+\[
+SE(\widehat V_M)
+=
+\frac{s_V}{\sqrt{M}}.
+\]
+
+Questa quantit\`a misura l'incertezza campionaria associata al fatto che la
+media viene calcolata su un numero finito di scenari.
+
+L'ordine di grandezza dell'errore standard \`e
+
+\[
+O\left(\frac{1}{\sqrt{M}}\right).
+\]
+
+Di conseguenza, moltiplicare per quattro il numero di traiettorie riduce
+approssimativamente della met\`a l'errore standard.
+
+La relazione mostra anche il costo della precisione Monte Carlo: per ridurre
+l'errore standard di un fattore dieci occorre aumentare il numero di
+simulazioni di un fattore cento.
+
+\subsection{Intervallo di confidenza}
+
+Una misura sintetica della precisione della stima \`e fornita
+dall'intervallo di confidenza Monte Carlo.
+
+Per un numero elevato di traiettorie, un intervallo approssimato al \(95\%\)
+\`e
+
+\[
+\widehat V_M
+\pm
+1.96\,
+SE(\widehat V_M).
+\]
+
+Equivalentemente,
+
+\[
+\left[
+\widehat V_M
+-
+1.96\,
+SE(\widehat V_M),
+\;
+\widehat V_M
++
+1.96\,
+SE(\widehat V_M)
+\right].
+\]
+
+L'intervallo quantifica la precisione della media Monte Carlo per il modello
+numerico utilizzato.
+
+Non deve essere interpretato come intervallo di incertezza complessiva sul
+``vero'' valore economico del titolo: non incorpora infatti errori di
+specificazione del modello, incertezza sui parametri o approssimazione
+temporale dovuta alla discretizzazione.
+
+\subsection{Diagnostica al crescere del numero di traiettorie}
+
+Il Caso Aula richiede di ripetere la valutazione per
+
+\[
+M
+=
+1\,000,
+\quad
+5\,000,
+\quad
+10\,000,
+\quad
+50\,000.
+\]
+
+Per ciascun valore di \(M\) devono essere riportati almeno
+
+\[
+\widehat V_M
+\]
+
+e
+
+\[
+SE(\widehat V_M).
+\]
+
+La tabella di diagnostica permette di controllare due aspetti differenti.
+
+Il primo riguarda la stabilizzazione del prezzo stimato. Al crescere di
+\(M\), le variazioni della media Monte Carlo dovrebbero diventare
+progressivamente meno ampie.
+
+Il secondo riguarda l'errore standard. Il suo andamento deve risultare
+compatibile con la relazione
+
+\[
+SE(\widehat V_M)
+\propto
+\frac{1}{\sqrt{M}}.
+\]
+
+Il controllo non richiede che il rapporto sia esatto in ogni campione. La
+deviazione standard campionaria \(s_V\) pu\`o infatti cambiare leggermente
+con \(M\). Ci\`o che interessa \`e verificare che la riduzione osservata sia
+coerente con l'ordine teorico previsto.
+
+\subsection{Il grafico di convergenza Monte Carlo}
+
+Una rappresentazione utile consiste nel calcolare la media cumulata
+
+\[
+\widehat V_m
+=
+\frac{1}{m}
+\sum_{s=1}^{m}
+V^{(s)},
+\qquad
+m=1,\ldots,M,
+\]
+
+e rappresentarla in funzione di \(m\).
+
+Per valori piccoli di \(m\), la curva pu\`o mostrare oscillazioni rilevanti,
+perch\'e la media dipende ancora fortemente dai singoli scenari.
+
+All'aumentare del numero di simulazioni, la curva dovrebbe progressivamente
+stabilizzarsi.
+
+Il grafico non dimostra da solo la convergenza teorica, ma fornisce una
+diagnostica visiva della stabilit\`a della stima nel campione simulato.
+
+\subsection{Precisione Monte Carlo e numero di scenari}
+
+La scelta di \(M\) deve essere letta come un compromesso tra precisione e
+costo computazionale.
+
+Un valore elevato di \(M\) riduce l'errore standard, ma aumenta:
+
+\begin{itemize}
+
+\item il numero di shock da generare;
+
+\item il numero di aggiornamenti dei processi;
+
+\item la memoria necessaria per conservare le traiettorie;
+
+\item il tempo richiesto per costruire le quantit\`a path-dependent e i
+valori attuali.
+
+\end{itemize}
+
+Nel Caso Aula, \(M=50\,000\) costituisce il valore utilizzato per l'analisi
+principale. I valori inferiori servono invece a mostrare empiricamente come
+cambia la precisione della stima.
+
+\subsection{L'errore di discretizzazione}
+
+Il secondo problema numerico riguarda la griglia temporale.
+
+Il modello teorico specifica processi in tempo continuo, mentre il notebook
+utilizza una griglia con
+
+\[
+\Delta t=\frac{1}{12}.
+\]
+
+Le traiettorie simulate mediante Eulero--Maruyama dipendono quindi dalla
+scelta di \(\Delta t\).
+
+La discretizzazione interviene inoltre nella costruzione di
+
+\[
+J_t
+=
+\exp\left(
+\int_0^t i_s\,ds
+\right)
+\]
+
+e
+
+\[
+D(0,t)
+=
+\exp\left(
+-\int_0^t r_s\,ds
+\right),
+\]
+
+poich\'e entrambi gli integrali vengono approssimati mediante somme sulla
+griglia.
+
+Ne consegue che la discretizzazione pu\`o influenzare il prezzo attraverso
+due canali:
+
+\[
+\text{approssimazione delle traiettorie}
+\]
+
+e
+
+\[
+\text{approssimazione degli integrali lungo le traiettorie}.
+\]
+
+\subsection{Controllare la stabilit\`a rispetto alla griglia}
+
+La Scheda Caso richiede di confrontare il risultato principale con quello
+ottenuto utilizzando una griglia temporale pi\`u fine.
+
+Indicando con
+
+\[
+\widehat V_{\Delta t}
+\]
+
+il prezzo calcolato sulla griglia mensile e con
+
+\[
+\widehat V_{\Delta t'}
+\]
+
+quello ottenuto con
+
+\[
+\Delta t'<\Delta t,
+\]
+
+si valuta la differenza
+
+\[
+\widehat V_{\Delta t'}
+-
+\widehat V_{\Delta t}.
+\]
+
+Se tale differenza \`e piccola rispetto alla scala economica del prezzo e
+alla precisione Monte Carlo richiesta, la valutazione pu\`o essere
+considerata sufficientemente stabile rispetto alla discretizzazione scelta.
+
+Il criterio non consiste quindi nel pretendere uguaglianza tra i due
+risultati, ma nel verificare che un raffinamento ragionevole della griglia
+non produca una variazione economicamente rilevante.
+
+\subsection{Perch\'e aumentare \(M\) non risolve il problema della griglia}
+
+La distinzione tra le due fonti di errore pu\`o essere resa esplicita
+considerando una griglia temporale fissata.
+
+Se
+
+\[
+M\longrightarrow\infty,
+\]
+
+l'errore Monte Carlo tende a ridursi, ma la simulazione continua a utilizzare
+la stessa discretizzazione temporale.
+
+La stima diventa quindi sempre pi\`u precisa rispetto al modello
+\emph{discretizzato}; ci\`o non implica automaticamente che essa coincida con
+il valore associato al modello continuo.
+
+Analogamente, ridurre \(\Delta t\) senza utilizzare un numero sufficiente di
+traiettorie pu\`o produrre una migliore rappresentazione numerica dei
+processi ma una media Monte Carlo ancora poco precisa.
+
+Per una valutazione affidabile occorre quindi controllare separatamente
+
+\[
+M
+\]
+
+e
+
+\[
+\Delta t.
+\]
+
+\subsection{Diagnostiche specifiche dei fattori simulati}
+
+La diagnostica non riguarda soltanto il prezzo finale.
+
+Per il tasso di inflazione, valori negativi possono essere coerenti con il
+processo OU e rappresentano scenari di deflazione.
+
+Per il tasso nominale CIR, invece, eventuali valori negativi generati dallo
+schema numerico devono essere rilevati e documentati. Essi segnalano una
+possibile anomalia della discretizzazione e non una propriet\`a desiderata
+del processo continuo utilizzato nel caso.
+
+La frequenza e l'entit\`a di tali valori diventano quindi ulteriori indicatori
+della qualit\`a della griglia scelta.
+
+Allo stesso modo, deve essere verificata la correlazione empirica degli shock:
+
+\[
+\widehat\rho
+\approx
+\rho.
+\]
+
+Questo controllo riguarda la corretta implementazione della struttura di
+dipendenza e non la precisione del prezzo in senso stretto.
+
+\subsection{Controlli strutturali della valutazione}
+
+Alcuni controlli non sono di convergenza, ma devono valere per costruzione.
+
+Per il coefficiente di indicizzazione,
+
+\[
+J_t^{(s)}>0
+\]
+
+in ogni scenario.
+
+Per il rimborso,
+
+\[
+R_T^{(s)}
+\geq
+N.
+\]
+
+Per la decomposizione del valore,
+
+\[
+V^{(s)}
+=
+PV_C^{(s)}
++
+PV_R^{(s)}
+\]
+
+scenario per scenario e, dopo l'aggregazione,
+
+\[
+\widehat V_M
+=
+\widehat{PV}_C
++
+\widehat{PV}_R.
+\]
+
+Questi controlli hanno natura diversa dal confronto tra prezzi ottenuti con
+diversi \(M\) o diverse griglie. Se falliscono, non indicano una semplice
+imprecisione statistica: indicano un'incoerenza nella costruzione numerica
+del contratto.
+
+\subsection{Una gerarchia dei controlli}
+
+Le verifiche del Caso Aula possono quindi essere organizzate in tre livelli.
+
+Il primo riguarda la corretta implementazione del modello:
+
+\[
+\text{correlazione degli shock},
+\qquad
+\text{comportamento delle traiettorie},
+\qquad
+\text{anomalie CIR}.
+\]
+
+Il secondo riguarda la coerenza finanziaria:
+
+\[
+J_t>0,
+\qquad
+R_T\geq N,
+\qquad
+\text{decomposizione del prezzo}.
+\]
+
+Il terzo riguarda la qualit\`a numerica della stima:
+
+\[
+SE(\widehat V_M),
+\qquad
+M\uparrow,
+\qquad
+\Delta t\downarrow.
+\]
+
+Solo la combinazione di questi tre livelli consente di interpretare il prezzo
+prodotto dal notebook come un risultato numericamente verificato.
+
+La diagnostica non ha quindi una funzione accessoria. Costituisce parte
+integrante della soluzione del problema di pricing: un valore numerico privo
+di controlli non permette di distinguere una stima affidabile da un risultato
+accidentalmente plausibile.
+
+
+\section{Verifica critica della soluzione computazionale}
+
+Ottenere un prezzo numerico non conclude il Caso Aula. Prima di interpretare
+il risultato occorre verificare che il notebook rappresenti effettivamente il
+problema definito dalla Scheda Caso e che ogni passaggio della catena
+computazionale sia coerente con il precedente.
+
+La verifica finale non coincide quindi con il semplice controllo che il codice
+venga eseguito senza errori. Un programma pu\`o essere sintatticamente corretto
+e produrre tabelle e grafici plausibili pur implementando in modo errato una
+formula, una dipendenza, una data contrattuale o una regola di aggregazione.
+
+\subsection{Correttezza tecnica e correttezza quantitativa}
+
+Occorre distinguere almeno due livelli di correttezza.
+
+La \emph{correttezza tecnica} riguarda l'eseguibilit\`a del notebook:
+variabili definite, dimensioni compatibili, istruzioni valide, assenza di
+errori di esecuzione e riproducibilit\`a dei risultati.
+
+La \emph{correttezza quantitativa} riguarda invece la corrispondenza tra il
+codice e il modello:
+
+\[
+\text{formula teorica}
+\longleftrightarrow
+\text{operazione numerica}
+\longleftrightarrow
+\text{output prodotto}.
+\]
+
+Nel Caso Aula, per esempio, non basta che una matrice di shock venga generata:
+la sua correlazione deve essere coerente con \(\rho\). Non basta calcolare un
+fattore di sconto: esso deve dipendere dall'integrale della traiettoria del
+tasso appartenente allo stesso scenario. Non basta ottenere un rimborso
+terminale: deve valere
+
+\[
+R_T^{(s)}\geq N
+\]
+
+per ogni \(s\).
+
+La verifica deve quindi ricostruire la logica economico-matematica del codice,
+non soltanto la sua sintassi.
+
+\subsection{Seguire una traiettoria dall'inizio alla fine}
+
+Un controllo particolarmente utile consiste nel selezionare concettualmente
+uno scenario \(s\) e seguirne l'intera trasformazione:
+
+\[
+\left(
+i^{(s)},r^{(s)}
+\right)
+\]
+
+\[
+\downarrow
+\]
+
+\[
+\left(
+J^{(s)},D^{(s)}
+\right)
+\]
+
+\[
+\downarrow
+\]
+
+\[
+\left(
+C_{t_1}^{(s)},\ldots,C_{t_m}^{(s)},R_T^{(s)}
+\right)
+\]
+
+\[
+\downarrow
+\]
+
+\[
+V^{(s)}.
+\]
+
+Ogni grandezza deve essere costruita utilizzando dati appartenenti allo stesso
+scenario e alle date corrette.
+
+Questo controllo pathwise permette di individuare errori che possono restare
+nascosti quando si osservano soltanto statistiche aggregate. Una media finale
+plausibile non garantisce infatti che le operazioni siano state effettuate
+nella corretta dimensione temporale o nello scenario corretto.
+
+\subsection{Controllare le identit\`a che devono valere per costruzione}
+
+Alcune relazioni non sono semplici risultati attesi: devono valere
+necessariamente se l'implementazione \`e coerente.
+
+Nel Caso Aula:
+
+\[
+J_t^{(s)}>0,
+\]
+
+\[
+R_T^{(s)}\geq N,
+\]
+
+e
+
+\[
+V^{(s)}
+=
+PV_C^{(s)}
++
+PV_R^{(s)}.
+\]
+
+Dopo l'aggregazione deve inoltre risultare
+
+\[
+\widehat V_M
+=
+\widehat{PV}_C
++
+\widehat{PV}_R.
+\]
+
+Se una di queste relazioni fallisce, non \`e necessario aumentare il numero
+di simulazioni: occorre individuare un errore nella costruzione delle
+quantit\`a.
+
+Diverso \`e il caso di controlli come
+
+\[
+\widehat\rho\approx\rho
+\]
+
+o della stabilizzazione del prezzo al crescere di \(M\). Queste relazioni sono
+soggette a variabilit\`a campionaria e devono essere giudicate in termini di
+compatibilit\`a, non di uguaglianza esatta.
+
+\subsection{Leggere gli output in modo congiunto}
+
+Tabelle, statistiche e grafici non devono essere interpretati separatamente.
+
+Se le traiettorie del tasso mostrano anomalie numeriche, tale informazione
+deve essere considerata quando si valuta la stabilit\`a del prezzo.
+
+Se la distribuzione di \(J_T\) presenta una quota rilevante di valori inferiori
+a uno, la probabilit\`a stimata
+
+\[
+\widehat{\Prob}(J_T<1)
+\]
+
+deve risultare coerente con tale evidenza e con la frequenza di attivazione
+della protezione sul capitale.
+
+Se il prezzo appare stabile al crescere di \(M\), ma cambia sensibilmente
+raffinando la griglia, la criticit\`a non riguarda l'errore Monte Carlo ma la
+discretizzazione.
+
+La verifica consiste quindi anche nel confrontare output differenti che
+descrivono aspetti collegati dello stesso modello.
+
+\subsection{Il ruolo della verifica con l'intelligenza artificiale}
+
+Il metodo introdotto nel Capitolo 4 prevede che l'IA possa essere utilizzata
+anche nella fase di verifica critica. In questa funzione, il punto di partenza
+non deve essere una richiesta generica di ``controllare tutto'', ma un
+risultato, un dubbio o un'anomalia gi\`a individuati.
+
+Nel Regime C, per esempio, pu\`o essere opportuno chiedere di verificare:
+
+\begin{itemize}
+
+\item se una formula teorica \`e stata tradotta correttamente nel codice;
+
+\item se un'operazione viene effettuata lungo l'asse corretto;
+
+\item se le date contrattuali sono state selezionate coerentemente con la
+griglia;
+
+\item se un controllo numerico \`e adeguato alla propriet\`a che dovrebbe
+verificare;
+
+\item se l'interpretazione finale \`e effettivamente supportata dagli output
+prodotti.
+
+\end{itemize}
+
+La risposta dell'IA non costituisce tuttavia una certificazione del notebook.
+Deve essere nuovamente confrontata con la Scheda Caso, con le formule del
+modello e con gli output effettivamente osservati.
+
+L'IA pu\`o infatti individuare un errore, ma pu\`o anche proporre una
+correzione non coerente con la specifica assegnata o formulare
+un'interpretazione pi\`u forte di quanto i risultati consentano.
+
+\subsection{Il notebook deve essere rieseguibile}
+
+Una verifica finale richiede che il notebook possa essere eseguito
+nell'ordine previsto partendo dall'inizio.
+
+Non devono essere necessari valori rimasti in memoria da esecuzioni
+precedenti, variabili definite manualmente fuori dalla sequenza delle celle o
+correzioni non documentate.
+
+Il seed assegnato consente inoltre di verificare la riproducibilit\`a della
+simulazione principale.
+
+La riesecuzione completa svolge quindi una funzione sostanziale: controlla che
+gli output finali dipendano effettivamente dalla procedura documentata nel
+notebook.
+
+\subsection{Interpretare entro i limiti del modello}
+
+L'ultimo controllo riguarda il significato attribuito al prezzo ottenuto.
+
+Il valore
+
+\[
+\widehat V_M
+\]
+
+\`e una stima Monte Carlo costruita sotto le dinamiche, i parametri e le
+regole contrattuali assegnate nella Scheda Caso.
+
+Non rappresenta automaticamente il prezzo osservabile di uno specifico titolo
+inflation-linked.
+
+Il caso non comprende infatti calibrazione di mercato, premi per il rischio,
+rischio di credito o liquidit\`a, fiscalit\`a e convenzioni operative complete
+di un titolo reale.
+
+L'interpretazione corretta deve quindi distinguere:
+
+\[
+\text{risultato del modello}
+\]
+
+da
+
+\[
+\text{valore di mercato osservabile}.
+\]
+
+La conclusione del Caso Aula non consiste perci\`o soltanto nell'indicare un
+numero, ma nel poter ricostruire e difendere la sequenza
+
+\[
+\text{ipotesi}
+\longrightarrow
+\text{simulazione}
+\longrightarrow
+\text{flussi}
+\longrightarrow
+\text{prezzo}
+\longrightarrow
+\text{controlli}
+\longrightarrow
+\text{interpretazione}.
+\]
+
+Solo quando questa sequenza rimane riconoscibile e verificabile il notebook
+pu\`o essere considerato una soluzione quantitativa completa del caso.
+
+
+\section{Caso TakeHome: dalla struttura appresa a un payoff path-dependent}
+
+Il Caso TakeHome trasferisce la struttura di lavoro sviluppata nel Caso Aula
+a un contratto finanziario differente: una call asiatica a media aritmetica
+sull'EURO STOXX 50 con tasso di interesse stocastico.
+
+L'obiettivo non \`e ripetere passo per passo la soluzione precedente, ma
+riconoscere quali elementi della procedura rimangano invariati e quali debbano
+essere adattati alla nuova struttura del payoff.
+
+La catena generale continua a essere
+
+\[
+\text{modelli stocastici}
+\longrightarrow
+\text{shock correlati}
+\longrightarrow
+\text{traiettorie}
+\longrightarrow
+\text{quantit\`a path-dependent}
+\]
+
+\[
+\longrightarrow
+\text{payoff}
+\longrightarrow
+\text{attualizzazione}
+\longrightarrow
+\text{valore per scenario}
+\longrightarrow
+\text{stima Monte Carlo}.
+\]
+
+\subsection{La nuova domanda finanziaria}
+
+Il sottostante \`e l'indice EURO STOXX 50. Il contratto ha scadenza
+
+\[
+T=1
+\]
+
+anno e strike
+
+\[
+K=6300.
+\]
+
+A differenza di una call europea, il payoff non dipende soltanto dal valore
+terminale \(S_T\).
+
+Sono previsti dodici fixing mensili,
+
+\[
+t_j=\frac{j}{12},
+\qquad
+j=1,\ldots,12,
+\]
+
+e viene calcolata la media aritmetica
+
+\[
+A_T
+=
+\frac{1}{12}
+\sum_{j=1}^{12}
+S_{t_j}.
+\]
+
+Il valore iniziale \(S_0\) non entra nella media.
+
+Il payoff terminale \`e
+
+\[
+H_T
+=
+\max(A_T-K,0).
+\]
+
+Il contratto \`e quindi path-dependent: due traiettorie con lo stesso valore
+terminale \(S_T\) possono produrre payoff differenti se hanno generato medie
+mensili differenti.
+
+\subsection{Le dinamiche dei fattori di rischio}
+
+Il livello dell'indice segue una dinamica di tipo GBM con tasso stocastico:
+
+\[
+dS_t
+=
+(r_t-q)S_t\,dt
++
+\sigma_S S_t\,dW_t^{(S)}.
+\]
+
+Il tasso nominale segue invece lo stesso modello CIR utilizzato nel Caso Aula:
+
+\[
+dr_t
+=
+\kappa_r(\theta_r-r_t)\,dt
++
+\sigma_r\sqrt{r_t}\,dW_t^{(r)}.
+\]
+
+Gli shock soddisfano
+
+\[
+dW_t^{(S)}\,dW_t^{(r)}
+=
+\rho\,dt,
+\]
+
+con
+
+\[
+\rho=-0.25.
+\]
+
+Operativamente, la dipendenza viene costruita mediante
+
+\[
+Z_{S,k}
+=
+Z_{1,k},
+\]
+
+\[
+Z_{r,k}
+=
+\rho Z_{1,k}
++
+\sqrt{1-\rho^2}\,Z_{2,k},
+\]
+
+a partire da due normali standard indipendenti.
+
+La struttura \`e quindi gi\`a nota: ci\`o che cambia sono il primo fattore di
+rischio e il ruolo che le sue traiettorie svolgono nel contratto.
+
+\subsection{Una griglia pi\`u fine e date contrattuali selezionate}
+
+La simulazione utilizza una griglia giornaliera con
+
+\[
+N=252,
+\qquad
+\Delta t=\frac{1}{252}.
+\]
+
+Le traiettorie contengono quindi 253 punti, incluso il valore iniziale.
+
+Poich\'e
+
+\[
+\frac{252}{12}=21,
+\]
+
+i dodici fixing mensili corrispondono ai passi
+
+\[
+21,42,\ldots,252.
+\]
+
+Anche in questo caso emerge la distinzione tra griglia di simulazione e date
+contrattuali.
+
+La dinamica dei processi viene ricostruita su tutti i passi giornalieri,
+mentre la media asiatica utilizza soltanto le dodici date di fixing.
+
+La matrice delle traiettorie di \(S_t\) deve quindi essere prima simulata
+sull'intera griglia e successivamente selezionata nelle colonne rilevanti per
+il contratto.
+
+\subsection{Dalle traiettorie alla media asiatica}
+
+Per ciascuno scenario \(s\), vengono estratti i dodici valori
+
+\[
+S_{t_1}^{(s)},
+S_{t_2}^{(s)},
+\ldots,
+S_{t_{12}}^{(s)}.
+\]
+
+La media del contratto \`e
+
+\[
+A_T^{(s)}
+=
+\frac{1}{12}
+\sum_{j=1}^{12}
+S_{t_j}^{(s)}.
+\]
+
+La costruzione della media avviene quindi lungo la dimensione temporale
+all'interno dello stesso scenario.
+
+Un controllo diretto \`e
+
+\[
+\min_j S_{t_j}^{(s)}
+\leq
+A_T^{(s)}
+\leq
+\max_j S_{t_j}^{(s)}.
+\]
+
+Se la media non appartiene all'intervallo delimitato dal minimo e dal massimo
+dei fixing dello stesso scenario, l'aggregazione temporale \`e stata costruita
+in modo errato.
+
+Il payoff diventa
+
+\[
+H_T^{(s)}
+=
+\max(A_T^{(s)}-K,0),
+\]
+
+e deve quindi soddisfare
+
+\[
+H_T^{(s)}\geq0.
+\]
+
+Inoltre,
+
+\[
+A_T^{(s)}\leq K
+\]
+
+deve implicare
+
+\[
+H_T^{(s)}=0.
+\]
+
+\subsection{Attualizzazione pathwise}
+
+Il tasso stocastico interviene attraverso il fattore di sconto:
+
+\[
+D^{(s)}(0,T)
+=
+\exp\left(
+-\int_0^T r_u^{(s)}\,du
+\right).
+\]
+
+Sulla griglia giornaliera,
+
+\[
+\int_0^T r_u^{(s)}\,du
+\approx
+\sum_{k=0}^{N-1}
+r_{t_k}^{(s)}\Delta t,
+\]
+
+e quindi
+
+\[
+\widehat D^{(s)}(0,T)
+=
+\exp\left(
+-
+\sum_{k=0}^{N-1}
+r_{t_k}^{(s)}\Delta t
+\right).
+\]
+
+Come nel Caso Aula, il fattore di sconto deve essere costruito utilizzando
+la traiettoria del tasso appartenente allo stesso scenario del payoff.
+
+Non sarebbe corretto sostituire questa operazione con il solo valore terminale
+\(r_T\) o con una media dei tassi calcolata trasversalmente tra scenari.
+
+Il valore attualizzato \`e
+
+\[
+V^{(s)}
+=
+\widehat D^{(s)}(0,T)
+H_T^{(s)}.
+\]
+
+\subsection{Dal valore per scenario alla stima Monte Carlo}
+
+Una volta ottenuti
+
+\[
+V^{(1)},V^{(2)},\ldots,V^{(M)},
+\]
+
+il prezzo viene stimato mediante
+
+\[
+\widehat V_M
+=
+\frac{1}{M}
+\sum_{s=1}^{M}
+V^{(s)}.
+\]
+
+L'errore standard \`e
+
+\[
+SE(\widehat V_M)
+=
+\frac{s_V}{\sqrt{M}}.
+\]
+
+La diagnostica gi\`a utilizzata nel Caso Aula viene trasferita senza
+modificarne la logica:
+
+\[
+M
+=
+1\,000,
+\quad
+5\,000,
+\quad
+10\,000,
+\quad
+50\,000,
+\]
+
+con confronto tra prezzo stimato ed errore standard e con verifica della
+stabilit\`a rispetto a una griglia temporale pi\`u fine.
+
+\subsection{Quantit\`a da interpretare}
+
+Il nuovo contratto richiede alcune quantit\`a specifiche.
+
+La probabilit\`a simulata di esercizio \`e
+
+\[
+\widehat{\Prob}(A_T>K)
+=
+\frac{1}{M}
+\sum_{s=1}^{M}
+\1_{\{A_T^{(s)}>K\}}.
+\]
+
+Il payoff medio non attualizzato \`e
+
+\[
+\overline H_T
+=
+\frac{1}{M}
+\sum_{s=1}^{M}
+H_T^{(s)}.
+\]
+
+Devono inoltre essere considerate media e deviazione standard simulate di
+
+\[
+S_T,
+\qquad
+r_T,
+\qquad
+A_T.
+\]
+
+Queste quantit\`a svolgono funzioni diverse. \(S_T\) e \(r_T\) descrivono i
+fattori terminali, \(A_T\) sintetizza la componente path-dependent del
+contratto, \(H_T\) ne determina il payoff e \(V^{(s)}\) incorpora infine
+l'attualizzazione.
+
+\subsection{Che cosa cambia e che cosa rimane}
+
+Il confronto tra i due casi pu\`o essere sintetizzato come segue:
+
+\[
+\begin{array}{c|c}
+\text{Caso Aula}
+&
+\text{Caso TakeHome}
+\\
+\hline
+\text{inflazione OU}
+&
+\text{indice azionario GBM}
+\\
+\text{tasso CIR}
+&
+\text{tasso CIR}
+\\
+J_t
+&
+A_T
+\\
+\text{cedole indicizzate}
+&
+\text{payoff asiatico}
+\\
+\text{rimborso con floor}
+&
+\max(A_T-K,0)
+\\
+\text{attualizzazione pathwise}
+&
+\text{attualizzazione pathwise}
+\\
+\text{pricing Monte Carlo}
+&
+\text{pricing Monte Carlo}
+\end{array}
+\]
+
+Cambiano quindi il contesto finanziario, la dinamica del primo fattore e la
+funzione che trasforma la traiettoria in payoff.
+
+Rimangono invece invariati gli elementi metodologici fondamentali:
+
+\[
+\text{organizzazione matriciale delle traiettorie},
+\]
+
+\[
+\text{shock correlati},
+\]
+
+\[
+\text{selezione delle date contrattuali},
+\]
+
+\[
+\text{costruzione pathwise delle quantit\`a finanziarie},
+\]
+
+\[
+\text{valore per scenario},
+\]
+
+\[
+\text{aggregazione Monte Carlo},
+\]
+
+e
+
+\[
+\text{controlli di coerenza e diagnostica numerica}.
+\]
+
+Il Caso TakeHome verifica quindi se il metodo appreso sia realmente
+trasferibile. La competenza richiesta non consiste nel riprodurre il notebook
+del Caso Aula modificandone alcuni nomi, ma nel riconoscere la stessa
+architettura quantitativa all'interno di un contratto finanziario differente.
+
+Anche in questo caso il prezzo ottenuto deve essere interpretato entro i
+limiti della specificazione assegnata: il contratto \`e stilizzato, alcuni
+parametri sono assegnati a fini modellistici o didattici e il risultato non
+costituisce una quotazione operativa di mercato.
+
+
+\section{Sintesi: dal modello al prezzo simulato}
+
+Questo capitolo ha trasformato gli strumenti teorici dei Capitoli 5 e 6 in
+una procedura operativa di simulazione e pricing.
+
+Il punto di partenza \`e costituito da un modello stocastico per i fattori di
+rischio. Il modello continuo viene rappresentato su una griglia temporale,
+alimentato mediante shock casuali e utilizzato per generare un insieme di
+traiettorie.
+
+La prima struttura fondamentale \`e quindi
+
+\[
+\text{modello}
+\longrightarrow
+\text{discretizzazione}
+\longrightarrow
+\text{shock}
+\longrightarrow
+\text{traiettorie}.
+\]
+
+Python permette di organizzare simultaneamente scenari e tempo mediante array
+e matrici, mantenendo riconoscibili le due dimensioni della simulazione.
+Indicizzazione, operazioni lungo gli assi e vettorizzazione non costituiscono
+quindi semplici strumenti sintattici: permettono di tradurre direttamente in
+forma computazionale la struttura del problema finanziario.
+
+La simulazione dei fattori non conclude tuttavia la valutazione.
+
+Le traiettorie devono essere trasformate nelle quantit\`a richieste dal
+contratto:
+
+\[
+\text{traiettorie}
+\longrightarrow
+\text{quantit\`a path-dependent}
+\longrightarrow
+\text{flussi o payoff}.
+\]
+
+Nel Caso Aula, le traiettorie di inflazione generano il coefficiente di
+indicizzazione, mentre quelle del tasso nominale determinano i fattori di
+sconto. Le due componenti vengono ricombinate scenario per scenario per
+ottenere
+
+\[
+V^{(s)}.
+\]
+
+Nel Caso TakeHome la stessa architettura viene trasferita a un contratto
+differente: la traiettoria dell'indice azionario determina una media asiatica
+e quindi il payoff, mentre la traiettoria del tasso continua a determinare
+l'attualizzazione.
+
+Il pricing Monte Carlo interviene soltanto dopo questa costruzione pathwise:
+
+\[
+\widehat V_M
+=
+\frac{1}{M}
+\sum_{s=1}^{M}
+V^{(s)}.
+\]
+
+La media finale non sostituisce quindi la struttura del modello, ma aggrega
+valori finanziari gi\`a costruiti correttamente all'interno dei singoli
+scenari.
+
+Una seconda idea centrale riguarda i controlli.
+
+La correttezza di una simulazione non pu\`o essere giudicata esclusivamente
+dal fatto che il codice venga eseguito o che il prezzo ottenuto appaia
+plausibile. Occorre verificare separatamente:
+
+\[
+\text{coerenza del modello},
+\]
+
+\[
+\text{coerenza finanziaria},
+\]
+
+e
+
+\[
+\text{qualit\`a numerica}.
+\]
+
+La correlazione degli shock, le propriet\`a delle traiettorie, la costruzione
+delle quantit\`a path-dependent, le identit\`a contabili del prezzo, l'errore
+standard Monte Carlo e la stabilit\`a rispetto alla griglia svolgono quindi
+funzioni complementari.
+
+In particolare, il capitolo ha distinto due problemi numerici che non devono
+essere confusi:
+
+\[
+\text{numero di traiettorie } M
+\]
+
+e
+
+\[
+\text{ampiezza della griglia } \Delta t.
+\]
+
+Il primo governa la precisione Monte Carlo; il secondo la qualit\`a della
+rappresentazione temporale dei processi e degli integrali. Migliorare uno dei
+due aspetti non elimina automaticamente l'altro.
+
+Il percorso completo del capitolo pu\`o essere infine sintetizzato come
+
+\[
+\begin{array}{c}
+\text{problema finanziario}
+\\[3pt]
+\downarrow
+\\[3pt]
 \text{modello stocastico}
 \\[3pt]
 \downarrow
 \\[3pt]
-\text{discretizzazione temporale}
+\text{rappresentazione numerica}
 \\[3pt]
 \downarrow
 \\[3pt]
-\text{shock simulati}
+\text{traiettorie simulate}
 \\[3pt]
 \downarrow
 \\[3pt]
-\text{traiettorie dei fattori}
-\\[3pt]
-\downarrow
-\\[3pt]
-\text{flussi o payoff per scenario}
+\text{quantit\`a finanziarie per scenario}
 \\[3pt]
 \downarrow
 \\[3pt]
@@ -275,20 +3463,20 @@ essere sintetizzato nella sequenza
 \\[3pt]
 \downarrow
 \\[3pt]
-\text{stima Monte Carlo}.
+\text{stima Monte Carlo}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{diagnostica e interpretazione}.
 \end{array}
 \]
 
-Questa catena costituisce la struttura computazionale specifica del capitolo.
-Il metodo generale con cui il problema viene analizzato, scomposto e
-controllato rimane invece quello introdotto nel Capitolo 4. Non vengono quindi
-ripresentati la funzione della Scheda Caso, i regimi di utilizzo
-dell'intelligenza artificiale o la struttura generale delle tappe del
-notebook. Tali elementi vengono assunti come gi\`a acquisiti.
+La competenza centrale acquisita non consiste quindi nel saper simulare uno
+specifico processo o valutare uno specifico contratto. Consiste nel saper
+riconoscere e costruire questa catena in problemi differenti, mantenendo
+coerenti modello, struttura temporale, dipendenze, trasformazioni finanziarie
+e controlli.
 
-Ci\`o che deve essere chiarito ora \`e come realizzare concretamente la
-catena precedente quando il numero delle traiettorie \`e elevato, i fattori di
-rischio sono pi\`u di uno e le quantit\`a finanziarie dipendono dall'intero
-percorso temporale. Il primo problema diventa quindi organizzare in Python una
-simulazione nella quale scenari e date siano rappresentati in modo coerente e
-possano essere utilizzati nelle successive operazioni di valutazione.
+Le traiettorie simulate diventano cos\`i il collegamento operativo tra la
+descrizione probabilistica dell'incertezza e la valutazione quantitativa dei
+contratti finanziari.
