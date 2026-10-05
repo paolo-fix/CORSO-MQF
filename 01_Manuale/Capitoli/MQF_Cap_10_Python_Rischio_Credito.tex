@@ -1,6 +1,11 @@
 % !TeX root = ../MQF_Manuale_Master.tex
 % Capitoli/MQF_Cap_10_Python_Pricing.tex
 
+
+
+% 0. Introduzione
+
+%latex
 \chapter[Python e rischio di credito]{Python e rischio di credito: simulazione di portafoglio e misure di rischio}
 
 \label{cap:python-rischio-credito}
@@ -14,34 +19,51 @@ quali VaR e CVaR.
 
 Questo capitolo compie il passaggio successivo: la dinamica markoviana viene
 simulata scenario per scenario, trasformata in perdite individuali e infine
-aggregata in una perdita di portafoglio.
+aggregata in una perdita di portafoglio. L'obiettivo non \`e quindi
+introdurre un nuovo modello di rischio di credito, ma rendere operativi gli
+strumenti gi\`a acquisiti e organizzarli in una procedura computazionale
+coerente.
 
-Il problema computazionale comprende due livelli. Un regime sistemico comune
-\(M_t\) evolve secondo una propria catena di Markov e determina, a ogni
-periodo, quale matrice governi le migrazioni creditizie \(X_{i,t}\) dei
-singoli debitori. I debitori sono assunti indipendenti condizionatamente alla
-traiettoria sistemica, ma risultano dipendenti incondizionatamente per effetto
-del fattore comune.
+Il problema comprende due livelli. Un regime sistemico comune $M_t$ evolve
+secondo una propria catena di Markov e determina, a ogni periodo, quale
+matrice governi le migrazioni creditizie $X_{i,t}$ dei singoli debitori. I
+debitori sono assunti indipendenti condizionatamente alla traiettoria
+sistemica, ma risultano dipendenti incondizionatamente per effetto del
+fattore comune.
 
 Il filo conduttore \`e un Caso Aula ispirato alla crisi di China Evergrande
 del 2021. Si considera un portafoglio di debitori cinesi esposto a un
-possibile deterioramento del contesto sistemico. La simulazione deve
-produrre congiuntamente traiettorie del regime, migrazioni creditizie,
-eventuali default e perdite monetarie.
+possibile deterioramento del contesto sistemico. La simulazione deve produrre
+congiuntamente traiettorie del regime, migrazioni creditizie, eventuali
+default e perdite monetarie.
 
 La catena quantitativa fondamentale \`e
 
-\[
-\text{regime sistemico}
-\longrightarrow
-\text{migrazioni creditizie}
-\longrightarrow
-\text{perdite individuali}
-\longrightarrow
-\text{perdita di portafoglio}
-\longrightarrow
-\text{VaR e CVaR}.
-\]
+%\[
+%\text{regime sistemico}\\
+%\downarrow\\
+%\text{migrazioni creditizie}\\
+%\downarrow\\
+%\text{perdite individuali}\\
+%\downarrow\\
+%\text{perdita di portafoglio}\\
+%\downarrow\\
+%\text{VaR e CVaR}.
+%\]
+
+
+\begin{gather*}
+\text{regime sistemico}\\
+\downarrow\\
+\text{migrazioni creditizie}\\
+\downarrow\\
+\text{perdite individuali}\\
+\downarrow\\
+\text{perdita di portafoglio}\\
+\downarrow\\
+\text{VaR e CVaR}
+\end{gather*}
+
 
 Il capitolo introduce inoltre un piccolo focus Python su condizioni booleane,
 maschere e selezione di sottocampioni. Questi strumenti permettono di
@@ -49,11 +71,21 @@ distinguere, all'interno della stessa simulazione, gli scenari nei quali il
 regime raggiunge almeno una volta lo stato di crisi da quelli nei quali tale
 evento non si verifica.
 
+La possibilit\`a di selezionare scenari secondo caratteristiche della
+traiettoria \`e particolarmente utile nel rischio di credito. Non interessa
+soltanto conoscere la distribuzione incondizionata della perdita, ma anche
+capire come essa cambi quando il sistema attraversa condizioni
+particolarmente avverse. La simulazione diventa cos\`i uno strumento per
+collegare l'evoluzione del fattore sistemico alla distribuzione delle perdite
+di portafoglio.
+
 Il Caso Aula comprende infine una decisione di gestione del rischio. Il
 portafoglio iniziale presenta una rilevante concentrazione su Evergrande;
 viene quindi costruita una configurazione alternativa che rispetta un limite
 massimo di esposizione individuale. Le due configurazioni vengono confrontate
-sugli stessi scenari Monte Carlo.
+sugli stessi scenari Monte Carlo, in modo che le differenze osservate siano
+attribuibili alla diversa allocazione del capitale e non alla generazione di
+campioni casuali differenti.
 
 Particolare attenzione sar\`a dedicata ai controlli. La corretta esecuzione
 del codice non garantisce infatti che la simulazione rispetti il modello:
@@ -65,15 +97,23 @@ Il metodo di lavoro rimane quello introdotto nel Capitolo 4: la Scheda Caso
 definisce la specifica del problema, il flusso logico-teorico precede il
 notebook e le tappe computazionali devono mantenere riconoscibili input,
 operazioni, output e controlli. Tali principi vengono qui assunti come
-acquisiti.
+acquisiti e non vengono riproposti sistematicamente.
 
 Il Caso TakeHome, ispirato a Lehman Brothers nel 2008, trasferisce la stessa
 architettura quantitativa a un portafoglio e a una funzione di perdita
-differenti. L'obiettivo complessivo del capitolo \`e quindi rendere operativo
-il passaggio dalla dinamica markoviana del credito alla misurazione e al
-confronto del rischio di portafoglio.
+differenti. Il confronto tra i due casi consentir\`a di distinguere la parte
+generale del metodo dagli elementi che dipendono invece dalla specifica del
+problema.
 
+L'obiettivo complessivo del capitolo \`e quindi rendere operativo il
+passaggio dalla dinamica markoviana del credito alla misurazione e al
+confronto del rischio di portafoglio, mantenendo sempre riconoscibile il
+legame tra ipotesi, simulazione, perdita e decisione finanziaria.
+%
 
+% 1. Python per selezionare scenari e sottocampioni
+
+%latex
 \section{Python per selezionare scenari e sottocampioni}
 
 Nel Capitolo 7 il lavoro computazionale richiedeva di organizzare molte
@@ -82,8 +122,8 @@ capitolo emerge una necessit\`a ulteriore: selezionare gli scenari che
 soddisfano una determinata condizione.
 
 Nel Caso Aula interessa distinguere le repliche nelle quali il regime
-sistemico raggiunge almeno una volta lo stato di crisi \(C\). Se la matrice
-\(M\) contiene sulle righe gli scenari e sulle colonne gli istanti temporali,
+sistemico raggiunge almeno una volta lo stato di crisi $C$. Se la matrice
+$M$ contiene sulle righe gli scenari e sulle colonne gli istanti temporali,
 l'espressione \texttt{M == C} produce una matrice booleana della stessa
 dimensione.
 
@@ -95,7 +135,7 @@ si utilizza
 \]
 
 L'operazione restituisce un vettore booleano di lunghezza
-\(N_{\mathrm{MC}}\). Il suo elemento \(s\)-esimo equivale all'indicatore
+$N_{\mathrm{MC}}$. Il suo elemento $s$-esimo equivale all'indicatore
 
 \[
 I_C^{(s)}
@@ -104,7 +144,9 @@ I_C^{(s)}
 \]
 
 La scelta di \texttt{axis=1} \`e essenziale: l'aggregazione avviene lungo il
-tempo all'interno di ciascuno scenario.
+tempo all'interno di ciascuno scenario. Utilizzare l'asse opposto
+risponderebbe a una domanda diversa, cio\`e se, a una determinata data,
+almeno uno scenario si trovi nello stato di crisi.
 
 Il vettore booleano pu\`o quindi essere utilizzato come maschera. Se
 \texttt{loss} contiene le perdite di portafoglio, \texttt{loss[I\_C]}
@@ -123,40 +165,54 @@ La stessa maschera consente di stimare la probabilit\`a empirica di ingresso
 in crisi:
 
 \[
-\widehat{\Prob}(\exists\,t:M_t=C)
+\widehat{\Pr}(\exists\,t:M_t=C)
 =
 \frac{1}{N_{\mathrm{MC}}}
 \sum_{s=1}^{N_{\mathrm{MC}}} I_C^{(s)}.
 \]
 
 In Python, poich\'e \texttt{True} e \texttt{False} possono essere
-interpretati come \(1\) e \(0\), la stessa quantit\`a coincide con la media
-del vettore booleano.
+interpretati come $1$ e $0$, la stessa quantit\`a coincide con la media del
+vettore booleano.
 
 La selezione avviene dopo la simulazione. Non vengono quindi generate
 separatamente una distribuzione ``di crisi'' e una distribuzione ``senza
 crisi'': entrambe derivano dalla classificazione degli stessi scenari Monte
 Carlo.
 
-Condizioni booleane, \texttt{np.any} e maschere costituiscono il linguaggio
-computazionale con cui, nel seguito, la dinamica sistemica verr\`a collegata
-all'analisi condizionata delle perdite.
+Questa distinzione \`e importante. Una maschera non modifica il processo che
+ha generato gli scenari e non introduce nuove ipotesi probabilistiche:
+seleziona soltanto un sottoinsieme del campione sulla base di un evento
+osservato nella traiettoria.
 
+Lo stesso principio pu\`o essere utilizzato per condizioni differenti. Una
+maschera potrebbe, ad esempio, selezionare scenari con almeno un determinato
+numero di default oppure scenari nei quali un debitore specifico raggiunga
+uno stato particolarmente deteriorato. Il meccanismo computazionale rimane
+lo stesso: una condizione logica viene trasformata in un vettore booleano e
+utilizzata per selezionare le osservazioni rilevanti.
 
+Condizioni booleane, \texttt{np.any} e maschere costituiscono quindi il
+linguaggio computazionale con cui, nel seguito, la dinamica sistemica verr\`a
+collegata all'analisi condizionata delle perdite.
+%
+
+% 2. Dal modello markoviano al problema computazionale
+
+%latex
 \section{Dal modello markoviano al problema computazionale}
 
 Il problema richiede di simulare contemporaneamente una dinamica sistemica
 comune e una pluralit\`a di dinamiche creditizie individuali.
 
-Indichiamo con \(M_t\) il regime sistemico e con \(X_{i,t}\) lo stato
-creditizio del debitore \(i\). Se \(Q\) \`e la matrice di transizione del
-regime,
+Indichiamo con $M_t$ il regime sistemico e con $X_{i,t}$ lo stato creditizio
+del debitore $i$. Se $Q$ \`e la matrice di transizione del regime,
 
 \[
 \Pr(M_{t+1}=m'\mid M_t=m)=q_{mm'}.
 \]
 
-A ogni regime \(m\) corrisponde inoltre una matrice creditizia \(P^{(m)}\),
+A ogni regime $m$ corrisponde inoltre una matrice creditizia $P^{(m)}$,
 cosicch\'e
 
 \[
@@ -173,17 +229,73 @@ P^{(M_t)}
 X_{i,t+1}.
 \]
 
-La stessa traiettoria sistemica viene utilizzata per tutti i debitori della
-medesima replica. Condizionatamente a tale traiettoria, le migrazioni
-individuali sono simulate indipendentemente; incondizionatamente, il fattore
-comune genera dipendenza di portafoglio.
+Il regime viene simulato una sola volta per ciascuna replica Monte Carlo e la
+stessa traiettoria sistemica viene utilizzata per tutti i debitori del
+portafoglio. Ci\`o distingue il fattore sistemico dagli shock idiosincratici
+che determinano le singole migrazioni.
 
-Se lo spazio creditizio comprende lo stato \(D\), il default deve essere
-assorbente: \(p_{DD}^{(m)}=1\) per ogni regime \(m\). Una volta raggiunto
-\(D\), il debitore vi rimane fino alla fine dell'orizzonte.
+Condizionatamente alla traiettoria
+$M_0,\ldots,M_{T-1}$, le migrazioni dei diversi debitori sono simulate
+indipendentemente. Questa indipendenza condizionata non implica tuttavia
+indipendenza delle perdite di portafoglio. Se la traiettoria sistemica entra
+in un regime avverso, tutti i debitori utilizzano nello stesso periodo una
+matrice di transizione pi\`u sfavorevole.
 
-Le traiettorie creditizie devono poi essere trasformate in perdite
-individuali \(L_i\), successivamente aggregate:
+La struttura pu\`o essere rappresentata come
+
+\[
+M_{\cdot}
+\longrightarrow
+\left\{
+X_{1,\cdot},
+X_{2,\cdot},
+\ldots,
+X_{n,\cdot}
+\right\}.
+\]
+
+Il fattore comune genera quindi dipendenza senza che sia necessario imporre
+direttamente una correlazione tra le estrazioni idiosincratiche dei singoli
+debitori.
+
+Questa struttura chiarisce anche la differenza tra rischio idiosincratico e
+rischio sistemico. Il primo deriva dalle specifiche migrazioni dei singoli
+debitori e tende, almeno in parte, a essere attenuato dalla diversificazione.
+Il secondo agisce contemporaneamente sull'intero portafoglio attraverso la
+matrice di transizione applicata nel periodo e non pu\`o essere eliminato
+semplicemente aumentando il numero di posizioni.
+
+Se lo spazio creditizio comprende lo stato $D$, il default deve essere
+assorbente: $p_{DD}^{(m)}=1$ per ogni regime $m$, mentre le probabilit\`a di
+uscita da $D$ devono essere nulle. Una volta raggiunto il default, il debitore
+vi rimane fino alla fine dell'orizzonte.
+
+Questa propriet\`a non deve esistere soltanto nella definizione teorica delle
+matrici. Deve essere preservata anche nella simulazione. Una traiettoria che,
+dopo aver raggiunto $D$, ritorni in uno stato creditizio non di default
+segnalerebbe un errore di implementazione.
+
+La simulazione degli stati non costituisce ancora l'output finanziario
+richiesto. A ogni traiettoria deve essere associata una perdita individuale
+$L_i$. Nel caso pi\`u semplice tale perdita pu\`o dipendere soltanto dallo
+stato iniziale e finale; in altri casi, come nel Caso Aula, occorre conoscere
+anche il momento del default e il regime sistemico nel quale esso si
+realizza.
+
+La trasformazione rilevante \`e pertanto
+
+\[
+X_{i,\cdot}
+\longrightarrow
+L_i.
+\]
+
+Il passaggio da stato a perdita svolge una funzione essenziale. Le catene di
+Markov descrivono infatti probabilit\`a e traiettorie di rating, mentre il
+problema di gestione del rischio richiede quantit\`a monetarie confrontabili
+tra debitori e aggregabili a livello di portafoglio.
+
+Le perdite individuali vengono quindi aggregate scenario per scenario:
 
 \[
 L^{P,(s)}
@@ -191,13 +303,21 @@ L^{P,(s)}
 \sum_{i=1}^{n}L_i^{(s)}.
 \]
 
-Le \(N_{\mathrm{MC}}\) repliche producono il campione
-\(L^{P,(1)},\ldots,L^{P,(N_{\mathrm{MC}})}\), dal quale vengono stimate media,
+Le $N_{\mathrm{MC}}$ repliche producono il campione
+$L^{P,(1)},\ldots,L^{P,(N_{\mathrm{MC}})}$, che rappresenta la distribuzione
+empirica della perdita di portafoglio e dal quale vengono stimate media,
 varianza, VaR e CVaR.
 
-Nel Caso Aula vengono inoltre confrontate due configurazioni del portafoglio.
-Per rendere informativa la differenza, esse devono utilizzare gli stessi
-scenari sistemici e creditizi. Per ogni replica si definisce quindi
+Il passaggio dalla distribuzione delle traiettorie a quella della perdita
+consente inoltre di mantenere separati due livelli di analisi. Il primo
+riguarda il funzionamento del modello creditizio: quali migrazioni e default
+si verificano? Il secondo riguarda la loro conseguenza finanziaria: quali
+perdite monetarie producono?
+
+Nel Caso Aula vengono inoltre confrontate due configurazioni dello stesso
+portafoglio. Per rendere informativa la differenza, esse devono essere
+valutate sugli stessi scenari sistemici e creditizi. Per ogni replica si
+definisce quindi
 
 \[
 \Delta L^{(s)}
@@ -206,6 +326,11 @@ L_{\mathrm{lim}}^{P,(s)}
 -
 L_{\mathrm{base}}^{P,(s)}.
 \]
+
+L'uso di scenari comuni evita che il confronto tra le configurazioni venga
+confuso con la variabilit\`a dovuta a due campioni Monte Carlo indipendenti.
+La differenza osservata nello scenario $s$ riflette cos\`i la diversa
+allocazione delle esposizioni nello stesso stato del mondo simulato.
 
 L'intera struttura computazionale pu\`o essere sintetizzata come
 
@@ -225,10 +350,15 @@ L^P
 \text{misure di rischio}.
 \]
 
-Il Caso Aula specifica ora stati, matrici, esposizioni e funzione di perdita
-necessari per rendere concreta questa architettura.
+Ogni freccia corrisponde a una trasformazione che deve essere sia
+concettualmente motivata sia verificabile nel notebook. Il Caso Aula
+specifica ora stati, matrici, esposizioni e funzione di perdita necessari
+per rendere concreta questa architettura.
+%
 
+% 3. Caso Aula: Evergrande 2021 — problema e modello
 
+%latex
 \section{Caso Aula: Evergrande 2021 --- problema e modello}
 
 Il Caso Aula considera un portafoglio di esposizioni verso debitori cinesi
@@ -236,8 +366,8 @@ nell'estate del 2021. Il problema \`e valutare come un deterioramento del
 contesto sistemico possa trasmettersi alle migrazioni creditizie, alle
 perdite e alle misure di rischio del portafoglio.
 
-Il portafoglio comprende \(36\) debitori e ha valore iniziale complessivo
-\(V_0^P=200\) milioni di dollari. La composizione \`e:
+Il portafoglio comprende $36$ debitori e ha valore iniziale complessivo
+$V_0^P=200$ milioni di dollari. La composizione \`e:
 
 \[
 \begin{array}{lcc}
@@ -255,12 +385,13 @@ Il portafoglio comprende \(36\) debitori e ha valore iniziale complessivo
 \end{array}
 \]
 
-Evergrande rappresenta quindi il \(15\%\) del capitale.
+Evergrande rappresenta quindi il $15\%$ del capitale. La rilevanza della
+posizione non deriva soltanto dal rating iniziale, ma anche dal peso elevato
+che essa assume rispetto al valore complessivo del portafoglio.
 
 Il regime sistemico segue una catena di Markov
-\(M_t\in\{N,S,C\}\), con \(M_0=S\), dove \(N\), \(S\) e \(C\)
-indicano rispettivamente normalizzazione, stress e crisi. La matrice
-trimestrale \`e
+$M_t\in\{N,S,C\}$, con $M_0=S$, dove $N$, $S$ e $C$ indicano
+rispettivamente normalizzazione, stress e crisi. La matrice trimestrale \`e
 
 \[
 Q=
@@ -274,12 +405,18 @@ Q=
 \]
 
 Gli stati creditizi sono
-\(X_{i,t}\in\{BBB,BB,B,CCC,D\}\), con \(D\) assorbente. Le migrazioni sono
-governate dalle matrici \(P^{(N)}\), \(P^{(S)}\) e \(P^{(C)}\), secondo
+$X_{i,t}\in\{BBB,BB,B,CCC,D\}$, con $D$ assorbente. Le migrazioni sono
+governate dalle matrici $P^{(N)}$, $P^{(S)}$ e $P^{(C)}$, secondo
 
 \[
 \Pr(X_{i,t+1}=j\mid X_{i,t}=k,M_t=m)=p_{kj}^{(m)}.
 \]
+
+Il regime sistemico non rappresenta quindi direttamente il rating dei
+debitori. Esso agisce sulla distribuzione delle transizioni individuali:
+uno stesso debitore, a parit\`a di rating corrente, pu\`o avere probabilit\`a
+future differenti a seconda che il sistema si trovi in normalizzazione,
+stress o crisi.
 
 Per i debitori che non entrano in default entro l'orizzonte, la perdita \`e
 
@@ -290,7 +427,11 @@ V_{i,0}\,
 \ell(X_{i,0},X_{i,4}).
 \]
 
-Il tasso \(\ell\) pu\`o essere negativo in caso di miglioramento del rating.
+Il tasso $\ell$ pu\`o essere negativo in caso di miglioramento del rating:
+in tal caso la quantit\`a definita come perdita rappresenta economicamente un
+guadagno di valore. La convenzione di segno permette quindi di trattare
+all'interno della stessa variabile deterioramenti e miglioramenti del merito
+creditizio.
 
 Per i debitori in default si definisce
 
@@ -301,11 +442,10 @@ Per i debitori in default si definisce
 \]
 
 Se il default avviene nella transizione che conduce a
-\(X_{i,\tau_i}=D\), la severit\`a dipende dal regime
-\(M_{\tau_i-1}\). Le LGD assegnate sono
-\(\operatorname{LGD}^{(N)}=0.55\),
-\(\operatorname{LGD}^{(S)}=0.70\) e
-\(\operatorname{LGD}^{(C)}=0.85\), con \(EAD_i=V_{i,0}\).
+$X_{i,\tau_i}=D$, la severit\`a dipende dal regime $M_{\tau_i-1}$.
+Le LGD assegnate sono $\operatorname{LGD}^{(N)}=0.55$,
+$\operatorname{LGD}^{(S)}=0.70$ e
+$\operatorname{LGD}^{(C)}=0.85$, con $EAD_i=V_{i,0}$.
 
 La perdita individuale \`e pertanto
 
@@ -323,38 +463,50 @@ V_{i,0}\operatorname{LGD}^{(M_{\tau_i-1})},
 \end{cases}
 \]
 
-La perdita di portafoglio \`e \(L^P=\sum_{i=1}^{36}L_i\).
+La perdita di portafoglio \`e $L^P=\sum_{i=1}^{36}L_i$.
 
 Il caso considera inoltre una policy che impone un peso massimo individuale
-del \(10\%\). L'esposizione verso Evergrande viene quindi ridotta da
-\(30\) a \(20\) milioni. I \(10\) milioni liberati vengono redistribuiti
-tra BBB e BB in proporzione agli investimenti iniziali, producendo i nuovi
-totali \(65.4545\) e \(54.5455\) milioni.
+del $10\%$. L'esposizione verso Evergrande viene quindi ridotta da $30$ a
+$20$ milioni. I $10$ milioni liberati vengono redistribuiti tra BBB e BB in
+proporzione agli investimenti iniziali, producendo i nuovi totali
+$65.4545$ e $54.5455$ milioni.
 
-Il capitale complessivo rimane pari a \(200\) milioni. Le due configurazioni
-vengono valutate sugli stessi scenari Monte Carlo.
+Il capitale complessivo rimane pari a $200$ milioni. La modifica altera la
+distribuzione delle esposizioni ma non il capitale investito, e le due
+configurazioni vengono valutate sugli stessi scenari Monte Carlo.
+
+La policy non modifica le matrici di transizione n\'e le traiettorie
+creditizie simulate. Cambiano esclusivamente i pesi monetari attribuiti alle
+posizioni. Questa separazione tra scenario creditizio e allocazione del
+capitale rende possibile attribuire le differenze di perdita alla modifica
+del portafoglio.
 
 L'orizzonte comprende quattro transizioni trimestrali; la simulazione
-principale utilizza \(N_{\mathrm{MC}}=50\,000\) repliche e seed \(2027\).
+principale utilizza $N_{\mathrm{MC}}=50\,000$ repliche e seed $2027$.
 
 Il caso ha finalit\`a didattiche: matrici, LGD, funzione di perdita e
 portafoglio sono assegnati come parte della specifica e non costituiscono una
-calibrazione del mercato cinese del 2021.
+calibrazione del mercato cinese del 2021. L'interesse riguarda la struttura
+del problema e il modo in cui essa viene trasformata in una procedura Monte
+Carlo verificabile.
+%
 
+% 4. Caso Aula: simulare regime sistemico e migrazioni creditizie
 
+%latex
 \section{Caso Aula: simulare regime sistemico e migrazioni creditizie}
 
 La simulazione procede in modo gerarchico. Per ogni replica Monte Carlo si
 genera dapprima la traiettoria sistemica; essa determina poi, trimestre per
-trimestre, la matrice utilizzata per le migrazioni dei \(36\) debitori.
+trimestre, la matrice utilizzata per le migrazioni dei $36$ debitori.
 
-Lo stato iniziale \`e deterministico: \(M_0=S\). Le traiettorie
-\(M_0^{(s)},\ldots,M_3^{(s)}\) possono essere raccolte in una matrice di
-dimensione \(N_{\mathrm{MC}}\times4\), con scenari sulle righe e tempo sulle
+Lo stato iniziale \`e deterministico: $M_0=S$. Le traiettorie
+$M_0^{(s)},\ldots,M_3^{(s)}$ possono essere raccolte in una matrice di
+dimensione $N_{\mathrm{MC}}\times4$, con scenari sulle righe e tempo sulle
 colonne.
 
-Il regime \(M_t\) governa la transizione creditizia
-\(X_{i,t}\to X_{i,t+1}\). La corrispondenza temporale \`e quindi
+Il regime $M_t$ governa la transizione creditizia
+$X_{i,t}\to X_{i,t+1}$. La corrispondenza temporale \`e quindi
 
 \[
 M_0\to X_{i,0}\to X_{i,1},
@@ -366,13 +518,30 @@ M_2\to X_{i,2}\to X_{i,3},
 M_3\to X_{i,3}\to X_{i,4}.
 \]
 
-Gli stati iniziali \(X_{i,0}\) sono deterministici e coincidono con la
+Questa indicizzazione non \`e un dettaglio di programmazione. Se la
+transizione $X_{i,t}\to X_{i,t+1}$ venisse associata a un regime differente
+da $M_t$, la simulazione produrrebbe comunque traiettorie numericamente
+valide, ma non quelle definite dal modello.
+
+Gli stati iniziali $X_{i,0}$ sono deterministici e coincidono con la
 composizione assegnata del portafoglio. L'incertezza riguarda soltanto le
 migrazioni successive.
 
-Se nello scenario \(s\) vale \(M_t^{(s)}=C\), tutti i debitori utilizzano in
-quella transizione la matrice \(P^{(C)}\). Le estrazioni idiosincratiche sono
-indipendenti condizionatamente alla traiettoria sistemica comune.
+Per simulare una transizione occorre leggere, per ciascun debitore, la riga
+della matrice $P^{(M_t)}$ corrispondente al suo stato corrente. Tale riga
+definisce una distribuzione categoriale sugli stati creditizi possibili al
+periodo successivo.
+
+Se nello scenario $s$ vale $M_t^{(s)}=C$, tutti i debitori utilizzano in
+quella transizione la matrice $P^{(C)}$. Le estrazioni idiosincratiche
+rimangono indipendenti condizionatamente alla traiettoria sistemica comune,
+ma il fatto che la stessa matrice venga applicata a tutti i debitori crea una
+fonte condivisa di deterioramento.
+
+In uno scenario caratterizzato da una permanenza prolungata nello stato di
+crisi, le matrici pi\`u sfavorevoli vengono applicate ripetutamente. Il
+modello pu\`o quindi generare cluster di deterioramenti e default senza
+introdurre correlazioni dirette tra le estrazioni dei singoli debitori.
 
 L'intero campione creditizio pu\`o essere interpretato come un oggetto con
 tre dimensioni:
@@ -385,33 +554,69 @@ tre dimensioni:
 \text{tempo}.
 \]
 
-Lo stato \(D\) deve rimanere assorbente. Una traiettoria come
-\(B\to CCC\to D\to D\to D\) \`e ammissibile; una sequenza che esca da \(D\)
-non lo \`e.
+Questa struttura \`e utile per leggere correttamente gli array: fissando uno
+scenario si osserva il portafoglio in un determinato stato del mondo;
+fissando un debitore si osservano le sue migrazioni attraverso gli scenari;
+fissando il tempo si confrontano gli stati creditizi alla stessa data.
+
+Il problema richiede quindi di mantenere separati tre indici che hanno
+significati economici differenti. Confondere l'asse dei debitori con quello
+temporale o con quello degli scenari non produce necessariamente un errore
+di sintassi, ma pu\`o generare una quantit\`a priva del significato
+finanziario desiderato.
+
+Lo stato $D$ deve rimanere assorbente. Una traiettoria come
+$B\to CCC\to D\to D\to D$ \`e compatibile con il modello, mentre una
+sequenza come $B\to D\to CCC$ non lo \`e.
+
+Il controllo dell'assorbimento deve essere effettuato direttamente sulle
+traiettorie simulate. Non basta sapere che, nella matrice teorica, la riga
+corrispondente a $D$ contiene probabilit\`a uno sul default e zero sugli
+altri stati: occorre verificare che l'implementazione mantenga effettivamente
+questa propriet\`a.
+
+Un secondo controllo riguarda la distribuzione empirica delle transizioni.
+Con un numero elevato di simulazioni, le frequenze osservate a partire da uno
+stesso stato e regime dovrebbero risultare compatibili con le probabilit\`a
+della corrispondente riga di $P^{(m)}$. Non \`e necessario attendersi
+uguaglianza esatta, ma deviazioni molto ampie possono segnalare un errore
+nella selezione delle righe o nella generazione categoriale.
 
 Dalle traiettorie sistemiche si costruisce inoltre l'indicatore
-\(I_C^{(s)}=\1_{\{\exists\,t:M_t^{(s)}=C\}}\), ottenibile in Python con
-\texttt{np.any(M == C, axis=1)}.
+$I_C^{(s)}=\1_{\{\exists\,t:M_t^{(s)}=C\}}$, ottenibile in Python con
+\texttt{np.any(M == C, axis=1)}. Tale indicatore verr\`a successivamente
+utilizzato per selezionare le perdite associate agli scenari di crisi.
 
 Prima di passare alle perdite devono essere verificati almeno quattro
-elementi: le righe di \(Q\) e delle matrici \(P^{(m)}\) devono sommare a
-uno; \(M_0=S\) deve valere in ogni replica; \(D\) deve essere assorbente; le
-dimensioni degli array devono essere coerenti con \(50\,000\) scenari,
-\(36\) debitori e \(5\) date creditizie.
+elementi: le righe di $Q$ e delle matrici $P^{(m)}$ devono sommare a uno;
+$M_0=S$ deve valere in ogni replica; $D$ deve essere assorbente; le
+dimensioni degli array devono essere coerenti con $50\,000$ scenari,
+$36$ debitori e $5$ date creditizie.
+
+\`E inoltre utile verificare che il seed assegnato renda riproducibile il
+campione principale. La riproducibilit\`a costituisce una propriet\`a
+operativa importante durante lo sviluppo del notebook, poich\'e permette di
+distinguere una modifica del codice da una semplice variazione del campione
+casuale.
 
 Superati questi controlli, le traiettorie possono essere trasformate in
-perdite monetarie.
+perdite monetarie. La simulazione degli stati rappresenta infatti soltanto
+la prima met\`a del problema: il passaggio successivo deve attribuire a ogni
+traiettoria un significato economico.
+%
 
+% 5. Caso Aula: dalle migrazioni alle perdite di portafoglio
 
+%latex
 \section{Caso Aula: dalle migrazioni alle perdite di portafoglio}
 
 Per ogni debitore la traiettoria
-\(X_{i,0}^{(s)},\ldots,X_{i,4}^{(s)}\) deve essere trasformata in una perdita
+$X_{i,0}^{(s)},\ldots,X_{i,4}^{(s)}$ deve essere trasformata in una perdita
 monetaria.
 
 Il primo passaggio consiste nell'individuare il tempo di primo default
-\(\tau_i\). Se il debitore sopravvive fino alla fine dell'orizzonte,
-\(\tau_i>4\), la perdita \`e
+$\tau_i$. Se il debitore sopravvive fino alla fine dell'orizzonte,
+$\tau_i>4$, la perdita \`e
 
 \[
 L_i^{(s)}
@@ -420,7 +625,18 @@ V_{i,0}\,
 \ell(X_{i,0},X_{i,4}^{(s)}).
 \]
 
-Se invece \(\tau_i^{(s)}\leq4\), la perdita dipende dalla LGD associata al
+La funzione $\ell$ traduce la migrazione tra rating iniziale e finale in un
+tasso di perdita. Se il debitore subisce un deterioramento, il tasso \`e
+positivo; in caso di upgrade pu\`o essere negativo. La stessa convenzione
+consente quindi di rappresentare con un'unica variabile sia perdite sia
+incrementi di valore.
+
+Il modello utilizza in questo caso soltanto rating iniziale e rating finale
+per i debitori sopravvissuti. Le migrazioni intermedie rimangono rilevanti
+per determinare la probabilit\`a con cui si raggiunge lo stato finale, ma non
+entrano direttamente nella funzione monetaria di perdita.
+
+Se invece $\tau_i^{(s)}\leq4$, la perdita dipende dalla LGD associata al
 regime vigente all'inizio della transizione di default:
 
 \[
@@ -431,8 +647,18 @@ V_{i,0}\,
 \]
 
 L'indicizzazione temporale \`e essenziale: se il default avviene nella
-transizione \(t\to t+1\), la severit\`a dipende da \(M_t\), non dal regime
+transizione $t\to t+1$, la severit\`a dipende da $M_t$, non dal regime
 successivo.
+
+Il Caso Aula distingue quindi due meccanismi economici. Per i debitori
+sopravvissuti la perdita riflette il cambiamento di merito creditizio; per i
+debitori in default la perdita viene determinata dall'esposizione e dalla
+severit\`a del default.
+
+Il ruolo del regime sistemico \`e pertanto duplice. Esso influenza la
+probabilit\`a che il debitore raggiunga il default attraverso la matrice di
+transizione e, quando il default si verifica, influenza anche la quota
+dell'esposizione che viene persa.
 
 Le perdite individuali vengono quindi aggregate scenario per scenario:
 
@@ -443,22 +669,41 @@ L^{P,(s)}
 \]
 
 Il vettore
-\(L^{P,(1)},\ldots,L^{P,(N_{\mathrm{MC}})}\) rappresenta la distribuzione
+$L^{P,(1)},\ldots,L^{P,(N_{\mathrm{MC}})}$ rappresenta la distribuzione
 empirica della perdita di portafoglio.
 
-Da tale campione vengono calcolate media, varianza e deviazione standard,
-oltre a \(\VaR_{0.95}\), \(\VaR_{0.99}\), \(\CVaR_{0.95}\) e
-\(\CVaR_{0.99}\).
+L'aggregazione conserva la dipendenza generata dal regime sistemico comune:
+le perdite dei diversi debitori vengono sommate all'interno dello stesso
+scenario e non provengono da repliche indipendenti tra loro.
+
+Questo punto \`e importante nell'interpretazione della coda. Uno scenario
+severo pu\`o produrre simultaneamente deterioramenti di molti debitori
+proprio perch\'e essi condividono la stessa traiettoria sistemica. La coda
+della perdita di portafoglio non deriva quindi soltanto da eventi estremi
+individuali, ma anche dalla loro possibile concentrazione nello stesso
+scenario macro-creditizio.
+
+Dal campione vengono calcolate media, varianza e deviazione standard, oltre a
+$\VaR_{0.95}$, $\VaR_{0.99}$, $\CVaR_{0.95}$ e $\CVaR_{0.99}$.
+
+Le unit\`a di misura aiutano a controllare l'intera costruzione. Se
+$V_{i,0}$ \`e espresso in milioni di dollari e $\ell$ e LGD sono tassi
+adimensionali, allora $L_i$ e $L^P$ sono espressi in milioni di dollari.
+Anche VaR, CVaR e deviazione standard hanno la stessa unit\`a monetaria,
+mentre la varianza \`e espressa in milioni di dollari al quadrato.
 
 Per il CVaR \`e importante rispettare la natura discreta del campione. Con
-\(N_{\mathrm{MC}}=50\,000\), la coda peggiore contiene \(2\,500\)
-osservazioni al livello \(95\%\) e \(500\) al livello \(99\%\). Mediare
-semplicemente tutte le perdite tali che \(L^P\geq\VaR_\alpha\) pu\`o infatti
-includere una quota superiore a \(1-\alpha\) quando molte osservazioni
-coincidono con il VaR.
+$N_{\mathrm{MC}}=50\,000$, la coda peggiore contiene $2\,500$ osservazioni
+al livello $95\%$ e $500$ al livello $99\%$. Mediare semplicemente tutte
+le perdite tali che $L^P\geq\VaR_\alpha$ pu\`o includere una quota superiore
+a $1-\alpha$ quando molte osservazioni coincidono con il VaR.
+
+La distinzione diventa rilevante soprattutto quando la distribuzione presenta
+masse concentrate, situazione naturale in modelli con stati discreti,
+esposizioni ripetute e funzioni di perdita definite per classi di rating.
 
 Le traiettorie consentono anche di calcolare il numero di default nello
-scenario \(s\),
+scenario $s$,
 
 \[
 N_D^{(s)}
@@ -469,24 +714,39 @@ N_D^{(s)}
 
 e quindi il numero medio di default sull'orizzonte.
 
+Questa statistica non coincide con la perdita media. Due scenari con lo
+stesso numero di default possono generare perdite molto diverse se
+coinvolgono debitori con esposizioni differenti o se i default avvengono
+sotto regimi con LGD differenti.
+
+Anche il contrario pu\`o verificarsi: uno scenario con pochi default ma su
+esposizioni molto elevate pu\`o produrre una perdita superiore a uno
+scenario con numerosi default di dimensione contenuta.
+
 Prima di interpretare le statistiche aggregate, \`e opportuno ricostruire
-alcune perdite individuali e verificare che, in ogni scenario,
-\(L^{P,(s)}=\sum_i L_i^{(s)}\).
+alcune perdite individuali. Per un debitore sopravvissuto deve risultare
+$L_i=V_{i,0}\ell(X_{i,0},X_{i,4})$; per un debitore in default deve essere
+possibile individuare $\tau_i$, leggere $M_{\tau_i-1}$ e ricostruire la
+perdita corrispondente.
 
-Le unit\`a di misura devono restare coerenti: perdite, VaR, CVaR e deviazione
-standard sono espressi in milioni di dollari; la varianza in milioni di
-dollari al quadrato.
+A livello di scenario deve infine valere
+$L^{P,(s)}=\sum_iL_i^{(s)}$. Questi controlli collegano direttamente le
+traiettorie simulate all'output finanziario del modello e preparano il
+confronto tra le due configurazioni del portafoglio.
+%
 
+% 6. Concentrazione, crisi sistemica e confronto tra portafogli
 
+%latex
 \section{Concentrazione, crisi sistemica e confronto tra portafogli}
 
 La distribuzione delle perdite permette ora di affrontare la domanda
 decisionale del Caso Aula: come cambia il rischio quando l'esposizione verso
-Evergrande viene ridotta dal \(15\%\) al \(10\%\) del capitale?
+Evergrande viene ridotta dal $15\%$ al $10\%$ del capitale?
 
 Le due configurazioni vengono valutate sulle stesse traiettorie sistemiche e
 creditizie. Per ogni replica si ottengono
-\(L_{\mathrm{base}}^{P,(s)}\) e \(L_{\mathrm{lim}}^{P,(s)}\), e si definisce
+$L_{\mathrm{base}}^{P,(s)}$ e $L_{\mathrm{lim}}^{P,(s)}$, e si definisce
 
 \[
 \Delta L^{(s)}
@@ -499,7 +759,7 @@ L_{\mathrm{base}}^{P,(s)}.
 Valori negativi indicano scenari nei quali il limite di concentrazione riduce
 la perdita; valori positivi indicano il contrario.
 
-Per una generica misura di rischio \(\rho\) si considera inoltre
+Per una generica misura di rischio $\rho$ si considera inoltre
 
 \[
 \Delta\rho
@@ -509,23 +769,49 @@ Per una generica misura di rischio \(\rho\) si considera inoltre
 \rho(L_{\mathrm{base}}^P).
 \]
 
-Nel campione principale la perdita media passa da circa \(26.23\) a
-\(24.91\) milioni di dollari, mentre il VaR al \(95\%\) passa da circa
-\(60.27\) a \(55.24\) milioni. Nel modello assegnato, la riduzione della
-concentrazione incide quindi pi\`u intensamente sulla coda che sulla sola
-perdita media.
+Il confronto delle misure aggregate e quello scenario per scenario
+rispondono a domande differenti. Il primo sintetizza come cambia il profilo
+complessivo di rischio; il secondo mostra in quali stati del mondo la
+riallocazione produce un beneficio e in quali, invece, una perdita maggiore.
 
-Questo miglioramento aggregato non implica tuttavia una dominanza scenario
-per scenario. Il capitale sottratto a Evergrande viene investito in altri
+Nel campione principale la perdita media passa da circa $26.23$ a $24.91$
+milioni di dollari, mentre il VaR al $95\%$ passa da circa $60.27$ a
+$55.24$ milioni. Nel modello assegnato, la riduzione della concentrazione
+incide quindi pi\`u intensamente sulla coda che sulla sola perdita media.
+
+Questo risultato \`e economicamente coerente con la natura della policy. Un
+limite di concentrazione non mira necessariamente a ridurre in modo uniforme
+la perdita in tutti gli scenari, ma soprattutto a contenere la vulnerabilit\`a
+del portafoglio quando una posizione di dimensione rilevante contribuisce
+agli esiti pi\`u severi.
+
+Il miglioramento aggregato non implica tuttavia una dominanza scenario per
+scenario. Il capitale sottratto a Evergrande viene investito in altri
 debitori: in alcuni stati del mondo pu\`o quindi risultare
-\(\Delta L^{(s)}>0\).
+$\Delta L^{(s)}>0$.
 
-La distribuzione di \(\Delta L\) fornisce perci\`o un'informazione pi\`u
-ricca del solo confronto tra medie.
+Si pensi, ad esempio, a uno scenario nel quale Evergrande non subisca un
+deterioramento significativo mentre alcuni dei debitori BBB o BB che hanno
+ricevuto capitale aggiuntivo migrino verso stati peggiori. In tale scenario,
+la configurazione soggetta al limite pu\`o produrre una perdita superiore a
+quella del portafoglio iniziale.
+
+La distribuzione di $\Delta L$ fornisce perci\`o un'informazione pi\`u ricca
+del solo confronto tra medie. Deve inoltre valere
+
+\[
+\widehat{\E}[\Delta L]
+=
+\widehat{\E}[L_{\mathrm{lim}}^P]
+-
+\widehat{\E}[L_{\mathrm{base}}^P],
+\]
+
+identit\`a che costituisce anche un utile controllo del confronto.
 
 Il regime sistemico permette poi di separare gli scenari di crisi da quelli
 senza crisi mediante l'indicatore
-\(I_C^{(s)}=\1_{\{\exists\,t:M_t^{(s)}=C\}}\). Sul portafoglio base si
+$I_C^{(s)}=\1_{\{\exists\,t:M_t^{(s)}=C\}}$. Sul portafoglio base si
 costruiscono quindi i sottocampioni
 
 \[
@@ -534,43 +820,87 @@ L_{\mathrm{base}}^P\mid\text{Crisi},
 L_{\mathrm{base}}^P\mid\text{No Crisi}.
 \]
 
-Nel Caso Aula l'ingresso in \(C\) pu\`o aumentare le perdite attraverso due
-canali: peggiora le probabilit\`a di migrazione e, in caso di default, porta
-la LGD al valore \(0.85\).
+Nel Caso Aula l'ingresso in $C$ pu\`o aumentare le perdite attraverso due
+canali distinti. Il primo riguarda le migrazioni: quando il regime \`e di
+crisi viene utilizzata la matrice $P^{(C)}$, che modifica le probabilit\`a
+di deterioramento e default. Il secondo riguarda la severit\`a: un default
+che avviene sotto $C$ utilizza $\operatorname{LGD}^{(C)}=0.85$, superiore
+alle LGD associate agli altri regimi.
 
-Il caso distingue cos\`i due fonti di rischio: il rischio sistemico,
-trasmesso dal regime comune, e il rischio di concentrazione, determinato
-dalla distribuzione delle esposizioni. La seconda componente pu\`o essere
-modificata dalla policy; la prima rimane presente.
+La distinzione tra crisi e non crisi permette quindi di osservare
+congiuntamente l'effetto delle probabilit\`a di migrazione e della severit\`a
+del default.
 
-Tre rappresentazioni sintetizzano il confronto: la distribuzione del
-portafoglio base con VaR al \(95\%\) e \(99\%\); il confronto delle code tra
-portafoglio base e portafoglio con limite; il confronto tra distribuzioni
-condizionate a crisi e non crisi.
+Il confronto condizionato non deve essere interpretato come un esperimento
+causale nel quale si modifica artificialmente il regime. Gli scenari vengono
+prima simulati secondo il modello e solo successivamente classificati in base
+alla presenza o assenza della crisi. Le differenze osservate descrivono quindi
+la struttura interna del modello simulato.
+
+Il caso separa cos\`i due fonti di rischio: il rischio sistemico, trasmesso
+dal regime comune, e il rischio di concentrazione, determinato dalla
+distribuzione delle esposizioni. La seconda componente pu\`o essere modificata
+dalla policy; la prima rimane presente anche nel portafoglio con limite.
+
+La diversificazione non elimina infatti la possibilit\`a che molti debitori
+subiscano contemporaneamente migrazioni sfavorevoli. Il fattore sistemico
+agisce su tutte le posizioni attraverso le stesse condizioni di transizione,
+e questa dipendenza rimane anche quando le esposizioni sono distribuite in
+modo pi\`u uniforme.
+
+Tre rappresentazioni sintetizzano il confronto. La prima mostra la
+distribuzione delle perdite del portafoglio base e la posizione dei VaR al
+$95\%$ e $99\%$. La seconda confronta le code delle distribuzioni base e
+limitata. La terza confronta le distribuzioni condizionate a crisi e non
+crisi.
+
+I tre grafici hanno funzioni differenti: il primo descrive il rischio del
+portafoglio originario, il secondo mette in evidenza l'effetto della policy
+sulla coda, il terzo isola la relazione tra regime sistemico e perdite.
+
+L'interpretazione deve combinare tabelle e grafici. Una diminuzione del VaR,
+ad esempio, acquisisce maggiore significato se il confronto delle
+distribuzioni mostra che la coda del portafoglio limitato si sposta
+effettivamente verso perdite inferiori.
 
 La decisione di concentrazione deve quindi essere valutata sull'intera
-distribuzione delle perdite, non su una singola statistica.
+distribuzione delle perdite, non su una singola statistica. Una riduzione
+della perdita media pu\`o essere rilevante, ma non esaurisce il problema se
+la decisione viene presa soprattutto per contenere gli scenari pi\`u severi.
+%
 
+% 7. Diagnostica e verifica critica della simulazione
 
+%latex
 \section{Diagnostica e verifica critica della simulazione}
 
 Una simulazione che produce tabelle e grafici plausibili non \`e
 necessariamente corretta. La verifica deve riguardare tre livelli:
 coerenza del modello, coerenza finanziaria e qualit\`a numerica.
 
-Sul piano probabilistico occorre verificare che \(Q\) e le matrici
-\(P^{(m)}\) siano stocastiche per riga, che il default sia assorbente e che
-la transizione \(X_{i,t}\to X_{i,t+1}\) utilizzi effettivamente il regime
-\(M_t\).
+Sul piano probabilistico occorre verificare che $Q$ e le matrici
+$P^{(m)}$ siano stocastiche per riga, che il default sia assorbente e che
+la transizione $X_{i,t}\to X_{i,t+1}$ utilizzi effettivamente il regime
+$M_t$.
 
 Per i debitori in default deve essere ricostruibile la sequenza
-\(M_{\tau_i-1}\to X_{i,\tau_i-1}\to D\to L_i\); per i sopravvissuti deve
-risultare \(L_i=V_{i,0}\ell(X_{i,0},X_{i,4})\).
+$M_{\tau_i-1}\to X_{i,\tau_i-1}\to D\to L_i$; per i sopravvissuti deve
+risultare $L_i=V_{i,0}\ell(X_{i,0},X_{i,4})$.
 
 A livello di portafoglio deve valere
-\(L^{P,(s)}=\sum_iL_i^{(s)}\). Un controllo utile deve dipendere dai dati
+$L^{P,(s)}=\sum_iL_i^{(s)}$. Un controllo utile deve dipendere dai dati
 prodotti dalla simulazione e poter fallire: impostare semplicemente una
 variabile di controllo uguale a \texttt{True} non costituisce una verifica.
+
+La differenza \`e sostanziale. Un controllo dichiarativo afferma che una
+propriet\`a dovrebbe valere; un controllo computazionale verifica se essa
+vale effettivamente sugli oggetti prodotti dal codice.
+
+Un buon controllo dovrebbe inoltre essere sufficientemente indipendente
+dall'operazione verificata. Se una quantit\`a viene costruita e controllata
+mediante esattamente la stessa istruzione, il controllo rischia di limitarsi
+a confermare la coerenza interna del codice senza mettere realmente alla
+prova il modello.
 
 Nel confronto tra portafogli occorre accertare che gli stessi scenari
 sistemici e creditizi siano riutilizzati nelle due configurazioni. Deve
@@ -584,21 +914,47 @@ inoltre risultare
 \widehat{\E}[L_{\mathrm{base}}^P].
 \]
 
-La coerenza dimensionale costituisce un ulteriore controllo: \(L_i\),
-\(L^P\), VaR, CVaR e deviazione standard sono espressi in milioni di
-dollari, mentre \(\Var(L^P)\) \`e espressa in milioni di dollari al
-quadrato.
+Anche la conservazione del capitale deve essere verificata direttamente:
+l'applicazione del limite a Evergrande e la redistribuzione tra BBB e BB non
+devono modificare il valore complessivo del portafoglio.
+
+La coerenza dimensionale costituisce un ulteriore controllo: $L_i$,
+$L^P$, VaR, CVaR e deviazione standard sono espressi in milioni di dollari,
+mentre $\Var(L^P)$ \`e espressa in milioni di dollari al quadrato. Un errore
+nelle unit\`a non modifica necessariamente il valore numerico, ma pu\`o
+segnalare una interpretazione scorretta dell'output.
 
 Per VaR e CVaR deve essere resa esplicita la convenzione empirica utilizzata.
-In particolare, il CVaR deve rappresentare la peggiore quota
-\(1-\alpha\) del campione, evitando di includere automaticamente tutte le
-osservazioni uguali al VaR quando ci\`o allargherebbe la coda oltre la quota
-richiesta.
+In particolare, il CVaR deve rappresentare la peggiore quota $1-\alpha$ del
+campione, evitando di includere automaticamente tutte le osservazioni uguali
+al VaR quando ci\`o allargherebbe la coda oltre la quota richiesta.
 
-Il seed \(2027\) rende replicabile il campione, ma riproducibilit\`a e
-stabilit\`a Monte Carlo sono concetti distinti. La seconda pu\`o essere
-valutata confrontando alcune statistiche ottenute con differenti numeri di
-repliche.
+Il problema \`e particolarmente rilevante in distribuzioni discrete o
+semi-discrete, nelle quali numerosi scenari possono produrre esattamente la
+stessa perdita. Una formula corretta nel caso continuo pu\`o quindi richiedere
+maggiore attenzione quando viene tradotta in un campione empirico.
+
+Il seed $2027$ rende replicabile il campione, ma riproducibilit\`a e
+stabilit\`a Monte Carlo sono concetti distinti. La riproducibilit\`a richiede
+che, a parit\`a di seed e procedura, si ottengano gli stessi numeri. La
+stabilit\`a riguarda invece la sensibilit\`a delle statistiche al numero e
+alla particolare realizzazione degli scenari.
+
+Una simulazione pu\`o quindi essere perfettamente riproducibile e al tempo
+stesso fornire una stima poco stabile di una misura di coda. Per questo
+motivo \`e utile confrontare almeno alcune statistiche, come media e VaR,
+utilizzando campioni Monte Carlo di dimensione diversa.
+
+In generale, le statistiche centrali tendono a stabilizzarsi pi\`u
+rapidamente delle quantit\`a di coda. VaR e soprattutto CVaR a livelli
+elevati utilizzano una porzione limitata del campione e possono quindi
+mostrare maggiore sensibilit\`a alla dimensione della simulazione.
+
+La diagnostica deve inoltre distinguere un risultato sorprendente da un
+risultato errato. Se, ad esempio, una policy di diversificazione aumenta una
+determinata misura di rischio, non \`e corretto concludere automaticamente che
+il codice sia sbagliato. Occorre prima verificare se il risultato possa
+derivare dalla specifica economica della riallocazione.
 
 Infine, numeri, tabelle e commenti devono essere coerenti tra loro. La catena
 
@@ -614,27 +970,58 @@ Infine, numeri, tabelle e commenti devono essere coerenti tra loro. La catena
 
 deve poter essere ricostruita senza contraddizioni.
 
+Una tabella riportata manualmente pu\`o diventare incoerente con il notebook
+dopo una modifica del codice; analogamente, un commento scritto su una
+versione precedente dei risultati pu\`o contraddire gli output aggiornati.
+Quando possibile, \`e quindi preferibile generare le tabelle direttamente
+dagli oggetti calcolati.
+
 Nel Regime C l'intelligenza artificiale pu\`o essere utilizzata per
 investigare una criticit\`a specifica, ma la risposta ricevuta deve essere
 nuovamente confrontata con Scheda Caso, modello, codice e output. Una diagnosi
 plausibile non sostituisce la verifica.
 
+Il ciclo corretto \`e
+
+\[
+\text{criticità}
+\longrightarrow
+\text{verifica}
+\longrightarrow
+\text{correzione}
+\longrightarrow
+\text{nuova esecuzione}
+\longrightarrow
+\text{nuovo controllo}.
+\]
+
+La verifica si conclude soltanto quando il risultato corretto compare
+effettivamente nel notebook e rimane coerente con le ipotesi del caso.
+
+L'uso dell'IA non elimina quindi la responsabilit\`a quantitativa dello
+studente. Il valore del supporto consiste nel suggerire controlli, formulare
+ipotesi diagnostiche o evidenziare incoerenze; la validazione finale deve
+sempre tornare agli oggetti osservabili del problema.
+
 Solo dopo questi controlli le differenze tra portafogli e tra scenari
 sistemici possono essere interpretate come risultati del modello.
+%
 
+% 8. Caso TakeHome: Lehman Brothers 2008
 
+%latex
 \section{Caso TakeHome: Lehman Brothers 2008}
 
 Il Caso TakeHome trasferisce la struttura sviluppata nel Caso Aula a un
 portafoglio creditizio differente, collocato nel contesto del 2008.
 
-Il portafoglio comprende \(40\) debitori e ha valore complessivo
-\(V_0^P=173\) milioni di dollari. Lehman Brothers ha rating iniziale \(A\)
-ed esposizione pari a \(25\) milioni. Gli altri gruppi comprendono \(55\)
-milioni in altri debitori \(A\), \(56\) in BBB, \(27\) in BB e \(10\) in B.
+Il portafoglio comprende $40$ debitori e ha valore complessivo
+$V_0^P=173$ milioni di dollari. Lehman Brothers ha rating iniziale $A$ ed
+esposizione pari a $25$ milioni. Gli altri gruppi comprendono $55$ milioni
+in altri debitori $A$, $56$ in BBB, $27$ in BB e $10$ in B.
 
 Il regime sistemico segue una catena
-\(M_t\in\{O,S,C\}\), con \(M_0=S\), e matrice
+$M_t\in\{O,S,C\}$, con $M_0=S$, e matrice
 
 \[
 Q=
@@ -648,10 +1035,15 @@ Q=
 \]
 
 Gli stati creditizi sono
-\(X_{i,t}\in\{A,BBB,BB,B,D\}\), con \(D\) assorbente, e le migrazioni sono
-governate dalle matrici \(P^{(O)}\), \(P^{(S)}\) e \(P^{(C)}\).
+$X_{i,t}\in\{A,BBB,BB,B,D\}$, con $D$ assorbente, e le migrazioni sono
+governate dalle matrici $P^{(O)}$, $P^{(S)}$ e $P^{(C)}$.
 
-Rispetto al Caso Aula cambia la funzione di perdita. Nel TakeHome vale
+Rimane quindi invariato il nucleo computazionale del Caso Aula: prima si
+simula la traiettoria sistemica, poi si seleziona la matrice creditizia
+coerente con il regime e infine si generano le migrazioni dei singoli
+debitori.
+
+Rispetto al Caso Aula cambia invece la funzione di perdita. Nel TakeHome vale
 
 \[
 L_i
@@ -660,13 +1052,23 @@ V_{i,0}\,
 \ell(X_{i,0},X_{i,4}),
 \]
 
-con \(EAD_i=V_{i,0}\) e \(LGD=0.65\) in caso di stato terminale \(D\).
+con $EAD_i=V_{i,0}$ e $LGD=0.65$ in caso di stato terminale $D$.
 Poich\'e il default \`e assorbente e la LGD non dipende dal regime, non \`e
 necessario conoscere il trimestre del primo default per determinare la
 perdita monetaria.
 
-Il controfattuale elimina Lehman e redistribuisce i suoi \(25\) milioni sui
-restanti \(39\) debitori in proporzione alle esposizioni iniziali:
+La differenza rispetto a Evergrande pu\`o essere sintetizzata cos\`i. Nel
+Caso Aula il tempo di default serve per individuare il regime sistemico che
+determina la LGD; nel TakeHome la perdita di default dipende soltanto dal
+fatto che lo stato terminale sia $D$.
+
+La traiettoria multi-periodale rimane comunque necessaria. Anche se la
+funzione di perdita utilizza lo stato finale, tale stato deriva dalla
+successione delle matrici regime-dipendenti attraversate nei quattro
+trimestri.
+
+Il controfattuale elimina Lehman e redistribuisce i suoi $25$ milioni sui
+restanti $39$ debitori in proporzione alle esposizioni iniziali:
 
 \[
 V_{i,0}^{\mathrm{div}}
@@ -676,12 +1078,12 @@ V_{i,0}\frac{173}{148},
 i\neq\mathrm{Lehman}.
 \]
 
-Il capitale complessivo rimane quindi pari a \(173\) milioni.
+Il capitale complessivo rimane quindi pari a $173$ milioni.
 
-Le due configurazioni sono confrontate sugli stessi scenari per i \(39\)
+Le due configurazioni sono confrontate sugli stessi scenari per i $39$
 debitori comuni. Si ottengono
-\(L_{\mathrm{conc}}^{P,(s)}\) e
-\(L_{\mathrm{div}}^{P,(s)}\), con
+$L_{\mathrm{conc}}^{P,(s)}$ e
+$L_{\mathrm{div}}^{P,(s)}$, con
 
 \[
 \Delta L^{(s)}
@@ -697,25 +1099,52 @@ classi BBB, BB e B. Cambiano quindi contemporaneamente concentrazione per
 debitore e composizione del portafoglio per rating.
 
 Il confronto non misura perci\`o un puro effetto di diversificazione, ma
-l'effetto complessivo della strategia controfattuale assegnata. In
-particolare, la conservazione del capitale non implica uguaglianza della
-perdita attesa.
+l'effetto complessivo della strategia controfattuale assegnata.
+
+La conservazione del capitale non implica inoltre uguaglianza della perdita
+attesa. Due portafogli con lo stesso capitale iniziale possono avere perdite
+attese differenti se allocano tale capitale tra debitori con rating iniziali
+e probabilit\`a di migrazione differenti.
+
+Questo punto \`e particolarmente importante nella lettura degli output. Se il
+portafoglio controfattuale presenta una perdita media o una misura di coda
+superiore a quella del portafoglio iniziale, il risultato non deve essere
+considerato automaticamente contraddittorio. Pu\`o riflettere il fatto che il
+capitale sottratto a un debitore $A$ sia stato riallocato anche verso classi
+creditizie pi\`u rischiose.
 
 Anche nel TakeHome vengono costruiti i sottocampioni
-\(L_{\mathrm{conc}}^P\mid\text{Crisi}\) e
-\(L_{\mathrm{conc}}^P\mid\text{No Crisi}\). In questo caso la differenza
+$L_{\mathrm{conc}}^P\mid\text{Crisi}$ e
+$L_{\mathrm{conc}}^P\mid\text{No Crisi}$. In questo caso la differenza
 deriva dalle matrici di migrazione regime-dipendenti, non dalla LGD, che
 rimane costante.
 
-La simulazione principale utilizza \(N_{\mathrm{MC}}=50\,000\) repliche e
-seed \(2026\). Devono essere trasferiti gli stessi controlli strutturali,
+La struttura permette quindi di isolare meglio uno dei due canali presenti
+nel Caso Aula. Il regime sistemico modifica le probabilit\`a di migrazione,
+ma non la severit\`a monetaria assegnata al default.
+
+La simulazione principale utilizza $N_{\mathrm{MC}}=50\,000$ repliche e
+seed $2026$. Devono essere trasferiti gli stessi controlli strutturali,
 finanziari e numerici sviluppati nel Caso Aula.
 
-Il principio didattico centrale \`e trasferire il metodo, non la conclusione:
-una strategia che riduce la concentrazione in un caso non deve essere
-automaticamente considerata migliorativa in un altro.
+Il trasferimento riguarda in particolare l'assorbimento del default,
+l'allineamento tra regime e migrazione, il riuso degli scenari comuni, la
+costruzione coerente del CVaR e il confronto tra output, tabelle e
+interpretazioni.
 
+Il principio didattico centrale \`e trasferire il metodo, non la conclusione.
+Dal Caso Aula si trasferiscono struttura markoviana, uso di scenari comuni,
+aggregazione delle perdite, misure di rischio e diagnostica; non si trasferisce
+automaticamente il segno dell'effetto economico della riallocazione.
 
+Una strategia che riduce la concentrazione in un caso non deve quindi essere
+considerata a priori migliorativa in un altro. Il risultato deve emergere
+dalla distribuzione simulata e dalla specifica concreta del portafoglio.
+%
+
+% 9. Sintesi del capitolo
+
+%latex
 \section{Sintesi del capitolo}
 
 Il capitolo ha trasformato gli strumenti dei Capitoli 8 e 9 in una procedura
@@ -743,10 +1172,14 @@ migrazione sia la LGD applicata al default. La dipendenza tra debitori nasce
 dal fattore sistemico comune: le migrazioni sono indipendenti
 condizionatamente alla sua traiettoria, ma non incondizionatamente.
 
+La simulazione rende quindi operativo un punto teorico importante: una
+dipendenza di portafoglio pu\`o emergere da un fattore comune anche quando le
+componenti idiosincratiche vengono simulate indipendentemente.
+
 Sul piano computazionale, condizioni booleane e maschere permettono di
 selezionare gli scenari nei quali il sistema raggiunge lo stato di crisi e
-di confrontare \(L^P\mid\text{Crisi}\) con
-\(L^P\mid\text{No Crisi}\) senza generare nuove simulazioni.
+di confrontare $L^P\mid\text{Crisi}$ con $L^P\mid\text{No Crisi}$ senza
+generare nuove simulazioni.
 
 Il confronto tra portafoglio base e portafoglio con limite di concentrazione
 utilizza gli stessi scenari e produce la distribuzione
@@ -764,12 +1197,19 @@ VaR e CVaR, ma anche come il suo effetto varia attraverso gli scenari.
 
 Il Caso Aula distingue inoltre rischio sistemico e rischio di concentrazione:
 la policy modifica le esposizioni individuali, ma non elimina la dipendenza
-generata dal regime comune.
+generata dal regime comune. Una maggiore diversificazione pu\`o attenuare
+l'impatto di una singola posizione senza neutralizzare gli shock che
+interessano contemporaneamente l'intero portafoglio.
 
 La diagnostica ha mostrato che l'esecuzione senza errori non basta. Devono
 essere verificati coerenza delle matrici, assorbimento del default,
 allineamento temporale, costruzione delle perdite, riuso degli scenari,
 unit\`a di misura, misure di coda e coerenza tra output e interpretazione.
+
+Riproducibilit\`a, stabilit\`a Monte Carlo e validit\`a del modello
+rappresentano inoltre problemi distinti. Un risultato pu\`o essere
+perfettamente replicabile e tuttavia poco stabile oppure derivare da una
+implementazione coerente di una specifica interpretata in modo errato.
 
 Il Caso TakeHome Lehman trasferisce la stessa architettura a una specifica
 differente. La LGD diventa costante e il controfattuale modifica
@@ -801,3 +1241,13 @@ Python rende operativo il modello; la funzione di perdita attribuisce
 significato finanziario alle traiettorie; le misure di rischio sintetizzano
 la distribuzione; i controlli stabiliscono infine se i risultati possano
 essere interpretati coerentemente con le ipotesi assegnate.
+
+Il passaggio dal Caso Aula al Caso TakeHome completa il percorso applicativo:
+ci\`o che deve essere trasferito non \`e il risultato numerico di una
+specifica simulazione, ma la struttura del ragionamento che collega modello,
+implementazione, output e interpretazione.
+
+In questo senso, la simulazione Monte Carlo non rappresenta il punto di
+arrivo del problema quantitativo, ma lo strumento che consente di collegare
+in modo verificabile una specifica probabilistica a una decisione di rischio.
+%
