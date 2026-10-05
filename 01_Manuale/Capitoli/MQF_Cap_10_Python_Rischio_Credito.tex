@@ -433,7 +433,7 @@ guadagno di valore. La convenzione di segno permette quindi di trattare
 all'interno della stessa variabile deterioramenti e miglioramenti del merito
 creditizio.
 
-Per i debitori in default si definisce
+Per i debitori in default, si definisce
 
 \[
 \tau_i
@@ -443,6 +443,14 @@ Per i debitori in default si definisce
 
 Se il default avviene nella transizione che conduce a
 $X_{i,\tau_i}=D$, la severit\`a dipende dal regime $M_{\tau_i-1}$.
+
+La \emph{Exposure at Default} (EAD) rappresenta l'esposizione monetaria
+sulla quale viene calcolata la perdita in caso di default; nel caso
+assegnato si assume $EAD_i=V_{i,0}$. La \emph{Loss Given Default} (LGD)
+rappresenta invece la quota dell'EAD che viene effettivamente perduta in
+caso di default.
+
+
 Le LGD assegnate sono $\operatorname{LGD}^{(N)}=0.55$,
 $\operatorname{LGD}^{(S)}=0.70$ e
 $\operatorname{LGD}^{(C)}=0.85$, con $EAD_i=V_{i,0}$.
@@ -496,7 +504,7 @@ Carlo verificabile.
 %latex
 \section{Caso Aula: simulare regime sistemico e migrazioni creditizie}
 
-La simulazione procede in modo gerarchico. Per ogni replica Monte Carlo si
+La simulazione procede in modo gerarchico. Per ogni replica Monte Carlo, si
 genera dapprima la traiettoria sistemica; essa determina poi, trimestre per
 trimestre, la matrice utilizzata per le migrazioni dei $36$ debitori.
 
@@ -512,7 +520,8 @@ $X_{i,t}\to X_{i,t+1}$. La corrispondenza temporale \`e quindi
 M_0\to X_{i,0}\to X_{i,1},
 \quad
 M_1\to X_{i,1}\to X_{i,2},
-\quad
+\]
+\[
 M_2\to X_{i,2}\to X_{i,3},
 \quad
 M_3\to X_{i,3}\to X_{i,4}.
@@ -527,7 +536,7 @@ Gli stati iniziali $X_{i,0}$ sono deterministici e coincidono con la
 composizione assegnata del portafoglio. L'incertezza riguarda soltanto le
 migrazioni successive.
 
-Per simulare una transizione occorre leggere, per ciascun debitore, la riga
+Per simulare una transizione, occorre leggere, per ciascun debitore, la riga
 della matrice $P^{(M_t)}$ corrispondente al suo stato corrente. Tale riga
 definisce una distribuzione categoriale sugli stati creditizi possibili al
 periodo successivo.
@@ -582,12 +591,12 @@ della corrispondente riga di $P^{(m)}$. Non \`e necessario attendersi
 uguaglianza esatta, ma deviazioni molto ampie possono segnalare un errore
 nella selezione delle righe o nella generazione categoriale.
 
-Dalle traiettorie sistemiche si costruisce inoltre l'indicatore
+Dalle traiettorie sistemiche, si costruisce inoltre l'indicatore
 $I_C^{(s)}=\1_{\{\exists\,t:M_t^{(s)}=C\}}$, ottenibile in Python con
 \texttt{np.any(M == C, axis=1)}. Tale indicatore verr\`a successivamente
 utilizzato per selezionare le perdite associate agli scenari di crisi.
 
-Prima di passare alle perdite devono essere verificati almeno quattro
+Prima di passare alle perdite, devono essere verificati almeno quattro
 elementi: le righe di $Q$ e delle matrici $P^{(m)}$ devono sommare a uno;
 $M_0=S$ deve valere in ogni replica; $D$ deve essere assorbente; le
 dimensioni degli array devono essere coerenti con $50\,000$ scenari,
@@ -610,7 +619,7 @@ traiettoria un significato economico.
 %latex
 \section{Caso Aula: dalle migrazioni alle perdite di portafoglio}
 
-Per ogni debitore la traiettoria
+Per ogni debitore, la traiettoria
 $X_{i,0}^{(s)},\ldots,X_{i,4}^{(s)}$ deve essere trasformata in una perdita
 monetaria.
 
