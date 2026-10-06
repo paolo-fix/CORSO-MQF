@@ -935,7 +935,7 @@ L_{\mathrm{lim}}^{P,(s)}
 L_{\mathrm{base}}^{P,(s)}
 \]
 
-deve risultare
+\noindent deve risultare
 
 \[
 \widehat{\E}[\Delta L]
@@ -978,7 +978,7 @@ sequenza
 \text{commento}
 \]
 
-deve rimanere verificabile. Tabelle riportate manualmente o commenti riferiti
+\noindent deve rimanere verificabile. Tabelle riportate manualmente o commenti riferiti
 a versioni precedenti del notebook possono infatti diventare incoerenti con
 gli output effettivamente prodotti.
 
@@ -994,17 +994,17 @@ investigare una criticit\`a specifica, ma la diagnosi proposta deve essere
 verificata nuovamente su Scheda Caso, modello, codice e output. Il ciclo
 corretto \`e
 
-\[
-\text{criticità}
-\longrightarrow
-\text{verifica}
-\longrightarrow
-\text{correzione}
-\longrightarrow
-\text{nuova esecuzione}
-\longrightarrow
+\begin{gather*}
+\text{criticit\`a}\\
+\downarrow\\
+\text{verifica}\\
+\downarrow\\
+\text{correzione}\\
+\downarrow\\
+\text{nuova esecuzione}\\
+\downarrow\\
 \text{nuovo controllo}.
-\]
+\end{gather*}
 
 La verifica si conclude soltanto quando il risultato corretto compare
 effettivamente nel notebook e rimane coerente con le ipotesi assegnate.
@@ -1128,7 +1128,7 @@ creditizie pi\`u rischiose.
 
 Anche nel TakeHome vengono costruiti i sottocampioni
 $L_{\mathrm{conc}}^P\mid\text{Crisi}$ e
-$L_{\mathrm{conc}}^P\mid\text{No Crisi}$. In questo caso la differenza
+$L_{\mathrm{conc}}^P\mid\text{No Crisi}$. In questo caso, la differenza
 deriva dalle matrici di migrazione regime-dipendenti, non dalla LGD, che
 rimane costante.
 
@@ -1168,19 +1168,27 @@ transizione utilizzata per le migrazioni dei debitori. Le traiettorie
 creditizie vengono quindi trasformate in perdite individuali e aggregate in
 una perdita di portafoglio:
 
-\[
+$$
 \text{regime sistemico}
-\longrightarrow
+\\
+\downarrow
+\\
 \text{migrazioni}
-\longrightarrow
+\\
+\downarrow
+\\
 \text{perdite individuali}
-\longrightarrow
+\\
+\downarrow
+\\
 L^P
-\longrightarrow
+\\
+\downarrow
+\\
 \text{misure di rischio}.
-\]
+$$
 
-Nel Caso Aula Evergrande il regime influenza sia le probabilit\`a di
+Nel Caso Aula Evergrande, il regime influenza sia le probabilit\`a di
 migrazione sia la LGD applicata al default. La dipendenza tra debitori nasce
 dal fattore sistemico comune: le migrazioni sono indipendenti
 condizionatamente alla sua traiettoria, ma non incondizionatamente.
@@ -1232,23 +1240,21 @@ automaticamente.
 
 Il percorso complessivo \`e quindi
 
-\[
-\boxed{
-\text{modello markoviano}
-\longrightarrow
-\text{simulazione}
-\longrightarrow
-\text{perdita}
-\longrightarrow
-\text{distribuzione}
-\longrightarrow
-\text{misure di rischio}
-\longrightarrow
-\text{decisione}
-\longrightarrow
+\begin{gather*}
+\text{modello markoviano} \\
+\downarrow \\
+\text{simulazione} \\
+\downarrow \\
+\text{perdita} \\
+\downarrow \\
+\text{distribuzione} \\
+\downarrow \\
+\text{misure di rischio} \\
+\downarrow \\
+\text{decisione} \\
+\downarrow \\
 \text{verifica}
-}
-\]
+\end{gather*}
 
 Python rende operativo il modello; la funzione di perdita attribuisce
 significato finanziario alle traiettorie; le misure di rischio sintetizzano
