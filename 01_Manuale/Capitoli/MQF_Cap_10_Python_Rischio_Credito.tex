@@ -882,36 +882,60 @@ la decisione viene presa soprattutto per contenere gli scenari pi\`u severi.
 \section{Diagnostica e verifica critica della simulazione}
 
 Una simulazione che produce tabelle e grafici plausibili non \`e
-necessariamente corretta. La verifica deve riguardare tre livelli:
-coerenza del modello, coerenza finanziaria e qualit\`a numerica.
+necessariamente corretta. La verifica deve seguire l'intera catena che
+conduce dal modello agli output finanziari, distinguendo coerenza
+strutturale, coerenza delle perdite, qualit\`a del confronto e affidabilit\`a
+numerica.
 
-Sul piano probabilistico, occorre verificare che $Q$ e le matrici
-$P^{(m)}$ siano stocastiche per riga, che il default sia assorbente e che
-la transizione $X_{i,t}\to X_{i,t+1}$ utilizzi effettivamente il regime
-$M_t$.
+Un primo livello riguarda il rispetto del modello probabilistico. Le righe
+di $Q$ e delle matrici $P^{(m)}$ devono sommare a uno, il default deve
+rimanere assorbente e la transizione $X_{i,t}\to X_{i,t+1}$ deve utilizzare
+il regime $M_t$ previsto dalla specifica. Per i debitori che raggiungono
+$D$, la traiettoria non deve successivamente tornare in uno stato creditizio
+non di default.
 
-Per i debitori in default deve essere ricostruibile la sequenza
-$M_{\tau_i-1}\to X_{i,\tau_i-1}\to D\to L_i$; per i sopravvissuti deve
-risultare $L_i=V_{i,0}\ell(X_{i,0},X_{i,4})$.
+Questi controlli devono essere effettuati sugli oggetti prodotti dalla
+simulazione. Non basta che la propriet\`a sia corretta nella formulazione
+teorica: occorre verificare che sia stata preservata nell'implementazione.
+Un controllo utile deve quindi dipendere dai dati simulati ed essere in
+grado di segnalare un errore.
 
-A livello di portafoglio deve valere
-$L^{P,(s)}=\sum_iL_i^{(s)}$. Un controllo utile deve dipendere dai dati
-prodotti dalla simulazione e poter fallire: impostare semplicemente una
-variabile di controllo uguale a \texttt{True} non costituisce una verifica.
+Il secondo livello riguarda la trasformazione delle traiettorie in perdite.
+Per un debitore sopravvissuto deve risultare
+$L_i=V_{i,0}\ell(X_{i,0},X_{i,4})$. Per un debitore in default deve invece
+essere possibile individuare $\tau_i$, risalire al regime
+$M_{\tau_i-1}$ e ricostruire la LGD utilizzata.
 
-La differenza \`e sostanziale. Un controllo dichiarativo afferma che una
-propriet\`a dovrebbe valere; un controllo computazionale verifica se essa
-vale effettivamente sugli oggetti prodotti dal codice.
+A livello di portafoglio deve inoltre valere, scenario per scenario,
 
-Un buon controllo dovrebbe inoltre essere sufficientemente indipendente
-dall'operazione verificata. Se una quantit\`a viene costruita e controllata
-mediante esattamente la stessa istruzione, il controllo rischia di limitarsi
-a confermare la coerenza interna del codice senza mettere realmente alla
-prova il modello.
+\[
+L^{P,(s)}
+=
+\sum_i L_i^{(s)}.
+\]
 
-Nel confronto tra portafogli occorre accertare che gli stessi scenari
-sistemici e creditizi siano riutilizzati nelle due configurazioni. Deve
-inoltre risultare
+La coerenza delle unit\`a di misura offre un ulteriore controllo. Perdite,
+VaR, CVaR e deviazione standard sono espressi in milioni di dollari, mentre
+la varianza \`e espressa in milioni di dollari al quadrato. Una
+incongruenza nelle unit\`a pu\`o segnalare una interpretazione errata anche
+quando il codice produce valori numerici senza errori.
+
+Il terzo livello riguarda il confronto tra portafoglio base e portafoglio
+con limite di concentrazione. Le due configurazioni devono essere valutate
+sugli stessi scenari sistemici e creditizi; deve inoltre essere verificata
+la conservazione del capitale dopo la riallocazione.
+
+Per la differenza scenario per scenario
+
+\[
+\Delta L^{(s)}
+=
+L_{\mathrm{lim}}^{P,(s)}
+-
+L_{\mathrm{base}}^{P,(s)}
+\]
+
+deve risultare
 
 \[
 \widehat{\E}[\Delta L]
@@ -921,49 +945,28 @@ inoltre risultare
 \widehat{\E}[L_{\mathrm{base}}^P].
 \]
 
-Anche la conservazione del capitale deve essere verificata direttamente:
-l'applicazione del limite a Evergrande e la redistribuzione tra BBB e BB non
-devono modificare il valore complessivo del portafoglio.
+Questa identit\`a collega il confronto scenario per scenario a quello tra le
+perdite medie e costituisce un controllo diretto del riuso corretto degli
+scenari.
 
-La coerenza dimensionale costituisce un ulteriore controllo: $L_i$,
-$L^P$, VaR, CVaR e deviazione standard sono espressi in milioni di dollari,
-mentre $\Var(L^P)$ \`e espressa in milioni di dollari al quadrato. Un errore
-nelle unit\`a non modifica necessariamente il valore numerico, ma pu\`o
-segnalare una interpretazione scorretta dell'output.
+Un quarto livello riguarda le misure empiriche e la qualit\`a numerica della
+simulazione. Per VaR e CVaR deve essere esplicitata la convenzione adottata.
+In particolare, il CVaR deve rappresentare la peggiore quota
+$1-\alpha$ del campione. In una distribuzione discreta, mediare tutte le
+osservazioni tali che $L^P\geq \VaR_\alpha$ pu\`o includere una frazione
+della distribuzione superiore a quella richiesta quando molte perdite
+coincidono con il VaR.
 
-Per VaR e CVaR, deve essere resa esplicita la convenzione empirica utilizzata.
-In particolare, il CVaR deve rappresentare la peggiore quota $1-\alpha$ del
-campione, evitando di includere automaticamente tutte le osservazioni uguali
-al VaR quando ci\`o allargherebbe la coda oltre la quota richiesta.
+La riproducibilit\`a e la stabilit\`a Monte Carlo devono inoltre essere
+distinte. Il seed $2027$ rende replicabile il campione principale; ci\`o
+non garantisce per\`o che le statistiche stimate siano gi\`a stabili rispetto
+alla dimensione della simulazione. Una verifica utile consiste quindi nel
+confrontare alcune quantit\`a, come media e VaR, al crescere del numero di
+repliche. Le misure di coda possono richiedere campioni pi\`u ampi delle
+statistiche centrali per raggiungere una stabilit\`a comparabile.
 
-Il problema \`e particolarmente rilevante in distribuzioni discrete o
-semi-discrete, nelle quali numerosi scenari possono produrre esattamente la
-stessa perdita. Una formula corretta nel caso continuo pu\`o quindi richiedere
-maggiore attenzione quando viene tradotta in un campione empirico.
-
-Il seed $2027$ rende replicabile il campione, ma riproducibilit\`a e
-stabilit\`a Monte Carlo sono concetti distinti. La riproducibilit\`a richiede
-che, a parit\`a di seed e procedura, si ottengano gli stessi numeri. La
-stabilit\`a riguarda invece la sensibilit\`a delle statistiche al numero e
-alla particolare realizzazione degli scenari.
-
-Una simulazione pu\`o quindi essere perfettamente riproducibile e al tempo
-stesso fornire una stima poco stabile di una misura di coda. Per questo
-motivo, \`e utile confrontare almeno alcune statistiche, come media e VaR,
-utilizzando campioni Monte Carlo di dimensione diversa.
-
-In generale, le statistiche centrali tendono a stabilizzarsi pi\`u
-rapidamente delle quantit\`a di coda. VaR e soprattutto CVaR a livelli
-elevati utilizzano una porzione limitata del campione e possono quindi
-mostrare maggiore sensibilit\`a alla dimensione della simulazione.
-
-La diagnostica deve inoltre distinguere un risultato sorprendente da un
-risultato errato. Se, ad esempio, una policy di diversificazione aumenta una
-determinata misura di rischio, non \`e corretto concludere automaticamente che
-il codice sia sbagliato. Occorre prima verificare se il risultato possa
-derivare dalla specifica economica della riallocazione.
-
-Infine, numeri, tabelle e commenti devono essere coerenti tra loro. La catena
+L'ultimo livello riguarda la coerenza tra calcolo e interpretazione. La
+sequenza
 
 \[
 \text{codice}
@@ -972,26 +975,27 @@ Infine, numeri, tabelle e commenti devono essere coerenti tra loro. La catena
 \longrightarrow
 \text{tabella}
 \longrightarrow
-\text{interpretazione}
+\text{commento}
 \]
 
-\noindent deve poter essere ricostruita senza contraddizioni.
+deve rimanere verificabile. Tabelle riportate manualmente o commenti riferiti
+a versioni precedenti del notebook possono infatti diventare incoerenti con
+gli output effettivamente prodotti.
 
-Una tabella riportata manualmente pu\`o diventare incoerente con il notebook
-dopo una modifica del codice; analogamente, un commento scritto su una
-versione precedente dei risultati pu\`o contraddire gli output aggiornati.
-Quando possibile, \`e quindi preferibile generare le tabelle direttamente
-dagli oggetti calcolati.
+Un risultato inatteso non deve inoltre essere classificato automaticamente
+come errore. Se una policy di diversificazione aumenta una misura di rischio,
+occorre prima verificare se l'effetto possa derivare dalla specifica
+economica della riallocazione. La diagnostica serve proprio a distinguere un
+risultato sorprendente ma coerente da un errore di modello o di
+implementazione.
 
-Nel Regime C, l'intelligenza artificiale pu\`o essere utilizzata per
-investigare una criticit\`a specifica, ma la risposta ricevuta deve essere
-nuovamente confrontata con Scheda Caso, modello, codice e output. Una diagnosi
-plausibile non sostituisce la verifica.
-
-Il ciclo corretto \`e
+Nel Regime C l'intelligenza artificiale pu\`o essere utilizzata per
+investigare una criticit\`a specifica, ma la diagnosi proposta deve essere
+verificata nuovamente su Scheda Caso, modello, codice e output. Il ciclo
+corretto \`e
 
 \[
-\text{criticit\`a}
+\text{criticità}
 \longrightarrow
 \text{verifica}
 \longrightarrow
@@ -1003,13 +1007,11 @@ Il ciclo corretto \`e
 \]
 
 La verifica si conclude soltanto quando il risultato corretto compare
-effettivamente nel notebook e rimane coerente con le ipotesi del caso.
+effettivamente nel notebook e rimane coerente con le ipotesi assegnate.
 
-L'uso dell'IA non elimina quindi la responsabilit\`a quantitativa dello
-studente. Il valore del supporto consiste nel suggerire controlli, formulare
-ipotesi diagnostiche o evidenziare incoerenze; la validazione finale deve
-sempre tornare agli oggetti osservabili del problema.
-
+La diagnostica non costituisce quindi una fase separata aggiunta alla fine
+della simulazione: accompagna il passaggio dal modello alle traiettorie,
+dalle traiettorie alle perdite e dalle perdite alla decisione finanziaria.
 Solo dopo questi controlli le differenze tra portafogli e tra scenari
 sistemici possono essere interpretate come risultati del modello.
 %
@@ -1087,8 +1089,12 @@ i\neq\mathrm{Lehman}.
 
 Il capitale complessivo rimane quindi pari a $173$ milioni.
 
-Le due configurazioni sono confrontate sugli stessi scenari per i $39$
-debitori comuni. Si ottengono
+Le due configurazioni sono confrontate utilizzando la stessa traiettoria
+sistemica e le stesse traiettorie creditizie per i $39$ debitori presenti
+in entrambi i portafogli. Nel portafoglio concentrato, la perdita complessiva
+include anche la perdita di Lehman; nel portafoglio controfattuale, Lehman
+\`e invece assente e il capitale corrispondente \`e redistribuito sui
+$39$ debitori residui. Si ottengono
 $L_{\mathrm{conc}}^{P,(s)}$ e
 $L_{\mathrm{div}}^{P,(s)}$, con
 
