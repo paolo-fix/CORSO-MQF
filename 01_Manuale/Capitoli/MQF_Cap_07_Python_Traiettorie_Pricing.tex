@@ -86,7 +86,7 @@ il flusso logico-teorico precede la costruzione del notebook e le tappe
 computazionali devono mantenere riconoscibili input, operazioni, output e
 controlli. Tali principi vengono qui assunti come gi\`a acquisiti.
 
-Accanto al Caso Aula viene proposto un Caso TakeHome dedicato alla
+Accanto al Caso Aula, viene proposto un Caso TakeHome dedicato alla
 valutazione Monte Carlo di una call asiatica su un indice azionario in
 presenza di un tasso di interesse stocastico. Cambiano il contesto e la
 struttura del payoff, ma rimane invariato il problema fondamentale:
@@ -102,9 +102,9 @@ finanziarie; la simulazione Monte Carlo aggrega infine i valori ottenuti.
 
 \section{Python per simulare molte traiettorie}
 
-Nei capitoli precedenti una traiettoria \`e stata introdotta come una
+Nei capitoli precedenti, una traiettoria \`e stata introdotta come una
 possibile realizzazione temporale di un processo stocastico. Nel lavoro
-computazionale interessa invece simulare simultaneamente molte traiettorie
+computazionale, interessa invece simulare simultaneamente molte traiettorie
 compatibili con lo stesso modello.
 
 La prima questione riguarda quindi la rappresentazione in Python delle due
@@ -112,15 +112,17 @@ dimensioni del campione Monte Carlo: scenari e tempo.
 
 \subsection{Da una traiettoria a una matrice di simulazione}
 
-Consideriamo una griglia
+Consideriamo una griglia temporale
 \[
 t_0,t_1,\ldots,t_N
 \]
-e \(M\) traiettorie di un processo \(X\).
-
-I valori simulati possono essere organizzati nella matrice
+e \(M\) traiettorie simulate del processo stocastico
 \[
-X=
+\{X_t\}.
+\]
+
+I valori simulati sulla griglia possono essere organizzati nella matrice
+\[
 \begin{pmatrix}
 X_{t_0}^{(1)} & \cdots & X_{t_N}^{(1)}\\
 X_{t_0}^{(2)} & \cdots & X_{t_N}^{(2)}\\
@@ -129,21 +131,16 @@ X_{t_0}^{(M)} & \cdots & X_{t_N}^{(M)}
 \end{pmatrix}.
 \]
 
-Le righe rappresentano gli scenari, le colonne gli istanti temporali. La
-struttura computazionale \`e quindi
-
-\[
-M\times(N+1),
-\]
-
-e in NumPy
+Le righe rappresentano le traiettorie simulate, mentre le colonne
+rappresentano gli istanti della griglia. La
+struttura computazionale \`e quindi $M\times(N+1)$, e, in NumPy,
 
 \[
 \texttt{shape}=(M,N+1).
 \]
 
 La convenzione riflette direttamente il problema finanziario: per ciascuno
-scenario viene conservata l'intera evoluzione temporale necessaria alla
+scenario, viene conservata l'intera evoluzione temporale necessaria alla
 valutazione.
 
 \subsection{Operare tra scenari oppure lungo il tempo}
@@ -154,13 +151,13 @@ Fissando una data \(t_j\), si confrontano i valori
 X_{t_j}^{(1)},\ldots,X_{t_j}^{(M)}
 \]
 
-tra scenari. Fissando invece uno scenario \(k\), si osserva
+\noindent tra scenari. Fissando invece uno scenario \(k\), si osserva
 
 \[
 X_{t_0}^{(k)},\ldots,X_{t_N}^{(k)}
 \]
 
-lungo il tempo.
+\noindent lungo il tempo.
 
 Con la convenzione adottata,
 
@@ -168,13 +165,13 @@ Con la convenzione adottata,
 \texttt{axis=0}
 \]
 
-indica un'aggregazione tra scenari a parit\`a di data, mentre
+\noindent indica un'aggregazione tra scenari a parit\`a di data, mentre
 
 \[
 \texttt{axis=1}
 \]
 
-indica un'aggregazione lungo il tempo all'interno di ciascuna traiettoria.
+\noindent indica un'aggregazione lungo il tempo all'interno di ciascuna traiettoria.
 
 La distinzione \`e essenziale: una media tra scenari e una media temporale
 possono utilizzare la stessa funzione Python, ma rappresentano quantit\`a
@@ -191,16 +188,16 @@ Se le colonne rappresentano il tempo,
 \texttt{X[:, -1]}
 \]
 
-seleziona il valore terminale in tutti gli scenari, mentre
+\noindent seleziona il valore terminale in tutti gli scenari, mentre
 
 \[
 \texttt{X[:, indici]}
 \]
 
-seleziona un insieme di date contrattuali.
+\noindent seleziona un insieme di date contrattuali.
 
 L'indicizzazione deve quindi riprodurre correttamente la struttura temporale
-del problema: valori terminali, fixing, date di pagamento o intervalli
+del problema: valori terminali, fixing, date di pagamento, intervalli
 utilizzati per somme e integrali.
 
 \subsection{Vettorizzazione}
@@ -232,7 +229,7 @@ Il Capitolo 5 ha distinto il processo stocastico dalle sue traiettorie; il
 Capitolo 6 ha mostrato come rappresentare numericamente una dinamica continua
 su una griglia.
 
-Nel notebook questi due passaggi confluiscono nella catena
+Nel notebook, questi due passaggi confluiscono nella catena
 
 \[
 \begin{array}{c}
@@ -256,7 +253,7 @@ Nel notebook questi due passaggi confluiscono nella catena
 \\[3pt]
 \downarrow
 \\[3pt]
-\text{stima Monte Carlo}.
+\text{stima Monte Carlo}
 \end{array}
 \]
 
@@ -278,7 +275,7 @@ mantenendo coerenti tempo, shock e dipendenze tra fattori.
 
 \subsection{Dal tempo continuo alla griglia}
 
-Per una dinamica generale
+Per una dinamica generale descritta dall'equazione differenziale stocastica
 
 \[
 dX_t
@@ -290,7 +287,7 @@ b(X_t,t)\,dW_t,
 t\in[0,T],
 \]
 
-si introduce una griglia
+\noindent si introduce una griglia
 
 \[
 0=t_0<t_1<\cdots<t_N=T.
@@ -308,7 +305,7 @@ Il notebook non simula l'intera traiettoria continua, ma costruisce i valori
 X_{t_0},X_{t_1},\ldots,X_{t_N}
 \]
 
-mediante lo schema numerico scelto.
+\noindent mediante lo schema numerico scelto.
 
 La ricorsione opera lungo la dimensione temporale, mentre a ogni passo
 l'aggiornamento pu\`o essere vettorizzato sulle \(M\) traiettorie. Tempo e
@@ -330,7 +327,7 @@ Z_1^{(M)} & \cdots & Z_N^{(M)}
 Ogni riga alimenta una traiettoria; ogni colonna contiene gli shock applicati
 nello stesso intervallo temporale.
 
-Con pi\`u fattori occorre inoltre preservare la struttura di dipendenza
+Con pi\`u fattori, occorre inoltre preservare la struttura di dipendenza
 specificata dal modello. Per due shock gaussiani con correlazione \(\rho\),
 una costruzione gi\`a introdotta nel Capitolo 6 \`e
 
@@ -367,7 +364,7 @@ A_t
 \int_0^t X_s\,ds
 \]
 
-pu\`o essere approssimato mediante una somma di Riemann, ad esempio
+\noindent pu\`o essere approssimato mediante una somma di Riemann, ad esempio
 
 \[
 A_{t_j}^{(k)}
@@ -389,13 +386,13 @@ La griglia di simulazione
 t_0,t_1,\ldots,t_N
 \]
 
-serve a rappresentare numericamente il processo. Le date contrattuali
+\noindent serve a rappresentare numericamente il processo. Le date contrattuali
 
 \[
 \tau_1,\ldots,\tau_m
 \]
 
-individuano invece fixing, pagamenti o scadenze.
+\noindent individuano invece fixing, pagamenti, o scadenze.
 
 Quando tali date appartengono alla griglia, occorre selezionare correttamente
 le colonne corrispondenti. La simulazione pu\`o quindi utilizzare una griglia
@@ -409,7 +406,7 @@ Una simulazione per pricing dipende almeno da due scelte:
 M,
 \]
 
-numero di traiettorie, e
+\noindent numero di traiettorie, e
 
 \[
 N
@@ -417,7 +414,7 @@ N
 \Delta t,
 \]
 
-numero e ampiezza degli intervalli temporali.
+\noindent numero e ampiezza degli intervalli temporali.
 
 Aumentare \(M\) agisce sulla precisione Monte Carlo a discretizzazione
 fissata. Ridurre \(\Delta t\) modifica invece la rappresentazione numerica
@@ -492,7 +489,7 @@ dr_t
 \sigma_r\sqrt{r_t}\,dW_t^{(r)},
 \]
 
-con
+\noindent con
 
 \[
 r_0=0.030,
@@ -572,13 +569,13 @@ Il bond ha valore facciale
 N=100,
 \]
 
-scadenza
+\noindent scadenza
 
 \[
 T=5
 \]
 
-anni e tasso cedolare annuo
+\noindent anni e tasso cedolare annuo
 
 \[
 c=0.015.
@@ -592,7 +589,7 @@ C_{t_j}
 \frac{c}{2}N J_{t_j}.
 \]
 
-A scadenza il capitale \`e protetto:
+A scadenza, il capitale \`e protetto:
 
 \[
 R_T
@@ -608,13 +605,13 @@ La griglia principale \`e mensile,
 \Delta t=\frac{1}{12},
 \]
 
-e l'analisi utilizza
+\noindent e l'analisi utilizza
 
 \[
 M=50\,000
 \]
 
-traiettorie con seed 12345. Le date semestrali di pagamento appartengono alla
+\noindent traiettorie con seed 12345. Le date semestrali di pagamento appartengono alla
 griglia mensile.
 
 \subsection{Ipotesi e limiti}
