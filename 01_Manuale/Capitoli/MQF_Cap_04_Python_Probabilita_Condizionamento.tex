@@ -39,13 +39,13 @@ computazionali verificabili.
 
 Il punto di partenza \`{e} costituito dai concetti di probabilit\`{a},
 variabile casuale, distribuzione, probabilit\`{a} condizionata e valore atteso
-condizionato. In un problema applicativo non \`{e} per\`{o} sufficiente
+condizionato. In un problema applicativo, non \`{e} per\`{o} sufficiente
 riconoscere tali oggetti in forma astratta. Occorre stabilire quali grandezze
 del caso vi corrispondano, quali relazioni matematiche siano necessarie, quali
 quantit\`{a} debbano essere calcolate o stimate e in quale ordine.
 
 Python viene utilizzato per rendere operative queste relazioni. Attraverso la
-simulazione Monte Carlo \`{e} possibile generare scenari, costruire
+simulazione Monte Carlo, \`{e} possibile generare scenari, costruire
 distribuzioni empiriche, stimare probabilit\`{a}, momenti e quantili, calcolare
 quantit\`{a} condizionate e verificare numericamente propriet\`{a} teoriche.
 Il codice costituisce quindi la traduzione computazionale di una struttura
@@ -62,11 +62,9 @@ Due passaggi assumono particolare rilievo. Il primo consiste nel ricavare
 dalla traccia un \emph{flusso logico-teorico risolutivo}, individuando
 grandezze, variabili di interesse, informazione disponibile, relazioni
 funzionali, quantit\`{a} da calcolare e propriet\`{a} utilizzabili come
-controlli.
-
-Il secondo consiste nel tradurre il flusso teorico in una
+controlli. Il secondo consiste nel tradurre il flusso in una
 \emph{scomposizione operativa del notebook in tappe input--output}. Per
-ciascuna tappa devono risultare riconoscibili gli input utilizzati,
+ciascuna tappa, devono risultare riconoscibili gli input utilizzati,
 l'operazione eseguita, l'output prodotto e il controllo associato. Il notebook
 diventa cos\`{\i} una rappresentazione osservabile del ragionamento
 quantitativo e non una semplice successione di istruzioni Python.
@@ -78,7 +76,7 @@ dello spazio degli eventi, distribuzioni condizionate, una variabile casuale
 di perdita, probabilit\`{a} di superamento di soglia, valori attesi
 condizionati e formula del valore atteso totale.
 
-Accanto al caso sviluppato viene considerato un Caso TakeHome, da affrontare
+Accanto al caso sviluppato, viene considerato un Caso TakeHome, da affrontare
 in autonomia. Cambia il contesto economico, mentre rimane invariato il metodo:
 riconoscimento degli oggetti teorici, costruzione del flusso risolutivo,
 scomposizione del notebook, implementazione in Python, verifica degli output e
@@ -99,7 +97,7 @@ esiti aleatori in grandezze numeriche mediante le variabili casuali e le loro
 distribuzioni; il Capitolo 3 ha mostrato come la valutazione di tali grandezze
 cambi quando si dispone di informazione parziale.
 
-In questo capitolo questi concetti vengono utilizzati congiuntamente per
+In questo capitolo, questi concetti vengono utilizzati congiuntamente per
 risolvere casi quantitativi mediante simulazione. L'obiettivo non \`{e}
 introdurre nuovi risultati probabilistici, ma imparare a riconoscere quali
 strumenti teorici siano necessari in un problema assegnato e come possano
@@ -136,11 +134,7 @@ specificazione del problema e alla verifica dei risultati prodotti.
 
 \subsection{Dagli eventi agli scenari informativi}
 
-Nel Capitolo 1 una partizione
-\[
-\{A_{1},\ldots,A_{m}\}
-\]
-dello spazio campionario \`{e} stata introdotta come una famiglia di eventi
+Nel Capitolo 1, una partizione $A_{1},\ldots,A_{m}\}$ dello spazio campionario \`{e} stata introdotta come una famiglia di eventi
 disgiunti la cui unione coincide con $\Omega$. Nei casi applicativi, i blocchi
 della partizione possono rappresentare differenti condizioni di mercato o
 stati informativi.
@@ -178,13 +172,13 @@ X:\Omega\longrightarrow\mathbb{R}.
 \]
 
 Nei casi quantitativi, $X$ pu\`{o} rappresentare un rendimento, una variazione
-di tasso, una perdita, un costo o un payoff. La distribuzione teorica di $X$
+di tasso, una perdita, un costo, o un payoff. La distribuzione teorica di $X$
 viene resa osservabile mediante un campione Monte Carlo
 \[
 X^{(1)},X^{(2)},\ldots,X^{(M)}.
 \]
 
-Da tale campione possono essere ricavate stime delle quantit\`{a} teoriche
+Questo campione permette di ricavare stime delle quantit\`{a} teoriche
 studiate nei capitoli precedenti. Ad esempio,
 \[
 \widehat{\E}[X]
@@ -215,7 +209,7 @@ Il Capitolo 3 ha mostrato che
 rappresenta la valutazione media di $X$ quando \`{e} noto che l'evento $A_g$
 si \`{e} verificato.
 
-Nel campione simulato la stessa idea viene tradotta selezionando le osservazioni
+Nel campione simulato, la stessa idea viene tradotta selezionando le osservazioni
 appartenenti al regime considerato. Se
 \[
 I_g=\{k:\omega_k\in A_g\},
@@ -251,7 +245,7 @@ La formula del valore atteso totale fornisce inoltre un controllo centrale:
 \Prob(A_g)\E[X\mid A_g].
 \]
 
-Nel campione simulato la corrispondente ricomposizione \`{e}
+Nel campione simulato, la corrispondente ricomposizione \`{e}
 \[
 \widehat{\E}[X]
 =
@@ -265,7 +259,7 @@ giustificare un calcolo e fornire un controllo della sua implementazione.
 
 \subsection{Obiettivi operativi}
 
-Al termine del capitolo dovr\`{a} risultare possibile:
+Al termine del capitolo, dovr\`{a} risultare possibile:
 
 \begin{enumerate}
 \item riconoscere in un caso assegnato eventi, variabili casuali, stati
@@ -297,7 +291,7 @@ computazionale verificabile.
 
 \section{Il metodo di lavoro nei capitoli applicativi}
 
-Nei capitoli applicativi il problema quantitativo non viene affrontato
+Nei capitoli applicativi, il problema quantitativo non viene affrontato
 scrivendo immediatamente il codice. La procedura parte dalla comprensione della
 traccia, passa attraverso la ricostruzione del modello teorico e conduce
 successivamente alla costruzione del notebook Jupyter.
