@@ -1158,7 +1158,7 @@ Aula, occorre distinguere almeno due fonti di approssimazione:
 Le due componenti hanno natura diversa e devono essere controllate
 separatamente.
 
-\subsection{Precisione Monte Carlo}
+\subsection{Precisione e stabilit\`a numerica}
 
 Il prezzo stimato \`e
 
@@ -1227,16 +1227,15 @@ m=1,\ldots,M.
 La curva dovrebbe mostrare oscillazioni progressivamente pi\`u contenute
 all'aumentare del numero di simulazioni.
 
-\subsection{Errore di discretizzazione}
-
-Il modello \`e formulato in tempo continuo, mentre il notebook utilizza
+La precisione Monte Carlo non esaurisce tuttavia il problema numerico. Il
+modello \`e formulato in tempo continuo, mentre il notebook utilizza
 
 \[
 \Delta t=\frac{1}{12}.
 \]
 
 La griglia influenza sia la simulazione delle traiettorie sia
-l'approssimazione degli integrali che determinano $J_t$ e $D(0,t)$.
+l'approssimazione degli integrali che determinano \(J_t\) e \(D(0,t)\).
 
 La stabilit\`a viene verificata confrontando il prezzo principale con quello
 ottenuto mediante una griglia pi\`u fine.
@@ -1270,9 +1269,23 @@ Se
 \noindent deve risultare sufficientemente piccola rispetto alla scala economica del
 problema.
 
-Aumentare \(M\) non elimina questo errore: rende pi\`u precisa la stima del
-modello discretizzato. Analogamente, una griglia pi\`u fine non sostituisce un
-numero adeguato di traiettorie.
+Aumentare \(M\) non elimina l'errore di discretizzazione: rende pi\`u precisa
+la stima del modello discretizzato. Analogamente, una griglia pi\`u fine non
+sostituisce un numero adeguato di traiettorie.
+
+Le due dimensioni del problema numerico devono quindi rimanere distinte:
+
+\[
+M
+\longrightarrow
+\text{precisione Monte Carlo},
+\]
+
+\[
+\Delta t
+\longrightarrow
+\text{approssimazione temporale}.
+\]
 
 \subsection{Diagnostiche strutturali}
 
@@ -1288,10 +1301,10 @@ J_t^{(s)}>0,
 \]
 
 \[
-R_T^{(s)}\geq N,
+R_T^{(s)}\geq N
 \]
 
-e
+\noindent e
 
 \[
 V^{(s)}
@@ -1329,10 +1342,10 @@ il notebook rappresenti effettivamente il problema definito dalla Scheda Caso.
 
 La corretta esecuzione del codice non coincide infatti con la correttezza
 quantitativa. Un programma pu\`o essere sintatticamente valido e produrre
-risultati plausibili pur utilizzando una formula, una data, o una dimensione
+risultati plausibili pur utilizzando una formula, una data o una dimensione
 dell'array in modo errato.
 
-\subsection{Dalla formula all'output}
+\subsection{Verificare la coerenza della catena computazionale}
 
 Per ogni passaggio, deve rimanere riconoscibile la corrispondenza
 
@@ -1374,8 +1387,6 @@ V^{(s)}.
 Questo permette di individuare errori che possono essere nascosti dalle sole
 statistiche aggregate.
 
-\subsection{Identit\`a e controlli campionari}
-
 Alcune relazioni devono valere per costruzione:
 
 \[
@@ -1406,15 +1417,23 @@ Altre relazioni, come
 variabilit\`a campionaria e devono essere giudicate in termini di
 compatibilit\`a.
 
+La distinzione \`e importante: le identit\`a strutturali devono valere
+esattamente, mentre i controlli campionari devono risultare coerenti con il
+modello entro la variabilit\`a prodotta dalla simulazione.
+
 Tabelle, statistiche e grafici devono inoltre fornire indicazioni coerenti tra
 loro. Una stima stabile rispetto a \(M\), ad esempio, non compensa una forte
 sensibilit\`a alla griglia temporale.
 
-\subsection{Verifica con l'intelligenza artificiale}
+La verifica critica consiste quindi nel ricostruire la catena quantitativa e
+nel controllare che ogni passaggio conservi il significato matematico e
+finanziario previsto dalla specifica.
+
+\subsection{Verifica finale e interpretazione}
 
 Nel Regime C, l'IA pu\`o essere utilizzata per verificare un dubbio o un output
 gi\`a prodotto: una formula tradotta in codice, un'operazione lungo un asse,
-la selezione delle date contrattuali, o una bozza interpretativa.
+la selezione delle date contrattuali o una bozza interpretativa.
 
 La risposta ricevuta rimane tuttavia una proposta da confrontare con la
 Scheda Caso, il modello e gli output del notebook. La verifica finale resta
@@ -1424,7 +1443,11 @@ Il notebook deve inoltre essere rieseguibile integralmente dall'inizio, senza
 dipendere da variabili rimaste in memoria da esecuzioni precedenti. Il seed
 assegnato consente di riprodurre il campione principale.
 
-\subsection{Interpretare entro i limiti del modello}
+La rieseguibilit\`a costituisce quindi un controllo sostanziale: assicura che
+gli output finali derivino effettivamente dalla procedura documentata nel
+notebook.
+
+L'ultimo livello di verifica riguarda il significato attribuito al risultato.
 
 Il valore
 
@@ -1433,11 +1456,24 @@ Il valore
 \]
 
 \noindent \`e una stima prodotta sotto le dinamiche, i parametri e le regole
-contrattuali assegnate. Non rappresenta automaticamente il prezzo osservabile di uno specifico titolo
-di mercato, poich\'e il caso non comprende calibrazione, premi per il rischio,
-rischio di credito, o liquidit\`a e convenzioni operative complete.
+contrattuali assegnate. Non rappresenta automaticamente il prezzo osservabile
+di uno specifico titolo di mercato, poich\'e il caso non comprende
+calibrazione, premi per il rischio, rischio di credito o liquidit\`a e
+convenzioni operative complete.
 
-La conclusione deve quindi mantenere riconoscibile la sequenza
+L'interpretazione deve quindi distinguere
+
+\[
+\text{risultato del modello}
+\]
+
+\noindent da
+
+\[
+\text{valore di mercato osservabile}.
+\]
+
+La conclusione del Caso Aula deve mantenere riconoscibile l'intera sequenza
 
 \[
 \text{ipotesi}
@@ -1452,6 +1488,9 @@ La conclusione deve quindi mantenere riconoscibile la sequenza
 \longrightarrow
 \text{interpretazione}.
 \]
+
+Solo quando questa sequenza pu\`o essere ricostruita e verificata il notebook
+costituisce una soluzione quantitativa completa del caso.
 
 
 \section{Caso TakeHome: dalla struttura appresa a un payoff path-dependent}
