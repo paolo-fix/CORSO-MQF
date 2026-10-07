@@ -657,15 +657,15 @@ T=5,
 \Delta t=\frac{1}{12},
 \]
 
-si hanno
+\noindent si hanno
 
 \[
 N_{\mathrm{step}}=60
 \]
 
-intervalli mensili.
+\noindent intervalli mensili.
 
-Per ciascuno dei \(M=50\,000\) scenari occorrono quindi sessanta coppie di
+Per ciascuno dei \(M=50\,000\) scenari, occorrono quindi sessanta coppie di
 shock.
 
 Partendo da due normali standard indipendenti,
@@ -676,7 +676,7 @@ Z_{1,j}^{(s)},
 Z_{2,j}^{(s)},
 \]
 
-si costruiscono
+\noindent si costruiscono
 
 \[
 Z_{i,j}^{(s)}
@@ -727,7 +727,7 @@ di_t
 \sigma_i\,dW_t^{(i)},
 \]
 
-lo schema utilizzato sulla griglia \`e
+\noindent lo schema utilizzato sulla griglia \`e
 
 \[
 i_{t_{j+1}}^{(s)}
@@ -791,7 +791,7 @@ L'operatore
 \max(r_{t_j}^{(s)},0)
 \]
 
-agisce soltanto all'interno della radice quadrata, evitando che un valore
+\noindent agisce soltanto all'interno della radice quadrata, evitando che un valore
 negativo prodotto numericamente renda indefinito il termine diffusivo.
 
 Il valore aggiornato non viene invece forzato sistematicamente a essere
@@ -801,12 +801,12 @@ positivo. Eventuali osservazioni
 r_{t_j}^{(s)}<0
 \]
 
-vengono rilevate e conteggiate come possibile anomalia della
+\noindent vengono rilevate e conteggiate come possibile anomalia della
 discretizzazione.
 
 \subsection{Le due matrici di traiettorie}
 
-Al termine della ricorsione si ottengono due matrici di dimensione
+Al termine della ricorsione, si ottengono due matrici di dimensione
 
 \[
 M\times(N_{\mathrm{step}}+1):
@@ -841,7 +841,7 @@ I primi controlli riguardano quindi:
 \widehat\rho\approx0.25,
 \]
 
-il comportamento mean-reverting delle traiettorie e la presenza di eventuali
+\noindent il comportamento mean-reverting delle traiettorie e la presenza di eventuali
 valori negativi del CIR discretizzato.
 
 Le statistiche terminali di \(i_T\) e \(r_T\) completano la diagnostica dei
@@ -925,20 +925,20 @@ Il fattore di sconto dipende quindi dall'intera traiettoria del tasso fino a
 
 \subsection{Date contrattuali e cedole}
 
-La griglia \`e mensile, mentre i pagamenti sono semestrali. In cinque anni si
+La griglia \`e mensile, mentre i pagamenti sono semestrali. In cinque anni, si
 hanno
 
 \[
 m=10
 \]
 
-date di cedola,
+\noindent date di cedola,
 
 \[
 t_j=0.5,1,\ldots,5,
 \]
 
-corrispondenti ai passi
+\noindent corrispondenti ai passi
 
 \[
 6,12,\ldots,60.
@@ -979,7 +979,7 @@ R_T^{(s)}
 \geq N
 \]
 
-in ogni scenario.
+\noindent in ogni scenario.
 
 Equivalentemente,
 
@@ -994,7 +994,7 @@ J_T^{(s)}-1,0
 \right),
 \]
 
-che separa il capitale nominale dalla rivalutazione legata all'inflazione
+\noindent che separa il capitale nominale dalla rivalutazione legata all'inflazione
 cumulata positiva.
 
 \subsection{Valore attuale per scenario}
@@ -1009,7 +1009,7 @@ D^{(s)}(0,t_j)
 C_{t_j}^{(s)},
 \]
 
-mentre quello del rimborso \`e
+\noindent mentre quello del rimborso \`e
 
 \[
 PV_R^{(s)}
@@ -1097,7 +1097,7 @@ La probabilit\`a simulata di deflazione cumulata a scadenza \`e
 Essa misura la quota di scenari nei quali il floor sul capitale risulta
 attivo.
 
-Accanto al prezzo vengono calcolate media e deviazione standard di
+Accanto al prezzo, vengono calcolate media e deviazione standard di
 
 \[
 i_T,
@@ -1145,7 +1145,7 @@ Rimane da verificare la precisione e la stabilit\`a numerica della stima.
 \section{Precisione numerica, convergenza e diagnostica}
 
 Il prezzo Monte Carlo non \`e un risultato numericamente esatto. Nel Caso
-Aula occorre distinguere almeno due fonti di approssimazione:
+Aula, occorre distinguere almeno due fonti di approssimazione:
 
 \begin{itemize}
 
@@ -1236,17 +1236,7 @@ Il modello \`e formulato in tempo continuo, mentre il notebook utilizza
 \]
 
 La griglia influenza sia la simulazione delle traiettorie sia
-l'approssimazione degli integrali che determinano
-
-\[
-J_t
-\]
-
-e
-
-\[
-D(0,t).
-\]
+l'approssimazione degli integrali che determinano $J_t$ e $D(0,t)$.
 
 La stabilit\`a viene verificata confrontando il prezzo principale con quello
 ottenuto mediante una griglia pi\`u fine.
@@ -1257,19 +1247,19 @@ Se
 \widehat V_{\Delta t}
 \]
 
-e
+\noindent e
 
 \[
 \widehat V_{\Delta t'}
 \]
 
-sono i due prezzi, con
+\noindent sono i due prezzi, con
 
 \[
 \Delta t'<\Delta t,
 \]
 
-la differenza
+\noindent la differenza
 
 \[
 \widehat V_{\Delta t'}
@@ -1277,7 +1267,7 @@ la differenza
 \widehat V_{\Delta t}
 \]
 
-deve risultare sufficientemente piccola rispetto alla scala economica del
+\noindent deve risultare sufficientemente piccola rispetto alla scala economica del
 problema.
 
 Aumentare \(M\) non elimina questo errore: rende pi\`u precisa la stima del
@@ -1286,7 +1276,7 @@ numero adeguato di traiettorie.
 
 \subsection{Diagnostiche strutturali}
 
-Accanto ai controlli di convergenza devono essere verificati alcuni vincoli
+Accanto ai controlli di convergenza, devono essere verificati alcuni vincoli
 del modello e del contratto:
 
 \[
