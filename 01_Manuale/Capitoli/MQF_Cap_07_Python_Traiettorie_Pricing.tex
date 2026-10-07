@@ -1329,12 +1329,12 @@ il notebook rappresenti effettivamente il problema definito dalla Scheda Caso.
 
 La corretta esecuzione del codice non coincide infatti con la correttezza
 quantitativa. Un programma pu\`o essere sintatticamente valido e produrre
-risultati plausibili pur utilizzando una formula, una data o una dimensione
+risultati plausibili pur utilizzando una formula, una data, o una dimensione
 dell'array in modo errato.
 
 \subsection{Dalla formula all'output}
 
-Per ogni passaggio deve rimanere riconoscibile la corrispondenza
+Per ogni passaggio, deve rimanere riconoscibile la corrispondenza
 
 \[
 \text{formula teorica}
@@ -1402,7 +1402,7 @@ Altre relazioni, come
 \widehat\rho\approx\rho
 \]
 
-o la stabilizzazione del prezzo al crescere di \(M\), sono invece soggette a
+\noindent o la stabilizzazione del prezzo al crescere di \(M\), sono invece soggette a
 variabilit\`a campionaria e devono essere giudicate in termini di
 compatibilit\`a.
 
@@ -1412,9 +1412,9 @@ sensibilit\`a alla griglia temporale.
 
 \subsection{Verifica con l'intelligenza artificiale}
 
-Nel Regime C l'IA pu\`o essere utilizzata per verificare un dubbio o un output
+Nel Regime C, l'IA pu\`o essere utilizzata per verificare un dubbio o un output
 gi\`a prodotto: una formula tradotta in codice, un'operazione lungo un asse,
-la selezione delle date contrattuali o una bozza interpretativa.
+la selezione delle date contrattuali, o una bozza interpretativa.
 
 La risposta ricevuta rimane tuttavia una proposta da confrontare con la
 Scheda Caso, il modello e gli output del notebook. La verifica finale resta
@@ -1432,12 +1432,10 @@ Il valore
 \widehat V_M
 \]
 
-\`e una stima prodotta sotto le dinamiche, i parametri e le regole
-contrattuali assegnate.
-
-Non rappresenta automaticamente il prezzo osservabile di uno specifico titolo
+\noindent \`e una stima prodotta sotto le dinamiche, i parametri e le regole
+contrattuali assegnate. Non rappresenta automaticamente il prezzo osservabile di uno specifico titolo
 di mercato, poich\'e il caso non comprende calibrazione, premi per il rischio,
-rischio di credito o liquidit\`a e convenzioni operative complete.
+rischio di credito, o liquidit\`a e convenzioni operative complete.
 
 La conclusione deve quindi mantenere riconoscibile la sequenza
 
@@ -1465,19 +1463,20 @@ tasso di interesse stocastico.
 L'obiettivo non \`e ripetere la soluzione precedente, ma riconoscere la stessa
 architettura quantitativa in un contratto differente:
 
-\[
-\text{fattori stocastici}
-\longrightarrow
-\text{traiettorie}
-\longrightarrow
-\text{quantit\`a path-dependent}
-\longrightarrow
-\text{payoff}
-\longrightarrow
-\text{valore attuale}
-\longrightarrow
-\text{stima Monte Carlo}.
-\]
+\begin{gather*}
+\text{fattori stocastici}\\
+\downarrow\\
+\text{traiettorie}\\
+\downarrow\\
+\text{quantit\`a path-dependent}\\
+\downarrow\\
+\text{payoff}\\
+\downarrow\\
+\text{valore attuale}\\
+\downarrow\\
+\text{stima Monte Carlo}
+\end{gather*}
+
 
 \subsection{Modello e payoff}
 
@@ -1491,7 +1490,7 @@ dS_t
 \sigma_S S_t\,dW_t^{(S)},
 \]
 
-mentre il tasso nominale segue un processo CIR:
+\noindent mentre il tasso nominale segue un processo CIR:
 
 \[
 dr_t
@@ -1509,7 +1508,7 @@ dW_t^{(S)}\,dW_t^{(r)}
 \rho\,dt,
 \]
 
-con
+\noindent con
 
 \[
 \rho=-0.25.
@@ -1533,7 +1532,7 @@ A_T
 S_{t_j},
 \]
 
-dove \(S_0\) non entra nella media, e il payoff \`e
+\noindent dove \(S_0\) non entra nella media, e il payoff \`e
 
 \[
 H_T
@@ -1560,7 +1559,7 @@ Poich\'e
 \frac{252}{12}=21,
 \]
 
-i fixing mensili corrispondono ai passi
+\noindent i fixing mensili corrispondono ai passi
 
 \[
 21,42,\ldots,252.
@@ -1618,7 +1617,7 @@ V^{(s)}
 H_T^{(s)},
 \]
 
-e il prezzo Monte Carlo
+\noindent e il prezzo Monte Carlo
 
 \[
 \widehat V_M
@@ -1636,7 +1635,7 @@ SE(\widehat V_M)
 \frac{s_V}{\sqrt{M}}.
 \]
 
-Tra gli output specifici compaiono inoltre la probabilit\`a simulata di
+Tra gli output specifici, compaiono inoltre la probabilit\`a simulata di
 esercizio
 
 \[
@@ -1647,11 +1646,11 @@ esercizio
 \1_{\{A_T^{(s)}>K\}},
 \]
 
-il payoff medio e le statistiche di \(S_T\), \(r_T\) e \(A_T\).
+\noindent il payoff medio e le statistiche di \(S_T\), \(r_T\) e \(A_T\).
 
 \subsection{Trasferire il metodo}
 
-Rispetto al Caso Aula cambiano il primo fattore di rischio e la trasformazione
+Rispetto al Caso Aula, cambiano il primo fattore di rischio e la trasformazione
 path-dependent:
 
 \[
@@ -1660,7 +1659,7 @@ path-dependent:
 J_t
 \]
 
-viene sostituita da
+\noindent viene sostituita da
 
 \[
 \text{indice azionario}
