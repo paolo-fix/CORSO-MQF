@@ -1361,14 +1361,354 @@ ragionamento. Rende esplicita e sottopone a verifica una struttura
 preliminarmente elaborata.
 
 
+% \section{Dalle tappe al notebook: simulazione, output e verifica}
+
+% Una volta validata la scomposizione in tappe input--output, la struttura
+% concettuale del notebook \`{e} definita. Soltanto a questo punto risulta
+% appropriato tradurre le singole tappe in celle Markdown, codice Python,
+% tabelle e grafici.
+
+% La sequenza generale \`{e}
+
+% \[
+% \begin{array}{c}
+% \text{tappa validata}
+% \\[3pt]
+% \downarrow
+% \\[3pt]
+% \text{prompt di tappa}
+% \\[3pt]
+% \downarrow
+% \\[3pt]
+% \text{risposta IA e validazione}
+% \\[3pt]
+% \downarrow
+% \\[3pt]
+% \text{cella notebook}
+% \\[3pt]
+% \downarrow
+% \\[3pt]
+% \text{output e controllo}.
+% \end{array}
+% \]
+
+% Una risposta dell'IA pu\`{o} essere sintatticamente corretta e risultare
+% comunque incoerente con il modello, con gli input disponibili, o con gli output
+% richiesti. In questa fase, l'IA assume quindi un ruolo operativo, mentre la
+% specifica teorica e la struttura delle tappe devono rimanere invariate.
+
+% \subsection{Dal prompt di tappa alla cella del notebook}
+
+% Ogni prompt di tappa parte da una struttura gi\`{a} definita. Devono essere
+% specificati almeno:
+
+% \begin{itemize}
+% \item gli input utilizzabili;
+
+% \item l'operazione da realizzare;
+
+% \item gli output richiesti;
+
+% \item il controllo da effettuare;
+
+% \item il collegamento con la tappa successiva.
+% \end{itemize}
+
+% Non \`{e} quindi sufficiente chiedere genericamente di ``scrivere il codice''.
+% Il compito dell'IA deve essere delimitato rispetto alla specifica gi\`{a}
+% validata.
+
+% Una formulazione tipica pu\`{o} essere:
+
+% \begin{quote}
+% \small
+% \noindent{\ttfamily\raggedright
+% Sviluppa la tappa indicata utilizzando esclusivamente gli input disponibili e
+% senza modificare la specifica teorica. Produci una breve cella Markdown, il
+% codice Python necessario, gli output richiesti e il controllo previsto.
+% Mantieni nomi delle variabili coerenti con quelli gi\`{a} utilizzati nel
+% notebook.
+% \par}
+% \end{quote}
+
+% La scelta di che cosa debba essere calcolato \`{e} gi\`{a} stata effettuata;
+% l'IA viene utilizzata principalmente per realizzare tecnicamente il calcolo.
+
+% \subsection{Il Regime B: tradurre senza modificare}
+
+% La traduzione operativa avviene prevalentemente in Regime B. Possono essere
+% delegate all'IA la costruzione delle strutture dati, la simulazione delle
+% variabili specificate, la scrittura del codice, la produzione di tabelle e
+% grafici e l'implementazione dei controlli gi\`{a} individuati.
+
+% La delega riguarda la realizzazione computazionale, non il significato del
+% problema.
+
+% Se, ad esempio,
+% \[
+% \Delta y\mid A_g
+% \sim
+% \mathcal{N}(\mu_g,\sigma_g^2),
+% \]
+% l'IA pu\`{o} proporre il codice necessario per simulare gli shock nei diversi
+% regimi, ma non pu\`{o} modificare distribuzione, parametri, o struttura
+% informativa.
+
+% Analogamente, se
+% \[
+% L=D V_0\Delta y,
+% \]
+% il codice deve implementare precisamente questa trasformazione.
+
+% La regola generale \`{e}
+
+% \[
+% \boxed{
+% \text{flessibilit\`{a} tecnica}
+% \qquad
+% \text{con invarianza della specifica teorica}.
+% }
+% \]
+
+% \subsection{Simulare significa rendere osservabile il modello}
+
+% Nel caso sviluppato, la simulazione segue la struttura probabilistica del
+% modello. Per ogni scenario, viene simulato il regime informativo
+% \[
+% Z\in\{1,2,3\},
+% \]
+% quindi lo shock
+% \[
+% \Delta y\mid A_g,
+% \]
+% e infine la perdita
+% \[
+% L=D V_0\Delta y.
+% \]
+
+% La dipendenza pu\`{o} essere rappresentata sinteticamente come
+
+% \[
+% \begin{array}{c}
+% Z^{(k)}
+% %\\[3pt]
+% \rightarrow
+% %\\[3pt]
+% \Delta y^{(k)}
+% %\\[3pt]
+% \rightarrow
+% %\\[3pt]
+% L^{(k)}.
+% \end{array}
+% \]
+
+% Il campione
+% \[
+% L^{(1)},\ldots,L^{(k)},\ldots,L^{(M)}
+% \]
+% rende osservabile la distribuzione empirica della perdita e permette di
+% stimare media, deviazione standard, quantili e probabilit\`{a} di superamento
+% di soglia.
+
+% La cella Markdown chiarisce quale oggetto viene stimato; il codice realizza il
+% calcolo; l'output rende osservabile il risultato.
+
+% \subsection{Un output non \`{e} ancora una verifica}
+
+% La produzione di un numero, di una tabella, o di un grafico non dimostra che il
+% calcolo sia corretto. Ogni output deve essere confrontato con almeno una
+% propriet\`{a} coerente con il modello.
+
+% Per i regimi simulati, deve risultare
+% \[
+% \sum_{g=1}^{3}\widehat{\Prob}(A_g)=1,
+% \]
+% con frequenze empiriche coerenti con le probabilit\`{a} teoriche.
+
+% Per la trasformazione della perdita, poich\'{e} $D>0$ e $V_0>0$,
+% \[
+% \Delta y>0
+% \quad\Longleftrightarrow\quad
+% L>0.
+% \]
+
+% Per una soglia $\ell>0$, deve inoltre valere
+% \[
+% L>\ell
+% \quad\Longleftrightarrow\quad
+% \Delta y>\frac{\ell}{D V_0}.
+% \]
+
+% Infine, nell'analisi condizionata, deve essere verificata la ricomposizione
+% \[
+% \widehat{\E}[L]
+% =
+% \sum_{g=1}^{3}
+% \widehat{\Prob}(A_g)
+% \widehat{\E}[L\mid A_g].
+% \]
+
+% Il controllo fa quindi parte della procedura computazionale: verifica che
+% l'output conservi le propriet\`{a} richieste dal modello.
+
+% \subsection{Controllare anche ci\`{o} che appare plausibile}
+
+% Gli errori pi\`{u} insidiosi possono produrre risultati apparentemente
+% plausibili senza generare errori Python. Una frequenza simulata pu\`{o}
+% risultare incompatibile con la probabilit\`{a} teorica; una tabella pu\`{o}
+% utilizzare gruppi costruiti in modo errato; un testo pu\`{o} attribuire una
+% lettura dinamica a un modello a un solo periodo.
+
+% La validazione deve quindi riguardare tre livelli:
+
+% \[
+% \begin{array}{c}
+% \text{correttezza tecnica}
+% \\[3pt]
+% \downarrow
+% \\[3pt]
+% \text{coerenza quantitativa}
+% \\[3pt]
+% \downarrow
+% \\[3pt]
+% \text{coerenza con il modello finanziario}.
+% \end{array}
+% \]
+
+% La correttezza tecnica del codice non garantisce da sola la correttezza
+% quantitativa e interpretativa.
+
+% \subsection{Grafici: prima la domanda, poi la realizzazione}
+
+% Anche un grafico deve avere una funzione definita prima della sua costruzione.
+
+% Nel caso considerato, un istogramma della perdita pu\`{o} rendere visibili la
+% forma della distribuzione empirica, la dispersione e la posizione della soglia
+% $\ell$. Un confronto tra gruppi informativi pu\`{o} invece evidenziare
+% differenze tra distribuzioni o valori medi condizionati.
+
+% L'IA pu\`{o} essere delegata alla realizzazione tecnica del grafico, non alla
+% scelta del suo significato informativo.
+
+% La sequenza da seguire \`{e}
+
+% \[
+% \begin{array}{c}
+% \text{domanda quantitativa}
+% \\[3pt]
+% \downarrow
+% \\[3pt]
+% \text{informazione da rappresentare}
+% \\[3pt]
+% \downarrow
+% \\[3pt]
+% \text{grafico}
+% \\[3pt]
+% \downarrow
+% \\[3pt]
+% \text{codice}.
+% \end{array}
+% \]
+
+% \subsection{Quando utilizzare il Regime C}
+
+% Il Regime C viene utilizzato quando emerge una criticit\`{a} concreta. Non
+% \`{e} sufficiente chiedere genericamente:
+
+% \begin{quote}
+% \small
+% \noindent{\ttfamily\raggedright
+% Controlla se il notebook \`{e} corretto.
+% \par}
+% \end{quote}
+
+% Il prompt deve invece indicare la tappa interessata, il risultato o il codice
+% che genera il dubbio e il motivo per cui non appare coerente.
+
+% Ad esempio:
+
+% \begin{quote}
+% \small
+% \noindent{\ttfamily\raggedright
+% Nella simulazione dei regimi, le frequenze empiriche risultano molto lontane
+% dalle probabilit\`{a} teoriche, nonostante il numero elevato di simulazioni. Verifica il codice riportato e stabilisci se esiste una criticit\`{a}, senza
+% modificare i parametri teorici del caso.
+% \par}
+% \end{quote}
+
+% Un'altra criticit\`{a} pu\`{o} riguardare l'interpretazione: descrivere le
+% simulazioni come periodi successivi sarebbe incoerente con un modello a un
+% solo periodo, nel quale esse rappresentano scenari alternativi.
+
+% \subsection{Criticit\`{a} respinta e criticit\`{a} accolta}
+
+% La verifica in Regime C deve concludersi con uno dei due esiti:
+
+% \begin{center}
+% \begin{tabular}{p{3.5cm}p{8.0cm}}
+% Criticit\`{a} respinta &
+% il dubbio non individua un problema effettivo e il notebook non viene
+% modificato; \\[4pt]
+
+% Criticit\`{a} accolta &
+% il dubbio individua un errore o un'incoerenza e la parte interessata viene
+% corretta.
+% \end{tabular}
+% \end{center}
+
+% Se la criticit\`{a} viene accolta, le celle interessate devono essere
+% sostituite con la versione corretta. Il notebook conserva quindi il prodotto
+% finale validato, mentre il tracciato dell'interazione documenta il processo che
+% ha condotto alla correzione.
+
+% \subsection{Interpretare soltanto ci\`{o} che \`{e} stato verificato}
+
+% L'interpretazione deve seguire il controllo.
+
+% Se le medie condizionate risultano differenti nei tre regimi, \`{e} possibile
+% affermare che la partizione informativa distingue differenti livelli medi di
+% perdita nel modello simulato. Non sarebbe invece corretto attribuire tali
+% differenze a meccanismi economici non inclusi nella Scheda Caso oppure
+% interpretarle come previsioni empiriche sull'andamento futuro dei tassi.
+
+% Analogamente, una probabilit\`{a} di superamento della soglia ha significato
+% rispetto al modello e ai parametri assegnati, non come misura automatica del
+% rischio effettivo di un portafoglio reale.
+
+% Il percorso della singola tappa pu\`{o} essere sintetizzato come
+
+% \[
+% \begin{array}{c}
+% \text{specifica}
+% %\\[3pt]
+% \rightarrow
+% %\\[3pt]
+% \text{codice}
+% %\\[3pt]
+% \rightarrow
+% %\\[3pt]
+% \text{output}
+% %\\[3pt]
+% \rightarrow
+% %\\[3pt]
+% \text{controllo}
+% %\\[3pt]
+% \rightarrow
+% %\\[3pt]
+% \text{interpretazione}.
+% \end{array}
+% \]
+
+% La qualit\`{a} del notebook dipende dalla possibilit\`{a} di ricostruire
+% questa corrispondenza nei passaggi quantitativamente rilevanti.
+
+
 \section{Dalle tappe al notebook: simulazione, output e verifica}
 
-Una volta validata la scomposizione in tappe input--output, la struttura
-concettuale del notebook \`{e} definita. Soltanto a questo punto risulta
-appropriato tradurre le singole tappe in celle Markdown, codice Python,
-tabelle e grafici.
+Una volta validata la scomposizione operativa, ciascuna tappa pu\`{o} essere
+tradotta in celle Markdown, codice Python, tabelle e grafici.
 
-La sequenza generale \`{e}
+Il percorso della singola tappa pu\`{o} essere rappresentato come
 
 \[
 \begin{array}{c}
@@ -1376,28 +1716,39 @@ La sequenza generale \`{e}
 \\[3pt]
 \downarrow
 \\[3pt]
-\text{prompt di tappa}
+\text{traduzione operativa}
 \\[3pt]
 \downarrow
 \\[3pt]
-\text{risposta IA e validazione}
+\text{output osservabile}
 \\[3pt]
 \downarrow
 \\[3pt]
-\text{cella notebook}
+\text{controllo}
 \\[3pt]
 \downarrow
 \\[3pt]
-\text{output e controllo}.
+\text{eventuale verifica critica}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{interpretazione}.
 \end{array}
 \]
 
+La sequenza distingue due momenti che non devono essere confusi. Il
+\emph{controllo} appartiene alla specifica ordinaria della tappa ed \`{e}
+previsto prima della scrittura del codice. La \emph{verifica critica} in
+Regime C interviene invece soltanto quando dal codice, dall'output, o dal
+controllo emerge una criticit\`{a} concreta.
+
 Una risposta dell'IA pu\`{o} essere sintatticamente corretta e risultare
 comunque incoerente con il modello, con gli input disponibili, o con gli output
-richiesti. In questa fase, l'IA assume quindi un ruolo operativo, mentre la
-specifica teorica e la struttura delle tappe devono rimanere invariate.
+richiesti. In questa fase, l'IA assume quindi un ruolo prevalentemente
+operativo, mentre la specifica teorica e la struttura della tappa devono
+rimanere invariate.
 
-\subsection{Dal prompt di tappa alla cella del notebook}
+\subsection{Dalla tappa validata alla traduzione operativa}
 
 Ogni prompt di tappa parte da una struttura gi\`{a} definita. Devono essere
 specificati almeno:
@@ -1431,11 +1782,6 @@ notebook.
 \par}
 \end{quote}
 
-La scelta di che cosa debba essere calcolato \`{e} gi\`{a} stata effettuata;
-l'IA viene utilizzata principalmente per realizzare tecnicamente il calcolo.
-
-\subsection{Il Regime B: tradurre senza modificare}
-
 La traduzione operativa avviene prevalentemente in Regime B. Possono essere
 delegate all'IA la costruzione delle strutture dati, la simulazione delle
 variabili specificate, la scrittura del codice, la produzione di tabelle e
@@ -1451,7 +1797,7 @@ Se, ad esempio,
 \mathcal{N}(\mu_g,\sigma_g^2),
 \]
 l'IA pu\`{o} proporre il codice necessario per simulare gli shock nei diversi
-regimi, ma non pu\`{o} modificare distribuzione, parametri, o struttura
+regimi, ma non pu\`{o} modificare distribuzione, parametri o struttura
 informativa.
 
 Analogamente, se
@@ -1470,56 +1816,77 @@ La regola generale \`{e}
 }
 \]
 
-\subsection{Simulare significa rendere osservabile il modello}
+\subsection{Dalla traduzione operativa all'output osservabile}
+
+Il codice deve rendere osservabile quanto definito nella tappa.
 
 Nel caso sviluppato, la simulazione segue la struttura probabilistica del
-modello. Per ogni scenario, viene simulato il regime informativo
+modello. Per ogni scenario viene prima individuato il regime informativo
 \[
 Z\in\{1,2,3\},
 \]
-quindi lo shock
+quindi viene generato lo shock secondo la distribuzione corrispondente,
 \[
 \Delta y\mid A_g,
 \]
-e infine la perdita
+e infine viene costruita la perdita
 \[
 L=D V_0\Delta y.
 \]
 
-La dipendenza pu\`{o} essere rappresentata sinteticamente come
+La dipendenza computazionale pu\`{o} essere sintetizzata come
 
 \[
-\begin{array}{c}
 Z^{(k)}
-%\\[3pt]
-\rightarrow
-%\\[3pt]
+\longrightarrow
 \Delta y^{(k)}
-%\\[3pt]
-\rightarrow
-%\\[3pt]
+\longrightarrow
 L^{(k)}.
-\end{array}
 \]
 
 Il campione
 \[
 L^{(1)},\ldots,L^{(k)},\ldots,L^{(M)}
 \]
-rende osservabile la distribuzione empirica della perdita e permette di
+rende osservabile la distribuzione empirica della perdita e consente di
 stimare media, deviazione standard, quantili e probabilit\`{a} di superamento
 di soglia.
 
-La cella Markdown chiarisce quale oggetto viene stimato; il codice realizza il
-calcolo; l'output rende osservabile il risultato.
+La cella Markdown chiarisce quale oggetto viene costruito o stimato; il codice
+realizza l'operazione; l'output rende osservabile il risultato.
 
-\subsection{Un output non \`{e} ancora una verifica}
+Anche tabelle e grafici devono rispondere a una funzione gi\`{a} definita.
+Un istogramma della perdita, ad esempio, pu\`{o} rendere visibili la forma
+della distribuzione empirica, la dispersione e la posizione della soglia
+$\ell$. Un confronto tra gruppi informativi pu\`{o} invece evidenziare
+differenze tra distribuzioni o valori medi condizionati.
 
-La produzione di un numero, di una tabella, o di un grafico non dimostra che il
+La scelta del grafico deve quindi seguire la sequenza
+
+\[
+\begin{array}{c}
+\text{domanda quantitativa}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{informazione da rappresentare}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{grafico appropriato}.
+\end{array}
+\]
+
+L'IA pu\`{o} essere utilizzata per la realizzazione tecnica della figura, ma
+non per sostituire la scelta dell'informazione che deve essere resa visibile.
+
+\subsection{Dall'output al controllo}
+
+La produzione di un numero, di una tabella o di un grafico non dimostra che il
 calcolo sia corretto. Ogni output deve essere confrontato con almeno una
 propriet\`{a} coerente con il modello.
 
-Per i regimi simulati, deve risultare
+Per i regimi simulati deve risultare
 \[
 \sum_{g=1}^{3}\widehat{\Prob}(A_g)=1,
 \]
@@ -1532,14 +1899,14 @@ Per la trasformazione della perdita, poich\'{e} $D>0$ e $V_0>0$,
 L>0.
 \]
 
-Per una soglia $\ell>0$, deve inoltre valere
+Per una soglia $\ell>0$ deve inoltre valere
 \[
 L>\ell
 \quad\Longleftrightarrow\quad
 \Delta y>\frac{\ell}{D V_0}.
 \]
 
-Infine, nell'analisi condizionata, deve essere verificata la ricomposizione
+Nell'analisi condizionata deve infine essere verificata la ricomposizione
 \[
 \widehat{\E}[L]
 =
@@ -1548,16 +1915,15 @@ Infine, nell'analisi condizionata, deve essere verificata la ricomposizione
 \widehat{\E}[L\mid A_g].
 \]
 
-Il controllo fa quindi parte della procedura computazionale: verifica che
-l'output conservi le propriet\`{a} richieste dal modello.
+Il controllo fa quindi parte della procedura computazionale e non costituisce
+un'aggiunta successiva.
 
-\subsection{Controllare anche ci\`{o} che appare plausibile}
-
-Gli errori pi\`{u} insidiosi possono produrre risultati apparentemente
-plausibili senza generare errori Python. Una frequenza simulata pu\`{o}
-risultare incompatibile con la probabilit\`{a} teorica; una tabella pu\`{o}
-utilizzare gruppi costruiti in modo errato; un testo pu\`{o} attribuire una
-lettura dinamica a un modello a un solo periodo.
+Particolare attenzione deve essere dedicata ai risultati apparentemente
+plausibili. Gli errori pi\`{u} insidiosi non generano necessariamente messaggi
+di errore Python: una frequenza simulata pu\`{o} essere incompatibile con la
+probabilit\`{a} teorica, una tabella pu\`{o} utilizzare gruppi costruiti in
+modo errato e un testo pu\`{o} attribuire una lettura dinamica a un modello a
+un solo periodo.
 
 La validazione deve quindi riguardare tre livelli:
 
@@ -1578,42 +1944,12 @@ La validazione deve quindi riguardare tre livelli:
 La correttezza tecnica del codice non garantisce da sola la correttezza
 quantitativa e interpretativa.
 
-\subsection{Grafici: prima la domanda, poi la realizzazione}
+\subsection{Dal controllo alla verifica critica: il Regime C}
 
-Anche un grafico deve avere una funzione definita prima della sua costruzione.
+Il Regime C viene utilizzato quando dal codice, dall'output o dal controllo
+emerge una criticit\`{a} concreta.
 
-Nel caso considerato, un istogramma della perdita pu\`{o} rendere visibili la
-forma della distribuzione empirica, la dispersione e la posizione della soglia
-$\ell$. Un confronto tra gruppi informativi pu\`{o} invece evidenziare
-differenze tra distribuzioni o valori medi condizionati.
-
-L'IA pu\`{o} essere delegata alla realizzazione tecnica del grafico, non alla
-scelta del suo significato informativo.
-
-La sequenza da seguire \`{e}
-
-\[
-\begin{array}{c}
-\text{domanda quantitativa}
-\\[3pt]
-\downarrow
-\\[3pt]
-\text{informazione da rappresentare}
-\\[3pt]
-\downarrow
-\\[3pt]
-\text{grafico}
-\\[3pt]
-\downarrow
-\\[3pt]
-\text{codice}.
-\end{array}
-\]
-
-\subsection{Quando utilizzare il Regime C}
-
-Il Regime C viene utilizzato quando emerge una criticit\`{a} concreta. Non
-\`{e} sufficiente chiedere genericamente:
+Non \`{e} sufficiente chiedere genericamente:
 
 \begin{quote}
 \small
@@ -1636,11 +1972,9 @@ modificare i parametri teorici del caso.
 \par}
 \end{quote}
 
-Un'altra criticit\`{a} pu\`{o} riguardare l'interpretazione: descrivere le
-simulazioni come periodi successivi sarebbe incoerente con un modello a un
-solo periodo, nel quale esse rappresentano scenari alternativi.
-
-\subsection{Criticit\`{a} respinta e criticit\`{a} accolta}
+Una criticit\`{a} pu\`{o} riguardare anche l'interpretazione. Descrivere le
+simulazioni come periodi successivi sarebbe, ad esempio, incoerente con un
+modello a un solo periodo, nel quale esse rappresentano scenari alternativi.
 
 La verifica in Regime C deve concludersi con uno dei due esiti:
 
@@ -1657,13 +1991,14 @@ corretta.
 \end{center}
 
 Se la criticit\`{a} viene accolta, le celle interessate devono essere
-sostituite con la versione corretta. Il notebook conserva quindi il prodotto
-finale validato, mentre il tracciato dell'interazione documenta il processo che
-ha condotto alla correzione.
+sostituite con la versione corretta. Il notebook conserva il prodotto finale
+validato, mentre il tracciato dell'interazione documenta il processo che ha
+condotto alla correzione.
 
-\subsection{Interpretare soltanto ci\`{o} che \`{e} stato verificato}
+\subsection{Dalla verifica all'interpretazione}
 
-L'interpretazione deve seguire il controllo.
+L'interpretazione deve seguire il controllo e, quando necessario, la verifica
+critica.
 
 Se le medie condizionate risultano differenti nei tre regimi, \`{e} possibile
 affermare che la partizione informativa distingue differenti livelli medi di
@@ -1675,32 +2010,37 @@ Analogamente, una probabilit\`{a} di superamento della soglia ha significato
 rispetto al modello e ai parametri assegnati, non come misura automatica del
 rischio effettivo di un portafoglio reale.
 
-Il percorso della singola tappa pu\`{o} essere sintetizzato come
+Il percorso della singola tappa pu\`{o} quindi essere ricomposto come
 
 \[
 \begin{array}{c}
-\text{specifica}
-%\\[3pt]
-\rightarrow
-%\\[3pt]
-\text{codice}
-%\\[3pt]
-\rightarrow
-%\\[3pt]
+\text{specifica validata}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{traduzione operativa}
+\\[3pt]
+\downarrow
+\\[3pt]
 \text{output}
-%\\[3pt]
-\rightarrow
-%\\[3pt]
+\\[3pt]
+\downarrow
+\\[3pt]
 \text{controllo}
-%\\[3pt]
-\rightarrow
-%\\[3pt]
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{eventuale verifica critica}
+\\[3pt]
+\downarrow
+\\[3pt]
 \text{interpretazione}.
 \end{array}
 \]
 
-La qualit\`{a} del notebook dipende dalla possibilit\`{a} di ricostruire
-questa corrispondenza nei passaggi quantitativamente rilevanti.
+La qualit\`{a} del notebook non dipende dalla quantit\`{a} di codice prodotto,
+ma dalla possibilit\`{a} di ricostruire questa corrispondenza nei passaggi
+quantitativamente rilevanti.
 
 
 \section{Dal Caso Aula al Caso TakeHome: trasferire il metodo}
