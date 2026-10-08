@@ -320,11 +320,26 @@ Esempi d'uso:
 
 Il manuale deve essere il riferimento scientifico principale. Ogni capitolo deve essere autosufficiente, ma collegato agli altri capitoli.
 
-### 9.1 Capitoli teorici
+### 9.1 Corrispondenza tra capitoli del Manuale e lezioni del corso
+
+Esiste una corrispondenza biunivoca tra i capitoli del Manuale e le lezioni del corso. Tale corrispondenza ha funzione progettuale e didattica, ma non modifica la natura editoriale del Manuale.
+
+Il Manuale deve essere redatto come un'opera autonoma organizzata in capitoli. Di conseguenza:
+
+1. all'interno del Manuale i contenuti devono essere indicati come **capitoli**, sezioni, paragrafi, esempi, esercizi o appendici, e non come lezioni;
+2. i riferimenti interni devono rinviare a **capitoli o sezioni del Manuale** e non alla numerazione delle lezioni;
+3. espressioni quali `questa lezione`, `nella lezione precedente`, `nella prossima lezione`, `obiettivi della lezione` e formulazioni analoghe devono essere sostituite dalle corrispondenti formulazioni editoriali riferite al capitolo;
+4. la terminologia relativa alle **lezioni** deve essere utilizzata soltanto nei documenti che descrivono esplicitamente l'organizzazione didattica del corso, quali Master Plan, piano delle lezioni, slides e documenti di coordinamento;
+5. la corrispondenza tra numero del capitolo e numero della lezione deve essere mantenuta nei documenti di progetto, ma non deve essere necessaria per la lettura e la comprensione del Manuale.
+
+Ogni capitolo deve quindi risultare leggibile come parte di un manuale scientifico indipendentemente dalla struttura temporale con cui gli stessi contenuti vengono presentati durante il corso.
+
+
+### 9.2 Capitoli teorici
 
 La struttura standard di un capitolo teorico e':
 
-1. obiettivi della lezione;
+1. obiettivi del capitolo;
 2. motivazione finanziaria;
 3. definizioni e notazione;
 4. risultati teorici principali;
@@ -337,7 +352,7 @@ La struttura standard di un capitolo teorico e':
 
 Le dimostrazioni devono essere selettive. Devono essere incluse quando rafforzano la comprensione dei meccanismi quantitativi, ma non devono trasformare il corso in un corso astratto di probabilita' o ottimizzazione.
 
-#### 9.1.1 Standard degli esercizi nei capitoli teorici
+#### 9.2.1 Standard degli esercizi nei capitoli teorici
 
 Ogni capitolo teorico deve contenere, prima della sintesi finale e in questo ordine, le sezioni `Esercizi svolti` ed `Esercizi proposti`. Il riferimento operativo e' il template LaTeX registrato in `Templates/MQF_Catalogo_Template.md`.
 
@@ -363,7 +378,7 @@ evitare rinvii a dati dispersi in esercizi precedenti quando non hanno una funzi
 
 Lo standard disciplina la forma editoriale e didattica, ma non sostituisce il Registro degli esercizi del Master Plan, che definisce gli argomenti da coprire, ne' `MQF_Stato_Avanzamento.md`, che registra lo stato effettivo di realizzazione.
 
-### 9.1.2 Progettazione e validazione dei casi quantitativi
+### 9.2.2 Progettazione e validazione dei casi quantitativi
 
 I casi quantitativi dei capitoli teorici devono essere costruiti come problemi
 decisionali dotati di una motivazione economico-finanziaria riconoscibile. Il
@@ -479,7 +494,7 @@ La distribuzione corretta delle informazioni è la seguente:
 6. lo Stato di avanzamento registra soltanto il livello effettivo di
    realizzazione dei materiali.
 
-### 9.2 Capitoli applicativi
+### 9.3 Capitoli applicativi
 
 La struttura standard di un capitolo con applicazione Python deve essere concepita in modo coerente con la natura laboratoriale della lezione. Il capitolo applicativo non deve limitarsi a presentare codice commentato, ma deve documentare il passaggio dalla formulazione matematica al prodotto computazionale finale.
 
