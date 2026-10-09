@@ -3336,20 +3336,22 @@ dei bilanci di liquidit\`{a}.
 che condividono la stessa informazione
 nei tre stadi di ricorso.
 
-\item Scrivere i vincoli di non anticipativit\`{a}
-in forma vettoriale e determinarne
-il numero di uguaglianze scalari indipendenti.
+\item Scrivere in forma vettoriale
+i vincoli di non anticipativit\`{a}
+richiesti dalla struttura informativa.
 
 \item Verificare se il piano riportato
 nella tabella rispetta la non anticipativit\`{a}.
 Se necessario, individuare una correzione
 delle componenti che violano tale propriet\`{a}.
 
-\item Confrontare il numero di variabili
-di ricorso nella rappresentazione
-per scenario con quello della rappresentazione
-che assegna un solo vettore decisionale
-a ciascun nodo dell'albero.
+\item Spiegare perch\'{e} gli scenari
+$s_3$ e $s_4$, pur presentando entrambi
+la realizzazione $C_2$, non devono
+condividere la decisione $y_3^s$.
+Spiegare inoltre perch\'{e} le decisioni
+$y_4^s$ possono differire fra tutti
+gli scenari.
 
 \end{enumerate}
 
@@ -3386,72 +3388,87 @@ I gruppi sono
 \{s_4\}.
 \]
 
-Gli scenari $s_3$ e $s_4$
-presentano entrambi la realizzazione $C_2$,
-ma non condividono la stessa storia:
-al tempo $1$ hanno infatti osservato
-stati differenti.
+Nello stadio $4$ \`{e} nota
+la traiettoria completa e tutti
+gli scenari risultano distinguibili.
 
-Nello stadio $4$, dopo l'osservazione
-di $Z_4$, tutte le traiettorie
-sono distinguibili.
+\item Nel primo blocco di ricorso
+gli scenari $s_1$, $s_2$ e $s_3$
+sono ancora indistinguibili.
+Deve quindi valere
 
-\item I vincoli di non anticipativit\`{a}
-del primo blocco di ricorso sono
+\[
+\boxed{
+y_2^{s_1}
+=
+y_2^{s_2}
+=
+y_2^{s_3}.
+}
+\]
+
+Nello stadio successivo,
+gli scenari $s_1$ e $s_2$
+condividono ancora la stessa storia
+
+\[
+(A,C_1),
+\]
+
+e pertanto
+
+\[
+\boxed{
+y_3^{s_1}=y_3^{s_2}.
+}
+\]
+
+Non sono invece necessari
+vincoli di uguaglianza fra
+le decisioni $y_4^s$,
+poich\'{e} al tempo $4$
+la traiettoria completa
+\`{e} stata osservata.
+
+\item Dal piano riportato nella tabella,
+
+\[
+y_2^{s_1}
+=
+\begin{pmatrix}
+1\\
+2
+\end{pmatrix},
+\qquad
+y_2^{s_2}
+=
+\begin{pmatrix}
+1\\
+1
+\end{pmatrix},
+\qquad
+y_2^{s_3}
+=
+\begin{pmatrix}
+1\\
+2
+\end{pmatrix}.
+\]
+
+La condizione
 
 \[
 y_2^{s_1}
 =
 y_2^{s_2}
 =
-y_2^{s_3}.
+y_2^{s_3}
 \]
 
-Poich\'{e} ciascun vettore $y_2^s$
-contiene due componenti,
-bastano due uguaglianze vettoriali
-indipendenti, equivalenti a quattro
-uguaglianze scalari:
+non \`{e} quindi rispettata.
 
-\[
-\begin{aligned}
-g_1^{s_1}&=g_1^{s_2},
-&
-u_1^{s_1}&=u_1^{s_2},
-\\
-g_1^{s_1}&=g_1^{s_3},
-&
-u_1^{s_1}&=u_1^{s_3}.
-\end{aligned}
-\]
-
-Nel secondo blocco di ricorso
-occorre imporre
-
-\[
-y_3^{s_1}=y_3^{s_2}.
-\]
-
-Il vettore ha quattro componenti,
-per cui il vincolo equivale
-ad altre quattro uguaglianze scalari.
-
-Non sono richieste uguaglianze
-fra scenari differenti per $y_4^s$,
-poich\'{e} le traiettorie complete
-sono ormai distinguibili.
-
-In totale il numero delle uguaglianze
-scalari indipendenti \`{e}
-
-\[
-4+4=8.
-\]
-
-\item Il primo blocco del piano
-non rispetta la non anticipativit\`{a}.
-
-Infatti,
+La violazione riguarda il funding
+del tempo $1$:
 
 \[
 u_1^{s_1}=2,
@@ -3461,96 +3478,86 @@ u_1^{s_2}=1,
 u_1^{s_3}=2.
 \]
 
-La banca non pu\`{o} scegliere
-un funding diverso nello scenario $s_2$,
-perch\'{e} al tempo $1$
-non dispone ancora di informazioni
-che distinguano questo scenario
+Al tempo $1$ la banca non dispone
+ancora dell'informazione necessaria
+per distinguere lo scenario $s_2$
 dagli scenari $s_1$ e $s_3$.
 
-Una correzione che ripristina
-la non anticipativit\`{a}
-del piano riportato consiste nel porre
+Una correzione coerente con il piano
+assegnato consiste quindi nel porre
 
 \[
 u_1^{s_2}=2.
 \]
 
-Le altre componenti soddisfano
-le uguaglianze informative richieste.
+Per il secondo blocco di ricorso si ha invece
 
-Questa correzione garantisce
-la sola coerenza informativa:
-la fattibilit\`{a} finanziaria completa
+\[
+y_3^{s_1}
+=
+\begin{pmatrix}
+2\\
+1\\
+3\\
+0
+\end{pmatrix}
+=
+y_3^{s_2},
+\]
+
+per cui il vincolo di non anticipativit\`{a}
+dello stadio $3$ \`{e} rispettato.
+
+La correzione proposta garantisce
+la sola coerenza informativa.
+La fattibilit\`{a} finanziaria completa
 richiederebbe anche la verifica
 dei bilanci di liquidit\`{a}.
 
-\item Nella rappresentazione per scenario,
-ciascuna traiettoria contiene
+\item Gli scenari $s_3$ e $s_4$
+presentano entrambi la realizzazione $C_2$,
+ma non condividono la stessa storia.
+
+Infatti,
 
 \[
-2+4+1=7
+s_3:\quad (A,C_2),
 \]
 
-variabili di ricorso.
-
-Con quattro scenari si introducono quindi
+mentre
 
 \[
-4\cdot7=28
+s_4:\quad (B,C_2).
 \]
 
-componenti decisionali,
-prima di imporre la non anticipativit\`{a}.
+La decisione dello stadio $3$
+dipende dalla storia osservata,
+non soltanto dallo stato
+o dal blocco informativo corrente.
 
-Nella rappresentazione per nodo
-occorrono invece:
+Non \`{e} quindi necessario imporre
 
 \[
-\begin{array}{c|c|c|c}
-\hline
-\text{Stadio}
-&
-\text{Nodi}
-&
-\text{Variabili per nodo}
-&
-\text{Totale}\\
-\hline
-2&2&2&4\\
-3&3&4&12\\
-4&4&1&4\\
-\hline
-&&&20\\
-\hline
-\end{array}
+y_3^{s_3}=y_3^{s_4}.
 \]
 
-La differenza \`{e}
+Nello stadio $4$, infine,
+\`{e} nota l'intera traiettoria.
+Ogni scenario pu\`{o} pertanto
+avere una propria decisione terminale
 
 \[
-28-20=8,
+y_4^s=(g_4^s).
 \]
 
-pari al numero delle uguaglianze
-scalari indipendenti di non anticipativit\`{a}.
+L'esempio mostra cos\`{i} che
+la non anticipativit\`{a} richiede
+l'uguaglianza delle decisioni
+quando le storie informative coincidono,
+non semplicemente quando coincide
+una singola realizzazione osservata.
 
-Le due rappresentazioni descrivono
-lo stesso insieme di decisioni
-informativamente ammissibili:
-la prima impone esplicitamente
-le uguaglianze fra scenari,
-mentre la seconda utilizza direttamente
-un'unica variabile per ciascun nodo.
-
-\end{enumerate}
-
-
-%****************************************************
-% ESERCIZIO 3
-%****************************************************
-
-\begin{exercise}[Valore dell'informazione e della soluzione stocastica]
+\end{enumerate}\begin{exercise}[Valore dell'informazione e della soluzione stocastica]
 
 \label{ex:cap15-sp-ws-ev}
 
@@ -3580,28 +3587,22 @@ Alla data futura la banca deve soddisfare
 un fabbisogno di liquidit\`{a}
 pari a $8$ milioni di euro.
 
-Si considerano due scenari
-equiprobabili:
+Si considerano due scenari equiprobabili:
 
 \[
 p_1=p_2=0.5.
 \]
 
-Nel primo scenario, caratterizzato
-da condizioni finanziarie ordinarie,
-ogni unit\`{a} investita nei titoli
-genera $0.9$ unit\`{a} di liquidit\`{a}.
-
-Nel secondo scenario, caratterizzato
-da condizioni di stress,
-lo stesso investimento genera
-soltanto $0.5$ unit\`{a} di liquidit\`{a}.
+Nel primo scenario ogni unit\`{a}
+investita nei titoli genera $0.9$
+unit\`{a} di liquidit\`{a};
+nel secondo ne genera soltanto $0.5$.
 
 La cassa produce invece un'unit\`{a}
-di liquidit\`{a} per unit\`{a} investita
+di liquidit\`{a per unit\`{a} investita
 in entrambi gli scenari.
 
-I coefficienti di liquidit\`{a} sono dunque
+I coefficienti di liquidit\`{a} sono quindi
 
 \[
 a_1'=(1,\;0.9),
@@ -3611,9 +3612,7 @@ a_2'=(1,\;0.5).
 
 Dopo aver osservato lo scenario,
 la banca pu\`{o} raccogliere funding $u_s$
-oppure mantenere una giacenza residua $g_s$.
-
-Il funding disponibile \`{e} limitato:
+oppure mantenere una giacenza residua $g_s$:
 
 \[
 0\leq u_s\leq3,
@@ -3641,27 +3640,26 @@ non una calibrazione storica.
 
 \begin{enumerate}
 
-\item Definire le variabili,
-formulare i problemi di ricorso $Q_s(x)$
-e identificare le matrici
-$T_s$, $W_s$ e i vettori $h_s$, $q_s$.
+\item Formulare i problemi di ricorso
+$Q_s(x)$ e identificare
+$T_s$, $W_s$, $h_s$ e $q_s$.
 
 \item Determinare le funzioni di ricorso
 e risolvere il problema stocastico,
 calcolando $x^{SP}$ e $z^{SP}$.
 
-\item Risolvere i due problemi
-wait-and-see e calcolare $z^{WS}$.
+\item Risolvere i problemi
+wait-and-see nei due scenari
+e calcolare $z^{WS}$.
 
 \item Costruire il problema deterministico
-con coefficienti medi, determinare
-$x^{EV}$ e calcolare $z^{EV}$
-mediante i problemi di ricorso originari.
+medio, determinare $x^{EV}$
+e successivamente calcolare $z^{EV}$
+valutando $x^{EV}$ negli scenari originari.
 
 \item Calcolare EVPI e VSS,
 verificare l'ordinamento dei tre valori
-e interpretare il significato economico
-dei risultati.
+e interpretare economicamente i risultati.
 
 \end{enumerate}
 
@@ -3682,8 +3680,7 @@ x_2
 \end{pmatrix},
 \]
 
-mentre il ricorso nello scenario $s$
-\`{e} rappresentato dal vettore
+mentre il ricorso nello scenario $s$ \`{e}
 
 \[
 y_s=
@@ -3693,15 +3690,14 @@ u_s
 \end{pmatrix}.
 \]
 
-Il bilancio di liquidit\`{a}
-\`{e}
+Il bilancio di liquidit\`{a} \`{e}
 
 \[
 a_s'x+u_s=8+g_s.
 \]
 
 La funzione di ricorso dello scenario $s$
-\`{e} quindi
+\`{e} pertanto
 
 \[
 Q_s(x)
@@ -3713,7 +3709,7 @@ a_s'x+u_s-g_s=8
 \right\}.
 \]
 
-Nella forma matriciale
+Nella forma
 
 \[
 T_sx+W_sy_s=h_s
@@ -3731,17 +3727,14 @@ W_s=
 \begin{pmatrix}
 -1&1
 \end{pmatrix},
-\qquad
+\]
+
+\[
 h_s=
 \begin{pmatrix}
 8
-\end{pmatrix}.
-\]
-
-Il vettore dei coefficienti economici
-del ricorso \`{e}
-
-\[
+\end{pmatrix},
+\qquad
 q_s=
 \begin{pmatrix}
 0\\
@@ -3749,10 +3742,11 @@ q_s=
 \end{pmatrix}.
 \]
 
-La funzione obiettivo del programma
-stocastico \`{e} pertanto
+\item Il programma stocastico \`{e}
 
 \[
+z^{SP}
+=
 \max_{x_1,x_2}
 \left\{
 0.01x_1+0.05x_2
@@ -3761,7 +3755,7 @@ stocastico \`{e} pertanto
 \right\},
 \]
 
-con
+soggetto a
 
 \[
 x_1+x_2=10,
@@ -3769,32 +3763,80 @@ x_1+x_2=10,
 x_1,x_2\geq0.
 \]
 
-\item Utilizziamo il vincolo di bilancio
-iniziale per eliminare una variabile:
+Per studiare direttamente la funzione
+da massimizzare, poniamo
 
 \[
 x_1=10-x_2,
 \qquad
-0\leq x_2\leq10.
+0\leq x_2\leq10,
 \]
 
-Il rendimento degli investimenti
-diventa
+e definiamo
 
 \[
-0.01x_1+0.05x_2
+x(x_2)
 =
+\begin{pmatrix}
+10-x_2\\
+x_2
+\end{pmatrix}.
+\]
+
+Il contributo economico iniziale diventa
+
+\[
+\begin{aligned}
+c'x(x_2)
+&=
+0.01(10-x_2)+0.05x_2
+\\
+&=
 0.10+0.04x_2.
+\end{aligned}
 \]
 
-Nello scenario $1$,
-la liquidit\`{a} disponibile
-prima del ricorso \`{e}
+Definiamo quindi la funzione obiettivo
+stocastica, dopo avere ottimizzato
+il ricorso nei due scenari,
 
 \[
-x_1+0.9x_2
+\Pi^{SP}(x_2)
 =
+0.10+0.04x_2
++\frac12Q_1(x(x_2))
++\frac12Q_2(x(x_2)).
+\]
+
+Il valore ottimo del problema \`{e}
+
+\[
+\boxed{
+z^{SP}
+=
+\max_{0\leq x_2\leq10}
+\Pi^{SP}(x_2).
+}
+\]
+
+I simboli $\Pi^{SP}(x_2)$ e $z^{SP}$
+non indicano quindi la stessa quantit\`{a}:
+il primo rappresenta il valore associato
+a una generica scelta $x_2$,
+il secondo il massimo di tale funzione.
+
+Nello scenario $1$ la liquidit\`{a}
+disponibile prima del ricorso \`{e}
+
+\[
+\begin{aligned}
+a_1'x(x_2)
+&=
+(10-x_2)+0.9x_2
+\\
+&=
 10-0.1x_2.
+\end{aligned}
 \]
 
 Poich\'{e}
@@ -3803,26 +3845,47 @@ Poich\'{e}
 10-0.1x_2\geq9>8
 \]
 
-per ogni portafoglio ammissibile,
-non \`{e} mai necessario raccogliere funding.
-
-Segue che
+per ogni $0\leq x_2\leq10$,
+non occorre mai ricorrere al funding.
+Pertanto
 
 \[
-Q_1(x)=0.
+Q_1(x(x_2))=0.
 \]
 
-Nello scenario $2$, invece,
-la liquidit\`{a} disponibile \`{e}
+Nello scenario $2$,
 
 \[
-x_1+0.5x_2
-=
+\begin{aligned}
+a_2'x(x_2)
+&=
+(10-x_2)+0.5x_2
+\\
+&=
 10-0.5x_2.
+\end{aligned}
 \]
 
-Il fabbisogno di funding
-\`{e} quindi
+Il bilancio diventa
+
+\[
+10-0.5x_2+u_2
+=
+8+g_2,
+\]
+
+ossia
+
+\[
+u_2-g_2
+=
+0.5x_2-2.
+\]
+
+Poich\'{e} il funding ha costo positivo,
+la soluzione utilizza funding soltanto
+quando la liquidit\`{a disponibile
+non \`{e} sufficiente. Quindi
 
 \[
 u_2^*
@@ -3830,35 +3893,37 @@ u_2^*
 \max\{0,\;0.5x_2-2\}.
 \]
 
-Per $0\leq x_2\leq10$,
-esso non supera il limite di $3$.
-
-La funzione di ricorso \`{e}
+Ne segue
 
 \[
-Q_2(x)
+Q_2(x(x_2))
 =
 -0.20\max\{0,\;0.5x_2-2\}.
 \]
 
-Sostituendo nella funzione obiettivo
-si ottiene un problema
-in una sola variabile:
+Sostituendo i due valori di ricorso
+nella definizione di $\Pi^{SP}$,
 
 \[
-z^{SP}
+\Pi^{SP}(x_2)
 =
-\max_{0\leq x_2\leq10}
-\left\{
 0.10+0.04x_2
--0.10\max\{0,\;0.5x_2-2\}
-\right\}.
+-
+0.10\max\{0,\;0.5x_2-2\}.
 \]
 
-La funzione obiettivo \`{e}
-lineare a tratti:
+Il punto di cambiamento \`{e}
 
 \[
+0.5x_2-2=0,
+\qquad
+x_2=4.
+\]
+
+Pertanto
+
+\[
+\boxed{
 \Pi^{SP}(x_2)
 =
 \begin{cases}
@@ -3870,12 +3935,40 @@ lineare a tratti:
 &
 4\leq x_2\leq10.
 \end{cases}
+}
 \]
 
-Il valore cresce fino a $x_2=4$
-e successivamente diminuisce.
+La Figura~\ref{fig:cap15-funzione-obiettivo-sp}
+rende visibile il cambiamento di pendenza
+in $x_2=4$.
 
-La decisione iniziale ottima \`{e}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.82\textwidth]
+{../graphics/Cap15_funzione_obiettivo_SP.png}
+\caption{Funzione obiettivo stocastica
+$\Pi^{SP}(x_2)$.
+Per $x_2\leq4$ non \`{e} necessario
+funding in nessuno scenario;
+oltre tale soglia il costo del ricorso
+nello scenario avverso riduce
+il valore atteso del portafoglio.
+Il massimo della funzione determina
+$z^{SP}$.}
+\label{fig:cap15-funzione-obiettivo-sp}
+\end{figure}
+
+La funzione cresce fino a $x_2=4$
+e successivamente diminuisce.
+Di conseguenza,
+
+\[
+x_2^{SP}=4,
+\qquad
+x_1^{SP}=6,
+\]
+
+e
 
 \[
 \boxed{
@@ -3888,41 +3981,60 @@ x^{SP}
 }
 \]
 
-In entrambi gli scenari
-il fabbisogno viene soddisfatto
-senza ricorrere al funding.
-
-Il valore ottimo risulta
+Il valore ottimo \`{e}
 
 \[
 \boxed{
 z^{SP}
 =
-0.10+0.04(4)
+\Pi^{SP}(4)
 =
 0.26.
 }
 \]
 
-Il risultato economico atteso
-\`{e} quindi pari a $0.26$
-milioni di euro.
-
 \item Nel problema wait-and-see
-la banca conosce lo scenario futuro
-prima di scegliere il portafoglio.
+la banca conosce lo scenario
+prima di scegliere $x$.
 
-Nello scenario $1$ non occorre funding
-per nessun portafoglio ammissibile.
-La banca massimizza quindi
+Per ciascuno scenario definiamo
 
 \[
+\Pi_s^{WS}(x_2)
+=
+0.10+0.04x_2
++
+Q_s(x(x_2)),
+\]
+
+e quindi
+
+\[
+z_s^{WS}
+=
+\max_{0\leq x_2\leq10}
+\Pi_s^{WS}(x_2).
+\]
+
+Nello scenario $1$,
+
+\[
+Q_1(x(x_2))=0,
+\]
+
+per cui la banca massimizza
+
+\[
+\boxed{
+\Pi_1^{WS}(x_2)
+=
 0.10+0.04x_2,
 \qquad
 0\leq x_2\leq10.
+}
 \]
 
-La soluzione \`{e}
+La funzione \`{e} crescente e quindi
 
 \[
 x_2^{WS,1}=10,
@@ -3930,26 +4042,31 @@ x_2^{WS,1}=10,
 x_1^{WS,1}=0,
 \]
 
-con valore
+con
 
 \[
-z_1^{WS}=0.50.
+z_1^{WS}
+=
+\Pi_1^{WS}(10)
+=
+0.50.
 \]
 
-Nello scenario $2$
-la funzione obiettivo \`{e}
+Nello scenario $2$,
 
 \[
-\Pi_2(x_2)
+\Pi_2^{WS}(x_2)
 =
 0.10+0.04x_2
--0.20\max\{0,\;0.5x_2-2\}.
+-
+0.20\max\{0,\;0.5x_2-2\}.
 \]
 
-Esplicitando i due tratti,
+Esplicitamente,
 
 \[
-\Pi_2(x_2)
+\boxed{
+\Pi_2^{WS}(x_2)
 =
 \begin{cases}
 0.10+0.04x_2,
@@ -3960,6 +4077,7 @@ Esplicitando i due tratti,
 &
 4\leq x_2\leq10.
 \end{cases}
+}
 \]
 
 Il massimo si ottiene in
@@ -3973,51 +4091,49 @@ x_1^{WS,2}=6,
 con
 
 \[
-z_2^{WS}=0.26.
+z_2^{WS}
+=
+\Pi_2^{WS}(4)
+=
+0.26.
 \]
 
-Il valore wait-and-see
-\`{e} la media ponderata
-dei due ottimi scenario-specifici:
+Il valore wait-and-see \`{e}
+il valore atteso dei due ottimi
+scenario-specifici:
 
 \[
 \begin{aligned}
 z^{WS}
 &=
-0.5z_1^{WS}+0.5z_2^{WS}
+0.5z_1^{WS}
++
+0.5z_2^{WS}
 \\
 &=
-0.5(0.50)+0.5(0.26).
+0.5(0.50)+0.5(0.26)
+\\
+&=
+\boxed{0.38}.
 \end{aligned}
 \]
 
-Pertanto,
+\item Nel problema deterministico medio
+i parametri incerti vengono sostituiti
+con i rispettivi valori attesi.
 
-\[
-\boxed{
-z^{WS}=0.38.
-}
-\]
-
-La differenza rispetto a SP
-deriva dalla possibilit\`{a}
-di scegliere il portafoglio iniziale
-dopo aver conosciuto lo scenario.
-
-\item Per costruire il problema medio,
-calcoliamo innanzitutto
-il coefficiente medio di liquidit\`{a}
-dei titoli:
+Il coefficiente medio di liquidit\`{a}
+dei titoli \`{e}
 
 \[
 \bar a_2
 =
 0.5(0.9)+0.5(0.5)
 =
-0.7.
+0.7,
 \]
 
-Il costo unitario medio del funding \`{e}
+mentre il costo medio del funding \`{e}
 
 \[
 \bar\gamma
@@ -4027,11 +4143,7 @@ Il costo unitario medio del funding \`{e}
 0.11.
 \]
 
-Il fabbisogno e il limite di funding
-sono deterministici e rimangono
-rispettivamente pari a $8$ e $3$.
-
-Il problema deterministico medio \`{e}
+Il problema medio \`{e}
 
 \[
 \begin{aligned}
@@ -4054,16 +4166,44 @@ x_1,x_2,\bar g\geq0,
 \end{aligned}
 \]
 
-Eliminando $x_1$,
-la liquidit\`{a} disponibile
-prima del ricorso \`{e}
+Eliminando $x_1$ mediante
 
 \[
-10-0.3x_2.
+x_1=10-x_2,
 \]
 
-Il funding ottimo del problema medio
-\`{e} quindi
+la liquidit\`{a disponibile
+prima del ricorso diventa
+
+\[
+\begin{aligned}
+x_1+0.7x_2
+&=
+(10-x_2)+0.7x_2
+\\
+&=
+\boxed{10-0.3x_2}.
+\end{aligned}
+\]
+
+Il bilancio del problema medio
+pu\`{o quindi essere scritto come
+
+\[
+10-0.3x_2+\bar u
+=
+8+\bar g,
+\]
+
+ossia
+
+\[
+\bar u-\bar g
+=
+0.3x_2-2.
+\]
+
+Poich\'{e} il funding ha costo positivo,
 
 \[
 \bar u^*
@@ -4071,27 +4211,33 @@ Il funding ottimo del problema medio
 \max\{0,\;0.3x_2-2\}.
 \]
 
-La funzione obiettivo diventa
+Definiamo la funzione obiettivo
+del problema deterministico medio
 
 \[
 \Pi^{EV}(x_2)
 =
 0.10+0.04x_2
--0.11\max\{0,\;0.3x_2-2\}.
+-
+0.11\max\{0,\;0.3x_2-2\}.
 \]
 
-Il punto di cambiamento
-si trova in
+Il punto di cambiamento soddisfa
 
 \[
 0.3x_2-2=0,
-\qquad
+\]
+
+da cui
+
+\[
 x_2=\frac{20}{3}.
 \]
 
 Pertanto,
 
 \[
+\boxed{
 \Pi^{EV}(x_2)
 =
 \begin{cases}
@@ -4103,13 +4249,39 @@ Pertanto,
 &
 20/3\leq x_2\leq10.
 \end{cases}
+}
 \]
 
-La funzione cresce in entrambi
-gli intervalli, per cui il massimo
-si ottiene in $x_2=10$.
+La Figura~\ref{fig:cap15-funzione-obiettivo-ev}
+mostra che il cambio di pendenza
+non modifica il segno positivo
+della pendenza della funzione.
 
-La soluzione del problema medio \`{e}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.82\textwidth]
+{../graphics/Cap15_funzione_obiettivo_EV.png}
+\caption{Funzione obiettivo
+$\Pi^{EV}(x_2)$ del problema deterministico medio.
+Il punto $x_2=20/3$ individua l'inizio
+del ricorso al funding nel problema medio.
+La funzione rimane crescente
+e il massimo si raggiunge in $x_2=10$.
+Il valore massimo $0.39$ \`{e} il valore
+ottimo del problema medio, non $z^{EV}$.}
+\label{fig:cap15-funzione-obiettivo-ev}
+\end{figure}
+
+La funzione cresce in entrambi
+gli intervalli. Ne segue
+
+\[
+x_2^{EV}=10,
+\qquad
+x_1^{EV}=0,
+\]
+
+e quindi
 
 \[
 \boxed{
@@ -4118,42 +4290,58 @@ x^{EV}
 \begin{pmatrix}
 0\\
 10
-\end{pmatrix},
-\qquad
-\bar y^{EV}
-=
-\begin{pmatrix}
-\bar g^{EV}\\
-\bar u^{EV}
-\end{pmatrix}
-=
-\begin{pmatrix}
-0\\
-1
 \end{pmatrix}.
 }
 \]
 
-Il valore ottimo
-del problema deterministico medio \`{e}
+Nel problema medio,
 
 \[
-0.50-0.11(1)=0.39.
+10-0.3(10)=7,
 \]
 
-Questo valore non \`{e} $z^{EV}$.
-
-Per determinare $z^{EV}$
-occorre valutare la decisione
-iniziale $x^{EV}$ negli scenari originari.
-
-Nel primo scenario, fissato
+per cui il bilancio richiede
 
 \[
-x^{EV}=(0,10)',
+7+\bar u=8+\bar g.
 \]
 
-il problema di ricorso \`{e}
+La soluzione ottima \`{e}
+
+\[
+\bar u^{EV}=1,
+\qquad
+\bar g^{EV}=0.
+\]
+
+Il valore ottimo del problema medio
+\`{e} pertanto
+
+\[
+\Pi^{EV}(10)
+=
+0.50-0.11
+=
+0.39.
+\]
+
+Questo valore non coincide con $z^{EV}$.
+
+Per calcolare $z^{EV}$,
+manteniamo fissata la decisione
+
+\[
+x^{EV}
+=
+\begin{pmatrix}
+0\\
+10
+\end{pmatrix}
+\]
+
+e torniamo ai due scenari originari.
+
+Nel primo scenario il problema di ricorso \`{e}
 
 \[
 Q_1(x^{EV})
@@ -4165,7 +4353,14 @@ Q_1(x^{EV})
 \right\}.
 \]
 
-La soluzione ottima \`{e}
+Il vincolo equivale a
+
+\[
+g_1=1+u_1.
+\]
+
+Poich\'{e} il funding ha costo positivo,
+la scelta ottima \`{e}
 
 \[
 u_1^*=0,
@@ -4179,8 +4374,7 @@ e quindi
 Q_1(x^{EV})=0.
 \]
 
-Nel secondo scenario
-il problema di ricorso \`{e}
+Nel secondo scenario il problema di ricorso \`{e}
 
 \[
 Q_2(x^{EV})
@@ -4192,15 +4386,41 @@ Q_2(x^{EV})
 \right\}.
 \]
 
-La soluzione ottima richiede
+Il vincolo di bilancio implica
 
 \[
-u_2^*=3,
-\qquad
-g_2^*=0,
+u_2-g_2=3,
 \]
 
-con
+o, equivalentemente,
+
+\[
+u_2=3+g_2.
+\]
+
+Poich\'{e}
+
+\[
+g_2\geq0
+\]
+
+e contemporaneamente
+
+\[
+u_2\leq3,
+\]
+
+l'unica possibilit\`{a} ammissibile \`{e}
+
+\[
+\boxed{
+u_2^*=3,
+\qquad
+g_2^*=0.
+}
+\]
+
+Pertanto,
 
 \[
 Q_2(x^{EV})
@@ -4210,7 +4430,8 @@ Q_2(x^{EV})
 -0.60.
 \]
 
-Possiamo ora calcolare
+Possiamo ora calcolare il valore
+stocastico della decisione $x^{EV}$:
 
 \[
 \begin{aligned}
@@ -4218,37 +4439,44 @@ z^{EV}
 &=
 c'x^{EV}
 +
-\sum_{s=1}^{2}p_sQ_s(x^{EV})
+\frac12 Q_1(x^{EV})
++
+\frac12 Q_2(x^{EV})
 \\
 &=
 0.50
 +
-0.5(0)
+\frac12(0)
 +
-0.5(-0.60).
+\frac12(-0.60)
+\\
+&=
+\boxed{0.20}.
 \end{aligned}
 \]
 
-Il risultato \`{e}
+Il passaggio deve essere tenuto distinto
+dal problema medio:
 
 \[
-\boxed{
-z^{EV}=0.20.
-}
+\Pi^{EV}(10)=0.39
 \]
 
-La decisione basata sui valori medi
-genera quindi un risultato atteso
-inferiore a quello della decisione
-stocastica ottima.
+\`{e} il valore ottimo
+del problema costruito con dati medi,
 
-La differenza fra $0.39$ e $0.20$
-mostra inoltre che il valore ottimo
-del problema medio non coincide
-con il risultato ottenuto valutando
-$x^{EV}$ sotto l'incertezza effettiva.
+mentre
 
-\item I tre valori calcolati sono
+\[
+z^{EV}=0.20
+\]
+
+\`{e} il valore atteso ottenuto
+quando la decisione iniziale
+$x^{EV}$ viene sottoposta
+agli scenari originari.
+
+\item I tre benchmark sono
 
 \[
 \boxed{
@@ -4260,13 +4488,13 @@ z^{WS}=0.38.
 }
 \]
 
-Essi soddisfano l'ordinamento
+Si verifica quindi
 
 \[
 z^{WS}>z^{SP}>z^{EV}.
 \]
 
-Il valore dell'informazione perfetta \`{e}
+L'Expected Value of Perfect Information \`{e}
 
 \[
 \begin{aligned}
@@ -4282,7 +4510,7 @@ z^{WS}-z^{SP}
 \end{aligned}
 \]
 
-Il valore della soluzione stocastica \`{e}
+Il Value of the Stochastic Solution \`{e}
 
 \[
 \begin{aligned}
@@ -4298,43 +4526,40 @@ z^{SP}-z^{EV}
 \end{aligned}
 \]
 
-Tutte le grandezze sono espresse
-in milioni di euro.
+Poich\'{e} le quantit\`{a} monetarie
+sono espresse in milioni di euro,
+l'EVPI corrisponde a $120\,000$ euro
+e il VSS a $60\,000$ euro.
 
-L'EVPI pari a $0.12$ indica
-che la conoscenza anticipata
-dello scenario consentirebbe,
-nel modello considerato,
-un incremento del risultato atteso
-di $120\,000$ euro.
+Il problema medio induce la banca
+a investire interamente nei titoli
+meno liquidi. Quando questa decisione
+viene valutata nello scenario di stress,
+la banca deve utilizzare interamente
+la capacit\`{a} di funding disponibile.
 
-Il VSS pari a $0.06$ indica invece
-che scegliere il portafoglio iniziale
-mediante il programma stocastico,
-anzich\'{e} mediante il problema medio,
-produce un incremento del risultato
-atteso di $60\,000$ euro.
+Il programma stocastico tiene invece
+conto ex ante di tale possibilit\`{a}
+e sceglie
 
-Il meccanismo economico \`{e} preciso.
-Il problema medio favorisce
-l'investimento completo
-nei titoli meno liquidi,
-perch\'{e} sottostima
-l'effetto delle condizioni di stress
-sul costo atteso del funding.
+\[
+x^{SP}
+=
+\begin{pmatrix}
+6\\
+4
+\end{pmatrix},
+\]
 
-Il programma stocastico sceglie invece
-una quota maggiore di liquidit\`{a}
-iniziale, rinunciando a una parte
-del rendimento degli investimenti
-per evitare il funding oneroso
-nello scenario avverso.
+rinunciando a una parte del rendimento
+potenziale in cambio di una maggiore
+robustezza rispetto allo scenario avverso.
 
-La soluzione wait-and-see
-ottiene un risultato superiore
-perch\'{e} pu\`{o} effettuare
-questa scelta soltanto quando
-sa che si verificher\`{a}
-lo scenario di stress.
+Il benchmark wait-and-see ottiene
+un valore ancora superiore perch\'{e},
+conoscendo anticipatamente lo scenario,
+pu\`{o} scegliere un portafoglio
+iniziale differente nelle due situazioni.
 
 \end{enumerate}
+

@@ -56,7 +56,7 @@
 
 \begin{center}
 {\Large \textbf{Master Plan del corso}}\\[6pt]{\large \textbf{Metodi
-Quantitativi per la Finanza Moderna}}\\[12pt]
+Quantitativi per la Finanza}}\\[12pt]
 \end{center}
 
 \textbf{Destinatari:} studenti del secondo anno del Corso di Laurea Magistrale in Finanza e
@@ -779,61 +779,62 @@ media, varianza e quantili; calcolare valori attesi condizionati rispetto a
 soglie come $X>a$, $L>\ell$ o $S>K$; confrontare partizioni
 alternative.\newline\textbf{Grafici previsti:} istogrammi; funzione di
 ripartizione empirica; quantili; confronto tra stime condizionate per classi
-informative.\newline\textbf{Applicazioni Python collegate:} applicazione
-Python 1.
+informative.\newline\textbf{Applicazioni Python collegate:} Caso Aula: perdita obbligazionaria condizionata
+a regimi di tasso; Caso TakeHome: shortfall di margine condizionato a
+regimi del costo dell'energia.
 
-\paragraph{Materiali applicativi della lezione.}
-Per la Lezione 4 devono essere predisposti: capitolo del manuale, slides
-applicative, notebook Python semi-strutturato, script Python completo di
-soluzione, figure generate da Python e una breve estensione take-home. Il caso
-applicativo guida \`{e} l'analisi simulata di una perdita di portafoglio a un
-periodo in presenza di stati informativi di mercato.
+%\paragraph{Materiali applicativi della lezione.}
+%Per la Lezione 4 devono essere predisposti: capitolo del manuale, slides
+%applicative, notebook Python semi-strutturato, script Python completo di
+%soluzione, figure generate da Python e una breve estensione take-home. Il caso
+%applicativo guida \`{e} l'analisi simulata di una perdita di portafoglio a un
+%periodo in presenza di stati informativi di mercato.
 
-\paragraph{Controlli intermedi.}
-Ogni tappa computazionale deve concludersi con un controllo numerico o logico
-semplice e con una domanda interpretativa. I controlli minimi riguardano:
-somma delle probabilit\`{a} degli stati, confronto tra probabilit\`{a} teoriche e
-frequenze simulate, assenza di classi vuote, coerenza delle probabilit\`{a} di
-superamento soglia, costanza delle medie condizionate entro ciascuno stato e
-verifica empirica della relazione
-\[
-\E\left[\E[L\mid\G]\right]=\E[L].
-\]
+%\paragraph{Controlli intermedi.}
+%Ogni tappa computazionale deve concludersi con un controllo numerico o logico
+%semplice e con una domanda interpretativa. I controlli minimi riguardano:
+%somma delle probabilit\`{a} degli stati, confronto tra probabilit\`{a} teoriche e
+%frequenze simulate, assenza di classi vuote, coerenza delle probabilit\`{a} di
+%superamento soglia, costanza delle medie condizionate entro ciascuno stato e
+%verifica empirica della relazione
+%\[
+%\E\left[\E[L\mid\G]\right]=\E[L].
+%\]
 
-\paragraph{Estensione take-home.}
-L'estensione take-home consiste nel confronto tra una partizione informativa
-grossolana e una partizione informativa pi\`{u} fine. Gli studenti devono
-costruire le corrispondenti previsioni condizionate della perdita, verificarne
-la coerenza con la media non condizionata e commentare l'effetto della maggiore
-informazione sulla differenziazione delle previsioni.
+%\paragraph{Estensione take-home.}
+%L'estensione take-home consiste nel confronto tra una partizione informativa
+%grossolana e una partizione informativa pi\`{u} fine. Gli studenti devono
+%costruire le corrispondenti previsioni condizionate della perdita, verificarne
+%la coerenza con la media non condizionata e commentare l'effetto della maggiore
+%informazione sulla differenziazione delle previsioni.
 
-\paragraph{Caso applicativo guida.}
-Il caso applicativo guida della Lezione 4 \`{e} la simulazione Monte Carlo dei
-rendimenti e delle perdite di un portafoglio finanziario a un periodo. Il valore
-iniziale del portafoglio \`{e} indicato con $V_{0}>0$, il rendimento aleatorio con
-$R$ e la perdita con
-\[
-L=-V_{0}R.
-\]
-L'informazione di mercato \`{e} rappresentata da una variabile discreta di stato
-$Z\in\{N,V,S\}$, dove $N$ indica un mercato normale, $V$ una fase di volatilit\`{a}
-elevata e $S$ uno stato di stress. Gli eventi informativi sono
-\[
-A_N=\{Z=N\},\qquad A_V=\{Z=V\},\qquad A_S=\{Z=S\},
-\]
-e generano la sigma-algebra informativa
-\[
-\G=\sigma(A_N,A_V,A_S).
-\]
-Condizionatamente allo stato $Z=g$, il rendimento del portafoglio viene simulato
-come
-\[
-R\mid Z=g \sim \mathcal{N}(\mu_g,\sigma_g^2).
-\]
-Il laboratorio utilizza questo caso per stimare distribuzioni empiriche della
-perdita, probabilit\`{a} di superamento di soglie, valori attesi non condizionati,
-valori attesi condizionati rispetto agli eventi informativi e la variabile
-casuale $\E[L\mid\G]$.
+% \paragraph{Caso applicativo guida.}
+% Il caso applicativo guida della Lezione 4 \`{e} la simulazione Monte Carlo dei
+% rendimenti e delle perdite di un portafoglio finanziario a un periodo. Il valore
+% iniziale del portafoglio \`{e} indicato con $V_{0}>0$, il rendimento aleatorio con
+% $R$ e la perdita con
+% \[
+% L=-V_{0}R.
+% \]
+% L'informazione di mercato \`{e} rappresentata da una variabile discreta di stato
+% $Z\in\{N,V,S\}$, dove $N$ indica un mercato normale, $V$ una fase di volatilit\`{a}
+% elevata e $S$ uno stato di stress. Gli eventi informativi sono
+% \[
+% A_N=\{Z=N\},\qquad A_V=\{Z=V\},\qquad A_S=\{Z=S\},
+% \]
+% e generano la sigma-algebra informativa
+% \[
+% \G=\sigma(A_N,A_V,A_S).
+% \]
+% Condizionatamente allo stato $Z=g$, il rendimento del portafoglio viene simulato
+% come
+% \[
+% R\mid Z=g \sim \mathcal{N}(\mu_g,\sigma_g^2).
+% \]
+% Il laboratorio utilizza questo caso per stimare distribuzioni empiriche della
+% perdita, probabilit\`{a} di superamento di soglie, valori attesi non condizionati,
+% valori attesi condizionati rispetto agli eventi informativi e la variabile
+% casuale $\E[L\mid\G]$.
 
 \subsection{Lezione 5 -- Processi stocastici I: tempo discreto, informazione e
 martingale}
@@ -945,7 +946,10 @@ stimare intervalli di errore Monte Carlo; analizzare sensibilit\`{a} rispetto
 a strike, volatilit\`{a} e mean-reversion.\newline\textbf{Grafici previsti:}
 traiettorie simulate; distribuzione dei payoff; convergenza della media Monte
 Carlo; confronto tra prezzi al variare dei parametri.\newline%
-\textbf{Applicazioni Python collegate:} applicazione Python 2.
+\textbf{Applicazioni Python collegate:} Caso Aula: pricing Monte Carlo di un
+inflation-linked bond con inflazione e tasso nominale stocastici; Caso
+TakeHome: pricing Monte Carlo di una call asiatica sull'EURO STOXX 50 con
+tasso di interesse stocastico.
 
 \subsection{Lezione 8 -- Catene di Markov: definizioni e propriet\`{a}}
 
@@ -1051,7 +1055,10 @@ uno stato assorbente; confrontare portafogli con diverse esposizioni;
 analizzare sensibilit\`{a} di VaR e CVaR.\newline\textbf{Grafici previsti:}
 heatmap della matrice; probabilit\`{a} di default nel tempo; distribuzione
 simulata delle perdite.\newline\textbf{Applicazioni Python collegate:}
-applicazione Python 3.
+Caso Aula: China Evergrande 2021, rischio
+sistemico e controllo della concentrazione creditizia; Caso TakeHome:
+Lehman Brothers 2008, rischio sistemico, migrazioni creditizie e
+diversificazione del portafoglio.
 
 
 \subsection{Lezione 11 -- Ottimizzazione e programmazione lineare}
@@ -1175,7 +1182,9 @@ metodo \texttt{highs}.\newline
 deterministico coerente con il modello della Lezione 12.\newline
 \textbf{Contenuti non sviluppati:} nuova teoria di ottimizzazione o nuova
 teoria ALM.\newline
-\textbf{Applicazioni Python collegate:} applicazione Python 4.
+\textbf{Applicazioni Python collegate:} Caso Aula: Silicon Valley Bank 2023, piano ALM,
+sensitivit\`a e scenari di stress; Caso TakeHome: First Republic Bank 2023,
+due ondate di deposit run e vincoli di ristrutturazione del bilancio.
 
 \subsection{Lezione 14 -- Programmazione lineare stocastica I}
 
@@ -1290,8 +1299,10 @@ modificare rendimenti e passivit\`{a}; confrontare soluzioni SP, EV e WS;
 introdurre o rimuovere vincoli di non anticipativit\`{a}.\newline%
 \textbf{Grafici previsti:} albero degli scenari; composizione del portafoglio
 per scenario o nodo; confronto dei valori; visualizzazione di EVPI e
-VSS.\newline\textbf{Applicazioni Python collegate:} applicazione Python
-5.
+VSS.\newline\textbf{Applicazioni Python collegate:} Caso Aula: Silicon Valley Bank 2023, asset
+allocation, liquidit\`a e valore dell'informazione; Caso TakeHome: crisi
+LDI britannica 2022, buffer di liquidit\`a, margin call e adattamento
+progressivo.
 
 \section{Registro degli esercizi}
 
