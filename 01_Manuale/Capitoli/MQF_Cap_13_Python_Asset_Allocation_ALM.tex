@@ -7,90 +7,52 @@
 \label{cap:python-alm}
 
 I Capitoli 11 e 12 hanno costruito il quadro teorico necessario per
-formulare e interpretare problemi di allocazione e di gestione
-Asset--Liability mediante programmazione lineare. Il Capitolo 11 ha
-introdotto la struttura generale del problema lineare, la regione
-ammissibile, i vincoli attivi, la dualit\`a e l'analisi di sensitivit\`a; il
-Capitolo 12 ha esteso questa impostazione a un problema ALM deterministico
-multi-periodale, nel quale disponibilit\`a, fabbisogni, giacenze e funding
-devono essere coordinati lungo una sequenza di date.
+formulare e interpretare problemi di allocazione e di Asset--Liability Management mediante programmazione lineare. Il Capitolo 11 ha
+introdotto la struttura generale del problema lineare, i vincoli attivi, la
+dualit\`a e l'analisi di sensitivit\`a; il Capitolo 12 ha esteso questa
+impostazione a un problema ALM deterministico multi-periodale, nel quale
+disponibilit\`a, fabbisogni, giacenze e funding devono essere coordinati lungo
+una sequenza di date.
 
 Questo capitolo compie il passaggio successivo. L'obiettivo non \`e
 introdurre una nuova classe di modelli, ma rendere operativo in Python il
-problema ALM gi\`a formulato, traducendolo nella forma richiesta dal solver,
-verificando la soluzione ottenuta e studiandone il comportamento al variare
-dei principali parametri.
+problema ALM gi\`a formulato, traducendolo nella forma richiesta dal solver e
+utilizzandolo per analizzare configurazioni alternative.
 
-Il passaggio dal modello alla soluzione numerica richiede una traduzione
-precisa. Le variabili decisionali devono essere ordinate in un unico vettore;
-la funzione obiettivo deve essere adattata alla convenzione utilizzata dal
-solver; i vincoli di uguaglianza, le disuguaglianze e i limiti sulle variabili
-devono essere trasformati nelle corrispondenti strutture matriciali. La
-correttezza della soluzione dipende quindi non soltanto dal funzionamento
-tecnico del codice, ma dalla coerenza tra formulazione economica e
-rappresentazione computazionale.
+Il filo conduttore \`e un Caso Aula ispirato alla crisi di Silicon Valley
+Bank del 2023. La configurazione di riferimento viene dapprima risolta e
+verificata come benchmark, ricostruendo composizione dell'attivo, giacenze di
+liquidit\`a, ricorso al funding, vincoli attivi e valori marginali.
 
-Il filo conduttore del capitolo \`e un Caso Aula ispirato alla crisi di
-Silicon Valley Bank del 2023. Il problema riprende il modello ALM
-deterministico del Capitolo 12 e ne studia la soluzione in presenza di
-fabbisogni di liquidit\`a distribuiti nel tempo, capacit\`a limitate di
-funding esterno e costi di finanziamento differenziati per scadenza.
+Il capitolo introduce inoltre un piccolo focus Python dedicato alle funzioni
+riutilizzabili. Questo strumento verr\`a impiegato per risolvere lo stesso
+modello al variare di tre driver: il parametro $\theta$, che modifica i
+fabbisogni iniziali di liquidit\`a; il parametro $\phi$, che modifica la
+capacit\`a di funding; il parametro $\psi$, che modifica il costo del funding
+e la corrispondente struttura di rimborso.
 
-La configurazione di riferimento viene dapprima risolta e controllata come
-benchmark. La soluzione ottima viene analizzata attraverso composizione
-dell'attivo, giacenze di liquidit\`a, ricorso al funding, vincoli attivi,
-slack e valori marginali. In questo modo, l'output del solver viene
-ricondotto alla struttura economica del problema e ai risultati teorici
-sviluppati nei capitoli precedenti.
-
-Il capitolo introduce inoltre un piccolo focus Python dedicato alla
-costruzione di funzioni riutilizzabili. Nel problema ALM, questa possibilit\`a
-\`e particolarmente importante perch\'e consente di racchiudere in un'unica
-procedura la costruzione e la soluzione del modello, modificando soltanto i
-parametri che descrivono il contesto analizzato. La soluzione di un singolo
-problema viene cos\`i trasformata in uno strumento per l'analisi parametrica.
-
-Nel Caso Aula, vengono considerati tre driver. Il parametro $\theta$ modifica
-i fabbisogni di liquidit\`a nelle prime date; il parametro $\phi$ modifica la
-capacit\`a disponibile di funding; il parametro $\psi$ modifica il costo del
-funding e la corrispondente struttura di rimborso. La loro introduzione
-permette di studiare come cambino il valore ottimo, il piano ALM e la
-struttura dei vincoli attivi quando il problema viene sottoposto a condizioni
-progressivamente differenti.
-
-L'analisi procede quindi dal benchmark alle sensitivit\`a univariate, dalla
-sensitivit\`a alla frontiera di fattibilit\`a e infine agli scenari nei quali
-pi\`u driver vengono modificati contemporaneamente. La sequenza distingue
-cos\`i tre domande diverse: come cambia l'ottimo quando varia un parametro,
-fino a quale punto il problema rimane ammissibile e come reagisce il piano
-ALM quando pi\`u condizioni avverse si verificano congiuntamente.
+L'analisi distingue quindi tre problemi. La sensitivit\`a studia come cambia
+la soluzione quando varia un driver alla volta; la frontiera di
+fattibilit\`a individua fino a quale livello di stress esiste ancora un piano
+ammissibile; gli scenari combinano simultaneamente pi\`u variazioni delle
+condizioni del problema.
 
 Particolare attenzione viene dedicata ai controlli. Una soluzione dichiarata
-ottima dal solver non deve essere interpretata prima di aver verificato la
-coerenza dei vincoli, i residui delle uguaglianze, gli slack, i bound attivi
-e il significato economico dei valori marginali. La formulazione
-computazionale pu\`o inoltre introdurre convenzioni di segno che devono essere
-ricondotte correttamente ai parametri economici originari.
+ottima dal solver deve essere ricondotta alla formulazione economica
+originaria verificando vincoli, residui, slack, bound attivi e significato
+dei valori marginali.
 
 Il metodo di lavoro rimane quello introdotto nel Capitolo 4 per i capitoli
-applicativi. La Scheda Caso definisce la specifica del problema, il flusso
-logico-teorico precede l'implementazione e il notebook deve mantenere
-riconoscibile il legame tra input, operazioni, output e controlli. Tali
-principi vengono qui assunti come acquisiti e non vengono riproposti
-sistematicamente.
+applicativi e viene qui assunto come acquisito.
 
-Accanto al Caso Aula, viene considerato un Caso TakeHome ispirato alla crisi
-di First Republic Bank del 2023. Il nuovo problema introduce una struttura
-differente dell'attivo, due ondate di deposit run, un vincolo legacy e una
-diversa configurazione del funding. Cambiano quindi variabili e relazioni
-specifiche, mentre rimane invariata l'architettura del lavoro: tradurre il
-modello nella forma del solver, costruire un benchmark verificabile, rendere
-parametrica la procedura e analizzare sensitivit\`a e scenari.
+Accanto al Caso Aula, un Caso TakeHome ispirato alla crisi di First Republic
+Bank del 2023 trasferisce la stessa architettura di analisi a una diversa
+struttura dell'attivo, a due ondate di deposit run e a ulteriori vincoli
+strutturali.
 
-L'obiettivo complessivo del capitolo \`e quindi rendere operativo il
-passaggio
+Il percorso complessivo del capitolo \`e quindi
 
-\[
+$$
 \begin{array}{c}
 \text{modello ALM}
 \\[3pt]
@@ -104,42 +66,23 @@ passaggio
 \\[3pt]
 \downarrow
 \\[3pt]
-\text{modello parametrico}
-\\[3pt]
-\downarrow
-\\[3pt]
 \text{sensitivit\`a, fattibilit\`a e scenari}.
 \end{array}
-\]
+$$
 
-Python rende ripetibile la soluzione del problema; il solver rende
-osservabili le conseguenze quantitative dei vincoli e dei parametri; il
-modello economico rimane tuttavia il riferimento necessario per attribuire
-significato ai risultati.
-
+Python rende ripetibile la soluzione del problema; il modello economico
+rimane il riferimento necessario per interpretarne i risultati.
 
 \section{Python per costruire funzioni riutilizzabili}
 
-Nei capitoli applicativi precedenti, Python \`e stato utilizzato per organizzare
-traiettorie, operare su matrici, selezionare scenari e trasformare output
-simulati in quantit\`a finanziarie. Nel presente capitolo, emerge una necessit\`a
-differente: risolvere ripetutamente lo stesso problema di ottimizzazione
-modificando alcuni parametri della sua specifica.
+Nei capitoli applicativi precedenti, Python \`e stato utilizzato per
+organizzare traiettorie, operare su matrici e selezionare scenari. Nel
+presente capitolo, emerge una necessit\`a differente: eseguire ripetutamente la
+stessa procedura di ottimizzazione modificandone alcuni input.
 
-Una sequenza di istruzioni pu\`o essere sufficiente quando il problema deve
-essere risolto una sola volta. Se, invece, occorre confrontare molte
-configurazioni, riscrivere, o modificare manualmente lo stesso blocco di codice
-diventa poco efficiente e aumenta il rischio di introdurre incoerenze tra una
-soluzione e la successiva.
-
-Le funzioni permettono di racchiudere una procedura in un oggetto
-riutilizzabile.
-
-\subsection{Dalla sequenza di istruzioni alla funzione}
-
-Una funzione Python viene definita mediante la parola chiave
-\texttt{def}. In forma schematica,
-
+Una funzione permette di racchiudere una sequenza di operazioni in una
+struttura riutilizzabile. In Python, viene definita mediante la parola chiave
+\texttt{def}:
 
 \begin{verbatim}
 def funzione(input):
@@ -147,13 +90,11 @@ def funzione(input):
     return output
 \end{verbatim}
 
-Gli argomenti della funzione rappresentano le informazioni ricevute
-dall'esterno. Le istruzioni interne utilizzano tali informazioni per eseguire
-la procedura prevista, mentre \texttt{return} specifica quali risultati devono
-essere restituiti.
+Gli argomenti rappresentano le informazioni ricevute dalla funzione, mentre
+\texttt{return} specifica i risultati restituiti al termine
+dell'elaborazione.
 
-Ad esempio, una funzione elementare che moltiplica una grandezza $x$ per un
-parametro $a$ pu\`o essere scritta come
+Ad esempio,
 
 \begin{verbatim}
 def scala(x, a):
@@ -161,176 +102,32 @@ def scala(x, a):
     return y
 \end{verbatim}
 
-\noindent La chiamata \verb|scala(x, a)| produce quindi il valore corrispondente agli input assegnati.
-%\begin{verbatim}
-%scala(x, a)
-%\end{verbatim}
+\noindent applica la stessa operazione a valori differenti degli input senza
+dover riscrivere le istruzioni che la realizzano.
 
+Nel problema ALM, la funzione dovr\`a ricevere i parametri che identificano
+una particolare configurazione, costruire gli oggetti necessari al solver ed
+estrarre dalla soluzione le quantit\`a rilevanti. La struttura sar\`a quindi
+del tipo
 
-La funzione non modifica il significato dell'operazione matematica. Organizza
-invece il codice in modo che la stessa operazione possa essere applicata
-ripetutamente a configurazioni differenti.
-
-\subsection{Argomenti e valori restituiti}
-
-Una funzione pu\`o ricevere pi\`u argomenti e restituire pi\`u risultati.
-
-Nel problema ALM sviluppato nel seguito, la struttura rilevante sar\`a del tipo
-
-\[
+$$
 (\theta,\phi,\psi)
 \longrightarrow
-\texttt{solve\_alm}(\theta,\phi,\psi),
-\]
-
-\noindent dove i tre parametri descrivono differenti modifiche della configurazione
-economica.
-
-All'interno della funzione, gli input vengono utilizzati per costruire gli
-oggetti necessari al problema di ottimizzazione. Il solver produce quindi una
-soluzione dalla quale possono essere estratti, tra gli altri,
-
-\[
-\Pi^*,
-\qquad
-x^*,
-\qquad
-g^*,
-\qquad
-u^*.
-\]
-
-La funzione pu\`o inoltre restituire informazioni relative alla fattibilit\`a,
-agli slack, ai bound attivi e ai valori marginali.
-
-In forma schematica,
-
-\[
-\begin{array}{c}
-(\theta,\phi,\psi)
-\\[3pt]
-\downarrow
-\\[3pt]
-\text{costruzione del problema}
-\\[3pt]
-\downarrow
-\\[3pt]
-\text{soluzione con il solver}
-\\[3pt]
-\downarrow
-\\[3pt]
-\text{estrazione dei risultati}
-\\[3pt]
-\downarrow
-\\[3pt]
+\texttt{solve\_alm}(\theta,\phi,\psi)
+\longrightarrow
 (\Pi^*,x^*,g^*,u^*,\ldots).
-\end{array}
-\]
+$$
 
-La scelta degli output deve dipendere dalle analisi che verranno svolte
-successivamente. Non \`e quindi necessario restituire ogni oggetto interno
-alla funzione, ma soltanto quelli utili per verificare e confrontare le
-soluzioni.
+La costruzione della funzione richiede di distinguere gli elementi che
+rimangono invariati tra le diverse configurazioni da quelli che devono essere
+aggiornati quando cambiano gli input. Se un parametro interviene soltanto su
+una componente della formulazione, tutte le altre devono rimanere
+inalterate.
 
-\subsection{Separare ci\`o che cambia da ci\`o che rimane invariato}
-
-La costruzione di una funzione parametrica richiede di distinguere due
-componenti del problema.
-
-La prima comprende gli elementi che rimangono invariati tra le diverse
-configurazioni. Nel Caso Aula, appartengono a questa categoria, ad esempio, la
-struttura delle variabili decisionali, la forma generale dei bilanci
-temporali e i principali vincoli prudenziali.
-
-La seconda comprende invece gli elementi che dipendono dai parametri
-analizzati. Saranno questi ultimi a essere modificati nelle diverse chiamate
-della funzione.
-
-% La distinzione pu\`o essere rappresentata come
-
-% \[
-% \begin{array}{c}
-% \text{struttura invariata del modello}
-% \\
-% +
-% \\
-% \text{parametri variabili}
-% \\[3pt]
-% \downarrow
-% \\[3pt]
-% \text{problema specifico}
-% \\[3pt]
-% \downarrow
-% \\[3pt]
-% \text{soluzione}.
-% \end{array}
-% \]
-
-Questa separazione ha anche una funzione di controllo. Se un parametro deve
-modificare soltanto una parte della formulazione, la funzione deve lasciare
-invariati tutti gli altri elementi. Una variazione non prevista segnalerebbe
-un errore nella traduzione computazionale del modello.
-
-\subsection{Dalla soluzione singola all'analisi parametrica}
-
-Una volta costruita una funzione riutilizzabile, il problema non viene pi\`u
-considerato soltanto nella configurazione iniziale.
-
-Il benchmark corrisponde a una particolare scelta degli input. Nel Caso Aula,
-
-\[
-(\theta,\phi,\psi)=(1,1,1).
-\]
-
-La stessa funzione pu\`o poi essere richiamata, ad esempio, per valori
-successivi di $\theta$,
-
-\[
-\theta_1,\theta_2,\ldots,\theta_m,
-\]
-
-\noindent mantenendo invariati gli altri parametri.
-
-Si ottiene cos\`i una successione di problemi
-\vspace{-0.1cm}
-\[
-\texttt{solve\_alm}(\theta_1,1,1),
-\qquad
-\texttt{solve\_alm}(\theta_2,1,1),
-\qquad
-\ldots,
-\qquad
-\texttt{solve\_alm}(\theta_m,1,1),
-\]
-
-\noindent dalla quale possono essere ricostruite le relazioni
-
-\[
-\theta
-\longmapsto
-\Pi^*(\theta),
-\]
-
-\[
-\theta
-\longmapsto
-x^*(\theta),
-\qquad
-g^*(\theta),
-\qquad
-u^*(\theta).
-\]
-
-Lo stesso principio verr\`a utilizzato per gli altri parametri e per le
-configurazioni con variazioni congiunte.
-
-La funzione costituisce quindi il passaggio computazionale che permette di
-trasformare una singola soluzione ottima in una vera analisi parametrica.
-
-Nel seguito, questa struttura verr\`a applicata al modello ALM. Prima di
-costruire la funzione di soluzione, occorre tuttavia tradurre con precisione
-il problema economico nella forma richiesta dal solver.
-
+La funzione costituisce quindi uno strumento per rendere ripetibile e
+controllabile la procedura di soluzione. Prima di costruirla nel caso
+specifico, occorre tuttavia tradurre con precisione il modello ALM nella forma
+richiesta dal solver.
 
 
 \section{Dal modello ALM al problema computazionale}
@@ -751,50 +548,28 @@ vincoli del modello e il significato economico del piano ALM.
 
 \section{Dal benchmark al modello parametrico}
 
-La configurazione benchmark fornisce una soluzione di riferimento e consente
-di verificare che la traduzione del modello ALM nella forma richiesta dal
-solver sia coerente. L'analisi non si esaurisce tuttavia nella soluzione di
-una singola configurazione.
-
-L'obiettivo successivo \`e studiare come il piano ottimo reagisca quando
-alcune condizioni economiche vengono modificate. Il problema diventa quindi
-parametrico: la struttura generale del modello rimane invariata, mentre alcuni
-coefficienti o limiti vengono fatti dipendere da parametri che rappresentano
-differenti forme di stress.
+La configurazione benchmark fornisce una soluzione di riferimento. Il
+passaggio successivo consiste nel modificare alcune condizioni economiche e
+osservare come reagiscano il piano ALM e il suo valore.
 
 Nel Caso Aula, vengono introdotti tre driver,
 
-\[
+$$
 \theta,
 \qquad
 \phi,
 \qquad
 \psi,
-\]
+$$
 
 \noindent che agiscono rispettivamente sui fabbisogni di liquidit\`a, sulla capacit\`a
 di funding e sul costo del funding.
 
-Il passaggio dal benchmark al modello parametrico non consiste quindi nel
-costruire ogni volta un nuovo problema. Consiste nell'individuare con
-precisione quali oggetti della formulazione devono cambiare quando varia
-ciascun parametro, lasciando invariato tutto il resto.
-
 \subsection{Tre driver con effetti differenti}
 
-Il primo parametro, $\theta$, modifica i fabbisogni di liquidit\`a nelle prime
-due date. Il vettore originario
+Il parametro $\theta$ modifica i fabbisogni delle prime due date:
 
-\[
-d=
-\left(
-30,30,22,15
-\right)^{\prime}
-\]
-
-\noindent viene sostituito da
-
-\[
+$$
 d(\theta)
 =
 \left(
@@ -803,87 +578,52 @@ d(\theta)
 22,
 15
 \right)^{\prime}.
-\]
+$$
 
-Il benchmark corrisponde a
+Il benchmark corrisponde a $\theta=1$, mentre valori superiori a uno
+rappresentano un aumento dei fabbisogni iniziali.
 
-\[
-\theta=1.
-\]
+Il parametro $\phi$ modifica la capacit\`a massima di funding. Se
 
-Valori di $\theta>1$ rappresentano quindi un aumento dei fabbisogni iniziali,
-mentre la struttura temporale delle attivit\`a, i rendimenti e le altre
-caratteristiche del problema rimangono invariati.
-
-Il secondo parametro, $\phi$, agisce sulla capacit\`a massima di funding.
-Se
-
-\[
+$$
 \overline{u}
 =
 \left(
 10,8,6
 \right)^{\prime},
-\]
+$$
 
-\noindent la configurazione parametrica diventa
+\noindent si pone
 
-\[
+$$
 \overline{u}(\phi)
 =
 \phi\overline{u}.
-\]
+$$
 
-Anche in questo caso,
+Valori di $\phi<1$ rappresentano quindi una contrazione della capacit\`a
+disponibile.
 
-\[
-\phi=1
-\]
+Il parametro $\psi$ modifica invece il costo del funding:
 
-\noindent identifica il benchmark. Valori inferiori a uno rappresentano una contrazione
-della capacit\`a disponibile, mentre valori superiori a uno ne rappresentano
-un ampliamento.
-
-Il terzo parametro, $\psi$, modifica il costo del funding. Indicando con
-
-\[
-r^u
-=
-\left(
-r_1^u,r_2^u,r_3^u
-\right)^{\prime}
-\]
-
-\noindent il vettore dei costi nella configurazione di riferimento, si pone
-
-\[
+$$
 r^u(\psi)
 =
 \psi r^u.
-\]
+$$
 
-La variazione di $\psi$ ha una conseguenza pi\`u articolata rispetto ai due
-parametri precedenti. Il costo del funding compare infatti sia nella funzione
-obiettivo, dove riduce il valore netto del piano, sia nei bilanci temporali,
-poich\'e il funding ottenuto a una data deve essere rimborsato alla data
-successiva con il relativo costo.
+La sua variazione interessa sia la funzione obiettivo sia i bilanci
+temporali, poich\'e il funding ottenuto a una data deve essere rimborsato alla
+data successiva con il relativo costo.
 
-\subsection{Dove entrano i parametri nella formulazione del solver}
+\subsection{Dove entrano i parametri nel solver}
 
-I tre driver hanno significati economici differenti e modificano oggetti
-differenti della formulazione computazionale.
+I tre driver modificano componenti differenti della formulazione.
 
-Il parametro $\theta$ modifica i fabbisogni $d_1$ e $d_2$. Poich\'e tali
-quantit\`a compaiono nei termini noti dei bilanci temporali, la variazione di
-$\theta$ interviene in
+Poich\'e $\theta$ interviene nei fabbisogni $d_1$ e $d_2$, modifica il vettore
+dei termini noti:
 
-\[
-b_{\mathrm{eq}}.
-\]
-
-Pi\`u precisamente,
-
-\[
+$$
 b_{\mathrm{eq}}(\theta)
 =
 \left(
@@ -893,54 +633,36 @@ A_0,
 22,
 15
 \right)^{\prime}.
-\]
+$$
 
-La matrice $A_{\mathrm{eq}}$ rimane invece invariata rispetto a $\theta$.
+Il parametro $\phi$ modifica invece i bound delle variabili di funding:
 
-Il parametro $\phi$ modifica i limiti superiori delle variabili di funding.
-Il suo effetto si manifesta quindi nei bound:
-
-\[
+$$
 0
 \leq
 u_t
 \leq
 \phi\overline{u}_t.
-\]
+$$
 
-Non vengono modificati n\'e il vettore $b_{\mathrm{eq}}$ n\'e le matrici dei
-vincoli.
+Infine, $\psi$ modifica i coefficienti del funding nella funzione obiettivo e
+i coefficienti di rimborso nelle equazioni temporali:
 
-Il parametro $\psi$ richiede invece di aggiornare due componenti del problema.
-Poich\'e
-
-\[
+$$
 r_t^u(\psi)
 =
 \psi r_t^u,
-\]
+$$
 
-\noindent cambiano innanzitutto i coefficienti associati al funding nella funzione
-obiettivo. Di conseguenza varia il vettore $f$ passato al solver.
-
-Allo stesso tempo cambia il coefficiente di rimborso
-
-\[
+$$
 1+r_t^u(\psi)
 =
-1+\psi r_t^u
-\]
+1+\psi r_t^u.
+$$
 
-\noindent che compare nelle equazioni temporali. La variazione di $\psi$ modifica
-pertanto anche
+La corrispondenza pu\`o quindi essere sintetizzata come
 
-\[
-A_{\mathrm{eq}}.
-\]
-
-La corrispondenza pu\`o essere riassunta in forma compatta come
-
-\[
+$$
 \begin{array}{ccl}
 \theta
 &\longrightarrow&
@@ -954,20 +676,14 @@ b_{\mathrm{eq}},
 &\longrightarrow&
 f,\;A_{\mathrm{eq}}.
 \end{array}
-\]
+$$
 
-Questa distinzione \`e sostanziale. I parametri non devono essere trattati come
-semplici numeri da sostituire nel codice: occorre identificare quale parte
-della formulazione matematica essi modificano e trasferire esattamente quella
-dipendenza nella rappresentazione del solver.
+Questa distinzione \`e essenziale: la variazione di un parametro deve essere
+trasferita esclusivamente agli oggetti della formulazione che ne dipendono.
 
-\subsection{Costruire una funzione parametrica di soluzione}
+\subsection{La funzione di soluzione}
 
-Una volta individuate le dipendenze, la procedura sviluppata per il benchmark
-pu\`o essere racchiusa in una funzione che riceve i tre parametri e costruisce
-la corrispondente istanza del problema.
-
-La struttura generale \`e
+Le dipendenze precedenti vengono incorporate nella funzione
 
 \begin{verbatim}
 def solve_alm(theta=1.0, phi=1.0, psi=1.0):
@@ -975,31 +691,11 @@ def solve_alm(theta=1.0, phi=1.0, psi=1.0):
     return ...
 \end{verbatim}
 
-I valori predefiniti
+I valori predefiniti $\theta=\phi=\psi=1$ identificano il benchmark. Per ogni
+altra configurazione, la funzione aggiorna gli oggetti dipendenti dai
+parametri, risolve il problema e restituisce almeno
 
-\[
-\theta=\phi=\psi=1
-\]
-
-\noindent permettono di richiamare direttamente la configurazione benchmark.
-
-All'interno della funzione vengono aggiornati soltanto gli oggetti che
-dipendono dai parametri. In particolare, $\theta$ modifica
-\texttt{b\_eq}, $\phi$ modifica i bound delle variabili di funding e $\psi$
-modifica sia il vettore dell'obiettivo sia i coefficienti di rimborso
-contenuti in \texttt{A\_eq}.
-
-La parte restante della formulazione mantiene la stessa struttura utilizzata
-nel benchmark.
-
-La chiamata {\verb|solve_alm(theta, phi, psi)|} identifica quindi una particolare configurazione economica e restituisce la
-soluzione del corrispondente problema ALM.
-
-Per l'analisi parametrica, non \`e sufficiente conservare soltanto il valore
-della funzione obiettivo. Occorre poter ricostruire anche il piano che genera
-quel valore. La funzione deve quindi rendere disponibili almeno
-
-\[
+$$
 \Pi^*,
 \qquad
 x^*,
@@ -1007,114 +703,18 @@ x^*,
 g^*,
 \qquad
 u^*,
-\]
+$$
 
-\noindent insieme allo stato di fattibilit\`a della soluzione. Quando necessario,
-possono inoltre essere conservati slack, residui e informazioni marginali
-utili a individuare cambiamenti nella struttura dell'ottimo.
+\noindent insieme all'informazione sulla fattibilit\`a e, quando necessario, agli
+elementi utilizzati per la diagnostica della soluzione.
 
-La funzione parametrica permette in questo modo di separare due operazioni:
-la costruzione della singola istanza del problema e l'analisi di una
-successione di istanze. La prima viene eseguita da
-\texttt{solve\_alm}; la seconda utilizza ripetutamente la stessa funzione per
-confrontare configurazioni differenti.
+La stessa procedura pu\`o quindi essere richiamata su una griglia di valori
+senza modificare manualmente la formulazione del problema. L'analisi pu\`o
+cos\`i concentrarsi sul confronto tra le soluzioni e sui cambiamenti dei
+vincoli attivi, anzich\'e sulla ripetizione del codice.
 
-\subsection{Dalla soluzione ottima alla funzione valore}
-
-Nel benchmark, si osserva un singolo valore
-
-\[
-\Pi^*(1,1,1).
-\]
-
-Con la parametrizzazione, il valore ottimo pu\`o essere considerato come una
-funzione dei driver:
-
-\[
-\Pi^*
-=
-\Pi^*(\theta,\phi,\psi).
-\]
-
-La stessa dipendenza riguarda la composizione della soluzione:
-
-\[
-x^*
-=
-x^*(\theta,\phi,\psi),
-\]
-
-\[
-g^*
-=
-g^*(\theta,\phi,\psi),
-\]
-
-\[
-u^*
-=
-u^*(\theta,\phi,\psi).
-\]
-
-Questo passaggio modifica la domanda quantitativa. Non interessa pi\`u
-soltanto determinare quale sia il piano ottimo in una configurazione
-assegnata, ma osservare come il piano e il suo valore cambino quando vengono
-modificate le condizioni che lo determinano.
-
-Un'analisi univariata, ad esempio, mantiene
-
-\[
-\phi=1,
-\qquad
-\psi=1
-\]
-
-\noindent e studia
-
-\[
-\theta
-\longmapsto
-\Pi^*(\theta,1,1).
-\]
-
-Analogamente, possono essere considerate
-
-\[
-\phi
-\longmapsto
-\Pi^*(1,\phi,1)
-\]
-
-\noindent e
-
-\[
-\psi
-\longmapsto
-\Pi^*(1,1,\psi).
-\]
-
-L'osservazione del solo valore ottimo non \`e tuttavia sufficiente. Due
-configurazioni possono produrre variazioni relativamente contenute di
-$\Pi^*$ e, nello stesso tempo, essere associate a piani ALM differenti.
-Per questo motivo, l'analisi deve seguire congiuntamente il valore e le
-componenti della soluzione.
-
-La parametrizzazione permette inoltre di verificare se, al variare di un
-driver, rimanga invariata la struttura dei vincoli che determinano l'ottimo
-oppure se si verifichi un cambiamento di regime. In un problema lineare,
-variazioni dei parametri possono infatti lasciare temporaneamente invariata
-la base ottima e successivamente rendere attivi nuovi vincoli o liberarne
-altri.
-
-Il passaggio dal benchmark al modello parametrico prepara quindi tre livelli
-di analisi distinti. Il primo riguarda la variazione della soluzione entro
-la regione di fattibilit\`a; il secondo riguarda l'eventuale cambiamento dei
-vincoli che determinano l'ottimo; il terzo riguarda il punto oltre il quale
-una configurazione ammissibile non esiste pi\`u.
-
-Su questa base, possono essere costruite le analisi di sensitivit\`a, la
-ricerca della frontiera di fattibilit\`a e il confronto tra scenari di stress.
-
+Su questa base, vengono costruite le analisi di sensitivit\`a, la ricerca
+della frontiera di fattibilit\`a e il confronto tra scenari di stress.
 
 \section{Sensitivit\`a, fattibilit\`a e scenari di stress}
 
