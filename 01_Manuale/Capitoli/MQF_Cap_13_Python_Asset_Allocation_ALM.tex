@@ -1,9 +1,1778 @@
 % !TeX root = ../MQF_Cap_13_Python_Asset_Allocation_ALM.tex
 % Capitoli/MQF_Cap_13_Python_Asset_Allocation_ALM.tex
 
-\chapter{Applicazioni Python di programmazione lineare: calcolo del CVaR}
 
-\section{Obiettivi del capitolo}
+\chapter[Python e Asset--Liability Management]{Python e Asset--Liability Management: ottimizzazione, sensitivit\`a e scenari}
 
-Capitolo in preparazione.
+\label{cap:python-alm}
 
+I Capitoli 11 e 12 hanno costruito il quadro teorico necessario per
+formulare e interpretare problemi di allocazione e di gestione
+Asset--Liability mediante programmazione lineare. Il Capitolo 11 ha
+introdotto la struttura generale del problema lineare, la regione
+ammissibile, i vincoli attivi, la dualit\`a e l'analisi di sensitivit\`a; il
+Capitolo 12 ha esteso questa impostazione a un problema ALM deterministico
+multi-periodale, nel quale disponibilit\`a, fabbisogni, giacenze e funding
+devono essere coordinati lungo una sequenza di date.
+
+Questo capitolo compie il passaggio successivo. L'obiettivo non \`e
+introdurre una nuova classe di modelli, ma rendere operativo in Python il
+problema ALM gi\`a formulato, traducendolo nella forma richiesta dal solver,
+verificando la soluzione ottenuta e studiandone il comportamento al variare
+dei principali parametri.
+
+Il passaggio dal modello alla soluzione numerica richiede una traduzione
+precisa. Le variabili decisionali devono essere ordinate in un unico vettore;
+la funzione obiettivo deve essere adattata alla convenzione utilizzata dal
+solver; i vincoli di uguaglianza, le disuguaglianze e i limiti sulle variabili
+devono essere trasformati nelle corrispondenti strutture matriciali. La
+correttezza della soluzione dipende quindi non soltanto dal funzionamento
+tecnico del codice, ma dalla coerenza tra formulazione economica e
+rappresentazione computazionale.
+
+Il filo conduttore del capitolo \`e un Caso Aula ispirato alla crisi di
+Silicon Valley Bank del 2023. Il problema riprende il modello ALM
+deterministico del Capitolo 12 e ne studia la soluzione in presenza di
+fabbisogni di liquidit\`a distribuiti nel tempo, capacit\`a limitate di
+funding esterno e costi di finanziamento differenziati per scadenza.
+
+La configurazione di riferimento viene dapprima risolta e controllata come
+benchmark. La soluzione ottima viene analizzata attraverso composizione
+dell'attivo, giacenze di liquidit\`a, ricorso al funding, vincoli attivi,
+slack e valori marginali. In questo modo, l'output del solver viene
+ricondotto alla struttura economica del problema e ai risultati teorici
+sviluppati nei capitoli precedenti.
+
+Il capitolo introduce inoltre un piccolo focus Python dedicato alla
+costruzione di funzioni riutilizzabili. Nel problema ALM, questa possibilit\`a
+\`e particolarmente importante perch\'e consente di racchiudere in un'unica
+procedura la costruzione e la soluzione del modello, modificando soltanto i
+parametri che descrivono il contesto analizzato. La soluzione di un singolo
+problema viene cos\`i trasformata in uno strumento per l'analisi parametrica.
+
+Nel Caso Aula, vengono considerati tre driver. Il parametro $\theta$ modifica
+i fabbisogni di liquidit\`a nelle prime date; il parametro $\phi$ modifica la
+capacit\`a disponibile di funding; il parametro $\psi$ modifica il costo del
+funding e la corrispondente struttura di rimborso. La loro introduzione
+permette di studiare come cambino il valore ottimo, il piano ALM e la
+struttura dei vincoli attivi quando il problema viene sottoposto a condizioni
+progressivamente differenti.
+
+L'analisi procede quindi dal benchmark alle sensitivit\`a univariate, dalla
+sensitivit\`a alla frontiera di fattibilit\`a e infine agli scenari nei quali
+pi\`u driver vengono modificati contemporaneamente. La sequenza distingue
+cos\`i tre domande diverse: come cambia l'ottimo quando varia un parametro,
+fino a quale punto il problema rimane ammissibile e come reagisce il piano
+ALM quando pi\`u condizioni avverse si verificano congiuntamente.
+
+Particolare attenzione viene dedicata ai controlli. Una soluzione dichiarata
+ottima dal solver non deve essere interpretata prima di aver verificato la
+coerenza dei vincoli, i residui delle uguaglianze, gli slack, i bound attivi
+e il significato economico dei valori marginali. La formulazione
+computazionale pu\`o inoltre introdurre convenzioni di segno che devono essere
+ricondotte correttamente ai parametri economici originari.
+
+Il metodo di lavoro rimane quello introdotto nel Capitolo 4 per i capitoli
+applicativi. La Scheda Caso definisce la specifica del problema, il flusso
+logico-teorico precede l'implementazione e il notebook deve mantenere
+riconoscibile il legame tra input, operazioni, output e controlli. Tali
+principi vengono qui assunti come acquisiti e non vengono riproposti
+sistematicamente.
+
+Accanto al Caso Aula, viene considerato un Caso TakeHome ispirato alla crisi
+di First Republic Bank del 2023. Il nuovo problema introduce una struttura
+differente dell'attivo, due ondate di deposit run, un vincolo legacy e una
+diversa configurazione del funding. Cambiano quindi variabili e relazioni
+specifiche, mentre rimane invariata l'architettura del lavoro: tradurre il
+modello nella forma del solver, costruire un benchmark verificabile, rendere
+parametrica la procedura e analizzare sensitivit\`a e scenari.
+
+L'obiettivo complessivo del capitolo \`e quindi rendere operativo il
+passaggio
+
+\[
+\begin{array}{c}
+\text{modello ALM}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{forma computazionale}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{benchmark verificato}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{modello parametrico}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{sensitivit\`a, fattibilit\`a e scenari}.
+\end{array}
+\]
+
+Python rende ripetibile la soluzione del problema; il solver rende
+osservabili le conseguenze quantitative dei vincoli e dei parametri; il
+modello economico rimane tuttavia il riferimento necessario per attribuire
+significato ai risultati.
+
+
+\section{Python per costruire funzioni riutilizzabili}
+
+Nei capitoli applicativi precedenti, Python \`e stato utilizzato per organizzare
+traiettorie, operare su matrici, selezionare scenari e trasformare output
+simulati in quantit\`a finanziarie. Nel presente capitolo, emerge una necessit\`a
+differente: risolvere ripetutamente lo stesso problema di ottimizzazione
+modificando alcuni parametri della sua specifica.
+
+Una sequenza di istruzioni pu\`o essere sufficiente quando il problema deve
+essere risolto una sola volta. Se, invece, occorre confrontare molte
+configurazioni, riscrivere, o modificare manualmente lo stesso blocco di codice
+diventa poco efficiente e aumenta il rischio di introdurre incoerenze tra una
+soluzione e la successiva.
+
+Le funzioni permettono di racchiudere una procedura in un oggetto
+riutilizzabile.
+
+\subsection{Dalla sequenza di istruzioni alla funzione}
+
+Una funzione Python viene definita mediante la parola chiave
+\texttt{def}. In forma schematica,
+
+
+\begin{verbatim}
+def funzione(input):
+    elaborazione
+    return output
+\end{verbatim}
+
+Gli argomenti della funzione rappresentano le informazioni ricevute
+dall'esterno. Le istruzioni interne utilizzano tali informazioni per eseguire
+la procedura prevista, mentre \texttt{return} specifica quali risultati devono
+essere restituiti.
+
+Ad esempio, una funzione elementare che moltiplica una grandezza $x$ per un
+parametro $a$ pu\`o essere scritta come
+
+\begin{verbatim}
+def scala(x, a):
+    y = a * x
+    return y
+\end{verbatim}
+
+\noindent La chiamata \verb|scala(x, a)| produce quindi il valore corrispondente agli input assegnati.
+%\begin{verbatim}
+%scala(x, a)
+%\end{verbatim}
+
+
+La funzione non modifica il significato dell'operazione matematica. Organizza
+invece il codice in modo che la stessa operazione possa essere applicata
+ripetutamente a configurazioni differenti.
+
+\subsection{Argomenti e valori restituiti}
+
+Una funzione pu\`o ricevere pi\`u argomenti e restituire pi\`u risultati.
+
+Nel problema ALM sviluppato nel seguito, la struttura rilevante sar\`a del tipo
+
+\[
+(\theta,\phi,\psi)
+\longrightarrow
+\texttt{solve\_alm}(\theta,\phi,\psi),
+\]
+
+\noindent dove i tre parametri descrivono differenti modifiche della configurazione
+economica.
+
+All'interno della funzione, gli input vengono utilizzati per costruire gli
+oggetti necessari al problema di ottimizzazione. Il solver produce quindi una
+soluzione dalla quale possono essere estratti, tra gli altri,
+
+\[
+\Pi^*,
+\qquad
+x^*,
+\qquad
+g^*,
+\qquad
+u^*.
+\]
+
+La funzione pu\`o inoltre restituire informazioni relative alla fattibilit\`a,
+agli slack, ai bound attivi e ai valori marginali.
+
+In forma schematica,
+
+\[
+\begin{array}{c}
+(\theta,\phi,\psi)
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{costruzione del problema}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{soluzione con il solver}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{estrazione dei risultati}
+\\[3pt]
+\downarrow
+\\[3pt]
+(\Pi^*,x^*,g^*,u^*,\ldots).
+\end{array}
+\]
+
+La scelta degli output deve dipendere dalle analisi che verranno svolte
+successivamente. Non \`e quindi necessario restituire ogni oggetto interno
+alla funzione, ma soltanto quelli utili per verificare e confrontare le
+soluzioni.
+
+\subsection{Separare ci\`o che cambia da ci\`o che rimane invariato}
+
+La costruzione di una funzione parametrica richiede di distinguere due
+componenti del problema.
+
+La prima comprende gli elementi che rimangono invariati tra le diverse
+configurazioni. Nel Caso Aula, appartengono a questa categoria, ad esempio, la
+struttura delle variabili decisionali, la forma generale dei bilanci
+temporali e i principali vincoli prudenziali.
+
+La seconda comprende invece gli elementi che dipendono dai parametri
+analizzati. Saranno questi ultimi a essere modificati nelle diverse chiamate
+della funzione.
+
+% La distinzione pu\`o essere rappresentata come
+
+% \[
+% \begin{array}{c}
+% \text{struttura invariata del modello}
+% \\
+% +
+% \\
+% \text{parametri variabili}
+% \\[3pt]
+% \downarrow
+% \\[3pt]
+% \text{problema specifico}
+% \\[3pt]
+% \downarrow
+% \\[3pt]
+% \text{soluzione}.
+% \end{array}
+% \]
+
+Questa separazione ha anche una funzione di controllo. Se un parametro deve
+modificare soltanto una parte della formulazione, la funzione deve lasciare
+invariati tutti gli altri elementi. Una variazione non prevista segnalerebbe
+un errore nella traduzione computazionale del modello.
+
+\subsection{Dalla soluzione singola all'analisi parametrica}
+
+Una volta costruita una funzione riutilizzabile, il problema non viene pi\`u
+considerato soltanto nella configurazione iniziale.
+
+Il benchmark corrisponde a una particolare scelta degli input. Nel Caso Aula,
+
+\[
+(\theta,\phi,\psi)=(1,1,1).
+\]
+
+La stessa funzione pu\`o poi essere richiamata, ad esempio, per valori
+successivi di $\theta$,
+
+\[
+\theta_1,\theta_2,\ldots,\theta_m,
+\]
+
+\noindent mantenendo invariati gli altri parametri.
+
+Si ottiene cos\`i una successione di problemi
+\vspace{-0.1cm}
+\[
+\texttt{solve\_alm}(\theta_1,1,1),
+\qquad
+\texttt{solve\_alm}(\theta_2,1,1),
+\qquad
+\ldots,
+\qquad
+\texttt{solve\_alm}(\theta_m,1,1),
+\]
+
+\noindent dalla quale possono essere ricostruite le relazioni
+
+\[
+\theta
+\longmapsto
+\Pi^*(\theta),
+\]
+
+\[
+\theta
+\longmapsto
+x^*(\theta),
+\qquad
+g^*(\theta),
+\qquad
+u^*(\theta).
+\]
+
+Lo stesso principio verr\`a utilizzato per gli altri parametri e per le
+configurazioni con variazioni congiunte.
+
+La funzione costituisce quindi il passaggio computazionale che permette di
+trasformare una singola soluzione ottima in una vera analisi parametrica.
+
+Nel seguito, questa struttura verr\`a applicata al modello ALM. Prima di
+costruire la funzione di soluzione, occorre tuttavia tradurre con precisione
+il problema economico nella forma richiesta dal solver.
+
+
+
+\section{Dal modello ALM al problema computazionale}
+
+Il Capitolo 12 ha formulato il problema di Asset--Liability Management
+deterministico come un programma lineare nel quale le decisioni di
+allocazione iniziale devono essere compatibili con una sequenza di fabbisogni
+di liquidit\`a, con la possibilit\`a di mantenere giacenze tra date successive
+e con un ricorso limitato al funding esterno.
+
+Per risolvere numericamente il problema, questa formulazione deve essere
+tradotta negli oggetti richiesti dal solver. Il passaggio non introduce un
+nuovo modello: modifica la rappresentazione dello stesso problema, passando
+dalla forma economico-matematica alla forma matriciale utilizzata
+dall'algoritmo.
+
+Con \texttt{scipy.optimize.linprog}, il problema viene espresso nella forma
+
+\[
+\min_{v}\; f^{\prime}v
+\]
+
+soggetto a
+
+\[
+A_{\mathrm{ub}}v\leq b_{\mathrm{ub}},
+\]
+
+\[
+A_{\mathrm{eq}}v=b_{\mathrm{eq}},
+\]
+
+\noindent e ai bound assegnati alle singole variabili.
+
+La traduzione richiede quindi quattro scelte coordinate: l'ordinamento delle
+variabili decisionali, la costruzione del vettore della funzione obiettivo,
+la rappresentazione matriciale dei vincoli e la definizione dei bound.
+
+\subsection{Ordinare le variabili decisionali}
+
+Nel Caso Aula, il modello comprende quattro variabili di allocazione iniziale,
+
+\[
+x_1,x_2,x_3,x_4,
+\]
+
+\noindent quattro giacenze di liquidit\`a,
+
+\[
+g_1,g_2,g_3,g_4,
+\]
+
+\noindent e tre variabili di funding,
+
+\[
+u_1,u_2,u_3.
+\]
+
+Il vettore delle variabili decisionali viene quindi ordinato come
+
+\[
+v=
+\left(
+x_1,x_2,x_3,x_4,
+g_1,g_2,g_3,g_4,
+u_1,u_2,u_3
+\right)^{\prime}.
+\]
+
+L'ordine non ha significato economico autonomo, ma deve rimanere invariato in
+tutti gli oggetti costruiti successivamente. Ogni coefficiente della funzione
+obiettivo, ogni colonna delle matrici dei vincoli e ogni bound devono riferirsi
+alla stessa posizione del vettore $v$.
+
+Questa coerenza \`e essenziale soprattutto nei problemi multi-periodali, nei
+quali variabili economicamente diverse compaiono contemporaneamente nella
+stessa equazione di bilancio.
+
+\subsection{Tradurre la funzione obiettivo}
+
+Nel modello ALM, la funzione obiettivo massimizza il rendimento netto del
+piano. Con l'ordinamento adottato per $v$, il vettore dei coefficienti
+economici pu\`o essere scritto come
+
+\[
+c_{\Pi}
+=
+\left(
+c_1,c_2,c_3,c_4,
+r_1^g,r_2^g,r_3^g,0,
+-r_1^u,-r_2^u,-r_3^u
+\right)^{\prime}.
+\]
+
+La funzione obiettivo pu\`o essere scritta come
+
+\[
+\Pi(v)
+=
+c_{\Pi}^{\prime}v.
+\]
+
+\noindent Il problema richiede quindi di risolvere
+
+\[
+\max_{v}\; c_{\Pi}^{\prime}v.
+\]
+
+Il coefficiente associato a $g_4$ \`e nullo perch\'e la giacenza terminale non
+genera un ulteriore rendimento all'interno dell'orizzonte considerato. I
+coefficienti delle variabili $u_t$ sono invece negativi, poich\'e il funding
+comporta un costo.
+
+La funzione \texttt{linprog} risolve problemi di minimo. Per utilizzare lo
+stesso modello senza modificarne il significato economico, si definisce
+
+\[
+f=-c_{\Pi}
+\]
+
+\noindent e si risolve
+
+\[
+\min_{v}\; f^{\prime}v.
+\]
+
+Poich\'e
+
+\[
+f^{\prime}v
+=
+-c_{\Pi}^{\prime}v
+=
+-\Pi(v),
+\]
+
+\noindent minimizzare $f^{\prime}v$ equivale a massimizzare $\Pi(v)$.
+
+La distinzione tra $c_{\Pi}$ e $f$ deve rimanere esplicita. Il primo contiene
+i coefficienti della funzione economica che si desidera massimizzare; il
+secondo \`e il vettore effettivamente fornito al solver.
+
+\subsection{Costruire i vincoli di uguaglianza}
+
+I vincoli di uguaglianza comprendono il vincolo sulle risorse iniziali e i
+bilanci di liquidit\`a alle diverse date.
+
+Il vincolo iniziale \`e
+
+\[
+x_1+x_2+x_3+x_4=A_0.
+\]
+
+I bilanci temporali seguono invece la struttura introdotta nel Capitolo 12.
+Alla prima data,
+
+\[
+a_1^{\prime}x+u_1-g_1=d_1.
+\]
+
+Per le date intermedie,
+
+\[
+a_t^{\prime}x
++
+(1+r_{t-1}^{g})g_{t-1}
++
+u_t
+-
+(1+r_{t-1}^{u})u_{t-1}
+-
+g_t
+=
+d_t,
+\]
+
+\noindent mentre, alla data terminale,
+
+\[
+a_4^{\prime}x
++
+(1+r_3^{g})g_3
+-
+(1+r_3^{u})u_3
+-
+g_4
+=
+d_4.
+\]
+
+Queste equazioni vengono raccolte nella forma
+
+\[
+A_{\mathrm{eq}}v=b_{\mathrm{eq}}.
+\]
+
+Nel Caso Aula, $A_{\mathrm{eq}}$ contiene quindi una riga per il vincolo sulle
+risorse iniziali e una riga per ciascun bilancio temporale.
+
+La matrice dei cash flow delle attivit\`a,
+
+\[
+A^{CF}
+=
+\begin{pmatrix}
+a_{11} & a_{12} & a_{13} & a_{14}\\
+a_{21} & a_{22} & a_{23} & a_{24}\\
+a_{31} & a_{32} & a_{33} & a_{34}\\
+a_{41} & a_{42} & a_{43} & a_{44}
+\end{pmatrix},
+\]
+
+\noindent determina i coefficienti delle variabili $x_j$ nelle quattro equazioni
+temporali. Le giacenze e il funding compaiono invece con coefficienti che
+riflettono il trasferimento di liquidit\`a e il rimborso tra una data e la
+successiva.
+
+Il vettore dei termini noti assume la forma
+
+\[
+b_{\mathrm{eq}}
+=
+\left(
+A_0,
+d_1,
+d_2,
+d_3,
+d_4
+\right)^{\prime}.
+\]
+
+La costruzione di $A_{\mathrm{eq}}$ rende quindi esplicita la dimensione
+temporale del problema: una variabile scelta o generata a una data pu\`o
+entrare nei bilanci delle date successive attraverso i coefficienti di
+riporto o di rimborso.
+
+\subsection{Disuguaglianze e bound}
+
+I vincoli prudenziali che non richiedono un'uguaglianza vengono raccolti
+nella forma
+
+\[
+A_{\mathrm{ub}}v\leq b_{\mathrm{ub}}.
+\]
+
+Nel Caso Aula, rientrano in questa struttura il limite alla perdita di stress
+del portafoglio e il vincolo di concentrazione sull'attivit\`a alla quale
+viene imposto un limite massimo.
+
+Il vincolo di stress,
+
+\[
+\ell^{\prime}x\leq K,
+\]
+
+\noindent dipende soltanto dalle variabili di allocazione. Le colonne corrispondenti a
+$g$ e $u$ hanno quindi coefficiente nullo.
+
+Analogamente, un limite
+
+\[
+x_3\leq \overline{x}_3
+\]
+
+\noindent viene rappresentato da una riga nella quale compare un unico coefficiente
+unitario nella posizione associata a $x_3$.
+
+Non tutti i limiti sulle variabili devono tuttavia essere trasformati in
+righe di $A_{\mathrm{ub}}$. Quando il vincolo riguarda direttamente
+l'intervallo ammissibile di una singola variabile, \texttt{linprog} permette
+di rappresentarlo mediante i bound.
+
+Per le allocazioni e le giacenze, si impone
+
+\[
+x_j\geq 0,
+\qquad
+g_t\geq 0.
+\]
+
+Per il funding,
+
+\[
+0\leq u_t\leq \overline{u}_t.
+\]
+
+I bound svolgono quindi una funzione distinta dalle disuguaglianze generali:
+definiscono direttamente l'intervallo ammissibile di ciascuna componente di
+$v$.
+
+\subsection{Dalla rappresentazione matriciale al solver}
+
+Una volta costruiti gli oggetti
+
+\[
+f,
+\qquad
+A_{\mathrm{ub}},
+\qquad
+b_{\mathrm{ub}},
+\qquad
+A_{\mathrm{eq}},
+\qquad
+b_{\mathrm{eq}},
+\qquad
+\text{bound},
+\]
+
+\noindent il problema pu\`o essere passato al solver.
+
+In Python, la chiamata assume la forma essenziale
+
+\begin{verbatim}
+res = linprog(
+    c=f,
+    A_ub=A_ub,
+    b_ub=b_ub,
+    A_eq=A_eq,
+    b_eq=b_eq,
+    bounds=bound,
+    method="highs"
+)
+\end{verbatim}
+
+
+Nella chiamata a \texttt{linprog}, i nomi che compaiono a sinistra del segno
+\texttt{=} sono gli argomenti previsti dalla funzione, mentre quelli che
+compaiono a destra sono le variabili costruite nel notebook.
+
+Quando i due nomi coincidono, come in {\verb|A_eq=A_eq|}, non si tratta di un'uguaglianza matematica, ma dell'assegnazione della
+variabile \texttt{A\_eq} del notebook all'argomento \texttt{A\_eq} richiesto
+da \texttt{linprog}. La coincidenza dei nomi dipende soltanto dalla
+convenzione adottata nel codice.
+
+Il caso {\verb|c=f|} \`e invece diverso. La funzione \texttt{linprog} utilizza il nome
+\texttt{c} per il vettore dei coefficienti della funzione obiettivo da
+minimizzare. Nel notebook, lo stesso oggetto \`e stato indicato con $f$,
+dove $f=-c_{\Pi}$, per trasformare il problema originario di massimo nel problema equivalente
+di minimo.
+
+La scrittura {\verb|c=f|} significa quindi che all'argomento \texttt{c} previsto dal solver viene
+passato il vettore $f$ costruito nel notebook.
+
+
+L'oggetto \texttt{res} non contiene soltanto il vettore della soluzione
+ottima. Raccoglie anche lo stato della procedura, il valore della funzione
+obiettivo, residui, slack e informazioni marginali associate ai vincoli.
+
+La soluzione restituita dal solver deve inoltre essere ricondotta alla
+convenzione economica originaria. Poich\'e il problema numerico minimizza
+$-\Pi(v)$, il valore economico ottimo viene ricostruito come
+
+\[
+\Pi^*
+=
+-\texttt{res.fun}.
+\]
+
+Analogamente, le componenti di \texttt{res.x} devono essere ricondotte ai
+blocchi
+
+\[
+x^*,
+\qquad
+g^*,
+\qquad
+u^*,
+\]
+
+\noindent secondo l'ordinamento scelto inizialmente.
+
+La traduzione computazionale pu\`o quindi essere sintetizzata come
+
+\[
+\begin{array}{ccc}
+\text{modello economico}
+&
+\longrightarrow
+&
+\text{oggetti del solver}
+\\[4pt]
+\Pi(v)
+&
+\longrightarrow
+&
+f
+\\[4pt]
+\text{bilanci temporali}
+&
+\longrightarrow
+&
+A_{\mathrm{eq}},\,b_{\mathrm{eq}}
+\\[4pt]
+\text{vincoli prudenziali}
+&
+\longrightarrow
+&
+A_{\mathrm{ub}},\,b_{\mathrm{ub}}
+\\[4pt]
+\text{limiti sulle variabili}
+&
+\longrightarrow
+&
+\text{bound}.
+\end{array}
+\]
+
+La corrispondenza deve essere verificata prima di interpretare qualsiasi
+risultato numerico. Una soluzione ottenuta da un problema codificato in modo
+errato pu\`o essere perfettamente ottima per il solver e al tempo stesso non
+rappresentare il problema ALM che si intende analizzare.
+
+Nel seguito, questa rappresentazione viene applicata alla configurazione
+benchmark del Caso Aula. La prima verifica riguarder\`a quindi non soltanto
+l'esistenza di una soluzione ottima, ma la coerenza tra tale soluzione, i
+vincoli del modello e il significato economico del piano ALM.
+
+
+\section{Dal benchmark al modello parametrico}
+
+La configurazione benchmark fornisce una soluzione di riferimento e consente
+di verificare che la traduzione del modello ALM nella forma richiesta dal
+solver sia coerente. L'analisi non si esaurisce tuttavia nella soluzione di
+una singola configurazione.
+
+L'obiettivo successivo \`e studiare come il piano ottimo reagisca quando
+alcune condizioni economiche vengono modificate. Il problema diventa quindi
+parametrico: la struttura generale del modello rimane invariata, mentre alcuni
+coefficienti o limiti vengono fatti dipendere da parametri che rappresentano
+differenti forme di stress.
+
+Nel Caso Aula, vengono introdotti tre driver,
+
+\[
+\theta,
+\qquad
+\phi,
+\qquad
+\psi,
+\]
+
+\noindent che agiscono rispettivamente sui fabbisogni di liquidit\`a, sulla capacit\`a
+di funding e sul costo del funding.
+
+Il passaggio dal benchmark al modello parametrico non consiste quindi nel
+costruire ogni volta un nuovo problema. Consiste nell'individuare con
+precisione quali oggetti della formulazione devono cambiare quando varia
+ciascun parametro, lasciando invariato tutto il resto.
+
+\subsection{Tre driver con effetti differenti}
+
+Il primo parametro, $\theta$, modifica i fabbisogni di liquidit\`a nelle prime
+due date. Il vettore originario
+
+\[
+d=
+\left(
+30,30,22,15
+\right)^{\prime}
+\]
+
+\noindent viene sostituito da
+
+\[
+d(\theta)
+=
+\left(
+30\theta,
+30\theta,
+22,
+15
+\right)^{\prime}.
+\]
+
+Il benchmark corrisponde a
+
+\[
+\theta=1.
+\]
+
+Valori di $\theta>1$ rappresentano quindi un aumento dei fabbisogni iniziali,
+mentre la struttura temporale delle attivit\`a, i rendimenti e le altre
+caratteristiche del problema rimangono invariati.
+
+Il secondo parametro, $\phi$, agisce sulla capacit\`a massima di funding.
+Se
+
+\[
+\overline{u}
+=
+\left(
+10,8,6
+\right)^{\prime},
+\]
+
+\noindent la configurazione parametrica diventa
+
+\[
+\overline{u}(\phi)
+=
+\phi\overline{u}.
+\]
+
+Anche in questo caso,
+
+\[
+\phi=1
+\]
+
+\noindent identifica il benchmark. Valori inferiori a uno rappresentano una contrazione
+della capacit\`a disponibile, mentre valori superiori a uno ne rappresentano
+un ampliamento.
+
+Il terzo parametro, $\psi$, modifica il costo del funding. Indicando con
+
+\[
+r^u
+=
+\left(
+r_1^u,r_2^u,r_3^u
+\right)^{\prime}
+\]
+
+\noindent il vettore dei costi nella configurazione di riferimento, si pone
+
+\[
+r^u(\psi)
+=
+\psi r^u.
+\]
+
+La variazione di $\psi$ ha una conseguenza pi\`u articolata rispetto ai due
+parametri precedenti. Il costo del funding compare infatti sia nella funzione
+obiettivo, dove riduce il valore netto del piano, sia nei bilanci temporali,
+poich\'e il funding ottenuto a una data deve essere rimborsato alla data
+successiva con il relativo costo.
+
+\subsection{Dove entrano i parametri nella formulazione del solver}
+
+I tre driver hanno significati economici differenti e modificano oggetti
+differenti della formulazione computazionale.
+
+Il parametro $\theta$ modifica i fabbisogni $d_1$ e $d_2$. Poich\'e tali
+quantit\`a compaiono nei termini noti dei bilanci temporali, la variazione di
+$\theta$ interviene in
+
+\[
+b_{\mathrm{eq}}.
+\]
+
+Pi\`u precisamente,
+
+\[
+b_{\mathrm{eq}}(\theta)
+=
+\left(
+A_0,
+30\theta,
+30\theta,
+22,
+15
+\right)^{\prime}.
+\]
+
+La matrice $A_{\mathrm{eq}}$ rimane invece invariata rispetto a $\theta$.
+
+Il parametro $\phi$ modifica i limiti superiori delle variabili di funding.
+Il suo effetto si manifesta quindi nei bound:
+
+\[
+0
+\leq
+u_t
+\leq
+\phi\overline{u}_t.
+\]
+
+Non vengono modificati n\'e il vettore $b_{\mathrm{eq}}$ n\'e le matrici dei
+vincoli.
+
+Il parametro $\psi$ richiede invece di aggiornare due componenti del problema.
+Poich\'e
+
+\[
+r_t^u(\psi)
+=
+\psi r_t^u,
+\]
+
+\noindent cambiano innanzitutto i coefficienti associati al funding nella funzione
+obiettivo. Di conseguenza varia il vettore $f$ passato al solver.
+
+Allo stesso tempo cambia il coefficiente di rimborso
+
+\[
+1+r_t^u(\psi)
+=
+1+\psi r_t^u
+\]
+
+\noindent che compare nelle equazioni temporali. La variazione di $\psi$ modifica
+pertanto anche
+
+\[
+A_{\mathrm{eq}}.
+\]
+
+La corrispondenza pu\`o essere riassunta in forma compatta come
+
+\[
+\begin{array}{ccl}
+\theta
+&\longrightarrow&
+b_{\mathrm{eq}},
+\\[4pt]
+\phi
+&\longrightarrow&
+\text{bound},
+\\[4pt]
+\psi
+&\longrightarrow&
+f,\;A_{\mathrm{eq}}.
+\end{array}
+\]
+
+Questa distinzione \`e sostanziale. I parametri non devono essere trattati come
+semplici numeri da sostituire nel codice: occorre identificare quale parte
+della formulazione matematica essi modificano e trasferire esattamente quella
+dipendenza nella rappresentazione del solver.
+
+\subsection{Costruire una funzione parametrica di soluzione}
+
+Una volta individuate le dipendenze, la procedura sviluppata per il benchmark
+pu\`o essere racchiusa in una funzione che riceve i tre parametri e costruisce
+la corrispondente istanza del problema.
+
+La struttura generale \`e
+
+\begin{verbatim}
+def solve_alm(theta=1.0, phi=1.0, psi=1.0):
+    ...
+    return ...
+\end{verbatim}
+
+I valori predefiniti
+
+\[
+\theta=\phi=\psi=1
+\]
+
+\noindent permettono di richiamare direttamente la configurazione benchmark.
+
+All'interno della funzione vengono aggiornati soltanto gli oggetti che
+dipendono dai parametri. In particolare, $\theta$ modifica
+\texttt{b\_eq}, $\phi$ modifica i bound delle variabili di funding e $\psi$
+modifica sia il vettore dell'obiettivo sia i coefficienti di rimborso
+contenuti in \texttt{A\_eq}.
+
+La parte restante della formulazione mantiene la stessa struttura utilizzata
+nel benchmark.
+
+La chiamata {\verb|solve_alm(theta, phi, psi)|} identifica quindi una particolare configurazione economica e restituisce la
+soluzione del corrispondente problema ALM.
+
+Per l'analisi parametrica, non \`e sufficiente conservare soltanto il valore
+della funzione obiettivo. Occorre poter ricostruire anche il piano che genera
+quel valore. La funzione deve quindi rendere disponibili almeno
+
+\[
+\Pi^*,
+\qquad
+x^*,
+\qquad
+g^*,
+\qquad
+u^*,
+\]
+
+\noindent insieme allo stato di fattibilit\`a della soluzione. Quando necessario,
+possono inoltre essere conservati slack, residui e informazioni marginali
+utili a individuare cambiamenti nella struttura dell'ottimo.
+
+La funzione parametrica permette in questo modo di separare due operazioni:
+la costruzione della singola istanza del problema e l'analisi di una
+successione di istanze. La prima viene eseguita da
+\texttt{solve\_alm}; la seconda utilizza ripetutamente la stessa funzione per
+confrontare configurazioni differenti.
+
+\subsection{Dalla soluzione ottima alla funzione valore}
+
+Nel benchmark, si osserva un singolo valore
+
+\[
+\Pi^*(1,1,1).
+\]
+
+Con la parametrizzazione, il valore ottimo pu\`o essere considerato come una
+funzione dei driver:
+
+\[
+\Pi^*
+=
+\Pi^*(\theta,\phi,\psi).
+\]
+
+La stessa dipendenza riguarda la composizione della soluzione:
+
+\[
+x^*
+=
+x^*(\theta,\phi,\psi),
+\]
+
+\[
+g^*
+=
+g^*(\theta,\phi,\psi),
+\]
+
+\[
+u^*
+=
+u^*(\theta,\phi,\psi).
+\]
+
+Questo passaggio modifica la domanda quantitativa. Non interessa pi\`u
+soltanto determinare quale sia il piano ottimo in una configurazione
+assegnata, ma osservare come il piano e il suo valore cambino quando vengono
+modificate le condizioni che lo determinano.
+
+Un'analisi univariata, ad esempio, mantiene
+
+\[
+\phi=1,
+\qquad
+\psi=1
+\]
+
+\noindent e studia
+
+\[
+\theta
+\longmapsto
+\Pi^*(\theta,1,1).
+\]
+
+Analogamente, possono essere considerate
+
+\[
+\phi
+\longmapsto
+\Pi^*(1,\phi,1)
+\]
+
+\noindent e
+
+\[
+\psi
+\longmapsto
+\Pi^*(1,1,\psi).
+\]
+
+L'osservazione del solo valore ottimo non \`e tuttavia sufficiente. Due
+configurazioni possono produrre variazioni relativamente contenute di
+$\Pi^*$ e, nello stesso tempo, essere associate a piani ALM differenti.
+Per questo motivo, l'analisi deve seguire congiuntamente il valore e le
+componenti della soluzione.
+
+La parametrizzazione permette inoltre di verificare se, al variare di un
+driver, rimanga invariata la struttura dei vincoli che determinano l'ottimo
+oppure se si verifichi un cambiamento di regime. In un problema lineare,
+variazioni dei parametri possono infatti lasciare temporaneamente invariata
+la base ottima e successivamente rendere attivi nuovi vincoli o liberarne
+altri.
+
+Il passaggio dal benchmark al modello parametrico prepara quindi tre livelli
+di analisi distinti. Il primo riguarda la variazione della soluzione entro
+la regione di fattibilit\`a; il secondo riguarda l'eventuale cambiamento dei
+vincoli che determinano l'ottimo; il terzo riguarda il punto oltre il quale
+una configurazione ammissibile non esiste pi\`u.
+
+Su questa base, possono essere costruite le analisi di sensitivit\`a, la
+ricerca della frontiera di fattibilit\`a e il confronto tra scenari di stress.
+
+
+\section{Sensitivit\`a, fattibilit\`a e scenari di stress}
+
+La funzione parametrica permette di risolvere ripetutamente lo stesso modello
+ALM al variare dei driver $\theta$, $\phi$ e $\psi$. L'analisi pu\`o quindi
+spostarsi dalla singola configurazione benchmark al comportamento della
+soluzione in un insieme di condizioni alternative.
+
+Tre domande devono essere mantenute distinte. La prima riguarda la
+\emph{sensitivit\`a}: come cambiano il valore ottimo e il piano ALM quando
+varia un parametro alla volta? La seconda riguarda la
+\emph{fattibilit\`a}: fino a quale intensit\`a dello stress esiste ancora una
+soluzione che soddisfa tutti i vincoli? La terza riguarda gli
+\emph{scenari}: che cosa accade quando pi\`u condizioni avverse vengono
+modificate simultaneamente?
+
+\subsection{Sensitivit\`a rispetto ai fabbisogni di liquidit\`a}
+
+Il parametro $\theta$ modifica i fabbisogni delle prime due date secondo
+
+\[
+d(\theta)
+=
+\left(
+30\theta,
+30\theta,
+22,
+15
+\right)^{\prime}.
+\]
+
+L'analisi considera una griglia di valori di $\theta$ mantenendo
+
+\[
+\phi=1,
+\qquad
+\psi=1.
+\]
+
+Per ciascuna configurazione, vengono osservati almeno
+
+\[
+\Pi^*(\theta),
+\qquad
+x^*(\theta),
+\qquad
+g^*(\theta),
+\qquad
+u^*(\theta).
+\]
+
+Un aumento di $\theta$ rende pi\`u oneroso il soddisfacimento dei fabbisogni
+iniziali. Il valore ottimo tende quindi a ridursi e il piano ALM deve
+riorganizzare l'impiego delle attivit\`a, delle giacenze e del funding per
+mantenere soddisfatti i bilanci temporali.
+
+Nel benchmark, la capacit\`a di funding alla terza data \`e gi\`a interamente
+utilizzata,
+
+\[
+u_3^*=\overline{u}_3.
+\]
+
+L'aumento dei fabbisogni iniziali opera quindi in un sistema nel quale una
+delle risorse di liquidit\`a future \`e gi\`a al proprio limite. La
+sensitivit\`a rispetto a $\theta$ deve essere letta alla luce di questa
+struttura: l'effetto di uno stress non dipende soltanto dalla sua ampiezza,
+ma anche dai vincoli che risultano attivi nella configurazione di partenza.
+
+L'andamento di
+
+\[
+\theta
+\longmapsto
+\Pi^*(\theta)
+\]
+
+\noindent non deve inoltre essere interpretato come necessariamente caratterizzato da
+un'unica relazione marginale valida sull'intero intervallo. Finch\'e rimane
+invariata la struttura dei vincoli che determinano l'ottimo, la funzione
+valore pu\`o seguire uno stesso regime locale. Quando cambia l'insieme dei
+vincoli attivi, cambia anche la risposta marginale del problema.
+
+\subsection{Sensitivit\`a rispetto alla capacit\`a di funding}
+
+Il parametro $\phi$ modifica i limiti superiori del funding:
+
+\[
+0
+\leq
+u_t
+\leq
+\phi\overline{u}_t.
+\]
+
+In questo caso, lo stress non modifica direttamente i fabbisogni, ma la
+quantit\`a massima di risorse esterne che pu\`o essere utilizzata per
+soddisfarli.
+
+L'analisi di
+
+\[
+\phi
+\longmapsto
+\Pi^*(1,\phi,1)
+\]
+
+\noindent permette quindi di distinguere due situazioni economicamente differenti.
+Quando una capacit\`a di funding \`e scarsa e il relativo bound \`e attivo,
+una variazione di $\phi$ pu\`o modificare il piano ottimo e il valore
+dell'obiettivo. Quando invece la capacit\`a disponibile eccede quella che il
+piano desidera utilizzare, ulteriori incrementi di $\phi$ non producono
+necessariamente alcun beneficio.
+
+Pu\`o quindi emergere una regione nella quale
+
+\[
+u_t^*<\phi\overline{u}_t,
+\]
+
+\noindent e il corrispondente bound superiore non \`e attivo. In tale regione, un ulteriore aumento della capacit\`a di funding non modifica localmente la soluzione ottima.
+
+Questa osservazione riprende in forma numerica il significato dei prezzi
+ombra sviluppato nei Capitoli 11 e 12: una risorsa aggiuntiva ha valore
+marginale soltanto quando il vincolo che la limita \`e effettivamente
+rilevante per l'ottimo.
+
+\subsection{Sensitivit\`a rispetto al costo del funding}
+
+Il parametro $\psi$ agisce sul vettore
+
+\[
+r^u(\psi)
+=
+\psi r^u.
+\]
+
+A differenza di $\theta$ e $\phi$, la sua variazione modifica
+simultaneamente due componenti del problema. Aumentano i costi del funding
+nella funzione obiettivo e aumentano i coefficienti di rimborso che compaiono
+nei bilanci delle date successive.
+
+L'analisi
+
+\[
+\psi
+\longmapsto
+\Pi^*(1,1,\psi)
+\]
+
+\noindent deve quindi essere interpretata tenendo conto di entrambi gli effetti.
+
+Un aumento di $\psi$ rende il funding pi\`u costoso, ma non implica necessariamente una riduzione del suo utilizzo. Se il funding \`e necessario per soddisfare i bilanci temporali, il modello pu\`o continuare a ricorrervi anche a condizioni meno favorevoli. L'aggiustamento pu\`o allora avvenire, quando possibile, attraverso una diversa composizione dell'attivo, delle giacenze, o delle altre fonti di liquidit\`a.
+
+La sensitivit\`a rispetto a $\psi$ consente quindi di distinguere due effetti: da un lato, il contributo del funding alla fattibilit\`a del piano; dall'altro, il suo impatto sul valore economico della soluzione.
+
+\subsection{Cambiamenti di regime e vincoli attivi}
+
+Le tre analisi precedenti non devono essere ridotte al confronto tra valori
+successivi di $\Pi^*$.
+
+Per ogni parametro, \`e utile osservare anche se cambiano
+
+\[
+x^*,
+\qquad
+g^*,
+\qquad
+u^*,
+\]
+
+\noindent e soprattutto se cambia l'insieme dei vincoli attivi.
+
+In un programma lineare parametrico, un intervallo di valori pu\`o essere
+caratterizzato dalla stessa struttura dell'ottimo. Entro tale intervallo,
+piccole variazioni del parametro producono una risposta coerente con i
+marginali associati alla configurazione corrente.
+
+Quando un bound viene raggiunto, un vincolo precedentemente attivo cessa di
+esserlo oppure un nuovo vincolo diventa vincolante, la struttura della
+soluzione cambia. I valori marginali della configurazione precedente non
+devono allora essere estesi automaticamente oltre quel punto.
+
+L'analisi numerica su griglia permette di rendere visibili questi cambiamenti
+e di collegare la sensitivit\`a locale studiata teoricamente alla variazione
+della soluzione su intervalli pi\`u ampi.
+
+\subsection{Dalla sensitivit\`a alla frontiera di fattibilit\`a}
+
+L'aumento di $\theta$ pone anche una domanda diversa da quella precedente.
+Non interessa pi\`u soltanto sapere come cambia l'ottimo, ma determinare fino
+a quale livello di fabbisogno il sistema sia ancora in grado di soddisfare
+simultaneamente tutti i vincoli.
+
+Si passa quindi dalla domanda
+
+\[
+\text{come cambia la soluzione ottima?}
+\]
+
+\noindent alla domanda
+
+\[
+\text{esiste ancora una soluzione ammissibile?}
+\]
+
+Per una successione crescente di valori di $\theta$, la funzione parametrica
+permette di verificare se la corrispondente regione ammissibile
+
+$$
+\mathcal{F}(\theta)
+=
+\left\{
+v:
+A_{\mathrm{eq}}v=b_{\mathrm{eq}}(\theta),
+\;
+A_{\mathrm{ub}}v\leq b_{\mathrm{ub}},
+\;
+v\in\text{bound}
+\right\}
+$$
+
+\noindent sia non vuota oppure vuota.
+
+Finch\'e
+
+$$
+\mathcal{F}(\theta)\neq\emptyset,
+$$
+
+\noindent esiste almeno una combinazione delle variabili decisionali compatibile con
+tutti i vincoli del problema. All'aumentare di $\theta$, diventano progressivamente pi\`u stringenti i requisiti di liquidit\`a che una soluzione ammissibile deve soddisfare; oltre $\theta_{\mathrm{crit}}$, nessun vettore di decisione soddisfa simultaneamente tutti i vincoli. 
+Definiamo quindi
+
+$$
+\theta_{\mathrm{crit}}
+=
+\max
+\left\{
+\theta:
+\mathcal{F}(\theta)\neq\emptyset
+\right\},
+$$
+
+\noindent ossia il massimo livello di stress compatibile con l'esistenza di un piano
+ALM ammissibile.
+
+Se una griglia individua due valori consecutivi $\theta_F<\theta_I$, con problema feasible in $\theta_F$ e infeasible in $\theta_I$, si pu\`o
+localizzare la frontiera nell'intervallo
+
+$$
+\theta_{\mathrm{crit}}
+\in
+[\theta_F,\theta_I).
+$$
+
+Una griglia pi\`u fine consente successivamente di restringere tale
+intervallo.
+
+La frontiera di fattibilit\`a non rappresenta quindi soltanto il punto nel
+quale il valore ottimo peggiora ulteriormente. Essa separa due situazioni
+qualitativamente differenti. Per valori di $\theta$ inferiori o uguali alla
+soglia critica, esistono valori delle variabili decisionali
+
+$$
+v=(x,g,u)
+$$
+
+\noindent che appartengono alla regione ammissibile e soddisfano simultaneamente tutti
+i vincoli. Per valori superiori a $\theta_{\mathrm{crit}}$, invece,
+
+$$
+\mathcal{F}(\theta)=\emptyset,
+$$
+
+\noindent e non esiste alcuna combinazione di allocazioni, giacenze e funding capace di
+soddisfare i bilanci temporali e gli altri vincoli del modello.
+
+Il valore ottenuto mediante la ricerca su griglia rimane una localizzazione
+numerica della frontiera e non deve essere interpretato come una soglia
+analitica esatta.
+
+
+\subsection{Dalle variazioni univariate agli scenari}
+
+Le analisi di sensitivit\`a modificano un parametro alla volta. Questa scelta
+permette di isolare il ruolo di ciascun driver, ma non rappresenta una
+situazione nella quale pi\`u condizioni avverse si manifestano
+contemporaneamente.
+
+Per questo motivo, vengono considerate tre configurazioni con variazioni
+congiunte:
+
+\[
+\begin{array}{c|ccc}
+\text{Scenario}
+&
+\theta
+&
+\phi
+&
+\psi
+\\ \hline
+\text{Standard}
+&
+1.00
+&
+1.00
+&
+1.00
+\\
+\text{Mediamente critico}
+&
+1.03
+&
+0.90
+&
+1.25
+\\
+\text{Critico}
+&
+1.06
+&
+0.70
+&
+1.50
+\end{array}
+\]
+
+Lo scenario Standard coincide con il benchmark. Negli altri due scenari,
+aumentano i fabbisogni iniziali, si riduce la capacit\`a di funding e aumenta
+il relativo costo.
+
+Gli scenari non sono stati probabilizzati e non rappresentano quindi stati
+aleatori ai quali associare una probabilit\`a di accadimento. Sono
+configurazioni deterministiche utilizzate per confrontare la risposta del
+modello a combinazioni differenti dei driver.
+
+Il confronto non deve limitarsi a
+
+\[
+\Delta\Pi^*
+=
+\Pi^*_{\mathrm{scenario}}
+-
+\Pi^*_{\mathrm{Standard}}.
+\]
+
+Occorre osservare anche come cambiano la composizione dell'attivo, le
+giacenze, il ricorso al funding e l'utilizzo delle capacit\`a disponibili.
+
+Il passaggio dalla sensitivit\`a univariata agli scenari permette quindi di
+distinguere due livelli di analisi:
+
+\[
+\begin{array}{ccc}
+\text{sensitivit\`a}
+&
+&
+\text{scenario}
+\\[3pt]
+\text{un driver alla volta}
+&
+\longrightarrow
+&
+\text{driver congiunti}.
+\end{array}
+\]
+
+La prima consente di comprendere il ruolo specifico dei parametri e di
+individuare cambiamenti nella struttura dell'ottimo; la seconda mostra come
+gli stessi meccanismi interagiscano quando le condizioni del problema
+peggiorano simultaneamente.
+
+Sensitivit\`a, frontiera di fattibilit\`a e scenario analysis forniscono
+quindi informazioni complementari. La soluzione benchmark descrive un piano;
+l'analisi parametrica mostra quanto quel piano, e la struttura che lo
+determina, siano robusti rispetto a variazioni delle condizioni economiche.
+
+
+
+\section{Dal Caso Aula al Caso TakeHome: un diverso problema ALM}
+
+Il Caso TakeHome trasferisce la stessa architettura di analisi a un problema
+ALM con caratteristiche differenti. L'obiettivo non \`e replicare il Caso
+Aula modificando soltanto alcuni dati, ma verificare se il metodo rimanga
+applicabile quando cambiano la struttura dell'attivo, la distribuzione
+temporale dei fabbisogni e alcuni vincoli del problema.
+
+Il caso \`e ispirato alla crisi di First Republic Bank del 2023. Rispetto al
+Caso Aula, il portafoglio comprende cinque classi di attivit\`a e presenta una
+maggiore esposizione a componenti di bilancio meno liquide. La struttura dei
+fabbisogni incorpora inoltre due differenti ondate di deposit run, mentre il
+funding esterno rimane soggetto a limiti di capacit\`a.
+
+La logica generale del problema rimane quella introdotta nel Capitolo 12:
+
+\vspace{-0.3cm}
+
+\begin{gather*}
+\text{allocazione iniziale}\\
+\downarrow\\
+\text{cash flow temporali}\\
+\downarrow\\
+\text{giacenze e funding}\\
+\downarrow\\
+\text{rispetto dei fabbisogni}.
+\end{gather*}
+
+
+Cambiano per\`o gli oggetti attraverso i quali questa logica viene
+implementata.
+
+\subsection{Una diversa struttura dell'attivo}
+
+Nel Caso TakeHome, il vettore delle allocazioni comprende cinque componenti,
+
+$$
+x=
+(x_1,x_2,x_3,x_4,x_5)^{\prime},
+$$
+
+\noindent associate rispettivamente a liquidit\`a, titoli a breve termine, mutui
+residenziali a lunga scadenza, prestiti immobiliari commerciali e altre forme
+di credito alla clientela.
+
+La maggiore articolazione dell'attivo modifica sia la matrice dei cash flow
+sia la struttura dei vincoli prudenziali.
+
+Accanto al limite massimo sull'esposizione verso una singola classe di
+attivit\`a, compare infatti un vincolo legacy,
+
+$$
+x_3+x_4\geq 35,
+$$
+
+\noindent che impone di mantenere almeno una determinata quota del portafoglio nelle
+componenti a pi\`u lunga scadenza.
+
+Questo vincolo distingue in modo importante il Caso TakeHome dal Caso Aula.
+La composizione dell'attivo non pu\`o infatti essere modificata liberamente
+per aumentare la liquidit\`a disponibile: una parte del portafoglio rimane
+vincolata a posizioni meno liquide.
+
+\subsection{Due ondate di fabbisogno}
+
+La parametrizzazione distingue due differenti componenti dello stress di
+liquidit\`a.
+
+Il parametro $\alpha$ modifica il fabbisogno alla prima data, mentre il
+parametro $\beta$ modifica quello alla data terminale:
+
+$$
+d(\alpha,\beta)
+=
+\left(
+32\alpha,
+18,
+14,
+32\beta
+\right)^{\prime}.
+$$
+
+La distinzione permette di confrontare due forme di stress che hanno la stessa
+natura economica, ma si manifestano in momenti differenti dell'orizzonte.
+
+Un aumento di $\alpha$ richiede maggiore liquidit\`a immediata e deve essere
+assorbito utilizzando risorse disponibili nelle prime date. Un aumento di
+$\beta$ agisce invece sul fabbisogno terminale e pu\`o essere assorbito, almeno
+in parte, attraverso liquidit\`a accumulata nelle date precedenti.
+
+Il confronto tra $\alpha$ e $\beta$ rende quindi nuovamente evidente che, in
+un problema ALM multi-periodale, non conta soltanto l'ammontare complessivo
+dei fabbisogni, ma anche il momento nel quale essi devono essere soddisfatti.
+
+\subsection{Capacit\`a di funding e vincoli strutturali}
+
+Anche nel Caso TakeHome, la capacit\`a di funding viene parametrizzata mediante
+$\phi$:
+
+$$
+\overline{u}(\phi)
+=
+\phi\overline{u}.
+$$
+
+La funzione parametrica assume quindi la forma
+
+$$
+(\alpha,\beta,\phi)
+\longmapsto
+\texttt{solve\_alm}(\alpha,\beta,\phi).
+$$
+
+La struttura del solver rimane quella gi\`a utilizzata nel Caso Aula:
+budget iniziale e bilanci temporali vengono rappresentati mediante
+uguaglianze, i vincoli prudenziali mediante disuguaglianze e i limiti sul
+funding mediante bound.
+
+Il vincolo legacy richiede tuttavia particolare attenzione nella traduzione
+computazionale. La condizione economica
+
+$$
+x_3+x_4\geq 35
+$$
+
+\noindent deve essere riscritta nella forma compatibile con
+
+$$
+A_{\mathrm{ub}}v\leq b_{\mathrm{ub}},
+$$
+
+\noindent ossia
+
+$$
+-x_3-x_4\leq -35.
+$$
+
+La trasformazione non modifica il vincolo economico, ma modifica il segno del
+termine noto utilizzato dal solver.
+
+Questa distinzione diventa rilevante quando si interpretano i marginali. Il
+marginale restituito dal solver si riferisce al lato destro della
+disuguaglianza codificata, cio\`e a $-35$. Se si vuole invece interpretare
+l'effetto di una variazione del limite economico naturale
+
+$$
+L=35,
+$$
+
+\noindent nel vincolo
+
+$$
+x_3+x_4\geq L,
+$$
+
+\noindent occorre tener conto della relazione
+
+$$
+b_{\mathrm{ub}}=-L.
+$$
+
+Una variazione positiva di $L$ corrisponde quindi a una variazione negativa
+del termine noto utilizzato dal solver. Il segno del marginale economico
+rispetto a $L$ deve essere conseguentemente ricostruito a partire dalla
+formulazione effettivamente codificata.
+
+\subsection{Trasferire il metodo, non la soluzione}
+
+Il passaggio dal Caso Aula al Caso TakeHome conserva la stessa sequenza
+operativa:
+\vspace{-0.3cm}
+\begin{gather*}
+\text{modello ALM}\\
+\downarrow\\
+\text{forma del solver}\\
+\downarrow\\
+\text{benchmark}\\
+\downarrow\\
+\text{funzione parametrica}\\
+\downarrow\\
+\text{sensitivit\`a e scenari}.
+\end{gather*}
+
+
+Non rimangono invece invariati i risultati, i vincoli attivi o il ruolo dei
+singoli parametri.
+
+Nel Caso TakeHome, il benchmark \`e determinato congiuntamente dal vincolo
+prudenziale e dal vincolo legacy. Il funding viene utilizzato in una diversa
+fase dell'orizzonte e la risposta ai due parametri di fabbisogno dipende dalla
+loro collocazione temporale.
+
+In particolare, uno shock terminale pu\`o essere assorbito inizialmente
+utilizzando una giacenza disponibile alla data finale, senza richiedere una
+modifica immediata dell'allocazione iniziale. Questo risultato non deve essere
+interpretato come una ricomposizione successiva del portafoglio: le variabili
+$x$ vengono scelte all'inizio dell'orizzonte e rimangono decisioni iniziali
+del modello.
+
+Il Caso TakeHome mostra quindi quali elementi possano essere trasferiti da un
+problema all'altro e quali debbano essere ricostruiti. Rimangono invariati il
+metodo di traduzione, la funzione del benchmark, la parametrizzazione e i
+principi di verifica; cambiano la struttura economica del problema, i vincoli
+rilevanti e il modo nel quale gli stress temporali si riflettono sulla
+soluzione.
+
+
+\section{Sintesi finale}
+
+Questo capitolo ha reso operativo in Python il modello di programmazione
+lineare e Asset--Liability Management sviluppato nei Capitoli 11 e 12.
+
+Il passaggio centrale \`e consistito nella traduzione del problema economico
+nella forma richiesta dal solver. Variabili decisionali, funzione obiettivo,
+vincoli di uguaglianza, disuguaglianze e bound devono essere rappresentati in
+modo coerente, mantenendo invariato il significato della formulazione
+originaria.
+
+La configurazione benchmark ha fornito il punto di riferimento per verificare
+la correttezza della traduzione e interpretare la soluzione in termini di
+allocazione dell'attivo, giacenze di liquidit\`a, ricorso al funding, vincoli
+attivi e valori marginali.
+
+L'introduzione di una funzione parametrica ha quindi permesso di passare dalla
+soluzione di una singola configurazione allo studio di una famiglia di
+problemi. Nel Caso Aula, i parametri $\theta$, $\phi$ e $\psi$ modificano
+rispettivamente i fabbisogni di liquidit\`a, la capacit\`a di funding e il
+costo del funding, intervenendo su componenti differenti della formulazione
+del solver.
+
+Su questa base, sono state distinte tre forme di analisi:
+
+$$
+\text{sensitivit\`a}
+\qquad
+\text{fattibilit\`a}
+\qquad
+\text{scenari}.
+$$
+
+L'analisi di sensitivit\`a mostra come cambiano il valore ottimo, il piano ALM
+e la struttura dei vincoli attivi quando varia un parametro alla volta. La
+frontiera di fattibilit\`a individua invece il massimo livello di stress
+compatibile con l'esistenza di almeno una soluzione ammissibile. Gli scenari
+consentono infine di studiare configurazioni nelle quali pi\`u driver vengono
+modificati simultaneamente.
+
+Il Caso TakeHome ha mostrato che la stessa architettura di analisi pu\`o
+essere trasferita a un problema ALM differente, caratterizzato da una diversa
+struttura dell'attivo, da fabbisogni collocati in date diverse e da ulteriori
+vincoli strutturali.
+
+Il percorso complessivo pu\`o essere sintetizzato come
+
+$$
+\begin{array}{c}
+\text{modello ALM}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{forma del solver}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{benchmark verificato}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{funzione parametrica}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{sensitivit\`a, fattibilit\`a e scenari}.
+\end{array}
+$$
+
+Il solver non sostituisce quindi il modello e non attribuisce autonomamente
+significato economico ai risultati. La qualit\`a dell'analisi dipende dalla
+corretta formulazione del problema, dalla coerenza della sua traduzione
+computazionale e dalla verifica degli output prima della loro interpretazione.
