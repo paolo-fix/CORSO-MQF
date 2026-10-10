@@ -1,6 +1,6 @@
 # Prompt 0 — Inizializzazione generale della linea studente
 
-Devo risolvere un caso del corso magistrale **Metodi Quantitativi per la Finanza**, destinato a studenti del quinto anno di *Finanza e Risk Management*.
+Devo risolvere un caso dell'insegnamento **Metodi Quantitativi per la Finanza**, destinato a studenti del secondo anno del Corso di Laurea Magistrale in *Finanza e Risk Management*.
 
 L’obiettivo del lavoro non è imparare Python come contenuto autonomo, ma usare Python e l'Intelligenza Artificiale (AI) per rendere osservabili, simulabili e verificabili concetti quantitativi applicati alla finanza.
 

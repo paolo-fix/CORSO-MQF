@@ -1,0 +1,1573 @@
+%2multibyte Version: 5.50.0.2960 CodePage: 65001
+% !TeX root = ./Slides_Lez_13_Python_Asset_Allocation_ALM.tex
+% ------------------------------------------------------------
+% Macro matematiche ufficiali del progetto MQF
+% Coerenti con MQF_Notazione.tex
+% ------------------------------------------------------------
+% Fallback utile per compilazione esterna se qualche titolo resta scritto come \QTR.
+% Scientific WorkPlace usa \QTR internamente; in Beamer \QTR{frametitle}{Titolo}
+% deve espandersi in \frametitle{Titolo}.
+
+\documentclass[handout]{beamer}%
+\usepackage{mathpazo}
+%\usepackage{hyperref}
+\usepackage{multimedia}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}%
+\setcounter{MaxMatrixCols}{30}
+%TCIDATA{OutputFilter=latex2.dll}
+%TCIDATA{Version=5.50.0.2960}
+%TCIDATA{Codepage=65001}
+%TCIDATA{CSTFile=beamer.cst}
+%TCIDATA{Created=Saturday, May 16, 2026 09:09:59}
+%TCIDATA{LastRevised=Saturday, May 16, 2026 11:24:58}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="2">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Other Documents\SW\Slides - Beamer">}
+%BeginMSIPreambleData
+\graphicspath{{../graphics/}}
+\providecommand{\U}[1]{\protect\rule{.1in}{.1in}}
+%EndMSIPreambleData
+\newenvironment{stepenumerate}{\begin{enumerate}[<+->]}{\end{enumerate}}
+\newenvironment{stepitemize}{\begin{itemize}[<+->]}{\end{itemize} }
+\newenvironment{stepenumeratewithalert}{\begin{enumerate}[<+-| alert@+>]}{\end{enumerate}}
+\newenvironment{stepitemizewithalert}{\begin{itemize}[<+-| alert@+>]}{\end{itemize} }
+\usetheme{Madrid}
+
+
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=.20\paperwidth,ht=2.25ex,dp=1ex,center]
+      {author in head/foot}%
+      \usebeamerfont{author in head/foot}\insertshortauthor
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.60\paperwidth,ht=2.25ex,dp=1ex,center]
+      {title in head/foot}%
+      \usebeamerfont{title in head/foot}\insertshorttitle
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.20\paperwidth,ht=2.25ex,dp=1ex,right]
+      {date in head/foot}%
+      \usebeamerfont{date in head/foot}%
+      \insertshortdate{}\hspace*{2em}%
+      \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+    \end{beamercolorbox}%
+  }%
+  \vskip0pt%
+}
+
+
+
+
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\E}{\mathbb{E}}
+\providecommand{\Prob}{\mathbb{P}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\F}{\mathcal{F}}
+\providecommand{\B}{\mathcal{B}}
+\providecommand{\G}{\mathcal{G}}
+\providecommand{\1}{\mathbf{1}}
+\providecommand{\Var}{\operatorname{Var}}
+\providecommand{\Cov}{\operatorname{Cov}}
+\providecommand{\VaR}{\operatorname{VaR}}
+\providecommand{\CVaR}{\operatorname{CVaR}}
+\providecommand{\argmin}{\operatorname*{arg\,min}}
+\providecommand{\argmax}{\operatorname*{arg\,max}}
+\providecommand{\EVPI}{\operatorname{EVPI}}
+\providecommand{\VSS}{\operatorname{VSS}}
+\providecommand{\QTR}[2]{\csname #1\endcsname{#2}}
+%BeginMSIPreambleData
+\ifx\pdfoutput\relax\let\pdfoutput=\undefined\fi
+\newcount\msipdfoutput
+\ifx\pdfoutput\undefined\else
+\ifcase\pdfoutput\else
+\msipdfoutput=1
+\ifx\paperwidth\undefined\else
+\ifdim\paperheight=0pt\relax\else\pdfpageheight\paperheight\fi
+\ifdim\paperwidth=0pt\relax\else\pdfpagewidth\paperwidth\fi
+\fi\fi\fi
+%EndMSIPreambleData
+
+%******************
+% Slide 1
+%******************
+
+\title[Lez. 13 - Python, programmazione lineare e ALM]
+{Lezione 13 - Applicazione in Python: programmazione lineare e ALM deterministico}
+
+\subtitle{Metodi Quantitativi per la Finanza}
+
+\author[P. Falbo, C. Pelizzari]
+{{\LARGE Paolo Falbo, Cristian Pelizzari}}
+
+\institute[]{{\large Dipartimento di Economia e Management}}
+
+\date[]{}
+
+\titlegraphic{
+\includegraphics[width=3.3cm]{../graphics/logo-Unibs-esteso.png}
+}
+
+\begin{document}
+
+\maketitle
+
+
+\section{Apertura e obiettivi}
+
+\subsection{Dalla teoria alla soluzione computazionale}
+
+%******************
+% Slide 2
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Dalla teoria alla soluzione computazionale}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+La Lezione 13 consolida operativamente i modelli introdotti nelle due lezioni
+precedenti.
+
+\vspace{0.4cm}
+
+\[
+\text{Lezione 11}
+\quad\longrightarrow\quad
+\text{Lezione 12}
+\quad\longrightarrow\quad
+\text{Lezione 13}
+\]
+
+\vspace{-0.2cm}
+
+\[
+\text{progr. lin.}
+\rightarrow
+\text{ALM deterministico}
+\rightarrow
+\text{implementazione e analisi computaz.}
+\]
+
+\vspace{0.4cm}
+
+\begin{stepitemize}
+
+\item La lezione 11 ha introdotto la scelta ottima sotto vincoli, la dualit\`a
+e i valori marginali.
+
+\item La lezione 12 ha introdotto la dimensione temporale dei cash flow,
+i bilanci di liquidit\`a e il funding.
+
+\item In questa lezione, il modello viene tradotto nella forma richiesta dal
+solver, risolto, controllato e sottoposto ad analisi what-if.
+
+\end{stepitemize}
+
+\vspace{0.2cm}
+
+\textbf{Idea guida:} non introduciamo una nuova classe di modelli; rendiamo
+operativo il modello gi\`a costruito.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\subsection{Obiettivi e struttura della lezione}
+
+%******************
+% Slide 3
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Obiettivi e struttura della lezione}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+La lezione persegue tre obiettivi:
+
+\begin{stepenumerate}
+
+\item [1.] \textbf{Un piccolo approfondimento Python}
+
+Isolare una struttura del codice utile per costruire e analizzare
+ripetutamente un modello parametrico.
+
+\item [2.] \textbf{Il Caso Aula}
+
+Tradurre un problema di ALM deterministico nella forma richiesta dal solver,
+verificare la soluzione e impostare benchmark, sensitività, frontiera di
+fattibilit\`a e scenari.
+
+\item [3.] \textbf{Il Caso TakeHome}
+
+Presentare un nuovo problema finanziario al quale trasferire autonomamente
+lo stesso metodo di lavoro, senza svilupparne la soluzione in aula.
+
+\end{stepenumerate}
+
+%\vspace{0.3cm}
+
+La lezione sar\`a articolata in due momenti:
+
+\vspace{-0.5cm}
+
+\[
+\text{inquadramento con le slide}
+\quad\longrightarrow\quad
+\text{sviluppo del Caso Aula in VS Code}.
+\]
+
+%\vspace{0.2cm}
+
+\textbf{Priorit\`a:} il Caso Aula costituisce il nucleo principale della
+lezione; le slide ne preparano lo sviluppo computazionale senza sostituirlo.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Un piccolo focus Python}
+
+\subsection{Dal codice ripetuto a una funzione}
+
+%******************
+% Slide 4
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Dal codice ripetuto a una funzione}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Nel Caso Aula, lo stesso modello deve essere risolto pi\`u volte al variare
+di alcuni parametri.
+
+\vspace{0.3cm}
+
+Una possibilit\`a sarebbe ripetere ogni volta le stesse istruzioni.
+La soluzione pi\`u naturale \`e invece racchiudere il procedimento in una
+\textbf{funzione}.
+
+%\vspace{0.4cm}
+
+\[
+(\theta,\phi,\psi)
+\quad\longrightarrow\quad
+\text{costruzione del problema}
+\quad\longrightarrow\quad
+\text{soluzione}.
+\]
+
+\vspace{0.4cm}
+
+In Python, la struttura essenziale \`e:
+
+%\vspace{0.2cm}
+
+\begin{center}
+\texttt{def solve\_model(theta, phi, psi):}
+
+%\vspace{0.15cm}
+
+\hspace{0.8cm}\texttt{...}
+
+%\vspace{0.15cm}
+
+\hspace{0.8cm}\texttt{return result}
+\end{center}
+
+%\vspace{0.3cm}
+
+\textbf{Idea chiave:} la funzione rende il modello ripetibile senza
+duplicare la logica di costruzione e soluzione.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+\subsection{Input, elaborazione e output}
+
+%******************
+% Slide 5
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Input, elaborazione e output}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Una funzione pu\`o essere letta come una trasformazione organizzata tra
+\textbf{input} e \textbf{output}.
+
+%\vspace{0.4cm}
+
+\[
+\boxed{\theta,\phi,\psi}
+\quad\longrightarrow\quad
+\boxed{\text{elaborazione}}
+\quad\longrightarrow\quad
+\boxed{\text{result}}
+\]
+
+%\vspace{0.4cm}
+
+Nel nostro caso, l'elaborazione comprende:
+
+\begin{stepenumerate}
+
+\item [1.] costruire i coefficienti che dipendono dai parametri;
+
+\item [2.] costruire uguaglianze, disuguaglianze e bound;
+
+\item [3.] chiamare il solver;
+
+\item [4.] restituire il risultato della soluzione.
+
+\end{stepenumerate}
+
+%\vspace{0.3cm}
+
+L'oggetto restituito dal solver contiene poi le informazioni necessarie per
+analizzare:
+
+\vspace{-0.3cm}
+
+\[
+\text{soluzione}
+\;,\qquad
+\text{valore obiettivo}
+\;,\qquad
+\text{fattibilit\`a}
+\;,\qquad
+\text{slack e marginali}.
+\]
+
+%\vspace{0.2cm}
+
+\textbf{Collegamento metodologico:} la struttura della funzione riflette la
+scomposizione del problema in tappe input--output.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\subsection{Da una soluzione a una famiglia di soluzioni}
+
+%******************
+% Slide 6
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Da una soluzione a una famiglia di soluzioni}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+La funzione parametrica permette di utilizzare lo stesso modello per
+domande quantitative diverse.
+
+%\vspace{0.4cm}
+
+\begin{stepenumerate}
+
+\item [1.] \textbf{Benchmark}
+\vspace{-0.2cm}
+\[
+\texttt{solve\_model(1, 1, 1)}
+\]
+
+fornisce la soluzione del caso di riferimento.
+
+\item [2.] \textbf{Sensitivit\`a univariata}
+\vspace{-0.2cm}
+\[
+\texttt{solve\_model(theta, 1, 1)}
+\]
+
+permette di studiare come cambia la soluzione al variare di un solo driver.
+
+\item [3.] \textbf{Scenari congiunti}
+\vspace{-0.2cm}
+\[
+\texttt{solve\_model(theta, phi, psi)}
+\]
+
+permette di modificare simultaneamente pi\`u driver.
+
+\end{stepenumerate}
+
+\vspace{-0.2cm}
+
+\[
+\boxed{\text{una funzione}}
+\rightarrow
+\boxed{\text{una famiglia di problemi LP}}
+\rightarrow
+\boxed{\text{una famiglia di soluzioni}}
+\]
+
+%\vspace{0.2cm}
+
+\textbf{Passaggio successivo:} identifichiamo ora il modello ALM che la
+funzione dovr\`a costruire e risolvere.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Caso Aula: modello e preparazione}
+
+\subsection{Il problema ALM}
+
+%******************
+% Slide 7
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Caso Aula: Silicon Valley Bank 2023}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Consideriamo un modello stilizzato di Asset--Liability Management ispirato
+al caso Silicon Valley Bank.
+
+%\vspace{0.3cm}
+
+La banca deve scegliere un piano di allocazione degli attivi e di gestione
+della liquidit\`a su quattro date, potendo ricorrere anche a funding esterno.
+
+%\vspace{0.4cm}
+
+La domanda quantitativa centrale \`e:
+
+%\vspace{0.2cm}
+
+\begin{center}
+\textbf{come cambia il piano ALM ottimo quando cambiano
+fabbisogni di liquidit\`a, capacit\`a di funding e costo del funding?}
+\end{center}
+
+%\vspace{0.4cm}
+
+I tre driver dell'analisi sono:
+
+\[
+\begin{array}{ccl}
+\theta &:& \text{fabbisogni di liquidit\`a},\\[0.1cm]
+\phi   &:& \text{capacit\`a di funding},\\[0.1cm]
+\psi   &:& \text{costo del funding}.
+\end{array}
+\]
+
+\vspace{0.2cm}
+
+Una seconda domanda riguarda la \textbf{fattibilit\`a}: fino a quale livello
+possono aumentare i fabbisogni iniziali prima che non esista pi\`u un piano
+ammissibile?
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\subsection{Dal modello statico all'ALM temporale}
+
+%******************
+% Slide 8
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Dalla Lezione 11 alla Lezione 12}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Il Caso Aula combina due livelli gi\`a sviluppati nel corso.
+
+%\vspace{0.4cm}
+
+\begin{columns}[T]
+
+\begin{column}{0.46\textwidth}
+
+\begin{center}
+\textbf{Lezione 11}
+\end{center}
+
+\[
+x=(x_1,\ldots,x_4)'
+\]
+
+\begin{itemize}
+
+\item allocazione degli attivi;
+
+\item funzione obiettivo;
+
+\item vincoli;
+
+\item soluzione ottima;
+
+\item dualit\`a e valori marginali.
+
+\end{itemize}
+
+\end{column}
+
+\begin{column}{0.46\textwidth}
+
+\begin{center}
+\textbf{Lezione 12}
+\end{center}
+
+\[
+(x,g,u)
+\]
+
+\begin{itemize}
+
+\item cash flow distribuiti nel tempo;
+
+\item bilanci di liquidit\`a;
+
+\item liquidit\`a riportata;
+
+\item funding esterno;
+
+\item valori marginali temporali.
+
+\end{itemize}
+
+\end{column}
+
+\end{columns}
+
+%\vspace{0.3cm}
+
+\[
+\boxed{\text{La classe matematica resta la programmazione lineare}}
+\]
+
+ma la struttura economica diventa multiperiodale.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\subsection{La dimensione temporale}
+
+%******************
+% Slide 9
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Il tempo entra nel modello}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Nel modello ALM, la liquidit\`a deve essere disponibile alla data in cui nasce
+il fabbisogno.
+
+%\vspace{0.5cm}
+
+\[
+\begin{array}{ccccccc}
+t=1 & & t=2 & & t=3 & & t=4\\
+\bullet & \longrightarrow & \bullet & \longrightarrow &
+\bullet & \longrightarrow & \bullet
+\end{array}
+\]
+
+%\vspace{0.4cm}
+
+A ogni data, intervengono:
+
+\begin{stepitemize}
+
+\item i cash flow generati dagli attivi, \(a_t'x\);
+
+\item il fabbisogno di liquidit\`a, \(d_t\);
+
+\item l'eventuale funding esterno, \(u_t\);
+
+\item la liquidit\`a residua trasferita alla data successiva, \(g_t\).
+
+\end{stepitemize}
+
+%\vspace{0.4cm}
+
+\[
+\boxed{
+\text{dal ``quanto'' al ``quanto e quando''}
+}
+\]
+
+%\vspace{0.2cm}
+
+Il problema non riguarda quindi soltanto \textbf{quanto} cash flow viene
+generato, ma anche \textbf{quando} viene generato.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+
+\subsection{Gli oggetti del modello}
+
+%******************
+% Slide 10
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Le variabili decisionali}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Il piano ALM comprende tre gruppi di variabili decisionali.
+
+\vspace{0.4cm}
+
+\begin{description}
+
+\item[\textbf{Allocazione degli attivi}]
+\[
+x=(x_1,x_2,x_3,x_4)'.
+\]
+
+\(x_j\) indica l'ammontare investito nella classe di attivo \(j\).
+
+\vspace{0.2cm}
+
+\item[\textbf{Liquidit\`a riportata}]
+\[
+g=(g_1,g_2,g_3,g_4)'.
+\]
+
+\(g_t\) rappresenta la liquidit\`a residua dopo il fabbisogno alla data \(t\).
+
+\vspace{0.2cm}
+
+\item[\textbf{Funding esterno}]
+\[
+u=(u_1,u_2,u_3)'.
+\]
+
+\(u_t\) rappresenta il funding ottenuto alla data \(t\), disponibile
+immediatamente e rimborsato alla data successiva.
+
+\end{description}
+
+\vspace{0.3cm}
+
+Il modello contiene complessivamente $4+4+3=\boxed{11}$ variabili decisionali.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\subsection{Funzione obiettivo e vincoli}
+
+%******************
+% Slide 11
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{La funzione obiettivo}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Il piano viene scelto massimizzando il valore economico complessivo:
+
+\[
+\max_{x,g,u}
+\;
+\Pi(x,g,u;\psi)
+=
+c'x
++
+\sum_{t=1}^{3} r_t^g g_t
+-
+\sum_{t=1}^{3}\psi r_t^u u_t.
+\]
+
+%\vspace{0.4cm}
+
+La funzione obiettivo combina tre componenti:
+
+\begin{stepenumerate}
+
+\item [1.] \(c'x\): rendimento economico dell'allocazione degli attivi;
+
+\item [2.] \(\displaystyle\sum_{t=1}^{3} r_t^g g_t\):
+remunerazione della liquidit\`a riportata;
+
+\item [3.] \(\displaystyle-\sum_{t=1}^{3}\psi r_t^u u_t\):
+costo del funding esterno.
+
+\end{stepenumerate}
+
+%\vspace{0.3cm}
+
+\[
+\boxed{\psi}
+\]
+
+modifica quindi direttamente il costo economico del funding.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+% Slide 12
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Bilanci di liquidit\`a: la struttura ricorsiva}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Alla prima data:
+\vspace{-0.1cm}
+\[
+a_1'x+u_1-g_1=d_1(\theta).
+\]
+
+%\vspace{0.3cm}
+
+Alle date successive, compare una struttura ricorsiva:
+\vspace{-0.1cm}
+\[
+a_t'x
++
+(1+r_{t-1}^g)g_{t-1}
++
+u_t
+-
+(1+\psi r_{t-1}^u)u_{t-1}
+-
+g_t
+=
+d_t(\theta),
+\qquad t=2,3.
+\]
+
+\vspace{0.2cm}
+
+La logica \`e sempre la stessa:
+
+$$
+\text{cash flow}
++
+\text{liquidit\`a riportata}
++
+\text{nuovo funding}
+$$
+\vspace{-0.6cm}
+$$
+=
+$$
+\vspace{-0.6cm}
+$$
+\text{fabbisogno}
++
+\text{rimborso}
++
+\text{liquidit\`a residua}
+$$
+
+\vspace{0.3cm}
+
+\textbf{Punto chiave:} il funding ottenuto alla data \(t\) migliora la
+liquidit\`a corrente, ma genera un rimborso alla data successiva.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+% Slide 13
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Gli altri vincoli}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Ai bilanci temporali, si aggiungono gli altri vincoli del piano ALM.
+
+%\vspace{0.3cm}
+
+\begin{stepenumerate}
+
+\item [1.] \textbf{Risorse iniziali}
+\vspace{-0.1cm}
+\[
+\sum_{j=1}^{4}x_j=A_0=100.
+\]
+
+\item [2.] \textbf{Limite prudenziale}
+\vspace{-0.1cm}
+\[
+\ell'x\le K,
+\qquad K=7.
+\]
+
+\item [3.] \textbf{Concentrazione}
+\vspace{-0.1cm}
+\[
+x_3\le30.
+\]
+
+\item [4.] \textbf{Capacit\`a di funding}
+\vspace{-0.1cm}
+\[
+0\le u_t\le\phi\bar u_t.
+\]
+
+\item [5.] \textbf{Non negativit\`a}
+\vspace{-0.1cm}
+\[
+x_j\ge0,
+\qquad
+g_t\ge0.
+\]
+
+\end{stepenumerate}
+
+%\vspace{0.2cm}
+
+Tutte le relazioni sono lineari: il problema resta quindi un problema di
+\textbf{programmazione lineare}.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\subsection{Dalla formulazione matematica al solver}
+
+%******************
+% Slide 14
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Il vettore del solver}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Per costruire il problema numerico, dobbiamo raccogliere tutte le variabili
+decisionali in un unico vettore.
+
+\vspace{0.3cm}
+
+Indichiamo localmente con \(y\) il vettore utilizzato nella forma solver:
+\vspace{-0.1cm}
+\[
+y=
+(x_1,x_2,x_3,x_4,
+g_1,g_2,g_3,g_4,
+u_1,u_2,u_3)'.
+\]
+
+%\vspace{0.4cm}
+
+% La struttura per blocchi \`e:
+% \vspace{-0.1cm}
+% \[
+% \underbrace{x_1,\ldots,x_4}_{\text{attivi}}
+% \qquad
+% \underbrace{g_1,\ldots,g_4}_{\text{liquidit\`a}}
+% \qquad
+% \underbrace{u_1,\ldots,u_3}_{\text{funding}}.
+% \]
+
+% \vspace{0.4cm}
+
+Il significato economico delle variabili non cambia, ma il solver le tratta
+come componenti di un unico vettore numerico.
+
+\vspace{0.2cm}
+
+\[
+\boxed{\text{modello economico}}
+\quad\longrightarrow\quad
+\boxed{\text{vettore decisionale numerico}}
+\]
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+% Slide 15
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Dalla formulazione agli input del solver}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Il solver richiede quattro oggetti fondamentali.
+
+\vspace{-0.1cm}
+
+\[
+\begin{array}{ccl}
+\text{funzione obiettivo}
+&\longrightarrow&
+\texttt{c}
+\\[0.25cm]
+\text{uguaglianze}
+&\longrightarrow&
+\texttt{A\_eq},\ \texttt{b\_eq}
+\\[0.25cm]
+\text{disuguaglianze}
+&\longrightarrow&
+\texttt{A\_ub},\ \texttt{b\_ub}
+\\[0.25cm]
+\text{limiti sulle variabili}
+&\longrightarrow&
+\texttt{bound}
+\end{array}
+\]
+
+%\vspace{-0.1cm}
+
+La forma risolta da \texttt{linprog} \`e:
+\vspace{-0.1cm}
+
+\[
+\min_y f'y
+\]
+
+soggetto a
+\vspace{-0.1cm}
+
+\[
+A_{ub}y\le b_{ub},
+\qquad
+A_{eq}y=b_{eq}.
+\]
+
+\vspace{-0.1cm}
+
+\textbf{Idea chiave:} la programmazione consiste nel tradurre correttamente
+gli oggetti del modello in questi input, non nel modificare il modello.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+% Slide 16
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Una sola inversione di segno}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Il modello economico massimizza:
+\vspace{-0.1cm}
+\[
+\max_y p'y.
+\]
+
+\vspace{0.4cm}
+
+Poich\'e \texttt{linprog} minimizza, definiamo:
+\vspace{-0.1cm}
+
+\[
+f=-p.
+\]
+
+Il solver risolve quindi:
+\vspace{-0.1cm}
+
+\[
+\min_y f'y.
+\]
+
+%\vspace{0.4cm}
+
+Una volta ottenuta la soluzione \(y^*\):
+\vspace{-0.1cm}
+
+\[
+\Pi^*=p'y^*=-f'y^*.
+\]
+
+%\vspace{0.4cm}
+
+\[
+\boxed{
+\text{il cambio di segno si effettua una sola volta}
+}
+\]
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+% Slide 17
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Tre parametri, tre punti di ingresso}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+I tre driver modificano parti diverse del problema.
+
+%\vspace{0.5cm}
+
+\[
+\begin{array}{ccl}
+\theta
+&\longrightarrow&
+b_{eq}
+\\[0.3cm]
+\phi
+&\longrightarrow&
+\texttt{bound}
+\\[0.3cm]
+\psi
+&\longrightarrow&
+f\ \text{e}\ A_{eq}
+\end{array}
+\]
+
+%\vspace{0.5cm}
+
+In particolare:
+
+\[
+d(\theta)=(30\theta,30\theta,22,15)',
+\]
+\vspace{-0.2cm}
+\[
+\bar u_t(\phi)=\phi\bar u_t.
+\]
+
+%\vspace{0.3cm}
+
+Per \(\psi\), occorre ricordare due effetti:
+
+\begin{itemize}
+
+\item modifica il costo del funding nella funzione obiettivo;
+
+\item modifica il rimborso del funding nei bilanci temporali.
+
+\end{itemize}
+
+\vspace{0.2cm}
+
+\textbf{Punto chiave:} parametrizzare il modello significa sapere
+esattamente quale oggetto del solver deve cambiare.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+% Slide 18
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Che cosa faremo in VS Code}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+A questo punto, il modello \`e pronto per essere costruito e analizzato
+numericamente.
+
+%\vspace{0.4cm}
+
+\[
+\boxed{\text{benchmark}}
+\longrightarrow
+\boxed{\text{controlli}}
+\longrightarrow
+\boxed{\text{sensitivit\`a}}
+\longrightarrow
+\boxed{\text{frontiera}}
+\longrightarrow
+\boxed{\text{scenari}}
+\]
+
+%\vspace{0.5cm}
+
+Nel laboratorio, dovremo:
+
+\begin{stepitemize}
+
+\item risolvere il caso benchmark;
+
+\item controllare fattibilit\`a, residui, slack, bound attivi e marginali;
+
+\item variare separatamente \(\theta\), \(\phi\) e \(\psi\);
+
+\item individuare la frontiera di fattibilit\`a rispetto a \(\theta\);
+
+\item confrontare scenari con variazioni congiunte dei driver.
+
+\end{stepitemize}
+
+\vspace{0.3cm}
+
+\textbf{Obiettivo finale:} interpretare non soltanto il valore ottimo,
+ma l'intero piano ALM \(x^*,g^*,u^*\).
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\section{Caso TakeHome}
+
+\subsection{Un nuovo problema ALM}
+
+%******************
+% Slide 19
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Caso TakeHome: First Republic Bank 2023}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Il caso TakeHome trasferisce lo stesso metodo di lavoro a un problema ALM
+differente, ispirato al caso First Republic Bank.
+
+%\vspace{0.4cm}
+
+La struttura del problema presenta alcuni elementi nuovi:
+
+\begin{stepitemize}
+
+\item cinque classi di attivo;
+
+\item quattro date di bilancio;
+
+\item due possibili ondate di deposit run;
+
+\item capacit\`a di funding limitata;
+
+\item vincoli di ristrutturazione del bilancio.
+
+\end{stepitemize}
+
+%\vspace{0.4cm}
+
+I tre driver dell'analisi sono $
+\boxed{\alpha}
+\qquad
+\boxed{\beta}
+\qquad
+\boxed{\phi},
+$
+%\vspace{-0.1cm}
+a cui corrispondono i fabbisogni:
+\vspace{-0.1cm}
+
+\[
+d(\alpha,\beta)
+=
+(32\alpha,18,14,32\beta)'.
+\]
+
+%\vspace{0.3cm}
+
+Due vincoli caratterizzano in particolare il caso:
+\vspace{-0.1cm}
+\[
+x_3+x_4\ge35,
+\qquad
+x_5\le35.
+\]
+
+\vspace{0.2cm}
+
+\textbf{Idea chiave:} il contesto finanziario cambia, ma la struttura
+metodologica della soluzione resta la stessa.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\subsection{Trasferire il metodo}
+
+%******************
+% Slide 20
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Dal Caso Aula al Caso TakeHome}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Il caso TakeHome non \`e solo una variazione parametrica del Caso Aula.
+
+\vspace{-0.3cm}
+
+\[
+\begin{array}{c|c}
+\text{Caso Aula} & \text{Caso TakeHome}\\
+\hline
+\text{Silicon Valley Bank} & \text{First Republic Bank}\\[0.15cm]
+4\ \text{attivi} & 5\ \text{attivi}\\[0.15cm]
+\theta,\phi,\psi & \alpha,\beta,\phi\\[0.15cm]
+\text{stress sui fabbisogni iniziali} &
+\text{due ondate di deposit run}\\[0.15cm]
+\text{vincolo di concentrazione} &
+\text{vincolo legacy}
+\end{array}
+\]
+
+\vspace{0.1cm}
+
+La sequenza metodologica resta invece comune:
+
+\[
+\boxed{\text{modello}}
+\longrightarrow
+\boxed{\text{forma solver}}
+\longrightarrow
+\boxed{\text{benchmark}}
+\longrightarrow
+\boxed{\text{controlli}}
+\]
+
+\[
+\longrightarrow
+\boxed{\text{sensitivit\`a e scenari}}
+\longrightarrow
+\boxed{\text{interpretazione}}.
+\]
+
+\vspace{0.3cm}
+
+\textbf{Obiettivo del TakeHome:} verificare la capacit\`a di trasferire
+autonomamente il metodo a una struttura finanziaria differente.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+
+\section{Passaggio al laboratorio}
+
+\subsection{Sviluppo del Caso Aula in VS Code}
+
+%******************
+% Slide 21
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Dal modello al laboratorio in VS Code}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Abbiamo definito il problema economico, la forma matematica e la
+traduzione richiesta dal solver.
+
+\vspace{0.4cm}
+
+Ora passiamo allo sviluppo operativo del Caso Aula in VS Code.
+
+\vspace{0.5cm}
+
+\[
+\boxed{\text{dati}}
+\longrightarrow
+\boxed{\text{funzione solver}}
+\longrightarrow
+\boxed{\text{benchmark}}
+\longrightarrow
+\boxed{\text{controlli}}
+\]
+
+\[
+\longrightarrow
+\boxed{\text{sensitivit\`a}}
+\longrightarrow
+\boxed{\text{frontiera}}
+\longrightarrow
+\boxed{\text{scenari}}.
+\]
+
+\vspace{0.5cm}
+
+Durante lo sviluppo, dovremo verificare continuamente la coerenza tra:
+
+\[
+\text{modello teorico}
+\quad\longleftrightarrow\quad
+\text{codice}
+\quad\longleftrightarrow\quad
+\text{output}.
+\]
+
+\vspace{0.3cm}
+
+\textbf{Obiettivo:} costruire una soluzione computazionale
+comprensibile, verificabile e interpretabile.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+
+
+
+\end{document}
+
