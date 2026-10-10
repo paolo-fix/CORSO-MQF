@@ -4534,3 +4534,200 @@ iniziale differente nelle due situazioni.
 
 \end{enumerate}
 
+\section{Conclusioni}
+\label{sec:cap15-conclusioni-v2}
+
+I Capitoli~\ref{cap:programmazione-stocastica-due-stadi} e
+\ref{cap:soluzione-valore-informazione-v2} hanno sviluppato la
+programmazione stocastica a partire da un problema finanziario
+concreto: scegliere oggi un piano che dovr\`{a} essere attuato in
+condizioni future non ancora note. Rispetto alla programmazione
+lineare deterministica, il cambiamento fondamentale non consiste
+nell'aggiungere un maggior numero di vincoli, ma nel riconoscere
+che le decisioni vengono assunte con informazioni differenti.
+
+Nel modello deterministico del Capitolo 12, la traiettoria futura
+dei coefficienti \`{e} trattata come nota. La programmazione stocastica
+sostituisce a questa ipotesi una distribuzione di possibili
+realizzazioni, descritta nel caso finito dagli scenari $s\in\mathcal S$
+e dalle probabilit\`{a} $p_s$. Una decisione iniziale $x$ deve
+essere valida prima che lo scenario sia conosciuto; le successive
+decisioni di ricorso possono invece utilizzare le informazioni
+rivelate. La scelta ottima considera cos\`{i} non soltanto il
+rendimento immediato, ma anche la possibilit\`{a} di fronteggiare
+fabbisogni e vincoli futuri.
+
+Questo vantaggio ha una condizione essenziale: il ricorso deve
+essere ammissibile. Una soluzione iniziale economicamente
+attraente, ma incompatibile con i limiti di liquidit\`{a} o di
+funding in uno scenario rilevante, non costituisce una soluzione
+stocastica utilizzabile. La fattibilit\`{a} del ricorso e la sua
+dipendenza da $x$, studiate in questo capitolo, sono quindi parte
+integrante della qualit\`{a} del piano.
+
+\medskip
+\noindent
+\textbf{Dal ricorso a due stadi alle decisioni multistadio.}
+
+Il modello a due stadi distingue un'unica decisione iniziale e
+un blocco di ricorso $y_s$ scelto dopo l'osservazione dello
+scenario. Quando invece l'informazione arriva progressivamente,
+non \`{e} corretto attribuire a tutte le decisioni future la
+conoscenza dell'intera traiettoria. Il ricorso viene suddiviso nei
+blocchi $y_k^s$, $k=2,\ldots,K$, ciascuno adattato alla
+sigma-algebra $\F_{\bar t_k}$. La condizione
+
+\[
+y_k^s=y_k^{s'}
+\quad\text{se }s\text{ e }s'\text{ condividono la storia fino a }\bar t_k
+\]
+
+\noindent
+esprime il nucleo matematico della non anticipativit\`{a}:
+scenari ancora indistinguibili non possono generare decisioni
+differenti. L'albero degli scenari non rappresenta quindi soltanto
+i possibili eventi; rappresenta anche \emph{quando} il decisore
+pu\`{o} distinguerli. Il passaggio al multistadio consente un
+adattamento pi\`{u} realistico delle decisioni di liquidit\`{a} e
+funding, ma aumenta il numero di variabili, di vincoli e di
+storie informative da considerare.
+
+\medskip
+\noindent
+\textbf{Che cosa misurano i benchmark economici.}
+
+Il confronto fra $SP$, $WS$ ed $EV$ precisa due vantaggi che non
+vanno confusi. $SP$ \`{e} la soluzione ottima compatibile con
+l'informazione effettivamente disponibile nei diversi stadi.
+$WS$ attribuisce al decisore la conoscenza anticipata dell'intera
+traiettoria futura e costituisce quindi un riferimento ideale,
+non un piano attuabile nelle condizioni informative originarie.
+$EV$ parte invece dalla decisione iniziale $x^{EV}$ ottenuta
+risolvendo il problema deterministico con dati medi. Il suo valore
+$z^{EV}$ si calcola valutando quella decisione nel problema
+stocastico originario, con ricorsi ammissibili e non anticipativi:
+non coincide, in generale, con il valore ottimo del problema medio.
+
+Per problemi di massimizzazione, quando i tre benchmark sono ben
+definiti e $x^{EV}$ ammette un ricorso fattibile, vale
+
+\[
+\begin{gathered}
+z^{WS}\geq z^{SP}\geq z^{EV},\\[3pt]
+\EVPI=z^{WS}-z^{SP}\geq0,
+\qquad
+\VSS=z^{SP}-z^{EV}\geq0.
+\end{gathered}
+\]
+
+L'EVPI quantifica quanto varrebbe disporre di informazione
+perfetta sul futuro; il VSS quantifica il beneficio di
+utilizzare esplicitamente la distribuzione degli scenari nella
+scelta iniziale, rispetto alla decisione costruita sui valori
+medi. Il primo riguarda l'informazione, il secondo il metodo di
+pianificazione. Un VSS positivo mostra in termini economici
+perch\'{e} una soluzione deterministica basata sui dati medi pu\`{o}
+essere subottimale anche quando il suo ricorso resta fattibile.
+
+\medskip
+\noindent
+\textbf{Il limite della rappresentazione per scenari e il
+confronto con la programmazione dinamica stocastica.}
+
+La forma estesa della programmazione stocastica conserva
+esplicitamente le storie possibili, le probabilit\`{a} e i vincoli
+di collegamento fra le decisioni. Questo \`{e} un punto di forza:
+consente di trattare problemi lineari con numerosi vincoli
+operativi senza richiedere, in generale, che tutta la storia
+informativa sia riassunta da uno stato di dimensione ridotta.
+La contropartita \`{e} la crescita dell'albero: con
+$b$ ramificazioni per ciascuna delle $K-1$ rivelazioni, il
+numero di scenari terminali raggiunge $b^{K-1}$.
+
+La programmazione dinamica stocastica (PDS) propone una diversa
+rappresentazione del medesimo problema sequenziale. La sua
+possibile economia matematica dipende dall'esistenza di uno
+\emph{stato sufficiente}: un insieme di variabili che conserva
+tutta l'informazione necessaria per determinare le scelte
+ammissibili, il risultato corrente e la legge condizionata delle
+evoluzioni future. Nel caso SVB--ALM, la coppia $(X_t,Z_t)$, gi\`{a}
+introdotta per descrivere lo stato interno ed esterno della banca,
+\`{e} una candidata naturale, ma la sua sufficienza deve essere
+verificata in relazione ai vincoli e alla dinamica effettivi.
+
+Per mettere in evidenza il principio ricorsivo, indichiamo con
+$Q_{t+1}(X_t,Z_t)$ il valore atteso ottimo delle decisioni
+successive alla data $t$. Se il criterio \`{e} additivo e lo
+stato \`{e} sufficiente, la ricorsione di Bellman assume,
+nel caso in cui la decisione $u_{t+1}$ venga presa dopo
+l'osservazione di $Z_{t+1}$, la forma
+
+\[
+Q_{t+1}(X_t,Z_t)
+=
+\E\left[
+\max_{u_{t+1}}
+\left\{
+q_{t+1}'u_{t+1}
++Q_{t+2}(X_{t+1},Z_{t+1})
+\right\}
+\,\middle|\,X_t,Z_t
+\right].
+\]
+
+Il massimo \`{e} inteso sulle decisioni ammissibili dopo la
+nuova osservazione; $X_{t+1}$ dipende dalla decisione e dalla
+transizione realizzata. Nell'ultimo periodo il valore residuo
+successivo \`{e} posto uguale a zero. La formula non introduce
+un'informazione aggiuntiva: utilizza soltanto quella che lo
+stato corrente rende disponibile e quella che sar\`{a} osservata
+prima della decisione successiva.
+
+Il confronto matematico pu\`{o} allora essere espresso con
+precisione. Nella programmazione stocastica la non anticipativit\`{a}
+collega decisioni associate alla stessa storia informativa;
+nella PDS, se uno stato \`{e} sufficiente, il problema residuo
+viene valutato mediante una funzione dello stato, riutilizzabile
+per storie differenti che conducono alla stessa situazione
+rilevante. Non si tratta di metodi incompatibili: un nodo
+dell'albero pu\`{o} esso stesso fungere da stato. Se per\`{o} lo
+stato deve conservare l'intera storia, la ricorsione resta
+formalmente possibile senza offrire una riduzione significativa
+della rappresentazione.
+
+La PDS non elimina dunque automaticamente la complessit\`{a}.
+Quando uno stato compatto \`{e} disponibile pu\`{o} evitare di
+ripetere lo stesso problema residuo su molti nodi; quando lo
+stato ha numerose componenti, la sua rappresentazione e il
+calcolo delle funzioni di valore possono diventare a loro volta
+proibitivi. La programmazione stocastica soffre soprattutto la
+crescita degli scenari e dei vincoli di non anticipativit\`{a};
+la PDS incontra, tipicamente, la difficolt\`{a} di rappresentare
+uno spazio degli stati multidimensionale: una griglia con $n$
+punti per ciascuna di $d$ componenti richiede $n^d$ stati.
+La convenienza dipende dalla struttura informativa e dai vincoli
+del problema, non da una superiorit\`{a} generale dell'uno o
+dell'altro metodo.
+
+\medskip
+\noindent
+\textbf{Dalla formulazione alla verifica computazionale.}
+
+La Lezione 16 riprender\`{a} questi risultati in Python, senza
+trasformare il confronto con la PDS in un nuovo argomento
+algoritmico. Nel Caso Aula SVB--ALM e nel Caso TakeHome sulla
+crisi LDI britannica, il passaggio operativo consister\`{a} nel
+costruire gli scenari, formulare i vincoli di ricorso e di
+non anticipativit\`{a}, risolvere il problema stocastico e
+confrontare $SP$, $WS$ ed $EV$, interpretando $EVPI$ e $VSS$.
+La verifica numerica dovr\`{a} accertare non soltanto il valore
+ottimo, ma anche la fattibilit\`{a} dei piani e la coerenza
+fra decisioni e informazione effettivamente disponibile.
+
+La conclusione metodologica dei due capitoli \`{e} quindi una
+precisa disciplina della decisione sotto incertezza:
+modellare le possibili evoluzioni, rispettare il tempo di
+rivelazione delle informazioni e valutare economicamente il
+beneficio dell'adattamento. Le diverse rappresentazioni e
+tecniche di soluzione acquistano significato solo in quanto
+conservano questi tre requisiti.
