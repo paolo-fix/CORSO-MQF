@@ -41,7 +41,7 @@ LINE_SPACINGS = {
     "title": 1.00,
     "axis_label": 1.00,
     "tick_label": 1.00,
-    "annotation": 1.08,
+    "annotation": 1.5,
     "legend": 1.00,
 }
 
@@ -119,7 +119,7 @@ SP_LEFT_SLOPE = 0.04
 SP_RIGHT_INTERCEPT = 0.30
 SP_RIGHT_SLOPE = -0.01
 # Posizioni (x, y) dell'annotazione dell'ottimo e dell'etichetta del breakpoint.
-SP_ANNOTATION_POS = (5.15, 0.275)
+SP_ANNOTATION_POS = (5.15, 0.278)
 SP_BREAK_LABEL_POS = (SP_BREAK_X, 0.113)
 # Limiti verticali e posizione della legenda della figura SP.
 SP_Y_LIM = (0.09, 0.29)
