@@ -2,956 +2,993 @@
 
 Documento interno di progettazione docente.
 
-## 1. Identificazione del caso
+## 1. Identificazione
 
 - **Lezione:** 16 — Applicazione in Python: programmazione stocastica
 - **Tipo di caso:** TakeHome
-- **Titolo:** UK LDI 2022 — Buffer di liquidità, margin call e non anticipatività
-- **Destinatari:** studenti del V anno di Banca e Risk Management
-- **Uso previsto:** lavoro autonomo successivo al Caso Aula, finalizzato a trasferire la programmazione stocastica dal contesto bancario SVB a un investitore istituzionale con strategia Liability Driven Investment, sviluppando una struttura multistadio con informazione progressiva e vincoli di non anticipatività.
+- **Titolo:** **UK LDI 2022 — Buffer di liquidità, margin call e valore dell'informazione**
+- **Target:** studenti del V anno / secondo anno magistrale di Banca e Risk Management
+- **Funzione didattica:** trasferire in un contesto finanziario distinto dal Caso Aula SVB la struttura di programmazione stocastica lineare a due stadi sviluppata nei Capitoli 14–15.
+- **Framework vincolante:** esclusivamente **two-stage**.
+
+Il caso deve consolidare:
+
+1. decisione here-and-now;
+2. scenari discreti e probabilità;
+3. ricorso scenario-specifico;
+4. forma estesa deterministica;
+5. non anticipatività della decisione iniziale;
+6. soluzione stocastica SP;
+7. soluzione deterministica basata sui valori medi EV e sua rivalutazione negli scenari originari;
+8. benchmark wait-and-see WS;
+9. Value of the Stochastic Solution (VSS);
+10. Expected Value of Perfect Information (EVPI).
+
+Il caso non introduce un modello multistadio. Anche se l'episodio storico del 2022 si è sviluppato nel tempo, nel modello didattico l'incertezza futura è compressa in uno scenario completo osservato in un unico momento di ricorso.
+
+---
 
 ## 2. Contesto e motivazione
 
-Il caso è contestualizzato nella crisi delle strategie Liability Driven Investment (LDI) dei fondi pensione britannici nell'autunno 2022.
+### 2.1 Contesto storico-finanziario
 
-Le strategie LDI erano utilizzate da fondi pensione defined benefit per allineare maggiormente il valore degli attivi alla sensibilità delle passività rispetto ai tassi di interesse e all'inflazione. Una parte rilevante di tali strategie utilizzava leva mediante derivati sui tassi e operazioni repo su gilt.
+Nel settembre 2022 il rapido aumento dei rendimenti dei gilt britannici a lunga scadenza produsse forti perdite di valore sulle posizioni utilizzate nelle strategie Liability-Driven Investment (LDI) e generò ingenti richieste di margine e collateral call su repo e derivati. In diversi casi i fondi LDI dovettero mobilizzare attività liquide, richiedere nuovi apporti ai fondi pensione investitori e vendere gilt in condizioni di mercato deteriorate. Le vendite forzate contribuirono ad amplificare la disfunzione del mercato, inducendo l'intervento temporaneo della Bank of England.
 
-Nel settembre 2022 il rapido aumento dei rendimenti dei gilt, e in particolare dei titoli a lunga scadenza, determinò forti riduzioni del valore delle attività utilizzate nelle strategie LDI e generò richieste di collateral e margin call. Gli investitori dovettero mobilitare liquidità, richiedere contributi aggiuntivi ai pension scheme e, nei casi più critici, vendere gilt o ridurre rapidamente la leva. Le vendite forzate contribuirono a esercitare ulteriore pressione sui prezzi dei gilt, generando un meccanismo di amplificazione che rese necessario l'intervento temporaneo della Bank of England.
+Il caso utilizza questo episodio come **cornice storica**. Non costituisce una ricostruzione empirica di uno specifico fondo pensione o fondo LDI.
 
-Il caso utilizza questo episodio esclusivamente come riferimento economico-finanziario. La specificazione quantitativa è interamente didattica e non costituisce una ricostruzione di un particolare fondo pensione o LDI fund.
+### 2.2 Motivazione didattica
 
-Rispetto al Caso Aula, il problema non è più organizzato in due soli stadi. L'incertezza si rivela progressivamente:
+Il contesto LDI consente di trasferire la logica della programmazione stocastica a due stadi dal bilancio bancario del Caso Aula a un soggetto istituzionale diverso.
 
-1. al tempo iniziale viene scelto il rapporto tra buffer di liquidità ed esposizione LDI;
-2. si osserva un primo shock sui gilt;
-3. vengono assunte decisioni di adattamento coerenti con l'informazione disponibile;
-4. si osserva una seconda evoluzione del mercato;
-5. vengono assunte le decisioni finali di ricorso.
+La tensione economica centrale è:
 
-Il caso è quindi progettato per rendere computazionali i concetti di programmazione stocastica multistadio e non anticipatività sviluppati nei Capitoli 14 e 15.
+> quanto rendimento corrente conviene sacrificare ex ante per detenere un buffer di liquidità e collateral capace di assorbire margin call future, evitando apporti straordinari e vendite forzate costose?
 
-**Fonti storiche di riferimento per il docente:** Bank of England, *Financial Stability Report*, dicembre 2022; Bank of England, documentazione sulle operazioni temporanee di acquisto di gilt del 2022; documentazione Bank of England sulla resilienza dei fondi LDI.
+La decisione iniziale riguarda la quota del portafoglio mantenuta come buffer immediatamente disponibile. Dopo l'osservazione dello scenario, il decisore può reagire mediante ricorso scenario-specifico.
 
-I valori numerici assegnati nel caso sono stilizzati e non devono essere presentati come stime empiriche della crisi LDI.
+Il caso deve rendere visibile che:
+
+- una strategia costruita sullo scenario medio può sottostimare il costo degli scenari di stress;
+- il modello stocastico sceglie una sola decisione iniziale, comune a tutti gli scenari;
+- il ricorso può invece differire dopo la rivelazione dello scenario;
+- il valore della soluzione stocastica e il valore dell'informazione perfetta misurano vantaggi economici distinti.
+
+### 2.3 Riferimenti storici per il docente
+
+Per il solo inquadramento storico utilizzare prioritariamente fonti ufficiali Bank of England e BIS relative alla crisi LDI del 2022, in particolare:
+
+- Bank of England, *Financial Stability Report*, December 2022;
+- Bank of England, *Financial Policy Summary and Record*, October 2022;
+- Bank of England, materiali successivi sulla resilienza dei fondi LDI;
+- Bank for International Settlements / BCBS, documenti sul periodo di stress LDI.
+
+I valori numerici del modello seguente sono **dati didattici stilizzati** costruiti per rendere trasparente il trade-off rendimento–liquidità–ricorso. Non devono essere presentati come stime storiche.
+
+---
 
 ## 3. Domanda quantitativa e obiettivo didattico
 
-**Domanda quantitativa:** quale combinazione iniziale tra buffer di liquidità ed esposizione LDI massimizza il risultato economico atteso quando le margin call si manifestano progressivamente e le decisioni di deleveraging e mobilitazione di liquidità devono rispettare l'informazione effettivamente disponibile? Quanto valore apparente si ottiene se si violano i vincoli di non anticipatività e quanto varrebbe conoscere fin dall'inizio l'intero percorso futuro degli shock?
+### 3.1 Domanda quantitativa
 
-**Obiettivo didattico:** portare lo studente a costruire e risolvere in Python un programma stocastico lineare multistadio su un piccolo albero di scenari, distinguendo:
+Un investitore istituzionale che utilizza una strategia LDI deve decidere al tempo iniziale quanta parte di un patrimonio normalizzato mantenere come buffer immediatamente disponibile e quanta lasciare investita in attività a maggiore rendimento.
 
-- decisioni iniziali;
-- decisioni ai nodi intermedi;
-- decisioni terminali;
-- probabilità condizionate e probabilità dei percorsi;
-- vincoli di non anticipatività;
-- soluzione multistadio corretta;
-- rilassamento anticipativo utilizzato come diagnostica;
-- benchmark wait-and-see e valore dell'informazione perfetta.
+La domanda quantitativa è:
 
-Il caso deve rendere evidente che una decisione assunta a un nodo dell'albero può dipendere dalla storia già osservata, ma non dal ramo futuro che non si è ancora realizzato.
+> quale composizione iniziale massimizza il risultato economico atteso quando l'entità delle future margin call e il costo delle azioni di emergenza dipendono dallo scenario?
+
+Una volta determinata la soluzione stocastica, occorre misurare:
+
+1. il costo di scegliere il buffer sulla base dei valori medi anziché dell'intera distribuzione degli scenari;
+2. il valore economico della conoscenza perfetta dello scenario futuro.
+
+### 3.2 Obiettivo didattico
+
+Lo studente deve saper:
+
+1. distinguere la decisione iniziale dalle decisioni di ricorso;
+2. costruire la forma estesa di un programma lineare stocastico a due stadi;
+3. tradurre il modello in una forma risolvibile con `scipy.optimize.linprog(method="highs")`;
+4. determinare SP, EV e WS;
+5. valutare correttamente la decisione `x^{EV}` negli scenari originari;
+6. calcolare e interpretare VSS ed EVPI;
+7. verificare fattibilità, bilanci, bounds e ordinamento dei benchmark;
+8. interpretare gli output senza estendere le conclusioni oltre il modello.
+
+---
 
 ## 4. Specifica teorico-matematica
 
-### Grandezze e variabili
+### 4.1 Scala e decisione di primo stadio
 
-Al tempo iniziale il fondo dispone di risorse complessive normalizzate pari a
+Il patrimonio iniziale è normalizzato a
 
-$$
+\[
 A_0=100.
-$$
+\]
 
-La decisione iniziale è composta da:
+La decisione iniziale è
 
-- $b\geq0$: buffer di liquidità;
-- $h\geq0$: esposizione LDI.
+\[
+x=(x_1,x_2)'.
+\]
+
+Le componenti sono:
+
+| Variabile | Significato | Coefficiente economico |
+|---|---|---:|
+| \(x_1\) | buffer immediatamente disponibile per collateral e margin call | \(c_1=0.015\) |
+| \(x_2\) | portafoglio investito non mantenuto come buffer immediato | \(c_2=0.050\) |
 
 Il vincolo iniziale è
 
-$$
-b+h=100.
-$$
+\[
+x_1+x_2=100,
+\qquad
+x_1,x_2\geq0.
+\]
 
-Per preservare una funzione minima di copertura delle passività si impone:
+Il contributo economico di primo stadio è
 
-$$
-h\geq50.
-$$
+\[
+c'x=0.015x_1+0.050x_2.
+\]
 
-Il rendimento unitario iniziale del buffer è
+La differenza tra i coefficienti rappresenta il costo opportunità di mantenere risorse nel buffer anziché nel portafoglio investito.
 
-$$
-r_b=0.010,
-$$
+### 4.2 Scenari
 
-mentre il rendimento unitario dell'esposizione LDI è
+L'insieme degli scenari è
 
-$$
-r_h=0.045.
-$$
+\[
+\mathcal S=\{N,S,E\},
+\]
 
-Dopo la prima osservazione del mercato, per ciascun nodo $n\in\{M,S\}$ si definiscono:
+con:
 
-- $y_n\geq0$: deleveraging effettuato al nodo intermedio;
-- $u_n\geq0$: liquidità aggiuntiva mobilitata dal pension scheme;
-- $g_n\geq0$: liquidità residua dopo la prima margin call.
-
-Dopo la seconda osservazione, per ciascun percorso terminale $\ell$ si definiscono:
-
-- $z_\ell\geq0$: ulteriore deleveraging;
-- $v_\ell\geq0$: ulteriore liquidità mobilitata;
-- $G_\ell\geq0$: liquidità residua terminale.
-
-### Eventi, informazione o scenari
-
-Al primo stadio aleatorio sono possibili due nodi:
-
-- $M$: repricing moderato;
-- $S$: repricing severo.
+- \(N\): condizioni ordinarie;
+- \(S\): tensione di mercato;
+- \(E\): shock estremo sui gilt.
 
 Le probabilità sono:
 
-| Nodo | Probabilità |
+| Scenario | \(p_s\) |
 |---|---:|
-| $M$ | 0.65 |
-| $S$ | 0.35 |
+| \(N\) | 0.65 |
+| \(S\) | 0.30 |
+| \(E\) | 0.05 |
 
-Dal nodo $M$ possono verificarsi:
+Deve essere verificato
 
-- $MR$: reversal/normalizzazione;
-- $MP$: persistenza dello stress.
+\[
+\sum_{s\in\mathcal S}p_s=1.
+\]
 
-Con probabilità condizionate:
+### 4.3 Margin call scenario-specifica
 
-$$
-\mathbb P(MR\mid M)=0.60,
-$$
+La richiesta di liquidità/collateral nello scenario \(s\) è indicata con
 
-$$
-\mathbb P(MP\mid M)=0.40.
-$$
+\[
+m_s.
+\]
 
-Dal nodo $S$ possono verificarsi:
+I valori assegnati sono:
 
-- $SR$: stabilizzazione;
-- $SS$: ulteriore stress.
-
-Con probabilità condizionate:
-
-$$
-\mathbb P(SR\mid S)=0.45,
-$$
-
-$$
-\mathbb P(SS\mid S)=0.55.
-$$
-
-Le probabilità dei quattro percorsi terminali sono quindi:
-
-| Percorso | Probabilità |
+| Scenario | \(m_s\) |
 |---|---:|
-| $MR$ | 0.3900 |
-| $MP$ | 0.2600 |
-| $SR$ | 0.1575 |
-| $SS$ | 0.1925 |
+| \(N\) | 10 |
+| \(S\) | 25 |
+| \(E\) | 45 |
 
-Controllo obbligatorio:
+La quantità \(m_s\) rappresenta un fabbisogno aggregato al secondo stadio. Non descrive la sequenza temporale delle margin call effettivamente osservate nel 2022.
 
-$$
-0.3900+0.2600+0.1575+0.1925=1.
-$$
+### 4.4 Decisioni di secondo stadio
 
-La struttura informativa è:
+Dopo l'osservazione dello scenario, il decisore può utilizzare:
 
-$$
-(b,h)
-\longrightarrow
-\{M,S\}
-\longrightarrow
-(y_n,u_n,g_n)
-\longrightarrow
-\{MR,MP,SR,SS\}
-\longrightarrow
-(z_\ell,v_\ell,G_\ell).
-$$
+\[
+y_s=(g_s,e_s,f_s)',
+\]
 
-### Parametri e dati
+dove:
 
-La prima margin call è proporzionale all'esposizione LDI iniziale:
+- \(g_s\geq0\): liquidità residua dopo il soddisfacimento della margin call;
+- \(e_s\geq0\): apporto straordinario di collateral/capitale mobilizzato dal fondo pensione o dall'investitore;
+- \(f_s\geq0\): ammontare nominale di attività del portafoglio vendute in condizioni di stress.
 
-$$
-a_n h.
-$$
+Le decisioni \(e_s\), \(f_s\) e \(g_s\) sono scenario-specifiche e vengono prese dopo l'osservazione dello scenario.
 
-I coefficienti sono:
+### 4.5 Capacità di apporto straordinario
 
-| Nodo | $a_n$ |
+L'apporto straordinario è limitato da
+
+\[
+0\leq e_s\leq\bar e_s,
+\]
+
+con:
+
+| Scenario | \(\bar e_s\) |
 |---|---:|
-| $M$ | 0.10 |
-| $S$ | 0.22 |
+| \(N\) | 5 |
+| \(S\) | 8 |
+| \(E\) | 5 |
 
-La seconda margin call è proporzionale all'esposizione residua dopo il deleveraging intermedio:
+Il limite rappresenta in forma stilizzata i vincoli operativi e temporali alla mobilizzazione di nuove risorse.
 
-$$
-\beta_\ell(h-y_n).
-$$
+### 4.6 Vendite forzate e coefficiente di conversione in liquidità
 
-I coefficienti sono:
+Le vendite non possono eccedere il portafoglio investito:
 
-| Percorso | $\beta_\ell$ |
+\[
+0\leq f_s\leq x_2.
+\]
+
+Una unità nominale venduta produce liquidità pari a
+
+\[
+\beta_s f_s,
+\]
+
+dove:
+
+| Scenario | \(\beta_s\) |
 |---|---:|
-| $MR$ | 0.00 |
-| $MP$ | 0.10 |
-| $SR$ | 0.05 |
-| $SS$ | 0.20 |
+| \(N\) | 0.98 |
+| \(S\) | 0.90 |
+| \(E\) | 0.75 |
 
-Limiti operativi al primo adattamento:
+Il coefficiente \(\beta_s\) è un **coefficiente di conversione in liquidità**, non un rendimento. La sua riduzione negli scenari peggiori rappresenta la minore efficacia con cui il portafoglio può essere monetizzato rapidamente in condizioni di mercato deteriorate.
 
-$$
-0\leq y_n\leq25,
-$$
+### 4.7 Bilancio di liquidità del secondo stadio
 
-$$
-0\leq u_n\leq4.
-$$
+Per ogni scenario deve valere
 
-Limiti operativi allo stadio terminale:
+\[
+x_1+e_s+\beta_s f_s=m_s+g_s.
+\]
 
-$$
-0\leq z_\ell\leq10,
-$$
+Il buffer iniziale \(x_1\) è comune a tutti gli scenari. Le variabili di ricorso si adattano invece allo scenario osservato.
 
-$$
-0\leq v_\ell\leq4.
-$$
+### 4.8 Costi economici del ricorso
 
-Il deleveraging complessivo lungo ciascun percorso non può superare:
+L'apporto straordinario ha costo economico unitario \(\kappa_s\), mentre la vendita forzata ha costo economico unitario \(\delta_s\):
 
-$$
-y_n+z_\ell\leq40.
-$$
+| Scenario | \(\kappa_s\) | \(\delta_s\) |
+|---|---:|---:|
+| \(N\) | 0.08 | 0.15 |
+| \(S\) | 0.10 | 0.22 |
+| \(E\) | 0.15 | 0.35 |
 
-I costi unitari del deleveraging intermedio sono:
+Questi coefficienti non devono essere interpretati come semplici tassi di interesse di mercato.
 
-| Nodo | $\lambda_n$ |
-|---|---:|
-| $M$ | 0.025 |
-| $S$ | 0.050 |
+- \(\kappa_s e_s\) rappresenta il costo economico complessivo della mobilizzazione straordinaria di collateral/capitale;
+- \(\delta_s f_s\) rappresenta il costo economico complessivo della vendita forzata, includendo in forma sintetica dislocazione di prezzo, costi di transazione e perdita di capacità di investimento/hedging.
 
-I costi unitari della liquidità aggiuntiva intermedia sono:
+### 4.9 Funzione di ricorso
 
-| Nodo | $\kappa_n$ |
-|---|---:|
-| $M$ | 0.020 |
-| $S$ | 0.040 |
+Per una decisione iniziale \(x\), il problema di ricorso nello scenario \(s\) è
 
-I costi unitari del deleveraging terminale sono:
-
-| Percorso | $\mu_\ell$ |
-|---|---:|
-| $MR$ | 0.005 |
-| $MP$ | 0.020 |
-| $SR$ | 0.020 |
-| $SS$ | 0.050 |
-
-I costi unitari della liquidità aggiuntiva terminale sono:
-
-| Percorso | $\eta_\ell$ |
-|---|---:|
-| $MR$ | 0.015 |
-| $MP$ | 0.030 |
-| $SR$ | 0.030 |
-| $SS$ | 0.030 |
-
-I coefficienti di costo hanno funzione didattica e rappresentano costi economici complessivi di aggiustamento, mobilitazione della liquidità e deleveraging; non devono essere interpretati come spread o commissioni storicamente osservati.
-
-### Ipotesi
-
-1. L'albero degli scenari è discreto e le probabilità sono note al tempo iniziale.
-2. $b$ e $h$ devono essere scelti prima di osservare qualsiasi shock.
-3. Le decisioni al nodo $M$ possono dipendere dall'osservazione di $M$, ma non possono dipendere dalla successiva realizzazione $MR$ o $MP$.
-4. Le decisioni al nodo $S$ possono dipendere dall'osservazione di $S$, ma non possono dipendere dalla successiva realizzazione $SR$ o $SS$.
-5. Le decisioni terminali possono dipendere dall'intero percorso osservato.
-6. Una unità di esposizione deleveraged rende disponibile una unità di liquidità; l'eventuale perdita economica associata alla vendita o alla riduzione della posizione è rappresentata separatamente dai coefficienti di costo.
-7. La liquidità aggiuntiva mobilitabile dal pension scheme è limitata, per rappresentare in forma stilizzata vincoli operativi e temporali.
-8. Il limite su $z_\ell$ rappresenta la capacità limitata di deleveraging immediato nello stadio terminale.
-9. Non vengono modellati esplicitamente prezzi dei gilt, duration, derivati specifici, repo haircuts o feedback endogeni tra vendite del fondo e prezzi di mercato.
-10. Il modello non ricostruisce un singolo fondo pensione o LDI fund del 2022.
-11. Tutte le quantità monetarie sono espresse in unità convenzionali su scala $A_0=100$.
-
-### Formule vincolanti
-
-Per il primo nodo osservato:
-
-$$
-b+u_n+y_n
+\[
+Q_s(x)
 =
-a_n h+g_n,
-\qquad
-n\in\{M,S\}.
-$$
-
-Per ciascun percorso terminale $\ell$, con nodo padre $n(\ell)$:
-
-$$
-g_{n(\ell)}+v_\ell+z_\ell
-=
-\beta_\ell
-\left(
-h-y_{n(\ell)}
-\right)
-+
-G_\ell.
-$$
-
-La funzione obiettivo del problema multistadio è:
-
-$$
-\max
+\max_{g_s,e_s,f_s}
 \left\{
-r_b b+r_h h
--
-\sum_{n\in\{M,S\}}
-p_n
-\left(
-\lambda_n y_n+\kappa_n u_n
-\right)
--
-\sum_{\ell}
-p_\ell
-\left(
-\mu_\ell z_\ell+\eta_\ell v_\ell
-\right)
-\right\}.
-$$
+-\kappa_s e_s-\delta_s f_s
+\right\}
+\]
 
-Il valore ottimo del problema multistadio corretto è indicato con
+soggetto a
 
-$$
-z^{MS}.
-$$
+\[
+x_1+e_s+\beta_s f_s=m_s+g_s,
+\]
 
-### Vincoli di non anticipatività
-
-Nel modello a nodi i vincoli di non anticipatività sono incorporati nella definizione stessa delle variabili.
-
-In una formulazione per percorsi equivalenti, devono valere almeno:
-
-$$
-y_{MR}=y_{MP},
+\[
+0\leq e_s\leq\bar e_s,
 \qquad
-u_{MR}=u_{MP},
+0\leq f_s\leq x_2,
 \qquad
-g_{MR}=g_{MP},
-$$
+g_s\geq0.
+\]
 
-e:
+### 4.10 Programma stocastico SP
 
-$$
-y_{SR}=y_{SS},
-\qquad
-u_{SR}=u_{SS},
-\qquad
-g_{SR}=g_{SS}.
-$$
+Il problema stocastico è
 
-Le decisioni iniziali devono inoltre essere identiche su tutti i percorsi:
-
-$$
-b_{MR}=b_{MP}=b_{SR}=b_{SS},
-$$
-
-$$
-h_{MR}=h_{MP}=h_{SR}=h_{SS}.
-$$
-
-### Rilassamento anticipativo diagnostico
-
-Per mostrare l'effetto dei vincoli di non anticipatività si costruisce un secondo modello nel quale $b$ e $h$ restano decisioni iniziali comuni, ma le decisioni del nodo intermedio vengono illegittimamente rese specifiche del percorso terminale.
-
-In particolare, vengono rimossi i vincoli:
-
-$$
-y_{MR}=y_{MP},
-\qquad
-y_{SR}=y_{SS},
-$$
-
-e le corrispondenti uguaglianze per $u$ e $g$.
-
-Il valore del rilassamento anticipativo è indicato con
-
-$$
-z^{AR}.
-$$
-
-Deve risultare:
-
-$$
-z^{AR}\geq z^{MS}.
-$$
-
-La differenza
-
-$$
-\Delta_{NA}
+\[
+z^{SP}
 =
-z^{AR}-z^{MS}
-$$
+\max_{x_1,x_2,\{y_s\}}
+\left\{
+0.015x_1+0.050x_2
+-
+\sum_{s\in\mathcal S}p_s
+\left(
+\kappa_s e_s+\delta_s f_s
+\right)
+\right\}
+\]
 
-è utilizzata esclusivamente come misura diagnostica del vantaggio artificiale prodotto dalla violazione della non anticipatività. Non deve essere confusa con VSS o EVPI.
+soggetto al vincolo iniziale e ai vincoli di ricorso di tutti gli scenari.
 
-### Benchmark wait-and-see
+La non anticipatività del primo stadio è incorporata direttamente dalla presenza di un unico vettore \(x\), comune a tutti gli scenari.
 
-Nel benchmark wait-and-see si assume che l'intero percorso terminale sia noto già al tempo iniziale. Per ogni percorso $\ell$ si risolve quindi un problema deterministico separato e si ottiene $z_\ell^{WS}$.
+### 4.11 Ricorso relativamente completo
 
-Il valore atteso con informazione perfetta è:
+La calibrazione deve garantire che ogni decisione iniziale ammissibile consenta un ricorso ammissibile in tutti gli scenari.
 
-$$
+Nel caso estremo, anche per \(x_1=0\) e \(x_2=100\), la liquidità massima mobilizzabile è
+
+\[
+\bar e_E+\beta_E x_2
+=
+5+0.75(100)
+=80>45=m_E.
+\]
+
+La stessa proprietà vale negli altri scenari. Il problema possiede quindi, per la regione ammissibile considerata, ricorso relativamente completo.
+
+### 4.12 Problema Expected Value
+
+Si costruisce il problema deterministico medio utilizzando i coefficienti attesi:
+
+\[
+\bar m=\sum_s p_sm_s,
+\qquad
+\bar\beta=\sum_s p_s\beta_s,
+\]
+
+\[
+\bar\kappa=\sum_s p_s\kappa_s,
+\qquad
+\bar\delta=\sum_s p_s\delta_s,
+\qquad
+\bar e=\sum_s p_s\bar e_s.
+\]
+
+Con la calibrazione assegnata:
+
+\[
+\bar m=16.25,
+\qquad
+\bar\beta=0.9445,
+\]
+
+\[
+\bar\kappa=0.0895,
+\qquad
+\bar\delta=0.181,
+\qquad
+\bar e=5.9.
+\]
+
+La soluzione iniziale ottima del problema medio è indicata con
+
+\[
+x^{EV}.
+\]
+
+Il valore ottimo del problema deterministico medio **non** è \(z^{EV}\).
+
+Per calcolare \(z^{EV}\), si deve fissare
+
+\[
+x=x^{EV}
+\]
+
+nel problema stocastico originario e riottimizzare esclusivamente il ricorso scenario per scenario.
+
+### 4.13 Wait-and-see
+
+Nel benchmark wait-and-see lo scenario è noto prima della scelta del buffer iniziale. Per ogni scenario si risolve quindi
+
+\[
+z_s^{WS}
+=
+\max_{x_s,y_s}
+\left\{
+c'x_s-
+\kappa_s e_s-
+\delta_s f_s
+\right\},
+\]
+
+con un diverso vettore iniziale \(x_s\) per ciascuno scenario.
+
+Il valore atteso è
+
+\[
 z^{WS}
 =
-\sum_\ell p_\ell z_\ell^{WS}.
-$$
+\sum_s p_s z_s^{WS}.
+\]
 
-Il valore atteso dell'informazione perfetta è:
+### 4.14 VSS ed EVPI
 
-$$
-EVPI
-=
-z^{WS}-z^{MS}.
-$$
+Poiché il problema è formulato come massimizzazione:
 
-Deve risultare:
+\[
+z^{WS}\geq z^{SP}\geq z^{EV}.
+\]
 
-$$
-z^{MS}
-\leq
-z^{AR}
-\leq
-z^{WS},
-$$
+Si definiscono
 
-quando il rilassamento anticipativo mantiene comuni le decisioni iniziali $b$ e $h$.
+\[
+VSS=z^{SP}-z^{EV}\geq0,
+\]
 
-### Quantità finali di interesse
+\[
+EVPI=z^{WS}-z^{SP}\geq0.
+\]
 
-1. $b^{MS}$ e $h^{MS}$;
-2. $y_M,y_S,u_M,u_S,g_M,g_S$;
-3. $z_\ell,v_\ell,G_\ell$ per i quattro percorsi;
-4. $z^{MS}$;
-5. valore e decisioni del rilassamento anticipativo;
-6. $\Delta_{NA}$;
-7. soluzioni wait-and-see dei quattro percorsi;
-8. $z^{WS}$;
-9. $EVPI$;
-10. verifica dei vincoli di non anticipatività;
-11. confronto economico tra buffer iniziale, deleveraging e liquidità aggiuntiva nei diversi rami.
+Il VSS misura il valore dell'uso esplicito della distribuzione degli scenari nella decisione iniziale; l'EVPI misura il valore dell'informazione perfetta sullo scenario futuro.
+
+### 4.15 Ipotesi
+
+1. Gli scenari sono mutuamente esclusivi ed esaustivi.
+2. Le probabilità sono note al tempo iniziale.
+3. Il buffer \(x_1\) e il portafoglio investito \(x_2\) sono scelti prima dell'osservazione dello scenario.
+4. Tutte le variabili di ricorso sono scelte dopo l'osservazione dello scenario completo.
+5. Non esistono decisioni intermedie tra il primo e il secondo stadio.
+6. Le margin call \(m_s\) sono esogene.
+7. I coefficienti \(\beta_s\), \(\kappa_s\), \(\delta_s\) e i limiti \(\bar e_s\) sono esogeni.
+8. I costi di ricorso sono lineari.
+9. La vendita forzata è limitata dall'ammontare investito \(x_2\).
+10. Non vengono modellati endogenamente feedback tra vendite del singolo fondo e prezzi di mercato.
+11. Il patrimonio è normalizzato a 100.
+12. I dati numerici sono didattici e non costituiscono stime storiche.
+
+---
 
 ## 5. Output richiesti
 
-### Stime o risultati numerici
+### 5.1 Risultati numerici
 
-1. soluzione ottima del problema multistadio;
-2. buffer iniziale ottimo;
-3. esposizione LDI iniziale ottima;
-4. deleveraging e liquidità aggiuntiva ai nodi $M$ e $S$;
-5. decisioni terminali sui quattro percorsi;
-6. valore $z^{MS}$;
-7. valore $z^{AR}$;
-8. differenza $\Delta_{NA}$;
-9. quattro valori $z_\ell^{WS}$;
-10. valore $z^{WS}$;
-11. $EVPI$.
+1. soluzione \(x^{SP}\);
+2. valore \(z^{SP}\);
+3. ricorso ottimo \((g_s,e_s,f_s)\) per ciascuno scenario;
+4. costo atteso del ricorso sotto SP;
+5. coefficienti del problema medio;
+6. soluzione \(x^{EV}\);
+7. valore ottimo del problema deterministico medio, mantenuto distinto da \(z^{EV}\);
+8. valore \(z^{EV}\) ottenuto rivalutando \(x^{EV}\) negli scenari originari;
+9. \(VSS\);
+10. soluzioni \(x_s^{WS}\) e valori \(z_s^{WS}\);
+11. \(z^{WS}\);
+12. \(EVPI\).
 
-### Tabelle
+### 5.2 Tabelle
 
-**Tabella 1 — Albero degli scenari e parametri**
+**Tabella 1 — Parametri del caso**
 
-Probabilità, margin call, costi e limiti operativi.
+Deve riportare probabilità, margin call, coefficienti di conversione in liquidità, limiti di apporto straordinario e costi del ricorso.
 
-**Tabella 2 — Soluzione multistadio**
+**Tabella 2 — Soluzione SP per scenario**
 
-Decisioni iniziali, decisioni ai nodi intermedi e decisioni terminali.
+Colonne minime:
 
-**Tabella 3 — Verifica della non anticipatività**
+- scenario;
+- probabilità;
+- buffer iniziale \(x_1^{SP}\);
+- portafoglio investito \(x_2^{SP}\);
+- margin call \(m_s\);
+- apporto straordinario \(e_s\);
+- vendita forzata \(f_s\);
+- liquidità residua \(g_s\);
+- costo di ricorso.
 
-Confronto delle decisioni che devono coincidere nei percorsi con storia comune.
+**Tabella 3 — Confronto SP vs EV**
 
-**Tabella 4 — Confronto dei benchmark informativi**
+Deve confrontare almeno:
 
-Colonne:
+- \(x_1\) e \(x_2\);
+- utilizzo dell'apporto straordinario nei tre scenari;
+- vendite forzate nei tre scenari;
+- valore stocastico della decisione.
 
-- multistadio corretto;
-- rilassamento anticipativo;
-- wait-and-see.
+**Tabella 4 — Benchmark informativi**
 
-Righe:
+Deve riportare:
 
-- informazione disponibile;
-- decisione iniziale;
-- valore obiettivo;
-- principali decisioni di adattamento.
+- \(z^{EV}\);
+- \(z^{SP}\);
+- \(z^{WS}\);
+- \(VSS\);
+- \(EVPI\).
 
-**Tabella 5 — Valore dell'informazione**
+### 5.3 Grafici
 
-$$
-z^{MS},\quad
-z^{AR},\quad
-\Delta_{NA},\quad
-z^{WS},\quad
-EVPI.
-$$
+**Figura 1 — Composizione iniziale SP vs EV**
 
-### Grafici
+Grafico a barre con \(x_1\) e \(x_2\) per le due decisioni iniziali.
 
-**Figura 1 — Albero degli scenari**
+Funzione didattica: rendere visibile quanto il problema medio riduca il buffer rispetto alla soluzione stocastica.
 
-Rappresentazione dell'albero $M/S$ e dei quattro percorsi terminali, con probabilità e coefficienti di margin call.
+**Figura 2 — Azioni di ricorso per scenario: SP vs EV**
 
-**Figura 2 — Deleveraging per nodo e percorso**
+Grafico che confronti, per ciascuno scenario, almeno:
 
-Confronto tra:
+- apporto straordinario \(e_s\);
+- vendita forzata \(f_s\).
 
-- deleveraging intermedio;
-- deleveraging terminale;
-- deleveraging complessivo.
+Funzione didattica: mostrare come una decisione iniziale più aggressiva possa trasferire costo e fragilità al secondo stadio.
 
-**Figura 3 — Confronto multistadio e rilassamento anticipativo**
+---
 
-Grafico che evidenzi, in particolare nel ramo $S$, la differenza tra la decisione comune imposta dalla non anticipatività e le decisioni illegittimamente differenziate nel rilassamento anticipativo.
 
-### Controlli
+### 5.4 Controlli richiesti
 
-1. verifica della somma delle probabilità dei nodi iniziali;
-2. verifica delle probabilità condizionate;
-3. verifica della somma delle probabilità dei quattro percorsi;
-4. verifica $b+h=100$;
-5. verifica $h\geq50$;
-6. verifica dei limiti su $y_n,u_n,z_\ell,v_\ell$;
-7. verifica $y_n+z_\ell\leq40$;
-8. verifica dei bilanci di liquidità al primo stadio;
-9. verifica dei bilanci terminali;
-10. verifica della non negatività;
-11. verifica dello status ottimo del solver;
-12. verifica esplicita della non anticipatività;
-13. verifica che il rilassamento anticipativo mantenga comuni $b$ e $h$;
-14. verifica
-$$
-z^{AR}\geq z^{MS};
-$$
-15. verifica
-$$
-z^{WS}\geq z^{AR};
-$$
-16. verifica
-$$
-EVPI\geq0.
-$$
+
+#### 5.4.1 Controlli sui dati
+
+1. verificare \(\sum_s p_s=1\);
+2. verificare positività e bounds dei parametri;
+3. verificare \(0<\beta_s\leq1\);
+4. verificare la coerenza delle dimensioni e della scala monetaria.
+
+#### 5.4.2 Controlli sulla soluzione
+
+1. solver con stato `optimal`;
+2. \(x_1+x_2=100\) entro tolleranza numerica;
+3. \(x_1,x_2\geq0\);
+4. per ogni scenario:
+
+   \[
+   x_1+e_s+\beta_sf_s-m_s-g_s=0;
+   \]
+
+5. \(0\leq e_s\leq\bar e_s\);
+6. \(0\leq f_s\leq x_2\);
+7. \(g_s\geq0\);
+8. stessa decisione \(x^{SP}\) in tutti gli scenari;
+9. nessuna riottimizzazione di \(x^{EV}\) durante la sua rivalutazione stocastica;
+10. distinzione tra valore ottimo del problema medio e \(z^{EV}\);
+11. ordinamento
+
+   \[
+   z^{EV}\leq z^{SP}\leq z^{WS};
+   \]
+
+12. \(VSS\geq0\) ed \(EVPI\geq0\).
+
+#### 5.4.3 Controlli interpretativi
+
+1. \(\beta_s\) non deve essere interpretato come rendimento;
+2. \(\kappa_s\) e \(\delta_s\) non devono essere letti come tassi di mercato osservati;
+3. WS non è una politica implementabile ex ante: è un benchmark informativo;
+4. VSS non misura il valore dell'informazione perfetta;
+5. EVPI non misura il beneficio del solo uso della distribuzione degli scenari;
+6. le differenze fra SP ed EV devono essere interpretate attraverso il diverso ricorso richiesto negli scenari originari.
+
+---
 
 ## 6. Flusso logico-teorico risolutivo atteso
 
-| Passo | Finalità risolutiva | Formula, definizione, proprietà o teorema | Applicazione nel caso | Output o controllo collegato |
+| Passo | Finalità risolutiva | Formula teorico-matematica / definizione / proprietà / teorema | Applicazione nel caso | Output o controllo collegato |
 |---:|---|---|---|---|
-| 1 | Ricostruire l'albero informativo e classificare le decisioni | Programmazione stocastica multistadio; probabilità condizionate e di percorso | Distinguere decisioni iniziali, ai nodi $M/S$ e terminali | Albero corretto; probabilità dei quattro percorsi pari a uno |
-| 2 | Formulare i vincoli dinamici e di non anticipatività | Bilanci di liquidità; decisioni adattate alla filtrazione disponibile | Margin call, deleveraging, liquidità aggiuntiva e decisioni comuni sui rami con storia condivisa | Forma estesa corretta; controlli di non anticipatività |
-| 3 | Risolvere il problema multistadio corretto | Massimizzazione del rendimento iniziale al netto dei costi attesi di adattamento | Scelta di $b,h$ e ricorso nodo per nodo | Soluzione $MS$, controlli di fattibilità e interpretazione |
-| 4 | Costruire il rilassamento anticipativo | Rimozione selettiva dei vincoli di non anticipatività | Consentire alle decisioni intermedie di dipendere illegittimamente dal ramo futuro | $z^{AR}$ e $\Delta_{NA}$; verifica $z^{AR}\geq z^{MS}$ |
-| 5 | Costruire il benchmark wait-and-see | Informazione perfetta sull'intero percorso | Risolvere separatamente i quattro problemi deterministici | $z_\ell^{WS}$, $z^{WS}$ ed $EVPI$ |
-| 6 | Interpretare economicamente il valore dell'adattamento e dell'informazione | Confronto $z^{MS}\leq z^{AR}\leq z^{WS}$ | Collegare buffer, margin call, deleveraging e informazione disponibile | Tabelle, grafici e commento sui vincoli informativi e sui limiti del modello |
+| 1 | Separare decisione ex ante e decisioni adattive | struttura two-stage; non anticipatività | \(x=(x_1,x_2)'\) comune; \(y_s=(g_s,e_s,f_s)'\) scenario-specifico | schema informativo e controllo della decisione comune |
+| 2 | Rappresentare l'incertezza | \(\mathcal S\), \(p_s\), \(\sum_s p_s=1\) | scenari \(N,S,E\) | tabella parametri e controllo probabilità |
+| 3 | Formalizzare il ricorso | funzione \(Q_s(x)\) e vincolo di bilancio | margin call, apporto straordinario, vendita forzata, liquidità residua | verifica di fattibilità e bilanci |
+| 4 | Costruire la forma estesa e risolvere SP | \(\max\{c'x+\sum_s p_sQ_s(x)\}\) | unico buffer iniziale e tre blocchi di ricorso | \(x^{SP}\), \(z^{SP}\), tabella SP |
+| 5 | Costruire e valutare EV | problema medio; fissaggio di \(x^{EV}\) negli scenari originari | media dei coefficienti e rivalutazione senza modificare \(x^{EV}\) | \(x^{EV}\), \(z^{EV}\), VSS |
+| 6 | Costruire WS | ottimizzazione scenario per scenario con informazione perfetta | un diverso \(x_s\) per ogni scenario | \(z_s^{WS}\), \(z^{WS}\) |
+| 7 | Misurare il valore dell'informazione e della soluzione stocastica | \(VSS=z^{SP}-z^{EV}\), \(EVPI=z^{WS}-z^{SP}\) | confronto dei tre benchmark | ordinamento e indicatori |
+| 8 | Interpretare economicamente | trade-off rendimento–liquidità–ricorso | buffer iniziale vs costi di emergenza | tabelle, grafici e interpretazione finale |
+
+---
 
 ## 7. Scomposizione attesa in tappe
 
-| Tappa | Regime | Input | Operazione | Output | Controllo | Uso successivo |
+La scomposizione è intenzionalmente contenuta in **sei tappe**.
+
+| Tappa | Regime IA prevalente | Input | Operazione | Output | Controllo | Uso successivo |
 |---:|:---:|---|---|---|---|---|
-| 1 | A | Scheda Caso, Capitoli 14–15 | Ricostruire albero, probabilità, variabili e struttura informativa | Schema teorico del problema | Distinzione corretta tra storia osservata e futuro non osservato | Formulazione del modello |
-| 2 | B | Albero e parametri | Implementare il modello multistadio corretto con variabili a nodo | Soluzione $MS$ | Status solver, bilanci, bounds | Analisi della soluzione |
-| 3 | C | Output $MS$ | Verificare fattibilità, non anticipatività e significato economico delle decisioni | Tabelle di controllo | Uguaglianze tra decisioni con storia comune | Rilassamento anticipativo |
-| 4 | B | Modello $MS$ | Costruire il rilassamento anticipativo mantenendo comuni $b,h$ | $z^{AR}$ e decisioni anticipate | $z^{AR}\geq z^{MS}$ | Misura diagnostica |
-| 5 | B | Quattro percorsi | Risolvere i quattro problemi wait-and-see | $z_\ell^{WS},z^{WS},EVPI$ | $z^{WS}\geq z^{AR}$ | Confronto informativo |
-| 6 | C | Tutti gli output | Costruire tabelle, grafici e interpretazione finale | Sintesi economico-finanziaria | Coerenza tra numeri, informazione e decisioni | Conclusione notebook |
+| 1 | A | Scheda Caso, flusso teorico | ricostruire struttura informativa, variabili, scenari e vincoli | cella Markdown di specifica operativa | nessuna modifica alla Scheda Caso; corretta distinzione primo/secondo stadio | base teorica per il solver |
+| 2 | B | parametri e formulazione | costruire vettore variabili, funzione obiettivo, uguaglianze, disuguaglianze e bounds della forma estesa | struttura LP e codice solver | probabilità, dimensioni, segni, bounds | soluzione SP |
+| 3 | B | soluzione del solver | estrarre \(x^{SP}\), ricorsi, valore e residui | tabella SP | optimality, budget, bilanci, bounds | benchmark EV e confronto |
+| 4 | B | dati originari e \(x^{SP}\) | costruire problema medio, trovare \(x^{EV}\), fissarlo e rivalutarlo negli scenari originari | \(x^{EV}\), valore medio, \(z^{EV}\), VSS | nessuna riottimizzazione del primo stadio; distinzione valore medio/\(z^{EV}\) | confronto informativo |
+| 5 | B | tre scenari originari | risolvere i tre problemi WS e aggregare | \(x_s^{WS}\), \(z_s^{WS}\), \(z^{WS}\), EVPI | un problema per scenario; ordinamento dei valori | output finali |
+| 6 | C | notebook completo e output prodotti | verifica mirata di coerenza, tabelle, grafici e interpretazione | eventuali celle sostitutive e interpretazione finale dello studente | criticità respinta/accolta; completezza rispetto alla Scheda Caso | consegna finale |
 
-## 8. Mappa tra prompt e notebook
+Il Regime C non deve essere usato come certificazione generica. Deve partire da un dubbio, da un'anomalia o da una verifica effettivamente formulata dallo studente.
 
-| Prompt | Regime | Tappa | Celle o output prodotti | Decisione o controllo richiesto |
-|---:|:---:|---:|---|---|
-| Prompt zero | — | — | Nessuna cella | Inizializzazione del contesto IA |
-| Prompt 1 | — | — | Cella Markdown iniziale | Fedeltà alla Scheda Caso |
-| Prompt 2 | A | preliminare | Cella Markdown: Flusso logico-teorico | Completezza del ragionamento |
-| Prompt 3 | A | preliminare | Cella Markdown: scomposizione in tappe | Coerenza input-output |
-| Prompt tappa 1 | A | 1 | Cella Markdown con albero e struttura informativa | Corretta lettura della non anticipatività |
-| Prompt tappa 2 | B | 2 | Celle codice del modello $MS$ | Corretta forma solver |
-| Prompt tappa 3 | C | 3 | Celle di controllo e tabelle $MS$ | Bilanci e non anticipatività |
-| Prompt tappa 4 | B | 4 | Celle del rilassamento anticipativo | Rimozione selettiva e non globale dei vincoli |
-| Prompt tappa 5 | B | 5 | Celle wait-and-see ed EVPI | Corretta gestione delle probabilità di percorso |
-| Prompt conclusivo | C | 6 | Tabelle finali, grafici e commento | Completezza, controlli e limiti |
+---
+
+## 8. Mappa prompt–notebook
+
+| Prompt | Regime | Funzione | Output nel notebook |
+|---|:---:|---|---|
+| Prompt zero | — | inizializzazione del contesto e delle regole | nessuna cella autonoma obbligatoria |
+| Prompt 1 | — | acquisizione Scheda Caso | cella Markdown iniziale |
+| Prompt 2 | A | costruzione del Flusso logico-teorico | cella Markdown con tabella del flusso |
+| Prompt 3 | A | scomposizione in tappe | cella Markdown con tabella delle tappe |
+| Prompt Tappa 1 | A | specifica teorico-operativa del modello | Markdown di tappa |
+| Prompt Tappa 2 | B | costruzione della forma solver | Markdown + code |
+| Prompt Tappa 3 | B | estrazione e controllo SP | Markdown + code + output |
+| Prompt Tappa 4 | B | EV, rivalutazione e VSS | Markdown + code + output |
+| Prompt Tappa 5 | B | WS ed EVPI | Markdown + code + output |
+| Prompt conclusivo | C | verifica mirata e revisione finale | eventuale sostituzione di celle; nessuna cella extra di verifica |
+
+**Intervallo progettuale dei prompt per il TakeHome:** 9–11 prompt complessivi, includendo Prompt zero e Prompt 1. L'intervallo è una scelta docente per questo caso e deve essere comunicato agli studenti nella Scheda Caso o nella traccia di consegna.
+
+---
 
 ## 9. Struttura attesa del notebook
 
-Ordine previsto:
+Sequenza consigliata:
 
 1. cella Markdown iniziale prodotta dal Prompt 1;
-2. cella Markdown con Flusso logico-teorico risolutivo;
-3. cella Markdown con scomposizione in tappe;
+2. Flusso logico-teorico risolutivo;
+3. scomposizione in tappe input-output;
 4. import delle librerie;
-5. definizione dei nodi e dei percorsi;
-6. definizione delle probabilità condizionate e delle probabilità dei percorsi;
-7. controlli sulle probabilità;
-8. definizione dei parametri economici e operativi;
-9. rappresentazione tabellare dell'albero;
-10. costruzione del modello multistadio corretto;
-11. soluzione con `scipy.optimize.linprog(method="highs")`;
-12. estrazione di $b^{MS},h^{MS}$;
-13. estrazione delle decisioni ai nodi $M,S$;
-14. estrazione delle decisioni terminali;
-15. verifica dei bilanci;
-16. verifica dei bounds;
-17. verifica esplicita della non anticipatività;
-18. Tabella 2 — soluzione multistadio;
-19. costruzione del rilassamento anticipativo;
-20. soluzione del rilassamento e calcolo di $\Delta_{NA}$;
-21. Tabella 3 — verifica della non anticipatività;
-22. costruzione dei quattro problemi wait-and-see;
-23. calcolo di $z^{WS}$;
-24. calcolo di $EVPI$;
-25. Tabella 4 — confronto dei benchmark informativi;
-26. Tabella 5 — valore dell'informazione;
-27. Figura 1 — albero degli scenari;
-28. Figura 2 — deleveraging per nodo e percorso;
-29. Figura 3 — confronto multistadio/anticipativo;
-30. cella Markdown conclusiva con interpretazione e limiti.
+5. definizione dei parametri;
+6. tabella dei parametri e controlli preliminari;
+7. definizione dell'ordinamento delle variabili della forma estesa;
+8. costruzione della funzione obiettivo;
+9. costruzione delle uguaglianze;
+10. costruzione delle disuguaglianze e dei bounds;
+11. soluzione SP con HiGHS;
+12. estrazione delle variabili;
+13. controllo di budget, bilanci e bounds;
+14. Tabella SP per scenario;
+15. costruzione del problema deterministico medio;
+16. soluzione del problema medio e determinazione di \(x^{EV}\);
+17. rivalutazione di \(x^{EV}\) nei tre scenari originari;
+18. calcolo di \(z^{EV}\) e VSS;
+19. soluzione dei tre problemi WS;
+20. calcolo di \(z^{WS}\) ed EVPI;
+21. tabella dei benchmark;
+22. Figura 1 — composizione SP vs EV;
+23. Figura 2 — ricorso SP vs EV;
+24. verifica conclusiva mirata;
+25. interpretazione finale autonoma dello studente;
+26. limiti del modello.
 
-L'implementazione deve privilegiare strutture trasparenti: dizionari per nodi e percorsi, array NumPy, DataFrame Pandas e `scipy.optimize.linprog(method="highs")`.
+Librerie minime previste:
 
-Non è richiesto costruire classi Python, algoritmi di decomposizione o un framework general-purpose di programmazione stocastica.
+- `numpy`;
+- `pandas`;
+- `scipy.optimize.linprog` con `method="highs"`;
+- `matplotlib`.
+
+Non è necessario introdurre classi, programmazione a oggetti o framework generali di stochastic programming.
+
+---
 
 ## 10. Calibrazione docente
 
-### Ordine di grandezza atteso dei risultati
+La calibrazione è stata verificata mediante programmazione lineare.
 
-Con i parametri assegnati, salvo differenze dovute alle tolleranze del solver, la soluzione multistadio corretta attesa è:
+### 11.1 Soluzione stocastica SP
 
-$$
-b^{MS}
+La soluzione attesa è
+
+\[
+x^{SP}
 =
-9.0909,
-$$
+\begin{pmatrix}
+25\\
+75
+\end{pmatrix}.
+\]
 
-$$
-h^{MS}
-=
-90.9091.
-$$
+Quindi il modello mantiene 25 unità nel buffer e 75 nel portafoglio investito.
 
-Al nodo moderato:
+Il ricorso atteso è:
 
-$$
-y_M=0,
+| Scenario | \(e_s^{SP}\) | \(f_s^{SP}\) | \(g_s^{SP}\) |
+|---|---:|---:|---:|
+| \(N\) | 0 | 0 | 15 |
+| \(S\) | 0 | 0 | 0 |
+| \(E\) | 5 | 20 | 0 |
+
+Nel caso estremo:
+
+\[
+25+5+0.75(20)=45.
+\]
+
+Il valore ottimo è
+
+\[
+z^{SP}=3.7375.
+\]
+
+Interpretazione attesa: la soluzione stocastica sceglie un buffer sufficiente a coprire integralmente la margin call dello scenario di tensione, ma non quella dello scenario estremo a bassa probabilità. Nell'estremo utilizza l'intero apporto straordinario disponibile e completa la copertura con vendite forzate.
+
+### 11.2 Problema deterministico medio
+
+I coefficienti medi sono
+
+\[
+\bar m=16.25,
 \qquad
-u_M=0,
+\bar\beta=0.9445,
+\]
+
+\[
+\bar\kappa=0.0895,
 \qquad
-g_M=0.
-$$
-
-Al nodo severo:
-
-$$
-y_S
-\approx
-9.2424,
-$$
-
-$$
-u_S=4,
-$$
-
-$$
-g_S
-\approx
-2.3333.
-$$
-
-Decisioni terminali:
-
-$$
-z_{MR}=0,
+\bar\delta=0.181,
 \qquad
-v_{MR}=0,
-$$
+\bar e=5.9.
+\]
 
-$$
-z_{MP}
-\approx
-9.0909,
-\qquad
-v_{MP}=0,
-$$
+La soluzione del problema medio è
 
-$$
-z_{SR}
+\[
+x^{EV}
 =
-1.7500,
-\qquad
-v_{SR}=0,
-$$
+\begin{pmatrix}
+16.25\\
+83.75
+\end{pmatrix}.
+\]
 
-$$
-z_{SS}
+Il valore ottimo del problema deterministico medio è
+
+\[
+4.43125.
+\]
+
+Questo valore non deve essere etichettato come \(z^{EV}\).
+
+### 11.3 Rivalutazione di \(x^{EV}\) negli scenari originari
+
+Con \(x=x^{EV}\) fissato, il ricorso ottimo atteso è:
+
+| Scenario | \(e_s\) | \(f_s\) | \(g_s\) |
+|---|---:|---:|---:|
+| \(N\) | 0 | 0 | 6.25 |
+| \(S\) | 8 | 0.833333 | 0 |
+| \(E\) | 5 | 31.666667 | 0 |
+
+Il valore stocastico della decisione EV è
+
+\[
+z^{EV}=3.5445833333.
+\]
+
+Pertanto
+
+\[
+VSS
 =
-10.0000,
-\qquad
-v_{SS}=4.
-$$
-
-Il valore multistadio atteso è circa:
-
-$$
-z^{MS}
-\approx
-3.79194.
-$$
-
-Nel rilassamento anticipativo:
-
-$$
-z^{AR}
-\approx
-3.81864.
-$$
-
-Pertanto:
-
-$$
-\Delta_{NA}
+z^{SP}-z^{EV}
 =
-z^{AR}-z^{MS}
-\approx
-0.02670.
-$$
+0.1929166667.
+\]
 
-Nel ramo severo il rilassamento anticipativo consente, illegittimamente, decisioni intermedie differenti:
+Interpretazione attesa: il problema medio suggerisce un buffer più basso. La decisione appare efficiente nello scenario medio costruito artificialmente, ma negli scenari originari richiede ricorso già nello scenario di tensione e vendite molto più ampie nello scenario estremo.
 
-$$
-y_{SR}
-\approx
-6.9091,
-$$
+### 11.4 Wait-and-see
 
-$$
-y_{SS}
-\approx
-17.5758,
-$$
+Le soluzioni scenario-specifiche attese sono:
 
-mentre nel modello corretto deve esistere un'unica decisione $y_S$ prima di conoscere se il seguito sarà $SR$ oppure $SS$.
+| Scenario | \(x_{1,s}^{WS}\) | \(x_{2,s}^{WS}\) | \(z_s^{WS}\) |
+|---|---:|---:|---:|
+| \(N\) | 10 | 90 | 4.650 |
+| \(S\) | 25 | 75 | 4.125 |
+| \(E\) | 45 | 55 | 3.425 |
 
-Per i quattro problemi wait-and-see sono attesi valori circa pari a:
+Il valore atteso wait-and-see è
 
-$$
-z_{MR}^{WS}
-=
-4.2700,
-$$
+\[
+z^{WS}=4.43125.
+\]
 
-$$
-z_{MP}^{WS}
-=
-4.0820,
-$$
+Quindi
 
-$$
-z_{SR}^{WS}
-\approx
-3.78689,
-$$
-
-$$
-z_{SS}^{WS}
-\approx
-3.46479.
-$$
-
-Il valore atteso wait-and-see è:
-
-$$
-z^{WS}
-\approx
-3.99003.
-$$
-
-L'EVPI atteso è:
-
-$$
+\[
 EVPI
 =
-z^{WS}-z^{MS}
-\approx
-0.19809.
-$$
+z^{WS}-z^{SP}
+=
+0.69375.
+\]
 
-Deve risultare:
+Si verifica
 
-$$
-3.79194
+\[
+3.5445833333
 <
-3.81864
+3.7375
 <
-3.99003.
-$$
+4.43125.
+\]
 
-### Errori o ambiguità prevedibili
+ossia
 
-1. confondere probabilità condizionate e probabilità dei percorsi;
-2. utilizzare le probabilità condizionate direttamente nella funzione obiettivo terminale;
-3. permettere a $b$ o $h$ di dipendere dal percorso;
-4. permettere a $y_M$ di essere diverso tra $MR$ e $MP$ nel modello corretto;
-5. permettere a $y_S$ di essere diverso tra $SR$ e $SS$ nel modello corretto;
-6. imporre invece la stessa decisione terminale a percorsi ormai distinti;
-7. applicare la seconda margin call a $h$ anziché all'esposizione residua $h-y_n$;
-8. dimenticare che $g_n$ è nodo-specifica e deve essere riportata allo stadio successivo;
-9. confondere il rilassamento anticipativo con un modello economicamente implementabile;
-10. confondere $\Delta_{NA}$ con VSS;
-11. confondere $z^{AR}$ con il wait-and-see;
-12. calcolare $z^{WS}$ come media semplice anziché media ponderata con le probabilità dei percorsi;
-13. interpretare i coefficienti di costo come dati storici osservati;
-14. interpretare il buffer ottimo come raccomandazione operativa per un fondo pensione reale.
+\[
+z^{EV}<z^{SP}<z^{WS}.
+\]
 
-### Controlli minimi di validazione
+### 11.5 Nota sulla coincidenza numerica
 
-Devono essere verificati esplicitamente:
+Con questa calibrazione, il valore ottimo del **problema deterministico medio** è numericamente uguale a \(z^{WS}=4.43125\).
 
-$$
-\sum_n p_n=1,
-$$
+La coincidenza è accidentale e non esprime alcuna identità teorica. Deve essere utilizzata come occasione di controllo concettuale:
 
-$$
-\sum_\ell p_\ell=1,
-$$
+- il valore del problema medio deriva da un unico problema costruito con coefficienti medi;
+- \(z^{WS}\) è la media ponderata dei valori ottimi scenario-specifici;
+- \(z^{EV}\) è invece il valore della decisione \(x^{EV}\) quando viene riportata negli scenari originari.
 
-$$
-b+h=100,
-$$
+Lo studente non deve confondere queste tre quantità.
 
-$$
-h\geq50,
-$$
+---
 
-tutti i bilanci di liquidità,
 
-tutti i bounds,
+### 10.6 Errori e criticità attese
 
-i vincoli di deleveraging complessivo,
 
-la non anticipatività ai nodi $M$ e $S$,
+Errori da monitorare nella costruzione del notebook e nel tracciato IA:
 
-$$
-z^{AR}\geq z^{MS},
-$$
+1. trasformare implicitamente il caso in un modello multistadio;
+2. introdurre decisioni di ricorso prima della completa osservazione dello scenario;
+3. scegliere un diverso \(x\) per ciascuno scenario nel problema SP;
+4. confondere \(\beta_s\) con un rendimento;
+5. interpretare \(\kappa_s\) o \(\delta_s\) come tassi storici osservati;
+6. dimenticare il vincolo \(f_s\leq x_2\);
+7. omettere il limite \(e_s\leq\bar e_s\);
+8. usare il valore ottimo del problema medio come \(z^{EV}\);
+9. rivalutare \(x^{EV}\) consentendo al primo stadio di cambiare per scenario;
+10. mediare le soluzioni WS per costruire \(x^{EV}\);
+11. invertire i segni di VSS ed EVPI in un problema di massimizzazione;
+12. attribuire significato teorico alla coincidenza numerica tra valore del problema medio e \(z^{WS}\);
+13. descrivere WS come strategia realmente implementabile ex ante;
+14. interpretare VSS come valore dell'informazione perfetta;
+15. ignorare la distinzione tra capacità di generare liquidità e costo economico della liquidazione.
 
-$$
-z^{WS}\geq z^{AR},
-$$
+Un eventuale Prompt in Regime C deve nascere da una criticità effettivamente osservata nel notebook o da un dubbio formulato dallo studente. Una possibile criticità didatticamente fertile è proprio la distinzione fra valore del problema medio, \(z^{EV}\) e \(z^{WS}\).
 
-e:
+---
 
-$$
-EVPI\geq0.
-$$
 
-### Limiti interpretativi
+### 10.7 Limiti del modello
 
-Il caso:
 
-- non ricostruisce quantitativamente un fondo LDI specifico;
-- non modella direttamente il prezzo dei gilt;
-- non rappresenta esplicitamente duration e convexity;
-- non distingue derivati sui tassi, repo e gilt fisici;
-- non modella haircuts o collateral agreement reali;
-- non rappresenta endogenamente l'impatto delle vendite sui prezzi;
-- non riproduce la spirale di fire sale in equilibrio generale;
-- non include l'intervento della Bank of England come nodo decisionale;
-- assegna probabilità e costi in modo esogeno;
-- utilizza un albero molto piccolo;
-- rappresenta la mobilitazione di liquidità del pension scheme con un semplice limite quantitativo;
-- interpreta i costi di aggiustamento in forma lineare.
+Il caso deve dichiarare esplicitamente che:
 
-Questi limiti devono essere esplicitamente richiamati nella conclusione del notebook.
+1. non ricostruisce un fondo LDI specifico;
+2. non modella separatamente repo, swap e collateral agreement;
+3. non rappresenta la dinamica giornaliera delle margin call;
+4. non contiene decisioni intermedie: è un modello a due stadi;
+5. non modella endogenamente il prezzo dei gilt;
+6. non incorpora il feedback sistemico vendite–prezzi–nuove margin call;
+7. non rappresenta la duration delle passività pensionistiche;
+8. non calcola il funding ratio del fondo pensione;
+9. non modella l'effetto di un aumento dei rendimenti sul valore attuale delle passività;
+10. non incorpora esplicitamente l'intervento della Bank of England nella funzione di ricorso;
+11. assume probabilità e coefficienti noti ex ante;
+12. utilizza costi di ricorso lineari;
+13. normalizza il patrimonio a 100;
+14. usa dati numerici didattici e stilizzati.
+
+Il limite più importante da discutere è che l'episodio storico ebbe una dinamica progressiva e auto-rinforzante, mentre il modello didattico la comprime deliberatamente in un solo passaggio
+
+\[
+x\longrightarrow s\longrightarrow y_s.
+\]
+
+Questa semplificazione è coerente con l'obiettivo del TakeHome: consolidare in un nuovo contesto il framework two-stage dei Capitoli 14–15, non introdurre un secondo esercizio multistadio.
+
+---
 
 ## 11. Uso dell'IA e tracciato
 
-- **Prompt obbligatori:** Prompt zero; Prompt 1; Prompt 2; Prompt 3; prompt di tappa; prompt conclusivo di verifica in Regime C.
-- **Numero minimo e massimo di prompt:** 9–11, conteggiando Prompt zero e Prompt 1.
-- **Usi ammessi dell'IA:** chiarimento dell'albero informativo; verifica delle probabilità di percorso; supporto alla costruzione della forma solver; verifica dei vincoli di non anticipatività; traduzione del modello in Python; controllo di output già prodotti; revisione di tabelle e grafici; individuazione di errori; verifica finale di completezza.
-- **Usi non ammessi:** modifica dell'albero o dei parametri della Scheda Caso; introduzione autonoma di nuovi scenari; eliminazione dei vincoli di non anticipatività dal modello principale; sostituzione del problema con simulazioni Monte Carlo non richieste; delega globale del notebook; modifica delle definizioni di $z^{MS}$, $z^{AR}$, $\Delta_{NA}$, $z^{WS}$ o $EVPI$; interpretazioni storiche non supportate dalle fonti indicate.
+### 13.1 Sequenza obbligatoria
 
-Nel TakeHome lo studente deve dimostrare autonomia maggiore rispetto al Caso Aula. In particolare, la costruzione dell'albero, la verifica delle probabilità e l'identificazione dei vincoli di non anticipatività devono emergere chiaramente dal tracciato IA e dal notebook.
+Il tracciato deve rispettare la sequenza:
+
+1. Prompt zero;
+2. Prompt 1;
+3. Prompt 2 in Regime A;
+4. Prompt 3 in Regime A;
+5. prompt di tappa;
+6. eventuale Prompt C mirato;
+7. verifica conclusiva o revisione dell'interpretazione, se prevista.
+
+### 13.2 Usi ammessi
+
+L'IA può essere utilizzata per:
+
+- verificare la distinzione fra primo e secondo stadio;
+- ordinare il flusso teorico proposto dallo studente;
+- tradurre la forma estesa in matrici per `linprog`;
+- costruire codice coerente con la specifica fissata;
+- organizzare tabelle e grafici richiesti;
+- verificare residui, bounds e ordinamento dei benchmark;
+- controllare un dubbio specifico su EV, WS, VSS o EVPI;
+- rivedere criticamente una bozza interpretativa già scritta dallo studente.
+
+### 13.3 Usi non ammessi
+
+L'IA non deve:
+
+- cambiare scenari, probabilità o parametri;
+- sostituire il framework two-stage con un modello multistadio;
+- introdurre un albero di scenari non previsto;
+- modificare variabili o funzione obiettivo;
+- scegliere autonomamente un modello alternativo;
+- produrre l'intero notebook con un'unica richiesta globale;
+- generare direttamente l'interpretazione finale senza una bozza dello studente;
+- presentare i parametri didattici come dati storici.
+
+### 13.4 Intervallo dei prompt
+
+Per questo TakeHome si propone un intervallo di
+
+**9–11 prompt complessivi**, includendo Prompt zero e Prompt 1.
+
+La quantità è coerente con una scomposizione in sei tappe e con una eventuale verifica conclusiva mirata.
+
+---
 
 ## 12. Valutazione
 
-### Criteri per il notebook
+La valutazione segue la struttura generale delle Guidelines.
 
-1. corretta rappresentazione dell'albero;
-2. corretto calcolo delle probabilità dei percorsi;
-3. corretta classificazione temporale delle decisioni;
-4. corretta formulazione dei bilanci;
-5. corretta implementazione della non anticipatività;
-6. corretto utilizzo del solver;
-7. corretta costruzione del rilassamento anticipativo;
-8. corretta costruzione del benchmark wait-and-see;
-9. corretto calcolo di $\Delta_{NA}$ ed $EVPI$;
-10. qualità dei controlli;
-11. leggibilità del codice;
-12. qualità delle tabelle;
-13. significatività dei grafici;
-14. interpretazione economico-finanziaria;
-15. dichiarazione dei limiti.
+| Area | Peso | Elementi specifici del caso |
+|---|---:|---|
+| Prompt 2 — Flusso logico-teorico | 30 | distinzione two-stage, recourse, benchmark, collegamento teoria–output–controlli |
+| Prompt 3 — Scomposizione input-output | 15 | ordine SP → EV → rivalutazione → WS → indicatori; controlli espliciti |
+| Notebook e output | 20 | formulazione LP, solver, tabelle, grafici, riproducibilità |
+| Prompt e uso A/B/C | 15 | delimitazione del compito IA, rispetto della Scheda Caso, qualità del controllo |
+| Verifiche logiche e numeriche | 15 | bilanci, bounds, rivalutazione EV, ordinamento dei valori, segni VSS/EVPI |
+| Interpretazione critica finale | 5 | trade-off buffer/rendimento, significato dei benchmark, limiti storici e modellistici |
 
-### Criteri per il tracciato IA
+### 14.1 Elementi particolarmente rilevanti
 
-1. capacità di ricostruire autonomamente la struttura informativa;
-2. contributo iniziale dello studente nei prompt in Regime A;
-3. specificità dei prompt in Regime B;
-4. uso del Regime C su output o dubbi effettivi;
-5. capacità di identificare il rischio di anticipazione illegittima;
-6. capacità di verificare criticamente le risposte dell'IA;
-7. assenza di delega globale;
-8. coerenza tra tracciato e notebook finale.
+Lo studente deve essere in grado di spiegare:
 
-### Peso dei controlli e dell'interpretazione
+1. perché \(x\) deve essere comune a tutti gli scenari in SP;
+2. perché \(e_s\), \(f_s\) e \(g_s\) possono cambiare dopo l'osservazione dello scenario;
+3. perché il problema medio non coincide con il problema stocastico;
+4. perché il valore ottimo del problema medio non è \(z^{EV}\);
+5. perché WS costituisce un benchmark informativo;
+6. perché VSS ed EVPI rispondono a due domande economiche differenti.
 
-Nel TakeHome deve avere peso elevato la capacità dello studente di spiegare:
+---
 
-- perché $y_M$ deve essere comune a $MR$ e $MP$;
-- perché $y_S$ deve essere comune a $SR$ e $SS$;
-- perché il rilassamento anticipativo produce un valore superiore ma non implementabile;
-- perché il wait-and-see dispone di informazione ancora maggiore del rilassamento anticipativo;
-- come il buffer iniziale riduce la necessità di vendite o di liquidità aggiuntiva;
-- perché una limitazione della capacità di deleveraging terminale rende economicamente rilevanti le decisioni prese al nodo intermedio;
-- perché il caso LDI riguarda principalmente un problema di liquidità e collateral sotto stress e non può essere letto semplicemente come insolvenza economica del pension scheme.
+## 13. Relazione con il Caso Aula
 
-Risultati numerici corretti ma ottenuti violando la struttura informativa devono essere considerati sostanzialmente errati.
+### 16.1 Elementi comuni
 
-## 13. Relazione con l'altro caso della lezione
+Entrambi i casi richiedono:
 
-Il Caso Aula SVB–ALM e il Caso TakeHome UK LDI 2022 condividono la stessa struttura metodologica di fondo: una decisione iniziale deve essere assunta prima che l'incertezza sia completamente rivelata e le decisioni successive servono ad adattarsi agli scenari osservati.
+- decisione iniziale sotto incertezza;
+- scenari discreti con probabilità;
+- ricorso scenario-specifico;
+- forma estesa lineare;
+- non anticipatività del primo stadio;
+- soluzione SP;
+- problema EV e rivalutazione della decisione media;
+- benchmark WS;
+- VSS ed EVPI;
+- controlli di fattibilità e coerenza informativa.
 
-Nel Caso Aula:
+### 16.2 Elementi distintivi
 
-- il decisore è una banca;
-- la decisione iniziale riguarda la composizione dell'attivo;
-- gli scenari sono rappresentati in una struttura a due stadi;
-- il ricorso consiste principalmente nel funding di emergenza;
-- il focus è su soluzione stocastica, Expected Value, wait-and-see, VSS ed EVPI.
+**Caso Aula — SVB**
 
-Nel Caso TakeHome:
+- soggetto: banca;
+- problema: composizione dell'attivo e liquidità;
+- fonte di stress: outflow e capacità di generare liquidità;
+- ricorso: funding/liquidità di emergenza;
+- lettura economica: rendimento dell'attivo contro robustezza del bilancio.
 
-- il decisore è un fondo pensione/investitore istituzionale con strategia LDI;
-- la decisione iniziale riguarda buffer di liquidità ed esposizione LDI;
-- l'incertezza si rivela progressivamente su un albero a tre stadi;
-- il ricorso consiste in mobilitazione di liquidità e deleveraging;
-- il focus è sulla non anticipatività, sul valore dell'adattamento progressivo, sul rilassamento anticipativo e sull'informazione perfetta.
+**Caso TakeHome — UK LDI**
 
-Il TakeHome non costituisce quindi una variazione parametrica del Caso Aula. Cambiano il soggetto finanziario, il meccanismo di stress, la struttura temporale dell'informazione e il problema computazionale principale.
+- soggetto: investitore istituzionale / fondo pensione con strategia LDI;
+- problema: dimensione del buffer di collateral;
+- fonte di stress: margin call conseguente al rialzo dei rendimenti dei gilt;
+- ricorso: apporto straordinario e vendita forzata di attività;
+- lettura economica: rendimento corrente contro capacità di assorbire richieste di collateral.
 
-La domanda metodologica comune resta:
+Il TakeHome non è quindi una variazione parametrica del Caso Aula. Mantiene la stessa architettura metodologica, ma cambia il meccanismo economico-finanziario che rende necessario il ricorso.
 
-> Quanto conviene sacrificare oggi rendimento o capacità di investimento per preservare possibilità di adattamento quando le condizioni future sono incerte?
+### 16.3 Domanda metodologica comune
+
+La domanda che unifica i due casi è:
+
+> quanto conviene sacrificare oggi rendimento o capacità di investimento per ridurre il costo delle azioni correttive che potrebbero diventare necessarie dopo la rivelazione dell'incertezza?
