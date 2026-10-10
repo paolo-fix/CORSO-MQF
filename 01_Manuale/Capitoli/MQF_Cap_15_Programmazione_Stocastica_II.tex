@@ -4723,10 +4723,10 @@ Per mettere in evidenza il principio ricorsivo,
 indichiamo con $Q_k(X_{\bar t_k},Z_{\bar t_k})$
 il valore ottimo atteso delle decisioni
 a partire dallo stadio $k$, dato lo stato
-osservato. Se tale stato \`{e} sufficiente
-e il criterio economico \`{e} additivo,
-la ricorsione di Bellman assume,
-in forma schematica, la seguente espressione:
+osservato. Se tale stato \`{e} informativamente sufficiente
+e il criterio economico \`{e} additivo (i.e. l'obiettivo \`e la somma dei risultati di ciascuno stadio),
+la ricorsione, detta di Bellman, assume
+in forma schematica la seguente espressione:
 
 \[
 Q_k(X_{\bar t_k},Z_{\bar t_k})
@@ -4742,40 +4742,12 @@ Q_{k+1}(X_{\bar t_{k+1}},Z_{\bar t_{k+1}})
 \right\}.
 \]
 
-Il massimo riguarda le decisioni di ricorso
-ammissibili nello stato considerato.
-Il valore atteso dipende anche dalla decisione
-corrente, attraverso la sua influenza
-sull'evoluzione dello stato.
-Nello stadio terminale il valore residuo
-successivo \`{e} nullo.
-
-La differenza matematica \`{e} fondamentale.
-Nella PS le decisioni sono rappresentate
-esplicitamente per le diverse storie,
-e la coerenza informativa \`{e} assicurata
-dalla non anticipativit\`{a}. Nella PDS
-la funzione di valore associa invece
-a ogni stato il risultato ottimo del
-problema residuo, permettendo una soluzione
-ricorsiva all'indietro.
-
-Quando storie differenti conducono allo
-stesso stato sufficiente, la PDS pu\`{o}
-riutilizzare la medesima funzione di valore
-senza risolvere separatamente il problema
-su ogni nodo dell'albero. Questo vantaggio
-non \`{e} tuttavia automatico: uno stato
-di dimensione elevata rende onerosa
-la rappresentazione delle funzioni di valore,
-dando luogo alla cosiddetta
-\emph{maledizione della dimensionalit\`{a}}.
-
-Inoltre, se nessuno stato compatto riassume
-la storia rilevante, la ricorsione pu\`{o}
-ancora essere formulata utilizzando
-l'intera storia come stato, ma perde
-gran parte del suo vantaggio computazionale.
+La PS indicizza le decisioni per storie, vincolate dalla non
+anticipativit\`{a}, mentre la PDS le indicizza per stati tramite
+la funzione di valore: ci\`{o} \`{e} vantaggioso solo se la coppia $(X_t,Z_t)$ \`{e}
+uno stato informativamente sufficiente, poich\'{e} altrimenti la
+dimensionalit\`{a} o la coincidenza tra stato e storia ne annullano il beneficio. 
+Nel caso limite in cui lo stato coincide con la storia, la ricorsione di Bellman sull'albero equivale a risolvere la PS nodo per nodo.
 
 PS e PDS non sono dunque metodi
 necessariamente contrapposti. Possono
@@ -4785,14 +4757,6 @@ La loro diversa convenienza dipende
 dalla struttura informativa, dalla possibilit\`{a}
 di individuare uno stato sufficiente
 e dalla dimensione computazionale.
-
-Infine, anche il criterio del valore atteso
-pu\`{o} essere integrato quando assumono
-particolare importanza gli eventi avversi.
-Vincoli probabilistici e misure di rischio
-consentono di controllare aspetti della
-distribuzione dei risultati che non sono
-descritti dalla sola media.
 
 La scelta dell'approccio dipende pertanto
 dalla disponibilit\`{a} di informazioni
@@ -4810,17 +4774,6 @@ il numero degli scenari, le variabili decisionali
 e i vincoli operativi. In questi casi, le formulazioni
 teoriche vengono tradotte in programmi lineari
 risolti mediante algoritmi numerici.
-
-Il calcolo di $z^{SP}$ richiede la soluzione
-congiunta del programma stocastico, con una decisione
-iniziale comune e ricorsi differenziati per scenario.
-Per determinare $z^{EV}$ si risolve dapprima
-il problema deterministico medio e si rivaluta
-la decisione iniziale ottenuta, mantenendola fissa
-negli scenari originari. Il valore $z^{WS}$
-si ottiene invece risolvendo un problema
-indipendente per ciascuno scenario e aggregando
-i valori ottimi secondo le rispettive probabilit\`{a}.
 
 La Lezione 16 mostrer\`{a} come realizzare
 queste operazioni in Python, automatizzando

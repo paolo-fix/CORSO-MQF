@@ -1,0 +1,971 @@
+%2multibyte Version: 5.50.0.2960 CodePage: 65001
+% !TeX root = ./Slides_Lez_16_Python_Programmazione_Stocastica.tex
+% ------------------------------------------------------------
+% Macro matematiche ufficiali del progetto MQF
+% Coerenti con MQF_Notazione.tex
+% ------------------------------------------------------------
+% Fallback utile per compilazione esterna se qualche titolo resta scritto come \QTR.
+% Scientific WorkPlace usa \QTR internamente; in Beamer \QTR{frametitle}{Titolo}
+% deve espandersi in \frametitle{Titolo}.
+
+\documentclass[handout]{beamer}%
+\usepackage{mathpazo}
+%\usepackage{hyperref}
+\usepackage{multimedia}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}%
+\setcounter{MaxMatrixCols}{30}
+%TCIDATA{OutputFilter=latex2.dll}
+%TCIDATA{Version=5.50.0.2960}
+%TCIDATA{Codepage=65001}
+%TCIDATA{CSTFile=beamer.cst}
+%TCIDATA{Created=Saturday, May 16, 2026 09:09:59}
+%TCIDATA{LastRevised=Saturday, May 16, 2026 11:24:58}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="2">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Other Documents\SW\Slides - Beamer">}
+%BeginMSIPreambleData
+\graphicspath{{../graphics/}}
+\providecommand{\U}[1]{\protect\rule{.1in}{.1in}}
+%EndMSIPreambleData
+\newenvironment{stepenumerate}{\begin{enumerate}[<+->]}{\end{enumerate}}
+\newenvironment{stepitemize}{\begin{itemize}[<+->]}{\end{itemize} }
+\newenvironment{stepenumeratewithalert}{\begin{enumerate}[<+-| alert@+>]}{\end{enumerate}}
+\newenvironment{stepitemizewithalert}{\begin{itemize}[<+-| alert@+>]}{\end{itemize} }
+\usetheme{Madrid}
+
+
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=.20\paperwidth,ht=2.25ex,dp=1ex,center]
+      {author in head/foot}%
+      \usebeamerfont{author in head/foot}\insertshortauthor
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.60\paperwidth,ht=2.25ex,dp=1ex,center]
+      {title in head/foot}%
+      \usebeamerfont{title in head/foot}\insertshorttitle
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.20\paperwidth,ht=2.25ex,dp=1ex,right]
+      {date in head/foot}%
+      \usebeamerfont{date in head/foot}%
+      \insertshortdate{}\hspace*{2em}%
+      \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+    \end{beamercolorbox}%
+  }%
+  \vskip0pt%
+}
+
+
+
+
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\E}{\mathbb{E}}
+\providecommand{\Prob}{\mathbb{P}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\F}{\mathcal{F}}
+\providecommand{\B}{\mathcal{B}}
+\providecommand{\G}{\mathcal{G}}
+\providecommand{\1}{\mathbf{1}}
+\providecommand{\Var}{\operatorname{Var}}
+\providecommand{\Cov}{\operatorname{Cov}}
+\providecommand{\VaR}{\operatorname{VaR}}
+\providecommand{\CVaR}{\operatorname{CVaR}}
+\providecommand{\argmin}{\operatorname*{arg\,min}}
+\providecommand{\argmax}{\operatorname*{arg\,max}}
+\providecommand{\EVPI}{\operatorname{EVPI}}
+\providecommand{\VSS}{\operatorname{VSS}}
+\providecommand{\QTR}[2]{\csname #1\endcsname{#2}}
+%BeginMSIPreambleData
+\ifx\pdfoutput\relax\let\pdfoutput=\undefined\fi
+\newcount\msipdfoutput
+\ifx\pdfoutput\undefined\else
+\ifcase\pdfoutput\else
+\msipdfoutput=1
+\ifx\paperwidth\undefined\else
+\ifdim\paperheight=0pt\relax\else\pdfpageheight\paperheight\fi
+\ifdim\paperwidth=0pt\relax\else\pdfpagewidth\paperwidth\fi
+\fi\fi\fi
+%EndMSIPreambleData
+
+%******************
+% Slide 1
+%******************
+
+\title[Lez. 16 - Python e programmazione stocastica]
+{Lezione 16 - Applicazione in Python: programmazione stocastica}
+
+\subtitle{Metodi Quantitativi per la Finanza}
+
+\author[P. Falbo, C. Pelizzari]
+{{\LARGE Paolo Falbo, Cristian Pelizzari}}
+
+\institute[]
+{{\large Dipartimento di Economia e Management}}
+
+\date[]{}
+
+\titlegraphic{
+\includegraphics[width=3.3cm]{../graphics/logo-Unibs-esteso.png}
+}
+
+\begin{document}
+
+\maketitle
+
+
+\section{Apertura}
+
+%******************
+% Slide 2
+%******************
+
+\subsection{Obiettivi e struttura della lezione}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Obiettivi e struttura della lezione}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+La Lezione 16 conclude il percorso delle lezioni applicative del corso.
+
+%\vspace{0.3cm}
+
+Gli obiettivi sono tre.
+
+\begin{stepenumerate}
+
+\item [1.] \textbf{Focus Python}
+
+Richiamare come un problema di ottimizzazione lineare viene tradotto nella
+struttura numerica richiesta da \texttt{scipy.optimize.linprog}.
+
+\item [2.] \textbf{Caso Aula: SVB--ALM 2023}
+
+Tradurre i modelli dei Capitoli 14 e 15 in un problema computazionale
+two-stage e confrontare soluzione stocastica, Expected Value,
+Expected result of using the EV solution e Wait-and-See.
+
+\item [3.] \textbf{Caso TakeHome: UK LDI 2022}
+
+Trasferire autonomamente lo stesso metodo a un problema di buffer di
+liquidit\`a, margin call e deleveraging.
+
+\end{stepenumerate}
+
+%\vspace{0.3cm}
+
+Il metodo resta quello introdotto nella Lezione 4:
+%\vspace{-0.1cm}
+\[
+\text{modello}
+\;\longrightarrow\;
+\text{implementazione}
+\;\longrightarrow\;
+\text{controllo}
+\;\longrightarrow\;
+\text{interpretazione}.
+\]
+
+%\vspace{0.2cm}
+
+Dopo il break, il Caso Aula sar\`a sviluppato direttamente in
+\textbf{VS Code/Jupyter}, senza ulteriori slide.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+\section{Focus Python}
+
+%******************
+% Slide 3
+%******************
+
+\subsection{Dal modello matematico al solver}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Dal modello matematico a \texttt{linprog}}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Un solver lineare non ``vede'' il significato finanziario delle variabili.
+
+%\vspace{0.3cm}
+
+Riceve una rappresentazione numerica del problema:
+
+\[
+\begin{array}{ll}
+\max\limits_x & c'x \\[0.2cm]
+\text{s.t.}   & A_{\mathrm{eq}}x=b_{\mathrm{eq}},\\
+              & A_{\mathrm{ub}}x\le b_{\mathrm{ub}},\\
+              & \ell\le x\le u.
+\end{array}
+\]
+
+%\vspace{0.3cm}
+
+In \texttt{scipy.optimize.linprog}, la corrispondenza \`e:
+
+\[
+\begin{array}{ccl}
+c & \longrightarrow & \texttt{c},\\
+A_{\mathrm{eq}},\,b_{\mathrm{eq}}
+& \longrightarrow &
+\texttt{A\_eq},\,\texttt{b\_eq},\\
+A_{\mathrm{ub}},\,b_{\mathrm{ub}}
+& \longrightarrow &
+\texttt{A\_ub},\,\texttt{b\_ub},\\
+\ell,\,u
+& \longrightarrow &
+\texttt{bounds}.
+\end{array}
+\]
+
+%\vspace{0.3cm}
+
+\textbf{Punto chiave:} costruire vettori e matrici significa tradurre il
+modello matematico in una forma computazionale coerente.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+% Slide 4
+%******************
+
+\subsection{Ordinamento delle variabili e funzione obiettivo}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Due dettagli che il solver non pu\`o correggere}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Nel Caso Aula, useremo un vettore decisionale ordinato come
+
+\[
+z=
+(x_1,x_2,x_3,x_4,
+u_N,u_P,u_R,
+g_N,g_P,g_R)'.
+\]
+
+\vspace{0.3cm}
+
+\begin{stepenumerate}
+
+\item [1.] \textbf{L'ordine delle variabili conta}
+
+La colonna \(j\) delle matrici deve riferirsi alla componente
+\(z_j\) del vettore.
+
+Lo stesso ordine riguarda gli output del solver.
+
+\vspace{0.2cm}
+
+\item [2.] \textbf{\texttt{linprog} risolve un problema di minimizzazione}
+
+Se il modello finanziario richiede $\max_z f(z)$, al solver viene passato l'obiettivo equivalente
+%\vspace{-0.2cm}
+\[
+\min_z \{-f(z)\}.
+\]
+
+\end{stepenumerate}
+
+\vspace{0.3cm}
+
+Nel codice, quindi, il segno dei coefficienti dell'obiettivo non \`e una
+convenzione estetica: deve essere coerente con il problema originario.
+
+%\vspace{0.2cm}
+
+Un primo controllo tecnico sar\`a sempre: \texttt{res.success}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+\section{Richiamo dei Capitoli 14--15}
+
+%******************
+% Slide 5
+%******************
+
+\subsection{La struttura two-stage}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Prima si decide, poi si osserva, infine si reagisce}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Nel Capitolo 14, abbiamo introdotto la struttura fondamentale di un problema
+stocastico a due stadi:
+\vspace{-0.1cm}
+\[
+x
+\;\longrightarrow\;
+s
+\;\longrightarrow\;
+y_s.
+\]
+\vspace{-0.5cm}
+%\vspace{0.3cm}
+
+\begin{stepitemize}
+
+\item \(x\) \`e la \textbf{decisione di primo stadio}, assunta prima di
+conoscere lo scenario futuro.
+
+\item \(s\in\mathcal S\) \`e lo \textbf{scenario} che si realizza dopo la
+decisione iniziale.
+
+\item \(y_s\) \`e la \textbf{decisione di ricorso}, scelta dopo avere
+osservato lo scenario \(s\).
+
+\end{stepitemize}
+
+\vspace{0.3cm}
+
+La funzione obiettivo combina quindi il risultato della decisione iniziale e
+il valore atteso delle decisioni di ricorso:
+
+\[
+\max_x
+\left\{
+c'x+\sum_{s\in\mathcal S}p_s Q(x,s)
+\right\}.
+\]
+
+\vspace{0.2cm}
+
+\textbf{Idea centrale:} la decisione iniziale deve essere robusta rispetto
+agli scenari; il ricorso utilizza l'informazione disponibile dopo la loro
+realizzazione.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+
+%******************
+% Slide 6
+%******************
+
+\subsection{Informazione e non anticipativit\`a}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{La decisione iniziale non conosce ancora lo scenario}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Nel problema two-stage, la decisione iniziale \(x\) viene presa
+\textbf{prima} di conoscere quale scenario \(s\in\mathcal S\) si realizzer\`a.
+
+%\vspace{0.4cm}
+
+Per questo motivo \(x\), non pu\`o dipendere dallo scenario futuro:
+\vspace{-0.0cm}
+\[
+\boxed{
+x
+\quad\text{\`e unica e viene scelta ex ante}
+}
+\]
+
+%\vspace{0.4cm}
+
+Dopo la realizzazione dello scenario, invece, la decisione di ricorso pu\`o
+adattarsi all'informazione osservata:
+\vspace{-0.1cm}
+\[
+y_N,\qquad y_P,\qquad y_R.
+\]
+
+%\vspace{0.4cm}
+
+La struttura informativa \`e quindi
+\vspace{-0.1cm}
+\[
+\underbrace{x}_{\text{prima di conoscere }s}
+\quad
+\longrightarrow
+\quad
+\underbrace{s}_{\text{scenario osservato}}
+\quad
+\longrightarrow
+\quad
+\underbrace{y_s}_{\text{ricorso adattato a }s}.
+\]
+
+%\vspace{0.3cm}
+
+\textbf{Non anticipativit\`a:} la decisione di primo stadio non pu\`o
+utilizzare informazione che sar\`a disponibile soltanto dopo.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%******************
+% Slide 7
+%******************
+
+\subsection{Benchmark e valore dell'informazione}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Tre benchmark, due misure di valore}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Il Capitolo 15 confronta tre modi diversi di utilizzare l'informazione.
+
+%\vspace{0.2cm}
+
+\begin{description}
+
+\item[\textbf{SP}]
+si sceglie oggi utilizzando l'intera distribuzione degli scenari.
+
+\item[\textbf{EV/EEV}]
+si risolve prima il problema costruito sui valori medi; la decisione
+\(x^{EV}\) viene poi fissata e rivalutata negli scenari originari.
+
+\item[\textbf{WS}]
+si assume, come benchmark, di conoscere lo scenario prima di scegliere.
+
+\end{description}
+
+%\vspace{0.3cm}
+
+Per un problema di massimizzazione, quando le politiche confrontate sono
+ammissibili,
+\vspace{-0.0cm}
+\[
+z^{EEV}
+\le
+z^{SP}
+\le
+z^{WS}.
+\]
+
+%\vspace{0.2cm}
+
+Le due misure principali sono
+\vspace{-0.0cm}
+\[
+VSS=z^{SP}-z^{EEV},
+\qquad
+EVPI=z^{WS}-z^{SP}.
+\]
+
+%\vspace{0.3cm}
+
+\textbf{Attenzione:} il valore ottimo del problema costruito sui parametri
+medi non \`e \(z^{EEV}\). Per ottenere \(z^{EEV}\), \(x^{EV}\) deve essere
+rivalutata nella distribuzione originaria degli scenari.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+
+\section{Caso Aula: modello}
+
+%******************
+% Slide 8
+%******************
+
+\subsection{Problema finanziario e decisione iniziale}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{SVB--ALM 2023: il problema}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Consideriamo una banca che dispone inizialmente di
+\vspace{-0.0cm}
+\[
+A_0=100
+\]
+
+unit\`a monetarie e deve scegliere la composizione dell'attivo
+\textbf{prima} di conoscere lo scenario futuro di liquidit\`a.
+
+%\vspace{0.4cm}
+
+La domanda quantitativa \`e:
+
+\begin{center}
+\textbf{come allocare le 100 unit\`a per massimizzare il risultato economico
+atteso, tenendo conto del rischio di fabbisogno di liquidit\`a?}
+\end{center}
+
+%\vspace{0.4cm}
+
+Il problema combina tre elementi:
+
+\begin{stepitemize}
+
+\item rendimento delle attivit\`a;
+
+\item capacit\`a delle attivit\`a di generare liquidit\`a nei diversi scenari;
+
+\item costo del funding di emergenza.
+
+\end{stepitemize}
+
+\vspace{0.3cm}
+
+Il caso \`e un modello stilizzato ispirato all'episodio SVB del 2023.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%******************
+% Slide 9
+%******************
+
+\subsection{Le decisioni di primo stadio}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Quattro classi di attivo}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+La decisione iniziale \`e
+\vspace{-0.1cm}
+\[
+x=(x_1,x_2,x_3,x_4)'.
+\]
+
+\vspace{-0.2cm}
+
+\[
+\begin{array}{c|l|c}
+\text{Variabile} & \text{Classe di attivo} & c_j \\ \hline
+x_1 & \text{cassa e riserve} & 0.010 \\
+x_2 & \text{titoli a breve} & 0.025 \\
+x_3 & \text{titoli a lunga} & 0.040 \\
+x_4 & \text{prestiti e impieghi meno liquidi} & 0.050
+\end{array}
+\]
+
+\vspace{+0.2cm}
+
+Il vincolo di bilancio iniziale \`e
+\vspace{-0.0cm}
+\[
+x_1+x_2+x_3+x_4=100,
+\]
+\vspace{-0.0cm}
+con
+\vspace{-0.0cm}
+\[
+x_j\ge0,
+\qquad
+x_3\le70,
+\qquad
+x_4\le70.
+\]
+
+%\vspace{0.3cm}
+
+Le quattro classi di attivo offrono rendimenti diversi. In seguito, vedremo che differiscono anche per capacit\`a di generare
+liquidit\`a nei diversi scenari: la scelta iniziale dovr\`a quindi bilanciare
+rendimento e vulnerabilit\`a al fabbisogno di liquidit\`a.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%******************
+% Slide 10
+%******************
+
+\subsection{Gli scenari di liquidit\`a}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Tre scenari, tre fabbisogni}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Dopo la decisione iniziale pu\`o realizzarsi uno dei tre scenari
+
+\[
+\mathcal S=\{N,P,R\}.
+\]
+
+\vspace{0.3cm}
+
+\[
+\begin{array}{c|l|c|c}
+s & \text{Scenario} & p_s & d_s \\ \hline
+N & \text{condizioni normali} & 0.60 & 15 \\
+P & \text{pressione sulla raccolta} & 0.25 & 35 \\
+R & \text{run severo} & 0.15 & 65
+\end{array}
+\]
+
+\vspace{0.4cm}
+
+\(d_s\) misura il fabbisogno di liquidit\`a nello scenario \(s\).
+
+\vspace{0.3cm}
+
+L'incertezza riguarda quindi non soltanto \textbf{quanta} liquidit\`a serve,
+ma anche \textbf{quanta} liquidit\`a gli attivi riescono a generare nello
+stesso scenario.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%******************
+% Slide 11
+%******************
+
+\subsection{Liquidabilit\`a scenario-specifica}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Rendimento e liquidabilit\`a sono grandezze diverse}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Indichiamo con
+\vspace{-0.1cm}
+\[
+\alpha_{js}
+\]
+
+la quota dell'attivo \(j\) trasformabile in liquidit\`a nello scenario \(s\).
+
+%\vspace{0.3cm}
+
+La liquidit\`a ottenibile dal portafoglio nello scenario \(s\) \`e
+\vspace{-0.0cm}
+\[
+L_s(x)
+=
+\sum_{j=1}^{4}\alpha_{js}x_j.
+\]
+
+%\vspace{0.4cm}
+
+Per esempio, nello scenario \(R\):
+\vspace{-0.0cm}
+\[
+(\alpha_{1R},\alpha_{2R},\alpha_{3R},\alpha_{4R})
+=
+(1.00,0.90,0.50,0.20).
+\]
+
+%\vspace{0.4cm}
+
+Occorre distinguere nettamente:
+
+\[
+\underbrace{c_j}_{\text{rendimento unitario}}
+\qquad\neq\qquad
+\underbrace{\alpha_{js}}_{\text{quota liquidabile nello scenario }s}.
+\]
+
+%\vspace{0.3cm}
+
+Un'attivit\`a pu\`o essere redditizia ex ante, ma poco efficace nel generare
+liquidit\`a durante uno stress.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%******************
+% Slide 12
+%******************
+
+\subsection{Il ricorso}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Dopo lo scenario: funding e liquidit\`a residua}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Dopo avere osservato lo scenario \(s\), la banca pu\`o utilizzare due
+variabili di ricorso:
+\vspace{-0.0cm}
+\[
+u_s\ge0
+\qquad
+\text{funding di emergenza},
+\]
+\vspace{-0.0cm}
+\[
+g_s\ge0
+\qquad
+\text{liquidit\`a residua}.
+\]
+
+%\vspace{0.4cm}
+
+Il bilancio di liquidit\`a scenario-specifico \`e
+\vspace{-0.0cm}
+\[
+\sum_{j=1}^{4}\alpha_{js}x_j+u_s
+=
+d_s+g_s.
+\]
+
+%\vspace{0.4cm}
+
+Tutti i termini sono espressi nella stessa unit\`a monetaria:
+\vspace{-0.0cm}
+\[
+\underbrace{\sum_j\alpha_{js}x_j}_{\text{liquidit\`a dagli attivi}}
++
+\underbrace{u_s}_{\text{funding}}
+=
+\underbrace{d_s}_{\text{fabbisogno}}
++
+\underbrace{g_s}_{\text{residuo}}.
+\]
+
+\vspace{0.3cm}
+
+Il ricorso consente quindi di adattare la risposta della banca allo scenario
+osservato, mantenendo invariata la decisione iniziale \(x\).
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+```latex
+%******************
+% Slide 13
+%******************
+
+\subsection{La funzione obiettivo}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Rendimento contro costo atteso del ricorso}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Il rendimento iniziale del portafoglio \`e
+
+\[
+\sum_{j=1}^{4}c_jx_j.
+\]
+
+\vspace{0.3cm}
+
+Il funding di emergenza nello scenario \(s\) ha costo unitario
+\(\kappa_s\), quindi il costo scenario-specifico \`e
+
+\[
+\kappa_su_s.
+\]
+
+\vspace{0.3cm}
+
+Il programma stocastico massimizza
+
+\[
+\boxed{
+\sum_{j=1}^{4}c_jx_j
+-
+\sum_{s\in\mathcal S}p_s\kappa_su_s
+}
+\]
+
+soggetto ai vincoli di allocazione e ai bilanci di liquidit\`a.
+
+\vspace{0.4cm}
+
+La funzione obiettivo separa due componenti:
+
+\[
+\underbrace{\sum_j c_jx_j}_{\text{rendimento iniziale}}
+-
+\underbrace{\sum_s p_s\kappa_su_s}_{\text{costo atteso del funding}}.
+\]
+
+\vspace{0.3cm}
+
+\textbf{Interpretazione:} il modello ricerca rendimento, ma attribuisce un
+costo economico alla dipendenza dal funding di emergenza negli scenari pi\`u
+critici.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+```
+
+
+
+
+
+
+
+
+\end{document}
