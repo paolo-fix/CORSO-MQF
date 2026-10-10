@@ -533,9 +533,9 @@ Funzione didattica: mostrare come una decisione iniziale più aggressiva possa t
 3. $x_1,x_2\geq0$;
 4. per ogni scenario:
 
-   $$
-   x_1+e_s+\beta_sf_s-m_s-g_s=0;
-   $$
+$$
+x_1+e_s+\beta_sf_s-m_s-g_s=0;
+$$
 
 5. $0\leq e_s\leq\bar e_s$;
 6. $0\leq f_s\leq x_2$;
@@ -545,9 +545,9 @@ Funzione didattica: mostrare come una decisione iniziale più aggressiva possa t
 10. distinzione tra valore ottimo del problema medio e $z^{EV}$;
 11. ordinamento
 
-   $$
-   z^{EV}\leq z^{SP}\leq z^{WS};
-   $$
+$$
+z^{EV}\leq z^{SP}\leq z^{WS};
+$$
 
 12. $VSS\geq0$ ed $EVPI\geq0$.
 
