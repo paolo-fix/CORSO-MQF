@@ -89,7 +89,7 @@ Lo studente deve saper:
 2. costruire la forma estesa di un programma lineare stocastico a due stadi;
 3. tradurre il modello in una forma risolvibile con `scipy.optimize.linprog(method="highs")`;
 4. determinare SP, EV e WS;
-5. valutare correttamente la decisione `x^{EV}` negli scenari originari;
+5. valutare correttamente la decisione $x^{EV}$ negli scenari originari;
 6. calcolare e interpretare VSS ed EVPI;
 7. verificare fattibilità, bilanci, bounds e ordinamento dei benchmark;
 8. interpretare gli output senza estendere le conclusioni oltre il modello.
@@ -102,36 +102,36 @@ Lo studente deve saper:
 
 Il patrimonio iniziale è normalizzato a
 
-\[
+$$
 A_0=100.
-\]
+$$
 
 La decisione iniziale è
 
-\[
+$$
 x=(x_1,x_2)'.
-\]
+$$
 
 Le componenti sono:
 
 | Variabile | Significato | Coefficiente economico |
 |---|---|---:|
-| \(x_1\) | buffer immediatamente disponibile per collateral e margin call | \(c_1=0.015\) |
-| \(x_2\) | portafoglio investito non mantenuto come buffer immediato | \(c_2=0.050\) |
+| $x_1$ | buffer immediatamente disponibile per collateral e margin call | $c_1=0.015$ |
+| $x_2$ | portafoglio investito non mantenuto come buffer immediato | $c_2=0.050$ |
 
 Il vincolo iniziale è
 
-\[
+$$
 x_1+x_2=100,
 \qquad
 x_1,x_2\geq0.
-\]
+$$
 
 Il contributo economico di primo stadio è
 
-\[
+$$
 c'x=0.015x_1+0.050x_2.
-\]
+$$
 
 La differenza tra i coefficienti rappresenta il costo opportunità di mantenere risorse nel buffer anziché nel portafoglio investito.
 
@@ -139,79 +139,79 @@ La differenza tra i coefficienti rappresenta il costo opportunità di mantenere 
 
 L'insieme degli scenari è
 
-\[
+$$
 \mathcal S=\{N,S,E\},
-\]
+$$
 
 con:
 
-- \(N\): condizioni ordinarie;
-- \(S\): tensione di mercato;
-- \(E\): shock estremo sui gilt.
+- $N$: condizioni ordinarie;
+- $S$: tensione di mercato;
+- $E$: shock estremo sui gilt.
 
 Le probabilità sono:
 
-| Scenario | \(p_s\) |
+| Scenario | $p_s$ |
 |---|---:|
-| \(N\) | 0.65 |
-| \(S\) | 0.30 |
-| \(E\) | 0.05 |
+| $N$ | 0.65 |
+| $S$ | 0.30 |
+| $E$ | 0.05 |
 
 Deve essere verificato
 
-\[
+$$
 \sum_{s\in\mathcal S}p_s=1.
-\]
+$$
 
 ### 4.3 Margin call scenario-specifica
 
-La richiesta di liquidità/collateral nello scenario \(s\) è indicata con
+La richiesta di liquidità/collateral nello scenario $s$ è indicata con
 
-\[
+$$
 m_s.
-\]
+$$
 
 I valori assegnati sono:
 
-| Scenario | \(m_s\) |
+| Scenario | $m_s$ |
 |---|---:|
-| \(N\) | 10 |
-| \(S\) | 25 |
-| \(E\) | 45 |
+| $N$ | 10 |
+| $S$ | 25 |
+| $E$ | 45 |
 
-La quantità \(m_s\) rappresenta un fabbisogno aggregato al secondo stadio. Non descrive la sequenza temporale delle margin call effettivamente osservate nel 2022.
+La quantità $m_s$ rappresenta un fabbisogno aggregato al secondo stadio. Non descrive la sequenza temporale delle margin call effettivamente osservate nel 2022.
 
 ### 4.4 Decisioni di secondo stadio
 
 Dopo l'osservazione dello scenario, il decisore può utilizzare:
 
-\[
+$$
 y_s=(g_s,e_s,f_s)',
-\]
+$$
 
 dove:
 
-- \(g_s\geq0\): liquidità residua dopo il soddisfacimento della margin call;
-- \(e_s\geq0\): apporto straordinario di collateral/capitale mobilizzato dal fondo pensione o dall'investitore;
-- \(f_s\geq0\): ammontare nominale di attività del portafoglio vendute in condizioni di stress.
+- $g_s\geq0$: liquidità residua dopo il soddisfacimento della margin call;
+- $e_s\geq0$: apporto straordinario di collateral/capitale mobilizzato dal fondo pensione o dall'investitore;
+- $f_s\geq0$: ammontare nominale di attività del portafoglio vendute in condizioni di stress.
 
-Le decisioni \(e_s\), \(f_s\) e \(g_s\) sono scenario-specifiche e vengono prese dopo l'osservazione dello scenario.
+Le decisioni $e_s$, $f_s$ e $g_s$ sono scenario-specifiche e vengono prese dopo l'osservazione dello scenario.
 
 ### 4.5 Capacità di apporto straordinario
 
 L'apporto straordinario è limitato da
 
-\[
+$$
 0\leq e_s\leq\bar e_s,
-\]
+$$
 
 con:
 
-| Scenario | \(\bar e_s\) |
+| Scenario | $\bar e_s$ |
 |---|---:|
-| \(N\) | 5 |
-| \(S\) | 8 |
-| \(E\) | 5 |
+| $N$ | 5 |
+| $S$ | 8 |
+| $E$ | 5 |
 
 Il limite rappresenta in forma stilizzata i vincoli operativi e temporali alla mobilizzazione di nuove risorse.
 
@@ -219,83 +219,83 @@ Il limite rappresenta in forma stilizzata i vincoli operativi e temporali alla m
 
 Le vendite non possono eccedere il portafoglio investito:
 
-\[
+$$
 0\leq f_s\leq x_2.
-\]
+$$
 
 Una unità nominale venduta produce liquidità pari a
 
-\[
+$$
 \beta_s f_s,
-\]
+$$
 
 dove:
 
-| Scenario | \(\beta_s\) |
+| Scenario | $\beta_s$ |
 |---|---:|
-| \(N\) | 0.98 |
-| \(S\) | 0.90 |
-| \(E\) | 0.75 |
+| $N$ | 0.98 |
+| $S$ | 0.90 |
+| $E$ | 0.75 |
 
-Il coefficiente \(\beta_s\) è un **coefficiente di conversione in liquidità**, non un rendimento. La sua riduzione negli scenari peggiori rappresenta la minore efficacia con cui il portafoglio può essere monetizzato rapidamente in condizioni di mercato deteriorate.
+Il coefficiente $\beta_s$ è un **coefficiente di conversione in liquidità**, non un rendimento. La sua riduzione negli scenari peggiori rappresenta la minore efficacia con cui il portafoglio può essere monetizzato rapidamente in condizioni di mercato deteriorate.
 
 ### 4.7 Bilancio di liquidità del secondo stadio
 
 Per ogni scenario deve valere
 
-\[
+$$
 x_1+e_s+\beta_s f_s=m_s+g_s.
-\]
+$$
 
-Il buffer iniziale \(x_1\) è comune a tutti gli scenari. Le variabili di ricorso si adattano invece allo scenario osservato.
+Il buffer iniziale $x_1$ è comune a tutti gli scenari. Le variabili di ricorso si adattano invece allo scenario osservato.
 
 ### 4.8 Costi economici del ricorso
 
-L'apporto straordinario ha costo economico unitario \(\kappa_s\), mentre la vendita forzata ha costo economico unitario \(\delta_s\):
+L'apporto straordinario ha costo economico unitario $\kappa_s$, mentre la vendita forzata ha costo economico unitario $\delta_s$:
 
-| Scenario | \(\kappa_s\) | \(\delta_s\) |
+| Scenario | $\kappa_s$ | $\delta_s$ |
 |---|---:|---:|
-| \(N\) | 0.08 | 0.15 |
-| \(S\) | 0.10 | 0.22 |
-| \(E\) | 0.15 | 0.35 |
+| $N$ | 0.08 | 0.15 |
+| $S$ | 0.10 | 0.22 |
+| $E$ | 0.15 | 0.35 |
 
 Questi coefficienti non devono essere interpretati come semplici tassi di interesse di mercato.
 
-- \(\kappa_s e_s\) rappresenta il costo economico complessivo della mobilizzazione straordinaria di collateral/capitale;
-- \(\delta_s f_s\) rappresenta il costo economico complessivo della vendita forzata, includendo in forma sintetica dislocazione di prezzo, costi di transazione e perdita di capacità di investimento/hedging.
+- $\kappa_s e_s$ rappresenta il costo economico complessivo della mobilizzazione straordinaria di collateral/capitale;
+- $\delta_s f_s$ rappresenta il costo economico complessivo della vendita forzata, includendo in forma sintetica dislocazione di prezzo, costi di transazione e perdita di capacità di investimento/hedging.
 
 ### 4.9 Funzione di ricorso
 
-Per una decisione iniziale \(x\), il problema di ricorso nello scenario \(s\) è
+Per una decisione iniziale $x$, il problema di ricorso nello scenario $s$ è
 
-\[
+$$
 Q_s(x)
 =
 \max_{g_s,e_s,f_s}
 \left\{
 -\kappa_s e_s-\delta_s f_s
 \right\}
-\]
+$$
 
 soggetto a
 
-\[
+$$
 x_1+e_s+\beta_s f_s=m_s+g_s,
-\]
+$$
 
-\[
+$$
 0\leq e_s\leq\bar e_s,
 \qquad
 0\leq f_s\leq x_2,
 \qquad
 g_s\geq0.
-\]
+$$
 
 ### 4.10 Programma stocastico SP
 
 Il problema stocastico è
 
-\[
+$$
 z^{SP}
 =
 \max_{x_1,x_2,\{y_s\}}
@@ -307,24 +307,24 @@ z^{SP}
 \kappa_s e_s+\delta_s f_s
 \right)
 \right\}
-\]
+$$
 
 soggetto al vincolo iniziale e ai vincoli di ricorso di tutti gli scenari.
 
-La non anticipatività del primo stadio è incorporata direttamente dalla presenza di un unico vettore \(x\), comune a tutti gli scenari.
+La non anticipatività del primo stadio è incorporata direttamente dalla presenza di un unico vettore $x$, comune a tutti gli scenari.
 
 ### 4.11 Ricorso relativamente completo
 
 La calibrazione deve garantire che ogni decisione iniziale ammissibile consenta un ricorso ammissibile in tutti gli scenari.
 
-Nel caso estremo, anche per \(x_1=0\) e \(x_2=100\), la liquidità massima mobilizzabile è
+Nel caso estremo, anche per $x_1=0$ e $x_2=100$, la liquidità massima mobilizzabile è
 
-\[
+$$
 \bar e_E+\beta_E x_2
 =
 5+0.75(100)
 =80>45=m_E.
-\]
+$$
 
 La stessa proprietà vale negli altri scenari. Il problema possiede quindi, per la regione ammissibile considerata, ricorso relativamente completo.
 
@@ -332,49 +332,49 @@ La stessa proprietà vale negli altri scenari. Il problema possiede quindi, per 
 
 Si costruisce il problema deterministico medio utilizzando i coefficienti attesi:
 
-\[
+$$
 \bar m=\sum_s p_sm_s,
 \qquad
 \bar\beta=\sum_s p_s\beta_s,
-\]
+$$
 
-\[
+$$
 \bar\kappa=\sum_s p_s\kappa_s,
 \qquad
 \bar\delta=\sum_s p_s\delta_s,
 \qquad
 \bar e=\sum_s p_s\bar e_s.
-\]
+$$
 
 Con la calibrazione assegnata:
 
-\[
+$$
 \bar m=16.25,
 \qquad
 \bar\beta=0.9445,
-\]
+$$
 
-\[
+$$
 \bar\kappa=0.0895,
 \qquad
 \bar\delta=0.181,
 \qquad
 \bar e=5.9.
-\]
+$$
 
 La soluzione iniziale ottima del problema medio è indicata con
 
-\[
+$$
 x^{EV}.
-\]
+$$
 
-Il valore ottimo del problema deterministico medio **non** è \(z^{EV}\).
+Il valore ottimo del problema deterministico medio **non** è $z^{EV}$.
 
-Per calcolare \(z^{EV}\), si deve fissare
+Per calcolare $z^{EV}$, si deve fissare
 
-\[
+$$
 x=x^{EV}
-\]
+$$
 
 nel problema stocastico originario e riottimizzare esclusivamente il ricorso scenario per scenario.
 
@@ -382,7 +382,7 @@ nel problema stocastico originario e riottimizzare esclusivamente il ricorso sce
 
 Nel benchmark wait-and-see lo scenario è noto prima della scelta del buffer iniziale. Per ogni scenario si risolve quindi
 
-\[
+$$
 z_s^{WS}
 =
 \max_{x_s,y_s}
@@ -391,35 +391,35 @@ c'x_s-
 \kappa_s e_s-
 \delta_s f_s
 \right\},
-\]
+$$
 
-con un diverso vettore iniziale \(x_s\) per ciascuno scenario.
+con un diverso vettore iniziale $x_s$ per ciascuno scenario.
 
 Il valore atteso è
 
-\[
+$$
 z^{WS}
 =
 \sum_s p_s z_s^{WS}.
-\]
+$$
 
 ### 4.14 VSS ed EVPI
 
 Poiché il problema è formulato come massimizzazione:
 
-\[
+$$
 z^{WS}\geq z^{SP}\geq z^{EV}.
-\]
+$$
 
 Si definiscono
 
-\[
+$$
 VSS=z^{SP}-z^{EV}\geq0,
-\]
+$$
 
-\[
+$$
 EVPI=z^{WS}-z^{SP}\geq0.
-\]
+$$
 
 Il VSS misura il valore dell'uso esplicito della distribuzione degli scenari nella decisione iniziale; l'EVPI misura il valore dell'informazione perfetta sullo scenario futuro.
 
@@ -427,13 +427,13 @@ Il VSS misura il valore dell'uso esplicito della distribuzione degli scenari nel
 
 1. Gli scenari sono mutuamente esclusivi ed esaustivi.
 2. Le probabilità sono note al tempo iniziale.
-3. Il buffer \(x_1\) e il portafoglio investito \(x_2\) sono scelti prima dell'osservazione dello scenario.
+3. Il buffer $x_1$ e il portafoglio investito $x_2$ sono scelti prima dell'osservazione dello scenario.
 4. Tutte le variabili di ricorso sono scelte dopo l'osservazione dello scenario completo.
 5. Non esistono decisioni intermedie tra il primo e il secondo stadio.
-6. Le margin call \(m_s\) sono esogene.
-7. I coefficienti \(\beta_s\), \(\kappa_s\), \(\delta_s\) e i limiti \(\bar e_s\) sono esogeni.
+6. Le margin call $m_s$ sono esogene.
+7. I coefficienti $\beta_s$, $\kappa_s$, $\delta_s$ e i limiti $\bar e_s$ sono esogeni.
 8. I costi di ricorso sono lineari.
-9. La vendita forzata è limitata dall'ammontare investito \(x_2\).
+9. La vendita forzata è limitata dall'ammontare investito $x_2$.
 10. Non vengono modellati endogenamente feedback tra vendite del singolo fondo e prezzi di mercato.
 11. Il patrimonio è normalizzato a 100.
 12. I dati numerici sono didattici e non costituiscono stime storiche.
@@ -444,18 +444,18 @@ Il VSS misura il valore dell'uso esplicito della distribuzione degli scenari nel
 
 ### 5.1 Risultati numerici
 
-1. soluzione \(x^{SP}\);
-2. valore \(z^{SP}\);
-3. ricorso ottimo \((g_s,e_s,f_s)\) per ciascuno scenario;
+1. soluzione $x^{SP}$;
+2. valore $z^{SP}$;
+3. ricorso ottimo $(g_s,e_s,f_s)$ per ciascuno scenario;
 4. costo atteso del ricorso sotto SP;
 5. coefficienti del problema medio;
-6. soluzione \(x^{EV}\);
-7. valore ottimo del problema deterministico medio, mantenuto distinto da \(z^{EV}\);
-8. valore \(z^{EV}\) ottenuto rivalutando \(x^{EV}\) negli scenari originari;
-9. \(VSS\);
-10. soluzioni \(x_s^{WS}\) e valori \(z_s^{WS}\);
-11. \(z^{WS}\);
-12. \(EVPI\).
+6. soluzione $x^{EV}$;
+7. valore ottimo del problema deterministico medio, mantenuto distinto da $z^{EV}$;
+8. valore $z^{EV}$ ottenuto rivalutando $x^{EV}$ negli scenari originari;
+9. $VSS$;
+10. soluzioni $x_s^{WS}$ e valori $z_s^{WS}$;
+11. $z^{WS}$;
+12. $EVPI$.
 
 ### 5.2 Tabelle
 
@@ -469,19 +469,19 @@ Colonne minime:
 
 - scenario;
 - probabilità;
-- buffer iniziale \(x_1^{SP}\);
-- portafoglio investito \(x_2^{SP}\);
-- margin call \(m_s\);
-- apporto straordinario \(e_s\);
-- vendita forzata \(f_s\);
-- liquidità residua \(g_s\);
+- buffer iniziale $x_1^{SP}$;
+- portafoglio investito $x_2^{SP}$;
+- margin call $m_s$;
+- apporto straordinario $e_s$;
+- vendita forzata $f_s$;
+- liquidità residua $g_s$;
 - costo di ricorso.
 
 **Tabella 3 — Confronto SP vs EV**
 
 Deve confrontare almeno:
 
-- \(x_1\) e \(x_2\);
+- $x_1$ e $x_2$;
 - utilizzo dell'apporto straordinario nei tre scenari;
 - vendite forzate nei tre scenari;
 - valore stocastico della decisione.
@@ -490,17 +490,17 @@ Deve confrontare almeno:
 
 Deve riportare:
 
-- \(z^{EV}\);
-- \(z^{SP}\);
-- \(z^{WS}\);
-- \(VSS\);
-- \(EVPI\).
+- $z^{EV}$;
+- $z^{SP}$;
+- $z^{WS}$;
+- $VSS$;
+- $EVPI$.
 
 ### 5.3 Grafici
 
 **Figura 1 — Composizione iniziale SP vs EV**
 
-Grafico a barre con \(x_1\) e \(x_2\) per le due decisioni iniziali.
+Grafico a barre con $x_1$ e $x_2$ per le due decisioni iniziali.
 
 Funzione didattica: rendere visibile quanto il problema medio riduca il buffer rispetto alla soluzione stocastica.
 
@@ -508,8 +508,8 @@ Funzione didattica: rendere visibile quanto il problema medio riduca il buffer r
 
 Grafico che confronti, per ciascuno scenario, almeno:
 
-- apporto straordinario \(e_s\);
-- vendita forzata \(f_s\).
+- apporto straordinario $e_s$;
+- vendita forzata $f_s$.
 
 Funzione didattica: mostrare come una decisione iniziale più aggressiva possa trasferire costo e fragilità al secondo stadio.
 
@@ -521,40 +521,40 @@ Funzione didattica: mostrare come una decisione iniziale più aggressiva possa t
 
 #### 5.4.1 Controlli sui dati
 
-1. verificare \(\sum_s p_s=1\);
+1. verificare $\sum_s p_s=1$;
 2. verificare positività e bounds dei parametri;
-3. verificare \(0<\beta_s\leq1\);
+3. verificare $0<\beta_s\leq1$;
 4. verificare la coerenza delle dimensioni e della scala monetaria.
 
 #### 5.4.2 Controlli sulla soluzione
 
 1. solver con stato `optimal`;
-2. \(x_1+x_2=100\) entro tolleranza numerica;
-3. \(x_1,x_2\geq0\);
+2. $x_1+x_2=100$ entro tolleranza numerica;
+3. $x_1,x_2\geq0$;
 4. per ogni scenario:
 
-   \[
+   $$
    x_1+e_s+\beta_sf_s-m_s-g_s=0;
-   \]
+   $$
 
-5. \(0\leq e_s\leq\bar e_s\);
-6. \(0\leq f_s\leq x_2\);
-7. \(g_s\geq0\);
-8. stessa decisione \(x^{SP}\) in tutti gli scenari;
-9. nessuna riottimizzazione di \(x^{EV}\) durante la sua rivalutazione stocastica;
-10. distinzione tra valore ottimo del problema medio e \(z^{EV}\);
+5. $0\leq e_s\leq\bar e_s$;
+6. $0\leq f_s\leq x_2$;
+7. $g_s\geq0$;
+8. stessa decisione $x^{SP}$ in tutti gli scenari;
+9. nessuna riottimizzazione di $x^{EV}$ durante la sua rivalutazione stocastica;
+10. distinzione tra valore ottimo del problema medio e $z^{EV}$;
 11. ordinamento
 
-   \[
+   $$
    z^{EV}\leq z^{SP}\leq z^{WS};
-   \]
+   $$
 
-12. \(VSS\geq0\) ed \(EVPI\geq0\).
+12. $VSS\geq0$ ed $EVPI\geq0$.
 
 #### 5.4.3 Controlli interpretativi
 
-1. \(\beta_s\) non deve essere interpretato come rendimento;
-2. \(\kappa_s\) e \(\delta_s\) non devono essere letti come tassi di mercato osservati;
+1. $\beta_s$ non deve essere interpretato come rendimento;
+2. $\kappa_s$ e $\delta_s$ non devono essere letti come tassi di mercato osservati;
 3. WS non è una politica implementabile ex ante: è un benchmark informativo;
 4. VSS non misura il valore dell'informazione perfetta;
 5. EVPI non misura il beneficio del solo uso della distribuzione degli scenari;
@@ -566,13 +566,13 @@ Funzione didattica: mostrare come una decisione iniziale più aggressiva possa t
 
 | Passo | Finalità risolutiva | Formula teorico-matematica / definizione / proprietà / teorema | Applicazione nel caso | Output o controllo collegato |
 |---:|---|---|---|---|
-| 1 | Separare decisione ex ante e decisioni adattive | struttura two-stage; non anticipatività | \(x=(x_1,x_2)'\) comune; \(y_s=(g_s,e_s,f_s)'\) scenario-specifico | schema informativo e controllo della decisione comune |
-| 2 | Rappresentare l'incertezza | \(\mathcal S\), \(p_s\), \(\sum_s p_s=1\) | scenari \(N,S,E\) | tabella parametri e controllo probabilità |
-| 3 | Formalizzare il ricorso | funzione \(Q_s(x)\) e vincolo di bilancio | margin call, apporto straordinario, vendita forzata, liquidità residua | verifica di fattibilità e bilanci |
-| 4 | Costruire la forma estesa e risolvere SP | \(\max\{c'x+\sum_s p_sQ_s(x)\}\) | unico buffer iniziale e tre blocchi di ricorso | \(x^{SP}\), \(z^{SP}\), tabella SP |
-| 5 | Costruire e valutare EV | problema medio; fissaggio di \(x^{EV}\) negli scenari originari | media dei coefficienti e rivalutazione senza modificare \(x^{EV}\) | \(x^{EV}\), \(z^{EV}\), VSS |
-| 6 | Costruire WS | ottimizzazione scenario per scenario con informazione perfetta | un diverso \(x_s\) per ogni scenario | \(z_s^{WS}\), \(z^{WS}\) |
-| 7 | Misurare il valore dell'informazione e della soluzione stocastica | \(VSS=z^{SP}-z^{EV}\), \(EVPI=z^{WS}-z^{SP}\) | confronto dei tre benchmark | ordinamento e indicatori |
+| 1 | Separare decisione ex ante e decisioni adattive | struttura two-stage; non anticipatività | $x=(x_1,x_2)'$ comune; $y_s=(g_s,e_s,f_s)'$ scenario-specifico | schema informativo e controllo della decisione comune |
+| 2 | Rappresentare l'incertezza | $\mathcal S$, $p_s$, $\sum_s p_s=1$ | scenari $N,S,E$ | tabella parametri e controllo probabilità |
+| 3 | Formalizzare il ricorso | funzione $Q_s(x)$ e vincolo di bilancio | margin call, apporto straordinario, vendita forzata, liquidità residua | verifica di fattibilità e bilanci |
+| 4 | Costruire la forma estesa e risolvere SP | $\max\{c'x+\sum_s p_sQ_s(x)\}$ | unico buffer iniziale e tre blocchi di ricorso | $x^{SP}$, $z^{SP}$, tabella SP |
+| 5 | Costruire e valutare EV | problema medio; fissaggio di $x^{EV}$ negli scenari originari | media dei coefficienti e rivalutazione senza modificare $x^{EV}$ | $x^{EV}$, $z^{EV}$, VSS |
+| 6 | Costruire WS | ottimizzazione scenario per scenario con informazione perfetta | un diverso $x_s$ per ogni scenario | $z_s^{WS}$, $z^{WS}$ |
+| 7 | Misurare il valore dell'informazione e della soluzione stocastica | $VSS=z^{SP}-z^{EV}$, $EVPI=z^{WS}-z^{SP}$ | confronto dei tre benchmark | ordinamento e indicatori |
 | 8 | Interpretare economicamente | trade-off rendimento–liquidità–ricorso | buffer iniziale vs costi di emergenza | tabelle, grafici e interpretazione finale |
 
 ---
@@ -585,9 +585,9 @@ La scomposizione è intenzionalmente contenuta in **sei tappe**.
 |---:|:---:|---|---|---|---|---|
 | 1 | A | Scheda Caso, flusso teorico | ricostruire struttura informativa, variabili, scenari e vincoli | cella Markdown di specifica operativa | nessuna modifica alla Scheda Caso; corretta distinzione primo/secondo stadio | base teorica per il solver |
 | 2 | B | parametri e formulazione | costruire vettore variabili, funzione obiettivo, uguaglianze, disuguaglianze e bounds della forma estesa | struttura LP e codice solver | probabilità, dimensioni, segni, bounds | soluzione SP |
-| 3 | B | soluzione del solver | estrarre \(x^{SP}\), ricorsi, valore e residui | tabella SP | optimality, budget, bilanci, bounds | benchmark EV e confronto |
-| 4 | B | dati originari e \(x^{SP}\) | costruire problema medio, trovare \(x^{EV}\), fissarlo e rivalutarlo negli scenari originari | \(x^{EV}\), valore medio, \(z^{EV}\), VSS | nessuna riottimizzazione del primo stadio; distinzione valore medio/\(z^{EV}\) | confronto informativo |
-| 5 | B | tre scenari originari | risolvere i tre problemi WS e aggregare | \(x_s^{WS}\), \(z_s^{WS}\), \(z^{WS}\), EVPI | un problema per scenario; ordinamento dei valori | output finali |
+| 3 | B | soluzione del solver | estrarre $x^{SP}$, ricorsi, valore e residui | tabella SP | optimality, budget, bilanci, bounds | benchmark EV e confronto |
+| 4 | B | dati originari e $x^{SP}$ | costruire problema medio, trovare $x^{EV}$, fissarlo e rivalutarlo negli scenari originari | $x^{EV}$, valore medio, $z^{EV}$, VSS | nessuna riottimizzazione del primo stadio; distinzione valore medio/$z^{EV}$ | confronto informativo |
+| 5 | B | tre scenari originari | risolvere i tre problemi WS e aggregare | $x_s^{WS}$, $z_s^{WS}$, $z^{WS}$, EVPI | un problema per scenario; ordinamento dei valori | output finali |
 | 6 | C | notebook completo e output prodotti | verifica mirata di coerenza, tabelle, grafici e interpretazione | eventuali celle sostitutive e interpretazione finale dello studente | criticità respinta/accolta; completezza rispetto alla Scheda Caso | consegna finale |
 
 Il Regime C non deve essere usato come certificazione generica. Deve partire da un dubbio, da un'anomalia o da una verifica effettivamente formulata dallo studente.
@@ -632,11 +632,11 @@ Sequenza consigliata:
 13. controllo di budget, bilanci e bounds;
 14. Tabella SP per scenario;
 15. costruzione del problema deterministico medio;
-16. soluzione del problema medio e determinazione di \(x^{EV}\);
-17. rivalutazione di \(x^{EV}\) nei tre scenari originari;
-18. calcolo di \(z^{EV}\) e VSS;
+16. soluzione del problema medio e determinazione di $x^{EV}$;
+17. rivalutazione di $x^{EV}$ nei tre scenari originari;
+18. calcolo di $z^{EV}$ e VSS;
 19. soluzione dei tre problemi WS;
-20. calcolo di \(z^{WS}\) ed EVPI;
+20. calcolo di $z^{WS}$ ed EVPI;
 21. tabella dei benchmark;
 22. Figura 1 — composizione SP vs EV;
 23. Figura 2 — ricorso SP vs EV;
@@ -663,36 +663,36 @@ La calibrazione è stata verificata mediante programmazione lineare.
 
 La soluzione attesa è
 
-\[
+$$
 x^{SP}
 =
 \begin{pmatrix}
 25\\
 75
 \end{pmatrix}.
-\]
+$$
 
 Quindi il modello mantiene 25 unità nel buffer e 75 nel portafoglio investito.
 
 Il ricorso atteso è:
 
-| Scenario | \(e_s^{SP}\) | \(f_s^{SP}\) | \(g_s^{SP}\) |
+| Scenario | $e_s^{SP}$ | $f_s^{SP}$ | $g_s^{SP}$ |
 |---|---:|---:|---:|
-| \(N\) | 0 | 0 | 15 |
-| \(S\) | 0 | 0 | 0 |
-| \(E\) | 5 | 20 | 0 |
+| $N$ | 0 | 0 | 15 |
+| $S$ | 0 | 0 | 0 |
+| $E$ | 5 | 20 | 0 |
 
 Nel caso estremo:
 
-\[
+$$
 25+5+0.75(20)=45.
-\]
+$$
 
 Il valore ottimo è
 
-\[
+$$
 z^{SP}=3.7375.
-\]
+$$
 
 Interpretazione attesa: la soluzione stocastica sceglie un buffer sufficiente a coprire integralmente la margin call dello scenario di tensione, ma non quella dello scenario estremo a bassa probabilità. Nell'estremo utilizza l'intero apporto straordinario disponibile e completa la copertura con vendite forzate.
 
@@ -700,64 +700,64 @@ Interpretazione attesa: la soluzione stocastica sceglie un buffer sufficiente a 
 
 I coefficienti medi sono
 
-\[
+$$
 \bar m=16.25,
 \qquad
 \bar\beta=0.9445,
-\]
+$$
 
-\[
+$$
 \bar\kappa=0.0895,
 \qquad
 \bar\delta=0.181,
 \qquad
 \bar e=5.9.
-\]
+$$
 
 La soluzione del problema medio è
 
-\[
+$$
 x^{EV}
 =
 \begin{pmatrix}
 16.25\\
 83.75
 \end{pmatrix}.
-\]
+$$
 
 Il valore ottimo del problema deterministico medio è
 
-\[
+$$
 4.43125.
-\]
+$$
 
-Questo valore non deve essere etichettato come \(z^{EV}\).
+Questo valore non deve essere etichettato come $z^{EV}$.
 
-### 11.3 Rivalutazione di \(x^{EV}\) negli scenari originari
+### 11.3 Rivalutazione di $x^{EV}$ negli scenari originari
 
-Con \(x=x^{EV}\) fissato, il ricorso ottimo atteso è:
+Con $x=x^{EV}$ fissato, il ricorso ottimo atteso è:
 
-| Scenario | \(e_s\) | \(f_s\) | \(g_s\) |
+| Scenario | $e_s$ | $f_s$ | $g_s$ |
 |---|---:|---:|---:|
-| \(N\) | 0 | 0 | 6.25 |
-| \(S\) | 8 | 0.833333 | 0 |
-| \(E\) | 5 | 31.666667 | 0 |
+| $N$ | 0 | 0 | 6.25 |
+| $S$ | 8 | 0.833333 | 0 |
+| $E$ | 5 | 31.666667 | 0 |
 
 Il valore stocastico della decisione EV è
 
-\[
+$$
 z^{EV}=3.5445833333.
-\]
+$$
 
 Pertanto
 
-\[
+$$
 VSS
 =
 z^{SP}-z^{EV}
 =
 0.1929166667.
-\]
+$$
 
 Interpretazione attesa: il problema medio suggerisce un buffer più basso. La decisione appare efficiente nello scenario medio costruito artificialmente, ma negli scenari originari richiede ricorso già nello scenario di tensione e vendite molto più ampie nello scenario estremo.
 
@@ -765,53 +765,53 @@ Interpretazione attesa: il problema medio suggerisce un buffer più basso. La de
 
 Le soluzioni scenario-specifiche attese sono:
 
-| Scenario | \(x_{1,s}^{WS}\) | \(x_{2,s}^{WS}\) | \(z_s^{WS}\) |
+| Scenario | $x_{1,s}^{WS}$ | $x_{2,s}^{WS}$ | $z_s^{WS}$ |
 |---|---:|---:|---:|
-| \(N\) | 10 | 90 | 4.650 |
-| \(S\) | 25 | 75 | 4.125 |
-| \(E\) | 45 | 55 | 3.425 |
+| $N$ | 10 | 90 | 4.650 |
+| $S$ | 25 | 75 | 4.125 |
+| $E$ | 45 | 55 | 3.425 |
 
 Il valore atteso wait-and-see è
 
-\[
+$$
 z^{WS}=4.43125.
-\]
+$$
 
 Quindi
 
-\[
+$$
 EVPI
 =
 z^{WS}-z^{SP}
 =
 0.69375.
-\]
+$$
 
 Si verifica
 
-\[
+$$
 3.5445833333
 <
 3.7375
 <
 4.43125.
-\]
+$$
 
 ossia
 
-\[
+$$
 z^{EV}<z^{SP}<z^{WS}.
-\]
+$$
 
 ### 11.5 Nota sulla coincidenza numerica
 
-Con questa calibrazione, il valore ottimo del **problema deterministico medio** è numericamente uguale a \(z^{WS}=4.43125\).
+Con questa calibrazione, il valore ottimo del **problema deterministico medio** è numericamente uguale a $z^{WS}=4.43125$.
 
 La coincidenza è accidentale e non esprime alcuna identità teorica. Deve essere utilizzata come occasione di controllo concettuale:
 
 - il valore del problema medio deriva da un unico problema costruito con coefficienti medi;
-- \(z^{WS}\) è la media ponderata dei valori ottimi scenario-specifici;
-- \(z^{EV}\) è invece il valore della decisione \(x^{EV}\) quando viene riportata negli scenari originari.
+- $z^{WS}$ è la media ponderata dei valori ottimi scenario-specifici;
+- $z^{EV}$ è invece il valore della decisione $x^{EV}$ quando viene riportata negli scenari originari.
 
 Lo studente non deve confondere queste tre quantità.
 
@@ -825,21 +825,21 @@ Errori da monitorare nella costruzione del notebook e nel tracciato IA:
 
 1. trasformare implicitamente il caso in un modello multistadio;
 2. introdurre decisioni di ricorso prima della completa osservazione dello scenario;
-3. scegliere un diverso \(x\) per ciascuno scenario nel problema SP;
-4. confondere \(\beta_s\) con un rendimento;
-5. interpretare \(\kappa_s\) o \(\delta_s\) come tassi storici osservati;
-6. dimenticare il vincolo \(f_s\leq x_2\);
-7. omettere il limite \(e_s\leq\bar e_s\);
-8. usare il valore ottimo del problema medio come \(z^{EV}\);
-9. rivalutare \(x^{EV}\) consentendo al primo stadio di cambiare per scenario;
-10. mediare le soluzioni WS per costruire \(x^{EV}\);
+3. scegliere un diverso $x$ per ciascuno scenario nel problema SP;
+4. confondere $\beta_s$ con un rendimento;
+5. interpretare $\kappa_s$ o $\delta_s$ come tassi storici osservati;
+6. dimenticare il vincolo $f_s\leq x_2$;
+7. omettere il limite $e_s\leq\bar e_s$;
+8. usare il valore ottimo del problema medio come $z^{EV}$;
+9. rivalutare $x^{EV}$ consentendo al primo stadio di cambiare per scenario;
+10. mediare le soluzioni WS per costruire $x^{EV}$;
 11. invertire i segni di VSS ed EVPI in un problema di massimizzazione;
-12. attribuire significato teorico alla coincidenza numerica tra valore del problema medio e \(z^{WS}\);
+12. attribuire significato teorico alla coincidenza numerica tra valore del problema medio e $z^{WS}$;
 13. descrivere WS come strategia realmente implementabile ex ante;
 14. interpretare VSS come valore dell'informazione perfetta;
 15. ignorare la distinzione tra capacità di generare liquidità e costo economico della liquidazione.
 
-Un eventuale Prompt in Regime C deve nascere da una criticità effettivamente osservata nel notebook o da un dubbio formulato dallo studente. Una possibile criticità didatticamente fertile è proprio la distinzione fra valore del problema medio, \(z^{EV}\) e \(z^{WS}\).
+Un eventuale Prompt in Regime C deve nascere da una criticità effettivamente osservata nel notebook o da un dubbio formulato dallo studente. Una possibile criticità didatticamente fertile è proprio la distinzione fra valore del problema medio, $z^{EV}$ e $z^{WS}$.
 
 ---
 
@@ -866,9 +866,9 @@ Il caso deve dichiarare esplicitamente che:
 
 Il limite più importante da discutere è che l'episodio storico ebbe una dinamica progressiva e auto-rinforzante, mentre il modello didattico la comprime deliberatamente in un solo passaggio
 
-\[
+$$
 x\longrightarrow s\longrightarrow y_s.
-\]
+$$
 
 Questa semplificazione è coerente con l'obiettivo del TakeHome: consolidare in un nuovo contesto il framework two-stage dei Capitoli 14–15, non introdurre un secondo esercizio multistadio.
 
@@ -941,10 +941,10 @@ La valutazione segue la struttura generale delle Guidelines.
 
 Lo studente deve essere in grado di spiegare:
 
-1. perché \(x\) deve essere comune a tutti gli scenari in SP;
-2. perché \(e_s\), \(f_s\) e \(g_s\) possono cambiare dopo l'osservazione dello scenario;
+1. perché $x$ deve essere comune a tutti gli scenari in SP;
+2. perché $e_s$, $f_s$ e $g_s$ possono cambiare dopo l'osservazione dello scenario;
 3. perché il problema medio non coincide con il problema stocastico;
-4. perché il valore ottimo del problema medio non è \(z^{EV}\);
+4. perché il valore ottimo del problema medio non è $z^{EV}$;
 5. perché WS costituisce un benchmark informativo;
 6. perché VSS ed EVPI rispondono a due domande economiche differenti.
 
