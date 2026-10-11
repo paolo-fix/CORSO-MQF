@@ -88,7 +88,7 @@ Il percorso quantitativo del capitolo pu\`o essere sintetizzato come
 \\[3pt]
 \downarrow
 \\[3pt]
-\text{SP, EV/EEV, WS}
+\text{SP, EV, WS}
 \\[3pt]
 \downarrow
 \\[3pt]
@@ -390,7 +390,6 @@ conto dell'intera distribuzione degli scenari.
 
 Nel problema Expected Value, i parametri incerti vengono sostituiti dai
 rispettivi valori medi.
-
 Indicando genericamente con \(\xi_s\) il vettore dei parametri dello scenario,
 
 \[
@@ -418,7 +417,7 @@ stadio.
 Il valore atteso cos\`i ottenuto \`e indicato con
 
 \[
-z^{EEV}.
+z^{EV}.
 \]
 
 Per un problema di massimizzazione, il valore della soluzione stocastica \`e
@@ -428,7 +427,7 @@ VSS
 =
 z^{SP}
 -
-z^{EEV}.
+z^{EV}.
 \]
 
 Il confronto misura il beneficio derivante dall'avere considerato
@@ -465,7 +464,7 @@ z^{SP}.
 Il valore \(EVPI\) misura quindi il vantaggio ottenibile disponendo di
 informazione perfetta prima della decisione iniziale.
 
-\subsection{Quattro problemi, una stessa struttura}
+\subsection{Tre problemi, una stessa struttura}
 
 I benchmark utilizzano la stessa base modellistica, ma differiscono per il
 modo in cui viene trattata l'informazione:
@@ -480,10 +479,7 @@ EV
 &:&
 \text{decisione sul problema costruito con parametri medi},
 \\[3pt]
-EEV
-&:&
-\text{rivalutazione di }x^{EV}\text{ negli scenari originari},
-\\[3pt]
+
 WS
 &:&
 \text{decisione diversa per ciascuno scenario noto}.
@@ -494,7 +490,7 @@ Quando tutti i benchmark risultano ben definiti e fattibili, per un problema
 di massimizzazione deve valere
 
 \[
-z^{EEV}
+z^{EV}
 \leq
 z^{SP}
 \leq
@@ -862,7 +858,7 @@ Ottimizzare congiuntamente \(x\) e le variabili di ricorso &
 5 &
 Costruire i benchmark informativi &
 Risolvere EV, rivalutare \(x^{EV}\) e risolvere i problemi WS &
-\(z^{EEV}\) e \(z^{WS}\)
+\(z^{EV}\) e \(z^{WS}\)
 \\
 
 6 &
@@ -884,7 +880,7 @@ sequenza la soluzione stocastica, il benchmark Expected Value con la relativa
 rivalutazione e il benchmark Wait-and-See.
 
 
-\section{Dal flusso al notebook: SP, EV/EEV e WS}
+\section{Dal flusso al notebook: SP, EV e WS}
 
 Una volta definita la struttura del problema, il notebook pu\`o essere
 organizzato attorno ai tre benchmark introdotti nel Capitolo 15: soluzione
@@ -1063,7 +1059,7 @@ attivit\`a con rendimento pi\`u elevato.
 
 Il valore ottimo del problema medio \`e 4.7.
 
-Questo valore, tuttavia, non \`e \(z^{EEV}\) e non deve essere confrontato
+Questo valore, tuttavia, non \`e \(z^{EV}\) e non deve essere confrontato
 direttamente con \(z^{SP}\).
 
 Il problema medio utilizza infatti una sola configurazione costruita con
@@ -1101,7 +1097,7 @@ Il valore atteso della decisione Expected Value rivalutata negli scenari
 originari \`e
 
 \[
-z^{EEV}
+z^{EV}
 =
 3.35.
 \]
@@ -1111,7 +1107,7 @@ Il valore della soluzione stocastica \`e pertanto
 \[
 VSS
 =
-z^{SP}-z^{EEV}
+z^{SP}-z^{EV}
 =
 3.4375-3.35
 =
@@ -1237,7 +1233,7 @@ I risultati possono essere riassunti come
 &
 \text{Valore}
 \\ \hline
-EEV
+EV
 &
 (0,0,30,70)
 &
@@ -1260,7 +1256,7 @@ WS
 e verificano l'ordinamento
 
 \[
-z^{EEV}
+z^{EV}
 \leq
 z^{SP}
 \leq
@@ -1308,7 +1304,7 @@ coerente.
 
 Nel Caso Aula, i controlli riguardano tre livelli distinti: la traduzione del
 modello, la fattibilit\`a delle soluzioni e la coerenza dei confronti tra SP,
-EEV e WS.
+EV e WS.
 
 \subsection{Controllare la traduzione del modello}
 
@@ -1377,7 +1373,7 @@ x_4\leq 70.
 La stessa verifica deve essere effettuata per i benchmark costruiti
 successivamente.
 
-Nel problema EEV, in particolare, la decisione \(x^{EV}\) deve rimanere
+Nel problema EV, in particolare, la decisione \(x^{EV}\) deve rimanere
 fissata. La rivalutazione riguarda soltanto le variabili di ricorso. Se la
 decisione iniziale venisse nuovamente ottimizzata, il problema non
 rappresenterebbe pi\`u la valutazione della politica Expected Value.
@@ -1408,7 +1404,7 @@ p_s\kappa_su_s.
 Le due quantit\`a non devono essere confuse.
 
 Analogamente, il valore ottimo del problema Expected Value non coincide con
-\(z^{EEV}\). Il primo \`e ottenuto nel problema deterministico costruito con
+\(z^{EV}\). Il primo \`e ottenuto nel problema deterministico costruito con
 parametri medi; il secondo misura il valore della decisione \(x^{EV}\) quando
 viene riportata negli scenari originari.
 
@@ -1416,7 +1412,7 @@ Quando i tre benchmark sono correttamente definiti e fattibili, deve inoltre
 valere
 
 \[
-z^{EEV}
+z^{EV}
 \leq
 z^{SP}
 \leq
@@ -1686,7 +1682,7 @@ specifica del problema e i limiti di ricorso ne fanno parte.
 
 Il controllo di fattibilit\`a precede quindi il calcolo di qualunque indicatore
 di confronto. Se la decisione Expected Value non pu\`o essere rivalutata negli
-scenari originari, il benchmark EEV non \`e disponibile come valore finito
+scenari originari, il benchmark EV non \`e disponibile come valore finito
 nella forma utilizzata nel Caso Aula.
 
 Il Caso TakeHome mostra cos\`i che
@@ -1724,14 +1720,14 @@ La sequenza fondamentale \`e
 
 La soluzione stocastica utilizza congiuntamente tutti gli scenari; il problema
 Expected Value sostituisce l'incertezza con parametri medi; la rivalutazione
-EEV riporta la decisione ottenuta negli scenari originari; il benchmark
+EV riporta la decisione ottenuta negli scenari originari; il benchmark
 Wait-and-See misura invece il valore di una situazione nella quale lo scenario
 sia noto prima della decisione.
 
 Quando i benchmark sono ben definiti e fattibili, il confronto tra
 
 \[
-z^{EEV},
+z^{EV},
 \qquad
 z^{SP},
 \qquad
