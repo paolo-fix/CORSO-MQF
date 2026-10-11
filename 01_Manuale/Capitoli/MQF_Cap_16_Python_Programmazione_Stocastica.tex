@@ -1,8 +1,1761 @@
 % !TeX root = ../MQF_Manuale_Master.tex
 % Capitoli/MQF_Cap_16_Python_Programmazione_Stocastica.tex
 
-\chapter{Applicazioni Python di programmazione stocastica}
 
-\section{Obiettivi del capitolo}
+\chapter[Python e programmazione stocastica]{Python e programmazione stocastica: scenari, ricorso e valore dell'informazione}
 
-Capitolo in preparazione.
+\label{cap:python-programmazione-stocastica}
+
+I Capitoli 14 e 15 hanno costruito il quadro teorico necessario per
+rappresentare decisioni finanziarie assunte in presenza di incertezza. Il
+Capitolo 14 ha introdotto la programmazione stocastica a due stadi, distinguendo
+le decisioni assunte prima dell'osservazione dello scenario dalle decisioni di
+ricorso che possono essere adattate all'informazione successivamente
+disponibile. Il Capitolo 15 ha sviluppato il confronto tra soluzione
+stocastica, soluzione basata sui valori attesi e soluzione con informazione
+perfetta, introducendo il valore della soluzione stocastica e il valore
+atteso dell'informazione perfetta.
+
+Questo capitolo compie il passaggio successivo. L'obiettivo non \`e introdurre
+una nuova classe di modelli, ma rendere operativa in Python la struttura
+stocastica gi\`a formulata, traducendo decisioni di primo stadio, variabili di
+ricorso, scenari, probabilit\`a e vincoli nella forma richiesta dal solver.
+
+Rispetto ai problemi deterministici affrontati nei Capitoli 11--13, la
+differenza essenziale \`e che una stessa decisione iniziale deve essere
+compatibile con pi\`u possibili realizzazioni future. Le variabili di ricorso
+possono cambiare da uno scenario all'altro, mentre la decisione assunta prima
+che l'incertezza si risolva deve rimanere unica. La struttura computazionale
+deve quindi preservare esplicitamente la distinzione
+
+\[
+\text{decisione ex ante}
+\longrightarrow
+\text{scenario}
+\longrightarrow
+\text{decisione di ricorso}.
+\]
+
+Il filo conduttore del capitolo \`e un Caso Aula ispirato alla crisi di
+Silicon Valley Bank del 2023. Si considera un problema stilizzato di
+Asset--Liability Management nel quale una banca deve scegliere l'allocazione
+iniziale tra attivit\`a caratterizzate da rendimenti e gradi di liquidabilit\`a
+differenti. Dopo la decisione iniziale, uno tra pi\`u scenari di liquidit\`a
+pu\`o realizzarsi e rendere necessario il ricorso a funding di emergenza.
+
+Il problema permette di osservare direttamente il ruolo della
+non anticipativit\`a. L'allocazione iniziale deve essere scelta prima di
+conoscere lo scenario futuro e rimane quindi comune a tutte le realizzazioni.
+Le variabili di funding e le eventuali giacenze residue possono invece
+adattarsi allo scenario osservato. L'incertezza non viene quindi trattata
+risolvendo separatamente pi\`u problemi deterministici, ma costruendo un unico
+programma lineare nel quale decisione iniziale e ricorso scenario-specifico
+sono collegati.
+
+Il capitolo introduce inoltre un piccolo focus Python dedicato alla
+traduzione di un programma lineare nella forma utilizzata da
+\texttt{scipy.optimize.linprog}. La funzione era gi\`a stata utilizzata nel
+Capitolo 13 per il problema ALM deterministico; qui viene ripresa per mostrare
+come l'ordinamento delle variabili, la funzione obiettivo, i vincoli di
+uguaglianza, le disuguaglianze e i bound debbano essere organizzati quando il
+vettore decisionale comprende contemporaneamente variabili comuni e variabili
+specifiche dei diversi scenari.
+
+Una volta risolto il problema stocastico, l'analisi non si esaurisce nella
+determinazione della soluzione ottima. La stessa struttura computazionale
+viene utilizzata per costruire e confrontare tre differenti regimi
+decisionali. La soluzione stocastica considera esplicitamente tutti gli
+scenari e le loro probabilit\`a; il problema Expected Value sostituisce i
+parametri incerti con i rispettivi valori medi; il problema Wait-and-See
+suppone invece che lo scenario sia noto prima della decisione iniziale.
+
+Il confronto richiede particolare attenzione. La soluzione ottenuta dal
+problema medio non pu\`o essere confrontata direttamente con la soluzione
+stocastica utilizzando soltanto il valore della funzione obiettivo del
+problema deterministico. La decisione Expected Value deve essere fissata e
+rivalutata negli scenari originari. Solo questa rivalutazione produce il
+benchmark necessario per calcolare il valore della soluzione stocastica.
+
+Il percorso quantitativo del capitolo pu\`o essere sintetizzato come
+
+\[
+\begin{array}{c}
+\text{modello stocastico}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{forma computazionale}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{SP, EV, WS}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{VSS ed EVPI}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{controllo e interpretazione}.
+\end{array}
+\]
+
+Particolare attenzione sar\`a dedicata ai controlli. Una soluzione dichiarata
+ottima dal solver non garantisce, da sola, che il problema sia stato tradotto
+correttamente. Devono essere verificati l'ordinamento delle variabili, i
+vincoli di bilancio, i bound, la fattibilit\`a delle decisioni fissate nei
+diversi scenari e la coerenza dei benchmark utilizzati nel confronto.
+
+Questi controlli assumono rilievo anche nell'uso dell'intelligenza
+artificiale. Una risposta formalmente plausibile pu\`o contenere valori non
+coerenti con gli output del notebook, modificare implicitamente la
+specificazione del problema o trascurare un vincolo di fattibilit\`a. Il
+metodo di lavoro rimane quello introdotto nel Capitolo 4 per i capitoli
+applicativi e viene qui assunto come acquisito: la Scheda Caso definisce la
+specifica, il flusso logico-teorico precede la costruzione del notebook e ogni
+risultato deve essere sottoposto a controllo prima di essere interpretato.
+
+Accanto al Caso Aula, viene proposto un Caso TakeHome ispirato alla crisi dei
+fondi Liability-Driven Investment nel Regno Unito nel 2022. In questo caso,
+la decisione iniziale riguarda il bilanciamento tra buffer di liquidit\`a ed
+esposizione LDI, mentre il ricorso comprende liquidit\`a esterna e
+deleveraging in presenza di margin call. Cambiano il contesto finanziario e
+la struttura del ricorso, ma rimane invariata la domanda fondamentale:
+scegliere una decisione ex ante che resti compatibile con gli scenari futuri
+e valutarne correttamente il costo in presenza di informazione incompleta.
+
+L'obiettivo complessivo del capitolo \`e quindi rendere operativo il passaggio
+dalla programmazione stocastica teorica alla decisione finanziaria
+computabile e verificabile. Python traduce il modello in un problema risolto
+dal solver; i benchmark distinguono differenti regimi informativi; i
+controlli stabiliscono se i risultati ottenuti possono essere effettivamente
+interpretati sul piano economico.
+
+
+
+\section{Python per risolvere programmi lineari con \texttt{linprog}}
+
+Nel Capitolo 13, \texttt{scipy.optimize.linprog} \`e stato utilizzato per
+tradurre e risolvere un problema lineare deterministico. Nel presente
+capitolo, lo stesso solver viene applicato a un problema di programmazione
+stocastica a due stadi.
+
+La forma generale rimane quella gi\`a nota:
+
+\[
+\min_{v}\; c^{\prime}v
+\]
+
+\noindent soggetto a
+
+\[
+A_{\mathrm{ub}}v\leq b_{\mathrm{ub}},
+\qquad
+A_{\mathrm{eq}}v=b_{\mathrm{eq}},
+\]
+
+\noindent insieme ai bound sulle singole variabili.
+
+La novit\`a non riguarda quindi il solver, ma la struttura del vettore
+decisionale e dei vincoli.
+
+\subsection{Variabili comuni e variabili scenario-specifiche}
+
+In un problema a due stadi, il vettore decisionale comprende una parte comune
+a tutti gli scenari e una parte che pu\`o adattarsi allo scenario osservato:
+
+\[
+v=
+\left(
+x,
+y_1,
+y_2,
+\ldots,
+y_S
+\right)^{\prime}.
+\]
+
+Il vettore \(x\) contiene le decisioni assunte prima che lo scenario sia noto;
+il vettore \(y_s\) contiene invece le variabili di ricorso associate allo
+scenario \(s\).
+
+Nel Caso Aula, le decisioni iniziali sono
+
+\[
+x_1,x_2,x_3,x_4,
+\]
+
+\noindent mentre per ciascuno scenario
+\(s\in\{N,P,R\}\) compaiono una variabile di funding \(u_s\) e una variabile di giacenza
+residua \(g_s\).
+
+Un possibile ordinamento \`e
+
+\[
+v=
+\left(
+x_1,x_2,x_3,x_4,
+u_N,u_P,u_R,
+g_N,g_P,g_R
+\right)^{\prime}.
+\]
+
+L'ordine scelto deve rimanere invariato nella funzione obiettivo, nelle
+matrici dei vincoli e nei bound.
+
+\subsection{La struttura a blocchi dei vincoli}
+
+Il vincolo sulle risorse iniziali riguarda soltanto le decisioni di primo
+stadio:
+
+\[
+x_1+x_2+x_3+x_4=A_0.
+\]
+
+I vincoli di liquidit\`a sono invece specifici dei diversi scenari. Per lo
+scenario \(s\),
+
+\[
+\sum_{j=1}^{4}\alpha_{js}x_j
++
+u_s
+=
+d_s+g_s.
+\]
+
+Nella matrice \(A_{\mathrm{eq}}\), le colonne associate a \(x\) compaiono
+quindi nei vincoli di tutti gli scenari, mentre le colonne relative a
+\(u_s\) e \(g_s\) compaiono soltanto nella riga dello scenario
+corrispondente.
+
+La struttura computazionale riflette direttamente la sequenza
+
+\[
+x
+\longrightarrow
+s
+\longrightarrow
+(u_s,g_s).
+\]
+
+Il fatto che \(x\) compaia una sola volta nel vettore decisionale rende
+esplicita la non anticipativit\`a della decisione iniziale.
+
+\subsection{Funzione obiettivo e chiamata al solver}
+
+Se il problema economico \`e formulato come massimizzazione,
+
+\[
+\max_v\; c_{\Pi}^{\prime}v,
+\]
+
+\noindent \texttt{linprog} viene utilizzato con
+
+\[
+c=-c_{\Pi}.
+\]
+
+La chiamata essenziale rimane
+
+\begin{verbatim}
+result = linprog(
+    c,
+    A_ub=A_ub,
+    b_ub=b_ub,
+    A_eq=A_eq,
+    b_eq=b_eq,
+    bounds=bound,
+    method="highs"
+)
+\end{verbatim}
+
+Il vettore ottimo \`e contenuto in
+
+\[
+\texttt{result.x},
+\]
+
+\noindent mentre, nel caso di inversione del segno della funzione obiettivo,
+
+\[
+z^*
+=
+-\texttt{result.fun}.
+\]
+
+\subsection{Il controllo essenziale}
+
+Nel problema stocastico, il controllo pi\`u importante riguarda la
+corrispondenza tra posizione delle variabili e significato economico.
+
+Devono essere verificati almeno:
+
+\begin{itemize}
+\item l'ordinamento del vettore decisionale;
+
+\item la corretta associazione tra righe dei vincoli e scenari;
+
+\item i bound assegnati alle singole variabili;
+
+\item la presenza di un'unica decisione \(x\) comune a tutti gli scenari;
+
+\item la corretta estrazione delle variabili di ricorso dalla soluzione.
+\end{itemize}
+
+Il fatto che
+
+\[
+\texttt{result.success=True}
+\]
+
+\noindent indica soltanto che il solver ha risolto il problema numerico che
+gli \`e stato fornito. Non garantisce che la formulazione implementata
+coincida con il modello economico assegnato.
+
+Nel seguito, lo stesso strumento verr\`a utilizzato per costruire e
+confrontare la soluzione stocastica, il problema Expected Value e i problemi
+Wait-and-See.
+
+
+
+\section{Dalla programmazione stocastica al problema computazionale}
+
+I Capitoli 14 e 15 hanno formulato il problema stocastico a due stadi
+distinguendo una decisione iniziale \(x\), assunta prima dell'osservazione
+dello scenario, e una decisione di ricorso \(y_s\), che pu\`o dipendere dallo
+scenario \(s\).
+
+La struttura essenziale \`e
+
+\[
+x
+\longrightarrow
+s
+\longrightarrow
+y_s.
+\]
+
+Nel problema computazionale, questa sequenza deve essere trasformata in un
+unico sistema di variabili e vincoli nel quale la decisione \(x\) rimane
+comune a tutti gli scenari, mentre ciascun \(y_s\) compare soltanto nel blocco
+corrispondente.
+
+Se gli scenari appartengono all'insieme
+
+\[
+\mathcal{S}
+=
+\{1,\ldots,S\},
+\]
+
+\noindent con probabilit\`a \(p_s\), una formulazione generale pu\`o essere
+scritta come
+
+\[
+\max_{x,\{y_s\}}
+\left\{
+c^{\prime}x
++
+\sum_{s\in\mathcal{S}}
+p_s q_s^{\prime}y_s
+\right\},
+\]
+
+\noindent soggetta ai vincoli di primo stadio e ai vincoli di ricorso
+specifici dei diversi scenari.
+
+La rappresentazione computazionale non richiede quindi di risolvere un
+problema separato per ciascuno scenario. Tutti i blocchi vengono raccolti
+nello stesso programma lineare e condividono la medesima decisione iniziale.
+
+\subsection{La soluzione stocastica}
+
+La soluzione stocastica, indicata con \(x^{SP}\), viene ottenuta utilizzando
+congiuntamente tutti gli scenari e le rispettive probabilit\`a.
+
+Il corrispondente valore ottimo \`e
+
+\[
+z^{SP}.
+\]
+
+Dal punto di vista computazionale, questo \`e il problema nel quale la matrice
+dei vincoli contiene simultaneamente tutti i blocchi scenario-specifici e la
+funzione obiettivo pondera i costi o i benefici di ricorso mediante \(p_s\).
+
+La soluzione \(x^{SP}\) rappresenta quindi la decisione ex ante scelta tenendo
+conto dell'intera distribuzione degli scenari.
+
+\subsection{Il problema Expected Value e la rivalutazione}
+
+Nel problema Expected Value, i parametri incerti vengono sostituiti dai
+rispettivi valori medi.
+Indicando genericamente con \(\xi_s\) il vettore dei parametri dello scenario,
+
+\[
+\bar{\xi}
+=
+\sum_{s\in\mathcal{S}}
+p_s \xi_s.
+\]
+
+Si ottiene cos\`i un problema deterministico, la cui soluzione viene indicata
+con
+
+\[
+x^{EV}.
+\]
+
+Il valore ottimo di questo problema medio non costituisce per\`o il termine di
+confronto corretto con \(z^{SP}\).
+
+La decisione \(x^{EV}\) deve essere fissata e rivalutata nel problema
+stocastico originario. In ciascuno scenario vengono quindi ottimizzate
+soltanto le variabili di ricorso, mantenendo invariata la decisione di primo
+stadio.
+
+Il valore atteso cos\`i ottenuto \`e indicato con
+
+\[
+z^{EV}.
+\]
+
+Per un problema di massimizzazione, il valore della soluzione stocastica \`e
+
+\[
+VSS
+=
+z^{SP}
+-
+z^{EV}.
+\]
+
+Il confronto misura il beneficio derivante dall'avere considerato
+esplicitamente l'incertezza nella scelta della decisione iniziale.
+
+\subsection{Il problema Wait-and-See}
+
+Il benchmark Wait-and-See modifica invece l'informazione disponibile al
+momento della decisione.
+
+Per ciascuno scenario \(s\), si risolve un problema deterministico assumendo
+che lo scenario sia gi\`a noto prima della scelta di \(x\). La decisione
+iniziale pu\`o quindi cambiare da uno scenario all'altro.
+
+Indicando con \(z_s^{WS}\) il valore ottimo nello scenario \(s\),
+
+\[
+z^{WS}
+=
+\sum_{s\in\mathcal{S}}
+p_s z_s^{WS}.
+\]
+
+Per un problema di massimizzazione,
+
+\[
+EVPI
+=
+z^{WS}
+-
+z^{SP}.
+\]
+
+Il valore \(EVPI\) misura quindi il vantaggio ottenibile disponendo di
+informazione perfetta prima della decisione iniziale.
+
+\subsection{Tre problemi, una stessa struttura}
+
+I benchmark utilizzano la stessa base modellistica, ma differiscono per il
+modo in cui viene trattata l'informazione:
+
+\[
+\begin{array}{ccl}
+SP
+&:&
+\text{decisione unica prima dello scenario},
+\\[3pt]
+EV
+&:&
+\text{decisione sul problema costruito con parametri medi},
+\\[3pt]
+
+WS
+&:&
+\text{decisione diversa per ciascuno scenario noto}.
+\end{array}
+\]
+
+Quando tutti i benchmark risultano ben definiti e fattibili, per un problema
+di massimizzazione deve valere
+
+\[
+z^{EV}
+\leq
+z^{SP}
+\leq
+z^{WS}.
+\]
+
+Questa relazione costituisce anche un controllo della procedura
+computazionale.
+
+Nel Caso Aula, i quattro problemi verranno costruiti a partire dalla stessa
+struttura di Asset--Liability Management. Ci\`o che cambier\`a non sar\`a il
+solver utilizzato, ma l'informazione disponibile al momento della decisione e
+il modo in cui la decisione iniziale viene mantenuta comune, fissata, o resa
+scenario-specifica.
+
+
+\section{Caso Aula: SVB--ALM 2023 --- problema, modello e flusso risolutivo}
+
+Il Caso Aula considera un problema stilizzato di Asset--Liability Management
+ispirato alle tensioni di liquidit\`a emerse durante la crisi di Silicon
+Valley Bank nel 2023.
+
+L'obiettivo non \`e ricostruire storicamente il bilancio della banca, ma
+rappresentare in forma semplificata un problema decisionale nel quale una
+allocazione iniziale deve essere scelta prima di conoscere il fabbisogno di
+liquidit\`a futuro.
+
+La banca dispone inizialmente di risorse pari a
+
+\[
+A_0=100
+\]
+
+\noindent e deve distribuirle tra quattro categorie di attivit\`a.
+
+Indichiamo con
+
+\[
+x=
+\left(
+x_1,x_2,x_3,x_4
+\right)^{\prime}
+\]
+
+\noindent il vettore delle allocazioni iniziali.
+
+Le quattro componenti rappresentano, rispettivamente:
+
+\begin{itemize}
+\item \(x_1\): liquidit\`a e riserve;
+
+\item \(x_2\): titoli a breve termine;
+
+\item \(x_3\): titoli a lunga scadenza;
+
+\item \(x_4\): prestiti e altre attivit\`a meno liquide.
+\end{itemize}
+
+I rendimenti assegnati sono
+
+\[
+c=
+\left(
+0.010,\,
+0.025,\,
+0.040,\,
+0.050
+\right)^{\prime}.
+\]
+
+L'allocazione iniziale deve soddisfare
+
+\[
+x_1+x_2+x_3+x_4=100,
+\]
+
+\[
+x_j\geq 0,
+\]
+
+\noindent insieme ai limiti
+
+\[
+x_3\leq 70,
+\qquad
+x_4\leq 70.
+\]
+
+In assenza di incertezza, il problema tenderebbe a privilegiare le attivit\`a
+con rendimento pi\`u elevato. La presenza di possibili fabbisogni di
+liquidit\`a modifica tuttavia il confronto, perch\'e le diverse categorie di
+attivo non sono ugualmente liquidabili nei diversi scenari.
+
+\subsection{Scenari di liquidit\`a e capacit\`a di realizzo}
+
+Dopo la scelta di \(x\), si realizza uno tra tre scenari:
+
+\[
+\mathcal{S}
+=
+\{N,P,R\},
+\]
+
+\noindent dove \(N\) rappresenta una condizione normale, \(P\) una condizione
+di pressione e \(R\) uno scenario di run.
+
+Le probabilit\`a assegnate sono
+
+\[
+p_N=0.60,
+\qquad
+p_P=0.25,
+\qquad
+p_R=0.15.
+\]
+
+Il fabbisogno di liquidit\`a associato ai tre scenari \`e
+
+\[
+d_N=15,
+\qquad
+d_P=35,
+\qquad
+d_R=65.
+\]
+
+La quantit\`a di liquidit\`a ottenibile da ciascuna attivit\`a dipende dallo
+scenario attraverso i coefficienti \(\alpha_{js}\).
+
+La matrice dei coefficienti di liquidabilit\`a \`e
+
+\[
+\begin{array}{c|ccc}
+ & N & P & R\\
+\hline
+x_1 & 1.00 & 1.00 & 1.00\\
+x_2 & 0.98 & 0.95 & 0.90\\
+x_3 & 0.85 & 0.70 & 0.50\\
+x_4 & 0.60 & 0.40 & 0.20
+\end{array}
+\]
+
+La struttura rappresenta una progressiva riduzione della capacit\`a di
+trasformare le attivit\`a in liquidit\`a quando le condizioni di mercato
+peggiorano.
+
+La liquidit\`a ottenibile dall'allocazione iniziale nello scenario \(s\)
+\`e quindi
+
+\[
+\sum_{j=1}^{4}\alpha_{js}x_j.
+\]
+
+Lo stesso portafoglio pu\`o pertanto generare quantit\`a di liquidit\`a molto
+diverse nei tre scenari.
+
+\subsection{Le decisioni di ricorso}
+
+Dopo l'osservazione dello scenario, la banca pu\`o ricorrere a funding di
+emergenza.
+
+Indichiamo con
+
+\[
+u_s\geq 0
+\]
+
+\noindent il funding utilizzato nello scenario \(s\) e con
+
+\[
+g_s\geq 0
+\]
+
+\noindent l'eventuale liquidit\`a residua dopo avere soddisfatto il
+fabbisogno.
+
+Per ciascuno scenario deve valere il bilancio
+
+\[
+\sum_{j=1}^{4}\alpha_{js}x_j
++
+u_s
+=
+d_s+g_s.
+\]
+
+La stessa equazione svolge due funzioni.
+
+Se la liquidit\`a generata dall'attivo \`e inferiore al fabbisogno, il
+funding \(u_s\) colma la differenza.
+
+Se invece la liquidit\`a disponibile supera il fabbisogno, l'eccedenza viene
+registrata in \(g_s\).
+
+Il funding ha un costo scenario-specifico. I coefficienti assegnati sono
+
+\[
+\kappa_N=0.01,
+\qquad
+\kappa_P=0.06,
+\qquad
+\kappa_R=0.25.
+\]
+
+Il costo associato al ricorso nello scenario \(s\) \`e quindi
+
+\[
+\kappa_s u_s.
+\]
+
+Il costo cresce fortemente nello scenario pi\`u avverso. La composizione
+dell'attivo deve pertanto essere valutata non soltanto in base al rendimento,
+ma anche in base alla capacit\`a di contenere il ricorso a funding costoso.
+
+\subsection{La funzione obiettivo}
+
+Il rendimento iniziale del portafoglio \`e
+
+\[
+\sum_{j=1}^{4}c_jx_j.
+\]
+
+Il costo atteso del funding \`e invece
+
+\[
+\sum_{s\in\mathcal{S}}
+p_s\kappa_su_s.
+\]
+
+Il problema stocastico consiste quindi nel massimizzare
+
+\[
+\sum_{j=1}^{4}c_jx_j
+-
+\sum_{s\in\mathcal{S}}
+p_s\kappa_su_s.
+\]
+
+La formulazione completa \`e
+
+\[
+\max_{x,u,g}
+\left\{
+\sum_{j=1}^{4}c_jx_j
+-
+\sum_{s\in\mathcal{S}}
+p_s\kappa_su_s
+\right\}
+\]
+
+\noindent soggetta a
+
+\[
+x_1+x_2+x_3+x_4=100,
+\]
+
+\[
+\sum_{j=1}^{4}\alpha_{js}x_j
++
+u_s
+=
+d_s+g_s,
+\qquad
+s\in\mathcal{S},
+\]
+
+\[
+x_j\geq 0,
+\qquad
+u_s\geq 0,
+\qquad
+g_s\geq 0,
+\]
+
+\[
+x_3\leq 70,
+\qquad
+x_4\leq 70.
+\]
+
+Il funding di emergenza non presenta un limite superiore. Per ogni
+allocazione ammissibile \(x\), un eventuale deficit di liquidit\`a pu\`o
+quindi essere compensato aumentando \(u_s\). Nel caso considerato, il
+problema dispone pertanto di ricorso fattibile nei tre scenari.
+
+\subsection{La struttura decisionale del caso}
+
+La sequenza del problema pu\`o essere rappresentata come
+
+\[
+\begin{array}{c}
+\text{scelta dell'allocazione }x
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{realizzazione dello scenario }s
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{liquidit\`a ottenibile dall'attivo}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{funding }u_s\text{ e giacenza }g_s
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{costo di ricorso}
+\\[3pt]
+\downarrow
+\\[3pt]
+\text{valore atteso della politica}.
+\end{array}
+\]
+
+La decisione \(x\) precede l'osservazione dello scenario e deve quindi
+rimanere unica. Le variabili \(u_s\) e \(g_s\) vengono invece determinate
+dopo l'osservazione di \(s\) e possono cambiare da uno scenario all'altro.
+
+Il problema non consiste dunque nel trovare l'allocazione migliore in
+ciascuno scenario separatamente. Consiste nel trovare una sola allocazione
+iniziale che tenga conto congiuntamente di tutti gli scenari possibili.
+
+\subsection{Dal problema al flusso risolutivo}
+
+La Scheda Caso assegna variabili, parametri, vincoli e benchmark da
+calcolare. Per organizzare la soluzione computazionale, questi elementi
+devono essere disposti secondo le loro dipendenze logiche.
+
+Il flusso risolutivo pu\`o essere sintetizzato in sei passaggi.
+
+\begin{center}
+\small
+\begin{tabular}{p{0.8cm}p{3.0cm}p{4.1cm}p{3.6cm}}
+\textbf{Passo} &
+\textbf{Finalit\`a} &
+\textbf{Operazione} &
+\textbf{Output o controllo}
+\\ \hline
+
+1 &
+Definire la decisione ex ante &
+Organizzare rendimenti, risorse iniziali e limiti di allocazione &
+Spazio ammissibile delle decisioni \(x\)
+\\
+
+2 &
+Rappresentare l'incertezza &
+Organizzare probabilit\`a, fabbisogni e coefficienti di liquidabilit\`a &
+Coerenza degli scenari e somma delle probabilit\`a
+\\
+
+3 &
+Costruire il ricorso &
+Associare a ogni scenario \(u_s\), \(g_s\) e il relativo bilancio &
+Fattibilit\`a dei bilanci scenario-specifici
+\\
+
+4 &
+Risolvere il problema stocastico &
+Ottimizzare congiuntamente \(x\) e le variabili di ricorso &
+\(x^{SP}\), ricorsi ottimi e \(z^{SP}\)
+\\
+
+5 &
+Costruire i benchmark informativi &
+Risolvere EV, rivalutare \(x^{EV}\) e risolvere i problemi WS &
+\(z^{EV}\) e \(z^{WS}\)
+\\
+
+6 &
+Confrontare le politiche &
+Calcolare VSS ed EVPI e verificare l'ordinamento dei benchmark &
+Interpretazione economica e controlli finali
+\end{tabular}
+\end{center}
+
+Il flusso mantiene separati tre livelli.
+
+Il primo riguarda la decisione iniziale e la sua esposizione ai diversi
+scenari. Il secondo riguarda la risposta disponibile dopo l'osservazione
+dello scenario. Il terzo riguarda il confronto tra differenti strutture
+informative.
+
+La sezione successiva tradurr\`a questa struttura nel notebook, costruendo in
+sequenza la soluzione stocastica, il benchmark Expected Value con la relativa
+rivalutazione e il benchmark Wait-and-See.
+
+
+\section{Dal flusso al notebook: SP, EV e WS}
+
+Una volta definita la struttura del problema, il notebook pu\`o essere
+organizzato attorno ai tre benchmark introdotti nel Capitolo 15: soluzione
+stocastica, Expected Value con rivalutazione e Wait-and-See.
+
+I tre problemi condividono la stessa base economica, ma differiscono per
+l'informazione disponibile al momento della decisione iniziale.
+
+\subsection{La soluzione stocastica}
+
+Nel problema stocastico, la decisione iniziale
+
+\[
+x=
+\left(
+x_1,x_2,x_3,x_4
+\right)^{\prime}
+\]
+
+\noindent viene scelta prima dell'osservazione dello scenario e rimane quindi
+comune a \(N\), \(P\) e \(R\).
+
+Le variabili di ricorso
+
+\[
+u_N,u_P,u_R,
+\qquad
+g_N,g_P,g_R
+\]
+
+\noindent possono invece adattarsi alla condizione di liquidit\`a
+effettivamente realizzata.
+
+Con l'ordinamento
+
+\[
+v=
+\left(
+x_1,x_2,x_3,x_4,
+u_N,u_P,u_R,
+g_N,g_P,g_R
+\right)^{\prime},
+\]
+
+\noindent il notebook costruisce il vettore della funzione obiettivo, i
+vincoli di uguaglianza e i bound coerentemente con la formulazione della
+sezione precedente.
+
+La soluzione ottenuta \`e
+
+\[
+x^{SP}
+=
+(0,30,70,0)^{\prime}.
+\]
+
+L'intero ammontare iniziale viene quindi allocato tra titoli a breve e titoli
+a lunga scadenza, con il limite massimo su \(x_3\) completamente utilizzato.
+
+Il rendimento lordo dell'allocazione \`e
+
+\[
+0.025\cdot 30
++
+0.040\cdot 70
+=
+3.55.
+\]
+
+Nei tre scenari, il ricorso a funding di emergenza risulta
+
+\[
+u_N^{SP}=0,
+\qquad
+u_P^{SP}=0,
+\qquad
+u_R^{SP}=3.
+\]
+
+Il funding viene quindi utilizzato soltanto nello scenario di run.
+
+Il costo di funding nello scenario \(R\) \`e
+
+\[
+\kappa_R u_R^{SP}
+=
+0.25\cdot 3
+=
+0.75.
+\]
+
+Questa quantit\`a non coincide con il contributo dello scenario al costo
+atteso. Poich\'e
+
+\[
+p_R=0.15,
+\]
+
+\noindent il contributo ponderato \`e
+
+\[
+p_R\kappa_Ru_R^{SP}
+=
+0.15\cdot 0.75
+=
+0.1125.
+\]
+
+Il costo atteso complessivo del funding \`e quindi
+
+\[
+0.1125,
+\]
+
+\noindent e il valore della soluzione stocastica risulta
+
+\[
+z^{SP}
+=
+3.55-0.1125
+=
+3.4375.
+\]
+
+Il risultato mostra gi\`a il compromesso fondamentale del problema. La
+soluzione non massimizza semplicemente il rendimento iniziale delle
+attivit\`a, ma sceglie una composizione che limita il costo di ricorso negli
+scenari sfavorevoli.
+
+\subsection{Expected Value e rivalutazione della decisione}
+
+Il problema Expected Value sostituisce i parametri incerti con i rispettivi
+valori medi.
+
+Il fabbisogno medio \`e
+
+\[
+\bar d
+=
+\sum_{s\in\mathcal{S}}p_s d_s
+=
+27.5.
+\]
+
+I coefficienti medi di liquidabilit\`a sono
+
+\[
+\bar\alpha
+=
+\left(
+1,\,
+0.9605,\,
+0.76,\,
+0.49
+\right)^{\prime},
+\]
+
+\noindent mentre il costo medio del funding \`e
+
+\[
+\bar\kappa
+=
+0.0585.
+\]
+
+Il problema deterministico costruito con questi parametri produce
+
+\[
+x^{EV}
+=
+(0,0,30,70)^{\prime}.
+\]
+
+Rispetto alla soluzione stocastica, l'allocazione si sposta verso le
+attivit\`a con rendimento pi\`u elevato.
+
+Il valore ottimo del problema medio \`e 4.7.
+
+Questo valore, tuttavia, non \`e \(z^{EV}\) e non deve essere confrontato
+direttamente con \(z^{SP}\).
+
+Il problema medio utilizza infatti una sola configurazione costruita con
+parametri medi. Per valutare correttamente la decisione \(x^{EV}\), occorre
+fissarla e riportarla negli scenari originari.
+
+La rivalutazione mantiene quindi
+
+\[
+x=x^{EV}
+\]
+
+\noindent e ottimizza soltanto le variabili di ricorso nei tre scenari.
+
+Nel caso normale e in quello di pressione non \`e necessario ricorrere a
+funding:
+
+\[
+u_N^{EV}=0,
+\qquad
+u_P^{EV}=0.
+\]
+
+Nello scenario di run, invece,
+
+\[
+u_R^{EV}=36.
+\]
+
+La maggiore esposizione alle attivit\`a meno liquide rende quindi la
+decisione basata sui valori medi sensibilmente pi\`u costosa nello scenario
+estremo.
+
+Il valore atteso della decisione Expected Value rivalutata negli scenari
+originari \`e
+
+\[
+z^{EV}
+=
+3.35.
+\]
+
+Il valore della soluzione stocastica \`e pertanto
+
+\[
+VSS
+=
+z^{SP}-z^{EV}
+=
+3.4375-3.35
+=
+0.0875.
+\]
+
+Il valore numerico del \(VSS\) \`e contenuto, ma non deve essere interpretato
+come prova dell'equivalenza economica tra le due politiche.
+
+Le allocazioni
+
+\[
+x^{SP}
+=
+(0,30,70,0)^{\prime}
+\]
+
+\noindent e
+
+\[
+x^{EV}
+=
+(0,0,30,70)^{\prime}
+\]
+
+\noindent sono infatti profondamente diverse, cos\`i come il ricorso al funding
+nello scenario pi\`u avverso.
+
+Il confronto mostra quindi che una differenza modesta nel valore atteso della
+funzione obiettivo pu\`o accompagnarsi a una differenza rilevante nella
+struttura di liquidit\`a e nell'esposizione allo stress.
+
+\subsection{Il benchmark Wait-and-See}
+
+Il problema Wait-and-See assume che lo scenario sia noto prima della scelta
+dell'allocazione iniziale.
+
+La decisione \(x\) non deve quindi essere comune a tutti gli scenari, ma pu\`o
+essere scelta separatamente per \(N\), \(P\) e \(R\).
+
+Negli scenari normale e di pressione, la soluzione \`e
+
+\[
+x_N^{WS}
+=
+x_P^{WS}
+=
+(0,0,30,70)^{\prime}.
+\]
+
+In queste condizioni, l'informazione anticipata consente di privilegiare le
+attivit\`a con rendimento pi\`u elevato senza sostenere un costo di ricorso
+sufficiente a modificare l'allocazione.
+
+Nello scenario di run, la soluzione cambia invece in modo marcato:
+
+\[
+x_R^{WS}
+=
+(0,37.5,62.5,0)^{\prime}.
+\]
+
+La conoscenza anticipata dello scenario estremo induce quindi una maggiore
+allocazione verso titoli a breve e l'abbandono delle attivit\`a meno liquide.
+
+I valori ottimi scenario-specifici sono
+
+\[
+z_N^{WS}=4.7,
+\qquad
+z_P^{WS}=4.7,
+\qquad
+z_R^{WS}=3.4375.
+\]
+
+Il valore atteso Wait-and-See \`e pertanto
+
+\[
+z^{WS}
+=
+0.60\cdot 4.7
++
+0.25\cdot 4.7
++
+0.15\cdot 3.4375
+=
+4.510625.
+\]
+
+Il valore atteso dell'informazione perfetta risulta
+
+\[
+EVPI
+=
+z^{WS}-z^{SP}
+=
+4.510625-3.4375
+=
+1.073125.
+\]
+
+Nel caso considerato, il valore dell'informazione perfetta \`e quindi molto
+pi\`u elevato del valore della soluzione stocastica rispetto alla politica
+basata sui valori medi.
+
+I due indicatori misurano per\`o fenomeni differenti.
+
+Il \(VSS\) confronta la decisione stocastica con una decisione costruita
+sostituendo l'incertezza con i valori medi.
+
+L'\(EVPI\) confronta invece la decisione stocastica con una situazione
+irrealistica nella quale lo scenario futuro \`e noto prima dell'allocazione.
+
+\subsection{Confrontare i benchmark}
+
+I risultati possono essere riassunti come
+
+\[
+\begin{array}{c|c|c}
+\text{Benchmark}
+&
+\text{Allocazione iniziale}
+&
+\text{Valore}
+\\ \hline
+EV
+&
+(0,0,30,70)
+&
+3.35
+\\
+SP
+&
+(0,30,70,0)
+&
+3.4375
+\\
+WS
+&
+\text{scenario-specifica}
+&
+4.510625
+\end{array}
+\]
+
+e verificano l'ordinamento
+
+\[
+z^{EV}
+\leq
+z^{SP}
+\leq
+z^{WS}.
+\]
+
+Nel caso specifico,
+
+\[
+3.35
+\leq
+3.4375
+\leq
+4.510625.
+\]
+
+La relazione costituisce un controllo sintetico, ma non esaurisce la verifica
+del notebook. La coerenza dei benchmark richiede anche che:
+
+\begin{itemize}
+\item \(x^{SP}\) sia unica e comune ai tre scenari;
+
+\item \(x^{EV}\) venga mantenuta fissa durante la rivalutazione;
+
+\item le decisioni \(x_s^{WS}\) possano variare tra gli scenari;
+
+\item i costi di ricorso siano distinti dai relativi contributi ponderati alla
+funzione obiettivo;
+
+\item ogni soluzione rispetti i vincoli e i bound del problema corrispondente.
+\end{itemize}
+
+Il confronto finale non riguarda quindi soltanto tre valori ottimi. Riguarda
+tre differenti strutture informative e il modo in cui ciascuna di esse
+modifica la decisione iniziale e il ricorso successivo.
+
+
+\section{Controlli, fattibilit\`a e interpretazione economica}
+
+La soluzione di un problema di programmazione stocastica non termina quando il
+solver restituisce un vettore ottimo. Prima dell'interpretazione economica,
+occorre verificare che il problema implementato coincida con quello definito
+dalla Scheda Caso e che i diversi benchmark siano stati costruiti in modo
+coerente.
+
+Nel Caso Aula, i controlli riguardano tre livelli distinti: la traduzione del
+modello, la fattibilit\`a delle soluzioni e la coerenza dei confronti tra SP,
+EV e WS.
+
+\subsection{Controllare la traduzione del modello}
+
+Il primo livello riguarda la corrispondenza tra formulazione economica e
+rappresentazione matriciale.
+
+Devono essere verificati:
+
+\begin{itemize}
+\item l'ordinamento delle variabili nel vettore decisionale;
+
+\item la corretta associazione dei coefficienti della funzione obiettivo;
+
+\item la presenza di un'unica decisione iniziale \(x\) nel problema
+stocastico;
+
+\item la corretta collocazione delle variabili \(u_s\) e \(g_s\) nei vincoli
+dello scenario corrispondente;
+
+\item la coerenza dei bound con i limiti assegnati nella Scheda Caso.
+\end{itemize}
+
+Un errore in uno di questi elementi pu\`o produrre un problema perfettamente
+risolvibile dal solver ma economicamente diverso da quello assegnato.
+
+Per questo motivo,
+
+\[
+\texttt{result.success=True}
+\]
+
+\noindent rappresenta soltanto un controllo sul problema numerico fornito al
+solver, non sulla correttezza della sua costruzione.
+
+\subsection{Controllare la fattibilit\`a}
+
+Una volta ottenuta la soluzione, i vincoli devono essere ricostruiti
+utilizzando i valori ottimi.
+
+Per ciascuno scenario \(s\), il bilancio
+
+\[
+\sum_{j=1}^{4}\alpha_{js}x_j
++
+u_s
+=
+d_s+g_s
+\]
+
+\noindent deve essere soddisfatto, insieme ai vincoli
+
+\[
+x_j\geq 0,
+\qquad
+u_s\geq 0,
+\qquad
+g_s\geq 0,
+\]
+
+\[
+x_3\leq 70,
+\qquad
+x_4\leq 70.
+\]
+
+La stessa verifica deve essere effettuata per i benchmark costruiti
+successivamente.
+
+Nel problema EV, in particolare, la decisione \(x^{EV}\) deve rimanere
+fissata. La rivalutazione riguarda soltanto le variabili di ricorso. Se la
+decisione iniziale venisse nuovamente ottimizzata, il problema non
+rappresenterebbe pi\`u la valutazione della politica Expected Value.
+
+Nel benchmark WS, avviene invece l'opposto: la decisione iniziale pu\`o essere
+ottimizzata separatamente in ciascuno scenario, poich\'e l'informazione viene
+supposta disponibile prima della scelta.
+
+La distinzione tra questi casi non riguarda quindi una semplice opzione
+computazionale, ma la struttura informativa del problema.
+
+\subsection{Controllare i valori economici}
+
+Un ulteriore controllo riguarda la costruzione della funzione obiettivo.
+
+Nel Caso Aula, il costo di funding nello scenario \(s\) \`e
+
+\[
+\kappa_su_s,
+\]
+
+\noindent mentre il suo contributo al costo atteso \`e
+
+\[
+p_s\kappa_su_s.
+\]
+
+Le due quantit\`a non devono essere confuse.
+
+Analogamente, il valore ottimo del problema Expected Value non coincide con
+\(z^{EV}\). Il primo \`e ottenuto nel problema deterministico costruito con
+parametri medi; il secondo misura il valore della decisione \(x^{EV}\) quando
+viene riportata negli scenari originari.
+
+Quando i tre benchmark sono correttamente definiti e fattibili, deve inoltre
+valere
+
+\[
+z^{EV}
+\leq
+z^{SP}
+\leq
+z^{WS}.
+\]
+
+Nel Caso Aula,
+
+\[
+3.35
+\leq
+3.4375
+\leq
+4.510625.
+\]
+
+La relazione fornisce un controllo sintetico della coerenza complessiva del
+confronto, ma deve essere utilizzata dopo avere verificato separatamente le
+soluzioni da cui i tre valori derivano.
+
+\subsection{Interpretare la soluzione}
+
+La soluzione stocastica produce
+
+\[
+x^{SP}
+=
+(0,30,70,0)^{\prime},
+\]
+
+\noindent mentre il problema Expected Value conduce a
+
+\[
+x^{EV}
+=
+(0,0,30,70)^{\prime}.
+\]
+
+La seconda allocazione offre un rendimento lordo pi\`u elevato, ma concentra
+una quota maggiore nelle attivit\`a meno liquide. Quando la stessa decisione
+viene rivalutata nello scenario di run, il ricorso al funding aumenta
+fortemente.
+
+La soluzione stocastica rinuncia quindi a parte del rendimento potenziale per
+ridurre l'esposizione al costo di ricorso negli scenari avversi.
+
+Il valore
+
+\[
+VSS=0.0875
+\]
+
+\noindent pu\`o apparire modesto se osservato isolatamente. Tuttavia, il
+confronto tra le allocazioni mostra che una piccola differenza nella funzione
+obiettivo attesa pu\`o accompagnarsi a una differenza rilevante nella
+struttura finanziaria della politica adottata.
+
+Il \(VSS\) misura infatti una differenza di valore atteso, non una distanza
+tra portafogli n\'e una misura diretta della vulnerabilit\`a di liquidit\`a.
+
+Il valore
+
+\[
+EVPI=1.073125
+\]
+
+\noindent risulta invece molto pi\`u elevato. L'informazione perfetta
+permetterebbe di scegliere un'allocazione diversa prima di ciascuno scenario e
+di evitare il compromesso imposto dalla decisione ex ante.
+
+Questo benchmark non rappresenta una strategia realisticamente disponibile,
+ma quantifica il costo economico dell'incertezza residua al momento della
+decisione.
+
+
+\subsection{Controllo numerico e responsabilit\`a interpretativa}
+
+Quando il notebook viene sviluppato con il supporto dell'intelligenza
+artificiale, i risultati proposti devono essere verificati rispetto alla
+Scheda Caso, al modello e agli output effettivamente prodotti.
+
+Il criterio operativo rimane
+
+\[
+\text{output}
+\longrightarrow
+\text{controllo}
+\longrightarrow
+\text{interpretazione}.
+\]
+
+L'IA pu\`o assistere la verifica e suggerire possibili letture economiche, ma
+non sostituisce il controllo della coerenza tra specificazione, codice e
+risultati.
+
+Nel Caso Aula, il punto centrale \`e che l'incertezza modifica la composizione
+ottima dell'attivo: considerare esplicitamente gli scenari conduce a una
+politica meno esposta al fabbisogno di funding nelle condizioni pi\`u
+avverse.
+
+
+\section{Caso TakeHome: UK LDI 2022 --- buffer, margin call e fattibilit\`a del ricorso}
+
+Il Caso TakeHome trasferisce la struttura della programmazione stocastica a
+due stadi a un problema ispirato alla crisi dei fondi Liability-Driven
+Investment nel Regno Unito nel 2022.
+
+La decisione iniziale riguarda la ripartizione di risorse pari a
+
+\[
+A_0=100
+\]
+
+\noindent tra un buffer di liquidit\`a \(x_1\) e un'esposizione LDI \(x_2\):
+
+\[
+x_1+x_2=100,
+\qquad
+x_1\geq 0,
+\qquad
+x_2\geq 50.
+\]
+
+I rendimenti assegnati sono rispettivamente
+
+\[
+0.010
+\qquad\text{e}\qquad
+0.050.
+\]
+
+Dopo la decisione iniziale, si realizza uno tra tre scenari
+
+\[
+\mathcal{S}
+=
+\{N,S,E\},
+\]
+
+\noindent con probabilit\`a
+
+\[
+p_N=0.50,
+\qquad
+p_S=0.30,
+\qquad
+p_E=0.20.
+\]
+
+Il margin call nello scenario \(s\) dipende dall'esposizione LDI:
+
+\[
+m_s
+=
+\alpha_s x_2,
+\]
+
+\noindent con
+
+\[
+\alpha_N=0.10,
+\qquad
+\alpha_S=0.25,
+\qquad
+\alpha_E=0.40.
+\]
+
+Dopo l'osservazione dello scenario, il fabbisogno pu\`o essere fronteggiato
+mediante liquidit\`a esterna \(e_s\) e liquidazione della posizione LDI
+\(f_s\). La liquidazione non produce necessariamente liquidit\`a per l'intero
+ammontare ceduto: nello scenario \(s\), il coefficiente di realizzo \`e
+\(\beta_s\).
+
+Il bilancio di liquidit\`a \`e
+
+\[
+x_1
++
+e_s
++
+\beta_s f_s
+=
+\alpha_s x_2
++
+g_s,
+\]
+
+\noindent dove \(g_s\geq 0\) rappresenta l'eventuale liquidit\`a residua.
+
+Le decisioni di ricorso sono inoltre soggette ai limiti
+
+\[
+0\leq e_s\leq 4,
+\]
+
+\[
+0\leq f_s\leq 25,
+\]
+
+\[
+f_s\leq x_2.
+\]
+
+Il costo di ricorso \`e
+
+\[
+\kappa_s e_s
++
+\lambda_s f_s.
+\]
+
+Rispetto al Caso Aula, emerge quindi una differenza essenziale. Nel problema
+SVB, il funding di emergenza non presenta un limite superiore e garantisce
+ricorso fattibile per ogni allocazione iniziale ammissibile. Nel Caso
+TakeHome, invece, sia la liquidit\`a esterna sia il deleveraging sono
+limitati.
+
+La fattibilit\`a della decisione iniziale deve pertanto essere verificata
+scenario per scenario.
+
+Questo punto diventa particolarmente importante nel confronto con la politica
+Expected Value. Il problema costruito con i parametri medi pu\`o produrre una
+decisione perfettamente ammissibile nel modello medio ma non rivalutabile in
+uno degli scenari originari.
+
+Con i parametri assegnati nella Scheda Caso, la soluzione del problema medio
+\`e
+
+\[
+x^{EV}
+=
+(0,100)^{\prime}.
+\]
+
+Nello scenario estremo \(E\), il margin call richiesto \`e
+
+\[
+m_E
+=
+0.40\cdot 100
+=
+40.
+\]
+
+La liquidit\`a massima ottenibile mediante il ricorso disponibile \`e invece
+
+\[
+4
++
+0.75\cdot 25
+=
+22.75.
+\]
+
+Poich\'e
+
+\[
+22.75<40,
+\]
+
+\noindent la decisione \(x^{EV}\) non ammette un ricorso fattibile nello
+scenario estremo.
+
+Il risultato non deve essere corretto introducendo autonomamente nuove
+variabili o nuove fonti di liquidit\`a. La Scheda Caso definisce infatti la
+specifica del problema e i limiti di ricorso ne fanno parte.
+
+Il controllo di fattibilit\`a precede quindi il calcolo di qualunque indicatore
+di confronto. Se la decisione Expected Value non pu\`o essere rivalutata negli
+scenari originari, il benchmark EV non \`e disponibile come valore finito
+nella forma utilizzata nel Caso Aula.
+
+Il Caso TakeHome mostra cos\`i che
+
+\[
+\text{soluzione del problema medio}
+\not\Rightarrow
+\text{fattibilit\`a negli scenari originari}.
+\]
+
+Questa criticit\`a rende operativa una distinzione gi\`a introdotta nei
+Capitoli 14 e 15: la presenza o meno di ricorso relativamente completo.
+
+Il problema TakeHome non costituisce quindi una semplice replica del Caso
+Aula con parametri differenti. La limitazione delle azioni di ricorso modifica
+la struttura della verifica e rende la fattibilit\`a stessa parte essenziale
+dell'analisi.
+
+\section{Sintesi del capitolo}
+
+Il capitolo ha tradotto la programmazione stocastica a due stadi in una
+procedura computazionale basata su \texttt{scipy.optimize.linprog}.
+
+La sequenza fondamentale \`e
+
+\[
+\text{decisione ex ante}
+\longrightarrow
+\text{scenario}
+\longrightarrow
+\text{ricorso}
+\longrightarrow
+\text{valore della politica}.
+\]
+
+La soluzione stocastica utilizza congiuntamente tutti gli scenari; il problema
+Expected Value sostituisce l'incertezza con parametri medi; la rivalutazione
+EV riporta la decisione ottenuta negli scenari originari; il benchmark
+Wait-and-See misura invece il valore di una situazione nella quale lo scenario
+sia noto prima della decisione.
+
+Quando i benchmark sono ben definiti e fattibili, il confronto tra
+
+\[
+z^{EV},
+\qquad
+z^{SP},
+\qquad
+z^{WS}
+\]
+
+\noindent permette di costruire \(VSS\) ed \(EVPI\) e di valutare il costo
+economico di differenti strutture informative.
+
+I due casi hanno inoltre mostrato che il controllo non costituisce una fase
+accessoria della soluzione. Deve essere verificato che la decisione iniziale
+sia trattata coerentemente, che il ricorso rispetti i limiti assegnati e che
+ogni benchmark rimanga fattibile nel problema nel quale viene valutato.
+
+Il passaggio conclusivo pu\`o quindi essere rappresentato come
+
+\begin{gather*}
+\text{modello}\\
+\downarrow\\
+\text{problema computazionale}\\
+\downarrow\\
+\text{soluzione}\\
+\downarrow\\
+\text{controllo}\\
+\downarrow\\
+\text{interpretazione}.
+  \end{gather*}
+
+Python rende operativo il modello; il solver produce una soluzione numerica;
+la verifica stabilisce se quella soluzione possa essere utilizzata come base
+per una decisione finanziaria.

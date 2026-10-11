@@ -505,7 +505,7 @@ Il Capitolo 15 confronta tre modi diversi di utilizzare l'informazione.
 \item[\textbf{SP}]
 si sceglie oggi utilizzando l'intera distribuzione degli scenari.
 
-\item[\textbf{EV/EEV}]
+\item[\textbf{EV}]
 si risolve prima il problema costruito sui valori medi; la decisione
 \(x^{EV}\) viene poi fissata e rivalutata negli scenari originari.
 
@@ -520,7 +520,7 @@ Per un problema di massimizzazione, quando le politiche confrontate sono
 ammissibili,
 \vspace{-0.0cm}
 \[
-z^{EEV}
+z^{EV}
 \le
 z^{SP}
 \le
@@ -532,7 +532,7 @@ z^{WS}.
 Le due misure principali sono
 \vspace{-0.0cm}
 \[
-VSS=z^{SP}-z^{EEV},
+VSS=z^{SP}-z^{EV},
 \qquad
 EVPI=z^{WS}-z^{SP}.
 \]
@@ -540,7 +540,7 @@ EVPI=z^{WS}-z^{SP}.
 %\vspace{0.3cm}
 
 \textbf{Attenzione:} il valore ottimo del problema costruito sui parametri
-medi non \`e \(z^{EEV}\). Per ottenere \(z^{EEV}\), \(x^{EV}\) deve essere
+medi non \`e \(z^{EV}\). Per ottenere \(z^{EV}\), \(x^{EV}\) deve essere
 rivalutata nella distribuzione originaria degli scenari.
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
@@ -887,7 +887,7 @@ osservato, mantenendo invariata la decisione iniziale \(x\).
 \end{frame}%
 %EndExpansion
 
-```latex
+
 %******************
 % Slide 13
 %******************
@@ -906,46 +906,37 @@ osservato, mantenendo invariata la decisione iniziale \(x\).
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Il rendimento iniziale del portafoglio \`e
+Il rendimento iniziale del portafoglio \`e $
+\sum_{j=1}^{4}c_jx_j$.
 
-\[
-\sum_{j=1}^{4}c_jx_j.
-\]
-
-\vspace{0.3cm}
+%\vspace{0.3cm}
 
 Il funding di emergenza nello scenario \(s\) ha costo unitario
-\(\kappa_s\), quindi il costo scenario-specifico \`e
+\(\kappa_s\), quindi il costo scenario-specifico \`e $\kappa_su_s$.
 
-\[
-\kappa_su_s.
-\]
-
-\vspace{0.3cm}
+%\vspace{0.3cm}
 
 Il programma stocastico massimizza
-
+\vspace{-0.0cm}
 \[
-\boxed{
 \sum_{j=1}^{4}c_jx_j
 -
-\sum_{s\in\mathcal S}p_s\kappa_su_s
-}
+\sum_{s\in\mathcal S}p_s\kappa_su_s\text{,}
 \]
 
 soggetto ai vincoli di allocazione e ai bilanci di liquidit\`a.
 
-\vspace{0.4cm}
+%\vspace{0.4cm}
 
 La funzione obiettivo separa due componenti:
-
+\vspace{-0.0cm}
 \[
 \underbrace{\sum_j c_jx_j}_{\text{rendimento iniziale}}
 -
 \underbrace{\sum_s p_s\kappa_su_s}_{\text{costo atteso del funding}}.
 \]
 
-\vspace{0.3cm}
+%\vspace{0.3cm}
 
 \textbf{Interpretazione:} il modello ricerca rendimento, ma attribuisce un
 costo economico alla dipendenza dal funding di emergenza negli scenari pi\`u
@@ -959,9 +950,620 @@ critici.
 %BeginExpansion
 \end{frame}%
 %EndExpansion
-```
 
 
+\section{Caso Aula: risultati}
+
+%******************
+% Slide 14
+%******************
+
+\subsection{Dalla formulazione al solver}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Dal modello SP alla forma per il solver}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Per il problema stocastico, il vettore decisionale completo \`e
+\vspace{-0.0cm}
+\[
+z=
+(x_1,x_2,x_3,x_4,
+u_N,u_P,u_R,
+g_N,g_P,g_R)'.
+\]
+
+
+
+La formulazione contiene:
+
+\begin{stepitemize}
+
+\item un vincolo di allocazione iniziale;
+
+\item tre bilanci di liquidit\`a, uno per scenario;
+
+\item i limiti \(x_3\le70\) e \(x_4\le70\);
+
+\item la non negativit\`a delle variabili.
+
+\end{stepitemize}
+
+\vspace{0.3cm}
+
+Nell'obiettivo, \texttt{linprog} riceve:
+\vspace{-0.0cm}
+\[
+-c_j
+\]
+\vspace{-0.0cm}
+per le variabili \(x_j\) e
+\vspace{-0.0cm}
+\[
+p_s\kappa_s
+\]
+\vspace{-0.0cm}
+per le variabili di funding \(u_s\).
+
+\vspace{0.3cm}
+
+\textbf{Controllo:} la struttura numerica deve restare riconoscibile come
+traduzione del modello economico-finanziario.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%******************
+% Slide 15
+%******************
+
+\subsection{La soluzione stocastica}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{La soluzione SP: quale allocazione sceglie il modello?}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+La soluzione ottima del problema stocastico \`e
+\vspace{-0.0cm}
+\[
+x^{SP}
+=
+(0,30,70,0).
+\]
+
+%\vspace{0.4cm}
+
+Il rendimento lordo dell'allocazione \`e
+\vspace{-0.0cm}
+\[
+c'x^{SP}
+=
+0.025(30)+0.040(70)
+=
+3.55.
+\]
+
+%\vspace{0.3cm}
+
+Il costo atteso del funding di emergenza \`e
+\vspace{-0.0cm}
+\[
+0.1125.
+\]
+
+Pertanto,
+\vspace{-0.0cm}
+\[
+z^{SP}
+=
+3.55-0.1125
+=
+3.4375.
+\]
+
+%\vspace{0.4cm}
+
+\textbf{Interpretazione:} il modello concentra l'allocazione nei titoli a
+breve e a lunga scadenza, rinunciando sia alla cassa sia agli impieghi meno
+liquidi.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%******************
+% Slide 16
+%******************
+
+\subsection{Il ricorso sotto SP}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Come reagisce la soluzione SP nei tre scenari?}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Con \(x^{SP}=(0,30,70,0)\), la liquidit\`a disponibile e il ricorso sono:
+\vspace{-0.0cm}
+\[
+\begin{array}{c|c|c|c}
+s & L_s(x^{SP}) & u_s & g_s \\ \hline
+N & 88.9 & 0 & 73.9 \\
+P & 77.5 & 0 & 42.5 \\
+R & 62.0 & 3.0 & 0
+\end{array}
+\]
+
+\vspace{0.1cm}
+
+Solo nello scenario severo \(R\) il portafoglio non genera liquidit\`a
+sufficiente:
+\vspace{-0.0cm}
+\[
+62+3=65.
+\]
+
+%\vspace{0.3cm}
+
+Il costo effettivo del funding nello scenario \(R\) \`e
+\vspace{-0.0cm}
+\[
+\kappa_Ru_R
+=
+0.25(3)
+=
+0.75.
+\]
+
+Il suo contributo al costo atteso \`e invece
+\vspace{-0.0cm}
+\[
+p_R\kappa_Ru_R
+=
+0.15(0.75)
+=
+0.1125.
+\]
+
+\vspace{0.2cm}
+
+\textbf{Attenzione:} costo di scenario e contributo al costo atteso sono due
+quantit\`a diverse.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%******************
+% Slide 17
+%******************
+
+\subsection{Expected Value ed EEV}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{La soluzione media non \`e ancora l'EEV}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Sostituendo i parametri scenario-specifici con i loro valori medi, si ottiene
+il problema Expected Value. La sua soluzione \`e
+\vspace{-0.0cm}
+\[
+x^{EV}
+=
+(0,0,30,70).
+\]
+
+Il valore ottimo del problema medio \`e $4.7$.
+
+%\vspace{0.3cm}
+
+Ma
+\vspace{-0.0cm}
+\[
+\boxed{
+4.7\neq z^{EV}
+}
+\]
+
+perch\'e \(x^{EV}\) deve essere fissata e rivalutata negli scenari originari.
+
+%\vspace{0.4cm}
+
+Nello scenario severo \(R\), la decisione \(x^{EV}\) richiede
+\vspace{-0.0cm}
+\[
+u_R=36,
+\]
+
+e la rivalutazione complessiva produce
+\vspace{-0.0cm}
+\[
+z^{EV}=3.35.
+\]
+
+%\vspace{0.3cm}
+
+\textbf{Messaggio chiave:} risolvere il problema medio e rivalutare la sua
+politica sotto l'incertezza originaria sono due operazioni diverse.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%******************
+% Slide 18
+%******************
+
+\subsection{Il valore della soluzione stocastica}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{VSS piccolo, politiche molto diverse}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Il valore della soluzione stocastica \`e
+\vspace{-0.0cm}
+\[
+VSS
+=
+z^{SP}-z^{EV}
+=
+3.4375-3.35
+=
+0.0875.
+\]
+
+%\vspace{0.4cm}
+
+La differenza nei valori obiettivo \`e contenuta.
+
+Ma nello scenario severo:
+
+\[
+u_R^{SP}=3,
+\qquad
+u_R^{EEV}=36.
+\]
+
+%\vspace{0.4cm}
+
+Le due politiche sono quindi molto diverse sotto stress:
+
+\[
+\begin{array}{c|c|c}
+ & SP & EEV \\ \hline
+\text{funding nello scenario }R & 3 & 36
+\end{array}
+\]
+
+\vspace{0.4cm}
+
+\textbf{Interpretazione:} un VSS numericamente piccolo non implica che le
+politiche siano simili n\'e che abbiano la stessa esposizione agli scenari
+avversi.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%******************
+% Slide 19
+%******************
+
+\subsection{Wait-and-See ed EVPI}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Quanto varrebbe conoscere lo scenario in anticipo?}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Nel benchmark Wait-and-See, si ottimizza separatamente dopo avere assunto noto
+in anticipo lo scenario. Il valore atteso del benchmark \`e
+\vspace{-0.0cm}
+\[
+z^{WS}=4.510625.
+\]
+
+%\vspace{0.4cm}
+
+Il valore atteso dell'informazione perfetta \`e quindi
+\vspace{-0.0cm}
+\[
+EVPI
+=
+z^{WS}-z^{SP}
+=
+4.510625-3.4375
+=
+1.073125.
+\]
+
+%\vspace{0.4cm}
+
+I tre benchmark rispettano l'ordinamento teorico:
+\vspace{-0.0cm}
+\[
+\boxed{
+3.35
+\le
+3.4375
+\le
+4.510625,
+}
+\]
+
+ossia
+
+\[
+z^{EV}
+\le
+z^{SP}
+\le
+z^{WS}.
+\]
+
+\vspace{0.3cm}
+
+\textbf{Interpretazione:} \(VSS\) misura il valore di modellizzare
+correttamente l'incertezza; \(EVPI\) misura il valore massimo
+dell'informazione perfetta anticipata.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+\section{Caso TakeHome}
+
+%******************
+% Slide 20
+%******************
+
+\subsection{UK LDI 2022: struttura del problema}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{UK LDI 2022: stesso metodo, nuovo problema}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Un fondo deve scegliere ex ante come ripartire 100 unit\`a tra
+\vspace{-0.0cm}
+\[
+x_1
+=
+\text{buffer di liquidit\`a},
+\qquad
+x_2
+=
+\text{esposizione LDI},
+\]
+
+con
+\vspace{-0.0cm}
+\[
+x_1+x_2=100,
+\qquad
+x_2\ge50.
+\]
+
+%\vspace{0.3cm}
+
+Dopo la realizzazione dello scenario \(s\), l'esposizione LDI genera un
+margin call pari a
+\vspace{-0.0cm}
+\[
+\alpha_s x_2.
+\]
+
+Il fondo pu\`o reagire utilizzando
+\vspace{-0.0cm}
+\[
+e_s
+=
+\text{liquidit\`a esterna},
+\qquad
+f_s
+=
+\text{deleveraging},
+\qquad
+g_s
+=
+\text{liquidit\`a residua}.
+\]
+
+%\vspace{0.3cm}
+
+Il bilancio di liquidit\`a \`e
+\vspace{-0.0cm}
+\[
+x_1+e_s+\beta_s f_s
+=
+\alpha_s x_2+g_s.
+\]
+
+\vspace{0.3cm}
+
+\textbf{Elemento nuovo:} il ricorso non \`e illimitato. Liquidit\`a esterna e
+deleveraging sono soggetti a vincoli di capacit\`a.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%******************
+% Slide 21
+%******************
+
+\subsection{Il controllo decisivo}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Prima il controllo di fattibilit\`a, poi i benchmark}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Nel Caso Aula, il confronto
+\vspace{-0.0cm}
+\[
+EEV
+\quad\longrightarrow\quad
+SP
+\quad\longrightarrow\quad
+WS
+\]
+
+ha prodotto tre valori finiti e confrontabili.
+
+%\vspace{0.3cm}
+
+Nel TakeHome, occorre invece verificare prima una condizione pi\`u fondamentale:
+
+\begin{center}
+\textbf{la politica ottenuta dal problema medio ammette un ricorso
+fattibile in ogni scenario originario?}
+\end{center}
+
+%\vspace{0.4cm}
+
+Il controllo richiede di verificare, per ogni scenario \(s\),
+\vspace{-0.0cm}
+\[
+x_1+e_s+\beta_s f_s
+=
+\alpha_sx_2+g_s
+\]
+\vspace{-0.25cm}
+\[
+0\le e_s\le4,
+\qquad
+0\le f_s\le25,
+\qquad
+f_s\le x_2,
+\qquad
+g_s\ge0.
+\]
+
+%\vspace{0.4cm}
+
+\[
+\boxed{
+\text{prima si verifica la fattibilit\`a,
+poi si interpreta il benchmark}
+}
+\]
+
+%\vspace{0.3cm}
+
+Se una politica non ammette ricorso in uno scenario, non \`e corretto
+forzare un valore finito di EEV o VSS modificando implicitamente il modello.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
 
 
 
