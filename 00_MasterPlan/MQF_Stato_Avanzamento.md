@@ -31,16 +31,16 @@ La classificazione `sviluppato` non equivale a `chiuso`: in questa fase gran par
 | 4 | C | Python: probabilit\`a e condizionamento | sviluppato | sviluppato | sviluppato | sviluppato | sviluppato |
 | 5 | P | Processi stocastici in tempo discreto | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
 | 6 | P | Processi stocastici in tempo continuo | sviluppato | sviluppato | parziale | sviluppato | n.a. |
-| 7 | C | Traiettorie, simulazione e pricing | sviluppato | sviluppato | sviluppato | parziale | sviluppato |
+| 7 | C | Traiettorie, simulazione e pricing | sviluppato | sviluppato | sviluppato | sviluppato | sviluppato |
 | 8 | P | Catene di Markov | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
 | 9 | P | Markov e misure di rischio | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
-| 10 | C | Python: rischio di credito | sviluppato | sviluppato | sviluppato | parziale | sviluppato |
+| 10 | C | Python: rischio di credito | sviluppato | sviluppato | sviluppato | sviluppato | sviluppato |
 | 11 | P | Programmazione lineare | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
 | 12 | P | Dualit\`a e ALM deterministico | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
-| 13 | C | Python: programmazione lineare e ALM deterministico | sviluppato | sviluppato | sviluppato | parziale | sviluppato |
+| 13 | C | Python: programmazione lineare e ALM deterministico | sviluppato | sviluppato | sviluppato | sviluppato | sviluppato |
 | 14 | P | Programmazione stocastica a due stadi | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
 | 15 | P | Programmazione stocastica multistadio | sviluppato | sviluppato | sviluppato | parziale | n.a. |
-| 16 | C | Python: programmazione stocastica | sviluppato | sviluppato | sviluppato | parziale | sviluppato |
+| 16 | C | Python: programmazione stocastica | sviluppato | sviluppato | sviluppato | sviluppato | sviluppato |
 
 ---
 
@@ -59,6 +59,7 @@ La ricognizione del repository mostra un passaggio di fase rispetto allo snapsho
 - La Lezione 15 dispone di capitolo e slides sviluppati e di un insieme articolato di script su fattibilit\`a del ricorso, SP/EV/WS, funzione di ricorso, alberi multistadio e non anticipativit\`a.
 - La Lezione 16 dispone di capitolo e slides sviluppati, nonch\'e del pacchetto applicativo con Caso Aula e TakeHome, notebook, tracciati e valutazioni.
 - La Lezione 4, gi\`a sviluppata sul piano operativo, dispone ora anche di un deck autonomo e continua a costituire il riferimento metodologico per le lezioni applicative successive.
+- Per le Lezioni applicative 4, 7, 10, 13 e 16 \`e stata verificata integralmente la presenza di figure nei rispettivi sorgenti LaTeX di capitolo e slides. Nei cinque capitoli non risultano comandi `\includegraphics`; nei cinque deck l'unica immagine stabilmente inclusa \`e il logo UniBS della copertina. I grafici prodotti in esecuzione dai notebook costituiscono output computazionali e non determinano quindi lo stato della colonna `Grafici` del registro. Per tutte e cinque le lezioni applicative la componente `Grafici` \`e classificata `sviluppato`.
 
 ### Variazioni principali rispetto al 2026-09-15
 
@@ -66,6 +67,7 @@ La ricognizione del repository mostra un passaggio di fase rispetto allo snapsho
 - I Capitoli 7, 10, 13 e 16 passano da `traccia` a `sviluppato`.
 - Il Capitolo 15 passa da `parziale` a `sviluppato`.
 - Le componenti Python/materiali operativi delle Lezioni 7, 10, 13 e 16 passano a `sviluppato`, sulla base della presenza di pacchetti strutturati e sostanziali.
+- La componente `Grafici` delle Lezioni applicative 4, 7, 10, 13 e 16 \`e classificata `sviluppato`: capitoli e slides non prevedono figure didattiche esterne stabilmente incorporate, oltre al logo istituzionale delle copertine, mentre gli output grafici dei notebook sono parte della componente computazionale.
 - La fase progettuale dominante diventa la verifica conclusiva di coerenza, compilabilit\`a, riproducibilit\`a e qualit\`a didattica.
 
 ### Verifiche non svolte in questa sessione
@@ -89,7 +91,6 @@ Di conseguenza, `sviluppato` indica presenza di contenuto sostanziale e non cert
 - Chiudere il residuo della Lezione 6 sugli esercizi/materiali, gi\`a classificato `parziale` nelle verifiche precedenti.
 - Eseguire una compilazione finale ordinaria del manuale e dei deck per intercettare overfull, riferimenti irrisolti, figure mancanti e incoerenze tra nomi file e magic comment.
 - Rieseguire i notebook delle Lezioni 4, 7, 10, 13 e 16 in ambiente pulito, verificando assenza di errori, riproducibilit\`a degli output, seed, controlli e dipendenze.
-- Verificare che i grafici prodotti dinamicamente nelle lezioni applicative siano archiviati e documentati secondo la convenzione del progetto; per le Lezioni 7, 10, 13 e 16 la componente grafica resta `parziale` finch\'e tale controllo non \`e concluso.
 - Verificare le figure e gli asset della Lezione 15; la componente grafica resta `parziale` fino a controllo conclusivo.
 - Riallineare nelle Guidelines i riferimenti storici a nomi file o strutture superate, in particolare gli esempi che richiamano ancora la Goal Programming per la Lezione 12.
 - Riesaminare puntualmente i template IA rispetto alle Istruzioni Studente correnti, verificando coerenza dei regimi A/B/C, del formato dei tracciati e dei materiali di valutazione.
@@ -102,4 +103,4 @@ Di conseguenza, `sviluppato` indica presenza di contenuto sostanziale e non cert
 - **2026-07-16/17** — sviluppate e verificate le Lezioni 8 e 6; per la Lezione 6 restano tarature locali e il completamento dei materiali esercitativi.
 - **2026-08-23** — sviluppati Capitolo e slides della Lezione 9; sviluppato il blocco teorico delle Lezioni 11-12; verificati i primi materiali applicativi delle Lezioni 7 e 10; avviato il riallineamento dei template IA.
 - **2026-09-15** — sviluppata la Lezione 14 sul modello stocastico a due stadi e avviato in forma avanzata il Capitolo 15.
-- **2026-10-12** — ricognizione generale del repository: copertura sostanziale completa di manuale e slides; pacchetti applicativi strutturati per tutte le lezioni computazionali; passaggio alla fase di verifica conclusiva e chiusura.
+- **2026-10-12** — ricognizione generale del repository: copertura sostanziale completa di manuale e slides; pacchetti applicativi strutturati per tutte le lezioni computazionali; passaggio alla fase di verifica conclusiva e chiusura. Verificata inoltre la componente grafica delle Lezioni applicative 4, 7, 10, 13 e 16, tutte classificate `sviluppato`.
