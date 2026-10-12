@@ -6,281 +6,100 @@ Questo file è l'unica fonte per lo stato corrente del progetto. Registra ciò c
 
 Il Master Plan definisce l'architettura didattica e i contenuti previsti. Le Guidelines definiscono le regole stabili. Il Registro decisionale conserva le decisioni progettuali e le relative motivazioni.
 
-## Snapshot al 2026-09-15
+## Snapshot al 2026-10-12
 
 |  |  |
 |---|---|
-| **Ultima attività completata** | Sviluppo del Capitolo 14 sulla programmazione stocastica a due stadi, con esercizi, quattro figure e script sorgenti; avvio strutturato del Capitolo 15 sul passaggio al multistadio. |
-| **Materiale sviluppato** | Capitoli 1-6, 8-9, 11-12 e 14 del manuale; Capitolo 15 in sviluppo avanzato; slides delle Lezioni 1, 2, 3, 5, 6, 8, 9, 11 e 12; pacchetto applicativo della Lezione 4; schede e notebook parziali della Lezione 7; schede caso della Lezione 10; grafici collegati ai Capitoli 1-6, 8-9, 11-12, 14 e in parte 15. |
-| **Lavoro in corso** | Completamento del Capitolo 15 nelle parti su SP/EV/WS, EVPI e VSS; predisposizione delle slides delle Lezioni 14-15; completamento dei pacchetti applicativi delle Lezioni 7, 10 e 13; riallineamento puntuale dei template IA. |
-| **Prossima priorità** | Completare il Capitolo 15 e i relativi esercizi sui confronti SP/EV/WS, EVPI e VSS; archiviare poi il solver riproducibile necessario al pacchetto applicativo della Lezione 13. |
+| **Ultima attività completata** | Estensione del progetto alla copertura sostanziale completa delle 16 lezioni: sono presenti i 16 capitoli del manuale e i 16 deck di slides. Le lezioni applicative 7, 10, 13 e 16 dispongono ora di capitolo, slides, Schede Caso Aula/TakeHome, schede di costruzione e notebook; per la Lezione 10 sono presenti anche i tracciati, mentre per le Lezioni 13 e 16 sono presenti tracciati e materiali di valutazione. |
+| **Materiale sviluppato** | Manuale: contenuto sostanziale per i Capitoli 1-16. Slides: contenuto sostanziale per le Lezioni 1-16. Pacchetti applicativi strutturati per le Lezioni 4, 7, 10, 13 e 16. Codice e script di supporto presenti lungo l'intero corso, inclusi i blocchi sulla programmazione stocastica delle Lezioni 14-15. |
+| **Lavoro in corso** | Verifica conclusiva di coerenza tra capitoli, slides, Master Plan, Notazione e materiali applicativi; taratura tipografica e controllo delle figure; verifica finale dei notebook e dei tracciati IA; eliminazione dei riferimenti storici non pi\`u allineati nelle Guidelines e nei template; chiusura dei residui gi\`a noti della Lezione 6. |
+| **Prossima priorit\`a** | Eseguire il controllo finale integrato del corso: compilazione completa del manuale e dei 16 deck, esecuzione/validazione dei notebook delle lezioni applicative, verifica puntuale degli asset grafici, dei riferimenti incrociati e delle scalette-promemoria previste dal Master Plan. |
 
 ---
 
 ## Stato per lezione
 
-Legenda: `sviluppato` = contenuto sostanziale presente; `parziale` = componente presente ma incompleta; `traccia` = solo struttura iniziale; `-` = non iniziato; `n.a.` = non applicabile.
+Legenda: `sviluppato` = contenuto sostanziale presente; `parziale` = componente presente ma incompleta o non ancora validata in modo conclusivo; `traccia` = solo struttura iniziale; `-` = non iniziato; `n.a.` = non applicabile.
+
+La classificazione `sviluppato` non equivale a `chiuso`: in questa fase gran parte del corso \`e sviluppata con taratura o verifica conclusiva residua.
 
 | Lez. | Tipo | Titolo sintetico | Manuale | Slides | Esercizi/materiali operativi | Grafici | Python/Notebook |
 |---:|:---:|---|:---:|:---:|:---:|:---:|:---:|
-| 1 | P | Elementi di probabilità | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
+| 1 | P | Elementi di probabilit\`a | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
 | 2 | P | Variabili casuali | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
 | 3 | P | Valori attesi condizionati | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
-| 4 | C | Python: probabilità e condizionamento | sviluppato | - | sviluppato | sviluppato | sviluppato |
+| 4 | C | Python: probabilit\`a e condizionamento | sviluppato | sviluppato | sviluppato | sviluppato | sviluppato |
 | 5 | P | Processi stocastici in tempo discreto | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
 | 6 | P | Processi stocastici in tempo continuo | sviluppato | sviluppato | parziale | sviluppato | n.a. |
-| 7 | C | Traiettorie, simulazione e pricing | traccia | - | parziale | - | parziale |
+| 7 | C | Traiettorie, simulazione e pricing | sviluppato | sviluppato | sviluppato | parziale | sviluppato |
 | 8 | P | Catene di Markov | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
 | 9 | P | Markov e misure di rischio | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
-| 10 | C | Python: rischio di credito | traccia | - | parziale | - | - |
+| 10 | C | Python: rischio di credito | sviluppato | sviluppato | sviluppato | parziale | sviluppato |
 | 11 | P | Programmazione lineare | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
-| 12 | P | Dualità e ALM deterministico | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
-| 13 | C | Python: programmazione lineare e ALM deterministico | traccia | - | - | - | - |
-| 14 | P | Programmazione stocastica a due stadi | sviluppato | - | sviluppato | sviluppato | n.a. |
-| 15 | P | Programmazione stocastica multistadio | parziale | - | parziale | parziale | n.a. |
-| 16 | C | Python: programmazione stocastica | traccia | - | - | - | - |
+| 12 | P | Dualit\`a e ALM deterministico | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
+| 13 | C | Python: programmazione lineare e ALM deterministico | sviluppato | sviluppato | sviluppato | parziale | sviluppato |
+| 14 | P | Programmazione stocastica a due stadi | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
+| 15 | P | Programmazione stocastica multistadio | sviluppato | sviluppato | sviluppato | parziale | n.a. |
+| 16 | C | Python: programmazione stocastica | sviluppato | sviluppato | sviluppato | parziale | sviluppato |
 
 ---
 
-## Verifica 2026-07-17 - Lezione 6
+## Verifica 2026-10-12 - Ricognizione generale del progetto
 
-Le slides `Slides_Lez_06_Processi_Stocastici_Tempo_Continuo.tex` sono
-sviluppate e compilabili. La struttura copre il passaggio dal tempo discreto al
-moto browniano, le SDE, GBM, processi OU/CIR, shock correlati,
-discretizzazione di Eulero--Maruyama e raccordo con Python. Sono presenti
-figure coerenti con il Capitolo 6, esercizi in aula e una scansione temporale
-interna.
+La ricognizione del repository mostra un passaggio di fase rispetto allo snapshot del 2026-09-15. Il progetto non \`e pi\`u caratterizzato dalla costruzione dei blocchi mancanti, ma dal controllo conclusivo di un impianto didattico ormai sostanzialmente completo.
 
-La compilazione genera il PDF senza errori bloccanti. Restano alcuni warning
-tipografici, in particolare overfull verticali nelle parti finali su
-correlazione e discretizzazione; si tratta di taratura locale delle slides, non
-di predisposizione mancante.
+### Evidenze verificate
 
----
+- In `01_Manuale/Capitoli/` sono presenti i sedici capitoli previsti dal corso. I Capitoli 7, 10, 13, 15 e 16, che nel precedente registro risultavano assenti, in traccia o parziali, contengono ora sviluppo sostanziale coerente con la rispettiva funzione didattica.
+- In `02_Slides/` sono presenti i sedici deck di lezione. In particolare risultano sviluppate anche le slides delle Lezioni 4, 7, 10, 13, 14, 15 e 16, mancanti nel precedente snapshot.
+- La Lezione 7 dispone di capitolo, slides, Schede Caso Aula/TakeHome, schede di costruzione e pi\`u notebook di lavoro.
+- La Lezione 10 dispone di capitolo sul rischio di credito, slides, Schede Caso Aula/TakeHome, schede di costruzione, notebook Aula/TakeHome e tracciati.
+- La Lezione 13 dispone di capitolo sull'implementazione Python dell'ALM deterministico, slides, casi Aula/TakeHome, notebook, tracciati e valutazioni. Il capitolo rende esplicita la traduzione del modello in `scipy.optimize.linprog`.
+- La Lezione 14 dispone ora anche delle slides; restano presenti gli script dedicati alla forma estesa e alla generazione delle figure.
+- La Lezione 15 dispone di capitolo e slides sviluppati e di un insieme articolato di script su fattibilit\`a del ricorso, SP/EV/WS, funzione di ricorso, alberi multistadio e non anticipativit\`a.
+- La Lezione 16 dispone di capitolo e slides sviluppati, nonch\'e del pacchetto applicativo con Caso Aula e TakeHome, notebook, tracciati e valutazioni.
+- La Lezione 4, gi\`a sviluppata sul piano operativo, dispone ora anche di un deck autonomo e continua a costituire il riferimento metodologico per le lezioni applicative successive.
 
-## Aggiornamento 2026-07-16 - Lezione 8
+### Variazioni principali rispetto al 2026-09-15
 
-La Lezione 8 sulle catene di Markov è passata da traccia a sviluppo avanzato.
-Il materiale disponibile comprende il capitolo del manuale, le slides di
-lezione, un insieme di grafici dedicati e lo script sorgente per il grafo del
-mercato elettrico.
+- Le slides passano da copertura parziale a copertura completa delle 16 lezioni.
+- I Capitoli 7, 10, 13 e 16 passano da `traccia` a `sviluppato`.
+- Il Capitolo 15 passa da `parziale` a `sviluppato`.
+- Le componenti Python/materiali operativi delle Lezioni 7, 10, 13 e 16 passano a `sviluppato`, sulla base della presenza di pacchetti strutturati e sostanziali.
+- La fase progettuale dominante diventa la verifica conclusiva di coerenza, compilabilit\`a, riproducibilit\`a e qualit\`a didattica.
 
-### Completato
+### Verifiche non svolte in questa sessione
 
-- Predisposte le slides `Slides_Lez_08_Catene_Markov.tex`, con 32 slides di
-  lezione e 5 slides di back-up. La struttura è stata calibrata per una lezione
-  di 120 minuti, con due esercizi in aula e contenuti tecnici di supporto
-  collocati in back-up.
-- Integrati nelle slides due esercizi collegati agli esercizi proposti del
-  Capitolo 8: dinamica a più passi della catena e catena di rating con default.
-- Prodotti i grafici `Cap08_*`, inclusi il grafo del mercato elettrico, il grafo
-  rating-default, l'evoluzione delle probabilità di stato e il confronto con la
-  distribuzione stazionaria.
-- Archiviato lo script `04_Codice/Lez08/Cap08_grafo_mercato_elettrico.py` per la
-  generazione del grafo del mercato elettrico.
-- Inserita nel Capitolo 8 la figura del grafo del mercato elettrico e corretti
-  il refuso su `proprietà congiunta` e il blocco fuori posto sulla lettura della
-  matrice.
-- Allineato il Master Plan rimuovendo la heatmap della matrice di transizione
-  dai grafici previsti della Lezione 8 e aggiornando il riferimento alla lettura
-  del grafo nella catena di rating.
+Questa ricognizione \`e stata effettuata sul contenuto corrente del repository GitHub.
 
-### Aperture residue
+Non sono stati eseguiti in questa sessione:
 
-- Verificare la coerenza puntuale tra la consegna dell'Esercizio B nelle slides
-  e il testo dell'esercizio proposto 2 nel Capitolo 8.
-- Verificare se nelle Guidelines restano ulteriori riferimenti testuali, oltre
-  alla tabella delle 16 lezioni, da riallineare alla numerazione corrente.
-- Compilare le slides con le figure definitive e verificare larghezze,
-  leggibilità delle matrici, coerenza degli arrotondamenti e tempi degli
-  esercizi.
-- Non prevedere un take-home per la Lezione 8: le estensioni devono restare nel
-  perimetro degli esercizi proposti del capitolo.
+- lo script locale `tools/audit_stato_avanzamento.py`;
+- una compilazione completa del manuale;
+- la compilazione autonoma di tutti i 16 deck;
+- la riesecuzione integrale dei notebook;
+- una verifica visuale sistematica di tutti gli output grafici.
 
----
-
-## Verifica 2026-08-23 - Lezione 9 e template IA
-
-La Lezione 9 su catene di Markov e misure di rischio dispone del capitolo del
-manuale e delle slides sviluppati. I due materiali coprono il passaggio dalle
-transizioni di rating alla distribuzione di perdita, alle misure VaR e CVaR,
-al CDS, alla copertura e al raccordo con la Lezione 10.
-
-### Completato
-
-- Completato `MQF_Cap_09_Markov_Misure_Rischio.tex`, con obiettivi, sezioni
-  teoriche, applicazioni integrate e raccordo con la Lezione 10.
-- Inseriti 3 esercizi svolti e 6 esercizi proposti, con sezioni etichettate
-  `sec:cap09-esercizi-svolti` e `sec:cap09-esercizi-proposti`.
-- Predisposte le slides `Slides_Lez_09_Catene_Markov_e_misure_di_rischio.tex`,
-  con 41 pagine complessive, due esercizi in aula e materiale di back-up.
-- Prodotti e collegati i grafici `Cap09_*` sulla funzione di ripartizione,
-  distribuzioni di perdita, VaR/CVaR, term structure di default, posizione
-  coperta e tranche creditizia.
-- Verificata in data 2026-08-23 la compilazione autonoma delle slides: il PDF viene
-  generato senza errori bloccanti e tutte le figure referenziate sono presenti.
-- Aggiornati `MQF_Istruzioni_Studente_Uso_Virtuoso_IA_Casi_Applicativi.md` e
-  `MQF_Template_Prompt_1.md`: il Prompt 1 è separato in parte variabile
-  Scheda Caso e parte fissa, acquisisce la Scheda Caso come specifica
-  vincolante e produce la cella Markdown iniziale del notebook.
-
-### Aperture residue
-
-- Tarare localmente alcune formule e tabelle del Capitolo 9 e quattro frame
-  delle slides che producono overfull, senza compromettere la generazione dei
-  PDF.
-- Riallineare i template IA: il Prompt 3 è indicato come `Regime A/B` mentre le
-  Istruzioni Studente lo prescrivono in Regime A; il template di tappa in
-  Regime A vieta il codice ma ammette una cella Python eventuale.
-
----
-
-## Verifica 2026-08-23 - Lezioni applicative 7 e 10
-
-La Lezione 7 dispone di schede di costruzione e Schede Caso per aula e
-take-home, oltre a cinque notebook di prova o soluzione studente. La struttura
-dei casi copre gli obiettivi del Master Plan: simulazione con fattori correlati,
-pricing Monte Carlo, errore di stima, controlli e interpretazione. Il capitolo
-del manuale resta però un placeholder e non esistono slides.
-
-L'ispezione tecnica dei notebook mostra tre notebook eseguiti con output e
-senza errori memorizzati, un notebook con un errore memorizzato e un notebook
-costituito da una sola cella Markdown. Per questo il materiale operativo e la
-componente Python sono classificati `parziale`, non `sviluppato`.
-
-La Lezione 10 dispone di Schede Caso e schede di costruzione per aula e
-take-home, coerenti con simulazione di migrazioni creditizie, rischio sistemico
-comune, perdite di portafoglio, VaR e CVaR. Mancano ancora notebook o script,
-tracciati IA e output grafici. Il capitolo del manuale è inoltre un placeholder
-con il titolo storico non più coerente `Pricing di opzioni e obbligazioni`.
-Pertanto i materiali operativi sono `parziale`, mentre manuale e Python non
-superano rispettivamente `traccia` e `-`.
-
----
-
-## Verifica 2026-08-23 - Lezioni 11 e 12
-
-Le Lezioni 11 e 12 sono passate da traccia a contenuto sostanziale. Il blocco
-copre formulazione e geometria della programmazione lineare, dualità,
-complementarietà e prezzi ombra, quindi estende il caso SVB ai cash flow
-temporali, ai bilanci di liquidità, alle giacenze, al funding e all'ALM
-deterministico. L'architettura è coerente con Master Plan e Guidelines: la
-dualità è introdotta nella Lezione 11 e consolidata nella Lezione 12, che non è
-più dedicata alla Goal Programming.
-
-### Completato
-
-- Inclusi nel master e sviluppati i Capitoli 11 e 12, con obiettivi espliciti,
-  casi guida, limiti dei modelli, sintesi e sezioni di esercizi etichettate.
-- Il Capitolo 11 contiene 4 esercizi svolti e 6 proposti; il Capitolo 12
-  contiene 3 esercizi svolti e 5 proposti.
-- Predisposte slides coerenti con la selezione didattica dei capitoli: 40
-  pagine per la Lezione 11 e 47 per la Lezione 12, con esercizi in aula e
-  materiale di back-up nella Lezione 12.
-- Prodotti e collegati grafici dedicati `Cap11_*` e `Cap12_*`; gli script
-  sorgente delle figure sono archiviati in `04_Codice/Lez11/` e
-  `04_Codice/Lez12/`.
-- Verificata in data 2026-08-23 la compilazione autonoma di entrambi i deck: i PDF
-  vengono generati senza errori bloccanti. La compilazione temporanea del
-  manuale completo genera un PDF di 547 pagine e include entrambi i capitoli.
-
-### Aperture residue
-
-- Archiviare il codice `scipy.optimize.linprog(method="highs")` usato per la
-  validazione numerica dei casi LP e ALM: nel repository sono presenti gli
-  script grafici, ma non uno script solver riproducibile, richiesto dalle
-  Guidelines.
-- Chiudere gli overfull locali delle slides e del manuale. La compilazione del
-  manuale in directory temporanea lascia inoltre riferimenti del Capitolo 12
-  non risolti pur trovando le relative label nel file ausiliario; serve una
-  compilazione finale nel workflow ordinario del progetto.
-- Correggere il magic comment della Lezione 12, che usa
-  `Slides_Lez_12_Dualita_ALM_Deterministico.tex` mentre il nome su disco usa
-  `Slides_Lez_12_Dualita_alm_deterministico.tex`.
-
----
-
-## Verifica 2026-09-15 - Lezioni 14 e 15
-
-La Lezione 14 è passata da traccia a sviluppo sostanziale. Il Capitolo 14 è
-incluso nel manuale e tratta decisione sotto incertezza, scenari, funzione di
-ricorso, formulazione lineare a due stadi, forma estesa e non anticipatività,
-con raccordo al caso SVB--ALM. Contiene tre esercizi svolti, sei proposti e una
-sintesi finale. Le quattro figure richiamate nel capitolo sono presenti in
-`graphics/`; gli script sorgenti sono archiviati in `04_Codice/Lez14/`.
-Non risultano ancora slides.
-
-La Lezione 15 è passata da traccia a stato parziale. Il Capitolo 15 sviluppa
-fattibilità e proprietà del ricorso, passaggio a più stadi, decisioni adattate,
-nodi informativi, non anticipatività e formulazione multistadio, con cinque
-figure e relativi script in `04_Codice/Lez15/`. Restano da sviluppare in modo
-esplicito i confronti fra soluzione stocastica, Expected Value e wait-and-see,
-con EVPI e VSS, che sono obiettivi del Master Plan; mancano inoltre slides e
-una sezione completa di esercizi e sintesi finale.
-
-Non è stata eseguita una nuova compilazione LaTeX in questa verifica. Gli
-script delle figure non sono stati rieseguiti: sono stati considerati già
-utilizzati e funzionanti secondo l'indicazione ricevuta.
-
----
-
-## Conformità degli esercizi nei capitoli teorici sviluppati
-
-Lo standard di riferimento è definito nella Sezione 9.1.1 delle Guidelines; il modello operativo è collegato dal Catalogo dei template.
-
-| Capitolo | Esercizi svolti | Esercizi proposti | Stato strutturale | Intervento residuo |
-|---:|---:|---:|---|---|
-| 1 | 2 | 3 | sezioni presenti e soluzioni uniformate | aggiungere etichette alle due sezioni |
-| 2 | 4 | 10 | conforme nella struttura e nelle etichette | nessun intervento urgente |
-| 3 | 4 | 8 | sezioni presenti e soluzioni uniformate | aggiungere etichette alle due sezioni |
-| 5 | 4 | 6 | modello editoriale di riferimento | anteporre `cap5-` alle etichette storiche |
-| 6 | 5 | 0 | esercizi svolti uniformati | aggiungere gli esercizi proposti e le etichette di sezione |
-| 8 | 0 | 4 | esercizi proposti presenti e utilizzati come base per le slides | verificare allineamento puntuale tra consegne del capitolo e formulazione nelle slides |
-| 9 | 3 | 6 | sezioni esercizi presenti e label coerenti | taratura tipografica locale di formule e tabelle |
-| 11 | 4 | 6 | sezioni esercizi presenti, label coerenti e raccordo con il caso SVB | archiviare il codice solver di validazione e completare la taratura tipografica |
-| 12 | 3 | 5 | sezioni esercizi presenti, label coerenti e raccordo con il caso ALM | archiviare il codice solver e chiudere warning e riferimenti della compilazione finale |
-
-Il Capitolo 4 è applicativo e segue la struttura laboratoriale prevista dalle Guidelines; non rientra nel conteggio degli esercizi teorici.
-
----
-
-## Stato delle componenti trasversali
-
-| Componente | Stato | Nota operativa |
-|---|:---:|---|
-| Architettura documentale | consolidata | Master Plan, Guidelines, Stato di avanzamento e Registro decisionale hanno funzioni distinte e non sovrapposte. |
-| Standard degli esercizi | consolidato | La struttura editoriale è definita nelle Guidelines e resa operativa dal template LaTeX; resta da completarne l'applicazione ai capitoli indicati sopra. |
-| Sistema dei template | parziale | I template sono organizzati per formato nativo e censiti nel catalogo centrale; Prompt 1 e Prompt 2 separano parte variabile e parte fissa, ma restano incongruenze operative fra Prompt 3, prompt di tappa e Istruzioni Studente. |
-| Compatibilità Scientific WorkPlace 5.5 | in verifica | Si mantiene un'impostazione LaTeX conservativa; le tabelle vengono gestite singolarmente con l'ambiente `tabular`. |
-| Nomenclatura di file, figure ed etichette | parziale | La convenzione aggiornata è applicata ai nuovi materiali; alcuni elementi storici richiedono ancora riallineamento. |
+Di conseguenza, `sviluppato` indica presenza di contenuto sostanziale e non certificazione conclusiva della compilazione o dell'esecuzione.
 
 ---
 
 ## Questioni operative aperte
 
-1. Completare gli esercizi proposti del Capitolo 6 secondo il nuovo standard.
-2. Uniformare le etichette di sezione: nei Capitoli 1 e 3 mancano o non sono
-   uniformi le label degli esercizi; nel Capitolo 6 vanno aggiunte insieme agli
-   esercizi proposti; nel Capitolo 5 le label storiche vanno prefissate con
-   `cap5-`.
-3. Gestire singolarmente le tabelle che producono righe fuori margine, mantenendo l'ambiente standard `tabular` per la compatibilità con Scientific WorkPlace 5.5.
-4. Predisporre le slides della Lezione 4.
-5. Completare il pacchetto della Lezione 7: notebook canonico docente/studente, tracciati IA, rimozione dell'errore memorizzato e sostituzione del notebook take-home ancora vuoto.
-6. Completare il pacchetto della Lezione 10: capitolo coerente con il titolo corrente, notebook o script, tracciati IA, output numerici e grafici.
-7. Chiudere le aperture residue della Lezione 8: confronto esercizio B, verifica Guidelines e compilazione slides.
-8. Tarare gli overfull delle Lezioni 9, 11 e 12 e completare la compilazione finale del manuale; correggere anche il magic comment delle slides della Lezione 12.
-9. Archiviare uno script solver riproducibile per la validazione numerica dei casi delle Lezioni 11-12, coerente con `scipy.optimize.linprog(method="highs")`.
-10. Riallineare Prompt 3 e prompt di tappa alle Istruzioni Studente e alle Guidelines, eliminando le incongruenze su Regime A/B e produzione di codice in Regime A.
-11. Completare la Lezione 15 con confronti espliciti tra soluzione stocastica, Expected Value e wait-and-see, includendo EVPI e VSS, esercizi e sintesi finale.
-12. Predisporre le slides delle Lezioni 14 e 15, selezionando il materiale già sviluppato nei capitoli senza duplicarne l'esposizione.
-13. Predisporre il caso e il pacchetto applicativo della Lezione 13 utilizzando il solver già stabilito nelle Guidelines e raccordandolo al modello ALM della Lezione 12.
-14. Verificare la notazione nello sviluppo delle Lezioni 7, 10 e 13 e aggiornare la corrispondenza Python quando i relativi script saranno definitivi.
-15. Riallineare progressivamente i nomi dei file ancora non conformi alla nomenclatura definitiva del Master Plan.
+- Chiudere il residuo della Lezione 6 sugli esercizi/materiali, gi\`a classificato `parziale` nelle verifiche precedenti.
+- Eseguire una compilazione finale ordinaria del manuale e dei deck per intercettare overfull, riferimenti irrisolti, figure mancanti e incoerenze tra nomi file e magic comment.
+- Rieseguire i notebook delle Lezioni 4, 7, 10, 13 e 16 in ambiente pulito, verificando assenza di errori, riproducibilit\`a degli output, seed, controlli e dipendenze.
+- Verificare che i grafici prodotti dinamicamente nelle lezioni applicative siano archiviati e documentati secondo la convenzione del progetto; per le Lezioni 7, 10, 13 e 16 la componente grafica resta `parziale` finch\'e tale controllo non \`e concluso.
+- Verificare le figure e gli asset della Lezione 15; la componente grafica resta `parziale` fino a controllo conclusivo.
+- Riallineare nelle Guidelines i riferimenti storici a nomi file o strutture superate, in particolare gli esempi che richiamano ancora la Goal Programming per la Lezione 12.
+- Riesaminare puntualmente i template IA rispetto alle Istruzioni Studente correnti, verificando coerenza dei regimi A/B/C, del formato dei tracciati e dei materiali di valutazione.
+- Verificare la copertura e l'allineamento delle scalette-promemoria delle lezioni teoriche previste dal Master Plan.
 
 ---
 
-## Regola di aggiornamento
+## Verifiche storiche sintetiche
 
-Aggiornare questo file quando cambia lo stato effettivo di una lezione o di uno dei suoi prodotti. Non trasferire gli indicatori di avanzamento nel Master Plan o nelle Guidelines.
-
-Quando una questione produce una scelta progettuale stabile, registrare la decisione e la motivazione nel Registro decisionale; in questo file deve restare soltanto il suo eventuale stato di attuazione.
+- **2026-07-16/17** — sviluppate e verificate le Lezioni 8 e 6; per la Lezione 6 restano tarature locali e il completamento dei materiali esercitativi.
+- **2026-08-23** — sviluppati Capitolo e slides della Lezione 9; sviluppato il blocco teorico delle Lezioni 11-12; verificati i primi materiali applicativi delle Lezioni 7 e 10; avviato il riallineamento dei template IA.
+- **2026-09-15** — sviluppata la Lezione 14 sul modello stocastico a due stadi e avviato in forma avanzata il Capitolo 15.
+- **2026-10-12** — ricognizione generale del repository: copertura sostanziale completa di manuale e slides; pacchetti applicativi strutturati per tutte le lezioni computazionali; passaggio alla fase di verifica conclusiva e chiusura.
