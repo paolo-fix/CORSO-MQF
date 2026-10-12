@@ -221,7 +221,18 @@ r_1^g,r_2^g,r_3^g,0,
 -r_1^u,-r_2^u,-r_3^u
 \right)^{\prime}.
 \]
+Nel Caso Aula, 
 
+\[
+c'=(c_1,c_2,c_3,c_4)=(0.010,\;0.025,\;0.040,\;0.050),
+\]
+\[
+{r^g}'=(r_1^g,r_2^g,r_3^g)=(0.005,\;0.006,\;0.007)
+\]
+e
+\[
+{r^u}'=(r_1^u,r_2^u,r_3^u)=(0.015,\;0.020,\;0.025).
+\]
 La funzione obiettivo pu\`o essere scritta come
 
 \[
@@ -280,6 +291,7 @@ Il vincolo iniziale \`e
 \[
 x_1+x_2+x_3+x_4=A_0.
 \]
+Nel Caso Aula, $A_0=100$.
 
 I bilanci temporali seguono invece la struttura introdotta nel Capitolo 12.
 Alla prima data,
@@ -288,7 +300,7 @@ Alla prima data,
 a_1^{\prime}x+u_1-g_1=d_1.
 \]
 
-Per le date intermedie,
+Per le date intermedie, $t=2,3$,
 
 \[
 a_t^{\prime}x
@@ -317,13 +329,16 @@ g_4
 =
 d_4.
 \]
+Nel Caso Aula,
+\[
+d'=(d_1,d_2,d_3,d_4)=(30,\;30,\;22,\;15).
+\]
 
 Queste equazioni vengono raccolte nella forma
 
 \[
 A_{\mathrm{eq}}v=b_{\mathrm{eq}}.
 \]
-
 Nel Caso Aula, $A_{\mathrm{eq}}$ contiene quindi una riga per il vincolo sulle
 risorse iniziali e una riga per ciascun bilancio temporale.
 
@@ -337,13 +352,24 @@ a_{11} & a_{12} & a_{13} & a_{14}\\
 a_{21} & a_{22} & a_{23} & a_{24}\\
 a_{31} & a_{32} & a_{33} & a_{34}\\
 a_{41} & a_{42} & a_{43} & a_{44}
-\end{pmatrix},
+\end{pmatrix}
+,
 \]
 
 \noindent determina i coefficienti delle variabili $x_j$ nelle quattro equazioni
 temporali. Le giacenze e il funding compaiono invece con coefficienti che
 riflettono il trasferimento di liquidit\`a e il rimborso tra una data e la
-successiva.
+successiva. Nel Caso Aula,
+\[
+A^{CF}
+=
+\begin{pmatrix}
+1.00 & 0.65 & 0.05 & 0.05\\
+0.00 & 0.35 & 0.10 & 0.15\\
+0.00 & 0.00 & 0.25 & 0.30\\
+0.00 & 0.00 & 0.60 & 0.50
+\end{pmatrix}.
+\]
 
 Il vettore dei termini noti assume la forma
 
@@ -383,7 +409,11 @@ Il vincolo di stress,
 \ell^{\prime}x\leq K,
 \]
 
-\noindent dipende soltanto dalle variabili di allocazione. Le colonne corrispondenti a
+\noindent dipende soltanto dalle variabili di allocazione. Nel Caso Aula,
+\[
+\ell'=(0,\;0.02,\;0.15,\;0.08), \qquad K=7.
+\]
+Le colonne corrispondenti a
 $g$ e $u$ hanno quindi coefficiente nullo.
 
 Analogamente, un limite
@@ -393,7 +423,7 @@ x_3\leq \overline{x}_3
 \]
 
 \noindent viene rappresentato da una riga nella quale compare un unico coefficiente
-unitario nella posizione associata a $x_3$.
+unitario nella posizione associata a $x_3$. Nel Caso Aula, $\bar x_3=30$.
 
 Non tutti i limiti sulle variabili devono tuttavia essere trasformati in
 righe di $A_{\mathrm{ub}}$. Quando il vincolo riguarda direttamente
@@ -413,6 +443,7 @@ Per il funding,
 \[
 0\leq u_t\leq \overline{u}_t.
 \]
+Nel Caso Aula, $\bar u'=(10,\;8,\;6)$.
 
 I bound svolgono quindi una funzione distinta dalle disuguaglianze generali:
 definiscono direttamente l'intervallo ammissibile di ciascuna componente di
