@@ -36,15 +36,15 @@ Il file e' collocato nella cartella:
 
 ## 3. Finalita' generale del corso
 
-Il corso deve fornire agli studenti strumenti quantitativi per rappresentare l'incertezza, modellizzare fenomeni finanziari discreti e continui, misurare il rischio e formulare problemi decisionali in presenza di vincoli, scenari e obiettivi multipli.
+Il corso deve fornire agli studenti strumenti quantitativi per rappresentare l'incertezza, modellizzare fenomeni finanziari discreti e continui, misurare il rischio e formulare problemi decisionali in presenza di vincoli e scenari.
 
 La finalita' generale non e' presentare una raccolta eterogenea di tecniche matematiche, ma costruire un percorso unitario centrato su tre assi concettuali:
 
 1. modellizzazione probabilistica dell'incertezza;
 2. processi stocastici, informazione e simulazione;
-3. decisione quantitativa sotto rischio, sotto incertezza e in presenza di obiettivi multipli.
+3. decisione quantitativa sotto rischio e sotto incertezza.
 
-Ogni lezione deve contribuire esplicitamente a uno o piu' di questi assi. Le connessioni tra probabilita', variabili casuali, valori attesi condizionati, processi stocastici, catene di Markov, misure di rischio, programmazione lineare, goal programming e programmazione stocastica devono essere rese chiare e ricorrenti.
+Ogni lezione deve contribuire esplicitamente a uno o piu' di questi assi. Le connessioni tra probabilita', variabili casuali, valori attesi condizionati, processi stocastici, catene di Markov, misure di rischio, programmazione lineare, Asset--Liability Management e programmazione stocastica devono essere rese chiare e ricorrenti.
 
 Il corso deve mantenere un equilibrio tra formalizzazione matematica, interpretazione finanziaria e implementazione computazionale. Le lezioni applicative in Python non devono essere considerate appendici tecniche, ma momenti di consolidamento operativo dei concetti introdotti nelle lezioni teoriche.
 
@@ -134,15 +134,13 @@ Lo stile deve rispettare i seguenti criteri:
 7. uso di grafici come strumenti esplicativi, non decorativi;
 8. neutralita' nella presentazione dei modelli e dei loro limiti.
 
-Quando si scrive in LaTeX per il manuale o per le slides, usare per le vocali accentate italiane la notazione del tipo:
+Quando si scrive in LaTeX per il manuale o per le slides, usare per le vocali accentate italiane esclusivamente la notazione esplicita:
 
 ```latex
-\`a, \`e, \`i, \`o, \`u
+\`{a}, \`{e}, \`{i}, \`{o}, \`{u}
 ```
-Non utilizzare le forme con parentesi graffe (`\`{a}`, `\`{e}`, ecc.) e non inserire direttamente i caratteri accentati nei nuovi sorgenti LaTeX.
 
-La convenzione deve essere rispettata anche nel codice LaTeX prodotto nelle chat di lavoro. Non richiede la conversione retroattiva dei documenti già realizzati.
-salvo diversa indicazione tecnica.
+La stessa convenzione deve essere rispettata nel codice LaTeX prodotto nelle chat di lavoro. Non inserire direttamente i caratteri accentati nei nuovi sorgenti LaTeX e non modificare retroattivamente i documenti gia' consolidati salvo specifica esigenza tecnica.
 
 ## 8. Vincoli LaTeX e compatibilita' Scientific WorkPlace 5.5
 
@@ -158,14 +156,13 @@ Criteri operativi:
 6. valutare con attenzione l'uso di TikZ o PGFPlots, che potrebbero non essere la soluzione piu' robusta in Scientific WorkPlace 5.5;
 7. quando opportuno, generare i grafici con Python e includerli come immagini.
 
-I nomi dei file devono essere esplicativi e coerenti con la struttura gia' adottata nel progetto. Non devono essere utilizzati nomi puramente numerici o sbrigativi.
+I nomi dei file devono essere esplicativi e coerenti con la struttura effettivamente adottata nel repository. Non devono essere utilizzati nomi puramente numerici o sbrigativi.
 
-La struttura consigliata del manuale e':
+La struttura corrente del manuale e':
 
 ```text
 /01_Manuale
   MQF_Manuale_Master.tex
-
   /Capitoli
     MQF_Cap_01_Probabilita.tex
     MQF_Cap_02_Variabili_Casuali.tex
@@ -178,20 +175,21 @@ La struttura consigliata del manuale e':
     MQF_Cap_09_Markov_Misure_Rischio.tex
     MQF_Cap_10_Python_Rischio_Credito.tex
     MQF_Cap_11_Programmazione_Lineare.tex
-    MQF_Cap_12_Goal_Programming.tex
+    MQF_Cap_12_Dualita_ALM_Deterministico.tex
     MQF_Cap_13_Python_Asset_Allocation_ALM.tex
-    MQF_Cap_14_Programmazione_Stocastica_Due_Stadi.tex
-    MQF_Cap_15_Programmazione_Stocastica_Multistadio.tex
+    MQF_Cap_14_Programmazione_Stocastica_I.tex
+    MQF_Cap_15_Programmazione_Stocastica_II.tex
     MQF_Cap_16_Python_Programmazione_Stocastica.tex
+  /graphics
 ```
 
-La struttura consigliata delle slides e':
+La struttura corrente delle slides e':
 
 ```text
 /02_Slides
-  Slides_Lez_01_Elementi_probabilita.tex
+  Slides_Lez_01_Probabilita.tex
   Slides_Lez_02_Variabili_Casuali.tex
-  Slides_Lez_03_Valori_attesi_condizionati.tex
+  Slides_Lez_03_Valori_Attesi_Condizionati.tex
   Slides_Lez_04_Python_Probabilita_Condizionamento.tex
   Slides_Lez_05_Processi_Stocastici_Tempo_Discreto.tex
   Slides_Lez_06_Processi_Stocastici_Tempo_Continuo.tex
@@ -200,25 +198,28 @@ La struttura consigliata delle slides e':
   Slides_Lez_09_Markov_Misure_Rischio.tex
   Slides_Lez_10_Python_Rischio_Credito.tex
   Slides_Lez_11_Programmazione_Lineare.tex
-  Slides_Lez_12_Goal_Programming.tex
+  Slides_Lez_12_Dualita_ALM_Deterministico.tex
   Slides_Lez_13_Python_Asset_Allocation_ALM.tex
-  Slides_Lez_14_Programmazione_Stocastica_Due_Stadi.tex
-  Slides_Lez_15_Programmazione_Stocastica_Multistadio.tex
+  Slides_Lez_14_Programmazione_Stocastica_I.tex
+  Slides_Lez_15_Programmazione_Stocastica_II.tex
   Slides_Lez_16_Python_Programmazione_Stocastica.tex
+  /graphics
 ```
 
-La struttura consigliata dei file Python e':
+Il codice di supporto e i notebook sono organizzati nella cartella `04_Codice`, con sottocartelle per le lezioni interessate. In particolare, le cinque lezioni applicative utilizzano:
 
 ```text
-/03_Python
-  MQF_Python_01_Probabilita_Condizionamento.py
-  MQF_Python_02_Traiettorie_Pricing.py
-  MQF_Python_03_Rischio_Credito.py
-  MQF_Python_04_Asset_Allocation_ALM.py
-  MQF_Python_05_Programmazione_Stocastica.py
+/04_Codice
+  /Lez04
+  /Lez07
+  /Lez10
+  /Lez13
+  /Lez16
 ```
 
-La struttura consigliata dei documenti di coordinamento e':
+Nella stessa cartella `04_Codice` possono essere presenti script di supporto per lezioni teoriche, calibrazioni, controlli o generazione di figure.
+
+La struttura corrente dei principali documenti di coordinamento e':
 
 ```text
 /00_MasterPlan
@@ -227,9 +228,6 @@ La struttura consigliata dei documenti di coordinamento e':
   MQF_Notazione.tex
   MQF_Stato_Avanzamento.md
   MQF_Istruzioni_Studente_Uso_Virtuoso_IA_Casi_Applicativi.md
-  MQF_Registro_Esercizi.tex
-  MQF_Registro_Grafici.tex
-  MQF_Registro_Decisioni.tex
 
   /Templates
     MQF_Catalogo_Template.md
@@ -237,84 +235,53 @@ La struttura consigliata dei documenti di coordinamento e':
     /Markdown
 ```
 
-Ogni modifica ai nomi dei file deve essere esplicita e deve essere riportata nel Master Plan, nelle Guidelines e, se necessario, nei file master LaTeX che includono i singoli capitoli o le singole lezioni.
+I registri tematici eventualmente previsti dal Master Plan non devono essere elencati come file autonomi se non esistono effettivamente nel repository.
+
+Ogni modifica ai nomi dei file o alla struttura delle cartelle deve essere esplicita e deve essere riportata nel Master Plan, nelle Guidelines e, se necessario, nei file master LaTeX che includono i singoli capitoli o le singole lezioni.
 
 ### Gestione delle figure: struttura delle cartelle, percorsi relativi e convenzione dei nomi
 
-Per tutte le figure del progetto si adotta una cartella grafica comune e una convenzione uniforme sia per il richiamo nei file LaTeX sia per il salvataggio tramite script Python.
-
-Schema ad albero della struttura rilevante:
+Le figure destinate stabilmente al Manuale e alle Slides sono archiviate nelle rispettive cartelle grafiche:
 
 ```text
-Progetto_MQF/
-|-- 01_Manuale/
-|   |-- Capitoli/
-|   |   |-- MQF_Cap_01_....tex
-|   |   |-- MQF_Cap_02_....tex
-|   |   `-- ...
-|   `-- MQF_Manuale_Master.tex
-|
-|-- 02_Slides/
-|   |-- Lezioni/
-|   |   |-- MQF_Slides_Lez_01_....tex
-|   |   |-- MQF_Slides_Lez_02_....tex
-|   |   `-- ...
-|   `-- MQF_Slides_Master.tex
-|
-|-- 03_Codice/
-|   |-- script_01.py
-|   |-- script_02.py
-|   `-- ...
-|
-`-- graphics/
-    |-- Cap06_OU_mean_reversion.png
-    |-- Cap06_GBM_traiettorie.png
-    `-- Lez07_MC_payoff_distribution.png
+/01_Manuale/graphics/
+/02_Slides/graphics/
 ```
+
+La convenzione di denominazione e':
+
+```text
+Cap0X_descrizione.png
+```
+
+per i capitoli a una cifra e, coerentemente, `CapXX_descrizione.png` per i capitoli a due cifre. La parte descrittiva deve essere breve, informativa, priva di spazi e separata mediante underscore `_`.
 
 Regole operative:
 
-1. Tutte le figure del progetto, incluse quelle generate con Python, devono essere salvate nella cartella comune `graphics/`.
+1. una figura destinata al Manuale deve essere salvata in `01_Manuale/graphics/`;
+2. una figura destinata alle Slides deve essere salvata in `02_Slides/graphics/`;
+3. se la stessa figura e' utilizzata in entrambi i prodotti, deve essere disponibile in entrambe le cartelle oppure essere gestita mediante un percorso esplicitamente documentato e compatibile con la struttura di compilazione adottata;
+4. i file LaTeX devono utilizzare percorsi relativi coerenti con la loro posizione effettiva nel repository;
+5. i grafici prodotti dinamicamente dai notebook delle lezioni applicative sono output computazionali e non devono essere trasformati automaticamente in asset grafici stabili del Manuale o delle Slides;
+6. un grafico del notebook diventa un asset stabile solo quando viene scelto esplicitamente per essere incorporato nel codice LaTeX di un capitolo o di un deck;
+7. le figure definitive devono essere prodotte in formato PNG con risoluzione adeguata alla stampa e alla proiezione; eventuali formati aggiuntivi possono essere conservati quando utili, ma non sono obbligatori;
+8. gli script di generazione delle figure devono raccogliere all'inizio, in blocchi chiaramente identificati e commentati, i principali parametri modificabili: percorsi di output, tipografia, colori, dimensioni e posizioni;
+9. salvo esigenze specifiche della singola figura, si utilizza `DejaVu Sans`; le dimensioni dei caratteri devono essere definite esplicitamente per categoria.
 
-2. Nei file LaTeX del Manuale e delle Slides, le figure devono essere richiamate mediante il percorso relativo:
-   `../graphics/NomeFigura.ext`
+Come riferimento:
 
-3. Negli script Python, la cartella `03_Codice/` si trova allo stesso livello della cartella `graphics/`; di conseguenza, il salvataggio delle figure deve avvenire mediante il percorso relativo:
-   `./graphics/NomeFigura.ext`
+```python
+FONT_FAMILY = "DejaVu Sans"
 
-4. La convenzione di denominazione dei file grafici deve essere stabile, informativa e priva di spazi. Usare underscore `_` per separare le parole.
+FONT_SIZES = {
+    "axis_label": 16.0,
+    "tick_label": 15.0,
+    "value_label": 13,
+    "annotation": 13,
+}
+```
 
-5. Per figure associate ai capitoli del manuale, usare la forma:
-   `CapXX_descrizione.png`
-
-6. Per figure associate principalmente a una lezione o a una slide, usare la forma:
-   `LezXX_descrizione.png`
-
-7. La parte descrittiva del nome file deve essere breve e semanticamente chiara. Esempi:
-
-   * `Cap06_OU_mean_reversion.png`
-   * `Cap06_GBM_traiettorie.png`
-   * `Lez07_MC_payoff_distribution.png`
-
-Esempi d'uso:
-
-* in LaTeX: `\includegraphics[width=0.78\textwidth]{../graphics/Cap06_OU_mean_reversion.png}`
-* in Python: `plt.savefig("./graphics/Cap06_OU_mean_reversion.png", dpi=300, bbox_inches="tight")`
-
-8. Le figure generate con Python devono essere salvate nella cartella locale `E:\Didattica\MQF\graphics`. Per ogni figura definitiva devono essere prodotti dallo stesso script sia il file PNG, con risoluzione 300 dpi, sia il corrispondente file SVG.
-
-9. Gli script di generazione delle figure devono raccogliere all'inizio, in blocchi chiaramente identificati e commentati, i principali parametri modificabili: percorsi di output, tipografia, colori, dimensioni e posizioni. Salvo esigenze specifiche della singola figura, si utilizza `DejaVu Sans`; le dimensioni dei caratteri devono essere definite esplicitamente per categoria. Come riferimento:
-
-        FONT_FAMILY = "DejaVu Sans"
-
-        FONT_SIZES = {
-            "axis_label": 16.0,
-            "tick_label": 15.0,
-            "value_label": 13,
-            "annotation": 13,
-        }
-
-   I valori possono essere adattati alle esigenze della singola figura.
+I valori possono essere adattati alle esigenze della singola figura.
 
 ## 9. Manuale del corso
 
@@ -333,7 +300,6 @@ Il Manuale deve essere redatto come un'opera autonoma organizzata in capitoli. D
 5. la corrispondenza tra numero del capitolo e numero della lezione deve essere mantenuta nei documenti di progetto, ma non deve essere necessaria per la lettura e la comprensione del Manuale.
 
 Ogni capitolo deve quindi risultare leggibile come parte di un manuale scientifico indipendentemente dalla struttura temporale con cui gli stessi contenuti vengono presentati durante il corso.
-
 
 ### 9.2 Capitoli teorici
 
@@ -496,22 +462,22 @@ La distribuzione corretta delle informazioni è la seguente:
 
 ### 9.3 Capitoli applicativi
 
-La struttura standard di un capitolo con applicazione Python deve essere concepita in modo coerente con la natura laboratoriale della lezione. Il capitolo applicativo non deve limitarsi a presentare codice commentato, ma deve documentare il passaggio dalla formulazione matematica al prodotto computazionale finale.
+La struttura standard di un capitolo con applicazione Python deve essere concepita in modo coerente con la natura laboratoriale della corrispondente lezione. Il capitolo applicativo non deve limitarsi a presentare codice commentato, ma deve documentare il passaggio dalla formulazione matematica al prodotto computazionale finale.
 
 La struttura orientativa di un capitolo applicativo e':
 
-1. obiettivi della lezione applicativa;
+1. obiettivi del capitolo applicativo;
 2. presentazione del caso finanziario o probabilistico;
 3. richiamo matematico-operativo del modello;
 4. descrizione dei dati, dei parametri e degli output attesi;
-5. strumenti Python necessari per la lezione;
+5. strumenti Python necessari per l'applicazione;
 6. struttura del notebook o dello script;
 7. sviluppo guidato del codice;
 8. tappe di sviluppo autonomo;
 9. controlli numerici e logici intermedi;
 10. output numerici e grafici;
 11. interpretazione economico-finanziaria dei risultati;
-12. estensioni take-home;
+12. estensioni TakeHome;
 13. sintesi finale.
 
 Nei capitoli applicativi il codice deve essere presentato come parte integrante della modellizzazione. Ogni blocco computazionale rilevante deve essere preceduto da una motivazione e seguito da un commento interpretativo. Il capitolo deve rendere esplicito che cosa viene calcolato, perche' viene calcolato e come il risultato si collega al modello teorico.
@@ -614,11 +580,13 @@ Nel Manuale, tutti i testi operativi che uno studente deve digitare o impartire 
 
 La formattazione standard e' la seguente:
 
-    \begin{quote}
-    \small
-    \noindent{\ttfamily\raggedright
-    testo del comando o dell'istruzione.\par}
-    \end{quote}
+```latex
+\begin{quote}
+\small
+\noindent{\ttfamily\raggedright
+testo del comando o dell'istruzione.\par}
+\end{quote}
+```
 
 Non utilizzare display matematici del tipo `\[ \text{...} \]` per prompt, comandi o istruzioni operative. Tali elementi non sono formule matematiche, non devono essere confusi con il contenuto teorico e possono produrre problemi di impaginazione.
 
@@ -705,7 +673,7 @@ E' preferibile una sequenza di slides leggibile a una singola slide eccessivamen
 
 ## 12. Slides delle lezioni applicative di tipo C
 
-Le slides delle lezioni applicative di tipo C devono essere progettate come strumento di regia del laboratorio. La loro funzione non è anticipare integralmente il notebook, insegnare Python come contenuto autonomo o documentare tutta l'interazione con l'IA. La loro funzione è guidare docente e studenti nello svolgimento del caso aula: lettura della Scheda Caso, uso dei prompt, costruzione progressiva del notebook, esecuzione dei controlli, discussione degli output e assegnazione del take-home.
+Le slides delle lezioni applicative di tipo C devono essere progettate come strumento di regia del laboratorio. La loro funzione non è anticipare integralmente il notebook, insegnare Python come contenuto autonomo o documentare tutta l'interazione con l'IA. La loro funzione è guidare docente e studenti nello svolgimento del Caso Aula: lettura della Scheda Caso, uso dei prompt, costruzione progressiva del notebook, esecuzione dei controlli, discussione degli output e assegnazione del TakeHome.
 
 Nelle lezioni di tipo C gli studenti lavorano alla propria postazione, preferibilmente in ambiente VS Code/Jupyter. Il docente indica i prompt da utilizzare, li fa inserire materialmente dagli studenti, discute le risposte dell'IA, seleziona le parti utili, guida la costruzione delle celle del notebook e controlla gli output. Le slides devono sostenere questa sequenza operativa.
 
@@ -713,17 +681,17 @@ Nelle lezioni di tipo C gli studenti lavorano alla propria postazione, preferibi
 
 ### 12.1 Ordine di produzione delle slides applicative
 
-Le slides applicative devono essere prodotte dopo la soluzione del caso aula e dopo la validazione del notebook docente. Non devono essere progettate in astratto prima di avere osservato come il caso si sviluppa effettivamente attraverso prompt, risposte dell'IA, celle Markdown, codice, output e controlli.
+Le slides applicative devono essere prodotte dopo la soluzione del Caso Aula e dopo la validazione del notebook docente. Non devono essere progettate in astratto prima di avere osservato come il caso si sviluppa effettivamente attraverso prompt, risposte dell'IA, celle Markdown, codice, output e controlli.
 
 L'ordine di produzione raccomandato è:
 
 1. redazione della Scheda Costruzione Caso;
 2. derivazione della Scheda Caso;
-3. svolgimento del caso aula con Prompt zero, Prompt 1, Prompt 2, Prompt 3 e prompt di tappa;
+3. svolgimento del Caso Aula con Prompt zero, Prompt 1, Prompt 2, Prompt 3 e prompt di tappa;
 4. costruzione e validazione del notebook docente;
 5. selezione degli elementi utili alla conduzione della lezione;
 6. costruzione delle slides applicative;
-7. revisione della consegna take-home alla luce del caso aula svolto.
+7. revisione della consegna TakeHome alla luce del Caso Aula svolto.
 
 Questa sequenza è necessaria perché gli elementi davvero utili per le slides emergono durante la soluzione del caso: passaggi teorici da richiamare, istruzioni Python da spiegare, prompt da mostrare, controlli da enfatizzare, criticità dell'IA da discutere e output da interpretare.
 
@@ -748,7 +716,7 @@ Le slides non devono sostituire il notebook. Il notebook contiene il lavoro oper
 
 ### 12.3 Contenuti da ricavare dal notebook docente
 
-Il notebook docente validato è la fonte principale per costruire le slides della lezione applicativa. Dalla soluzione del caso aula devono essere estratti solo gli elementi necessari alla conduzione della lezione.
+Il notebook docente validato è la fonte principale per costruire le slides della lezione applicativa. Dalla soluzione del Caso Aula devono essere estratti solo gli elementi necessari alla conduzione della lezione.
 
 Gli elementi da considerare sono:
 
@@ -777,7 +745,7 @@ La struttura di riferimento è:
 5. sviluppo guidato delle tappe del notebook;
 6. controlli intermedi e discussione degli output;
 7. verifica conclusiva del notebook e interpretazione finale;
-8. assegnazione del caso take-home.
+8. assegnazione del Caso TakeHome.
 
 La struttura può essere adattata alla complessità del caso, ma deve mantenere il legame tra prompt, notebook, output e controlli.
 
@@ -815,18 +783,18 @@ Gli output devono essere selezionati in base alla loro funzione didattica. Una t
 
 Ciascuna lezione applicativa ha durata complessiva di 2 ore e 15 minuti, con 15 minuti di pausa. Il tempo effettivo di lavoro è quindi pari a circa 120 minuti.
 
-Nella progettazione delle slides occorre stimare il tempo necessario per lo sviluppo del caso aula. Il tempo non coincide con la semplice esposizione del docente: include inserimento dei prompt, attesa delle risposte dell'IA, selezione delle risposte, costruzione delle celle, esecuzione del notebook, controllo degli output e discussione.
+Nella progettazione delle slides occorre stimare il tempo necessario per lo sviluppo del Caso Aula. Il tempo non coincide con la semplice esposizione del docente: include inserimento dei prompt, attesa delle risposte dell'IA, selezione delle risposte, costruzione delle celle, esecuzione del notebook, controllo degli output e discussione.
 
 Per la Lezione 4, che introduce per la prima volta il protocollo applicativo con IA, una scansione realistica è:
 
 1. 20--25 minuti per presentare il protocollo generale delle lezioni applicative;
-2. 10 minuti per presentare la Scheda Caso aula;
+2. 10 minuti per presentare la Scheda Caso Aula;
 3. 15--20 minuti per Prompt zero, Prompt 1, Prompt 2 e Prompt 3;
 4. 45--50 minuti per sviluppare le tappe centrali del notebook;
 5. 15 minuti per controlli, output finali e interpretazione;
-6. 5--10 minuti per assegnare il take-home e richiamare le regole di consegna.
+6. 5--10 minuti per assegnare il TakeHome e richiamare le regole di consegna.
 
-Nelle lezioni applicative successive, il protocollo generale deve essere richiamato brevemente. Il tempo recuperato deve essere destinato allo sviluppo del caso aula, ai controlli e alla discussione degli output.
+Nelle lezioni applicative successive, il protocollo generale deve essere richiamato brevemente. Il tempo recuperato deve essere destinato allo sviluppo del Caso Aula, ai controlli e alla discussione degli output.
 
 ---
 
@@ -841,7 +809,7 @@ Le slides della Lezione 4 devono quindi presentare in modo esplicito:
 3. funzione di Prompt zero, Prompt 1, Prompt 2 e Prompt 3;
 4. distinzione tra Regime A, Regime B e Regime C;
 5. modalità di lavoro in VS Code/Jupyter;
-6. regole di consegna del take-home;
+6. regole di consegna del TakeHome;
 7. criteri generali di valutazione.
 
 Nelle lezioni applicative successive questi elementi non devono essere ripetuti integralmente, ma solo richiamati quando servono a governare il caso specifico.
@@ -860,11 +828,9 @@ La revisione finale deve rispondere a queste domande:
 4. il codice mostrato è essenziale e non duplica il notebook;
 5. gli output scelti per le slides hanno una funzione interpretativa;
 6. i tempi sono compatibili con 120 minuti effettivi;
-7. il take-home è presentato come estensione coerente del caso aula.
+7. il TakeHome è presentato come estensione coerente del Caso Aula.
 
-Se una slide non aiuta a orientare il lavoro, introdurre un prompt, costruire una cella, discutere un output, eseguire un controllo o preparare il take-home, deve essere eliminata o spostata nel notebook o nei materiali operativi.
-
-
+Se una slide non aiuta a orientare il lavoro, introdurre un prompt, costruire una cella, discutere un output, eseguire un controllo o preparare il TakeHome, deve essere eliminata o spostata nel notebook o nei materiali operativi.
 
 ## 13. Esercizi in aula
 
@@ -906,8 +872,8 @@ Sono previste cinque applicazioni Python, corrispondenti alle lezioni applicativ
 | 1 | 4 | Probabilità, variabili casuali e condizionamento | Simulazioni, distribuzioni empiriche, momenti, quantili, stime condizionate |
 | 2 | 7 | Traiettorie, simulazione e pricing Monte Carlo | Traiettorie GBM, OU, processi correlati, opzioni asiatiche, sistema OU--CIR |
 | 3 | 10 | Rischio di credito | Matrici di transizione, simulazioni di rating, distribuzioni di perdita, VaR, CVaR |
-| 4 | 13 | Asset Allocation e Asset Liability Management | Goal programming, allocazioni multicriterio, deviazioni da target, liability matching |
-| 5 | 16 | Programmazione stocastica | Scenari, recourse, non anticipatività, confronto tra soluzioni deterministiche e stocastiche |
+| 4 | 13 | Programmazione lineare e ALM deterministico | Soluzione LP, allocazioni, giacenze e funding, valori marginali, sensitività, scenari e frontiera di fattibilità |
+| 5 | 16 | Programmazione stocastica | Scenari, recourse, non anticipatività, confronto tra soluzione stocastica, Expected Value e Wait-and-See |
 
 Le applicazioni Python devono essere concepite come laboratori di modellizzazione quantitativa. La finalità principale non è insegnare Python come contenuto autonomo, ma mostrare come un modello probabilistico, finanziario o ottimizzativo possa essere tradotto in una procedura computazionale controllabile, verificabile e interpretabile.
 
@@ -926,14 +892,14 @@ La lezione applicativa non deve concludersi genericamente con la scrittura di co
 
 ---
 
-### 14.1 Coppia caso aula / caso take-home
+### 14.1 Coppia Caso Aula / Caso TakeHome
 
 Per ciascuna lezione applicativa deve essere progettata una coppia di casi:
 
-1. caso aula, sviluppato dal docente durante la lezione;
-2. caso take-home, assegnato agli studenti come lavoro autonomo.
+1. Caso Aula, sviluppato dal docente durante la lezione;
+2. Caso TakeHome, assegnato agli studenti come lavoro autonomo.
 
-Il caso aula e il caso take-home non devono essere distinti da differenze strutturali nella procedura di costruzione. Entrambi devono essere progettati mediante la stessa architettura metodologica:
+Il Caso Aula e il Caso TakeHome non devono essere distinti da differenze strutturali nella procedura di costruzione. Entrambi devono essere progettati mediante la stessa architettura metodologica:
 
 1. Scheda Costruzione Caso;
 2. Scheda Caso;
@@ -947,18 +913,18 @@ Il caso aula e il caso take-home non devono essere distinti da differenze strutt
 10. eventuale tracciato IA;
 11. rubrica di valutazione.
 
-La differenza tra caso aula e caso take-home riguarda il contesto finanziario, probabilistico o decisionale, e, se necessario, alcune scelte specifiche della linea risolutiva. Il caso take-home deve restare distinto dal caso aula, ma non deve richiedere una procedura metodologica diversa.
+La differenza tra Caso Aula e Caso TakeHome riguarda il contesto finanziario, probabilistico o decisionale, e, se necessario, alcune scelte specifiche della linea risolutiva. Il Caso TakeHome deve restare distinto dal Caso Aula, ma non deve richiedere una procedura metodologica diversa.
 
-Il caso take-home non deve consistere in una semplice variazione parametrica del caso svolto in aula. Deve essere comparabile per struttura di lavoro, tipo di output, controlli richiesti e criteri di valutazione, ma collocato in un contesto diverso o in una formulazione finanziaria differenziata.
+Il Caso TakeHome non deve consistere in una semplice variazione parametrica del caso svolto in aula. Deve essere comparabile per struttura di lavoro, tipo di output, controlli richiesti e criteri di valutazione, ma collocato in un contesto diverso o in una formulazione finanziaria differenziata.
 
-Per ogni coppia caso aula / caso take-home devono essere chiari:
+Per ogni coppia Caso Aula / Caso TakeHome devono essere chiari:
 
 1. quali concetti teorici vengono consolidati;
 2. quali strumenti computazionali vengono utilizzati;
 3. quali output devono essere prodotti;
 4. quali controlli devono essere svolti;
 5. quali elementi metodologici sono comuni ai due casi;
-6. quali elementi distinguono il caso take-home dal caso aula;
+6. quali elementi distinguono il Caso TakeHome dal Caso Aula;
 7. quali parti sono svolte dal docente, quali dagli studenti e quali sono eventualmente assistite dall’IA.
 
 ---
@@ -967,7 +933,7 @@ Per ogni coppia caso aula / caso take-home devono essere chiari:
 
 La Scheda Costruzione Caso è il documento interno di progettazione del caso. Essa resta nelle mani del docente, ha funzione creativa primaria e deve essere redatta prima di tutte le altre fasi: prima della Scheda Caso, prima della scomposizione in tappe, prima della sequenza dei prompt e prima della costruzione del notebook.
 
-La Scheda Costruzione Caso deve essere predisposta sia per il caso aula sia per il caso take-home. La sua funzione metodologica è la stessa nei due casi. La differenza riguarda soltanto l’uso didattico successivo dei materiali: nel caso aula il materiale sostiene lo sviluppo guidato in lezione; nel caso take-home sostiene la consegna assegnata agli studenti e la valutazione del notebook e del tracciato IA.
+La Scheda Costruzione Caso deve essere predisposta sia per il Caso Aula sia per il Caso TakeHome. La sua funzione metodologica è la stessa nei due casi. La differenza riguarda soltanto l’uso didattico successivo dei materiali: nel Caso Aula il materiale sostiene lo sviluppo guidato in lezione; nel Caso TakeHome sostiene la consegna assegnata agli studenti e la valutazione del notebook e del tracciato IA.
 
 La struttura operativa canonica e' conservata nel template Markdown registrato in `Templates/MQF_Catalogo_Template.md`. Le schede compilate per le singole lezioni sono istanze del template e restano nelle rispettive cartelle applicative.
 
@@ -1050,7 +1016,7 @@ La Scheda Caso non contiene la progettazione docente interna: non contiene la ru
 
 La Scheda Caso deve però fornire tutti gli elementi necessari affinché docente e studenti possano successivamente costruire il Flusso logico-teorico risolutivo e la scomposizione operativa: contesto, domanda quantitativa, oggetti del modello, formule principali, parametri, quantità da determinare, output e controlli.
 
-Per il caso aula, la Scheda Caso è input comune per docente e studenti. Per il caso take-home, la Scheda Caso è input operativo per gli studenti.
+Per il Caso Aula, la Scheda Caso è input comune per docente e studenti. Per il Caso TakeHome, la Scheda Caso è input operativo per gli studenti.
 
 Nel lavoro con IA, la Scheda Caso costituisce il contenuto informativo del Prompt 1, successivo al Prompt zero di inizializzazione. La Scheda Caso resta la specifica vincolante del problema e non deve contenere istruzioni operative rivolte all'IA.
 
@@ -1064,7 +1030,7 @@ La Scheda Caso deve essere articolata nelle seguenti otto sezioni.
 
    Deve indicare almeno:
    - lezione;
-   - tipo di caso: aula o take-home;
+   - tipo di caso: Aula o TakeHome;
    - titolo;
    - contesto sintetico;
    - uso previsto.
@@ -1152,16 +1118,16 @@ La Scheda Caso non deve essere una soluzione del problema. Deve delimitare con p
 
 ### 14.4 Pacchetto dei materiali per ogni lezione applicativa
 
-Per ogni lezione applicativa deve essere predisposto un pacchetto coerente di materiali. L’elenco seguente indica contenuti da produrre o rendere disponibili; non implica necessariamente file separati per ciascun elemento. Alcuni materiali possono essere documenti autonomi, altri possono essere sezioni interne del notebook, della scheda docente, della traccia take-home o del README della lezione.
+Per ogni lezione applicativa deve essere predisposto un pacchetto coerente di materiali. L’elenco seguente indica contenuti da produrre o rendere disponibili; non implica necessariamente file separati per ciascun elemento. Alcuni materiali possono essere documenti autonomi, altri possono essere sezioni interne del notebook, della scheda docente, della traccia TakeHome o del README della lezione.
 
 #### Materiali principali
 
-1. Scheda Costruzione Caso del caso aula;
-2. Scheda Caso del caso aula;
-3. notebook del caso aula;
-4. Scheda Costruzione Caso del caso take-home;
-5. Scheda Caso del caso take-home;
-6. notebook del caso take-home, completo, semi-strutturato o da costruire progressivamente;
+1. Scheda Costruzione Caso del Caso Aula;
+2. Scheda Caso del Caso Aula;
+3. notebook del Caso Aula;
+4. Scheda Costruzione Caso del Caso TakeHome;
+5. Scheda Caso del Caso TakeHome;
+6. notebook del Caso TakeHome, completo, semi-strutturato o da costruire progressivamente;
 7. istruzioni per la consegna del tracciato IA, ordinariamente mediante stampa PDF della chat, se il lavoro prevede uso documentato dell’IA;
 8. rubrica di valutazione del notebook e del tracciato IA.
 
@@ -1199,22 +1165,22 @@ Il README non è obbligatorio in ogni lezione, ma è consigliato quando il pacch
 
 La costruzione di una lezione applicativa deve seguire una procedura progressiva. L’ordine raccomandato è:
 
-1. definizione della coppia caso aula / caso take-home;
-2. redazione della Scheda Costruzione Caso del caso aula;
-3. validazione della Scheda Costruzione Caso del caso aula;
-4. derivazione della Scheda Caso del caso aula;
-5. costruzione o validazione del Flusso logico-teorico risolutivo del caso aula;
-6. scomposizione del caso aula in tappe input-output;
-7. definizione della sequenza di prompt virtuosi per il caso aula, se l’IA è prevista;
-8. costruzione iterativa del notebook del caso aula;
+1. definizione della coppia Caso Aula / Caso TakeHome;
+2. redazione della Scheda Costruzione Caso del Caso Aula;
+3. validazione della Scheda Costruzione Caso del Caso Aula;
+4. derivazione della Scheda Caso del Caso Aula;
+5. costruzione o validazione del Flusso logico-teorico risolutivo del Caso Aula;
+6. scomposizione del Caso Aula in tappe input-output;
+7. definizione della sequenza di prompt virtuosi per il Caso Aula, se l’IA è prevista;
+8. costruzione iterativa del notebook del Caso Aula;
 9. esecuzione e calibrazione degli output;
-10. redazione della Scheda Costruzione Caso del caso take-home;
-11. validazione della Scheda Costruzione Caso del caso take-home;
-12. derivazione della Scheda Caso del caso take-home;
-13. costruzione o validazione del Flusso logico-teorico risolutivo del caso take-home;
-14. scomposizione del caso take-home in tappe input-output;
-15. definizione della sequenza di prompt virtuosi per il caso take-home, se l’IA è prevista;
-16. predisposizione del notebook del caso take-home, se previsto;
+10. redazione della Scheda Costruzione Caso del Caso TakeHome;
+11. validazione della Scheda Costruzione Caso del Caso TakeHome;
+12. derivazione della Scheda Caso del Caso TakeHome;
+13. costruzione o validazione del Flusso logico-teorico risolutivo del Caso TakeHome;
+14. scomposizione del Caso TakeHome in tappe input-output;
+15. definizione della sequenza di prompt virtuosi per il Caso TakeHome, se l’IA è prevista;
+16. predisposizione del notebook del Caso TakeHome, se previsto;
 17. predisposizione delle istruzioni per la consegna del tracciato IA;
 18. predisposizione della rubrica di valutazione.
 
@@ -1377,8 +1343,8 @@ A seconda della lezione, possono essere introdotti:
 6. calcolo di quantili e medie condizionate;
 7. simulazione di processi stocastici discreti e continui;
 8. uso di solver di ottimizzazione;
-9. formulazione di problemi di goal programming;
-10. analisi di sensibilità.
+9. analisi di sensitività, scenari e frontiere di fattibilità;
+10. costruzione e confronto di problemi stocastici, Expected Value e Wait-and-See.
 
 Quando possibile, il codice deve essere costruito in modo da permettere agli studenti di modificare parametri, soglie, scenari o target e osservare come cambiano gli output. Tuttavia, tali modifiche devono essere collegate a una domanda interpretativa e non ridursi a manipolazioni puramente tecniche.
 
@@ -1396,10 +1362,10 @@ Esempi di prodotto finale sono:
 4. una procedura Monte Carlo di pricing;
 5. una matrice di transizione analizzata numericamente;
 6. una distribuzione di perdita con VaR e CVaR;
-7. una formulazione di goal programming;
+7. una soluzione di programmazione lineare o di ALM deterministico con analisi dei vincoli e dei marginali;
 8. una tabella di confronto tra soluzioni;
 9. un grafico interpretativo;
-10. un confronto tra soluzioni deterministiche e stocastiche.
+10. un confronto tra soluzione stocastica, Expected Value e Wait-and-See.
 
 Gli output numerici devono essere accompagnati da controlli. Per ogni tabella o stima devono essere chiari:
 
@@ -1421,9 +1387,9 @@ Quando il codice per il grafico viene prodotto con supporto dell’IA, lo studen
 
 ---
 
-### 14.10 Valutazione dei lavori take-home
+### 14.10 Valutazione dei lavori TakeHome
 
-Quando una lezione applicativa prevede un lavoro take-home, la valutazione deve riguardare congiuntamente:
+Quando una lezione applicativa prevede un lavoro TakeHome, la valutazione deve riguardare congiuntamente:
 
 1. notebook operativo;
 2. output prodotti;
@@ -1442,7 +1408,7 @@ La valutazione non deve premiare la complessità autonoma del codice Python. Dev
 
 Il notebook e il tracciato IA, quando richiesto, devono essere coerenti tra loro. Output computazionali corretti ma ottenuti attraverso una delega opaca e non controllata non costituiscono uso virtuoso dell’IA. Allo stesso modo, prompt formalmente corretti ma non collegati agli output effettivi del notebook non sono sufficienti.
 
-La rubrica di valutazione di ciascun caso take-home deve essere coerente con la Scheda Costruzione Caso. I criteri minimi sono:
+La rubrica di valutazione di ciascun Caso TakeHome deve essere coerente con la Scheda Costruzione Caso. I criteri minimi sono:
 
 1. qualità delle premesse teorico-matematiche identificate;
 2. correttezza della scomposizione in tappe;
@@ -1469,7 +1435,7 @@ Le slides devono orientare il lavoro in aula, selezionando i passaggi essenziali
 5. output attesi;
 6. controlli;
 7. interpretazione;
-8. eventuale estensione take-home.
+8. eventuale estensione TakeHome.
 
 Il notebook contiene il codice completo o semi-completo e rappresenta il supporto operativo principale. Le slides non devono duplicare il notebook, ma devono aiutare lo studente a comprendere la logica del percorso e il ruolo delle singole tappe.
 
@@ -1664,7 +1630,7 @@ Questa distinzione impedisce che l'IA passi direttamente dal testo del problema 
 
 ### 15.5 Sequenza iterativa: dal prompt al notebook
 
-Quando l'IA è utilizzata nello sviluppo di una lezione applicativa o nello svolgimento di un take-home, il processo non deve essere lineare nel senso:
+Quando l'IA è utilizzata nello sviluppo di una lezione applicativa o nello svolgimento di un TakeHome, il processo non deve essere lineare nel senso:
 
 ```text
 prompt -> codice -> risultato
@@ -1685,7 +1651,7 @@ tappa_k
 
 Questa sequenza significa che la risposta dell'IA non viene trasferita automaticamente nel notebook. Deve essere valutata, corretta, ridotta, riformulata o scartata. Solo dopo validazione può diventare parte del notebook, sotto forma di cella Markdown, cella codice, tabella, grafico o controllo.
 
-La validazione può essere svolta dal docente, nel notebook docente, oppure dallo studente, nel lavoro take-home. In entrambi i casi devono essere chiari:
+La validazione può essere svolta dal docente, nel notebook docente, oppure dallo studente, nel lavoro TakeHome. In entrambi i casi devono essere chiari:
 
 1. quale tappa si sta svolgendo;
 2. quali input erano disponibili;
@@ -1708,7 +1674,7 @@ Quando il notebook viene costruito passo passo con supporto dell’IA, ogni prom
 
 La sequenza dei prompt virtuosi deve essere tracciabile rispetto alla struttura del notebook. Ogni prompt rilevante deve poter essere collegato a una o più sezioni del notebook e deve chiarire quale parte del prodotto finale genera: cella Markdown, cella codice, tabella, grafico, controllo, interpretazione locale o revisione critica.
 
-Nella Scheda Costruzione Caso, il docente deve quindi predisporre una mappa esplicita tra prompt e notebook. Questa mappa ha doppia funzione: guida lo sviluppo del notebook docente e fornisce un riferimento per valutare la coerenza tra tracciato IA e notebook nei lavori take-home.
+Nella Scheda Costruzione Caso, il docente deve quindi predisporre una mappa esplicita tra prompt e notebook. Questa mappa ha doppia funzione: guida lo sviluppo del notebook docente e fornisce un riferimento per valutare la coerenza tra tracciato IA e notebook nei lavori TakeHome.
 
 Per il Regime C la sequenza è specifica:
 
@@ -1876,7 +1842,7 @@ Nel notebook docente, la validazione può rimanere implicita se il materiale fin
 
 ### 15.9 Tracciato IA dello studente
 
-Quando il lavoro take-home prevede uso documentato dell'IA, lo studente deve consegnare il tracciato dell'interazione. La forma ordinaria di consegna è la stampa PDF della chat IA dedicata al caso, salvo diversa indicazione del docente.
+Quando il lavoro TakeHome prevede uso documentato dell'IA, lo studente deve consegnare il tracciato dell'interazione. La forma ordinaria di consegna è la stampa PDF della chat IA dedicata al caso, salvo diversa indicazione del docente.
 
 Il tracciato non deve essere valutato come prova forense dell'intera storia privata del lavoro svolto con strumenti IA. Deve essere valutato come artefatto metodologico: esso deve mostrare come lo studente ha organizzato l'assistenza dell'IA secondo una sequenza controllata di ricognizione teorico-modellistica, traduzione operativa in codice, verifica e interpretazione critica.
 
@@ -1909,7 +1875,7 @@ Se lo studente non utilizza un prompt zero, ogni prompt di tappa deve essere suf
 
 La chat consegnata in PDF deve essere dedicata al caso e non deve contenere conversazioni estranee. I prompt dello studente e le risposte dell'IA devono restare visibili nella sequenza effettiva di lavoro. Eventuali sintesi interne al notebook non sostituiscono il tracciato IA.
 
-Il numero di prompt deve rispettare l’intervallo stabilito dal docente per ciascun caso take-home. Tale intervallo viene indicato nella Scheda Costruzione Caso e deve essere comunicato agli studenti nella Scheda Caso o nella traccia del lavoro.
+Il numero di prompt deve rispettare l’intervallo stabilito dal docente per ciascun Caso TakeHome. Tale intervallo viene indicato nella Scheda Costruzione Caso e deve essere comunicato agli studenti nella Scheda Caso o nella traccia del lavoro.
 
 Un tracciato troppo breve tende a indicare una delega globale e non controllata. Un tracciato eccessivamente lungo tende a rendere difficile la valutazione e può indicare assenza di organizzazione. Il vincolo sul numero minimo e massimo di prompt ha quindi funzione didattica: obbliga lo studente a decomporre il problema senza produrre un materiale ingestibile.
 
@@ -1954,11 +1920,11 @@ La struttura può essere adattata dal docente in funzione della specifica lezion
 
 ### 15.11 Valutazione della prova di uno studente
 
-La valutazione della prova di uno studente è basata sulla coppia di documenti "Notebook jupyter" e "Traccaiato IA", tipicamente restituiti come soluzione di un caso take-home. La rilevanza del tracciato IA riguarda il modo in cui lo studente ha utilizzato l’IA nel processo di costruzione del lavoro. Non riguarda la qualità intrinseca delle risposte prodotte dall’IA.
+La valutazione della prova di uno studente è basata sulla coppia di documenti "Notebook Jupyter" e "Tracciato IA", tipicamente restituiti come soluzione di un Caso TakeHome. La rilevanza del tracciato IA riguarda il modo in cui lo studente ha utilizzato l’IA nel processo di costruzione del lavoro. Non riguarda la qualità intrinseca delle risposte prodotte dall’IA.
 
 La valutazione complessiva deve quindi considerare sia la qualità del prodotto finale sia la qualità del processo che ha condotto alla sua costruzione. Un notebook quantitativamente corretto non è sufficiente se il tracciato mostra una delega sostanziale del ragionamento all'IA; simmetricamente, un uso metodologicamente corretto dell'IA non compensa errori teorici, computazionali o interpretativi presenti nel notebook.
 
-Per i casi take-home con uso documentato dell'IA, la valutazione assume come riferimento la seguente articolazione su 100 punti:
+Per i Casi TakeHome con uso documentato dell'IA, la valutazione assume come riferimento la seguente articolazione su 100 punti:
 
 #### Oggetto della valutazione
 
@@ -1971,7 +1937,7 @@ La valutazione deve concentrarsi sui seguenti elementi.
 | **Notebook Jupyter e output computazionali** | 20 | codice corretto, tabelle, grafici, riproducibilità, output richiesti |
 | **Prompt e uso dei regimi A/B/C** | 15 | qualità dei prompt, rispetto dei vincoli, contributo dello studente, uso appropriato dell'IA |
 | **Verifiche logiche e controlli numerici** | 15 | verifiche su probabilità, simulazioni, formule, quantità condizionate e proprietà teoriche |
-| **Interpretazione critica finale** | 5 | autonomia, coerenza con gli output, interpretazione finanziaria e consapevolezza dei limiti del modello. l’interpretazione finale è scritta dallo studente e l’IA è usata solo per revisione critica, non per sostituzione|
+| **Interpretazione critica finale** | 5 | autonomia, coerenza con gli output, interpretazione finanziaria e consapevolezza dei limiti del modello; l’interpretazione finale è scritta dallo studente e l’IA è usata solo per revisione critica, non per sostituzione |
 
 Totale: 100 punti.
 
@@ -2061,7 +2027,7 @@ Occorre distinguere gli errori puramente tecnici di codice dagli errori teorici,
 
 Pertanto, nella valutazione del tracciato IA, il punto centrale non è se l’IA abbia prodotto una risposta perfetta, ma se lo studente abbia mantenuto il controllo teorico, operativo e interpretativo del lavoro.
 
-####  Responsabilità finale dello studente
+#### Responsabilità finale dello studente
 
 La responsabilità dello studente resta distribuita su tre piani:
 
