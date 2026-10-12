@@ -302,7 +302,7 @@ In Python, la struttura essenziale \`e:
 %\vspace{0.2cm}
 
 \begin{center}
-\texttt{def solve\_model(theta, phi, psi):}
+\texttt{def solve\_alm(theta, phi, psi):}
 
 %\vspace{0.15cm}
 
@@ -434,7 +434,7 @@ domande quantitative diverse.
 \item [1.] \textbf{Benchmark}
 \vspace{-0.2cm}
 \[
-\texttt{solve\_model(1, 1, 1)}
+\texttt{solve\_alm(1, 1, 1)}
 \]
 
 fornisce la soluzione del caso di riferimento.
@@ -442,7 +442,7 @@ fornisce la soluzione del caso di riferimento.
 \item [2.] \textbf{Sensitivit\`a univariata}
 \vspace{-0.2cm}
 \[
-\texttt{solve\_model(theta, 1, 1)}
+\texttt{solve\_alm(theta, 1, 1)}
 \]
 
 permette di studiare come cambia la soluzione al variare di un solo driver.
@@ -450,7 +450,7 @@ permette di studiare come cambia la soluzione al variare di un solo driver.
 \item [3.] \textbf{Scenari congiunti}
 \vspace{-0.2cm}
 \[
-\texttt{solve\_model(theta, phi, psi)}
+\texttt{solve\_alm(theta, phi, psi)}
 \]
 
 permette di modificare simultaneamente pi\`u driver.
@@ -819,20 +819,22 @@ La funzione obiettivo combina tre componenti:
 \item [1.] \(c'x\): rendimento economico dell'allocazione degli attivi;
 
 \item [2.] \(\displaystyle\sum_{t=1}^{3} r_t^g g_t\):
-remunerazione della liquidit\`a riportata;
+remunerazione della liquidit\`a riportata; \\la giacenza terminale $g_4$ non genera un ulteriore
+rendimento entro l'orizzonte del modello e ha quindi coefficiente nullo
+nella funzione obiettivo.
 
 \item [3.] \(\displaystyle-\sum_{t=1}^{3}\psi r_t^u u_t\):
-costo del funding esterno.
+costo del funding esterno; \\$\psi$ modifica quindi direttamente il costo economico del funding.
+
 
 \end{stepenumerate}
 
 %\vspace{0.3cm}
 
-\[
-\boxed{\psi}
-\]
+%\[
+%\boxed{\psi}
+%\]
 
-modifica quindi direttamente il costo economico del funding.
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
@@ -881,10 +883,16 @@ u_t
 g_t
 =
 d_t(\theta),
-\qquad t=2,3.
+\qquad t=2,3,
 \]
 
-\vspace{0.2cm}
+\[
+a_4'x
++(1+r_3^g)g_3
+-(1+\psi r_3^u)u_3
+-g_4
+=d_4(\theta).
+\]
 
 La logica \`e sempre la stessa:
 
@@ -1016,7 +1024,7 @@ decisionali in un unico vettore.
 
 \vspace{0.3cm}
 
-Indichiamo localmente con \(y\) il vettore utilizzato nella forma solver:
+Indichiamo localmente con \(v\) il vettore utilizzato nella forma solver:
 \vspace{-0.1cm}
 \[
 y=
@@ -1105,16 +1113,16 @@ La forma risolta da \texttt{linprog} \`e:
 \vspace{-0.1cm}
 
 \[
-\min_y f'y
+\min_v f'v
 \]
 
 soggetto a
 \vspace{-0.1cm}
 
 \[
-A_{ub}y\le b_{ub},
+A_{ub}v\le b_{ub},
 \qquad
-A_{eq}y=b_{eq}.
+A_{eq}v=b_{eq}.
 \]
 
 \vspace{-0.1cm}
@@ -1150,7 +1158,7 @@ gli oggetti del modello in questi input, non nel modificare il modello.
 Il modello economico massimizza:
 \vspace{-0.1cm}
 \[
-\max_y p'y.
+\max_v p'v.
 \]
 
 \vspace{0.4cm}
@@ -1166,16 +1174,16 @@ Il solver risolve quindi:
 \vspace{-0.1cm}
 
 \[
-\min_y f'y.
+\min_v f'v.
 \]
 
 %\vspace{0.4cm}
 
-Una volta ottenuta la soluzione \(y^*\):
+Una volta ottenuta la soluzione \(v^*\):
 \vspace{-0.1cm}
 
 \[
-\Pi^*=p'y^*=-f'y^*.
+\Pi^*=p'v^*=-f'v^*.
 \]
 
 %\vspace{0.4cm}
