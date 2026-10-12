@@ -548,9 +548,9 @@ modificata, la perdita \`{e} definita da
 L=D V_{0}\Delta y.
 \]
 
-La quantit\`{a} $L$ costituisce la variabile centrale del caso. Gli output
-richiesti riguardano la sua distribuzione empirica, la probabilit\`{a} di
-superamento di una soglia, le medie condizionate rispetto ai regimi
+La quantit\`{a} $L$ costituisce la variabile centrale del caso. Gli output richiesti riguardano la distribuzione empirica di $L$, le sue
+principali statistiche descrittive e i quantili, la probabilit\`{a} di
+superamento della soglia assegnata, le medie condizionate rispetto ai regimi
 informativi e la ricomposizione della media complessiva.
 
 La specifica definisce quindi il problema, ma non ancora la sequenza teorica
@@ -649,15 +649,17 @@ considerato, comprendono, tra le altre,
 \qquad
 \Prob(L>\ell),
 \qquad
+q_{\alpha}(L),
+\qquad
 \E[L\mid A_g],
 \qquad
 \E[L\mid\G].
 \]
 
 Occorre distinguere la variabile casuale dalle quantit\`{a} calcolate su di
-essa: $L$ \`{e} la variabile centrale, $\E[L]$ una sua caratteristica media,
-$\Prob(L>\ell)$ una probabilit\`{a} di coda e $\E[L\mid A_g]$ una media
-condizionata.
+essa: $L$ \`{e} la variabile centrale, $\E[L]$,
+$\Prob(L>\ell)$ e $q_{\alpha}(L)$ descrivono aspetti della sua distribuzione non condizionata; $\E[L\mid A_g]$ e $\E[L\mid\G]$ descrivono invece come cambia la perdita
+attesa quando si utilizza l'informazione di regime.
 
 \paragraph{5. Quali propriet\`{a} teoriche collegano le quantit\`{a} richieste?}
 
@@ -735,7 +737,8 @@ L
 \\[3pt]
 \downarrow
 \\[3pt]
-\Prob(L>\ell),\quad \E[L],\quad \E[L\mid A_g]
+\Prob(L>\ell),\quad
+q_{\alpha}(L),\quad \E[L],\quad \E[L\mid A_g]
 \\[3pt]
 \downarrow
 \\[3pt]
@@ -1232,8 +1235,9 @@ Frequenze dei regimi e coerenza delle distribuzioni simulate
 3 &
 $\Delta y$, $D$, $V_0$ &
 Calcolare $L=D V_0\Delta y$ e descriverne la distribuzione &
-Campione delle perdite e statistiche descrittive &
-Coerenza della trasformazione e plausibilit\`{a} degli output
+Campione delle perdite, statistiche descrittive e quantili &
+Coerenza della trasformazione, ordinamento dei quantili e plausibilit\`{a}
+degli output
 \\
 
 4 &
@@ -1245,8 +1249,8 @@ Confronto con la soglia equivalente su $\Delta y$
 
 5 &
 Perdite e regimi simulati &
-Calcolare quantit\`{a} condizionate per regime &
-Medie e probabilit\`{a} condizionate; stima di $\E[L\mid\G]$ &
+Calcolare le quantit\`{a} condizionate richieste per regime &
+Medie condizionate e stima di $\E[L\mid\G]$ &
 Confronto tra gruppi e assenza di classi vuote
 \\
 
