@@ -12,7 +12,7 @@ Il Master Plan definisce l'architettura didattica e i contenuti previsti. Le Gui
 |---|---|
 | **Ultima attività completata** | Estensione del progetto alla copertura sostanziale completa delle 16 lezioni: sono presenti i 16 capitoli del manuale e i 16 deck di slides. Le lezioni applicative 7, 10, 13 e 16 dispongono ora di capitolo, slides, Schede Caso Aula/TakeHome, schede di costruzione e notebook; per la Lezione 10 sono presenti anche i tracciati, mentre per le Lezioni 13 e 16 sono presenti tracciati e materiali di valutazione. |
 | **Materiale sviluppato** | Manuale: contenuto sostanziale per i Capitoli 1-16. Slides: contenuto sostanziale per le Lezioni 1-16. Pacchetti applicativi strutturati per le Lezioni 4, 7, 10, 13 e 16. Codice e script di supporto presenti lungo l'intero corso, inclusi i blocchi sulla programmazione stocastica delle Lezioni 14-15. |
-| **Lavoro in corso** | Verifica conclusiva di coerenza tra capitoli, slides, Master Plan, Notazione e materiali applicativi; taratura tipografica e controllo delle figure; verifica finale dei notebook e dei tracciati IA; eliminazione dei riferimenti storici non pi\`u allineati nelle Guidelines e nei template; chiusura dei residui gi\`a noti della Lezione 6. |
+| **Lavoro in corso** | Verifica conclusiva di coerenza tra capitoli, slides, Master Plan, Notazione e materiali applicativi; taratura tipografica e controllo delle figure; verifica finale dei notebook e dei tracciati IA; verifica dei template IA; chiusura dei residui gi\`a noti della Lezione 6. |
 | **Prossima priorit\`a** | Eseguire il controllo finale integrato del corso: compilazione completa del manuale e dei 16 deck, esecuzione/validazione dei notebook delle lezioni applicative, verifica puntuale degli asset grafici, dei riferimenti incrociati e delle scalette-promemoria previste dal Master Plan. |
 
 ---
@@ -60,6 +60,7 @@ La ricognizione del repository mostra un passaggio di fase rispetto allo snapsho
 - La Lezione 16 dispone di capitolo e slides sviluppati, nonch\'e del pacchetto applicativo con Caso Aula e TakeHome, notebook, tracciati e valutazioni.
 - La Lezione 4, gi\`a sviluppata sul piano operativo, dispone ora anche di un deck autonomo e continua a costituire il riferimento metodologico per le lezioni applicative successive.
 - Per le Lezioni applicative 4, 7, 10, 13 e 16 \`e stata verificata integralmente la presenza di figure nei rispettivi sorgenti LaTeX di capitolo e slides. Nei cinque capitoli non risultano comandi `\includegraphics`; nei cinque deck l'unica immagine stabilmente inclusa \`e il logo UniBS della copertina. I grafici prodotti in esecuzione dai notebook costituiscono output computazionali e non determinano quindi lo stato della colonna `Grafici` del registro. Per tutte e cinque le lezioni applicative la componente `Grafici` \`e classificata `sviluppato`.
+- `MQF_Project_Guidelines.md` \`e stato riallineato alla struttura corrente del corso e del repository: eliminati i residui della Goal Programming, corretti i nomi dei file delle Lezioni 12, 14 e 15, sostituiti i vecchi riferimenti a `/03_Python` e `/03_Codice` con `04_Codice`, aggiornata la struttura delle slides e corretta la disciplina degli asset grafici e degli output dei notebook.
 
 ### Variazioni principali rispetto al 2026-09-15
 
@@ -68,6 +69,7 @@ La ricognizione del repository mostra un passaggio di fase rispetto allo snapsho
 - Il Capitolo 15 passa da `parziale` a `sviluppato`.
 - Le componenti Python/materiali operativi delle Lezioni 7, 10, 13 e 16 passano a `sviluppato`, sulla base della presenza di pacchetti strutturati e sostanziali.
 - La componente `Grafici` delle Lezioni applicative 4, 7, 10, 13 e 16 \`e classificata `sviluppato`: capitoli e slides non prevedono figure didattiche esterne stabilmente incorporate, oltre al logo istituzionale delle copertine, mentre gli output grafici dei notebook sono parte della componente computazionale.
+- Le Guidelines sono state riallineate all'architettura corrente del corso e alla struttura effettiva del repository.
 - La fase progettuale dominante diventa la verifica conclusiva di coerenza, compilabilit\`a, riproducibilit\`a e qualit\`a didattica.
 
 ### Verifiche non svolte in questa sessione
@@ -92,7 +94,6 @@ Di conseguenza, `sviluppato` indica presenza di contenuto sostanziale e non cert
 - Eseguire una compilazione finale ordinaria del manuale e dei deck per intercettare overfull, riferimenti irrisolti, figure mancanti e incoerenze tra nomi file e magic comment.
 - Rieseguire i notebook delle Lezioni 4, 7, 10, 13 e 16 in ambiente pulito, verificando assenza di errori, riproducibilit\`a degli output, seed, controlli e dipendenze.
 - Verificare le figure e gli asset della Lezione 15; la componente grafica resta `parziale` fino a controllo conclusivo.
-- Riallineare nelle Guidelines i riferimenti storici a nomi file o strutture superate, in particolare gli esempi che richiamano ancora la Goal Programming per la Lezione 12.
 - Riesaminare puntualmente i template IA rispetto alle Istruzioni Studente correnti, verificando coerenza dei regimi A/B/C, del formato dei tracciati e dei materiali di valutazione.
 - Verificare la copertura e l'allineamento delle scalette-promemoria delle lezioni teoriche previste dal Master Plan.
 
@@ -103,4 +104,4 @@ Di conseguenza, `sviluppato` indica presenza di contenuto sostanziale e non cert
 - **2026-07-16/17** — sviluppate e verificate le Lezioni 8 e 6; per la Lezione 6 restano tarature locali e il completamento dei materiali esercitativi.
 - **2026-08-23** — sviluppati Capitolo e slides della Lezione 9; sviluppato il blocco teorico delle Lezioni 11-12; verificati i primi materiali applicativi delle Lezioni 7 e 10; avviato il riallineamento dei template IA.
 - **2026-09-15** — sviluppata la Lezione 14 sul modello stocastico a due stadi e avviato in forma avanzata il Capitolo 15.
-- **2026-10-12** — ricognizione generale del repository: copertura sostanziale completa di manuale e slides; pacchetti applicativi strutturati per tutte le lezioni computazionali; passaggio alla fase di verifica conclusiva e chiusura. Verificata inoltre la componente grafica delle Lezioni applicative 4, 7, 10, 13 e 16, tutte classificate `sviluppato`.
+- **2026-10-12** — ricognizione generale del repository: copertura sostanziale completa di manuale e slides; pacchetti applicativi strutturati per tutte le lezioni computazionali; passaggio alla fase di verifica conclusiva e chiusura. Verificata inoltre la componente grafica delle Lezioni applicative 4, 7, 10, 13 e 16, tutte classificate `sviluppato`; riallineate le Guidelines all'architettura corrente del corso e del repository.
