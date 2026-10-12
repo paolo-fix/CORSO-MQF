@@ -320,7 +320,7 @@ verificabile replica per replica.
 
 Supponiamo che l'array \texttt{M} contenga le traiettorie simulate del
 regime sistemico:
-
+\vspace{-0.1cm}
 \[
 \texttt{M.shape}
 =
@@ -329,7 +329,7 @@ regime sistemico:
 
 Il confronto \texttt{M == C} produce un array booleano della stessa dimensione.
 
-\vspace{0.3cm}
+%\vspace{0.3cm}
 
 Per verificare se una traiettoria visita almeno una volta lo stato \(C\)
 possiamo usare:
@@ -338,15 +338,22 @@ possiamo usare:
 \texttt{crisis = np.any(M == C, axis=1)}
 \end{center}
 
-\vspace{0.3cm}
+La maschera booleana \texttt{crisis} rappresenta, scenario per scenario,
+l'indicatore
+\vspace{-0.1cm}
+\[
+I_C^{(r)}
+=
+\mathbf{1}_{\{\exists\, t:\, M_t^{(r)}=C\}}.
+\]
 
 Il parametro \texttt{axis=1} indica che il controllo viene effettuato
 lungo il tempo, separatamente per ciascuna replica.
 
-\vspace{0.3cm}
+%\vspace{0.3cm}
 
 L'output \`e un vettore:
-
+\vspace{-0.1cm}
 \[
 \texttt{crisis}
 =
@@ -1358,6 +1365,10 @@ Nel notebook dovremo:
 % Slide 20
 %******************
 
+%******************
+% Slide 20
+%******************
+
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
@@ -1386,9 +1397,19 @@ Per entrambe, dovremo calcolare:
 
 \item perdita media, varianza e deviazione standard;
 
-\item VaR e CVaR ai livelli di confidenza previsti;
+\item VaR e CVaR ai livelli di confidenza previsti.
 
-\item perdita media negli scenari con crisi e senza crisi.
+\end{itemize}
+
+\vspace{0.3cm}
+
+Per il portafoglio base, analizzeremo inoltre la perdita media:
+
+\begin{itemize}
+
+\item negli scenari in cui il regime entra almeno una volta in crisi;
+
+\item negli scenari in cui il regime non entra mai in crisi.
 
 \end{itemize}
 
@@ -1404,11 +1425,11 @@ L_{\mathrm{lim}}^{P,(r)}
 L_{\mathrm{base}}^{P,(r)}.
 \]
 
-\vspace{0.3cm}
+%\vspace{0.3cm}
 
 \begin{center}
-\textbf{Non cerchiamo un solo numero: confrontiamo due distribuzioni
-di perdita e il loro comportamento in coda.}
+\textbf{Confrontiamo le due distribuzioni di perdita e, sul portafoglio
+base, isoliamo anche l'effetto degli scenari di crisi.}
 \end{center}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
@@ -1459,7 +1480,12 @@ l'applicazione del limite;
 con limite;
 
 \item coerenza dimensionale delle quantit\`a monetarie e delle misure di
-rischio.
+rischio;
+
+\item coerenza del calcolo empirico di VaR e CVaR:
+al livello $95\%$, la coda deve contenere $2\,500$ scenari;
+al livello $99\%$, deve contenerne $500$;
+eventuali pareggi sul quantile non devono alterare questa cardinalit\`a.
 
 \end{itemize}
 
@@ -1467,13 +1493,12 @@ rischio.
 
 \begin{center}
 \textbf{Da questo punto il lavoro prosegue direttamente in
-VS Code/Jupyter.}
+VS Code.}
 \end{center}
 
 %\vspace{0.2cm}
 
-Il notebook dovr\`a costruire progressivamente simulazioni, output,
-controlli e interpretazione finale.
+
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
 %BeginExpansion

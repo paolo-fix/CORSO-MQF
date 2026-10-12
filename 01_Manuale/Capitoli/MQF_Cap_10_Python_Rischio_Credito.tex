@@ -143,15 +143,32 @@ I_C^{(s)}
 \1_{\{\exists\,t:M_t^{(s)}=C\}}.
 \]
 
+Nel codice Python, l'indicatore $I_C$ viene rappresentato dalla
+maschera booleana \texttt{crisis}, definita scenario per scenario da
+
+\[
+\texttt{crisis[r]} = \bigl(I_C^{(r)}=1\bigr).
+\]
+
+Pertanto, le perdite condizionate agli scenari di crisi e di non crisi
+si selezionano mediante
+
+\[
+\texttt{loss[crisis]}
+\qquad\text{e}\qquad
+\texttt{loss[{\symbol{126}}crisis]}.
+\]
+
+
 La scelta di \texttt{axis=1} \`e essenziale: l'aggregazione avviene lungo il
 tempo all'interno di ciascuno scenario. Utilizzare l'asse opposto
 risponderebbe a una domanda diversa, cio\`e se, a una determinata data,
 almeno uno scenario si trovi nello stato di crisi.
 
 Il vettore booleano pu\`o quindi essere utilizzato come maschera. Se
-\texttt{loss} contiene le perdite di portafoglio, \texttt{loss[I\_C]}
+\texttt{loss} contiene le perdite di portafoglio, \texttt{loss[crisis]}
 seleziona gli scenari di crisi, mentre
-\texttt{loss[\textasciitilde I\_C]} seleziona quelli complementari.
+\texttt{loss[\textasciitilde crisis]} seleziona quelli complementari.
 
 Si costruiscono cos\`i i due sottocampioni
 
