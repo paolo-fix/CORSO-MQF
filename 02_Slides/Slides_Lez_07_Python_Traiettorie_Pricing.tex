@@ -836,7 +836,7 @@ quando inflazione e tasso sono stocastici e correlati?
 % Slide 12 -- La Scheda Caso e' la specifica del problema
 % --------------------------------------------------------
 
-\subsection{La specifica vincolante}
+\subsection{La specifica del problema}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
@@ -850,32 +850,41 @@ quando inflazione e tasso sono stocastici e correlati?
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Nel lavoro applicativo, la \textbf{Scheda Caso} costituisce la
-specifica vincolante del problema.
+Prima di costruire il notebook, occorre fissare con precisione
+\textbf{che cosa deve essere simulato e valutato}.
 
 \medskip
 
-Sono assegnati:
+La Scheda Caso assegna:
 
 \begin{stepitemize}
 
-\item il contesto finanziario e le grandezze da modellizzare;
+\item la struttura del contratto e le date rilevanti;
 
-\item i modelli stocastici e le relazioni contrattuali;
+\item le dinamiche dei fattori di rischio e i relativi parametri;
 
-\item i parametri e la struttura temporale;
+\item la dipendenza tra inflazione e tasso nominale;
 
-\item gli output da produrre e i controlli da eseguire;
-
-\item le ipotesi e i limiti dell'esercizio.
+\item la griglia temporale, il numero di simulazioni e i controlli richiesti.
 
 \end{stepitemize}
 
 \medskip
 
-Durante il lavoro, questi elementi \textbf{non devono essere ridefiniti}
-autonomamente n\'e dallo studente n\'e dall'IA.
+Nel Caso Aula, questi elementi sono \textbf{ipotesi assegnate a fini didattici}:
+non derivano da una calibrazione di mercato.
 
+\medskip
+
+Le dinamiche specificate vengono utilizzate direttamente per costruire
+i valori attuali scenario per scenario e il successivo prezzo Monte Carlo.
+
+\medskip
+
+\begin{center}
+\textbf{Il risultato va quindi interpretato come valore prodotto dal modello
+assegnato, non come quotazione osservabile di mercato.}
+\end{center}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
@@ -885,6 +894,60 @@ autonomamente n\'e dallo studente n\'e dall'IA.
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+
+% % --------------------------------------------------------
+% % Slide 12 -- La Scheda Caso e' la specifica del problema
+% % --------------------------------------------------------
+
+% \subsection{La specifica vincolante}
+
+% %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+% %BeginExpansion
+% \begin{frame}%
+% %EndExpansion
+
+% \QTR{frametitle}{La Scheda Caso \`e la specifica del problema}
+
+% %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+% %BeginExpansion
+% \setbeamercovered{transparent=20}%
+% %EndExpansion
+
+% Nel lavoro applicativo, la \textbf{Scheda Caso} costituisce la
+% specifica vincolante del problema.
+
+% \medskip
+
+% Sono assegnati:
+
+% \begin{stepitemize}
+
+% \item il contesto finanziario e le grandezze da modellizzare;
+
+% \item i modelli stocastici e le relazioni contrattuali;
+
+% \item i parametri e la struttura temporale;
+
+% \item gli output da produrre e i controlli da eseguire;
+
+% \item le ipotesi e i limiti dell'esercizio.
+
+% \end{stepitemize}
+
+% \medskip
+
+% Durante il lavoro, questi elementi \textbf{non devono essere ridefiniti}
+% autonomamente n\'e dallo studente n\'e dall'IA.
+
+
+% %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+% %BeginExpansion
+% \transboxout%
+% %EndExpansion
+% %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+% %BeginExpansion
+% \end{frame}%
+% %EndExpansion
 
 
 % --------------------------------------------------------
@@ -969,7 +1032,7 @@ Non \`e l'indice dei prezzi utilizzato per indicizzare i flussi.
 %EndExpansion
 
 Il tasso nominale istantaneo $r_t$ segue un processo CIR:
-
+\vspace{-0.1cm}
 \[
 dr_t
 =
@@ -994,22 +1057,24 @@ Il modello combina:
 
 \medskip
 
-La condizione di Feller
-
-\[
-2\kappa_r\theta_r\geq\sigma_r^2
-\]
-
-pu\`o essere verificata sui parametri assegnati.
+La condizione di Feller $2\kappa_r\theta_r\geq\sigma_r^2$ pu\`o essere verificata sui parametri assegnati.
 
 \medskip
 
-\begin{center}
-\textbf{Modello continuo e discretizzazione numerica non coincidono:}\\
-eventuali valori negativi prodotti dallo schema numerico
-devono essere evitati.
-\end{center}
+Nel notebook, il processo viene discretizzato sulla griglia temporale.
+Per mantenere definito il termine diffusivo anche in presenza di valori
+numericamente negativi, utilizzeremo
+\vspace{-0.1cm}
+\[
+\sqrt{r_{t_j}}
+\;\longrightarrow\;
+\sqrt{\max(r_{t_j},0)}.
+\]
 
+%\medskip
+
+La discretizzazione pu\`o quindi produrre valori negativi di $r_t$,
+che dovranno essere controllati esplicitamente nella verifica numerica.
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -1099,34 +1164,91 @@ simulati dei due processi.}
 % --------------------------------------------------------
 
 \subsection{Indicizzazione}
+% --------------------------------------------------------
+% Slide 16 -- Dall'inflazione al fattore di indicizzazione
+% --------------------------------------------------------
+
+\subsection{Dall'inflazione al fattore di indicizzazione}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Dall'inflazione all'indice dei prezzi}
+\QTR{frametitle}{Dall'inflazione al fattore di indicizzazione}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-La traiettoria di $i_t$ descrive il \textbf{tasso istantaneo di inflazione}.
-Per indicizzare i flussi occorre invece costruire la variazione cumulata
-del livello dei prezzi.
+Il processo $i_t$ descrive il \textbf{tasso istantaneo di inflazione}, ossia il \textbf{tasso istantaneo di crescita dell'indice dei prezzi}.
+Per costruire i flussi indicizzati, occorre trasformarlo nel corrispondente
+\textbf{livello dell'indice dei prezzi}.
 
 \medskip
 
-Definiamo il fattore di indicizzazione
+Indichiamo con $I_t$ il livello dell'indice dei prezzi al tempo $t$ e con $I_0$ il suo valore
+iniziale.
+
+Se $dI_t=I_t i_t\,dt$, allora $I_t
+=
+I_0
+\exp\left(
+\int_0^t i_s\,ds
+\right)$.
+
+%\medskip
+
+Il contratto utilizza il \textbf{fattore di indicizzazione}
 
 \[
 J_t
 =
-\exp\left(\int_0^t i_s\,ds\right).
+\frac{I_t}{I_0}
+=
+\exp\left(
+\int_0^t i_s\,ds
+\right).
 \]
 
 \medskip
+
+Quindi, lungo ciascuna traiettoria,
+\vspace{-0.1cm}
+\[
+i_t
+\;\longrightarrow\;
+I_t
+\;\longrightarrow\;
+J_t,
+\]
+
+e $J_t$ misura la variazione cumulata del livello dei prezzi rispetto all'inizio.
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Dall'inflazione al fattore di indicizzazione}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
 
 Sulla griglia temporale, l'integrale viene approssimato mediante
 i valori simulati dell'inflazione:
@@ -1534,7 +1656,7 @@ del notebook.
 % Slide 23 -- Il notebook deve essere verificabile
 % --------------------------------------------------------
 
-\subsection{Controlli e passaggio al laboratorio}
+\subsection{Controlli della soluzione}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
@@ -1553,35 +1675,35 @@ Il notebook deve permettere di verificare i passaggi che lo generano.
 
 \medskip
 
-Nel Caso Aula, dovremo controllare, tra l'altro:
+Nel Caso Aula, controlleremo:
 
 \begin{stepitemize}
 
-\item la correlazione empirica degli shock simulati;
+\item la correlazione empirica degli shock simulati rispetto al valore
+assegnato $\rho$;
 
-\item il comportamento mean-reverting dei fattori e gli eventuali
-valori negativi prodotti dalla discretizzazione CIR;
+\item la coerenza delle traiettorie, compresi gli eventuali valori negativi
+del tasso CIR prodotti dalla discretizzazione;
 
-\item la coerenza delle quantit\`a costruite lungo le traiettorie,
-in particolare $J_t>0$ e $R_T\geq N$;
+\item le quantit\`a costruite lungo le traiettorie, in particolare
+\[
+J_t>0,
+\qquad
+R_T\geq N;
+\]
 
-\item la costruzione pathwise dei fattori di sconto;
+\item la corretta costruzione pathwise dei fattori di sconto e dei valori
+attuali;
 
-\item la precisione Monte Carlo e il comportamento del
-$SE$ al crescere di $M$;
+\item la precisione Monte Carlo, verificando la riduzione di $SE(\widehat V_M)$ al crescere di $M$;
 
-\item la stabilit\`a dei risultati rispetto alla griglia temporale.
+\item la stabilit\`a rispetto alla discretizzazione temporale,
+confrontando il prezzo ottenuto sulla griglia base con quello ottenuto
+su una griglia pi\`u fine.
 
 \end{stepitemize}
 
 
-
-\medskip
-
-\begin{center}
-\textbf{Da questo punto il lavoro prosegue direttamente
-in VS Code/Jupyter.}
-\end{center}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
@@ -1591,7 +1713,6 @@ in VS Code/Jupyter.}
 %BeginExpansion
 \end{frame}%
 %EndExpansion
-
 % ============================================================
 % GRUPPO 6 -- CASO TAKEHOME
 % Slide 24-26
