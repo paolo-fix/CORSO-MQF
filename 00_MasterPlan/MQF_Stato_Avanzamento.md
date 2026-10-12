@@ -12,7 +12,7 @@ Il Master Plan definisce l'architettura didattica e i contenuti previsti. Le Gui
 |---|---|
 | **Ultima attività completata** | Estensione del progetto alla copertura sostanziale completa delle 16 lezioni: sono presenti i 16 capitoli del manuale e i 16 deck di slides. Le lezioni applicative 7, 10, 13 e 16 dispongono ora di capitolo, slides, Schede Caso Aula/TakeHome, schede di costruzione e notebook; per la Lezione 10 sono presenti anche i tracciati, mentre per le Lezioni 13 e 16 sono presenti tracciati e materiali di valutazione. |
 | **Materiale sviluppato** | Manuale: contenuto sostanziale per i Capitoli 1-16. Slides: contenuto sostanziale per le Lezioni 1-16. Pacchetti applicativi strutturati per le Lezioni 4, 7, 10, 13 e 16. Codice e script di supporto presenti lungo l'intero corso, inclusi i blocchi sulla programmazione stocastica delle Lezioni 14-15. |
-| **Lavoro in corso** | Verifica conclusiva di coerenza tra capitoli, slides, Master Plan, Notazione e materiali applicativi; taratura tipografica e controllo delle figure; verifica finale dei notebook e dei tracciati IA; verifica dei template IA; chiusura dei residui gi\`a noti della Lezione 6. |
+| **Lavoro in corso** | Verifica conclusiva di coerenza tra capitoli, slides, Master Plan, Notazione e materiali applicativi; taratura tipografica e controllo delle figure; verifica finale dei notebook e dei tracciati IA; verifica dei template IA. |
 | **Prossima priorit\`a** | Eseguire il controllo finale integrato del corso: compilazione completa del manuale e dei 16 deck, esecuzione/validazione dei notebook delle lezioni applicative, verifica puntuale degli asset grafici, dei riferimenti incrociati e delle scalette-promemoria previste dal Master Plan. |
 
 ---
@@ -30,7 +30,7 @@ La classificazione `sviluppato` non equivale a `chiuso`: in questa fase gran par
 | 3 | P | Valori attesi condizionati | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
 | 4 | C | Python: probabilit\`a e condizionamento | sviluppato | sviluppato | sviluppato | sviluppato | sviluppato |
 | 5 | P | Processi stocastici in tempo discreto | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
-| 6 | P | Processi stocastici in tempo continuo | sviluppato | sviluppato | parziale | sviluppato | n.a. |
+| 6 | P | Processi stocastici in tempo continuo | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
 | 7 | C | Traiettorie, simulazione e pricing | sviluppato | sviluppato | sviluppato | sviluppato | sviluppato |
 | 8 | P | Catene di Markov | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
 | 9 | P | Markov e misure di rischio | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
@@ -52,6 +52,7 @@ La ricognizione del repository mostra un passaggio di fase rispetto allo snapsho
 
 - In `01_Manuale/Capitoli/` sono presenti i sedici capitoli previsti dal corso. I Capitoli 7, 10, 13, 15 e 16, che nel precedente registro risultavano assenti, in traccia o parziali, contengono ora sviluppo sostanziale coerente con la rispettiva funzione didattica.
 - In `02_Slides/` sono presenti i sedici deck di lezione. In particolare risultano sviluppate anche le slides delle Lezioni 4, 7, 10, 13, 14, 15 e 16, mancanti nel precedente snapshot.
+- Il Capitolo 6 contiene una sezione strutturata di esercizi svolti e una sezione di esercizi proposti con risultati per l'autovalutazione; il precedente stato `parziale` della componente `Esercizi/materiali operativi` non descrive pi\`u il materiale corrente ed \`e stato portato a `sviluppato`.
 - La Lezione 7 dispone di capitolo, slides, Schede Caso Aula/TakeHome, schede di costruzione e pi\`u notebook di lavoro.
 - La Lezione 10 dispone di capitolo sul rischio di credito, slides, Schede Caso Aula/TakeHome, schede di costruzione, notebook Aula/TakeHome e tracciati.
 - La Lezione 13 dispone di capitolo sull'implementazione Python dell'ALM deterministico, slides, casi Aula/TakeHome, notebook, tracciati e valutazioni. Il capitolo rende esplicita la traduzione del modello in `scipy.optimize.linprog`.
@@ -67,6 +68,7 @@ La ricognizione del repository mostra un passaggio di fase rispetto allo snapsho
 - Le slides passano da copertura parziale a copertura completa delle 16 lezioni.
 - I Capitoli 7, 10, 13 e 16 passano da `traccia` a `sviluppato`.
 - Il Capitolo 15 passa da `parziale` a `sviluppato`.
+- La componente `Esercizi/materiali operativi` della Lezione 6 passa da `parziale` a `sviluppato`, sulla base della presenza corrente di esercizi svolti e proposti strutturati nel Capitolo 6.
 - Le componenti Python/materiali operativi delle Lezioni 7, 10, 13 e 16 passano a `sviluppato`, sulla base della presenza di pacchetti strutturati e sostanziali.
 - La componente `Grafici` delle Lezioni applicative 4, 7, 10, 13 e 16 \`e classificata `sviluppato`: capitoli e slides non prevedono figure didattiche esterne stabilmente incorporate, oltre al logo istituzionale delle copertine, mentre gli output grafici dei notebook sono parte della componente computazionale.
 - Le Guidelines sono state riallineate all'architettura corrente del corso e alla struttura effettiva del repository.
@@ -90,7 +92,6 @@ Di conseguenza, `sviluppato` indica presenza di contenuto sostanziale e non cert
 
 ## Questioni operative aperte
 
-- Chiudere il residuo della Lezione 6 sugli esercizi/materiali, gi\`a classificato `parziale` nelle verifiche precedenti.
 - Eseguire una compilazione finale ordinaria del manuale e dei deck per intercettare overfull, riferimenti irrisolti, figure mancanti e incoerenze tra nomi file e magic comment.
 - Rieseguire i notebook delle Lezioni 4, 7, 10, 13 e 16 in ambiente pulito, verificando assenza di errori, riproducibilit\`a degli output, seed, controlli e dipendenze.
 - Verificare le figure e gli asset della Lezione 15; la componente grafica resta `parziale` fino a controllo conclusivo.
@@ -101,7 +102,7 @@ Di conseguenza, `sviluppato` indica presenza di contenuto sostanziale e non cert
 
 ## Verifiche storiche sintetiche
 
-- **2026-07-16/17** — sviluppate e verificate le Lezioni 8 e 6; per la Lezione 6 restano tarature locali e il completamento dei materiali esercitativi.
+- **2026-07-16/17** — sviluppate e verificate le Lezioni 8 e 6; per la Lezione 6 restavano allora tarature locali e il completamento dei materiali esercitativi. Il residuo esercitativo risulta successivamente chiuso nella versione corrente del Capitolo 6.
 - **2026-08-23** — sviluppati Capitolo e slides della Lezione 9; sviluppato il blocco teorico delle Lezioni 11-12; verificati i primi materiali applicativi delle Lezioni 7 e 10; avviato il riallineamento dei template IA.
 - **2026-09-15** — sviluppata la Lezione 14 sul modello stocastico a due stadi e avviato in forma avanzata il Capitolo 15.
-- **2026-10-12** — ricognizione generale del repository: copertura sostanziale completa di manuale e slides; pacchetti applicativi strutturati per tutte le lezioni computazionali; passaggio alla fase di verifica conclusiva e chiusura. Verificata inoltre la componente grafica delle Lezioni applicative 4, 7, 10, 13 e 16, tutte classificate `sviluppato`; riallineate le Guidelines all'architettura corrente del corso e del repository.
+- **2026-10-12** — ricognizione generale del repository: copertura sostanziale completa di manuale e slides; pacchetti applicativi strutturati per tutte le lezioni computazionali; passaggio alla fase di verifica conclusiva e chiusura. Verificata inoltre la componente grafica delle Lezioni applicative 4, 7, 10, 13 e 16, tutte classificate `sviluppato`; riallineate le Guidelines all'architettura corrente del corso e del repository; chiuso il residuo storico della Lezione 6 sugli esercizi/materiali operativi, ora classificati `sviluppato`.
