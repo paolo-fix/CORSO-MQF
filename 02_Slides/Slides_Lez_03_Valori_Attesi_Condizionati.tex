@@ -152,63 +152,15 @@ atteso condizionato come valutazione coerente con l'informazione disponibile.
 
 \medskip
 
-\begin{stepitemize}
-\item richiamare probabilit\`{a} condizionata e distribuzione condizionata;
-
-\item calcolare un valore atteso condizionato rispetto a un evento:
-\[
-\E[H\mid A];
-\]
-
-\item passare da eventi e partizioni a sigma-algebre informative:
-\[
-\G\subseteq\F;
-\]
-
-\item interpretare il valore atteso condizionato come variabile casuale:
-\[
-\E[H\mid\G];
-\]
-
-\item usare le principali regole operative e applicarle a payoff e perdite finanziarie.
-\end{stepitemize}
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout%
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-%***********************************
-
-\subsection{Obiettivi della lezione}
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\QTR{frametitle}{Obiettivi della lezione}
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
-
-Al termine della lezione dovremo saper interpretare il valore atteso
-condizionato come valutazione coerente con una data informazione.
-
-\medskip
-
 \begin{stepenumerate}
 \item [1.] Richiamare probabilit\`{a} condizionata e distribuzione condizionata
 rispetto a un evento osservato.
 
-\item [2.] Definire il valore atteso condizionato rispetto a un evento:
+\item [2.] Calcolare e interpretare il valore atteso condizionato rispetto a un evento:
 \[
-\E[X\mid A].
+\E[X\mid A],
 \]
+riconoscendolo come un numero.
 
 \item [3.] Passare da eventi singoli a partizioni informative e alla
 sigma-algebra generata:
@@ -219,8 +171,8 @@ sigma-algebra generata:
 \item [4.] Interpretare $\E[X\mid\G]$ come variabile casuale osservabile
 rispetto all'informazione disponibile.
 
-\item [5.] Usare le principali regole operative e applicarle a payoff,
-perdite e scenari di mercato.
+\item [5.] Usare la formula del valore atteso totale e le principali regole
+operative, applicandole a payoff, perdite e scenari di mercato.
 \end{stepenumerate}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
@@ -315,7 +267,7 @@ scenari compatibili:
 \item La media viene ricalcolata usando le \textbf{probabilit\`{a}
 condizionate}:
 \[
-\Prob(H \in,\cdot\,\mid A).
+\Prob(H \in \cdot\,\mid A).
 \]
 
 \item Quindi non si modifica la funzione payoff $H$, ma la
@@ -943,6 +895,75 @@ $\mathcal{H}$ \`{e} osservabile anche con $\G$, ma non viceversa.
 %EndExpansion
 %*********************************************
 
+
+\subsection{Dalla partizione finita alla definizione generale}
+
+%*********************************************
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Dalla partizione finita alla definizione generale}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Nel caso di una partizione finita
+\[
+\G=\sigma(B_1,\ldots,B_n),
+\]
+abbiamo costruito il valore atteso condizionato come
+\[
+\E[X\mid\G]
+=
+\sum_{i=1}^{n}\E[X\mid B_i]\mathbf{1}_{B_i}.
+\]
+
+\medskip
+
+La definizione generale mantiene la stessa idea di
+\textbf{coerenza con l'informazione disponibile}.
+
+\medskip
+
+Una variabile casuale $Z$ \`{e} una versione di $\E[X\mid\G]$ se:
+
+\begin{stepenumerate}
+
+\item [1.] $Z$ \`{e} $\G$-misurabile;
+
+\item [2.] per ogni evento $C\in\G$,
+\[
+\E[Z\mathbf{1}_C]
+=
+\E[X\mathbf{1}_C].
+\]
+
+\end{stepenumerate}
+
+\medskip
+
+\begin{center}
+{\small
+Il valore atteso condizionato \`{e} definito a meno di uguaglianza
+quasi certa.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+%*********************************************
+
+
+
 \subsection{Regole operative: mappa generale}
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
@@ -1083,7 +1104,7 @@ $\G$-misurabile approssima meglio $X$?
  
 \medskip
  
-\textbf{Criterio.} Minimizzare l'errore quadratico medio tra tutte
+\textbf{Criterio.} Sia $X \in L^2$. Minimizzare l'errore quadratico medio tra tutte
 le previsioni ammissibili $Y$:
 \[
 \min_{Y} \; \E\left[(X - Y)^2\right].
@@ -1153,8 +1174,7 @@ Y^* = \E[X \mid \G] = \sum_{i=1}^{n} \E[X \mid B_i] \1_{B_i}.
 \end{stepitemize}
  
 \begin{center}
-{\small $\E[X\mid\G]$ \`{e} l'unica previsione che usa tutta
-l'informazione di $\G$ e niente di pi\`{u}.}
+{\small $\E[X\mid\G]$ \`{e} la migliore previsione \(\mathcal G\)-misurabile in senso quadratico, unica quasi certamente.}
 \end{center}
  
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
@@ -1565,7 +1585,7 @@ Se $s \leq t$, allora $\mathcal{F}_s \subseteq \mathcal{F}_t$ e vale la \textbf{
 \medskip
  
 \begin{center}
-{\small La filtrazione e la propriet\`{a} della torre sono alla base dei modelli dinamici di pricing. Saranno riprese nel Capitolo 4.}
+{\small La filtrazione e la propriet\`{a} della torre sono alla base dei modelli dinamici di pricing. Saranno riprese nel Capitolo 5.}
 \end{center}
  
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
@@ -1725,7 +1745,7 @@ $\E[L\mid A]$ & $17.5$ & perdita media negli scenari di stress \\
 % **************************
 \section{Sintesi}
  
-\subsection{Mappa concettuale e collegamento al Capitolo 4}
+\subsection{Mappa concettuale e collegamento al Capitolo 5}
  
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
@@ -1739,7 +1759,7 @@ $\E[L\mid A]$ & $17.5$ & perdita media negli scenari di stress \\
 \setbeamercovered{transparent=20}%
 %EndExpansion
  
-Il capitolo ha costruito tre livelli di valutazione di una variabile casuale $X$:
+Abbiamo costruito tre livelli di valutazione di una variabile casuale $X$:
  
 \medskip
  
@@ -1761,7 +1781,7 @@ Livello & Oggetto & Informazione \\
  
 \item Quando l'informazione cresce nel tempo, la sequenza $\mathcal{F}_0\subseteq\mathcal{F}_1\subseteq\cdots\subseteq\mathcal{F}_T$ descrive una filtrazione e $\E[X\mid\mathcal{F}_t]$ diventa una previsione dinamica.
  
-\item \textbf{Capitolo 4.} I processi stocastici in tempo discreto saranno studiati insieme alla filtrazione che li rende adattati: ogni variabile $X_t$ sar\`{a} osservabile rispetto a $\mathcal{F}_t$.
+\item \textbf{Capitolo 5.} I processi stocastici in tempo discreto saranno studiati insieme alla filtrazione che li rende adattati: ogni variabile $X_t$ sar\`{a} osservabile rispetto a $\mathcal{F}_t$.
  
 \end{stepitemize}
  
