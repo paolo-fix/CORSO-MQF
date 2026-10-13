@@ -109,10 +109,10 @@ X(\omega)\in\mathbb{R}
 
 \[
 \begin{array}{rcl}
-R   & = & \mbox{rendimento aleatorio},\\[4pt]
-L   & = & \mbox{perdita aleatoria},\\[4pt]
-S_T & = & \mbox{prezzo futuro aleatorio},\\[4pt]
-H   & = & \mbox{payoff aleatorio}.
+R(\omega)   & = & \mbox{rendimento aleatorio},\\[4pt]
+L(\omega)   & = & \mbox{perdita aleatoria},\\[4pt]
+S_T(\omega) & = & \mbox{prezzo futuro aleatorio},\\[4pt]
+H(\omega)   & = & \mbox{payoff aleatorio}.
 \end{array}
 \]
 
@@ -161,16 +161,6 @@ distribuzione dei valori assunti da una grandezza finanziaria aleatoria.
 Come si descrive probabilisticamente un rendimento, una perdita o un payoff
 aleatorio?
 
-\medskip
-
-\[
-\begin{array}{rcl}
-R   & : & \mbox{rendimento futuro},\\[4pt]
-L   & : & \mbox{perdita di portafoglio},\\[4pt]
-S_T & : & \mbox{prezzo futuro del sottostante},\\[4pt]
-H   & : & \mbox{payoff di un contratto finanziario}.
-\end{array}
-\]
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
@@ -241,11 +231,11 @@ rendimenti, perdite, payoff e rischio di coda.
 
 \QTR{frametitle}{Variabile casuale: definizione}
 
-Una variabile casuale reale associa un numero reale a ciascun esito dello spazio
-campionario.
+"Una variabile casuale reale \textbf{è una funzione} che associa un numero reale a ciascun esito dello spazio
+campionario:"
 
 \[
-X:\Omega\longrightarrow\mathbb{R}
+X:\Omega\longrightarrow\mathbb{R}.
 \]
 
 \medskip
@@ -341,7 +331,7 @@ La probabilit\`{a} resta assegnata a eventi dello spazio originario:
 \QTR{frametitle}{La condizione di misurabilit\`{a}}
 
 Una funzione $X:\Omega\to\mathbb{R}$ \`{e} una variabile casuale \textbf{misurabile} se gli eventi
-del tipo $\{X\leq x\}$, o, più precisamente, $ \{\omega \in \Omega:X\leq x \}$,  sono inclusi nella $\sigma$-algebra $\F$, (famiglia degli eventi rilevanti): 
+del tipo $\{X\leq x\}$, o, più precisamente, $ \{\omega \in \Omega:X(\omega)\leq x \}$,  sono inclusi nella $\sigma$-algebra $\F$, (famiglia degli eventi rilevanti): 
 
 \[
 \{X\leq x\}\in\F
@@ -461,7 +451,7 @@ A_1\cup A_2,A_1\cup A_3,A_2\cup A_3,
 
 \medskip
 
-Gli eventi ammissibili sono le unioni dei blocchi della partizione.
+La sigma-algebra specifica  eventi rilevanti e osservabili nel modello, ad esempio:
 
 \medskip
 
@@ -469,13 +459,10 @@ Gli eventi ammissibili sono le unioni dei blocchi della partizione.
 \begin{array}{rcl}
 A_1\cup A_2 & : & \mbox{regime non favorevole},\\[4pt]
 A_2\cup A_3 & : & \mbox{regime non sfavorevole},\\[4pt]
-\Omega      & : & \mbox{evento certo}.
+...
 \end{array}
 \]
 
-\medskip
-
-La sigma-algebra specifica quali eventi sono descrivibili nel modello.
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
@@ -1588,9 +1575,6 @@ Interpretazione finanziaria:
 \end{array}
 \]
 
-\medskip
-
-Il valore atteso \`{e} una media probabilistica, non una previsione deterministica.
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
@@ -1622,7 +1606,7 @@ a\E[X]+b.
 
 \medskip
 
-Pi\`{u} in generale,
+Pi\`{u} in generale, date $X_i, i=1,...,n$ variabili casuali, vale:
 
 \[
 \E\left[\sum_{i=1}^n a_iX_i\right]
@@ -2018,9 +2002,6 @@ Se $a$ e $b$ sono costanti reali,
 \sigma_{aX+b}=|a|\sigma_X.
 \]
 
-\medskip
-
-La traslazione cambia il livello; la scala cambia la dispersione.
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion

@@ -156,7 +156,7 @@ struttura numerica richiesta da \texttt{scipy.optimize.linprog}.
 
 Tradurre i modelli dei Capitoli 14 e 15 in un problema computazionale
 two-stage e confrontare soluzione stocastica, Expected Value,
-Expected result of using the EV solution e Wait-and-See.
+rivalutazione della soluzione Expected Value e Wait-and-See.
 
 \item [3.] \textbf{Caso TakeHome: UK LDI 2022}
 
@@ -182,7 +182,7 @@ Il metodo resta quello introdotto nella Lezione 4:
 %\vspace{0.2cm}
 
 Dopo il break, il Caso Aula sar\`a sviluppato direttamente in
-\textbf{VS Code/Jupyter}, senza ulteriori slide.
+\textbf{VS Code}.
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
@@ -222,7 +222,7 @@ Riceve una rappresentazione numerica del problema:
 
 \[
 \begin{array}{ll}
-\max\limits_x & c'x \\[0.2cm]
+\min\limits_x & c'x \\[0.2cm]
 \text{s.t.}   & A_{\mathrm{eq}}x=b_{\mathrm{eq}},\\
               & A_{\mathrm{ub}}x\le b_{\mathrm{ub}},\\
               & \ell\le x\le u.
@@ -283,7 +283,7 @@ modello matematico in una forma computazionale coerente.
 Nel Caso Aula, useremo un vettore decisionale ordinato come
 
 \[
-z=
+v=
 (x_1,x_2,x_3,x_4,
 u_N,u_P,u_R,
 g_N,g_P,g_R)'.
@@ -304,10 +304,10 @@ Lo stesso ordine riguarda gli output del solver.
 
 \item [2.] \textbf{\texttt{linprog} risolve un problema di minimizzazione}
 
-Se il modello finanziario richiede $\max_z f(z)$, al solver viene passato l'obiettivo equivalente
+Se il modello finanziario richiede $\max_v f(v)$, al solver viene passato l'obiettivo equivalente
 %\vspace{-0.2cm}
 \[
-\min_z \{-f(z)\}.
+\min_v \{-f(v)\}.
 \]
 
 \end{stepenumerate}
@@ -975,7 +975,7 @@ critici.
 Per il problema stocastico, il vettore decisionale completo \`e
 \vspace{-0.0cm}
 \[
-z=
+v=
 (x_1,x_2,x_3,x_4,
 u_N,u_P,u_R,
 g_N,g_P,g_R)'.
@@ -1186,7 +1186,7 @@ quantit\`a diverse.
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{La soluzione media non \`e ancora l'EEV}
+\QTR{frametitle}{La soluzione media non \`e ancora il valore EV rivalutato}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -1284,7 +1284,7 @@ Ma nello scenario severo:
 \[
 u_R^{SP}=3,
 \qquad
-u_R^{EEV}=36.
+u_R^{EV}=36.
 \]
 
 %\vspace{0.4cm}
@@ -1293,7 +1293,7 @@ Le due politiche sono quindi molto diverse sotto stress:
 
 \[
 \begin{array}{c|c|c}
- & SP & EEV \\ \hline
+ & SP & EV \\ \hline
 \text{funding nello scenario }R & 3 & 36
 \end{array}
 \]
@@ -1430,6 +1430,8 @@ con
 \[
 x_1+x_2=100,
 \qquad
+x_1 \ge 0,
+\qquad
 x_2\ge50.
 \]
 
@@ -1504,7 +1506,7 @@ deleveraging sono soggetti a vincoli di capacit\`a.
 Nel Caso Aula, il confronto
 \vspace{-0.0cm}
 \[
-EEV
+EV
 \quad\longrightarrow\quad
 SP
 \quad\longrightarrow\quad
@@ -1554,7 +1556,7 @@ poi si interpreta il benchmark}
 %\vspace{0.3cm}
 
 Se una politica non ammette ricorso in uno scenario, non \`e corretto
-forzare un valore finito di EEV o VSS modificando implicitamente il modello.
+forzare un valore finito di $z^{EV}$ o VSS modificando implicitamente il modello.
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
