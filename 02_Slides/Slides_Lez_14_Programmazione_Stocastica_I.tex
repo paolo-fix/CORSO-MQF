@@ -277,7 +277,7 @@ t\in\mathcal T.
 \[
 \xi_t:(\Omega,\F)\longrightarrow(\R^m,\B(\R^m)),
 \qquad
-\xi=(\xi_1,\ldots,\xi_T).
+\xi=(\xi_1,\ldots,\xi_T)'.
 \]
 }
 
@@ -429,28 +429,51 @@ dell'ALM.}
 %EndExpansion
 
 \begin{center}
-\includegraphics[width=0.52\textwidth]
+\includegraphics[width=0.42\textwidth]
 {../graphics/Cap14_rappresentazione_scenari.png}
 \end{center}
 
 \vspace{-3mm}
 
 {\small
+% \[
+% \left\{(\xi_s,p_s):s\in\mathcal S\right\},
+% \qquad
+% p_s\geq0,
+% \qquad
+% \sum_{s\in\mathcal S}p_s=1,
+% \qquad
+% \E[\varphi(\xi)]=\sum_{s\in\mathcal S}p_s\varphi(\xi_s).
+% \]
 \[
 \left\{(\xi_s,p_s):s\in\mathcal S\right\},
 \qquad
 p_s\geq0,
 \qquad
-\sum_{s\in\mathcal S}p_s=1,
-\qquad
-\E[\varphi(\xi)]=\sum_{s\in\mathcal S}p_s\varphi(\xi_s).
+\sum_{s\in\mathcal S}p_s=1.
+\]
+\[
+\E[\varphi(\xi)]
+\begin{cases}
+=
+\displaystyle\sum_{s\in\mathcal S}p_s\varphi(\xi_s),
+& \text{rappresentazione esatta},\\[6pt]
+\approx
+\displaystyle\sum_{s\in\mathcal S}p_s\varphi(\xi_s),
+& \text{rappresentazione approssimata}.
+\end{cases}
 \]
 }
 
 {\small
 \begin{stepitemize}
-\item Uguaglianza esatta se si includono tutti i valori di un supporto finito;
-altrimenti approssimazione.
+\item Supporto finito completamente enumerato: rappresentazione esatta.
+Simulazione, moment matching o riduzione degli scenari: rappresentazione
+generalmente approssimata.
+
+\vspace{-1mm}
+
+%\item Uguaglianza esatta se si includono tutti i valori di un supporto finito; altrimenti approssimazione.
 
 \item Con pi\`u date uno scenario \`e la traiettoria completa
 $\xi_s=(\xi_1^s,\ldots,\xi_T^s)$, \textbf{non} lo stato a una singola data.
