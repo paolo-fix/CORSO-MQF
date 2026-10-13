@@ -319,7 +319,7 @@ ax.text(
 ax.text(
     (FORM_DIVIDER_X + form_right) / 2,
     FORM_CENTER[1] + FORM_CONSTRAINT_OFFSET_Y,
-    r"$x\in\mathcal{X},\quad T_sx+W_sy_s=h_s,\quad "
+    r"$x\in\mathcal{X}_0,\quad T_sx+W_sy_s=h_s,\quad "
     r"y_s\in\mathcal{X}_s,\quad s\in\mathcal{S}$",
     ha="center", va="center",
     fontsize=font_size("math"),
