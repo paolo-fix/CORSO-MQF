@@ -11,8 +11,8 @@ from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
 out_dir = Path(r"E:\Didattica\MQF\graphics")
 out_dir.mkdir(parents=True, exist_ok=True)
 
-png_path = out_dir / "cap11_corrispondenza_primale_duale.png"
-svg_path = out_dir / "cap11_corrispondenza_primale_duale.svg"
+png_path = out_dir / "Cap11_corrispondenza_primale_duale.png"
+svg_path = out_dir / "Cap11_corrispondenza_primale_duale.svg"
 
 # ============================================================
 # TIPOGRAFIA: tutti i controlli sono raccolti qui

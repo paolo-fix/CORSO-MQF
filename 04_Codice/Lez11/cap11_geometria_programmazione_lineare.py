@@ -8,8 +8,8 @@ project_dir = Path(__file__).resolve().parents[2]
 out_dir = Path(r"E:\Didattica\MQF\graphics")
 out_dir.mkdir(parents=True, exist_ok=True)
 
-png_path = out_dir / "cap11_geometria_programmazione_lineare.png"
-svg_path = out_dir / "cap11_geometria_programmazione_lineare.svg"
+png_path = out_dir / "Cap11_geometria_programmazione_lineare.png"
+svg_path = out_dir / "Cap11_geometria_programmazione_lineare.svg"
 
 # ============================================================
 # TIPOGRAFIA: tutti i controlli sono raccolti qui
