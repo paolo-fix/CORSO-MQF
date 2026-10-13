@@ -351,18 +351,29 @@ Se gli scenari appartengono all'insieme
 \noindent con probabilit\`a \(p_s\), una formulazione generale pu\`o essere
 scritta come
 
+% \[
+% \max_{x,\{y_s\}}
+% \left\{
+% c^{\prime}x
+% +
+% \sum_{s\in\mathcal{S}}
+% p_s q_s^{\prime}y_s
+% \right\},
+% \]
+
 \[
-\max_{x,\{y_s\}}
-\left\{
-c^{\prime}x
-+
-\sum_{s\in\mathcal{S}}
-p_s q_s^{\prime}y_s
-\right\},
+\begin{aligned}
+\max_{x,\{y_s\}_{s\in\mathcal S}}\quad&
+c^{\prime}x+
+\sum_{s\in\mathcal S}p_s q_s^{\prime}y_s\\
+\text{soggetto a}\quad&
+x\in\mathcal X_0,\\
+&\text{vincoli di ricorso nello scenario }s,
+\qquad s\in\mathcal S.
+\end{aligned}
 \]
 
-\noindent soggetta ai vincoli di primo stadio e ai vincoli di ricorso
-specifici dei diversi scenari.
+%\noindent soggetta ai vincoli di primo stadio e ai vincoli di ricorso specifici dei diversi scenari.
 
 La rappresentazione computazionale non richiede quindi di risolvere un
 problema separato per ciascuno scenario. Tutti i blocchi vengono raccolti

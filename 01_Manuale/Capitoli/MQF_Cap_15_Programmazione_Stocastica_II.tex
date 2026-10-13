@@ -16,7 +16,7 @@ attraverso una decisione di ricorso $y_s$.
 Con un insieme finito di scenari, il problema \`e stato scritto nella forma
 
 \[
-\max_{x\in\mathcal X}
+\max_{x\in\mathcal X_0}
 \left\{
 c'x+
 \sum_{s\in\mathcal S}p_sQ_s(x)
@@ -253,7 +253,7 @@ decisioni di ricorso ammissibili $\mathcal X_s$ non \`e vuoto.
 
 \begin{definition}[Ricorso ammissibile]
 
-Fissati una decisione di primo stadio $x\in\mathcal X$ e uno scenario
+Fissati una decisione di primo stadio $x\in\mathcal X_0$ e uno scenario
 $s\in\mathcal S$, il ricorso \`e \emph{ammissibile} se esiste almeno una
 decisione
 
@@ -316,7 +316,7 @@ Un programma stocastico a due stadi possiede
 primo stadio
 
 \[
-x\in\mathcal X
+x\in\mathcal X_0
 \]
 
 e per ogni scenario
@@ -343,7 +343,7 @@ La differenza tra le due propriet\`a riguarda dunque l'insieme dei termini
 noti per i quali viene richiesta la fattibilit\`a del secondo stadio. Il
 ricorso completo considera tutti i termini noti possibili; il ricorso
 relativamente completo considera soltanto quelli generati dalle decisioni
-ammissibili $x\in\mathcal X$ e dagli scenari inclusi nel modello.
+ammissibili $x\in\mathcal X_0$ e dagli scenari inclusi nel modello.
 
 \begin{center}
 \begin{tabular}{p{3.5cm}p{8.0cm}}
@@ -360,7 +360,7 @@ sistema di ricorso.
 \emph{Ricorso relativamente completo}
 &
 Il secondo stadio \`e ammissibile per tutti i termini noti effettivamente
-generati da $x\in\mathcal X$ e dagli scenari del modello.
+generati da $x\in\mathcal X_0$ e dagli scenari del modello.
 \\
 \hline
 \end{tabular}
@@ -368,7 +368,7 @@ generati da $x\in\mathcal X$ e dagli scenari del modello.
 
 Il ricorso completo implica quindi il ricorso relativamente completo, ma non
 vale in generale il contrario. Quest'ultima propriet\`a dipende infatti anche
-dall'insieme $\mathcal X$ e dagli scenari considerati: restringendo l'insieme
+dall'insieme $\mathcal X_0$ e dagli scenari considerati: restringendo l'insieme
 delle decisioni ammissibili di primo stadio si pu\`o ottenere ricorso
 relativamente completo anche quando la struttura di secondo stadio non
 possiede ricorso completo.
@@ -609,7 +609,7 @@ L'esempio consente anche di distinguere le due propriet\`a generali appena
 definite. Se
 
 \[
-\mathcal X=[0,10],
+\mathcal X_0=[0,10],
 \]
 
 il modello non possiede ricorso relativamente completo, perch\`e esistono
@@ -619,10 +619,10 @@ il ricorso in almeno uno scenario.
 Se invece ulteriori vincoli di primo stadio restringono l'insieme a
 
 \[
-\mathcal X=[5,10],
+\mathcal X_0=[5,10],
 \]
 
-allora ogni $x\in\mathcal X$ ammette ricorso in entrambi gli scenari e il
+\noindent allora ogni $x\in\mathcal X_0$ ammette ricorso in entrambi gli scenari e il
 problema possiede ricorso relativamente completo.
 
 Ci\`o non implica ricorso completo. La capacit\`a di funding resta limitata:
@@ -1367,10 +1367,10 @@ comune a tutti gli scenari.
 
 L'insieme delle decisioni iniziali
 ammissibili \`e indicato con
-$\mathcal X$, per cui
+$\mathcal X_0$, per cui
 
 \[
-x\in\mathcal X.
+x\in\mathcal X_0.
 \]
 
 In un problema a $K$ stadi decisionali, la decisione iniziale
@@ -1411,7 +1411,7 @@ fra stadi e scenari.
 \noindent
 \textbf{Vincoli degli stadi e significato delle matrici.}
 
-L'insieme $\mathcal X$ contiene
+L'insieme $\mathcal X_0$ contiene
 i vincoli imposti alla decisione
 iniziale con i dati disponibili
 al tempo $0$. Distintamente,
@@ -1446,7 +1446,7 @@ dei coefficienti della decisione
 iniziale $x$ nei vincoli dello
 stadio $k$ dello scenario $s$.
 Non rappresenta i vincoli iniziali
-gi\`a contenuti in $\mathcal X$.
+gi\`a contenuti in $\mathcal X_0$.
 
 \item $W_{s,k,j}$ \`e la matrice
 dei coefficienti della decisione
@@ -1564,7 +1564,7 @@ decisionale $y_k^s$, ad esempio
 limiti inferiori e superiori
 sulle sue componenti.
 
-Assumiamo che $\mathcal X$
+Assumiamo che $\mathcal X_0$
 e gli insiemi $\mathcal X_{s,k}$
 siano poliedrici, ossia descritti
 mediante un numero finito di
@@ -1593,7 +1593,7 @@ c'x+
 \sum_{k=2}^{K}(q_k^s)'y_k^s
 \\[4pt]
 \text{soggetto a}\quad&
-x\in\mathcal X,
+x\in\mathcal X_0,
 \\[4pt]
 &
 T_{s,k}x+
@@ -1654,7 +1654,7 @@ Identificando
 \begin{aligned}
 y_2^s&=y_s,
 &
-q_1^s&=q_s,
+q_2^s&=q_s,
 \\[4pt]
 T_{s,2}&=T_s,
 &
@@ -2464,7 +2464,7 @@ T_sx+W_sy_s=h_s
 \]
 
 La decisione iniziale appartiene all'insieme
-ammissibile $\mathcal X$.
+ammissibile $\mathcal X_0$.
 
 \medskip
 
@@ -2478,7 +2478,7 @@ si determina il ricorso $y_s$.
 \begin{equation}
 z^{SP}
 =
-\max_{x\in\mathcal X}
+\max_{x\in\mathcal X_0}
 \left\{
 c'x+
 \sum_{s\in\mathcal S}p_sQ_s(x)
@@ -2503,7 +2503,7 @@ separatamente per ciascuno scenario:
 z^{WS}
 =
 \sum_{s\in\mathcal S}p_s
-\max_{x_s\in\mathcal X}
+\max_{x_s\in\mathcal X_0}
 \left\{
 c'x_s+Q_s(x_s)
 \right\}.
@@ -2578,7 +2578,7 @@ La decisione iniziale basata sui valori medi
 \boxed{
 x^{EV}
 \in
-\arg\max_{x\in\mathcal X}
+\arg\max_{x\in\mathcal X_0}
 \left\{
 c'x+\bar Q(x)
 \right\}.
@@ -2782,7 +2782,7 @@ Il problema medio \`e
 c'x+\sum_{k=2}^{K}\bar q_k'\bar y_k
 \\[4pt]
 \text{soggetto a}\quad&
-x\in\mathcal X,
+x\in\mathcal X_0,
 \\[4pt]
 &
 \bar T_kx+
@@ -4647,7 +4647,7 @@ questa impostazione trova espressione nella funzione
 obiettivo
 
 \[
-\max_{x\in\mathcal X}
+\max_{x\in\mathcal X_0}
 \left\{
 c'x+\sum_{s\in\mathcal S}p_sQ_s(x)
 \right\}.
@@ -4678,7 +4678,7 @@ dell'incertezza. Una formulazione con ricorso
 ammissibile per ogni $\xi\in\mathcal U$ \`{e}
 
 \[
-\max_{x\in\mathcal X}
+\max_{x\in\mathcal X_0}
 \left\{
 c'x+
 \inf_{\xi\in\mathcal U}Q(x,\xi)

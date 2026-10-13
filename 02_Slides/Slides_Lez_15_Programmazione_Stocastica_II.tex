@@ -104,7 +104,7 @@ ricorso $y_s$.
 
 {\small
 \[
-\max_{x\in\mathcal X}
+\max_{x\in\mathcal X_0}
 \Big\{
 c'x+\sum_{s\in\mathcal S}p_sQ_s(x)
 \Big\},
@@ -210,6 +210,8 @@ migliore informazione sul futuro?}
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+In questa lezione, i temi del Capitolo 15 vengono approfonditi nel framework a due stadi, cos\`i da isolare le propriet\`a della soluzione senza introdurre anche la struttura multistadio.
+
 \begin{stepenumerate}
 \item [1.] \textbf{Fattibilit\`a del ricorso}: quando una decisione iniziale
 lascia una correzione possibile in ogni scenario.
@@ -287,7 +289,7 @@ ammissibili non \`e vuoto.
 \medskip
 
 \begin{block}{Ricorso ammissibile}
-{\small Fissati $x\in\mathcal X$ e $s\in\mathcal S$, il ricorso \`e
+{\small Fissati $x\in\mathcal X_0$ e $s\in\mathcal S$, il ricorso \`e
 \emph{ammissibile} se esiste almeno una decisione $y_s\in\mathcal X_s$ tale che
 $T_sx+W_sy_s=h_s$.}
 \end{block}
@@ -334,7 +336,7 @@ del sistema di ricorso.}
 
 \begin{block}{Ricorso relativamente completo}
 {\small Il secondo stadio \`e ammissibile per i termini noti \textbf{generati}
-da $x\in\mathcal X$ e dagli scenari del modello.}
+da $x\in\mathcal X_0$ e dagli scenari del modello.}
 \end{block}
 
 \medskip
@@ -343,7 +345,7 @@ da $x\in\mathcal X$ e dagli scenari del modello.}
 \item Il ricorso completo implica quello relativamente completo; il contrario
 non vale in generale.
 
-\item Restringendo l'insieme $\mathcal X$ si pu\`o ottenere ricorso
+\item Restringendo l'insieme $\mathcal X_0$ si pu\`o ottenere ricorso
 relativamente completo anche senza ricorso completo.
 
 \item \textbf{Lettura ALM}: il funding ha limiti di capacit\`a. Non serve
@@ -451,8 +453,8 @@ in entrambi gli scenari.
 \item $0\leq x<2.5$: nessuno scenario; $\;2.5\leq x<5$: solo l'ordinario;
 $\;x\geq5$: entrambi.
 
-\item $\mathcal X=[0,10]$: niente ricorso relativamente completo ($x=4$).
-$\mathcal X=[5,10]$: relativamente completo, ma non completo.
+\item $\mathcal X_0=[0,10]$: niente ricorso relativamente completo ($x=4$).
+$\mathcal X_0=[5,10]$: relativamente completo, ma non completo.
 
 \item La fattibilit\`a \`e il \textbf{primo filtro}: solo dopo ha senso
 studiare il valore economico del ricorso.
@@ -1091,7 +1093,7 @@ scelta iniziale.
 \[
 z^{SP}
 =
-\max_{x\in\mathcal X}
+\max_{x\in\mathcal X_0}
 \Big\{
 c'x+\sum_{s\in\mathcal S}p_sQ_s(x)
 \Big\}.
@@ -1105,7 +1107,7 @@ anche $x$, quindi un $x_s$ per scenario,
 z^{WS}
 =
 \sum_{s\in\mathcal S}p_s
-\max_{x_s\in\mathcal X}
+\max_{x_s\in\mathcal X_0}
 \big\{
 c'x_s+Q_s(x_s)
 \big\}.
@@ -1166,7 +1168,7 @@ I coefficienti incerti vengono sostituiti dai rispettivi valori attesi:
 \right\},
 \qquad
 \boxed{
-x^{EV}\in\arg\max_{x\in\mathcal X}
+x^{EV}\in\arg\max_{x\in\mathcal X_0}
 \left\{
 c'x+\bar Q(x)
 \right\}.}
@@ -1896,7 +1898,7 @@ $n_x+|\mathcal S|\,n_y$ variabili.
 La programmazione robusta sostituisce alla distribuzione probabilistica un
 insieme $\mathcal U$ di possibili realizzazioni dell'incertezza:
 \[
-\max_{x\in\mathcal X}
+\max_{x\in\mathcal X_0}
 \left\{
 c'x+
 \inf_{\xi\in\mathcal U}Q(x,\xi)
