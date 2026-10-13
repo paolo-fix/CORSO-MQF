@@ -180,7 +180,6 @@ La struttura corrente del manuale e':
     MQF_Cap_14_Programmazione_Stocastica_I.tex
     MQF_Cap_15_Programmazione_Stocastica_II.tex
     MQF_Cap_16_Python_Programmazione_Stocastica.tex
-  /graphics
 ```
 
 La struttura corrente delle slides e':
@@ -203,8 +202,9 @@ La struttura corrente delle slides e':
   Slides_Lez_14_Programmazione_Stocastica_I.tex
   Slides_Lez_15_Programmazione_Stocastica_II.tex
   Slides_Lez_16_Python_Programmazione_Stocastica.tex
-  /graphics
 ```
+
+Le figure didattiche stabili utilizzate dal Manuale e/o dalle Slides sono conservate nella cartella condivisa `graphics/`, posta nella radice del progetto e quindi allo stesso livello di `01_Manuale`, `02_Slides` e `04_Codice`.
 
 Il codice di supporto e i notebook sono organizzati nella cartella `04_Codice`, con sottocartelle per le lezioni interessate. In particolare, le cinque lezioni applicative utilizzano:
 
@@ -217,7 +217,7 @@ Il codice di supporto e i notebook sono organizzati nella cartella `04_Codice`, 
   /Lez16
 ```
 
-Nella stessa cartella `04_Codice` possono essere presenti script di supporto per lezioni teoriche, calibrazioni, controlli o generazione di figure.
+Nella stessa cartella `04_Codice` possono essere presenti script di supporto per lezioni teoriche, calibrazioni, controlli o generazione di figure. Gli script che generano asset grafici stabili sono collocati, quando disponibili, nelle sottocartelle `04_Codice/LezXX/` della lezione corrispondente.
 
 La struttura corrente dei principali documenti di coordinamento e':
 
@@ -241,11 +241,10 @@ Ogni modifica ai nomi dei file o alla struttura delle cartelle deve essere espli
 
 ### Gestione delle figure: struttura delle cartelle, percorsi relativi e convenzione dei nomi
 
-Le figure destinate stabilmente al Manuale e alle Slides sono archiviate nelle rispettive cartelle grafiche:
+Le figure didattiche stabili destinate al Manuale e/o alle Slides sono archiviate in un'unica cartella condivisa alla radice del progetto:
 
 ```text
-/01_Manuale/graphics/
-/02_Slides/graphics/
+/graphics/
 ```
 
 La convenzione di denominazione e':
@@ -258,10 +257,10 @@ per i capitoli a una cifra e, coerentemente, `CapXX_descrizione.png` per i capit
 
 Regole operative:
 
-1. una figura destinata al Manuale deve essere salvata in `01_Manuale/graphics/`;
-2. una figura destinata alle Slides deve essere salvata in `02_Slides/graphics/`;
-3. se la stessa figura e' utilizzata in entrambi i prodotti, deve essere disponibile in entrambe le cartelle oppure essere gestita mediante un percorso esplicitamente documentato e compatibile con la struttura di compilazione adottata;
-4. i file LaTeX devono utilizzare percorsi relativi coerenti con la loro posizione effettiva nel repository;
+1. una figura definitiva destinata al Manuale e/o alle Slides deve essere salvata nella cartella condivisa `/graphics/`;
+2. la stessa figura non deve essere duplicata in cartelle separate per Manuale e Slides;
+3. i file LaTeX devono utilizzare percorsi relativi coerenti con la struttura effettiva del progetto; nella struttura corrente, i sorgenti del Manuale e delle Slides richiamano gli asset condivisi mediante percorsi del tipo `../graphics/NOME_FILE.png`;
+4. gli script Python di generazione delle figure devono essere conservati in `04_Codice/LezXX/` e devono produrre gli asset definitivi nella cartella condivisa `/graphics/`;
 5. i grafici prodotti dinamicamente dai notebook delle lezioni applicative sono output computazionali e non devono essere trasformati automaticamente in asset grafici stabili del Manuale o delle Slides;
 6. un grafico del notebook diventa un asset stabile solo quando viene scelto esplicitamente per essere incorporato nel codice LaTeX di un capitolo o di un deck;
 7. le figure definitive devono essere prodotte in formato PNG con risoluzione adeguata alla stampa e alla proiezione; eventuali formati aggiuntivi possono essere conservati quando utili, ma non sono obbligatori;
@@ -490,7 +489,7 @@ disuguaglianze e bounds.
 
 ## 10. Slides: principi comuni
 
-Le slides del corso MQF devono essere uno strumento di lezione, non una versione compressa del manuale. Devono guidare l'esposizione in aula, selezionare i passaggi concettuali essenziali, rendere visibili le formule operative e favorire l'alternanza tra motivazione finanziaria, formalizzazione matematica, esempi, grafici, esercizi e interpretazione.
+Le slides del corso MQF devono essere uno strumento di lezione, non una versione compressa del manuale. Devono guidare l'esposizione in aula, selezionare i passaggi concettuali essenziali, rendere visibili le formule operative e favorire l'alternanza tra motivazione finanziaria, formalizzazione matematica, esempi, grafici, esercizi e interpretazioni.
 
 Le slides devono essere prodotte in LaTeX Beamer compatibile con Scientific WorkPlace 5.5, riutilizzando il preambolo ufficiale gia' adottato nelle lezioni precedenti. In particolare, vanno mantenuti la classe `beamer`, il tema `Madrid`, le macro matematiche ufficiali del progetto e la struttura dei frame compatibile con Scientific WorkPlace 5.5.
 
