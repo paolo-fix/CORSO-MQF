@@ -8,7 +8,8 @@ from matplotlib.patches import FancyBboxPatch, PathPatch
 # PERCORSO E PARAMETRI DI SALVATAGGIO
 # ============================================================
 
-OUTPUT_DIR = Path(r"E:\Didattica\MQF\graphics")
+#OUTPUT_DIR = Path(r"E:\Didattica\MQF\graphics")
+OUTPUT_DIR = Path(r"E:\Documenti\UNIBS\MQF\Graphics")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 PNG_DPI = 300
