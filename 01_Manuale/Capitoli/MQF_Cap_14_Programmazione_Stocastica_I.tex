@@ -973,11 +973,13 @@ T(\xi)x+W(\xi)y=h(\xi)
 
 Si definisce \emph{funzione di ricorso} la funzione
 
+% \[
+% Q:X\times\Xi\longrightarrow\R\cup\{-\infty,+\infty\}
+% \]
 \[
-Q:X\times\Xi\longrightarrow\R\cup\{-\infty,+\infty\}
+Q:\mathcal X_0\times\Xi\longrightarrow\R\cup\{-\infty,+\infty\}.
 \]
-
-che associa a ogni coppia $(x,\xi)$ il valore ottimo del corrispondente
+$Q$ associa a ogni coppia $(x,\xi) \in X_0\times\Xi$ il valore ottimo del corrispondente
 problema di secondo stadio:
 
 \begin{equation}
@@ -994,6 +996,13 @@ T(\xi)x+W(\xi)y=h(\xi)
 Pertanto $Q(x,\xi)$ non \`e una decisione, ma il valore ottimo ottenibile
 dopo aver fissato $x$ e osservato $\xi$.
 \end{definition}
+
+Qui $\mathcal X_0$ indica l'insieme delle decisioni ammissibili di primo
+stadio, mentre $\Xi$ indica l'insieme delle possibili realizzazioni del
+vettore aleatorio $\xi$. Per ciascuna coppia
+$(x,\xi)\in\mathcal X_0\times\Xi$, l'insieme $\mathcal X(\xi)$ descrive
+invece le condizioni di ammissibilit\`a imposte alle variabili di ricorso
+del secondo stadio.
 
 \subsection{Rappresentazione a scenari}
 
@@ -1047,7 +1056,7 @@ problema di secondo stadio possono cambiare da uno scenario all'altro.
 La matrice $T_s$ non rappresenta i coefficienti dei vincoli imposti
 alla decisione iniziale nel momento in cui essa viene assunta. Tali
 vincoli, formulati con i dati allora disponibili, sono incorporati
-nell'insieme $\mathcal X$. La matrice $T_s$ descrive invece come la
+nell'insieme $\mathcal X_0$. La matrice $T_s$ descrive invece come la
 decisione iniziale $x$, ormai fissata, entra nei vincoli di ricorso
 dello scenario $s$. I coefficienti di questi effetti futuri possono
 dipendere dalla realizzazione dell'incertezza, anche se la decisione
@@ -1316,7 +1325,7 @@ decisione di primo stadio deve pertanto essere valutata considerando
 congiuntamente il suo risultato immediato e i possibili valori futuri del ricorso.
 
 \begin{definition}[Programma stocastico lineare a due stadi]
-Sia $x\in\mathcal X$ la decisione di primo stadio e sia
+Sia $x\in\mathcal X_0$ la decisione di primo stadio e sia
 
 \[
 Q(x,\xi)
@@ -1326,7 +1335,7 @@ la funzione di ricorso associata alla realizzazione $\xi$. Un programma
 stocastico lineare a due stadi di massimizzazione ha la forma
 
 \begin{equation}
-\max_{x\in\mathcal X}
+\max_{x\in\mathcal X_0}
 \left\{
 c'x+\E[Q(x,\xi)]
 \right\}.
@@ -1404,7 +1413,7 @@ Il valore atteso del ricorso diventa quindi
 Ne segue la formulazione a scenari finiti
 
 \begin{equation}
-\max_{x\in\mathcal X}
+\max_{x\in\mathcal X_0}
 \left\{
 c'x+
 \sum_{s\in\mathcal S}p_s Q_s(x)
@@ -1439,7 +1448,7 @@ c'x+
 \sum_{s\in\mathcal S}p_s q_s'y_s
 \\
 \text{soggetto a}\quad&
-x\in\mathcal X,
+x\in\mathcal X_0,
 \\
 &
 T_sx+W_sy_s=h_s,
@@ -2061,7 +2070,7 @@ possibilit\`a e i costi di reazione nei diversi scenari.
 La formulazione generale
 
 \[
-\max_{x\in\mathcal X}
+\max_{x\in\mathcal X_0}
 \left\{
 c'x+\sum_{s\in\mathcal S}p_sQ_s(x)
 \right\}
@@ -2082,7 +2091,7 @@ e i relativi vincoli compaiono esplicitamente per ciascuno scenario.
 La formulazione a scenari finiti introdotta nella sezione precedente \`e
 
 \[
-\max_{x\in\mathcal X}
+\max_{x\in\mathcal X_0}
 \left\{
 c'x+\sum_{s\in\mathcal S}p_sQ_s(x)
 \right\},
@@ -2116,7 +2125,7 @@ una copia delle variabili di ricorso per ciascuno scenario:
 c'x+\sum_{s\in\mathcal S}p_s q_s'y_s
 \\
 \text{soggetto a}\quad&
-x\in\mathcal X,
+x\in\mathcal X_0,
 \\
 &
 T_sx+W_sy_s=h_s,
@@ -2359,7 +2368,7 @@ capitolo:
 \longrightarrow
 \text{programma stocastico}
 \longrightarrow
-\text{LP deterministico equivalente}.
+\text{forma estesa}.
 \end{aligned}
 \]
 
@@ -3726,7 +3735,7 @@ Con un insieme finito di scenari, il programma stocastico a due stadi assume
 la forma
 
 \[
-\max_{x\in\mathcal X}
+\max_{x\in\mathcal X_0}
 \left\{
 c'x
 +
