@@ -1963,14 +1963,31 @@ soluzione}.}
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Si chiama \textbf{prezzo ombra} del vincolo $i$ la derivata del valore
-ottimo rispetto al proprio termine noto,
-\[
-\lambda_i=\frac{\partial z^{*}}{\partial b_i},
-\]
-valida sull'intervallo in cui l'insieme dei vincoli attivi non cambia. Il
-segno dipende dal verso: una risorsa disponibile in maggior quantit\`{a}
-migliora il risultato, un requisito pi\`{u} severo lo peggiora.
+% Si chiama \textbf{prezzo ombra} del vincolo $i$ la derivata del valore
+% ottimo rispetto al proprio termine noto,
+% \[
+% \lambda_i=\frac{\partial z^{*}}{\partial b_i},
+% \]
+% valida sull'intervallo in cui l'insieme dei vincoli attivi non cambia. Il
+% segno dipende dal verso: una risorsa disponibile in maggior quantit\`{a}
+% migliora il risultato, un requisito pi\`{u} severo lo peggiora.
+
+La variabile duale $\lambda_i$ d\`{a} il valore marginale per il
+vincolo $i$, dopo aver scritto il vincolo nella forma di
+riferimento utilizzata per il problema duale.
+
+%\medskip
+
+La derivata del valore ottimo rispetto a un parametro economico pu\`{o}
+avere segno diverso da $\lambda_i$, a seconda di come quel parametro
+compare nel termine noto del vincolo. Per il requisito minimo di
+liquidit\`{a}, ad esempio, vale ${\partial z^{*}}/{\partial Q}
+=
+-\lambda_Q$.
+$\lambda_i$ \`{e} locale: resta valida finch\'{e} l'insieme dei
+vincoli attivi non cambia.
+
+%\vspace{-0.1cm}
 
 \begin{center}
 {\small
@@ -1979,7 +1996,7 @@ migliora il risultato, un requisito pi\`{u} severo lo peggiora.
 \textbf{Vincolo} & \textbf{Termine noto} & $\lambda_i$ &
 \textbf{Lettura}\\\hline
 Bilancio & $A_0=100$ & $0.05642$ & valore di una risorsa in pi\`{u}\\
-Liquidit\`{a} & $Q=55$ & $-0.03507$ & costo di un requisito pi\`{u} severo\\
+Liquidit\`{a} & $Q=55$ & $0.03507$ & valore duale del requisito\\
 Perdita & $K=7$ & $0.00746$ & valore di un limite pi\`{u} ampio\\
 Concentrazione & $30$ & $0.00000$ & vincolo non attivo\\\hline
 \end{tabular}
@@ -1987,7 +2004,12 @@ Concentrazione & $30$ & $0.00000$ & vincolo non attivo\\\hline
 \end{center}
 
 \begin{stepitemize}
-\item Il \textbf{vettore dei prezzi ombra} include $\lambda_Q=-0.03507$ già osservato.
+%\item Il \textbf{vettore dei prezzi ombra} include $\lambda_Q=-0.03507$ già osservato.
+
+\item Per il requisito di liquidit\`{a}, $\lambda_Q=0.03507,\qquad \frac{\partial z^{*}}{\partial Q}=-0.03507$.\\
+La variabile duale misura il costo marginale del requisito; il segno
+negativo della derivata indica che aumentare $Q$ riduce il valore ottimo.
+
 
 \item $\lambda_C=0$ perch\'{e} il limite di concentrazione ha margine
 $9.104$: \textbf{margine positivo implica prezzo nullo}.
