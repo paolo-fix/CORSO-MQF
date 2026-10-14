@@ -72,9 +72,9 @@ Il passaggio da $ \mathbb{E}[H] $ a $ \mathbb{E}[H\mid A] $ non consiste soltant
 
 Nel caso discreto, se $\omega\in A$, il peso rilevante dello scenario $\omega$ diventa:
 \[
-\mathbb{P}(\omega\mid A)
+\mathbb{P}(\{\omega\}\mid A)
 =
-\frac{\mathbb{P}(\omega)}{\mathbb{P}(A)}.
+\frac{\mathbb{P}(\{\omega\})}{\mathbb{P}(A)}.
 \]
 
 Gli scenari che non appartengono ad $A$ ricevono probabilit\`{a} condizionata nulla. Il valore atteso condizionato \`{e} quindi una media calcolata con questi nuovi pesi probabilistici.
@@ -89,7 +89,7 @@ Si consideri un payoff terminale $H$ associato a quattro scenari macro-finanziar
 
 \[
 \begin{array}{c|c|c|c}
-\text{Scenario} & \text{Descrizione} & \mathbb{P}(\omega) & H(\omega) \\
+\text{Scenario} & \text{Descrizione} & \mathbb{P}(\{\omega\}) & H(\omega) \\
 \hline
 \omega_1 & \text{espansione} & 0.25 & 120 \\
 \omega_2 & \text{crescita moderata} & 0.35 & 105 \\
@@ -129,13 +129,13 @@ La probabilit\`{a} dell'evento \`{e}:
 Le probabilit\`{a} condizionate degli scenari compatibili con il segnale favorevole sono quindi:
 
 \[
-\mathbb{P}(\omega_1\mid A)
+\mathbb{P}(\{\omega_1\}\mid A)
 =
 \frac{0.25}{0.60}
 =
 0.4167,
 \qquad
-\mathbb{P}(\omega_2\mid A)
+\mathbb{P}(\{\omega_2\}\mid A)
 =
 \frac{0.35}{0.60}
 =
@@ -182,13 +182,13 @@ La probabilit\`{a} dell'evento sfavorevole \`{e}:
 Le probabilit\`{a} condizionate degli scenari compatibili con $A^c$ sono:
 
 \[
-\mathbb{P}(\omega_3\mid A^c)
+\mathbb{P}(\{\omega_3\}\mid A^c)
 =
 \frac{0.25}{0.40}
 =
 0.625,
 \qquad
-\mathbb{P}(\omega_4\mid A^c)
+\mathbb{P}(\{\omega_4\}\mid A^c)
 =
 \frac{0.15}{0.40}
 =
@@ -319,15 +319,15 @@ Nel caso finito, se lo spazio campionario \`{e} formato da scenari elementari $\
 Per ogni scenario $\omega_i\in B$, la probabilit\`{a} condizionata \`{e}:
 
 \[
-\mathbb{P}(\omega_i\mid B)
+\mathbb{P}(\{\omega_i\}\mid B)
 =
-\frac{\mathbb{P}(\omega_i)}{\mathbb{P}(B)}.
+\frac{\mathbb{P}(\{\omega_i\})}{\mathbb{P}(B)}.
 \]
 
 Per ogni scenario $\omega_i\notin B$, invece:
 
 \[
-\mathbb{P}(\omega_i\mid B)=0.
+\mathbb{P}(\{\omega_i\}\mid B)=0.
 \]
 
 Quindi il condizionamento produce due effetti simultanei: elimina gli scenari incompatibili con l'informazione osservata e ripesa gli scenari compatibili in modo che le nuove probabilit\`{a} sommino a uno.
@@ -335,7 +335,7 @@ Quindi il condizionamento produce due effetti simultanei: elimina gli scenari in
 Infatti:
 
 \[
-\sum_{\omega_i\in B}\mathbb{P}(\omega_i\mid B)
+\sum_{\{\omega_i\}\in B}\mathbb{P}(\{\omega_i\}\mid B)
 =
 \sum_{\omega_i\in B}
 \frac{\mathbb{P}(\omega_i)}{\mathbb{P}(B)}
@@ -356,7 +356,7 @@ Riprendiamo il payoff terminale $H$ della sezione precedente:
 
 \[
 \begin{array}{c|c|c}
-\text{Scenario} & \mathbb{P}(\omega) & H(\omega) \\
+\text{Scenario} & \mathbb{P}(\{\omega\}) & H(\omega) \\
 \hline
 \omega_1 & 0.25 & 120 \\
 \omega_2 & 0.35 & 105 \\
@@ -380,13 +380,13 @@ La probabilit\`{a} dell'evento informativo \`{e}:
 Le probabilit\`{a} condizionate degli scenari compatibili con $B$ sono:
 
 \[
-\mathbb{P}(\omega_1\mid B)
+\mathbb{P}(\{\omega_1\}\mid B)
 =
 \frac{0.25}{0.60}
 =
 0.4167,
 \qquad
-\mathbb{P}(\omega_2\mid B)
+\mathbb{P}(\{\omega_2\}\mid B)
 =
 \frac{0.35}{0.60}
 =
@@ -396,9 +396,9 @@ Le probabilit\`{a} condizionate degli scenari compatibili con $B$ sono:
 Gli scenari $\omega_3$ e $\omega_4$ sono incompatibili con il segnale favorevole. Pertanto:
 
 \[
-\mathbb{P}(\omega_3\mid B)=0,
+\mathbb{P}(\{\omega_3\}\mid B)=0,
 \qquad
-\mathbb{P}(\omega_4\mid B)=0.
+\mathbb{P}(\{\omega_4\}\mid B)=0.
 \]
 
 La distribuzione condizionata di $H$ dato $B$ assegna quindi probabilit\`{a} $0.4167$ al valore $120$ e probabilit\`{a} $0.5833$ al valore $105$. I valori $90$ e $60$, pur restando possibili in senso originario, non sono compatibili con l'informazione osservata $B$.
@@ -407,7 +407,7 @@ In forma tabellare:
 
 \[
 \begin{array}{c|c|c|c}
-\text{Scenario} & H(\omega) & \mathbb{P}(\omega) & \mathbb{P}(\omega\mid B) \\
+\text{Scenario} & H(\omega) & \mathbb{P}(\{\omega\}) & \mathbb{P}(\{\omega\}\mid B) \\
 \hline
 \omega_1 & 120 & 0.25 & 0.4167 \\
 \omega_2 & 105 & 0.35 & 0.5833 \\
@@ -1024,11 +1024,11 @@ Consideriamo lo spazio campionario:
 \{\omega_1,\omega_2,\omega_3,\omega_4,\omega_5,\omega_6,\omega_7\}.
 \]
 
-Sia $H$ un payoff terminale definito sui sette eventi elementari. Supponiamo
+Sia $H$ un payoff terminale definito sui sette esiti elementari. Supponiamo
 che probabilit\`{a} e payoff siano dati dalla tabella seguente:
 \[
 \begin{array}{c|c|c}
-\text{Evento elementare} & \mathbb{P}(\omega) & H(\omega) \\
+\text{Esito elementare} & \mathbb{P}(\{\omega\}) & H(\omega) \\
 \hline
 \omega_1 & 0.10 & 130 \\
 \omega_2 & 0.15 & 110 \\
@@ -1122,7 +1122,7 @@ $\mathcal{G}$ \`{e}:
 In forma tabellare:
 \[
 \begin{array}{c|c|c|c}
-\text{Evento elementare} & H(\omega) & \text{Evento della partizione}
+\text{Esito elementare} & H(\omega) & \text{Evento della partizione}
 & \mathbb{E}[H\mid\mathcal{G}](\omega) \\
 \hline
 \omega_1 & 130 & B_1 & 118 \\
@@ -1135,7 +1135,7 @@ In forma tabellare:
 \end{array}
 \]
 
-La variabile casuale $H$ distingue i sette eventi elementari. La variabile
+La variabile casuale $H$ distingue i sette esiti elementari. La variabile
 casuale $\mathbb{E}[H\mid\mathcal{G}]$ distingue invece soltanto i tre atomi
 della sigma-algebra $\mathcal{G}$.
 
@@ -1248,7 +1248,7 @@ linearmente le previsioni condizionate di $H_1$ e $H_2$.
 
 \subsection{Estrazione dei parametri noti}
 
-Se $Y$ \`{e} una variabile casuale $\mathcal{G}$-misurabile (cioè un valore noto data $\mathcal{G}$) o un termine costante, allora:
+Se $Y$ \`{e} una variabile casuale $\mathcal{G}$-misurabile (cio\`{e} un valore noto data $\mathcal{G}$) o un termine costante, allora:
 \[
 \mathbb{E}[YX\mid\mathcal{G}]
 =
