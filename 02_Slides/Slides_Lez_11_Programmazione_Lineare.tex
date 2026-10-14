@@ -2040,13 +2040,28 @@ $9.104$: \textbf{margine positivo implica prezzo nullo}.
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-I prezzi ombra non sono quattro numeri indipendenti. Valutando ogni livello
-al proprio prezzo e sommando:
+I prezzi duali non sono numeri indipendenti. Per costruire il duale,
+i vincoli vengono prima espressi nella forma di riferimento. In particolare, il requisito di liquidit\`{a} $q'x\geq55$ viene scritto come $-q'x\leq-55$.
+
+Valutando quindi i termini noti della forma normalizzata ai rispettivi
+prezzi duali:
 \[
-100\,(0.05642)-55\,(0.03507)+7\,(0.00746)+30\,(0)=3.7654\approx z^{*}.
+100(0.05642)
++(-55)(0.03507)
++7(0.00746)
++30(0)
+\approx3.7654
+\approx z^{*}.
 \]
 
-\medskip
+
+
+%I prezzi ombra non sono quattro numeri indipendenti. Valutando ogni livello al proprio prezzo e sommando:
+%\[
+%100\,(0.05642)-55\,(0.03507)+7\,(0.00746)+30\,(0)=3.7654\approx z^{*}.
+%\]
+
+%\medskip
 
 \begin{stepitemize}
 \item Il risultato ottenibile dalla decisione e il \textbf{valore implicito
@@ -2056,17 +2071,19 @@ vincoli: ciascuno riceve la quota di risultato che sta determinando.
 \item Il limite di concentrazione riceve zero. Non contribuisce a spiegare
 $z^{*}$ perch\'{e} non lo sta determinando.
 
-\item La relazione $\sum_i b_i\lambda_i=z^{*}$ vale in generale, non solo
-qui: \`{e} il legame tra il problema di \emph{decisione} e un problema di
-\textbf{valutazione}.
+\item Alla soluzione ottima, la dualit\`{a} forte implica $b'\lambda^{*}=z^{*}$, dove $b$ \`{e} il vettore dei termini noti nella forma utilizzata per
+costruire il duale.
+
+%\item La relazione $\sum_i b_i\lambda_i=z^{*}$ vale in generale, non solo qui: \`{e} il legame tra il problema di \emph{decisione} e un problema di \textbf{valutazione}.
 \end{stepitemize}
 
-\medskip
+%\medskip
 
 \begin{center}
 {\small Quel problema di valutazione \`{e} un secondo programma lineare, il
 \textbf{duale}: ha per incognite i prezzi $\lambda_i$ e li produce tutti in
-una sola soluzione. La Lezione 12 lo costruisce e lo interpreta.}
+una sola soluzione. Il problema duale formalizza questa valutazione implicita delle risorse e
+dei requisiti.}
 \end{center}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
@@ -2155,35 +2172,40 @@ pu\`{o} rispondere senza risolvere?
 \multicolumn{2}{c}{\textbf{Politica resiliente}}\\
 \textbf{Vincolo} & \textbf{margine} & $\lambda_i$ & \textbf{margine} &
 $\lambda_i$\\\hline
-Liquidit\`{a} & $0$ & $-0.03507$ & $0$ & $-0.03571$\\
+Liquidit\`{a} & $0$ & $0.03507$ & $0$ & $0.03571$\\
 Perdita sotto stress & $0$ & $0.00746$ & $0.957$ & $0$\\
 Concentrazione & $9.104$ & $0$ & $0$ & $0.00071$\\
-Cassa minima & --- & --- & $0$ & $-0.01143$\\\hline
+Cassa minima & --- & --- & $0$ & $0.01143$\\\hline
 \end{tabular}
 }
 \end{center}
 
-\medskip
+Per i requisiti minimi di liquidit\`{a} e di cassa, il valore duale
+$\lambda_i$ \`{e} positivo, mentre la derivata del valore ottimo rispetto
+al livello richiesto ha segno negativo: ${\partial z^{*}}/{\partial Q}=-\lambda_Q,
+{\partial z^{*}}/{\partial C_{\min}}=-\lambda_C^{\mathrm{cash}}$.
+
 
 $x^{*}=(10;\;54.286;\;30;\;5.714)^{\prime}$, \quad $z^{*}=2.9429$: il costo
 della resilienza \`{e} $0.8221$, il \textbf{21.8\%}.
 
-\medskip
-
+%\medskip
+\vspace{-0.1cm}
+\small{
 \begin{stepitemize}
 \item Perdita e concentrazione si \textbf{scambiano} margine e prezzo. Il
 vincolo che prima determinava la decisione ora non morde; quello che non
 mordeva ora la determina.
-
+\vspace{-0.1cm}
 \item Il segno di $z^{*}$ era prevedibile senza risolvere: entrambi i nuovi
 requisiti \textbf{restringono} $\mathcal{X}$, quindi $z^{*}$ non pu\`{o}
 aumentare.
-
+\vspace{-0.1cm}
 \item Il modello quantifica il costo della resilienza, non il valore della
 sopravvivenza: la funzione obiettivo non contiene la continuit\`{a}
 aziendale.
 \end{stepitemize}
-
+}
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
