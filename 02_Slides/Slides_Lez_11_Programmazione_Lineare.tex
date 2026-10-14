@@ -1543,9 +1543,13 @@ crescere di $k$ la retta trasla parallelamente.
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Un \textbf{vertice} \`{e} il punto in cui si incontrano tante frontiere
-quante sono le variabili. In due dimensioni servono due vincoli attivi; con
-$n$ variabili ne servono $n$.
+%Un \textbf{vertice} \`{e} il punto in cui si incontrano tante frontiere quante sono le variabili. In due dimensioni servono due vincoli attivi; con $n$ variabili ne servono $n$.
+
+Un \textbf{vertice} \`{e} un punto della regione ammissibile nel quale
+sono attivi vincoli sufficienti a determinare localmente la soluzione.
+Con $n$ variabili, servono almeno $n$ vincoli attivi
+\textbf{linearmente indipendenti}; in casi degeneri, possono essere attivi
+anche pi\`{u} di $n$ vincoli.
 
 \begin{stepitemize}
 \item L'ottimo \`{e} l'\textbf{ultimo punto di contatto} con la regione. I
@@ -1606,16 +1610,22 @@ alternativa ammissibile migliore.
 soluzione ottima \`{e} un \textbf{punto estremo}. Non ogni vertice \`{e}
 ottimo, ma per cercare l'ottimo basta esaminare i vertici.
 
-\item Un vertice \`{e} individuato da tante frontiere quante sono le
-variabili: con $n$ variabili, \textbf{$n$ vincoli attivi}. Fra questi
-possono figurare le condizioni di non negativit\`{a}, che sono vincoli a
-tutti gli effetti.
+\item Un vertice \`{e} individuato da un insieme di vincoli attivi
+linearmente indipendenti che determina la soluzione. Con $n$ variabili,
+servono $n$ vincoli attivi linearmente indipendenti; in presenza di
+degenerazione, possono essere attivi anche pi\`{u} di $n$ vincoli.
+Possono farvi parte le condizioni di non negativit\`{a}, che sono
+vincoli a tutti gli effetti.
+
+
+%\item Un vertice \`{e} individuato da tante frontiere quante sono le variabili: con $n$ variabili, \textbf{$n$ vincoli attivi}. Fra questi possono figurare le condizioni di non negativit\`{a}, che sono vincoli a tutti gli effetti.
 
 \item Identificare la soluzione ottima significa quindi identificare la
 \textbf{combinazione di vincoli} che la determina.
 \end{stepitemize}
 
-\medskip
+%\medskip
+\vspace{-0.2cm}
 
 \begin{center}
 {\small L'ottimo va riferito al modello adottato: variabili incluse,
@@ -1648,20 +1658,16 @@ possibile in senso assoluto.}
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Quattro variabili: la soluzione ottima sar\`{a} il vertice individuato da
-quattro vincoli attivi. Risolvendo con $A_0=100$, $Q_{\min}=55$, $K=7$ e
-$x_3\leq30$:
-\[
-x^{*}\approx(0;\;41.045;\;20.896;\;38.060)^{\prime},
-\qquad
-z^{*}\approx3.7649.
-\]
+La soluzione ottima del caso \`{e} determinata da
+quattro vincoli attivi linearmente indipendenti. Risolvendo con $A_0=100$, $Q_{\min}=55$, $K=7$ e
+$x_3\leq30$, si ottiene $x^{*}\approx(0;\;41.045;\;20.896;\;38.060)^{\prime}$, $z^{*}\approx3.7649$.
+
 
 \begin{center}
-\includegraphics[width=0.68\textwidth]
+\includegraphics[width=0.6\textwidth]
 {../graphics/Cap11_soluzione_ottima_allocazione.png}
 \end{center}
-
+\vspace{-0.1cm}
 \begin{stepitemize}
 \item La soluzione \`{e} un vettore, non un numero: $z^{*}$ dice quanto si
 ottiene, $x^{*}$ dice come. Due modelli con lo stesso valore ottimo possono
