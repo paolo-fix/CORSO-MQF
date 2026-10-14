@@ -3561,6 +3561,129 @@ non costituisce una propriet\`a generale dei modelli ALM: dipende dai cash
 flow, dai fabbisogni, dai tassi, dai limiti di funding e dalla condizione
 terminale.
 
+\subsection{Come si collegano i valori marginali nel tempo}
+
+I valori marginali delle diverse date non sono indipendenti. La giacenza
+$g_t$ trasferisce infatti liquidit\`{a} dalla data $t$ alla data $t+1$ e
+collega quindi anche i corrispondenti valori duali.
+
+Consideriamo una data $t<T$. La variabile $g_t$ produce nella funzione
+obiettivo il rendimento
+
+\[
+r_t^{g}g_t,
+\]
+
+entra con coefficiente $-1$ nel bilancio della data $t$ e con coefficiente
+
+\[
+1+r_t^{g}
+\]
+
+nel bilancio della data $t+1$.
+
+Se nella soluzione ottima
+
+\[
+g_t^*>0,
+\]
+
+la condizione di ottimalit\`{a} rispetto a $g_t$ implica
+
+\[
+r_t^{g}
+-\lambda_t^*
++
+(1+r_t^{g})\lambda_{t+1}^*
+=
+0.
+\]
+
+Pertanto,
+
+\[
+\boxed{
+\lambda_t^*
+=
+r_t^{g}
++
+(1+r_t^{g})\lambda_{t+1}^*.
+}
+\]
+
+Il valore marginale della liquidit\`{a} alla data $t$ incorpora quindi sia il
+rendimento ottenibile trasferendola al periodo successivo sia il valore
+marginale della liquidit\`{a} alla data $t+1$.
+
+Nel caso SVB, poich\`{e}
+
+\[
+g_1^*>0,
+\qquad
+g_2^*>0,
+\]
+
+si ottiene, a meno degli arrotondamenti,
+
+\[
+0.005+1.005(0.04004)
+\approx
+0.04524
+=
+\lambda_1^*
+\]
+
+e
+
+\[
+0.006+1.006(0.03383)
+\approx
+0.04004
+=
+\lambda_2^*.
+\]
+
+Quando invece
+
+\[
+g_t^*=0,
+\]
+
+la relazione precedente non deve pi\`{u} valere come uguaglianza. La
+condizione di ottimalit\`{a} diventa
+
+\[
+\lambda_t^*
+\geq
+r_t^{g}
++
+(1+r_t^{g})\lambda_{t+1}^*.
+\]
+
+Nel caso considerato, alla data $3$ vale infatti
+
+\[
+g_3^*=0,
+\]
+
+e
+
+\[
+\lambda_3^*
+\approx
+0.03383
+>
+0.007
+=
+r_3^{g}+(1+r_3^{g})\lambda_4^*,
+\]
+
+poich\'{e} $\lambda_4^*=0$.
+
+La propagazione all'indietro dei valori marginali vale quindi come
+uguaglianza quando la liquidit\`{a} viene effettivamente trasferita alla data successiva; quando la giacenza si annulla, intervengono altre scarsit\`{a} del
+problema e rimane soltanto la corrispondente disuguaglianza.
+
 \subsection{Il valore della capacit\`a di funding}
 
 Un secondo valore duale rilevante riguarda il limite
