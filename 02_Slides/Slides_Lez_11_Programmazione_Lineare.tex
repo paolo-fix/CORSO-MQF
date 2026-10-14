@@ -1118,16 +1118,16 @@ limiti.}
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Il \textbf{margine} $s_i$ misura quanto la decisione dista dal limite del
+Il \textbf{margine del vincolo} $i$ misura quanto la decisione dista dal limite del
 vincolo $i$. L'espressione dipende dal verso:
 \[
 a_i^{\prime}x\leq b_i:
 \quad
-s_i=b_i-a_i^{\prime}x;
+b_i-a_i^{\prime}x;
 \qquad
 a_i^{\prime}x\geq b_i:
 \quad
-s_i=a_i^{\prime}x-b_i.
+a_i^{\prime}x-b_i.
 \]
 
 Nel primo caso $s_i$ conta quanto resta prima di superare il limite, nel
@@ -1139,7 +1139,7 @@ s_i\geq0
 \;\text{ per ogni }i.
 \]
 
-Il vincolo \`{e} \textbf{attivo} quando $s_i=0$, cio\`{e} quando \`{e}
+Il vincolo \`{e} \textbf{attivo} quando il suo margine \`{e} nullo, cio\`{e} quando \`{e}
 soddisfatto come uguaglianza $a_i^{\prime}x=b_i$: la decisione si trova
 sulla sua frontiera.
 
@@ -1547,8 +1547,8 @@ crescere di $k$ la retta trasla parallelamente.
 
 Un \textbf{vertice} \`{e} un punto della regione ammissibile nel quale
 sono attivi vincoli sufficienti a determinare localmente la soluzione.
-Con $n$ variabili, servono almeno $n$ vincoli attivi
-\textbf{linearmente indipendenti}; in casi degeneri, possono essere attivi
+Con $n$ variabili, servono $n$ vincoli attivi
+\textbf{linearmente indipendenti} per determinare il vertice; in casi degeneri, possono essere attivi
 anche pi\`{u} di $n$ vincoli.
 
 \begin{stepitemize}
@@ -2308,9 +2308,13 @@ obiettivo, vincoli: $\max c^{\prime}x$, $Ax\leq b$, $x\geq0$.
 realizzabili; l'ammissibilit\`{a} precede il confronto dei valori. Il
 margine $s_i$ misura la distanza dal limite.
 
-\item [3.] \textbf{Individuare.} L'ottimo sta in un punto estremo: con $n$
-variabili, $n$ vincoli attivi. Identificare $x^{*}$ significa identificare
-la combinazione di vincoli che lo determina.
+%\item [3.] \textbf{Individuare.} L'ottimo sta in un punto estremo: con $n$ variabili, $n$ vincoli attivi. Identificare $x^{*}$ significa identificare la combinazione di vincoli che lo determina.
+\item [3.] \textbf{Individuare.} L'ottimo pu\`{o} essere cercato tra i
+punti estremi. Con $n$ variabili, un vertice \`{e} determinato da $n$
+vincoli attivi linearmente indipendenti; in caso di degenerazione possono
+essere attivi anche pi\`{u} di $n$ vincoli. Identificare $x^{*}$ significa
+identificare la combinazione di vincoli che lo determina.
+
 
 \item [4.] \textbf{Valutare al margine.} $z^{*}(b_i)$ \`{e} lineare a
 tratti; la sua derivata \`{e} il prezzo ombra $\lambda_i$, nullo dove il
@@ -2320,15 +2324,20 @@ margine \`{e} positivo.
 ottimo: $\sum_i b_i\lambda_i=z^{*}$.
 \end{stepenumerate}
 
-\medskip
+%\medskip
 
 \begin{center}
-{\small Il vincolo non \`{e} un dettaglio tecnico della formulazione: \`{e}
+{\small Il vincolo non \`{e} un dettaglio della formulazione: \`{e}
 la decisione, e ha un prezzo.
 \smallskip
 
-\textbf{Lezione 12}: il duale che produce quei prezzi, e che cosa accade
-quando la liquidit\`{a} non serve in totale, ma a ciascuna scadenza.}
+\textbf{Lezione 12}: useremo dualit\`{a} e prezzi ombra per interpretare
+il valore della liquidit\`{a} e del funding quando i fabbisogni devono
+essere soddisfatti alle diverse scadenze.
+
+
+%\textbf{Lezione 12}: il duale che produce quei prezzi, e che cosa accade quando la liquidit\`{a} non serve in totale, ma a ciascuna scadenza.
+}
 \end{center}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
