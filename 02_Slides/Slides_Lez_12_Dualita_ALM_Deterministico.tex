@@ -2075,9 +2075,9 @@ contro $0.50$. Ma la data $4$ \`{e} l'unica che si chiude \textbf{con
 un'eccedenza} ($g_4^{*}\approx2.890$): liquidit\`{a} aggiuntiva in quel punto
 non copre alcun fabbisogno.
 
-\item Nel Capitolo~11 erano invece in portafoglio per $20.896$, perch\'{e} il
-coefficiente $q_3=0.50$ li collocava \textbf{subito dopo la cassa} per
-liquidabilit\`{a}. Il profilo temporale \textbf{rovescia la strategia} ottima.
+%\item Nel Capitolo~11 erano invece in portafoglio per $20.896$, perch\'{e} il coefficiente $q_3=0.50$ li collocava \textbf{subito dopo la cassa} per liquidabilit\`{a}. Il profilo temporale \textbf{rovescia la strategia} ottima.
+
+\item Nel Capitolo 11, i titoli a lunga scadenza erano comunque presenti in portafoglio per \(20.896\): pur essendo meno liquidi della cassa e dei titoli a breve, il requisito aggregato \(q'x\geq Q_{\min}\) non distingueva la data alla quale la loro liquidit\`{a} diventava disponibile.
 
 \end{stepitemize}
 
@@ -2149,15 +2149,15 @@ t & a_t'x^{*} & (1+r_{t-1}^{g})g_{t-1}^{*} & u_t^{*}
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Quanto \`{e} costato rendere il piano finanziabile}
-
+%\QTR{frametitle}{Quanto \`{e} costato rendere il piano finanziabile}
+\QTR{frametitle}{Come cambia il risultato passando al modello ALM}
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
 Il risultato ottimo del modello ALM \`{e}
-
+\vspace{-0.05cm}
 {\small
 \[
 \Pi^{*}
@@ -2171,14 +2171,14 @@ Il risultato ottimo del modello ALM \`{e}
 3.5922.
 \]
 }
-
-\medskip
+%\vspace{-0.1cm}
+%\medskip
 
 \begin{stepitemize}
 \item Il confronto con $z^{*}\approx3.765$ del Capitolo~11 sarebbe per\`{o}
 improprio: $\Pi$ comprende interessi (attivi e passivi) su giacenze e raccolta. Il confronto omogeneo
 riguarda la sola composizione dell'attivo:
-
+\vspace{-0.05cm}
 {\small
 \[
 c'x^{\mathrm{stat}}\approx3.765
@@ -2187,15 +2187,30 @@ c'x^{*}\approx3.702.
 \]
 }
 
-\item \textbf{Sei centesimi \`{e} il prezzo della finanziabilit\`{a}}: quanto
-la banca rinuncia per avere un piano che sta in piedi a ogni scadenza.
+%\item \textbf{Sei centesimi \`{e} il prezzo della finanziabilit\`{a}}: quanto la banca rinuncia per avere un piano che sta in piedi a ogni scadenza.
 
-\item E cambia ci\`{o} che limita la scelta. I vincoli prudenziali conservano
-un margine ($\ell'x^{*}\approx4.885$ contro $7$; $x_3^{*}=0$ contro $30$),
-mentre \`{e} attivo il limite alla raccolta: $u_3^{*}=\bar u_3=6$.
+\item Il passaggio alla soluzione ALM comporta una
+\textbf{rinuncia di circa $0.063$ sul contributo economico dell'attivo}:
+\vspace{-0.05cm}
+{\small
+\[
+c'x^{\mathrm{stat}}-c'x^{*}
+\approx
+3.765-3.702
+=
+0.063.
+\]
+}
 
-\item \textbf{La scarsit\`{a} si \`{e} spostata sul funding} -- ed \`{e}
-l\`{i} che conviene chiedersi quanto valga una unit\`{a} in pi\`{u}.
+\item La composizione dell'attivo cambia per rendere il piano
+finanziabile alle diverse scadenze.
+
+\item Cambia anche il vincolo rilevante: i vincoli prudenziali hanno
+ancora margine, mentre $u_3^{*}=\bar u_3=6$.
+
+\item \textbf{La scarsit\`{a} si sposta sul funding}: conviene quindi
+chiedersi quanto valga una unit\`{a} in pi\`{u}.
+
 \end{stepitemize}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
@@ -2207,7 +2222,8 @@ l\`{i} che conviene chiedersi quanto valga una unit\`{a} in pi\`{u}.
 \end{frame}%
 %EndExpansion
 
-%****************************************
+
+
 
 \section{Un prezzo per ogni scadenza}
 
@@ -2463,7 +2479,7 @@ cambiano a ogni data e la capacit\`{a} di funding si riduce, $10$, $8$, $6$.
 Vuol dire che il percorso \`{e} \textbf{noto in anticipo}.
 
 \item Per questo la banca pu\`{o} fissare gi\`{a} al tempo $0$ l'intero piano,
-$u_1^{*}$ compreso -- anche se quel funding sar\`{a} raccolto fra tre
+$u_3^{*}$ compreso -- anche se quel funding sar\`{a} raccolto fra tre
 periodi.
 
 \item Ma una banca reale decide quanto raccogliere alla data $3$
@@ -2795,7 +2811,7 @@ sempre, quando l'ottimo esiste finito.
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Le tre componenti di $\bar Z_t=(\bar Z_t^{R},\bar Z_t^{C},\bar Z_t^{F})$
+Le tre componenti di $\bar Z_t=(\bar R_t,\bar T_t,\bar F_t)$
 hanno funzioni economiche distinte:
 
 \medskip
@@ -2804,9 +2820,9 @@ hanno funzioni economiche distinte:
 \[
 \begin{array}{l|l|l}
 \hline
-\bar Z_t^{R} & \mbox{livello dei tassi privi di rischio} & \mbox{prezzo del tempo}\\
-\bar Z_t^{C} & \mbox{spread di credito di mercato} & \mbox{prezzo del rischio di credito}\\
-\bar Z_t^{F} & \mbox{tensione sul funding della banca} & \mbox{prezzo della scarsit\`{a} di funding}\\
+\bar R_t & \mbox{livello dei tassi privi di rischio} & \mbox{prezzo del tempo}\\
+\bar C_t & \mbox{spread di credito di mercato} & \mbox{prezzo del rischio di credito}\\
+\bar F_t & \mbox{tensione sul funding della banca} & \mbox{prezzo della scarsit\`{a} di funding}\\
 \hline
 \end{array}
 \]
@@ -2815,11 +2831,11 @@ hanno funzioni economiche distinte:
 \medskip
 
 \begin{stepitemize}
-\item Da qui i coefficienti: $r_t^{g}=r^{g}(\bar Z_t^{R})$,
-$r_t^{u}=\bar Z_t^{R}+\bar Z_t^{F}$, $\bar u_t=\bar u(\bar Z_t^{F})$. Se
-$\bar Z_t^{F}>0$, allora $r_t^{u}>r_t^{g}$.
+\item Da qui i coefficienti: $r_t^{g}=r^{g}(\bar R_t)$,
+$r_t^{u}=\bar R_t+\bar F_t$, $\bar u_t=\bar u(\bar F_t)$. Se
+$\bar F_t>0$, allora $r_t^{u}>r_t^{g}$.
 
-\item $\bar Z_t^{C}$ entra nei cash flow \textbf{solo se} i flussi
+\item $\bar C_t$ entra nei cash flow \textbf{solo se} i flussi
 dipendono dalla qualit\`{a} creditizia: perdite attese, valori di realizzo,
 haircut. Non per il solo fatto che il modello contiene un fattore di credito.
 
