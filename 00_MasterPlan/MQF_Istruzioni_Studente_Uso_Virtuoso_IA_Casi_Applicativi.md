@@ -207,6 +207,8 @@ Lo studente deve proporre una prima sequenza di elementi teorici. L’IA può co
 
 La risposta dell'IA a questo prompt (titolo e tabella del flusso) alimenta una nuova cella Markdown del notebook. 
 
+Prima di procedere con il Prompt 3, lo studente deve validare il Flusso logico-teorico risolutivo ottenuto, verificandone la coerenza con la Scheda Caso, la completezza degli elementi teorici, l'ordine logico dei passaggi e il collegamento con output e controlli richiesti.
+
 ### Esempio di prompt virtuoso
 
 <pre class="prompt-docente">
@@ -251,6 +253,14 @@ Serve a trasformare il Flusso logico-teorico in una sequenza operativa di tappe.
 Lo studente deve proporre una prima ipotesi di tappe, indicando per ciascuna almeno obiettivo, input disponibili, operazione prevista, output atteso e controllo principale. L’IA può verificare, completare e ordinare la proposta.
 
 La risposta dell'IA a questo prompt (titolo, tabella con scomposizione in tappe) alimenta una nuova cella Markdown del notebook.
+
+Prima di procedere con i prompt di tappa, lo studente deve validare la scomposizione ottenuta, verificando che:
+
+1. tutte le tappe siano coerenti con il Flusso logico-teorico risolutivo già validato;
+2. ogni tappa abbia input, operazione, output e controllo chiaramente identificati;
+3. tutti gli output e i controlli richiesti dalla Scheda Caso siano coperti;
+4. sia visibile il collegamento tra gli output di ciascuna tappa e gli input delle tappe successive;
+5. il regime IA prevalente assegnato a ciascuna tappa sia coerente con la funzione della tappa.
 
 ### Esempio di prompt virtuoso
 
