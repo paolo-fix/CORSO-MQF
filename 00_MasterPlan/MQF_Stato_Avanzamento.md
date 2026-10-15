@@ -6,14 +6,14 @@ Questo file è l'unica fonte per lo stato corrente del progetto. Registra ciò c
 
 Il Master Plan definisce l'architettura didattica e i contenuti previsti. Le Guidelines definiscono le regole stabili. Il Registro decisionale conserva le decisioni progettuali e le relative motivazioni.
 
-## Snapshot al 2026-10-12
+## Snapshot al 2026-10-16
 
 |  |  |
 |---|---|
-| **Ultima attività completata** | Estensione del progetto alla copertura sostanziale completa delle 16 lezioni: sono presenti i 16 capitoli del manuale e i 16 deck di slides. Le lezioni applicative 7, 10, 13 e 16 dispongono ora di capitolo, slides, Schede Caso Aula/TakeHome, schede di costruzione e notebook; per la Lezione 10 sono presenti anche i tracciati, mentre per le Lezioni 13 e 16 sono presenti tracciati e materiali di valutazione. |
-| **Materiale sviluppato** | Manuale: contenuto sostanziale per i Capitoli 1-16. Slides: contenuto sostanziale per le Lezioni 1-16. Pacchetti applicativi strutturati per le Lezioni 4, 7, 10, 13 e 16. Codice e script di supporto presenti lungo l'intero corso, inclusi i blocchi sulla programmazione stocastica delle Lezioni 14-15. |
-| **Lavoro in corso** | Verifica conclusiva di coerenza tra capitoli, slides, Master Plan, Notazione e materiali applicativi; taratura tipografica e controllo delle figure; verifica finale dei notebook e dei tracciati IA; verifica dei template IA. |
-| **Prossima priorit\`a** | Eseguire il controllo finale integrato del corso: compilazione completa del manuale e dei 16 deck, esecuzione/validazione dei notebook delle lezioni applicative, verifica puntuale degli asset grafici, dei riferimenti incrociati e delle scalette-promemoria previste dal Master Plan. |
+| **Ultima attività completata** | Eseguito l'audit dello stato di avanzamento a partire dallo snapshot del 2026-10-12. L'audit rileva nuove evidenze per le Lezioni 1-6 e 10-16, oltre a modifiche trasversali nei principali documenti normativi e nei template IA. Prosegue inoltre il controllo conclusivo di coerenza orizzontale, verticale e incrociata tra capitoli, slides e documenti di progetto. |
+| **Materiale sviluppato** | Manuale: contenuto sostanziale per i Capitoli 1-16. Slides: contenuto sostanziale per le Lezioni 1-16. Pacchetti applicativi strutturati per le Lezioni 4, 7, 10, 13 e 16. Codice, notebook, script e asset grafici presenti lungo l'intero corso, inclusi i blocchi di programmazione lineare, ALM e programmazione stocastica. |
+| **Lavoro in corso** | Verifica conclusiva di coerenza tra capitoli, slides, Master Plan, Notazione, Guidelines, Istruzioni Studente e materiali applicativi; chiusura delle incoerenze residue; controllo dei raccordi tra lezioni; verifica finale dei notebook, dei tracciati IA, dei template e degli asset tecnici. |
+| **Prossima priorità** | Completare il controllo finale integrato del corso; usare il promemoria di raccordo come checklist operativa; eseguire la compilazione completa del manuale e dei 16 deck; rieseguire e validare i notebook delle lezioni applicative; completare il controllo di riferimenti incrociati, asset grafici e scalette-promemoria. |
 
 ---
 
@@ -22,6 +22,8 @@ Il Master Plan definisce l'architettura didattica e i contenuti previsti. Le Gui
 Legenda: `sviluppato` = contenuto sostanziale presente; `parziale` = componente presente ma incompleta o non ancora validata in modo conclusivo; `traccia` = solo struttura iniziale; `-` = non iniziato; `n.a.` = non applicabile.
 
 La classificazione `sviluppato` non equivale a `chiuso`: in questa fase gran parte del corso \`e sviluppata con taratura o verifica conclusiva residua.
+
+Alla data del 2026-10-16 nessuna lezione viene riclassificata automaticamente come `chiusa` sulla sola base dell'audit. L'audit documenta presenza e modifiche dei materiali; la chiusura richiede anche il completamento dei controlli di coerenza, compilabilità e, per le lezioni applicative, esecuzione e riproducibilità dei notebook.
 
 | Lez. | Tipo | Titolo sintetico | Manuale | Slides | Esercizi/materiali operativi | Grafici | Python/Notebook |
 |---:|:---:|---|:---:|:---:|:---:|:---:|:---:|
@@ -46,26 +48,22 @@ La classificazione `sviluppato` non equivale a `chiuso`: in questa fase gran par
 
 ## Promemoria per il controllo di raccordo
 
-Questa sezione conserva una checklist operativa per il controllo orizzontale,
-verticale e incrociato dei materiali del corso. Non rappresenta lo stato
-ufficiale di avanzamento, che è sintetizzato nelle sezioni precedenti.
-Gli elementi vengono eliminati o aggiornati quando il relativo controllo è
-stato completato.
+Questa sezione conserva una checklist operativa per il controllo orizzontale, verticale e incrociato dei materiali del corso. Non rappresenta lo stato ufficiale di avanzamento, sintetizzato nelle sezioni precedenti. Le note vengono aggiornate o eliminate quando il relativo controllo è stato completato.
 
 | Area | Note |
 |---|---|
-| Processi stocastici discreti e filtrazioni | Include adattabilità e martingale; da verificare nello sviluppo della Lezione 5. |
-| Processi stocastici continui | Include Browniano, GBM, OU, CIR, correlazione ed Eulero--Maruyama; da verificare nelle Lezioni 6--7. |
-| Catene di Markov | Verificata con il blocco rating/rischio credito del Capitolo 9. |
-| Misure di rischio | Raccordata con il blocco creditizio; resta il raccordo con le applicazioni di portafoglio (Lezioni 10 e 13). |
-| Modello binomiale | Mantenuto come esempio strutturale di processo discreto, non come lezione autonoma di pricing. |
-| Programmazione lineare e dualità | Dualità trattata come contenuto essenziale interno alla Lezione 11. |
-| Asset--Liability Management deterministico | Introdotta con il Capitolo 12; da verificare nell'applicazione Python della Lezione 13. |
-| Programmazione stocastica | Include due stadi, EVPI, VSS, multistadio e non anticipatività. |
-| Corrispondenza Python | Da aggiornare quando saranno definiti gli script delle Lezioni 4, 7, 10, 13 e 16. |
-| Rischio di credito e risk-neutral | Introdotta con il Capitolo 9; da verificare nello sviluppo della Lezione 10 (simulazione di portafoglio). |
+| Processi stocastici discreti e filtrazioni | Verificare il raccordo tra Capitolo/Lezione 5 e quanto già introdotto nei Capitoli 1-4 su informazione, filtrazioni, adattabilità e martingale. |
+| Processi stocastici continui | Verificare il raccordo tra Capitoli/Lezioni 6-7 su Browniano, GBM, OU, CIR, correlazione ed Eulero--Maruyama, distinguendo chiaramente teoria, simulazione e applicazione. |
+| Catene di Markov | Raccordo già consolidato con il blocco rating/rischio di credito del Capitolo 9; mantenere il controllo sui passaggi verso la Lezione 10. |
+| Misure di rischio | Verificare il raccordo tra il blocco teorico delle misure di rischio e le applicazioni successive, evitando anticipazioni o sovrapposizioni non motivate. |
+| Modello binomiale | Mantenuto come esempio strutturale di processo discreto, non come lezione autonoma di pricing; verificare che questa funzione resti coerente nei richiami successivi. |
+| Programmazione lineare e dualità | Verificare la continuità tra Lezioni 11-12: formulazione primale, interpretazione economica dei vincoli e dualità devono preparare senza duplicazioni il passaggio all'ALM deterministico. |
+| Asset--Liability Management deterministico | Verificare il raccordo tra Capitolo/Lezione 12 e l'implementazione Python della Lezione 13, con particolare attenzione a variabili, vincoli, unità di misura e interpretazione economica. |
+| Programmazione stocastica | Verificare la progressione Lezioni 14-16: due stadi, EVPI/VSS, ricorso, multistadio, non anticipatività e implementazione Python devono restare distinti e progressivi. |
+| Corrispondenza Python | Verificare che le Lezioni applicative 4, 7, 10, 13 e 16 mantengano una struttura metodologica coerente tra Scheda Caso, prompt, notebook, output e valutazione. |
+| Rischio di credito e risk-neutral | Verificare il raccordo tra Capitoli/Lezioni 8-10: dinamica markoviana, misura del rischio di credito e simulazione di portafoglio devono utilizzare ipotesi e notazione coerenti. |
 
-
+---
 
 ## Verifica 2026-10-12 - Ricognizione generale del progetto
 
@@ -99,28 +97,63 @@ La ricognizione del repository mostra un passaggio di fase rispetto allo snapsho
 - Le Guidelines sono state riallineate all'architettura corrente del corso e alla struttura effettiva del repository.
 - La fase progettuale dominante diventa la verifica conclusiva di coerenza, compilabilit\`a, riproducibilit\`a e qualit\`a didattica.
 
-### Verifiche non svolte in questa sessione
+### Verifiche tecniche ancora da completare
 
-Questa ricognizione \`e stata effettuata sul contenuto corrente del repository GitHub.
+Lo script `tools/audit_stato_avanzamento.py` è stato eseguito con successo sulla copia locale del repository, utilizzando come data iniziale lo snapshot del 2026-10-12. Il report ha rilevato nuove evidenze per le Lezioni 1-6 e 10-16 e modifiche trasversali nei principali documenti normativi e nei template IA.
 
-Non sono stati eseguiti in questa sessione:
+L'audit è uno strumento di ricognizione: segnala file modificati e materiali presenti, ma non assegna stati e non certifica da solo la qualità o la chiusura dei contenuti.
 
-- lo script locale `tools/audit_stato_avanzamento.py`;
-- una compilazione completa del manuale;
-- la compilazione autonoma di tutti i 16 deck;
-- la riesecuzione integrale dei notebook;
-- una verifica visuale sistematica di tutti gli output grafici.
+Restano da completare:
 
-Di conseguenza, `sviluppato` indica presenza di contenuto sostanziale e non certificazione conclusiva della compilazione o dell'esecuzione.
+- la compilazione completa del manuale;
+- la compilazione autonoma dei 16 deck;
+- la riesecuzione integrale, in ambiente pulito, dei notebook delle Lezioni 4, 7, 10, 13 e 16;
+- la verifica della riproducibilità degli output, dei seed e delle dipendenze Python;
+- una verifica visuale sistematica degli output grafici e degli eventuali problemi di impaginazione;
+- il controllo conclusivo dei riferimenti incrociati e dei collegamenti tra documenti normativi, capitoli, slides e materiali applicativi.
+
+L'output dell'audit contiene anche rumore tecnico che non deve essere interpretato come avanzamento didattico, tra cui file temporanei Word, directory `__pycache__`, file `synctex(busy)`, copie `_old` e cartelle storiche.
+
+---
+
+## Verifica 2026-10-16 - Audit dello stato di avanzamento
+
+È stato eseguito `tools/audit_stato_avanzamento.py` sulla copia locale del repository. Lo script ha letto come riferimento lo snapshot del 2026-10-12 e ha prodotto una ricognizione delle modifiche Git, dei materiali presenti per le lezioni coinvolte e delle modifiche trasversali.
+
+### Evidenze emerse dall'audit
+
+- Nuove evidenze Git sono state rilevate per le Lezioni 1, 2, 3, 4, 5, 6, 10, 11, 12, 13, 14, 15 e 16.
+- Per le Lezioni 1-4 risultano modificati capitoli e/o slides; per la Lezione 4 è presente un pacchetto applicativo articolato con notebook, Schede Caso, schede di costruzione, tracciati e output.
+- Per le Lezioni 5-6 risultano modifiche ai materiali teorici e sono presenti codice e asset grafici di supporto.
+- Per la Lezione 10 risultano modifiche al capitolo e la presenza del pacchetto applicativo con notebook, Schede Caso, tracciati e valutazioni.
+- Per le Lezioni 11-12 risultano modifiche a capitoli/slides e un insieme esteso di script e grafici di supporto alla programmazione lineare, dualità e ALM deterministico.
+- Per la Lezione 13 risultano modifiche a capitolo e slides e la presenza del pacchetto applicativo strutturato.
+- Per le Lezioni 14-16 risultano modifiche ai materiali teorici e applicativi, con script, grafici e pacchetti dedicati alla programmazione stocastica.
+- Sono inoltre state rilevate modifiche trasversali a `MQF_Master_Plan.tex`, `MQF_Notazione.tex`, `MQF_Project_Guidelines.md`, `MQF_Stato_Avanzamento.md`, `MQF_Istruzioni_Studente_Uso_Virtuoso_IA_Casi_Applicativi.md` e ad alcuni template IA.
+
+### Limiti dell'audit
+
+L'audit non dimostra che ogni modifica sia corretta o conclusiva e non sostituisce il controllo qualitativo dei materiali. Inoltre, la ricognizione include file tecnici o storici che devono essere filtrati nella valutazione dello stato.
+
+Il parser delle intestazioni LaTeX può troncare titoli contenenti comandi accentati con graffe; questa anomalia riguarda il report dello script e non costituisce evidenza di errore nei sorgenti LaTeX.
+
+### Esito
+
+L'audit conferma che il progetto è nella fase di verifica conclusiva di un impianto sostanzialmente completo. Le evidenze rilevate rafforzano la necessità di proseguire con il controllo di raccordo orizzontale, verticale e incrociato prima di attribuire eventuali stati di chiusura.
 
 ---
 
 ## Questioni operative aperte
 
-- Eseguire una compilazione finale ordinaria del manuale e dei deck per intercettare overfull, riferimenti irrisolti, figure mancanti e incoerenze tra nomi file e magic comment.
-- Rieseguire i notebook delle Lezioni 4, 7, 10, 13 e 16 in ambiente pulito, verificando assenza di errori, riproducibilit\`a degli output, seed, controlli e dipendenze.
-- Riesaminare puntualmente i template IA rispetto alle Istruzioni Studente correnti, verificando coerenza dei regimi A/B/C, del formato dei tracciati e dei materiali di valutazione.
-- Verificare la copertura e l'allineamento delle scalette-promemoria delle lezioni teoriche previste dal Master Plan.
+- Completare il controllo integrato di coerenza tra Manuale, Slides, Master Plan, Notazione, Guidelines e Istruzioni Studente per tutti i blocchi del corso.
+- Usare il `Promemoria per il controllo di raccordo` come checklist per i controlli orizzontali, verticali e incrociati ancora aperti.
+- Chiudere le incoerenze residue già individuate nei blocchi in corso di revisione prima di considerarne conclusa la verifica.
+- Verificare puntualmente che le lezioni applicative 4, 7, 10, 13 e 16 mantengano una struttura coerente tra caso, prompt, notebook, output e valutazione.
+- Eseguire una compilazione finale ordinaria del manuale e dei 16 deck per intercettare errori LaTeX, overfull, riferimenti irrisolti, figure mancanti, percorsi errati e incoerenze nei magic comment.
+- Rieseguire i notebook delle Lezioni 4, 7, 10, 13 e 16 in ambiente pulito, verificando assenza di errori, dipendenze, seed, riproducibilità degli output e funzionamento dei controlli.
+- Riesaminare puntualmente i template IA rispetto alle Istruzioni Studente correnti, verificando coerenza dei Regimi A/B/C, del formato dei tracciati e dei materiali di valutazione.
+- Verificare la copertura e l'allineamento delle scalette-promemoria previste dal Master Plan.
+- Trasferire fuori da `MQF_Notazione.tex` la vecchia tabella `Stato di avanzamento` solo dopo avere verificato che tutte le sue informazioni ancora utili siano confluite nel presente promemoria operativo.
 
 ---
 
@@ -131,3 +164,4 @@ Di conseguenza, `sviluppato` indica presenza di contenuto sostanziale e non cert
 - **2026-09-15** — sviluppata la Lezione 14 sul modello stocastico a due stadi e avviato in forma avanzata il Capitolo 15.
 - **2026-10-12** — ricognizione generale del repository: copertura sostanziale completa di manuale e slides; pacchetti applicativi strutturati per tutte le lezioni computazionali; passaggio alla fase di verifica conclusiva e chiusura. Verificata inoltre la componente grafica delle Lezioni applicative 4, 7, 10, 13 e 16, tutte classificate `sviluppato`; riallineate le Guidelines all'architettura corrente del corso e del repository; chiuso il residuo storico della Lezione 6 sugli esercizi/materiali operativi, ora classificati `sviluppato`.
 - **2026-10-13** — verificata la componente grafica della Lezione 15: gli asset richiamati da Capitolo 15 e slides sono presenti nella cartella condivisa `graphics/`; la componente `Grafici` passa da `parziale` a `sviluppato`.
+- **2026-10-16** — eseguito `tools/audit_stato_avanzamento.py` a partire dallo snapshot del 2026-10-12. Rilevate nuove evidenze per le Lezioni 1-6 e 10-16 e modifiche trasversali nei principali documenti normativi e nei template IA. Integrato nel registro un promemoria operativo per il controllo di raccordo orizzontale, verticale e incrociato. L'audit viene assunto come strumento di ricognizione e non come certificazione automatica di chiusura.
