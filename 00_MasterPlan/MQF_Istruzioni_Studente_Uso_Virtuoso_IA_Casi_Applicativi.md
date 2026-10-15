@@ -207,7 +207,7 @@ Serve a costruire il Flusso logico-teorico risolutivo.
 
 Lo studente deve proporre una prima sequenza di elementi teorici. L’IA può completare, correggere e ordinare.
 
-La risposta dell'IA a questo prompt (titolo e tabella del flusso) alimenta una nuova cella markdwon del notebook. 
+La risposta dell'IA a questo prompt (titolo e tabella del flusso) alimenta una nuova cella markdown del notebook. 
 
 ### Esempio di prompt virtuoso
 

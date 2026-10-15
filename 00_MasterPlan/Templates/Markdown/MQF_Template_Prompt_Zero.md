@@ -22,7 +22,7 @@ Il lavoro dovrà essere sviluppato in modo ordinato attraverso le seguenti 9 fas
    **Produzione degli output numerici e grafici**
    **Controlli numerici, logici e interpretativi**
 8. **Interpretazione critica** (validazione e commento conclusivo dei risultati)
-9. **Redazione del tracciato IA**
+9. **Preparazione del tracciato IA** (stampa PDF della chat utilizzata per il lavoro)
 -->
 | Fase | Attività | Riferimento o descrizione |
 |---:|---|---|

@@ -1235,17 +1235,18 @@ Il notebook non deve essere una semplice raccolta di celle di codice. Deve esser
 La struttura consigliata del notebook, quando l'applicazione prevede uso documentato dell'IA, è:
 
 1. cella Markdown iniziale di inquadramento prodotta dal Prompt 1;
-2. cella Markdown con la scomposizione in tappe input-output prodotta dal Prompt 3;
-3. librerie Python necessarie;
-4. dati disponibili, parametri o procedura di simulazione;
-5. implementazione progressiva delle tappe;
-6. controlli intermedi;
-7. output numerici;
-8. grafici e tabelle;
-9. verifica conclusiva della coerenza tra notebook e Scheda Caso, se richiesta;
-10. interpretazione critica finale dello studente;
-11. verifica conclusiva dell'interpretazione, se richiesta;
-12. limiti del modello e sintesi finale.
+2. cella Markdown con il Flusso logico-teorico risolutivo prodotto dal Prompt 2;
+4. cella Markdown con la scomposizione in tappe input-output prodotta dal Prompt 3;
+5. librerie Python necessarie;
+6. dati disponibili, parametri o procedura di simulazione;
+7. implementazione progressiva delle tappe;
+8. controlli intermedi;
+9. output numerici;
+10. grafici e tabelle;
+11. verifica conclusiva della coerenza tra notebook e Scheda Caso, se richiesta;
+12. interpretazione critica finale dello studente;
+13. verifica conclusiva dell'interpretazione, se richiesta;
+14. limiti del modello e sintesi finale.
 
 Quando l'applicazione non prevede uso documentato dell'IA, la stessa struttura può essere adattata mantenendo comunque il collegamento tra caso, flusso teorico, tappe, output, controlli e interpretazione.
 

@@ -16,7 +16,7 @@ Secondo me gli elementi teorici necessari, nell'ordine logico utile alla soluzio
 
 Ti chiedo di verificare, completare e ordinare questa sequenza teorica, senza scrivere codice e senza proporre ancora la scomposizione operativa del notebook.
 
-L'output deve essere una tabella con le colonne:
+L'output deve essere una sola cella Markdown, con un titolo sintetico coerente con la funzione del Prompt 2 e una tabella con le colonne:
 
 | Passo | Finalità risolutiva | Formula, definizione, proprietà o teorema | Applicazione nel caso | Output o controllo collegato |
 |---:|---|---|---|---|
