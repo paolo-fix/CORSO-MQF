@@ -20,19 +20,24 @@ Per ciascuna tappa indico almeno, in forma sintetica:
 
 ## Parte fissa: istruzioni per IA
 
-Ti chiedo di verificare, completare e ordinare la scomposizione, senza scrivere codice, senza produrre direttamente le celle delle singole tappe del notebook e senza modificare la Scheda Caso.
+Ti chiedo di verificare, completare e ordinare la scomposizione proposta.
 
-Non modificare il Flusso logico-teorico risolutivo già validato. Se rilevi una possibile incoerenza tra il flusso e la scomposizione proposta, segnalala esplicitamente senza correggere autonomamente il flusso.
+La scomposizione deve:
+- rispettare l'ordine logico del Flusso logico-teorico risolutivo già validato;
+- rendere ogni tappa riconducibile ad almeno un passaggio del flusso, evitando tappe prive di giustificazione teorica o funzionale rispetto agli output e ai controlli richiesti;
+- coprire tutti gli output e tutti i controlli richiesti dalla Scheda Caso;
+- mantenere visibile il collegamento tra gli output di ciascuna tappa e gli input della tappa successiva.
 
-Non produrre risultati numerici, tabelle di risultati o grafici.
+Non devi:
+- modificare la Scheda Caso;
+- modificare il Flusso logico-teorico risolutivo già validato;
+- scrivere codice;
+- produrre direttamente le celle delle singole tappe del notebook;
+- produrre risultati numerici, tabelle di risultati o grafici.
 
-La scomposizione deve rispettare l'ordine logico del Flusso logico-teorico risolutivo già validato. Ogni tappa deve essere riconducibile ad almeno un passaggio del flusso e non devono essere introdotte tappe prive di giustificazione teorica o funzionale rispetto agli output e ai controlli richiesti.
-
-Verifica inoltre che la scomposizione copra tutti gli output e tutti i controlli richiesti dalla Scheda Caso. Se un output o un controllo non risulta associato ad alcuna tappa, segnalalo esplicitamente.
+Se rilevi una possibile incoerenza tra il flusso e la scomposizione proposta, segnalala esplicitamente senza correggere autonomamente il Flusso logico-teorico risolutivo. Se un output o un controllo richiesto dalla Scheda Caso non risulta associato ad alcuna tappa, segnalalo esplicitamente.
 
 L'output deve essere una sola cella Markdown, con un titolo sintetico coerente con la funzione del Prompt 3 e una tabella con le colonne:
 
-| Tappa | Titolo | Obiettivo | Input | Operazione | Output | Controllo | Uso successivo | Regime IA prevalente |
-|---:|---|---|---|---|---|---|---|---|
-
-Mantieni visibile il collegamento tra gli output di ciascuna tappa e gli input della tappa successiva.
+| Tappa | Titolo | Obiettivo | Input | Oggetti teorici coinvolti | Operazione | Output | Controllo | Uso successivo | Regime IA prevalente |
+|---:|---|---|---|---|---|---|---|---|---|

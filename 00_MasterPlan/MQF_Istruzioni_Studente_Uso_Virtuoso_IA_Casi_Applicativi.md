@@ -248,7 +248,7 @@ Il Prompt 3 è obbligatorio e opera in Regime A/B: parte dal Flusso logico-teori
 
 Serve a trasformare il Flusso logico-teorico in una sequenza operativa di tappe.
 
-Lo studente deve proporre una prima ipotesi di tappe. L’IA può modificarla, integrarla e ordinarla.
+Lo studente deve proporre una prima ipotesi di tappe, indicando per ciascuna almeno obiettivo, input disponibili, operazione prevista, output atteso e controllo principale. L’IA può verificare, completare e ordinare la proposta.
 
 La risposta dell'IA a questo prompt (titolo, tabella con scomposizione in tappe) alimenta una nuova cella Markdown del notebook.
 
@@ -272,17 +272,24 @@ Propongo questa prima ipotesi:
 
 Ti chiedo di verificare, modificare, integrare e ordinare questa proposta.
 
-Per ogni tappa indica:
+Per ogni tappa, indica:
 - titolo;
+- obiettivo;
 - input;
+- oggetti teorici coinvolti;
 - operazione;
 - output;
 - controllo;
 - uso nella tappa successiva;
 - regime IA prevalente.
 
-Non produrre risultati numerici.
+Non scrivere codice.
+Non produrre direttamente le celle delle singole tappe del notebook.
+Non produrre risultati numerici, tabelle di risultati o grafici.
 Non modificare la Scheda Caso.
+Non modificare il Flusso logico-teorico risolutivo già validato.
+
+Se rilevi una possibile incoerenza tra il flusso e la scomposizione proposta, segnalala esplicitamente senza correggere autonomamente il flusso.
 </pre>
 
 ---
