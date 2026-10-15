@@ -36,7 +36,7 @@ Il capitolo introduce il valore atteso condizionato come strumento per rappresen
 
 La domanda centrale del capitolo \`{e} la seguente: come cambia la valutazione media di una variabile casuale quando non si considera pi\`{u} l'intero spazio degli scenari, ma solo l'informazione effettivamente osservata?
 
-L'obiettivo non \`{e} soltanto introdurre una nuova formula, ma chiarire che il valore atteso condizionato \`{e} una valutazione coerente con il livello informativo disponibile. Il condizionamento su un evento produce un numero, mentre il condizionamento rispetto a una sigma-algebra produce una variabile casuale, cio\`{e} una valutazione che dipende dall'informazione osservata.
+L'obiettivo non \`{e} soltanto introdurre una nuova formula, ma chiarire che il valore atteso condizionato \`{e} una valutazione coerente con il livello informativo disponibile. Il condizionamento su un evento di probabilit\`{a} positiva produce un numero, mentre il condizionamento rispetto a una sigma-algebra produce una variabile casuale, cio\`{e} una valutazione che dipende dall'informazione osservata.
 
 Al termine del capitolo, lo studente dovr\`{a} essere in grado di:
 
@@ -49,7 +49,11 @@ Al termine del capitolo, lo studente dovr\`{a} essere in grado di:
 
     \item interpretare una partizione $ \{B_1,\ldots,B_n\} $ come modello elementare di informazione disponibile;
 
-    \item costruire il valore atteso condizionato rispetto a una sigma-algebra $ \mathcal{G} $, riconoscendo $ \mathbb{E}[X\mid\mathcal{G}] $ come una variabile casuale costante sui blocchi informativi generati da $ \mathcal{G} $;
+
+    \item costruire il valore atteso condizionato rispetto a una sigma-algebra $ \mathcal{G} $, riconoscendo $ \mathbb{E}[X\mid\mathcal{G}] $ come una variabile casuale $ \mathcal{G} $-misurabile e, nel caso di una sigma-algebra finita generata da una partizione, costante sui blocchi informativi;
+
+
+    %\item costruire il valore atteso condizionato rispetto a una sigma-algebra $ \mathcal{G} $, riconoscendo $ \mathbb{E}[X\mid\mathcal{G}] $ come una variabile casuale costante sui blocchi informativi generati da $ \mathcal{G} $;
 
     \item applicare le principali propriet\`{a} del valore atteso condizionato, con particolare attenzione alla linearit\`{a}, alla coerenza con il valore atteso non condizionato e alla propriet\`{a} della torre;
 
@@ -335,7 +339,7 @@ Quindi il condizionamento produce due effetti simultanei: elimina gli scenari in
 Infatti:
 
 \[
-\sum_{\{\omega_i\}\in B}\mathbb{P}(\{\omega_i\}\mid B)
+\sum_{\omega_i\in B}\mathbb{P}(\{\omega_i\}\mid B)
 =
 \sum_{\omega_i\in B}
 \frac{\mathbb{P}(\{\omega_i\})}{\mathbb{P}(B)}
@@ -2189,8 +2193,7 @@ aggiorna progressivamente nel tempo. Prezzi, rendimenti, notizie di mercato e
 indicatori macroeconomici vengono osservati in date successive e modificano le
 previsioni su payoff e perdite future.
 
-Per rappresentare questa evoluzione dell'informazione si introduciamo un concetto che verr\`{a} meglio ripreso iseguito, cioè la
-successione crescente di sigma-algebre:
+Per rappresentare questa evoluzione dell'informazione, introduciamo un concetto che verr\`{a} ripreso pi\`{u} avanti, cio\`{e} una successione crescente di sigma-algebre:
 \[
 \mathcal{F}_0
 \subseteq
@@ -2329,7 +2332,7 @@ quindi dipendere solo da tale informazione.
 
 Se $H$ \`{e} il payoff terminale di una posizione finanziaria, la grandezza
 $\mathbb{E}[H\mid\mathcal{F}_t]$ rappresenta la previsione del payoff alla data
-$t$, coerente con l'informazione osservabile in quel momento.
+$t$, coerente con l'informazione disponibile in quel momento.
 
 Analogamente, se $L$ \`{e} una perdita terminale, la quantit\`{a}
 \[
