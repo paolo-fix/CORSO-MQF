@@ -235,7 +235,7 @@ Ti chiedo di verificare, completare e ordinare questa sequenza.
 Non proporre ancora la scomposizione in tappe.
 Non modificare la Scheda Caso.
 
-L’output deve essere una tabella con colonne:
+L’output deve essere una sola cella Markdown, con un titolo sintetico coerente con la funzione del Prompt 2 e una tabella con le colonne:
 Passo;
 Finalità risolutiva;
 Formula teorico-matematica / definizione / proprietà / teorema;
@@ -612,7 +612,7 @@ Se la criticità è accolta, il notebook viene corretto, ma deve rimanere pulito
 In particolare, la nuova cella Markdown della tappa deve includere al proprio interno, in forma sintetica:
 
 1. criticità individuata;
-2. origine della criticità nella risposta dell'IA;
+2. origine della criticità;
 3. modifica adottata.
 
 Se è necessario modificare anche il codice, la nuova cella code deve sostituire quella precedente. Il codice può contenere brevi commenti che segnalano la modifica adottata, ma non deve mantenere la versione errata.

@@ -1260,7 +1260,7 @@ Quando il notebook viene costruito passo passo con supporto dell’IA, ogni prom
 
 La produzione simultanea di testo Markdown e codice Python è ammessa nel Regime B solo quando la specifica teorica della tappa è già stata fissata e validata. L’IA non deve modificare la struttura del caso, le variabili, le formule, gli stati informativi, gli scenari o il significato finanziario del problema.
 
-Il notebook finale deve restare pulito, lineare ed eseguibile. Non deve conservare celle errate duplicate. Se una criticità concettuale viene accolta in Regime C, le celle della tappa coinvolta devono essere sostituite con versioni corrette e informative. La traccia della verifica deve essere incorporata nelle celle sostitutive, non aggiunta come cella extra: devono risultare visibili la criticità individuata, l'origine della criticità nella risposta dell'IA e la modifica adottata.
+Il notebook finale deve restare pulito, lineare ed eseguibile. Non deve conservare celle errate duplicate. Se una criticità concettuale viene accolta in Regime C, le celle della tappa coinvolta devono essere sostituite con versioni corrette e informative. La traccia della verifica deve essere incorporata nelle celle sostitutive, non aggiunta come cella extra: devono risultare visibili la criticità individuata, l'origine della criticità e la modifica adottata.
 
 Il notebook docente è il risultato validato del processo di sviluppo, non la trascrizione integrale della conversazione con l’IA. Il notebook studente può essere:
 
@@ -1596,7 +1596,7 @@ Se la criticità è respinta, il notebook non viene modificato. La verifica rest
 Se la criticità è accolta, il notebook viene corretto senza aggiungere celle extra di verifica. Le celle della tappa interessata vengono sostituite con versioni corrette e informative. In questo caso, viene prodotta una cella Markdown che deve incorporare in modo sintetico:
 
 1. la criticità individuata;
-2. l'origine della criticità nella risposta dell'IA;
+2. l'origine della criticità;
 3. la modifica adottata.
 
 Se è necessario correggere anche il codice, la nuova cella code sostituisce la precedente e può contenere solo commenti essenziali collegati alla correzione.

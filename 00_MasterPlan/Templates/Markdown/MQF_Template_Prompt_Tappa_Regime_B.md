@@ -47,7 +47,7 @@ Puoi scegliere la forma tecnica della procedura, ma non devi modificare:
 Non anticipare le tappe successive.
 
 L'output atteso è composto da:
-- una cella Markdown che riporti separatamente la copia fedele della richiesta dello studente e una sintesi logica degli input, delle operazioni, degli output e dei controlli della tappa;
+- una cella Markdown che riporti separatamente la copia fedele della richiesta dello studente e una sintesi logica degli input, delle operazioni, degli output, dei controlli della tappa e dell'uso dell'output nella tappa successiva o nel prodotto finale;
 - una cella di codice Python da eseguire per produrre gli output e i controlli richiesti.
 
 Il codice deve utilizzare soltanto gli input disponibili alla tappa corrente e deve rendere verificabili i controlli richiesti.
