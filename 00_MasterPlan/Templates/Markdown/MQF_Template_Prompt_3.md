@@ -22,9 +22,15 @@ Per ciascuna tappa indico almeno, in forma sintetica:
 
 Ti chiedo di verificare, completare e ordinare la scomposizione, senza scrivere codice, senza produrre direttamente le celle delle singole tappe del notebook e senza modificare la Scheda Caso.
 
+Non modificare il Flusso logico-teorico risolutivo già validato. Se rilevi una possibile incoerenza tra il flusso e la scomposizione proposta, segnalala esplicitamente senza correggere autonomamente il flusso.
+
 Non produrre risultati numerici, tabelle di risultati o grafici.
 
-L'output deve essere una cella Markdown inclusiva di una tabella con le colonne:
+La scomposizione deve rispettare l'ordine logico del Flusso logico-teorico risolutivo già validato. Ogni tappa deve essere riconducibile ad almeno un passaggio del flusso e non devono essere introdotte tappe prive di giustificazione teorica o funzionale rispetto agli output e ai controlli richiesti.
+
+Verifica inoltre che la scomposizione copra tutti gli output e tutti i controlli richiesti dalla Scheda Caso. Se un output o un controllo non risulta associato ad alcuna tappa, segnalalo esplicitamente.
+
+L'output deve essere una sola cella Markdown, con un titolo sintetico coerente con la funzione del Prompt 3 e una tabella con le colonne:
 
 | Tappa | Titolo | Obiettivo | Input | Operazione | Output | Controllo | Uso successivo | Regime IA prevalente |
 |---:|---|---|---|---|---|---|---|---|
