@@ -153,7 +153,7 @@ L'audit conferma che il progetto è nella fase di verifica conclusiva di un impi
 - Rieseguire i notebook delle Lezioni 4, 7, 10, 13 e 16 in ambiente pulito, verificando assenza di errori, dipendenze, seed, riproducibilità degli output e funzionamento dei controlli.
 - Riesaminare puntualmente i template IA rispetto alle Istruzioni Studente correnti, verificando coerenza dei Regimi A/B/C, del formato dei tracciati e dei materiali di valutazione.
 - Verificare la copertura e l'allineamento delle scalette-promemoria previste dal Master Plan.
-- Trasferire fuori da `MQF_Notazione.tex` la vecchia tabella `Stato di avanzamento` solo dopo avere verificato che tutte le sue informazioni ancora utili siano confluite nel presente promemoria operativo.
+
 
 ---
 

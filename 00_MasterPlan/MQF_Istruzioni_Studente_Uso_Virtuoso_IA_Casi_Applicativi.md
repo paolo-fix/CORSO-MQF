@@ -101,12 +101,13 @@ Lo standard del Regime B è una richiesta all’IA di scrivere codice per realiz
 
 Il prompt deve indicare:
 
-1. tappa da svolgere;
+1. numero e titolo della tappa da svolgere;
 2. input disponibili;
-3. formule da implementare;
+3. formule, relazioni o procedure da implementare;
 4. output richiesto;
 5. controlli da includere;
-6. vincoli da rispettare.
+6. uso dell'output nella tappa successiva o nel prodotto finale;
+7. vincoli da rispettare.
 
 L’IA può scrivere codice, ma non deve cambiare la Scheda Caso.
 
@@ -341,40 +342,49 @@ Regime A — Ricognizione teorico-modellistica.
 
 PARTE VARIABILE — contributo iniziale dello studente
 
-Sto lavorando sulla seguente parte del caso:
-[indicare la tappa interessata]
+Sto lavorando sulla Tappa [numero] — [titolo della tappa].
 
-Secondo me gli elementi teorici rilevanti sono:
-[descrivere in forma discorsiva gli oggetti teorici che sembrano necessari: variabili, eventi, informazione, distribuzioni, formule, quantità da stimare, controlli]
+Per questa tappa dispongo dei seguenti input:
+- [input 1];
+- [input 2];
+- [ulteriori input].
 
-Penso che sia innanzitutto necessario:
-[spiegare il primo passaggio logico]
+Secondo me, per questa tappa sono rilevanti i seguenti elementi teorici:
+- [variabili, eventi, distribuzioni, formule o proprietà];
+- [quantità da stimare o calcolare];
+- [output atteso];
+- [controllo logico o numerico previsto].
 
-Successivamente occorre:
-[spiegare il secondo passaggio logico]
+Il mio ragionamento è il seguente:
+[descrivere sinteticamente l'ordine logico dei passaggi].
 
-Infine, mi sembra necessario collegare:
-[spiegare il collegamento con output, controlli o tappa successiva]
-
-Ho però questi dubbi:
-[indicare eventuali dubbi, incertezze, alternative o punti da verificare]
-
+Ho questi dubbi o punti da verificare:
+[indicare eventuali dubbi, alternative o aspetti da chiarire].
 
 PARTE FISSA — istruzioni per l'IA
 
-Ti chiedo di verificare, completare e ordinare la mia proposta.
+Ti chiedo di verificare, completare e ordinare questo ragionamento limitatamente alla tappa corrente.
 
 Non devi:
-- risolvere direttamente il caso;
+- risolvere l'intero problema;
+- scegliere un modello diverso da quello fissato nella Scheda Caso;
+- modificare variabili, formule, ipotesi, parametri, output o controlli previsti;
 - scrivere codice;
-- modificare la Scheda Caso;
-- introdurre variabili, ipotesi, parametri o output non previsti;
 - anticipare le tappe successive.
 
 Devi:
-- segnalare elementi mancanti, ridondanti o fuori ordine;
+- segnalare eventuali elementi teorici mancanti, ridondanti o fuori ordine;
 - correggere eventuali confusioni teoriche;
-- produrre l'output richiesto nel formato indicato.
+- chiarire il collegamento tra input, oggetti teorici, output e controllo della tappa.
+
+L'output deve essere una sola cella Markdown della tappa che contenga, in forma sintetica:
+1. obiettivo della tappa;
+2. input disponibili;
+3. oggetti teorici coinvolti;
+4. passaggio logico da svolgere;
+5. output atteso;
+6. controllo da eseguire;
+7. uso dell'output nella tappa successiva, se rilevante.
 </pre>
 
 
