@@ -87,7 +87,7 @@ L’oggetto principale del prompt deve essere:
 6. l’ordine logico della soluzione;
 7. il collegamento tra teoria, output e controlli.
 
-Il Regime A può occasionalmente includere piccoli calcoli, esempi numerici o frammenti di codice, quando servono a chiarire una proprietà teorica, una formula o una quantità del caso.
+Il Regime A può occasionalmente includere piccoli calcoli o esempi numerici, quando servono a chiarire una proprietà teorica, una formula o una quantità del caso, ma non deve includere codice Python.
 
 Tuttavia, il centro del prompt non deve essere la sintassi Python, ma il ragionamento teorico-finanziario-matematico.
 
