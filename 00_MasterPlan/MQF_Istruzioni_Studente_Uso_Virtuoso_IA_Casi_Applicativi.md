@@ -184,7 +184,9 @@ La risposta deve consistere in una sola cella Markdown iniziale che:
 5. riporta i controlli richiesti conservando categorie e numerazione;
 6. esplicita che la Scheda Caso costituisce la specifica vincolante del lavoro e non deve essere modificata.
 
-La cella non deve contenere codice, Flusso logico-teorico risolutivo, tappe operative, risultati numerici, conclusioni, interpretazioni o suggerimenti risolutivi.
+La cella non deve contenere codice, Flusso logico-teorico risolutivo, tappe operative, risultati numerici, conclusioni, interpretazioni, o suggerimenti risolutivi.
+
+La risposta dell'IA deve contenere soltanto la cella Markdown pronta da inserire nel notebook, senza testo introduttivo, commenti esterni o contenuti aggiuntivi.
 
 Prima di inserirla nel notebook, lo studente deve verificare che la cella:
 
@@ -272,6 +274,14 @@ Propongo questa prima ipotesi:
 
 Ti chiedo di verificare, modificare, integrare e ordinare questa proposta.
 
+La scomposizione deve:
+- rispettare l'ordine logico del Flusso logico-teorico risolutivo già validato;
+- rendere ogni tappa riconducibile ad almeno un passaggio del flusso;
+- coprire tutti gli output e tutti i controlli richiesti dalla Scheda Caso;
+- mantenere visibile il collegamento tra gli output di ciascuna tappa e gli input della tappa successiva.
+
+L'output deve essere una sola cella Markdown, con un titolo sintetico e una tabella.
+    
 Per ogni tappa, indica:
 - titolo;
 - obiettivo;
@@ -290,6 +300,9 @@ Non modificare la Scheda Caso.
 Non modificare il Flusso logico-teorico risolutivo già validato.
 
 Se rilevi una possibile incoerenza tra il flusso e la scomposizione proposta, segnalala esplicitamente senza correggere autonomamente il flusso.
+
+Se un output o un controllo richiesto dalla Scheda Caso non risulta associato ad alcuna tappa, segnalalo esplicitamente.
+    
 </pre>
 
 ---
