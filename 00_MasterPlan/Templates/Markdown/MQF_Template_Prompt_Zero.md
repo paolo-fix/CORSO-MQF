@@ -34,7 +34,7 @@ Il lavoro dovrà essere sviluppato in modo ordinato attraverso le seguenti 9 fas
 | 6 | **Validazione della scomposizione** | Conferma dello studente di quanto ottenuto fino a questo punto |
 | 7 | **Costruzione progressiva del notebook**, **produzione degli output numerici e grafici**, **controlli numerici, logici e interpretativi** | Sviluppo progressivo delle tappe computazionali |
 | 8 | **Interpretazione critica** | Validazione e commento conclusivo dei risultati |
-| 9 | **Redazione del tracciato IA** | Documentazione dell’interazione con l’IA |
+| 9 | **Preparazione del tracciato IA** | Stampa PDF della chat utilizzata per il lavoro |
 
 
 ---
@@ -73,7 +73,7 @@ Puoi aiutarmi a revisionare controlli, risultati e interpretazioni che io abbia 
 ## Distinzione dei Prodotti Output
 Nel corso del lavoro, dovrai aiutarmi a distinguere chiaramente:
 
-* **Tracciato IA:** Documento che registra prompt, risposte utilizzate, decisioni dello studente, controlli e collegamenti tra le tappe.
+* **Tracciato IA:** Stampa PDF della chat dedicata al caso, contenente i prompt, le risposte dell’IA, le verifiche e le decisioni dello studente rilevanti per il lavoro.
 * **Notebook:** Prodotto computazionale validato, strutturato con celle Markdown, celle codice, output numerici, grafici, controlli e interpretazioni.
 
 ---
