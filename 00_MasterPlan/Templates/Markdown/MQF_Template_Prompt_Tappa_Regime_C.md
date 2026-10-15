@@ -4,9 +4,16 @@
 
 ## Parte variabile: contributo studente
 
-Sto verificando la Tappa [numero].
+Sto verificando la Tappa [numero] — [titolo della tappa].
 
-Dall'analisi dei risultati, mi pare di osservare [descrivere la criticità]. Il mio ragionamento è il seguente: [inserire il contributo critico dello studente].
+Il materiale che deve essere controllato è:
+[riportare o descrivere la formula, l'output, la tabella, il grafico, la cella Markdown o il codice interessato].
+
+Ho individuato questa possibile criticità:
+[descrivere il dubbio, l'anomalia o l'incoerenza osservata].
+
+Il mio ragionamento è il seguente:
+[spiegare perché il risultato, la formula, il testo o il codice non convince e quale aspetto ritengo necessario verificare].
 
 ## Parte fissa: istruzioni per IA
 

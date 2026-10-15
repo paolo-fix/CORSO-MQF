@@ -602,10 +602,8 @@ Se la criticità è accolta, il notebook viene corretto, ma deve rimanere pulito
 In particolare, la nuova cella Markdown della tappa deve includere al proprio interno, in forma sintetica:
 
 1. criticità individuata;
-2. rilevanza della criticità;
-3. modifica adottata;
-4. versione corretta ora usata nel notebook;
-5. rinvio al tracciato IA.
+2. origine della criticità nella risposta dell'IA;
+3. modifica adottata.
 
 Se è necessario modificare anche il codice, la nuova cella code deve sostituire quella precedente. Il codice può contenere brevi commenti che segnalano la modifica adottata, ma non deve mantenere la versione errata.
 
@@ -613,7 +611,7 @@ La valutazione terrà conto del fatto che:
 1. il dubbio deve essere formulato dallo studente;
 2. la verifica deve essere documentata nella chat IA;
 3. se la criticità è accolta, la modifica deve risultare visibile nelle celle corrette del notebook;
-4. il notebook finale deve restare lineare, eseguibile e composto solo dalle celle previste per Prompt 2, Prompt 3, tappe operative, verifica conclusiva del notebook e interpretazione finale.
+4. il notebook finale deve restare lineare, eseguibile e composto solo dalle celle previste per Prompt 1, Prompt 2, Prompt 3, tappe operative, verifica conclusiva del notebook e interpretazione finale.
 
 ### Schema di prompt C
 
