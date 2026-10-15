@@ -1752,7 +1752,7 @@ L’IA può aiutare a verificare, completare e ordinare tale sequenza, ma non de
 
 Il testo canonico del Prompt 2 e' conservato nel corrispondente template Markdown. La proposta iniziale dello studente costituisce la parte variabile e non deve essere precompilata dal docente o dall'IA.
 
-L’output obbligatorio del Prompt 2 è la tabella:
+L’output obbligatorio del Prompt 2 è una sola cella Markdown, con un titolo sintetico coerente con la funzione del Prompt 2 e una tabella con la seguente struttura:
 
 | Passo | Finalità risolutiva | Formula teorico-matematica / definizione / proprietà / teorema | Applicazione nel caso | Output o controllo collegato |
 |---:|---|---|---|---|
@@ -1879,9 +1879,7 @@ Il tracciato deve contenere:
 19. verifiche conclusive, se richieste;
 20. interpretazione finale autonoma.
 
-Se lo studente utilizza un prompt zero, esso deve essere riportato una sola volta all'inizio del tracciato. I prompt successivi possono essere più brevi, purché siano chiaramente collegati al contesto iniziale e alle tappe del lavoro.
-
-Se lo studente non utilizza un prompt zero, ogni prompt di tappa deve essere sufficientemente autosufficiente. In questo caso il tracciato deve mostrare che l'IA ha ricevuto contesto, input, vincoli e output atteso in misura sufficiente.
+Il Prompt zero deve essere riportato una sola volta all'inizio del tracciato. I prompt successivi possono essere più brevi, purché siano chiaramente collegati al contesto iniziale, alla Scheda Caso, al Flusso logico-teorico risolutivo e alle tappe del lavoro.
 
 La chat consegnata in PDF deve essere dedicata al caso e non deve contenere conversazioni estranee. I prompt dello studente e le risposte dell'IA devono restare visibili nella sequenza effettiva di lavoro. Eventuali sintesi interne al notebook non sostituiscono il tracciato IA.
 
