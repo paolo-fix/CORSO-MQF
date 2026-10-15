@@ -134,13 +134,20 @@ Lo stile deve rispettare i seguenti criteri:
 7. uso di grafici come strumenti esplicativi, non decorativi;
 8. neutralita' nella presentazione dei modelli e dei loro limiti.
 
-Quando si scrive in LaTeX per il manuale o per le slides, usare per le vocali accentate italiane esclusivamente la notazione esplicita:
+
+Quando si scrive in LaTeX per il manuale o per le slides, le vocali accentate italiane devono essere espresse mediante la notazione LaTeX esplicita. Sono ammesse entrambe le forme sintattiche equivalenti, con o senza graffe attorno alla vocale:
 
 ```latex
 \`{a}, \`{e}, \`{i}, \`{o}, \`{u}
 ```
 
-La stessa convenzione deve essere rispettata nel codice LaTeX prodotto nelle chat di lavoro. Non inserire direttamente i caratteri accentati nei nuovi sorgenti LaTeX e non modificare retroattivamente i documenti gia' consolidati salvo specifica esigenza tecnica.
+oppure
+
+```latex
+\`a, \`e, \`i, \`o, \`u
+```
+
+Le due forme sono considerate equivalenti ai fini delle convenzioni del progetto e possono coesistere nei sorgenti senza costituire un'incoerenza editoriale. La stessa convenzione deve essere rispettata nel codice LaTeX prodotto nelle chat di lavoro. Non inserire direttamente i caratteri accentati nei nuovi sorgenti LaTeX e non modificare retroattivamente i documenti gia' consolidati al solo scopo di uniformare tra loro le due forme ammesse.
 
 ## 8. Vincoli LaTeX e compatibilita' Scientific WorkPlace 5.5
 
