@@ -2,8 +2,8 @@
 
 ## 1. Identificazione del progetto
 
-Il progetto riguarda la predisposizione completa del materiale didattico per il corso universitario Metodi Quantitativi per la Finanza.
-Il corso e' destinato a studenti del quinto anno del corso di laurea in Banca e Risk Management. Gli studenti hanno una preparazione mediamente solida nei metodi quantitativi e statistici, e una preparazione buona nella teoria finanziaria e nei modelli finanziari.
+Il progetto riguarda la predisposizione completa del materiale didattico per l'insegnamento universitario di Metodi Quantitativi per la Finanza.
+L'insegnamento è erogato a studenti del secondo anno del Corso di Laurea Magistrale in Finanza e Risk Management. Gli studenti hanno una preparazione mediamente solida nei metodi quantitativi e statistici, e una preparazione buona nella teoria finanziaria e nei modelli finanziari.
 Il materiale deve quindi mantenere un livello accademico rigoroso, evitando sia un approccio eccessivamente divulgativo sia un formalismo astratto non motivato dalle applicazioni finanziarie.
 
 Il corso deve essere sviluppato in italiano. Il manuale, le slides e i materiali matematici devono essere scritti in LaTeX compatibile con Scientific WorkPlace 5.5.
