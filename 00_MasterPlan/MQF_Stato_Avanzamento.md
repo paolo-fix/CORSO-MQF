@@ -52,37 +52,18 @@ ufficiale di avanzamento, che è sintetizzato nelle sezioni precedenti.
 Gli elementi vengono eliminati o aggiornati quando il relativo controllo è
 stato completato.
 
-
-
-\begin{center}
-\begin{tabular}{|p{5.0cm}|p{2.5cm}|p{5.0cm}|}
-\hline
-\textbf{Area} & \textbf{Stato} & \textbf{Note}\\
-
-\hline
-Processi stocastici discreti e filtrazioni & Bozza aggiornata & Include adattabilit\`{a} e martingale; da verificare nello sviluppo della Lezione 5.\\
-\hline
-Processi stocastici continui & Bozza aggiornata & Include Browniano, GBM, OU, CIR, correlazione ed Eulero--Maruyama; da verificare nelle Lezioni 6--7.\\
-\hline
-Catene di Markov & Bozza consolidata & Verificata con il blocco rating/rischio credito del Capitolo 9.\\
-\hline
-Misure di rischio & Bozza consolidata & Raccordata con il blocco creditizio; resta il raccordo con le applicazioni di portafoglio (Lezioni 10 e 13).\\
-\hline
-Modello binomiale & Bozza ridimensionata & Mantenuto come esempio strutturale di processo discreto, non come lezione autonoma di pricing.\\
-\hline
-Programmazione lineare e dualit\`{a} & Bozza aggiornata & Dualit\`{a} trattata come contenuto essenziale interno alla Lezione 11.\\
-\hline
-Asset--Liability Management deterministico & Nuova sezione & Introdotta con il Capitolo 12; da verificare nell'applicazione Python della Lezione 13.\\
-\hline
-Programmazione stocastica & Bozza aggiornata & Include due stadi, EVPI, VSS, multistadio e non anticipativit\`{a}.\\
-\hline
-Corrispondenza Python & Bozza aggiornata & Da aggiornare quando saranno definiti gli script delle Lezioni 4, 7, 10, 13 e 16.\\
-\hline
-Rischio di credito e risk-neutral & Nuova sezione & Introdotta con il Capitolo 9; da verificare nello sviluppo della Lezione 10 (simulazione di portafoglio).\\
-\hline
-\end{tabular}
-\end{center}
-
+| Area | Note |
+|---|---|
+| Processi stocastici discreti e filtrazioni | Include adattabilità e martingale; da verificare nello sviluppo della Lezione 5. |
+| Processi stocastici continui | Include Browniano, GBM, OU, CIR, correlazione ed Eulero--Maruyama; da verificare nelle Lezioni 6--7. |
+| Catene di Markov | Verificata con il blocco rating/rischio credito del Capitolo 9. |
+| Misure di rischio | Raccordata con il blocco creditizio; resta il raccordo con le applicazioni di portafoglio (Lezioni 10 e 13). |
+| Modello binomiale | Mantenuto come esempio strutturale di processo discreto, non come lezione autonoma di pricing. |
+| Programmazione lineare e dualità | Dualità trattata come contenuto essenziale interno alla Lezione 11. |
+| Asset--Liability Management deterministico | Introdotta con il Capitolo 12; da verificare nell'applicazione Python della Lezione 13. |
+| Programmazione stocastica | Include due stadi, EVPI, VSS, multistadio e non anticipatività. |
+| Corrispondenza Python | Da aggiornare quando saranno definiti gli script delle Lezioni 4, 7, 10, 13 e 16. |
+| Rischio di credito e risk-neutral | Introdotta con il Capitolo 9; da verificare nello sviluppo della Lezione 10 (simulazione di portafoglio). |
 
 
 
