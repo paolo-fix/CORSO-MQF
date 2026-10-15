@@ -43,21 +43,21 @@ Al termine del capitolo, lo studente dovr\`{a} essere in grado di:
 \begin{enumerate}
     \item richiamare la nozione di probabilit\`{a} condizionata e collegarla alla distribuzione condizionata di una variabile casuale discreta;
 
-    \item definire il valore atteso condizionato rispetto a un evento $A$, interpretando $ \mathbb{E}[X\mid A] $ come media calcolata sotto l'informazione che $A$ si sia verificato;
+    \item definire il valore atteso condizionato rispetto a un evento $A$, interpretando $ \E[X\mid A] $ come media calcolata sotto l'informazione che $A$ si sia verificato;
 
-    \item utilizzare la formula del valore atteso totale per scomporre $ \mathbb{E}[X] $ come media ponderata di valori attesi condizionati rispetto a una partizione dello spazio campionario;
+    \item utilizzare la formula del valore atteso totale per scomporre $ \E[X] $ come media ponderata di valori attesi condizionati rispetto a una partizione dello spazio campionario;
 
     \item interpretare una partizione $ \{B_1,\ldots,B_n\} $ come modello elementare di informazione disponibile;
 
 
-    \item costruire il valore atteso condizionato rispetto a una sigma-algebra $ \mathcal{G} $, riconoscendo $ \mathbb{E}[X\mid\mathcal{G}] $ come una variabile casuale $ \mathcal{G} $-misurabile e, nel caso di una sigma-algebra finita generata da una partizione, costante sui blocchi informativi;
+    \item costruire il valore atteso condizionato rispetto a una sigma-algebra $ \G $, riconoscendo $ \E[X\mid\G] $ come una variabile casuale $ \G $-misurabile e, nel caso di una sigma-algebra finita generata da una partizione, costante sui blocchi informativi;
 
 
-    %\item costruire il valore atteso condizionato rispetto a una sigma-algebra $ \mathcal{G} $, riconoscendo $ \mathbb{E}[X\mid\mathcal{G}] $ come una variabile casuale costante sui blocchi informativi generati da $ \mathcal{G} $;
+    %\item costruire il valore atteso condizionato rispetto a una sigma-algebra $ \G $, riconoscendo $ \E[X\mid\G] $ come una variabile casuale costante sui blocchi informativi generati da $ \G $;
 
     \item applicare le principali propriet\`{a} del valore atteso condizionato, con particolare attenzione alla linearit\`{a}, alla coerenza con il valore atteso non condizionato e alla propriet\`{a} della torre;
 
-    \item interpretare $ \mathbb{E}[H\mid\mathcal{F}_t] $ come valutazione al tempo $t$ di un payoff terminale $H$, basata sull'informazione disponibile in quel momento;
+    \item interpretare $ \E[H\mid\F_t] $ come valutazione al tempo $t$ di un payoff terminale $H$, basata sull'informazione disponibile in quel momento;
 
     \item applicare il formalismo a semplici problemi finanziari, quali la valutazione condizionata di un payoff, la perdita attesa in uno scenario di stress e l'aggiornamento di una previsione dopo l'arrivo di un segnale informativo.
 \end{enumerate}
@@ -68,17 +68,17 @@ Il capitolo prepara inoltre il passaggio allo studio dei processi stocastici in 
 
 In finanza quantitativa molte decisioni devono essere prese prima che lo stato futuro dell'economia sia noto. Un investitore osserva prezzi correnti, dati macroeconomici, segnali di mercato e informazioni societarie, ma non conosce ancora il valore futuro di un titolo, il rendimento di un portafoglio o il payoff finale di un contratto. La valutazione deve quindi essere formulata in condizioni di informazione incompleta.
 
-Sia $H$ un payoff terminale. Prima dell'arrivo di nuova informazione, la sua valutazione media \`{e} rappresentata dal valore atteso non condizionato $ \mathbb{E}[H] $. Questa quantit\`{a} sintetizza il payoff medio considerando tutti gli scenari possibili, ponderati con le rispettive probabilit\`{a}.
+Sia $H$ un payoff terminale. Prima dell'arrivo di nuova informazione, la sua valutazione media \`{e} rappresentata dal valore atteso non condizionato $ \E[H] $. Questa quantit\`{a} sintetizza il payoff medio considerando tutti gli scenari possibili, ponderati con le rispettive probabilit\`{a}.
 
-Tuttavia, quando diventa disponibile un'informazione parziale, la valutazione cambia. Se, per esempio, si osserva che si \`{e} verificato un evento informativo $A$, non \`{e} pi\`{u} appropriato valutare $H$ sull'intero spazio degli scenari. Occorre invece considerare la distribuzione di $H$ condizionata al verificarsi di $A$. La grandezza rilevante diventa quindi $ \mathbb{E}[H\mid A] $.
+Tuttavia, quando diventa disponibile un'informazione parziale, la valutazione cambia. Se, per esempio, si osserva che si \`{e} verificato un evento informativo $A$, non \`{e} pi\`{u} appropriato valutare $H$ sull'intero spazio degli scenari. Occorre invece considerare la distribuzione di $H$ condizionata al verificarsi di $A$. La grandezza rilevante diventa quindi $ \E[H\mid A] $.
 
-Il passaggio da $ \mathbb{E}[H] $ a $ \mathbb{E}[H\mid A] $ non consiste soltanto nel restringere l'attenzione agli scenari compatibili con $A$. Consiste anche nel modificare i pesi probabilistici assegnati a tali scenari. Dopo l'osservazione di $A$, le probabilit\`{a} originarie vengono sostituite dalle probabilit\`{a} condizionate.
+Il passaggio da $ \E[H] $ a $ \E[H\mid A] $ non consiste soltanto nel restringere l'attenzione agli scenari compatibili con $A$. Consiste anche nel modificare i pesi probabilistici assegnati a tali scenari. Dopo l'osservazione di $A$, le probabilit\`{a} originarie vengono sostituite dalle probabilit\`{a} condizionate.
 
 Nel caso discreto, se $\omega\in A$, il peso rilevante dello scenario $\omega$ diventa:
 \[
-\mathbb{P}(\{\omega\}\mid A)
+\Prob(\{\omega\}\mid A)
 =
-\frac{\mathbb{P}(\{\omega\})}{\mathbb{P}(A)}.
+\frac{\Prob(\{\omega\})}{\Prob(A)}.
 \]
 
 Gli scenari che non appartengono ad $A$ ricevono probabilit\`{a} condizionata nulla. Il valore atteso condizionato \`{e} quindi una media calcolata con questi nuovi pesi probabilistici.
@@ -93,7 +93,7 @@ Si consideri un payoff terminale $H$ associato a quattro scenari macro-finanziar
 
 \[
 \begin{array}{c|c|c|c}
-\text{Scenario} & \text{Descrizione} & \mathbb{P}(\{\omega\}) & H(\omega) \\
+\text{Scenario} & \text{Descrizione} & \Prob(\{\omega\}) & H(\omega) \\
 \hline
 \omega_1 & \text{espansione} & 0.25 & 120 \\
 \omega_2 & \text{crescita moderata} & 0.35 & 105 \\
@@ -105,7 +105,7 @@ Si consideri un payoff terminale $H$ associato a quattro scenari macro-finanziar
 Il valore atteso non condizionato \`{e}:
 
 \[
-\mathbb{E}[H]
+\E[H]
 =
 0.25\cdot 120
 +
@@ -127,19 +127,19 @@ A=\{\omega_1,\omega_2\}.
 La probabilit\`{a} dell'evento \`{e}:
 
 \[
-\mathbb{P}(A)=0.25+0.35=0.60.
+\Prob(A)=0.25+0.35=0.60.
 \]
 
 Le probabilit\`{a} condizionate degli scenari compatibili con il segnale favorevole sono quindi:
 
 \[
-\mathbb{P}(\{\omega_1\}\mid A)
+\Prob(\{\omega_1\}\mid A)
 =
 \frac{0.25}{0.60}
 =
 0.4167,
 \qquad
-\mathbb{P}(\{\omega_2\}\mid A)
+\Prob(\{\omega_2\}\mid A)
 =
 \frac{0.35}{0.60}
 =
@@ -151,7 +151,7 @@ Gli scenari $\omega_3$ e $\omega_4$ non sono compatibili con il segnale favorevo
 Il payoff medio condizionato al segnale favorevole pu\`{o} allora essere calcolato come media dei payoff negli scenari compatibili con $A$, pesati con le probabilit\`{a} condizionate:
 
 \[
-\mathbb{E}[H\mid A]
+\E[H\mid A]
 =
 120\cdot 0.4167
 +
@@ -163,7 +163,7 @@ Il payoff medio condizionato al segnale favorevole pu\`{o} allora essere calcola
 In forma equivalente:
 
 \[
-\mathbb{E}[H\mid A]
+\E[H\mid A]
 =
 \frac{0.25\cdot 120+0.35\cdot 105}{0.60}
 =
@@ -180,19 +180,19 @@ A^c=\{\omega_3,\omega_4\}.
 La probabilit\`{a} dell'evento sfavorevole \`{e}:
 
 \[
-\mathbb{P}(A^c)=0.25+0.15=0.40.
+\Prob(A^c)=0.25+0.15=0.40.
 \]
 
 Le probabilit\`{a} condizionate degli scenari compatibili con $A^c$ sono:
 
 \[
-\mathbb{P}(\{\omega_3\}\mid A^c)
+\Prob(\{\omega_3\}\mid A^c)
 =
 \frac{0.25}{0.40}
 =
 0.625,
 \qquad
-\mathbb{P}(\{\omega_4\}\mid A^c)
+\Prob(\{\omega_4\}\mid A^c)
 =
 \frac{0.15}{0.40}
 =
@@ -202,7 +202,7 @@ Le probabilit\`{a} condizionate degli scenari compatibili con $A^c$ sono:
 In questo caso il payoff medio condizionato \`{e}:
 
 \[
-\mathbb{E}[H\mid A^c]
+\E[H\mid A^c]
 =
 90\cdot 0.625
 +
@@ -214,25 +214,25 @@ In questo caso il payoff medio condizionato \`{e}:
 In forma equivalente:
 
 \[
-\mathbb{E}[H\mid A^c]
+\E[H\mid A^c]
 =
 \frac{0.25\cdot 90+0.15\cdot 60}{0.40}
 =
 78.75.
 \]
 
-Il confronto tra $ \mathbb{E}[H] $, $ \mathbb{E}[H\mid A] $ e $ \mathbb{E}[H\mid A^c] $ mostra il ruolo essenziale dell'informazione. La stessa variabile casuale $H$ pu\`{o} avere valutazioni medie diverse a seconda del contenuto informativo disponibile.
+Il confronto tra $ \E[H] $, $ \E[H\mid A] $ e $ \E[H\mid A^c] $ mostra il ruolo essenziale dell'informazione. La stessa variabile casuale $H$ pu\`{o} avere valutazioni medie diverse a seconda del contenuto informativo disponibile.
 
 \medskip
 
 La relazione tra valutazione non condizionata e valutazioni condizionate \`{e}:
 
 \[
-\mathbb{E}[H]
+\E[H]
 =
-\mathbb{E}[H\mid A]\mathbb{P}(A)
+\E[H\mid A]\Prob(A)
 +
-\mathbb{E}[H\mid A^c]\mathbb{P}(A^c).
+\E[H\mid A^c]\Prob(A^c).
 \]
 
 Nel caso numerico:
@@ -250,41 +250,41 @@ Questa identit\`{a} evidenzia un punto fondamentale: prima di osservare il segna
 Il linguaggio del valore atteso condizionato consente quindi di distinguere tre livelli:
 
 \begin{enumerate}
-    \item la valutazione prima dell'informazione, rappresentata da $ \mathbb{E}[H] $;
+    \item la valutazione prima dell'informazione, rappresentata da $ \E[H] $;
 
-    \item la valutazione dopo l'osservazione di un evento informativo specifico, rappresentata da $ \mathbb{E}[H\mid A] $;
+    \item la valutazione dopo l'osservazione di un evento informativo specifico, rappresentata da $ \E[H\mid A] $;
 
-    \item la valutazione come funzione dell'informazione che sar\`{a} osservata, rappresentata pi\`{u} in generale da $ \mathbb{E}[H\mid \mathcal{G}] $.
+    \item la valutazione come funzione dell'informazione che sar\`{a} osservata, rappresentata pi\`{u} in generale da $ \E[H\mid \G] $.
 \end{enumerate}
 
-L'ultimo punto \`{e} concettualmente il pi\`{u} importante. Quando l'informazione disponibile \`{e} descritta da una sigma-algebra $ \mathcal{G} $, il valore atteso condizionato $ \mathbb{E}[H\mid \mathcal{G}] $ non \`{e} pi\`{u} un singolo numero. Esso \`{e} una variabile casuale: assume valori diversi a seconda dell'informazione che viene effettivamente osservata.
+L'ultimo punto \`{e} concettualmente il pi\`{u} importante. Quando l'informazione disponibile \`{e} descritta da una sigma-algebra $ \G $, il valore atteso condizionato $ \E[H\mid \G] $ non \`{e} pi\`{u} un singolo numero. Esso \`{e} una variabile casuale: assume valori diversi a seconda dell'informazione che viene effettivamente osservata.
 
-Questa impostazione \`{e} alla base della valutazione dinamica in finanza. Se $ \mathcal{F}_t $ rappresenta l'informazione disponibile al tempo $t$, allora $ \mathbb{E}[H\mid \mathcal{F}_t] $ rappresenta la valutazione del payoff terminale $H$ formulata al tempo $t$, sulla base dell'informazione disponibile in quel momento. Nei capitoli successivi questa idea diventer\`{a} essenziale per descrivere processi stocastici, strategie adattate all'informazione disponibile e modelli dinamici di pricing.
+Questa impostazione \`{e} alla base della valutazione dinamica in finanza. Se $ \F_t $ rappresenta l'informazione disponibile al tempo $t$, allora $ \E[H\mid \F_t] $ rappresenta la valutazione del payoff terminale $H$ formulata al tempo $t$, sulla base dell'informazione disponibile in quel momento. Nei capitoli successivi questa idea diventer\`{a} essenziale per descrivere processi stocastici, strategie adattate all'informazione disponibile e modelli dinamici di pricing.
 
 \section{Richiamo: probabilit\`{a} condizionata e distribuzione condizionata}
 
 Prima di definire formalmente il valore atteso condizionato, \`{e} utile richiamare la nozione di probabilit\`{a} condizionata. Il punto essenziale \`{e} che l'osservazione di un evento informativo modifica lo spazio degli scenari rilevanti e, di conseguenza, modifica anche i pesi probabilistici attribuiti agli eventi e ai valori assunti da una variabile casuale.
 
-Siano $A$ e $B$ due eventi appartenenti a $\mathcal{F}$, con $\mathbb{P}(B)>0$. La probabilit\`{a} condizionata di $A$ dato $B$ \`{e} definita da:
+Siano $A$ e $B$ due eventi appartenenti a $\F$, con $\Prob(B)>0$. La probabilit\`{a} condizionata di $A$ dato $B$ \`{e} definita da:
 
 \[
-\mathbb{P}(A\mid B)
+\Prob(A\mid B)
 =
-\frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}.
+\frac{\Prob(A\cap B)}{\Prob(B)}.
 \]
 
-L'evento $B$ rappresenta l'informazione osservata. Dopo avere osservato $B$, l'evento $A$ viene valutato non pi\`{u} rispetto all'intero spazio campionario $\Omega$, ma rispetto alla porzione di spazio compatibile con $B$. La probabilit\`{a} $\mathbb{P}(A\mid B)$ misura quindi quanto \`{e} probabile $A$ all'interno degli scenari in cui $B$ si \`{e} verificato.
+L'evento $B$ rappresenta l'informazione osservata. Dopo avere osservato $B$, l'evento $A$ viene valutato non pi\`{u} rispetto all'intero spazio campionario $\Omega$, ma rispetto alla porzione di spazio compatibile con $B$. La probabilit\`{a} $\Prob(A\mid B)$ misura quindi quanto \`{e} probabile $A$ all'interno degli scenari in cui $B$ si \`{e} verificato.
 
 In particolare, se $A$ e $B$ sono disgiunti, allora $A\cap B=\varnothing$ e quindi:
 
 \[
-\mathbb{P}(A\mid B)=0.
+\Prob(A\mid B)=0.
 \]
 
 Se invece $B\subseteq A$, allora $A\cap B=B$ e quindi:
 
 \[
-\mathbb{P}(A\mid B)=1.
+\Prob(A\mid B)=1.
 \]
 
 Questi due casi estremi chiariscono l'interpretazione informativa della probabilit\`{a} condizionata. Dopo avere osservato $B$, gli eventi incompatibili con $B$ hanno probabilit\`{a} nulla, mentre gli eventi che contengono $B$ diventano certi.
@@ -294,24 +294,24 @@ Questi due casi estremi chiariscono l'interpretazione informativa della probabil
 \noindent
 \textbf{Distribuzione condizionata di una variabile casuale discreta.}
 
-Sia $X$ una variabile casuale discreta con valori possibili $x_1,\ldots,x_m$. Se si osserva un evento $B$, con $\mathbb{P}(B)>0$, la distribuzione di $X$ condizionata a $B$ \`{e} descritta dalle probabilit\`{a}:
+Sia $X$ una variabile casuale discreta con valori possibili $x_1,\ldots,x_m$. Se si osserva un evento $B$, con $\Prob(B)>0$, la distribuzione di $X$ condizionata a $B$ \`{e} descritta dalle probabilit\`{a}:
 
 \[
-\mathbb{P}(X=x_j\mid B),
+\Prob(X=x_j\mid B),
 \qquad j=1,\ldots,m.
 \]
 
 Applicando la definizione di probabilit\`{a} condizionata, si ottiene:
 
 \[
-\mathbb{P}(X=x_j\mid B)
+\Prob(X=x_j\mid B)
 =
-\frac{\mathbb{P}(\{X=x_j\}\cap B)}{\mathbb{P}(B)}.
+\frac{\Prob(\{X=x_j\}\cap B)}{\Prob(B)}.
 \]
 
 La distribuzione condizionata descrive quindi come cambiano le probabilit\`{a} dei diversi valori di $X$ quando l'informazione disponibile \`{e} rappresentata dall'evento $B$.
 
-\`{e} importante osservare che non si sta modificando la variabile casuale $X$. La funzione $X:\Omega\to\mathbb{R}$ rimane la stessa. Ci\`{o} che cambia \`{e} la distribuzione di probabilit\`{a} utilizzata per valutarla. Prima dell'informazione si considerano le probabilit\`{a} non condizionate $\mathbb{P}(X=x_j)$; dopo l'informazione si considerano le probabilit\`{a} condizionate $\mathbb{P}(X=x_j\mid B)$.
+\`{e} importante osservare che non si sta modificando la variabile casuale $X$. La funzione $X:\Omega\to\mathbb{R}$ rimane la stessa. Ci\`{o} che cambia \`{e} la distribuzione di probabilit\`{a} utilizzata per valutarla. Prima dell'informazione si considerano le probabilit\`{a} non condizionate $\Prob(X=x_j)$; dopo l'informazione si considerano le probabilit\`{a} condizionate $\Prob(X=x_j\mid B)$.
 
 \medskip
 
@@ -323,15 +323,15 @@ Nel caso finito, se lo spazio campionario \`{e} formato da scenari elementari $\
 Per ogni scenario $\omega_i\in B$, la probabilit\`{a} condizionata \`{e}:
 
 \[
-\mathbb{P}(\{\omega_i\}\mid B)
+\Prob(\{\omega_i\}\mid B)
 =
-\frac{\mathbb{P}(\{\omega_i\})}{\mathbb{P}(B)}.
+\frac{\Prob(\{\omega_i\})}{\Prob(B)}.
 \]
 
 Per ogni scenario $\omega_i\notin B$, invece:
 
 \[
-\mathbb{P}(\{\omega_i\}\mid B)=0.
+\Prob(\{\omega_i\}\mid B)=0.
 \]
 
 Quindi il condizionamento produce due effetti simultanei: elimina gli scenari incompatibili con l'informazione osservata e ripesa gli scenari compatibili in modo che le nuove probabilit\`{a} sommino a uno.
@@ -339,12 +339,12 @@ Quindi il condizionamento produce due effetti simultanei: elimina gli scenari in
 Infatti:
 
 \[
-\sum_{\omega_i\in B}\mathbb{P}(\{\omega_i\}\mid B)
+\sum_{\omega_i\in B}\Prob(\{\omega_i\}\mid B)
 =
 \sum_{\omega_i\in B}
-\frac{\mathbb{P}(\{\omega_i\})}{\mathbb{P}(B)}
+\frac{\Prob(\{\omega_i\})}{\Prob(B)}
 =
-\frac{\mathbb{P}(B)}{\mathbb{P}(B)}
+\frac{\Prob(B)}{\Prob(B)}
 =
 1.
 \]
@@ -360,7 +360,7 @@ Riprendiamo il payoff terminale $H$ della sezione precedente:
 
 \[
 \begin{array}{c|c|c}
-\text{Scenario} & \mathbb{P}(\{\omega\}) & H(\omega) \\
+\text{Scenario} & \Prob(\{\omega\}) & H(\omega) \\
 \hline
 \omega_1 & 0.25 & 120 \\
 \omega_2 & 0.35 & 105 \\
@@ -378,19 +378,19 @@ B=\{\omega_1,\omega_2\}.
 La probabilit\`{a} dell'evento informativo \`{e}:
 
 \[
-\mathbb{P}(B)=0.25+0.35=0.60.
+\Prob(B)=0.25+0.35=0.60.
 \]
 
 Le probabilit\`{a} condizionate degli scenari compatibili con $B$ sono:
 
 \[
-\mathbb{P}(\{\omega_1\}\mid B)
+\Prob(\{\omega_1\}\mid B)
 =
 \frac{0.25}{0.60}
 =
 0.4167,
 \qquad
-\mathbb{P}(\{\omega_2\}\mid B)
+\Prob(\{\omega_2\}\mid B)
 =
 \frac{0.35}{0.60}
 =
@@ -400,9 +400,9 @@ Le probabilit\`{a} condizionate degli scenari compatibili con $B$ sono:
 Gli scenari $\omega_3$ e $\omega_4$ sono incompatibili con il segnale favorevole. Pertanto:
 
 \[
-\mathbb{P}(\{\omega_3\}\mid B)=0,
+\Prob(\{\omega_3\}\mid B)=0,
 \qquad
-\mathbb{P}(\{\omega_4\}\mid B)=0.
+\Prob(\{\omega_4\}\mid B)=0.
 \]
 
 La distribuzione condizionata di $H$ dato $B$ assegna quindi probabilit\`{a} $0.4167$ al valore $120$ e probabilit\`{a} $0.5833$ al valore $105$. I valori $90$ e $60$, pur restando possibili in senso originario, non sono compatibili con l'informazione osservata $B$.
@@ -411,7 +411,7 @@ In forma tabellare:
 
 \[
 \begin{array}{c|c|c|c}
-\text{Scenario} & H(\omega) & \mathbb{P}(\{\omega\}) & \mathbb{P}(\{\omega\}\mid B) \\
+\text{Scenario} & H(\omega) & \Prob(\{\omega\}) & \Prob(\{\omega\}\mid B) \\
 \hline
 \omega_1 & 120 & 0.25 & 0.4167 \\
 \omega_2 & 105 & 0.35 & 0.5833 \\
@@ -432,9 +432,9 @@ La tabella mostra in modo esplicito la differenza tra distribuzione originaria e
 Una volta costruita la distribuzione condizionata, il passaggio al valore atteso condizionato \`{e} naturale. Nel caso discreto, il valore atteso condizionato di $X$ dato $B$ \`{e} la media dei valori possibili di $X$, pesata con le probabilit\`{a} condizionate:
 
 \[
-\mathbb{E}[X\mid B]
+\E[X\mid B]
 =
-\sum_j x_j\,\mathbb{P}(X=x_j\mid B).
+\sum_j x_j\,\Prob(X=x_j\mid B).
 \]
 
 Questa formula sar\`{a} analizzata nella sezione successiva. Per il momento \`{e} sufficiente sottolineare la logica: il valore atteso condizionato non \`{e} una nuova nozione indipendente dalla probabilit\`{a} condizionata, ma \`{e} il valore atteso calcolato rispetto alla distribuzione condizionata.
@@ -448,7 +448,7 @@ Nel seguito diremo che una variabile casuale $X$ \`{e} integrabile quando il
 suo valore atteso \`{e} ben definito e finito. Una condizione sufficiente, e
 quella usualmente adottata, \`{e}:
 \[
-\mathbb{E}[|X|]<+\infty.
+\E[|X|]<+\infty.
 \]
 
 Questa ipotesi serve a evitare casi in cui la media di $X$ non esiste oppure
@@ -460,15 +460,15 @@ modo non ambiguo.
 \section{Valore atteso condizionato rispetto a un evento}
 
 Sia $X$ una variabile casuale integrabile definita su uno spazio di probabilit\`{a}
-$(\Omega,\mathcal{F},\mathbb{P})$. Sia inoltre $A\in\mathcal{F}$ un evento
-con probabilit\`{a} positiva, cio\`{e} $\mathbb{P}(A)>0$.
+$(\Omega,\F,\Prob)$. Sia inoltre $A\in\F$ un evento
+con probabilit\`{a} positiva, cio\`{e} $\Prob(A)>0$.
 
 Il valore atteso condizionato di $X$ dato l'evento $A$ \`{e} la media di $X$
 calcolata considerando soltanto gli scenari compatibili con $A$, ripesati
 mediante la probabilit\`{a} condizionata. Si indica con:
 
 \[
-\mathbb{E}[X\mid A].
+\E[X\mid A].
 \]
 
 Il condizionamento rispetto a un evento produce un numero. Esso rappresenta la
@@ -484,35 +484,35 @@ Se $X$ \`{e} una variabile casuale discreta con valori possibili
 $x_1,\ldots,x_m$, allora:
 
 \[
-\mathbb{E}[X\mid A]
+\E[X\mid A]
 =
 \sum_{j=1}^{m}
-x_j\,\mathbb{P}(X=x_j\mid A).
+x_j\,\Prob(X=x_j\mid A).
 \]
 
 Usando la definizione di probabilit\`{a} condizionata, si ha:
 
 \[
-\mathbb{P}(X=x_j\mid A)
+\Prob(X=x_j\mid A)
 =
 \frac{
-\mathbb{P}(\{X=x_j\}\cap A)
+\Prob(\{X=x_j\}\cap A)
 }{
-\mathbb{P}(A)
+\Prob(A)
 }.
 \]
 
 Pertanto:
 
 \[
-\mathbb{E}[X\mid A]
+\E[X\mid A]
 =
 \sum_{j=1}^{m}
 x_j
 \frac{
-\mathbb{P}(\{X=x_j\}\cap A)
+\Prob(\{X=x_j\}\cap A)
 }{
-\mathbb{P}(A)
+\Prob(A)
 }.
 \]
 
@@ -530,14 +530,14 @@ distribuzione di $X$. La funzione di ripartizione condizionata \`{e}:
 \[
 F_{X\mid A}(x)
 =
-\mathbb{P}(X\leq x\mid A).
+\Prob(X\leq x\mid A).
 \]
 
 Se la distribuzione condizionata ammette densit\`{a}, indicata con
 $f_{X\mid A}(x)$, allora il valore atteso condizionato \`{e}:
 
 \[
-\mathbb{E}[X\mid A]
+\E[X\mid A]
 =
 \int_{-\infty}^{+\infty}
 x f_{X\mid A}(x)\,dx.
@@ -558,12 +558,12 @@ $X\mathbf{1}_{A}$ coincide con $X$ sugli scenari appartenenti ad $A$ ed
 \`{e} uguale a zero fuori da $A$, si ha:
 
 \[
-\mathbb{E}[X\mid A]
+\E[X\mid A]
 =
 \frac{
-\mathbb{E}[X\mathbf{1}_{A}]
+\E[X\mathbf{1}_{A}]
 }{
-\mathbb{P}(A)
+\Prob(A)
 }.
 \]
 
@@ -575,22 +575,22 @@ contributo rispetto alla probabilit\`{a} dell'evento $A$.
 Nel caso finito:
 
 \[
-\mathbb{E}[X\mathbf{1}_{A}]
+\E[X\mathbf{1}_{A}]
 =
 \sum_{\omega\in A}
-X(\omega)\mathbb{P}(\{\omega\}).
+X(\omega)\Prob(\{\omega\}).
 \]
 
 Di conseguenza:
 
 \[
-\mathbb{E}[X\mid A]
+\E[X\mid A]
 =
 \frac{
 \sum_{\omega\in A}
-X(\omega)\mathbb{P}(\{\omega\})
+X(\omega)\Prob(\{\omega\})
 }{
-\mathbb{P}(A)
+\Prob(A)
 }.
 \]
 
@@ -599,13 +599,13 @@ X(\omega)\mathbb{P}(\{\omega\})
 \noindent
 \textbf{Interpretazione finanziaria.}
 
-Se $X=H$ \`{e} un payoff terminale, allora $ \mathbb{E}[H\mid A] $
+Se $X=H$ \`{e} un payoff terminale, allora $ \E[H\mid A] $
 rappresenta il payoff medio sotto l'informazione che l'evento $A$ si sia
 verificato. Per esempio, $A$ pu\`{o} rappresentare uno scenario di mercato
 favorevole, un segnale positivo sugli utili di un'impresa oppure il superamento
 di una soglia macroeconomica.
 
-Se invece $X=L$ \`{e} una perdita, allora $ \mathbb{E}[L\mid A] $
+Se invece $X=L$ \`{e} una perdita, allora $ \E[L\mid A] $
 rappresenta la perdita media negli scenari selezionati dall'evento $A$. In
 questo caso $A$ pu\`{o} rappresentare uno scenario di stress, una recessione,
 un aumento dei tassi o un deterioramento del merito creditizio.
@@ -629,13 +629,13 @@ B_i\cap B_j=\varnothing
 \bigcup_{i=1}^{n}B_i=\Omega.
 \]
 
-Supponiamo inoltre che $\mathbb{P}(B_i)>0$ per ogni $i=1,\ldots,n$. Allora, per ogni variabile casuale integrabile $X$, vale:
+Supponiamo inoltre che $\Prob(B_i)>0$ per ogni $i=1,\ldots,n$. Allora, per ogni variabile casuale integrabile $X$, vale:
 
 \[
-\mathbb{E}[X]
+\E[X]
 =
 \sum_{i=1}^{n}
-\mathbb{E}[X\mid B_i]\mathbb{P}(B_i).
+\E[X\mid B_i]\Prob(B_i).
 \]
 
 Questa identit\`{a} afferma che la media complessiva di $X$ \`{e} una media ponderata delle medie condizionate sui blocchi della partizione. Il peso assegnato alla media condizionata su $B_i$ \`{e} la probabilit\`{a} dell'evento $B_i$.
@@ -648,36 +648,36 @@ Questa identit\`{a} afferma che la media complessiva di $X$ \`{e} una media pond
 Dalla formula con la funzione indicatrice si ha:
 
 \[
-\mathbb{E}[X\mid B_i]
+\E[X\mid B_i]
 =
-\frac{\mathbb{E}[X\mathbf{1}_{B_i}]}{\mathbb{P}(B_i)}.
+\frac{\E[X\mathbf{1}_{B_i}]}{\Prob(B_i)}.
 \]
 
-Moltiplicando entrambi i membri per $\mathbb{P}(B_i)$ si ottiene:
+Moltiplicando entrambi i membri per $\Prob(B_i)$ si ottiene:
 
 \[
-\mathbb{E}[X\mid B_i]\mathbb{P}(B_i)
+\E[X\mid B_i]\Prob(B_i)
 =
-\mathbb{E}[X\mathbf{1}_{B_i}].
+\E[X\mathbf{1}_{B_i}].
 \]
 
 Sommando rispetto a $i$:
 
 \[
 \sum_{i=1}^{n}
-\mathbb{E}[X\mid B_i]\mathbb{P}(B_i)
+\E[X\mid B_i]\Prob(B_i)
 =
 \sum_{i=1}^{n}
-\mathbb{E}[X\mathbf{1}_{B_i}].
+\E[X\mathbf{1}_{B_i}].
 \]
 
 Per linearit\`{a} del valore atteso:
 
 \[
 \sum_{i=1}^{n}
-\mathbb{E}[X\mathbf{1}_{B_i}]
+\E[X\mathbf{1}_{B_i}]
 =
-\mathbb{E}\left[
+\E\left[
 X\sum_{i=1}^{n}\mathbf{1}_{B_i}
 \right].
 \]
@@ -691,20 +691,20 @@ Poich\'{e} gli eventi $B_1,\ldots,B_n$ formano una partizione di $\Omega$, si ha
 Pertanto:
 
 \[
-\mathbb{E}\left[
+\E\left[
 X\sum_{i=1}^{n}\mathbf{1}_{B_i}
 \right]
 =
-\mathbb{E}[X].
+\E[X].
 \]
 
 Segue quindi:
 
 \[
-\mathbb{E}[X]
+\E[X]
 =
 \sum_{i=1}^{n}
-\mathbb{E}[X\mid B_i]\mathbb{P}(B_i).
+\E[X\mid B_i]\Prob(B_i).
 \]
 
 \medskip
@@ -712,7 +712,7 @@ Segue quindi:
 \noindent
 \textbf{Interpretazione informativa.}
 
-La partizione $\{B_1,\ldots,B_n\}$ pu\`{o} essere interpretata come un insieme di possibili informazioni alternative. Prima di osservare quale evento $B_i$ si verifica, il valore atteso di $X$ \`{e} dato da $\mathbb{E}[X]$. Dopo l'osservazione dell'informazione, la valutazione diventa $\mathbb{E}[X\mid B_i]$, dove $B_i$ \`{e} il blocco informativo effettivamente osservato.
+La partizione $\{B_1,\ldots,B_n\}$ pu\`{o} essere interpretata come un insieme di possibili informazioni alternative. Prima di osservare quale evento $B_i$ si verifica, il valore atteso di $X$ \`{e} dato da $\E[X]$. Dopo l'osservazione dell'informazione, la valutazione diventa $\E[X\mid B_i]$, dove $B_i$ \`{e} il blocco informativo effettivamente osservato.
 
 La formula del valore atteso totale mostra che la valutazione ex ante \`{e} la media ponderata delle valutazioni ex post possibili. In altri termini, prima dell'informazione si aggregano tutte le valutazioni condizionate, pesandole con la probabilit\`{a} che ciascun blocco informativo venga osservato.
 
@@ -726,27 +726,27 @@ Si consideri un payoff terminale $H$ associato a tre stati di mercato: scenario 
 Supponiamo che:
 
 \[
-\mathbb{P}(B_1)=0.30,
+\Prob(B_1)=0.30,
 \qquad
-\mathbb{P}(B_2)=0.50,
+\Prob(B_2)=0.50,
 \qquad
-\mathbb{P}(B_3)=0.20.
+\Prob(B_3)=0.20.
 \]
 
 Supponiamo inoltre che i valori attesi condizionati del payoff siano:
 
 \[
-\mathbb{E}[H\mid B_1]=120,
+\E[H\mid B_1]=120,
 \qquad
-\mathbb{E}[H\mid B_2]=95,
+\E[H\mid B_2]=95,
 \qquad
-\mathbb{E}[H\mid B_3]=60.
+\E[H\mid B_3]=60.
 \]
 
 Il valore atteso non condizionato del payoff \`{e} allora:
 
 \[
-\mathbb{E}[H]
+\E[H]
 =
 120\cdot 0.30
 +
@@ -758,7 +758,7 @@ Il valore atteso non condizionato del payoff \`{e} allora:
 Quindi:
 
 \[
-\mathbb{E}[H]
+\E[H]
 =
 36
 +
@@ -787,11 +787,11 @@ Nel caso particolare di un evento $A$ e del suo complementare $A^c$, la partizio
 La formula del valore atteso totale diventa:
 
 \[
-\mathbb{E}[X]
+\E[X]
 =
-\mathbb{E}[X\mid A]\mathbb{P}(A)
+\E[X\mid A]\Prob(A)
 +
-\mathbb{E}[X\mid A^c]\mathbb{P}(A^c).
+\E[X\mid A^c]\Prob(A^c).
 \]
 
 Questa \`{e} la forma pi\`{u} semplice della formula. Essa \`{e} particolarmente utile nelle applicazioni in cui l'informazione distingue soltanto due casi: uno scenario favorevole e uno sfavorevole, oppure uno scenario ordinario e uno scenario di stress.
@@ -834,16 +834,16 @@ Questa distinzione \`{e} importante nelle applicazioni finanziarie. Un segnale d
 La partizione induce una sigma-algebra informativa, indicata con:
 
 \[
-\mathcal{G}
+\G
 =
 \sigma(B_1,\ldots,B_n).
 \]
 
-Nel caso finito, $\mathcal{G}$ contiene tutte le unioni possibili dei blocchi della partizione. Quindi un evento appartiene a $\mathcal{G}$ se e solo se pu\`{o} essere scritto come unione di alcuni blocchi $B_i$.
+Nel caso finito, $\G$ contiene tutte le unioni possibili dei blocchi della partizione. Quindi un evento appartiene a $\G$ se e solo se pu\`{o} essere scritto come unione di alcuni blocchi $B_i$.
 
-Gli eventi appartenenti a $\mathcal{G}$ sono gli eventi osservabili con l'informazione disponibile. Al contrario, un sottoinsieme proprio di un blocco $B_i$ non \`{e} osservabile rispetto a $\mathcal{G}$, perch\'{e} l'informazione non distingue gli esiti elementari contenuti nello stesso blocco.
+Gli eventi appartenenti a $\G$ sono gli eventi osservabili con l'informazione disponibile. Al contrario, un sottoinsieme proprio di un blocco $B_i$ non \`{e} osservabile rispetto a $\G$, perch\'{e} l'informazione non distingue gli esiti elementari contenuti nello stesso blocco.
 
-In questo senso, la sigma-algebra $\mathcal{G}$ descrive formalmente il contenuto informativo della partizione: essa stabilisce quali eventi possono essere distinti e quali restano indistinguibili.
+In questo senso, la sigma-algebra $\G$ descrive formalmente il contenuto informativo della partizione: essa stabilisce quali eventi possono essere distinti e quali restano indistinguibili.
 
 \medskip
 
@@ -875,14 +875,14 @@ Il blocco $B_1$ rappresenta l'informazione ``mercato favorevole'', mentre il blo
 La sigma-algebra informativa generata dalla partizione \`{e}:
 
 \[
-\mathcal{G}
+\G
 =
 \sigma(B_1,B_2)
 =
 \{\varnothing,B_1,B_2,\Omega\}.
 \]
 
-Gli eventi osservabili sono quindi soltanto l'evento impossibile, il mercato favorevole, il mercato sfavorevole e l'evento certo. Eventi come $\{\omega_1\}$ o $\{\omega_3\}$ non appartengono a $\mathcal{G}$, perch\'{e} richiederebbero un'informazione pi\`{u} dettagliata di quella disponibile.
+Gli eventi osservabili sono quindi soltanto l'evento impossibile, il mercato favorevole, il mercato sfavorevole e l'evento certo. Eventi come $\{\omega_1\}$ o $\{\omega_3\}$ non appartengono a $\G$, perch\'{e} richiederebbero un'informazione pi\`{u} dettagliata di quella disponibile.
 
 La struttura informativa pu\`{o} essere rappresentata nella seguente tabella:
 
@@ -904,9 +904,9 @@ La tabella mostra che il blocco informativo non identifica lo scenario elementar
 \noindent
 \textbf{Variabili osservabili rispetto all'informazione.}
 
-Una variabile casuale $Y$ \`{e} osservabile rispetto all'informazione $\mathcal{G}$ se \`{e} $\mathcal{G}$-misurabile. Nel caso di una partizione finita, questo significa che $Y$ non pu\`{o} assumere valori diversi su scenari che appartengono allo stesso blocco informativo.
+Una variabile casuale $Y$ \`{e} osservabile rispetto all'informazione $\G$ se \`{e} $\G$-misurabile. Nel caso di una partizione finita, questo significa che $Y$ non pu\`{o} assumere valori diversi su scenari che appartengono allo stesso blocco informativo.
 
-Pertanto, se $\mathcal{G}=\sigma(B_1,\ldots,B_n)$, una variabile casuale osservabile rispetto a $\mathcal{G}$ deve essere costante su ciascun blocco $B_i$. Essa pu\`{o} essere scritta nella forma:
+Pertanto, se $\G=\sigma(B_1,\ldots,B_n)$, una variabile casuale osservabile rispetto a $\G$ deve essere costante su ciascun blocco $B_i$. Essa pu\`{o} essere scritta nella forma:
 
 \[
 Y
@@ -917,7 +917,7 @@ y_i\mathbf{1}_{B_i},
 
 dove $y_i$ \`{e} il valore assunto da $Y$ quando l'informazione osservata \`{e} il blocco $B_i$.
 
-Questa rappresentazione sar\`{a} essenziale nella sezione successiva. Il valore atteso condizionato rispetto a $\mathcal{G}$ sar\`{a} infatti una variabile casuale osservabile rispetto all'informazione $\mathcal{G}$, e quindi costante su ciascun blocco della partizione.
+Questa rappresentazione sar\`{a} essenziale nella sezione successiva. Il valore atteso condizionato rispetto a $\G$ sar\`{a} infatti una variabile casuale osservabile rispetto all'informazione $\G$, e quindi costante su ciascun blocco della partizione.
 
 \section{Valore atteso condizionato rispetto a sigma-algebre}
 
@@ -930,15 +930,15 @@ della partizione si \`{e} verificato.
 
 La partizione $\mathcal{B}$ genera una sigma-algebra:
 \[
-\mathcal{G}
+\G
 =
 \sigma(B_1,\ldots,B_n).
 \]
 
-Nel caso finito, gli eventi di $\mathcal{G}$ sono tutte le unioni degli eventi
+Nel caso finito, gli eventi di $\G$ sono tutte le unioni degli eventi
 della partizione:
 \[
-\mathcal{G}
+\G
 =
 \left\{
 \bigcup_{i\in I}B_i:
@@ -946,8 +946,8 @@ I\subseteq\{1,\ldots,n\}
 \right\}.
 \]
 
-La sigma-algebra $\mathcal{G}$ rappresenta quindi l'informazione osservabile:
-un evento $C$ \`{e} osservabile rispetto a $\mathcal{G}$ se pu\`{o} essere
+La sigma-algebra $\G$ rappresenta quindi l'informazione osservabile:
+un evento $C$ \`{e} osservabile rispetto a $\G$ se pu\`{o} essere
 costruito come unione di eventi della partizione.
 
 \medskip
@@ -955,66 +955,66 @@ costruito come unione di eventi della partizione.
 \noindent
 \textbf{Atomi di una sigma-algebra finita.}
 
-Un evento non vuoto $A\in\mathcal{G}$ si dice atomo di $\mathcal{G}$ se non
-contiene sottoeventi propri non vuoti appartenenti a $\mathcal{G}$. In altri
-termini, $A$ \`{e} un atomo se non esiste $C\in\mathcal{G}$ tale che:
+Un evento non vuoto $A\in\G$ si dice atomo di $\G$ se non
+contiene sottoeventi propri non vuoti appartenenti a $\G$. In altri
+termini, $A$ \`{e} un atomo se non esiste $C\in\G$ tale che:
 \[
 \varnothing\neq C\subsetneq A.
 \]
 
-Quando $\mathcal{G}$ \`{e} generata da una partizione finita
-$\mathcal{B}=\{B_1,\ldots,B_n\}$, gli atomi di $\mathcal{G}$ coincidono con gli
-eventi $B_1,\ldots,B_n$ della partizione. La sigma-algebra $\mathcal{G}$
+Quando $\G$ \`{e} generata da una partizione finita
+$\mathcal{B}=\{B_1,\ldots,B_n\}$, gli atomi di $\G$ coincidono con gli
+eventi $B_1,\ldots,B_n$ della partizione. La sigma-algebra $\G$
 distingue tra eventi diversi della partizione, ma non distingue gli esiti
 elementari interni allo stesso evento $B_i$.
 
 Sia ora $X$ una variabile casuale integrabile e supponiamo che
-$\mathbb{P}(B_i)>0$ per ogni $i=1,\ldots,n$. Per ciascun evento $B_i$ della
+$\Prob(B_i)>0$ per ogni $i=1,\ldots,n$. Per ciascun evento $B_i$ della
 partizione, il valore atteso condizionato rispetto all'evento $B_i$ \`{e} il
 \textbf{numero}:
 \[
-\mathbb{E}[X\mid B_i]
+\E[X\mid B_i]
 =
-\frac{\mathbb{E}[X\mathbf{1}_{B_i}]}{\mathbb{P}(B_i)}.
+\frac{\E[X\mathbf{1}_{B_i}]}{\Prob(B_i)}.
 \]
 
 Il valore atteso condizionato di $X$ rispetto alla sigma-algebra
-$\mathcal{G}$ \`{e} invece la \textbf{variabile casuale}:
+$\G$ \`{e} invece la \textbf{variabile casuale}:
 \[
-\mathbb{E}[X\mid\mathcal{G}]
+\E[X\mid\G]
 =
 \sum_{i=1}^{n}
-\mathbb{E}[X\mid B_i]\mathbf{1}_{B_i}.
+\E[X\mid B_i]\mathbf{1}_{B_i}.
 \]
 
-Questa variabile casuale \`{e} costante su ciascun atomo di $\mathcal{G}$.
+Questa variabile casuale \`{e} costante su ciascun atomo di $\G$.
 Infatti, se $\omega\in B_i$, allora:
 \[
-\mathbb{E}[X\mid\mathcal{G}](\omega)
+\E[X\mid\G](\omega)
 =
-\mathbb{E}[X\mid B_i].
+\E[X\mid B_i].
 \]
 
-Dunque $\mathbb{E}[X\mid\mathcal{G}]$ assume, al pi\`{u}, tanti valori quanti
-sono gli atomi di $\mathcal{G}$, non tanti valori quanti sono gli eventi non
-vuoti di $\mathcal{G}$.
+Dunque $\E[X\mid\G]$ assume, al pi\`{u}, tanti valori quanti
+sono gli atomi di $\G$, non tanti valori quanti sono gli eventi non
+vuoti di $\G$.
 
 La definizione generale conferma questa interpretazione. Una variabile
-casuale $Z$ \`{e} una versione di $\mathbb{E}[X\mid\mathcal{G}]$ se:
+casuale $Z$ \`{e} una versione di $\E[X\mid\G]$ se:
 \begin{enumerate}
-    \item $Z$ \`{e} $\mathcal{G}$-misurabile;
+    \item $Z$ \`{e} $\G$-misurabile;
 
-    \item per ogni evento $C\in\mathcal{G}$ vale:
+    \item per ogni evento $C\in\G$ vale:
     \[
-    \mathbb{E}[Z\mathbf{1}_C]
+    \E[Z\mathbf{1}_C]
     =
-    \mathbb{E}[X\mathbf{1}_C].
+    \E[X\mathbf{1}_C].
     \]
 \end{enumerate}
 
 Il valore atteso condizionato rispetto a una sigma-algebra \`{e} definito a
 meno di uguaglianza quasi certa. Nel seguito scriveremo direttamente
-$\mathbb{E}[X\mid\mathcal{G}]$ per indicare una sua versione.
+$\E[X\mid\G]$ per indicare una sua versione.
 
 \medskip
 
@@ -1032,7 +1032,7 @@ Sia $H$ un payoff terminale definito sui sette esiti elementari. Supponiamo
 che probabilit\`{a} e payoff siano dati dalla tabella seguente:
 \[
 \begin{array}{c|c|c}
-\text{Esito elementare} & \mathbb{P}(\{\omega\}) & H(\omega) \\
+\text{Esito elementare} & \Prob(\{\omega\}) & H(\omega) \\
 \hline
 \omega_1 & 0.10 & 130 \\
 \omega_2 & 0.15 & 110 \\
@@ -1055,14 +1055,14 @@ B_3=\{\omega_6,\omega_7\}.
 
 La sigma-algebra generata dalla partizione \`{e}:
 \[
-\mathcal{G}
+\G
 =
 \sigma(B_1,B_2,B_3).
 \]
 
 Essa contiene gli otto eventi:
 \[
-\mathcal{G}
+\G
 =
 \{
 \varnothing,
@@ -1076,35 +1076,35 @@ B_2\cup B_3,
 \}.
 \]
 
-Gli atomi di $\mathcal{G}$ sono per\`{o} soltanto i tre eventi della
+Gli atomi di $\G$ sono per\`{o} soltanto i tre eventi della
 partizione: $B_1$, $B_2$ e $B_3$.
 
 Le probabilit\`{a} degli eventi della partizione sono:
 \[
-\mathbb{P}(B_1)=0.25,
+\Prob(B_1)=0.25,
 \qquad
-\mathbb{P}(B_2)=0.45,
+\Prob(B_2)=0.45,
 \qquad
-\mathbb{P}(B_3)=0.30.
+\Prob(B_3)=0.30.
 \]
 
 I valori attesi condizionati rispetto agli eventi della partizione sono:
 \[
-\mathbb{E}[H\mid B_1]
+\E[H\mid B_1]
 =
 \frac{0.10\cdot 130+0.15\cdot 110}{0.25}
 =
 118,
 \]
 \[
-\mathbb{E}[H\mid B_2]
+\E[H\mid B_2]
 =
 \frac{0.15\cdot 100+0.20\cdot 90+0.10\cdot 80}{0.45}
 =
 91.111,
 \]
 \[
-\mathbb{E}[H\mid B_3]
+\E[H\mid B_3]
 =
 \frac{0.18\cdot 70+0.12\cdot 50}{0.30}
 =
@@ -1112,9 +1112,9 @@ I valori attesi condizionati rispetto agli eventi della partizione sono:
 \]
 
 Pertanto il valore atteso condizionato rispetto alla sigma-algebra
-$\mathcal{G}$ \`{e}:
+$\G$ \`{e}:
 \[
-\mathbb{E}[H\mid\mathcal{G}]
+\E[H\mid\G]
 =
 118\,\mathbf{1}_{B_1}
 +
@@ -1127,7 +1127,7 @@ In forma tabellare:
 \[
 \begin{array}{c|c|c|c}
 \text{Esito elementare} & H(\omega) & \text{Evento della partizione}
-& \mathbb{E}[H\mid\mathcal{G}](\omega) \\
+& \E[H\mid\G](\omega) \\
 \hline
 \omega_1 & 130 & B_1 & 118 \\
 \omega_2 & 110 & B_1 & 118 \\
@@ -1140,25 +1140,25 @@ In forma tabellare:
 \]
 
 La variabile casuale $H$ distingue i sette esiti elementari. La variabile
-casuale $\mathbb{E}[H\mid\mathcal{G}]$ distingue invece soltanto i tre atomi
-della sigma-algebra $\mathcal{G}$.
+casuale $\E[H\mid\G]$ distingue invece soltanto i tre atomi
+della sigma-algebra $\G$.
 
 \medskip
 
 \noindent
-\textbf{Eventi osservabili e valori assunti da $\mathbb{E}[H\mid\mathcal{G}]$.}
+\textbf{Eventi osservabili e valori assunti da $\E[H\mid\G]$.}
 
-L'evento $B_1\cup B_2$ appartiene a $\mathcal{G}$, quindi \`{e} osservabile
-rispetto all'informazione $\mathcal{G}$. Ha senso calcolare:
+L'evento $B_1\cup B_2$ appartiene a $\G$, quindi \`{e} osservabile
+rispetto all'informazione $\G$. Ha senso calcolare:
 \[
-\mathbb{E}[H\mid B_1\cup B_2].
+\E[H\mid B_1\cup B_2].
 \]
 
 Tuttavia questo valore \`{e} un valore atteso condizionato rispetto a un
 evento, non un valore necessariamente assunto dalla variabile casuale
-$\mathbb{E}[H\mid\mathcal{G}]$. Infatti:
+$\E[H\mid\G]$. Infatti:
 \[
-\mathbb{E}[H\mid B_1\cup B_2]
+\E[H\mid B_1\cup B_2]
 =
 \frac{
 118\cdot 0.25
@@ -1171,13 +1171,13 @@ $\mathbb{E}[H\mid\mathcal{G}]$. Infatti:
 \]
 
 Il numero $100.714$ non \`{e} uno dei valori assunti da
-$\mathbb{E}[H\mid\mathcal{G}]$. Sugli esiti appartenenti a $B_1$, la variabile
-$\mathbb{E}[H\mid\mathcal{G}]$ vale $118$; sugli esiti appartenenti a $B_2$,
+$\E[H\mid\G]$. Sugli esiti appartenenti a $B_1$, la variabile
+$\E[H\mid\G]$ vale $118$; sugli esiti appartenenti a $B_2$,
 vale $91.111$.
 
-Questa distinzione \`{e} essenziale. Gli eventi non vuoti di $\mathcal{G}$
+Questa distinzione \`{e} essenziale. Gli eventi non vuoti di $\G$
 sono sette, ma gli atomi sono tre. La variabile casuale
-$\mathbb{E}[H\mid\mathcal{G}]$ assume valori sugli atomi, non su tutte le
+$\E[H\mid\G]$ assume valori sugli atomi, non su tutte le
 unioni di atomi.
 
 \medskip
@@ -1188,18 +1188,18 @@ unioni di atomi.
 Il valore atteso della variabile casuale condizionata coincide con il valore
 atteso non condizionato:
 \[
-\mathbb{E}\left[
-\mathbb{E}[H\mid\mathcal{G}]
+\E\left[
+\E[H\mid\G]
 \right]
 =
-\mathbb{E}[H].
+\E[H].
 \]
 
 Nel caso numerico:
 \[
 \begin{aligned}
-\mathbb{E}\left[
-\mathbb{E}[H\mid\mathcal{G}]
+\E\left[
+\E[H\mid\G]
 \right]
 &=118\cdot 0.25+91.111\cdot 0.45\\
 &\quad+62\cdot 0.30\\
@@ -1210,7 +1210,7 @@ Nel caso numerico:
 D'altra parte:
 \[
 \begin{aligned}
-\mathbb{E}[H]
+\E[H]
 ={}&0.10\cdot130+0.15\cdot110+0.15\cdot100+0.20\cdot90\\
 &+0.10\cdot80+0.18\cdot70+0.12\cdot50\\
 ={}&89.10.
@@ -1219,7 +1219,7 @@ D'altra parte:
 
 La formula del valore atteso totale \`{e} quindi recuperata come propriet\`{a}
 di coerenza del valore atteso condizionato rispetto alla sigma-algebra
-$\mathcal{G}$.
+$\G$.
 
 \section{Regole operative del valore atteso condizionato}
 
@@ -1228,8 +1228,8 @@ una definizione astratta. Esso soddisfa alcune regole operative che consentono
 di manipolare previsioni condizionate, payoff e perdite in modo coerente con
 l'informazione disponibile.
 
-Nel seguito, sia $(\Omega,\mathcal{F},\mathbb{P})$ uno spazio di probabilit\`{a}
-e sia $\mathcal{G}\subseteq\mathcal{F}$ una sigma-algebra informativa. Le
+Nel seguito, sia $(\Omega,\F,\Prob)$ uno spazio di probabilit\`{a}
+e sia $\G\subseteq\F$ una sigma-algebra informativa. Le
 variabili casuali considerate sono assunte integrabili quando necessario.
 Tutte le uguaglianze e le disuguaglianze tra valori attesi condizionati sono
 da intendersi quasi certamente.
@@ -1238,11 +1238,11 @@ da intendersi quasi certamente.
 
 Se $X$ e $Y$ sono variabili casuali integrabili e $a,b\in\mathbb{R}$, allora:
 \[
-\mathbb{E}[aX+bY\mid\mathcal{G}]
+\E[aX+bY\mid\G]
 =
-a\mathbb{E}[X\mid\mathcal{G}]
+a\E[X\mid\G]
 +
-b\mathbb{E}[Y\mid\mathcal{G}].
+b\E[Y\mid\G].
 \]
 
 La linearit\`{a} consente di trattare somme di payoff, portafogli lineari e
@@ -1252,56 +1252,56 @@ linearmente le previsioni condizionate di $H_1$ e $H_2$.
 
 \subsection{Estrazione dei parametri noti}
 
-Se $Y$ \`{e} una variabile casuale $\mathcal{G}$-misurabile (cio\`{e} un valore noto data $\mathcal{G}$) o un termine costante, allora:
+Se $Y$ \`{e} una variabile casuale $\G$-misurabile (cio\`{e} un valore noto data $\G$) o un termine costante, allora:
 \[
-\mathbb{E}[YX\mid\mathcal{G}]
+\E[YX\mid\G]
 =
-Y\mathbb{E}[X\mid\mathcal{G}].
+Y\E[X\mid\G].
 \]
 
-La condizione di $\mathcal{G}$-misurabilit\`{a} significa che $Y$ \`{e}
-osservabile con l'informazione contenuta in $\mathcal{G}$. Per questo motivo,
-rispetto al condizionamento su $\mathcal{G}$, $Y$ si comporta come una
+La condizione di $\G$-misurabilit\`{a} significa che $Y$ \`{e}
+osservabile con l'informazione contenuta in $\G$. Per questo motivo,
+rispetto al condizionamento su $\G$, $Y$ si comporta come una
 quantit\`{a} nota e pu\`{o} essere estratta dal valore atteso condizionato.
 
 Un caso particolare \`{e} pertanto quello in cui $Y$ sia una costante deterministica.
 Allora la regola si riduce alla linearit\`{a}:
 \[
-\mathbb{E}[cX\mid\mathcal{G}]
+\E[cX\mid\G]
 =
-c\mathbb{E}[X\mid\mathcal{G}].
+c\E[X\mid\G].
 \]
 
 \subsection{Condizionamento iterato}
 
-Siano $\mathcal{G}_1$ e $\mathcal{G}_2$ due sigma-algebre tali che
-$\mathcal{G}_1\subseteq\mathcal{G}_2\subseteq\mathcal{F}$. Se $X$ \`{e}
+Siano $\G_1$ e $\G_2$ due sigma-algebre tali che
+$\G_1\subseteq\G_2\subseteq\F$. Se $X$ \`{e}
 integrabile, allora:
 \[
-\mathbb{E}\left[
-\mathbb{E}[X\mid\mathcal{G}_2]
+\E\left[
+\E[X\mid\G_2]
 \mid
-\mathcal{G}_1
+\G_1
 \right]
 =
-\mathbb{E}[X\mid\mathcal{G}_1].
+\E[X\mid\G_1].
 \]
 
 Questa propriet\`{a} \`{e} detta \textit{propriet\`{a} della torre}. Essa esprime la
-coerenza tra livelli informativi diversi. Se $\mathcal{G}_2$ contiene pi\`{u}
-informazione di $\mathcal{G}_1$, allora prima prevedere $X$ usando
-$\mathcal{G}_2$ e poi ricondurre tale previsione all'informazione pi\`{u}
-grossolana $\mathcal{G}_1$ produce lo stesso risultato che prevedere
-direttamente $X$ usando $\mathcal{G}_1$.
+coerenza tra livelli informativi diversi. Se $\G_2$ contiene pi\`{u}
+informazione di $\G_1$, allora prima prevedere $X$ usando
+$\G_2$ e poi ricondurre tale previsione all'informazione pi\`{u}
+grossolana $\G_1$ produce lo stesso risultato che prevedere
+direttamente $X$ usando $\G_1$.
 
-Nel caso particolare in cui $\mathcal{G}_1=\{\varnothing,\Omega\}$, la
+Nel caso particolare in cui $\G_1=\{\varnothing,\Omega\}$, la
 propriet\`{a} della torre diventa:
 \[
-\mathbb{E}\left[
-\mathbb{E}[X\mid\mathcal{G}_2]
+\E\left[
+\E[X\mid\G_2]
 \right]
 =
-\mathbb{E}[X].
+\E[X].
 \]
 
 Questa \`{e} la forma generale della coerenza gi\`{a} vista nella formula del
@@ -1310,19 +1310,19 @@ valore atteso totale.
 \subsection{Indipendenza da una sigma-algebra}
 
 Se $X$ \`{e} integrabile ed \`{e} indipendente dalla sigma-algebra
-$\mathcal{G}$, allora:
+$\G$, allora:
 \[
-\mathbb{E}[X\mid\mathcal{G}]
+\E[X\mid\G]
 =
-\mathbb{E}[X].
+\E[X].
 \]
 
-L'indipendenza significa che l'informazione contenuta in $\mathcal{G}$ non
+L'indipendenza significa che l'informazione contenuta in $\G$ non
 modifica la distribuzione di $X$. Di conseguenza, la previsione di $X$ basata
-su $\mathcal{G}$ coincide con la previsione non condizionata.
+su $\G$ coincide con la previsione non condizionata.
 
 Questa propriet\`{a} chiarisce un punto importante: il valore atteso
-condizionato cambia rispetto a $\mathbb{E}[X]$ solo quando l'informazione
+condizionato cambia rispetto a $\E[X]$ solo quando l'informazione
 disponibile \`{e} effettivamente informativa su $X$.
 
 \subsection{Indipendenza fra variabili casuali}
@@ -1330,16 +1330,16 @@ disponibile \`{e} effettivamente informativa su $X$.
 Se $X$ e $Z$ sono variabili casuali indipendenti e $X$ \`{e} integrabile,
 allora:
 \[
-\mathbb{E}[X\mid Z]
+\E[X\mid Z]
 =
-\mathbb{E}[X].
+\E[X].
 \]
 
-Qui la notazione $\mathbb{E}[X\mid Z]$ \`{e} un'abbreviazione per:
+Qui la notazione $\E[X\mid Z]$ \`{e} un'abbreviazione per:
 \[
-\mathbb{E}[X\mid Z]
+\E[X\mid Z]
 =
-\mathbb{E}[X\mid\sigma(Z)].
+\E[X\mid\sigma(Z)].
 \]
 
 La sigma-algebra $\sigma(Z)$ rappresenta l'informazione generata
@@ -1356,28 +1356,28 @@ Sia $\varphi:\mathbb{R}\to\mathbb{R}$ una funzione convessa. Se $X$ e
 $\varphi(X)$ sono integrabili, allora:
 \[
 \varphi\left(
-\mathbb{E}[X\mid\mathcal{G}]
+\E[X\mid\G]
 \right)
 \leq
-\mathbb{E}[\varphi(X)\mid\mathcal{G}].
+\E[\varphi(X)\mid\G].
 \]
 
 Questa \`{e} la disuguaglianza condizionata di Jensen. Essa estende al caso
 condizionato la disuguaglianza di Jensen gi\`{a} nota per il valore atteso non
 condizionato:
 \[
-\varphi\left(\mathbb{E}[X]\right)
+\varphi\left(\E[X]\right)
 \leq
-\mathbb{E}[\varphi(X)].
+\E[\varphi(X)].
 \]
 
 Se $\varphi$ \`{e} concava, il verso della disuguaglianza si inverte:
 \[
 \varphi\left(
-\mathbb{E}[X\mid\mathcal{G}]
+\E[X\mid\G]
 \right)
 \geq
-\mathbb{E}[\varphi(X)\mid\mathcal{G}].
+\E[\varphi(X)\mid\G].
 \]
 
 La disuguaglianza condizionata di Jensen \`{e} particolarmente rilevante in
@@ -1397,40 +1397,40 @@ Le sei regole possono essere riassunte come segue:
 \text{Regola} & \text{Formula} \\
 \hline
 \text{Linearit\`{a}} &
-\mathbb{E}[aX+bY\mid\mathcal{G}]
+\E[aX+bY\mid\G]
 =
-a\mathbb{E}[X\mid\mathcal{G}]
+a\E[X\mid\G]
 +
-b\mathbb{E}[Y\mid\mathcal{G}]
+b\E[Y\mid\G]
 \\[0.3cm]
 \text{Estrazione dei parametri noti} &
-\mathbb{E}[YX\mid\mathcal{G}]
+\E[YX\mid\G]
 =
-Y\mathbb{E}[X\mid\mathcal{G}]
+Y\E[X\mid\G]
 \\[0.3cm]
 \text{Condizionamento iterato} &
-\mathbb{E}\left[
-\mathbb{E}[X\mid\mathcal{G}_2]
+\E\left[
+\E[X\mid\G_2]
 \mid
-\mathcal{G}_1
+\G_1
 \right]
 =
-\mathbb{E}[X\mid\mathcal{G}_1]
+\E[X\mid\G_1]
 \\[0.3cm]
-\text{Indipendenza da } \mathcal{G} &
-\mathbb{E}[X\mid\mathcal{G}]
+\text{Indipendenza da } \G &
+\E[X\mid\G]
 =
-\mathbb{E}[X]
+\E[X]
 \\[0.3cm]
 \text{Indipendenza da } Z &
-\mathbb{E}[X\mid Z]
+\E[X\mid Z]
 =
-\mathbb{E}[X]
+\E[X]
 \\[0.3cm]
 \text{Jensen condizionata} &
-\varphi\left(\mathbb{E}[X\mid\mathcal{G}]\right)
+\varphi\left(\E[X\mid\G]\right)
 \leq
-\mathbb{E}[\varphi(X)\mid\mathcal{G}]
+\E[\varphi(X)\mid\G]
 \end{array}
 \]
 
@@ -1438,25 +1438,25 @@ Y\mathbb{E}[X\mid\mathcal{G}]
 
 Il valore atteso condizionato pu\`{o} essere interpretato come la migliore
 previsione di una variabile casuale quando l'informazione disponibile \`{e}
-rappresentata da una sigma-algebra $\mathcal{G}$.
+rappresentata da una sigma-algebra $\G$.
 
 Questa interpretazione \`{e} particolarmente utile nelle applicazioni
-finanziarie. Se $H$ \`{e} un payoff terminale e $\mathcal{G}$ rappresenta
+finanziarie. Se $H$ \`{e} un payoff terminale e $\G$ rappresenta
 l'informazione disponibile in un certo momento, allora
-$\mathbb{E}[H\mid\mathcal{G}]$ pu\`{o} essere letto come la previsione di $H$
-basata solo sull'informazione contenuta in $\mathcal{G}$.
+$\E[H\mid\G]$ pu\`{o} essere letto come la previsione di $H$
+basata solo sull'informazione contenuta in $\G$.
 
 \medskip
 
 \noindent
 \textbf{Previsioni ammissibili.}
 
-Una previsione basata sull'informazione $\mathcal{G}$ deve essere
-$\mathcal{G}$-misurabile. Ci\`{o} significa che essa pu\`{o} dipendere soltanto
-dagli eventi osservabili mediante $\mathcal{G}$.
+Una previsione basata sull'informazione $\G$ deve essere
+$\G$-misurabile. Ci\`{o} significa che essa pu\`{o} dipendere soltanto
+dagli eventi osservabili mediante $\G$.
 
-Nel caso in cui $\mathcal{G}$ sia generata da una partizione finita
-$\mathcal{B}=\{B_1,\ldots,B_n\}$, una previsione basata su $\mathcal{G}$ deve
+Nel caso in cui $\G$ sia generata da una partizione finita
+$\mathcal{B}=\{B_1,\ldots,B_n\}$, una previsione basata su $\G$ deve
 essere costante su ciascun evento della partizione. Essa ha quindi la forma:
 \[
 Y
@@ -1474,7 +1474,7 @@ dove $y_i$ \`{e} il valore previsto quando si osserva l'evento $B_i$.
 Per formalizzare l'idea di migliore previsione, si pu\`{o} usare l'errore
 quadratico medio. In questa parte assumiamo quindi che:
 \[
-\mathbb{E}[X^2]<+\infty.
+\E[X^2]<+\infty.
 \]
 
 Questa condizione garantisce che l'errore quadratico medio sia finito e
@@ -1482,30 +1482,30 @@ calcolabile.
 
 Data una previsione $Y$, l'errore quadratico medio \`{e}:
 \[
-\mathbb{E}\left[(X-Y)^2\right].
+\E\left[(X-Y)^2\right].
 \]
 
-La migliore previsione di $X$ basata sull'informazione $\mathcal{G}$ \`{e}
+La migliore previsione di $X$ basata sull'informazione $\G$ \`{e}
 quella che rende minimo questo errore tra tutte le variabili casuali
-$\mathcal{G}$-misurabili.
+$\G$-misurabili.
 
 Il risultato fondamentale \`{e} che tale previsione \`{e} proprio il valore
 atteso condizionato:
 \[
 Y^*
 =
-\mathbb{E}[X\mid\mathcal{G}].
+\E[X\mid\G].
 \]
 
-In questo senso, $\mathbb{E}[X\mid\mathcal{G}]$ \`{e} la migliore previsione di
-$X$ costruita usando soltanto l'informazione disponibile in $\mathcal{G}$.
+In questo senso, $\E[X\mid\G]$ \`{e} la migliore previsione di
+$X$ costruita usando soltanto l'informazione disponibile in $\G$.
 
 \medskip
 
 \noindent
 \textbf{Caso di una partizione finita.}
 
-Se $\mathcal{G}=\sigma(B_1,\ldots,B_n)$, ogni previsione ammissibile ha la
+Se $\G=\sigma(B_1,\ldots,B_n)$, ogni previsione ammissibile ha la
 forma:
 \[
 Y
@@ -1519,7 +1519,7 @@ media di $X$ su quell'evento:
 \[
 y_i
 =
-\mathbb{E}[X\mid B_i].
+\E[X\mid B_i].
 \]
 
 Pertanto:
@@ -1527,13 +1527,13 @@ Pertanto:
 Y^*
 =
 \sum_{i=1}^{n}
-\mathbb{E}[X\mid B_i]\mathbf{1}_{B_i}
+\E[X\mid B_i]\mathbf{1}_{B_i}
 =
-\mathbb{E}[X\mid\mathcal{G}].
+\E[X\mid\G].
 \]
 
 Questa formula chiarisce il significato intuitivo del risultato. Se
-l'informazione $\mathcal{G}$ non distingue gli esiti elementari interni allo
+l'informazione $\G$ non distingue gli esiti elementari interni allo
 stesso evento $B_i$, allora la previsione non pu\`{o} assegnare valori diversi
 a quegli esiti. Il valore pi\`{u} appropriato \`{e} la media di $X$ all'interno
 di $B_i$.
@@ -1543,7 +1543,7 @@ di $B_i$.
 \noindent
 \textbf{Esempio di riferimento.}
 
-Nell'esempio con sette esiti elementari, la sigma-algebra $\mathcal{G}$ era
+Nell'esempio con sette esiti elementari, la sigma-algebra $\G$ era
 generata dalla partizione:
 \[
 B_1=\{\omega_1,\omega_2\},
@@ -1553,7 +1553,7 @@ B_2=\{\omega_3,\omega_4,\omega_5\},
 B_3=\{\omega_6,\omega_7\}.
 \]
 
-Una previsione basata su $\mathcal{G}$ non pu\`{o} assegnare sette valori
+Una previsione basata su $\G$ non pu\`{o} assegnare sette valori
 diversi, uno per ciascun esito elementare. Deve invece avere la forma:
 \[
 Y
@@ -1567,16 +1567,16 @@ y_3\mathbf{1}_{B_3}.
 
 La scelta coerente con il criterio dell'errore quadratico medio \`{e}:
 \[
-y_1=\mathbb{E}[H\mid B_1]=118,
+y_1=\E[H\mid B_1]=118,
 \qquad
-y_2=\mathbb{E}[H\mid B_2]=91.111,
+y_2=\E[H\mid B_2]=91.111,
 \qquad
-y_3=\mathbb{E}[H\mid B_3]=62.
+y_3=\E[H\mid B_3]=62.
 \]
 
 Quindi:
 \[
-\mathbb{E}[H\mid\mathcal{G}]
+\E[H\mid\G]
 =
 118\,\mathbf{1}_{B_1}
 +
@@ -1587,7 +1587,7 @@ Quindi:
 
 Il valore atteso condizionato \`{e} dunque la migliore previsione del payoff
 $H$ tra tutte le previsioni che utilizzano soltanto l'informazione contenuta
-nella sigma-algebra $\mathcal{G}$.
+nella sigma-algebra $\G$.
 
 \medskip
 
@@ -1608,7 +1608,7 @@ scenari compatibili con quell'informazione.
 Consideriamo ora l'interpretazione finanziaria del valore atteso condizionato.
 Sia $H$ il payoff terminale di una posizione finanziaria. Prima di osservare
 nuova informazione, una valutazione media del payoff \`{e} data da
-$\mathbb{E}[H]$. Se per\`{o} l'investitore osserva un segnale che consente di
+$\E[H]$. Se per\`{o} l'investitore osserva un segnale che consente di
 distinguere alcuni stati di mercato, la previsione del payoff deve essere
 aggiornata in modo coerente con tale informazione.
 
@@ -1623,7 +1623,7 @@ Il payoff terminale $H$ e le probabilit\`{a} degli esiti elementari sono:
 \[
 \begin{array}{c|c|c|c}
 \text{Esito elementare} & \text{Stato di mercato} &
-\mathbb{P}(\{\omega\}) & H(\omega) \\
+\Prob(\{\omega\}) & H(\omega) \\
 \hline
 \omega_1 & \text{espansione forte} & 0.10 & 130 \\
 \omega_2 & \text{espansione moderata} & 0.15 & 110 \\
@@ -1638,7 +1638,7 @@ Il payoff terminale $H$ e le probabilit\`{a} degli esiti elementari sono:
 Il valore atteso non condizionato del payoff \`{e}:
 \[
 \begin{aligned}
-\mathbb{E}[H]
+\E[H]
 &=
 0.10\cdot130
 +
@@ -1681,37 +1681,37 @@ Gli eventi $B_1$, $B_2$ e $B_3$ rappresentano rispettivamente uno stato di
 mercato favorevole, intermedio e sfavorevole. La sigma-algebra informativa
 generata dalla partizione \`{e}:
 \[
-\mathcal{G}
+\G
 =
 \sigma(B_1,B_2,B_3).
 \]
 
 Le probabilit\`{a} dei tre eventi sono:
 \[
-\mathbb{P}(B_1)=0.25,
+\Prob(B_1)=0.25,
 \qquad
-\mathbb{P}(B_2)=0.45,
+\Prob(B_2)=0.45,
 \qquad
-\mathbb{P}(B_3)=0.30.
+\Prob(B_3)=0.30.
 \]
 
 I valori attesi condizionati del payoff nei tre stati di mercato sono:
 \[
-\mathbb{E}[H\mid B_1]
+\E[H\mid B_1]
 =
 \frac{0.10\cdot130+0.15\cdot110}{0.25}
 =
 118,
 \]
 \[
-\mathbb{E}[H\mid B_2]
+\E[H\mid B_2]
 =
 \frac{0.15\cdot100+0.20\cdot90+0.10\cdot80}{0.45}
 =
 91.111,
 \]
 \[
-\mathbb{E}[H\mid B_3]
+\E[H\mid B_3]
 =
 \frac{0.18\cdot70+0.12\cdot50}{0.30}
 =
@@ -1719,9 +1719,9 @@ I valori attesi condizionati del payoff nei tre stati di mercato sono:
 \]
 
 Quindi il valore atteso condizionato rispetto all'informazione
-$\mathcal{G}$ \`{e}:
+$\G$ \`{e}:
 \[
-\mathbb{E}[H\mid\mathcal{G}]
+\E[H\mid\G]
 =
 118\,\mathbf{1}_{B_1}
 +
@@ -1741,12 +1741,12 @@ stato sfavorevole $B_3$, la previsione \`{e} $62$.
 \noindent
 \textbf{Lettura economico-finanziaria.}
 
-Il passaggio da $\mathbb{E}[H]$ a $\mathbb{E}[H\mid\mathcal{G}]$ non modifica
+Il passaggio da $\E[H]$ a $\E[H\mid\G]$ non modifica
 il payoff terminale $H$. Modifica l'informazione utilizzata per prevederlo.
 
 Prima dell'osservazione dell'informazione, l'investitore dispone soltanto
 della distribuzione complessiva del payoff e la previsione media \`{e}
-$\mathbb{E}[H]=89.10$. Dopo l'osservazione dello stato di mercato aggregato,
+$\E[H]=89.10$. Dopo l'osservazione dello stato di mercato aggregato,
 la previsione diventa condizionata all'evento osservato.
 
 In particolare:
@@ -1772,8 +1772,8 @@ Prima di osservare quale stato di mercato si realizzer\`{a}, la media delle
 previsioni condizionate deve coincidere con il valore atteso non condizionato.
 Infatti:
 \[
-\mathbb{E}\left[
-\mathbb{E}[H\mid\mathcal{G}]
+\E\left[
+\E[H\mid\G]
 \right]
 =
 118\cdot0.25
@@ -1787,11 +1787,11 @@ Infatti:
 
 Pertanto:
 \[
-\mathbb{E}\left[
-\mathbb{E}[H\mid\mathcal{G}]
+\E\left[
+\E[H\mid\G]
 \right]
 =
-\mathbb{E}[H].
+\E[H].
 \]
 
 Questa identit\`{a} mostra che l'informazione redistribuisce la previsione tra
@@ -1814,10 +1814,10 @@ L'informazione disponibile \`{e} quindi descritta dalla sigma-algebra:
 \sigma(B_1\cup B_2,B_3).
 \]
 
-Questa sigma-algebra \`{e} pi\`{u} grossolana di $\mathcal{G}$, poich\'{e}
+Questa sigma-algebra \`{e} pi\`{u} grossolana di $\G$, poich\'{e}
 non distingue pi\`{u} tra $B_1$ e $B_2$. Infatti:
 \[
-\mathcal{H}\subseteq\mathcal{G}.
+\mathcal{H}\subseteq\G.
 \]
 
 La partizione che genera $\mathcal{H}$ \`{e}:
@@ -1829,19 +1829,19 @@ Gli atomi di $\mathcal{H}$ sono dunque $B_1\cup B_2$ e $B_3$. Per la formula
 del valore atteso condizionato rispetto alla sigma-algebra generata da una
 partizione finita, si ha:
 \[
-\mathbb{E}[H\mid\mathcal{H}]
+\E[H\mid\mathcal{H}]
 =
-\mathbb{E}[H\mid B_1\cup B_2]\mathbf{1}_{B_1\cup B_2}
+\E[H\mid B_1\cup B_2]\mathbf{1}_{B_1\cup B_2}
 +
-\mathbb{E}[H\mid B_3]\mathbf{1}_{B_3}.
+\E[H\mid B_3]\mathbf{1}_{B_3}.
 \]
 
 Calcoliamo ora i due valori condizionati. La probabilit\`{a} dell'evento
 $B_1\cup B_2$ \`{e}:
 \[
-\mathbb{P}(B_1\cup B_2)
+\Prob(B_1\cup B_2)
 =
-\mathbb{P}(B_1)+\mathbb{P}(B_2)
+\Prob(B_1)+\Prob(B_2)
 =
 0.25+0.45
 =
@@ -1852,21 +1852,21 @@ Poich\'{e} $B_1$ e $B_2$ sono disgiunti, il valore atteso condizionato su
 $B_1\cup B_2$ si ottiene come media ponderata dei valori attesi condizionati
 su $B_1$ e $B_2$:
 \[
-\mathbb{E}[H\mid B_1\cup B_2]
+\E[H\mid B_1\cup B_2]
 =
 \frac{
-\mathbb{E}[H\mid B_1]\mathbb{P}(B_1)
+\E[H\mid B_1]\Prob(B_1)
 +
-\mathbb{E}[H\mid B_2]\mathbb{P}(B_2)
+\E[H\mid B_2]\Prob(B_2)
 }
 {
-\mathbb{P}(B_1\cup B_2)
+\Prob(B_1\cup B_2)
 }.
 \]
 
 Sostituendo i valori numerici:
 \[
-\mathbb{E}[H\mid B_1\cup B_2]
+\E[H\mid B_1\cup B_2]
 =
 \frac{
 118\cdot0.25
@@ -1880,14 +1880,14 @@ Sostituendo i valori numerici:
 
 Per il secondo atomo di $\mathcal{H}$, che coincide con $B_3$, si ha gi\`{a}:
 \[
-\mathbb{E}[H\mid B_3]
+\E[H\mid B_3]
 =
 62.
 \]
 
 Pertanto:
 \[
-\mathbb{E}[H\mid\mathcal{H}]
+\E[H\mid\mathcal{H}]
 =
 100.714\,\mathbf{1}_{B_1\cup B_2}
 +
@@ -1898,11 +1898,11 @@ Questa variabile casuale assume valore $100.714$ sugli esiti elementari
 appartenenti a $B_1\cup B_2$ e valore $62$ sugli esiti elementari
 appartenenti a $B_3$.
 
-Il confronto con $\mathbb{E}[H\mid\mathcal{G}]$ mostra il ruolo del livello
-informativo. Rispetto alla sigma-algebra pi\`{u} fine $\mathcal{G}$, la
+Il confronto con $\E[H\mid\G]$ mostra il ruolo del livello
+informativo. Rispetto alla sigma-algebra pi\`{u} fine $\G$, la
 previsione distingue tre stati di mercato:
 \[
-\mathbb{E}[H\mid\mathcal{G}]
+\E[H\mid\G]
 =
 118\,\mathbf{1}_{B_1}
 +
@@ -1915,7 +1915,7 @@ Rispetto alla sigma-algebra pi\`{u} grossolana $\mathcal{H}$, gli eventi
 $B_1$ e $B_2$ non sono pi\`{u} distinti e la previsione assume soltanto due
 valori:
 \[
-\mathbb{E}[H\mid\mathcal{H}]
+\E[H\mid\mathcal{H}]
 =
 100.714\,\mathbf{1}_{B_1\cup B_2}
 +
@@ -1923,7 +1923,7 @@ valori:
 \]
 
 Il valore $100.714$ non \`{e} un valore assunto da
-$\mathbb{E}[H\mid\mathcal{G}]$. Esso compare quando l'informazione disponibile
+$\E[H\mid\G]$. Esso compare quando l'informazione disponibile
 \`{e} pi\`{u} grossolana e aggrega gli eventi $B_1$ e $B_2$ in un unico atomo
 della sigma-algebra $\mathcal{H}$.
 
@@ -1939,7 +1939,7 @@ perdita di un portafoglio su un orizzonte temporale fissato. A differenza di
 un payoff, per il quale valori pi\`{u} elevati sono generalmente favorevoli,
 per una perdita valori pi\`{u} elevati rappresentano esiti peggiori.
 
-Il valore atteso non condizionato $\mathbb{E}[L]$ misura la perdita media
+Il valore atteso non condizionato $\E[L]$ misura la perdita media
 prima di osservare informazioni sullo stato di mercato. Tuttavia, nelle
 applicazioni di risk management, spesso interessa valutare la perdita media
 condizionata al verificarsi di uno scenario sfavorevole o di stress.
@@ -1956,7 +1956,7 @@ descritta dalla seguente tabella:
 \[
 \begin{array}{c|c|c|c}
 \text{Esito elementare} & \text{Stato di mercato} &
-\mathbb{P}(\{\omega\}) & L(\omega) \\
+\Prob(\{\omega\}) & L(\omega) \\
 \hline
 \omega_1 & \text{espansione forte} & 0.10 & 2 \\
 \omega_2 & \text{espansione moderata} & 0.15 & 4 \\
@@ -1971,7 +1971,7 @@ descritta dalla seguente tabella:
 Il valore atteso non condizionato della perdita \`{e}:
 \[
 \begin{aligned}
-\mathbb{E}[L]
+\E[L]
 &=
 0.10\cdot2
 +
@@ -2009,7 +2009,7 @@ A
 L'evento $A$ raccoglie gli stati di recessione moderata e recessione severa.
 La sua probabilit\`{a} \`{e}:
 \[
-\mathbb{P}(A)
+\Prob(A)
 =
 0.18+0.12
 =
@@ -2018,7 +2018,7 @@ La sua probabilit\`{a} \`{e}:
 
 La perdita attesa condizionata allo scenario di stress \`{e}:
 \[
-\mathbb{E}[L\mid A]
+\E[L\mid A]
 =
 \frac{
 0.18\cdot20
@@ -2030,19 +2030,19 @@ La perdita attesa condizionata allo scenario di stress \`{e}:
 
 Quindi:
 \[
-\mathbb{E}[L\mid A]
+\E[L\mid A]
 =
 \frac{3.6+4.2}{0.30}
 =
 26.
 \]
 
-Il confronto tra $\mathbb{E}[L]$ e $\mathbb{E}[L\mid A]$ mostra l'effetto
+Il confronto tra $\E[L]$ e $\E[L\mid A]$ mostra l'effetto
 dell'informazione di stress:
 \[
-\mathbb{E}[L]=12.30,
+\E[L]=12.30,
 \qquad
-\mathbb{E}[L\mid A]=26.
+\E[L\mid A]=26.
 \]
 
 La perdita media condizionata allo stress \`{e} pi\`{u} che doppia rispetto
@@ -2068,37 +2068,37 @@ Gli eventi $B_1$, $B_2$ e $B_3$ rappresentano rispettivamente condizioni di
 mercato favorevoli, intermedie e di stress. La sigma-algebra informativa
 generata dalla partizione \`{e}:
 \[
-\mathcal{G}
+\G
 =
 \sigma(B_1,B_2,B_3).
 \]
 
 Le probabilit\`{a} degli eventi della partizione sono:
 \[
-\mathbb{P}(B_1)=0.25,
+\Prob(B_1)=0.25,
 \qquad
-\mathbb{P}(B_2)=0.45,
+\Prob(B_2)=0.45,
 \qquad
-\mathbb{P}(B_3)=0.30.
+\Prob(B_3)=0.30.
 \]
 
 I valori attesi condizionati della perdita sono:
 \[
-\mathbb{E}[L\mid B_1]
+\E[L\mid B_1]
 =
 \frac{0.10\cdot2+0.15\cdot4}{0.25}
 =
 3.20,
 \]
 \[
-\mathbb{E}[L\mid B_2]
+\E[L\mid B_2]
 =
 \frac{0.15\cdot6+0.20\cdot8+0.10\cdot12}{0.45}
 =
 8.222,
 \]
 \[
-\mathbb{E}[L\mid B_3]
+\E[L\mid B_3]
 =
 \frac{0.18\cdot20+0.12\cdot35}{0.30}
 =
@@ -2107,7 +2107,7 @@ I valori attesi condizionati della perdita sono:
 
 Pertanto:
 \[
-\mathbb{E}[L\mid\mathcal{G}]
+\E[L\mid\G]
 =
 3.20\,\mathbf{1}_{B_1}
 +
@@ -2129,17 +2129,17 @@ perdita prevista \`{e} $3.20$; se viene osservato $B_2$, la perdita prevista
 Prima di osservare lo stato di mercato, la media delle perdite condizionate
 deve coincidere con la perdita attesa non condizionata:
 \[
-\mathbb{E}\left[
-\mathbb{E}[L\mid\mathcal{G}]
+\E\left[
+\E[L\mid\G]
 \right]
 =
-\mathbb{E}[L].
+\E[L].
 \]
 
 Nel caso numerico:
 \[
-\mathbb{E}\left[
-\mathbb{E}[L\mid\mathcal{G}]
+\E\left[
+\E[L\mid\G]
 \right]
 =
 3.20\cdot0.25
@@ -2151,15 +2151,15 @@ Nel caso numerico:
 
 Quindi:
 \[
-\mathbb{E}\left[
-\mathbb{E}[L\mid\mathcal{G}]
+\E\left[
+\E[L\mid\G]
 \right]
 =
 0.80+3.70+7.80
 =
 12.30
 =
-\mathbb{E}[L].
+\E[L].
 \]
 
 Questa identit\`{a} conferma che l'informazione modifica la previsione della
@@ -2170,11 +2170,11 @@ perdita nei diversi stati di mercato, ma non altera la perdita media ex ante.
 \noindent
 \textbf{Lettura finanziaria.}
 
-La quantit\`{a} $\mathbb{E}[L\mid A]$ misura la perdita media nello scenario di
+La quantit\`{a} $\E[L\mid A]$ misura la perdita media nello scenario di
 stress $A$. Essa non descrive la perdita media su tutti gli scenari, ma solo
 sugli scenari compatibili con l'informazione che lo stress si sia verificato.
 
-La quantit\`{a} $\mathbb{E}[L\mid\mathcal{G}]$ fornisce invece una previsione
+La quantit\`{a} $\E[L\mid\G]$ fornisce invece una previsione
 della perdita per ciascuno stato informativo osservabile. In questo senso,
 essa rappresenta una mappa delle perdite attese condizionate ai diversi stati
 di mercato.
@@ -2188,30 +2188,30 @@ una regione specifica e finanziariamente rilevante della distribuzione.
 
 Finora abbiamo considerato l'informazione disponibile in un singolo momento:
 un evento osservato, una partizione informativa oppure una sigma-algebra
-$\mathcal{G}$. Nelle applicazioni finanziarie, tuttavia, l'informazione si
+$\G$. Nelle applicazioni finanziarie, tuttavia, l'informazione si
 aggiorna progressivamente nel tempo. Prezzi, rendimenti, notizie di mercato e
 indicatori macroeconomici vengono osservati in date successive e modificano le
 previsioni su payoff e perdite future.
 
 Per rappresentare questa evoluzione dell'informazione, introduciamo un concetto che verr\`{a} ripreso pi\`{u} avanti, cio\`{e} una successione crescente di sigma-algebre:
 \[
-\mathcal{F}_0
+\F_0
 \subseteq
-\mathcal{F}_1
+\F_1
 \subseteq
 \cdots
 \subseteq
-\mathcal{F}_T
+\F_T
 \subseteq
-\mathcal{F}.
+\F.
 \]
 
 Una famiglia di questo tipo si chiama \textit{filtrazione}. La sigma-algebra
-$\mathcal{F}_t$ rappresenta l'informazione disponibile al tempo $t$.
+$\F_t$ rappresenta l'informazione disponibile al tempo $t$.
 
 L'inclusione
 \[
-\mathcal{F}_s\subseteq\mathcal{F}_t,
+\F_s\subseteq\F_t,
 \qquad
 s\leq t,
 \]
@@ -2231,18 +2231,18 @@ base dell'informazione disponibile in quel momento.
 La previsione di $H$ al tempo $t$ \`{e} rappresentata dal valore atteso
 condizionato:
 \[
-\mathbb{E}[H\mid\mathcal{F}_t].
+\E[H\mid\F_t].
 \]
 
 Questa quantit\`{a} \`{e} una variabile casuale osservabile al tempo $t$.
-Essa utilizza soltanto l'informazione contenuta in $\mathcal{F}_t$ e aggiorna
+Essa utilizza soltanto l'informazione contenuta in $\F_t$ e aggiorna
 la previsione del payoff terminale in funzione dei dati osservati fino a quel
 momento.
 
 Al tempo iniziale, se l'informazione disponibile \`{e} molto povera, la
 previsione pu\`{o} essere vicina al valore atteso non condizionato
-$\mathbb{E}[H]$. Al crescere di $t$, l'informazione diventa pi\`{u} ricca e la
-previsione $\mathbb{E}[H\mid\mathcal{F}_t]$ diventa pi\`{u} dettagliata.
+$\E[H]$. Al crescere di $t$, l'informazione diventa pi\`{u} ricca e la
+previsione $\E[H\mid\F_t]$ diventa pi\`{u} dettagliata.
 
 \medskip
 
@@ -2253,32 +2253,32 @@ Consideriamo tre date: $t=0$, $t=1$ e $t=2$. Al tempo finale $T=2$ sar\`{a}
 osservato il payoff $H$.
 
 Al tempo $0$ l'informazione disponibile \`{e} iniziale ed \`{e} rappresentata
-da $\mathcal{F}_0$. Al tempo $1$ viene osservato un segnale di mercato, che
+da $\F_0$. Al tempo $1$ viene osservato un segnale di mercato, che
 consente di distinguere alcuni scenari ma non ancora l'esito finale. Al tempo
 $2$ il payoff terminale diventa osservabile.
 
 La struttura informativa \`{e}:
 \[
-\mathcal{F}_0
+\F_0
 \subseteq
-\mathcal{F}_1
+\F_1
 \subseteq
-\mathcal{F}_2.
+\F_2.
 \]
 
 La previsione iniziale del payoff \`{e}:
 \[
-\mathbb{E}[H\mid\mathcal{F}_0].
+\E[H\mid\F_0].
 \]
 
 Dopo l'osservazione del segnale al tempo $1$, la previsione diventa:
 \[
-\mathbb{E}[H\mid\mathcal{F}_1].
+\E[H\mid\F_1].
 \]
 
-Al tempo finale, se $H$ \`{e} osservabile rispetto a $\mathcal{F}_2$, si ha:
+Al tempo finale, se $H$ \`{e} osservabile rispetto a $\F_2$, si ha:
 \[
-\mathbb{E}[H\mid\mathcal{F}_2]
+\E[H\mid\F_2]
 =
 H.
 \]
@@ -2286,11 +2286,11 @@ H.
 In questo modo il valore atteso condizionato descrive una sequenza di
 previsioni progressivamente aggiornate:
 \[
-\mathbb{E}[H\mid\mathcal{F}_0],
+\E[H\mid\F_0],
 \qquad
-\mathbb{E}[H\mid\mathcal{F}_1],
+\E[H\mid\F_1],
 \qquad
-\mathbb{E}[H\mid\mathcal{F}_2].
+\E[H\mid\F_2].
 \]
 
 \medskip
@@ -2299,15 +2299,15 @@ previsioni progressivamente aggiornate:
 \textbf{Coerenza temporale e propriet\`{a} della torre.}
 
 La propriet\`{a} della torre garantisce la coerenza tra previsioni formulate a
-date diverse. Se $s\leq t$, allora $\mathcal{F}_s\subseteq\mathcal{F}_t$ e:
+date diverse. Se $s\leq t$, allora $\F_s\subseteq\F_t$ e:
 \[
-\mathbb{E}\left[
-\mathbb{E}[H\mid\mathcal{F}_t]
+\E\left[
+\E[H\mid\F_t]
 \mid
-\mathcal{F}_s
+\F_s
 \right]
 =
-\mathbb{E}[H\mid\mathcal{F}_s].
+\E[H\mid\F_s].
 \]
 
 Questa identit\`{a} ha un'interpretazione importante. Se al tempo $t$ si
@@ -2327,16 +2327,16 @@ formulate in precedenza.
 
 Nel contesto finanziario, la filtrazione descrive il flusso informativo
 disponibile agli operatori. Al tempo $t$, l'investitore osserva soltanto gli
-eventi contenuti in $\mathcal{F}_t$. Una decisione presa al tempo $t$ deve
+eventi contenuti in $\F_t$. Una decisione presa al tempo $t$ deve
 quindi dipendere solo da tale informazione.
 
 Se $H$ \`{e} il payoff terminale di una posizione finanziaria, la grandezza
-$\mathbb{E}[H\mid\mathcal{F}_t]$ rappresenta la previsione del payoff alla data
+$\E[H\mid\F_t]$ rappresenta la previsione del payoff alla data
 $t$, coerente con l'informazione disponibile in quel momento.
 
 Analogamente, se $L$ \`{e} una perdita terminale, la quantit\`{a}
 \[
-\mathbb{E}[L\mid\mathcal{F}_t]
+\E[L\mid\F_t]
 \]
 rappresenta la perdita attesa alla data $t$, condizionata all'informazione
 disponibile fino a quel momento.
@@ -2415,13 +2415,13 @@ al loro interno.
 La Figura~\ref{fig:cap3_sigma_algebra_generata} mostra la sigma-algebra
 generata dalla partizione $\mathcal{B}=\{B_1,B_2,B_3\}$:
 \[
-\mathcal{G}
+\G
 =
 \sigma(B_1,B_2,B_3).
 \]
-Nel caso considerato, $\mathcal{G}$ contiene otto eventi:
+Nel caso considerato, $\G$ contiene otto eventi:
 \[
-\mathcal{G}
+\G
 =
 \{
 \varnothing,
@@ -2434,10 +2434,10 @@ B_2\cup B_3,
 \Omega
 \}.
 \]
-Gli atomi di $\mathcal{G}$ sono per\`{o} soltanto gli eventi della partizione:
+Gli atomi di $\G$ sono per\`{o} soltanto gli eventi della partizione:
 $B_1$, $B_2$ e $B_3$. Questa distinzione \`{e} essenziale: la sigma-algebra
 contiene tutte le unioni degli eventi della partizione, ma il valore atteso
-condizionato rispetto a $\mathcal{G}$ sar\`{a} costante sugli atomi.
+condizionato rispetto a $\G$ sar\`{a} costante sugli atomi.
 
 \begin{figure}[h]
 \centering
@@ -2452,7 +2452,7 @@ condizionato rispetto a $\mathcal{G}$ sar\`{a} costante sugli atomi.
 \textbf{Payoff originario e valore atteso condizionato.}
 
 La Figura~\ref{fig:cap3_payoff_condizionato} confronta il payoff originario
-$H$ con il valore atteso condizionato $\mathbb{E}[H\mid\mathcal{G}]$.
+$H$ con il valore atteso condizionato $\E[H\mid\G]$.
 
 Il payoff $H$ assume valori diversi sui sette esiti elementari:
 \[
@@ -2467,10 +2467,10 @@ H(\omega_6)=70,\quad
 H(\omega_7)=50.
 \]
 
-Il valore atteso condizionato rispetto alla sigma-algebra $\mathcal{G}$ \`{e}
+Il valore atteso condizionato rispetto alla sigma-algebra $\G$ \`{e}
 invece:
 \[
-\mathbb{E}[H\mid\mathcal{G}]
+\E[H\mid\G]
 =
 118\,\mathbf{1}_{B_1}
 +
@@ -2478,14 +2478,14 @@ invece:
 +
 62\,\mathbf{1}_{B_3}.
 \]
-La figura mostra quindi che $\mathbb{E}[H\mid\mathcal{G}]$ non distingue tutti
+La figura mostra quindi che $\E[H\mid\G]$ non distingue tutti
 gli esiti elementari, ma assume un valore costante su ciascun atomo della
 sigma-algebra.
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.95\textwidth]{../graphics/Cap03_Figura_3_3.png}
-\caption{Payoff originario e valore atteso condizionato rispetto a $\mathcal{G}$.}
+\caption{Payoff originario e valore atteso condizionato rispetto a $\G$.}
 \label{fig:cap3_payoff_condizionato}
 \end{figure}
 
@@ -2497,7 +2497,7 @@ sigma-algebra.
 La Figura~\ref{fig:cap3_informazione_fine_grossolana} confronta due livelli
 informativi. La sigma-algebra pi\`{u} fine \`{e}
 \[
-\mathcal{G}
+\G
 =
 \sigma(B_1,B_2,B_3),
 \]
@@ -2508,10 +2508,10 @@ mentre la sigma-algebra pi\`{u} grossolana \`{e}
 \sigma(B_1\cup B_2,B_3).
 \]
 
-Rispetto a $\mathcal{G}$, il valore atteso condizionato distingue i tre eventi
+Rispetto a $\G$, il valore atteso condizionato distingue i tre eventi
 $B_1$, $B_2$ e $B_3$:
 \[
-\mathbb{E}[H\mid\mathcal{G}]
+\E[H\mid\G]
 =
 118\,\mathbf{1}_{B_1}
 +
@@ -2523,7 +2523,7 @@ $B_1$, $B_2$ e $B_3$:
 Rispetto alla sigma-algebra pi\`{u} grossolana $\mathcal{H}$, gli eventi
 $B_1$ e $B_2$ non sono pi\`{u} distinti. Il valore atteso condizionato diventa:
 \[
-\mathbb{E}[H\mid\mathcal{H}]
+\E[H\mid\mathcal{H}]
 =
 100.714\,\mathbf{1}_{B_1\cup B_2}
 +
@@ -2531,7 +2531,7 @@ $B_1$ e $B_2$ non sono pi\`{u} distinti. Il valore atteso condizionato diventa:
 \]
 
 La figura chiarisce che il valore $100.714$ non \`{e} un valore assunto da
-$\mathbb{E}[H\mid\mathcal{G}]$. Esso compare solo quando si condiziona rispetto
+$\E[H\mid\G]$. Esso compare solo quando si condiziona rispetto
 alla sigma-algebra pi\`{u} grossolana $\mathcal{H}$, nella quale $B_1$ e $B_2$
 sono aggregati in un unico atomo.
 
@@ -2562,7 +2562,7 @@ lo scenario di prezzo e il payoff terminale $H$ del contratto.
 \[
 \begin{array}{c|c|c|c}
 \text{Esito elementare} & \text{Scenario di prezzo} &
-\mathbb{P}(\{\omega\}) & H(\omega) \\
+\Prob(\{\omega\}) & H(\omega) \\
 \hline
 \omega_1 & \text{prezzo molto basso} & 0.20 & 0 \\
 \omega_2 & \text{prezzo basso}       & 0.25 & 0 \\
@@ -2579,14 +2579,14 @@ A=\{\omega_4,\omega_5\},
 che rappresenta il verificarsi di uno scenario di prezzo elevato. Calcolare:
 
 \begin{enumerate}
-    \item il valore atteso non condizionato $\mathbb{E}[H]$;
+    \item il valore atteso non condizionato $\E[H]$;
 
     \item le probabilit\`{a} condizionate degli esiti elementari dato $A$;
 
-    \item il valore atteso condizionato $\mathbb{E}[H\mid A]$;
+    \item il valore atteso condizionato $\E[H\mid A]$;
 
     \item il valore atteso condizionato sull'evento complementare
-    $\mathbb{E}[H\mid A^c]$;
+    $\E[H\mid A^c]$;
 
     \item la verifica della formula del valore atteso totale.
 \end{enumerate}
@@ -2600,7 +2600,7 @@ che rappresenta il verificarsi di uno scenario di prezzo elevato. Calcolare:
 
 Il valore atteso non condizionato del payoff \`{e}:
 \[
-\mathbb{E}[H]
+\E[H]
 =
 0.20\cdot0
 +
@@ -2615,7 +2615,7 @@ Il valore atteso non condizionato del payoff \`{e}:
 
 Quindi:
 \[
-\mathbb{E}[H]
+\E[H]
 =
 1.25+4+4.50
 =
@@ -2624,7 +2624,7 @@ Quindi:
 
 Calcoliamo ora la probabilit\`{a} dell'evento $A$:
 \[
-\mathbb{P}(A)
+\Prob(A)
 =
 0.20+0.10
 =
@@ -2634,14 +2634,14 @@ Calcoliamo ora la probabilit\`{a} dell'evento $A$:
 Le probabilit\`{a} condizionate degli esiti elementari appartenenti ad $A$
 sono:
 \[
-\mathbb{P}\{\omega_4\}\mid A)
+\Prob\{\omega_4\}\mid A)
 =
 \frac{0.20}{0.30}
 =
 0.6667,
 \]
 \[
-\mathbb{P}(\{\omega_5\}\mid A)
+\Prob(\{\omega_5\}\mid A)
 =
 \frac{0.10}{0.30}
 =
@@ -2653,7 +2653,7 @@ $A$ e quindi hanno probabilit\`{a} condizionata nulla dato $A$.
 
 Il valore atteso condizionato di $H$ dato $A$ \`{e}:
 \[
-\mathbb{E}[H\mid A]
+\E[H\mid A]
 =
 20\cdot0.6667
 +
@@ -2662,7 +2662,7 @@ Il valore atteso condizionato di $H$ dato $A$ \`{e}:
 
 Equivalentemente:
 \[
-\mathbb{E}[H\mid A]
+\E[H\mid A]
 =
 \frac{
 0.20\cdot20
@@ -2674,7 +2674,7 @@ Equivalentemente:
 
 Pertanto:
 \[
-\mathbb{E}[H\mid A]
+\E[H\mid A]
 =
 \frac{4+4.50}{0.30}
 =
@@ -2690,7 +2690,7 @@ A^c
 
 La sua probabilit\`{a} \`{e}:
 \[
-\mathbb{P}(A^c)
+\Prob(A^c)
 =
 0.20+0.25+0.25
 =
@@ -2699,7 +2699,7 @@ La sua probabilit\`{a} \`{e}:
 
 Il valore atteso condizionato su $A^c$ \`{e}:
 \[
-\mathbb{E}[H\mid A^c]
+\E[H\mid A^c]
 =
 \frac{
 0.20\cdot0
@@ -2713,7 +2713,7 @@ Il valore atteso condizionato su $A^c$ \`{e}:
 
 Quindi:
 \[
-\mathbb{E}[H\mid A^c]
+\E[H\mid A^c]
 =
 \frac{1.25}{0.70}
 =
@@ -2722,11 +2722,11 @@ Quindi:
 
 Verifichiamo infine la formula del valore atteso totale:
 \[
-\mathbb{E}[H]
+\E[H]
 =
-\mathbb{E}[H\mid A]\mathbb{P}(A)
+\E[H\mid A]\Prob(A)
 +
-\mathbb{E}[H\mid A^c]\mathbb{P}(A^c).
+\E[H\mid A^c]\Prob(A^c).
 \]
 
 Sostituendo i valori numerici:
@@ -2772,16 +2772,16 @@ Calcolare:
 \begin{enumerate}
     \item verificare che $f_X$ sia una densit\`{a};
 
-    \item il valore atteso non condizionato $\mathbb{E}[X]$;
+    \item il valore atteso non condizionato $\E[X]$;
 
     \item la probabilit\`{a} dell'evento $A$;
 
     \item la densit\`{a} condizionata $f_{X\mid A}(x)$;
 
-    \item il valore atteso condizionato $\mathbb{E}[X\mid A]$;
+    \item il valore atteso condizionato $\E[X\mid A]$;
 
     \item il valore atteso condizionato sull'evento complementare
-    $\mathbb{E}[X\mid A^c]$;
+    $\E[X\mid A^c]$;
 
     \item la verifica della formula del valore atteso totale.
 \end{enumerate}
@@ -2813,7 +2813,7 @@ Quindi $f_X$ \`{e} una densit\`{a} di probabilit\`{a}.
 
 Il valore atteso non condizionato \`{e}:
 \[
-\mathbb{E}[X]
+\E[X]
 =
 \int_{0}^{20}
 x f_X(x)\,dx.
@@ -2821,7 +2821,7 @@ x f_X(x)\,dx.
 
 Sostituendo la densit\`{a}:
 \[
-\mathbb{E}[X]
+\E[X]
 =
 \int_{0}^{20}
 x\frac{x}{200}\,dx
@@ -2833,7 +2833,7 @@ x^2\,dx.
 
 Pertanto:
 \[
-\mathbb{E}[X]
+\E[X]
 =
 \frac{1}{200}
 \left[
@@ -2847,9 +2847,9 @@ Pertanto:
 
 Calcoliamo ora la probabilit\`{a} dello scenario di prezzo elevato:
 \[
-\mathbb{P}(A)
+\Prob(A)
 =
-\mathbb{P}(X>10)
+\Prob(X>10)
 =
 \int_{10}^{20}
 \frac{x}{200}\,dx.
@@ -2857,7 +2857,7 @@ Calcoliamo ora la probabilit\`{a} dello scenario di prezzo elevato:
 
 Quindi:
 \[
-\mathbb{P}(A)
+\Prob(A)
 =
 \frac{1}{200}
 \left[
@@ -2881,12 +2881,12 @@ originaria all'intervallo $(10,20]$ e rinormalizzando:
 \[
 f_{X\mid A}(x)
 =
-\frac{f_X(x)}{\mathbb{P}(A)},
+\frac{f_X(x)}{\Prob(A)},
 \qquad
 10<x\leq 20.
 \]
 
-Poich\'{e} $\mathbb{P}(A)=0.75$, otteniamo:
+Poich\'{e} $\Prob(A)=0.75$, otteniamo:
 \[
 f_{X\mid A}(x)
 =
@@ -2901,7 +2901,7 @@ Per $x\leq 10$ e per $x>20$, la densit\`{a} condizionata \`{e} nulla.
 
 Il valore atteso condizionato dato $A$ \`{e}:
 \[
-\mathbb{E}[X\mid A]
+\E[X\mid A]
 =
 \int_{10}^{20}
 x f_{X\mid A}(x)\,dx.
@@ -2909,7 +2909,7 @@ x f_{X\mid A}(x)\,dx.
 
 Sostituendo $f_{X\mid A}(x)=x/150$:
 \[
-\mathbb{E}[X\mid A]
+\E[X\mid A]
 =
 \int_{10}^{20}
 x\frac{x}{150}\,dx
@@ -2921,7 +2921,7 @@ x^2\,dx.
 
 Quindi:
 \[
-\mathbb{E}[X\mid A]
+\E[X\mid A]
 =
 \frac{1}{150}
 \left[
@@ -2937,12 +2937,12 @@ Quindi:
 
 In modo equivalente, si pu\`{o} calcolare:
 \[
-\mathbb{E}[X\mid A]
+\E[X\mid A]
 =
 \frac{
 \int_{10}^{20}x f_X(x)\,dx
 }
-{\mathbb{P}(A)}.
+{\Prob(A)}.
 \]
 
 Consideriamo ora l'evento complementare:
@@ -2952,22 +2952,22 @@ A^c=\{X\leq 10\}.
 
 La sua probabilit\`{a} \`{e}:
 \[
-\mathbb{P}(A^c)=1-\mathbb{P}(A)=0.25.
+\Prob(A^c)=1-\Prob(A)=0.25.
 \]
 
 Il valore atteso condizionato su $A^c$ \`{e}:
 \[
-\mathbb{E}[X\mid A^c]
+\E[X\mid A^c]
 =
 \frac{
 \int_{0}^{10}x f_X(x)\,dx
 }
-{\mathbb{P}(A^c)}.
+{\Prob(A^c)}.
 \]
 
 Sostituendo la densit\`{a}:
 \[
-\mathbb{E}[X\mid A^c]
+\E[X\mid A^c]
 =
 \frac{
 \int_{0}^{10}x\frac{x}{200}\,dx
@@ -2977,7 +2977,7 @@ Sostituendo la densit\`{a}:
 
 Quindi:
 \[
-\mathbb{E}[X\mid A^c]
+\E[X\mid A^c]
 =
 \frac{
 \frac{1}{200}
@@ -2997,11 +2997,11 @@ Quindi:
 
 Verifichiamo infine la formula del valore atteso totale:
 \[
-\mathbb{E}[X]
+\E[X]
 =
-\mathbb{E}[X\mid A]\mathbb{P}(A)
+\E[X\mid A]\Prob(A)
 +
-\mathbb{E}[X\mid A^c]\mathbb{P}(A^c).
+\E[X\mid A^c]\Prob(A^c).
 \]
 
 Sostituendo i valori numerici:
@@ -3016,7 +3016,7 @@ Sostituendo i valori numerici:
 \]
 
 A causa degli arrotondamenti, il valore ottenuto coincide con
-$\mathbb{E}[X]=13.333$ a meno di una piccola differenza numerica. Con i valori
+$\E[X]=13.333$ a meno di una piccola differenza numerica. Con i valori
 esatti, l'identit\`{a} vale esattamente.
 
 \medskip
@@ -3028,8 +3028,8 @@ Nel caso continuo il condizionamento rispetto a un evento non produce una
 somma di probabilit\`{a} condizionate, ma una densit\`{a} condizionata.
 L'evento $A=\{X>10\}$ seleziona la parte destra della distribuzione, cio\`{e}
 gli scenari di prezzo elevato. Il valore atteso condizionato
-$\mathbb{E}[X\mid A]=15.556$ \`{e} quindi superiore al valore atteso non
-condizionato $\mathbb{E}[X]=13.333$.
+$\E[X\mid A]=15.556$ \`{e} quindi superiore al valore atteso non
+condizionato $\E[X]=13.333$.
 
 \begin{exercise}[Obbligazione corporate e informazione creditizia]
 \label{ex:cap3-obbligazione-corporate-credito}
@@ -3049,7 +3049,7 @@ dell'emittente alla data finale. Le probabilit\`{a} e i payoff sono:
 \[
 \begin{array}{c|c|c|c}
 \text{Esito elementare} & \text{Scenario creditizio} &
-\mathbb{P}(\{\omega\}) & H(\omega) \\
+\Prob(\{\omega\}) & H(\omega) \\
 \hline
 \omega_1 & \text{upgrade rilevante}        & 0.12 & 105 \\
 \omega_2 & \text{rating stabile alto}      & 0.18 & 102 \\
@@ -3078,29 +3078,29 @@ L'evento $B_1$ rappresenta gli scenari senza deterioramento rilevante,
 $B_2$ gli scenari di deterioramento del merito di credito, e $B_3$ gli scenari
 di default. Sia:
 \[
-\mathcal{G}
+\G
 =
 \sigma(B_1,B_2,B_3)
 \]
 la sigma-algebra generata dalla partizione. Calcolare:
 
 \begin{enumerate}
-    \item gli eventi della sigma-algebra $\mathcal{G}$ e i suoi atomi;
+    \item gli eventi della sigma-algebra $\G$ e i suoi atomi;
 
-    \item i valori $\mathbb{E}[H\mid B_1]$, $\mathbb{E}[H\mid B_2]$ e
-    $\mathbb{E}[H\mid B_3]$;
+    \item i valori $\E[H\mid B_1]$, $\E[H\mid B_2]$ e
+    $\E[H\mid B_3]$;
 
-    \item la variabile casuale $\mathbb{E}[H\mid\mathcal{G}]$;
+    \item la variabile casuale $\E[H\mid\G]$;
 
-    \item il valore $\mathbb{E}[H\mid B_1\cup B_2]$ e la sua interpretazione;
+    \item il valore $\E[H\mid B_1\cup B_2]$ e la sua interpretazione;
 
     \item la verifica della relazione
     \[
-    \mathbb{E}\left[
-    \mathbb{E}[H\mid\mathcal{G}]
+    \E\left[
+    \E[H\mid\G]
     \right]
     =
-    \mathbb{E}[H].
+    \E[H].
     \]
 \end{enumerate}
 
@@ -3114,7 +3114,7 @@ la sigma-algebra generata dalla partizione. Calcolare:
 La sigma-algebra generata dalla partizione contiene tutte le unioni degli
 eventi $B_1$, $B_2$ e $B_3$:
 \[
-\mathcal{G}
+\G
 =
 \{
 \varnothing,
@@ -3128,7 +3128,7 @@ B_2\cup B_3,
 \}.
 \]
 
-Gli atomi di $\mathcal{G}$ sono gli eventi della partizione:
+Gli atomi di $\G$ sono gli eventi della partizione:
 \[
 B_1,
 \qquad
@@ -3139,32 +3139,32 @@ B_3.
 
 Le probabilit\`{a} degli eventi della partizione sono:
 \[
-\mathbb{P}(B_1)
+\Prob(B_1)
 =
 0.12+0.18+0.15
 =
 0.45,
 \]
 \[
-\mathbb{P}(B_2)
+\Prob(B_2)
 =
 0.10+0.20+0.10
 =
 0.40,
 \]
 \[
-\mathbb{P}(B_3)
+\Prob(B_3)
 =
 0.08+0.07
 =
 0.15.
 \]
 
-Calcoliamo ora i valori attesi condizionati sui tre atomi di $\mathcal{G}$.
+Calcoliamo ora i valori attesi condizionati sui tre atomi di $\G$.
 
 Per il primo evento della partizione:
 \[
-\mathbb{E}[H\mid B_1]
+\E[H\mid B_1]
 =
 \frac{
 0.12\cdot105
@@ -3178,7 +3178,7 @@ Per il primo evento della partizione:
 
 Quindi:
 \[
-\mathbb{E}[H\mid B_1]
+\E[H\mid B_1]
 =
 \frac{12.6+18.36+14.4}{0.45}
 =
@@ -3187,7 +3187,7 @@ Quindi:
 
 Per il secondo evento della partizione:
 \[
-\mathbb{E}[H\mid B_2]
+\E[H\mid B_2]
 =
 \frac{
 0.10\cdot90
@@ -3201,7 +3201,7 @@ Per il secondo evento della partizione:
 
 Quindi:
 \[
-\mathbb{E}[H\mid B_2]
+\E[H\mid B_2]
 =
 \frac{9+16.4+7}{0.40}
 =
@@ -3210,7 +3210,7 @@ Quindi:
 
 Per il terzo evento della partizione:
 \[
-\mathbb{E}[H\mid B_3]
+\E[H\mid B_3]
 =
 \frac{
 0.08\cdot45
@@ -3222,17 +3222,17 @@ Per il terzo evento della partizione:
 
 Quindi:
 \[
-\mathbb{E}[H\mid B_3]
+\E[H\mid B_3]
 =
 \frac{3.6+1.4}{0.15}
 =
 33.333.
 \]
 
-Il valore atteso condizionato rispetto alla sigma-algebra $\mathcal{G}$ \`{e}
+Il valore atteso condizionato rispetto alla sigma-algebra $\G$ \`{e}
 quindi:
 \[
-\mathbb{E}[H\mid\mathcal{G}]
+\E[H\mid\G]
 =
 100.8\,\mathbf{1}_{B_1}
 +
@@ -3249,7 +3249,7 @@ In forma tabellare:
 \[
 \begin{array}{c|c|c|c}
 \text{Esito elementare} & H(\omega) & \text{Evento della partizione}
-& \mathbb{E}[H\mid\mathcal{G}](\omega) \\
+& \E[H\mid\G](\omega) \\
 \hline
 \omega_1 & 105 & B_1 & 100.8 \\
 \omega_2 & 102 & B_1 & 100.8 \\
@@ -3263,10 +3263,10 @@ In forma tabellare:
 \]
 
 Consideriamo ora l'evento osservabile $B_1\cup B_2$. Esso appartiene a
-$\mathcal{G}$, ma non \`{e} un atomo di $\mathcal{G}$. La sua probabilit\`{a}
+$\G$, ma non \`{e} un atomo di $\G$. La sua probabilit\`{a}
 \`{e}:
 \[
-\mathbb{P}(B_1\cup B_2)
+\Prob(B_1\cup B_2)
 =
 0.45+0.40
 =
@@ -3275,21 +3275,21 @@ $\mathcal{G}$, ma non \`{e} un atomo di $\mathcal{G}$. La sua probabilit\`{a}
 
 Il valore atteso condizionato rispetto a questo evento \`{e}:
 \[
-\mathbb{E}[H\mid B_1\cup B_2]
+\E[H\mid B_1\cup B_2]
 =
 \frac{
-\mathbb{E}[H\mid B_1]\mathbb{P}(B_1)
+\E[H\mid B_1]\Prob(B_1)
 +
-\mathbb{E}[H\mid B_2]\mathbb{P}(B_2)
+\E[H\mid B_2]\Prob(B_2)
 }
 {
-\mathbb{P}(B_1\cup B_2)
+\Prob(B_1\cup B_2)
 }.
 \]
 
 Sostituendo i valori numerici:
 \[
-\mathbb{E}[H\mid B_1\cup B_2]
+\E[H\mid B_1\cup B_2]
 =
 \frac{
 100.8\cdot0.45
@@ -3303,13 +3303,13 @@ Sostituendo i valori numerici:
 
 Il numero $91.482$ \`{e} un valore atteso condizionato rispetto all'evento
 $B_1\cup B_2$. Non \`{e}, in generale, un valore assunto dalla variabile
-casuale $\mathbb{E}[H\mid\mathcal{G}]$, che assume valori sugli atomi
+casuale $\E[H\mid\G]$, che assume valori sugli atomi
 $B_1$, $B_2$ e $B_3$.
 
 Verifichiamo infine la coerenza con il valore atteso non condizionato:
 \[
-\mathbb{E}\left[
-\mathbb{E}[H\mid\mathcal{G}]
+\E\left[
+\E[H\mid\G]
 \right]
 =
 100.8\cdot0.45
@@ -3321,8 +3321,8 @@ Verifichiamo infine la coerenza con il valore atteso non condizionato:
 
 Quindi:
 \[
-\mathbb{E}\left[
-\mathbb{E}[H\mid\mathcal{G}]
+\E\left[
+\E[H\mid\G]
 \right]
 =
 45.36+32.4+5
@@ -3333,7 +3333,7 @@ Quindi:
 D'altra parte:
 \[
 \begin{aligned}
-\mathbb{E}[H]
+\E[H]
 &=
 0.12\cdot105
 +
@@ -3358,11 +3358,11 @@ D'altra parte:
 
 Pertanto:
 \[
-\mathbb{E}\left[
-\mathbb{E}[H\mid\mathcal{G}]
+\E\left[
+\E[H\mid\G]
 \right]
 =
-\mathbb{E}[H].
+\E[H].
 \]
 
 \medskip
@@ -3370,12 +3370,12 @@ Pertanto:
 \noindent
 \textbf{Commento.}
 
-La sigma-algebra $\mathcal{G}$ rappresenta l'informazione disponibile sul
+La sigma-algebra $\G$ rappresenta l'informazione disponibile sul
 merito di credito dell'emittente. Essa non distingue tutti gli esiti
 elementari, ma distingue tre classi informative: scenari senza deterioramento
 rilevante, scenari di deterioramento e scenari di default.
 
-Il valore atteso condizionato $\mathbb{E}[H\mid\mathcal{G}]$ \`{e} quindi una
+Il valore atteso condizionato $\E[H\mid\G]$ \`{e} quindi una
 variabile casuale che assegna a ciascuna classe creditizia il payoff medio
 compatibile con quella informazione.
 
@@ -3396,7 +3396,7 @@ ricavo netto, espresso in migliaia di euro:
 \[
 \begin{array}{c|c|c|c}
 \text{Esito elementare} & \text{Scenario} &
-\mathbb{P}(\{\omega\}) & X(\omega) \\
+\Prob(\{\omega\}) & X(\omega) \\
 \hline
 \omega_1 & \text{produzione elevata e prezzo alto} & 0.10 & 120 \\
 \omega_2 & \text{produzione elevata e prezzo medio} & 0.20 & 90 \\
@@ -3420,7 +3420,7 @@ B_3=\{\omega_5,\omega_6\}.
 
 Poniamo:
 \[
-\mathcal{G}
+\G
 =
 \sigma(B_1,B_2,B_3).
 \]
@@ -3441,20 +3441,20 @@ e poniamo:
 
 Si ha quindi:
 \[
-\mathcal{H}\subseteq\mathcal{G}.
+\mathcal{H}\subseteq\G.
 \]
 
 Calcolare:
 
 \begin{enumerate}
-    \item il valore atteso condizionato $\mathbb{E}[X\mid\mathcal{G}]$;
+    \item il valore atteso condizionato $\E[X\mid\G]$;
 
-    \item il valore atteso condizionato $\mathbb{E}[X\mid\mathcal{H}]$;
+    \item il valore atteso condizionato $\E[X\mid\mathcal{H}]$;
 
     \item il valore atteso condizionato iterato
     \[
-    \mathbb{E}\left[
-    \mathbb{E}[X\mid\mathcal{G}]
+    \E\left[
+    \E[X\mid\G]
     \mid
     \mathcal{H}
     \right];
@@ -3472,21 +3472,21 @@ Calcolare:
 
 Calcoliamo anzitutto le probabilit\`{a} degli eventi della partizione fine:
 \[
-\mathbb{P}(B_1)
+\Prob(B_1)
 =
 0.10+0.20
 =
 0.30,
 \]
 \[
-\mathbb{P}(B_2)
+\Prob(B_2)
 =
 0.15+0.15
 =
 0.30,
 \]
 \[
-\mathbb{P}(B_3)
+\Prob(B_3)
 =
 0.20+0.20
 =
@@ -3495,7 +3495,7 @@ Calcoliamo anzitutto le probabilit\`{a} degli eventi della partizione fine:
 
 Il valore atteso condizionato rispetto all'evento $B_1$ \`{e}:
 \[
-\mathbb{E}[X\mid B_1]
+\E[X\mid B_1]
 =
 \frac{0.10\cdot120+0.20\cdot90}{0.30}
 =
@@ -3506,7 +3506,7 @@ Il valore atteso condizionato rispetto all'evento $B_1$ \`{e}:
 
 Il valore atteso condizionato rispetto all'evento $B_2$ \`{e}:
 \[
-\mathbb{E}[X\mid B_2]
+\E[X\mid B_2]
 =
 \frac{0.15\cdot60+0.15\cdot40}{0.30}
 =
@@ -3517,7 +3517,7 @@ Il valore atteso condizionato rispetto all'evento $B_2$ \`{e}:
 
 Il valore atteso condizionato rispetto all'evento $B_3$ \`{e}:
 \[
-\mathbb{E}[X\mid B_3]
+\E[X\mid B_3]
 =
 \frac{0.20\cdot0+0.20\cdot(-40)}{0.40}
 =
@@ -3528,7 +3528,7 @@ Il valore atteso condizionato rispetto all'evento $B_3$ \`{e}:
 
 Pertanto:
 \[
-\mathbb{E}[X\mid\mathcal{G}]
+\E[X\mid\G]
 =
 100\,\mathbf{1}_{B_1}
 +
@@ -3547,39 +3547,39 @@ C_2=B_3.
 
 Le loro probabilit\`{a} sono:
 \[
-\mathbb{P}(C_1)
+\Prob(C_1)
 =
-\mathbb{P}(B_1)+\mathbb{P}(B_2)
+\Prob(B_1)+\Prob(B_2)
 =
 0.30+0.30
 =
 0.60,
 \]
 \[
-\mathbb{P}(C_2)
+\Prob(C_2)
 =
-\mathbb{P}(B_3)
+\Prob(B_3)
 =
 0.40.
 \]
 
 Il valore atteso condizionato rispetto all'evento $C_1$ \`{e}:
 \[
-\mathbb{E}[X\mid C_1]
+\E[X\mid C_1]
 =
 \frac{
-\mathbb{E}[X\mid B_1]\mathbb{P}(B_1)
+\E[X\mid B_1]\Prob(B_1)
 +
-\mathbb{E}[X\mid B_2]\mathbb{P}(B_2)
+\E[X\mid B_2]\Prob(B_2)
 }
 {
-\mathbb{P}(C_1)
+\Prob(C_1)
 }.
 \]
 
 Sostituendo i valori numerici:
 \[
-\mathbb{E}[X\mid C_1]
+\E[X\mid C_1]
 =
 \frac{
 100\cdot0.30
@@ -3593,16 +3593,16 @@ Sostituendo i valori numerici:
 
 Per il secondo atomo di $\mathcal{H}$ si ha:
 \[
-\mathbb{E}[X\mid C_2]
+\E[X\mid C_2]
 =
-\mathbb{E}[X\mid B_3]
+\E[X\mid B_3]
 =
 -20.
 \]
 
 Quindi:
 \[
-\mathbb{E}[X\mid\mathcal{H}]
+\E[X\mid\mathcal{H}]
 =
 75\,\mathbf{1}_{C_1}
 -
@@ -3613,7 +3613,7 @@ Calcoliamo ora il valore atteso condizionato iterato. Poniamo:
 \[
 Y
 =
-\mathbb{E}[X\mid\mathcal{G}]
+\E[X\mid\G]
 =
 100\,\mathbf{1}_{B_1}
 +
@@ -3624,28 +3624,28 @@ Y
 
 Dobbiamo calcolare:
 \[
-\mathbb{E}[Y\mid\mathcal{H}].
+\E[Y\mid\mathcal{H}].
 \]
 
 Poich\'{e} $\mathcal{H}$ distingue solo gli eventi $C_1=B_1\cup B_2$ e
-$C_2=B_3$, il valore di $\mathbb{E}[Y\mid\mathcal{H}]$ deve essere costante su
+$C_2=B_3$, il valore di $\E[Y\mid\mathcal{H}]$ deve essere costante su
 $C_1$ e su $C_2$.
 
 Sul primo evento $C_1$:
 \[
-\mathbb{E}[Y\mid C_1]
+\E[Y\mid C_1]
 =
 \frac{
-100\cdot\mathbb{P}(B_1)
+100\cdot\Prob(B_1)
 +
-50\cdot\mathbb{P}(B_2)
+50\cdot\Prob(B_2)
 }
-{\mathbb{P}(C_1)}.
+{\Prob(C_1)}.
 \]
 
 Quindi:
 \[
-\mathbb{E}[Y\mid C_1]
+\E[Y\mid C_1]
 =
 \frac{
 100\cdot0.30
@@ -3660,15 +3660,15 @@ Quindi:
 Sul secondo evento $C_2=B_3$, la variabile $Y$ \`{e} costante e vale $-20$.
 Quindi:
 \[
-\mathbb{E}[Y\mid C_2]
+\E[Y\mid C_2]
 =
 -20.
 \]
 
 Pertanto:
 \[
-\mathbb{E}\left[
-\mathbb{E}[X\mid\mathcal{G}]
+\E\left[
+\E[X\mid\G]
 \mid
 \mathcal{H}
 \right]
@@ -3681,7 +3681,7 @@ Pertanto:
 Ma questo coincide con il valore atteso condizionato rispetto a
 $\mathcal{H}$:
 \[
-\mathbb{E}[X\mid\mathcal{H}]
+\E[X\mid\mathcal{H}]
 =
 75\,\mathbf{1}_{C_1}
 -
@@ -3690,13 +3690,13 @@ $\mathcal{H}$:
 
 Abbiamo quindi verificato che:
 \[
-\mathbb{E}\left[
-\mathbb{E}[X\mid\mathcal{G}]
+\E\left[
+\E[X\mid\G]
 \mid
 \mathcal{H}
 \right]
 =
-\mathbb{E}[X\mid\mathcal{H}].
+\E[X\mid\mathcal{H}].
 \]
 
 \medskip
@@ -3704,13 +3704,13 @@ Abbiamo quindi verificato che:
 \noindent
 \textbf{Commento.}
 
-La sigma-algebra $\mathcal{G}$ contiene pi\`{u} informazione di
+La sigma-algebra $\G$ contiene pi\`{u} informazione di
 $\mathcal{H}$, perch\'{e} distingue separatamente gli eventi $B_1$, $B_2$ e
 $B_3$. La sigma-algebra $\mathcal{H}$, invece, aggrega $B_1$ e $B_2$ in un
 unico evento $C_1$.
 
 La propriet\`{a} della torre afferma che prevedere prima usando
-l'informazione pi\`{u} fine $\mathcal{G}$ e poi ricondurre la previsione
+l'informazione pi\`{u} fine $\G$ e poi ricondurre la previsione
 all'informazione pi\`{u} grossolana $\mathcal{H}$ produce lo stesso risultato
 che prevedere direttamente usando $\mathcal{H}$.
 
@@ -3727,7 +3727,7 @@ Si consideri il seguente payoff terminale $H$:
 
 \[
 \begin{array}{c|c|c}
-\text{Esito elementare} & \mathbb{P}(\{\omega\}) & H(\omega) \\
+\text{Esito elementare} & \Prob(\{\omega\}) & H(\omega) \\
 \hline
 \omega_1 & 0.15 & 40 \\
 \omega_2 & 0.20 & 55 \\
@@ -3745,16 +3745,16 @@ A=\{\omega_4,\omega_5\}.
 Calcolare:
 
 \begin{enumerate}
-    \item $\mathbb{E}[H]$;
+    \item $\E[H]$;
 
-    \item $\mathbb{P}(A)$;
+    \item $\Prob(A)$;
 
     \item le probabilit\`{a} condizionate
-    $\mathbb{P}(\{\omega_i\}\mid A)$ per $i=1,\ldots,5$;
+    $\Prob(\{\omega_i\}\mid A)$ per $i=1,\ldots,5$;
 
-    \item $\mathbb{E}[H\mid A]$;
+    \item $\E[H\mid A]$;
 
-    \item $\mathbb{E}[H\mid A^c]$;
+    \item $\E[H\mid A^c]$;
 
     \item verificare la formula del valore atteso totale.
 \end{enumerate}
@@ -3781,13 +3781,13 @@ A=\{X>1/2\}.
 Calcolare:
 
 \begin{enumerate}
-    \item $\mathbb{P}(A)$;
+    \item $\Prob(A)$;
 
     \item la densit\`{a} condizionata $f_{X\mid A}(x)$;
 
-    \item il valore atteso condizionato $\mathbb{E}[X\mid A]$;
+    \item il valore atteso condizionato $\E[X\mid A]$;
 
-    \item confrontare $\mathbb{E}[X\mid A]$ con $\mathbb{E}[X]$.
+    \item confrontare $\E[X\mid A]$ con $\E[X]$.
 \end{enumerate}
 
 \end{exercise}
@@ -3813,7 +3813,7 @@ B_3=\{\omega_5,\omega_6\}.
 
 Sia:
 \[
-\mathcal{G}
+\G
 =
 \sigma(B_1,B_2,B_3).
 \]
@@ -3821,17 +3821,17 @@ Sia:
 Rispondere alle seguenti domande:
 
 \begin{enumerate}
-    \item elencare tutti gli eventi appartenenti a $\mathcal{G}$;
+    \item elencare tutti gli eventi appartenenti a $\G$;
 
-    \item individuare gli atomi di $\mathcal{G}$;
+    \item individuare gli atomi di $\G$;
 
     \item spiegare perch\'{e} un evento come $\{\omega_1\}$ non appartiene a
-    $\mathcal{G}$;
+    $\G$;
 
     \item costruire una variabile casuale non costante che sia
-    $\mathcal{G}$-misurabile;
+    $\G$-misurabile;
 
-    \item costruire una variabile casuale che non sia $\mathcal{G}$-misurabile.
+    \item costruire una variabile casuale che non sia $\G$-misurabile.
 \end{enumerate}
 
 \end{exercise}
@@ -3844,7 +3844,7 @@ Si consideri la seguente variabile casuale $X$:
 
 \[
 \begin{array}{c|c|c}
-\text{Esito elementare} & \mathbb{P}(\{\omega\}) & X(\omega) \\
+\text{Esito elementare} & \Prob(\{\omega\}) & X(\omega) \\
 \hline
 \omega_1 & 0.10 & 12 \\
 \omega_2 & 0.20 & 8 \\
@@ -3865,7 +3865,7 @@ B_3=\{\omega_5,\omega_6\},
 \]
 e sia:
 \[
-\mathcal{G}
+\G
 =
 \sigma(B_1,B_2,B_3).
 \]
@@ -3873,23 +3873,23 @@ e sia:
 Calcolare:
 
 \begin{enumerate}
-    \item $\mathbb{E}[X\mid B_1]$,
-    $\mathbb{E}[X\mid B_2]$ e $\mathbb{E}[X\mid B_3]$;
+    \item $\E[X\mid B_1]$,
+    $\E[X\mid B_2]$ e $\E[X\mid B_3]$;
 
-    \item la variabile casuale $\mathbb{E}[X\mid\mathcal{G}]$;
+    \item la variabile casuale $\E[X\mid\G]$;
 
-    \item i valori assunti da $\mathbb{E}[X\mid\mathcal{G}]$ su ciascun
+    \item i valori assunti da $\E[X\mid\G]$ su ciascun
     esito elementare;
 
-    \item $\mathbb{E}[X]$;
+    \item $\E[X]$;
 
     \item verificare che
     \[
-    \mathbb{E}\left[
-    \mathbb{E}[X\mid\mathcal{G}]
+    \E\left[
+    \E[X\mid\G]
     \right]
     =
-    \mathbb{E}[X].
+    \E[X].
     \]
 \end{enumerate}
 
@@ -3911,16 +3911,16 @@ Calcolare:
 \begin{enumerate}
     \item gli atomi di $\mathcal{H}$;
 
-    \item $\mathbb{E}[X\mid B_1\cup B_2]$;
+    \item $\E[X\mid B_1\cup B_2]$;
 
-    \item la variabile casuale $\mathbb{E}[X\mid\mathcal{H}]$;
+    \item la variabile casuale $\E[X\mid\mathcal{H}]$;
 
     \item confrontare i valori assunti da
-    $\mathbb{E}[X\mid\mathcal{G}]$ con quelli assunti da
-    $\mathbb{E}[X\mid\mathcal{H}]$;
+    $\E[X\mid\G]$ con quelli assunti da
+    $\E[X\mid\mathcal{H}]$;
 
     \item spiegare perch\'{e} la previsione rispetto a $\mathcal{H}$ \`{e}
-    pi\`{u} aggregata della previsione rispetto a $\mathcal{G}$.
+    pi\`{u} aggregata della previsione rispetto a $\G$.
 \end{enumerate}
 
 \end{exercise}
@@ -3930,18 +3930,18 @@ Calcolare:
 
 Si considerino due sigma-algebre informative tali che:
 \[
-\mathcal{H}\subseteq\mathcal{G}.
+\mathcal{H}\subseteq\G.
 \]
 
 Utilizzando i dati degli Esercizi 4 e 5, verificare esplicitamente che:
 \[
-\mathbb{E}\left[
-\mathbb{E}[X\mid\mathcal{G}]
+\E\left[
+\E[X\mid\G]
 \mid
 \mathcal{H}
 \right]
 =
-\mathbb{E}[X\mid\mathcal{H}].
+\E[X\mid\mathcal{H}].
 \]
 
 In particolare:
@@ -3949,19 +3949,19 @@ In particolare:
 \begin{enumerate}
     \item porre
     \[
-    Y=\mathbb{E}[X\mid\mathcal{G}];
+    Y=\E[X\mid\G];
     \]
 
-    \item calcolare $\mathbb{E}[Y\mid B_1\cup B_2]$;
+    \item calcolare $\E[Y\mid B_1\cup B_2]$;
 
-    \item calcolare $\mathbb{E}[Y\mid B_3]$;
+    \item calcolare $\E[Y\mid B_3]$;
 
     \item costruire
     \[
-    \mathbb{E}[Y\mid\mathcal{H}];
+    \E[Y\mid\mathcal{H}];
     \]
 
-    \item confrontare il risultato con $\mathbb{E}[X\mid\mathcal{H}]$.
+    \item confrontare il risultato con $\E[X\mid\mathcal{H}]$.
 \end{enumerate}
 
 \end{exercise}
@@ -3973,7 +3973,7 @@ Sia $L$ la perdita di un portafoglio, espressa in milioni di euro:
 
 \[
 \begin{array}{c|c|c}
-\text{Esito elementare} & \mathbb{P}(\{\omega\}) & L(\omega) \\
+\text{Esito elementare} & \Prob(\{\omega\}) & L(\omega) \\
 \hline
 \omega_1 & 0.20 & 1 \\
 \omega_2 & 0.25 & 3 \\
@@ -3992,19 +3992,19 @@ A=\{\omega_5,\omega_6\}.
 Calcolare:
 
 \begin{enumerate}
-    \item la perdita attesa non condizionata $\mathbb{E}[L]$;
+    \item la perdita attesa non condizionata $\E[L]$;
 
-    \item la probabilit\`{a} dello scenario di stress $\mathbb{P}(A)$;
+    \item la probabilit\`{a} dello scenario di stress $\Prob(A)$;
 
-    \item la perdita attesa condizionata $\mathbb{E}[L\mid A]$;
+    \item la perdita attesa condizionata $\E[L\mid A]$;
 
     \item la perdita attesa condizionata allo scenario non stressato
-    $\mathbb{E}[L\mid A^c]$;
+    $\E[L\mid A^c]$;
 
     \item verificare la formula del valore atteso totale;
 
     \item commentare il significato finanziario della differenza tra
-    $\mathbb{E}[L]$ e $\mathbb{E}[L\mid A]$.
+    $\E[L]$ e $\E[L\mid A]$.
 \end{enumerate}
 
 \end{exercise}
@@ -4029,7 +4029,7 @@ B_2=(2,4].
 
 Sia:
 \[
-\mathcal{G}
+\G
 =
 \sigma(B_1,B_2).
 \]
@@ -4041,51 +4041,51 @@ La funzione:
 \`{e} convessa. La disuguaglianza condizionata di Jensen implica:
 \[
 \left(
-\mathbb{E}[X\mid\mathcal{G}]
+\E[X\mid\G]
 \right)^2
 \leq
-\mathbb{E}[X^2\mid\mathcal{G}].
+\E[X^2\mid\G].
 \]
 
 Verificare esplicitamente questa disuguaglianza sui due atomi $B_1$ e $B_2$
-della sigma-algebra $\mathcal{G}$.
+della sigma-algebra $\G$.
 
 In particolare:
 
 \begin{enumerate}
-    \item calcolare $\mathbb{E}[X\mid B_1]$ e $\mathbb{E}[X\mid B_2]$;
+    \item calcolare $\E[X\mid B_1]$ e $\E[X\mid B_2]$;
 
-    \item costruire la variabile casuale $\mathbb{E}[X\mid\mathcal{G}]$;
+    \item costruire la variabile casuale $\E[X\mid\G]$;
 
-    \item calcolare $\mathbb{E}[X^2\mid B_1]$ e $\mathbb{E}[X^2\mid B_2]$;
+    \item calcolare $\E[X^2\mid B_1]$ e $\E[X^2\mid B_2]$;
 
-    \item costruire la variabile casuale $\mathbb{E}[X^2\mid\mathcal{G}]$;
+    \item costruire la variabile casuale $\E[X^2\mid\G]$;
 
     \item verificare che su $B_1$ vale:
     \[
     \left(
-    \mathbb{E}[X\mid B_1]
+    \E[X\mid B_1]
     \right)^2
     \leq
-    \mathbb{E}[X^2\mid B_1];
+    \E[X^2\mid B_1];
     \]
 
     \item verificare che su $B_2$ vale:
     \[
     \left(
-    \mathbb{E}[X\mid B_2]
+    \E[X\mid B_2]
     \right)^2
     \leq
-    \mathbb{E}[X^2\mid B_2].
+    \E[X^2\mid B_2].
     \]
 
     \item concludere che:
     \[
     \left(
-    \mathbb{E}[X\mid\mathcal{G}]
+    \E[X\mid\G]
     \right)^2
     \leq
-    \mathbb{E}[X^2\mid\mathcal{G}].
+    \E[X^2\mid\G].
     \]
 \end{enumerate}
 
@@ -4099,30 +4099,30 @@ partenza \`{e} la probabilit\`{a} condizionata: osservare un evento modifica la
 distribuzione di probabilit\`{a} rilevante e quindi modifica anche la media
 calcolata rispetto a tale distribuzione.
 
-Nel caso di un evento $A$ con $\mathbb{P}(A)>0$, il valore atteso condizionato
-$\mathbb{E}[X\mid A]$ \`{e} un numero. Esso rappresenta la media di $X$
+Nel caso di un evento $A$ con $\Prob(A)>0$, il valore atteso condizionato
+$\E[X\mid A]$ \`{e} un numero. Esso rappresenta la media di $X$
 calcolata sugli scenari compatibili con l'informazione che $A$ si sia
 verificato. Nel caso discreto:
 \[
-\mathbb{E}[X\mid A]
+\E[X\mid A]
 =
-\sum_x x\,\mathbb{P}(X=x\mid A),
+\sum_x x\,\Prob(X=x\mid A),
 \]
 oppure, in forma equivalente:
 \[
-\mathbb{E}[X\mid A]
+\E[X\mid A]
 =
-\frac{\mathbb{E}[X\mathbf{1}_A]}{\mathbb{P}(A)}.
+\frac{\E[X\mathbf{1}_A]}{\Prob(A)}.
 \]
 
 La formula del valore atteso totale mostra come la media non condizionata
 possa essere ricostruita a partire dalle medie condizionate su una partizione
 di $\Omega$:
 \[
-\mathbb{E}[X]
+\E[X]
 =
 \sum_{i=1}^{n}
-\mathbb{E}[X\mid B_i]\mathbb{P}(B_i).
+\E[X\mid B_i]\Prob(B_i).
 \]
 
 Questa formula ha una lettura informativa naturale. Prima dell'osservazione
@@ -4132,32 +4132,32 @@ che si otterrebbero osservando i diversi eventi della partizione.
 Il passaggio successivo consiste nel rappresentare l'informazione mediante una
 sigma-algebra. Se una partizione
 $\mathcal{B}=\{B_1,\ldots,B_n\}$ genera la sigma-algebra
-$\mathcal{G}=\sigma(B_1,\ldots,B_n)$, allora gli atomi di $\mathcal{G}$
+$\G=\sigma(B_1,\ldots,B_n)$, allora gli atomi di $\G$
 coincidono con gli eventi $B_1,\ldots,B_n$ della partizione. Il valore atteso
-condizionato rispetto a $\mathcal{G}$ non \`{e} pi\`{u} un numero, ma una
+condizionato rispetto a $\G$ non \`{e} pi\`{u} un numero, ma una
 variabile casuale:
 \[
-\mathbb{E}[X\mid\mathcal{G}]
+\E[X\mid\G]
 =
 \sum_{i=1}^{n}
-\mathbb{E}[X\mid B_i]\mathbf{1}_{B_i}.
+\E[X\mid B_i]\mathbf{1}_{B_i}.
 \]
 
 Questa variabile casuale \`{e} costante sugli atomi della sigma-algebra e
-dipende solo dall'informazione osservabile mediante $\mathcal{G}$. Gli eventi
-di $\mathcal{G}$ possono includere unioni di atomi, ma i valori puntuali di
-$\mathbb{E}[X\mid\mathcal{G}]$ sono determinati dagli atomi stessi.
+dipende solo dall'informazione osservabile mediante $\G$. Gli eventi
+di $\G$ possono includere unioni di atomi, ma i valori puntuali di
+$\E[X\mid\G]$ sono determinati dagli atomi stessi.
 
 Nel caso generale, il valore atteso condizionato rispetto a una sigma-algebra
-$\mathcal{G}$ \`{e} caratterizzato da due propriet\`{a}: deve essere
-$\mathcal{G}$-misurabile e deve avere la stessa media di $X$ su ogni evento
-osservabile $C\in\mathcal{G}$:
+$\G$ \`{e} caratterizzato da due propriet\`{a}: deve essere
+$\G$-misurabile e deve avere la stessa media di $X$ su ogni evento
+osservabile $C\in\G$:
 \[
-\mathbb{E}\left[
-\mathbb{E}[X\mid\mathcal{G}]\mathbf{1}_C
+\E\left[
+\E[X\mid\G]\mathbf{1}_C
 \right]
 =
-\mathbb{E}[X\mathbf{1}_C].
+\E[X\mathbf{1}_C].
 \]
 
 Il capitolo ha poi richiamato sei regole operative fondamentali: linearit\`{a},
@@ -4168,15 +4168,15 @@ condizionati in modo coerente con l'informazione disponibile.
 
 Un'interpretazione importante \`{e} quella di migliore previsione. Quando si
 usa il criterio dell'errore quadratico medio, il valore atteso condizionato
-$\mathbb{E}[X\mid\mathcal{G}]$ \`{e} la migliore previsione di $X$ costruita
-utilizzando soltanto l'informazione contenuta in $\mathcal{G}$.
+$\E[X\mid\G]$ \`{e} la migliore previsione di $X$ costruita
+utilizzando soltanto l'informazione contenuta in $\G$.
 
 Dal punto di vista finanziario, il valore atteso condizionato consente di
 aggiornare la previsione di payoff, perdite e rendimenti quando cambia
 l'informazione disponibile. Per un payoff terminale $H$, la quantit\`{a}
-$\mathbb{E}[H\mid\mathcal{G}]$ rappresenta una previsione coerente con
-l'informazione $\mathcal{G}$. Per una perdita $L$, la quantit\`{a}
-$\mathbb{E}[L\mid A]$ o $\mathbb{E}[L\mid\mathcal{G}]$ permette di valutare la
+$\E[H\mid\G]$ rappresenta una previsione coerente con
+l'informazione $\G$. Per una perdita $L$, la quantit\`{a}
+$\E[L\mid A]$ o $\E[L\mid\G]$ permette di valutare la
 perdita media in scenari specifici, come uno scenario di stress.
 
 Il messaggio centrale del capitolo \`{e} quindi il seguente: il valore atteso

@@ -73,12 +73,12 @@ campionario alla retta reale;
 \[
 \{X\leq x\},\qquad\{X=x_{i}\},\qquad\{a<X\leq b\}
 \]
-come eventi appartenenti alla sigma-algebra $\mathcal{F}$;
+come eventi appartenenti alla sigma-algebra $\F$;
 
 \item definire la distribuzione di una variabile casuale e la funzione di
 ripartizione
 \[
-F_{X}(x)=\mathbb{P}(X\leq x);
+F_{X}(x)=\Prob(X\leq x);
 \]
 
 
@@ -91,11 +91,11 @@ usando la funzione di distribuzione, la funzione di probabilit\`{a} o la densit\
 
 \item definire e interpretare il valore atteso
 \[
-\mathbb{E}[X],
+\E[X],
 \]
 la varianza
 \[
-\operatorname{Var}(X),
+\Var(X),
 \]
 la deviazione standard e, pi\`{u} in generale, i momenti di una variabile casuale;
 
@@ -113,9 +113,9 @@ Il capitolo costruisce quindi il ponte tra la teoria degli eventi e la
 misurazione quantitativa del rischio. La sequenza logica che guider\`{a}
 l'esposizione \`{e}
 \[
-(\Omega,\mathcal{F},\mathbb{P}) \quad\longrightarrow\quad X \quad
+(\Omega,\F,\Prob) \quad\longrightarrow\quad X \quad
 \longrightarrow\quad F_{X},\ p_{X},\ f_{X} \quad\longrightarrow\quad
-\mathbb{E}[X],\ \operatorname{Var}(X),\ q_{\alpha}(X).
+\E[X],\ \Var(X),\ q_{\alpha}(X).
 \]
 Questa sequenza permette di passare dalla descrizione astratta dell'incertezza
 alla rappresentazione analitica di rendimenti, perdite e payoff aleatori.
@@ -160,7 +160,7 @@ del tipo
 \]
 descrivono il superamento di una soglia di perdita $\ell$. La quantit\`{a}
 \[
-\mathbb{P}(L>\ell)
+\Prob(L>\ell)
 \]
 rappresenta quindi una probabilit\`{a} di coda, cio\`{e} la probabilit\`{a}
 che la perdita superi un livello prefissato. Questo tipo di probabilit\`{a}
@@ -187,7 +187,7 @@ $. L'evento
 \]
 indica che l'opzione termina in the money, mentre la quantit\`{a}
 \[
-\mathbb{P}(S_{T}>K)
+\Prob(S_{T}>K)
 \]
 misura la probabilit\`{a} che il payoff sia strettamente positivo.
 
@@ -206,16 +206,16 @@ associare un numero reale a ciascuno scenario possibile.
 Il problema centrale diventa allora descrivere la distribuzione probabilistica
 di tali grandezze. In particolare, si vogliono rispondere domande del tipo:
 \[
-\mathbb{P}(R<0)=?
+\Prob(R<0)=?
 \]
 \[
-\mathbb{P}(L>\ell)=?
+\Prob(L>\ell)=?
 \]
 \[
-\mathbb{E}[R]=?
+\E[R]=?
 \]
 \[
-\operatorname{Var}(R)=?
+\Var(R)=?
 \]
 \[
 q_{\alpha}(L)=?
@@ -252,10 +252,10 @@ perdite, payoff e rischio finanziario.
 Nel Capitolo 1 l'incertezza \`{e} stata descritta mediante uno spazio di
 probabilit\`{a}
 \[
-(\Omega,\mathcal{F},\mathbb{P}),
+(\Omega,\F,\Prob),
 \]
-dove $\Omega$ rappresenta l'insieme degli esiti possibili, $\mathcal{F}$ \`{e}
-la sigma-algebra degli eventi osservabili e $\mathbb{P}$ \`{e} la misura di
+dove $\Omega$ rappresenta l'insieme degli esiti possibili, $\F$ \`{e}
+la sigma-algebra degli eventi osservabili e $\Prob$ \`{e} la misura di
 probabilit\`{a} definita su tali eventi.
 
 In molte applicazioni, tuttavia, non interessa direttamente l'esito elementare
@@ -263,14 +263,14 @@ $\omega\in\Omega$, ma una quantit\`{a} numerica che dipende da tale esito. Una
 variabile casuale formalizza precisamente questo passaggio.
 
 \begin{definition}
-[Variabile casuale]Sia $(\Omega,\mathcal{F},\mathbb{P})$ uno spazio di
+[Variabile casuale]Sia $(\Omega,\F,\Prob)$ uno spazio di
 probabilit\`{a}. Una variabile casuale reale \`{e} una funzione
 \[
 X:\Omega\longrightarrow\mathbb{R}
 \]
 tale che, per ogni $x\in\mathbb{R}$,
 \[
-\{\omega\in\Omega:X(\omega)\leq x\}\in\mathcal{F}.
+\{\omega\in\Omega:X(\omega)\leq x\}\in\F.
 \]
 
 \end{definition}
@@ -289,11 +289,11 @@ al posto di
 \]
 Con questa convenzione, la quantit\`{a}
 \[
-\mathbb{P}(X\leq x)
+\Prob(X\leq x)
 \]
 deve essere letta come abbreviazione di
 \[
-\mathbb{P}(\{\omega\in\Omega:X(\omega)\leq x\}).
+\Prob(\{\omega\in\Omega:X(\omega)\leq x\}).
 \]
 
 
@@ -331,15 +331,15 @@ L'evento $A_{1}$ rappresenta il regime sfavorevole, $A_{2}$ il regime
 intermedio e $A_{3}$ il regime favorevole. La sigma-algebra generata da questa
 partizione \`{e}
 \[
-\mathcal{F}=\sigma(A_{1},A_{2},A_{3}).
+\F=\sigma(A_{1},A_{2},A_{3}).
 \]
 Esplicitamente,
 \[
-\mathcal{F}= \{\varnothing, A_{1},A_{2},A_{3}, A_{1}\cup A_{2},A_{1}\cup
+\F= \{\varnothing, A_{1},A_{2},A_{3}, A_{1}\cup A_{2},A_{1}\cup
 A_{3},A_{2}\cup A_{3}, \Omega\}.
 \]
 In questo modello non tutte le distinzioni tra gli esiti elementari sono
-osservabili attraverso $\mathcal{F}$: gli eventi ammissibili sono le unioni
+osservabili attraverso $\F$: gli eventi ammissibili sono le unioni
 degli elementi della partizione.
 
 Definiamo ora una variabile casuale $X$ che rappresenta il rendimento di un
@@ -381,15 +381,15 @@ L'evento ``rendimento non superiore all'$1\%$'' \`{e}
 _{4}\}.
 \]
 In tutti questi casi la probabilit\`{a} resta formalmente una probabilit\`{a}
-assegnata a eventi appartenenti a $\mathcal{F}$:
+assegnata a eventi appartenenti a $\F$:
 \[
-\mathbb{P}(X<0)=\mathbb{P}(A_{1}),
+\Prob(X<0)=\Prob(A_{1}),
 \]
 \[
-\mathbb{P}(X\geq0.01)=\mathbb{P}(A_{2}\cup A_{3}),
+\Prob(X\geq0.01)=\Prob(A_{2}\cup A_{3}),
 \]
 \[
-\mathbb{P}(X\leq0.01)=\mathbb{P}(A_{1}\cup A_{2}).
+\Prob(X\leq0.01)=\Prob(A_{1}\cup A_{2}).
 \]
 La variabile casuale consente per\`{o} di descrivere tali eventi mediante
 condizioni sui valori numerici del rendimento.
@@ -427,11 +427,11 @@ questo fatto si dimostra che \`{e} necessario e sufficiente che, per ogni
 scelta arbitraria del valore $a\in\mathbf{R}$ negli intervalli di tipo
 $(-\infty,a],$ risulti:%
 \begin{equation}
-X^{-1}((-\infty,a])\in\mathcal{F}.\label{cmisur}%
+X^{-1}((-\infty,a])\in\F.\label{cmisur}%
 \end{equation}
 Se vale la precedente condizione, allora discende anche
 \[
-X^{-1}((a,b])\in\mathcal{F}%
+X^{-1}((a,b])\in\F%
 \]
 per ogni scelta di $a,b$.  In termini generali, una funzione $X:\Omega
 \rightarrow\mathbb{R}$ per cui vale la condizione \ref{cmisur} \`{e} detta
@@ -468,7 +468,7 @@ A_{1}=\{\omega_{1},\omega_{2}\}, \qquad A_{2}=\{\omega_{3},\omega_{4}\},
 \]
 La sigma-algebra considerata \`{e}
 \[
-\mathcal{F}=\sigma(A_{1},A_{2},A_{3}) = \{\varnothing, A_{1},A_{2},A_{3},
+\F=\sigma(A_{1},A_{2},A_{3}) = \{\varnothing, A_{1},A_{2},A_{3},
 A_{1}\cup A_{2},A_{1}\cup A_{3},A_{2}\cup A_{3}, \Omega\}.
 \]
 
@@ -490,7 +490,7 @@ a<-0.04 & \varnothing\\
 a\geq0.06 & \Omega
 \end{array}
 \]
-Ogni insieme nella seconda colonna appartiene a $\mathcal{F}$. La tabella
+Ogni insieme nella seconda colonna appartiene a $\F$. La tabella
 mostra quindi, in modo esplicito, che $X$ \`{e} misurabile rispetto alla
 sigma-algebra considerata.
 
@@ -548,7 +548,7 @@ sia un evento di $\F$. Di conseguenza, la quantit\`{a}
 \paragraph{Variabili indicatrici.}
 
 Un caso particolarmente importante di variabile casuale \`{e} la variabile
-indicatrice di un evento. Se $A\in\mathcal{F}$, si definisce
+indicatrice di un evento. Se $A\in\F$, si definisce
 \[
 \mathbf{1}_{A}(\omega)=
 \begin{cases}
@@ -585,7 +585,7 @@ di default e vincoli probabilistici.
 
 In conclusione, una variabile casuale non sostituisce lo spazio di
 probabilit\`{a}, ma lo utilizza per costruire una descrizione numerica
-dell'incertezza. Lo spazio $(\Omega,\mathcal{F},\mathbb{P})$ resta il
+dell'incertezza. Lo spazio $(\Omega,\F,\Prob)$ resta il
 fondamento formale; la variabile casuale $X$ traduce gli esiti $\omega$ in
 valori reali $X(\omega)$; la distribuzione di $X$, introdotta nella sezione
 successiva, descrive la probabilit\`{a} con cui tali valori possono manifestarsi.
