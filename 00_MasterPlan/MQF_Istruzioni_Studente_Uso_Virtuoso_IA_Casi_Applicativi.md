@@ -369,7 +369,7 @@ Non devi:
 - scrivere codice;
 - modificare la Scheda Caso;
 - introdurre variabili, ipotesi, parametri o output non previsti;
-- anticipare la scomposizione operativa, salvo richiesta esplicita.
+- anticipare le tappe successive.
 
 Devi:
 - segnalare elementi mancanti, ridondanti o fuori ordine;

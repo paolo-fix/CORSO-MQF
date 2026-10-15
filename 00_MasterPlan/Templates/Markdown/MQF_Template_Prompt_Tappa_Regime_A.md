@@ -4,7 +4,12 @@
 
 ## Parte variabile: contributo studente
 
-Sto lavorando sulla Tappa [numero].
+Sto lavorando sulla Tappa [numero] — [titolo della tappa].
+
+Per questa tappa dispongo dei seguenti input:
+- [input 1];
+- [input 2];
+- [ulteriori input].
 
 Secondo me, per questa tappa sono rilevanti i seguenti elementi teorici:
 - [variabili, eventi, distribuzioni, formule o proprietà];

@@ -4,7 +4,7 @@
 
 ## Parte variabile: contributo studente
 
-Sto lavorando sulla Tappa [numero].
+Sto lavorando sulla Tappa [numero] — [titolo della tappa].
 
 Per questa tappa dispongo dei seguenti input:
 - [input 1];
@@ -21,6 +21,9 @@ L'output richiesto è:
 I controlli da includere sono:
 - [controllo 1];
 - [controllo 2].
+
+L'output della tappa sarà utilizzato successivamente per:
+- [uso dell'output nella tappa successiva o nel prodotto finale].
 
 I vincoli da rispettare sono:
 - [vincolo 1];
