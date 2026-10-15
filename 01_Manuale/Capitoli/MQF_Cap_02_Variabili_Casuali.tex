@@ -550,32 +550,32 @@ sia un evento di $\F$. Di conseguenza, la quantit\`{a}
 Un caso particolarmente importante di variabile casuale \`{e} la variabile
 indicatrice di un evento. Se $A\in\F$, si definisce
 \[
-\mathbf{1}_{A}(\omega)=
+\1_{A}(\omega)=
 \begin{cases}
 1, & \mbox{se }\omega\in A,\\
 0, & \mbox{se }\omega\notin A.
 \end{cases}
 \]
-La variabile $\mathbf{1}_{A}$ assume quindi valore $1$ quando l'evento $A$ si
+La variabile $\1_{A}$ assume quindi valore $1$ quando l'evento $A$ si
 verifica e valore $0$ quando l'evento non si verifica.
 
 Nell'esempio del rendimento discreto, l'indicatrice dell'evento di rendimento
 negativo \`{e}
 \[
-\mathbf{1}_{\{X<0\}}=\mathbf{1}_{A_{1}}.
+\1_{\{X<0\}}=\1_{A_{1}}.
 \]
 Essa vale $1$ negli scenari $\omega_{1}$ e $\omega_{2}$, e vale $0$ negli
 altri scenari. Analogamente, l'indicatrice dell'evento di rendimento almeno
 pari all'$1\%$ \`{e}
 \[
-\mathbf{1}_{\{X\geq0.01\}}=\mathbf{1}_{A_{2}\cup A_{3}}.
+\1_{\{X\geq0.01\}}=\1_{A_{2}\cup A_{3}}.
 \]
 
 
 Nelle applicazioni finanziarie, variabili indicatrici di questo tipo compaiono
 frequentemente:
 \[
-\mathbf{1}_{\{R<0\}}, \qquad\mathbf{1}_{\{L>\ell\}}, \qquad\mathbf{1}%
+\1_{\{R<0\}}, \qquad\1_{\{L>\ell\}}, \qquad\1%
 _{\{S_{T}>K\}}.
 \]
 Esse indicano rispettivamente il verificarsi di un rendimento negativo, il
@@ -1705,7 +1705,7 @@ g(S_T)=(S_T-K)^+,
 dove $S_T$ \`{e} il prezzo futuro del sottostante e $K$ \`{e} il prezzo di
 esercizio. Un altro esempio \`{e} l'indicatrice di superamento di una soglia:
 \[
-g(L)=\mathbf{1}_{\{L>\ell\}},
+g(L)=\1_{\{L>\ell\}},
 \]
 che vale $1$ se la perdita $L$ supera la soglia $\ell$ e vale $0$ altrimenti.
 
@@ -1829,17 +1829,17 @@ L'uguaglianza vale per funzioni affini, ma non per funzioni non lineari come
 $(S_T-K)^+$.
 
 \begin{example}[Indicatrice e probabilit\`{a} di un evento]
-Sia $A\in\F$ un evento e sia $\mathbf{1}_A$ la sua variabile indicatrice:
+Sia $A\in\F$ un evento e sia $\1_A$ la sua variabile indicatrice:
 \[
-\mathbf{1}_A(\omega)=
+\1_A(\omega)=
 \begin{cases}
 1, & \mbox{se }\omega\in A,\\
 0, & \mbox{se }\omega\notin A.
 \end{cases}
 \]
-Il valore atteso di $\mathbf{1}_A$ \`{e}
+Il valore atteso di $\1_A$ \`{e}
 \[
-\E[\mathbf{1}_A]
+\E[\1_A]
 =
 1\cdot \Prob(A)+0\cdot \Prob(A^c)
 =
@@ -1850,7 +1850,7 @@ dell'evento indicato.
 
 Ad esempio, se $L$ rappresenta una perdita e $\ell$ una soglia critica, allora
 \[
-\E[\mathbf{1}_{\{L>\ell\}}]
+\E[\1_{\{L>\ell\}}]
 =
 \Prob(L>\ell).
 \]
@@ -1933,9 +1933,9 @@ scegliendo $g(x)=x^2$ si ottiene
 \E[X^2],
 \]
 che sar\`{a} necessario per definire e calcolare la varianza. Scegliendo invece
-$g(x)=\mathbf{1}_{\{x>\ell\}}$ si ottiene una probabilit\`{a} di coda:
+$g(x)=\1_{\{x>\ell\}}$ si ottiene una probabilit\`{a} di coda:
 \[
-\E[\mathbf{1}_{\{X>\ell\}}]
+\E[\1_{\{X>\ell\}}]
 =
 \Prob(X>\ell).
 \]
@@ -2369,7 +2369,7 @@ Il valore atteso e la varianza sono
 In finanza, una variabile di Bernoulli pu\`{o} rappresentare il verificarsi o
 meno di un evento: default/non default, superamento/non superamento di una
 soglia, esercizio/non esercizio di un'opzione digitale. In particolare, se
-$A\in\F$ \`{e} un evento, la variabile indicatrice $\mathbf{1}_A$ ha distribuzione
+$A\in\F$ \`{e} un evento, la variabile indicatrice $\1_A$ ha distribuzione
 di Bernoulli con parametro $\Prob(A)$.
 
 \subsection{Distribuzione binomiale}
@@ -3196,7 +3196,7 @@ H_2=(95-S_T)^+,
 \]
 e
 \[
-H_3=\mathbf{1}_{\{S_T>110\}}.
+H_3=\1_{\{S_T>110\}}.
 \]
 Si calcolino $\E[H_1]$, $\E[H_2]$, $\E[H_3]$ e si confrontino
 \[
@@ -3220,7 +3220,7 @@ s & 72 & 88 & 100 & 115 & 140\\
 \hline
 H_1=(s-100)^+ & 0 & 0 & 0 & 15 & 40\\
 H_2=(95-s)^+ & 23 & 7 & 0 & 0 & 0\\
-H_3=\mathbf{1}_{\{s>110\}} & 0 & 0 & 0 & 1 & 1
+H_3=\1_{\{s>110\}} & 0 & 0 & 0 & 1 & 1
 \end{array}
 \]
 Il valore atteso del payoff call $H_1$ \`{e}
@@ -3827,7 +3827,7 @@ H_2=(95-S_T)^+,
 \]
 e
 \[
-H_3=\mathbf{1}_{\{S_T>125\}}.
+H_3=\1_{\{S_T>125\}}.
 \]
 Calcolare
 \[
@@ -3870,7 +3870,7 @@ Calcolare
 \[
 \Prob(R<\tau),
 \qquad
-\E[\mathbf{1}_{\{R<\tau\}}],
+\E[\1_{\{R<\tau\}}],
 \qquad
 \E[G].
 \]
@@ -4171,7 +4171,7 @@ Si ha
 \[
 \Prob(R<\tau)=0.45,
 \qquad
-\E[\mathbf{1}_{\{R<\tau\}}]=0.45.
+\E[\1_{\{R<\tau\}}]=0.45.
 \]
 Lo shortfall atteso \`{e}
 \[

@@ -2,7 +2,7 @@
 
 Devo risolvere un caso dell'insegnamento **Metodi Quantitativi per la Finanza**, destinato a studenti del secondo anno del Corso di Laurea Magistrale in *Finanza e Risk Management*.
 
-L’obiettivo del lavoro non è imparare Python come contenuto autonomo, ma usare Python e l'Intelligenza Artificiale (AI) per rendere osservabili, simulabili e verificabili concetti quantitativi applicati alla finanza.
+L’obiettivo del lavoro non è imparare Python come contenuto autonomo, ma usare Python e l'Intelligenza Artificiale (IA) per rendere osservabili, simulabili e verificabili concetti quantitativi applicati alla finanza.
 
 Il caso specifico sarà fornito in un prompt successivo. **Per ora non devi fare alcuna ipotesi** sul contenuto del caso, sul modello, sulle variabili, sui dati, sugli scenari, sui parametri o sugli output.
 
@@ -22,7 +22,7 @@ Il lavoro dovrà essere sviluppato in modo ordinato attraverso le seguenti 9 fas
    **Produzione degli output numerici e grafici**
    **Controlli numerici, logici e interpretativi**
 8. **Interpretazione critica** (validazione e commento conclusivo dei risultati)
-9. **Redazione del tracciato AI**
+9. **Redazione del tracciato IA**
 -->
 | Fase | Attività | Riferimento o descrizione |
 |---:|---|---|
@@ -73,7 +73,7 @@ Puoi aiutarmi a revisionare controlli, risultati e interpretazioni che io abbia 
 ## Distinzione dei Prodotti Output
 Nel corso del lavoro, dovrai aiutarmi a distinguere chiaramente:
 
-* **Tracciato AI:** Documento che registra prompt, risposte utilizzate, decisioni dello studente, controlli e collegamenti tra le tappe.
+* **Tracciato IA:** Documento che registra prompt, risposte utilizzate, decisioni dello studente, controlli e collegamenti tra le tappe.
 * **Notebook:** Prodotto computazionale validato, strutturato con celle Markdown, celle codice, output numerici, grafici, controlli e interpretazioni.
 
 ---

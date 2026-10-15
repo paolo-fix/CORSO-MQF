@@ -97,9 +97,9 @@ La struttura operativa del corso e' la seguente.
 
 | Lezione | Tipo | Titolo definitivo | Tema centrale |
 |---:|:---:|---|---|
-| 1 | P | Elementi di probabilita' | Spazio di probabilita', eventi, probabilita' condizionata |
-| 2 | P | Variabili casuali | Variabili casuali, distribuzioni, momenti, quantili |
-| 3 | P | Valori attesi condizionati | Condizionamento, partizioni, informazione |
+| 1 | P | Elementi di teoria della probabilita' | Spazio di probabilita', eventi, probabilita' condizionata |
+| 2 | P | Variabili casuali e distribuzioni | Variabili casuali, distribuzioni, momenti, quantili |
+| 3 | P | Valori attesi condizionati e informazione | Condizionamento, partizioni, informazione |
 | 4 | C | Applicazione in Python: probabilita', variabili casuali, valori attesi condizionati | Simulazione, distribuzioni empiriche, momenti, quantili, valori attesi condizionati |
 | 5 | P | Processi stocastici in tempo discreto | Processi, traiettorie, scenari, filtrazioni, adattabilita', martingale |
 | 6 | P | Processi stocastici in tempo continuo | Moto browniano, diffusioni, GBM, OU, CIR, correlazione, discretizzazione |

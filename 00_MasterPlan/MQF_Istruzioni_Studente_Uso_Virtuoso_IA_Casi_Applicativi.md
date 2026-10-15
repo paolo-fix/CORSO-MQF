@@ -244,7 +244,7 @@ Output o controllo collegato.
 
 ## 9. Prompt 3 — Scomposizione in tappe input-output
 
-Il Prompt 3 è obbligatorio ed è in Regime A.
+Il Prompt 3 è obbligatorio e opera in Regime A/B: parte dal Flusso logico-teorico già validato e lo traduce in una scomposizione operativa delle tappe, senza sviluppare ancora il codice delle singole tappe.
 
 Serve a trasformare il Flusso logico-teorico in una sequenza operativa di tappe.
 
@@ -255,7 +255,7 @@ La risposta dell'IA a questo prompt (titolo, tabella con scomposizione in tappe)
 ### Esempio di prompt virtuoso
 
 <pre class="prompt-docente">
-Regime A — Ricognizione teorico-modellistica.
+Regime A/B — Scomposizione input-output.
 
 Ho costruito il Flusso logico-teorico risolutivo e devo trasformarlo in tappe operative.
 

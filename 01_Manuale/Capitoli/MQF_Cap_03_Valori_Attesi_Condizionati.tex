@@ -554,14 +554,14 @@ modifica la densit\`{a} rispetto alla quale si calcola l'integrale.
 
 Una rappresentazione compatta, valida per ogni variabile casuale integrabile,
 \`{e} ottenuta mediante la funzione indicatrice dell'evento $A$. Poich\'{e}
-$X\mathbf{1}_{A}$ coincide con $X$ sugli scenari appartenenti ad $A$ ed
+$X\1_{A}$ coincide con $X$ sugli scenari appartenenti ad $A$ ed
 \`{e} uguale a zero fuori da $A$, si ha:
 
 \[
 \E[X\mid A]
 =
 \frac{
-\E[X\mathbf{1}_{A}]
+\E[X\1_{A}]
 }{
 \Prob(A)
 }.
@@ -575,7 +575,7 @@ contributo rispetto alla probabilit\`{a} dell'evento $A$.
 Nel caso finito:
 
 \[
-\E[X\mathbf{1}_{A}]
+\E[X\1_{A}]
 =
 \sum_{\omega\in A}
 X(\omega)\Prob(\{\omega\}).
@@ -650,7 +650,7 @@ Dalla formula con la funzione indicatrice si ha:
 \[
 \E[X\mid B_i]
 =
-\frac{\E[X\mathbf{1}_{B_i}]}{\Prob(B_i)}.
+\frac{\E[X\1_{B_i}]}{\Prob(B_i)}.
 \]
 
 Moltiplicando entrambi i membri per $\Prob(B_i)$ si ottiene:
@@ -658,7 +658,7 @@ Moltiplicando entrambi i membri per $\Prob(B_i)$ si ottiene:
 \[
 \E[X\mid B_i]\Prob(B_i)
 =
-\E[X\mathbf{1}_{B_i}].
+\E[X\1_{B_i}].
 \]
 
 Sommando rispetto a $i$:
@@ -668,31 +668,31 @@ Sommando rispetto a $i$:
 \E[X\mid B_i]\Prob(B_i)
 =
 \sum_{i=1}^{n}
-\E[X\mathbf{1}_{B_i}].
+\E[X\1_{B_i}].
 \]
 
 Per linearit\`{a} del valore atteso:
 
 \[
 \sum_{i=1}^{n}
-\E[X\mathbf{1}_{B_i}]
+\E[X\1_{B_i}]
 =
 \E\left[
-X\sum_{i=1}^{n}\mathbf{1}_{B_i}
+X\sum_{i=1}^{n}\1_{B_i}
 \right].
 \]
 
 Poich\'{e} gli eventi $B_1,\ldots,B_n$ formano una partizione di $\Omega$, si ha:
 
 \[
-\sum_{i=1}^{n}\mathbf{1}_{B_i}=\mathbf{1}_{\Omega}=1.
+\sum_{i=1}^{n}\1_{B_i}=\1_{\Omega}=1.
 \]
 
 Pertanto:
 
 \[
 \E\left[
-X\sum_{i=1}^{n}\mathbf{1}_{B_i}
+X\sum_{i=1}^{n}\1_{B_i}
 \right]
 =
 \E[X].
@@ -912,7 +912,7 @@ Pertanto, se $\G=\sigma(B_1,\ldots,B_n)$, una variabile casuale osservabile risp
 Y
 =
 \sum_{i=1}^{n}
-y_i\mathbf{1}_{B_i},
+y_i\1_{B_i},
 \]
 
 dove $y_i$ \`{e} il valore assunto da $Y$ quando l'informazione osservata \`{e} il blocco $B_i$.
@@ -975,7 +975,7 @@ partizione, il valore atteso condizionato rispetto all'evento $B_i$ \`{e} il
 \[
 \E[X\mid B_i]
 =
-\frac{\E[X\mathbf{1}_{B_i}]}{\Prob(B_i)}.
+\frac{\E[X\1_{B_i}]}{\Prob(B_i)}.
 \]
 
 Il valore atteso condizionato di $X$ rispetto alla sigma-algebra
@@ -984,7 +984,7 @@ $\G$ \`{e} invece la \textbf{variabile casuale}:
 \E[X\mid\G]
 =
 \sum_{i=1}^{n}
-\E[X\mid B_i]\mathbf{1}_{B_i}.
+\E[X\mid B_i]\1_{B_i}.
 \]
 
 Questa variabile casuale \`{e} costante su ciascun atomo di $\G$.
@@ -1006,9 +1006,9 @@ casuale $Z$ \`{e} una versione di $\E[X\mid\G]$ se:
 
     \item per ogni evento $C\in\G$ vale:
     \[
-    \E[Z\mathbf{1}_C]
+    \E[Z\1_C]
     =
-    \E[X\mathbf{1}_C].
+    \E[X\1_C].
     \]
 \end{enumerate}
 
@@ -1116,11 +1116,11 @@ $\G$ \`{e}:
 \[
 \E[H\mid\G]
 =
-118\,\mathbf{1}_{B_1}
+118\,\1_{B_1}
 +
-91.111\,\mathbf{1}_{B_2}
+91.111\,\1_{B_2}
 +
-62\,\mathbf{1}_{B_3}.
+62\,\1_{B_3}.
 \]
 
 In forma tabellare:
@@ -1362,9 +1362,9 @@ $\varphi(X)$ sono integrabili, allora:
 \E[\varphi(X)\mid\G].
 \]
 
-Questa \`{e} la disuguaglianza condizionata di Jensen. Essa estende al caso
-condizionato la disuguaglianza di Jensen gi\`{a} nota per il valore atteso non
-condizionato:
+Questa \`{e} la disuguaglianza condizionata di Jensen. Essa costituisce la
+versione condizionata della corrispondente disuguaglianza per il valore atteso
+non condizionato:
 \[
 \varphi\left(\E[X]\right)
 \leq
@@ -1462,7 +1462,7 @@ essere costante su ciascun evento della partizione. Essa ha quindi la forma:
 Y
 =
 \sum_{i=1}^{n}
-y_i\mathbf{1}_{B_i},
+y_i\1_{B_i},
 \]
 dove $y_i$ \`{e} il valore previsto quando si osserva l'evento $B_i$.
 
@@ -1487,7 +1487,7 @@ Data una previsione $Y$, l'errore quadratico medio \`{e}:
 
 La migliore previsione di $X$ basata sull'informazione $\G$ \`{e}
 quella che rende minimo questo errore tra tutte le variabili casuali
-$\G$-misurabili.
+$\G$-misurabili e quadrato-integrabili.
 
 Il risultato fondamentale \`{e} che tale previsione \`{e} proprio il valore
 atteso condizionato:
@@ -1511,7 +1511,7 @@ forma:
 Y
 =
 \sum_{i=1}^{n}
-y_i\mathbf{1}_{B_i}.
+y_i\1_{B_i}.
 \]
 
 La scelta migliore \`{e} assegnare a ciascun evento $B_i$ della partizione la
@@ -1527,7 +1527,7 @@ Pertanto:
 Y^*
 =
 \sum_{i=1}^{n}
-\E[X\mid B_i]\mathbf{1}_{B_i}
+\E[X\mid B_i]\1_{B_i}
 =
 \E[X\mid\G].
 \]
@@ -1558,11 +1558,11 @@ diversi, uno per ciascun esito elementare. Deve invece avere la forma:
 \[
 Y
 =
-y_1\mathbf{1}_{B_1}
+y_1\1_{B_1}
 +
-y_2\mathbf{1}_{B_2}
+y_2\1_{B_2}
 +
-y_3\mathbf{1}_{B_3}.
+y_3\1_{B_3}.
 \]
 
 La scelta coerente con il criterio dell'errore quadratico medio \`{e}:
@@ -1578,11 +1578,11 @@ Quindi:
 \[
 \E[H\mid\G]
 =
-118\,\mathbf{1}_{B_1}
+118\,\1_{B_1}
 +
-91.111\,\mathbf{1}_{B_2}
+91.111\,\1_{B_2}
 +
-62\,\mathbf{1}_{B_3}.
+62\,\1_{B_3}.
 \]
 
 Il valore atteso condizionato \`{e} dunque la migliore previsione del payoff
@@ -1723,11 +1723,11 @@ $\G$ \`{e}:
 \[
 \E[H\mid\G]
 =
-118\,\mathbf{1}_{B_1}
+118\,\1_{B_1}
 +
-91.111\,\mathbf{1}_{B_2}
+91.111\,\1_{B_2}
 +
-62\,\mathbf{1}_{B_3}.
+62\,\1_{B_3}.
 \]
 
 Questa variabile casuale rappresenta la previsione del payoff dopo
@@ -1831,9 +1831,9 @@ partizione finita, si ha:
 \[
 \E[H\mid\mathcal{H}]
 =
-\E[H\mid B_1\cup B_2]\mathbf{1}_{B_1\cup B_2}
+\E[H\mid B_1\cup B_2]\1_{B_1\cup B_2}
 +
-\E[H\mid B_3]\mathbf{1}_{B_3}.
+\E[H\mid B_3]\1_{B_3}.
 \]
 
 Calcoliamo ora i due valori condizionati. La probabilit\`{a} dell'evento
@@ -1889,9 +1889,9 @@ Pertanto:
 \[
 \E[H\mid\mathcal{H}]
 =
-100.714\,\mathbf{1}_{B_1\cup B_2}
+100.714\,\1_{B_1\cup B_2}
 +
-62\,\mathbf{1}_{B_3}.
+62\,\1_{B_3}.
 \]
 
 Questa variabile casuale assume valore $100.714$ sugli esiti elementari
@@ -1904,11 +1904,11 @@ previsione distingue tre stati di mercato:
 \[
 \E[H\mid\G]
 =
-118\,\mathbf{1}_{B_1}
+118\,\1_{B_1}
 +
-91.111\,\mathbf{1}_{B_2}
+91.111\,\1_{B_2}
 +
-62\,\mathbf{1}_{B_3}.
+62\,\1_{B_3}.
 \]
 
 Rispetto alla sigma-algebra pi\`{u} grossolana $\mathcal{H}$, gli eventi
@@ -1917,9 +1917,9 @@ valori:
 \[
 \E[H\mid\mathcal{H}]
 =
-100.714\,\mathbf{1}_{B_1\cup B_2}
+100.714\,\1_{B_1\cup B_2}
 +
-62\,\mathbf{1}_{B_3}.
+62\,\1_{B_3}.
 \]
 
 Il valore $100.714$ non \`{e} un valore assunto da
@@ -2109,11 +2109,11 @@ Pertanto:
 \[
 \E[L\mid\G]
 =
-3.20\,\mathbf{1}_{B_1}
+3.20\,\1_{B_1}
 +
-8.222\,\mathbf{1}_{B_2}
+8.222\,\1_{B_2}
 +
-26\,\mathbf{1}_{B_3}.
+26\,\1_{B_3}.
 \]
 
 Questa variabile casuale rappresenta la previsione della perdita coerente con
@@ -2472,11 +2472,11 @@ invece:
 \[
 \E[H\mid\G]
 =
-118\,\mathbf{1}_{B_1}
+118\,\1_{B_1}
 +
-91.111\,\mathbf{1}_{B_2}
+91.111\,\1_{B_2}
 +
-62\,\mathbf{1}_{B_3}.
+62\,\1_{B_3}.
 \]
 La figura mostra quindi che $\E[H\mid\G]$ non distingue tutti
 gli esiti elementari, ma assume un valore costante su ciascun atomo della
@@ -2513,11 +2513,11 @@ $B_1$, $B_2$ e $B_3$:
 \[
 \E[H\mid\G]
 =
-118\,\mathbf{1}_{B_1}
+118\,\1_{B_1}
 +
-91.111\,\mathbf{1}_{B_2}
+91.111\,\1_{B_2}
 +
-62\,\mathbf{1}_{B_3}.
+62\,\1_{B_3}.
 \]
 
 Rispetto alla sigma-algebra pi\`{u} grossolana $\mathcal{H}$, gli eventi
@@ -2525,9 +2525,9 @@ $B_1$ e $B_2$ non sono pi\`{u} distinti. Il valore atteso condizionato diventa:
 \[
 \E[H\mid\mathcal{H}]
 =
-100.714\,\mathbf{1}_{B_1\cup B_2}
+100.714\,\1_{B_1\cup B_2}
 +
-62\,\mathbf{1}_{B_3}.
+62\,\1_{B_3}.
 \]
 
 La figura chiarisce che il valore $100.714$ non \`{e} un valore assunto da
@@ -3234,11 +3234,11 @@ quindi:
 \[
 \E[H\mid\G]
 =
-100.8\,\mathbf{1}_{B_1}
+100.8\,\1_{B_1}
 +
-81\,\mathbf{1}_{B_2}
+81\,\1_{B_2}
 +
-33.333\,\mathbf{1}_{B_3}.
+33.333\,\1_{B_3}.
 \]
 
 Questa variabile casuale assume il valore $100.8$ negli scenari appartenenti
@@ -3530,11 +3530,11 @@ Pertanto:
 \[
 \E[X\mid\G]
 =
-100\,\mathbf{1}_{B_1}
+100\,\1_{B_1}
 +
-50\,\mathbf{1}_{B_2}
+50\,\1_{B_2}
 -
-20\,\mathbf{1}_{B_3}.
+20\,\1_{B_3}.
 \]
 
 Consideriamo ora la sigma-algebra pi\`{u} grossolana $\mathcal{H}$. I suoi
@@ -3604,9 +3604,9 @@ Quindi:
 \[
 \E[X\mid\mathcal{H}]
 =
-75\,\mathbf{1}_{C_1}
+75\,\1_{C_1}
 -
-20\,\mathbf{1}_{C_2}.
+20\,\1_{C_2}.
 \]
 
 Calcoliamo ora il valore atteso condizionato iterato. Poniamo:
@@ -3615,11 +3615,11 @@ Y
 =
 \E[X\mid\G]
 =
-100\,\mathbf{1}_{B_1}
+100\,\1_{B_1}
 +
-50\,\mathbf{1}_{B_2}
+50\,\1_{B_2}
 -
-20\,\mathbf{1}_{B_3}.
+20\,\1_{B_3}.
 \]
 
 Dobbiamo calcolare:
@@ -3673,9 +3673,9 @@ Pertanto:
 \mathcal{H}
 \right]
 =
-75\,\mathbf{1}_{C_1}
+75\,\1_{C_1}
 -
-20\,\mathbf{1}_{C_2}.
+20\,\1_{C_2}.
 \]
 
 Ma questo coincide con il valore atteso condizionato rispetto a
@@ -3683,9 +3683,9 @@ $\mathcal{H}$:
 \[
 \E[X\mid\mathcal{H}]
 =
-75\,\mathbf{1}_{C_1}
+75\,\1_{C_1}
 -
-20\,\mathbf{1}_{C_2}.
+20\,\1_{C_2}.
 \]
 
 Abbiamo quindi verificato che:
@@ -4112,7 +4112,7 @@ oppure, in forma equivalente:
 \[
 \E[X\mid A]
 =
-\frac{\E[X\mathbf{1}_A]}{\Prob(A)}.
+\frac{\E[X\1_A]}{\Prob(A)}.
 \]
 
 La formula del valore atteso totale mostra come la media non condizionata
@@ -4140,7 +4140,7 @@ variabile casuale:
 \E[X\mid\G]
 =
 \sum_{i=1}^{n}
-\E[X\mid B_i]\mathbf{1}_{B_i}.
+\E[X\mid B_i]\1_{B_i}.
 \]
 
 Questa variabile casuale \`{e} costante sugli atomi della sigma-algebra e
@@ -4154,10 +4154,10 @@ $\G$-misurabile e deve avere la stessa media di $X$ su ogni evento
 osservabile $C\in\G$:
 \[
 \E\left[
-\E[X\mid\G]\mathbf{1}_C
+\E[X\mid\G]\1_C
 \right]
 =
-\E[X\mathbf{1}_C].
+\E[X\1_C].
 \]
 
 Il capitolo ha poi richiamato sei regole operative fondamentali: linearit\`{a},

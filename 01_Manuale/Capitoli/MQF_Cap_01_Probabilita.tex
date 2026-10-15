@@ -325,7 +325,7 @@ lungo l'orizzonte temporale considerato.
 
 \section{Operazioni sugli eventi}
 
-Siano $A,B\subseteq\Omega$ due eventi.
+Siano $A$ e $B$ due eventi del modello probabilistico.
 
 L'\textit{unione}
 \[
@@ -386,7 +386,14 @@ dall'evento ottenuto unendo gli eventi che la compongono:
 \[
 \mathcal{A}\neq \bigcup_{i\in I}A_i.
 \]
-La famiglia \(\mathcal{A}\) \`{e} un insieme i cui elementi sono eventi, ma non \`{e} un evento; l'unione \(\bigcup_{i\in I}A_i\), invece, \`{e} un sottoinsieme di \(\Omega\), e quindi \`{e} un evento. 
+La famiglia \(\mathcal{A}\) \`{e} un insieme i cui elementi sono eventi, ma non
+\`{e} un evento; l'unione \(\bigcup_{i\in I}A_i\), invece, \`{e} un
+sottoinsieme di \(\Omega\). Affinch\'{e} tale sottoinsieme sia un evento del
+modello, deve appartenere alla famiglia degli eventi considerati. La
+$\sigma$-algebra, introdotta tra breve, formalizzer\`{a} precisamente questa
+condizione di chiusura.
+
+%La famiglia \(\mathcal{A}\) \`{e} un insieme i cui elementi sono eventi, ma non \`{e} un evento; l'unione \(\bigcup_{i\in I}A_i\), invece, \`{e} un sottoinsieme di \(\Omega\), e quindi \`{e} un evento. 
 
 \begin{example}
 Sia
@@ -423,20 +430,40 @@ A_i\subseteq\Omega,
 \bigcup_{i\in I}A_i\subseteq\Omega.
 \]
 Le famiglie di eventi permettono di descrivere in modo compatto classi di eventi, operazioni collettive e strutture logiche. 
-Per esempio, data una famiglia \(\{A_i:i\in I\}\), l'evento
+Per esempio, data una famiglia finita o numerabile di eventi
+\(\{A_i\}\), quando tali eventi appartengono alla stessa $\sigma$-algebra,
+anche la loro unione
 \[
-\bigcup_{i\in I}A_i
+\bigcup_i A_i
 \]
-rappresenta il verificarsi di almeno uno degli eventi \(A_i\), mentre
+\`{e} un evento e rappresenta il verificarsi di almeno uno degli eventi
+\(A_i\), mentre
 \[
-\bigcap_{i\in I}A_i
+\bigcap_i A_i
 \]
-rappresenta il verificarsi simultaneo di tutti gli eventi della famiglia. 
-Analogamente,
+\`{e} un evento e rappresenta il verificarsi simultaneo di tutti gli eventi
+della famiglia. Analogamente,
 \[
-\left(\bigcup_{i\in I}A_i\right)^c
+\left(\bigcup_i A_i\right)^c
 \]
 rappresenta l'evento in cui nessuno degli eventi \(A_i\) si verifica.
+
+
+
+% Per esempio, data una famiglia \(\{A_i:i\in I\}\), l'evento
+% \[
+% \bigcup_{i\in I}A_i
+% \]
+% rappresenta il verificarsi di almeno uno degli eventi \(A_i\), mentre
+% \[
+% \bigcap_{i\in I}A_i
+% \]
+% rappresenta il verificarsi simultaneo di tutti gli eventi della famiglia. 
+% Analogamente,
+% \[
+% \left(\bigcup_{i\in I}A_i\right)^c
+% \]
+% rappresenta l'evento in cui nessuno degli eventi \(A_i\) si verifica.
 
 \subsection{Partizione di $\Omega$}
 Una importante famiglia di eventi \`{e} la \textbf{partizione di $\Omega$}.
@@ -496,10 +523,10 @@ esiti $\Omega$ che sia suddiviso mediante una partizione finita
 \mathcal{A}=\{A_1,\ldots,A_m\},
 \]
 i cui eventi rappresentano gli eventi elementari rilevanti per il
-problema. A partire dalla partizione $\mathcal{A}$ si pu\`{o} costruire in modo naturale
-una e una sola $\sigma$-algebra $\F$ generata dalla partizione. Essa
-\`{e} l'unica $\sigma$-algebra che contiene tutti gli elementi della
-partizione.
+problema. A partire dalla partizione $\mathcal{A}$, si pu\`{o} costruire in modo naturale
+la $\sigma$-algebra generata dalla partizione, indicata con
+$\sigma(\mathcal{A})$. Essa \`{e} la pi\`{u} piccola $\sigma$-algebra che
+contiene tutti gli elementi della partizione.
 
 La costruzione della $\sigma$-algebra pu\`{o} essere descritta in modo iterativo:
 
@@ -531,6 +558,34 @@ si prendono nuovamente i complementari e le unioni degli insiemi ora disponibili
 
 La collezione finale cos\`{\i} ottenuta contiene $\emptyset$ e $\Omega$, \`{e}
 chiusa rispetto al complementare ed \`{e} chiusa rispetto all'unione.  Indichiamo questa $\sigma$-algebra $\F=\sigma(\mathcal{A})$.
+
+Un caso particolare importante si verifica quando $\Omega$ \`{e} finito e la
+partizione \`{e} formata da tutti i singleton:
+\[
+\mathcal{A}
+=
+\big\{
+\{\omega\}:\omega\in\Omega
+\big\}.
+\]
+
+In questo caso, ogni sottoinsieme di $\Omega$ pu\`{o} essere ottenuto come
+unione di alcuni singleton della partizione. Pertanto:
+\[
+\sigma(\mathcal{A})
+=
+\mathcal{P}(\Omega),
+\]
+dove $\mathcal{P}(\Omega)$ denota l'insieme delle parti di $\Omega$.
+
+La $\sigma$-algebra $\mathcal{P}(\Omega)$ rappresenta quindi, nel caso finito,
+il livello informativo massimo: ogni sottoinsieme di $\Omega$ \`{e} un evento
+del modello.
+
+Questa identificazione utilizza il fatto che $\Omega$ sia finito. In spazi
+campionari pi\`{u} generali, la $\sigma$-algebra generata dai singleton non
+coincide necessariamente con l'intero insieme delle parti.
+
 
 \paragraph*{Raffinamento di una partizione.}
 Ai fini dei capitoli successivi, \`{e} importante osservare che una

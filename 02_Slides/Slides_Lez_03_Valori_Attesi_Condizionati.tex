@@ -44,7 +44,7 @@
 \providecommand{\F}{\mathcal{F}}
 \providecommand{\B}{\mathcal{B}}
 \providecommand{\G}{\mathcal{G}}
-\providecommand{\1}{\mathbf{1}}
+\providecommand{\1}{\1}
 \providecommand{\Var}{\operatorname{Var}}
 \providecommand{\Cov}{\operatorname{Cov}}
 \providecommand{\VaR}{\operatorname{VaR}}
@@ -67,7 +67,7 @@
 %EndMSIPreambleData
 
 
-\title{Lezione 3 - Valori attesi condizionati}
+\title{Lezione 3 - Valori attesi condizionati e informazione}
 \subtitle{Metodi Quantitativi per la Finanza}
 \author[P. Falbo, C. Pelizzari]{{\LARGE Paolo Falbo, Cristian Pelizzari}}
 \institute[]{{\large Dipartimento di Economia e Management}}
@@ -411,15 +411,15 @@ Il valore atteso condizionato di $X$ dato $A$ pu\`{o} essere scritto come:
 \[
 \E[X\mid A]
 =
-\frac{\E[X\mathbf{1}_{A}]}{\Prob(A)}.
+\frac{\E[X\1_{A}]}{\Prob(A)}.
 \]
 
 \medskip
 
 \begin{stepitemize}
-\item $\mathbf{1}_{A}$ seleziona gli scenari in cui l'evento $A$ si verifica.
+\item $\1_{A}$ seleziona gli scenari in cui l'evento $A$ si verifica.
 
-\item $\E[X\mathbf{1}_{A}]$ somma il contributo di $X$ solo sugli scenari
+\item $\E[X\1_{A}]$ somma il contributo di $X$ solo sugli scenari
 compatibili con $A$.
 
 \item La divisione per $\Prob(A)$ normalizza la media rispetto alla
@@ -704,7 +704,7 @@ $\G$ \`{e} la variabile casuale
 \[
 \E[X\mid\G]
 =
-\sum_{i=1}^{n}\E[X\mid B_i]\mathbf{1}_{B_i}.
+\sum_{i=1}^{n}\E[X\mid B_i]\1_{B_i}.
 \]
 
 \medskip
@@ -780,11 +780,11 @@ La variabile casuale condizionata \`{e} quindi:
 \[
 \E[H\mid\G]
 =
-118\,\mathbf{1}_{B_1}
+118\,\1_{B_1}
 +
-91.111\,\mathbf{1}_{B_2}
+91.111\,\1_{B_2}
 +
-62\,\mathbf{1}_{B_3}.
+62\,\1_{B_3}.
 \]
 
 \medskip
@@ -973,7 +973,7 @@ abbiamo costruito il valore atteso condizionato come
 \[
 \E[X\mid\G]
 =
-\sum_{i=1}^{n}\E[X\mid B_i]\mathbf{1}_{B_i}.
+\sum_{i=1}^{n}\E[X\mid B_i]\1_{B_i}.
 \]
 
 \medskip
@@ -991,9 +991,9 @@ Una variabile casuale $Z$ \`{e} una versione di $\E[X\mid\G]$ se:
 
 \item [2.] per ogni evento $C\in\G$,
 \[
-\E[Z\mathbf{1}_C]
+\E[Z\1_C]
 =
-\E[X\mathbf{1}_C].
+\E[X\1_C].
 \]
 
 \end{stepenumerate}
@@ -1169,7 +1169,8 @@ le previsioni ammissibili $Y$:
 \begin{stepitemize}
  
 \item Una previsione $Y$ \`{e} \textbf{ammissibile} se \`{e}
-$\G$-misurabile: non pu\`{o} usare informazione che $\G$ non contiene.
+$\G$-misurabile e quadrato-integrabile: non pu\`{o} usare informazione che
+$\G$ non contiene e deve avere errore quadratico medio finito.
  
 \item L'errore quadratico medio misura quanto $Y$ si discosta da $X$
 in media, su tutti gli scenari.
@@ -1374,7 +1375,7 @@ A = \{\omega_6, \omega_7\}, \qquad \Prob(A) = 0.18 + 0.12 = 0.30.
  
 La perdita attesa condizionata allo stress \`{e}:
 \[
-\E[L \mid A] = \frac{\E[L\,\mathbf{1}_A]}{\Prob(A)} = \frac{0.18\cdot20 + 0.12\cdot35}{0.30} = \frac{7.80}{0.30} = 26.
+\E[L \mid A] = \frac{\E[L\,\1_A]}{\Prob(A)} = \frac{0.18\cdot20 + 0.12\cdot35}{0.30} = \frac{7.80}{0.30} = 26.
 \]
  
 \medskip
@@ -1437,7 +1438,7 @@ I valori attesi condizionati della perdita sui tre blocchi sono:
  
 Il valore atteso condizionato rispetto a $\G = \sigma(B_1,B_2,B_3)$ \`{e}:
 \[
-\E[L\mid\G] = 3.20\,\mathbf{1}_{B_1} + 8.22\,\mathbf{1}_{B_2} + 26\,\mathbf{1}_{B_3}.
+\E[L\mid\G] = 3.20\,\1_{B_1} + 8.22\,\1_{B_2} + 26\,\1_{B_3}.
 \]
  
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
@@ -1539,7 +1540,7 @@ Gli atomi di $\mathcal{H}$ sono $B_1\cup B_2$ e $B_3$, con $\Prob(B_1\cup B_2)=0
  
 \item La previsione rispetto a $\mathcal{H}$ \`{e}:
 \[
-\E[L\mid\mathcal{H}] = 6.43\,\mathbf{1}_{B_1\cup B_2} + 26\,\mathbf{1}_{B_3}.
+\E[L\mid\mathcal{H}] = 6.43\,\1_{B_1\cup B_2} + 26\,\1_{B_3}.
 \]
  
 \item Con $\G$ si distinguono tre stati; con $\mathcal{H}$ solo due. Meno informazione produce una previsione meno dettagliata.
