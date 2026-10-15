@@ -1543,6 +1543,9 @@ Lo studente può chiedere supporto per distinguere:
 
 L'IA non deve risolvere il problema, scegliere autonomamente il modello finale o produrre direttamente la soluzione matematica completa. In questo regime, l'autonomia dello studente riguarda la costruzione del significato matematico del problema. L'IA può proporre una mappa concettuale, ma lo studente deve validarla, correggerla e trasformarla in una specifica teorica coerente.
 
+Il Regime A non prevede la produzione di codice Python. Può includere piccoli calcoli o esempi numerici quando servono a chiarire una proprietà teorica, una formula, o una quantità del caso, ma la traduzione della specifica teorica in codice appartiene al Regime B.
+
+
 Formula guida del Regime A:
 
 > Aiutami a riconoscere gli oggetti teorici del problema, senza risolverlo.
