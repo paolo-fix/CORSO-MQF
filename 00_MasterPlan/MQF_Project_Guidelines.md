@@ -85,9 +85,8 @@ Il progetto prevede la costruzione dei seguenti prodotti finali:
 2. le slides delle 16 lezioni;
 3. un insieme di esercizi teorici e numerici da svolgere in aula;
 4. cinque applicazioni Python coerenti con la nuova architettura del corso;
-5. un registro dei grafici didattici;
-6. un documento autonomo di notazione matematica;
-7. eventuali materiali ausiliari, quali soluzioni degli esercizi, template LaTeX, script Python, notebook, dataset e figure.
+5. un documento autonomo di notazione matematica;
+6. eventuali materiali ausiliari, quali soluzioni degli esercizi, template LaTeX, script Python, notebook, dataset e figure.
 
 I materiali devono essere progettati in modo modulare, così da consentire lo sviluppo separato di singole lezioni, capitoli, slides o applicazioni computazionali senza perdere coerenza complessiva.
 
