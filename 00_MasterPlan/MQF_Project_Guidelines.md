@@ -67,7 +67,7 @@ Il corso deve seguire una progressione logica fondata sui seguenti passaggi conc
 
 Questa progressione deve orientare la scrittura del manuale, delle slides, degli esercizi e delle applicazioni Python. In particolare, le lezioni iniziali di probabilità non devono essere presentate come un richiamo isolato, ma come la base necessaria per i modelli finanziari successivi.
 
-Il modello binomiale non costituisce più una lezione applicativa autonoma di pricing. Deve essere utilizzato, quando utile, come esempio strutturale di processo in tempo discreto, filtrazione, adattabilità e martingala.
+Il modello binomiale non costituisce più una lezione applicativa autonoma di pricing. Deve essere utilizzato, quando utile, come esempio strutturale di processo in tempo discreto, filtrazione, adattabilità e martingala e come primo raccordo elementare tra martingale, assenza di arbitraggio e valutazione risk-neutral, senza sviluppare un modulo autonomo di pricing dei derivati.
 
 La dualità nella programmazione lineare non scompare dal corso, ma viene ricondotta alla lezione introduttiva di programmazione lineare come contenuto essenziale per l'interpretazione economica dei vincoli e dei prezzi ombra. Non costituisce più una lezione autonoma.
 
@@ -472,8 +472,10 @@ La distribuzione corretta delle informazioni è la seguente:
    interpretazioni;
 4. il codice di supporto contiene le verifiche numeriche e gli output del
    solver;
-5. il Registro decisionale conserva le scelte progettuali stabili e le relative
-   motivazioni;
+5. le decisioni progettuali stabili e le relative motivazioni sono recepite
+   nel documento normativo pertinente: Master Plan per l'architettura e la
+   struttura didattica, Notazione per le convenzioni matematiche, Guidelines
+   per le regole operative;
 6. lo Stato di avanzamento registra soltanto il livello effettivo di
    realizzazione dei materiali.
 
@@ -2125,7 +2127,9 @@ Le presenti Guidelines definiscono regole stabili e non devono contenere tabelle
 4. questioni operative ancora aperte;
 5. verifiche di conformità rilevanti, comprese la struttura degli esercizi e la compatibilità con Scientific WorkPlace 5.5.
 
-Il Registro decisionale resta distinto: documenta le decisioni progettuali e le loro motivazioni, non lo stato di esecuzione delle attività.
+Le decisioni progettuali stabili e le relative motivazioni non sono registrate
+nello Stato di avanzamento, ma devono essere recepite nel documento normativo
+pertinente secondo la loro natura.
 
 ## 17. Principio guida finale
 

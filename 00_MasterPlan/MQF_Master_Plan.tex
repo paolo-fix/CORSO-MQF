@@ -756,7 +756,7 @@ $\mathbb{P}(B_i)>0$ per ogni $i$:
 \[
 \mathbb{E}[X\mid\mathcal{G}]
 =
-\sum_{i=1}^{n}\mathbb{E}[X\mid B_i]\mathbf{1}_{B_i},
+\sum_{i=1}^{n}\mathbb{E}[X\mid B_i]\1_{B_i},
 \qquad
 \mathcal{G}=\sigma(B_1,\ldots,B_n).
 \]
@@ -789,7 +789,7 @@ raccordo computazionale con $X^{(k)}$, $L^{(k)}$, $M$, eventi $A_{g}$, classi
 informative e indicatori.\newline\textbf{Formule principali:}
 \[
 \widehat{\mathbb{E}}[X]=\frac{1}{M}\sum_{k=1}^{M}X^{(k)}, \qquad
-\widehat{\mathbb{P}}(A)=\frac{1}{M}\sum_{k=1}^{M}\mathbf{1}_{A}(\omega_{k}).
+\widehat{\mathbb{P}}(A)=\frac{1}{M}\sum_{k=1}^{M}\1_{A}(\omega_{k}).
 \]
 \[
 \widehat{\mathbb{E}}[X\mid A_{g}]=\frac{1}{M_{g}}\sum_{k:\omega_{k}\in A_{g}%
@@ -909,13 +909,13 @@ aleatoria; presentare equazioni differenziali stocastiche, moto browniano
 geometrico, processi mean-reverting Ornstein--Uhlenbeck e CIR, processi
 multivariati correlati e discretizzazione di Euler--Maruyama.\newline%
 \textbf{Notazione introdotta:} $\{W_{t}\}_{t\geq0}$, $dW_{t}$, $dX_{t}$, drift
-$a(t,X_{t})$, diffusione $b(t,X_{t})$, parametri $\mu$, $\sigma$, $\kappa$,
+$a(X_{t},t)$, diffusione $b(X_{t},t)$, parametri $\mu$, $\sigma$, $\kappa$,
 $\theta$, correlazione $\rho$.\newline\textbf{Formule principali:}
 \[
 W_{t}-W_{s}\sim\mathcal{N}(0,t-s), \qquad0\leq s<t.
 \]
 \[
-dX_{t}=a(t,X_{t})\,dt+b(t,X_{t})\,dW_{t}.
+dX_{t}=a(X_{t},t)\,dt+b(X_{t},t)\,dW_{t}.
 \]
 \[
 dS_{t}=\mu S_{t}\,dt+\sigma S_{t}\,dW_{t}, \qquad S_{t}=S_{0}\exp\left\{
@@ -926,7 +926,7 @@ dX_{t}=\kappa(\theta-X_{t})\,dt+\sigma\,dW_{t}, \qquad dr_{t}=\kappa
 (\theta-r_{t})\,dt+\sigma\sqrt{r_{t}}\,dW_{t}.
 \]
 \[
-X_{t+\Delta t}\simeq X_{t}+a(t,X_{t})\Delta t+b(t,X_{t})\sqrt{\Delta t}%
+X_{t+\Delta t}\simeq X_{t}+a(X_{t},t)\Delta t+b(X_{t},t)\sqrt{\Delta t}%
 \,Z_{t}, \qquad Z_{t}\sim\mathcal{N}(0,1).
 \]
 \textbf{Esercizi previsti:} momenti del moto browniano; confronto tra GBM e
@@ -1070,7 +1070,7 @@ $L$, $\operatorname{VaR}_{\alpha}(L)$ e $\operatorname{CVaR}_{\alpha}%
 (L)$.\newline\textbf{Formule principali:}
 \[
 \pi_{t}=\pi_{0}P^{t}, \qquad\widehat{\mathbb{P}}(\tau\leq T)=\frac{1}{M}%
-\sum_{k=1}^{M}\mathbf{1}_{\{\tau^{(k)}\leq T\}}.
+\sum_{k=1}^{M}\1_{\{\tau^{(k)}\leq T\}}.
 \]
 \textbf{Esercizi previsti:} modificare la matrice di transizione; introdurre
 uno stato assorbente; confrontare portafogli con diverse esposizioni;

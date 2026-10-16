@@ -4,7 +4,10 @@
 
 Questo file è l'unica fonte per lo stato corrente del progetto. Registra ciò che è stato realizzato, ciò che è in lavorazione, le prossime priorità e le questioni operative aperte.
 
-Il Master Plan definisce l'architettura didattica e i contenuti previsti. Le Guidelines definiscono le regole stabili. Il Registro decisionale conserva le decisioni progettuali e le relative motivazioni.
+Il Master Plan definisce l'architettura didattica e i contenuti previsti.
+Le Guidelines definiscono le regole operative stabili. La Notazione definisce
+le convenzioni matematiche. Le decisioni progettuali stabili e le relative
+motivazioni sono recepite nel documento normativo pertinente.
 
 ## Snapshot al 2026-10-16
 
