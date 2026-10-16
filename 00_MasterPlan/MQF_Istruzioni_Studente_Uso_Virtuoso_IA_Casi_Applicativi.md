@@ -395,7 +395,7 @@ Regime A.
 
 PARTE VARIABILE — contributo iniziale dello studente
 
-Sto per costruire la tappa in cui simulo i regimi informativi.
+Sto lavorando sulla Tappa [numero] — Simulazione dei regimi informativi.
 
 Secondo me l’input è dato dalle probabilità degli eventi e dal numero di simulazioni. L’output deve essere una sequenza simulata di eventi. Il controllo principale è confrontare le frequenze empiriche con le probabilità teoriche.
 
@@ -403,11 +403,13 @@ PARTE FISSA — istruzioni per l'IA
 
 Ti chiedo di verificare se questa lettura è corretta e se manca qualche controllo teorico o logico. L'output deve essere una cella Markdown della tappa che chiarisca:
 
-1. obiettivo teorico della tappa;
+1. obiettivo della tappa;
 2. input disponibili;
 3. oggetti teorici coinvolti;
-4. output atteso;
-5. controllo logico o numerico da eseguire.
+4. passaggio logico da svolgere;
+5. output atteso;
+6. controllo da eseguire;
+7. uso dell'output nella tappa successiva, se rilevante.
 
 Non modificare la Scheda Caso.
 </pre>
@@ -419,7 +421,7 @@ Regime A.
 
 PARTE VARIABILE — contributo iniziale dello studente
 
-Sto lavorando sulla tappa in cui devo simulare la variabile di rischio condizionatamente al regime estratto.
+Sto lavorando sulla Tappa [numero] — Distribuzione condizionata.
 
 La mia idea è che, dopo avere simulato il regime, devo usare la distribuzione condizionata prevista per quel regime. Il controllo dovrebbe confrontare media e deviazione standard empiriche con i parametri teorici.
 
@@ -427,11 +429,13 @@ PARTE FISSA — istruzioni per l'IA
 
 Ti chiedo di verificare se la logica è corretta e se l’output della tappa è ben definito. L'output deve essere una cella Markdown della tappa che chiarisca:
 
-1. obiettivo teorico della tappa;
+1. obiettivo della tappa;
 2. input disponibili;
 3. oggetti teorici coinvolti;
-4. output atteso;
-5. controllo logico o numerico da eseguire.
+4. passaggio logico da svolgere;
+5. output atteso;
+6. controllo da eseguire;
+7. uso dell'output nella tappa successiva, se rilevante.
 </pre>
 
 ### Esempio A3 — Trasformazione nella variabile finale
@@ -441,7 +445,7 @@ Regime A.
 
 PARTE VARIABILE — contributo iniziale dello studente
 
-Sto lavorando sulla tappa in cui trasformo la variabile di rischio nella variabile finale del caso.
+Sto lavorando sulla Tappa [numero] — Trasformazione nella variabile finale.
 
 Secondo me devo applicare la formula indicata nella Scheda Caso e poi controllare che il risultato abbia il segno e l’interpretazione corretta.
 
@@ -450,11 +454,13 @@ PARTE FISSA — istruzioni per l'IA
 Ti chiedo di verificare se sto distinguendo correttamente fattore di rischio, variabile derivata e output finale.
 L'output deve essere una cella Markdown della tappa che chiarisca:
 
-1. obiettivo teorico della tappa;
+1. obiettivo della tappa;
 2. input disponibili;
 3. oggetti teorici coinvolti;
-4. output atteso;
-5. controllo logico o numerico da eseguire.
+4. passaggio logico da svolgere;
+5. output atteso;
+6. controllo da eseguire;
+7. uso dell'output nella tappa successiva, se rilevante.
 
 Non cambiare la formula del caso.
 </pre>
@@ -466,7 +472,7 @@ Regime A.
 
 PARTE VARIABILE — contributo iniziale dello studente
 
-Devo calcolare le medie condizionate per regime.
+Sto lavorando sulla Tappa [numero] — Valore atteso condizionato.
 
 Secondo me devo raggruppare le osservazioni in base agli eventi della partizione e calcolare una media per ciascun gruppo. Devo poi distinguere tra la media condizionata rispetto a un evento e il valore atteso condizionato rispetto alla sigma-algebra generata dalla partizione.
 
@@ -475,11 +481,13 @@ PARTE FISSA — istruzioni per l'IA
 Ti chiedo di verificare se questa distinzione è corretta e come deve essere resa visibile nel notebook.
 L'output deve essere una cella Markdown della tappa che chiarisca:
 
-1. obiettivo teorico della tappa;
+1. obiettivo della tappa;
 2. input disponibili;
 3. oggetti teorici coinvolti;
-4. output atteso;
-5. controllo logico o numerico da eseguire.
+4. passaggio logico da svolgere;
+5. output atteso;
+6. controllo da eseguire;
+7. uso dell'output nella tappa successiva, se rilevante.
 </pre>
 
 ---
@@ -491,45 +499,77 @@ L'output deve essere una cella Markdown della tappa che chiarisca:
 <pre class="prompt-docente">
 Regime B — Traduzione operativa in codice.
 
-Devo implementare la tappa di definizione dei parametri.
+Sto lavorando sulla Tappa [numero] — Definizione dei parametri.
 
-Input:
+Per questa tappa dispongo dei seguenti input:
 - parametri della Scheda Caso;
 - probabilità degli eventi;
 - parametri delle distribuzioni condizionate;
 - numero di simulazioni;
 - seed.
 
-Output richiesto:
-- tabelle dei parametri;
-- controllo che le probabilità sommino a uno;
-- calcolo delle eventuali soglie implicite.
+Le procedure da implementare sono:
+- organizzare i parametri in strutture dati leggibili;
+- verificare la coerenza delle probabilità;
+- calcolare eventuali soglie implicite previste dalla Scheda Caso.
 
-Scrivi una cella Markdown sintetica e una cella Python chiara.
+L'output richiesto è:
+- tabella dei parametri;
+- eventuali soglie implicite previste dal caso.
 
-Non modificare parametri, formule o probabilità.
+I controlli da includere sono:
+- verifica che le probabilità sommino a uno;
+- verifica della coerenza dei parametri con la Scheda Caso.
+
+L'output della tappa sarà utilizzato successivamente come input per le procedure di simulazione.
+
+I vincoli da rispettare sono:
+- non modificare parametri, formule o probabilità;
+- non introdurre quantità non previste dalla Scheda Caso.
+
+Produci:
+- una cella Markdown che sintetizzi input, operazioni, output, controlli e uso successivo della tappa;
+- una cella Python chiara e verificabile.
 </pre>
+
 
 ### Esempio B2 — Simulazione gerarchica
 
 <pre class="prompt-docente">
 Regime B — Traduzione operativa in codice.
 
-Devo implementare la simulazione gerarchica.
+Sto lavorando sulla Tappa [numero] — Simulazione gerarchica.
 
-La logica è:
-1. simulare prima il regime informativo;
-2. simulare poi la variabile di rischio condizionatamente al regime;
-3. produrre un dataset con regime simulato e variabile simulata.
+Per questa tappa dispongo dei seguenti input:
+- probabilità dei regimi informativi;
+- parametri delle distribuzioni condizionate;
+- numero di simulazioni;
+- seed.
 
-Output richiesto:
+Le procedure da implementare sono:
+1. simulare il regime informativo;
+2. simulare la variabile di rischio condizionatamente al regime estratto;
+3. costruire un dataset contenente regime simulato e variabile simulata.
+
+L'output richiesto è:
 - dataset simulato;
-- tabella delle frequenze dei regimi;
-- controllo delle statistiche empiriche per regime.
+- tabella delle frequenze empiriche dei regimi;
+- statistiche empiriche della variabile di rischio per regime.
 
-Scrivi codice Python chiaro e commentato.
-Non introdurre nuovi oggetti teorici.
-Non modificare la Scheda Caso.
+I controlli da includere sono:
+- confronto tra frequenze empiriche e probabilità teoriche;
+- confronto tra statistiche empiriche per regime e parametri teorici assegnati.
+
+L'output della tappa sarà utilizzato successivamente per costruire la variabile finale del caso.
+
+I vincoli da rispettare sono:
+- non introdurre nuovi oggetti teorici;
+- non modificare la Scheda Caso;
+- utilizzare soltanto le distribuzioni e i parametri già fissati.
+
+Produci:
+- una cella Markdown che sintetizzi input, operazioni, output, controlli e uso successivo della tappa;
+- una cella Python chiara e commentata.
 </pre>
 
 ### Esempio B3 — Calcolo della variabile finale
@@ -537,21 +577,34 @@ Non modificare la Scheda Caso.
 <pre class="prompt-docente">
 Regime B — Traduzione operativa in codice.
 
-Devo calcolare la variabile finale del caso usando la formula fissata nella Scheda Caso.
+Sto lavorando sulla Tappa [numero] — Calcolo della variabile finale.
 
-Input:
+Per questa tappa dispongo dei seguenti input:
 - dataset simulato;
 - variabile di rischio;
-- parametri necessari alla formula.
+- parametri necessari alla formula fissata nella Scheda Caso.
 
-Output:
-- nuova colonna nel dataset con la variabile finale;
-- controlli sulla formula;
-- controllo di dimensione;
-- controllo logico sul segno o sulla parte positiva, se rilevante.
+La procedura da implementare è:
+- applicare la formula prevista dalla Scheda Caso per costruire la variabile finale.
 
-Scrivi una cella Markdown e una cella Python.
-Non modificare la formula.
+L'output richiesto è:
+- nuova colonna del dataset contenente la variabile finale.
+
+I controlli da includere sono:
+- controllo della corretta applicazione della formula;
+- controllo dimensionale;
+- controllo del segno o della parte positiva, quando previsto dalla Scheda Caso.
+
+L'output della tappa sarà utilizzato successivamente per produrre statistiche, tabelle, grafici e quantità condizionate richieste dal caso.
+
+I vincoli da rispettare sono:
+- non modificare la formula;
+- non modificare il significato economico-finanziario della variabile finale;
+- non introdurre trasformazioni non previste dalla Scheda Caso.
+
+Produci:
+- una cella Markdown che sintetizzi input, operazione, output, controlli e uso successivo della tappa;
+- una cella Python chiara e verificabile.
 </pre>
 
 ### Esempio B4 — Output non condizionati e condizionati
@@ -559,23 +612,44 @@ Non modificare la formula.
 <pre class="prompt-docente">
 Regime B — Traduzione operativa in codice.
 
-Devo produrre gli output statistici richiesti.
+Sto lavorando sulla Tappa [numero] — Output non condizionati e condizionati.
 
-Input:
+Per questa tappa dispongo dei seguenti input:
 - dataset finale;
 - variabile finale del caso;
 - eventi o regimi simulati;
 - soglie richieste.
 
-Output:
+Le procedure da implementare sono:
+- calcolare le statistiche non condizionate richieste;
+- calcolare quantili e probabilità di superamento delle soglie;
+- calcolare le medie condizionate per regime;
+- verificare la formula del valore atteso totale;
+- produrre i grafici essenziali previsti dalla Scheda Caso.
+
+L'output richiesto è:
 - statistiche non condizionate;
 - quantili;
 - probabilità di superamento soglia;
 - medie condizionate per regime;
-- verifica della formula del valore atteso totale;
+- verifica numerica della formula del valore atteso totale;
 - grafici essenziali.
 
-Scrivi codice Python ordinato, con tabelle leggibili e controlli espliciti.
+I controlli da includere sono:
+- coerenza tra quantità non condizionate e condizionate;
+- verifica della formula del valore atteso totale;
+- coerenza degli output con le quantità richieste dalla Scheda Caso.
+
+L'output della tappa sarà utilizzato successivamente per la verifica conclusiva del notebook e per l'interpretazione finale dello studente.
+
+I vincoli da rispettare sono:
+- non introdurre statistiche o grafici non richiesti senza motivazione;
+- non modificare le definizioni delle quantità teoriche;
+- non produrre l'interpretazione finale al posto dello studente.
+
+Produci:
+- una cella Markdown che sintetizzi input, operazioni, output, controlli e uso successivo della tappa;
+- una cella Python ordinata, con tabelle leggibili e controlli espliciti.
 </pre>
 
 ---
@@ -650,10 +724,10 @@ Se la criticità è respinta:
 - non proporre modifiche al notebook.
 
 Se la criticità è accolta:
-- spiegami come si è generata la criticità nella risposta dell’IA, indicando quale passaggio, assunzione, formula, scelta di codice o interpretazione l’ha prodotta e perché non è coerente con la Scheda Caso, con la teoria, con la logica della tappa o con gli output attesi;
+- spiegami come si è generata la criticità, indicando quale passaggio, assunzione, formula, scelta di codice o interpretazione l’ha prodotta e perché non è coerente con la Scheda Caso, con la teoria, con la logica della tappa o con gli output attesi;
 - produci la versione sostitutiva della cella Markdown della tappa, includendo nella cella:
   1. criticità individuata;
-  2. origine della criticità nella risposta dell’IA;
+  2. origine della criticità;
   3. modifica adottata;
 - produci, se necessario, la versione sostitutiva della cella code;
 - non proporre celle extra;
@@ -693,10 +767,10 @@ Se la criticità è respinta:
 - non proporre modifiche al notebook.
 
 Se la criticità è accolta:
-- spiegami come si è generata la criticità nella risposta dell'IA, indicando quale passaggio, assunzione, formula, scelta di codice o interpretazione l'ha prodotta e perché non è coerente con la Scheda Caso, con la teoria, con la logica della tappa o con gli output attesi;
+- spiegami come si è generata la criticità, indicando quale passaggio, assunzione, formula, scelta di codice o interpretazione l'ha prodotta e perché non è coerente con la Scheda Caso, con la teoria, con la logica della tappa o con gli output attesi;
 - produci la versione sostitutiva della cella Markdown della tappa, includendo nella cella:
   1. criticità individuata;
-  2. origine della criticità nella risposta dell'IA;
+  2. origine della criticità;
   3. modifica adottata;
 - produci, se necessario, la versione sostitutiva della cella code;
 - inserisci nella cella code solo commenti essenziali collegati alla correzione;
@@ -736,10 +810,10 @@ Se la criticità è respinta:
 - non proporre modifiche al notebook.
 
 Se la criticità è accolta:
-- spiegami come si è generata la criticità nella risposta dell'IA, indicando quale passaggio, assunzione, formula, scelta di codice o interpretazione l'ha prodotta e perché non è coerente con la Scheda Caso, con la teoria, con la logica della tappa o con gli output attesi;
+- spiegami come si è generata la criticità, indicando quale passaggio, assunzione, formula, scelta di codice o interpretazione l'ha prodotta e perché non è coerente con la Scheda Caso, con la teoria, con la logica della tappa o con gli output attesi;
 - produci la versione sostitutiva della cella Markdown della tappa, includendo nella cella:
   1. criticità individuata;
-  2. origine della criticità nella risposta dell'IA;
+  2. origine della criticità;
   3. modifica adottata;
 - produci, se necessario, la versione sostitutiva della cella code;
 - inserisci nella cella code solo commenti essenziali collegati alla correzione;
