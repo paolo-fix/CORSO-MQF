@@ -528,7 +528,7 @@ I vincoli da rispettare sono:
 - non introdurre quantità non previste dalla Scheda Caso.
 
 Produci:
-- una cella Markdown che sintetizzi input, operazioni, output, controlli e uso successivo della tappa;
+- una cella Markdown che riporti separatamente la copia fedele della richiesta dello studente e una sintesi logica degli input, delle operazioni, degli output, dei controlli e dell'uso successivo della tappa;
 - una cella Python chiara e verificabile.
 </pre>
 
@@ -568,7 +568,7 @@ I vincoli da rispettare sono:
 - utilizzare soltanto le distribuzioni e i parametri già fissati.
 
 Produci:
-- una cella Markdown che sintetizzi input, operazioni, output, controlli e uso successivo della tappa;
+- una cella Markdown che riporti separatamente la copia fedele della richiesta dello studente e una sintesi logica degli input, delle operazioni, degli output, dei controlli e dell'uso successivo della tappa;
 - una cella Python chiara e commentata.
 </pre>
 
@@ -603,7 +603,7 @@ I vincoli da rispettare sono:
 - non introdurre trasformazioni non previste dalla Scheda Caso.
 
 Produci:
-- una cella Markdown che sintetizzi input, operazione, output, controlli e uso successivo della tappa;
+- una cella Markdown che riporti separatamente la copia fedele della richiesta dello studente e una sintesi logica degli input, dell'operazione, dell'output, dei controlli e dell'uso successivo della tappa;
 - una cella Python chiara e verificabile.
 </pre>
 
@@ -648,7 +648,7 @@ I vincoli da rispettare sono:
 - non produrre l'interpretazione finale al posto dello studente.
 
 Produci:
-- una cella Markdown che sintetizzi input, operazioni, output, controlli e uso successivo della tappa;
+- una cella Markdown che riporti separatamente la copia fedele della richiesta dello studente e una sintesi logica degli input, delle operazioni, degli output, dei controlli e dell'uso successivo della tappa;
 - una cella Python ordinata, con tabelle leggibili e controlli espliciti.
 </pre>
 
