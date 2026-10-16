@@ -104,7 +104,7 @@ La struttura operativa dell'insegnamento è la seguente.
 | 1 | P | Elementi di teoria della probabilità | Spazio di probabilità, eventi, probabilità condizionata |
 | 2 | P | Variabili casuali e distribuzioni | Variabili casuali, distribuzioni, momenti, quantili |
 | 3 | P | Valori attesi condizionati e informazione | Condizionamento, partizioni, informazione |
-| 4 | C | Applicazione in Python: probabilità, variabili casuali, valori attesi condizionati | Simulazione, distribuzioni empiriche, momenti, quantili, valori attesi condizionati |
+| 4 | C | Applicazione in Python: probabilità, variabili casuali e valori attesi condizionati | Simulazione, distribuzioni empiriche, momenti, quantili, valori attesi condizionati |
 | 5 | P | Processi stocastici I -- Tempo discreto: fondamenti, informazione e martingale | Processi, traiettorie, scenari, filtrazioni, adattabilità, martingale |
 | 6 | P | Processi stocastici II -- Tempo continuo: diffusioni, mean-reversion e simulazione | Moto browniano, diffusioni, GBM, OU, CIR, correlazione, discretizzazione |
 | 7 | C | Applicazione in Python: simulazione di traiettorie e pricing | GBM, OU, processi correlati, opzioni asiatiche, obbligazioni indicizzate |
