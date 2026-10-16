@@ -139,9 +139,11 @@ allora
 \[
  \Prob(A)=\sum_{i=1}^{n}\Prob(A\mid B_i)\Prob(B_i).
 \]
-La formula di Bayes \`{e}
+Se inoltre $\Prob(A)>0$, la formula di Bayes \`{e}
 \[
- \Prob(B_j\mid A)=\frac{\Prob(A\mid B_j)\Prob(B_j)}{\sum_{i=1}^{n}\Prob(A\mid B_i)\Prob(B_i)}.
+ \Prob(B_j\mid A)=
+ \frac{\Prob(A\mid B_j)\Prob(B_j)}
+ {\sum_{i=1}^{n}\Prob(A\mid B_i)\Prob(B_i)}.
 \]
 
 \section{Variabili casuali, distribuzioni e momenti}
@@ -239,8 +241,8 @@ $f_{X\mid A}(x)$ e il valore atteso condizionato pu\`{o} essere scritto come
  =
  \int_{-\infty}^{+\infty} x f_{X\mid A}(x)\,dx.
 \]
-Se $\{B_1,\ldots,B_n\}$ \`{e} una partizione informativa di $\Omega$,
-con $\Prob(B_i)>0$ per ogni $i=1,\ldots,n$, allora
+Se $X$ \`{e} integrabile e $\{B_1,\ldots,B_n\}$ \`{e} una partizione
+informativa di $\Omega$, con $\Prob(B_i)>0$ per ogni $i=1,\ldots,n$, allora
 \[
 \E[X\mid \G]=\sum_{i=1}^{n}\E[X\mid B_i]\1_{B_i},
 \]
@@ -538,10 +540,10 @@ Il rendimento semplice su un periodo pu\`{o} essere indicato come
 \]
 Il rendimento logaritmico su un periodo \`{e} indicato con
 \[
- r_t=\log\left(\frac{S_t}{S_{t-1}}\right).
+ \ell_t=\log\left(\frac{S_t}{S_{t-1}}\right).
 \]
-I simboli $R_{t+1}$ e $r_t$ indicano oggetti distinti e non devono essere usati
-in modo intercambiabile nella stessa lezione.
+I simboli $R_{t+1}$ e $\ell_t$ indicano rispettivamente il rendimento semplice
+e il rendimento logaritmico e non devono essere usati in modo intercambiabile.
 
 Quando si lavora con perdite, la variabile casuale di perdita \`{e} indicata con
 \[
@@ -994,15 +996,29 @@ $z^{EV}$ non \`{e} il valore ottimo del solo problema medio, ma il valore della
 funzione obiettivo stocastica ottenuto imponendo la decisione di primo stadio
 $x=x^{EV}$.
 
-Per problemi formulati in minimizzazione si usa la convenzione
+Il verso delle disuguaglianze e delle differenze dipende dalla convenzione
+della funzione obiettivo.
+
+Per problemi formulati in minimizzazione,
 \[
-z^{WS}\leq z^{SP}\leq z^{EV}.
+z^{WS}\leq z^{SP}\leq z^{EV},
 \]
-Pertanto,
+e quindi
 \[
 \EVPI=z^{SP}-z^{WS}\geq0,
 \qquad
 \VSS=z^{EV}-z^{SP}\geq0.
+\]
+
+Per problemi formulati in massimizzazione,
+\[
+z^{WS}\geq z^{SP}\geq z^{EV},
+\]
+e quindi
+\[
+\EVPI=z^{WS}-z^{SP}\geq0,
+\qquad
+\VSS=z^{SP}-z^{EV}\geq0.
 \]
 
 Nei modelli multistadio si distingue tra la decisione iniziale e le
@@ -1261,11 +1277,10 @@ usa $S_t$ per il prezzo di un'attivit\`{a} finanziaria. L'insieme degli scenari
 Il simbolo $q$, se utilizzato, resta associato alla probabilit\`{a}
 risk-neutral nel modello binomiale. Per i costi di recourse si usa $d_s$.
 
-\item Non usare $r_t$ simultaneamente per rendimento logaritmico e tasso
-istantaneo. Se nella stessa lezione compare un tasso istantaneo, il rendimento
-logaritmico deve essere indicato con altra notazione locale esplicita oppure
-il tasso deve essere indicato con $i_t$. Nel contesto ALM il conflitto \`{e} risolto mediante gli apici
-$r_t^{g}$ e $r_t^{u}$.
+\item Il simbolo $r_t$ \`{e} riservato al tasso istantaneo quando introdotto
+nei modelli in tempo continuo. Il rendimento logaritmico su un periodo \`{e}
+indicato con $\ell_t$. Nel contesto ALM restano invece in uso
+$r_t^{g}$ e $r_t^{u}$ per il rendimento della giacenza e il costo del funding.
 
 \item Non usare $L$ per livelli o limiti quando nella stessa lezione si lavora
 con perdite. Per valori soglia, limiti o realizzazioni di perdita si preferisce

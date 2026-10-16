@@ -1126,34 +1126,39 @@ richiede informazione futura, non ancora disponibile in $t$.
 %EndExpansion
 
 \begin{block}{Principio fondamentale}
-Una strategia di investimento \`{e} \textbf{implementabile} se
-e solo se il processo che descrive le posizioni \`{e}
-\textbf{adattato} alla filtrazione di mercato.
+Una strategia di investimento \`{e} implementabile se, a ogni data,
+la posizione da detenere nel periodo successivo \`{e} determinata
+dall'informazione gi\`a disponibile. Con la convenzione adottata
+nella trasformata di martingala, la posizione $\phi_t$ detenuta
+nell'intervallo $(t-1,t]$ deve quindi essere
+$\F_{t-1}$-misurabile, cio\`{e} prevedibile.
 \end{block}
-
-\medskip
-
+\vspace{-0.2cm}
+%\medskip
+\small{
 \begin{stepitemize}
 
 \item Le decisioni al tempo $t$ -- quante unit\`{a} comprare,
 quante vendere -- possono dipendere solo da ci\`{o} che
 \`{e} osservabile fino a $t$.
-
+\vspace{-0.1cm}
 \item Una strategia \textbf{anticipativa} presupporrebbe la
 conoscenza del futuro: equivale a preveggenza, non a
 intelligenza finanziaria.
-
-\item In un mercato senza frizioni, una strategia anticipativa
-genererebbe un \textbf{arbitraggio}: profitto certo senza
-rischio e senza capitale. Ma gli arbitraggi non esistono
-nei mercati in equilibrio.
-
+\vspace{-0.1cm}
+\item Una strategia anticipativa utilizza informazione futura
+non disponibile al momento della decisione e non appartiene quindi
+all'insieme delle strategie ammissibili. Consentire informazione
+anticipativa altererebbe artificialmente il problema di investimento
+e potrebbe generare opportunit\`{a} di profitto non disponibili
+a un operatore reale.
+\vspace{-0.1cm}
 \item Il requisito di adattabilit\`{a} delle strategie \`{e}
 il fondamento tecnico della \textbf{non anticipativit\`{a}}
 nei modelli di programmazione stocastica (Lezioni 14--15).
 
 \end{stepitemize}
-
+}
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout
@@ -1445,7 +1450,7 @@ Sia $\{X_t\}$ una martingala e $\{\phi_t\}$ una strategia
 \textbf{prevedibile} ($\phi_t$ \`{e} $\F_{t-1}$-misurabile: la
 posizione si sceglie prima di osservare l'esito).
 
-\medskip
+%\medskip
 
 \begin{stepitemize}
 \item Il \textbf{guadagno cumulato} della strategia,
@@ -1459,8 +1464,11 @@ equo in uno favorevole. In particolare $\E[G_T] = 0$.
 \item \textbf{Arresto opzionale}: per un tempo d'arresto $\tau$
 limitato, $\E[X_\tau] = \E[X_0]$. Scegliere \emph{quando} uscire,
 sulla sola base del passato, non altera il valore atteso.
-\item \`{E} la formulazione probabilistica dell'\textbf{assenza di
-arbitraggio}: senza informazione futura non si crea valore atteso.
+\item Il risultato mostra che una strategia prevedibile non trasforma
+una martingala in una strategia con guadagno atteso positivo.
+Il collegamento con l'\textbf{assenza di arbitraggio} sar\`{a}
+formalizzato nella slide successiva mediante la misura martingala
+equivalente.
 \end{stepitemize}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%

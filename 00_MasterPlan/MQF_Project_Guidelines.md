@@ -93,7 +93,12 @@ I materiali devono essere progettati in modo modulare, così da consentire lo sv
 
 ## 6. Struttura delle 16 lezioni
 
-La struttura operativa del corso è la seguente.
+I titoli delle lezioni riportati nella tabella seguente coincidono con i
+titoli definitivi stabiliti nel `MQF_Master_Plan.tex`. In caso di modifica
+dell'architettura dell'insegnamento, il Master Plan costituisce la fonte canonica
+per la denominazione delle lezioni.
+
+La struttura operativa dell'insegnamento è la seguente.
 
 | Lezione | Tipo | Titolo definitivo | Tema centrale |
 |---:|:---:|---|---|
@@ -101,18 +106,24 @@ La struttura operativa del corso è la seguente.
 | 2 | P | Variabili casuali e distribuzioni | Variabili casuali, distribuzioni, momenti, quantili |
 | 3 | P | Valori attesi condizionati e informazione | Condizionamento, partizioni, informazione |
 | 4 | C | Applicazione in Python: probabilità, variabili casuali, valori attesi condizionati | Simulazione, distribuzioni empiriche, momenti, quantili, valori attesi condizionati |
-| 5 | P | Processi stocastici in tempo discreto | Processi, traiettorie, scenari, filtrazioni, adattabilità, martingale |
-| 6 | P | Processi stocastici in tempo continuo | Moto browniano, diffusioni, GBM, OU, CIR, correlazione, discretizzazione |
-| 7 | C | Applicazione in Python: traiettorie, simulazione e pricing Monte Carlo | GBM, OU, processi correlati, opzioni asiatiche, obbligazioni indicizzate |
-| 8 | P | Catene di Markov | Stati, transizioni, matrice di transizione, distribuzioni stazionarie |
+| 5 | P | Processi stocastici I -- Tempo discreto: fondamenti, informazione e martingale | Processi, traiettorie, scenari, filtrazioni, adattabilità, martingale |
+| 6 | P | Processi stocastici II -- Tempo continuo: diffusioni, mean-reversion e simulazione | Moto browniano, diffusioni, GBM, OU, CIR, correlazione, discretizzazione |
+| 7 | C | Applicazione in Python: simulazione di traiettorie e pricing | GBM, OU, processi correlati, opzioni asiatiche, obbligazioni indicizzate |
+| 8 | P | Catene di Markov: definizioni e proprietà | Stati, transizioni, matrice di transizione, distribuzioni stazionarie |
 | 9 | P | Catene di Markov e misure di rischio | Transizioni di rating, distribuzioni di perdita, VaR, CVaR |
 | 10 | C | Applicazione in Python: rischio di credito | Simulazione di catene di Markov, portafogli creditizi, misure di rischio |
-| 11 | P | Programmazione lineare | Formulazione, regione ammissibile, soluzioni di base, dualità essenziale |
+| 11 | P | Ottimizzazione e programmazione lineare | Formulazione, regione ammissibile, soluzioni di base, dualità essenziale |
 | 12 | P | Dualità e Asset--Liability Management deterministico | Cash flow temporali, bilanci di liquidità, funding, valori marginali |
 | 13 | C | Applicazione in Python: programmazione lineare e ALM deterministico | Forma solver, soluzione LP, controlli, valori marginali, analisi what-if |
-| 14 | P | Programmazione stocastica a due stadi | Decisioni sotto incertezza, scenari, recourse, valore atteso |
-| 15 | P | Programmazione stocastica multistadio | Alberi di scenari, informazione progressiva, non anticipatività |
+| 14 | P | Programmazione lineare stocastica I | Decisioni sotto incertezza, scenari, recourse, valore atteso |
+| 15 | P | Programmazione lineare stocastica II | Alberi di scenari, informazione progressiva, non anticipatività |
 | 16 | C | Applicazione in Python: programmazione stocastica | Asset allocation sotto incertezza, scenari, vincoli di non anticipatività |
+
+
+
+
+
+
 
 Legenda:
 

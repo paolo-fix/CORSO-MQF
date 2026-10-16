@@ -568,8 +568,8 @@ quello in cui le variabili $Z_k$ hanno media nulla ($\nu=0$). In tal
 caso la funzione media \`{e} costante, $\mu(t)=0$, e il processo
 costituisce l'esempio pi\`{u} semplice di \emph{martingala} a tempo
 discreto, un concetto che formalizza l'idea di gioco equo e che svolge
-un ruolo centrale nella teoria del pricing. Le martingale verranno
-riprese nel Capitolo~9.
+un ruolo centrale nella teoria del pricing. Le martingale verranno sviluppate sistematicamente
+nelle sezioni successive di questo capitolo.
 \end{remark}
 
 \subsection{Processi stazionari}
@@ -883,8 +883,9 @@ In parole: la previsione fatta oggi (al tempo $s$) della previsione
 che si former\`{a} domani (al tempo $t$) coincide con la previsione
 odierna. Le revisioni successive di una previsione non sono dunque
 prevedibili in anticipo --- un'osservazione con implicazioni
-profonde nella teoria dei mercati efficienti e nel pricing dei
-derivati, che riprenderemo nel Capitolo~9.
+importanti nella teoria dei mercati efficienti e nel pricing dei
+derivati, che verranno richiamate nelle sezioni successive dedicate
+alle martingale e alla valutazione risk-neutral.
 
 % ============================================================
 % MQF_Cap_05_Sezione_5_5.tex
@@ -1132,8 +1133,11 @@ di $\phi_t$ e la propriet\`{a} di martingala di $\{X_t\}$:
 Nessuna strategia prevedibile trasforma un gioco equo in uno
 favorevole: il guadagno atteso \`{e} sempre nullo, qualunque
 sia la regola di trading adottata, purch\'{e} basata solo
-sull'informazione passata. Questa \`{e} la formulazione
-probabilistica dell'assenza di arbitraggio.
+sull'informazione passata. Questo risultato mostra che una strategia prevedibile non pu\`{o}
+creare sistematicamente un guadagno atteso positivo trasformando
+una martingala. Il collegamento rigoroso con l'assenza di arbitraggio
+richiede tuttavia un passaggio ulteriore: l'esistenza di una misura
+equivalente sotto la quale i prezzi scontati siano martingale.
 
 \begin{remark}[Arresto opzionale]
 Il teorema di arresto opzionale \`{e} un caso particolare
@@ -1166,11 +1170,15 @@ tuttavia una misura di probabilit\`{a} $\Q$, detta
 cio\`{e} con gli stessi eventi di probabilit\`{a} zero ---
 sotto la quale il prezzo scontato diventa una martingala.
 
-Il passaggio da $\Prob$ a $\Q$ redistribuisce i pesi degli
-scenari: scenari sfavorevoli ricevono peso maggiore, scenari
-favorevoli peso minore, fino a rendere il gioco equo. Il
-collegamento tra no-arbitraggio e martingale \`{e} precisato
-dai teoremi fondamentali del pricing.
+Il passaggio da $\Prob$ a $\Q$ modifica i pesi probabilistici
+attribuiti agli scenari in modo tale che i prezzi scontati delle
+attivit\`{a} risultino martingale sotto $\Q$. Non esiste, in
+generale, una regola secondo cui gli scenari economicamente
+sfavorevoli debbano ricevere peso maggiore e quelli favorevoli
+peso minore: la modifica delle probabilit\`{a} dipende dalla
+struttura del mercato e dai prezzi delle attivit\`{a}. Il
+collegamento tra assenza di arbitraggio e misure martingala
+equivalenti \`{e} precisato dai teoremi fondamentali del pricing.
 
 \begin{theorem}[Teoremi fondamentali del pricing]
 \label{thm:ftap}
@@ -1193,8 +1201,9 @@ payoff terminale $H$ \`{e}:
 \pi_0=\E_{\Q}\!\left[\frac{H}{(1+r)^T}\right].
 \]
 La valutazione si riduce al calcolo di un valore atteso
-scontato sotto $\Q$. \`{E} questa la formula operativa che
-il Capitolo~9 svilupper\`{a} in dettaglio.
+scontato sotto $\Q$. Nel seguito, questa relazione costituir\`{a} il riferimento
+concettuale per distinguere la valutazione risk-neutral dalla semplice
+valutazione sotto dinamiche probabilistiche assegnate.
 
 \begin{example}[Misura risk-neutral nel modello binomiale]
 \label{es:misura-q-binomiale}
@@ -1544,12 +1553,25 @@ nell'esempio \`{e} verificato numericamente, ha un significato
 economico preciso: l'incertezza sul valore futuro di un'attivit\`{a}
 finanziaria cresce con l'orizzonte di investimento.
 
-\`{E} possibile quantificare questo effetto in modo esplicito. Per
-il modello binomiale con incrementi i.i.d., si dimostra che la
-deviazione standard cresce approssimativamente come $\sqrt{t}$ per
-$t$ grande. Questo risultato \`{e} coerente con la propriet\`{a}
-del moto browniano standard, per cui $\Var(W_t)=t$ e quindi
-$\sigma(W_t)=\sqrt{t}$.
+Nel modello binomiale moltiplicativo, tuttavia, la crescita della
+dispersione non segue in generale la legge $\sqrt{t}$. La varianza
+del livello del prezzo \`{e} infatti descritta esattamente da
+\[
+\Var(S_t)
+=
+S_0^2
+\left(
+m_2^t-m^{2t}
+\right).
+\]
+Questa relazione va distinta da quella della passeggiata aleatoria
+additiva introdotta in precedenza, per la quale
+\[
+\Var(X_t)=t\,\tau^2
+\]
+e quindi la deviazione standard cresce come $\sqrt{t}$. Quest'ultima
+propriet\`{a} ricomparir\`{a} nel moto browniano standard del
+Capitolo~6.
 
 \begin{remark}
 La crescita dell'incertezza con l'orizzonte ha implicazioni dirette

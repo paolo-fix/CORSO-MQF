@@ -346,7 +346,7 @@ livello di lungo periodo.\\
 covarianza/correlazione nei processi multivariati.\\
 \multicolumn{1}{l}{$r$} & Tasso privo di rischio su un periodo, salvo diversa
 specificazione.\\
-\multicolumn{1}{l}{$r_{t}$} & Tasso istantaneo o fattore di sconto stocastico,
+\multicolumn{1}{l}{$r_{t}$} & Tasso istantaneo nei modelli in tempo continuo,
 quando introdotto.\\
 \multicolumn{1}{l}{$\mathbb{Q}$} & Misura risk-neutral, quando introdotta.\\
 \multicolumn{1}{l}{$q$} & Probabilit\`{a} risk-neutral nel modello binomiale,
@@ -696,11 +696,21 @@ principali:}
 \mathbb{P}(A\mid B)=\frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)},\qquad
 \mathbb{P}(B)>0.
 \]
+% \[
+% \mathbb{P}(A)=\sum_{i} \mathbb{P}(A\mid B_{i})\mathbb{P}(B_{i}),
+% \qquad\mathbb{P}(B_{j}\mid A)=\frac{\mathbb{P}(A\mid B_{j})\mathbb{P}(B_{j}%
+% )}{\sum_{i} \mathbb{P}(A\mid B_{i})\mathbb{P}(B_{i})}.
+% \]
 \[
 \mathbb{P}(A)=\sum_{i} \mathbb{P}(A\mid B_{i})\mathbb{P}(B_{i}),
-\qquad\mathbb{P}(B_{j}\mid A)=\frac{\mathbb{P}(A\mid B_{j})\mathbb{P}(B_{j}%
-)}{\sum_{i} \mathbb{P}(A\mid B_{i})\mathbb{P}(B_{i})}.
 \]
+e, se $\mathbb{P}(A)>0$,
+\[
+\mathbb{P}(B_{j}\mid A)=
+\frac{\mathbb{P}(A\mid B_{j})\mathbb{P}(B_{j})}
+{\sum_{i} \mathbb{P}(A\mid B_{i})\mathbb{P}(B_{i})}.
+\]
+
 \textbf{Esercizi previsti:} probabilit\`{a} condizionata su eventi di mercato;
 aggiornamento bayesiano di uno scenario di default; calcolo di probabilit\`{a}
 congiunte.\newline\textbf{Grafici previsti:} diagrammi di Venn; albero
@@ -740,7 +750,8 @@ sigma-algebre informative; interpretare il valore atteso condizionato come
 previsione coerente con l'informazione disponibile.\newline\textbf{Notazione
 introdotta:} $\mathbb{P}(X=x\mid A)$, $F_{X\mid A}(x)$, $f_{X\mid A}(x)$,
 $\mathbb{E}[X\mid A]$, $\mathbb{E}[X\mid\mathcal{G}]$, partizioni finite,
-sigma-algebre informative.\newline\textbf{Formule principali:} per una partizione $\{B_1,\ldots,B_n\}$ con
+sigma-algebre informative.\newline\textbf{Formule principali:} per una variabile casuale integrabile $X$ e
+una partizione $\{B_1,\ldots,B_n\}$ con
 $\mathbb{P}(B_i)>0$ per ogni $i$:
 \[
 \mathbb{E}[X\mid\mathcal{G}]
@@ -1300,10 +1311,15 @@ costruire scenari; formulare decisioni di primo stadio e recourse; imporre
 vincoli di non anticipativit\`{a}; calcolare soluzioni SP, EV e WS; stimare
 EVPI e VSS.\newline\textbf{Notazione introdotta:} raccordo computazionale con
 $x$, $y_{s}$, $p_{s}$, $\xi_{s}$, $z^{SP}$, $z^{WS}$, $z^{EV}$,
-$\operatorname{EVPI}$ e $\operatorname{VSS}$.\newline\textbf{Formule
-principali:}
+$\operatorname{EVPI}$ e $\operatorname{VSS}$.\newline
+\textbf{Formule principali:} per problemi formulati in massimizzazione,
+coerentemente con il caso guida delle Lezioni 15--16,
 \[
-\operatorname{EVPI}=z^{SP}-z^{WS}, \qquad\operatorname{VSS}=z^{EV}-z^{SP}.
+z^{WS}\geq z^{SP}\geq z^{EV},
+\qquad
+\operatorname{EVPI}=z^{WS}-z^{SP},
+\qquad
+\operatorname{VSS}=z^{SP}-z^{EV}.
 \]
 \textbf{Esercizi previsti:} modificare probabilit\`{a} degli scenari;
 modificare rendimenti e passivit\`{a}; confrontare soluzioni SP, EV e WS;
@@ -1393,77 +1409,80 @@ Criteri comuni per il codice Python:
 \item esercizi di modifica del codice.
 \end{enumerate}
 
-\section{File previsti del progetto}
+\section{Struttura dei file del progetto}
 
-\subsection{Manuale}
-\begin{verbatim}
-/manuale
-  MQF_Manuale_Master.tex
-/Capitoli 
-MQF_Cap_01_Probabilita.tex 
-MQF_Cap_02_Variabili_Casuali.tex 
-MQF_Cap_03_Valori_Attesi_Condizionati.tex 
-MQF_Cap_04_Python_Probabilita_Condizionamento.tex 
-MQF_Cap_05_Processi_Stocastici_Tempo_Discreto.tex 
-MQF_Cap_06_Processi_Stocastici_Tempo_Continuo.tex 
-MQF_Cap_07_Python_Traiettorie_Pricing.tex 
-MQF_Cap_08_Catene_Markov.tex 
-MQF_Cap_09_Markov_Misure_Rischio.tex 
-MQF_Cap_10_Python_Rischio_Credito.tex 
-MQF_Cap_11_Programmazione_Lineare.tex 
-MQF_Cap_12_Dualita_ALM_Deterministico.tex 
-MQF_Cap_13_Python_Asset_Allocation_ALM.tex 
-MQF_Cap_14_Programmazione_Stocastica_I.tex 
-MQF_Cap_15_Programmazione_Stocastica_II.tex 
-MQF_Cap_16_Python_Programmazione_Stocastica.tex
-\end{verbatim}
+La struttura principale del repository \`{e} organizzata nelle seguenti
+cartelle:
 
-\subsection{Slides}
 \begin{verbatim}
-/slides
-Slides_Lez_01_Probabilita.tex 
-Slides_Lez_02_Variabili_Casuali.tex 
-Slides_Lez_03_Valori_Attesi_Condizionati.tex 
-Slides_Lez_04_Python_Probabilita_Condizionamento.tex 
-Slides_Lez_05_Processi_Stocastici_Tempo_Discreto.tex 
-Slides_Lez_06_Processi_Stocastici_Tempo_Continuo.tex 
-Slides_Lez_07_Python_Traiettorie_Pricing.tex 
-Slides_Lez_08_Catene_Markov.tex 
-Slides_Lez_09_Markov_Misure_Rischio.tex 
-Slides_Lez_10_Python_Rischio_Credito.tex 
-Slides_Lez_11_Programmazione_Lineare.tex 
-Slides_Lez_12_Dualita_ALM_Deterministico.tex 
-Slides_Lez_13_Python_Asset_Allocation_ALM.tex 
-Slides_Lez_14_Programmazione_Stocastica_I.tex 
-Slides_Lez_15_Programmazione_Stocastica_II.tex 
-Slides_Lez_16_Python_Programmazione_Stocastica.tex
-\end{verbatim}
-
-\subsection{Python}
-\begin{verbatim}
-/python
-  MQF_Python_04_Probabilita_Condizionamento.py
-  MQF_Python_07_Traiettorie_Pricing.py
-  MQF_Python_10_Rischio_Credito.py
-  MQF_Python_13_Asset_Allocation_ALM.py
-  MQF_Python_16_Programmazione_Stocastica.py
+/00_MasterPlan
+/01_Manuale
+/02_Slides
+/03_Common
+/04_Codice
+/05_CodiceSt
+/05_Lezioni
+/graphics
 \end{verbatim}
 
 \subsection{Documenti di coordinamento}
+
+I principali documenti normativi e di coordinamento sono collocati in
+
 \begin{verbatim}
-/progetto
+/00_MasterPlan
   MQF_Master_Plan.tex
   MQF_Notazione.tex
   MQF_Project_Guidelines.md
   MQF_Stato_Avanzamento.md
-  MQF_Registro_Esercizi.tex
-  MQF_Registro_Grafici.tex
-  MQF_Registro_Decisioni.tex
+  MQF_Istruzioni_Studente_Uso_Virtuoso_IA_Casi_Applicativi.md
   /Templates
-    MQF_Catalogo_Template.md
-    /LaTeX
-    /Markdown
 \end{verbatim}
+
+Il Master Plan definisce l'architettura didattica del corso; il documento di
+notazione stabilisce le convenzioni matematiche; le Guidelines disciplinano
+le regole redazionali, tecniche e operative; lo Stato di avanzamento registra
+la situazione corrente dei materiali.
+
+\subsection{Manuale}
+
+Il manuale \`{e} organizzato nella cartella
+
+\begin{verbatim}
+/01_Manuale
+\end{verbatim}
+
+con un file master e una sottocartella dedicata ai capitoli.
+
+\subsection{Slides}
+
+Le slides delle sedici lezioni sono raccolte nella cartella
+
+\begin{verbatim}
+/02_Slides
+\end{verbatim}
+
+\subsection{Codice e notebook}
+
+Il codice di supporto, gli script di calibrazione e i notebook delle lezioni
+applicative sono organizzati principalmente nella cartella
+
+\begin{verbatim}
+/04_Codice
+\end{verbatim}
+
+secondo la struttura effettivamente adottata nel repository.
+
+\subsection{Figure}
+
+Le figure didattiche definitive condivise dal Manuale e dalle Slides sono
+conservate nella cartella
+
+\begin{verbatim}
+/graphics
+\end{verbatim}
+
+secondo le convenzioni definite nelle Guidelines.
 
 \section{Governance dei documenti}
 
@@ -1474,8 +1493,10 @@ corrente di realizzazione dei materiali.
 Le regole redazionali e tecniche sono definite in
 \texttt{MQF\_Project\_Guidelines.md}. Lo stato effettivo delle attivit\`{a},
 le questioni operative aperte e le prossime priorit\`{a} sono registrati
-esclusivamente in \texttt{MQF\_Stato\_Avanzamento.md}. Le decisioni
-progettuali e le relative motivazioni appartengono al Registro decisionale.
+esclusivamente in \texttt{MQF\_Stato\_Avanzamento.md}. Le decisioni progettuali stabili e le relative motivazioni devono essere
+recepite nel documento normativo pertinente, secondo la loro natura:
+architettura e struttura didattica nel Master Plan, convenzioni matematiche
+nel documento di Notazione e regole operative nelle Guidelines.
 
 
 \end{document}
