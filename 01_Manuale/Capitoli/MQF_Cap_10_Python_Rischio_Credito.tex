@@ -144,16 +144,16 @@ L'operazione restituisce un vettore booleano di lunghezza
 $N_{\mathrm{MC}}$. Il suo elemento $s$-esimo equivale all'indicatore
 
 \[
-I_C^{(s)}
+I_C^{(k)}
 =
-\1_{\{\exists\,t:M_t^{(s)}=C\}}.
+\1_{\{\exists\,t:M_t^{(k)}=C\}}.
 \]
 
 Nel codice Python, l'indicatore $I_C$ viene rappresentato dalla
 maschera booleana \texttt{crisis}, definita scenario per scenario da
 
 \[
-\texttt{crisis[s]} = \bigl(I_C^{(s)}=1\bigr).
+\texttt{crisis[k]} = \bigl(I_C^{(k)}=1\bigr).
 \]
 
 Pertanto, le perdite condizionate agli scenari di crisi e di non crisi
@@ -191,7 +191,7 @@ in crisi:
 \widehat{\Prob}(\exists\,t:M_t=C)
 =
 \frac{1}{N_{\mathrm{MC}}}
-\sum_{s=1}^{N_{\mathrm{MC}}} I_C^{(s)}.
+\sum_{k=1}^{N_{\mathrm{MC}}} I_C^{(k)}.
 \]
 
 In Python, poich\'e \texttt{True} e \texttt{False} possono essere
@@ -321,9 +321,9 @@ tra debitori e aggregabili a livello di portafoglio.
 Le perdite individuali vengono quindi aggregate scenario per scenario:
 
 \[
-L^{P,(s)}
+L^{P,(k)}
 =
-\sum_{i=1}^{n}L_i^{(s)}.
+\sum_{i=1}^{n}L_i^{(k)}.
 \]
 
 Le $N_{\mathrm{MC}}$ repliche producono il campione
@@ -343,11 +343,11 @@ valutate sugli stessi scenari sistemici e creditizi. Per ogni replica si
 definisce quindi
 
 \[
-\Delta L^{(s)}
+\Delta L^{(k)}
 =
-L_{\mathrm{lim}}^{P,(s)}
+L_{\mathrm{lim}}^{P,(k)}
 -
-L_{\mathrm{base}}^{P,(s)}.
+L_{\mathrm{base}}^{P,(k)}.
 \]
 
 L'uso di scenari comuni evita che il confronto tra le configurazioni venga
@@ -615,7 +615,7 @@ uguaglianza esatta, ma deviazioni molto ampie possono segnalare un errore
 nella selezione delle righe o nella generazione categoriale.
 
 Dalle traiettorie sistemiche, si costruisce inoltre l'indicatore
-$I_C^{(s)}=\1_{\{\exists\,t:M_t^{(s)}=C\}}$, ottenibile in Python con
+$I_C^{(k)}=\1_{\{\exists\,t:M_t^{(k)}=C\}}$, ottenibile in Python con
 \texttt{np.any(M == C, axis=1)}. Tale indicatore verr\`a successivamente
 utilizzato per selezionare le perdite associate agli scenari di crisi.
 
@@ -695,9 +695,9 @@ dell'esposizione che viene persa.
 Le perdite individuali vengono quindi aggregate scenario per scenario:
 
 \[
-L^{P,(s)}
+L^{P,(k)}
 =
-\sum_{i=1}^{36}L_i^{(s)}.
+\sum_{i=1}^{36}L_i^{(k)}.
 \]
 
 Il vettore
@@ -760,7 +760,7 @@ possibile individuare $\tau_i$, leggere $M_{\tau_i-1}$ e ricostruire la
 perdita corrispondente.
 
 A livello di scenario, deve, infine, valere
-$L^{P,(s)}=\sum_iL_i^{(s)}$. Questi controlli collegano direttamente le
+$L^{P,(k)}=\sum_iL_i^{(k)}$. Questi controlli collegano direttamente le
 traiettorie simulate all'output finanziario del modello e preparano il
 confronto tra le due configurazioni del portafoglio.
 %
@@ -776,14 +776,14 @@ Evergrande viene ridotta dal $15\%$ al $10\%$ del capitale?
 
 Le due configurazioni vengono valutate sulle stesse traiettorie sistemiche e
 creditizie. Per ogni replica si ottengono
-$L_{\mathrm{base}}^{P,(s)}$ e $L_{\mathrm{lim}}^{P,(s)}$, e si definisce
+$L_{\mathrm{base}}^{P,(k)}$ e $L_{\mathrm{lim}}^{P,(k)}$, e si definisce
 
 \[
-\Delta L^{(s)}
+\Delta L^{(k)}
 =
-L_{\mathrm{lim}}^{P,(s)}
+L_{\mathrm{lim}}^{P,(k)}
 -
-L_{\mathrm{base}}^{P,(s)}.
+L_{\mathrm{base}}^{P,(k)}.
 \]
 
 Valori negativi indicano scenari nei quali il limite di concentrazione riduce
@@ -841,7 +841,7 @@ del solo confronto tra medie. Deve inoltre valere
 
 Il regime sistemico permette poi di separare gli scenari di crisi da quelli
 senza crisi mediante l'indicatore
-$I_C^{(s)}=\1_{\{\exists\,t:M_t^{(s)}=C\}}$. Sul portafoglio base si
+$I_C^{(k)}=\1_{\{\exists\,t:M_t^{(k)}=C\}}$. Sul portafoglio base si
 costruiscono quindi i sottocampioni
 
 \[
@@ -932,9 +932,9 @@ $M_{\tau_i-1}$ e ricostruire la LGD utilizzata.
 A livello di portafoglio deve inoltre valere, scenario per scenario,
 
 \[
-L^{P,(s)}
+L^{P,(k)}
 =
-\sum_i L_i^{(s)}.
+\sum_i L_i^{(k)}.
 \]
 
 La coerenza delle unit\`a di misura offre un ulteriore controllo. Perdite,
@@ -951,11 +951,11 @@ la conservazione del capitale dopo la riallocazione.
 Per la differenza scenario per scenario
 
 \[
-\Delta L^{(s)}
+\Delta L^{(k)}
 =
-L_{\mathrm{lim}}^{P,(s)}
+L_{\mathrm{lim}}^{P,(k)}
 -
-L_{\mathrm{base}}^{P,(s)}
+L_{\mathrm{base}}^{P,(k)}
 \]
 
 \noindent deve risultare
@@ -1118,15 +1118,15 @@ in entrambi i portafogli. Nel portafoglio concentrato, la perdita complessiva
 include anche la perdita di Lehman; nel portafoglio controfattuale, Lehman
 \`e invece assente e il capitale corrispondente \`e redistribuito sui
 $39$ debitori residui. Si ottengono
-$L_{\mathrm{conc}}^{P,(s)}$ e
-$L_{\mathrm{div}}^{P,(s)}$, con
+$L_{\mathrm{conc}}^{P,(k)}$ e
+$L_{\mathrm{div}}^{P,(k)}$, con
 
 \[
-\Delta L^{(s)}
+\Delta L^{(k)}
 =
-L_{\mathrm{div}}^{P,(s)}
+L_{\mathrm{div}}^{P,(k)}
 -
-L_{\mathrm{conc}}^{P,(s)}.
+L_{\mathrm{conc}}^{P,(k)}.
 \]
 
 L'interpretazione richiede una cautela importante. La rimozione di Lehman
@@ -1229,11 +1229,11 @@ Il confronto tra portafoglio base e portafoglio con limite di concentrazione
 utilizza gli stessi scenari e produce la distribuzione
 
 \[
-\Delta L^{(s)}
+\Delta L^{(k)}
 =
-L_{\mathrm{lim}}^{P,(s)}
+L_{\mathrm{lim}}^{P,(k)}
 -
-L_{\mathrm{base}}^{P,(s)}.
+L_{\mathrm{base}}^{P,(k)}.
 \]
 
 La valutazione della policy richiede quindi di osservare non soltanto media,

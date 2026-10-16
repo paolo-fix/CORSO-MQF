@@ -1379,7 +1379,7 @@ Nel modello \emph{default-only}, tutti gli stati non-default vengono
 considerati economicamente equivalenti. La funzione di perdita \`{e}
 
 \[
-\ell_j^{\mathrm{DO}}(h)
+\ell^{\mathrm{DO}}(j,h)
 =
 \begin{cases}
 0,
@@ -1406,7 +1406,7 @@ Nel modello \emph{migration-based}, invece, a ogni stato creditizio
 futuro viene associato un valore specifico:
 
 \[
-\ell_j^{\mathrm{MB}}(h)
+\ell^{\mathrm{MB}}(j,h)
 =
 V^{\mathrm{ref}}(h)-V_j(h),
 \qquad
@@ -1787,21 +1787,21 @@ rispetto al riferimento;
 Le perdite associate agli stati sono
 
 \[
-\ell_1(1)=100-103=-3,
+\ell(1,1)=100-103=-3,
 \]
 
 \[
-\ell_2(1)=100-100=0,
+\ell(2,1)=100-100=0,
 \]
 
 \[
-\ell_3(1)=100-92=8,
+\ell(3,1)=100-92=8,
 \]
 
 e
 
 \[
-\ell_D(1)=100-40=60.
+\ell(D,1)=100-40=60.
 \]
 
 La distribuzione della perdita pu\`{o} essere organizzata nella
@@ -1816,7 +1816,7 @@ seguente tabella:
 &
 V_j(1)
 &
-\ell_j(1)
+\ell(j,1)
 &
 \text{probabilit\`{a} cumulata}
 \\
@@ -1883,7 +1883,7 @@ La tabella combina i due elementi del modello:
 &
 \text{e}
 &
-\ell_j(1).
+\ell(j,1).
 \end{array}
 \]
 
@@ -2040,13 +2040,13 @@ rating o l'ampiezza delle probabilit\`{a}.
 Formalmente, se $\sigma$ \`{e} una permutazione degli stati tale che
 
 \[
-\ell_{\sigma(1)}(h)
+\ell(\sigma(1),h)
 \leq
-\ell_{\sigma(2)}(h)
+\ell(\sigma(2),h)
 \leq
 \cdots
 \leq
-\ell_{\sigma(m)}(h),
+\ell(\sigma(m),h),
 \]
 
 le probabilit\`{a} cumulate devono essere calcolate nell'ordine
@@ -2210,7 +2210,7 @@ nello stato $2$, la distribuzione della perdita a un periodo \`{e}
 
 \[
 \begin{array}{c|cccc}
-\ell_j(1)
+\ell(j,1)
 &
 -3
 &
@@ -2221,7 +2221,7 @@ nello stato $2$, la distribuzione della perdita a un periodo \`{e}
 60
 \\
 \hline
-\Prob(L_1=\ell_j(1)\mid X_0=2)
+\Prob(L_1=\ell(j,1)\mid X_0=2)
 &
 0.08
 &
