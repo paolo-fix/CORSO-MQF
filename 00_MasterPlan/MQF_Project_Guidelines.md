@@ -7,44 +7,44 @@ L'insegnamento è erogato a studenti del secondo anno del Corso di Laurea Magist
 Il materiale deve quindi mantenere un livello accademico rigoroso, evitando sia un approccio eccessivamente divulgativo sia un formalismo astratto non motivato dalle applicazioni finanziarie.
 
 Il corso deve essere sviluppato in italiano. Il manuale, le slides e i materiali matematici devono essere scritti in LaTeX compatibile con Scientific WorkPlace 5.5.
-Questo documento, invece, e' scritto in Markdown per essere caricato su GitHub e usato come linea guida operativa nelle future chat dedicate allo sviluppo del progetto.
+Questo documento, invece, è scritto in Markdown per essere caricato su GitHub e usato come linea guida operativa nelle future chat dedicate allo sviluppo del progetto.
 
 ## 2. Funzione e formato delle guidelines
 
 Queste guidelines hanno una funzione di coordinamento: definiscono l'impostazione didattica, i prodotti finali, i vincoli tecnici e le regole operative da rispettare nella produzione del materiale del corso.
 
-Il formato piu' idoneo per questo documento e' Markdown, con estensione `.md`, perche':
+Il formato più idoneo per questo documento è Markdown, con estensione `.md`, perché:
 
-1. e' nativamente leggibile su GitHub;
-2. e' facilmente versionabile con Git;
-3. e' leggibile anche come semplice file di testo;
-4. puo' essere copiato integralmente o parzialmente nelle nuove chat di lavoro;
+1. è nativamente leggibile su GitHub;
+2. è facilmente versionabile con Git;
+3. è leggibile anche come semplice file di testo;
+4. può essere copiato integralmente o parzialmente nelle nuove chat di lavoro;
 5. mantiene una struttura gerarchica chiara mediante titoli, elenchi e sezioni;
-6. evita la complessita' sintattica del LaTeX quando lo scopo non e' la compilazione tipografica, ma il coordinamento del progetto.
+6. evita la complessità sintattica del LaTeX quando lo scopo non è la compilazione tipografica, ma il coordinamento del progetto.
 
-Il nome del file e':
+Il nome del file è:
 
 ```text
 MQF_Project_Guidelines.md
 ```
 
-Il file e' collocato nella cartella:
+Il file è collocato nella cartella:
 
 ```text
 00_MasterPlan/MQF_Project_Guidelines.md
 ```
 
-## 3. Finalita' generale del corso
+## 3. Finalità generale del corso
 
 Il corso deve fornire agli studenti strumenti quantitativi per rappresentare l'incertezza, modellizzare fenomeni finanziari discreti e continui, misurare il rischio e formulare problemi decisionali in presenza di vincoli e scenari.
 
-La finalita' generale non e' presentare una raccolta eterogenea di tecniche matematiche, ma costruire un percorso unitario centrato su tre assi concettuali:
+La finalità generale non è presentare una raccolta eterogenea di tecniche matematiche, ma costruire un percorso unitario centrato su tre assi concettuali:
 
 1. modellizzazione probabilistica dell'incertezza;
 2. processi stocastici, informazione e simulazione;
 3. decisione quantitativa sotto rischio e sotto incertezza.
 
-Ogni lezione deve contribuire esplicitamente a uno o piu' di questi assi. Le connessioni tra probabilita', variabili casuali, valori attesi condizionati, processi stocastici, catene di Markov, misure di rischio, programmazione lineare, Asset--Liability Management e programmazione stocastica devono essere rese chiare e ricorrenti.
+Ogni lezione deve contribuire esplicitamente a uno o più di questi assi. Le connessioni tra probabilità, variabili casuali, valori attesi condizionati, processi stocastici, catene di Markov, misure di rischio, programmazione lineare, Asset--Liability Management e programmazione stocastica devono essere rese chiare e ricorrenti.
 
 Il corso deve mantenere un equilibrio tra formalizzazione matematica, interpretazione finanziaria e implementazione computazionale. Le lezioni applicative in Python non devono essere considerate appendici tecniche, ma momenti di consolidamento operativo dei concetti introdotti nelle lezioni teoriche.
 
@@ -60,28 +60,28 @@ Il corso deve seguire una progressione logica fondata sui seguenti passaggi conc
 6. processi stocastici in tempo continuo, diffusioni e simulazione;
 7. catene di Markov e rischio di credito;
 8. misure di rischio in contesto markoviano;
-9. programmazione lineare, dualita' e prezzi ombra;
-10. Asset--Liability Management deterministico e bilanci di liquidita' nel tempo;
+9. programmazione lineare, dualità e prezzi ombra;
+10. Asset--Liability Management deterministico e bilanci di liquidità nel tempo;
 11. consolidamento computazionale in Python della programmazione lineare e dell'ALM deterministico;
 12. programmazione stocastica e decisioni adattate agli scenari.
 
-Questa progressione deve orientare la scrittura del manuale, delle slides, degli esercizi e delle applicazioni Python. In particolare, le lezioni iniziali di probabilita' non devono essere presentate come un richiamo isolato, ma come la base necessaria per i modelli finanziari successivi.
+Questa progressione deve orientare la scrittura del manuale, delle slides, degli esercizi e delle applicazioni Python. In particolare, le lezioni iniziali di probabilità non devono essere presentate come un richiamo isolato, ma come la base necessaria per i modelli finanziari successivi.
 
-Il modello binomiale non costituisce piu' una lezione applicativa autonoma di pricing. Deve essere utilizzato, quando utile, come esempio strutturale di processo in tempo discreto, filtrazione, adattabilita' e martingala.
+Il modello binomiale non costituisce più una lezione applicativa autonoma di pricing. Deve essere utilizzato, quando utile, come esempio strutturale di processo in tempo discreto, filtrazione, adattabilità e martingala.
 
-La dualita' nella programmazione lineare non scompare dal corso, ma viene ricondotta alla lezione introduttiva di programmazione lineare come contenuto essenziale per l'interpretazione economica dei vincoli e dei prezzi ombra. Non costituisce piu' una lezione autonoma.
+La dualità nella programmazione lineare non scompare dal corso, ma viene ricondotta alla lezione introduttiva di programmazione lineare come contenuto essenziale per l'interpretazione economica dei vincoli e dei prezzi ombra. Non costituisce più una lezione autonoma.
 
 L'Asset--Liability Management deterministico costituisce il passaggio dalla
-programmazione lineare statica a una decisione nella quale la disponibilita'
-delle risorse deve essere verificata alle diverse date. La dualita' introdotta
+programmazione lineare statica a una decisione nella quale la disponibilità
+delle risorse deve essere verificata alle diverse date. La dualità introdotta
 nella Lezione 11 viene utilizzata per interpretare il valore marginale della
-liquidita' e della capacita' di funding.
+liquidità e della capacità di funding.
 
 ## 5. Prodotti finali previsti
 
 Il progetto prevede la costruzione dei seguenti prodotti finali:
 
-1. un manuale del corso, articolato in 16 capitoli o unita' didattiche;
+1. un manuale del corso, articolato in 16 capitoli o unità didattiche;
 2. le slides delle 16 lezioni;
 3. un insieme di esercizi teorici e numerici da svolgere in aula;
 4. cinque applicazioni Python coerenti con la nuova architettura del corso;
@@ -89,30 +89,30 @@ Il progetto prevede la costruzione dei seguenti prodotti finali:
 6. un documento autonomo di notazione matematica;
 7. eventuali materiali ausiliari, quali soluzioni degli esercizi, template LaTeX, script Python, notebook, dataset e figure.
 
-I materiali devono essere progettati in modo modulare, cosi' da consentire lo sviluppo separato di singole lezioni, capitoli, slides o applicazioni computazionali senza perdere coerenza complessiva.
+I materiali devono essere progettati in modo modulare, così da consentire lo sviluppo separato di singole lezioni, capitoli, slides o applicazioni computazionali senza perdere coerenza complessiva.
 
 ## 6. Struttura delle 16 lezioni
 
-La struttura operativa del corso e' la seguente.
+La struttura operativa del corso è la seguente.
 
 | Lezione | Tipo | Titolo definitivo | Tema centrale |
 |---:|:---:|---|---|
-| 1 | P | Elementi di teoria della probabilita' | Spazio di probabilita', eventi, probabilita' condizionata |
+| 1 | P | Elementi di teoria della probabilità | Spazio di probabilità, eventi, probabilità condizionata |
 | 2 | P | Variabili casuali e distribuzioni | Variabili casuali, distribuzioni, momenti, quantili |
 | 3 | P | Valori attesi condizionati e informazione | Condizionamento, partizioni, informazione |
-| 4 | C | Applicazione in Python: probabilita', variabili casuali, valori attesi condizionati | Simulazione, distribuzioni empiriche, momenti, quantili, valori attesi condizionati |
-| 5 | P | Processi stocastici in tempo discreto | Processi, traiettorie, scenari, filtrazioni, adattabilita', martingale |
+| 4 | C | Applicazione in Python: probabilità, variabili casuali, valori attesi condizionati | Simulazione, distribuzioni empiriche, momenti, quantili, valori attesi condizionati |
+| 5 | P | Processi stocastici in tempo discreto | Processi, traiettorie, scenari, filtrazioni, adattabilità, martingale |
 | 6 | P | Processi stocastici in tempo continuo | Moto browniano, diffusioni, GBM, OU, CIR, correlazione, discretizzazione |
 | 7 | C | Applicazione in Python: traiettorie, simulazione e pricing Monte Carlo | GBM, OU, processi correlati, opzioni asiatiche, obbligazioni indicizzate |
 | 8 | P | Catene di Markov | Stati, transizioni, matrice di transizione, distribuzioni stazionarie |
 | 9 | P | Catene di Markov e misure di rischio | Transizioni di rating, distribuzioni di perdita, VaR, CVaR |
 | 10 | C | Applicazione in Python: rischio di credito | Simulazione di catene di Markov, portafogli creditizi, misure di rischio |
-| 11 | P | Programmazione lineare | Formulazione, regione ammissibile, soluzioni di base, dualita' essenziale |
-| 12 | P | Dualita' e Asset--Liability Management deterministico | Cash flow temporali, bilanci di liquidita', funding, valori marginali |
+| 11 | P | Programmazione lineare | Formulazione, regione ammissibile, soluzioni di base, dualità essenziale |
+| 12 | P | Dualità e Asset--Liability Management deterministico | Cash flow temporali, bilanci di liquidità, funding, valori marginali |
 | 13 | C | Applicazione in Python: programmazione lineare e ALM deterministico | Forma solver, soluzione LP, controlli, valori marginali, analisi what-if |
 | 14 | P | Programmazione stocastica a due stadi | Decisioni sotto incertezza, scenari, recourse, valore atteso |
-| 15 | P | Programmazione stocastica multistadio | Alberi di scenari, informazione progressiva, non anticipativita' |
-| 16 | C | Applicazione in Python: programmazione stocastica | Asset allocation sotto incertezza, scenari, vincoli di non anticipativita' |
+| 15 | P | Programmazione stocastica multistadio | Alberi di scenari, informazione progressiva, non anticipatività |
+| 16 | C | Applicazione in Python: programmazione stocastica | Asset allocation sotto incertezza, scenari, vincoli di non anticipatività |
 
 Legenda:
 
@@ -132,7 +132,7 @@ Lo stile deve rispettare i seguenti criteri:
 5. attenzione alla distinzione tra ipotesi, definizioni, risultati e interpretazioni;
 6. uso di esempi numerici per consolidare i concetti;
 7. uso di grafici come strumenti esplicativi, non decorativi;
-8. neutralita' nella presentazione dei modelli e dei loro limiti.
+8. neutralità nella presentazione dei modelli e dei loro limiti.
 
 
 Quando si scrive in LaTeX per il manuale o per le slides, le vocali accentate italiane devono essere espresse mediante la notazione LaTeX esplicita. Sono ammesse entrambe le forme sintattiche equivalenti, con o senza graffe attorno alla vocale:
@@ -147,9 +147,9 @@ oppure
 \`a, \`e, \`i, \`o, \`u
 ```
 
-Le due forme sono considerate equivalenti ai fini delle convenzioni del progetto e possono coesistere nei sorgenti senza costituire un'incoerenza editoriale. La stessa convenzione deve essere rispettata nel codice LaTeX prodotto nelle chat di lavoro. Non inserire direttamente i caratteri accentati nei nuovi sorgenti LaTeX e non modificare retroattivamente i documenti gia' consolidati al solo scopo di uniformare tra loro le due forme ammesse.
+Le due forme sono considerate equivalenti ai fini delle convenzioni del progetto e possono coesistere nei sorgenti senza costituire un'incoerenza editoriale. La stessa convenzione deve essere rispettata nel codice LaTeX prodotto nelle chat di lavoro. Non inserire direttamente i caratteri accentati nei nuovi sorgenti LaTeX e non modificare retroattivamente i documenti già consolidati al solo scopo di uniformare tra loro le due forme ammesse.
 
-## 8. Vincoli LaTeX e compatibilita' Scientific WorkPlace 5.5
+## 8. Vincoli LaTeX e compatibilità Scientific WorkPlace 5.5
 
 Il manuale e le slides devono essere scritti in LaTeX compatibile con Scientific WorkPlace 5.5.
 
@@ -160,12 +160,12 @@ Criteri operativi:
 3. preferire ambienti standard per teoremi, definizioni, esempi ed esercizi;
 4. mantenere formule leggibili e non eccessivamente annidate;
 5. usare una struttura modulare con file separati per capitoli e lezioni;
-6. valutare con attenzione l'uso di TikZ o PGFPlots, che potrebbero non essere la soluzione piu' robusta in Scientific WorkPlace 5.5;
+6. valutare con attenzione l'uso di TikZ o PGFPlots, che potrebbero non essere la soluzione più robusta in Scientific WorkPlace 5.5;
 7. quando opportuno, generare i grafici con Python e includerli come immagini.
 
 I nomi dei file devono essere esplicativi e coerenti con la struttura effettivamente adottata nel repository. Non devono essere utilizzati nomi puramente numerici o sbrigativi.
 
-La struttura corrente del manuale e':
+La struttura corrente del manuale è:
 
 ```text
 /01_Manuale
@@ -189,7 +189,7 @@ La struttura corrente del manuale e':
     MQF_Cap_16_Python_Programmazione_Stocastica.tex
 ```
 
-La struttura corrente delle slides e':
+La struttura corrente delle slides è:
 
 ```text
 /02_Slides
@@ -226,7 +226,7 @@ Il codice di supporto e i notebook sono organizzati nella cartella `04_Codice`, 
 
 Nella stessa cartella `04_Codice` possono essere presenti script di supporto per lezioni teoriche, calibrazioni, controlli o generazione di figure. Gli script che generano asset grafici stabili sono collocati, quando disponibili, nelle sottocartelle `04_Codice/LezXX/` della lezione corrispondente.
 
-La struttura corrente dei principali documenti di coordinamento e':
+La struttura corrente dei principali documenti di coordinamento è:
 
 ```text
 /00_MasterPlan
@@ -254,7 +254,7 @@ Le figure didattiche stabili destinate al Manuale e/o alle Slides sono archiviat
 /graphics/
 ```
 
-La convenzione di denominazione e':
+La convenzione di denominazione è:
 
 ```text
 Cap0X_descrizione.png
@@ -309,7 +309,7 @@ Ogni capitolo deve quindi risultare leggibile come parte di un manuale scientifi
 
 ### 9.2 Capitoli teorici
 
-La struttura standard di un capitolo teorico e':
+La struttura standard di un capitolo teorico è:
 
 1. obiettivi del capitolo;
 2. motivazione finanziaria;
@@ -322,24 +322,24 @@ La struttura standard di un capitolo teorico e':
 9. esercizi proposti;
 10. sintesi finale.
 
-Le dimostrazioni devono essere selettive. Devono essere incluse quando rafforzano la comprensione dei meccanismi quantitativi, ma non devono trasformare il corso in un corso astratto di probabilita' o ottimizzazione.
+Le dimostrazioni devono essere selettive. Devono essere incluse quando rafforzano la comprensione dei meccanismi quantitativi, ma non devono trasformare il corso in un corso astratto di probabilità o ottimizzazione.
 
 #### 9.2.1 Standard degli esercizi nei capitoli teorici
 
-Ogni capitolo teorico deve contenere, prima della sintesi finale e in questo ordine, le sezioni `Esercizi svolti` ed `Esercizi proposti`. Il riferimento operativo e' il template LaTeX registrato in `Templates/MQF_Catalogo_Template.md`.
+Ogni capitolo teorico deve contenere, prima della sintesi finale e in questo ordine, le sezioni `Esercizi svolti` ed `Esercizi proposti`. Il riferimento operativo è il template LaTeX registrato in `Templates/MQF_Catalogo_Template.md`.
 
 Si applicano le seguenti regole:
 
-1. ogni esercizio usa l'ambiente standard `exercise`, gia' definito nel master del manuale;
+1. ogni esercizio usa l'ambiente standard `exercise`, già definito nel master del manuale;
 2. il titolo facoltativo dell'esercizio deve essere breve, descrittivo e privo di formule inutilmente complesse;
 3. ogni sezione e ogni esercizio deve avere un'etichetta univoca che includa il numero del capitolo, secondo forme quali `sec:cap08-esercizi-svolti` ed `ex:cap08-matrice-transizione`;
-4. l'enunciato deve rendere espliciti dati, unita' di misura, ipotesi e oggetti matematici necessari;
+4. l'enunciato deve rendere espliciti dati, unità di misura, ipotesi e oggetti matematici necessari;
 5. le richieste multiple devono essere organizzate con `enumerate` e devono procedere, quando possibile, dal calcolo o dalla formulazione al controllo e all'interpretazione economico-finanziaria;
 6. negli esercizi svolti la soluzione completa segue immediatamente l'ambiente `exercise`, introdotta da `\noindent` e `\textbf{Soluzione.}`; non si usa un ambiente `solution`;
 7. la soluzione deve riprendere l'ordine e la numerazione delle richieste, motivare i passaggi essenziali e concludersi con un'interpretazione quando il contenuto lo consente;
 8. negli esercizi proposti non si inserisce lo svolgimento completo; si riportano soltanto, quando utili, i risultati essenziali per l'autovalutazione, introdotti da `\textit{Risultati:}`;
-9. gli esercizi proposti devono avere difficolta' progressiva e coprire sia la comprensione matematica sia il significato finanziario dei risultati;
-10. come riferimento orientativo, un capitolo teorico contiene da tre a quattro esercizi svolti e da quattro a sei esercizi proposti; il numero puo' variare in funzione dell'estensione e della difficolta' del capitolo;
+9. gli esercizi proposti devono avere difficoltà progressiva e coprire sia la comprensione matematica sia il significato finanziario dei risultati;
+10. come riferimento orientativo, un capitolo teorico contiene da tre a quattro esercizi svolti e da quattro a sei esercizi proposti; il numero può variare in funzione dell'estensione e della difficoltà del capitolo;
 11. la sintassi deve restare prudente e compatibile con Scientific WorkPlace 5.5: ambienti LaTeX standard, formule leggibili e nessun pacchetto aggiuntivo introdotto soltanto per impaginare gli esercizi.
 12. Nei capitoli di ottimizzazione almeno un esercizio svolto deve partire
 dalla descrizione economico-finanziaria del problema e richiedere la costruzione delle variabili, dei parametri, del modello matematico e,
@@ -348,7 +348,7 @@ quando pertinente, della forma matriciale utilizzabile da un solver.
 disponibili nell'enunciato o richiamati localmente in forma compatta;
 evitare rinvii a dati dispersi in esercizi precedenti quando non hanno una funzione didattica specifica.
 
-Lo standard disciplina la forma editoriale e didattica, ma non sostituisce il Registro degli esercizi del Master Plan, che definisce gli argomenti da coprire, ne' `MQF_Stato_Avanzamento.md`, che registra lo stato effettivo di realizzazione.
+Lo standard disciplina la forma editoriale e didattica, ma non sostituisce il Registro degli esercizi del Master Plan, che definisce gli argomenti da coprire, né `MQF_Stato_Avanzamento.md`, che registra lo stato effettivo di realizzazione.
 
 ### 9.2.2 Progettazione e validazione dei casi quantitativi
 
@@ -445,8 +445,8 @@ Nei casi ALM deterministici:
 
 1. la dimensione temporale deve derivare da cash flow e fabbisogni effettivamente distribuiti su date diverse;
 2. rendimenti economici degli attivi e profilo temporale dei cash flow devono avere significati distinti e non essere contabilizzati due volte;
-3. eventuali normalizzazioni della matrice dei cash flow devono essere dichiarate come ipotesi del caso e non come proprieta' generali;
-4. la soluzione statica, se utilizzata come confronto, deve essere verificata rispetto alla fattibilita' dei bilanci temporali;
+3. eventuali normalizzazioni della matrice dei cash flow devono essere dichiarate come ipotesi del caso e non come proprietà generali;
+4. la soluzione statica, se utilizzata come confronto, deve essere verificata rispetto alla fattibilità dei bilanci temporali;
 5. i valori duali devono essere interpretati come valori marginali locali e non devono essere introdotte relazioni tra moltiplicatori non motivate matematicamente;
 6. deve essere esplicitato che un modello deterministico assume nota al tempo iniziale la traiettoria futura dei coefficienti, non che tali coefficienti siano costanti nel tempo.
 
@@ -470,7 +470,7 @@ La distribuzione corretta delle informazioni è la seguente:
 
 La struttura standard di un capitolo con applicazione Python deve essere concepita in modo coerente con la natura laboratoriale della corrispondente lezione. Il capitolo applicativo non deve limitarsi a presentare codice commentato, ma deve documentare il passaggio dalla formulazione matematica al prodotto computazionale finale.
 
-La struttura orientativa di un capitolo applicativo e':
+La struttura orientativa di un capitolo applicativo è:
 
 1. obiettivi del capitolo applicativo;
 2. presentazione del caso finanziario o probabilistico;
@@ -486,10 +486,10 @@ La struttura orientativa di un capitolo applicativo e':
 12. estensioni TakeHome;
 13. sintesi finale.
 
-Nei capitoli applicativi il codice deve essere presentato come parte integrante della modellizzazione. Ogni blocco computazionale rilevante deve essere preceduto da una motivazione e seguito da un commento interpretativo. Il capitolo deve rendere esplicito che cosa viene calcolato, perche' viene calcolato e come il risultato si collega al modello teorico.
+Nei capitoli applicativi il codice deve essere presentato come parte integrante della modellizzazione. Ogni blocco computazionale rilevante deve essere preceduto da una motivazione e seguito da un commento interpretativo. Il capitolo deve rendere esplicito che cosa viene calcolato, perché viene calcolato e come il risultato si collega al modello teorico.
 
 Per le applicazioni di programmazione lineare e ALM deterministico il solver
-di riferimento e' `scipy.optimize.linprog` con `method="highs"`. Il materiale
+di riferimento è `scipy.optimize.linprog` con `method="highs"`. Il materiale
 deve rendere esplicita la corrispondenza tra formulazione matematica e input
 del solver: ordinamento delle variabili, funzione obiettivo, uguaglianze,
 disuguaglianze e bounds.
@@ -498,7 +498,7 @@ disuguaglianze e bounds.
 
 Le slides del corso MQF devono essere uno strumento di lezione, non una versione compressa del manuale. Devono guidare l'esposizione in aula, selezionare i passaggi concettuali essenziali, rendere visibili le formule operative e favorire l'alternanza tra motivazione finanziaria, formalizzazione matematica, esempi, grafici, esercizi e interpretazioni.
 
-Le slides devono essere prodotte in LaTeX Beamer compatibile con Scientific WorkPlace 5.5, riutilizzando il preambolo ufficiale gia' adottato nelle lezioni precedenti. In particolare, vanno mantenuti la classe `beamer`, il tema `Madrid`, le macro matematiche ufficiali del progetto e la struttura dei frame compatibile con Scientific WorkPlace 5.5.
+Le slides devono essere prodotte in LaTeX Beamer compatibile con Scientific WorkPlace 5.5, riutilizzando il preambolo ufficiale già adottato nelle lezioni precedenti. In particolare, vanno mantenuti la classe `beamer`, il tema `Madrid`, le macro matematiche ufficiali del progetto e la struttura dei frame compatibile con Scientific WorkPlace 5.5.
 
 ### 10.1 Struttura tecnica di ogni slide
 
@@ -530,11 +530,11 @@ Contenuto della slide
 %*
 ```
 
-La struttura va mantenuta anche quando il contenuto della slide e' breve. Il codice deve essere direttamente integrabile nel file `.tex` della lezione.
+La struttura va mantenuta anche quando il contenuto della slide è breve. Il codice deve essere direttamente integrabile nel file `.tex` della lezione.
 
 ### 10.2 Uso del preambolo e delle macro
 
-Il preambolo delle lezioni precedenti viene riutilizzato. Non e' quindi necessario rigenerarlo a ogni slide, salvo richiesta esplicita.
+Il preambolo delle lezioni precedenti viene riutilizzato. Non è quindi necessario rigenerarlo a ogni slide, salvo richiesta esplicita.
 
 Le nuove slides devono assumere disponibili le macro ufficiali, fra cui:
 
@@ -561,7 +561,7 @@ Per le enumerazioni progressive si usa `stepenumerate`, con numerazione esplicit
 
 Per liste non numerate si usa `stepitemize`.
 
-Le liste devono rimanere sintetiche. Ogni punto deve contenere un'unita' concettuale chiara, evitando testi eccessivamente lunghi. Le enumerazioni non devono sostituire la spiegazione del docente: devono invece scandire i passaggi principali.
+Le liste devono rimanere sintetiche. Ogni punto deve contenere un'unità concettuale chiara, evitando testi eccessivamente lunghi. Le enumerazioni non devono sostituire la spiegazione del docente: devono invece scandire i passaggi principali.
 
 ### 10.4 Enfasi tipografica
 
@@ -572,7 +572,7 @@ Le parole chiave della slide possono essere evidenziate con `\textbf{...}`, ma c
 \textbf{sigma-algebra informativa}, \textbf{regole operative}.
 ```
 
-Non si devono enfatizzare intere frasi, ne' sovraccaricare la slide con troppi termini in grassetto.
+Non si devono enfatizzare intere frasi, né sovraccaricare la slide con troppi termini in grassetto.
 
 ## Formattazione delle istruzioni operative nel Manuale
 
@@ -584,7 +584,7 @@ Nel Manuale, tutti i testi operativi che uno studente deve digitare o impartire 
 4. comandi sintetici da copiare ed eseguire;
 5. input operativi rivolti a un software.
 
-La formattazione standard e' la seguente:
+La formattazione standard è la seguente:
 
 ```latex
 \begin{quote}
@@ -596,7 +596,7 @@ testo del comando o dell'istruzione.\par}
 
 Non utilizzare display matematici del tipo `\[ \text{...} \]` per prompt, comandi o istruzioni operative. Tali elementi non sono formule matematiche, non devono essere confusi con il contenuto teorico e possono produrre problemi di impaginazione.
 
-Per riferimenti brevi a nomi di librerie, funzioni, variabili Python, file o comandi isolati all'interno del testo, e' invece ammesso l'uso di `\texttt{...}`. Ad esempio: `\texttt{numpy}`, `\texttt{pandas}`, `\texttt{pip}`, `\texttt{losses}`.
+Per riferimenti brevi a nomi di librerie, funzioni, variabili Python, file o comandi isolati all'interno del testo, è invece ammesso l'uso di `\texttt{...}`. Ad esempio: `\texttt{numpy}`, `\texttt{pandas}`, `\texttt{pip}`, `\texttt{losses}`.
 
 ### 10.5 Formule matematiche
 
@@ -609,7 +609,7 @@ Nel sorgente delle slides le formule devono essere brevi e centrali rispetto al 
 Un commento conclusivo in fondo alla slide va inserito solo quando soddisfa entrambe le condizioni seguenti:
 
 1. aggiunge un contenuto logico rilevante;
-2. vi e' sufficiente spazio nella slide.
+2. vi è sufficiente spazio nella slide.
 
 Non va inserita una frase conclusiva puramente ornamentale o ridondante. Quando presente, il commento deve chiarire il passaggio concettuale della slide, il significato operativo della formula oppure il collegamento con la slide successiva.
 
@@ -623,7 +623,7 @@ Prima di produrre il sorgente LaTeX di una lezione, occorre predisporre uno stor
 4. contenuto matematico o finanziario essenziale;
 5. eventuale esempio, grafico, esercizio o riferimento al manuale.
 
-La pianificazione deve essere compatibile con la successiva costruzione della scaletta-promemoria della lezione. Le slides devono quindi essere pensate per gruppi didatticamente omogenei, cosi' da poter associare a ciascun gruppo un tempo parziale, un tempo cumulato e contenuti essenziali.
+La pianificazione deve essere compatibile con la successiva costruzione della scaletta-promemoria della lezione. Le slides devono quindi essere pensate per gruppi didatticamente omogenei, così da poter associare a ciascun gruppo un tempo parziale, un tempo cumulato e contenuti essenziali.
 
 ### 10.8 Coerenza documentale
 
@@ -635,11 +635,11 @@ La costruzione delle slides deve sempre partire dalla lettura aggiornata di:
 4. capitolo corrispondente del Manuale;
 5. eventuali figure, esercizi e materiali collegati.
 
-La memoria delle conversazioni precedenti puo' servire solo da orientamento generale, ma non deve sostituire la lettura diretta dei file aggiornati quando si pianifica o si genera una nuova lezione.
+La memoria delle conversazioni precedenti può servire solo da orientamento generale, ma non deve sostituire la lettura diretta dei file aggiornati quando si pianifica o si genera una nuova lezione.
 
 ## 11. Slides delle lezioni teoriche di tipo P
 
-Per ogni lezione teorica di tipo P, la struttura orientativa e':
+Per ogni lezione teorica di tipo P, la struttura orientativa è:
 
 1. apertura e motivazione finanziaria;
 2. obiettivi della lezione;
@@ -654,7 +654,7 @@ Per ogni lezione teorica di tipo P, la struttura orientativa e':
 
 Una lezione teorica non deve essere costruita come successione uniforme di definizioni. Deve alternare passaggi concettuali, formule, esempi e interpretazioni.
 
-La sequenza didattica consigliata e':
+La sequenza didattica consigliata è:
 
 | Blocco | Funzione |
 |---|---|
@@ -666,7 +666,7 @@ La sequenza didattica consigliata e':
 | Esercizio | Verificare la comprensione in aula |
 | Sintesi | Fissare il nucleo concettuale da ricordare |
 
-Anche per le lezioni prevalentemente teoriche di tipo P, la durata effettiva al netto del break e' assunta pari a 2 ore, cioe' circa 120 minuti.
+Anche per le lezioni prevalentemente teoriche di tipo P, la durata effettiva al netto del break è assunta pari a 2 ore, cioè circa 120 minuti.
 
 La progettazione delle slides deve quindi essere calibrata su tale durata, prevedendo:
 
@@ -855,19 +855,19 @@ Nelle lezioni applicative Python gli esercizi in aula devono essere organizzati 
 4. almeno un controllo numerico o logico;
 5. una breve interpretazione economico-finanziaria.
 
-Le tappe operative devono essere progettate in modo progressivo. Una possibile struttura e':
+Le tappe operative devono essere progettate in modo progressivo. Una possibile struttura è:
 
 1. verifica dei dati e dei parametri;
 2. implementazione di una formula o funzione centrale;
 3. produzione di un primo output numerico;
 4. costruzione di un grafico o di una tabella;
-5. analisi di sensibilita' rispetto a un parametro;
+5. analisi di sensibilità rispetto a un parametro;
 6. interpretazione del risultato;
 7. estensione o variante del caso base.
 
 Gli esercizi applicativi non devono essere mini-progetti indipendenti durante la lezione. Devono invece essere parti controllate di un percorso comune, in cui gli studenti completano alcune componenti del software mantenendo visibile il collegamento con il modello teorico.
 
-Quando si prevede l'uso di strumenti di intelligenza artificiale generativa, l'esercizio deve specificare in modo chiaro quali usi sono ammessi. L'IA puo' essere impiegata per chiarire errori di codice, spiegare messaggi di errore, proporre una funzione locale o migliorare la leggibilita' di un blocco. Non deve invece sostituire la formulazione del modello, la scelta delle ipotesi o l'interpretazione dei risultati.
+Quando si prevede l'uso di strumenti di intelligenza artificiale generativa, l'esercizio deve specificare in modo chiaro quali usi sono ammessi. L'IA può essere impiegata per chiarire errori di codice, spiegare messaggi di errore, proporre una funzione locale o migliorare la leggibilità di un blocco. Non deve invece sostituire la formulazione del modello, la scelta delle ipotesi o l'interpretazione dei risultati.
 
 ## 14. Applicazioni Python e lezioni applicative
 
@@ -941,7 +941,7 @@ La Scheda Costruzione Caso è il documento interno di progettazione del caso. Es
 
 La Scheda Costruzione Caso deve essere predisposta sia per il Caso Aula sia per il Caso TakeHome. La sua funzione metodologica è la stessa nei due casi. La differenza riguarda soltanto l’uso didattico successivo dei materiali: nel Caso Aula il materiale sostiene lo sviluppo guidato in lezione; nel Caso TakeHome sostiene la consegna assegnata agli studenti e la valutazione del notebook e del tracciato IA.
 
-La struttura operativa canonica e' conservata nel template Markdown registrato in `Templates/MQF_Catalogo_Template.md`. Le schede compilate per le singole lezioni sono istanze del template e restano nelle rispettive cartelle applicative.
+La struttura operativa canonica è conservata nel template Markdown registrato in `Templates/MQF_Catalogo_Template.md`. Le schede compilate per le singole lezioni sono istanze del template e restano nelle rispettive cartelle applicative.
 
 La Scheda Costruzione Caso deve contenere almeno:
 
@@ -1716,7 +1716,7 @@ Per le lezioni applicative che prevedono uso documentato dell’IA, la sequenza 
 
 Il Prompt zero è il prompt di contesto iniziale. Si usa una sola volta all’inizio di una nuova chat. Serve a definire il perimetro generale della conversazione.
 
-Il testo fisso canonico del Prompt zero e' conservato nel template Markdown registrato in `Templates/MQF_Catalogo_Template.md`. Deve essere riutilizzato senza riscritture locali; eventuali modifiche generali richiedono prima l'aggiornamento delle presenti Guidelines e poi del template.
+Il testo fisso canonico del Prompt zero è conservato nel template Markdown registrato in `Templates/MQF_Catalogo_Template.md`. Deve essere riutilizzato senza riscritture locali; eventuali modifiche generali richiedono prima l'aggiornamento delle presenti Guidelines e poi del template.
 
 #### Prompt 1 — Scheda Caso e cella Markdown iniziale
 
@@ -1736,7 +1736,7 @@ La cella Markdown iniziale deve sintetizzare:
 8. controlli principali;
 9. vincolo che la Scheda Caso non deve essere modificata.
 
-Il testo canonico del Prompt 1 e' conservato nel corrispondente template Markdown registrato nel Catalogo dei template. La Scheda Caso costituisce la parte variabile; le istruzioni successive costituiscono la parte fissa.
+Il testo canonico del Prompt 1 è conservato nel corrispondente template Markdown registrato nel Catalogo dei template. La Scheda Caso costituisce la parte variabile; le istruzioni successive costituiscono la parte fissa.
 
 Se l'IA produce formule aggiuntive, codice, tappe operative, interpretazioni o suggerimenti risolutivi, lo studente deve riportarla al vincolo del Prompt 1.
 
@@ -1750,7 +1750,7 @@ Il Prompt 2 deve contenere un contributo esplicito dello studente. Lo studente d
 
 L’IA può aiutare a verificare, completare e ordinare tale sequenza, ma non deve sostituire integralmente il lavoro dello studente. Il contributo iniziale dello studente deve restare visibile nel tracciato IA.
 
-Il testo canonico del Prompt 2 e' conservato nel corrispondente template Markdown. La proposta iniziale dello studente costituisce la parte variabile e non deve essere precompilata dal docente o dall'IA.
+Il testo canonico del Prompt 2 è conservato nel corrispondente template Markdown. La proposta iniziale dello studente costituisce la parte variabile e non deve essere precompilata dal docente o dall'IA.
 
 L’output obbligatorio del Prompt 2 è una sola cella Markdown, con un titolo sintetico coerente con la funzione del Prompt 2 e una tabella con la seguente struttura:
 
@@ -1767,7 +1767,7 @@ La finalità del Prompt 3 è trasformare il Flusso logico-teorico risolutivo in 
 
 L'IA può aiutare a verificare, completare e ordinare la scomposizione, ma non deve produrre direttamente il notebook e non deve modificare la Scheda Caso.
 
-Il testo canonico del Prompt 3 e' conservato nel corrispondente template Markdown. La prima proposta di tappe costituisce la parte variabile e deve rendere visibile il contributo dello studente.
+Il testo canonico del Prompt 3 è conservato nel corrispondente template Markdown. La prima proposta di tappe costituisce la parte variabile e deve rendere visibile il contributo dello studente.
 
 Prompt generici del tipo “dividi il problema in tappe” sono considerati deboli se non rendono visibile una proposta iniziale dello studente.
 
@@ -2102,22 +2102,22 @@ Output computazionali corretti ma ottenuti attraverso una delega opaca e non con
 
 ## 16. Gestione dello stato di avanzamento
 
-L'unica fonte per lo stato corrente del progetto e' `MQF_Stato_Avanzamento.md`. Il file deve essere aggiornato periodicamente e ogni volta che cambia lo stato effettivo di una lezione, di un capitolo o di un prodotto didattico.
+L'unica fonte per lo stato corrente del progetto è `MQF_Stato_Avanzamento.md`. Il file deve essere aggiornato periodicamente e ogni volta che cambia lo stato effettivo di una lezione, di un capitolo o di un prodotto didattico.
 
 Le presenti Guidelines definiscono regole stabili e non devono contenere tabelle, conteggi o note sullo stato corrente. Il Master Plan definisce l'architettura didattica, i contenuti previsti e i registri tematici, ma non deve riportare indicatori quali completato, in lavorazione, bozza o da scrivere.
 
 `MQF_Stato_Avanzamento.md` registra almeno:
 
 1. stato del capitolo, delle slides, degli esercizi, dei grafici e degli eventuali materiali Python per ciascuna lezione;
-2. ultima attivita' completata, lavoro in corso e prossima priorita';
+2. ultima attività completata, lavoro in corso e prossima priorità;
 3. scostamenti rispetto al Master Plan o alle Guidelines;
 4. questioni operative ancora aperte;
-5. verifiche di conformita' rilevanti, comprese la struttura degli esercizi e la compatibilita' con Scientific WorkPlace 5.5.
+5. verifiche di conformità rilevanti, comprese la struttura degli esercizi e la compatibilità con Scientific WorkPlace 5.5.
 
-Il Registro decisionale resta distinto: documenta le decisioni progettuali e le loro motivazioni, non lo stato di esecuzione delle attivita'.
+Il Registro decisionale resta distinto: documenta le decisioni progettuali e le loro motivazioni, non lo stato di esecuzione delle attività.
 
 ## 17. Principio guida finale
 
 Il corso deve essere rigoroso nella notazione, selettivo nelle dimostrazioni, applicativo nell'interpretazione e coerente nella progressione didattica.
 
-La qualita' del progetto dipendera' soprattutto dalla capacita' di mantenere un legame costante tra formalizzazione matematica, interpretazione finanziaria, esercizi, grafici e implementazioni computazionali.
+La qualità del progetto dipenderà soprattutto dalla capacità di mantenere un legame costante tra formalizzazione matematica, interpretazione finanziaria, esercizi, grafici e implementazioni computazionali.

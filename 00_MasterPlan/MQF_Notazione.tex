@@ -168,6 +168,16 @@ Indicatrice & $\1_A$ & Variabile che vale $1$ su $A$ e $0$ altrove.\\
 \hline
 \end{longtable}
 
+La distribuzione indotta da una variabile casuale $X$ sulla retta reale
+pu\`{o} essere indicata con
+\[
+\Prob_X.
+\]
+Per ogni insieme boreliano $B\in\mathcal{B}(\mathbb{R})$,
+\[
+\Prob_X(B)=\Prob(X\in B).
+\]
+
 Per una variabile casuale discreta,
 \[
  \E[X]=\sum_x x\,p_X(x).
@@ -184,6 +194,19 @@ La covarianza tra $X$ e $Y$ \`{e}
 \[
  \Cov(X,Y)=\E\left[(X-\E[X])(Y-\E[Y])\right].
 \]
+
+Per $\alpha\in(0,1)$, il quantile di ordine $\alpha$ di una variabile
+casuale $X$ \`{e} indicato con
+\[
+q_\alpha(X),
+\]
+con
+\[
+q_\alpha(X)
+=
+\inf\{x\in\R:F_X(x)\geq\alpha\}.
+\]
+
 
 \section{Informazione e valori attesi condizionati}
 
@@ -449,6 +472,21 @@ essere indicata con
 \]
 Questa convenzione \`{e} usata soprattutto nelle applicazioni Python e nelle
 stime Monte Carlo.
+
+Per distinguere le quantit\`{a} teoriche dalle corrispondenti stime
+Monte Carlo, si utilizza il simbolo $\widehat{\phantom{X}}$. In particolare,
+\[
+\widehat{\Prob}(A)
+\]
+indica una stima empirica della probabilit\`{a} dell'evento $A$, mentre
+\[
+\widehat{\E}[X]
+\]
+indica una stima del valore atteso di $X$. Analogamente,
+\[
+\widehat{\E}[X\mid A]
+\]
+indica una stima del valore atteso condizionato.
 
 \section{Catene di Markov}
 

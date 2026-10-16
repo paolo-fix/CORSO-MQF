@@ -21,16 +21,16 @@ Il Master Plan definisce l'architettura didattica e i contenuti previsti. Le Gui
 
 Legenda: `sviluppato` = contenuto sostanziale presente; `parziale` = componente presente ma incompleta o non ancora validata in modo conclusivo; `traccia` = solo struttura iniziale; `-` = non iniziato; `n.a.` = non applicabile.
 
-La classificazione `sviluppato` non equivale a `chiuso`: in questa fase gran parte del corso \`e sviluppata con taratura o verifica conclusiva residua.
+La classificazione `sviluppato` non equivale a `chiuso`: in questa fase gran parte del corso è sviluppata con taratura o verifica conclusiva residua.
 
 Alla data del 2026-10-16 nessuna lezione viene riclassificata automaticamente come `chiusa` sulla sola base dell'audit. L'audit documenta presenza e modifiche dei materiali; la chiusura richiede anche il completamento dei controlli di coerenza, compilabilità e, per le lezioni applicative, esecuzione e riproducibilità dei notebook.
 
 | Lez. | Tipo | Titolo sintetico | Manuale | Slides | Esercizi/materiali operativi | Grafici | Python/Notebook |
 |---:|:---:|---|:---:|:---:|:---:|:---:|:---:|
-| 1 | P | Elementi di probabilit\`a | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
+| 1 | P | Elementi di probabilità | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
 | 2 | P | Variabili casuali | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
 | 3 | P | Valori attesi condizionati | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
-| 4 | C | Python: probabilit\`a e condizionamento | sviluppato | sviluppato | sviluppato | sviluppato | sviluppato |
+| 4 | C | Python: probabilità e condizionamento | sviluppato | sviluppato | sviluppato | sviluppato | sviluppato |
 | 5 | P | Processi stocastici in tempo discreto | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
 | 6 | P | Processi stocastici in tempo continuo | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
 | 7 | C | Traiettorie, simulazione e pricing | sviluppato | sviluppato | sviluppato | sviluppato | sviluppato |
@@ -38,7 +38,7 @@ Alla data del 2026-10-16 nessuna lezione viene riclassificata automaticamente co
 | 9 | P | Markov e misure di rischio | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
 | 10 | C | Python: rischio di credito | sviluppato | sviluppato | sviluppato | sviluppato | sviluppato |
 | 11 | P | Programmazione lineare | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
-| 12 | P | Dualit\`a e ALM deterministico | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
+| 12 | P | Dualità e ALM deterministico | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
 | 13 | C | Python: programmazione lineare e ALM deterministico | sviluppato | sviluppato | sviluppato | sviluppato | sviluppato |
 | 14 | P | Programmazione stocastica a due stadi | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
 | 15 | P | Programmazione stocastica multistadio | sviluppato | sviluppato | sviluppato | sviluppato | n.a. |
@@ -67,23 +67,23 @@ Questa sezione conserva una checklist operativa per il controllo orizzontale, ve
 
 ## Verifica 2026-10-12 - Ricognizione generale del progetto
 
-La ricognizione del repository mostra un passaggio di fase rispetto allo snapshot del 2026-09-15. Il progetto non \`e pi\`u caratterizzato dalla costruzione dei blocchi mancanti, ma dal controllo conclusivo di un impianto didattico ormai sostanzialmente completo.
+La ricognizione del repository mostra un passaggio di fase rispetto allo snapshot del 2026-09-15. Il progetto non è più caratterizzato dalla costruzione dei blocchi mancanti, ma dal controllo conclusivo di un impianto didattico ormai sostanzialmente completo.
 
 ### Evidenze verificate
 
 - In `01_Manuale/Capitoli/` sono presenti i sedici capitoli previsti dal corso. I Capitoli 7, 10, 13, 15 e 16, che nel precedente registro risultavano assenti, in traccia o parziali, contengono ora sviluppo sostanziale coerente con la rispettiva funzione didattica.
 - In `02_Slides/` sono presenti i sedici deck di lezione. In particolare risultano sviluppate anche le slides delle Lezioni 4, 7, 10, 13, 14, 15 e 16, mancanti nel precedente snapshot.
-- Il Capitolo 6 contiene una sezione strutturata di esercizi svolti e una sezione di esercizi proposti con risultati per l'autovalutazione; il precedente stato `parziale` della componente `Esercizi/materiali operativi` non descrive pi\`u il materiale corrente ed \`e stato portato a `sviluppato`.
-- La Lezione 7 dispone di capitolo, slides, Schede Caso Aula/TakeHome, schede di costruzione e pi\`u notebook di lavoro.
+- Il Capitolo 6 contiene una sezione strutturata di esercizi svolti e una sezione di esercizi proposti con risultati per l'autovalutazione; il precedente stato `parziale` della componente `Esercizi/materiali operativi` non descrive più il materiale corrente ed è stato portato a `sviluppato`.
+- La Lezione 7 dispone di capitolo, slides, Schede Caso Aula/TakeHome, schede di costruzione e più notebook di lavoro.
 - La Lezione 10 dispone di capitolo sul rischio di credito, slides, Schede Caso Aula/TakeHome, schede di costruzione, notebook Aula/TakeHome e tracciati.
 - La Lezione 13 dispone di capitolo sull'implementazione Python dell'ALM deterministico, slides, casi Aula/TakeHome, notebook, tracciati e valutazioni. Il capitolo rende esplicita la traduzione del modello in `scipy.optimize.linprog`.
 - La Lezione 14 dispone ora anche delle slides; restano presenti gli script dedicati alla forma estesa e alla generazione delle figure.
-- La Lezione 15 dispone di capitolo e slides sviluppati, di un insieme articolato di script su fattibilit\`a del ricorso, SP/EV/WS, funzione di ricorso, alberi multistadio e non anticipativit\`a, e degli asset grafici richiesti dai sorgenti nella cartella condivisa `graphics/`.
-- La Lezione 16 dispone di capitolo e slides sviluppati, nonch\'e del pacchetto applicativo con Caso Aula e TakeHome, notebook, tracciati e valutazioni.
-- La Lezione 4, gi\`a sviluppata sul piano operativo, dispone ora anche di un deck autonomo e continua a costituire il riferimento metodologico per le lezioni applicative successive.
-- Per le Lezioni applicative 4, 7, 10, 13 e 16 \`e stata verificata integralmente la presenza di figure nei rispettivi sorgenti LaTeX di capitolo e slides. Nei cinque capitoli non risultano comandi `\includegraphics`; nei cinque deck l'unica immagine stabilmente inclusa \`e il logo UniBS della copertina. I grafici prodotti in esecuzione dai notebook costituiscono output computazionali e non determinano quindi lo stato della colonna `Grafici` del registro. Per tutte e cinque le lezioni applicative la componente `Grafici` \`e classificata `sviluppato`.
-- Per la Lezione 15 \`e stata verificata la presenza nella cartella condivisa `graphics/` di tutti gli asset richiamati dal Capitolo 15 e dalle relative slides; la componente `Grafici` \`e pertanto classificata `sviluppato`.
-- `MQF_Project_Guidelines.md` \`e stato riallineato alla struttura corrente del corso e del repository: eliminati i residui della Goal Programming, corretti i nomi dei file delle Lezioni 12, 14 e 15, sostituiti i vecchi riferimenti a `/03_Python` e `/03_Codice` con `04_Codice`, aggiornata la struttura delle slides e corretta la disciplina degli asset grafici e degli output dei notebook.
+- La Lezione 15 dispone di capitolo e slides sviluppati, di un insieme articolato di script su fattibilità del ricorso, SP/EV/WS, funzione di ricorso, alberi multistadio e non anticipatività, e degli asset grafici richiesti dai sorgenti nella cartella condivisa `graphics/`.
+- La Lezione 16 dispone di capitolo e slides sviluppati, nonché del pacchetto applicativo con Caso Aula e TakeHome, notebook, tracciati e valutazioni.
+- La Lezione 4, già sviluppata sul piano operativo, dispone ora anche di un deck autonomo e continua a costituire il riferimento metodologico per le lezioni applicative successive.
+- Per le Lezioni applicative 4, 7, 10, 13 e 16 è stata verificata integralmente la presenza di figure nei rispettivi sorgenti LaTeX di capitolo e slides. Nei cinque capitoli non risultano comandi `\includegraphics`; nei cinque deck l'unica immagine stabilmente inclusa è il logo UniBS della copertina. I grafici prodotti in esecuzione dai notebook costituiscono output computazionali e non determinano quindi lo stato della colonna `Grafici` del registro. Per tutte e cinque le lezioni applicative la componente `Grafici` è classificata `sviluppato`.
+- Per la Lezione 15 è stata verificata la presenza nella cartella condivisa `graphics/` di tutti gli asset richiamati dal Capitolo 15 e dalle relative slides; la componente `Grafici` è pertanto classificata `sviluppato`.
+- `MQF_Project_Guidelines.md` è stato riallineato alla struttura corrente del corso e del repository: eliminati i residui della Goal Programming, corretti i nomi dei file delle Lezioni 12, 14 e 15, sostituiti i vecchi riferimenti a `/03_Python` e `/03_Codice` con `04_Codice`, aggiornata la struttura delle slides e corretta la disciplina degli asset grafici e degli output dei notebook.
 
 ### Variazioni principali rispetto al 2026-09-15
 
@@ -92,10 +92,10 @@ La ricognizione del repository mostra un passaggio di fase rispetto allo snapsho
 - Il Capitolo 15 passa da `parziale` a `sviluppato`.
 - La componente `Esercizi/materiali operativi` della Lezione 6 passa da `parziale` a `sviluppato`, sulla base della presenza corrente di esercizi svolti e proposti strutturati nel Capitolo 6.
 - Le componenti Python/materiali operativi delle Lezioni 7, 10, 13 e 16 passano a `sviluppato`, sulla base della presenza di pacchetti strutturati e sostanziali.
-- La componente `Grafici` delle Lezioni applicative 4, 7, 10, 13 e 16 \`e classificata `sviluppato`: capitoli e slides non prevedono figure didattiche esterne stabilmente incorporate, oltre al logo istituzionale delle copertine, mentre gli output grafici dei notebook sono parte della componente computazionale.
+- La componente `Grafici` delle Lezioni applicative 4, 7, 10, 13 e 16 è classificata `sviluppato`: capitoli e slides non prevedono figure didattiche esterne stabilmente incorporate, oltre al logo istituzionale delle copertine, mentre gli output grafici dei notebook sono parte della componente computazionale.
 - La componente `Grafici` della Lezione 15 passa da `parziale` a `sviluppato`, sulla base della verifica degli asset effettivamente richiamati dai sorgenti e presenti nella cartella condivisa `graphics/`.
 - Le Guidelines sono state riallineate all'architettura corrente del corso e alla struttura effettiva del repository.
-- La fase progettuale dominante diventa la verifica conclusiva di coerenza, compilabilit\`a, riproducibilit\`a e qualit\`a didattica.
+- La fase progettuale dominante diventa la verifica conclusiva di coerenza, compilabilità, riproducibilità e qualità didattica.
 
 ### Verifiche tecniche ancora da completare
 
