@@ -45,7 +45,7 @@ del caso vi corrispondano, quali relazioni matematiche siano necessarie, quali
 quantit\`{a} debbano essere calcolate o stimate e in quale ordine.
 
 Python viene utilizzato per rendere operative queste relazioni. Attraverso la
-simulazione Monte Carlo, \`{e} possibile generare scenari, costruire
+simulazione Monte Carlo, \`{e} possibile generare repliche, costruire
 distribuzioni empiriche, stimare probabilit\`{a}, momenti e quantili, calcolare
 quantit\`{a} condizionate e verificare numericamente propriet\`{a} teoriche.
 Il codice costituisce quindi la traduzione computazionale di una struttura
@@ -212,7 +212,7 @@ si \`{e} verificato.
 Nel campione simulato, la stessa idea viene tradotta selezionando le osservazioni
 appartenenti al regime considerato. Se
 \[
-I_g=\{k:\omega_k\in A_g\},
+I_g=\{k:\omega^{(k)}\in A_g\},
 \qquad
 M_g=\# I_g,
 \]
@@ -1825,7 +1825,7 @@ La regola generale \`{e}
 Il codice deve rendere osservabile quanto definito nella tappa.
 
 Nel caso sviluppato, la simulazione segue la struttura probabilistica del
-modello. Per ogni scenario viene prima individuato il regime informativo
+modello. Per ogni replica viene prima individuato il regime informativo
 \[
 Z\in\{1,2,3\},
 \]
@@ -1978,7 +1978,8 @@ modificare i parametri teorici del caso.
 
 Una criticit\`{a} pu\`{o} riguardare anche l'interpretazione. Descrivere le
 simulazioni come periodi successivi sarebbe, ad esempio, incoerente con un
-modello a un solo periodo, nel quale esse rappresentano scenari alternativi.
+modello a un solo periodo, nel quale esse rappresentano repliche indipendenti
+dello stesso esperimento aleatorio.
 
 La verifica in Regime C deve concludersi con uno dei due esiti:
 

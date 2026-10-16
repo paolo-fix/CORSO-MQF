@@ -61,8 +61,8 @@ fattori di rischio vengono descritti, nella pratica di mercato, da
 soltanto formale. La formulazione continua consente di costruire
 modelli con poche grandezze interpretabili --- una tendenza di fondo,
 una volatilit\`{a}, una velocit\`{a} di richiamo verso un livello di
-equilibrio --- e di simularne le traiettorie su una griglia temporale
-fitta, generando gli scenari su cui si fonda la valutazione di prodotti
+equilibrio --- e di simularne numerose traiettorie su una griglia temporale
+fitta, sulle quali si fonda la valutazione di prodotti
 finanziari complessi.
 
 %Questo capitolo presuppone la familiarit\`{a}, acquisita in corsi precedenti, con il moto browniano, il calcolo stocastico e il lemma di It\^{o}. Tali strumenti verranno richiamati quando necessario, ma non sviluppati: l'obiettivo non \`{e} la costruzione della teoria del calcolo stocastico, bens\`{\i} l'uso dei modelli che su di essa si fondano per descrivere e simulare l'evoluzione dei fattori di rischio finanziari.
@@ -183,7 +183,7 @@ continuo, pur essendo formulati mediante equazioni differenziali
 stocastiche, possono essere discretizzati su griglie temporali fini e
 quindi simulati numericamente. In questo modo il linguaggio continuo non
 resta una costruzione puramente teorica, ma diventa la base per generare
-scenari, stimare valori attesi, calcolare prezzi di prodotti complessi e
+traiettorie simulate, stimare valori attesi, calcolare prezzi di prodotti complessi e
 misurare il rischio. Si stabilisce cos\`{\i} un ponte diretto tra
 formulazione matematica del modello e applicazione computazionale.
 
@@ -1309,7 +1309,7 @@ rappresentare sistemi finanziari in cui pi\`{u} fattori di rischio
 evolvono congiuntamente. La matrice di correlazione $R=(\rho_{ij})$
 descrive la dipendenza istantanea tra gli shock browniani, mentre la
 fattorizzazione $R=LL'$ fornisce lo strumento operativo per generare
-scenari coerenti in simulazione. Questo passaggio \`{e} essenziale per
+repliche con una struttura di dipendenza coerente con il modello. Questo passaggio \`{e} essenziale per
 qualunque applicazione in cui il rischio non dipenda da un singolo
 fattore, ma dalla struttura congiunta di pi\`{u} fonti di incertezza.
 
@@ -1459,7 +1459,7 @@ dal valore finale. Opzioni asiatiche, barriere, prodotti path-dependent e
 modelli a pi\`{u} fattori richiedono proprio la generazione di traiettorie
 discrete del modello sottostante. Lo schema di Eulero--Maruyama fornisce
 quindi il primo strumento generale per passare dalla formulazione teorica
-della SDE alla costruzione operativa di scenari.
+della SDE alla costruzione operativa di traiettorie simulate.
 
 \subsection*{Limiti dell'approssimazione}
 
@@ -1898,7 +1898,7 @@ incrementi browniani determina la costruzione degli schemi numerici; la
 parametrizzazione del GBM modifica crescita, dispersione e media
 aritmetica; la forma della diffusione distingue OU e CIR; la correlazione
 governa la trasmissione congiunta degli shock. Nel capitolo applicativo successivo, questi elementi diventeranno procedure computazionali per
-simulare traiettorie, generare scenari e stimare quantit\`{a} finanziarie
+simulare molte traiettorie e stimare quantit\`{a} finanziarie
 mediante Monte Carlo.
 
 \section{Applicazioni finanziarie}
@@ -1908,7 +1908,7 @@ descrivere l'evoluzione dinamica di fattori di rischio finanziari e
 fornire una base per la simulazione numerica. Il loro utilizzo non si
 limita alla rappresentazione qualitativa delle traiettorie. Una volta
 specificata una dinamica stocastica, infatti, diventa possibile generare
-scenari, stimare valori attesi, valutare payoff dipendenti dal tempo e
+repliche simulate, stimare valori attesi, valutare payoff dipendenti dal tempo e
 misurare la distribuzione futura di perdite, esposizioni o flussi di
 cassa.
 
