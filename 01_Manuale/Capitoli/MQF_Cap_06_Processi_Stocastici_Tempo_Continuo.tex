@@ -1555,15 +1555,14 @@ quantit\`{a} viene stimata da
 =
 \left(
 \frac{1}{M}
-\sum_{j=1}^{M}
+\sum_{k=1}^{M}
 \left(
-S_{T,j}^{(\Delta t)}-S_{T,j}
+S_{T,k}^{(\Delta t)}-S_{T,k}
 \right)^2
 \right)^{1/2},
 \]
-dove $S_{T,j}^{(\Delta t)}$ \`{e} il valore approssimato della
-$j$-esima traiettoria e $S_{T,j}$ \`{e} il corrispondente valore esatto
-calcolato dalla soluzione esplicita del GBM usando la stessa
+dove $S_{T,k}^{(\Delta t)}$ \`{e} il valore approssimato della
+$k$-esima traiettoria e $S_{T,k}$ \`{e} il corrispondente valore esatto calcolato dalla soluzione esplicita del GBM usando la stessa
 realizzazione browniana.
 
 \begin{figure}[htbp]
@@ -2804,7 +2803,7 @@ Gli shock dei due indici devono avere correlazione istantanea
 \rho=-0.45.
 \]
 
-Per generare gli scenari Monte Carlo si parta da due variabili normali
+Per generare le repliche Monte Carlo, si parta da due variabili normali
 standard indipendenti $Z_1$ e $Z_2$. In una particolare iterazione
 della simulazione si supponga di avere ottenuto le realizzazioni
 \[
@@ -2841,7 +2840,7 @@ Determinare:
 \begin{enumerate}
 \item gli shock correlati $\varepsilon_1$ e $\varepsilon_2$;
 \item le variazioni giornaliere $\Delta R_1$ e $\Delta R_2$;
-\item il profitto o la perdita di portafoglio nello scenario simulato,
+\item il profitto o la perdita di portafoglio nella replica simulata,
 definito da
 \[
 \Delta\Pi
@@ -2936,7 +2935,7 @@ Pertanto,
 \Delta R_2\approx -0.452\%.
 \]
 
-\item Il risultato di portafoglio nello scenario simulato \`{e}
+\item Il risultato di portafoglio nella replica simulata \`{e}
 \[
 \Delta\Pi
 =
@@ -2954,7 +2953,7 @@ Si ottiene
 8\,336.30.
 \]
 
-Nello scenario considerato, il portafoglio registra quindi un profitto
+Nella replica considerata, il portafoglio registra quindi un profitto
 di circa
 \[
 8\,336
@@ -3096,7 +3095,7 @@ shock con la struttura di dipendenza richiesta dal modello.
 
 La singola coppia numerica calcolata non permette di osservare o
 verificare una correlazione. La correlazione emerge dalla distribuzione
-congiunta di un numero elevato di scenari generati ripetendo la stessa
+congiunta di un numero elevato di repliche generate ripetendo la stessa
 procedura.
 
 \begin{exercise}[Un passo mensile di Eulero--Maruyama per il GBM]

@@ -45,14 +45,13 @@ Questo capitolo compie il passaggio successivo. L'obiettivo non \`e
 introdurre nuovi modelli stocastici, ma utilizzare quelli gi\`a studiati
 per costruire una procedura completa di valutazione numerica. Le
 traiettorie simulate diventano quindi l'input per determinare quantit\`a
-finanziarie, flussi di cassa, payoff e valori attuali scenario per
-scenario.
+finanziarie, flussi di cassa, payoff e valori attuali replica per replica.
 
 Il problema applicativo richiede di organizzare simultaneamente molte
 traiettorie, mantenere coerente la dimensione temporale della simulazione,
 preservare la dipendenza tra i fattori di rischio e trasformare le
 grandezze simulate nelle quantit\`a richieste dal contratto. Solo dopo
-questa trasformazione i valori scenario-specifici possono essere
+questa trasformazione i valori specifici delle singole repliche possono essere
 aggregati mediante una stima Monte Carlo.
 
 Il filo conduttore del capitolo \`e un Caso Aula dedicato alla valutazione
@@ -65,7 +64,7 @@ Il caso rende operativi diversi elementi gi\`a introdotti nel Capitolo 6:
 dinamiche mean-reverting, processo CIR, shock gaussiani correlati,
 discretizzazione temporale e approssimazione di integrali lungo la
 traiettoria. La novit\`a consiste nel collegare questi elementi alla
-struttura finanziaria del contratto e nel costruire, per ogni scenario,
+struttura finanziaria del contratto e nel costruire, per ogni replica simulata,
 un valore attuale complessivo.
 
 Particolare attenzione sar\`a dedicata ai controlli. Una simulazione che
@@ -108,7 +107,7 @@ computazionale, interessa invece simulare simultaneamente molte traiettorie
 compatibili con lo stesso modello.
 
 La prima questione riguarda quindi la rappresentazione in Python delle due
-dimensioni del campione Monte Carlo: scenari e tempo.
+dimensioni del campione Monte Carlo: repliche simulate e tempo.
 
 \subsection{Da una traiettoria a una matrice di simulazione}
 
@@ -139,11 +138,10 @@ struttura computazionale \`e quindi $M\times(N+1)$, e, in NumPy,
 \texttt{shape}=(M,N+1).
 \]
 
-La convenzione riflette direttamente il problema finanziario: per ciascuno
-scenario, viene conservata l'intera evoluzione temporale necessaria alla
+La convenzione riflette direttamente il problema finanziario: per ciascuna replica, viene conservata l'intera evoluzione temporale necessaria alla
 valutazione.
 
-\subsection{Operare tra scenari oppure lungo il tempo}
+\subsection{Operare tra repliche oppure lungo il tempo}
 
 Fissando una data \(t_j\), si confrontano i valori
 
@@ -151,7 +149,7 @@ Fissando una data \(t_j\), si confrontano i valori
 X_{t_j}^{(1)},\ldots,X_{t_j}^{(M)}
 \]
 
-\noindent tra scenari. Fissando invece uno scenario \(k\), si osserva
+\noindent tra repliche. Fissando invece una replica \(k\), si osserva
 
 \[
 X_{t_0}^{(k)},\ldots,X_{t_N}^{(k)}
@@ -165,7 +163,7 @@ Con la convenzione adottata,
 \texttt{axis=0}
 \]
 
-\noindent indica un'aggregazione tra scenari a parit\`a di data, mentre
+\noindent indica un'aggregazione tra repliche a parit\`a di data, mentre
 
 \[
 \texttt{axis=1}
@@ -173,7 +171,7 @@ Con la convenzione adottata,
 
 \noindent indica un'aggregazione lungo il tempo all'interno di ciascuna traiettoria.
 
-La distinzione \`e essenziale: una media tra scenari e una media temporale
+La distinzione \`e essenziale: una media tra repliche e una media temporale
 possono utilizzare la stessa funzione Python, ma rappresentano quantit\`a
 finanziarie differenti.
 
@@ -188,7 +186,7 @@ Se le colonne rappresentano il tempo,
 \texttt{X[:, -1]}
 \]
 
-\noindent seleziona il valore terminale in tutti gli scenari, mentre
+\noindent seleziona il valore terminale in tutte le repliche, mentre
 
 \[
 \texttt{X[:, indici]}
@@ -249,7 +247,7 @@ Nel notebook, questi due passaggi confluiscono nella catena
 \\[3pt]
 \downarrow
 \\[3pt]
-\text{valore per scenario}
+\text{valore per replica}
 \\[3pt]
 \downarrow
 \\[3pt]
@@ -309,7 +307,7 @@ X_{t_0},X_{t_1},\ldots,X_{t_N}
 
 La ricorsione opera lungo la dimensione temporale, mentre a ogni passo
 l'aggiornamento pu\`o essere vettorizzato sulle \(M\) traiettorie. Tempo e
-scenari costituiscono quindi due dimensioni computazionali distinte.
+repliche costituiscono quindi due dimensioni computazionali distinte.
 
 \subsection{Shock e dipendenza tra fattori}
 
@@ -346,7 +344,7 @@ Z_{2,j}^{*}
 con \(Z_{1,j}\) e \(Z_{2,j}\) indipendenti.
 
 Gli shock correlati devono alimentare i due fattori nello stesso intervallo
-temporale e nello stesso scenario.
+temporale e nella stessa replica.
 
 Il seed del generatore pseudo-casuale viene fissato per rendere replicabile il
 campione durante sviluppo e verifica del notebook.
@@ -525,8 +523,7 @@ dW_t^{(i)}\,dW_t^{(r)}
 \noindent con $\rho=0.25$.
 
 Inflazione e tasso nominale intervengono in componenti differenti della
-valutazione, ma la loro dipendenza deve essere preservata all'interno dello
-stesso scenario.
+valutazione, ma la loro dipendenza deve essere preservata all'interno della stessa replica.
 
 \subsection{Indicizzazione e sconto}
 
@@ -638,7 +635,7 @@ come modello operativo di quotazione di un titolo di mercato.
 
 Il Caso Aula richiede di simulare congiuntamente il tasso di inflazione
 \(i_t\) e il tasso nominale \(r_t\). La dipendenza tra i due processi deve
-essere preservata all'interno di ogni scenario e a ogni passo temporale.
+essere preservata all'interno di ogni replica e a ogni passo temporale.
 
 La sequenza operativa \`e
 
@@ -670,31 +667,31 @@ N_{\mathrm{step}}=60
 
 \noindent intervalli mensili.
 
-Per ciascuno dei \(M=50\,000\) scenari, occorrono quindi sessanta coppie di
+Per ciascuna delle \(M=50\,000\) repliche, occorrono quindi sessanta coppie di
 shock.
 
 Partendo da due normali standard indipendenti,
 
 \[
-Z_{1,j}^{(s)},
+Z_{1,j}^{(k)},
 \qquad
-Z_{2,j}^{(s)},
+Z_{2,j}^{(k)},
 \]
 
 \noindent si costruiscono
 
 \[
-Z_{i,j}^{(s)}
+Z_{i,j}^{(k)}
 =
-Z_{1,j}^{(s)},
+Z_{1,j}^{(k)},
 \]
 
 \[
-Z_{r,j}^{(s)}
+Z_{r,j}^{(k)}
 =
-\rho Z_{1,j}^{(s)}
+\rho Z_{1,j}^{(k)}
 +
-\sqrt{1-\rho^2}\,Z_{2,j}^{(s)}.
+\sqrt{1-\rho^2}\,Z_{2,j}^{(k)}.
 \]
 
 Per costruzione,
@@ -702,8 +699,8 @@ Per costruzione,
 \[
 \Corr
 \left(
-Z_{i,j}^{(s)},
-Z_{r,j}^{(s)}
+Z_{i,j}^{(k)},
+Z_{r,j}^{(k)}
 \right)
 =
 \rho.
@@ -735,24 +732,24 @@ di_t
 \noindent lo schema utilizzato sulla griglia \`e
 
 \[
-i_{t_{j+1}}^{(s)}
+i_{t_{j+1}}^{(k)}
 =
-i_{t_j}^{(s)}
+i_{t_j}^{(k)}
 +
 \kappa_i
 \left(
-\theta_i-i_{t_j}^{(s)}
+\theta_i-i_{t_j}^{(k)}
 \right)
 \Delta t
 +
 \sigma_i\sqrt{\Delta t}\,
-Z_{i,j+1}^{(s)}.
+Z_{i,j+1}^{(k)}.
 \]
 
 Il valore iniziale \`e
 
 \[
-i_{t_0}^{(s)}=i_0.
+i_{t_0}^{(k)}=i_0.
 \]
 
 L'aggiornamento viene eseguito ricorsivamente lungo il tempo e
@@ -774,26 +771,26 @@ dr_t
 il notebook utilizza
 
 \[
-r_{t_{j+1}}^{(s)}
+r_{t_{j+1}}^{(k)}
 =
-r_{t_j}^{(s)}
+r_{t_j}^{(k)}
 +
 \kappa_r
 \left(
-\theta_r-r_{t_j}^{(s)}
+\theta_r-r_{t_j}^{(k)}
 \right)
 \Delta t
 +
 \sigma_r
-\sqrt{\max(r_{t_j}^{(s)},0)}
+\sqrt{\max(r_{t_j}^{(k)},0)}
 \sqrt{\Delta t}\,
-Z_{r,j+1}^{(s)}.
+Z_{r,j+1}^{(k)}.
 \]
 
 L'operatore
 
 \[
-\max(r_{t_j}^{(s)},0)
+\max(r_{t_j}^{(k)},0)
 \]
 
 \noindent agisce soltanto all'interno della radice quadrata, evitando che un valore
@@ -803,7 +800,7 @@ Il valore aggiornato non viene invece forzato sistematicamente a essere
 positivo. Eventuali osservazioni
 
 \[
-r_{t_j}^{(s)}<0
+r_{t_j}^{(k)}<0
 \]
 
 \noindent vengono rilevate e conteggiate come possibile anomalia della
@@ -819,20 +816,20 @@ M\times(N_{\mathrm{step}}+1):
 
 \[
 \left(
-i_{t_j}^{(s)}
+i_{t_j}^{(k)}
 \right),
 \qquad
 \left(
-r_{t_j}^{(s)}
+r_{t_j}^{(k)}
 \right).
 \]
 
-Le righe corrispondenti delle due matrici appartengono allo stesso scenario:
+Le righe corrispondenti delle due matrici appartengono alla stessa replica:
 
 \[
 \left\{
-i_{t_j}^{(s)},
-r_{t_j}^{(s)}
+i_{t_j}^{(k)},
+r_{t_j}^{(k)}
 \right\}_{j=0}^{N_{\mathrm{step}}}.
 \]
 
@@ -854,9 +851,9 @@ Le traiettorie devono ora essere trasformate nelle grandezze che entrano
 direttamente nel contratto:
 
 \[
-J_t^{(s)}
+J_t^{(k)}
 \qquad\text{e}\qquad
-D^{(s)}(0,t).
+D^{(k)}(0,t).
 \]
 
 
@@ -866,65 +863,64 @@ Le traiettorie simulate di inflazione e tasso devono ora essere trasformate
 nelle quantit\`a finanziarie utilizzate dal contratto:
 
 \[
-i_t^{(s)}
+i_t^{(k)}
 \longrightarrow
-J_t^{(s)},
+J_t^{(k)},
 \]
 
 \[
-r_t^{(s)}
+r_t^{(k)}
 \longrightarrow
-D^{(s)}(0,t).
+D^{(k)}(0,t).
 \]
 
-Solo successivamente si costruiscono i flussi e il valore attuale di ciascuno
-scenario.
+Solo successivamente si costruiscono i flussi e il valore attuale di ciascuna replica.
 
 \subsection{Indice e fattore di sconto}
 
-Per ogni scenario,
+Per ogni replica,
 
 \[
-J_t^{(s)}
+J_t^{(k)}
 =
 \exp\left(
-\int_0^t i_u^{(s)}\,du
+\int_0^t i_u^{(k)}\,du
 \right).
 \]
 
 Sulla griglia mensile,
 
 \[
-J_{t_j}^{(s)}
+J_{t_j}^{(k)}
 \approx
 \exp\left(
 \sum_{\ell=0}^{j-1}
-i_{t_\ell}^{(s)}\Delta t
+i_{t_\ell}^{(k)}\Delta t
 \right).
 \]
 
 Il calcolo \`e cumulativo lungo il tempo e soddisfa
 
 \[
-J_0^{(s)}=1,
+J_0^{(k)}=1,
 \qquad
-J_{t_j}^{(s)}>0.
+J_{t_j}^{(k)}>0.
 \]
 
 Analogamente,
 
 \[
-D^{(s)}(0,t_j)
+D^{(k)}(0,t_j)
 \approx
 \exp\left(
 -
 \sum_{\ell=0}^{j-1}
-r_{t_\ell}^{(s)}\Delta t
+r_{t_\ell}^{(k)}\Delta t
 \right).
 \]
 
 Il fattore di sconto dipende quindi dall'intera traiettoria del tasso fino a
-\(t_j\), non dal solo valore \(r_{t_j}^{(s)}\).
+\(t_j\), non dal solo valore \(r_{t_j}^{(k)}\).
 
 \subsection{Date contrattuali e cedole}
 
@@ -947,14 +943,14 @@ t_j=0.5,1,\ldots,5,
 6,12,\ldots,60.
 \]
 
-Alla data \(t_j\), la cedola dello scenario \(s\) \`e
+Alla data \(t_j\), la cedola della replica \(k\) \`e
 
 \[
-C_{t_j}^{(s)}
+C_{t_j}^{(k)}
 =
 \frac{c}{2}
 N
-J_{t_j}^{(s)}.
+J_{t_j}^{(k)}.
 \]
 
 Con \(c=0.015\) e \(N=100\), la cedola nominale semestrale \`e \(0.75\), poi
@@ -967,72 +963,72 @@ Le cedole non sono protette contro la deflazione.
 A scadenza,
 
 \[
-R_T^{(s)}
+R_T^{(k)}
 =
 N\max
 \left(
-J_T^{(s)},1
+J_T^{(k)},1
 \right).
 \]
 
 Pertanto
 
 \[
-R_T^{(s)}
+R_T^{(k)}
 \geq N
 \]
 
-\noindent in ogni scenario.
+\noindent in ogni replica.
 
 Equivalentemente,
 
 \[
-R_T^{(s)}
+R_T^{(k)}
 =
 N
 +
 N\max
 \left(
-J_T^{(s)}-1,0
+J_T^{(k)}-1,0
 \right),
 \]
 
 \noindent che separa il capitale nominale dalla rivalutazione legata all'inflazione
 cumulata positiva.
 
-\subsection{Valore attuale per scenario}
+\subsection{Valore attuale per replica}
 
 Il valore attuale delle cedole \`e
 
 \[
-PV_C^{(s)}
+PV_C^{(k)}
 =
 \sum_{j=1}^{m}
-D^{(s)}(0,t_j)
-C_{t_j}^{(s)},
+D^{(k)}(0,t_j)
+C_{t_j}^{(k)},
 \]
 
 \noindent mentre quello del rimborso \`e
 
 \[
-PV_R^{(s)}
+PV_R^{(k)}
 =
-D^{(s)}(0,T)
-R_T^{(s)}.
+D^{(k)}(0,T)
+R_T^{(k)}.
 \]
 
-Il valore complessivo del bond nello scenario \(s\) \`e quindi
+Il valore complessivo del bond nella replica \(k\) \`e quindi
 
 \[
-V^{(s)}
+V^{(k)}
 =
-PV_C^{(s)}
+PV_C^{(k)}
 +
-PV_R^{(s)}.
+PV_R^{(k)}.
 \]
 
 Il pricing Monte Carlo avviene soltanto dopo che il valore finanziario \`e
-stato costruito separatamente in ciascuno scenario.
+stato costruito separatamente in ciascuna replica.
 
 \subsection{Dal campione al prezzo}
 
@@ -1048,8 +1044,8 @@ Il prezzo stimato \`e
 \widehat V_M
 =
 \frac{1}{M}
-\sum_{s=1}^{M}
-V^{(s)}.
+\sum_{k=1}^{M}
+V^{(k)}.
 \]
 
 La decomposizione del prezzo \`e
@@ -1068,8 +1064,8 @@ dove
 \widehat{PV}_C
 =
 \frac{1}{M}
-\sum_{s=1}^{M}
-PV_C^{(s)}
+\sum_{k=1}^{M}
+PV_C^{(k)}
 \]
 
 e
@@ -1078,8 +1074,8 @@ e
 \widehat{PV}_R
 =
 \frac{1}{M}
-\sum_{s=1}^{M}
-PV_R^{(s)}.
+\sum_{k=1}^{M}
+PV_R^{(k)}.
 \]
 
 Questa identit\`a costituisce un controllo diretto della costruzione dei
@@ -1093,11 +1089,11 @@ La probabilit\`a simulata di deflazione cumulata a scadenza \`e
 \widehat{\Prob}(J_T<1)
 =
 \frac{1}{M}
-\sum_{s=1}^{M}
-\1_{\{J_T^{(s)}<1\}}.
+\sum_{k=1}^{M}
+\1_{\{J_T^{(k)}<1\}}.
 \]
 
-Essa misura la quota di scenari nei quali il floor sul capitale risulta
+Essa misura la quota di repliche nelle quali il floor sul capitale risulta
 attivo.
 
 Accanto al prezzo, vengono calcolate media e deviazione standard di
@@ -1111,7 +1107,7 @@ J_T.
 \]
 
 Le prime due descrivono i fattori terminali; \(J_T\) sintetizza l'effetto
-cumulato dell'inflazione; \(V^{(s)}\) incorpora infine anche flussi,
+cumulato dell'inflazione; \(V^{(k)}\) incorpora infine anche flussi,
 protezione e attualizzazione.
 
 La catena completa del Caso Aula \`e quindi
@@ -1134,7 +1130,7 @@ J_t,\ D(0,t)
 \\[3pt]
 \downarrow
 \\[3pt]
-V^{(s)}
+V^{(k)}
 \\[3pt]
 \downarrow
 \\[3pt]
@@ -1169,8 +1165,8 @@ Il prezzo stimato \`e
 \widehat V_M
 =
 \frac{1}{M}
-\sum_{s=1}^{M}
-V^{(s)}.
+\sum_{k=1}^{M}
+V^{(k)}.
 \]
 
 Indicando con \(s_V\) la deviazione standard campionaria dei valori attuali,
@@ -1300,21 +1296,21 @@ del modello e del contratto:
 \]
 
 \[
-J_t^{(s)}>0,
+J_t^{(k)}>0,
 \]
 
 \[
-R_T^{(s)}\geq N
+R_T^{(k)}\geq N
 \]
 
 \noindent e
 
 \[
-V^{(s)}
+V^{(k)}
 =
-PV_C^{(s)}
+PV_C^{(k)}
 +
-PV_R^{(s)}.
+PV_R^{(k)}.
 \]
 
 Devono inoltre essere rilevati eventuali valori negativi prodotti dalla
@@ -1362,29 +1358,29 @@ Per ogni passaggio, deve rimanere riconoscibile la corrispondenza
 
 Nel Caso Aula, per esempio, la correlazione degli shock deve essere coerente
 con \(\rho\); il fattore di sconto deve derivare dalla traiettoria del tasso
-dello stesso scenario; il rimborso deve soddisfare
+della stessa replica; il rimborso deve soddisfare
 
 \[
 R_T^{(s)}\geq N.
 \]
 
-Un controllo utile consiste nel seguire un singolo scenario lungo l'intera
+Un controllo utile consiste nel seguire una singola replica lungo l'intera
 catena:
 
 \[
 \left(
-i^{(s)},r^{(s)}
+i^{(k)},r^{(k)}
 \right)
 \longrightarrow
 \left(
-J^{(s)},D^{(s)}
+J^{(k)},D^{(k)}
 \right)
 \longrightarrow
 \left(
-C^{(s)},R_T^{(s)}
+C^{(k)},R_T^{(k)}
 \right)
 \longrightarrow
-V^{(s)}.
+V^{(k)}.
 \]
 
 Questo permette di individuare errori che possono essere nascosti dalle sole
@@ -1393,19 +1389,19 @@ statistiche aggregate.
 Alcune relazioni devono valere per costruzione:
 
 \[
-J_t^{(s)}>0,
+J_t^{(k)}>0,
 \]
 
 \[
-R_T^{(s)}\geq N,
+R_T^{(k)}\geq N,
 \]
 
 \[
-V^{(s)}
+V^{(k)}
 =
-PV_C^{(s)}
+PV_C^{(k)}
 +
-PV_R^{(s)}.
+PV_R^{(k)}.
 \]
 
 Se falliscono, indicano un errore nell'implementazione.
@@ -1615,60 +1611,59 @@ Poich\'e
 21,42,\ldots,252.
 \]
 
-Per ogni scenario \(s\),
+Per ogni replica \(k\),
 
 \[
-A_T^{(s)}
+A_T^{(k)}
 =
 \frac{1}{12}
 \sum_{j=1}^{12}
-S_{t_j}^{(s)}.
+S_{t_j}^{(k)}.
 \]
 
 Deve quindi valere il controllo
 
 \[
-\min_j S_{t_j}^{(s)}
+\min_j S_{t_j}^{(k)}
 \leq
-A_T^{(s)}
+A_T^{(k)}
 \leq
-\max_j S_{t_j}^{(s)}.
+\max_j S_{t_j}^{(k)}.
 \]
 
 Il payoff soddisfa
 
 \[
-H_T^{(s)}
+H_T^{(k)}
 =
-\max(A_T^{(s)}-K,0)
+\max(A_T^{(k)}-K,0)
 \geq0.
 \]
 
 \subsection{Attualizzazione e prezzo}
 
 Poich\'{e} la simulazione \`{e} condotta sotto $\Q$, il prezzo viene
-stimato come media Monte Carlo del payoff attualizzato scenario per
-scenario.
+stimato come media Monte Carlo del payoff attualizzato replica per replica.
 
-Il fattore di sconto viene costruito scenario per scenario:
+Il fattore di sconto viene costruito replica per replica:
 
 \[
-\widehat D^{(s)}(0,T)
+\widehat D^{(k)}(0,T)
 =
 \exp\left(
 -
-\sum_{k=0}^{N-1}
-r_{t_k}^{(s)}\Delta t
+\sum_{j=0}^{N-1}
+r_{t_j}^{(k)}\Delta t
 \right).
 \]
 
 Il valore attualizzato \`e
 
 \[
-V^{(s)}
+V^{(k)}
 =
-\widehat D^{(s)}(0,T)
-H_T^{(s)},
+\widehat D^{(k)}(0,T)
+H_T^{(k)},
 \]
 
 \noindent e il prezzo Monte Carlo
@@ -1677,8 +1672,8 @@ H_T^{(s)},
 \widehat V_M
 =
 \frac{1}{M}
-\sum_{s=1}^{M}
-V^{(s)}.
+\sum_{k=1}^{M}
+V^{(k)}.
 \]
 
 L'errore standard resta
@@ -1696,8 +1691,8 @@ esercizio
 \widehat{\Prob}(A_T>K)
 =
 \frac{1}{M}
-\sum_{s=1}^{M}
-\1_{\{A_T^{(s)}>K\}},
+\sum_{k=1}^{M}
+\1_{\{A_T^{(k)}>K\}}.
 \]
 
 \noindent il payoff medio e le statistiche di \(S_T\), \(r_T\) e \(A_T\).
@@ -1731,7 +1726,7 @@ Rimangono invece invariati:
 
 \item la selezione delle date contrattuali;
 
-\item la costruzione di quantit\`a finanziarie scenario per scenario;
+\item la costruzione di quantit\`a finanziarie replica per replica;
 
 \item l'attualizzazione pathwise;
 
@@ -1767,7 +1762,7 @@ shock casuali per generare molte traiettorie:
 \text{traiettorie}.
 \]
 
-Python permette di organizzare simultaneamente scenari e tempo mediante array,
+Python permette di organizzare simultaneamente repliche e tempo mediante array,
 indicizzazione e operazioni vettoriali.
 
 Le traiettorie devono poi essere trasformate nelle quantit\`a richieste dal
@@ -1780,7 +1775,7 @@ contratto:
 \longrightarrow
 \text{flussi o payoff}
 \longrightarrow
-V^{(s)}.
+V^{(k)}.
 \]
 
 Nel Caso Aula, inflazione e tasso nominale determinano rispettivamente
@@ -1788,15 +1783,15 @@ indicizzazione e attualizzazione. Nel Caso TakeHome, la traiettoria
 dell'indice azionario determina la media asiatica e il payoff, mentre il tasso
 stocastico determina il fattore di sconto.
 
-Soltanto dopo la costruzione dei valori scenario-specifici interviene
+Soltanto dopo la costruzione dei valori specifici delle singole repliche interviene
 l'aggregazione Monte Carlo:
 
 \[
 \widehat V_M
 =
 \frac{1}{M}
-\sum_{s=1}^{M}
-V^{(s)}.
+\sum_{k=1}^{M}
+V^{(k)}.
 \]
 
 Il capitolo ha inoltre distinto tre livelli di verifica:
@@ -1844,7 +1839,7 @@ Il percorso complessivo pu\`o quindi essere sintetizzato come
 \\[3pt]
 \downarrow
 \\[3pt]
-\text{quantit\`a finanziarie per scenario}
+\text{quantit\`a finanziarie per replica}
 \\[3pt]
 \downarrow
 \\[3pt]

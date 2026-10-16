@@ -100,7 +100,7 @@ equo, favorevole o sfavorevole;
 elencarne gli scenari mediante l'albero e calcolare valori attesi
 condizionati lungo il processo;
  
-\item descrivere la logica della simulazione per scenari e la stima
+\item descrivere la logica della simulazione di traiettorie e la stima
 Monte Carlo di una quantit\`{a} attesa, valutandone l'incertezza.
 
 \end{itemize}
@@ -1840,9 +1840,9 @@ $2^{50}$ traiettorie, oltre mille miliardi. In questi casi si ricorre
 alla \emph{simulazione}.
 
 L'idea della simulazione \`{e} semplice e potente: invece di enumerare
-tutti gli scenari possibili, se ne generano molti \emph{a caso},
-coerentemente con la legge del processo, e si stima la quantit\`{a} di
-interesse come media empirica sui soli scenari generati. Questa
+tutti gli scenari possibili, si generano molte \emph{repliche}
+indipendenti coerenti con la legge del processo, e si stima la quantit\`{a}
+di interesse come media empirica sulle repliche simulate. Questa
 sezione ne presenta la logica in forma generale, valida per qualunque
 processo a tempo discreto. La sua applicazione ai modelli in tempo
 continuo, mediante la discretizzazione delle equazioni differenziali
@@ -1910,8 +1910,8 @@ campionaria, al prezzo di un errore di stima che, come vedremo,
 si pu\`{o} controllare.
 
 La stessa logica si applica a quantit\`{a} condizionate. La media di
-$g(X_T)$ ristretta agli scenari che soddisfano una certa condizione
-$A$ --- ad esempio gli scenari in cui il processo non scende mai sotto
+$g(X_T)$ ristretta alle repliche che soddisfano una certa condizione
+$A$ --- ad esempio le repliche in cui il processo non scende mai sotto
 una soglia --- si stima con
 \[
 \widehat{\theta}_M^{\,A}
@@ -1919,8 +1919,8 @@ una soglia --- si stima con
 \qquad
 M_A=\#\{k:\omega^{(k)}\in A\},
 \]
-ovvero come media della funzione sui soli scenari che ricadono in $A$,
-dove $M_A$ \`{e} il numero di tali scenari.
+ovvero come media della funzione sulle sole repliche che ricadono in $A$,
+dove $M_A$ \`{e} il numero di tali repliche.
 
 \begin{example}[Stima del prezzo atteso terminale]
 \label{es:montecarlo-binomiale}
