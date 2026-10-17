@@ -1,11 +1,11 @@
 # Template - Scheda Costruzione Caso Applicativo
 
-Documento interno di progettazione docente. Compilare separatamente per il caso aula e per il caso take-home.
+Documento interno di progettazione docente. Compilare separatamente per il Caso Aula e per il Caso TakeHome.
 
 ## 1. Identificazione del caso
 
 - **Lezione:** [numero e titolo]
-- **Tipo di caso:** [aula / take-home]
+- **Tipo di caso:** [Caso Aula / Caso TakeHome]
 - **Titolo:** [titolo]
 - **Destinatari:** [destinatari]
 - **Uso previsto:** [uso didattico]
@@ -146,13 +146,17 @@ Il notebook è considerato valido se:
 
 ## 12. Uso dell'IA e tracciato
 
-- **Prompt obbligatori:** [elenco]
-- **Numero minimo e massimo di prompt:** [intervallo]
+- **Uso documentato dell'IA previsto:** [sì / no]
+- **Prompt obbligatori:** [Prompt zero, Prompt 1, Prompt 2, Prompt 3, eventuali prompt di tappa e verifiche conclusive]
+- **Numero minimo e massimo di prompt:** [intervallo, se previsto]
+- **Regimi IA utilizzati:** [A / B / C, specificando dove intervengono]
 - **Usi ammessi dell'IA:** [elenco]
-- **Usi non ammessi:** [elenco]
+- **Usi non ammessi dell'IA:** [elenco]
+- **Criteri di validazione delle risposte IA:** [verificare almeno coerenza con il regime richiesto, coerenza con gli input disponibili, rispetto degli oggetti teorici già fissati, assenza di modifiche non autorizzate al modello, assenza di contenuti non ammessi, correttezza della traduzione computazionale quando pertinente, pertinenza dei controlli proposti e utilità dell'output per la tappa successiva]
 - **Tracciato IA richiesto:** [sì / no]
 - **Modalità di consegna del tracciato IA:** [ordinariamente stampa PDF della chat dedicata; indicare eventuali modalità diverse previste per il caso]
-- **Elementi del tracciato oggetto di valutazione:** [elenco]
+- **Sequenza osservabile richiesta nel tracciato:** [Prompt zero → Prompt 1 → Prompt 2 → Prompt 3 → prompt di tappa → eventuali prompt C → verifiche conclusive]
+- **Elementi del tracciato oggetto di valutazione:** [contributo iniziale dello studente, prompt utilizzati, regime attribuito, risposte IA utilizzate, decisioni di accettazione/modifica/rifiuto/correzione, output prodotti, controlli svolti, verifiche conclusive]
 
 ## 13. Valutazione
 
@@ -162,24 +166,27 @@ Il notebook è considerato valido se:
 
 ## 14. Rubrica sintetica
 
+Per i Casi TakeHome con uso documentato dell'IA, la rubrica assume come riferimento la seguente articolazione su 100 punti:
+
 | Area | Peso | Criteri principali |
 |---|---:|---|
-| Premesse teorico-matematiche | [peso] | [criteri] |
-| Flusso logico-teorico risolutivo | [peso] | [criteri] |
-| Scomposizione input-output | [peso] | [criteri] |
-| Notebook e output computazionali | [peso] | [criteri] |
-| Prompt e uso dei regimi A/B/C | [peso] | [criteri] |
-| Controlli numerici, logici e interpretativi | [peso] | [criteri] |
-| Interpretazione critica finale | [peso] | [criteri] |
+| Prompt 2 — Flusso logico-teorico risolutivo | 30 | contributo iniziale dello studente, ordine logico, collegamento tra teoria, output e controlli |
+| Prompt 3 — Scomposizione input-output | 15 | proposta operativa iniziale dello studente, coerenza delle tappe, collegamento input-output |
+| Notebook Jupyter e output computazionali | 20 | correttezza del codice, tabelle, grafici, riproducibilità, coerenza degli output richiesti |
+| Prompt e uso dei regimi A/B/C | 15 | qualità dei prompt, rispetto dei vincoli, contributo dello studente, uso appropriato dell'IA |
+| Verifiche logiche e controlli numerici | 15 | controlli su formule, simulazioni, vincoli, quantità teoriche e proprietà del modello |
+| Interpretazione critica finale | 5 | autonomia, coerenza con gli output, interpretazione finanziaria e consapevolezza dei limiti del modello |
 
-**Totale:** [100 punti oppure altra scala prevista]
+**Totale:** 100 punti.
 
-La rubrica deve essere adattata al caso specifico mantenendo coerenza con:
-- gli obiettivi didattici;
-- gli output richiesti;
-- i controlli previsti;
-- i criteri di validazione del notebook;
-- i criteri di valutazione del tracciato IA, quando richiesto.
+Per il Caso Aula, oppure per casi nei quali il tracciato IA non sia oggetto di valutazione, la rubrica può essere adattata alla funzione didattica del caso, mantenendo comunque coerenza con:
+- obiettivi didattici;
+- Flusso logico-teorico risolutivo;
+- scomposizione in tappe;
+- output richiesti;
+- controlli;
+- criteri di validazione del notebook;
+- interpretazione finale.
 
 
 ## 15. Esito atteso e calibrazione qualitativa del caso
