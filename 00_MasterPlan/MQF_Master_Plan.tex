@@ -1105,26 +1105,63 @@ tra distribuzione della perdita non coperta e coperta.\newline
 
 \subsection{Lezione 10 -- Applicazione in Python: rischio di credito}
 
-\textbf{Tipo:} C.\newline\textbf{Domanda guida:} come si implementa un modello
-di transizione di rating e si stima il rischio di credito di
-portafoglio?\newline\textbf{Prerequisiti:} Lezioni 8--9; basi operative di
-Python.\newline\textbf{Obiettivi didattici:} implementare una matrice di
-transizione; simulare evoluzioni di rating; calcolare probabilit\`{a} di
-default, distribuzioni di perdita, VaR e CVaR su portafogli.\newline%
-\textbf{Notazione introdotta:} raccordo computazionale con $P$, $\pi_{t}$,
-$L$, $\operatorname{VaR}_{\alpha}(L)$ e $\operatorname{CVaR}_{\alpha}%
-(L)$.\newline\textbf{Formule principali:}
+\textbf{Tipo:} C.\newline
+\textbf{Domanda guida:} come si simula il rischio di credito di un portafoglio
+quando le transizioni dei debitori dipendono da un regime sistemico comune e
+come si misurano gli effetti della concentrazione sulle perdite di coda?\newline
+\textbf{Prerequisiti:} Lezioni 8--9; basi operative di Python.\newline
+\textbf{Obiettivi didattici:} simulare un processo markoviano per il regime
+sistemico e catene di rating condizionate al regime; costruire perdite
+individuali e di portafoglio; stimare probabilit\`{a} di default, perdita
+attesa, VaR e CVaR mediante Monte Carlo; distinguere rischio idiosincratico e
+dipendenza sistemica; confrontare portafogli con diversa concentrazione
+mediante simulazioni accoppiate.\newline
+\textbf{Notazione introdotta:} regime sistemico $M_t$, matrice di transizione
+dei regimi $Q=(q_{mm'})$, matrici creditizie condizionate al regime
+$P^{(m)}$, tempo di default $\tau_i$, numero di repliche Monte Carlo
+$N_{\mathrm{MC}}$ e indice $r=1,\ldots,N_{\mathrm{MC}}$; perdite individuali
+$L_i^{(r)}$ e perdita di portafoglio $L^{P,(r)}$; indicatore di crisi
+$I_C^{(r)}$ e differenza di perdita tra portafogli $\Delta L^{(r)}$.\newline
+\textbf{Formule principali:}
 \[
-\pi_{t}=\pi_{0}P^{t}, \qquad\widehat{\mathbb{P}}(\tau\leq T)=\frac{1}{M}%
-\sum_{k=1}^{M}\1_{\{\tau^{(k)}\leq T\}}.
+\Prob(M_{t+1}=m'\mid M_t=m)=q_{mm'},
 \]
-\textbf{Esercizi previsti:} modificare la matrice di transizione; introdurre
-uno stato assorbente; confrontare portafogli con diverse esposizioni;
-analizzare sensibilit\`{a} di VaR e CVaR.\newline\textbf{Grafici previsti:}
-heatmap della matrice; probabilit\`{a} di default nel tempo; distribuzione
-simulata delle perdite.\newline\textbf{Applicazioni Python collegate:}
-Caso Aula: China Evergrande 2021, rischio
-sistemico e controllo della concentrazione creditizia; Caso TakeHome:
+\[
+\Prob(X_{i,t+1}=j\mid X_{i,t}=k,M_t=m)=p_{kj}^{(m)},
+\]
+\[
+L^{P,(r)}
+=
+\sum_i L_i^{(r)},
+\]
+\[
+\widehat{\Prob}(\tau_i\leq T)
+=
+\frac{1}{N_{\mathrm{MC}}}
+\sum_{r=1}^{N_{\mathrm{MC}}}
+\1_{\{\tau_i^{(r)}\leq T\}},
+\]
+\[
+\Delta L^{(r)}
+=
+L_{\mathrm{lim}}^{P,(r)}
+-
+L_{\mathrm{base}}^{P,(r)}.
+\]
+Le matrici $Q$ e $P^{(m)}$ descrivono dinamiche sotto la misura fisica
+$\Prob$ e sono utilizzate per la simulazione e la misurazione del rischio;
+non devono essere confuse con la matrice risk-neutral $P^{\Q}$ utilizzata
+nella Lezione 9 per il pricing dei flussi creditizi.\newline
+\textbf{Esercizi previsti:} simulazione di traiettorie del regime sistemico e
+dei rating; stima delle probabilit\`{a} di default; costruzione della
+distribuzione delle perdite; calcolo empirico di perdita attesa, VaR e CVaR;
+confronto tra portafoglio base e portafoglio con limite di concentrazione;
+analisi condizionata agli episodi di crisi sistemica.\newline
+\textbf{Grafici previsti:} matrice di transizione dei regimi; distribuzione
+delle perdite di portafoglio; confronto tra portafogli; rappresentazione delle
+code utilizzate per VaR e CVaR.\newline
+\textbf{Applicazioni Python collegate:} Caso Aula: China Evergrande 2021,
+rischio sistemico e controllo della concentrazione creditizia; Caso TakeHome:
 Lehman Brothers 2008, rischio sistemico, migrazioni creditizie e
 diversificazione del portafoglio.
 
