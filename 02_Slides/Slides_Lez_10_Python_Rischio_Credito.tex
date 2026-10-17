@@ -949,10 +949,10 @@ posizione rispetto al portafoglio.}
 
 Il modello combina una dinamica sistemica e una dinamica creditizia.
 
-\vspace{0.3cm}
+\vspace{0.1cm}
 
 \textbf{Livello 1: regime sistemico}
-
+\vspace{-0.1cm}
 \[
 M_t\in\{N,S,C\},
 \qquad
@@ -961,10 +961,10 @@ M_0=S.
 
 Il regime evolve secondo la matrice di transizione \(Q\).
 
-\vspace{0.4cm}
+\vspace{0.1cm}
 
 \textbf{Livello 2: rating dei debitori}
-
+\vspace{-0.1cm}
 \[
 X_{i,t}\in\{BBB,BB,B,CCC,D\},
 \]
@@ -972,7 +972,7 @@ X_{i,t}\in\{BBB,BB,B,CCC,D\},
 con \(D\) stato assorbente.
 
 La matrice utilizzata nella transizione \(t\to t+1\) dipende da \(M_t\):
-
+\vspace{-0.1cm}
 \[
 M_t
 \longrightarrow
@@ -981,7 +981,14 @@ P^{(M_t)}
 X_{i,t+1}.
 \]
 
-\vspace{0.3cm}
+%\medskip
+
+Le matrici \(Q\) e \(P^{(M_t)}\) descrivono qui dinamiche sotto la
+misura fisica \(\Prob\), utilizzate per simulare gli stati futuri e
+misurare il rischio, e non sono matrici risk-neutral di pricing (in particolare, \(Q\) indica la matrice di transizione del regime
+sistemico, non la misura risk-neutral \(\Q\) introdotta nella Lezione 9).
+
+\vspace{-0.1cm}
 
 \begin{center}
 \textbf{Il regime comune modifica la dinamica creditizia di tutti i
@@ -1090,7 +1097,7 @@ Per ogni debitore \(i\):
 
 \item \(V_{i,0}\): esposizione iniziale, misurata in MUSD;
 
-\item \(\ell(X_{i,0},X_{i,4})\): quota dell'esposizione persa per
+\item \(\kappa(X_{i,0},X_{i,4})\): quota dell'esposizione persa per
 effetto della migrazione di rating, quindi una quantit\`a adimensionale;
 
 \item \(\mathrm{EAD}_i\): esposizione al momento del default, misurata in MUSD;
@@ -1110,7 +1117,7 @@ Se non si verifica default:
 L_i
 =
 V_{i,0}\,
-\ell(X_{i,0},X_{i,4}),
+\kappa(X_{i,0},X_{i,4}),
 \qquad
 \tau_i>4.
 \]
@@ -1488,13 +1495,13 @@ con limite;
 rischio;
 
 \item coerenza del calcolo empirico di VaR e CVaR:
-al livello $95\%$, la coda deve contenere $2\,500$ scenari;
+al livello $95\%$, la coda deve contenere $2\,500$ osservazioni;
 al livello $99\%$, deve contenerne $500$;
 eventuali pareggi sul quantile non devono alterare questa cardinalit\`a.
 
 \end{itemize}
 
-%\vspace{0.4cm}
+\vspace{-0.2cm}
 
 \begin{center}
 \textbf{Da questo punto il lavoro prosegue direttamente in

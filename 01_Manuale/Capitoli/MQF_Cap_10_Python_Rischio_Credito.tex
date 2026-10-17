@@ -241,12 +241,19 @@ del debitore $i$. Se $Q$ \`e la matrice di transizione del regime,
 \Prob(M_{t+1}=m'\mid M_t=m)=q_{mm'}.
 \]
 
-A ogni regime $m$ corrisponde inoltre una matrice creditizia $P^{(m)}$,
+A ogni regime $m$, corrisponde inoltre una matrice creditizia $P^{(m)}$,
 cosicch\'e
 
 \[
 \Prob(X_{i,t+1}=j\mid X_{i,t}=k,M_t=m)=p_{kj}^{(m)}.
 \]
+
+In questo capitolo, le matrici $Q$ e $P^{(m)}$ descrivono dinamiche sotto la
+misura fisica $\Prob$: esse vengono utilizzate per simulare gli stati futuri
+e misurare il rischio del portafoglio. Non devono quindi essere confuse con
+la matrice risk-neutral $P^{\Q}$ introdotta nel Capitolo~9 per il pricing dei
+flussi creditizi. In particolare, il simbolo $Q$ indica qui la matrice di
+transizione del regime sistemico e non la misura risk-neutral $\Q$.
 
 L'ordine computazionale \`e quindi
 
@@ -358,7 +365,7 @@ L_{\mathrm{base}}^{P,(r)}.
 
 L'uso di scenari comuni evita che il confronto tra le configurazioni venga
 confuso con la variabilit\`a dovuta a due campioni Monte Carlo indipendenti.
-La differenza osservata nello scenario $s$ riflette cos\`i la diversa
+La differenza osservata nella replica $r$ riflette cos\`i la diversa
 allocazione delle esposizioni nello stesso stato del mondo simulato.
 
 L'intera struttura computazionale pu\`o essere sintetizzata come
@@ -453,10 +460,10 @@ Per i debitori che non entrano in default entro l'orizzonte, la perdita \`e
 L_i
 =
 V_{i,0}\,
-\ell(X_{i,0},X_{i,4}).
+\kappa(X_{i,0},X_{i,4}).
 \]
 
-Il tasso $\ell$ pu\`o essere negativo in caso di miglioramento del rating:
+Il tasso $\kappa$ pu\`o essere negativo in caso di miglioramento del rating:
 in tal caso la quantit\`a definita come perdita rappresenta economicamente un
 guadagno di valore. La convenzione di segno permette quindi di trattare
 all'interno della stessa variabile deterioramenti e miglioramenti del merito
@@ -490,7 +497,7 @@ La perdita individuale \`e pertanto
 L_i
 =
 \begin{cases}
-V_{i,0}\ell(X_{i,0},X_{i,4}),
+V_{i,0}\kappa(X_{i,0},X_{i,4}),
 &
 \tau_i>4,
 \\[4pt]
@@ -538,7 +545,7 @@ genera dapprima la traiettoria sistemica; essa determina poi, trimestre per
 trimestre, la matrice utilizzata per le migrazioni dei $36$ debitori.
 
 Lo stato iniziale \`e deterministico: $M_0=S$. Le traiettorie
-$M_0^{(s)},\ldots,M_3^{(s)}$ possono essere raccolte in una matrice di
+$M_0^{(r)},\ldots,M_3^{(r)}$ possono essere raccolte in una matrice di
 dimensione $N_{\mathrm{MC}}\times4$, con repliche sulle righe e tempo sulle
 colonne.
 
@@ -621,7 +628,7 @@ uguaglianza esatta, ma deviazioni molto ampie possono segnalare un errore
 nella selezione delle righe o nella generazione categoriale.
 
 Dalle traiettorie sistemiche, si costruisce inoltre l'indicatore
-$I_C^{(k)}=\1_{\{\exists\,t:M_t^{(k)}=C\}}$, ottenibile in Python con
+$I_C^{(r)}=\1_{\{\exists\,t:M_t^{(r)}=C\}}$, ottenibile in Python con
 \texttt{np.any(M == C, axis=1)}. Tale indicatore verr\`a successivamente
 utilizzato per selezionare le perdite associate agli scenari di crisi.
 
@@ -660,10 +667,10 @@ $\tau_i>4$, la perdita \`e
 L_i^{(r)}
 =
 V_{i,0}\,
-\ell(X_{i,0},X_{i,4}^{(r)}).
+\kappa(X_{i,0},X_{i,4}^{(r)}).
 \]
 
-La funzione $\ell$ traduce la migrazione tra rating iniziale e finale in un
+La funzione $\kappa$ traduce la migrazione tra rating iniziale e finale in un
 tasso di perdita. Se il debitore subisce un deterioramento, il tasso \`e
 positivo; in caso di upgrade pu\`o essere negativo. La stessa convenzione
 consente quindi di rappresentare con un'unica variabile sia perdite sia
@@ -725,7 +732,7 @@ Dal campione vengono calcolate media, varianza e deviazione standard, oltre a
 $\VaR_{0.95}$, $\VaR_{0.99}$, $\CVaR_{0.95}$ e $\CVaR_{0.99}$.
 
 Le unit\`a di misura aiutano a controllare l'intera costruzione. Se
-$V_{i,0}$ \`e espresso in milioni di dollari e $\ell$ e LGD sono tassi
+$V_{i,0}$ \`e espresso in milioni di dollari e $\kappa$ e LGD sono tassi
 adimensionali, allora $L_i$ e $L^P$ sono espressi in milioni di dollari.
 Anche VaR, CVaR e deviazione standard hanno la stessa unit\`a monetaria,
 mentre la varianza \`e espressa in milioni di dollari al quadrato.
@@ -761,7 +768,7 @@ scenario con numerosi default di dimensione contenuta.
 
 Prima di interpretare le statistiche aggregate, \`e opportuno ricostruire
 alcune perdite individuali. Per un debitore sopravvissuto, deve risultare
-$L_i=V_{i,0}\ell(X_{i,0},X_{i,4})$; per un debitore in default, deve essere
+$L_i=V_{i,0}\kappa(X_{i,0},X_{i,4})$; per un debitore in default, deve essere
 possibile individuare $\tau_i$, leggere $M_{\tau_i-1}$ e ricostruire la
 perdita corrispondente.
 
@@ -931,7 +938,7 @@ grado di segnalare un errore.
 
 Il secondo livello riguarda la trasformazione delle traiettorie in perdite.
 Per un debitore sopravvissuto deve risultare
-$L_i=V_{i,0}\ell(X_{i,0},X_{i,4})$. Per un debitore in default deve invece
+$L_i=V_{i,0}\kappa(X_{i,0},X_{i,4})$. Per un debitore in default deve invece
 essere possibile individuare $\tau_i$, risalire al regime
 $M_{\tau_i-1}$ e ricostruire la LGD utilizzata.
 
@@ -1087,7 +1094,7 @@ Rispetto al Caso Aula cambia invece la funzione di perdita. Nel TakeHome, vale
 L_i
 =
 V_{i,0}\,
-\ell(X_{i,0},X_{i,4}),
+\kappa(X_{i,0},X_{i,4}),
 \]
 
 \noindent con $\mathrm{EAD}_i=V_{i,0}$ e $\mathrm{LGD}=0.65$ in caso di stato terminale $D$.

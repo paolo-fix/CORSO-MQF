@@ -1034,28 +1034,74 @@ devono mantenere un'interpretazione economica coerente.
 
 \subsection{Lezione 9 -- Catene di Markov e misure di rischio}
 
-\textbf{Tipo:} P.\newline\textbf{Domanda guida:} come si passa dalla dinamica
-degli stati alla misurazione del rischio di perdita?\newline%
-\textbf{Prerequisiti:} Lezioni 2 e 8.\newline\textbf{Obiettivi didattici:}
-applicare catene di Markov alle transizioni di rating creditizio; costruire
-distribuzioni di perdita; calcolare e interpretare VaR e CVaR in un contesto
-markoviano.\newline\textbf{Notazione introdotta:} perdita $L$,
-$\operatorname{VaR}_{\alpha}(L)$, $\operatorname{CVaR}_{\alpha}(L)$,
-esposizioni di portafoglio e stati di default.\newline\textbf{Formule
-principali:}
+\textbf{Tipo:} P.\newline
+\textbf{Domanda guida:} come si passa dalla dinamica degli stati alla
+costruzione di una distribuzione delle perdite e alla misurazione del rischio
+di credito, distinguendo previsione sotto la misura fisica e valutazione
+sotto la misura risk-neutral?\newline
+\textbf{Prerequisiti:} Lezioni 2 e 8.\newline
+\textbf{Obiettivi didattici:} applicare catene di Markov alle transizioni di
+rating creditizio; ricavare probabilit\`{a} cumulative e marginali di default
+e probabilit\`{a} di sopravvivenza; associare agli stati futuri valori e
+perdite monetarie; distinguere modello default-only e modello
+migration-based; calcolare e interpretare perdita attesa, VaR e CVaR;
+distinguere probabilit\`{a} fisiche e risk-neutral; rappresentare in forma
+discreta semplificata i flussi di un credit default swap e determinarne il
+premio equo; interpretare l'effetto della copertura sulla distribuzione delle
+perdite.\newline
+\textbf{Notazione introdotta:} stato di default $D$, tempo di default
+$\tau_D$, probabilit\`{a} cumulative e marginali di default, probabilit\`{a}
+di sopravvivenza, $\mathrm{EAD}$, $\mathrm{LGD}$, recovery rate $R$,
+valore dello strumento $V_j(h)$, perdita $\ell(j,h)$ e variabile casuale
+$L_h=\ell(X_h,h)$; matrice di transizione fisica $P$ e matrice di transizione
+risk-neutral $P^{\mathbb{Q}}$; spread del CDS $s$.\newline
+\textbf{Formule principali:}
 \[
-\operatorname{VaR}_{\alpha}(L)=\inf\{\ell\in\mathbb{R}:F_{L}(\ell)\geq
-\alpha\}.
+\mathrm{PD}_{i}^{\mathrm{cum}}(h)
+=
+\mathbb{P}(\tau_D\leq h\mid X_0=i)
+=
+(P^h)_{iD},
 \]
 \[
-\operatorname{CVaR}_{\alpha}(L)=\min_{\eta\in\mathbb{R}}\left\{ \eta+\frac
-{1}{1-\alpha}\mathbb{E}[(L-\eta)^{+}]\right\} , \qquad(x)^{+}=\max\{x,0\}.
+\ell(j,h)
+=
+V^{\mathrm{ref}}(h)-V_j(h),
+\qquad
+L_h=\ell(X_h,h),
 \]
-\textbf{Esercizi previsti:} distribuzione delle perdite da matrice di rating;
-calcolo di VaR e CVaR su perdite discrete; confronto tra portafogli con
-diverse esposizioni.\newline\textbf{Grafici previsti:} distribuzione delle
-perdite; quantile VaR; area di coda CVaR; evoluzione della probabilit\`{a} di
-default.\newline\textbf{Applicazioni Python collegate:} Lezione 10.
+\[
+\operatorname{VaR}_{\alpha}(L)
+=
+\inf\{\ell\in\mathbb{R}:F_L(\ell)\geq\alpha\},
+\]
+\[
+\operatorname{CVaR}_{\alpha}(L)
+=
+\min_{\eta\in\mathbb{R}}
+\left\{
+\eta+
+\frac{1}{1-\alpha}
+\mathbb{E}\left[(L-\eta)^{+}\right]
+\right\},
+\qquad
+(x)^{+}=\max\{x,0\}.
+\]
+Per il pricing dei flussi creditizi si utilizza la matrice
+$P^{\mathbb{Q}}$, distinguendola dalla matrice $P$ utilizzata per la
+previsione e la misurazione del rischio sotto la misura fisica.\newline
+\textbf{Esercizi previsti:} struttura temporale della probabilit\`{a} di
+default; costruzione della distribuzione delle perdite da una matrice di
+rating; confronto tra modello default-only e migration-based; calcolo di
+perdita attesa, VaR e CVaR su distribuzioni discrete; determinazione del
+premio equo di un CDS; confronto tra posizione creditizia non coperta e
+posizione protetta.\newline
+\textbf{Grafici previsti:} evoluzione della probabilit\`{a} cumulativa di
+default e della sopravvivenza; distribuzione delle perdite; funzione di
+ripartizione e quantile VaR; rappresentazione della coda utilizzata per il
+CVaR; equilibrio tra gamba dei premi e gamba di protezione del CDS; confronto
+tra distribuzione della perdita non coperta e coperta.\newline
+\textbf{Applicazioni Python collegate:} Lezione 10.
 
 \subsection{Lezione 10 -- Applicazione in Python: rischio di credito}
 
