@@ -270,13 +270,17 @@ Nel Caso Aula, considereremo, tra gli altri, l'evento
 cio\`e l'evento in cui la traiettoria del regime sistemico visita almeno
 una volta lo stato di crisi.
 
-\vspace{0.4cm}
+\vspace{0.2cm}
 
 In una simulazione Monte Carlo, disponiamo di molte traiettorie:
 
 \[
 M^{(1)},M^{(2)},\ldots,M^{(N_{\mathrm{MC}})}.
 \]
+
+$r=1,\ldots,N_{\mathrm{MC}}$ indica l'indice della replica Monte Carlo.
+
+\vspace{0.2cm}
 
 Per ciascuna replica dobbiamo quindi rispondere a una domanda logica:
 
@@ -339,7 +343,7 @@ possiamo usare:
 \texttt{crisis = np.any(M == C, axis=1)}
 \end{center}
 
-La maschera booleana \texttt{crisis} rappresenta, scenario per scenario,
+La maschera booleana \texttt{crisis} rappresenta, replica per replica,
 l'indicatore
 \vspace{-0.1cm}
 \[
@@ -361,7 +365,7 @@ L'output \`e un vettore:
 (\texttt{True},\texttt{False},\ldots),
 \]
 
-con una componente per ogni scenario Monte Carlo.
+con una componente per ogni replica Monte Carlo.
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
 %BeginExpansion
@@ -728,9 +732,9 @@ Il passaggio concettuale \`e quindi:
 Ogni replica Monte Carlo produce una perdita complessiva di portafoglio:
 
 \[
-L^{P,(k)},
+L^{P,(r)},
 \qquad
-k=1,\ldots,N_{\mathrm{MC}}.
+r=1,\ldots,N_{\mathrm{MC}}.
 \]
 
 L'insieme delle perdite simulate
@@ -1254,14 +1258,14 @@ In ogni replica \(r\):
 
 \vspace{0.4cm}
 
-Possiamo quindi definire, scenario per scenario,
+Possiamo quindi definire, replica per replica,
 
 \[
-\Delta L^{(k)}
+\Delta L^{(r)}
 =
-L_{\mathrm{lim}}^{P,(k)}
+L_{\mathrm{lim}}^{P,(r)}
 -
-L_{\mathrm{base}}^{P,(k)}.
+L_{\mathrm{base}}^{P,(r)}.
 \]
 
 \vspace{0.3cm}
@@ -1419,11 +1423,11 @@ Per il portafoglio base, analizzeremo inoltre la perdita media:
 Il confronto tra le due politiche richiede inoltre:
 
 \[
-\Delta L^{(k)}
+\Delta L^{(r)}
 =
-L_{\mathrm{lim}}^{P,(k)}
+L_{\mathrm{lim}}^{P,(r)}
 -
-L_{\mathrm{base}}^{P,(k)}.
+L_{\mathrm{base}}^{P,(r)}.
 \]
 
 %\vspace{0.3cm}

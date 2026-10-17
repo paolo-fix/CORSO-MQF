@@ -324,7 +324,7 @@ Markov descrivono infatti probabilit\`a e traiettorie di rating, mentre il
 problema di gestione del rischio richiede quantit\`a monetarie confrontabili
 tra debitori e aggregabili a livello di portafoglio.
 
-Le perdite individuali vengono quindi aggregate scenario per scenario:
+Le perdite individuali vengono quindi aggregate replica per replica:
 
 \[
 L^{P,(r)}
@@ -475,14 +475,14 @@ $X_{i,\tau_i}=D$, la severit\`a dipende dal regime $M_{\tau_i-1}$.
 
 La \emph{Exposure at Default} (EAD) rappresenta l'esposizione monetaria
 sulla quale viene calcolata la perdita in caso di default; nel caso
-assegnato si assume $\operatorname{EAD}_i=V_{i,0}$. La \emph{Loss Given Default} (LGD)
+assegnato si assume $\mathrm{EAD}_i=V_{i,0}$. La \emph{Loss Given Default} (LGD)
 rappresenta invece la quota dell'EAD che viene effettivamente perduta in
 caso di default.
 
 
-Le LGD assegnate sono $\operatorname{LGD}^{(N)}=0.55$,
-$\operatorname{LGD}^{(S)}=0.70$ e
-$\operatorname{LGD}^{(C)}=0.85$, con $\operatorname{EAD}_i=V_{i,0}$.
+Le LGD assegnate sono $\mathrm{LGD}^{(N)}=0.55$,
+$\mathrm{LGD}^{(S)}=0.70$ e
+$\mathrm{LGD}^{(C)}=0.85$, con $\mathrm{EAD}_i=V_{i,0}$.
 
 La perdita individuale \`e pertanto
 
@@ -494,7 +494,7 @@ V_{i,0}\ell(X_{i,0},X_{i,4}),
 &
 \tau_i>4,
 \\[4pt]
-V_{i,0}\operatorname{LGD}^{(M_{\tau_i-1})},
+V_{i,0}\mathrm{LGD}^{(M_{\tau_i-1})},
 &
 \tau_i\leq4.
 \end{cases}
@@ -628,7 +628,7 @@ utilizzato per selezionare le perdite associate agli scenari di crisi.
 Prima di passare alle perdite, devono essere verificati almeno quattro
 elementi: le righe di $Q$ e delle matrici $P^{(m)}$ devono sommare a uno;
 $M_0=S$ deve valere in ogni replica; $D$ deve essere assorbente; le
-dimensioni degli array devono essere coerenti con $50\,000$ scenari,
+dimensioni degli array devono essere coerenti con $50\,000$ repliche,
 $36$ debitori e $5$ date creditizie.
 
 \`E inoltre utile verificare che il seed assegnato renda riproducibile il
@@ -649,7 +649,7 @@ traiettoria un significato economico.
 \section{Caso Aula: dalle migrazioni alle perdite di portafoglio}
 
 Per ogni debitore, la traiettoria
-$X_{i,0}^{(s)},\ldots,X_{i,4}^{(s)}$ deve essere trasformata in una perdita
+$X_{i,0}^{(r)},\ldots,X_{i,4}^{(r)}$ deve essere trasformata in una perdita
 monetaria.
 
 Il primo passaggio consiste nell'individuare il tempo di primo default
@@ -657,10 +657,10 @@ $\tau_i$. Se il debitore sopravvive fino alla fine dell'orizzonte,
 $\tau_i>4$, la perdita \`e
 
 \[
-L_i^{(s)}
+L_i^{(r)}
 =
 V_{i,0}\,
-\ell(X_{i,0},X_{i,4}^{(s)}).
+\ell(X_{i,0},X_{i,4}^{(r)}).
 \]
 
 La funzione $\ell$ traduce la migrazione tra rating iniziale e finale in un
@@ -674,14 +674,14 @@ per i debitori sopravvissuti. Le migrazioni intermedie rimangono rilevanti
 per determinare la probabilit\`a con cui si raggiunge lo stato finale, ma non
 entrano direttamente nella funzione monetaria di perdita.
 
-Se invece $\tau_i^{(s)}\leq4$, la perdita dipende dalla LGD associata al
+Se invece $\tau_i^{(r)}\leq4$, la perdita dipende dalla LGD associata al
 regime vigente all'inizio della transizione di default:
 
 \[
-L_i^{(s)}
+L_i^{(r)}
 =
 V_{i,0}\,
-\operatorname{LGD}^{(M_{\tau_i^{(s)}-1}^{(s)})}.
+\mathrm{LGD}^{(M_{\tau_i^{(r)}-1}^{(r)})}.
 \]
 
 L'indicizzazione temporale \`e essenziale: se il default avviene nella
@@ -698,12 +698,12 @@ probabilit\`a che il debitore raggiunga il default attraverso la matrice di
 transizione e, quando il default si verifica, influenza anche la quota
 dell'esposizione che viene persa.
 
-Le perdite individuali vengono quindi aggregate scenario per scenario:
+Le perdite individuali vengono quindi aggregate replica per replica:
 
 \[
-L^{P,(k)}
+L^{P,(r)}
 =
-\sum_{i=1}^{36}L_i^{(k)}.
+\sum_{i=1}^{36}L_i^{(r)}.
 \]
 
 Il vettore
@@ -740,14 +740,14 @@ La distinzione diventa rilevante soprattutto quando la distribuzione presenta
 masse concentrate, situazione naturale in modelli con stati discreti,
 esposizioni ripetute e funzioni di perdita definite per classi di rating.
 
-Le traiettorie consentono anche di calcolare il numero di default nello
-scenario $s$,
+Le traiettorie consentono anche di calcolare il numero di default nella
+replica $r$,
 
 \[
-N_D^{(s)}
+N_D^{(r)}
 =
 \sum_{i=1}^{36}
-\1_{\{\tau_i^{(s)}\leq4\}},
+\1_{\{\tau_i^{(r)}\leq4\}},
 \]
 
 \noindent e quindi il numero medio di default sull'orizzonte.
@@ -765,8 +765,8 @@ $L_i=V_{i,0}\ell(X_{i,0},X_{i,4})$; per un debitore in default, deve essere
 possibile individuare $\tau_i$, leggere $M_{\tau_i-1}$ e ricostruire la
 perdita corrispondente.
 
-A livello di scenario, deve, infine, valere
-$L^{P,(k)}=\sum_iL_i^{(k)}$. Questi controlli collegano direttamente le
+A livello di replica, deve, infine, valere
+$L^{P,(r)}=\sum_iL_i^{(r)}$. Questi controlli collegano direttamente le
 traiettorie simulate all'output finanziario del modello e preparano il
 confronto tra le due configurazioni del portafoglio.
 %
@@ -781,15 +781,15 @@ decisionale del Caso Aula: come cambia il rischio quando l'esposizione verso
 Evergrande viene ridotta dal $15\%$ al $10\%$ del capitale?
 
 Le due configurazioni vengono valutate sulle stesse traiettorie sistemiche e
-creditizie. Per ogni replica si ottengono
-$L_{\mathrm{base}}^{P,(k)}$ e $L_{\mathrm{lim}}^{P,(k)}$, e si definisce
+creditizie. Per ogni replica, si ottengono
+$L_{\mathrm{base}}^{P,(r)}$ e $L_{\mathrm{lim}}^{P,(r)}$, e si definisce
 
 \[
-\Delta L^{(k)}
+\Delta L^{(r)}
 =
-L_{\mathrm{lim}}^{P,(k)}
+L_{\mathrm{lim}}^{P,(r)}
 -
-L_{\mathrm{base}}^{P,(k)}.
+L_{\mathrm{base}}^{P,(r)}.
 \]
 
 Valori negativi indicano scenari nei quali il limite di concentrazione riduce
@@ -824,7 +824,7 @@ agli esiti pi\`u severi.
 Il miglioramento aggregato non implica tuttavia una dominanza scenario per
 scenario. Il capitale sottratto a Evergrande viene investito in altri
 debitori: in alcuni stati del mondo pu\`o quindi risultare
-$\Delta L^{(s)}>0$.
+$\Delta L^{(r)}>0$.
 
 Si pensi, ad esempio, a uno scenario nel quale Evergrande non subisca un
 deterioramento significativo mentre alcuni dei debitori BBB o BB che hanno
@@ -847,7 +847,7 @@ del solo confronto tra medie. Deve inoltre valere
 
 Il regime sistemico permette poi di separare gli scenari di crisi da quelli
 senza crisi mediante l'indicatore
-$I_C^{(k)}=\1_{\{\exists\,t:M_t^{(k)}=C\}}$. Sul portafoglio base si
+$I_C^{(r)}=\1_{\{\exists\,t:M_t^{(r)}=C\}}$. Sul portafoglio base si
 costruiscono quindi i sottocampioni
 
 \[
@@ -860,7 +860,7 @@ Nel Caso Aula l'ingresso in $C$ pu\`o aumentare le perdite attraverso due
 canali distinti. Il primo riguarda le migrazioni: quando il regime \`e di
 crisi viene utilizzata la matrice $P^{(C)}$, che modifica le probabilit\`a
 di deterioramento e default. Il secondo riguarda la severit\`a: un default
-che avviene sotto $C$ utilizza $\operatorname{LGD}^{(C)}=0.85$, superiore
+che avviene sotto $C$ utilizza $\mathrm{LGD}^{(C)}=0.85$, superiore
 alle LGD associate agli altri regimi.
 
 La distinzione tra crisi e non crisi permette quindi di osservare
@@ -935,12 +935,12 @@ $L_i=V_{i,0}\ell(X_{i,0},X_{i,4})$. Per un debitore in default deve invece
 essere possibile individuare $\tau_i$, risalire al regime
 $M_{\tau_i-1}$ e ricostruire la LGD utilizzata.
 
-A livello di portafoglio deve inoltre valere, scenario per scenario,
+A livello di portafoglio deve inoltre valere, replica per replica,
 
 \[
-L^{P,(k)}
+L^{P,(r)}
 =
-\sum_i L_i^{(k)}.
+\sum_i L_i^{(r)}.
 \]
 
 La coerenza delle unit\`a di misura offre un ulteriore controllo. Perdite,
@@ -954,14 +954,14 @@ con limite di concentrazione. Le due configurazioni devono essere valutate
 sugli stessi scenari sistemici e creditizi; deve inoltre essere verificata
 la conservazione del capitale dopo la riallocazione.
 
-Per la differenza scenario per scenario
+Per la differenza replica per replica
 
 \[
-\Delta L^{(k)}
+\Delta L^{(r)}
 =
-L_{\mathrm{lim}}^{P,(k)}
+L_{\mathrm{lim}}^{P,(r)}
 -
-L_{\mathrm{base}}^{P,(k)}
+L_{\mathrm{base}}^{P,(r)}
 \]
 
 \noindent deve risultare
@@ -1090,7 +1090,7 @@ V_{i,0}\,
 \ell(X_{i,0},X_{i,4}),
 \]
 
-\noindent con $\operatorname{EAD}_i=V_{i,0}$ e $\operatorname{LGD}=0.65$ in caso di stato terminale $D$.
+\noindent con $\mathrm{EAD}_i=V_{i,0}$ e $\mathrm{LGD}=0.65$ in caso di stato terminale $D$.
 Poich\'e il default \`e assorbente e la LGD non dipende dal regime, non \`e
 necessario conoscere il trimestre del primo default per determinare la
 perdita monetaria.
@@ -1124,15 +1124,15 @@ in entrambi i portafogli. Nel portafoglio concentrato, la perdita complessiva
 include anche la perdita di Lehman; nel portafoglio controfattuale, Lehman
 \`e invece assente e il capitale corrispondente \`e redistribuito sui
 $39$ debitori residui. Si ottengono
-$L_{\mathrm{conc}}^{P,(k)}$ e
-$L_{\mathrm{div}}^{P,(k)}$, con
+$L_{\mathrm{conc}}^{P,(r)}$ e
+$L_{\mathrm{div}}^{P,(r)}$, con
 
 \[
-\Delta L^{(k)}
+\Delta L^{(r)}
 =
-L_{\mathrm{div}}^{P,(k)}
+L_{\mathrm{div}}^{P,(r)}
 -
-L_{\mathrm{conc}}^{P,(k)}.
+L_{\mathrm{conc}}^{P,(r)}.
 \]
 
 L'interpretazione richiede una cautela importante. La rimozione di Lehman
@@ -1235,11 +1235,11 @@ Il confronto tra portafoglio base e portafoglio con limite di concentrazione
 utilizza gli stessi scenari e produce la distribuzione
 
 \[
-\Delta L^{(k)}
+\Delta L^{(r)}
 =
-L_{\mathrm{lim}}^{P,(k)}
+L_{\mathrm{lim}}^{P,(r)}
 -
-L_{\mathrm{base}}^{P,(k)}.
+L_{\mathrm{base}}^{P,(r)}.
 \]
 
 La valutazione della policy richiede quindi di osservare non soltanto media,
