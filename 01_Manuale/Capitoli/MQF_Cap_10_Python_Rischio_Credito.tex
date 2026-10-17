@@ -18,7 +18,7 @@ ha collegato migrazioni e default a perdite monetarie e misure di rischio
 quali VaR e CVaR.
 
 Questo capitolo compie il passaggio successivo: la dinamica markoviana viene
-simulata scenario per scenario, trasformata in perdite individuali e infine
+simulata replica per replica, trasformata in perdite individuali e infine
 aggregata in una perdita di portafoglio. L'obiettivo non \`e quindi
 introdurre un nuovo modello di rischio di credito, ma rendere operativi gli
 strumenti gi\`a acquisiti e organizzarli in una procedura computazionale
@@ -73,11 +73,11 @@ La catena quantitativa fondamentale \`e
 
 Il capitolo introduce inoltre un piccolo focus Python su condizioni booleane,
 maschere e selezione di sottocampioni. Questi strumenti permettono di
-distinguere, all'interno della stessa simulazione, gli scenari nei quali il
-regime raggiunge almeno una volta lo stato di crisi da quelli nei quali tale
+distinguere, all'interno della stessa simulazione, le repliche nelle quali il
+regime raggiunge almeno una volta lo stato di crisi da quelle nelle quali tale
 evento non si verifica.
 
-La possibilit\`a di selezionare scenari secondo caratteristiche della
+La possibilit\`a di selezionare repliche secondo caratteristiche della
 traiettoria \`e particolarmente utile nel rischio di credito. Non interessa
 soltanto conoscere la distribuzione incondizionata della perdita, ma anche
 capire come essa cambi quando il sistema attraversa condizioni
@@ -89,14 +89,14 @@ Il Caso Aula comprende infine una decisione di gestione del rischio. Il
 portafoglio iniziale presenta una rilevante concentrazione su Evergrande;
 viene quindi costruita una configurazione alternativa che rispetta un limite
 massimo di esposizione individuale. Le due configurazioni vengono confrontate
-sugli stessi scenari Monte Carlo, in modo che le differenze osservate siano
+sulle stesse repliche Monte Carlo, in modo che le differenze osservate siano
 attribuibili alla diversa allocazione del capitale e non alla generazione di
 campioni casuali differenti.
 
 Particolare attenzione sar\`a dedicata ai controlli. La corretta esecuzione
 del codice non garantisce infatti che la simulazione rispetti il modello:
 devono essere verificati matrici di transizione, assorbimento del default,
-allineamento temporale, costruzione delle perdite, riuso degli scenari e
+allineamento temporale, costruzione delle perdite, riuso delle repliche e
 coerenza delle misure di coda.
 
 Il metodo di lavoro rimane quello introdotto nel Capitolo 4: la Scheda Caso
@@ -117,23 +117,23 @@ confronto del rischio di portafoglio, mantenendo sempre riconoscibile il
 legame tra ipotesi, simulazione, perdita e decisione finanziaria.
 %
 
-% 1. Python per selezionare scenari e sottocampioni
+% 1. Python per selezionare repliche e sottocampioni
 
 %latex
-\section{Python per selezionare scenari e sottocampioni}
+\section{Python per selezionare repliche e sottocampioni}
 
-Nel Capitolo 7 il lavoro computazionale richiedeva di organizzare molte
-traiettorie e operare lungo le dimensioni scenario e tempo. Nel presente
-capitolo emerge una necessit\`a ulteriore: selezionare gli scenari che
+Nel Capitolo 7, il lavoro computazionale richiedeva di organizzare molte
+traiettorie e operare lungo le dimensioni replica e tempo. Nel presente
+capitolo, emerge una necessit\`a ulteriore: selezionare le repliche che
 soddisfano una determinata condizione.
 
-Nel Caso Aula interessa distinguere le repliche nelle quali il regime
+Nel Caso Aula, interessa distinguere le repliche nelle quali il regime
 sistemico raggiunge almeno una volta lo stato di crisi $C$. Se la matrice
-$M$ contiene sulle righe gli scenari e sulle colonne gli istanti temporali,
+$M$ contiene sulle righe le repliche e sulle colonne gli istanti temporali,
 l'espressione \texttt{M == C} produce una matrice booleana della stessa
 dimensione.
 
-Per stabilire se la crisi si verifica almeno una volta in ciascuno scenario
+Per stabilire se la crisi si verifica almeno una volta in ciascuna replica,
 si utilizza
 
 \[
@@ -162,7 +162,7 @@ maschera booleana \texttt{crisis}, definita replica per replica da
 \texttt{crisis[r]} = \bigl(I_C^{(r)}=1\bigr).
 \]
 
-Pertanto, le perdite condizionate agli scenari di crisi e di non crisi
+Pertanto, le perdite condizionate alle repliche di crisi e di non crisi
 si selezionano mediante
 
 \[
@@ -173,14 +173,14 @@ si selezionano mediante
 
 
 La scelta di \texttt{axis=1} \`e essenziale: l'aggregazione avviene lungo il
-tempo all'interno di ciascuno scenario. Utilizzare l'asse opposto
+tempo all'interno di ciascuna replica. Utilizzare l'asse opposto
 risponderebbe a una domanda diversa, cio\`e se, a una determinata data,
-almeno uno scenario si trovi nello stato di crisi.
+almeno una replica si trovi nello stato di crisi.
 
 Il vettore booleano pu\`o quindi essere utilizzato come maschera. Se
 \texttt{loss} contiene le perdite di portafoglio, \texttt{loss[crisis]}
-seleziona gli scenari di crisi, mentre
-\texttt{loss[\textasciitilde crisis]} seleziona quelli complementari.
+seleziona le repliche di crisi, mentre
+\texttt{loss[\textasciitilde crisis]} seleziona quelle complementari.
 
 Si costruiscono cos\`i i due sottocampioni
 
@@ -206,17 +206,17 @@ vettore booleano.
 
 La selezione avviene dopo la simulazione. Non vengono quindi generate
 separatamente una distribuzione ``di crisi'' e una distribuzione ``senza
-crisi'': entrambe derivano dalla classificazione degli stessi scenari Monte
+crisi'': entrambe derivano dalla classificazione delle stesse repliche Monte
 Carlo.
 
 Questa distinzione \`e importante. Una maschera non modifica il processo che
-ha generato gli scenari e non introduce nuove ipotesi probabilistiche:
+ha generato le repliche e non introduce nuove ipotesi probabilistiche:
 seleziona soltanto un sottoinsieme del campione sulla base di un evento
 osservato nella traiettoria.
 
 Lo stesso principio pu\`o essere utilizzato per condizioni differenti. Una
-maschera potrebbe, ad esempio, selezionare scenari con almeno un determinato
-numero di default oppure scenari nei quali un debitore specifico raggiunga
+maschera potrebbe, ad esempio, selezionare repliche con almeno un determinato
+numero di default oppure repliche nelle quali un debitore specifico raggiunga
 uno stato particolarmente deteriorato. Il meccanismo computazionale rimane
 lo stesso: una condizione logica viene trasformata in un vettore booleano e
 utilizzata per selezionare le osservazioni rilevanti.
@@ -363,7 +363,7 @@ L_{\mathrm{lim}}^{P,(r)}
 L_{\mathrm{base}}^{P,(r)}.
 \]
 
-L'uso di scenari comuni evita che il confronto tra le configurazioni venga
+L'uso di repliche comuni evita che il confronto tra le configurazioni venga
 confuso con la variabilit\`a dovuta a due campioni Monte Carlo indipendenti.
 La differenza osservata nella replica $r$ riflette cos\`i la diversa
 allocazione delle esposizioni nello stesso stato del mondo simulato.
@@ -517,11 +517,11 @@ $65.4545$ e $54.5455$ milioni.
 
 Il capitale complessivo rimane pari a $200$ milioni. La modifica altera la
 distribuzione delle esposizioni ma non il capitale investito, e le due
-configurazioni vengono valutate sugli stessi scenari Monte Carlo.
+configurazioni vengono valutate sulle stesse repliche Monte Carlo.
 
 La policy non modifica le matrici di transizione n\'e le traiettorie
 creditizie simulate. Cambiano esclusivamente i pesi monetari attribuiti alle
-posizioni. Questa separazione tra scenario creditizio e allocazione del
+posizioni. Questa separazione tra replica creditizia e allocazione del
 capitale rende possibile attribuire le differenze di perdita alla modifica
 del portafoglio.
 
@@ -592,21 +592,20 @@ L'intero campione creditizio pu\`o essere interpretato come un oggetto con
 tre dimensioni:
 
 \[
-\text{scenario}
+\text{replica}
 \times
 \text{debitore}
 \times
 \text{tempo}.
 \]
 
-Questa struttura \`e utile per leggere correttamente gli array: fissando uno
-scenario si osserva il portafoglio in un determinato stato del mondo;
-fissando un debitore si osservano le sue migrazioni attraverso gli scenari;
-fissando il tempo si confrontano gli stati creditizi alla stessa data.
+Questa struttura \`e utile per leggere correttamente gli array: fissando una replica, si osserva il portafoglio in un determinato stato del mondo;
+fissando un debitore, si osservano le sue migrazioni attraverso gli scenari;
+fissando il tempo, si confrontano gli stati creditizi alla stessa data.
 
 Il problema richiede quindi di mantenere separati tre indici che hanno
 significati economici differenti. Confondere l'asse dei debitori con quello
-temporale o con quello degli scenari non produce necessariamente un errore
+temporale o con quello delle repliche non produce necessariamente un errore
 di sintassi, ma pu\`o generare una quantit\`a priva del significato
 finanziario desiderato.
 
@@ -630,7 +629,7 @@ nella selezione delle righe o nella generazione categoriale.
 Dalle traiettorie sistemiche, si costruisce inoltre l'indicatore
 $I_C^{(r)}=\1_{\{\exists\,t:M_t^{(r)}=C\}}$, ottenibile in Python con
 \texttt{np.any(M == C, axis=1)}. Tale indicatore verr\`a successivamente
-utilizzato per selezionare le perdite associate agli scenari di crisi.
+utilizzato per selezionare le perdite associate alle repliche di crisi.
 
 Prima di passare alle perdite, devono essere verificati almeno quattro
 elementi: le righe di $Q$ e delle matrici $P^{(m)}$ devono sommare a uno;
@@ -718,8 +717,8 @@ $L^{P,(1)},\ldots,L^{P,(N_{\mathrm{MC}})}$ rappresenta la distribuzione
 empirica della perdita di portafoglio.
 
 L'aggregazione conserva la dipendenza generata dal regime sistemico comune:
-le perdite dei diversi debitori vengono sommate all'interno dello stesso
-scenario e non provengono da repliche indipendenti tra loro.
+le perdite dei diversi debitori vengono sommate all'interno della stessa
+replica e non provengono da repliche indipendenti tra loro.
 
 Questo punto \`e importante nell'interpretazione della coda. Uno scenario
 severo pu\`o produrre simultaneamente deterioramenti di molti debitori
@@ -812,7 +811,7 @@ Per una generica misura di rischio $\rho$ si considera inoltre
 \rho(L_{\mathrm{base}}^P).
 \]
 
-Il confronto delle misure aggregate e quello scenario per scenario
+Il confronto delle misure aggregate e quello replica per replica
 rispondono a domande differenti. Il primo sintetizza come cambia il profilo
 complessivo di rischio; il secondo mostra in quali stati del mondo la
 riallocazione produce un beneficio e in quali, invece, una perdita maggiore.
@@ -828,14 +827,13 @@ la perdita in tutti gli scenari, ma soprattutto a contenere la vulnerabilit\`a
 del portafoglio quando una posizione di dimensione rilevante contribuisce
 agli esiti pi\`u severi.
 
-Il miglioramento aggregato non implica tuttavia una dominanza scenario per
-scenario. Il capitale sottratto a Evergrande viene investito in altri
+Il miglioramento aggregato non implica tuttavia una dominanza replica per replica. Il capitale sottratto a Evergrande viene investito in altri
 debitori: in alcuni stati del mondo pu\`o quindi risultare
 $\Delta L^{(r)}>0$.
 
-Si pensi, ad esempio, a uno scenario nel quale Evergrande non subisca un
+Si pensi, ad esempio, a una replica nella quale Evergrande non subisca un
 deterioramento significativo mentre alcuni dei debitori BBB o BB che hanno
-ricevuto capitale aggiuntivo migrino verso stati peggiori. In tale scenario,
+ricevuto capitale aggiuntivo migrino verso stati peggiori. In tale replica,
 la configurazione soggetta al limite pu\`o produrre una perdita superiore a
 quella del portafoglio iniziale.
 
@@ -981,9 +979,8 @@ L_{\mathrm{base}}^{P,(r)}
 \widehat{\E}[L_{\mathrm{base}}^P].
 \]
 
-Questa identit\`a collega il confronto scenario per scenario a quello tra le
-perdite medie e costituisce un controllo diretto del riuso corretto degli
-scenari.
+Questa identit\`a collega il confronto replica per replica a quello tra le
+perdite medie e costituisce un controllo diretto del riuso corretto delle repliche.
 
 Un quarto livello riguarda le misure empiriche e la qualit\`a numerica della
 simulazione. Per VaR e CVaR deve essere esplicitata la convenzione adottata.
@@ -1088,16 +1085,25 @@ simula la traiettoria sistemica, poi si seleziona la matrice creditizia
 coerente con il regime e infine si generano le migrazioni dei singoli
 debitori.
 
-Rispetto al Caso Aula cambia invece la funzione di perdita. Nel TakeHome, vale
+Rispetto al Caso Aula, cambia invece la funzione di perdita. Nel TakeHome,
+la perdita del debitore $i$ \`{e} definita da
 
 \[
 L_i
 =
+\begin{cases}
 V_{i,0}\,
 \varphi(X_{i,0},X_{i,4}),
+&
+X_{i,4}\neq D,
+\\[2mm]
+V_{i,0}\,\mathrm{LGD},
+&
+X_{i,4}=D,
+\end{cases}
 \]
 
-\noindent con $\mathrm{EAD}_i=V_{i,0}$ e $\mathrm{LGD}=0.65$ in caso di stato terminale $D$.
+\noindent con $\mathrm{EAD}_i=V_{i,0}$ e $\mathrm{LGD}=0.65$.
 Poich\'e il default \`e assorbente e la LGD non dipende dal regime, non \`e
 necessario conoscere il trimestre del primo default per determinare la
 perdita monetaria.
