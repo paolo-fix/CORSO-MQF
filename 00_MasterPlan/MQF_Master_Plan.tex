@@ -1034,51 +1034,134 @@ devono mantenere un'interpretazione economica coerente.
 
 \subsection{Lezione 9 -- Catene di Markov e misure di rischio}
 
-\textbf{Tipo:} P.\newline\textbf{Domanda guida:} come si passa dalla dinamica
-degli stati alla misurazione del rischio di perdita?\newline%
-\textbf{Prerequisiti:} Lezioni 2 e 8.\newline\textbf{Obiettivi didattici:}
-applicare catene di Markov alle transizioni di rating creditizio; costruire
-distribuzioni di perdita; calcolare e interpretare VaR e CVaR in un contesto
-markoviano.\newline\textbf{Notazione introdotta:} perdita $L$,
-$\operatorname{VaR}_{\alpha}(L)$, $\operatorname{CVaR}_{\alpha}(L)$,
-esposizioni di portafoglio e stati di default.\newline\textbf{Formule
-principali:}
+\textbf{Tipo:} P.\newline
+\textbf{Domanda guida:} come si passa dalla dinamica degli stati alla
+costruzione di una distribuzione delle perdite e alla misurazione del rischio
+di credito, distinguendo previsione sotto la misura fisica e valutazione
+sotto la misura risk-neutral?\newline
+\textbf{Prerequisiti:} Lezioni 2 e 8.\newline
+\textbf{Obiettivi didattici:} applicare catene di Markov alle transizioni di
+rating creditizio; ricavare probabilit\`{a} cumulative e marginali di default
+e probabilit\`{a} di sopravvivenza; associare agli stati futuri valori e
+perdite monetarie; distinguere modello default-only e modello
+migration-based; calcolare e interpretare perdita attesa, VaR e CVaR;
+distinguere probabilit\`{a} fisiche e risk-neutral; rappresentare in forma
+discreta semplificata i flussi di un credit default swap e determinarne il
+premio equo; interpretare l'effetto della copertura sulla distribuzione delle
+perdite.\newline
+\textbf{Notazione introdotta:} stato di default $D$, tempo di default
+$\tau_D$, probabilit\`{a} cumulative e marginali di default, probabilit\`{a}
+di sopravvivenza, $\mathrm{EAD}$, $\mathrm{LGD}$, recovery rate $R$,
+valore dello strumento $V_j(h)$, perdita $\ell(j,h)$ e variabile casuale
+$L_h=\ell(X_h,h)$; matrice di transizione fisica $P$ e matrice di transizione
+risk-neutral $P^{\mathbb{Q}}$; spread del CDS $s$.\newline
+\textbf{Formule principali:}
 \[
-\operatorname{VaR}_{\alpha}(L)=\inf\{\ell\in\mathbb{R}:F_{L}(\ell)\geq
-\alpha\}.
+\mathrm{PD}_{i}^{\mathrm{cum}}(h)
+=
+\mathbb{P}(\tau_D\leq h\mid X_0=i)
+=
+(P^h)_{iD},
 \]
 \[
-\operatorname{CVaR}_{\alpha}(L)=\min_{\eta\in\mathbb{R}}\left\{ \eta+\frac
-{1}{1-\alpha}\mathbb{E}[(L-\eta)^{+}]\right\} , \qquad(x)^{+}=\max\{x,0\}.
+\ell(j,h)
+=
+V^{\mathrm{ref}}(h)-V_j(h),
+\qquad
+L_h=\ell(X_h,h),
 \]
-\textbf{Esercizi previsti:} distribuzione delle perdite da matrice di rating;
-calcolo di VaR e CVaR su perdite discrete; confronto tra portafogli con
-diverse esposizioni.\newline\textbf{Grafici previsti:} distribuzione delle
-perdite; quantile VaR; area di coda CVaR; evoluzione della probabilit\`{a} di
-default.\newline\textbf{Applicazioni Python collegate:} Lezione 10.
+\[
+\operatorname{VaR}_{\alpha}(L)
+=
+\inf\{\ell\in\mathbb{R}:F_L(\ell)\geq\alpha\},
+\]
+\[
+\operatorname{CVaR}_{\alpha}(L)
+=
+\min_{\eta\in\mathbb{R}}
+\left\{
+\eta+
+\frac{1}{1-\alpha}
+\mathbb{E}\left[(L-\eta)^{+}\right]
+\right\},
+\qquad
+(x)^{+}=\max\{x,0\}.
+\]
+Per il pricing dei flussi creditizi si utilizza la matrice
+$P^{\mathbb{Q}}$, distinguendola dalla matrice $P$ utilizzata per la
+previsione e la misurazione del rischio sotto la misura fisica.\newline
+\textbf{Esercizi previsti:} struttura temporale della probabilit\`{a} di
+default; costruzione della distribuzione delle perdite da una matrice di
+rating; confronto tra modello default-only e migration-based; calcolo di
+perdita attesa, VaR e CVaR su distribuzioni discrete; determinazione del
+premio equo di un CDS; confronto tra posizione creditizia non coperta e
+posizione protetta.\newline
+\textbf{Grafici previsti:} evoluzione della probabilit\`{a} cumulativa di
+default e della sopravvivenza; distribuzione delle perdite; funzione di
+ripartizione e quantile VaR; rappresentazione della coda utilizzata per il
+CVaR; equilibrio tra gamba dei premi e gamba di protezione del CDS; confronto
+tra distribuzione della perdita non coperta e coperta.\newline
+\textbf{Applicazioni Python collegate:} Lezione 10.
 
 \subsection{Lezione 10 -- Applicazione in Python: rischio di credito}
 
-\textbf{Tipo:} C.\newline\textbf{Domanda guida:} come si implementa un modello
-di transizione di rating e si stima il rischio di credito di
-portafoglio?\newline\textbf{Prerequisiti:} Lezioni 8--9; basi operative di
-Python.\newline\textbf{Obiettivi didattici:} implementare una matrice di
-transizione; simulare evoluzioni di rating; calcolare probabilit\`{a} di
-default, distribuzioni di perdita, VaR e CVaR su portafogli.\newline%
-\textbf{Notazione introdotta:} raccordo computazionale con $P$, $\pi_{t}$,
-$L$, $\operatorname{VaR}_{\alpha}(L)$ e $\operatorname{CVaR}_{\alpha}%
-(L)$.\newline\textbf{Formule principali:}
+\textbf{Tipo:} C.\newline
+\textbf{Domanda guida:} come si simula il rischio di credito di un portafoglio
+quando le transizioni dei debitori dipendono da un regime sistemico comune e
+come si misurano gli effetti della concentrazione sulle perdite di coda?\newline
+\textbf{Prerequisiti:} Lezioni 8--9; basi operative di Python.\newline
+\textbf{Obiettivi didattici:} simulare un processo markoviano per il regime
+sistemico e catene di rating condizionate al regime; costruire perdite
+individuali e di portafoglio; stimare probabilit\`{a} di default, perdita
+attesa, VaR e CVaR mediante Monte Carlo; distinguere rischio idiosincratico e
+dipendenza sistemica; confrontare portafogli con diversa concentrazione
+mediante simulazioni accoppiate.\newline
+\textbf{Notazione introdotta:} regime sistemico $M_t$, matrice di transizione
+dei regimi $Q=(q_{mm'})$, matrici creditizie condizionate al regime
+$P^{(m)}$, tempo di default $\tau_i$, numero di repliche Monte Carlo
+$N_{\mathrm{MC}}$ e indice $r=1,\ldots,N_{\mathrm{MC}}$; perdite individuali
+$L_i^{(r)}$ e perdita di portafoglio $L^{P,(r)}$; indicatore di crisi
+$I_C^{(r)}$ e differenza di perdita tra portafogli $\Delta L^{(r)}$.\newline
+\textbf{Formule principali:}
 \[
-\pi_{t}=\pi_{0}P^{t}, \qquad\widehat{\mathbb{P}}(\tau\leq T)=\frac{1}{M}%
-\sum_{k=1}^{M}\1_{\{\tau^{(k)}\leq T\}}.
+\Prob(M_{t+1}=m'\mid M_t=m)=q_{mm'},
 \]
-\textbf{Esercizi previsti:} modificare la matrice di transizione; introdurre
-uno stato assorbente; confrontare portafogli con diverse esposizioni;
-analizzare sensibilit\`{a} di VaR e CVaR.\newline\textbf{Grafici previsti:}
-heatmap della matrice; probabilit\`{a} di default nel tempo; distribuzione
-simulata delle perdite.\newline\textbf{Applicazioni Python collegate:}
-Caso Aula: China Evergrande 2021, rischio
-sistemico e controllo della concentrazione creditizia; Caso TakeHome:
+\[
+\Prob(X_{i,t+1}=j\mid X_{i,t}=k,M_t=m)=p_{kj}^{(m)},
+\]
+\[
+L^{P,(r)}
+=
+\sum_i L_i^{(r)},
+\]
+\[
+\widehat{\Prob}(\tau_i\leq T)
+=
+\frac{1}{N_{\mathrm{MC}}}
+\sum_{r=1}^{N_{\mathrm{MC}}}
+\1_{\{\tau_i^{(r)}\leq T\}},
+\]
+\[
+\Delta L^{(r)}
+=
+L_{\mathrm{lim}}^{P,(r)}
+-
+L_{\mathrm{base}}^{P,(r)}.
+\]
+Le matrici $Q$ e $P^{(m)}$ descrivono dinamiche sotto la misura fisica
+$\Prob$ e sono utilizzate per la simulazione e la misurazione del rischio;
+non devono essere confuse con la matrice risk-neutral $P^{\Q}$ utilizzata
+nella Lezione 9 per il pricing dei flussi creditizi.\newline
+\textbf{Esercizi previsti:} simulazione di traiettorie del regime sistemico e
+dei rating; stima delle probabilit\`{a} di default; costruzione della
+distribuzione delle perdite; calcolo empirico di perdita attesa, VaR e CVaR;
+confronto tra portafoglio base e portafoglio con limite di concentrazione;
+analisi condizionata agli episodi di crisi sistemica.\newline
+\textbf{Grafici previsti:} matrice di transizione dei regimi; distribuzione
+delle perdite di portafoglio; confronto tra portafogli; rappresentazione delle
+code utilizzate per VaR e CVaR.\newline
+\textbf{Applicazioni Python collegate:} Caso Aula: China Evergrande 2021,
+rischio sistemico e controllo della concentrazione creditizia; Caso TakeHome:
 Lehman Brothers 2008, rischio sistemico, migrazioni creditizie e
 diversificazione del portafoglio.
 

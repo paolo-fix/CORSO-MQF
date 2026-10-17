@@ -270,13 +270,17 @@ Nel Caso Aula, considereremo, tra gli altri, l'evento
 cio\`e l'evento in cui la traiettoria del regime sistemico visita almeno
 una volta lo stato di crisi.
 
-\vspace{0.4cm}
+\vspace{0.2cm}
 
 In una simulazione Monte Carlo, disponiamo di molte traiettorie:
 
 \[
 M^{(1)},M^{(2)},\ldots,M^{(N_{\mathrm{MC}})}.
 \]
+
+$r=1,\ldots,N_{\mathrm{MC}}$ indica l'indice della replica Monte Carlo.
+
+\vspace{0.2cm}
 
 Per ciascuna replica dobbiamo quindi rispondere a una domanda logica:
 
@@ -339,7 +343,7 @@ possiamo usare:
 \texttt{crisis = np.any(M == C, axis=1)}
 \end{center}
 
-La maschera booleana \texttt{crisis} rappresenta, scenario per scenario,
+La maschera booleana \texttt{crisis} rappresenta, replica per replica,
 l'indicatore
 \vspace{-0.1cm}
 \[
@@ -361,7 +365,7 @@ L'output \`e un vettore:
 (\texttt{True},\texttt{False},\ldots),
 \]
 
-con una componente per ogni scenario Monte Carlo.
+con una componente per ogni replica Monte Carlo.
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
 %BeginExpansion
@@ -484,7 +488,7 @@ dove:
 L'evoluzione del regime \`e descritta da una matrice di transizione
 
 \[
-Q=(q_{rs}),
+Q=(q_{mm'}),
 \]
 
 con stato iniziale $M_0=S$.
@@ -728,9 +732,9 @@ Il passaggio concettuale \`e quindi:
 Ogni replica Monte Carlo produce una perdita complessiva di portafoglio:
 
 \[
-L^{P,(k)},
+L^{P,(r)},
 \qquad
-k=1,\ldots,N_{\mathrm{MC}}.
+r=1,\ldots,N_{\mathrm{MC}}.
 \]
 
 L'insieme delle perdite simulate
@@ -945,10 +949,10 @@ posizione rispetto al portafoglio.}
 
 Il modello combina una dinamica sistemica e una dinamica creditizia.
 
-\vspace{0.3cm}
+\vspace{0.1cm}
 
 \textbf{Livello 1: regime sistemico}
-
+\vspace{-0.1cm}
 \[
 M_t\in\{N,S,C\},
 \qquad
@@ -957,10 +961,10 @@ M_0=S.
 
 Il regime evolve secondo la matrice di transizione \(Q\).
 
-\vspace{0.4cm}
+\vspace{0.1cm}
 
 \textbf{Livello 2: rating dei debitori}
-
+\vspace{-0.1cm}
 \[
 X_{i,t}\in\{BBB,BB,B,CCC,D\},
 \]
@@ -968,7 +972,7 @@ X_{i,t}\in\{BBB,BB,B,CCC,D\},
 con \(D\) stato assorbente.
 
 La matrice utilizzata nella transizione \(t\to t+1\) dipende da \(M_t\):
-
+\vspace{-0.1cm}
 \[
 M_t
 \longrightarrow
@@ -977,7 +981,14 @@ P^{(M_t)}
 X_{i,t+1}.
 \]
 
-\vspace{0.3cm}
+%\medskip
+
+Le matrici \(Q\) e \(P^{(M_t)}\) descrivono qui dinamiche sotto la
+misura fisica \(\Prob\), utilizzate per simulare gli stati futuri e
+misurare il rischio, e non sono matrici risk-neutral di pricing (in particolare, \(Q\) indica la matrice di transizione del regime
+sistemico, non la misura risk-neutral \(\Q\) introdotta nella Lezione 9).
+
+\vspace{-0.1cm}
 
 \begin{center}
 \textbf{Il regime comune modifica la dinamica creditizia di tutti i
@@ -1086,7 +1097,7 @@ Per ogni debitore \(i\):
 
 \item \(V_{i,0}\): esposizione iniziale, misurata in MUSD;
 
-\item \(\ell(X_{i,0},X_{i,4})\): quota dell'esposizione persa per
+\item \(\varphi(X_{i,0},X_{i,4})\): quota dell'esposizione persa per
 effetto della migrazione di rating, quindi una quantit\`a adimensionale;
 
 \item \(\mathrm{EAD}_i\): esposizione al momento del default, misurata in MUSD;
@@ -1106,7 +1117,7 @@ Se non si verifica default:
 L_i
 =
 V_{i,0}\,
-\ell(X_{i,0},X_{i,4}),
+\varphi(X_{i,0},X_{i,4}),
 \qquad
 \tau_i>4.
 \]
@@ -1254,14 +1265,14 @@ In ogni replica \(r\):
 
 \vspace{0.4cm}
 
-Possiamo quindi definire, scenario per scenario,
+Possiamo quindi definire, replica per replica,
 
 \[
-\Delta L^{(k)}
+\Delta L^{(r)}
 =
-L_{\mathrm{lim}}^{P,(k)}
+L_{\mathrm{lim}}^{P,(r)}
 -
-L_{\mathrm{base}}^{P,(k)}.
+L_{\mathrm{base}}^{P,(r)}.
 \]
 
 \vspace{0.3cm}
@@ -1419,11 +1430,11 @@ Per il portafoglio base, analizzeremo inoltre la perdita media:
 Il confronto tra le due politiche richiede inoltre:
 
 \[
-\Delta L^{(k)}
+\Delta L^{(r)}
 =
-L_{\mathrm{lim}}^{P,(k)}
+L_{\mathrm{lim}}^{P,(r)}
 -
-L_{\mathrm{base}}^{P,(k)}.
+L_{\mathrm{base}}^{P,(r)}.
 \]
 
 %\vspace{0.3cm}
@@ -1484,13 +1495,13 @@ con limite;
 rischio;
 
 \item coerenza del calcolo empirico di VaR e CVaR:
-al livello $95\%$, la coda deve contenere $2\,500$ scenari;
+al livello $95\%$, la coda deve contenere $2\,500$ osservazioni;
 al livello $99\%$, deve contenerne $500$;
 eventuali pareggi sul quantile non devono alterare questa cardinalit\`a.
 
 \end{itemize}
 
-%\vspace{0.4cm}
+\vspace{-0.2cm}
 
 \begin{center}
 \textbf{Da questo punto il lavoro prosegue direttamente in

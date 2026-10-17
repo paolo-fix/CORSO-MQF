@@ -463,15 +463,46 @@ sottostante \`{e} indicato con
 \]
 Quando si distinguono scenari discreti del modello e repliche simulate, si
 riserva $N$ al numero di scenari e si usa $M$ per il numero di repliche
-simulate. L'indice di replica simulata \`{e} indicato con
+simulate. L'indice di replica simulata \`{e} indicato, salvo diversa
+indicazione locale, con
 \[
- k=1,\ldots,M.
+k=1,\ldots,M.
 \]
-Una realizzazione simulata della variabile casuale $X$ nella replica $k$ pu\`{o}
-essere indicata con
+
+Una realizzazione simulata della variabile casuale $X$ nella replica $k$
+pu\`{o} essere indicata con
 \[
- X^{(k)}.
+X^{(k)}.
 \]
+
+Se l'oggetto simulato \`{e} un processo
+\[
+\{X_t\}_{t=0}^{T},
+\]
+si indica con
+\[
+X_t^{(k)}
+\]
+il valore del processo al tempo $t$ nella replica $k$, mentre
+\[
+X^{(k)}
+=
+\left(
+X_0^{(k)},X_1^{(k)},\ldots,X_T^{(k)}
+\right)
+\]
+indica l'intera traiettoria simulata nella replica $k$.
+
+Quando i simboli $M$ o $k$ sono gi\`{a} utilizzati nel modello con altro
+significato, il numero e l'indice delle repliche possono essere sostituiti
+da simboli locali esplicitamente dichiarati. In particolare, si possono
+utilizzare
+\[
+N_{\mathrm{MC}}
+\qquad\text{e}\qquad
+r=1,\ldots,N_{\mathrm{MC}}.
+\]
+
 Questa convenzione \`{e} usata soprattutto nelle applicazioni Python e nelle
 stime Monte Carlo.
 
@@ -594,8 +625,19 @@ Il simbolo $z^*$ resta riservato ai valori ottimi dei problemi di ottimizzazione
 
 \section{Rischio di credito e valutazione risk-neutral}
 
-Nel blocco creditizio (Lezioni 8--10) lo stato di default \`{e} indicato con
-$D$ ed \`{e} assorbente. Il tempo di default \`{e}
+Nel blocco creditizio lo stato di default \`{e} indicato, in generale, con
+$D$ ed \`{e} assorbente. Negli esempi introduttivi della Lezione 8, nei
+quali gli stati della catena sono numerati, il default pu\`{o} essere
+rappresentato dallo stato numerico corrispondente, purch\'e tale
+identificazione sia dichiarata esplicitamente. In particolare, nella catena
+di migrazione del rating utilizzata nella Lezione 8 si pone
+\[
+4=\text{default}.
+\]
+Dal blocco specialistico sul rischio di credito della Lezione 9 in avanti si
+usa invece la notazione $D$.
+
+Il tempo di default \`{e}
 \[
 \tau_D=\inf\{h\geq1:X_h=D\},
 \qquad
@@ -622,6 +664,25 @@ perdita \`{e}
 \qquad
 L_h=\ell(X_h,h).
 \]
+Nelle applicazioni della Lezione 10, quando la perdita associata a una
+migrazione di rating \`{e} espressa come quota adimensionale dell'esposizione,
+si utilizza la funzione
+\[
+\varphi(a,b),
+\]
+dove $a$ e $b$ indicano rispettivamente lo stato creditizio iniziale e quello
+finale. La perdita monetaria corrispondente pu\`o quindi essere scritta come
+\[
+L_i
+=
+V_{i,0}\,\varphi(X_{i,0},X_{i,T}).
+\]
+Il simbolo $\varphi$ distingue pertanto il tasso di perdita da migrazione,
+adimensionale, dalla funzione $\ell(j,h)$, che rappresenta una perdita
+monetaria rispetto a un valore di riferimento.
+
+
+
 La convenzione sul segno \`{e} quella generale del documento: valori
 pi\`{u} elevati di $L_h$ rappresentano esiti peggiori. Per le
 distribuzioni discrete della perdita, il CVaR si calcola con la
