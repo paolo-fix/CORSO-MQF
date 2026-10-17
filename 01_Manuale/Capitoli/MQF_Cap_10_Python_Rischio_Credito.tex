@@ -141,19 +141,25 @@ si utilizza
 \]
 
 L'operazione restituisce un vettore booleano di lunghezza
-$N_{\mathrm{MC}}$. Il suo elemento $s$-esimo equivale all'indicatore
+$N_{\mathrm{MC}}$. Indichiamo con
+\[
+r=1,\ldots,N_{\mathrm{MC}}
+\]
+l'indice della replica Monte Carlo e con $M_t^{(r)}$ il regime sistemico
+al tempo $t$ nella replica $r$. L'elemento $r$-esimo del vettore booleano
+equivale quindi all'indicatore
 
 \[
-I_C^{(k)}
+I_C^{(r)}
 =
-\1_{\{\exists\,t:M_t^{(k)}=C\}}.
+\1_{\{\exists\,t:M_t^{(r)}=C\}}.
 \]
 
 Nel codice Python, l'indicatore $I_C$ viene rappresentato dalla
-maschera booleana \texttt{crisis}, definita scenario per scenario da
+maschera booleana \texttt{crisis}, definita replica per replica da
 
 \[
-\texttt{crisis[k]} = \bigl(I_C^{(k)}=1\bigr).
+\texttt{crisis[r]} = \bigl(I_C^{(r)}=1\bigr).
 \]
 
 Pertanto, le perdite condizionate agli scenari di crisi e di non crisi
@@ -191,7 +197,7 @@ in crisi:
 \widehat{\Prob}(\exists\,t:M_t=C)
 =
 \frac{1}{N_{\mathrm{MC}}}
-\sum_{k=1}^{N_{\mathrm{MC}}} I_C^{(k)}.
+\sum_{r=1}^{N_{\mathrm{MC}}} I_C^{(r)}.
 \]
 
 In Python, poich\'e \texttt{True} e \texttt{False} possono essere
@@ -300,7 +306,7 @@ segnalerebbe un errore di implementazione.
 
 La simulazione degli stati non costituisce ancora l'output finanziario
 richiesto. A ogni traiettoria deve essere associata una perdita individuale
-$L_i$. Nel caso pi\`u semplice tale perdita pu\`o dipendere soltanto dallo
+$L_i$. Nel caso pi\`u semplice, tale perdita pu\`o dipendere soltanto dallo
 stato iniziale e finale; in altri casi, come nel Caso Aula, occorre conoscere
 anche il momento del default e il regime sistemico nel quale esso si
 realizza.
@@ -321,9 +327,9 @@ tra debitori e aggregabili a livello di portafoglio.
 Le perdite individuali vengono quindi aggregate scenario per scenario:
 
 \[
-L^{P,(k)}
+L^{P,(r)}
 =
-\sum_{i=1}^{n}L_i^{(k)}.
+\sum_{i=1}^{n}L_i^{(r)}.
 \]
 
 Le $N_{\mathrm{MC}}$ repliche producono il campione
@@ -339,15 +345,15 @@ perdite monetarie producono?
 
 Nel Caso Aula vengono inoltre confrontate due configurazioni dello stesso
 portafoglio. Per rendere informativa la differenza, esse devono essere
-valutate sugli stessi scenari sistemici e creditizi. Per ogni replica si
+valutate sugli stessi scenari sistemici e creditizi. Per ogni replica, si
 definisce quindi
 
 \[
-\Delta L^{(k)}
+\Delta L^{(r)}
 =
-L_{\mathrm{lim}}^{P,(k)}
+L_{\mathrm{lim}}^{P,(r)}
 -
-L_{\mathrm{base}}^{P,(k)}.
+L_{\mathrm{base}}^{P,(r)}.
 \]
 
 L'uso di scenari comuni evita che il confronto tra le configurazioni venga
@@ -533,7 +539,7 @@ trimestre, la matrice utilizzata per le migrazioni dei $36$ debitori.
 
 Lo stato iniziale \`e deterministico: $M_0=S$. Le traiettorie
 $M_0^{(s)},\ldots,M_3^{(s)}$ possono essere raccolte in una matrice di
-dimensione $N_{\mathrm{MC}}\times4$, con scenari sulle righe e tempo sulle
+dimensione $N_{\mathrm{MC}}\times4$, con repliche sulle righe e tempo sulle
 colonne.
 
 Il regime $M_t$ governa la transizione creditizia
@@ -564,7 +570,7 @@ della matrice $P^{(M_t)}$ corrispondente al suo stato corrente. Tale riga
 definisce una distribuzione categoriale sugli stati creditizi possibili al
 periodo successivo.
 
-Se nello scenario $s$ vale $M_t^{(s)}=C$, tutti i debitori utilizzano in
+Se nella replica $r$ vale $M_t^{(r)}=C$, tutti i debitori utilizzano in
 quella transizione la matrice $P^{(C)}$. Le estrazioni idiosincratiche
 rimangono indipendenti condizionatamente alla traiettoria sistemica comune,
 ma il fatto che la stessa matrice venga applicata a tutti i debitori crea una

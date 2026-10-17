@@ -463,15 +463,46 @@ sottostante \`{e} indicato con
 \]
 Quando si distinguono scenari discreti del modello e repliche simulate, si
 riserva $N$ al numero di scenari e si usa $M$ per il numero di repliche
-simulate. L'indice di replica simulata \`{e} indicato con
+simulate. L'indice di replica simulata \`{e} indicato, salvo diversa
+indicazione locale, con
 \[
- k=1,\ldots,M.
+k=1,\ldots,M.
 \]
-Una realizzazione simulata della variabile casuale $X$ nella replica $k$ pu\`{o}
-essere indicata con
+
+Una realizzazione simulata della variabile casuale $X$ nella replica $k$
+pu\`{o} essere indicata con
 \[
- X^{(k)}.
+X^{(k)}.
 \]
+
+Se l'oggetto simulato \`{e} un processo
+\[
+\{X_t\}_{t=0}^{T},
+\]
+si indica con
+\[
+X_t^{(k)}
+\]
+il valore del processo al tempo $t$ nella replica $k$, mentre
+\[
+X^{(k)}
+=
+\left(
+X_0^{(k)},X_1^{(k)},\ldots,X_T^{(k)}
+\right)
+\]
+indica l'intera traiettoria simulata nella replica $k$.
+
+Quando i simboli $M$ o $k$ sono gi\`{a} utilizzati nel modello con altro
+significato, il numero e l'indice delle repliche possono essere sostituiti
+da simboli locali esplicitamente dichiarati. In particolare, si possono
+utilizzare
+\[
+N_{\mathrm{MC}}
+\qquad\text{e}\qquad
+r=1,\ldots,N_{\mathrm{MC}}.
+\]
+
 Questa convenzione \`{e} usata soprattutto nelle applicazioni Python e nelle
 stime Monte Carlo.
 
