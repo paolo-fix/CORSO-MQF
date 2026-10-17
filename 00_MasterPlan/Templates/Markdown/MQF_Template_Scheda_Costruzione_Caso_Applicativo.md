@@ -50,10 +50,46 @@ Documento interno di progettazione docente. Compilare separatamente per il caso 
 
 ## 5. Output richiesti
 
-- **Stime o risultati numerici:** [elenco]
-- **Tabelle:** [elenco]
-- **Grafici:** [elenco]
-- **Controlli:** [elenco]
+Gli output devono avere una funzione informativa, diagnostica o interpretativa esplicita e devono essere collegati alle quantità teoriche del caso.
+
+### Stime o risultati numerici
+
+Per ciascuna stima o risultato indicare, quando rilevante:
+
+- quantità teorica o economico-finanziaria rappresentata;
+- procedura computazionale utilizzata;
+- unità di misura o scala;
+- controllo numerico o logico associato;
+- significato interpretativo.
+
+[elenco delle stime o dei risultati numerici richiesti]
+
+### Tabelle
+
+Per ciascuna tabella indicare:
+
+- quantità o oggetti rappresentati;
+- funzione informativa o diagnostica;
+- controllo associato;
+- uso nella successiva analisi o interpretazione.
+
+[elenco delle tabelle richieste]
+
+### Grafici
+
+Per ciascun grafico indicare:
+
+- variabile o variabili rappresentate;
+- confronto che il grafico deve rendere visibile;
+- eventuali soglie, stati, scenari o target da evidenziare;
+- domanda interpretativa associata;
+- collegamento con il modello teorico.
+
+[elenco dei grafici richiesti]
+
+### Controlli
+
+[elenco dei controlli numerici, logici, teorici, computazionali o interpretativi richiesti]
 
 ## 6. Flusso logico-teorico risolutivo atteso
 
@@ -63,9 +99,9 @@ Documento interno di progettazione docente. Compilare separatamente per il caso 
 
 ## 7. Scomposizione attesa in tappe
 
-| Tappa | Regime | Input | Operazione | Output | Controllo | Uso successivo |
-|---:|:---:|---|---|---|---|---|
-| 1 | [A/B/C] | [input] | [operazione] | [output] | [controllo] | [uso] |
+| Tappa | Titolo | Obiettivo | Input | Regime IA prevalente | Prompt virtuoso di riferimento | Oggetti teorici coinvolti | Operazione | Output | Controllo | Uso successivo |
+|---:|---|---|---|:---:|---|---|---|---|---|---|
+| 1 | [titolo] | [obiettivo] | [input] | [A/B/C] | [prompt] | [oggetti teorici] | [operazione] | [output] | [controllo] | [uso] |
 
 ## 8. Sequenza docente dei prompt e mappa prompt-notebook
 
@@ -114,6 +150,9 @@ Il notebook è considerato valido se:
 - **Numero minimo e massimo di prompt:** [intervallo]
 - **Usi ammessi dell'IA:** [elenco]
 - **Usi non ammessi:** [elenco]
+- **Tracciato IA richiesto:** [sì / no]
+- **Modalità di consegna del tracciato IA:** [ordinariamente stampa PDF della chat dedicata; indicare eventuali modalità diverse previste per il caso]
+- **Elementi del tracciato oggetto di valutazione:** [elenco]
 
 ## 13. Valutazione
 
@@ -164,4 +203,16 @@ La calibrazione deve garantire che il caso sia numericamente non banale, interpr
 
 ## 16. Relazione con l'altro caso della lezione
 
-[Spiegare in che modo il caso aula e il caso take-home sono metodologicamente comparabili senza ridursi a una variazione parametrica.]
+Il Caso Aula e il Caso TakeHome devono essere metodologicamente comparabili, ma non devono ridursi a una semplice variazione parametrica dello stesso problema.
+
+Esplicitare:
+
+1. **Concetti teorici comuni:** [quali concetti vengono consolidati in entrambi i casi]
+2. **Strumenti computazionali comuni:** [quali procedure, librerie, metodi numerici o solver vengono utilizzati in entrambi i casi]
+3. **Output comparabili:** [quali tipologie di stime, tabelle, grafici o risultati sono comuni]
+4. **Controlli comparabili:** [quali controlli numerici, logici, teorici o interpretativi sono condivisi]
+5. **Elementi metodologici comuni:** [quali passaggi della struttura Scheda Caso → Flusso logico-teorico → tappe → notebook → interpretazione restano invariati]
+6. **Elementi distintivi del Caso TakeHome rispetto al Caso Aula:** [contesto, struttura del modello, formulazione finanziaria, dati, scenari, vincoli o linea risolutiva che rendono autonomo il secondo caso]
+7. **Ripartizione delle responsabilità:** [indicare quali parti sono guidate dal docente, quali sono affidate allo studente e quali possono essere assistite dall'IA]
+
+La relazione tra i due casi deve mostrare continuità metodologica senza duplicazione sostanziale del problema.
