@@ -9,14 +9,14 @@ Le Guidelines definiscono le regole operative stabili. La Notazione definisce
 le convenzioni matematiche. Le decisioni progettuali stabili e le relative
 motivazioni sono recepite nel documento normativo pertinente.
 
-## Snapshot al 2026-10-16
+## Snapshot al 2026-10-18
 
 |  |  |
 |---|---|
-| **Ultima attività completata** | Eseguito l'audit dello stato di avanzamento a partire dallo snapshot del 2026-10-12. L'audit rileva nuove evidenze per le Lezioni 1-6 e 10-16, oltre a modifiche trasversali nei principali documenti normativi e nei template IA. Prosegue inoltre il controllo conclusivo di coerenza orizzontale, verticale e incrociata tra capitoli, slides e documenti di progetto. |
+| **Ultima attività completata** | Completata una nuova passata di coerenza sul blocco Capitoli/Lezioni 8-10 e sui documenti normativi, con verifica del raccordo tra catene di Markov, rischio di credito, misure di rischio e simulazione di portafoglio. Chiuse le principali incoerenze residue di notazione e terminologia, in particolare nella distinzione tra scenari del modello e repliche Monte Carlo e nel raccordo tra misura fisica e misura risk-neutral. Le Guidelines sono state inoltre riallineate all'architettura effettiva delle lezioni applicative: la sequenza formale dei prompt resta normativa per notebook e tracciato IA, ma non costituisce una sequenza obbligatoria delle slides; l'uso di `\subsection{...}` prima di ogni frame è stato reso facoltativo. |
 | **Materiale sviluppato** | Manuale: contenuto sostanziale per i Capitoli 1-16. Slides: contenuto sostanziale per le Lezioni 1-16. Pacchetti applicativi strutturati per le Lezioni 4, 7, 10, 13 e 16. Codice, notebook, script e asset grafici presenti lungo l'intero corso, inclusi i blocchi di programmazione lineare, ALM e programmazione stocastica. |
-| **Lavoro in corso** | Verifica conclusiva di coerenza tra capitoli, slides, Master Plan, Notazione, Guidelines, Istruzioni Studente e materiali applicativi; chiusura delle incoerenze residue; controllo dei raccordi tra lezioni; verifica finale dei notebook, dei tracciati IA, dei template e degli asset tecnici. |
-| **Prossima priorità** | Completare il controllo finale integrato del corso; usare il promemoria di raccordo come checklist operativa; eseguire la compilazione completa del manuale e dei 16 deck; rieseguire e validare i notebook delle lezioni applicative; completare il controllo di riferimenti incrociati, asset grafici e scalette-promemoria. |
+| **Lavoro in corso** | Prosegue la verifica conclusiva di coerenza orizzontale, verticale e incrociata tra capitoli, slides e documenti normativi nei blocchi del corso non ancora sottoposti a passata conclusiva; restano inoltre da completare la validazione tecnica dei notebook applicativi, la compilazione integrale dei sorgenti LaTeX, il controllo dei riferimenti incrociati e la verifica finale dei template e dei materiali operativi. |
+| **Prossima priorità** | Completare le passate conclusive sui blocchi ancora aperti utilizzando il promemoria di raccordo come checklist; aggiornare progressivamente il promemoria eliminando i controlli già conclusi; eseguire la compilazione completa del manuale e dei 16 deck; rieseguire e validare in ambiente pulito i notebook delle Lezioni 4, 7, 10, 13 e 16; completare il controllo di riferimenti incrociati, template IA, asset tecnici e scalette-promemoria. |
 
 ---
 
@@ -26,7 +26,7 @@ Legenda: `sviluppato` = contenuto sostanziale presente; `parziale` = componente 
 
 La classificazione `sviluppato` non equivale a `chiuso`: in questa fase gran parte del corso è sviluppata con taratura o verifica conclusiva residua.
 
-Alla data del 2026-10-16 nessuna lezione viene riclassificata automaticamente come `chiusa` sulla sola base dell'audit. L'audit documenta presenza e modifiche dei materiali; la chiusura richiede anche il completamento dei controlli di coerenza, compilabilità e, per le lezioni applicative, esecuzione e riproducibilità dei notebook.
+Alla data del 2026-10-18 nessuna lezione viene riclassificata automaticamente come `chiusa`. La classificazione richiede il completamento dei controlli di coerenza, compilabilità e, per le lezioni applicative, esecuzione e riproducibilità dei notebook; gli audit automatici restano strumenti di ricognizione e non costituiscono da soli certificazione di chiusura.
 
 | Lez. | Tipo | Titolo sintetico | Manuale | Slides | Esercizi/materiali operativi | Grafici | Python/Notebook |
 |---:|:---:|---|:---:|:---:|:---:|:---:|:---:|
@@ -57,14 +57,14 @@ Questa sezione conserva una checklist operativa per il controllo orizzontale, ve
 |---|---|
 | Processi stocastici discreti e filtrazioni | Verificare il raccordo tra Capitolo/Lezione 5 e quanto già introdotto nei Capitoli 1-4 su informazione, filtrazioni, adattabilità e martingale. |
 | Processi stocastici continui | Verificare il raccordo tra Capitoli/Lezioni 6-7 su Browniano, GBM, OU, CIR, correlazione ed Eulero--Maruyama, distinguendo chiaramente teoria, simulazione e applicazione. |
-| Catene di Markov | Raccordo già consolidato con il blocco rating/rischio di credito del Capitolo 9; mantenere il controllo sui passaggi verso la Lezione 10. |
+| Catene di Markov | Raccordo verificato tra Capitolo/Lezione 8, Capitolo/Lezione 9 e Lezione 10: coerenti dinamica markoviana, stato di default assorbente, passaggio dalle probabilità alle perdite e trasferimento alla simulazione di portafoglio. |
 | Misure di rischio | Verificare il raccordo tra il blocco teorico delle misure di rischio e le applicazioni successive, evitando anticipazioni o sovrapposizioni non motivate. |
 | Modello binomiale | Mantenuto come esempio strutturale di processo discreto, non come lezione autonoma di pricing; verificare che questa funzione resti coerente nei richiami successivi. |
 | Programmazione lineare e dualità | Verificare la continuità tra Lezioni 11-12: formulazione primale, interpretazione economica dei vincoli e dualità devono preparare senza duplicazioni il passaggio all'ALM deterministico. |
 | Asset--Liability Management deterministico | Verificare il raccordo tra Capitolo/Lezione 12 e l'implementazione Python della Lezione 13, con particolare attenzione a variabili, vincoli, unità di misura e interpretazione economica. |
 | Programmazione stocastica | Verificare la progressione Lezioni 14-16: due stadi, EVPI/VSS, ricorso, multistadio, non anticipatività e implementazione Python devono restare distinti e progressivi. |
-| Corrispondenza Python | Verificare che le Lezioni applicative 4, 7, 10, 13 e 16 mantengano una struttura metodologica coerente tra Scheda Caso, prompt, notebook, output e valutazione. |
-| Rischio di credito e risk-neutral | Verificare il raccordo tra Capitoli/Lezioni 8-10: dinamica markoviana, misura del rischio di credito e simulazione di portafoglio devono utilizzare ipotesi e notazione coerenti. |
+| Corrispondenza Python | Verificare che le Lezioni applicative 4, 7, 10, 13 e 16 mantengano coerenza tra architettura didattica delle slides, Scheda Caso, protocollo dei prompt, notebook, tracciato IA, output e valutazione, distinguendo la funzione di regia delle slides dalla sequenza operativa di costruzione del notebook. |
+| Rischio di credito e risk-neutral | Raccordo verificato tra Capitoli/Lezioni 8-10: coerenti distinzione tra misura fisica e misura risk-neutral, uso delle matrici di transizione, costruzione delle perdite, misure di rischio e simulazione Monte Carlo di portafoglio. |
 
 ---
 
@@ -148,10 +148,10 @@ L'audit conferma che il progetto è nella fase di verifica conclusiva di un impi
 
 ## Questioni operative aperte
 
-- Completare il controllo integrato di coerenza tra Manuale, Slides, Master Plan, Notazione, Guidelines e Istruzioni Studente per tutti i blocchi del corso.
+- Completare il controllo integrato di coerenza tra Manuale, Slides, Master Plan, Notazione, Guidelines e Istruzioni Studente nei blocchi del corso per i quali la verifica conclusiva non è ancora stata chiusa.
 - Usare il `Promemoria per il controllo di raccordo` come checklist per i controlli orizzontali, verticali e incrociati ancora aperti.
-- Chiudere le incoerenze residue già individuate nei blocchi in corso di revisione prima di considerarne conclusa la verifica.
-- Verificare puntualmente che le lezioni applicative 4, 7, 10, 13 e 16 mantengano una struttura coerente tra caso, prompt, notebook, output e valutazione.
+- Chiudere le incoerenze residue eventualmente individuate nei blocchi ancora in revisione prima di considerarne conclusa la verifica.
+- Verificare puntualmente che le lezioni applicative 4, 7, 10, 13 e 16 mantengano coerenza tra architettura didattica delle slides, Scheda Caso, protocollo dei prompt, notebook, tracciato IA, output e valutazione, senza richiedere che la sequenza formale dei prompt sia riprodotta nelle slides.
 - Eseguire una compilazione finale ordinaria del manuale e dei 16 deck per intercettare errori LaTeX, overfull, riferimenti irrisolti, figure mancanti, percorsi errati e incoerenze nei magic comment.
 - Rieseguire i notebook delle Lezioni 4, 7, 10, 13 e 16 in ambiente pulito, verificando assenza di errori, dipendenze, seed, riproducibilità degli output e funzionamento dei controlli.
 - Riesaminare puntualmente i template IA rispetto alle Istruzioni Studente correnti, verificando coerenza dei Regimi A/B/C, del formato dei tracciati e dei materiali di valutazione.
@@ -168,3 +168,4 @@ L'audit conferma che il progetto è nella fase di verifica conclusiva di un impi
 - **2026-10-12** — ricognizione generale del repository: copertura sostanziale completa di manuale e slides; pacchetti applicativi strutturati per tutte le lezioni computazionali; passaggio alla fase di verifica conclusiva e chiusura. Verificata inoltre la componente grafica delle Lezioni applicative 4, 7, 10, 13 e 16, tutte classificate `sviluppato`; riallineate le Guidelines all'architettura corrente del corso e del repository; chiuso il residuo storico della Lezione 6 sugli esercizi/materiali operativi, ora classificati `sviluppato`.
 - **2026-10-13** — verificata la componente grafica della Lezione 15: gli asset richiamati da Capitolo 15 e slides sono presenti nella cartella condivisa `graphics/`; la componente `Grafici` passa da `parziale` a `sviluppato`.
 - **2026-10-16** — eseguito `tools/audit_stato_avanzamento.py` a partire dallo snapshot del 2026-10-12. Rilevate nuove evidenze per le Lezioni 1-6 e 10-16 e modifiche trasversali nei principali documenti normativi e nei template IA. Integrato nel registro un promemoria operativo per il controllo di raccordo orizzontale, verticale e incrociato. L'audit viene assunto come strumento di ricognizione e non come certificazione automatica di chiusura.
+- **2026-10-18** — completata una nuova passata conclusiva sul blocco Capitoli/Lezioni 8-10 e sui documenti normativi. Verificati il raccordo tra catene di Markov, rischio di credito, misure di rischio e simulazione di portafoglio; chiusi residui terminologici nella distinzione tra scenari e repliche Monte Carlo; consolidata la distinzione tra misura fisica e misura risk-neutral. Le Guidelines sono state inoltre riallineate all'architettura effettiva delle lezioni applicative: la sequenza formale dei prompt resta normativa per notebook e tracciato IA ma non costituisce una sequenza obbligatoria delle slides; l'uso di `\subsection{...}` prima dei frame è facoltativo.
