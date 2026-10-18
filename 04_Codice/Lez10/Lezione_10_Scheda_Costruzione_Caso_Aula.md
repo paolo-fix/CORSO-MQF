@@ -650,7 +650,7 @@ Confronto, per il portafoglio iniziale, tra scenari con e senza ingresso nel reg
 | 2 | B | $Q$, $P^{(N)}$, $P^{(S)}$, $P^{(C)}$, rating iniziali, $N_{\mathrm{MC}}$, seed | Simulare regime sistemico, migrazioni creditizie e primo ingresso nel default | Regimi, stati finali, tempi e regimi di default | Matrici stocastiche; default assorbente; regime comune; indipendenza condizionata | Costruzione delle perdite |
 | 3 | B | Traiettorie simulate, investimenti, funzione $\varphi$, LGD per regime | Calcolare le perdite migration-based o da default; costruire i due vettori di investimento e aggregare | $L_{\mathrm{base}}^{P,(r)}$, $L_{\mathrm{lim}}^{P,(r)}$, $\Delta L^{(r)}$ | Corretta LGD al default; investimento totale invariato; stessi scenari nei due portafogli | Stima delle distribuzioni |
 | 4 | B | Campioni delle perdite e informazioni sui regimi | Stimare distribuzioni, perdita media, dispersione, VaR e CVaR; confrontare i portafogli e gli scenari sistemici | Tabelle, grafici e variazioni delle misure di rischio | Coerenza VaR/CVaR; stabilità Monte Carlo; corretta lettura del confronto | Interpretazione finanziaria |
-| 5 | C | Notebook completo, risultati e ipotesi | Formulare e verificare una criticità sostanziale e svolgere i controlli conclusivi | Eventuale correzione delle celle e interpretazione finale | Criticità accolta/respinta; coerenza notebook-Scheda; distinzione modello/realtà storica | Chiusura del caso |
+| 5 | — / C eventuale | Notebook completo, risultati, controlli e ipotesi | Svolgere i controlli conclusivi e formulare autonomamente l'interpretazione finanziaria; ricorrere al Regime C solo se emerge una criticità specifica da verificare | Notebook validato, eventuale correzione delle celle interessate e interpretazione finale dello studente | Coerenza notebook-Scheda Caso; distinzione modello/realtà storica; se viene attivato il Regime C, criticità accolta oppure respinta | Chiusura del caso |
 
 ## 8. Mappa tra prompt e notebook
 
@@ -664,9 +664,8 @@ Confronto, per il portafoglio iniziale, tra scenari con e senza ingresso nel reg
 | Prompt tappa 2 | B | 2 | Celle Markdown e codice per simulazione di regimi, rating e default | Corretta implementazione delle traiettorie |
 | Prompt tappa 3 | B | 3 | Celle Markdown e codice per perdite individuali, due portafogli e aggregazione | Coerenza perdita-regime-investimento e applicazione del limite |
 | Prompt tappa 4 | B | 4 | Celle Markdown, codice, tabelle e grafici per distribuzioni e misure di rischio | Corretta implementazione di VaR/CVaR e confronto |
-| Prompt tappa 5 | C | 5 | Verifica critica ed eventuale sostituzione delle celle coinvolte | Criticità accolta o respinta |
-| Verifica conclusiva 1 | C | 5 | Controllo finale del notebook | Coerenza integrale con la Scheda Caso |
-| Verifica conclusiva 2 | C | 5 | Cella Markdown finale | Verifica critica dell'interpretazione dello studente |
+| Prompt C eventuale | C | Tappa interessata | Verifica di una criticità specifica già individuata dallo studente ed eventuale sostituzione delle celle coinvolte | Criticità accolta oppure respinta |
+
 
 ## 9. Struttura attesa del notebook
 
@@ -740,13 +739,13 @@ I risultati dei Prompt 2 e Prompt 3 svolgono funzione di progettazione e validaz
 
 ### Tappa 5 — Verifica critica e interpretazione
 
-**Prompt di riferimento:** Prompt tappa 5 — Regime C e verifiche conclusive.
+**Prompt di riferimento:** nessun prompt obbligatorio. Il Regime C può essere attivato soltanto in presenza di una criticità specifica individuata dallo studente.
 
-- Cella Markdown: criticità sostanziale formulata dallo studente.
-- Classificazione: criticità accolta oppure respinta.
-- Eventuale sostituzione delle celle interessate.
-- Cella Markdown: verifica conclusiva notebook-Scheda Caso.
-- Cella Markdown: interpretazione finanziaria finale dello studente.
+- Cella Markdown: controlli conclusivi sulla coerenza tra notebook e Scheda Caso.
+- Cella Markdown: interpretazione finanziaria finale formulata autonomamente dallo studente.
+- Se emerge una criticità specifica, eventuale Prompt C riferito alla tappa interessata.
+- Classificazione dell'eventuale verifica: criticità accolta oppure criticità respinta.
+- Se la criticità viene accolta, sostituzione delle celle interessate con versioni corrette.
 
 L'interpretazione deve distinguere almeno:
 
@@ -907,22 +906,30 @@ I tre regimi costituiscono una rappresentazione stilizzata delle condizioni del 
 - Prompt tappa 1;
 - Prompt tappa 2;
 - Prompt tappa 3;
-- Prompt tappa 4;
-- Prompt tappa 5;
-- verifica conclusiva della coerenza notebook-Scheda Caso;
-- verifica conclusiva dell'interpretazione.
+- Prompt tappa 4.
 
-### Numero minimo e massimo di prompt
+### Prompt eventuali in Regime C
 
-Il numero complessivo di prompt può variare in funzione delle verifiche critiche effettivamente necessarie:
+Il Regime C non costituisce una tappa obbligatoria del caso.
+
+Un Prompt C viene utilizzato soltanto quando lo studente individua un dubbio, un'anomalia o una possibile incoerenza specifica nel notebook, negli output o nella propria interpretazione. Il prompt deve indicare la parte interessata, la criticità individuata e il ragionamento che la motiva.
+
+L'esito della verifica deve essere classificato come:
+
+- criticità respinta;
+- criticità accolta.
+
+Se la criticità è accolta, vengono sostituite le celle della tappa interessata. Se è respinta, il notebook non viene modificato.
+
+### Numero dei prompt
+
+La sequenza ordinaria comprende otto prompt obbligatori:
 
 $$
-11
-\leq
-N_{\text{prompt}}
-\leq
-15.
+N_{\text{prompt, obbligatori}}=8.
 $$
+
+A questi possono aggiungersi uno o più Prompt C soltanto quando emergano criticità specifiche che richiedano verifica.
 
 ### Usi ammessi dell'IA
 
