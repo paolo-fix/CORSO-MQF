@@ -27,7 +27,7 @@ Il formato del template dipende dal documento nel quale viene conservato e utili
 | Prompt | [Prompt 3](Markdown/MQF_Template_Prompt_3.md) | Scomposizione input-output | Guidelines 15.6 |
 | Prompt di tappa | [Regime A](Markdown/MQF_Template_Prompt_Tappa_Regime_A.md) | Ricognizione teorico-modellistica | Guidelines 15.7 |
 | Prompt di tappa | [Regime B](Markdown/MQF_Template_Prompt_Tappa_Regime_B.md) | Traduzione operativa in codice | Guidelines 15.7 |
-| Prompt di tappa | [Regime C](Markdown/MQF_Template_Prompt_Tappa_Regime_C.md) | Verifica critica | Guidelines 15.7 |
+| Prompt di tappa | [Regime C](Markdown/MQF_Template_Prompt_Tappa_Regime_C.md) | Verifica di una criticità specifica | Guidelines 15.7 |
 
 ## Regole di manutenzione
 

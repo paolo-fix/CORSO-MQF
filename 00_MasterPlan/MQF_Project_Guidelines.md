@@ -1273,10 +1273,10 @@ La struttura consigliata del notebook, quando l'applicazione prevede uso documen
 7. controlli intermedi;
 8. output numerici;
 9. grafici e tabelle;
-10. verifica conclusiva della coerenza tra notebook e Scheda Caso, se richiesta;
-11. interpretazione critica finale dello studente;
-12. verifica conclusiva dell'interpretazione, se richiesta;
-13. limiti del modello e sintesi finale.
+10. controlli conclusivi di coerenza tra notebook, output e Scheda Caso;
+11. interpretazione finanziaria finale dello studente;
+12. limiti del modello;
+13. sintesi finale.
 
 Quando l'applicazione non prevede uso documentato dell'IA, la stessa struttura può essere adattata mantenendo comunque il collegamento tra caso, flusso teorico, tappe, output, controlli e interpretazione.
 
@@ -1319,7 +1319,7 @@ Per ciascuna tappa devono essere specificati:
 
 1. input provenienti dalle tappe precedenti;
 2. obiettivo della tappa;
-3. regime IA prevalente, quando l’IA è prevista;
+3. regime IA prevalente A/B, quando l’IA è prevista;
 4. prompt virtuoso di riferimento, quando l’IA è prevista;
 5. oggetti teorici coinvolti;
 6. operazione computazionale richiesta;
@@ -1452,8 +1452,8 @@ La rubrica di valutazione di ciascun Caso TakeHome deve essere coerente con la S
 3. coerenza degli input/output che collegano le tappe;
 4. qualità degli output richiesti: stime, tabelle, grafici, controlli;
 5. qualità e virtù degli input forniti all’IA, se il tracciato IA è richiesto;
-6. rispetto dei regimi di interazione con l’IA, se l’IA è ammessa;
-7. capacità di verifica e interpretazione critica.
+6. uso appropriato dei Regimi A/B e, quando effettivamente attivato, del Regime C a partire da una criticità specifica individuata dallo studente;
+7. qualità dei controlli conclusivi e autonomia dell'interpretazione finale dello studente.
 
 ---
 
@@ -1532,7 +1532,7 @@ Sono esempi di uso virtuoso:
 1. chiedere all'IA di aiutare a distinguere variabili casuali, eventi, stati informativi, scenari, ipotesi e quantità teoriche, senza risolvere il problema;
 2. chiedere all'IA di costruire una procedura Python coerente con una specifica teorica già validata;
 3. chiedere all'IA di produrre il codice necessario per un grafico di cui lo studente ha già specificato le proprietà informative;
-4. chiedere all'IA di segnalare ambiguità, errori logici o conclusioni troppo forti in una verifica o interpretazione già formulata dallo studente;
+4. sottoporre all'IA una criticità specifica individuata dallo studente in un risultato, controllo o passaggio argomentativo già formulato, chiedendone la verifica e la classificazione come criticità respinta oppure accolta;
 5. usare l'IA per correggere errori tecnici, migliorare la leggibilità del codice o organizzare output numerici e grafici, senza modificare il significato matematico-finanziario del problema.
 
 Sono esempi di uso improprio:
@@ -1605,7 +1605,7 @@ Formula guida del Regime B:
 
 Nel caso dei grafici, la distinzione tra contenuto informativo e realizzazione tecnica è essenziale. Lo studente deve specificare quale variabile rappresentare, quale confronto mostrare, quale soglia evidenziare e quale domanda interpretativa il grafico deve rendere visibile. L'IA può essere delegata alla realizzazione tecnica del grafico, ma non alla scelta del suo significato informativo.
 
-#### Regime C — Verifica critica
+#### Regime C — Verifica di una criticità specifica
 
 Nel Regime C, l'IA viene utilizzata come revisore critico di materiale già prodotto o di un dubbio già formulato dallo studente. Il Regime C non consiste in una richiesta generica di certificazione del lavoro. Deve partire da un risultato numerico anomalo, da un dubbio teorico o matematico, da una possibile incoerenza con la Scheda Caso, da un passaggio di codice non convincente, da una tabella o da un grafico da verificare.
 
@@ -1633,7 +1633,7 @@ Se è necessario correggere anche il codice, la nuova cella code sostituisce la 
 
 Gli errori puramente tecnici di codice, come errori di sintassi, librerie mancanti o warning segnalati dall'ambiente di sviluppo, vanno corretti sostituendo la cella errata. Non costituiscono però, di per sé, verifiche critiche di alto valore.
 
-L'IA non deve produrre la conclusione finale al posto dello studente. Restano distinte le verifiche conclusive sul notebook e sull'interpretazione finale, quando previste.
+L'IA non deve produrre la conclusione finale al posto dello studente. Il Regime C non costituisce una fase conclusiva obbligatoria: può essere attivato soltanto quando lo studente individua una criticità specifica da verificare.
 
 Formula guida del Regime C:
 
@@ -1643,26 +1643,28 @@ Formula guida del Regime C:
 
 ### 15.4 Due scale di lavoro: macro e micro
 
-I tre regimi operano su due scale diverse:
+I Regimi A e B strutturano ordinariamente il lavoro su due scale diverse; il Regime C può intervenire, su entrambe le scale, soltanto quando lo studente individua una criticità specifica da verificare:
 
 1. livello macro, relativo al problema complessivo;
 2. livello micro, relativo alla singola tappa.
 
-Al livello macro, i tre regimi servono a costruire il percorso risolutivo. L'obiettivo non è ancora produrre codice o risultati numerici, ma inquadrare il problema, generare un percorso, fissare le tappe principali e verificare che la sequenza sia logicamente coerente.
+Al livello macro, i Regimi A e B servono a costruire il percorso risolutivo; un eventuale Regime C interviene soltanto per verificare una criticità specifica già individuata dallo studente. L'obiettivo non è ancora produrre codice o risultati numerici, ma inquadrare il problema, generare un percorso, fissare le tappe principali e verificare che la sequenza sia logicamente coerente.
 
-Al livello micro, i tre regimi servono invece a svolgere un passaggio specifico del percorso: specificare l'oggetto teorico locale, costruire la procedura computazionale corrispondente, controllare l'output e interpretarne il ruolo.
+Al livello micro, i Regimi A e B servono invece a svolgere un passaggio specifico del percorso: specificare l'oggetto teorico locale e costruire la procedura computazionale corrispondente; un eventuale Regime C interviene soltanto per verificare una criticità specifica individuata nella tappa, nell'output o nel controllo.
 
-Al livello macro, la sequenza è:
+Al livello macro, la sequenza ordinaria è:
 
 1. Regime A: inquadramento teorico del problema complessivo;
-2. Regime B: progettazione del percorso computazionale;
-3. Regime C: revisione critica del percorso risolutivo.
+2. Regime B: progettazione del percorso computazionale.
 
-Al livello micro, la sequenza è:
+Un eventuale Regime C può essere attivato soltanto quando lo studente individua una criticità specifica nel percorso risolutivo già costruito.
+
+Al livello micro, la sequenza ordinaria è:
 
 1. Regime A: specificazione teorica della tappa;
-2. Regime B: operazionalizzazione computazionale della tappa;
-3. Regime C: verifica e interpretazione locale della tappa.
+2. Regime B: operazionalizzazione computazionale della tappa.
+
+Un eventuale Regime C può essere attivato soltanto quando lo studente individua una criticità specifica nella tappa, nel relativo output o nel controllo eseguito.
 
 Questa distinzione impedisce che l'IA passi direttamente dal testo del problema al codice completo. Prima si costruisce il percorso, poi si lavora sulle singole tappe.
 
@@ -1712,7 +1714,7 @@ Quando il notebook viene costruito passo passo con supporto dell’IA, ogni prom
 4. controllo da eseguire;
 5. collegamento con la tappa successiva.
 
-La sequenza dei prompt virtuosi deve essere tracciabile rispetto alla struttura del notebook. Ogni prompt rilevante deve poter essere collegato a una o più sezioni del notebook e deve chiarire quale parte del prodotto finale genera: cella Markdown, cella codice, tabella, grafico, controllo, interpretazione locale o revisione critica.
+La sequenza dei prompt virtuosi deve essere tracciabile rispetto alla struttura del notebook. Ogni prompt rilevante deve poter essere collegato a una o più sezioni del notebook e deve chiarire quale parte del prodotto finale genera: cella Markdown, cella codice, tabella, grafico, controllo o interpretazione locale. Gli eventuali Prompt C documentano invece la verifica di una criticità specifica individuata dallo studente e, quando la criticità è accolta, la conseguente sostituzione delle celle interessate.
 
 Nella Scheda Costruzione Caso, il docente deve quindi predisporre una mappa esplicita tra prompt e notebook. Questa mappa ha doppia funzione: guida lo sviluppo del notebook docente e fornisce un riferimento per valutare la coerenza tra tracciato IA e notebook nei lavori TakeHome.
 
@@ -1823,7 +1825,7 @@ Il prompt di tappa deve indicare almeno:
 
 I prompt brevi di avanzamento, come “ok, tappa k”, sono ammissibili solo se il contesto, la Scheda Caso, il Flusso logico-teorico risolutivo e la scomposizione in tappe sono già stati fissati e validati nella stessa conversazione.
 
-I testi canonici dei prompt di tappa in Regime A, B e C sono conservati in tre template Markdown distinti, registrati nel Catalogo dei template. La separazione evita di confondere il contributo teorico dello studente nei Regimi A e C con la richiesta tecnica semplificata propria del Regime B.
+I testi canonici dei prompt di tappa in Regime A, B e C sono conservati in tre template Markdown distinti, registrati nel Catalogo dei template. I Regimi A e B disciplinano ordinariamente lo sviluppo delle tappe; il template del Regime C è utilizzato soltanto quando lo studente individua una criticità specifica da verificare.
 
 ---
 
@@ -1834,7 +1836,7 @@ Un prompt virtuoso deve rendere visibili il contesto, il regime dell'interazione
 1. contesto del problema;
 2. input disponibili;
 3. oggetti teorici già definiti;
-4. regime richiesto: A, B oppure C;
+4. regime richiesto: A oppure B nello sviluppo ordinario della tappa; C soltanto in presenza di una criticità specifica individuata dallo studente;
 5. compito richiesto all'IA;
 6. vincoli su ciò che l'IA non deve modificare o produrre;
 7. output atteso;
@@ -1861,7 +1863,7 @@ La validazione deve considerare almeno:
 4. assenza di modifiche non autorizzate al modello;
 5. assenza di contenuti non ancora trattati o non ammessi;
 6. correttezza della traduzione computazionale, se il regime è B;
-7. pertinenza dei controlli proposti, se il regime è C;
+7. coerenza della risposta con la criticità specifica formulata dallo studente e corretta classificazione dell'esito come criticità respinta oppure accolta, se il regime è C;
 8. utilità dell'output per la tappa successiva.
 
 Una risposta IA deve essere corretta o scartata quando:

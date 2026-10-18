@@ -894,8 +894,8 @@ Deve contenere:
 6. Prompt 3;
 7. risposta IA al Prompt 3;
 8. prompt di tappa e relative risposte IA;
-9. eventuali prompt di verifica e relative risposte IA;
-10. interpretazione finale o verifica dell’interpretazione.
+9. eventuali Prompt C attivati su criticità specifiche individuate dallo studente e relative risposte IA;
+10. eventuali elementi della chat utilizzati a supporto dei controlli conclusivi, fermo restando che l'interpretazione finale è responsabilità autonoma dello studente.
 
 Non deve contenere:
 

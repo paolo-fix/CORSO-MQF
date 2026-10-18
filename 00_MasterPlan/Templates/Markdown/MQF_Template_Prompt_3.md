@@ -39,5 +39,5 @@ Se rilevi una possibile incoerenza tra il flusso e la scomposizione proposta, se
 
 L'output deve essere una sola cella Markdown, con un titolo sintetico coerente con la funzione del Prompt 3 e una tabella con le colonne:
 
-| Tappa | Titolo | Obiettivo | Input | Oggetti teorici coinvolti | Operazione | Output | Controllo | Uso successivo | Regime IA prevalente |
+| Tappa | Titolo | Obiettivo | Input | Oggetti teorici coinvolti | Operazione | Output | Controllo | Uso successivo | Regime IA prevalente A/B |
 |---:|---|---|---|---|---|---|---|---|---|

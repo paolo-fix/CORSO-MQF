@@ -149,10 +149,7 @@ Indicare le verifiche osservabili necessarie per validare il lavoro.
 1. [controllo]
 2. [controllo]
 
-### Controlli interpretativi
 
-1. [controllo]
-2. [controllo]
 
 I controlli devono riguardare, secondo il caso, coerenza delle simulazioni, identità o proprietà teoriche, vincoli del modello, stabilità numerica, convergenza, coerenza dimensionale e plausibilità degli output.
 

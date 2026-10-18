@@ -89,7 +89,7 @@ Per ciascun grafico indicare:
 
 ### Controlli
 
-[elenco dei controlli numerici, logici, teorici, computazionali o interpretativi richiesti]
+[elenco dei controlli numerici, logici, teorici o computazionali richiesti]
 
 ## 6. Flusso logico-teorico risolutivo atteso
 
@@ -101,7 +101,7 @@ Per ciascun grafico indicare:
 
 | Tappa | Titolo | Obiettivo | Input | Regime IA prevalente | Prompt virtuoso di riferimento | Oggetti teorici coinvolti | Operazione | Output | Controllo | Uso successivo |
 |---:|---|---|---|:---:|---|---|---|---|---|---|
-| 1 | [titolo] | [obiettivo] | [input] | [A/B/C] | [prompt] | [oggetti teorici] | [operazione] | [output] | [controllo] | [uso] |
+| 1 | [titolo] | [obiettivo] | [input] | [A/B] | [prompt] | [oggetti teorici] | [operazione] | [output] | [controllo] | [uso] |
 
 ## 8. Sequenza docente dei prompt e mappa prompt-notebook
 
@@ -127,7 +127,7 @@ Il notebook è considerato valido se:
 3. rispetta la scomposizione in tappe input-output validata;
 4. mantiene coerenti notazione matematica e nomi delle variabili computazionali;
 5. produce tutti gli output richiesti;
-6. esegue tutti i controlli numerici, logici e interpretativi previsti;
+6. esegue tutti i controlli numerici, logici, teorici e computazionali previsti;
 7. rende tracciabile il passaggio dalle formule alle procedure computazionali;
 8. utilizza correttamente seed, parametri e convenzioni numeriche assegnate, quando previsti;
 9. non utilizza risultati provenienti da esecuzioni non valide o da configurazioni non ammissibili;
@@ -222,8 +222,8 @@ Esplicitare:
 1. **Concetti teorici comuni:** [quali concetti vengono consolidati in entrambi i casi]
 2. **Strumenti computazionali comuni:** [quali procedure, librerie, metodi numerici o solver vengono utilizzati in entrambi i casi]
 3. **Output comparabili:** [quali tipologie di stime, tabelle, grafici o risultati sono comuni]
-4. **Controlli comparabili:** [quali controlli numerici, logici, teorici o interpretativi sono condivisi]
-5. **Elementi metodologici comuni:** [quali passaggi della struttura Scheda Caso → Flusso logico-teorico → tappe → notebook → interpretazione restano invariati]
+4. **Controlli comparabili:** [quali controlli numerici, logici, teorici o computazionali sono condivisi]
+5. **Elementi metodologici comuni:** [quali passaggi della struttura Scheda Caso → Flusso logico-teorico → tappe → notebook → controlli conclusivi → interpretazione finale dello studente restano invariati]
 6. **Elementi distintivi del Caso TakeHome rispetto al Caso Aula:** [contesto, struttura del modello, formulazione finanziaria, dati, scenari, vincoli o linea risolutiva che rendono autonomo il secondo caso]
 7. **Ripartizione delle responsabilità:** [indicare quali parti sono guidate dal docente, quali sono affidate allo studente e quali possono essere assistite dall'IA]
 
