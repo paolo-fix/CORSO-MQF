@@ -18,11 +18,11 @@ Da questa scheda derivano:
 
 ## 1. Identificazione del caso
 
-- **Lezione:** Lezione 04 — Applicazione in Python: probabilità, variabili casuali e condizionamento
+- **Lezione:** Lezione 04 — Applicazione in Python: probabilità, variabili casuali e valori attesi condizionati
 - **Tipo di caso:** caso aula
 - **Titolo:** Perdita obbligazionaria condizionata a regimi di tasso
 - **Collocazione nella lezione applicativa:** primo caso applicativo Python del corso
-- **Destinatari:** studenti del V anno di Banca e Risk Management
+- **Destinatari:** studenti del secondo anno del Corso di Laurea Magistrale in Finanza e Risk Management
 - **Uso previsto:** sviluppo guidato in aula, con supporto dell’IA e costruzione progressiva del notebook
 
 ---
@@ -530,9 +530,9 @@ Ogni tappa deve avere un input osservabile, un’operazione definita, un output 
 | 1 | Specifica teorica e parametri | Scheda Caso, $V_0,D,\ell,n,seed$ | definizione di grandezze, partizione informativa, variabili e parametri | tabelle parametri e oggetti Python | somma probabilità; soglia implicita $\Delta y^\star$ | simulazione degli eventi informativi | A/B |
 | 2 | Simulazione della partizione informativa | probabilità di $A_1,A_2,A_3$, $n$, seed | assegnazione di ciascuna simulazione a uno dei tre eventi della partizione | vettore di etichette $A_1,A_2,A_3$ e frequenze empiriche | frequenze vicine alle probabilità teoriche; assenza di etichette non ammesse | simulazione condizionata di $\Delta y$ | B |
 | 3 | Simulazione di $\Delta y\mid A_g$ e perdita $L$ | etichette degli eventi, parametri $(\mu_g,\sigma_g)$, $V_0,D$ | simulazione degli shock e calcolo della perdita | dataset con evento, $\Delta y$, $L$ | dimensioni; coerenza del segno tra $\Delta y$ e $L$ | distribuzione empirica | B |
-| 4 | Distribuzione empirica e rischio non condizionato | vettore $L$, soglia $\ell$ | statistiche descrittive, quantili, probabilità $L>\ell$ | tabelle e grafici globali | ordine dei quantili; media compresa tra minimo e massimo; coerenza della probabilità | confronto con analisi condizionata | B/C |
-| 5 | Valori attesi condizionati e valore atteso totale | dataset con evento e $L$ | medie condizionate per blocco e media pesata | tabella $\widehat{\mathbb{E}}[L\mid A_g]$, verifica della media totale, eventuale colonna $\widehat{\mathbb{E}}[L\mid\mathcal{G}]$ | differenza tra media globale e media ricomposta; distinzione tra numero e variabile casuale a gradini | interpretazione critica | B/C |
-| 6 | Interpretazione critica e limiti | output delle tappe precedenti | commento autonomo su ruolo dell’informazione, rischio residuo e limiti del modello | sezione finale del notebook | non confondere condizionamento con eliminazione del rischio; non sovrainterpretare la simulazione | chiusura del lavoro | C |
+| 4 | Distribuzione empirica e rischio non condizionato | vettore $L$, soglia $\ell$ | statistiche descrittive, quantili, probabilità $L>\ell$ | tabelle e grafici globali | ordine dei quantili; media compresa tra minimo e massimo; coerenza della probabilità | confronto con analisi condizionata | B |
+| 5 | Valori attesi condizionati e valore atteso totale | dataset con evento e $L$ | medie condizionate per blocco e media pesata | tabella $\widehat{\mathbb{E}}[L\mid A_g]$, verifica della media totale, eventuale colonna $\widehat{\mathbb{E}}[L\mid\mathcal{G}]$ | differenza tra media globale e media ricomposta; distinzione tra numero e variabile casuale a gradini | interpretazione critica | B |
+| 6 | Interpretazione critica e limiti | output delle tappe precedenti | commento autonomo su ruolo dell’informazione, rischio residuo e limiti del modello | sezione finale del notebook | non confondere condizionamento con eliminazione del rischio; non sovrainterpretare la simulazione | chiusura del lavoro | - |
 
 ---
 
@@ -545,42 +545,43 @@ La sequenza è costruita a partire dalla Scheda Caso validata. L’IA non deve m
 La sequenza deve partire da:
 
 1. Prompt zero;
-2. Prompt 1 — acquisizione non produttiva della Scheda Caso;
+2. Prompt 1 — acquisizione della Scheda Caso e produzione della cella Markdown iniziale di inquadramento;
 3. Prompt 2 — costruzione del Flusso logico-teorico risolutivo;
-4. prompt di tappa.
+4. Prompt 3 — proposta e validazione della scomposizione in tappe input-output;
+5. prompt di tappa.
 
 ### 11.1 Mappa sintetica dei prompt
 
 | Prompt / gruppo di prompt | Tappa o fase collegata | Regime IA | Output richiesto | Destinazione nel notebook / tracciato |
 |---:|---|---|---|---|
 | 0 | Inizializzazione generale | — | conferma minima di comprensione dei vincoli generali | tracciato IA |
-| 1 | Acquisizione della Scheda Caso Aula | — | conferma minima: “OK, scheda acquisita” | tracciato IA |
+| 1 | Acquisizione della Scheda Caso Aula | — | una cella Markdown iniziale di inquadramento del caso, senza soluzione, codice o anticipazione delle tappe | notebook; tracciato IA |
 | 2 | Flusso logico-teorico risolutivo | A | tabella del flusso logico-teorico | tracciato IA; base per la scomposizione |
-| 3 | Scomposizione del caso in tappe input-output | A | proposta di scomposizione in tappe | tracciato IA; sezione di struttura del notebook |
-| 4 | Validazione della scomposizione | C | verifica di completezza, coerenza e assenza di salti logici | tracciato IA |
+| 3 | Scomposizione del caso in tappe input-output | A | scomposizione finale validata, costruita a partire da una proposta iniziale dello studente | tracciato IA; sezione di struttura del notebook |
+| 4 | Validazione ordinaria della scomposizione | A | verifica di completezza, coerenza e assenza di salti logici | tracciato IA |
 | 5 | Tappa 1 — Specifica teorica e parametri | B | celle Markdown e codice per parametri, probabilità, soglia implicita e controlli iniziali | notebook |
 | 6 | Tappa 2 — Simulazione della partizione informativa | B | celle Markdown e codice per assegnare le simulazioni agli eventi $A_1,A_2,A_3$ | notebook |
 | 7 | Tappa 3 — Simulazione di $\Delta y\mid A_g$ e perdita $L$ | B | celle Markdown e codice per simulare $\Delta y$, calcolare $L$ e costruire il dataset | notebook |
-| 8 | Tappa 4 — Analisi non condizionata della perdita | B/C | tabelle, grafici e controlli su distribuzione empirica, quantili e soglia | notebook |
-| 9 | Tappa 5 — Analisi condizionata e valore atteso totale | B/C | medie condizionate, variabile a gradini, verifica della formula del valore atteso totale | notebook |
-| 10 | Tappa 6 — Interpretazione critica | C | revisione critica di una bozza interpretativa del docente | notebook; tracciato IA |
-| 11 | Controllo finale del tracciato IA | C | checklist di completezza del tracciato | file `.md` finale |
+| 8 | Tappa 4 — Analisi non condizionata della perdita | B | tabelle, grafici e controlli su distribuzione empirica, quantili e soglia | notebook |
+| 9 | Tappa 5 — Analisi condizionata e valore atteso totale | B | medie condizionate, variabile a gradini, verifica della formula del valore atteso totale | notebook |
+| 10 | Eventuale verifica critica dell'interpretazione | C, solo se emerge una criticità concreta | verifica di una bozza autonoma del docente a partire da un dubbio, un'anomalia o una possibile incoerenza esplicitamente individuata | notebook; tracciato IA |
+| 11 | Controllo finale del tracciato IA | — | checklist autonoma di completezza e tracciabilità del tracciato | file `.md` finale |
 
 ### 11.2 Input forniti all’IA ed esempio di formulazione
 
 | Prompt / gruppo di prompt | Tappa o fase collegata | Input fornito all’IA | Esempio sintetico di input/prompt |
 |---:|---|---|---|
 | 0 | Inizializzazione generale | Regole generali del corso MQF, distinzione tra notebook e tracciato IA, regimi A/B/C, divieto di anticipare contenuti non richiesti. Il caso specifico non viene ancora fornito. | Sto sviluppando un caso applicativo del corso MQF. Per ora devi solo acquisire i vincoli generali: Regime A per ricognizione teorico-modellistica, Regime B per traduzione operativa in codice, Regime C per verifica critica. Non produrre contenuti, formule, codice, esempi o piani di lavoro. Conferma soltanto di avere compreso. |
-| 1 | Acquisizione della Scheda Caso Aula | Scheda Caso Aula completa. L’IA deve solo acquisirla come specifica vincolante. | Ti fornisco la Scheda Caso Aula. Devi soltanto leggerla e acquisirla come specifica vincolante del lavoro. Non devi produrre sintesi, formule aggiuntive, codice, tappe operative, interpretazioni, controlli o suggerimenti. Rispondi soltanto “OK, scheda acquisita” se tutto è chiaro. |
+| 1 | Acquisizione della Scheda Caso Aula | Scheda Caso Aula completa. L’IA deve acquisirla come specifica vincolante e produrre esclusivamente la cella Markdown iniziale di inquadramento. | Ti fornisco la Scheda Caso Aula. Acquisiscila come specifica vincolante del lavoro e produci soltanto una cella Markdown iniziale per il notebook. La cella deve presentare sinteticamente il contesto, la domanda quantitativa, le principali quantità richieste, gli output attesi e i controlli previsti. Non aggiungere formule non contenute nella Scheda Caso, non scrivere codice, non proporre il flusso risolutivo, non scomporre il lavoro in tappe e non anticipare risultati o interpretazioni. |
 | 2 | Flusso logico-teorico risolutivo | Scheda Caso acquisita e contributo teorico iniziale del docente o dello studente. | Regime A. Sulla base della Scheda Caso acquisita, devo costruire il Flusso logico-teorico risolutivo. Secondo me gli elementi teorici necessari, nell’ordine logico utile alla soluzione, sono: [elenco iniziale]. Aiutami a verificare, completare e ordinare questa sequenza, senza scrivere codice e senza proporre ancora la scomposizione operativa del notebook. |
-| 3 | Scomposizione del caso in tappe input-output | Scheda Caso, flusso logico-teorico validato, output richiesti, controlli obbligatori. | Scomponi il caso in tappe input-output. Per ogni tappa indica input, operazione, output, controllo, uso nella tappa successiva e regime IA prevalente. Non scrivere codice, non calcolare risultati e non modificare la specifica del caso. |
+| 3 | Scomposizione del caso in tappe input-output | Scheda Caso, Flusso logico-teorico risolutivo validato, output richiesti, controlli obbligatori e proposta iniziale dello studente. | Regime A. Sulla base della Scheda Caso e del Flusso logico-teorico risolutivo validato, propongo questa scomposizione iniziale del lavoro in tappe: [proposta dello studente con, per ciascuna tappa, input, operazione, output e controllo]. Verifica, completa e riordina la mia proposta se necessario. Per ogni tappa indica input, operazione, output, controllo e uso nella tappa successiva. Non scrivere codice, non calcolare risultati e non modificare la specifica del caso. |
 | 4 | Validazione della scomposizione | Scomposizione proposta, Scheda Caso, flusso logico-teorico validato, lista degli output richiesti e controlli obbligatori. | Verifica se la scomposizione copre tutti gli output richiesti, se ogni tappa ha input e output osservabili, e se gli output vengono riutilizzati correttamente. Non riscrivere integralmente la scomposizione: segnala solo correzioni necessarie. |
 | 5 | Tappa 1 — Specifica teorica e parametri | Specifica teorica validata, parametri $V_0,D,\ell,n,seed$, probabilità degli eventi, parametri condizionati $(\mu_g,\sigma_g)$, soglia implicita $\Delta y^\star$ da calcolare. | Produci per la Tappa 1 una cella Markdown e una cella Python. Il Markdown deve spiegare grandezze, parametri e partizione informativa. Il codice deve definire i parametri, produrre le tabelle iniziali, controllare la somma delle probabilità e calcolare la soglia implicita di shock associata a $L>\ell$. |
 | 6 | Tappa 2 — Simulazione della partizione informativa | Probabilità di $A_1,A_2,A_3$, numero di simulazioni $n$, seed, etichette degli eventi. La specifica non prevede una variabile teorica ausiliaria. | Produci Markdown e codice per assegnare ciascuna simulazione a uno degli eventi $A_1,A_2,A_3$. Non introdurre una variabile teorica discreta aggiuntiva. Nel codice puoi usare un vettore di etichette operative. Produci frequenze empiriche e controlli sugli scostamenti dalle probabilità teoriche. |
 | 7 | Tappa 3 — Simulazione di $\Delta y\mid A_g$ e perdita $L$ | Etichette operative degli eventi, parametri condizionati $(\mu_g,\sigma_g)$, formula $L=D V_0\Delta y$. | Produci Markdown e codice per simulare $\Delta y\mid A_g$, calcolare $L$ e costruire il dataset principale. Mantieni la formula fissata. Inserisci controlli su dimensioni, coerenza dei segni e relazione $L=D V_0\Delta y$. |
 | 8 | Tappa 4 — Analisi non condizionata della perdita | Dataset con evento, $\Delta y$, $L$; soglia $\ell$; livelli di quantile; output richiesti per analisi globale. | Produci Markdown e codice per stimare la distribuzione empirica della perdita $L$: media, deviazione standard, minimo, massimo, quantili e $\widehat{\mathbb{P}}(L>\ell)$. Produci grafici che evidenzino la soglia di perdita. Inserisci controlli su quantili, probabilità e posizione della media. |
 | 9 | Tappa 5 — Analisi condizionata e valore atteso totale | Dataset con evento e $L$, frequenze empiriche, media globale, definizione di $\mathcal{G}=\sigma(A_1,A_2,A_3)$, distinzione tra $\mathbb{E}[L\mid A_g]$ e $\mathbb{E}[L\mid\mathcal{G}]$. | Produci Markdown e codice per calcolare $\widehat{\mathbb{E}}[L\mid A_g]$, costruire se utile la variabile a gradini $\widehat{\mathbb{E}}[L\mid\mathcal{G}]$ e verificare la formula del valore atteso totale. Distingui chiaramente numero condizionato, variabile casuale condizionata e media globale. |
-| 10 | Tappa 6 — Interpretazione critica | Bozza interpretativa basata sugli output delle tappe precedenti: distribuzione di $L$, medie condizionate, ruolo della partizione, limiti dell’approssimazione lineare. | Ho scritto questa interpretazione. Segnala errori, ambiguità, affermazioni troppo forti, confusioni tra quantità teoriche e stime empiriche, e limiti mancanti. Non riscrivere integralmente la conclusione e non sostituirti a me. |
+| 10 | Eventuale verifica critica dell'interpretazione | Bozza autonoma del docente e criticità concreta individuata dal docente sulla base degli output delle tappe precedenti. | Regime C. Ho scritto autonomamente questa interpretazione e ho individuato la seguente possibile criticità: [dubbio, anomalia o possibile incoerenza]. Verifica se la criticità è respinta oppure accolta. Se è accolta, indicami precisamente quale passaggio deve essere corretto, senza riscrivere integralmente la conclusione e senza sostituirti a me nell'interpretazione finale. |
 | 11 | Controllo finale del tracciato IA | Tracciato IA compilato, elenco dei prompt, regimi dichiarati, decisioni, collegamenti alle sezioni del notebook, output e controlli. | Controlla se il tracciato documenta prompt, regime, risposta utilizzata, decisione presa, output prodotto e controllo svolto. Non valutare la qualità intrinseca delle risposte IA: valuta solo completezza, coerenza e tracciabilità del processo. |
 
 ---

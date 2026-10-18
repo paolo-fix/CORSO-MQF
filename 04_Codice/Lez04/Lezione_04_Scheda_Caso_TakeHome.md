@@ -1,9 +1,9 @@
-# Lezione 04 — Scheda Caso Take-Home
+# Lezione 04 — Scheda Caso TakeHome
 
 ## 1. Identificazione del caso
 
-- **Lezione:** Lezione 04 — Applicazione in Python: probabilità, variabili casuali e condizionamento
-- **Tipo di caso:** take-home
+- **Lezione:** Lezione 04 — Applicazione in Python: probabilità, variabili casuali e valori attesi condizionati
+- **Tipo di caso:** TakeHome
 - **Titolo:** *Shortfall di margine condizionato a regimi del costo dell'energia*
 - **Contesto:** impresa manifatturiera energivora esposta all'incertezza del prezzo dell'energia
 - **Uso previsto:** lavoro individuale con notebook Python e interazione documentata con l'IA
