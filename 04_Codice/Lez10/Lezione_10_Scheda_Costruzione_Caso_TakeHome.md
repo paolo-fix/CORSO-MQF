@@ -594,27 +594,41 @@ Per il portafoglio concentrato, confronto tra:
 
 ## 7. Scomposizione attesa in tappe
 
-| Tappa | Regime | Input | Operazione | Output | Controllo | Uso successivo |
-|---:|:---:|---|---|---|---|---|
-| 1 | A | Scheda Caso | Identificare i due livelli markoviani, i due portafogli, le ipotesi di dipendenza, la funzione di perdita e le quantità finali | Specifica teorico-matematica ordinata e algoritmo concettuale | Coerenza con la Scheda Caso; distinzione tra investimento iniziale ed EAD; investimento totale invariato nel controfattuale | Base vincolante della simulazione |
-| 2 | B | $Q$, $P^{(O)}$, $P^{(S)}$, $P^{(C)}$, rating iniziali, $N$, seed | Simulare congiuntamente traiettorie sistemiche e creditizie per quattro trimestri | Regimi simulati e stati creditizi finali per ogni replica | Matrici stocastiche; default assorbente; regime comune; estrazioni individuali condizionate | Costruzione delle perdite |
-| 3 | B | Stati simulati, investimenti iniziali, regola di riallocazione, funzione $\varphi$ | Costruire i due vettori di investimento, calcolare le perdite individuali e aggregarle sugli stessi scenari | Campioni $L_{\mathrm{conc}}^{P,(r)}$, $L_{\mathrm{div}}^{P,(r)}$ e $\Delta L^{(r)}$ | Investimento totale pari a $173$ in entrambi i portafogli; proporzioni residue conservate; stessi scenari per i debitori comuni | Stima delle distribuzioni |
-| 4 | B | Campioni delle perdite e traiettorie sistemiche | Costruire le distribuzioni empiriche e stimare perdita media, dispersione, VaR e CVaR; confrontare i due portafogli e gli scenari crisi/non crisi | Tabelle, grafici e misure di rischio | Coerenza quantili/CVaR; stabilità Monte Carlo; interpretazione corretta del confronto | Interpretazione finanziaria |
-| 5 | — | Notebook completo, risultati, controlli e ipotesi del modello | Svolgere i controlli conclusivi e formulare autonomamente l'interpretazione finanziaria; ricorrere al Regime C solo se emerge una criticità specifica da verificare | Notebook validato, eventuale correzione delle celle interessate e interpretazione finale dello studente | Coerenza notebook-Scheda Caso; distinzione tra risultato del modello e realtà storica; se viene attivato il Regime C, criticità accolta oppure respinta | Chiusura del caso |
+| Tappa | Titolo | Obiettivo | Input | Regime IA prevalente | Prompt virtuoso di riferimento | Oggetti teorici coinvolti | Operazione | Output | Controllo | Uso successivo |
+|---:|---|---|---|:---:|---|---|---|---|---|---|
+| 1 | Modello teorico e struttura della simulazione | Formalizzare il modello probabilistico, i due portafogli, la funzione di perdita e le quantità finali | Scheda Caso | A | Prompt tappa 1 | Catene di Markov, probabilità condizionata, indipendenza condizionata, investimento iniziale, EAD, funzione di perdita, riallocazione proporzionale | Identificare i due livelli markoviani, i due portafogli, le ipotesi di dipendenza, la funzione di perdita e le quantità finali | Specifica teorico-matematica ordinata e algoritmo concettuale | Coerenza con la Scheda Caso; distinzione tra investimento iniziale ed EAD; investimento totale invariato nel controfattuale | Base vincolante della simulazione |
+| 2 | Simulazione congiunta del regime e delle migrazioni | Generare scenari coerenti di regime sistemico e rating | $Q$, $P^{(O)}$, $P^{(S)}$, $P^{(C)}$, rating iniziali, $N$, seed | B | Prompt tappa 2 | Catene di Markov, matrici di transizione, stato assorbente, indipendenza condizionata | Simulare congiuntamente traiettorie sistemiche e creditizie per quattro trimestri | Regimi simulati e stati creditizi finali per ogni replica | Matrici stocastiche; default assorbente; regime comune; estrazioni individuali condizionate | Costruzione delle perdite |
+| 3 | Dagli scenari creditizi ai due portafogli di perdita | Trasformare gli stessi scenari creditizi nelle perdite dei due portafogli | Stati simulati, investimenti iniziali, regola di riallocazione, funzione $\varphi$ | B | Prompt tappa 3 | Funzione di perdita, EAD, LGD, aggregazione di portafoglio, riallocazione proporzionale | Costruire i due vettori di investimento, calcolare le perdite individuali e aggregarle sugli stessi scenari | Campioni $L_{\mathrm{conc}}^{P,(r)}$, $L_{\mathrm{div}}^{P,(r)}$ e $\Delta L^{(r)}$ | Investimento totale pari a $173$ in entrambi i portafogli; proporzioni residue conservate; stessi scenari per i debitori comuni | Stima delle distribuzioni |
+| 4 | Distribuzioni simulate e misure di rischio | Stimare e confrontare le distribuzioni di perdita e le principali misure di rischio | Campioni delle perdite e traiettorie sistemiche | B | Prompt tappa 4 | Distribuzione empirica, valore atteso, varianza, VaR, CVaR, condizionamento per evento | Costruire le distribuzioni empiriche e stimare perdita media, dispersione, VaR e CVaR; confrontare i due portafogli e gli scenari crisi/non crisi | Tabelle, grafici e misure di rischio | Coerenza quantili/CVaR; stabilità Monte Carlo; interpretazione corretta del confronto | Interpretazione finanziaria |
+| 5 | Controlli conclusivi e interpretazione | Validare complessivamente il notebook e formulare l'interpretazione finanziaria finale | Notebook completo, risultati, controlli e ipotesi del modello | — | Nessun prompt obbligatorio; eventuale Prompt C sulla tappa interessata | Ipotesi modellistiche, rischio di modello, coerenza interna, interpretazione finanziaria | Svolgere i controlli conclusivi e formulare autonomamente l'interpretazione finanziaria; ricorrere al Regime C solo se emerge una criticità specifica da verificare | Notebook validato, eventuale correzione delle celle interessate e interpretazione finale dello studente | Coerenza notebook-Scheda Caso; distinzione tra risultato del modello e realtà storica; se viene attivato il Regime C, criticità accolta oppure respinta | Chiusura del caso |
 
-## 8. Mappa tra prompt e notebook
+## 8. Sequenza docente dei prompt e mappa prompt-notebook
 
-| Prompt | Regime | Tappa | Celle o output prodotti | Decisione o controllo richiesto |
-|---|:---:|---:|---|---|
-| Prompt zero | — | — | Nessuna cella specifica del caso | Impostazione dei vincoli generali di interazione con l'IA |
-| Prompt 1 | — | — | Cella Markdown iniziale contenente la Scheda Caso come specifica vincolante | Acquisizione corretta del problema |
-| Prompt 2 | A | — | Output di progettazione: flusso logico-teorico | Validazione docente del percorso risolutivo |
-| Prompt 3 | A/B | — | Cella Markdown con scomposizione del processo risolutivo in cinque tappe | Validazione docente dei collegamenti input-output |
-| Prompt tappa 1 | A | 1 | Celle Markdown di impostazione teorico-matematica e algoritmo concettuale | Correttezza del modello a due livelli, distinzione investimento/EAD e costruzione del controfattuale |
-| Prompt tappa 2 | B | 2 | Celle Markdown e codice per matrici e simulazione delle traiettorie | Corretta implementazione del regime comune e delle transizioni individuali |
-| Prompt tappa 3 | B | 3 | Celle Markdown e codice per i due vettori di investimento, funzione di perdita e aggregazione | Coerenza della riallocazione, stato-perdita e investimento complessivo |
-| Prompt tappa 4 | B | 4 | Celle Markdown, codice, tabelle e grafici per distribuzioni e misure di rischio | Corretta implementazione di VaR/CVaR e confronto fra i portafogli |
-| Prompt C eventuale | C | Tappa interessata | Verifica di una criticità specifica già individuata dallo studente ed eventuale sostituzione delle celle coinvolte | Criticità accolta oppure respinta |
+La sequenza ordinaria del caso è:
+
+1. Prompt zero;
+2. Prompt 1;
+3. Prompt 2;
+4. Prompt 3;
+5. prompt delle tappe operative previste dalla scomposizione validata;
+6. eventuali Prompt C, soltanto quando lo studente individua una criticità specifica da verificare.
+
+La sequenza dei prompt di tappa non costituisce una struttura autonoma rispetto al Prompt 3: deriva dalla scomposizione operativa validata e deve conservarne obiettivi, input, output e controlli.
+
+La corrispondenza tra prompt, tappe e notebook è riportata nella tabella seguente.
+
+
+| Prompt | Regime | Tappa o fase | Funzione del prompt | Celle o output prodotti | Decisione o controllo richiesto |
+|---|:---:|---|---|---|---|
+| Prompt zero | — | Inizializzazione | Definire il contesto generale, i vincoli di interazione con l'IA e le regole del lavoro | Nessuna cella specifica del caso | Corretta acquisizione dei vincoli generali |
+| Prompt 1 | — | Apertura | Acquisire la Scheda Caso come specifica vincolante e produrre l'inquadramento iniziale | Cella Markdown iniziale con contesto, domanda quantitativa e specifica del caso | Coerenza con la Scheda Caso e assenza di anticipazioni della soluzione |
+| Prompt 2 | A | Progettazione teorica | Verificare, completare e ordinare il Flusso logico-teorico risolutivo proposto | Cella Markdown con il Flusso logico-teorico risolutivo validato | Coerenza tra passaggi teorici, output e controlli |
+| Prompt 3 | A/B | Progettazione operativa | Verificare, completare e ordinare la scomposizione del notebook in tappe input-output | Cella Markdown con la scomposizione validata in cinque tappe | Coerenza dei collegamenti input-output e copertura degli output e controlli richiesti |
+| Prompt tappa 1 | A | Tappa 1 | Formalizzare il modello teorico, i due portafogli e la regola di riallocazione senza produrre codice | Celle Markdown di impostazione teorico-matematica e algoritmo concettuale | Correttezza del modello a due livelli, distinzione investimento/EAD e costruzione del controfattuale |
+| Prompt tappa 2 | B | Tappa 2 | Tradurre la specifica validata nell'algoritmo di simulazione del regime e delle migrazioni creditizie | Celle Markdown e codice per matrici e simulazione delle traiettorie | Corretta implementazione del regime comune, dello stato assorbente e delle transizioni individuali |
+| Prompt tappa 3 | B | Tappa 3 | Implementare la funzione di perdita, la riallocazione proporzionale e l'aggregazione dei due portafogli | Celle Markdown e codice per i due vettori di investimento, funzione di perdita e aggregazione | Coerenza della riallocazione, stato-perdita, investimento complessivo e riuso degli stessi scenari |
+| Prompt tappa 4 | B | Tappa 4 | Costruire distribuzioni, misure di rischio, tabelle e grafici previsti | Celle Markdown, codice, tabelle e grafici per distribuzioni e misure di rischio | Corretta implementazione di VaR/CVaR, stabilità Monte Carlo e corretto confronto fra i portafogli |
+| Prompt C eventuale | C | Tappa interessata | Verificare una criticità specifica già individuata dallo studente | Eventuale sostituzione delle celle coinvolte | Criticità accolta oppure respinta |
 
 
 ## 9. Struttura attesa del notebook
@@ -627,7 +641,12 @@ Il notebook deve seguire le cinque tappe risolutive. Ogni tappa costituisce un m
 
 - Cella Markdown: titolo del caso, contesto, domanda quantitativa e Scheda Caso come specifica vincolante.
 
-I risultati dei Prompt 2 e Prompt 3 svolgono funzione di progettazione e validazione del percorso; non devono necessariamente essere riportati integralmente come celle definitive del notebook.
+Dopo la cella iniziale prodotta con il Prompt 1, il notebook deve riportare:
+
+- una cella Markdown con il Flusso logico-teorico risolutivo validato attraverso il Prompt 2;
+- una cella Markdown con la scomposizione operativa in tappe input-output validata attraverso il Prompt 3.
+
+Queste due celle documentano le decisioni di progettazione che governano lo sviluppo successivo del notebook e devono precedere le celle operative delle singole tappe.
 
 ### Tappa 1 — Modello teorico e struttura della simulazione
 
@@ -706,7 +725,31 @@ L'interpretazione deve distinguere almeno:
 - limiti dell'ipotesi di matrici omogenee all'interno dei tre regimi;
 - differenza tra simulazione didattica ex ante e successiva realizzazione storica.
 
-## 10. Calibrazione docente
+## 10. Criteri di validazione del notebook
+
+Il notebook è considerato valido se:
+
+1. implementa la specifica teorico-matematica della Scheda Caso senza modificarla;
+2. utilizza esclusivamente le matrici, gli investimenti, la funzione di perdita, la regola di riallocazione e gli altri parametri assegnati;
+3. rispetta la scomposizione in tappe input-output validata;
+4. mantiene coerenti la notazione matematica e le corrispondenti variabili computazionali;
+5. simula una sola traiettoria del regime sistemico per ciascuna replica e la utilizza per tutti i debitori;
+6. preserva l'indipendenza delle estrazioni individuali condizionatamente alla traiettoria sistemica comune;
+7. mantiene lo stato di default assorbente;
+8. costruisce correttamente il portafoglio controfattuale eliminando la posizione Lehman e redistribuendo il relativo investimento proporzionalmente tra i 39 debitori residui;
+9. mantiene invariato l'investimento complessivo, pari a $173$ milioni, e conserva le proporzioni relative degli investimenti dei debitori residui;
+10. utilizza gli stessi scenari sistemici e creditizi per i 39 debitori comuni ai due portafogli;
+11. applica correttamente la funzione $\varphi$ agli stati iniziali e finali e riconcilia le perdite aggregate con la somma delle perdite individuali;
+12. produce tutti gli output numerici, tabellari e grafici richiesti;
+13. calcola VaR e CVaR sulle distribuzioni delle perdite monetarie secondo le convenzioni adottate nel corso;
+14. distingue correttamente gli scenari con e senza ingresso nello stato di crisi;
+15. produce risultati riproducibili con il seed assegnato e sufficientemente stabili rispetto alla dimensione del campione Monte Carlo;
+16. conclude con controlli espliciti e con un'interpretazione finanziaria coerente con gli output e con i limiti del modello.
+
+Un eventuale Prompt in Regime C non costituisce condizione necessaria di validità del notebook. Esso interviene soltanto quando lo studente individua una criticità specifica da verificare.
+
+
+## 11. Calibrazione docente
 
 La seguente calibrazione è riferita a:
 
@@ -718,7 +761,7 @@ $$
 
 I valori sono indicativi e servono al docente per verificare l'ordine di grandezza degli output.
 
-### 10.1 Portafoglio concentrato
+### 11.1 Portafoglio concentrato
 
 | Misura | Valore indicativo, milioni USD |
 |---|---:|
@@ -729,7 +772,7 @@ I valori sono indicativi e servono al docente per verificare l'ordine di grandez
 | VaR 99% | 32.78 |
 | CVaR 99% | 37.54 |
 
-### 10.2 Portafoglio controfattuale con riallocazione proporzionale
+### 11.2 Portafoglio controfattuale con riallocazione proporzionale
 
 | Misura | Valore indicativo, milioni USD |
 |---|---:|
@@ -740,7 +783,7 @@ I valori sono indicativi e servono al docente per verificare l'ordine di grandez
 | VaR 99% | 33.66 |
 | CVaR 99% | 37.03 |
 
-### 10.3 Differenze indotte dalla riallocazione
+### 11.3 Differenze indotte dalla riallocazione
 
 Definendo
 
@@ -769,7 +812,7 @@ La riallocazione dell'investimento Lehman interessa proporzionalmente anche debi
 
 Con questa calibrazione, la riallocazione aumenta la perdita attesa e diverse misure di rischio, mentre il CVaR al $99\%$ si riduce leggermente. Quest'ultimo risultato evidenzia che la grande posizione Lehman continua ad avere un effetto rilevante sulle realizzazioni più estreme della coda, anche se la sua eliminazione non produce una riduzione generalizzata delle altre misure.
 
-### 10.4 Ruolo del regime sistemico
+### 11.4 Ruolo del regime sistemico
 
 Con la calibrazione assegnata:
 
@@ -779,7 +822,7 @@ Con la calibrazione assegnata:
 
 Il confronto deve rendere evidente la funzione del fattore sistemico comune.
 
-### 10.5 Errori o ambiguità prevedibili
+### 11.5 Errori o ambiguità prevedibili
 
 1. Confondere investimento iniziale ed EAD come se fossero concetti identici per definizione.
 2. Eliminare Lehman senza redistribuirne l'investimento, riducendo così la dimensione complessiva del portafoglio.
@@ -800,7 +843,7 @@ Il confronto deve rendere evidente la funzione del fattore sistemico comune.
 17. Interpretare la simulazione come previsione storica del default di Lehman.
 18. Concludere che la presenza del fattore comune rappresenti integralmente la dipendenza creditizia reale.
 
-### 10.6 Controlli minimi di validazione
+### 11.6 Controlli minimi di validazione
 
 - validazione di $Q$ e delle tre $P^{(m)}$;
 - controllo dello stato assorbente;
@@ -815,7 +858,7 @@ Il confronto deve rendere evidente la funzione del fattore sistemico comune.
 - stabilità delle misure di rischio aumentando il numero delle simulazioni;
 - confronto qualitativo tra scenari con e senza condizioni sistemiche di crisi.
 
-### 10.7 Limiti interpretativi
+### 11.7 Limiti interpretativi
 
 Il modello non incorpora:
 
@@ -834,18 +877,19 @@ Il modello non incorpora:
 
 La distinzione tra $O$, $S$ e $C$ deve essere interpretata come rappresentazione stilizzata di differenti condizioni sistemiche, non come classificazione storicamente stimata dei trimestri del 2008.
 
-## 11. Uso dell'IA e tracciato
+## 12. Uso dell'IA e tracciato
 
 ### Prompt obbligatori
+
+La sequenza obbligatoria comprende:
 
 - Prompt zero;
 - Prompt 1;
 - Prompt 2;
 - Prompt 3;
-- Prompt tappa 1;
-- Prompt tappa 2;
-- Prompt tappa 3;
-- Prompt tappa 4.
+- i prompt di tappa necessari per realizzare la scomposizione operativa validata con il Prompt 3.
+
+Nel presente caso, la scomposizione di riferimento conduce ordinariamente a quattro prompt di tappa, relativi alle prime quattro tappe operative. La quinta tappa, dedicata ai controlli conclusivi e all'interpretazione, non richiede un prompt obbligatorio.
 
 ### Prompt eventuali in Regime C
 
@@ -889,7 +933,25 @@ Possono inoltre aggiungersi uno o più Prompt C soltanto quando emergano critici
 - utilizzo di dati storici esterni in sostituzione dei parametri didattici;
 - produzione dell'interpretazione finale al posto dello studente.
 
-## 12. Valutazione
+### Tracciato IA da consegnare
+
+Il tracciato ordinario dell'interazione con l'IA è costituito dalla stampa in PDF della chat dedicata al caso.
+
+Il PDF deve consentire di ricostruire in ordine cronologico:
+
+- Prompt zero;
+- Prompt 1;
+- Prompt 2;
+- Prompt 3;
+- i prompt di tappa effettivamente utilizzati;
+- gli eventuali Prompt C;
+- le risposte dell'IA associate a ciascun prompt.
+
+Il tracciato deve essere coerente con il notebook consegnato. In particolare, le celle prodotte o modificate attraverso l'interazione con l'IA devono risultare riconducibili alla sequenza documentata dei prompt.
+
+Eventuali materiali aggiuntivi possono accompagnare il PDF, ma non sostituiscono il tracciato ordinario della chat dedicata.
+
+## 13. Valutazione
 
 ### Criteri per il notebook
 
@@ -914,7 +976,7 @@ Possono inoltre aggiungersi uno o più Prompt C soltanto quando emergano critici
 - corretta separazione tra scelte teoriche e traduzione computazionale;
 - qualità della scomposizione del problema;
 - capacità di specificare all'IA input e output di ciascuna tappa;
-- qualità della verifica critica;
+- qualità dell'eventuale verifica in Regime C, quando attivata a partire da una criticità specifica individuata dallo studente;
 - capacità di accettare o respingere motivatamente una proposta dell'IA;
 - assenza di delega dell'interpretazione finale.
 
@@ -944,28 +1006,71 @@ $$
 \text{interpretazione}.
 $$
 
-## 13. Relazione con l'altro caso della lezione
+
+## 14. Rubrica sintetica
+
+| Dimensione | Peso |
+|---|---:|
+| Prompt 2 — qualità del Flusso logico-teorico risolutivo proposto e validato | 30 |
+| Prompt 3 — qualità della scomposizione operativa in tappe input-output | 15 |
+| Notebook e output quantitativi | 20 |
+| Qualità dei prompt di tappa e corretto uso dei Regimi A/B; eventuale Regime C | 15 |
+| Controlli logici, numerici e di coerenza | 15 |
+| Interpretazione finanziaria finale | 5 |
+| **Totale** | **100** |
+
+La valutazione del Regime C riguarda la qualità del suo eventuale utilizzo quando emerge una criticità specifica; l'assenza di un Prompt C non costituisce di per sé elemento negativo.
+
+## 15. Esito atteso e calibrazione qualitativa del caso
+
+Al termine del caso, lo studente deve essere in grado di:
+
+1. rappresentare correttamente la dipendenza tra regime sistemico comune e migrazioni creditizie individuali;
+2. distinguere indipendenza condizionata e dipendenza incondizionata tra le perdite dei debitori;
+3. trasformare gli stati creditizi simulati in perdite monetarie mediante la funzione di perdita assegnata;
+4. costruire correttamente il portafoglio controfattuale eliminando la posizione Lehman e redistribuendone proporzionalmente l'investimento;
+5. confrontare i due portafogli utilizzando gli stessi scenari Monte Carlo per i debitori comuni;
+6. stimare e interpretare perdita attesa, dispersione, VaR e CVaR;
+7. valutare correttamente gli effetti della riallocazione senza identificarli automaticamente con un effetto puro della sola concentrazione;
+8. distinguere i risultati prodotti dal modello didattico dagli eventi storici successivamente osservati;
+9. formulare autonomamente un'interpretazione finanziaria coerente con le ipotesi, gli output e i limiti del modello.
+
+### Calibrazione qualitativa
+
+Il caso è considerato didatticamente ben calibrato se:
+
+- la posizione Lehman costituisce una concentrazione iniziale economicamente rilevante;
+- la sua eliminazione e la riallocazione proporzionale modificano in modo osservabile la distribuzione delle perdite;
+- il controfattuale non produce necessariamente una riduzione uniforme di tutte le misure di rischio;
+- il regime sistemico comune genera differenze chiaramente osservabili tra scenari con e senza ingresso nello stato di crisi;
+- la riallocazione rende evidente che una riduzione della concentrazione può modificare anche la composizione per rating del portafoglio;
+- gli output numerici rimangono compatibili con gli ordini di grandezza riportati nella calibrazione docente;
+- il problema richiede il trasferimento autonomo della struttura metodologica sviluppata nel Caso Aula, senza ridursi a una semplice sostituzione di parametri.
+
+Gli esiti numerici indicativi riportati nella calibrazione docente hanno funzione di controllo e non devono essere comunicati allo studente come risultati da riprodurre meccanicamente.
+
+## 16. Relazione con l'altro caso della lezione
 
 Il Caso Aula è contestualizzato nella crisi di **China Evergrande del 2021**.
 
 L'isomorfismo metodologico riguarda:
 
 $$
-\text{regime sistemico}
+\text{regime sistemico markoviano}
 \longrightarrow
-\text{migrazioni condizionate}
+\text{matrici di rating condizionate}
 \longrightarrow
-\text{portafoglio}
+\text{simulazione congiunta}
 \longrightarrow
-\text{simulazione}
-\longrightarrow
-\text{perdite}
+\text{perdita di portafoglio}
 \longrightarrow
 VaR/CVaR
 \longrightarrow
 \text{analisi controfattuale}
 \longrightarrow
-\text{verifica critica}.
+\text{controlli conclusivi}
+\longrightarrow
+\text{interpretazione}.
 $$
 
 Il Caso TakeHome non costituisce una semplice sostituzione dei valori numerici.

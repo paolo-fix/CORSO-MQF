@@ -644,27 +644,41 @@ Confronto, per il portafoglio iniziale, tra scenari con e senza ingresso nel reg
 
 ## 7. Scomposizione attesa in tappe
 
-| Tappa | Regime | Input | Operazione | Output | Controllo | Uso successivo |
-|---:|:---:|---|---|---|---|---|
-| 1 | A | Scheda Caso | Identificare i due processi markoviani, il ruolo del tempo di default, la LGD dipendente dal regime, i due portafogli e le quantità finali | Specifica teorico-matematica e algoritmo concettuale | Coerenza con la Scheda; distinzione investimento/EAD; corretta definizione della politica di concentrazione | Base vincolante della simulazione |
-| 2 | B | $Q$, $P^{(N)}$, $P^{(S)}$, $P^{(C)}$, rating iniziali, $N_{\mathrm{MC}}$, seed | Simulare regime sistemico, migrazioni creditizie e primo ingresso nel default | Regimi, stati finali, tempi e regimi di default | Matrici stocastiche; default assorbente; regime comune; indipendenza condizionata | Costruzione delle perdite |
-| 3 | B | Traiettorie simulate, investimenti, funzione $\varphi$, LGD per regime | Calcolare le perdite migration-based o da default; costruire i due vettori di investimento e aggregare | $L_{\mathrm{base}}^{P,(r)}$, $L_{\mathrm{lim}}^{P,(r)}$, $\Delta L^{(r)}$ | Corretta LGD al default; investimento totale invariato; stessi scenari nei due portafogli | Stima delle distribuzioni |
-| 4 | B | Campioni delle perdite e informazioni sui regimi | Stimare distribuzioni, perdita media, dispersione, VaR e CVaR; confrontare i portafogli e gli scenari sistemici | Tabelle, grafici e variazioni delle misure di rischio | Coerenza VaR/CVaR; stabilità Monte Carlo; corretta lettura del confronto | Interpretazione finanziaria |
-| 5 | — | Notebook completo, risultati, controlli e ipotesi | Svolgere i controlli conclusivi e formulare autonomamente l'interpretazione finanziaria; ricorrere al Regime C solo se emerge una criticità specifica da verificare | Notebook validato, eventuale correzione delle celle interessate e interpretazione finale dello studente | Coerenza notebook-Scheda Caso; distinzione modello/realtà storica; se viene attivato il Regime C, criticità accolta oppure respinta | Chiusura del caso |
+| Tappa | Titolo | Obiettivo | Input | Regime IA prevalente | Prompt virtuoso di riferimento | Oggetti teorici coinvolti | Operazione | Output | Controllo | Uso successivo |
+|---:|---|---|---|:---:|---|---|---|---|---|---|
+| 1 | Modello teorico e politica di concentrazione | Formalizzare il modello probabilistico, la funzione di perdita e la politica di concentrazione | Scheda Caso | A | Prompt tappa 1 | Catene di Markov, probabilità condizionata, indipendenza condizionata, tempo di default, EAD, LGD, perdita da migrazione, vincolo single-name | Identificare i due processi markoviani, il ruolo del tempo di default, la LGD dipendente dal regime, i due portafogli e le quantità finali | Specifica teorico-matematica e algoritmo concettuale | Coerenza con la Scheda Caso; distinzione investimento/EAD; corretta definizione della politica di concentrazione | Base vincolante della simulazione |
+| 2 | Simulazione delle traiettorie e dei default | Generare scenari coerenti di regime sistemico, rating e default | $Q$, $P^{(N)}$, $P^{(S)}$, $P^{(C)}$, rating iniziali, $N_{\mathrm{MC}}$, seed | B | Prompt tappa 2 | Catene di Markov, matrice di transizione, stato assorbente, indipendenza condizionata | Simulare regime sistemico, migrazioni creditizie e primo ingresso nel default | Regimi, stati finali, tempi e regimi di default | Matrici stocastiche; default assorbente; regime comune; indipendenza condizionata | Costruzione delle perdite |
+| 3 | Costruzione delle perdite | Trasformare le traiettorie simulate in perdite individuali e di portafoglio per le due allocazioni | Traiettorie simulate, investimenti, funzione $\varphi$, LGD per regime | B | Prompt tappa 3 | Perdita migration-based, EAD, LGD, aggregazione di portafoglio, riallocazione dell'investimento | Calcolare le perdite migration-based o da default; costruire i due vettori di investimento e aggregare | $L_{\mathrm{base}}^{P,(r)}$, $L_{\mathrm{lim}}^{P,(r)}$, $\Delta L^{(r)}$ | Corretta LGD al default; investimento totale invariato; stessi scenari nei due portafogli | Stima delle distribuzioni |
+| 4 | Distribuzioni e misure di rischio | Stimare e confrontare le distribuzioni di perdita e le principali misure di rischio | Campioni delle perdite e informazioni sui regimi | B | Prompt tappa 4 | Distribuzione empirica, valore atteso, varianza, VaR, CVaR, condizionamento per evento | Stimare distribuzioni, perdita media, dispersione, VaR e CVaR; confrontare i portafogli e gli scenari sistemici | Tabelle, grafici e variazioni delle misure di rischio | Coerenza VaR/CVaR; stabilità Monte Carlo; corretta lettura del confronto | Interpretazione finanziaria |
+| 5 | Controlli conclusivi e interpretazione | Validare complessivamente il notebook e formulare l'interpretazione finanziaria finale | Notebook completo, risultati, controlli e ipotesi | — | Nessun prompt obbligatorio; eventuale Prompt C sulla tappa interessata | Ipotesi modellistiche, rischio di modello, coerenza interna, interpretazione finanziaria | Svolgere i controlli conclusivi e formulare autonomamente l'interpretazione finanziaria; ricorrere al Regime C solo se emerge una criticità specifica da verificare | Notebook validato, eventuale correzione delle celle interessate e interpretazione finale dello studente | Coerenza notebook-Scheda Caso; distinzione modello/realtà storica; se viene attivato il Regime C, criticità accolta oppure respinta | Chiusura del caso |
 
-## 8. Mappa tra prompt e notebook
+## 8. Sequenza docente dei prompt e mappa prompt-notebook
 
-| Prompt | Regime | Tappa | Celle o output prodotti | Decisione o controllo richiesto |
-|---|:---:|---:|---|---|
-| Prompt zero | — | — | Nessuna cella specifica del caso | Vincoli generali di interazione con l'IA |
-| Prompt 1 | — | — | Cella Markdown iniziale con la Scheda Caso come specifica vincolante | Acquisizione corretta del problema |
-| Prompt 2 | A | — | Output di progettazione: flusso logico-teorico | Validazione del percorso risolutivo |
-| Prompt 3 | A/B | — | Cella Markdown con scomposizione del processo risolutivo in cinque tappe | Validazione dei collegamenti input-output |
-| Prompt tappa 1 | A | 1 | Celle Markdown di impostazione teorico-matematica | Correttezza del modello, della LGD path-dependent e della politica di concentrazione |
-| Prompt tappa 2 | B | 2 | Celle Markdown e codice per simulazione di regimi, rating e default | Corretta implementazione delle traiettorie |
-| Prompt tappa 3 | B | 3 | Celle Markdown e codice per perdite individuali, due portafogli e aggregazione | Coerenza perdita-regime-investimento e applicazione del limite |
-| Prompt tappa 4 | B | 4 | Celle Markdown, codice, tabelle e grafici per distribuzioni e misure di rischio | Corretta implementazione di VaR/CVaR e confronto |
-| Prompt C eventuale | C | Tappa interessata | Verifica di una criticità specifica già individuata dallo studente ed eventuale sostituzione delle celle coinvolte | Criticità accolta oppure respinta |
+
+La sequenza ordinaria del caso è:
+
+1. Prompt zero;
+2. Prompt 1;
+3. Prompt 2;
+4. Prompt 3;
+5. prompt delle tappe operative previste dalla scomposizione validata;
+6. eventuali Prompt C, soltanto quando lo studente individua una criticità specifica da verificare.
+
+La sequenza dei prompt di tappa non costituisce una struttura autonoma rispetto al Prompt 3: deriva dalla scomposizione operativa validata e deve conservarne obiettivi, input, output e controlli.
+
+La corrispondenza tra prompt, tappe e notebook è riportata nella tabella seguente.
+
+| Prompt | Regime | Tappa o fase | Funzione del prompt | Celle o output prodotti | Decisione o controllo richiesto |
+|---|:---:|---|---|---|---|
+| Prompt zero | — | Inizializzazione | Definire il contesto generale, i vincoli di interazione con l'IA e le regole del lavoro | Nessuna cella specifica del caso | Corretta acquisizione dei vincoli generali |
+| Prompt 1 | — | Apertura | Acquisire la Scheda Caso come specifica vincolante e produrre l'inquadramento iniziale | Cella Markdown iniziale con contesto, domanda quantitativa e specifica del caso | Coerenza con la Scheda Caso e assenza di anticipazioni della soluzione |
+| Prompt 2 | A | Progettazione teorica | Verificare, completare e ordinare il Flusso logico-teorico risolutivo proposto | Cella Markdown con il Flusso logico-teorico risolutivo validato | Coerenza tra passaggi teorici, output e controlli |
+| Prompt 3 | A/B | Progettazione operativa | Verificare, completare e ordinare la scomposizione del notebook in tappe input-output | Cella Markdown con la scomposizione validata in cinque tappe | Coerenza dei collegamenti input-output e copertura degli output e controlli richiesti |
+| Prompt tappa 1 | A | Tappa 1 | Formalizzare il modello teorico e la politica di concentrazione senza produrre codice | Celle Markdown di impostazione teorico-matematica | Correttezza del modello, della LGD dipendente dal regime e della politica di concentrazione |
+| Prompt tappa 2 | B | Tappa 2 | Tradurre la specifica validata nell'algoritmo di simulazione delle traiettorie e dei default | Celle Markdown e codice per simulazione di regimi, rating e default | Corretta implementazione delle traiettorie, dello stato assorbente e del regime comune |
+| Prompt tappa 3 | B | Tappa 3 | Implementare la trasformazione delle traiettorie in perdite e costruire i due portafogli | Celle Markdown e codice per perdite individuali, due portafogli e aggregazione | Coerenza perdita-regime-investimento, corretta LGD e corretta applicazione del limite |
+| Prompt tappa 4 | B | Tappa 4 | Costruire distribuzioni, misure di rischio, tabelle e grafici previsti | Celle Markdown, codice, tabelle e grafici per distribuzioni e misure di rischio | Corretta implementazione di VaR/CVaR, stabilità Monte Carlo e corretto confronto tra portafogli |
+| Prompt C eventuale | C | Tappa interessata | Verificare una criticità specifica già individuata dallo studente | Eventuale sostituzione delle celle coinvolte | Criticità accolta oppure respinta |
 
 
 ## 9. Struttura attesa del notebook
@@ -677,7 +691,12 @@ Il notebook deve riflettere direttamente le cinque tappe risolutive. Ogni tappa 
 
 - Cella Markdown: titolo, contesto Evergrande 2021, domanda quantitativa e Scheda Caso come specifica vincolante.
 
-I risultati dei Prompt 2 e Prompt 3 svolgono funzione di progettazione e validazione del percorso e non devono necessariamente essere riportati integralmente nel notebook definitivo.
+Dopo la cella iniziale prodotta con il Prompt 1, il notebook deve riportare:
+
+- una cella Markdown con il Flusso logico-teorico risolutivo validato attraverso il Prompt 2;
+- una cella Markdown con la scomposizione operativa in tappe input-output validata attraverso il Prompt 3.
+
+Queste due celle documentano le decisioni di progettazione che governano lo sviluppo successivo del notebook e devono precedere le celle operative delle singole tappe.
 
 ### Tappa 1 — Modello teorico e politica di concentrazione
 
@@ -759,7 +778,30 @@ L'interpretazione deve distinguere almeno:
 - limiti delle matrici omogenee e delle LGD deterministiche per regime;
 - differenza tra modello didattico ex ante e successivi eventi storici.
 
-## 10. Calibrazione docente
+## 10. Criteri di validazione del notebook
+
+Il notebook è considerato valido se:
+
+1. implementa la specifica teorico-matematica della Scheda Caso senza modificarla;
+2. utilizza esclusivamente le matrici, le LGD, gli investimenti, il limite di concentrazione e gli altri parametri assegnati;
+3. rispetta la scomposizione in tappe input-output validata;
+4. mantiene coerenti la notazione matematica e le corrispondenti variabili computazionali;
+5. simula una sola traiettoria del regime sistemico per ciascuna replica e la utilizza per tutti i debitori;
+6. preserva l'indipendenza delle estrazioni individuali condizionatamente alla traiettoria sistemica comune;
+7. mantiene lo stato di default assorbente e identifica correttamente il primo ingresso in $D$;
+8. applica, in caso di default, la LGD associata al regime che governa la transizione verso $D$;
+9. applica la funzione di perdita migration-based soltanto ai debitori che non entrano in default entro l'orizzonte;
+10. costruisce correttamente il portafoglio soggetto al limite, mantenendo l'investimento complessivo pari a $200$ milioni e riallocando esattamente $10$ milioni esclusivamente tra le posizioni BBB e BB secondo la regola assegnata;
+11. utilizza gli stessi scenari sistemici e creditizi per confrontare il portafoglio iniziale e quello soggetto al limite;
+12. riconcilia le perdite aggregate con la somma delle perdite individuali;
+13. produce tutti gli output numerici, tabellari e grafici richiesti;
+14. calcola VaR e CVaR sulle distribuzioni delle perdite monetarie secondo le convenzioni adottate nel corso;
+15. produce risultati riproducibili con il seed assegnato e sufficientemente stabili rispetto alla dimensione del campione Monte Carlo;
+16. conclude con controlli espliciti e con un'interpretazione finanziaria coerente con gli output e con i limiti del modello.
+
+Un eventuale Prompt in Regime C non costituisce condizione necessaria di validità del notebook. Esso interviene soltanto quando lo studente individua una criticità specifica da verificare.
+
+## 11. Calibrazione docente
 
 La calibrazione di riferimento utilizza:
 
@@ -771,7 +813,7 @@ N_{\mathrm{MC}}
 \text{seed}=2027.
 $$
 
-### 10.1 Portafoglio iniziale
+### 11.1 Portafoglio iniziale
 
 | Misura | Valore indicativo, milioni USD |
 |---|---:|
@@ -782,7 +824,7 @@ $$
 | VaR 99% | 74.51 |
 | CVaR 99% | 79.92 |
 
-### 10.2 Portafoglio soggetto al limite di concentrazione
+### 11.2 Portafoglio soggetto al limite di concentrazione
 
 | Misura | Valore indicativo, milioni USD |
 |---|---:|
@@ -793,7 +835,7 @@ $$
 | VaR 99% | 68.20 |
 | CVaR 99% | 73.83 |
 
-### 10.3 Effetto della politica di concentrazione
+### 11.3 Effetto della politica di concentrazione
 
 Definendo
 
@@ -822,7 +864,7 @@ Il risultato non deve tuttavia essere interpretato come una dominanza determinis
 
 La politica viene valutata sulla **distribuzione complessiva delle perdite**, non sulla superiorità in ogni singolo scenario.
 
-### 10.4 Ruolo del regime sistemico
+### 11.4 Ruolo del regime sistemico
 
 Con la calibrazione assegnata:
 
@@ -836,7 +878,7 @@ Il confronto deve rendere evidente che il regime sistemico agisce attraverso due
 1. modifica le probabilità di migrazione e default;
 2. modifica la severità della perdita in caso di default.
 
-### 10.5 Errori o ambiguità prevedibili
+### 11.5 Errori o ambiguità prevedibili
 
 1. Confondere investimento iniziale ed EAD.
 2. Utilizzare la LGD del regime finale anziché quella del regime che governa la transizione nel default.
@@ -859,7 +901,7 @@ Il confronto deve rendere evidente che il regime sistemico agisce attraverso due
 19. Interpretare il modello come previsione storica del default avvenuto successivamente.
 20. Considerare la LGD dipendente dal regime come una stima empirica anziché una calibrazione didattica.
 
-### 10.6 Controlli minimi di validazione
+### 11.6 Controlli minimi di validazione
 
 - validazione di $Q$ e delle tre $P^{(m)}$;
 - controllo dello stato assorbente;
@@ -875,7 +917,7 @@ Il confronto deve rendere evidente che il regime sistemico agisce attraverso due
 - stabilità delle misure di rischio al crescere delle simulazioni;
 - confronto tra scenari con e senza ingresso nel regime di crisi.
 
-### 10.7 Limiti interpretativi
+### 11.7 Limiti interpretativi
 
 Il modello non incorpora:
 
@@ -895,18 +937,19 @@ Il modello non incorpora:
 
 I tre regimi costituiscono una rappresentazione stilizzata delle condizioni del sistema e non una classificazione empirica ufficiale delle fasi della crisi Evergrande.
 
-## 11. Uso dell'IA e tracciato
+## 12. Uso dell'IA e tracciato
 
 ### Prompt obbligatori
+
+La sequenza obbligatoria comprende:
 
 - Prompt zero;
 - Prompt 1;
 - Prompt 2;
 - Prompt 3;
-- Prompt tappa 1;
-- Prompt tappa 2;
-- Prompt tappa 3;
-- Prompt tappa 4.
+- i prompt di tappa necessari per realizzare la scomposizione operativa validata con il Prompt 3.
+
+Nel presente caso, la scomposizione di riferimento conduce ordinariamente a quattro prompt di tappa, relativi alle prime quattro tappe operative. La quinta tappa, dedicata ai controlli conclusivi e all'interpretazione, non richiede un prompt obbligatorio.
 
 ### Prompt eventuali in Regime C
 
@@ -952,7 +995,26 @@ Possono inoltre aggiungersi uno o più Prompt C soltanto quando emergano critici
 - sostituzione dei parametri didattici con dati storici esterni;
 - produzione dell'interpretazione finale al posto dello studente.
 
-## 12. Valutazione
+### Tracciato IA da consegnare
+
+Il tracciato ordinario dell'interazione con l'IA è costituito dalla stampa in PDF della chat dedicata al caso.
+
+Il PDF deve consentire di ricostruire in ordine cronologico:
+
+- Prompt zero;
+- Prompt 1;
+- Prompt 2;
+- Prompt 3;
+- i prompt di tappa effettivamente utilizzati;
+- gli eventuali Prompt C;
+- le risposte dell'IA associate a ciascun prompt.
+
+Il tracciato deve essere coerente con il notebook consegnato. In particolare, le celle prodotte o modificate attraverso l'interazione con l'IA devono risultare riconducibili alla sequenza documentata dei prompt.
+
+Eventuali materiali aggiuntivi possono accompagnare il PDF, ma non sostituiscono il tracciato ordinario della chat dedicata.
+
+
+## 13. Valutazione
 
 ### Criteri per il notebook
 
@@ -978,7 +1040,7 @@ Possono inoltre aggiungersi uno o più Prompt C soltanto quando emergano critici
 - corretta separazione tra formulazione teorica e implementazione;
 - qualità della scomposizione del problema;
 - capacità di specificare input e output delle tappe;
-- qualità della verifica critica;
+- qualità dell'eventuale verifica in Regime C, quando attivata a partire da una criticità specifica individuata dallo studente;
 - capacità di accettare o respingere motivatamente una proposta dell'IA;
 - assenza di delega dell'interpretazione finale.
 
@@ -1008,7 +1070,51 @@ $$
 \text{interpretazione}.
 $$
 
-## 13. Relazione con il caso TakeHome
+
+## 14. Rubrica sintetica
+
+| Dimensione | Peso |
+|---|---:|
+| Prompt 2 — qualità del Flusso logico-teorico risolutivo proposto e validato | 30 |
+| Prompt 3 — qualità della scomposizione operativa in tappe input-output | 15 |
+| Notebook e output quantitativi | 20 |
+| Qualità dei prompt di tappa e corretto uso dei Regimi A/B; eventuale Regime C | 15 |
+| Controlli logici, numerici e di coerenza | 15 |
+| Interpretazione finanziaria finale | 5 |
+| **Totale** | **100** |
+
+La valutazione del Regime C riguarda la qualità del suo eventuale utilizzo quando emerge una criticità specifica; l'assenza di un Prompt C non costituisce di per sé elemento negativo.
+
+
+## 15. Esito atteso e calibrazione qualitativa del caso
+
+Al termine del caso, lo studente deve essere in grado di:
+
+1. rappresentare correttamente la dipendenza tra rischio sistemico comune e migrazioni creditizie individuali;
+2. distinguere il rischio di migrazione dal rischio di default;
+3. applicare la LGD al regime sistemico che governa la transizione nel default;
+4. trasformare le traiettorie simulate in perdite individuali e di portafoglio;
+5. confrontare il portafoglio iniziale con quello soggetto al limite di concentrazione utilizzando gli stessi scenari Monte Carlo;
+6. stimare e interpretare perdita attesa, dispersione, VaR e CVaR;
+7. valutare l'effetto della politica di concentrazione sulla distribuzione complessiva delle perdite e sulle misure di coda;
+8. distinguere i risultati prodotti dal modello didattico dagli eventi storici successivamente osservati;
+9. formulare autonomamente un'interpretazione finanziaria coerente con le ipotesi, gli output e i limiti del modello.
+
+### Calibrazione qualitativa
+
+Il caso è considerato didatticamente ben calibrato se:
+
+- il portafoglio iniziale presenta una concentrazione chiaramente visibile sulla posizione Evergrande;
+- il limite single-name modifica in modo economicamente leggibile la distribuzione delle perdite senza produrre una dominanza deterministica scenario per scenario;
+- il regime sistemico influenza in misura osservabile sia le probabilità di migrazione e default sia la severità della perdita;
+- gli scenari che raggiungono il regime di crisi presentano, in media, perdite sensibilmente superiori agli altri scenari;
+- le differenze tra portafoglio iniziale e portafoglio soggetto al limite risultano più informative nelle misure di coda che nella sola perdita media;
+- gli output numerici rimangono compatibili con gli ordini di grandezza riportati nella calibrazione docente;
+- il problema è sufficientemente articolato da richiedere una vera scomposizione teorico-computazionale, ma non introduce elementi estranei agli strumenti già sviluppati nel corso.
+
+Gli esiti numerici indicativi riportati nella calibrazione docente hanno funzione di controllo e non devono essere comunicati allo studente come risultati da riprodurre meccanicamente.
+
+## 16. Relazione con il caso TakeHome
 
 I due casi sono metodologicamente isomorfi perché entrambi utilizzano:
 
@@ -1025,7 +1131,9 @@ VaR/CVaR
 \longrightarrow
 \text{analisi controfattuale}
 \longrightarrow
-\text{verifica critica}.
+\text{controlli conclusivi}
+\longrightarrow
+\text{interpretazione}.
 $$
 
 Non costituiscono tuttavia una semplice variazione parametrica.
