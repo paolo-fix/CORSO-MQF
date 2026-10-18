@@ -62,7 +62,7 @@ Per ogni tappa occorre esplicitare:
 5. oggetti teorici coinvolti;
 6. operazione computazionale richiesta;
 7. output prodotto;
-8. controllo numerico, logico o interpretativo;
+8. controllo numerico, logico, teorico o computazionale;
 9. uso dell’output nella tappa successiva.
 
 Il caso aula deve essere sufficientemente ricco da mostrare il metodo, ma non eccessivamente lungo. Il caso take-home deve essere distinto dal caso aula, ma isomorfo sul piano metodologico: deve richiedere strumenti teorici e passaggi analoghi, senza ridursi a una semplice variazione parametrica.
