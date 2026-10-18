@@ -388,7 +388,7 @@ L_{\mathrm{div}}^{P,(r)}
 =
 \sum_{i\neq L}
 V_{i,0}^{\mathrm{div}}
-\ell
+\varphi
 \left(
 X_{i,0},
 X_{i,4}^{(r)}
@@ -588,7 +588,7 @@ Per il portafoglio concentrato, confronto tra:
 |---:|---|---|---|---|
 | 1 | Costruire il modello probabilistico e i due portafogli | Catena di Markov; probabilità condizionata; indipendenza condizionata; vincolo di investimento complessivo | Definizione di $M_t$, $X_{i,t}$, $Q$, $P^{(O)}$, $P^{(S)}$, $P^{(C)}$, portafoglio concentrato e portafoglio controfattuale | Specifica teorico-matematica validata |
 | 2 | Generare scenari congiunti di regime e rating | $\Pr(X_{i,t+1}=j\mid X_{i,t}=k,M_t=m)=p_{kj}^{(m)}$ | Simulazione della traiettoria sistemica comune e delle migrazioni individuali condizionate | Stati finali dei debitori e controlli sulle traiettorie |
-| 3 | Trasformare gli stessi scenari creditizi nelle perdite dei due portafogli | $L_i=V_{i,0}\ell(X_{i,0},X_{i,4})$ e aggregazione | Applicazione dei due vettori di investimento agli stessi scenari dei debitori comuni | Campioni $L_{\mathrm{conc}}^{P,(r)}$ e $L_{\mathrm{div}}^{P,(r)}$ |
+| 3 | Trasformare gli stessi scenari creditizi nelle perdite dei due portafogli | $L_i=V_{i,0}\varphi(X_{i,0},X_{i,4})$ e aggregazione | Applicazione dei due vettori di investimento agli stessi scenari dei debitori comuni | Campioni $L_{\mathrm{conc}}^{P,(r)}$ e $L_{\mathrm{div}}^{P,(r)}$ |
 | 4 | Stimare e confrontare distribuzioni e rischio di coda | Distribuzione empirica, valore atteso, dispersione, quantile, VaR, CVaR | Stima delle misure per entrambi i portafogli e analisi degli scenari con e senza crisi | Tabelle, grafici e differenze tra misure di rischio |
 | 5 | Verificare criticamente modello e risultati | Ipotesi di Markov, omogeneità, indipendenza condizionata, allocazione, rischio di modello | Interpretazione del ruolo del regime sistemico e della riallocazione dell'investimento Lehman | Criticità accolta/respinta e interpretazione finale |
 
@@ -598,7 +598,7 @@ Per il portafoglio concentrato, confronto tra:
 |---:|:---:|---|---|---|---|---|
 | 1 | A | Scheda Caso | Identificare i due livelli markoviani, i due portafogli, le ipotesi di dipendenza, la funzione di perdita e le quantità finali | Specifica teorico-matematica ordinata e algoritmo concettuale | Coerenza con la Scheda Caso; distinzione tra investimento iniziale ed EAD; investimento totale invariato nel controfattuale | Base vincolante della simulazione |
 | 2 | B | $Q$, $P^{(O)}$, $P^{(S)}$, $P^{(C)}$, rating iniziali, $N$, seed | Simulare congiuntamente traiettorie sistemiche e creditizie per quattro trimestri | Regimi simulati e stati creditizi finali per ogni replica | Matrici stocastiche; default assorbente; regime comune; estrazioni individuali condizionate | Costruzione delle perdite |
-| 3 | B | Stati simulati, investimenti iniziali, regola di riallocazione, funzione $\ell$ | Costruire i due vettori di investimento, calcolare le perdite individuali e aggregarle sugli stessi scenari | Campioni $L_{\mathrm{conc}}^{P,(r)}$, $L_{\mathrm{div}}^{P,(r)}$ e $\Delta L^{(r)}$ | Investimento totale pari a $173$ in entrambi i portafogli; proporzioni residue conservate; stessi scenari per i debitori comuni | Stima delle distribuzioni |
+| 3 | B | Stati simulati, investimenti iniziali, regola di riallocazione, funzione $\varphi$ | Costruire i due vettori di investimento, calcolare le perdite individuali e aggregarle sugli stessi scenari | Campioni $L_{\mathrm{conc}}^{P,(r)}$, $L_{\mathrm{div}}^{P,(r)}$ e $\Delta L^{(r)}$ | Investimento totale pari a $173$ in entrambi i portafogli; proporzioni residue conservate; stessi scenari per i debitori comuni | Stima delle distribuzioni |
 | 4 | B | Campioni delle perdite e traiettorie sistemiche | Costruire le distribuzioni empiriche e stimare perdita media, dispersione, VaR e CVaR; confrontare i due portafogli e gli scenari crisi/non crisi | Tabelle, grafici e misure di rischio | Coerenza quantili/CVaR; stabilità Monte Carlo; interpretazione corretta del confronto | Interpretazione finanziaria |
 | 5 | C | Notebook completo, risultati e ipotesi del modello | Formulare una criticità sostanziale, verificarla e svolgere i controlli conclusivi | Eventuale correzione delle celle coinvolte; interpretazione finale | Criticità accolta/respinta; coerenza notebook-Scheda Caso; distinzione tra risultato del modello e realtà storica | Chiusura del caso |
 
@@ -661,7 +661,7 @@ I risultati dei Prompt 2 e Prompt 3 svolgono funzione di progettazione e validaz
 
 **Prompt di riferimento:** Prompt tappa 3 — Regime B.
 
-- Cella Markdown: definizione operativa della funzione $\ell(r_0,r_4)$.
+- Cella Markdown: definizione operativa della funzione $\varphi(r_0,r_4)$.
 - Cella codice: implementazione della matrice dei tassi di perdita.
 - Cella codice: costruzione del vettore degli investimenti del portafoglio concentrato.
 - Cella codice: costruzione del vettore degli investimenti del portafoglio controfattuale.
