@@ -480,14 +480,14 @@ Per i debitori in default, si definisce
 Se il default avviene nella transizione che conduce a
 $X_{i,\tau_i}=D$, la severit\`a dipende dal regime $M_{\tau_i-1}$.
 
-La \emph{Exposure at Default} (EAD) rappresenta l'esposizione monetaria
+La \emph{Exposure at Default} ($\mathrm{EAD}$) rappresenta l'esposizione monetaria
 sulla quale viene calcolata la perdita in caso di default; nel caso
-assegnato si assume $\mathrm{EAD}_i=V_{i,0}$. La \emph{Loss Given Default} (LGD)
-rappresenta invece la quota dell'EAD che viene effettivamente perduta in
+assegnato si assume $\mathrm{EAD}_i=V_{i,0}$. La \emph{Loss Given Default} ($\mathrm{LGD}$)
+rappresenta invece la quota dell'$\mathrm{EAD}$ che viene effettivamente perduta in
 caso di default.
 
 
-Le LGD assegnate sono $\mathrm{LGD}^{(N)}=0.55$,
+Le $\mathrm{LGD}$ assegnate sono $\mathrm{LGD}^{(N)}=0.55$,
 $\mathrm{LGD}^{(S)}=0.70$ e
 $\mathrm{LGD}^{(C)}=0.85$, con $\mathrm{EAD}_i=V_{i,0}$.
 
@@ -528,7 +528,7 @@ del portafoglio.
 L'orizzonte comprende quattro transizioni trimestrali; la simulazione
 principale utilizza $N_{\mathrm{MC}}=50\,000$ repliche e seed $2027$.
 
-Il caso ha finalit\`a didattiche: matrici, LGD, funzione di perdita e
+Il caso ha finalit\`a didattiche: matrici, $\mathrm{LGD}$, funzione di perdita e
 portafoglio sono assegnati come parte della specifica e non costituiscono una
 calibrazione del mercato cinese del 2021. L'interesse riguarda la struttura
 del problema e il modo in cui essa viene trasformata in una procedura Monte
@@ -680,7 +680,7 @@ per i debitori sopravvissuti. Le migrazioni intermedie rimangono rilevanti
 per determinare la probabilit\`a con cui si raggiunge lo stato finale, ma non
 entrano direttamente nella funzione monetaria di perdita.
 
-Se invece $\tau_i^{(r)}\leq4$, la perdita dipende dalla LGD associata al
+Se invece $\tau_i^{(r)}\leq4$, la perdita dipende dalla $\mathrm{LGD}$ associata al
 regime vigente all'inizio della transizione di default:
 
 \[
@@ -731,7 +731,7 @@ Dal campione vengono calcolate media, varianza e deviazione standard, oltre a
 $\VaR_{0.95}$, $\VaR_{0.99}$, $\CVaR_{0.95}$ e $\CVaR_{0.99}$.
 
 Le unit\`a di misura aiutano a controllare l'intera costruzione. Se
-$V_{i,0}$ \`e espresso in milioni di dollari e $\varphi$ e LGD sono tassi
+$V_{i,0}$ \`e espresso in milioni di dollari e $\varphi$ e $\mathrm{LGD}$ sono tassi
 adimensionali, allora $L_i$ e $L^P$ sono espressi in milioni di dollari.
 Anche VaR, CVaR e deviazione standard hanno la stessa unit\`a monetaria,
 mentre la varianza \`e espressa in milioni di dollari al quadrato.
@@ -758,10 +758,10 @@ N_D^{(r)}
 
 \noindent e quindi il numero medio di default sull'orizzonte.
 
-Questa statistica non coincide con la perdita media. Due scenari con lo
+Questa statistica non coincide con la perdita media. Due repliche con lo
 stesso numero di default possono generare perdite molto diverse se
 coinvolgono debitori con esposizioni differenti o se i default avvengono
-sotto regimi con LGD differenti. Anche il contrario pu\`o verificarsi: uno scenario con pochi default ma su
+sotto regimi con $\mathrm{LGD}$ differenti. Anche il contrario pu\`o verificarsi: uno scenario con pochi default ma su
 esposizioni molto elevate pu\`o produrre una perdita superiore a uno
 scenario con numerosi default di dimensione contenuta.
 
@@ -866,7 +866,7 @@ canali distinti. Il primo riguarda le migrazioni: quando il regime \`e di
 crisi viene utilizzata la matrice $P^{(C)}$, che modifica le probabilit\`a
 di deterioramento e default. Il secondo riguarda la severit\`a: un default
 che avviene sotto $C$ utilizza $\mathrm{LGD}^{(C)}=0.85$, superiore
-alle LGD associate agli altri regimi.
+alle $\mathrm{LGD}$ associate agli altri regimi.
 
 La distinzione tra crisi e non crisi permette quindi di osservare
 congiuntamente l'effetto delle probabilit\`a di migrazione e della severit\`a
@@ -938,7 +938,7 @@ Il secondo livello riguarda la trasformazione delle traiettorie in perdite.
 Per un debitore sopravvissuto deve risultare
 $L_i=V_{i,0}\varphi(X_{i,0},X_{i,4})$. Per un debitore in default deve invece
 essere possibile individuare $\tau_i$, risalire al regime
-$M_{\tau_i-1}$ e ricostruire la LGD utilizzata.
+$M_{\tau_i-1}$ e ricostruire la $\mathrm{LGD}$ utilizzata.
 
 A livello di portafoglio deve inoltre valere, replica per replica,
 
@@ -956,7 +956,7 @@ quando il codice produce valori numerici senza errori.
 
 Il terzo livello riguarda il confronto tra portafoglio base e portafoglio
 con limite di concentrazione. Le due configurazioni devono essere valutate
-sugli stessi scenari sistemici e creditizi; deve inoltre essere verificata
+sulle stesse repliche sistemiche e creditizie; deve inoltre essere verificata
 la conservazione del capitale dopo la riallocazione.
 
 Per la differenza replica per replica
@@ -1104,13 +1104,13 @@ X_{i,4}=D,
 \]
 
 \noindent con $\mathrm{EAD}_i=V_{i,0}$ e $\mathrm{LGD}=0.65$.
-Poich\'e il default \`e assorbente e la LGD non dipende dal regime, non \`e
+Poich\'e il default \`e assorbente e la $\mathrm{LGD}$ non dipende dal regime, non \`e
 necessario conoscere il trimestre del primo default per determinare la
 perdita monetaria.
 
 La differenza rispetto a Evergrande pu\`o essere sintetizzata cos\`i. Nel
 Caso Aula, il tempo di default serve per individuare il regime sistemico che
-determina la LGD; nel TakeHome, la perdita di default dipende soltanto dal
+determina la $\mathrm{LGD}$; nel TakeHome, la perdita di default dipende soltanto dal
 fatto che lo stato terminale sia $D$.
 
 La traiettoria multi-periodale rimane comunque necessaria. Anche se la
@@ -1171,7 +1171,7 @@ creditizie pi\`u rischiose.
 Anche nel TakeHome vengono costruiti i sottocampioni
 $L_{\mathrm{conc}}^P\mid\text{Crisi}$ e
 $L_{\mathrm{conc}}^P\mid\text{No Crisi}$. In questo caso, la differenza
-deriva dalle matrici di migrazione regime-dipendenti, non dalla LGD, che
+deriva dalle matrici di migrazione regime-dipendenti, non dalla $\mathrm{LGD}$, che
 rimane costante.
 
 La struttura permette quindi di isolare meglio uno dei due canali presenti
@@ -1231,7 +1231,7 @@ L^P
 $$
 
 Nel Caso Aula Evergrande, il regime influenza sia le probabilit\`a di
-migrazione sia la LGD applicata al default. La dipendenza tra debitori nasce
+migrazione sia la $\mathrm{LGD}$ applicata al default. La dipendenza tra debitori nasce
 dal fattore sistemico comune: le migrazioni sono indipendenti
 condizionatamente alla sua traiettoria, ma non incondizionatamente.
 
@@ -1256,7 +1256,7 @@ L_{\mathrm{base}}^{P,(r)}.
 \]
 
 La valutazione della policy richiede quindi di osservare non soltanto media,
-VaR e CVaR, ma anche come il suo effetto varia attraverso gli scenari.
+VaR e CVaR, ma anche come il suo effetto varia attraverso le repliche.
 
 Il Caso Aula distingue inoltre rischio sistemico e rischio di concentrazione:
 la policy modifica le esposizioni individuali, ma non elimina la dipendenza
@@ -1275,7 +1275,7 @@ perfettamente replicabile e tuttavia poco stabile oppure derivare da una
 implementazione coerente di una specifica interpretata in modo errato.
 
 Il Caso TakeHome Lehman trasferisce la stessa architettura a una specifica
-differente. La LGD diventa costante e il controfattuale modifica
+differente. La $\mathrm{LGD}$ diventa costante e il controfattuale modifica
 simultaneamente concentrazione e composizione per rating. Per questo motivo
 la conclusione economica del Caso Aula non pu\`o essere trasferita
 automaticamente.
