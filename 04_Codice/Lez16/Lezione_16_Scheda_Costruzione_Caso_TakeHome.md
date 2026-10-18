@@ -9,7 +9,7 @@
 - **Framework metodologico:** programmazione stocastica lineare **two-stage**.
 - **Uso previsto:** lavoro autonomo successivo al Caso Aula SVB, con contesto finanziario differente ma struttura metodologica comparabile.
 
-Il caso deve consolidare i concetti dei Capitoli 14 e 15 relativi a decisione di primo stadio, decisioni di ricorso, soluzione stocastica, Expected Value, wait-and-see, VSS ed EVPI.
+Il caso deve consolidare i concetti dei Capitoli 14 e 15 relativi a decisione di primo stadio, decisioni di ricorso, soluzione stocastica, Expected Value, wait-and-see ed EVPI, nonché al VSS quando $z^{EV}$ è definito nella forma standard.
 
 Il caso non deve utilizzare una struttura multistadio e non deve introdurre vincoli di non anticipatività tra nodi intermedi.
 
@@ -33,7 +33,7 @@ La motivazione didattica è mostrare che una decisione iniziale più redditizia 
 
 Quale combinazione iniziale tra buffer di liquidità ed esposizione LDI massimizza il risultato economico atteso quando l'intensità delle margin call, la capacità di monetizzare l'esposizione e il costo del ricorso dipendono dallo scenario futuro?
 
-Quanto valore produce la soluzione stocastica rispetto a una decisione costruita sui valori medi?
+Come si comporta, negli scenari originari, la decisione costruita sui valori medi e, quando essa è ammissibile in tutti gli scenari, quanto valore produce la soluzione stocastica rispetto a tale decisione?
 
 Quanto varrebbe conoscere anticipatamente lo scenario che si realizzerà?
 
@@ -562,15 +562,15 @@ Il notebook deve contenere, in ordine logico:
 20. calcolo dei parametri medi;
 21. costruzione e soluzione del problema EV;
 22. fissazione di $x^{EV}$;
-23. rivalutazione negli scenari originari;
+23. rivalutazione di $x^{EV}$, mantenuta fissa, negli scenari originari mediante riottimizzazione delle sole decisioni di ricorso;
 24. verifica dell'ammissibilità di $x^{EV}$ negli scenari originari e calcolo di $z^{EV}$ solo se $x^{EV}$ è ammissibile in tutti gli scenari; in caso contrario, indicazione esplicita della sua non definibilità nella forma standard;
 25. calcolo di $VSS$ se $z^{EV}$ è definito; in caso contrario, indicazione esplicita della sua non calcolabilità nella forma standard;
 26. costruzione dei problemi WS;
 27. soluzione dei tre problemi WS;
 28. calcolo di $z^{WS}$;
 29. calcolo di $EVPI$;
-30. tabella di confronto dei benchmark;
-31. grafici richiesti;
+30. tabella di confronto dei benchmark, riportando $z^{SP}$, $z^{WS}$ ed $EVPI$ e, solo se definiti, anche $z^{EV}$ e $VSS$; in caso contrario, indicazione esplicita della loro non definibilità nella forma standard;
+31. grafici richiesti, rappresentando $z^{EV}$ soltanto se definito e segnalando esplicitamente la sua non definibilità nella forma standard in caso contrario;
 32. controlli finali;
 33. interpretazione finale autonoma;
 34. limiti del modello.

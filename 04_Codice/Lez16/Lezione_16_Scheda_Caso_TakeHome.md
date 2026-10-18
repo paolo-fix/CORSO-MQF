@@ -32,7 +32,7 @@ La domanda quantitativa centrale è:
 
 Il lavoro deve inoltre rispondere a due domande collegate:
 
-1. quanto vale utilizzare esplicitamente la distribuzione degli scenari rispetto a una decisione costruita sui valori medi;
+1. come si comporta, negli scenari originari, una decisione costruita sui valori medi e, quando essa è ammissibile in tutti gli scenari, quanto vale utilizzare esplicitamente la distribuzione degli scenari rispetto a tale decisione;
 2. quanto varrebbe conoscere anticipatamente lo scenario futuro.
 
 ---
@@ -625,6 +625,6 @@ $$
 
 10. I parametri numerici sono stilizzati. Il caso è ispirato alla crisi LDI britannica del 2022, ma non costituisce una ricostruzione empirica di un singolo fondo o portafoglio.
 
-11. I risultati devono essere interpretati esclusivamente all'interno del modello assegnato. In particolare, VSS ed EVPI misurano valori economici relativi alla specifica distribuzione degli scenari, ai costi e ai vincoli adottati.
+11. I risultati devono essere interpretati esclusivamente all'interno del modello assegnato. In particolare, $EVPI$ misura un valore economico relativo alla specifica distribuzione degli scenari, ai costi e ai vincoli adottati; il $VSS$ ha analoga interpretazione solo quando $z^{EV}$ è definito nella forma standard.
 
 12. L'interpretazione finale deve essere formulata dallo studente sulla base degli output effettivamente ottenuti nel notebook. L'IA può essere utilizzata soltanto per una revisione critica mirata secondo le istruzioni generali del corso.
