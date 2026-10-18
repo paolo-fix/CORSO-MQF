@@ -152,7 +152,7 @@ Il notebook è considerato valido se:
 - **Regimi IA utilizzati:** [A e/o B nelle tappe ordinarie; eventuale C soltanto quando lo studente individua una criticità specifica da verificare, indicando la tappa interessata]
 - **Usi ammessi dell'IA:** [elenco]
 - **Usi non ammessi dell'IA:** [elenco]
-- **Criteri di validazione delle risposte IA:** [verificare almeno coerenza con il regime richiesto, coerenza con gli input disponibili, rispetto degli oggetti teorici già fissati, assenza di modifiche non autorizzate al modello, assenza di contenuti non ammessi, correttezza della traduzione computazionale quando pertinente, pertinenza dei controlli proposti e utilità dell'output per la tappa successiva]
+- **Criteri di validazione delle risposte IA:** [verificare almeno coerenza con il regime richiesto, coerenza con gli input disponibili, rispetto degli oggetti teorici già fissati, assenza di modifiche non autorizzate al modello, assenza di contenuti non ammessi, correttezza della traduzione computazionale quando pertinente, pertinenza dei controlli proposti, utilità dell'output per la tappa successiva e, se il regime è C, coerenza con la criticità specifica formulata dallo studente e corretta classificazione dell'esito come criticità respinta oppure accolta]
 - **Tracciato IA richiesto:** [sì / no]
 - **Modalità di consegna del tracciato IA:** [ordinariamente stampa PDF della chat dedicata; indicare eventuali modalità diverse previste per il caso]
 - **Sequenza osservabile richiesta nel tracciato:** [Prompt zero → Prompt 1 → Prompt 2 → Prompt 3 → prompt di tappa effettivamente utilizzati → eventuali Prompt C]

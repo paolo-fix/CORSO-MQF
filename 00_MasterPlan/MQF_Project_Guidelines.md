@@ -751,7 +751,7 @@ Gli elementi da considerare sono:
 3. prompt che devono essere effettivamente inseriti dagli studenti;
 4. frammenti di codice o istruzioni Python che richiedono spiegazione;
 5. tabelle, grafici e output numerici con valore didattico;
-6. controlli numerici, logici e interpretativi da svolgere in aula;
+6. controlli numerici, logici, teorici o computazionali da svolgere in aula;
 7. criticità emerse nella costruzione del notebook e utili alla discussione.
 
 Le parti puramente esecutive restano nel notebook. Le risposte complete dell'IA restano nel tracciato IA. Le slides devono mostrare gli snodi che servono a condurre la lezione.
@@ -919,7 +919,7 @@ Ogni applicazione deve essere costruita intorno a un problema finanziario, proba
 4. i parametri del modello;
 5. le grandezze da calcolare;
 6. gli output numerici e grafici attesi;
-7. i controlli numerici, logici e interpretativi;
+7. i controlli numerici, logici, teorici e computazionali;
 8. il prodotto computazionale finale.
 
 La lezione applicativa non deve concludersi genericamente con la scrittura di codice. Deve concludersi con un prodotto osservabile e interpretabile: una distribuzione simulata, una procedura di stima, un insieme di traiettorie, una distribuzione di perdita, una tabella di confronto, una soluzione ottimizzativa o un altro output coerente con il modello teorico.
@@ -1324,7 +1324,7 @@ Per ciascuna tappa devono essere specificati:
 5. oggetti teorici coinvolti;
 6. operazione computazionale richiesta;
 7. output prodotto;
-8. controllo numerico, logico o interpretativo;
+8. controllo numerico, logico, teorico o computazionale;
 9. uso dell’output nella tappa successiva.
 
 Quando l’IA è utilizzata, la tappa deve essere letta anche come modulo di interazione controllata:
@@ -1439,7 +1439,7 @@ La valutazione non deve premiare la complessità autonoma del codice Python. Dev
 2. scomporre il problema in tappe coerenti;
 3. mantenere il legame input/output tra le tappe;
 4. produrre output numerici, tabelle e grafici coerenti con il problema;
-5. verificare gli output mediante controlli numerici, logici o interpretativi;
+5. verificare gli output mediante controlli numerici, logici, teorici o computazionali;
 6. interpretare i risultati in modo proporzionato alle ipotesi del modello;
 7. governare l’eventuale interazione con l’IA secondo i regimi definiti nella Sezione 15.
 
@@ -1886,7 +1886,7 @@ Nel notebook docente, la validazione può rimanere implicita se il materiale fin
 
 Quando il lavoro TakeHome prevede uso documentato dell'IA, lo studente deve consegnare il tracciato dell'interazione. La forma ordinaria di consegna è la stampa PDF della chat IA dedicata al caso, salvo diversa indicazione del docente.
 
-Il tracciato non deve essere valutato come prova forense dell'intera storia privata del lavoro svolto con strumenti IA. Deve essere valutato come artefatto metodologico: esso deve mostrare come lo studente ha organizzato l'assistenza dell'IA secondo una sequenza controllata di ricognizione teorico-modellistica, traduzione operativa in codice, verifica e interpretazione critica.
+Il tracciato non deve essere valutato come prova forense dell'intera storia privata del lavoro svolto con strumenti IA. Deve essere valutato come artefatto metodologico: esso deve mostrare come lo studente ha organizzato l'assistenza dell'IA attraverso i Regimi A e B nello sviluppo ordinario del lavoro e, quando necessario, attraverso eventuali verifiche in Regime C attivate a partire da criticità specifiche individuate dallo studente.
 
 Il tracciato deve contenere:
 
@@ -1908,16 +1908,16 @@ Il tracciato deve contenere:
 16. eventuali verifiche in Regime C, con esito criticità respinta oppure criticità accolta;
 17. output prodotto;
 18. controllo svolto;
-19. verifiche conclusive, se richieste;
+19. eventuali elementi della chat utilizzati a supporto dei controlli conclusivi;
 20. interpretazione finale autonoma.
 
 Il Prompt zero deve essere riportato una sola volta all'inizio del tracciato. I prompt successivi possono essere più brevi, purché siano chiaramente collegati al contesto iniziale, alla Scheda Caso, al Flusso logico-teorico risolutivo e alle tappe del lavoro.
 
 La chat consegnata in PDF deve essere dedicata al caso e non deve contenere conversazioni estranee. I prompt dello studente e le risposte dell'IA devono restare visibili nella sequenza effettiva di lavoro. Eventuali sintesi interne al notebook non sostituiscono il tracciato IA.
 
-Il numero di prompt deve rispettare l’intervallo stabilito dal docente per ciascun Caso TakeHome. Tale intervallo viene indicato nella Scheda Costruzione Caso e deve essere comunicato agli studenti nella Scheda Caso o nella traccia del lavoro.
+Il numero dei prompt non è fissato a priori mediante un intervallo minimo o massimo. Deve derivare dalla scomposizione operativa validata del caso: dopo Prompt zero, Prompt 1, Prompt 2 e Prompt 3, devono essere utilizzati i prompt di tappa necessari allo sviluppo delle tappe previste. Possono aggiungersi eventuali Prompt C soltanto quando lo studente individua una criticità specifica da verificare.
 
-Un tracciato troppo breve tende a indicare una delega globale e non controllata. Un tracciato eccessivamente lungo tende a rendere difficile la valutazione e può indicare assenza di organizzazione. Il vincolo sul numero minimo e massimo di prompt ha quindi funzione didattica: obbliga lo studente a decomporre il problema senza produrre un materiale ingestibile.
+La qualità del tracciato non dipende quindi dal numero assoluto dei prompt, ma dalla loro coerenza con il Flusso logico-teorico risolutivo, con la scomposizione in tappe, con il notebook prodotto e con le decisioni effettivamente assunte dallo studente.
 
 ---
 
@@ -1934,7 +1934,7 @@ Prompt zero
 -> Prompt 3
 -> prompt di tappa
 -> eventuali prompt C
--> verifiche conclusive
+-> eventuali elementi della chat utilizzati a supporto dei controlli conclusivi
 ```
 
 Nel tracciato devono risultare riconoscibili:
@@ -1951,7 +1951,7 @@ Nel tracciato devono risultare riconoscibili:
 10. le decisioni dello studente: accettazione, modifica, rifiuto o correzione;
 11. le verifiche in Regime C, quando presenti, con esito criticità respinta oppure criticità accolta;
 12. le eventuali celle sostitutive prodotte in caso di criticità accolta;
-13. le verifiche conclusive sul notebook e sull'interpretazione, quando richieste;
+13. gli eventuali elementi della chat utilizzati a supporto dei controlli conclusivi, fermo restando che l'interpretazione finale è responsabilità autonoma dello studente;
 14. la relazione tra tracciato IA e notebook consegnato.
 
 La struttura può essere adattata dal docente in funzione della specifica lezione applicativa, ma deve sempre rendere visibile la relazione tra Scheda Caso, Flusso logico-teorico risolutivo, prompt, risposta IA, decisione dello studente, notebook e output.
@@ -1975,9 +1975,9 @@ La valutazione deve concentrarsi sui seguenti elementi.
 | **Prompt 2 — Flusso logico-teorico risolutivo** | 30 | contributo iniziale dello studente, ordine logico, collegamento tra teoria, output e controlli |
 | **Prompt 3 — Scomposizione input-output** | 15 | proposta operativa iniziale dello studente |
 | **Notebook Jupyter e output computazionali** | 20 | codice corretto, tabelle, grafici, riproducibilità, output richiesti |
-| **Prompt e uso dei regimi A/B/C** | 15 | qualità dei prompt, rispetto dei vincoli, contributo dello studente, uso appropriato dell'IA |
+| **Prompt di tappa e uso dei Regimi A/B; eventuale Regime C** | 15 | qualità dei prompt, rispetto dei vincoli, contributo dello studente, uso appropriato dell'IA e, quando presente, qualità dell'attivazione del Regime C a partire da una criticità specifica |
 | **Verifiche logiche e controlli numerici** | 15 | verifiche su probabilità, simulazioni, formule, quantità condizionate e proprietà teoriche |
-| **Interpretazione critica finale** | 5 | autonomia, coerenza con gli output, interpretazione finanziaria e consapevolezza dei limiti del modello; l’interpretazione finale è scritta dallo studente e l’IA è usata solo per revisione critica, non per sostituzione |
+| **Interpretazione finanziaria finale** | 5 | autonomia, coerenza con gli output, interpretazione finanziaria e consapevolezza dei limiti del modello |
 
 Totale: 100 punti.
 
@@ -2015,7 +2015,7 @@ Sono indicatori positivi:
 2. distinzione chiara tra input, operazione, output e controllo;
 3. coerenza con il Flusso logico-teorico risolutivo;
 4. collegamento tra tappe successive;
-5. presenza di controlli numerici, logici o interpretativi;
+5. presenza di controlli numerici, logici, teorici o computazionali;
 6. richiesta all'IA di verificare, completare e ordinare, non di sostituire integralmente.
 
 Sono indicatori deboli:
@@ -2071,9 +2071,11 @@ Pertanto, nella valutazione del tracciato IA, il punto centrale non è se l’IA
 
 La responsabilità dello studente resta distribuita su tre piani:
 
-1. responsabilità teorico-modellistica nel Regime A;
-2. responsabilità di controllo computazionale nel Regime B;
-3. responsabilità verificativa e interpretativa nel Regime C.
+1. responsabilità teorico-modellistica nello sviluppo in Regime A;
+2. responsabilità di controllo computazionale nello sviluppo in Regime B;
+3. responsabilità verificativa nell'eventuale Regime C, quando lo studente individua una criticità specifica da sottoporre a verifica.
+
+L'interpretazione finale resta in ogni caso responsabilità autonoma dello studente e non costituisce una funzione del Regime C.
 
 L'IA può aiutare a produrre testo, codice, tabelle, grafici e controlli, ma non può assumere la responsabilità finale del significato quantitativo-finanziario del lavoro.
 
