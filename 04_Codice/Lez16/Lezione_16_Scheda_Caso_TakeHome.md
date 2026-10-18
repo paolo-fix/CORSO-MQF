@@ -269,7 +269,7 @@ $$
 
 Per valutarla sotto l'incertezza originaria, $x^{EV}$ deve essere mantenuta fissa e il ricorso deve essere nuovamente ottimizzato in ciascuno scenario originale.
 
-Il valore stocastico della decisione $x^{EV}$ è:
+Se $x^{EV}$ è ammissibile in tutti gli scenari originari, il valore stocastico della decisione $x^{EV}$ è:
 
 $$
 z^{EV}
@@ -279,13 +279,15 @@ c'x^{EV}
 \sum_{s\in\mathcal S}p_sQ_s(x^{EV}).
 $$
 
-Il Value of the Stochastic Solution è:
+In tal caso, il Value of the Stochastic Solution è:
 
 $$
 VSS
 =
 z^{SP}-z^{EV}.
 $$
+
+Se invece $x^{EV}$ non è ammissibile in almeno uno scenario originario, $z^{EV}$ e $VSS$ non sono definiti nella forma standard.
 
 ### 3.8 Wait-and-see
 
@@ -318,11 +320,19 @@ EVPI
 z^{WS}-z^{SP}.
 $$
 
-Per il problema di massimizzazione deve risultare:
+Se $x^{EV}$ è ammissibile in tutti gli scenari originari, per il problema di massimizzazione deve risultare:
 
 $$
 z^{EV}
 \leq
+z^{SP}
+\leq
+z^{WS}.
+$$
+
+Se invece $x^{EV}$ non è ammissibile in almeno uno scenario originario, $z^{EV}$ non è definito nella forma standard e resta verificabile la relazione:
+
+$$
 z^{SP}
 \leq
 z^{WS}.
