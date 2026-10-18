@@ -1,11 +1,11 @@
-# Lezione 10 — Scheda Costruzione Caso aula
+# Lezione 10 — Scheda Costruzione Caso Aula
 
 ## 1. Identificazione del caso
 
 - **Lezione:** 10 — Applicazione in Python: rischio di credito
-- **Tipo di caso:** aula
+- **Tipo di caso:** Aula
 - **Titolo:** China Evergrande 2021: crisi immobiliare, dipendenza sistemica e controllo della concentrazione creditizia
-- **Nome file previsto:** `Lezione_10_Scheda_Costruzione_Caso_TakeHome.md`
+- **Nome file previsto:** `Lezione_10_Scheda_Costruzione_Caso_Aula.md`
 - **Destinatari:** studenti del secondo anno della Laurea Magistrale in Banca e Risk Management
 - **Uso previsto:** sviluppo guidato in aula di un caso applicativo basato su una struttura markoviana a due livelli, finalizzato a simulare il rischio di credito di un portafoglio esposto al settore immobiliare cinese e a valutare gli effetti di una politica di contenimento della concentrazione single-name.
 
@@ -25,7 +25,7 @@ Il regime sistemico può trovarsi in una condizione di normalizzazione, stress o
 
 Le transizioni dei singoli debitori sono indipendenti condizionatamente alla traiettoria del regime sistemico comune, ma non sono indipendenti incondizionatamente.
 
-Rispetto al caso aula viene introdotto un ulteriore elemento. La severità della perdita in caso di default dipende dalle condizioni sistemiche prevalenti nel periodo nel quale il default si verifica. Una situazione di crisi riduce quindi non soltanto la qualità delle transizioni creditizie, ma anche il recovery rate.
+Il caso introduce inoltre un ulteriore elemento. La severità della perdita in caso di default dipende dalle condizioni sistemiche prevalenti nel periodo nel quale il default si verifica. Una situazione di crisi riduce quindi non soltanto la qualità delle transizioni creditizie, ma anche il recovery rate.
 
 La simulazione Monte Carlo è necessaria per generare congiuntamente:
 
@@ -539,7 +539,7 @@ N_{\mathrm{MC}}
 50\,000.
 $$
 
-Per la riproducibilità del aula viene utilizzato il seed
+Per la riproducibilità del Caso Aula, viene utilizzato il seed
 
 $$
 2027.
@@ -659,7 +659,7 @@ Confronto, per il portafoglio iniziale, tra scenari con e senza ingresso nel reg
 | Prompt zero | — | — | Nessuna cella specifica del caso | Vincoli generali di interazione con l'IA |
 | Prompt 1 | — | — | Cella Markdown iniziale con la Scheda Caso come specifica vincolante | Acquisizione corretta del problema |
 | Prompt 2 | A | — | Output di progettazione: flusso logico-teorico | Validazione del percorso risolutivo |
-| Prompt 3 | A | — | Cella Markdown con scomposizione del processo rislutivo in cinque tappe | Validazione dei collegamenti input-output |
+| Prompt 3 | A/B | — | Cella Markdown con scomposizione del processo risolutivo in cinque tappe | Validazione dei collegamenti input-output |
 | Prompt tappa 1 | A | 1 | Celle Markdown di impostazione teorico-matematica | Correttezza del modello, della LGD path-dependent e della politica di concentrazione |
 | Prompt tappa 2 | B | 2 | Celle Markdown e codice per simulazione di regimi, rating e default | Corretta implementazione delle traiettorie |
 | Prompt tappa 3 | B | 3 | Celle Markdown e codice per perdite individuali, due portafogli e aggregazione | Coerenza perdita-regime-investimento e applicazione del limite |
@@ -914,7 +914,7 @@ I tre regimi costituiscono una rappresentazione stilizzata delle condizioni del 
 
 ### Numero minimo e massimo di prompt
 
-Indicazione preliminare:
+Il numero complessivo di prompt può variare in funzione delle verifiche critiche effettivamente necessarie:
 
 $$
 11
@@ -1005,7 +1005,7 @@ $$
 \text{interpretazione}.
 $$
 
-## 13. Relazione con il caso aula
+## 13. Relazione con il caso TakeHome
 
 I due casi sono metodologicamente isomorfi perché entrambi utilizzano:
 
@@ -1027,7 +1027,7 @@ $$
 
 Non costituiscono tuttavia una semplice variazione parametrica.
 
-### Caso aula — Lehman Brothers 2008
+### Caso TakeHome — Lehman Brothers 2008
 
 - contesto: crisi del sistema finanziario internazionale;
 - posizione principale inizialmente nella classe A;
@@ -1035,7 +1035,7 @@ Non costituiscono tuttavia una semplice variazione parametrica.
 - controfattuale: eliminazione della posizione Lehman e riallocazione proporzionale dell'investimento tra tutti i debitori residui;
 - domanda gestionale: conseguenze della sostituzione di una forte concentrazione single-name.
 
-### Caso aula — China Evergrande 2021
+### Caso Aula — China Evergrande 2021
 
 - contesto: crisi del settore immobiliare e del credito cinese;
 - posizione principale inizialmente nella classe B del modello;
@@ -1044,4 +1044,4 @@ Non costituiscono tuttavia una semplice variazione parametrica.
 - riallocazione selettiva dell'investimento liberato verso posizioni BBB e BB;
 - domanda gestionale: efficacia di una politica esplicita di controllo della concentrazione in presenza di deterioramento sistemico e recovery pro-ciclica.
 
-Il caso aula richiede quindi allo studente di trasferire la struttura metodologica appresa in aula a un problema nuovo nel quale la perdita presenta una dipendenza più forte dalla traiettoria simulata e il confronto tra portafogli deriva da una vera regola di risk management.
+Il Caso TakeHome richiede quindi allo studente di trasferire autonomamente la struttura metodologica sviluppata nel Caso Aula a un problema nuovo, mantenendo l'architettura generale del modello ma modificandone il contesto, la funzione di perdita e la struttura del confronto controfattuale.

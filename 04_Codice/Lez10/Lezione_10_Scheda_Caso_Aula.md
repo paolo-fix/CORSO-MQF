@@ -3,7 +3,7 @@
 ## 1. Identificazione del caso
 
 - **Lezione:** 10 — Applicazione in Python: rischio di credito
-- **Tipo di caso:** aula
+- **Tipo di caso:** Aula
 - **Titolo:** China Evergrande 2021: crisi immobiliare, dipendenza sistemica e controllo della concentrazione creditizia
 - **Contesto sintetico:** estate 2021, fase di forte deterioramento delle condizioni finanziarie del settore immobiliare cinese e del merito creditizio di China Evergrande Group.
 - **Uso previsto:** sviluppo guidato in aula di un modello Monte Carlo per il rischio creditizio di portafoglio.

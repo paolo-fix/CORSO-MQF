@@ -484,7 +484,7 @@ $$
 N=50\,000.
 $$
 
-Per la riproducibilità del caso TakeHome viene utilizzato il seed
+Per la riproducibilità del Caso TakeHome viene utilizzato il seed
 
 $$
 2026.
@@ -609,7 +609,7 @@ Per il portafoglio concentrato, confronto tra:
 | Prompt zero | — | — | Nessuna cella specifica del caso | Impostazione dei vincoli generali di interazione con l'IA |
 | Prompt 1 | — | — | Cella Markdown iniziale contenente la Scheda Caso come specifica vincolante | Acquisizione corretta del problema |
 | Prompt 2 | A | — | Output di progettazione: flusso logico-teorico | Validazione docente del percorso risolutivo |
-| Prompt 3 | A | — | Cella Markdown con scomposizione del processo risolutivo in cinque tappe | Validazione docente dei collegamenti input-output |
+| Prompt 3 | A/B | — | Cella Markdown con scomposizione del processo risolutivo in cinque tappe | Validazione docente dei collegamenti input-output |
 | Prompt tappa 1 | A | 1 | Celle Markdown di impostazione teorico-matematica e algoritmo concettuale | Correttezza del modello a due livelli, distinzione investimento/EAD e costruzione del controfattuale |
 | Prompt tappa 2 | B | 2 | Celle Markdown e codice per matrici e simulazione delle traiettorie | Corretta implementazione del regime comune e delle transizioni individuali |
 | Prompt tappa 3 | B | 3 | Celle Markdown e codice per i due vettori di investimento, funzione di perdita e aggregazione | Coerenza della riallocazione, stato-perdita e investimento complessivo |
@@ -853,7 +853,7 @@ La distinzione tra $O$, $S$ e $C$ deve essere interpretata come rappresentazione
 
 ### Numero minimo e massimo di prompt
 
-Indicazione preliminare:
+Il numero complessivo di prompt può variare in funzione delle verifiche critiche effettivamente necessarie:
 
 $$
 11
@@ -862,8 +862,6 @@ N_{\text{prompt}}
 \leq
 15.
 $$
-
-Il limite definitivo deve essere verificato dopo la costruzione del tracciato docente completo.
 
 ### Usi ammessi dell'IA
 
@@ -945,9 +943,9 @@ $$
 
 ## 13. Relazione con l'altro caso della lezione
 
-Il caso TakeHome sarà contestualizzato nella crisi di **China Evergrande del 2021**.
+Il Caso Aula è contestualizzato nella crisi di **China Evergrande del 2021**.
 
-L'isomorfismo metodologico dovrà riguardare:
+L'isomorfismo metodologico riguarda:
 
 $$
 \text{regime sistemico}
@@ -967,9 +965,9 @@ VaR/CVaR
 \text{verifica critica}.
 $$
 
-Il TakeHome non dovrà essere una semplice sostituzione dei valori numerici.
+Il Caso TakeHome non costituisce una semplice sostituzione dei valori numerici.
 
-Dovranno cambiare almeno:
+Cambiano almeno:
 
 - contesto economico e istituzionale;
 - interpretazione dei regimi sistemici;
@@ -983,4 +981,4 @@ Dovranno cambiare almeno:
 
 Nel caso TakeHome, il fattore sistemico rappresenta la dinamica delle condizioni del sistema finanziario durante la crisi del 2008 e Lehman costituisce la posizione iniziale di maggiore dimensione.
 
-Nel caso TakeHome il fattore comune dovrà essere reinterpretato in relazione alle condizioni del settore immobiliare e finanziario cinese e la posizione principale sarà associata a Evergrande.
+Nel Caso Aula, il fattore comune è reinterpretato in relazione alle condizioni del settore immobiliare e finanziario cinese e la posizione principale è associata a Evergrande.

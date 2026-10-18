@@ -1,9 +1,9 @@
-# Lezione 10 — Scheda Caso Take-home
+# Lezione 10 — Scheda Caso TakeHome
 
 ## 1. Identificazione del caso
 
 - **Lezione:** 10 — Applicazione in Python: rischio di credito
-- **Tipo di caso:** take-home
+- **Tipo di caso:** TakeHome
 - **Titolo:** Lehman Brothers 2008: rischio sistemico, migrazioni creditizie e perdita di portafoglio
 - **Contesto sintetico:** giugno 2008, fase di crescente tensione del sistema finanziario internazionale e di deterioramento del merito creditizio di Lehman Brothers.
 - **Uso previsto:** lavoro autonomo take-home per sviluppare, mediante simulazione Monte Carlo, un modello di rischio creditizio di portafoglio nel quale le migrazioni dei singoli debitori dipendono da un regime sistemico comune che evolve nel tempo.
