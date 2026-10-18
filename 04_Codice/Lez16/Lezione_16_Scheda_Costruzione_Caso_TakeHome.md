@@ -48,8 +48,8 @@ Lo studente deve essere in grado di:
 5. risolvere il problema stocastico;
 6. costruire e valutare il problema Expected Value;
 7. costruire il benchmark wait-and-see;
-8. calcolare VSS ed EVPI;
-9. verificare fattibilità, bilanci e ordinamento dei benchmark;
+8. calcolare $EVPI$ e, quando $z^{EV}$ è definito, il $VSS$; in caso contrario, riconoscere e motivare la non definibilità di $z^{EV}$ e la conseguente non calcolabilità del $VSS$ nella forma standard;
+9. verificare fattibilità, bilanci e relazioni di ordinamento tra i benchmark effettivamente definiti;
 10. interpretare economicamente il ruolo del buffer iniziale.
 
 ---
@@ -352,7 +352,7 @@ $$
 
 Per determinare il valore della decisione Expected Value, $x^{EV}$ deve essere fissata e rivalutata negli scenari originari.
 
-Il valore stocastico della decisione $x^{EV}$ è:
+Se $x^{EV}$ è ammissibile in tutti gli scenari originari, il valore stocastico della decisione $x^{EV}$ è:
 
 $$
 z^{EV}
@@ -362,13 +362,15 @@ c'x^{EV}
 \sum_s p_sQ_s(x^{EV}).
 $$
 
-Il Value of the Stochastic Solution è:
+In tal caso, il Value of the Stochastic Solution è:
 
 $$
 VSS
 =
 z^{SP}-z^{EV}.
 $$
+
+Se invece $x^{EV}$ non è ammissibile in almeno uno scenario originario, $z^{EV}$ e $VSS$ non sono definiti nella forma standard.
 
 ### 4.9 Wait-and-see
 
@@ -401,25 +403,37 @@ EVPI
 z^{WS}-z^{SP}.
 $$
 
-Per un problema di massimizzazione deve valere:
+Se $x^{EV}$ è ammissibile in tutti gli scenari originari, per il problema di massimizzazione deve valere:
 
 $$
 z^{EV}
 \leq
 z^{SP}
 \leq
-z^{WS}.
+z^{WS},
 $$
 
-Devono inoltre risultare:
+e:
 
 $$
-VSS\geq0,
+VSS\geq0.
 $$
+
+In ogni caso, devono risultare:
+
+$$
+z^{SP}
+\leq
+z^{WS},
+$$
+
+e:
 
 $$
 EVPI\geq0.
 $$
+
+Se $x^{EV}$ non è ammissibile in almeno uno scenario originario, i controlli che coinvolgono $z^{EV}$ e $VSS$ non sono valutabili nella forma standard.
 
 ---
 
@@ -433,8 +447,8 @@ Calcolare:
 2. $z^{SP}$;
 3. decisioni di ricorso $e_s$, $f_s$, $g_s$ sotto $x^{SP}$;
 4. $x^{EV}$;
-5. $z^{EV}$;
-6. $VSS$;
+5. $z^{EV}$, se $x^{EV}$ è ammissibile in tutti gli scenari originari; in caso contrario, indicazione esplicita della sua non definibilità nella forma standard;
+6. $VSS$, se $z^{EV}$ è definito; in caso contrario, indicazione esplicita della sua non calcolabilità nella forma standard;
 7. $x_s^{WS}$ per ciascuno scenario;
 8. $z_s^{WS}$ per ciascuno scenario;
 9. $z^{WS}$;
@@ -446,9 +460,9 @@ Produrre:
 
 1. tabella dei parametri;
 2. tabella della soluzione SP;
-3. tabella della rivalutazione di $x^{EV}$ negli scenari originari;
+3. tabella della rivalutazione di $x^{EV}$ negli scenari originari, con indicazione dei ricorsi ottimi negli scenari in cui il problema di ricorso è ammissibile e dell'eventuale inammissibilità negli altri scenari;
 4. tabella dei problemi wait-and-see;
-5. tabella riepilogativa dei benchmark $z^{EV}$, $z^{SP}$, $z^{WS}$, $VSS$, $EVPI$.
+5. tabella riepilogativa dei benchmark contenente $z^{SP}$, $z^{WS}$ ed $EVPI$ e, se definiti, anche $z^{EV}$ e $VSS$; in caso contrario, indicazione esplicita della loro non definibilità nella forma standard.
 
 ### Grafici
 
@@ -456,7 +470,7 @@ Produrre almeno:
 
 1. confronto tra $x^{SP}$ e $x^{EV}$;
 2. confronto delle decisioni di ricorso per scenario;
-3. confronto tra i valori $z^{EV}$, $z^{SP}$ e $z^{WS}$.
+3. confronto tra i valori $z^{SP}$ e $z^{WS}$ e, se definito, anche $z^{EV}$; in caso contrario, evidenziare esplicitamente la non definibilità di $z^{EV}$ nella forma standard.
 
 ### Controlli
 
@@ -472,7 +486,7 @@ Verificare:
 8. ottimalità del solver;
 9. corretta rivalutazione di $x^{EV}$;
 10. corretta costruzione dei problemi WS;
-11. ordinamento dei benchmark.
+11. ordinamento dei benchmark, verificando $z^{EV}\leq z^{SP}\leq z^{WS}$ e $VSS\geq0$ solo se $x^{EV}$ è ammissibile in tutti gli scenari originari; in ogni caso verificare $z^{SP}\leq z^{WS}$ ed $EVPI\geq0$.
 
 ---
 
@@ -483,9 +497,9 @@ Verificare:
 | 1 | Identificare struttura informativa, decisioni e scenari | Modello stocastico two-stage: decisione iniziale comune $x$ e ricorso scenario-specifico $y_s$ | $x=(x_1,x_2)'$ è comune; dopo lo scenario $s\in\{N,S,E\}$ si scelgono $e_s,f_s,g_s$ | corretta classificazione di variabili, scenari e tempi decisionali |
 | 2 | Costruire il meccanismo di ricorso e verificarne la fattibilità | Funzione di ricorso $Q_s(x)$ e vincoli di secondo stadio | margin call $\alpha_sx_2$; bilancio $x_1+e_s+\beta_sf_s=\alpha_sx_2+g_s$; limiti su $e_s$ e $f_s$ | forma estesa, controlli dei bilanci, bounds e fattibilità |
 | 3 | Determinare la soluzione stocastica | $z^{SP}=\max\{c'x+\sum_sp_sQ_s(x)\}$ | scelta congiunta del buffer e dell'esposizione LDI tenendo conto dei tre scenari | $x^{SP}$, ricorsi ottimi, $z^{SP}$ |
-| 4 | Costruire il benchmark Expected Value e valutarlo correttamente | Problema deterministico sui parametri medi; fissazione di $x^{EV}$ e rivalutazione negli scenari originari | determinazione di $x^{EV}$ e calcolo di $z^{EV}$ | $x^{EV}$, $z^{EV}$, $VSS=z^{SP}-z^{EV}$ |
+| 4 | Costruire il benchmark Expected Value e valutarlo correttamente | Problema deterministico sui parametri medi; fissazione di $x^{EV}$ e rivalutazione negli scenari originari, previa verifica della sua ammissibilità | determinazione di $x^{EV}$; verifica dell'ammissibilità nei singoli scenari; calcolo di $z^{EV}$ solo se $x^{EV}$ è ammissibile in tutti gli scenari | $x^{EV}$; $z^{EV}$ e $VSS=z^{SP}-z^{EV}$ se definiti; in caso contrario, indicazione esplicita della loro non definibilità nella forma standard |
 | 5 | Costruire il benchmark wait-and-see e misurare il valore dell'informazione | Ottimizzazione separata per scenario e $z^{WS}=\sum_sp_sz_s^{WS}$ | scelta di una decisione iniziale diversa conoscendo anticipatamente ciascuno scenario | $x_s^{WS}$, $z_s^{WS}$, $z^{WS}$, $EVPI=z^{WS}-z^{SP}$ |
-| 6 | Verificare e interpretare i benchmark | Per massimizzazione: $z^{EV}\leq z^{SP}\leq z^{WS}$, $VSS\geq0$, $EVPI\geq0$ | interpretazione del trade-off rendimento/liquidità e del valore della modellizzazione stocastica rispetto all'informazione perfetta | tabella finale dei benchmark, grafici e commento economico-finanziario |
+| 6 | Verificare e interpretare i benchmark | Se $x^{EV}$ è ammissibile in tutti gli scenari: $z^{EV}\leq z^{SP}\leq z^{WS}$ e $VSS\geq0$; in ogni caso: $z^{SP}\leq z^{WS}$ ed $EVPI\geq0$ | interpretazione del trade-off rendimento/liquidità e del valore della modellizzazione stocastica rispetto all'informazione perfetta, distinguendo il caso in cui $z^{EV}$ e $VSS$ siano definiti dal caso in cui non lo siano nella forma standard | tabella finale dei benchmark, grafici, controlli condizionati e commento economico-finanziario |
 
 ---
 
@@ -496,9 +510,9 @@ Verificare:
 | 1 | A | Scheda Caso | ricostruire variabili, scenari e logica two-stage | struttura teorica del caso | distinzione primo/secondo stadio | preparazione modello |
 | 2 | B | parametri del caso | costruire dati e controllare probabilità | strutture dati | probabilità sommano a uno | input solver |
 | 3 | B | modello e dati | formulare e risolvere SP | $x^{SP}$, ricorsi, $z^{SP}$ | fattibilità e bilanci | benchmark principale |
-| 4 | B | parametri medi | costruire EV e rivalutare $x^{EV}$ | $x^{EV}$, $z^{EV}$ | nessuna riottimizzazione di $x$ | calcolo VSS |
+| 4 | B | parametri medi | costruire EV, fissare $x^{EV}$ e rivalutarla negli scenari originari verificandone l'ammissibilità | $x^{EV}$; $z^{EV}$ se definito, oppure indicazione esplicita della sua non definibilità nella forma standard | nessuna riottimizzazione di $x$; verifica dell'ammissibilità di $x^{EV}$ in ciascuno scenario | calcolo del $VSS$ se $z^{EV}$ è definito; in caso contrario, indicazione della sua non calcolabilità nella forma standard |
 | 5 | B | scenari originari | risolvere WS scenario per scenario | $x_s^{WS}$, $z_s^{WS}$, $z^{WS}$ | ponderazione corretta | calcolo EVPI |
-| 6 | C | tutti gli output | verificare benchmark, tabelle, grafici e interpretazione | notebook finale validato | $z^{EV}\leq z^{SP}\leq z^{WS}$ | conclusione |
+| 6 | C | tutti gli output | verificare benchmark, tabelle, grafici e interpretazione | notebook finale validato | se $x^{EV}$ è ammissibile in tutti gli scenari, verificare $z^{EV}\leq z^{SP}\leq z^{WS}$ e $VSS\geq0$; in ogni caso verificare $z^{SP}\leq z^{WS}$ ed $EVPI\geq0$ | conclusione |
 
 ---
 
@@ -514,7 +528,7 @@ Verificare:
 | Tappa 2 | B | dati e parametri | Markdown + code |
 | Tappa 3 | B | soluzione SP | Markdown + code |
 | Tappa 4 | B | EV e rivalutazione | Markdown + code |
-| Tappa 5 | B | WS, VSS ed EVPI | Markdown + code |
+| Tappa 5 | B | WS ed EVPI; verifica del VSS solo se $z^{EV}$ è definito | Markdown + code |
 | Verifica finale | C | controllo mirato di completezza e coerenza | eventuali celle sostitutive |
 | Interpretazione finale | C | revisione critica di una bozza dello studente | Markdown finale |
 
@@ -549,8 +563,8 @@ Il notebook deve contenere, in ordine logico:
 21. costruzione e soluzione del problema EV;
 22. fissazione di $x^{EV}$;
 23. rivalutazione negli scenari originari;
-24. calcolo di $z^{EV}$;
-25. calcolo di $VSS$;
+24. verifica dell'ammissibilità di $x^{EV}$ negli scenari originari e calcolo di $z^{EV}$ solo se $x^{EV}$ è ammissibile in tutti gli scenari; in caso contrario, indicazione esplicita della sua non definibilità nella forma standard;
+25. calcolo di $VSS$ se $z^{EV}$ è definito; in caso contrario, indicazione esplicita della sua non calcolabilità nella forma standard;
 26. costruzione dei problemi WS;
 27. soluzione dei tre problemi WS;
 28. calcolo di $z^{WS}$;
@@ -592,46 +606,54 @@ $$
 Il valore ottimo atteso è:
 
 $$
-z^{SP}=3.7375.
+z^{SP}=3.944000.
 $$
 
 ### Expected Value
 
-La soluzione del problema medio è:
+La soluzione del problema deterministico medio è:
 
 $$
 x^{EV}
 =
 \begin{pmatrix}
-16.25 \\
-83.75
+0 \\
+100
 \end{pmatrix}.
 $$
 
-La rivalutazione negli scenari originari produce:
+Il valore ottimo del problema deterministico medio è:
+
+$$
+4.387228.
+$$
+
+Fissando $x=x^{EV}$ e rivalutando tale decisione negli scenari originari, il problema di ricorso risulta ammissibile negli scenari $N$ e $S$, ma non nello scenario $E$.
+
+Pertanto $x^{EV}$ non è ammissibile nell'intero modello stocastico originario e:
 
 $$
 z^{EV}
-=
-3.5445833.
 $$
 
-Pertanto:
+non è definito nella forma standard.
+
+Di conseguenza, anche:
 
 $$
 VSS
 =
 z^{SP}-z^{EV}
-=
-0.1929167.
 $$
+
+non è calcolabile nella forma standard.
 
 ### Wait-and-see
 
 Il valore atteso wait-and-see è:
 
 $$
-z^{WS}=4.43125.
+z^{WS}=4.506429.
 $$
 
 Pertanto:
@@ -641,29 +663,52 @@ EVPI
 =
 z^{WS}-z^{SP}
 =
-0.69375.
+0.562429.
 $$
 
-Deve risultare:
+Poiché $x^{EV}$ non è ammissibile in tutti gli scenari originari, $z^{EV}$ non è definito nella forma standard e non è quindi verificabile l'ordinamento completo:
 
 $$
-3.5445833
+z^{EV}
+\leq
+z^{SP}
+\leq
+z^{WS}.
+$$
+
+Resta invece verificata la relazione:
+
+$$
+z^{SP}
+\leq
+z^{WS},
+$$
+
+ossia:
+
+$$
+3.944000
 <
-3.7375
-<
-4.43125.
+4.506429.
+$$
+
+Inoltre:
+
+$$
+EVPI\geq0.
 $$
 
 ### Nota sulla calibrazione
 
-Il valore ottimo del problema deterministico medio coincide numericamente, nella calibrazione adottata, con $z^{WS}$.
+Il valore ottimo del problema deterministico medio deve essere mantenuto distinto da $z^{EV}$.
 
-Questa coincidenza è accidentale e non deve essere interpretata come identità teorica.
+Nella calibrazione adottata, la soluzione del problema medio $x^{EV}$ non è ammissibile in tutti gli scenari del problema stocastico originario. Di conseguenza, $z^{EV}$ e $VSS$ non sono definiti nella forma standard.
 
-Devono rimanere distinti:
+Devono quindi rimanere distinti:
 
-- valore ottimo del problema medio;
-- $z^{EV}$, cioè valore stocastico della decisione $x^{EV}$;
+- il valore ottimo del problema deterministico medio;
+- $x^{EV}$, cioè la decisione ottima ottenuta dal problema medio;
+- $z^{EV}$, definibile solo se $x^{EV}$ è ammissibile in tutti gli scenari originari;
 - $z^{WS}$, valore atteso dei problemi scenario-specifici con informazione perfetta.
 
 ---
@@ -692,7 +737,7 @@ Il Regime B deve essere usato per:
 - costruire il modello per il solver;
 - implementare SP;
 - implementare EV;
-- rivalutare $x^{EV}$;
+- rivalutare $x^{EV}$ negli scenari originari, verificarne l'ammissibilità e calcolare $z^{EV}$ e $VSS$ solo quando risultano definiti nella forma standard;
 - implementare WS;
 - produrre tabelle e grafici.
 
@@ -725,7 +770,7 @@ La valutazione deve considerare:
 4. corretta costruzione di SP;
 5. corretta costruzione e rivalutazione di EV;
 6. corretta costruzione di WS;
-7. corretto calcolo di VSS ed EVPI;
+7. corretto calcolo di $EVPI$ e, quando $z^{EV}$ è definito, del $VSS$; in caso contrario, corretta identificazione della non definibilità di $z^{EV}$ e della conseguente non calcolabilità del $VSS$ nella forma standard;
 8. controlli di fattibilità e bilancio;
 9. qualità delle tabelle;
 10. qualità dei grafici;
@@ -738,7 +783,7 @@ Particolare attenzione deve essere dedicata a:
 
 - distinzione tra problema EV e valore $z^{EV}$;
 - distinzione tra $z^{EV}$ e $z^{WS}$;
-- significato di VSS;
+- significato del $VSS$ e condizioni necessarie perché sia definito nella forma standard;
 - significato di EVPI;
 - ruolo del buffer;
 - costo economico della liquidità insufficiente;

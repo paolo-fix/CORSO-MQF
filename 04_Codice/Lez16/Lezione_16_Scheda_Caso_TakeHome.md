@@ -402,13 +402,14 @@ Determinare:
 3. le decisioni di ricorso ottime $e_s$, $f_s$, $g_s$ per ciascuno scenario sotto $x^{SP}$;
 4. i valori dei parametri medi $\bar\alpha$, $\bar\beta$, $\bar\kappa$, $\bar\lambda$;
 5. la decisione iniziale del problema medio $x^{EV}$;
-6. il valore $z^{EV}$ ottenuto fissando $x=x^{EV}$ e rivalutando tale decisione negli scenari originari;
+6. il valore $z^{EV}$ ottenuto fissando $x=x^{EV}$ e rivalutando tale decisione negli scenari originari, se $x^{EV}$ è ammissibile in tutti gli scenari; in caso contrario, verificare e riportare esplicitamente la sua non definibilità nella forma standard;
 7. il Value of the Stochastic Solution:
 
 $$
-VSS=z^{SP}-z^{EV};
+VSS=z^{SP}-z^{EV},
 $$
 
+se $z^{EV}$ è definito; in caso contrario, indicare esplicitamente che il $VSS$ non è calcolabile nella forma standard;
 8. le soluzioni wait-and-see $x_s^{WS}$ e i valori $z_s^{WS}$ per ciascuno scenario;
 9. il valore:
 
@@ -438,8 +439,8 @@ Il notebook deve riportare chiaramente:
 2. $e_s$, $f_s$, $g_s$ per ciascuno scenario sotto $x^{SP}$;
 3. $\bar\alpha$, $\bar\beta$, $\bar\kappa$, $\bar\lambda$;
 4. $x^{EV}$ e valore ottimo del problema deterministico medio;
-5. $z^{EV}$;
-6. $VSS$;
+5. $z^{EV}$, se $x^{EV}$ è ammissibile in tutti gli scenari originari; in caso contrario, indicazione esplicita della sua non definibilità nella forma standard;
+6. $VSS$, se $z^{EV}$ è definito; in caso contrario, indicazione esplicita della sua non calcolabilità nella forma standard;
 7. $x_s^{WS}$ e $z_s^{WS}$ per ciascuno scenario;
 8. $z^{WS}$;
 9. $EVPI$.
@@ -450,9 +451,11 @@ Produrre almeno le seguenti tabelle:
 
 1. **Tabella dei parametri del caso**, con probabilità e coefficienti scenario-specifici;
 2. **Tabella della soluzione SP**, con decisione iniziale, margin call, ricorsi e liquidità residua per scenario;
-3. **Tabella di rivalutazione di $x^{EV}$**, con ricorsi ottimi nei tre scenari originari e contributo economico scenario-specifico;
+3. **Tabella di rivalutazione di $x^{EV}$**, con indicazione dei ricorsi ottimi negli scenari in cui il problema di ricorso è ammissibile e dell'eventuale inammissibilità negli altri scenari, insieme al contributo economico scenario-specifico ove definito;
 4. **Tabella wait-and-see**, con $x_s^{WS}$ e $z_s^{WS}$ per ciascuno scenario;
-5. **Tabella riepilogativa dei benchmark**, contenente almeno $z^{EV}$, $z^{SP}$, $z^{WS}$, $VSS$ ed $EVPI$.
+5. **Tabella riepilogativa dei benchmark**, contenente $z^{SP}$, $z^{WS}$ ed $EVPI$ e, se definiti, anche $z^{EV}$ e $VSS$; in caso contrario, indicazione esplicita della loro non definibilità nella forma standard.
+
+
 
 ### 6.3 Grafici
 
@@ -460,7 +463,7 @@ Produrre tre grafici:
 
 1. **Confronto tra $x^{SP}$ e $x^{EV}$**, distinguendo buffer ed esposizione LDI;
 2. **Decisioni di ricorso per scenario**, mostrando almeno $e_s$ e $f_s$ sotto la soluzione stocastica;
-3. **Confronto dei benchmark**, rappresentando $z^{EV}$, $z^{SP}$ e $z^{WS}$.
+3. **Confronto dei benchmark**, rappresentando $z^{SP}$ e $z^{WS}$ e, se definito, anche $z^{EV}$; in caso contrario, evidenziare esplicitamente la non definibilità di $z^{EV}$ nella forma standard.
 
 Ogni grafico deve avere titolo, assi ed etichette leggibili e deve essere accompagnato da una breve interpretazione collegata alla domanda quantitativa del caso.
 
@@ -540,8 +543,11 @@ Controllare:
 Verificare che:
 
 1. $x^{EV}$ sia ottenuta dal problema costruito con i parametri medi;
-2. nel calcolo di $z^{EV}$ la decisione $x^{EV}$ resti **fissa**;
-3. per ciascuno scenario originale vengano riottimizzate soltanto le decisioni di ricorso.
+2. nella rivalutazione negli scenari originari la decisione $x^{EV}$ resti **fissa**;
+3. per ciascuno scenario originario vengano riottimizzate soltanto le decisioni di ricorso;
+4. sia verificata l'ammissibilità di $x^{EV}$ in ciascuno scenario originario;
+5. $z^{EV}$ sia calcolato solo se $x^{EV}$ è ammissibile in tutti gli scenari originari;
+6. se $x^{EV}$ non è ammissibile in almeno uno scenario, sia riportata esplicitamente la non definibilità di $z^{EV}$ e la conseguente non calcolabilità del $VSS$ nella forma standard.
 
 ### 7.7 Wait-and-see
 
@@ -557,27 +563,37 @@ $$
 
 ### 7.8 Ordinamento dei benchmark
 
-Verificare:
+Se $x^{EV}$ è ammissibile in tutti gli scenari originari, verificare:
 
 $$
 z^{EV}
 \leq
 z^{SP}
 \leq
-z^{WS}.
+z^{WS},
 $$
 
-Verificare inoltre:
+e:
 
 $$
-VSS\geq0,
+VSS\geq0.
 $$
+
+In ogni caso, verificare:
+
+$$
+z^{SP}
+\leq
+z^{WS},
+$$
+
+e:
 
 $$
 EVPI\geq0.
 $$
 
-Eventuali violazioni devono essere investigate prima di formulare l'interpretazione finale.
+Se $x^{EV}$ non è ammissibile in almeno uno scenario originario, i controlli che coinvolgono $z^{EV}$ e $VSS$ non sono valutabili nella forma standard.
 
 ---
 
