@@ -790,7 +790,7 @@ Sono indicatori deboli:
 Il lavoro deve concludersi con:
 
 1. notebook Jupyter eseguibile;
-2. eventuale tracciato IA, ordinariamente costituito dalla stampa PDF della chat dedicata al caso;
+2. tracciato IA, ordinariamente costituito dalla stampa PDF della chat dedicata al caso;
 3. tabelle dei parametri, delle frequenze, delle statistiche e delle medie condizionate;
 4. grafici della distribuzione di $P_E$ e dello shortfall $S$;
 5. evidenza della massa in zero dello shortfall;
