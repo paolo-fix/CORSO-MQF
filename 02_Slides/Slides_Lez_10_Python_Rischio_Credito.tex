@@ -1,9 +1,9 @@
 %2multibyte Version: 5.50.0.2960 CodePage: 65001
 % !TeX root = ./Slides_Lez_10_Python_Rischio_Credito.tex
-% ------------------------------------------------------------
+%******************
 % Macro matematiche ufficiali del progetto MQF
 % Coerenti con MQF_Notazione.tex
-% ------------------------------------------------------------
+%******************
 % Fallback utile per compilazione esterna se qualche titolo resta scritto come \QTR.
 % Scientific WorkPlace usa \QTR internamente; in Beamer \QTR{frametitle}{Titolo}
 % deve espandersi in \frametitle{Titolo}.
@@ -404,7 +404,7 @@ Se \texttt{loss} contiene le perdite di portafoglio simulate, allora:
 \texttt{loss[crisis]}
 \end{center}
 
-seleziona le perdite associate agli scenari in cui il regime sistemico
+seleziona le perdite associate alle repliche in cui il regime sistemico
 entra almeno una volta nello stato \(C\).
 
 Analogamente:
@@ -413,7 +413,7 @@ Analogamente:
 \texttt{loss[{\raise.17ex\hbox{$\scriptstyle\sim$}}crisis]}
 \end{center}
 
-seleziona gli scenari senza ingresso nello stato di crisi.
+seleziona le repliche senza ingresso nello stato di crisi.
 
 
 
@@ -446,7 +446,7 @@ definita dal modello probabilistico.}
 % SEZIONE 2 — DAI CAPITOLI 8–9 AL PROBLEMA COMPUTAZIONALE
 %============================================================
 
-\section{Dai Capitoli 8--9 al problema computazionale}
+\section{Dai Capitoli 8-9 al problema computazionale}
 
 %******************
 % Slide 7
@@ -1043,7 +1043,7 @@ La matrice di transizione del rating dipende da \(M_t\).
 
 \item \textbf{Severit\`a della perdita}
 
-La LGD dipende dal regime sistemico:
+La $\mathrm{LGD}$ dipende dal regime sistemico:
 
 \[
 \mathrm{LGD}^{(N)}=0.55,
@@ -1060,7 +1060,7 @@ La LGD dipende dal regime sistemico:
 Se il debitore entra in default al tempo \(\tau_i\), il default si
 realizza nella transizione da \(\tau_i-1\) a \(\tau_i\).
 
-La LGD applicata \`e, quindi, quella associata al regime sistemico
+La $\mathrm{LGD}$ applicata \`e, quindi, quella associata al regime sistemico
 
 \[
 M_{\tau_i-1}.
@@ -1102,7 +1102,7 @@ effetto della migrazione di rating, quindi una quantit\`a adimensionale;
 
 \item \(\mathrm{EAD}_i\): esposizione al momento del default, misurata in MUSD;
 
-\item \(\mathrm{LGD}\): quota dell'EAD persa in caso di default,
+\item \(\mathrm{LGD}\): quota dell'$\mathrm{EAD}$ persa in caso di default,
 quindi una quantit\`a adimensionale.
 
 \end{itemize}
@@ -1239,7 +1239,7 @@ V_0^{P,\mathrm{lim}}
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Confrontare i due portafogli sugli stessi scenari}
+\QTR{frametitle}{Confrontare i due portafogli sulle stesse repliche}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -1247,7 +1247,7 @@ V_0^{P,\mathrm{lim}}
 %EndExpansion
 
 Per confrontare correttamente il portafoglio base e quello soggetto al
-limite, utilizziamo gli stessi scenari simulati.
+limite, utilizziamo le stesse repliche Monte Carlo.
 
 \vspace{0.3cm}
 
@@ -1419,9 +1419,9 @@ Per il portafoglio base, analizzeremo inoltre la perdita media:
 
 \begin{itemize}
 
-\item negli scenari in cui il regime entra almeno una volta in crisi;
+\item nelle repliche in cui il regime entra almeno una volta in crisi;
 
-\item negli scenari in cui il regime non entra mai in crisi.
+\item nelle repliche in cui il regime non entra mai in crisi.
 
 \end{itemize}
 
@@ -1441,7 +1441,7 @@ L_{\mathrm{base}}^{P,(r)}.
 
 \begin{center}
 \textbf{Confrontiamo le due distribuzioni di perdita e, sul portafoglio
-base, isoliamo anche l'effetto degli scenari di crisi.}
+base, isoliamo anche l'effetto delle repliche di crisi.}
 \end{center}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
@@ -1483,13 +1483,12 @@ I controlli principali riguardano:
 
 \item assorbimento dello stato \(D\);
 
-\item coerenza tra \(\tau_i\), regime sistemico e LGD applicata;
+\item coerenza tra \(\tau_i\), regime sistemico e $\mathrm{LGD}$ applicata;
 
 \item conservazione del valore complessivo del portafoglio dopo
 l'applicazione del limite;
 
-\item utilizzo degli stessi scenari per portafoglio base e portafoglio
-con limite;
+\item utilizzo delle stesse repliche per portafoglio base e portafoglio con limite;
 
 \item coerenza dimensionale delle quantit\`a monetarie e delle misure di
 rischio;
@@ -1622,7 +1621,7 @@ L'architettura metodologica resta la stessa del Caso Aula:
 
 \item VaR, CVaR e confronto controfattuale;
 
-\item stessi scenari per i debitori comuni ai due portafogli.
+\item stesse repliche per i debitori comuni ai due portafogli.
 
 \end{itemize}
 
@@ -1634,7 +1633,7 @@ Cambiano invece alcuni elementi del modello:
 
 \item il regime sistemico assume gli stati \(O,S,C\);
 
-\item la LGD \`e costante e pari a \(0.65\);
+\item la $\mathrm{LGD}$ \`e costante e pari a \(0.65\);
 
 \item la posizione Lehman viene eliminata completamente;
 
