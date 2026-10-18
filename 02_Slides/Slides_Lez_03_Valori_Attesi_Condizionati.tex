@@ -1,9 +1,9 @@
 %2multibyte Version: 5.50.0.2960 CodePage: 65001
 % !TeX root = ./Slides_Lez_03_Valori_Attesi_Condizionati.tex
-%******************
+% **********************
 % Macro matematiche ufficiali del progetto MQF
 % Coerenti con MQF_Notazione.tex
-%******************
+% **********************
 % Fallback utile per compilazione esterna se qualche titolo resta scritto come \QTR.
 % Scientific WorkPlace usa \QTR internamente; in Beamer \QTR{frametitle}{Titolo}
 % deve espandersi in \frametitle{Titolo}.
@@ -16,6 +16,7 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}%
+\definecolor{light-blue}{rgb}{0.50,0.55,1.00}%
 \setcounter{MaxMatrixCols}{30}
 %TCIDATA{OutputFilter=latex2.dll}
 %TCIDATA{Version=5.50.0.2960}
@@ -113,7 +114,7 @@
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Valori attesi condizionati e informazione}
+\QTR{frametitle}{La domanda guida: media e informazione}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -214,7 +215,7 @@ operative, applicandole a payoff, perdite e scenari di mercato.
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Motivazione finanziaria}
+\QTR{frametitle}{Dalla media iniziale alla previsione aggiornata}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -261,12 +262,43 @@ dell'informazione osservabile.}
 %EndExpansion
 %*********************************************
 
+\section{Fissiamo un evento \mathcal{A} tra quelli possibili}
+
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\setbeamertemplate{headline}{}
+
+\vfill
+
+\begin{center}
+\textcolor{light-blue}{{\Large \textbf{Fissiamo un evento $A$ tra quelli possibili}}}
+
+\end{center}
+
+\vfill
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%*****************************
+
+
 \subsection{L'informazione cambia i pesi}
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
-\QTR{frametitle}{L'informazione cambia i pesi}
+\QTR{frametitle}{Osservare un evento cambia i pesi, non il payoff}
 
 Condizionare rispetto ad un evento \textbf{non cambia} il payoff $H$:
 cambiano gli scenari ritenuti compatibili con l'informazione osservata e
@@ -308,8 +340,6 @@ $H(\omega)$ vengono valutati.
 \end{frame}%
 %EndExpansion
 %*********************************************
-
-
 
 
 %\subsection{L'informazione cambia i pesi}
@@ -369,7 +399,7 @@ $H(\omega)$ vengono valutati.
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Valore atteso condizionato rispetto a un evento}
+\QTR{frametitle}{Primo passo: condizionare a un evento}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -397,8 +427,6 @@ $\Prob(A)>0$.
 \item L'evento $A$ seleziona l'informazione osservata; la media considera
 solo gli esiti di $H$ coerenti con tale informazione.
 
-\item $\E[H\mid A]$ \`{e} un numero: rappresenta la valutazione media di
-$H$ dopo aver osservato $A$.
 \end{stepitemize}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
@@ -417,41 +445,40 @@ $H$ dopo aver osservato $A$.
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Formula con indicatrice}
+\QTR{frametitle}{Valore atteso condizionato: formula con indicatrice}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Sia $X$ una variabile casuale integrabile e sia $A\in\F$ un evento con
-probabilit\`{a} positiva:
-\[
-\Prob(A)>0.
-\]
-
-\medskip
-
-Il valore atteso condizionato di $X$ dato $A$ pu\`{o} essere scritto come:
+Sia $X$ una variabile casuale discreta integrabile
+e sia $A\in\F$, con $\Prob(A)>0$.
+Per definizione:
 \[
 \E[X\mid A]
-=
-\frac{\E[X\1_{A}]}{\Prob(A)}.
+=\sum_x x\,\Prob(X=x\mid A)
+=\frac{1}{\Prob(A)}
+ \sum_x x\,\Prob(\{X=x\}\cap A).
 \]
 
 \medskip
 
-\begin{stepitemize}
-\item $\1_{A}$ seleziona gli scenari in cui l'evento $A$ si verifica.
+La variabile casuale $X\1_A$ coincide con $X$
+su $A$ ed \`{e} nulla fuori da $A$.
+Pertanto:
+\[
+\E[X\1_A]
+=\sum_x x\,\Prob(\{X=x\}\cap A).
+\]
 
-\item $\E[X\1_{A}]$ somma il contributo di $X$ solo sugli scenari
-compatibili con $A$.
-
-\item La divisione per $\Prob(A)$ normalizza la media rispetto alla
-probabilit\`{a} dell'evento condizionante.
-\end{stepitemize}
-
-\medskip
+Ne segue:
+\[
+\boxed{
+\E[X\mid A]
+=\frac{\E[X\1_A]}{\Prob(A)}
+}
+\]
 
 \begin{center}
 {\small La formula mostra che condizionare equivale a restringere e
@@ -468,13 +495,137 @@ rinormalizzare la valutazione.}
 %EndExpansion
 %*********************************************
 
-\subsection{Caso continuo}
+
+\subsection{Formula con indicatrice}
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Caso continuo}
+\QTR{frametitle}{Formula equivalente: indicatrice e normalizzazione}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+nella formula precedente:
+
+\begin{stepitemize}
+\item $\1_{A}$ seleziona gli scenari in cui l'evento $A$ si verifica.
+
+\item $\E[X\1_{A}]$ somma il contributo di $X$ solo sugli scenari
+compatibili con $A$.
+
+\item La divisione per $\Prob(A)$ normalizza la media rispetto alla
+probabilit\`{a} dell'evento condizionante.
+\end{stepitemize}
+
+\medskip
+
+\textbf{Osservazione.}
+Si osservi che nel caso in cui esista indipendenza tra $X$ e $\1_A$ risulterebbe:
+
+\[
+\E[X\mid A]
+=
+\frac{\E[X\1_{A}]}{\Prob(A)} 
+= \frac{\E[X] \cdot \Prob(A)}{\Prob(A)}
+=\E[X].
+\]
+come è corretto attendersi.
+
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+%*********************************************
+
+
+
+\subsection{Caso continuo}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Caso continuo: Distribuzione e densit\`{a} condizionata}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Sia $X$ una variabile casuale continua e sia
+$A\in\F$, con $\Prob(A)>0$.
+
+\medskip
+
+La \textbf{funzione di ripartizione condizionata}
+\`{e} definita da:
+\[
+F_{X\mid A}(x)
+=
+\Prob(X\leq x\mid A)
+=
+\frac{\Prob(\{X\leq x\}\cap A)}{\Prob(A)}.
+\]
+
+\medskip
+
+La \textbf{densit\`{a} condizionata} $f_{X\mid A}$
+\`{e} la densit\`{a} associata a questa distribuzione:
+\[
+F_{X\mid A}(x)
+=
+\int_{-\infty}^{x} f_{X\mid A}(u)\,du.
+\]
+
+\medskip
+
+Come ogni densit\`{a} di probabilit\`{a},
+soddisfa:
+\[
+\boxed{
+f_{X\mid A}(x)\geq 0,
+\qquad
+\int_{-\infty}^{+\infty}
+f_{X\mid A}(x)\,dx=1.
+}
+\]
+
+\medskip
+
+\begin{center}
+{\small
+Il condizionamento modifica la distribuzione
+di $X$, ma la probabilit\`{a} totale
+rimane pari a uno.
+}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%*********************************************
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{La stessa media nel caso continuo}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -517,18 +668,57 @@ rilevante per la sua valutazione.
 
 %*************************************
 
-\subsection{Partizioni informative}
+
+\section{Fissiamo una partizione di \texorpdfstring{$\Omega$}{Omega}}
+
+
+
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Partizioni informative}
+\setbeamertemplate{headline}{}
+
+\vfill
+
+\begin{center}
+\textcolor{light-blue}{{\Large \textbf{Fissiamo una partizione di $\Omega$}}}
+
+\end{center}
+
+\vfill
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%*****************************
+
+
+\subsection{Partizioni informative}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Secondo passo: distinguiamo pi\`{u} blocchi di una partizione}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
+
+\textcolor{light-blue}{Prima di sapere quale
+evento si verificher\`{a}, anche  un valore atteso condizionato è incerto.}
+
+\medskip
 
 Una \textbf{partizione informativa} descrive gli stati che diventano
 distinguibili dopo l'osservazione di un segnale.
@@ -546,16 +736,12 @@ B_i\cap B_j=\varnothing \quad \text{se } i\neq j.
 \item Prima dell'osservazione non sappiamo quale blocco $B_i$ si
 realizzer\`{a}.
 
-\item Dopo l'osservazione sappiamo che lo scenario vero appartiene a uno
-specifico blocco $B_i$.
-
-\item Per ciascun blocco possiamo calcolare una \textbf{media locale}:
+\item Se \textbf{dopo} l'esperimento abbiamo solo un'osservazione parziale dell'evento elementare $\omega$, cioè possiamo solo dire se esso appartiene ad uno specifico blocco $B_i$,
+possiamo calcolare una \textbf{media locale} condizionata:
 \[
 \E[X\mid B_i].
 \]
-
-\item La partizione trasforma una sola valutazione globale in una famiglia
-di valutazioni condizionate.
+secondo la formula per il valore atteso di un evento condizionato.
 \end{stepitemize}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
@@ -574,7 +760,7 @@ di valutazioni condizionate.
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Valore atteso totale}
+\QTR{frametitle}{La media ex ante delle previsioni possibili}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -586,8 +772,8 @@ blocchi della partizione.
 
 \medskip
 
-Se $X$ \`{e} integrabile, $\{B_1,\ldots,B_n\}$ \`{e} una partizione di
-$\Omega$ e $\Prob(B_i)>0$ per ogni $i=1,\ldots,n$, allora:
+Se $\{B_1,\ldots,B_n\}$ \`{e} una partizione di $\Omega$ e
+$\Prob(B_i)>0$, allora:
 \[
 \E[X]
 =
@@ -610,8 +796,8 @@ valutazioni condizionate.
 \medskip
 
 \begin{center}
-{\small Il valore atteso totale collega la valutazione prima
-dell'informazione alle valutazioni dopo l'informazione.}
+{\small\textcolor{light-blue}{La media ex ante ricompone, con i
+rispettivi pesi, le previsioni possibili dopo il segnale.}}
 \end{center}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
@@ -630,7 +816,7 @@ dell'informazione alle valutazioni dopo l'informazione.}
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Figura 3.1: partizione di $\Omega$}
+\QTR{frametitle}{La partizione: scenari indistinguibili}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -645,7 +831,7 @@ dell'informazione alle valutazioni dopo l'informazione.}
 \item Gli esiti elementari $\omega\in\Omega$ sono anche detti scenari elementari.
 
 \item Gli eventi $B_1,\ldots,B_n$ raccolgono scenari elementari non distinguibili
-dalla stessa \textbf{informazione osservata}.
+all'interno della medesima \textbf{informazione osservabile}.
 
 \item Osservare la partizione significa sapere quale evento $B_i$ si \`{e}
 realizzato, senza necessariamente identificare il singolo scenario
@@ -662,13 +848,43 @@ elementare $\omega$.
 %EndExpansion
 %*********************************************
 
+\section{\texorpdfstring{$\E[X\mid\G]$ come variabile casuale}{E[X|G] come variabile casuale}}
+
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\setbeamertemplate{headline}{}
+
+\vfill
+
+\begin{center}
+\textcolor{light-blue}{{\Large \textbf{Dipendenza di $\E[X]$ da una $\sigma$-algebra}}}
+
+\end{center}
+
+\vfill
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%*****************************
+
 \subsection{Sigma-algebra generata e atomi}
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Sigma-algebra generata e atomi}
+\QTR{frametitle}{Dai blocchi agli eventi osservabili}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -709,24 +925,30 @@ della partizione.
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+
+
 %*********************************************
 
-\subsection{\texorpdfstring{$\E[X\mid\G]$ come variabile casuale}{E[X|G] come variabile casuale}}
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{\texorpdfstring{$\E[X\mid\G]$ come variabile casuale}{E[X|G] come variabile casuale}}
+\QTR{frametitle}{Terzo passo: la previsione diventa variabile casuale}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+\textcolor{light-blue}{La previsione condizionata da una $\sigma$-algebra \`{e} una variabile
+casuale che dipende dal blocco osservabile.}
+
+\medskip
+
 Se $X$ \`{e} integrabile, $\G=\sigma(B_1,\ldots,B_n)$ e
 $\Prob(B_i)>0$ per ogni $i=1,\ldots,n$, il valore atteso condizionato
-rispetto a $\G$ \`{e} la variabile casuale
+rispetto a $\G$ \`{e} la \textbf{variabile casuale}
 \[
 \E[X\mid\G]
 =
@@ -747,8 +969,6 @@ $\E[X\mid B_i]$.
 \E[X\mid A].
 \]
 
-\item Condizionare rispetto a una \textbf{sigma-algebra} $\G$ produce una
-variabile casuale osservabile rispetto a $\G$.
 \end{stepitemize}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
@@ -768,7 +988,7 @@ variabile casuale osservabile rispetto a $\G$.
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Esempio con sette esiti elementari}
+\QTR{frametitle}{Una previsione per i sette esiti}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -836,7 +1056,7 @@ relativo \textbf{evento informativo}.}
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Figura 3.3: payoff e previsione condizionata}
+\QTR{frametitle}{Come il segnale determina la previsione}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -876,7 +1096,7 @@ $\omega_1,\ldots,\omega_7$.
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Evento osservabile non atomico}
+\QTR{frametitle}{Un evento non riassume tutta l'informazione}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -907,16 +1127,9 @@ Allora:
 \begin{stepitemize}
 \item $A$ \`{e} un \textbf{evento osservabile}, ma non un atomo di $\G$.
 
-\item $\E[H\mid A]$ \`{e} una media unica sull'unione $B_1\cup B_2$.
+\item $\E[H\mid A]$ \`{e} una media, cioè un numero costante sull'unione $B_1\cup B_2$.
 
-\item $\E[H\mid\G]$ mantiene invece separate le previsioni sugli atomi:
-\[
-118 \ \text{su } B_1,
-\qquad
-91.111 \ \text{su } B_2,
-\qquad
-62 \ \text{su } B_3.
-\]
+\item $\E[H\mid\G]$ \`{e} invece una variabile casuale, perché $\G$ non  specifica alcuno dei suoi eventi. Tra questi c'\`{e} anche $A$, ma ovviamente assieme ad altri.
 \end{stepitemize}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
@@ -935,7 +1148,7 @@ Allora:
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Figura 3.4: informazione fine e grossolana}
+\QTR{frametitle}{Informazione fine e grossolana}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -976,73 +1189,6 @@ $\mathcal{H}$ \`{e} osservabile anche con $\G$, ma non viceversa.
 %*********************************************
 
 
-\subsection{Dalla partizione finita alla definizione generale}
-
-%*********************************************
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\QTR{frametitle}{Dalla partizione finita alla definizione generale}
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
-
-Nel caso di una partizione finita
-\[
-\G=\sigma(B_1,\ldots,B_n),
-\]
-abbiamo costruito il valore atteso condizionato come
-\[
-\E[X\mid\G]
-=
-\sum_{i=1}^{n}\E[X\mid B_i]\1_{B_i}.
-\]
-
-\medskip
-
-La definizione generale mantiene la stessa idea di
-\textbf{coerenza con l'informazione disponibile}.
-
-\medskip
-
-Una variabile casuale $Z$ \`{e} una versione di $\E[X\mid\G]$ se:
-
-\begin{stepenumerate}
-
-\item [1.] $Z$ \`{e} $\G$-misurabile;
-
-\item [2.] per ogni evento $C\in\G$,
-\[
-\E[Z\1_C]
-=
-\E[X\1_C].
-\]
-
-\end{stepenumerate}
-
-\medskip
-
-\begin{center}
-{\small
-Il valore atteso condizionato \`{e} definito a meno di uguaglianza
-quasi certa.}
-\end{center}
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout%
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-%*********************************************
-
-
 
 \subsection{Regole operative: mappa generale}
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
@@ -1050,7 +1196,7 @@ quasi certa.}
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Regole operative: mappa generale}
+\QTR{frametitle}{Dalla definizione alle regole operative}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -1064,7 +1210,6 @@ Per variabili integrabili, il valore atteso condizionato soddisfa alcune
 
 {\small
 \begin{stepenumerate}
-
 \item [1.] \textbf{Linearit\`{a}}:
 $\E[aX+bY\mid\G]=a\E[X\mid\G]+b\E[Y\mid\G]$.
 
@@ -1082,8 +1227,7 @@ $\G$, allora $\E[X\mid\G]=\E[X]$.
 indipendenti, allora $\E[X\mid Z]=\E[X]$, dove
 $\E[X\mid Z]=\E[X\mid\sigma(Z)]$.
 
-\item [6.] \textbf{Jensen condizionata}: se $\varphi$ \`{e} convessa e
-$\varphi(X)$ \`{e} integrabile, allora
+\item [6.] \textbf{Jensen condizionata}: se $\varphi$ \`{e} convessa,
 $\varphi(\E[X\mid\G])\leq \E[\varphi(X)\mid\G]$.
 \end{stepenumerate}
 }
@@ -1105,7 +1249,7 @@ $\varphi(\E[X\mid\G])\leq \E[\varphi(X)\mid\G]$.
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Torre: due livelli informativi}
+\QTR{frametitle}{La torre confronta livelli informativi diversi}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -1113,15 +1257,7 @@ $\varphi(\E[X\mid\G])\leq \E[\varphi(X)\mid\G]$.
 %EndExpansion
 
 Consideriamo un payoff terminale $X$ e due segnali osservabili sullo
-stato del mercato.
-
-\medskip
-
-\[
-\mathcal{G}_1
-=
-\sigma(N,S),
-\]
+stato del mercato. Cioè sia $\mathcal{G}_1=\sigma(N,S)$ l'informazione osservabile, 
 dove:
 \[
 N=\{\text{mercato normale}\},
@@ -1132,14 +1268,12 @@ S=\{\text{mercato stressato}\}.
 \medskip
 
 Supponiamo poi che l'informazione pi\`{u} fine distingua, dentro ciascuno
-stato, anche la classe di spread:
+stato, anche la classe di spread (Low oppure High): 
 \[
-\mathcal{G}_2
-=
+\mathcal{G}_2=
 \sigma(N_L,N_H,S_L,S_H).
 \]
 
-\medskip
 
 Gli eventi di $\mathcal{G}_1$ sono unioni di eventi di $\mathcal{G}_2$:
 \[
@@ -1148,11 +1282,10 @@ N=N_L\cup N_H,
 S=S_L\cup S_H.
 \]
 
-\medskip
-
-Quindi:
+Quindi $\mathcal{G}_1\subseteq\mathcal{G}_2$.
+La propriet\'a torre ci dice che \textbf{l'informazione superiore è inutile se si condiziona ad una informazione inferiore}:
 \[
-\mathcal{G}_1\subseteq\mathcal{G}_2.
+\E[\E[X\mid\G_2]\mid\G_1]=\E[X\mid\G_1].
 \]
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
@@ -1174,7 +1307,7 @@ Quindi:
 \begin{frame}%
 %EndExpansion
  
-\QTR{frametitle}{\texorpdfstring{$\E[X\mid\G]$ come migliore previsione: il criterio}{E[X|G] come migliore previsione: il criterio}}
+\QTR{frametitle}{Nuova domanda: quale previsione \`{e} ottimale?}
  
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -1200,9 +1333,6 @@ le previsioni ammissibili $Y$:
 $\G$-misurabile e quadrato-integrabile: non pu\`{o} usare informazione che
 $\G$ non contiene e deve avere errore quadratico medio finito.
  
-\item L'errore quadratico medio misura quanto $Y$ si discosta da $X$
-in media, su tutti gli scenari.
- 
 \item Il criterio seleziona la previsione che minimizza tale scarto,
 rispettando il vincolo informativo.
  
@@ -1225,30 +1355,23 @@ rispettando il vincolo informativo.
 \begin{frame}%
 %EndExpansion
  
-\QTR{frametitle}{$\E[X\mid\G]$ come migliore previsione: la soluzione}
+\QTR{frametitle}{La previsione ottima: media sul blocco}
  
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
  
-Se $\G = \sigma(B_1,\ldots,B_n)$, ogni previsione ammissibile deve
-essere costante su ciascun atomo $B_i$:
-\[
-Y = \sum_{i=1}^{n} y_i \1_{B_i}.
-\]
- 
+Data $\G = \sigma(B_1,\ldots,B_n)$, ogni previsione condizionata a $B_i$ ammissibile è un valore costante $y_i$ su ciascun atomo $B_i$.
+Risulta: 
 \begin{stepitemize}
  
-\item La scelta di $y_i$ \`{e} libera, ma vincolata: tutti gli scenari
-in $B_i$ devono ricevere lo stesso valore previsto.
- 
-\item La scelta ottima \`{e} la media di $X$ sull'atomo $B_i$:
+\item La previsione condizionata ottima $y_i$ \`{e} la media di $X$ sull'atomo $B_i$:
 \[
 y_i = \E[X \mid B_i].
 \]
  
-\item La previsione ottima coincide quindi con il valore atteso
+\item La previsione $Y^*$ ottima coincide quindi con il valore atteso
 condizionato rispetto a $\G$:
 \[
 Y^* = \E[X \mid \G] = \sum_{i=1}^{n} \E[X \mid B_i] \1_{B_i}.
@@ -1256,9 +1379,6 @@ Y^* = \E[X \mid \G] = \sum_{i=1}^{n} \E[X \mid B_i] \1_{B_i}.
  
 \end{stepitemize}
  
-\begin{center}
-{\small $\E[X\mid\G]$ \`{e} la migliore previsione \(\mathcal G\)-misurabile in senso quadratico, unica quasi certamente.}
-\end{center}
  
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
@@ -1277,7 +1397,7 @@ Y^* = \E[X \mid \G] = \sum_{i=1}^{n} \E[X \mid B_i] \1_{B_i}.
 \begin{frame}%
 %EndExpansion
  
-\QTR{frametitle}{Verifica sull'esempio a 7 scenari}
+\QTR{frametitle}{Verifica dell'ottimalit\`{a} sui sette scenari}
  
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -1312,8 +1432,8 @@ e $y_3 = 62$ su $B_3$.
 \medskip
  
 \textbf{Interpretazione.} $\G$ non distingue $\omega_1$ da $\omega_2$:
-la migliore previsione compatibile con $\G$ assegna a entrambi
-la media interna all'atomo.
+la migliore previsione assegna a entrambi la media interna all'atomo.
+\textcolor{light-blue}{Qui verifichiamo l'ottimalit\`{a} delle medie gi\`{a} calcolate.}
  
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
@@ -1332,7 +1452,7 @@ la media interna all'atomo.
 \begin{frame}%
 %EndExpansion
  
-\QTR{frametitle}{Il portafoglio e la perdita $L$}
+\QTR{frametitle}{Applicazione: la perdita nei sette stati}
  
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -1387,7 +1507,7 @@ La perdita media ex ante \`{e}:
 \begin{frame}%
 %EndExpansion
  
-\QTR{frametitle}{Condizionamento a uno scenario di stress}
+\QTR{frametitle}{Prima: perdita attesa dopo il segnale di stress}
  
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -1437,7 +1557,7 @@ La perdita attesa condizionata allo stress \`{e}:
 \begin{frame}%
 %EndExpansion
  
-\QTR{frametitle}{La partizione informativa e $\E[L\mid\G]$}
+\QTR{frametitle}{Poi: previsioni per tutti gli stati informativi}
  
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -1486,7 +1606,7 @@ Il valore atteso condizionato rispetto a $\G = \sigma(B_1,B_2,B_3)$ \`{e}:
 \begin{frame}%
 %EndExpansion
  
-\QTR{frametitle}{Lettura finanziaria e coerenza ex ante}
+\QTR{frametitle}{Coerenza ex ante delle previsioni condizionate}
  
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -1528,9 +1648,9 @@ Stato $B_3$ & $\E[L\mid B_3] = 26$ & perdita media in stress \\
 %EndExpansion
 % **************************
 
-%******************
+% **********************
 % SEZIONE: Informazione progressiva e filtrazioni
-%******************
+% **********************
  
 \section{Informazione progressiva e filtrazioni}
  
@@ -1541,7 +1661,7 @@ Stato $B_3$ & $\E[L\mid B_3] = 26$ & perdita media in stress \\
 \begin{frame}%
 %EndExpansion
  
-\QTR{frametitle}{Informazione pi\`{u} grossolana: $\E[L\mid\mathcal{H}]$}
+\QTR{frametitle}{Meno informazione: aggregare le previsioni}
  
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -1571,7 +1691,8 @@ Gli atomi di $\mathcal{H}$ sono $B_1\cup B_2$ e $B_3$, con $\Prob(B_1\cup B_2)=0
 \E[L\mid\mathcal{H}] = 6.43\,\1_{B_1\cup B_2} + 26\,\1_{B_3}.
 \]
  
-\item Con $\G$ si distinguono tre stati; con $\mathcal{H}$ solo due. Meno informazione produce una previsione meno dettagliata.
+\item \textcolor{light-blue}{Con $\G$ si distinguono tre stati; con
+$\mathcal{H}$ solo due: le previsioni dei blocchi si aggregano.}
  
 \end{stepitemize}
  
@@ -1592,14 +1713,15 @@ Gli atomi di $\mathcal{H}$ sono $B_1\cup B_2$ e $B_3$, con $\Prob(B_1\cup B_2)=0
 \begin{frame}%
 %EndExpansion
  
-\QTR{frametitle}{Ripresa: dalla sigma-algebra alla filtrazione}
+\QTR{frametitle}{Dall'informazione statica alla filtrazione}
  
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
  
-Finora l'informazione era fissa: una sigma-algebra $\G$ che descriveva un singolo livello informativo. In finanza l'informazione \`{e} progressiva: cresce nel tempo.
+Finora l'informazione era fissa: una sigma-algebra $\G$ che descriveva un singolo livello informativo. \textcolor{light-blue}{In finanza l'informazione cresce nel tempo:
+serve una successione di sigma-algebre.}
  
 \medskip
  
@@ -1640,7 +1762,7 @@ Una \textbf{filtrazione} in tempo discreto \`{e} una successione crescente di si
 \begin{frame}%
 %EndExpansion
  
-\QTR{frametitle}{Coerenza temporale: la propriet\`{a} della torre}
+\QTR{frametitle}{La torre: coerenza delle previsioni nel tempo}
  
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -1682,11 +1804,38 @@ Se $s \leq t$, allora $\mathcal{F}_s \subseteq \mathcal{F}_t$ e vale la \textbf{
 % **************************
 
  
-% **************************
+% **********************
 % SEZIONE: Esercizio in aula
-% **************************
+% **********************
  
 \section{Esercizio in aula}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\setbeamertemplate{headline}{}
+
+\vfill
+
+\begin{center}
+\textcolor{light-blue}{{\Large \textbf{Esercizio in aula}}}
+
+\end{center}
+
+\vfill
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%*****************************
  
 \subsection{Testo}
  
@@ -1732,103 +1881,163 @@ A = \{L > 15\}, \qquad \Prob(A) = \frac{20-15}{20} = 0.25.
 %EndExpansion
 % **************************
  
-\subsection{Svolgimento: punti 1-3}
+\subsection{Svolgimento}
  
+\subsection{Svolgimento: punti 1-2}
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
- 
-\QTR{frametitle}{Esercizio: svolgimento (punti 1-3)}
- 
+\QTR{frametitle}{Soluzione I: perdita media e probabilit\`{a} di stress}
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
- 
-\textbf{Punto 1.} Valore atteso non condizionato:
+
+\textbf{1. Perdita media prima di osservare lo stress.}
 \[
-\E[L] = \int_0^{20} \ell \cdot \frac{1}{20}\,d\ell = \frac{1}{20}\cdot\frac{\ell^2}{2}\Bigg|_0^{20} = \frac{400}{40} = 10.
+\begin{aligned}
+\E[L]&=\int_0^{20}\ell\,f_L(\ell)\,d\ell
+=\frac1{20}\int_0^{20}\ell\,d\ell\\
+&=\frac1{20}\left[\frac{\ell^2}{2}\right]_0^{20}
+=\frac{400}{40}=10.
+\end{aligned}
 \]
- 
-\textbf{Punto 2.} La densit\`{a} condizionata si ricava dalla definizione:
-\[
-f_{L\mid A}(\ell) = \frac{f_L(\ell)}{\Prob(A)} = \frac{1/20}{1/4} = \frac{1}{5}, \qquad \ell \in (15,20].
-\]
-La distribuzione condizionata \`{e} uniforme su $(15,20]$.
- 
 \medskip
- 
-\textbf{Punto 3.} Valore atteso condizionato allo stress:
+\textbf{2. Probabilit\`{a} dell'evento di stress.}
 \[
-\E[L\mid A] = \int_{15}^{20} \ell \cdot \frac{1}{5}\,d\ell = \frac{1}{5}\cdot\frac{\ell^2}{2}\Bigg|_{15}^{20} = \frac{1}{10}(400-225) = \frac{175}{10} = 17.5.
+\begin{aligned}
+\Prob(A)&=\Prob(L>15)=\int_{15}^{20}\frac1{20}\,d\ell\\
+&=\frac{20-15}{20}=\frac14=0.25.
+\end{aligned}
 \]
- 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion%
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-% **************************
- 
-\subsection{Svolgimento: punto 4}
- 
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
- 
-\QTR{frametitle}{Esercizio: svolgimento (punto 4)}
- 
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
- 
-\textbf{Punto 4.} Confronto e interpretazione.
- 
 \medskip
- 
 \begin{center}
-\begin{tabular}{l|c|l}
-Grandezza & Valore & Significato \\
-\hline
-$\E[L]$ & $10$ & perdita media su tutti gli scenari \\
-$\E[L\mid A]$ & $17.5$ & perdita media negli scenari di stress \\
-\end{tabular}
+\textcolor{light-blue}{La perdita media iniziale \`{e} 10 milioni; la probabilit\`{a} di stress \`{e} il 25\%.}
 \end{center}
- 
-\medskip
- 
-\begin{stepitemize}
- 
-\item $\E[L] = 10$ considera l'intera distribuzione, compresi gli scenari favorevoli con perdite basse.
- 
-\item $\E[L\mid A] = 17.5$ restringe la valutazione alla coda destra: gli scenari in cui la perdita supera la soglia $15$.
- 
-\item Il condizionamento non modifica la variabile casuale $L$: modifica la distribuzione con cui viene valutata.
- 
-%\item In risk management, $\E[L\mid L > q_\alpha(L)]$ \`{e} il \textbf{CVaR} al livello $\alpha$. Qui $A = \{L > 15\}$ corrisponde al quantile al $75\%$, e $\E[L\mid A] = 17.5$ ne \`{e} una prima istanza concreta.
 
-\item La quantit\`{a} $\E[L\mid L>15]=17.5$ misura la perdita media negli scenari appartenenti alla coda destra oltre la soglia $15$. Le misure di rischio di coda saranno introdotte successivamente.
-
- 
-\end{stepitemize}
- 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
-% **************************
+%*********************************************
+\subsection{Svolgimento: punto 3}
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+\QTR{frametitle}{Soluzione II: densit\`{a} dopo lo stress}
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
 
-% **************************
+\textbf{3. Distribuzione di $L$ dopo aver osservato $A=\{L>15\}$.}
+\medskip
+La densit\`{a} condizionata \`{e} nulla fuori da $(15,20]$.
+All'interno dell'intervallo \`{e} proporzionale alla densit\`{a} iniziale:
+\[
+f_{L\mid A}(\ell)=
+\begin{cases}
+\displaystyle\frac{f_L(\ell)}{\Prob(A)}
+=\frac{1/20}{1/4}=\frac15,&15<\ell\leq20,\\[2mm]
+0,&\text{altrimenti}.
+\end{cases}
+\]
+\textbf{Controllo della normalizzazione:}
+\[
+\int_{-\infty}^{+\infty}f_{L\mid A}(\ell)\,d\ell
+=\int_{15}^{20}\frac15\,d\ell
+=\frac{20-15}{5}=1.
+\]
+\begin{center}
+\textcolor{light-blue}{La perdita resta uniforme, ma il supporto si restringe agli esiti di stress.}
+\end{center}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+%*********************************************
+\subsection{Svolgimento: punto 4}
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+\QTR{frametitle}{Soluzione III: valore atteso condizionato allo stress}
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+\textbf{4. Calcolo della perdita attesa sapendo che $L>15$.}
+\[
+\begin{aligned}
+\E[L\mid A]
+&=\int_{15}^{20}\ell\,f_{L\mid A}(\ell)\,d\ell
+=\frac15\int_{15}^{20}\ell\,d\ell\\
+&=\frac15\left[\frac{\ell^2}{2}\right]_{15}^{20}
+=\frac{400-225}{10}=17.5.
+\end{aligned}
+\]
+\medskip
+\textbf{Verifica con la formula dell'indicatrice.}
+\[
+\begin{aligned}
+\E[L\1_A]&=\int_{15}^{20}\frac{\ell}{20}\,d\ell
+=\frac{400-225}{40}=4.375,\\
+\E[L\mid A]&=\frac{\E[L\1_A]}{\Prob(A)}
+=\frac{4.375}{0.25}=17.5.
+\end{aligned}
+\]
+\begin{center}
+\textcolor{light-blue}{L'informazione di stress porta la perdita attesa da 10 a 17.5 milioni.}
+\end{center}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+%*********************************************
+\subsection{Svolgimento: punto 5}
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+\QTR{frametitle}{Soluzione IV: coerenza e interpretazione finanziaria}
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+\textbf{5. Verifica mediante valore atteso totale.}
+\medskip
+Fuori dallo stress, $A^c=\{L\leq15\}$ e la perdita \`{e}
+uniforme su $[0,15]$:
+\[
+\E[L\mid A^c]=\frac{0+15}{2}=7.5,
+\qquad \Prob(A^c)=0.75.
+\]
+Quindi:
+\[
+\begin{aligned}
+\E[L]
+&=\E[L\mid A]\Prob(A)
+ +\E[L\mid A^c]\Prob(A^c)\\
+&=17.5\cdot0.25+7.5\cdot0.75\\
+&=4.375+5.625=10.
+\end{aligned}
+\]
+\textbf{Interpretazione.} La condizione di stress aumenta la perdita
+media prevista del 75\% rispetto alla media ex ante; non altera i possibili
+valori di $L$, ma modifica quali valori sono compatibili con l'informazione.
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
 \section{Sintesi}
  
 \subsection{Mappa concettuale e sviluppi successivi}
@@ -1838,7 +2047,7 @@ $\E[L\mid A]$ & $17.5$ & perdita media negli scenari di stress \\
 \begin{frame}%
 %EndExpansion
  
-\QTR{frametitle}{Sintesi: informazione, previsione e tempo}
+\QTR{frametitle}{Sintesi: dall'evento alla previsione dinamica}
  
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -1884,6 +2093,110 @@ Livello & Oggetto & Informazione \\
 \end{frame}%
 %EndExpansion
 % **************************
+\section{Materiale addizionale}
+
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\setbeamertemplate{headline}{}
+
+\vfill
+
+\begin{center}
+\textcolor{light-blue}{{\Large \textbf{Materiale addizionale}}}
+
+\end{center}
+
+\vfill
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%*****************************
+
+\subsection{Partizioni progressivamente pi\`{u} fini}
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+\QTR{frametitle}{Partizioni progressivamente pi\`{u} fini}
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+\textbf{Problema.} Un segnale di mercato $S$ pu\`{o} assumere un continuo di valori.
+\medskip
+\textbf{Strategia.} Prima di osservare il valore esatto, distinguiamo
+soltanto la \textbf{classe} in cui cade $S$.
+\medskip
+\begin{center}
+\begin{tabular}{c|c|c}
+Informazione & Classi informative & Previsione \\
+\hline
+$\G_1$ & 2 intervalli & $Z_1=\E[X\mid\G_1]$ \\
+$\G_2$ & 4 intervalli & $Z_2=\E[X\mid\G_2]$ \\
+$\G_3$ & 8 intervalli & $Z_3=\E[X\mid\G_3]$ \\
+$\vdots$ & $\vdots$ & $\vdots$
+\end{tabular}
+\end{center}
+\medskip
+\[
+\G_1\subseteq\G_2\subseteq\G_3\subseteq\cdots
+\]
+\begin{center}
+\textcolor{light-blue}{Raffinare una partizione significa distinguere pi\`{u} situazioni informative.}
+\end{center}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+%*********************************************
+\subsection{Il caso continuo come limite delle previsioni}
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+\QTR{frametitle}{Il caso continuo come limite delle previsioni}
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+\textbf{Caso finito.} Per ogni $n$, la previsione $Z_n=\E[X\mid\G_n]$
+\`{e} costruita come media sui blocchi di una partizione finita.
+\medskip
+\textbf{Passaggio al limite.} Scegliamo le partizioni in modo da ottenere,
+nel loro insieme, tutta l'informazione generata dal segnale $S$:
+\[
+\G=\sigma(S)
+=\sigma\!\left(\bigcup_{n=1}^{\infty}\G_n\right).
+\]
+Per $X$ integrabile vale il risultato teorico
+\[
+\boxed{Z_n=\E[X\mid\G_n]\longrightarrow\E[X\mid\G].}
+\]
+\begin{itemize}
+\item Le previsioni sui blocchi diventano progressivamente pi\`{u} dettagliate.
+\item Il limite \`{e} la previsione condizionata all'informazione del segnale continuo.
+\end{itemize}
+{\scriptsize\textcolor{light-blue}{Il risultato teorico di convergenza (quasi certa e in $L^1$) non viene dimostrato.}}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+%*********************************************
 
 
 
