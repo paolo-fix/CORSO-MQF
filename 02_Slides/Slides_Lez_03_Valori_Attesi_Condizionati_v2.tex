@@ -262,6 +262,37 @@ dell'informazione osservabile.}
 %EndExpansion
 %*********************************************
 
+\section{Fissiamo un evento \mathcal{A} tra quelli possibili}
+
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\setbeamertemplate{headline}{}
+
+\vfill
+
+\begin{center}
+\textcolor{light-blue}{{\Large \textbf{Fissiamo un evento $A$ tra quelli possibili}}}
+
+\end{center}
+
+\vfill
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%*****************************
+
+
 \subsection{L'informazione cambia i pesi}
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
@@ -309,8 +340,6 @@ $H(\omega)$ vengono valutati.
 \end{frame}%
 %EndExpansion
 %*********************************************
-
-
 
 
 %\subsection{L'informazione cambia i pesi}
@@ -451,6 +480,11 @@ Ne segue:
 }
 \]
 
+\begin{center}
+{\small La formula mostra che condizionare equivale a restringere e
+rinormalizzare la valutazione.}
+\end{center}
+
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -475,19 +509,7 @@ Ne segue:
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-\textbf{Osservazione.}
-Si osservi che nel caso in cui esista indipendenza tra $X$ e $\1_A$ risulterebbe:
-
-\[
-\E[X\mid A]
-=
-\frac{\E[X\1_{A}]}{\Prob(A)} 
-= \frac{\E[X] \cdot \Prob(A)}{\Prob(A)}
-=\E[X].
-\]
-come ci as
-
-\medskip
+nella formula precedente:
 
 \begin{stepitemize}
 \item $\1_{A}$ seleziona gli scenari in cui l'evento $A$ si verifica.
@@ -501,10 +523,18 @@ probabilit\`{a} dell'evento condizionante.
 
 \medskip
 
-\begin{center}
-{\small La formula mostra che condizionare equivale a restringere e
-rinormalizzare la valutazione.}
-\end{center}
+\textbf{Osservazione.}
+Si osservi che nel caso in cui esista indipendenza tra $X$ e $\1_A$ risulterebbe:
+
+\[
+\E[X\mid A]
+=
+\frac{\E[X\1_{A}]}{\Prob(A)} 
+= \frac{\E[X] \cdot \Prob(A)}{\Prob(A)}
+=\E[X].
+\]
+come è corretto attendersi.
+
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
@@ -519,6 +549,77 @@ rinormalizzare la valutazione.}
 
 
 \subsection{Caso continuo}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Caso continuo: Distribuzione e densit\`{a} condizionata}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Sia $X$ una variabile casuale continua e sia
+$A\in\F$, con $\Prob(A)>0$.
+
+\medskip
+
+La \textbf{funzione di ripartizione condizionata}
+\`{e} definita da:
+\[
+F_{X\mid A}(x)
+=
+\Prob(X\leq x\mid A)
+=
+\frac{\Prob(\{X\leq x\}\cap A)}{\Prob(A)}.
+\]
+
+\medskip
+
+La \textbf{densit\`{a} condizionata} $f_{X\mid A}$
+\`{e} la densit\`{a} associata a questa distribuzione:
+\[
+F_{X\mid A}(x)
+=
+\int_{-\infty}^{x} f_{X\mid A}(u)\,du.
+\]
+
+\medskip
+
+Come ogni densit\`{a} di probabilit\`{a},
+soddisfa:
+\[
+\boxed{
+f_{X\mid A}(x)\geq 0,
+\qquad
+\int_{-\infty}^{+\infty}
+f_{X\mid A}(x)\,dx=1.
+}
+\]
+
+\medskip
+
+\begin{center}
+{\small
+Il condizionamento modifica la distribuzione
+di $X$, ma la probabilit\`{a} totale
+rimane pari a uno.
+}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%*********************************************
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
@@ -567,13 +668,47 @@ rilevante per la sua valutazione.
 
 %*************************************
 
-\subsection{Partizioni informative}
+
+\section{Fissiamo una partizione di \texorpdfstring{$\Omega$}{Omega}}
+
+
+
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Secondo passo: il segnale distingue pi\`{u} blocchi}
+\setbeamertemplate{headline}{}
+
+\vfill
+
+\begin{center}
+\textcolor{light-blue}{{\Large \textbf{Fissiamo una partizione di $\Omega$}}}
+
+\end{center}
+
+\vfill
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%*****************************
+
+
+\subsection{Partizioni informative}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Secondo passo: distinguiamo pi\`{u} blocchi di una partizione}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -601,14 +736,12 @@ B_i\cap B_j=\varnothing \quad \text{se } i\neq j.
 \item Prima dell'osservazione non sappiamo quale blocco $B_i$ si
 realizzer\`{a}.
 
-\item Dopo l'osservazione sappiamo che lo scenario vero appartiene a uno
-specifico blocco $B_i$.
-
-\item Per ciascun blocco possiamo calcolare una \textbf{media locale}:
+\item Se \textbf{dopo} l'esperimento abbiamo solo un'osservazione parziale dell'evento elementare $\omega$, cioè possiamo solo dire se esso appartiene ad uno specifico blocco $B_i$,
+possiamo calcolare una \textbf{media locale} condizionata:
 \[
 \E[X\mid B_i].
 \]
-
+secondo la formula per il valore atteso di un evento condizionato.
 \end{stepitemize}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
@@ -715,6 +848,36 @@ elementare $\omega$.
 %EndExpansion
 %*********************************************
 
+\section{\texorpdfstring{$\E[X\mid\G]$ come variabile casuale}{E[X|G] come variabile casuale}}
+
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\setbeamertemplate{headline}{}
+
+\vfill
+
+\begin{center}
+\textcolor{light-blue}{{\Large \textbf{Dipendenza di $\E[X]$ da una $\sigma$-algebra}}}
+
+\end{center}
+
+\vfill
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%*****************************
+
 \subsection{Sigma-algebra generata e atomi}
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
@@ -762,37 +925,10 @@ della partizione.
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+
+
 %*********************************************
 
-\subsection{\texorpdfstring{$\E[X\mid\G]$ come variabile casuale}{E[X|G] come variabile casuale}}
-
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\setbeamertemplate{headline}{}
-
-\vfill
-
-\begin{center}
-\textcolor{light-blue}{{\Large \textbf{Dipendenza da una $\sigma$-algebra}}}
-
-\end{center}
-
-\vfill
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout%
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-%*****************************
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
@@ -812,7 +948,7 @@ casuale che dipende dal blocco osservabile.}
 
 Se $X$ \`{e} integrabile, $\G=\sigma(B_1,\ldots,B_n)$ e
 $\Prob(B_i)>0$ per ogni $i=1,\ldots,n$, il valore atteso condizionato
-rispetto a $\G$ \`{e} la variabile casuale
+rispetto a $\G$ \`{e} la \textbf{variabile casuale}
 \[
 \E[X\mid\G]
 =
@@ -991,16 +1127,9 @@ Allora:
 \begin{stepitemize}
 \item $A$ \`{e} un \textbf{evento osservabile}, ma non un atomo di $\G$.
 
-\item $\E[H\mid A]$ \`{e} una media unica sull'unione $B_1\cup B_2$.
+\item $\E[H\mid A]$ \`{e} una media, cioè un numero costante sull'unione $B_1\cup B_2$.
 
-\item $\E[H\mid\G]$ mantiene invece separate le previsioni sugli atomi:
-\[
-118 \ \text{su } B_1,
-\qquad
-91.111 \ \text{su } B_2,
-\qquad
-62 \ \text{su } B_3.
-\]
+\item $\E[H\mid\G]$ \`{e} invece una variabile casuale, perché $\G$ non  specifica alcuno dei suoi eventi. Tra questi c'\`{e} anche $A$, ma ovviamente assieme ad altri.
 \end{stepitemize}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
