@@ -251,15 +251,17 @@ La soluzione del problema medio è $x^{EV}$.
 La decisione $x^{EV}$ deve poi essere fissata e rivalutata nel problema stocastico originale, ottenendo il valore
 
 $$
-z^{EEV}.
+z^{EV}.
 $$
+
+Il valore ottimo del problema deterministico medio deve essere tenuto distinto da $z^{EV}$.
 
 Per un problema di massimizzazione:
 
 $$
 VSS
 =
-z^{SP}-z^{EEV}.
+z^{SP}-z^{EV}.
 $$
 
 Per il benchmark wait-and-see si risolve un problema separato per ciascuno scenario assumendo di conoscere $s$ prima della decisione $x$. Se $z_s^{WS}$ è il valore ottimo nello scenario $s$:
@@ -292,7 +294,7 @@ $$
 2. $u_s^{SP}$ e $g_s^{SP}$ per ciascuno scenario;
 3. $z^{SP}$;
 4. $x^{EV}$;
-5. $z^{EEV}$;
+5. $z^{EV}$;
 6. $VSS$;
 7. $x_s^{WS}$ e $z_s^{WS}$;
 8. $z^{WS}$;
@@ -309,7 +311,7 @@ $$
 4. costo atteso del funding;
 5. valore $z^{SP}$;
 6. soluzione Expected Value;
-7. rivalutazione $z^{EEV}$;
+7. rivalutazione $z^{EV}$;
 8. $VSS$;
 9. tre soluzioni wait-and-see;
 10. $z^{WS}$;
@@ -332,7 +334,7 @@ Per ciascuno scenario: liquidità generata dagli attivi, funding $u_s$, liquidit
 Colonne:
 
 - SP;
-- EV/EEV;
+- EV;
 - WS.
 
 Righe:
@@ -345,7 +347,7 @@ Righe:
 **Tabella 4 — Valore dell'informazione**
 
 $$
-z^{EEV},\quad z^{SP},\quad z^{WS},\quad VSS,\quad EVPI.
+z^{EV},\quad z^{SP},\quad z^{WS},\quad VSS,\quad EVPI.
 $$
 
 ### Grafici
@@ -379,7 +381,7 @@ Il secondo grafico deve rendere visibile la diversa esposizione allo scenario $R
 9. verifica che $x^{EV}$ sia rivalutata senza riottimizzarla scenario per scenario;
 10. verifica
 $$
-z^{EEV}\leq z^{SP}\leq z^{WS};
+z^{EV}\leq z^{SP}\leq z^{WS};
 $$
 11. verifica
 $$
@@ -395,8 +397,8 @@ $$
 | 1 | Identificare struttura informativa, decisioni e scenari | Programma stocastico a due stadi; decisione ex ante e ricorso ex post | La composizione $x$ precede la rivelazione di $s$; $u_s$ e $g_s$ dipendono dallo scenario osservato | Corretta distinzione tra primo e secondo stadio; verifica $\sum_s p_s=1$ |
 | 2 | Costruire il problema di ricorso e la forma estesa | Bilanci di secondo stadio; ricorso relativamente completo; non anticipatività della decisione iniziale | Per ogni scenario, la liquidità degli attivi e il funding devono coprire il fabbisogno; la stessa $x$ vale in tutti gli scenari | Bilanci scenario per scenario; fattibilità del ricorso; modello pronto per il solver |
 | 3 | Determinare la soluzione stocastica | Massimizzazione del rendimento iniziale al netto del costo atteso del ricorso | Ottimizzazione congiunta di $x$ e delle decisioni $u_s,g_s$ nei tre scenari | $x^{SP}$, $u_s^{SP}$, $g_s^{SP}$, $z^{SP}$; controlli di fattibilità e optimality |
-| 4 | Costruire e valutare la soluzione Expected Value | Problema sui parametri medi e rivalutazione della soluzione $x^{EV}$ nel problema stocastico originale | Risoluzione del problema medio, fissazione di $x^{EV}$ e calcolo delle conseguenze nei tre scenari | $x^{EV}$, $z^{EEV}$, funding scenario-specifico; verifica $z^{EEV}\leq z^{SP}$ |
-| 5 | Costruire il benchmark wait-and-see e misurare il valore dell'informazione | Soluzioni scenario-specifiche con informazione perfetta; definizioni di $VSS$ ed $EVPI$ | Riottimizzazione separata in $N$, $P$, $R$ e confronto con SP ed EEV | $x_s^{WS}$, $z_s^{WS}$, $z^{WS}$, $VSS$, $EVPI$; verifica $z^{EEV}\leq z^{SP}\leq z^{WS}$ |
+| 4 | Costruire e valutare la soluzione Expected Value | Problema sui parametri medi e rivalutazione della soluzione $x^{EV}$ nel problema stocastico originale | Risoluzione del problema medio, fissazione di $x^{EV}$ e calcolo delle conseguenze nei tre scenari | $x^{EV}$, $z^{EV}$, funding scenario-specifico; verifica $z^{EV}\leq z^{SP}$ |
+| 5 | Costruire il benchmark wait-and-see e misurare il valore dell'informazione | Soluzioni scenario-specifiche con informazione perfetta; definizioni di $VSS$ ed $EVPI$ | Riottimizzazione separata in $N$, $P$, $R$ e confronto con SP ed EV | $x_s^{WS}$, $z_s^{WS}$, $z^{WS}$, $VSS$, $EVPI$; verifica $z^{EV}\leq z^{SP}\leq z^{WS}$ |
 | 6 | Interpretare economicamente il confronto tra regimi informativi | Trade-off rendimento–liquidità; valore della modellizzazione stocastica e dell'informazione perfetta | Confronto tra composizioni dell'attivo, funding nei diversi scenari e valori dei benchmark | Tabelle, grafici e commento conclusivo su $x^{SP}$, $x^{EV}$, $VSS$, $EVPI$ e limiti del modello |
 
 ## 7. Scomposizione attesa in tappe
@@ -406,9 +408,9 @@ $$
 | 1 | A | Scheda Caso, parametri, Capitoli 14–15 | Ricostruire struttura informativa e modello | Schema matematico | Distinzione corretta primo/secondo stadio | Formulazione solver |
 | 2 | B | Parametri e formulazione | Implementare dati e forma estesa con `scipy.optimize.linprog(method="highs")` | Soluzione SP | Status solver, vincoli, bilanci | Analisi SP |
 | 3 | C/B | Soluzione SP | Estrarre e controllare $x^{SP},u_s,g_s,z^{SP}$ | Tabella SP | Residui dei vincoli | Benchmark EV |
-| 4 | B | Parametri medi | Risolvere EV e rivalutare $x^{EV}$ negli scenari originali | $x^{EV},z^{EEV},VSS$ | $VSS\geq0$ | Benchmark WS |
+| 4 | B | Parametri medi | Risolvere EV e rivalutare $x^{EV}$ negli scenari originali | $x^{EV},z^{EV},VSS$ | $VSS\geq0$ | Benchmark WS |
 | 5 | B | Tre scenari | Risolvere i tre problemi wait-and-see | $x_s^{WS},z^{WS},EVPI$ | $EVPI\geq0$ | Confronto |
-| 6 | C | Tutti gli output | Costruire tabelle, figure e interpretazione finale | Sintesi economico-finanziaria | $z^{EEV}\leq z^{SP}\leq z^{WS}$ | Conclusione notebook |
+| 6 | C | Tutti gli output | Costruire tabelle, figure e interpretazione finale | Sintesi economico-finanziaria | $z^{EV}\leq z^{SP}\leq z^{WS}$ | Conclusione notebook |
 
 ## 8. Mappa tra prompt e notebook
 
@@ -421,7 +423,7 @@ $$
 | Prompt tappa 1 | A | 1 | Cella Markdown teorico-modellistica | Corretta struttura informativa |
 | Prompt tappa 2 | B | 2 | Celle codice SP | Correttezza della forma solver |
 | Prompt tappa 3 | C/B | 3 | Celle di controllo e Tabella SP | Fattibilità e residui |
-| Prompt tappa 4 | B | 4 | Celle EV/EEV/VSS | EV non confuso con EEV |
+| Prompt tappa 4 | B | 4 | Celle EV/VSS | distinzione corretta tra soluzione del problema medio $x^{EV}$, valore ottimo del problema deterministico medio e valore stocastico rivalutato $z^{EV}$ |
 | Prompt tappa 5 | B | 5 | Celle WS/EVPI | Informazione perfetta correttamente interpretata |
 | Prompt conclusivo | C | 6 | Commento finale e verifica notebook | Completezza, controlli, limiti |
 
@@ -505,7 +507,7 @@ $$
 Pertanto:
 
 $$
-z^{EEV}=3.3500.
+z^{EV}=3.3500.
 $$
 
 Il valore della soluzione stocastica è:
@@ -569,7 +571,7 @@ $$
 ### Errori o ambiguità prevedibili
 
 1. confondere $x^{EV}$ con la decisione stocastica;
-2. calcolare il valore EV sul problema medio e utilizzarlo direttamente come $z^{EEV}$;
+2. confondere il valore ottimo del problema deterministico medio con il valore stocastico $z^{EV}$ ottenuto fissando $x=x^{EV}$ e rivalutando la decisione negli scenari originari;
 3. riottimizzare $x^{EV}$ dopo avere osservato ciascuno scenario;
 4. consentire a $x$ di dipendere dallo scenario nel programma SP;
 5. dimenticare le probabilità nella funzione obiettivo;
@@ -578,7 +580,7 @@ $$
 8. interpretare $\kappa_s$ come puro tasso bancario;
 9. confondere giacenza $g_s$ e funding $u_s$;
 10. invertire i segni di VSS o EVPI in un problema di massimizzazione;
-11. confrontare $z^{EV}$ con $z^{SP}$ anziché $z^{EEV}$ con $z^{SP}$;
+11. confrontare con $z^{SP}$ il valore ottimo del problema deterministico medio anziché il valore stocastico rivalutato $z^{EV}$;
 12. presentare il wait-and-see come strategia realmente implementabile ex ante.
 
 ### Controlli minimi di validazione
@@ -612,7 +614,7 @@ $$
 e
 
 $$
-z^{EEV}\leq z^{SP}\leq z^{WS}.
+z^{EV}\leq z^{SP}\leq z^{WS}.
 $$
 
 ### Limiti interpretativi
@@ -637,7 +639,7 @@ Questi limiti devono essere dichiarati nella conclusione del notebook.
 - **Prompt obbligatori:** Prompt zero; Prompt 1; Prompt 2; Prompt 3; prompt di tappa; prompt conclusivo di verifica in Regime C.
 - **Numero minimo e massimo di prompt:** 9–11, conteggiando Prompt zero e Prompt 1.
 - **Usi ammessi dell'IA:** chiarimento della struttura a due stadi; verifica della forma solver; supporto alla traduzione in Python; controllo di output già prodotti; revisione di tabelle e grafici; individuazione di errori; verifica finale di completezza e interpretazione.
-- **Usi non ammessi:** modifica dei parametri della Scheda Caso; introduzione autonoma di nuovi scenari; sostituzione del problema con un modello diverso; delega globale dell'intero notebook con un unico prompt; modifica delle definizioni di SP, EV, EEV, WS, VSS o EVPI; produzione di interpretazioni storiche non supportate dalle fonti assegnate.
+- **Usi non ammessi:** modifica dei parametri della Scheda Caso; introduzione autonoma di nuovi scenari; sostituzione del problema con un modello diverso; delega globale dell'intero notebook con un unico prompt; modifica delle definizioni di SP, EV, WS, VSS o EVPI, oppure confusione tra il valore ottimo del problema deterministico medio e il valore stocastico rivalutato $z^{EV}$; produzione di interpretazioni storiche non supportate dalle fonti assegnate.
 
 Nel caso aula il docente può guidare la sequenza dei prompt e interrompere il lavoro per discutere collettivamente errori o alternative.
 
@@ -648,7 +650,7 @@ Nel caso aula il docente può guidare la sequenza dei prompt e interrompere il l
 1. correttezza della formulazione matematica;
 2. corretta costruzione della forma estesa;
 3. corretto utilizzo del solver;
-4. correttezza di SP, EV/EEV e WS;
+4. correttezza di SP, EV e WS, distinguendo il valore ottimo del problema deterministico medio dal valore stocastico rivalutato $z^{EV}$;
 5. calcolo corretto di VSS ed EVPI;
 6. qualità dei controlli;
 7. leggibilità del codice;
@@ -689,7 +691,7 @@ Nel Caso Aula:
 - lo shock si manifesta attraverso deflussi della raccolta e deterioramento della liquidabilità degli attivi;
 - il ricorso assume la forma di funding di emergenza;
 - la struttura principale è a due stadi;
-- il focus è su SP, EV/EEV, WS, VSS ed EVPI.
+- il focus è su SP, EV, WS, VSS ed EVPI, distinguendo la decisione del problema medio $x^{EV}$ dal valore stocastico rivalutato $z^{EV}$.
 
 Nel Caso TakeHome:
 

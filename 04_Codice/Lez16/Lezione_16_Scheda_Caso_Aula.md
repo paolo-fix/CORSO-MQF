@@ -241,7 +241,7 @@ $$
 \sum_s p_s\kappa_s.
 $$
 
-Il problema deterministico costruito su tali valori medi produce una decisione:
+Il problema deterministico costruito sui valori medi produce una decisione:
 
 $$
 x^{EV}.
@@ -249,11 +249,13 @@ $$
 
 La decisione $x^{EV}$ deve successivamente essere **fissata** e rivalutata nei tre scenari originari.
 
-Il valore atteso così ottenuto è indicato con:
+Il valore stocastico così ottenuto è indicato con:
 
 $$
-z^{EEV}.
+z^{EV}.
 $$
+
+Il valore ottimo del problema deterministico medio deve essere tenuto distinto da $z^{EV}$.
 
 Non è ammesso riottimizzare $x^{EV}$ separatamente nei tre scenari.
 
@@ -262,7 +264,7 @@ Il valore della soluzione stocastica è:
 $$
 VSS
 =
-z^{SP}-z^{EEV}.
+z^{SP}-z^{EV}.
 $$
 
 ### 3.8 Wait-and-see
@@ -310,7 +312,7 @@ $$
 e:
 
 $$
-z^{EEV}\leq z^{SP}\leq z^{WS}.
+z^{EV}\leq z^{SP}\leq z^{WS}.
 $$
 
 ---
@@ -421,7 +423,7 @@ $$
 z^{SP}.
 $$
 
-### 5.2 Expected Value ed EEV
+### 5.2 Expected Value ed EV
 
 Devono essere calcolati:
 
@@ -438,7 +440,7 @@ $$
 6. il valore:
 
 $$
-z^{EEV};
+z^{EV};
 $$
 
 7. il valore della soluzione stocastica:
@@ -446,7 +448,7 @@ $$
 $$
 VSS
 =
-z^{SP}-z^{EEV}.
+z^{SP}-z^{EV}.
 $$
 
 ### 5.3 Wait-and-see ed EVPI
@@ -515,7 +517,7 @@ Deve riportare:
 - $x^{EV}$;
 - parametri medi utilizzati;
 - funding necessario nei tre scenari originari;
-- valore $z^{EEV}$;
+- valore $z^{EV}$;
 - confronto con $x^{SP}$.
 
 **Tabella 4 — Wait-and-see**
@@ -530,7 +532,7 @@ Per ciascuno scenario deve riportare:
 Deve contenere almeno:
 
 $$
-z^{EEV},
+z^{EV},
 \qquad
 z^{SP},
 \qquad
@@ -648,7 +650,7 @@ $$
 13. sia verificato l'ordinamento:
 
 $$
-z^{EEV}
+z^{EV}
 \leq
 z^{SP}
 \leq
