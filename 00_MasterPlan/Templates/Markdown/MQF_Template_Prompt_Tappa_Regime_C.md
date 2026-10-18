@@ -1,6 +1,6 @@
 # Prompt di tappa in Regime C
 
-**Regime C - Verifica e interpretazione critica.**
+**Regime C - Verifica di una criticità specifica.**
 
 ## Parte variabile: contributo studente
 

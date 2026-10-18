@@ -943,9 +943,10 @@ Il Caso Aula e il Caso TakeHome non devono essere distinti da differenze struttu
 6. notebook;
 7. output numerici e grafici;
 8. controlli;
-9. interpretazione critica;
-10. eventuale tracciato IA;
-11. rubrica di valutazione.
+9. controlli conclusivi;
+10. interpretazione finale;
+11. eventuale tracciato IA;
+12. rubrica di valutazione.
 
 La differenza tra Caso Aula e Caso TakeHome riguarda il contesto finanziario, probabilistico o decisionale, e, se necessario, alcune scelte specifiche della linea risolutiva. Il Caso TakeHome deve restare distinto dal Caso Aula, ma non deve richiedere una procedura metodologica diversa.
 
@@ -1002,7 +1003,8 @@ La Scheda Costruzione Caso deve contenere almeno:
 27. criteri di validazione del notebook;
 28. criteri di valutazione del tracciato IA, se richiesto;
 29. rubrica sintetica;
-30. esito atteso e calibrazione qualitativa del caso.
+30. esito atteso e calibrazione qualitativa del caso;
+31. relazione con l'altro caso della lezione, esplicitando concetti teorici comuni, strumenti computazionali comuni, output e controlli comparabili, elementi metodologici condivisi, elementi distintivi del Caso TakeHome rispetto al Caso Aula e ripartizione delle responsabilità tra docente, studente e IA.
 
 La Scheda Costruzione Caso non deve essere confusa con la Scheda Caso. Essa può contenere informazioni non destinate direttamente agli studenti: scelte di progettazione, calibrazione qualitativa attesa, struttura dei prompt, criteri di validazione, criteri di valutazione e rubrica.
 
@@ -1173,7 +1175,7 @@ Per ogni lezione applicativa deve essere predisposto un pacchetto coerente di ma
 4. output numerici attesi;
 5. grafici o tabelle da produrre;
 6. indicazioni per la discussione in aula;
-7. successione di prompt virtuosi utilizzati o suggeriti;
+7. sequenza dei prompt effettivamente previsti dal caso: Prompt zero, Prompt 1, Prompt 2, Prompt 3, prompt di tappa derivati dalla scomposizione operativa validata ed eventuali Prompt C soltanto in presenza di criticità specifiche individuate dallo studente;
 8. criteri di validazione delle risposte IA, se l’IA è prevista.
 
 #### Materiali eventuali
@@ -1205,7 +1207,7 @@ La costruzione di una lezione applicativa deve seguire una procedura progressiva
 4. derivazione della Scheda Caso del Caso Aula;
 5. costruzione o validazione del Flusso logico-teorico risolutivo del Caso Aula;
 6. scomposizione del Caso Aula in tappe input-output;
-7. definizione della sequenza di prompt virtuosi per il Caso Aula, se l’IA è prevista;
+7. definizione, per il Caso Aula, della sequenza Prompt zero → Prompt 1 → Prompt 2 → Prompt 3 e dei prompt di tappa derivati dalla scomposizione operativa validata; eventuali Prompt C sono previsti soltanto quando emergano criticità specifiche individuate dallo studente;
 8. costruzione iterativa del notebook del Caso Aula;
 9. esecuzione e calibrazione degli output;
 10. redazione della Scheda Costruzione Caso del Caso TakeHome;
@@ -1213,7 +1215,7 @@ La costruzione di una lezione applicativa deve seguire una procedura progressiva
 12. derivazione della Scheda Caso del Caso TakeHome;
 13. costruzione o validazione del Flusso logico-teorico risolutivo del Caso TakeHome;
 14. scomposizione del Caso TakeHome in tappe input-output;
-15. definizione della sequenza di prompt virtuosi per il Caso TakeHome, se l’IA è prevista;
+15. definizione, per il Caso TakeHome, della sequenza Prompt zero → Prompt 1 → Prompt 2 → Prompt 3 e dei prompt di tappa derivati dalla scomposizione operativa validata; eventuali Prompt C sono previsti soltanto quando emergano criticità specifiche individuate dallo studente;
 16. predisposizione del notebook del Caso TakeHome, se previsto;
 17. predisposizione delle istruzioni per la consegna del tracciato IA;
 18. predisposizione della rubrica di valutazione.

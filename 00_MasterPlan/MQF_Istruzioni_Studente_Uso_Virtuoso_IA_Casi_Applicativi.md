@@ -22,7 +22,7 @@ L’obiettivo non è far risolvere il caso all’IA, ma usarla come supporto per
 1. chiarire il problema;
 2. organizzare il ragionamento;
 3. costruire codice coerente con la Scheda Caso;
-4. verificare output, controlli e interpretazioni;
+4. supportare l'esecuzione dei controlli previsti e, quando emerga una criticità specifica individuata dallo studente, verificarla in modo mirato;
 5. documentare il processo seguito.
 
 Il lavoro resta responsabilità dello studente.
@@ -113,23 +113,29 @@ L’IA può scrivere codice, ma non deve cambiare la Scheda Caso.
 
 ---
 
-## 4.3 Regime C — Verifica e interpretazione critica
+## 4.3 Regime C — Verifica di una criticità specifica
 
-Il Regime C serve a verificare materiale già prodotto.
+Il Regime C serve a verificare una possibile criticità già individuata dallo studente nel materiale prodotto.
 
-L’IA può essere usata per:
+Può essere attivato quando lo studente rileva, per esempio:
 
-1. controllare un output;
-2. individuare errori o ambiguità;
-3. suggerire controlli aggiuntivi;
-4. modificare codice già scritto;
-5. correggere una cella Markdown;
-6. rivedere una bozza interpretativa;
-7. verificare la completezza finale del lavoro.
+1. un risultato numerico anomalo;
+2. un dubbio teorico o matematico;
+3. una possibile incoerenza con la Scheda Caso;
+4. un problema nel codice o in un controllo;
+5. una possibile incoerenza tra formule, output e interpretazione.
 
-Il prompt in Regime C deve partire da un dubbio, da una verifica già svolta o da un output già prodotto.
+Il prompt deve indicare con precisione:
 
-L’IA può anche suggerire modifiche al testo Markdown o al codice, ma la richiesta deve essere motivata da una verifica, da un’anomalia o da un dubbio dello studente.
+1. la parte del notebook interessata;
+2. la criticità individuata;
+3. il ragionamento che motiva il dubbio.
+
+L'IA deve verificare la criticità senza modificare autonomamente la Scheda Caso e deve classificare l'esito come **criticità respinta** oppure **criticità accolta**.
+
+Se la criticità è accolta, l'IA può proporre la correzione necessaria della parte interessata. Se è respinta, non deve proporre modifiche al notebook.
+
+Il Regime C non è una tappa obbligatoria del lavoro e non deve essere utilizzato per chiedere una verifica generica dell'intero notebook o per delegare all'IA l'interpretazione finale.
 
 ---
 
@@ -149,7 +155,7 @@ La sequenza iniziale è:
 | Prompt 1 | docente | fornisce integralmente la Scheda Caso come specifica vincolante e richiede la cella Markdown iniziale di inquadramento | non valuta il contributo dello studente |
 | Prompt 2 | studente + IA | costruisce il Flusso logico-teorico risolutivo | valuta contributo iniziale dello studente, ordine logico, collegamento tra teoria, output e controlli |
 | Prompt 3 | studente + IA | costruisce la scomposizione in tappe input-output | valuta la proposta operativa iniziale dello studente |
-| Prompt di tappa | studente + IA | sviluppa, codifica o verifica singole tappe | valuta specificità, controlli e uso critico dell’IA |
+| Prompt di tappa | studente + IA | sviluppa le singole tappe in Regime A e/o B secondo la scomposizione operativa validata | valuta specificità del contributo dello studente, coerenza con la tappa, controlli previsti e uso appropriato dell’IA |
 
 ---
 
@@ -279,7 +285,7 @@ Propongo questa prima ipotesi:
 5. produrre statistiche e grafici non condizionati;
 6. calcolare le medie condizionate per regime;
 7. verificare la formula del valore atteso totale;
-8. scrivere l’interpretazione finale e dichiarare i limiti.
+8. eseguire i controlli conclusivi e predisporre gli elementi quantitativi necessari all'interpretazione finale, che resta responsabilità dello studente.
 
 Ti chiedo di verificare, modificare, integrare e ordinare questa proposta.
 
@@ -318,7 +324,7 @@ Se un output o un controllo richiesto dalla Scheda Caso non risulta associato ad
 
 ## 10. Libreria di "Prompt di tappa" virtuosi
 
-A seguito del Prompt 3, inizia una successione di "Prompt di tappa" in cui si eseguono con l'ausilio dell'IA le attività previste in ciascuna tappa.
+A seguito del Prompt 3, inizia una successione di prompt di tappa in Regime A e/o B, coerenti con la scomposizione operativa validata. Eventuali Prompt C possono essere aggiunti soltanto quando lo studente individua una criticità specifica da verificare.
 
 Gli esempi seguenti devono essere adattati al caso specifico.
 
@@ -328,7 +334,7 @@ Non devono essere copiati meccanicamente. Un prompt virtuoso deve sempre indicar
 2. che cosa si sta chiedendo all’IA;
 3. quali vincoli devono essere rispettati;
 4. quale output si vuole ottenere;
-5. quale controllo o dubbio guida la richiesta.
+5. quale controllo è previsto dalla tappa ed eventuali dubbi specifici dello studente.
 
 ---
 
@@ -640,7 +646,7 @@ I controlli da includere sono:
 - verifica della formula del valore atteso totale;
 - coerenza degli output con le quantità richieste dalla Scheda Caso.
 
-L'output della tappa sarà utilizzato successivamente per la verifica conclusiva del notebook e per l'interpretazione finale dello studente.
+L'output della tappa sarà utilizzato successivamente per i controlli conclusivi e per l'interpretazione finale dello studente.
 
 I vincoli da rispettare sono:
 - non introdurre statistiche o grafici non richiesti senza motivazione;
@@ -654,9 +660,9 @@ Produci:
 
 ---
 
-## 10.3 Prompt in Regime C — Verifica critica
+## 10.3 Prompt in Regime C — Verifica di una criticità specifica
 
-I prompt in Regime C devono essere mirati. Non devono chiedere all'IA di verificare genericamente tutto il lavoro.
+Il Regime C si attiva soltanto quando lo studente individua una criticità specifica da verificare. Il prompt deve quindi essere mirato e non deve chiedere all'IA di controllare genericamente l'intero lavoro.
 
 Devi usare un prompt in Regime C quando, durante la costruzione del notebook, individui:
 
@@ -665,7 +671,7 @@ Devi usare un prompt in Regime C quando, durante la costruzione del notebook, in
 3. una possibile incoerenza con la Scheda Caso;
 4. una formulazione Markdown poco chiara o non coerente;
 5. un passaggio di codice che produce output non convincenti;
-6. una lettura finanziaria o interpretativa che ti sembra eccessiva, errata o non giustificata.
+6. una specifica incoerenza tra l'interpretazione proposta dallo studente e i risultati numerici, i grafici, le ipotesi o i limiti del modello.
 
 Il tuo compito non è correggere direttamente il notebook, ma formulare chiaramente il dubbio e chiedere all'IA di verificarlo.
 
@@ -695,12 +701,12 @@ La valutazione terrà conto del fatto che:
 1. il dubbio deve essere formulato dallo studente;
 2. la verifica deve essere documentata nella chat IA;
 3. se la criticità è accolta, la modifica deve risultare visibile nelle celle corrette del notebook;
-4. il notebook finale deve restare lineare, eseguibile e composto solo dalle celle previste per Prompt 1, Prompt 2, Prompt 3, tappe operative, verifica conclusiva del notebook e interpretazione finale.
+4. il notebook finale deve restare lineare, eseguibile e composto solo dalle celle previste per Prompt 1, Prompt 2, Prompt 3, tappe operative, controlli conclusivi e interpretazione finale.
 
 ### Schema di prompt C
 
 <pre class="prompt-docente">
-Regime C — Verifica critica.
+Regime C — Verifica di una criticità specifica.
 
 Sto lavorando sulla seguente parte del notebook:
 
@@ -739,7 +745,7 @@ Se la criticità è accolta:
 ### Esempio C1 — Frequenze simulate inattese
 
 <pre class="prompt-docente">
-Regime C — Verifica critica.
+Regime C — Verifica di una criticità specifica.
 
 PARTE VARIABILE — da adattare da parte dello studente
 
@@ -782,7 +788,7 @@ Se la criticità è accolta:
 ### Esempio C2 — Segno inatteso della perdita
 
 <pre class="prompt-docente">
-Regime C — Verifica critica.
+Regime C — Verifica di una criticità specifica.
 
 PARTE VARIABILE — da adattare da parte dello studente
 
@@ -824,7 +830,7 @@ Se la criticità è accolta:
 </pre>
 
 ---
-
+<!--
 ## 10.4 Prompt conclusivi in Regime C
 
 Anche i prompt conclusivi devono essere mirati. Non devono essere liste universali da copiare.
@@ -871,7 +877,7 @@ Ti chiedo di verificare se ho incluso gli elementi rilevanti ed eventualmente di
 Non riscrivere l’intera conclusione.
 Suggerisci solo modifiche puntuali.
 </pre>
-
+-->
 ---
 
 ## 11. Come preparare la stampa PDF della chat IA
@@ -938,18 +944,16 @@ Il Prompt 2 è valutato per il contributo teorico iniziale dello studente.
 
 Il Prompt 3 è valutato per la rilevanza e completezza della proposta iniziale di tappe.
 
-I prompt in Regime C sono valutati su due dimensioni:
+Gli eventuali prompt in Regime C sono valutati soltanto quando vengono effettivamente attivati a partire da una criticità specifica individuata dallo studente.
 
-1. qualità ordinaria della verifica richiesta;
-2. eventuale valore diagnostico, quando lo studente individua reali debolezze o errori emersi nel lavoro.
+La loro valutazione considera:
 
-Il valore diagnostico è riconosciuto solo se la chat mostra:
+1. precisione con cui la criticità è stata individuata e formulata;
+2. qualità del ragionamento iniziale dello studente;
+3. appropriatezza della verifica richiesta all'IA;
+4. capacità di recepire correttamente l'esito della verifica, distinguendo tra criticità respinta e criticità accolta.
 
-1. criticità individuata dallo studente;
-2. verifica richiesta all’IA;
-3. riconoscimento o precisazione da parte dell’IA;
-4. decisione finale dello studente;
-5. correzione apportata.
+L'assenza di prompt in Regime C non costituisce di per sé una carenza del lavoro.
 
 ---
 
@@ -962,9 +966,9 @@ I pesi sono indicativi e possono essere modificati dal docente per ciascun eserc
 | **Prompt 2**. Flusso logico-teorico risolutivo | 30 | contributo iniziale dello studente, ordine logico, collegamento tra teoria, output e controlli |
 | **Prompt 3**. Scomposizione input-output | 15 | proposta operativa iniziale dello studente  |
 | **Notebook Jupyter** e output computazionali | 20 | codice corretto, tabelle, grafici, riproducibilità, output richiesti |
-| Prompt e uso dei regimi A/B/C | 15 | qualità dei prompt, vincoli, contributo dello studente, uso appropriato dell’IA |
+| Prompt di tappa e uso dei Regimi A/B; eventuale Regime C | 15 | qualità dei prompt, rispetto dei vincoli, contributo dello studente, uso appropriato dell’IA e, quando presente, qualità dell’attivazione del Regime C a partire da una criticità specifica |
 | Verifiche logiche, Controlli numerici | 15 | verifiche su probabilità, simulazioni, formule, quantità condizionate e proprietà teoriche |
-| Interpretazione critica | 5 | autonomia, coerenza con output, ruolo dell’informazione, limiti del modello |
+| Interpretazione finanziaria finale | 5 | autonomia, coerenza con gli output, ruolo dell’informazione e consapevolezza dei limiti del modello |
 
 Totale: 100.
 

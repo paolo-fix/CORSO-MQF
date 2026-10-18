@@ -106,7 +106,7 @@ Per ciascun grafico indicare:
 ## 8. Sequenza docente dei prompt e mappa prompt-notebook
 
 **Sequenza docente dei prompt virtuosi:**  
-[indicare l'ordine previsto dei prompt, distinguendo Prompt zero, Prompt 1, Prompt 2, Prompt 3, prompt di tappa in Regime A/B/C ed eventuali verifiche conclusive]
+[indicare l'ordine previsto dei prompt, distinguendo Prompt zero, Prompt 1, Prompt 2, Prompt 3, prompt di tappa in Regime A/B ed eventuali Prompt C, attivati soltanto quando lo studente individua una criticità specifica da verificare]
 
 La sequenza deve essere coerente con la Scheda Caso, con il Flusso logico-teorico risolutivo e con la scomposizione in tappe input-output. Per ciascun prompt deve essere chiaro quale funzione svolge, quale regime IA utilizza e quale elemento del notebook o del tracciato contribuisce a produrre o verificare.
 
@@ -147,16 +147,21 @@ Il notebook è considerato valido se:
 ## 12. Uso dell'IA e tracciato
 
 - **Uso documentato dell'IA previsto:** [sì / no]
-- **Prompt obbligatori:** [Prompt zero, Prompt 1, Prompt 2, Prompt 3, eventuali prompt di tappa e verifiche conclusive]
-- **Numero minimo e massimo di prompt:** [intervallo, se previsto]
-- **Regimi IA utilizzati:** [A / B / C, specificando dove intervengono]
+- **Prompt obbligatori:** [Prompt zero, Prompt 1, Prompt 2, Prompt 3 e prompt di tappa necessari secondo la scomposizione operativa validata]
+- **Numero dei prompt:** [determinato dalla scomposizione operativa validata; possono aggiungersi eventuali Prompt C soltanto in presenza di criticità specifiche individuate dallo studente]
+- **Regimi IA utilizzati:** [A e/o B nelle tappe ordinarie; eventuale C soltanto quando lo studente individua una criticità specifica da verificare, indicando la tappa interessata]
 - **Usi ammessi dell'IA:** [elenco]
 - **Usi non ammessi dell'IA:** [elenco]
 - **Criteri di validazione delle risposte IA:** [verificare almeno coerenza con il regime richiesto, coerenza con gli input disponibili, rispetto degli oggetti teorici già fissati, assenza di modifiche non autorizzate al modello, assenza di contenuti non ammessi, correttezza della traduzione computazionale quando pertinente, pertinenza dei controlli proposti e utilità dell'output per la tappa successiva]
 - **Tracciato IA richiesto:** [sì / no]
 - **Modalità di consegna del tracciato IA:** [ordinariamente stampa PDF della chat dedicata; indicare eventuali modalità diverse previste per il caso]
-- **Sequenza osservabile richiesta nel tracciato:** [Prompt zero → Prompt 1 → Prompt 2 → Prompt 3 → prompt di tappa → eventuali prompt C → verifiche conclusive]
-- **Elementi del tracciato oggetto di valutazione:** [contributo iniziale dello studente, prompt utilizzati, regime attribuito, risposte IA utilizzate, decisioni di accettazione/modifica/rifiuto/correzione, output prodotti, controlli svolti, verifiche conclusive]
+- **Sequenza osservabile richiesta nel tracciato:** [Prompt zero → Prompt 1 → Prompt 2 → Prompt 3 → prompt di tappa effettivamente utilizzati → eventuali Prompt C]
+- **Elementi del tracciato oggetto di valutazione:** [contributo iniziale dello studente, prompt utilizzati, regime attribuito, risposte IA utilizzate, decisioni di accettazione/modifica/rifiuto/correzione, output prodotti, controlli svolti ed eventuali Prompt C attivati a partire da criticità specifiche individuate dallo studente]
+
+
+
+
+
 
 ## 13. Valutazione
 
@@ -173,9 +178,9 @@ Per i Casi TakeHome con uso documentato dell'IA, la rubrica assume come riferime
 | Prompt 2 — Flusso logico-teorico risolutivo | 30 | contributo iniziale dello studente, ordine logico, collegamento tra teoria, output e controlli |
 | Prompt 3 — Scomposizione input-output | 15 | proposta operativa iniziale dello studente, coerenza delle tappe, collegamento input-output |
 | Notebook Jupyter e output computazionali | 20 | correttezza del codice, tabelle, grafici, riproducibilità, coerenza degli output richiesti |
-| Prompt e uso dei regimi A/B/C | 15 | qualità dei prompt, rispetto dei vincoli, contributo dello studente, uso appropriato dell'IA |
+| Prompt di tappa e uso dei Regimi A/B; eventuale Regime C | 15 | qualità dei prompt, rispetto dei vincoli, contributo dello studente, uso appropriato dell'IA e, quando presente, qualità dell'attivazione del Regime C a partire da una criticità specifica |
 | Verifiche logiche e controlli numerici | 15 | controlli su formule, simulazioni, vincoli, quantità teoriche e proprietà del modello |
-| Interpretazione critica finale | 5 | autonomia, coerenza con gli output, interpretazione finanziaria e consapevolezza dei limiti del modello |
+| Interpretazione finanziaria finale | 5 | autonomia, coerenza con gli output, interpretazione finanziaria e consapevolezza dei limiti del modello |
 
 **Totale:** 100 punti.
 

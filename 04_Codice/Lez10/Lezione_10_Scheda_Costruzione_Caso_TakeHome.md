@@ -904,11 +904,7 @@ L'esito della verifica deve essere classificato come:
 
 Se la criticità è accolta, vengono sostituite le celle della tappa interessata. Se è respinta, il notebook non viene modificato.
 
-### Numero dei prompt
 
-La sequenza comprende Prompt zero, Prompt 1, Prompt 2, Prompt 3 e i prompt di tappa necessari secondo la scomposizione operativa validata.
-
-Possono inoltre aggiungersi uno o più Prompt C soltanto quando emergano criticità specifiche che richiedano verifica.
 
 ### Usi ammessi dell'IA
 
@@ -1001,7 +997,7 @@ $$
 \longrightarrow
 \text{confronto}
 \longrightarrow
-\text{verifica}
+\text{controlli conclusivi}
 \longrightarrow
 \text{interpretazione}.
 $$
