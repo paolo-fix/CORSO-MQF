@@ -45,19 +45,6 @@ una ricostruzione empirica dei dati osservati nel caso reale.
 
 La catena quantitativa fondamentale \`e
 
-%\[
-%\text{regime sistemico}\\
-%\downarrow\\
-%\text{migrazioni creditizie}\\
-%\downarrow\\
-%\text{perdite individuali}\\
-%\downarrow\\
-%\text{perdita di portafoglio}\\
-%\downarrow\\
-%\text{VaR e CVaR}.
-%\]
-
-
 \begin{gather*}
 \text{regime sistemico}\\
 \downarrow\\
@@ -761,9 +748,9 @@ N_D^{(r)}
 Questa statistica non coincide con la perdita media. Due repliche con lo
 stesso numero di default possono generare perdite molto diverse se
 coinvolgono debitori con esposizioni differenti o se i default avvengono
-sotto regimi con $\mathrm{LGD}$ differenti. Anche il contrario pu\`o verificarsi: uno scenario con pochi default ma su
-esposizioni molto elevate pu\`o produrre una perdita superiore a uno
-scenario con numerosi default di dimensione contenuta.
+sotto regimi con $\mathrm{LGD}$ differenti. Anche il contrario pu\`o verificarsi: una replica con pochi default ma su
+esposizioni molto elevate pu\`o produrre una perdita superiore a una
+replica con numerosi default di dimensione contenuta.
 
 Prima di interpretare le statistiche aggregate, \`e opportuno ricostruire
 alcune perdite individuali. Per un debitore sopravvissuto, deve risultare
@@ -821,9 +808,8 @@ milioni di dollari, mentre il VaR al $95\%$ passa da circa $60.27$ a
 $55.24$ milioni. Nel modello assegnato, la riduzione della concentrazione
 incide quindi pi\`u intensamente sulla coda che sulla sola perdita media.
 
-Questo risultato \`e economicamente coerente con la natura della policy. Un
-limite di concentrazione non mira necessariamente a ridurre in modo uniforme
-la perdita in tutti gli scenari, ma soprattutto a contenere la vulnerabilit\`a
+Questo risultato \`e economicamente coerente con la natura della policy. Un limite di concentrazione non mira necessariamente a ridurre in modo uniforme
+la perdita in tutte le repliche, ma soprattutto a contenere la vulnerabilit\`a
 del portafoglio quando una posizione di dimensione rilevante contribuisce
 agli esiti pi\`u severi.
 
@@ -907,7 +893,7 @@ effettivamente verso perdite inferiori.
 La decisione di concentrazione deve quindi essere valutata sull'intera
 distribuzione delle perdite, non su una singola statistica. Una riduzione
 della perdita media pu\`o essere rilevante, ma non esaurisce il problema se
-la decisione viene presa soprattutto per contenere gli scenari pi\`u severi.
+la decisione viene presa soprattutto per contenere le repliche pi\`u severe.
 %
 
 % 7. Diagnostica e verifica critica della simulazione
@@ -1045,8 +1031,9 @@ effettivamente nel notebook e rimane coerente con le ipotesi assegnate.
 La diagnostica non costituisce quindi una fase separata aggiunta alla fine
 della simulazione: accompagna il passaggio dal modello alle traiettorie,
 dalle traiettorie alle perdite e dalle perdite alla decisione finanziaria.
-Solo dopo questi controlli le differenze tra portafogli e tra scenari
-sistemici possono essere interpretate come risultati del modello.
+Solo dopo questi controlli le differenze tra portafogli e tra repliche
+caratterizzate da differenti traiettorie sistemiche possono essere
+interpretate come risultati del modello.
 %
 
 % 8. Caso TakeHome: Lehman Brothers 2008
