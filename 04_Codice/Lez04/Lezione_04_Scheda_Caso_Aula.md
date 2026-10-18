@@ -2,7 +2,7 @@
 
 ## 1. Identificazione del caso
 
-- **Lezione:** Lezione 04 — Applicazione in Python: probabilità, variabili casuali e condizionamento
+- **Lezione:** Lezione 04 — Applicazione in Python: probabilità, variabili casuali e valori attesi condizionati
 - **Tipo di caso:** aula
 - **Titolo:** *Perdita obbligazionaria condizionata a regimi di tasso*
 - **Contesto:** portafoglio obbligazionario a tasso fisso esposto a shock dei rendimenti

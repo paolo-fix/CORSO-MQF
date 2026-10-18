@@ -1257,15 +1257,7 @@ $\varphi(\E[X\mid\G])\leq \E[\varphi(X)\mid\G]$.
 %EndExpansion
 
 Consideriamo un payoff terminale $X$ e due segnali osservabili sullo
-stato del mercato.
-
-\medskip
-
-\[
-\mathcal{G}_1
-=
-\sigma(N,S),
-\]
+stato del mercato. Cioè sia $\mathcal{G}_1=\sigma(N,S)$ l'informazione osservabile, 
 dove:
 \[
 N=\{\text{mercato normale}\},
@@ -1276,14 +1268,12 @@ S=\{\text{mercato stressato}\}.
 \medskip
 
 Supponiamo poi che l'informazione pi\`{u} fine distingua, dentro ciascuno
-stato, anche la classe di spread (Low oppure High):
+stato, anche la classe di spread (Low oppure High): 
 \[
-\mathcal{G}_2
-=
+\mathcal{G}_2=
 \sigma(N_L,N_H,S_L,S_H).
 \]
 
-\medskip
 
 Gli eventi di $\mathcal{G}_1$ sono unioni di eventi di $\mathcal{G}_2$:
 \[
@@ -1292,11 +1282,10 @@ N=N_L\cup N_H,
 S=S_L\cup S_H.
 \]
 
-\medskip
-
-Quindi:
+Quindi $\mathcal{G}_1\subseteq\mathcal{G}_2$.
+La propriet\'a torre ci dice che \textbf{l'informazione superiore è inutile se si condiziona ad una informazione inferiore}:
 \[
-\mathcal{G}_1\subseteq\mathcal{G}_2.
+\E[\E[X\mid\G_2]\mid\G_1]=\E[X\mid\G_1].
 \]
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
@@ -1344,9 +1333,6 @@ le previsioni ammissibili $Y$:
 $\G$-misurabile e quadrato-integrabile: non pu\`{o} usare informazione che
 $\G$ non contiene e deve avere errore quadratico medio finito.
  
-\item L'errore quadratico medio misura quanto $Y$ si discosta da $X$
-in media, su tutti gli scenari.
- 
 \item Il criterio seleziona la previsione che minimizza tale scarto,
 rispettando il vincolo informativo.
  
@@ -1376,23 +1362,16 @@ rispettando il vincolo informativo.
 \setbeamercovered{transparent=20}%
 %EndExpansion
  
-Se $\G = \sigma(B_1,\ldots,B_n)$, ogni previsione ammissibile deve
-essere costante su ciascun atomo $B_i$:
-\[
-Y = \sum_{i=1}^{n} y_i \1_{B_i}.
-\]
- 
+Data $\G = \sigma(B_1,\ldots,B_n)$, ogni previsione condizionata a $B_i$ ammissibile è un valore costante $y_i$ su ciascun atomo $B_i$.
+Risulta: 
 \begin{stepitemize}
  
-\item La scelta di $y_i$ \`{e} libera, ma vincolata: tutti gli scenari
-in $B_i$ devono ricevere lo stesso valore previsto.
- 
-\item La scelta ottima \`{e} la media di $X$ sull'atomo $B_i$:
+\item La previsione condizionata ottima $y_i$ \`{e} la media di $X$ sull'atomo $B_i$:
 \[
 y_i = \E[X \mid B_i].
 \]
  
-\item La previsione ottima coincide quindi con il valore atteso
+\item La previsione $Y^*$ ottima coincide quindi con il valore atteso
 condizionato rispetto a $\G$:
 \[
 Y^* = \E[X \mid \G] = \sum_{i=1}^{n} \E[X \mid B_i] \1_{B_i}.
@@ -1400,9 +1379,6 @@ Y^* = \E[X \mid \G] = \sum_{i=1}^{n} \E[X \mid B_i] \1_{B_i}.
  
 \end{stepitemize}
  
-\begin{center}
-{\small\textcolor{light-blue}{$\E[X\mid\G]$ \`{e} la migliore previsione in senso quadratico: una propriet\`{a} nuova, non una definizione nuova.}}
-\end{center}
  
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
