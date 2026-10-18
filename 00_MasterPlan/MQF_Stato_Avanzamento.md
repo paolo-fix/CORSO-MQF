@@ -55,8 +55,8 @@ Questa sezione conserva una checklist operativa per il controllo orizzontale, ve
 
 | Area | Note |
 |---|---|
-| Processi stocastici discreti e filtrazioni | Verificare il raccordo tra Capitolo/Lezione 5 e quanto già introdotto nei Capitoli 1-4 su informazione, filtrazioni, adattabilità e martingale. |
-| Processi stocastici continui | Verificare il raccordo tra Capitoli/Lezioni 6-7 su Browniano, GBM, OU, CIR, correlazione ed Eulero--Maruyama, distinguendo chiaramente teoria, simulazione e applicazione. |
+| Processi stocastici discreti e filtrazioni | Raccordo verificato tra Capitolo/Lezione 5 e Capitoli 1-4: coerenti informazione, filtrazioni, adattabilità, prevedibilità delle decisioni, martingale e ruolo strutturale del modello binomiale. |
+| Processi stocastici continui | Raccordo verificato tra Capitoli/Lezioni 6-7: coerenti moto browniano, diffusioni geometriche, OU, CIR, correlazione, Eulero--Maruyama, distinzione tra scenari del modello e repliche Monte Carlo e passaggio dalla teoria alla simulazione e al pricing. |
 | Catene di Markov | Raccordo verificato tra Capitolo/Lezione 8, Capitolo/Lezione 9 e Lezione 10: coerenti dinamica markoviana, stato di default assorbente, passaggio dalle probabilità alle perdite e trasferimento alla simulazione di portafoglio. |
 | Misure di rischio | Verificare il raccordo tra il blocco teorico delle misure di rischio e le applicazioni successive, evitando anticipazioni o sovrapposizioni non motivate. |
 | Modello binomiale | Mantenuto come esempio strutturale di processo discreto, non come lezione autonoma di pricing; verificare che questa funzione resti coerente nei richiami successivi. |
