@@ -514,10 +514,14 @@ Le slides devono essere prodotte in LaTeX Beamer compatibile con Scientific Work
 
 ### 10.1 Struttura tecnica di ogni slide
 
-Ogni slide deve rispettare la struttura standard seguente:
+Ogni slide deve utilizzare una struttura `frame` compatibile con Scientific WorkPlace 5.5. L'uso di `\subsection{...}` prima del frame è facoltativo: può essere impiegato quando risulta utile per organizzare semanticamente il sorgente o la navigazione della lezione, ma non costituisce un requisito per ogni singola slide.
+
+La struttura tecnica di riferimento è quindi:
 
 ```latex
-\subsection{Titolo della sottosezione}
+% eventuale:
+% \subsection{Titolo della sottosezione}
+
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
@@ -542,7 +546,7 @@ Contenuto della slide
 %*
 ```
 
-La struttura va mantenuta anche quando il contenuto della slide è breve. Il codice deve essere direttamente integrabile nel file `.tex` della lezione.
+La struttura del frame va mantenuta anche quando il contenuto della slide è breve. La presenza o assenza di una `\subsection` non costituisce, di per sé, un criterio di coerenza editoriale.
 
 ### 10.2 Uso del preambolo e delle macro
 
@@ -691,9 +695,11 @@ E' preferibile una sequenza di slides leggibile a una singola slide eccessivamen
 
 ## 12. Slides delle lezioni applicative di tipo C
 
-Le slides delle lezioni applicative di tipo C devono essere progettate come strumento di regia del laboratorio. La loro funzione non è anticipare integralmente il notebook, insegnare Python come contenuto autonomo o documentare tutta l'interazione con l'IA. La loro funzione è guidare docente e studenti nello svolgimento del Caso Aula: lettura della Scheda Caso, uso dei prompt, costruzione progressiva del notebook, esecuzione dei controlli, discussione degli output e assegnazione del TakeHome.
+Le slides delle lezioni applicative di tipo C devono essere progettate come strumento di preparazione, orientamento e regia del laboratorio. La loro funzione non è anticipare integralmente il notebook, insegnare Python come contenuto autonomo, documentare tutta l'interazione con l'IA o riprodurre necessariamente la sequenza formale dei prompt.
 
-Nelle lezioni di tipo C gli studenti lavorano alla propria postazione, preferibilmente in ambiente VS Code/Jupyter. Il docente indica i prompt da utilizzare, li fa inserire materialmente dagli studenti, discute le risposte dell'IA, seleziona le parti utili, guida la costruzione delle celle del notebook e controlla gli output. Le slides devono sostenere questa sequenza operativa.
+Le slides devono rendere riconoscibile il passaggio dalla teoria al problema computazionale: richiamare gli elementi teorici necessari, introdurre l'eventuale focus Python, presentare e strutturare il Caso Aula, chiarire la catena logico-computazionale, evidenziare gli output e i controlli rilevanti e preparare il trasferimento operativo in VS Code/Jupyter. Il Caso TakeHome deve infine essere presentato come trasferimento autonomo del metodo a un nuovo problema.
+
+Nelle lezioni di tipo C gli studenti lavorano alla propria postazione, preferibilmente in ambiente VS Code/Jupyter. La sequenza Prompt zero, Prompt 1, Prompt 2, Prompt 3 e prompt di tappa resta normativa per la costruzione del notebook e del tracciato IA, secondo le sezioni dedicate di queste Guidelines, ma non deve essere necessariamente rappresentata nelle slides. I prompt compaiono nelle slides solo quando la loro presenza è didatticamente o operativamente utile.
 
 ---
 
@@ -719,16 +725,18 @@ Questa sequenza è necessaria perché gli elementi davvero utili per le slides e
 
 Durante la lezione applicativa, le slides devono aiutare il docente a governare il ritmo del laboratorio e devono aiutare gli studenti a capire che cosa stanno facendo nel notebook.
 
-Ogni gruppo di slides deve chiarire:
+Ogni gruppo di slides deve rendere riconoscibili, quando pertinenti:
 
-1. quale parte del caso si sta affrontando;
-2. quale prompt deve essere usato o quale tappa deve essere svolta;
-3. quale cella del notebook si vuole costruire;
-4. quale output deve essere prodotto;
-5. quale controllo consente di validare l'output;
-6. quale interpretazione locale o finale è richiesta.
+1. la parte del problema che si sta affrontando;
+2. il collegamento con la teoria sviluppata nelle lezioni precedenti;
+3. gli oggetti quantitativi o computazionali necessari;
+4. la trasformazione che conduce dagli input agli output;
+5. gli output o i controlli che meritano discussione in aula;
+6. il passaggio successivo del lavoro, compreso l'eventuale trasferimento a VS Code/Jupyter.
 
-Le slides non devono sostituire il notebook. Il notebook contiene il lavoro operativo validato; le slides guidano la sua costruzione in aula.
+Non è necessario che ogni gruppo di slides identifichi esplicitamente un prompt o una specifica cella del notebook. Tali riferimenti vanno inseriti soltanto quando aiutano concretamente la conduzione del laboratorio.
+
+Le slides non devono sostituire il notebook. Il notebook contiene il lavoro operativo validato; le slides ne preparano e orientano lo sviluppo.
 
 ---
 
@@ -752,38 +760,42 @@ Le parti puramente esecutive restano nel notebook. Le risposte complete dell'IA 
 
 ### 12.4 Piano generale delle slides applicative
 
-Le slides di una lezione applicativa devono seguire un piano coerente con lo svolgimento effettivo del laboratorio.
+Le slides di una lezione applicativa devono seguire un piano coerente con la natura del caso e con il successivo lavoro in laboratorio.
 
-La struttura di riferimento è:
+La struttura di riferimento comprende, con possibilità di adattamento:
 
-1. apertura della lezione e collocazione del caso nel corso;
-2. presentazione della Scheda Caso e della domanda quantitativa;
-3. richiamo del protocollo di lavoro con IA, notebook e tracciato;
-4. sequenza iniziale dei prompt: Prompt zero, Prompt 1, Prompt 2 e Prompt 3;
-5. sviluppo guidato delle tappe del notebook;
-6. controlli intermedi e discussione degli output;
-7. verifica conclusiva del notebook e interpretazione finale;
-8. assegnazione del Caso TakeHome.
+1. apertura della lezione e collocazione dell'applicazione nel percorso del corso;
+2. eventuale piccolo focus Python necessario per il caso;
+3. raccordo con i contenuti teorici delle lezioni precedenti;
+4. presentazione del Caso Aula, della domanda quantitativa e delle ipotesi assegnate;
+5. costruzione progressiva del modello e della catena logico-computazionale;
+6. individuazione degli output, dei controlli e delle interpretazioni rilevanti;
+7. passaggio allo sviluppo operativo in VS Code/Jupyter;
+8. presentazione del Caso TakeHome come trasferimento autonomo del metodo.
 
-La struttura può essere adattata alla complessità del caso, ma deve mantenere il legame tra prompt, notebook, output e controlli.
+L'ordine e il peso relativo dei blocchi possono variare in funzione del caso. Alcuni blocchi possono essere accorpati, anticipati o ridotti quando la struttura del problema lo richiede.
+
+La sequenza formale dei prompt appartiene al protocollo di costruzione del notebook e del tracciato IA. Essa non costituisce una sequenza obbligatoria delle slides, salvo nella Lezione 4, dove il metodo viene introdotto esplicitamente, o quando uno specifico prompt abbia una funzione didattica necessaria alla conduzione dell'aula.
 
 ---
 
-### 12.5 Slides di tappa
+### 12.5 Snodi operativi e passaggi di raccordo
 
-La parte centrale della lezione applicativa è composta da slides di tappa. Ogni tappa deve corrispondere a un passaggio riconoscibile del notebook.
+La parte centrale della lezione applicativa deve rendere riconoscibili gli snodi che trasformano il modello teorico in un problema computazionale.
 
-Una slide di tappa deve indicare, in forma sintetica:
+A seconda del caso, una o più slides possono chiarire:
 
-1. input disponibili;
-2. obiettivo della tappa;
-3. prompt o regime IA utilizzato;
-4. cella Markdown o cella code da costruire;
-5. output atteso;
-6. controllo da eseguire;
-7. uso dell'output nella tappa successiva.
+1. gli input disponibili;
+2. l'obiettivo quantitativo del passaggio;
+3. gli oggetti teorici o computazionali utilizzati;
+4. la trasformazione o sequenza di operazioni richiesta;
+5. l'output atteso;
+6. i controlli rilevanti;
+7. il collegamento con il passaggio successivo.
 
-Quando una tappa è complessa, è preferibile separare la slide di orientamento, la slide con il prompt, la slide sul codice essenziale, la slide sull'output e la slide di controllo. Una slide troppo densa rallenta il laboratorio e rende difficile seguire la costruzione del notebook.
+Non è necessario che ogni snodo corrisponda a una singola tappa del notebook né che riporti esplicitamente prompt, regime IA o tipo di cella. Quando tali elementi sono utili alla conduzione dell'aula possono essere indicati; negli altri casi restano nel notebook e nel tracciato IA.
+
+Quando un passaggio è complesso, è preferibile distribuirlo su più slides, distinguendo problema, modello, trasformazione computazionale, output e controllo. Una slide troppo densa rallenta la comprensione e rende meno leggibile la catena logica.
 
 ---
 
@@ -840,15 +852,19 @@ Prima di considerare definitive le slides di una lezione applicativa, occorre ve
 
 La revisione finale deve rispondere a queste domande:
 
-1. lo studente capisce quale caso sta risolvendo e perché;
-2. la sequenza dei prompt è collocata nel punto giusto della lezione;
-3. ogni tappa del notebook è collegata a un output e a un controllo;
-4. il codice mostrato è essenziale e non duplica il notebook;
-5. gli output scelti per le slides hanno una funzione interpretativa;
-6. i tempi sono compatibili con 120 minuti effettivi;
-7. il TakeHome è presentato come estensione coerente del Caso Aula.
+1. lo studente capisce quale problema quantitativo sta affrontando e perché;
+2. è chiaro il raccordo con la teoria sviluppata nelle lezioni precedenti;
+3. il passaggio dal modello alla struttura computazionale è leggibile;
+4. gli eventuali elementi Python introdotti hanno una funzione effettiva nel caso;
+5. gli output e i controlli selezionati hanno una funzione didattica e interpretativa;
+6. il codice eventualmente mostrato è essenziale e non duplica inutilmente il notebook;
+7. è chiaro quando il lavoro deve proseguire operativamente in VS Code/Jupyter;
+8. i tempi sono compatibili con 120 minuti effettivi;
+9. il TakeHome è presentato come estensione coerente e autonoma del Caso Aula.
 
-Se una slide non aiuta a orientare il lavoro, introdurre un prompt, costruire una cella, discutere un output, eseguire un controllo o preparare il TakeHome, deve essere eliminata o spostata nel notebook o nei materiali operativi.
+La presenza della sequenza completa dei prompt nelle slides non costituisce un requisito di validazione. Essa deve essere verificata nei materiali operativi, nel notebook e nel tracciato IA secondo il protocollo previsto.
+
+Se una slide non aiuta a comprendere il problema, raccordarlo alla teoria, costruirne la struttura computazionale, discutere un output o un controllo, orientare il lavoro in laboratorio o preparare il TakeHome, deve essere eliminata o spostata nei materiali operativi.
 
 ## 13. Esercizi in aula
 
