@@ -107,7 +107,7 @@ La struttura operativa dell'insegnamento è la seguente.
 | 4 | C | Applicazione in Python: probabilità, variabili casuali e valori attesi condizionati | Simulazione, distribuzioni empiriche, momenti, quantili, valori attesi condizionati |
 | 5 | P | Processi stocastici I -- Tempo discreto: fondamenti, informazione e martingale | Processi, traiettorie, scenari, filtrazioni, adattabilità, martingale |
 | 6 | P | Processi stocastici II -- Tempo continuo: diffusioni, mean-reversion e simulazione | Moto browniano, diffusioni, GBM, OU, CIR, correlazione, discretizzazione |
-| 7 | C | Applicazione in Python: simulazione di traiettorie e pricing | GBM, OU, processi correlati, opzioni asiatiche, obbligazioni indicizzate |
+| 7 | C | Applicazione in Python: simulazione di traiettorie e pricing | diffusioni geometriche, OU, processi correlati, opzioni asiatiche, obbligazioni indicizzate |
 | 8 | P | Catene di Markov: definizioni e proprietà | Stati, transizioni, matrice di transizione, distribuzioni stazionarie |
 | 9 | P | Catene di Markov e misure di rischio | Transizioni di rating, distribuzioni di perdita, VaR, CVaR |
 | 10 | C | Applicazione in Python: rischio di credito | Simulazione di catene di Markov, portafogli creditizi, misure di rischio |
@@ -904,7 +904,7 @@ Sono previste cinque applicazioni Python, corrispondenti alle lezioni applicativ
 | Applicazione | Lezione | Tema | Output computazionale |
 |---:|---:|---|---|
 | 1 | 4 | Probabilità, variabili casuali e condizionamento | Simulazioni, distribuzioni empiriche, momenti, quantili, stime condizionate |
-| 2 | 7 | Traiettorie, simulazione e pricing Monte Carlo | Traiettorie GBM, OU, processi correlati, opzioni asiatiche, sistema OU--CIR |
+| 2 | 7 | Traiettorie, simulazione e pricing Monte Carlo | Traiettorie diffusioni geometriche, OU, processi correlati, opzioni asiatiche, sistema OU--CIR |
 | 3 | 10 | Rischio di credito | Matrici di transizione, simulazioni di rating, distribuzioni di perdita, VaR, CVaR |
 | 4 | 13 | Programmazione lineare e ALM deterministico | Soluzione LP, allocazioni, giacenze e funding, valori marginali, sensitività, scenari e frontiera di fattibilità |
 | 5 | 16 | Programmazione stocastica | Scenari, recourse, non anticipatività, confronto tra soluzione stocastica, Expected Value e Wait-and-See |

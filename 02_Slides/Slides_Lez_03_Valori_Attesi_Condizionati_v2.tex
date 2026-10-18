@@ -416,6 +416,58 @@ solo gli esiti di $H$ coerenti con tale informazione.
 \begin{frame}%
 %EndExpansion
 
+\QTR{frametitle}{Valore atteso condizionato: formula con indicatrice}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Sia $X$ una variabile casuale discreta integrabile
+e sia $A\in\F$, con $\Prob(A)>0$.
+Per definizione:
+\[
+\E[X\mid A]
+=\sum_x x\,\Prob(X=x\mid A)
+=\frac{1}{\Prob(A)}
+ \sum_x x\,\Prob(\{X=x\}\cap A).
+\]
+
+\medskip
+
+La variabile casuale $X\1_A$ coincide con $X$
+su $A$ ed \`{e} nulla fuori da $A$.
+Pertanto:
+\[
+\E[X\1_A]
+=\sum_x x\,\Prob(\{X=x\}\cap A).
+\]
+
+Ne segue:
+\[
+\boxed{
+\E[X\mid A]
+=\frac{\E[X\1_A]}{\Prob(A)}
+}
+\]
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+%*********************************************
+
+
+\subsection{Formula con indicatrice}
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
 \QTR{frametitle}{Formula equivalente: indicatrice e normalizzazione}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
@@ -423,20 +475,17 @@ solo gli esiti di $H$ coerenti con tale informazione.
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Sia $X$ una variabile casuale integrabile e sia $A\in\F$ un evento con
-probabilit\`{a} positiva:
-\[
-\Prob(A)>0.
-\]
+\textbf{Osservazione.}
+Si osservi che nel caso in cui esista indipendenza tra $X$ e $\1_A$ risulterebbe:
 
-\medskip
-
-Il valore atteso condizionato di $X$ dato $A$ pu\`{o} essere scritto come:
 \[
 \E[X\mid A]
 =
-\frac{\E[X\1_{A}]}{\Prob(A)}.
+\frac{\E[X\1_{A}]}{\Prob(A)} 
+= \frac{\E[X] \cdot \Prob(A)}{\Prob(A)}
+=\E[X].
 \]
+come ci as
 
 \medskip
 
@@ -466,6 +515,8 @@ rinormalizzare la valutazione.}
 \end{frame}%
 %EndExpansion
 %*********************************************
+
+
 
 \subsection{Caso continuo}
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
@@ -716,10 +767,12 @@ della partizione.
 \subsection{\texorpdfstring{$\E[X\mid\G]$ come variabile casuale}{E[X|G] come variabile casuale}}
 
 
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}[plain]}}%
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
-\begin{frame}[plain]%
+\begin{frame}%
 %EndExpansion
+
+\setbeamertemplate{headline}{}
 
 \vfill
 
@@ -752,8 +805,8 @@ della partizione.
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-\textcolor{light-blue}{La previsione condizionata \`{e} una variabile
-casuale che dipende dal blocco osservato.}
+\textcolor{light-blue}{La previsione condizionata da una $\sigma$-algebra \`{e} una variabile
+casuale che dipende dal blocco osservabile.}
 
 \medskip
 
