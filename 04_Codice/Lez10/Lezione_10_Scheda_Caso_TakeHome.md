@@ -124,15 +124,15 @@ $$
 L_i
 =
 V_{i,0}\,
-\ell(X_{i,0},X_{i,4}),
+\varphi(X_{i,0},X_{i,4}),
 $$
 
-dove $V_{i,0}$ è l'investimento iniziale e $\ell(r_0,r_4)$ è il tasso di perdita assegnato alla migrazione dal rating iniziale $r_0$ al rating finale $r_4$.
+dove $V_{i,0}$ è l'investimento iniziale e $\varphi(r_0,r_4)$ è il tasso di perdita assegnato alla migrazione dal rating iniziale $r_0$ al rating finale $r_4$.
 
-Il default è incluso direttamente nella funzione $\ell$. In particolare,
+Il default è incluso direttamente nella funzione $\varphi$. In particolare,
 
 $$
-\ell(r_0,D)=0.65.
+\varphi(r_0,D)=0.65.
 $$
 
 Nel caso didattico si assume:
@@ -169,7 +169,7 @@ L_{\mathrm{div}}^{P,(r)}
 =
 \sum_{i\neq L}
 V_{i,0}^{\mathrm{div}}
-\ell
+\varphi
 \left(
 X_{i,0},
 X_{i,4}^{(r)}

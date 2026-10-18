@@ -146,12 +146,12 @@ $$
 L_i
 =
 V_{i,0}
-\ell(X_{i,0},X_{i,4}),
+\varphi(X_{i,0},X_{i,4}),
 \qquad
 \tau_i>4,
 $$
 
-dove $V_{i,0}$ è l'investimento iniziale e $\ell$ è il tasso di perdita migration-based assegnato.
+dove $V_{i,0}$ è l'investimento iniziale e $\varphi$ è il tasso di perdita migration-based assegnato.
 
 Se invece il debitore entra in default:
 

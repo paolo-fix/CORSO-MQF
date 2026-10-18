@@ -1,11 +1,11 @@
-# Lezione 10 — Scheda Costruzione Caso Take-home
+# Lezione 10 — Scheda Costruzione Caso TakeHome
 
 ## 1. Identificazione del caso
 
 - **Lezione:** 10 — Applicazione in Python: rischio di credito
-- **Tipo di caso:** take-home
+- **Tipo di caso:** TakeHome
 - **Titolo:** Lehman Brothers 2008: rischio sistemico, migrazioni creditizie e perdita di portafoglio
-- **Nome file previsto:** `Lezione_10_Scheda_Costruzione_Caso_Take-home.md`
+- **Nome file previsto:** `Lezione_10_Scheda_Costruzione_Caso_TakeHome.md`
 - **Destinatari:** studenti del secondo anno della Laurea Magistrale in Banca e Risk Management
 - **Uso previsto:** caso applicativo guidato per sviluppare mediante simulazione Monte Carlo un modello di rischio creditizio di portafoglio nel quale le migrazioni dei singoli debitori dipendono da un regime sistemico comune che evolve nel tempo.
 
@@ -322,10 +322,10 @@ $$
 L_i
 =
 V_{i,0}\,
-\ell(X_{i,0},X_{i,4}),
+\varphi(X_{i,0},X_{i,4}),
 $$
 
-dove $\ell(r_0,r_4)$ è il tasso di perdita rispetto al valore di riferimento iniziale.
+dove $\varphi(r_0,r_4)$ è il tasso di perdita rispetto al valore di riferimento iniziale.
 
 La calibrazione didattica è:
 
@@ -341,7 +341,7 @@ I valori negativi rappresentano incrementi di valore prodotti da un migliorament
 Nel default,
 
 $$
-\ell(r_0,D)=0.65.
+\varphi(r_0,D)=0.65.
 $$
 
 Per raccordare questa specificazione con la notazione PD–LGD–EAD del Capitolo 9, nel caso didattico si assume che, in assenza di ammortamenti, utilizzi aggiuntivi o variazioni dell'esposizione nominale,
@@ -484,7 +484,7 @@ $$
 N=50\,000.
 $$
 
-Per la riproducibilità del caso take-home viene utilizzato il seed
+Per la riproducibilità del caso TakeHome viene utilizzato il seed
 
 $$
 2026.
@@ -945,7 +945,7 @@ $$
 
 ## 13. Relazione con l'altro caso della lezione
 
-Il caso take-home sarà contestualizzato nella crisi di **China Evergrande del 2021**.
+Il caso TakeHome sarà contestualizzato nella crisi di **China Evergrande del 2021**.
 
 L'isomorfismo metodologico dovrà riguardare:
 
@@ -967,7 +967,7 @@ VaR/CVaR
 \text{verifica critica}.
 $$
 
-Il take-home non dovrà essere una semplice sostituzione dei valori numerici.
+Il TakeHome non dovrà essere una semplice sostituzione dei valori numerici.
 
 Dovranno cambiare almeno:
 
@@ -981,6 +981,6 @@ Dovranno cambiare almeno:
 - struttura dell'analisi controfattuale;
 - criticità economico-finanziaria da discutere.
 
-Nel caso take-home, il fattore sistemico rappresenta la dinamica delle condizioni del sistema finanziario durante la crisi del 2008 e Lehman costituisce la posizione iniziale di maggiore dimensione.
+Nel caso TakeHome, il fattore sistemico rappresenta la dinamica delle condizioni del sistema finanziario durante la crisi del 2008 e Lehman costituisce la posizione iniziale di maggiore dimensione.
 
-Nel caso take-home il fattore comune dovrà essere reinterpretato in relazione alle condizioni del settore immobiliare e finanziario cinese e la posizione principale sarà associata a Evergrande.
+Nel caso TakeHome il fattore comune dovrà essere reinterpretato in relazione alle condizioni del settore immobiliare e finanziario cinese e la posizione principale sarà associata a Evergrande.

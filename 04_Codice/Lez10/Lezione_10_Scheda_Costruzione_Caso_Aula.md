@@ -276,10 +276,10 @@ $$
 L_i^{M}
 =
 V_{i,0}\,
-\ell(X_{i,0},X_{i,4}),
+\varphi(X_{i,0},X_{i,4}),
 $$
 
-dove $\ell(r_0,r_4)$ rappresenta il tasso di perdita migration-based.
+dove $\varphi(r_0,r_4)$ rappresenta il tasso di perdita migration-based.
 
 La calibrazione didattica è:
 
@@ -328,7 +328,7 @@ $$
 0.85.
 $$
 
-Nel caso didattico si assume
+Nel caso didattico, si assume
 
 $$
 \operatorname{EAD}_i
@@ -336,7 +336,7 @@ $$
 V_{i,0}.
 $$
 
-Questa uguaglianza è una ipotesi semplificatrice specifica del caso e non costituisce una identificazione generale tra investimento iniziale ed EAD.
+Questa uguaglianza è una ipotesi semplificatrice specifica del caso e non costituisce una identificazione generale tra investimento iniziale ed $\operatorname{EAD}$.
 
 Se $\tau_i=t+1$, la perdita da default è quindi
 
@@ -353,7 +353,7 @@ $$
 L_i
 =
 \begin{cases}
-V_{i,0}\ell(X_{i,0},X_{i,4}),
+V_{i,0}\varphi(X_{i,0},X_{i,4}),
 &
 \text{se }\tau_i>4,\\[2mm]
 V_{i,0}\operatorname{LGD}^{(M_{\tau_i-1})},
