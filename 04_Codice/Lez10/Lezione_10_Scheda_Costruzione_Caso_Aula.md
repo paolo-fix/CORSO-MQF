@@ -640,7 +640,7 @@ Confronto, per il portafoglio iniziale, tra scenari con e senza ingresso nel reg
 | 2 | Generare gli scenari creditizi con fattore sistemico comune | $\Pr(X_{i,t+1}=j\mid X_{i,t}=k,M_t=m)=p_{kj}^{(m)}$ | Simulazione dei regimi, delle migrazioni e dei tempi di default | Traiettorie simulate e controlli |
 | 3 | Trasformare le traiettorie in perdite monetarie | Perdita migration-based; $\operatorname{EAD}\times\operatorname{LGD}$; LGD dipendente dal regime | Applicazione della perdita non-default o della LGD determinata dal regime al default | Campione delle perdite individuali e di portafoglio |
 | 4 | Stimare e confrontare il rischio dei due portafogli | Distribuzione empirica, valore atteso, dispersione, VaR, CVaR | Stima delle misure e valutazione della politica di concentrazione | Tabelle, grafici e differenze tra misure |
-| 5 | Verificare criticamente modello e risultati | Markovianità, omogeneità, indipendenza condizionata, recovery, concentrazione, rischio di modello | Valutazione delle ipotesi e interpretazione della politica di controllo | Criticità accolta/respinta e interpretazione finale |
+| 5 | Controllare il modello e interpretare i risultati | Markovianità, omogeneità, indipendenza condizionata, recovery, concentrazione, rischio di modello | Valutazione delle ipotesi, controllo conclusivo e interpretazione della politica di concentrazione | Interpretazione finale e, se emerge una criticità specifica, eventuale verifica in Regime C |
 
 ## 7. Scomposizione attesa in tappe
 
@@ -650,7 +650,7 @@ Confronto, per il portafoglio iniziale, tra scenari con e senza ingresso nel reg
 | 2 | B | $Q$, $P^{(N)}$, $P^{(S)}$, $P^{(C)}$, rating iniziali, $N_{\mathrm{MC}}$, seed | Simulare regime sistemico, migrazioni creditizie e primo ingresso nel default | Regimi, stati finali, tempi e regimi di default | Matrici stocastiche; default assorbente; regime comune; indipendenza condizionata | Costruzione delle perdite |
 | 3 | B | Traiettorie simulate, investimenti, funzione $\varphi$, LGD per regime | Calcolare le perdite migration-based o da default; costruire i due vettori di investimento e aggregare | $L_{\mathrm{base}}^{P,(r)}$, $L_{\mathrm{lim}}^{P,(r)}$, $\Delta L^{(r)}$ | Corretta LGD al default; investimento totale invariato; stessi scenari nei due portafogli | Stima delle distribuzioni |
 | 4 | B | Campioni delle perdite e informazioni sui regimi | Stimare distribuzioni, perdita media, dispersione, VaR e CVaR; confrontare i portafogli e gli scenari sistemici | Tabelle, grafici e variazioni delle misure di rischio | Coerenza VaR/CVaR; stabilità Monte Carlo; corretta lettura del confronto | Interpretazione finanziaria |
-| 5 | — / C eventuale | Notebook completo, risultati, controlli e ipotesi | Svolgere i controlli conclusivi e formulare autonomamente l'interpretazione finanziaria; ricorrere al Regime C solo se emerge una criticità specifica da verificare | Notebook validato, eventuale correzione delle celle interessate e interpretazione finale dello studente | Coerenza notebook-Scheda Caso; distinzione modello/realtà storica; se viene attivato il Regime C, criticità accolta oppure respinta | Chiusura del caso |
+| 5 | — | Notebook completo, risultati, controlli e ipotesi | Svolgere i controlli conclusivi e formulare autonomamente l'interpretazione finanziaria; ricorrere al Regime C solo se emerge una criticità specifica da verificare | Notebook validato, eventuale correzione delle celle interessate e interpretazione finale dello studente | Coerenza notebook-Scheda Caso; distinzione modello/realtà storica; se viene attivato il Regime C, criticità accolta oppure respinta | Chiusura del caso |
 
 ## 8. Mappa tra prompt e notebook
 
@@ -737,7 +737,7 @@ I risultati dei Prompt 2 e Prompt 3 svolgono funzione di progettazione e validaz
 - Cella codice/output: confronto tra scenari con e senza ingresso nel regime $C$.
 - Controllo: stabilità delle stime rispetto al numero di repliche.
 
-### Tappa 5 — Verifica critica e interpretazione
+### Tappa 5 — Controlli conclusivi e interpretazione
 
 **Prompt di riferimento:** nessun prompt obbligatorio. Il Regime C può essere attivato soltanto in presenza di una criticità specifica individuata dallo studente.
 
@@ -923,13 +923,9 @@ Se la criticità è accolta, vengono sostituite le celle della tappa interessata
 
 ### Numero dei prompt
 
-La sequenza ordinaria comprende otto prompt obbligatori:
+La sequenza comprende Prompt zero, Prompt 1, Prompt 2, Prompt 3 e i prompt di tappa necessari secondo la scomposizione operativa validata.
 
-$$
-N_{\text{prompt, obbligatori}}=8.
-$$
-
-A questi possono aggiungersi uno o più Prompt C soltanto quando emergano criticità specifiche che richiedano verifica.
+Possono inoltre aggiungersi uno o più Prompt C soltanto quando emergano criticità specifiche che richiedano verifica.
 
 ### Usi ammessi dell'IA
 

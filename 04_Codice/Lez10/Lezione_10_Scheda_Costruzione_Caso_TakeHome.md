@@ -590,7 +590,7 @@ Per il portafoglio concentrato, confronto tra:
 | 2 | Generare scenari congiunti di regime e rating | $\Pr(X_{i,t+1}=j\mid X_{i,t}=k,M_t=m)=p_{kj}^{(m)}$ | Simulazione della traiettoria sistemica comune e delle migrazioni individuali condizionate | Stati finali dei debitori e controlli sulle traiettorie |
 | 3 | Trasformare gli stessi scenari creditizi nelle perdite dei due portafogli | $L_i=V_{i,0}\varphi(X_{i,0},X_{i,4})$ e aggregazione | Applicazione dei due vettori di investimento agli stessi scenari dei debitori comuni | Campioni $L_{\mathrm{conc}}^{P,(r)}$ e $L_{\mathrm{div}}^{P,(r)}$ |
 | 4 | Stimare e confrontare distribuzioni e rischio di coda | Distribuzione empirica, valore atteso, dispersione, quantile, VaR, CVaR | Stima delle misure per entrambi i portafogli e analisi degli scenari con e senza crisi | Tabelle, grafici e differenze tra misure di rischio |
-| 5 | Verificare criticamente modello e risultati | Ipotesi di Markov, omogeneità, indipendenza condizionata, allocazione, rischio di modello | Interpretazione del ruolo del regime sistemico e della riallocazione dell'investimento Lehman | Criticità accolta/respinta e interpretazione finale |
+| 5 | Controllare il modello e interpretare i risultati | Ipotesi di Markov, omogeneità, indipendenza condizionata, allocazione, rischio di modello | Valutazione delle ipotesi, controllo conclusivo e interpretazione del ruolo del regime sistemico e della riallocazione dell'investimento Lehman | Interpretazione finale e, se emerge una criticità specifica, eventuale verifica in Regime C |
 
 ## 7. Scomposizione attesa in tappe
 
@@ -600,7 +600,7 @@ Per il portafoglio concentrato, confronto tra:
 | 2 | B | $Q$, $P^{(O)}$, $P^{(S)}$, $P^{(C)}$, rating iniziali, $N$, seed | Simulare congiuntamente traiettorie sistemiche e creditizie per quattro trimestri | Regimi simulati e stati creditizi finali per ogni replica | Matrici stocastiche; default assorbente; regime comune; estrazioni individuali condizionate | Costruzione delle perdite |
 | 3 | B | Stati simulati, investimenti iniziali, regola di riallocazione, funzione $\varphi$ | Costruire i due vettori di investimento, calcolare le perdite individuali e aggregarle sugli stessi scenari | Campioni $L_{\mathrm{conc}}^{P,(r)}$, $L_{\mathrm{div}}^{P,(r)}$ e $\Delta L^{(r)}$ | Investimento totale pari a $173$ in entrambi i portafogli; proporzioni residue conservate; stessi scenari per i debitori comuni | Stima delle distribuzioni |
 | 4 | B | Campioni delle perdite e traiettorie sistemiche | Costruire le distribuzioni empiriche e stimare perdita media, dispersione, VaR e CVaR; confrontare i due portafogli e gli scenari crisi/non crisi | Tabelle, grafici e misure di rischio | Coerenza quantili/CVaR; stabilità Monte Carlo; interpretazione corretta del confronto | Interpretazione finanziaria |
-| 5 | — / C eventuale | Notebook completo, risultati, controlli e ipotesi del modello | Svolgere i controlli conclusivi e formulare autonomamente l'interpretazione finanziaria; ricorrere al Regime C solo se emerge una criticità specifica da verificare | Notebook validato, eventuale correzione delle celle interessate e interpretazione finale dello studente | Coerenza notebook-Scheda Caso; distinzione tra risultato del modello e realtà storica; se viene attivato il Regime C, criticità accolta oppure respinta | Chiusura del caso |
+| 5 | — | Notebook completo, risultati, controlli e ipotesi del modello | Svolgere i controlli conclusivi e formulare autonomamente l'interpretazione finanziaria; ricorrere al Regime C solo se emerge una criticità specifica da verificare | Notebook validato, eventuale correzione delle celle interessate e interpretazione finale dello studente | Coerenza notebook-Scheda Caso; distinzione tra risultato del modello e realtà storica; se viene attivato il Regime C, criticità accolta oppure respinta | Chiusura del caso |
 
 ## 8. Mappa tra prompt e notebook
 
@@ -685,7 +685,7 @@ I risultati dei Prompt 2 e Prompt 3 svolgono funzione di progettazione e validaz
 - Cella codice/output: confronto, per il portafoglio concentrato, tra scenari con ingresso nello stato $C$ e scenari senza ingresso nello stato $C$.
 - Controllo: verifica della stabilità delle principali stime rispetto alla dimensione del campione Monte Carlo.
 
-### Tappa 5 — Verifica critica e interpretazione
+### Tappa 5 — Controlli conclusivi e interpretazione
 
 **Prompt di riferimento:** nessun prompt obbligatorio. Il Regime C può essere attivato soltanto in presenza di una criticità specifica individuata dallo studente.
 
@@ -862,13 +862,9 @@ Se la criticità è accolta, vengono sostituite le celle della tappa interessata
 
 ### Numero dei prompt
 
-La sequenza ordinaria comprende otto prompt obbligatori:
+La sequenza comprende Prompt zero, Prompt 1, Prompt 2, Prompt 3 e i prompt di tappa necessari secondo la scomposizione operativa validata.
 
-$$
-N_{\text{prompt, obbligatori}}=8.
-$$
-
-A questi possono aggiungersi uno o più Prompt C soltanto quando emergano criticità specifiche che richiedano verifica.
+Possono inoltre aggiungersi uno o più Prompt C soltanto quando emergano criticità specifiche che richiedano verifica.
 
 ### Usi ammessi dell'IA
 
