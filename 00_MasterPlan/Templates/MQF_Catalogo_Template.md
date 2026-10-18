@@ -20,6 +20,7 @@ Il formato del template dipende dal documento nel quale viene conservato e utili
 | Manuale | [Sezioni degli esercizi](LaTeX/MQF_Template_Sezioni_Esercizi_Manuale.tex) | Capitoli teorici LaTeX | Guidelines 9.1.1 |
 | Lezioni applicative | [Sviluppo della lezione applicativa](Markdown/MQF_Template_Sviluppo_Lezione_Applicativa.md) | Avvio della progettazione docente | Guidelines 12, 14 e 15 |
 | Casi applicativi | [Scheda Costruzione Caso](Markdown/MQF_Template_Scheda_Costruzione_Caso_Applicativo.md) | Caso aula o take-home | Guidelines 14.2 |
+| Casi applicativi | [Scheda Caso](Markdown/MQF_Template_Scheda_Caso_Applicativo.md) | Caso Aula o TakeHome | Guidelines 14.3 |
 | Prompt | [Prompt zero](Markdown/MQF_Template_Prompt_Zero.md) | Inizializzazione della chat | Guidelines 15.6 |
 | Prompt | [Prompt 1](Markdown/MQF_Template_Prompt_1.md) | Acquisizione della Scheda Caso | Guidelines 15.6 |
 | Prompt | [Prompt 2](Markdown/MQF_Template_Prompt_2.md) | Flusso logico-teorico | Guidelines 15.6 |
