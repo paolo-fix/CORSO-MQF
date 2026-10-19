@@ -74,7 +74,7 @@ Puoi intervenire soltanto quando io abbia individuato un dubbio, un'anomalia o u
 Nel corso del lavoro, dovrai aiutarmi a distinguere chiaramente:
 
 * **Tracciato IA:** Stampa PDF della chat dedicata al caso, contenente i prompt, le risposte dell'IA, le decisioni dello studente rilevanti per il lavoro e gli eventuali Prompt C attivati su criticità specifiche.
-* **Notebook:** Prodotto computazionale validato, strutturato con celle Markdown, celle codice, output numerici, grafici, controlli e interpretazioni.
+* **Notebook:** Prodotto computazionale validato, strutturato con celle Markdown, celle codice, output numerici, tabelle, grafici, controlli e interpretazioni. Le tabelle e i grafici prodotti durante l'esecuzione restano normalmente incorporati nel notebook e devono essere rigenerabili mediante riesecuzione delle celle; non devono essere esportati automaticamente come file esterni, salvo esplicita richiesta della Scheda Caso o del docente.
 
 ---
 

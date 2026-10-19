@@ -6,7 +6,6 @@
 % Questo master deve stare nella cartella 01_Manuale.
 % I capitoli devono stare nella sottocartella 01_Manuale/Capitoli.
 % Non mettere il master dentro Capitoli.
-% I capitoli futuri restano come traccia, ma non generano pagine nel documento.
 % Evita pagine bianche dovute all'apertura dei capitoli su pagina dispari.
 % ------------------------------------------------------------
 % Nomi italiani
@@ -28,7 +27,7 @@
 \usepackage{amssymb}
 \usepackage{graphicx}%
 \usepackage[T1]{fontenc}
-\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage[italian]{babel}
 \usepackage{indentfirst}
 \setcounter{MaxMatrixCols}{30}
@@ -265,9 +264,9 @@ cui si approssimano, si simulano e si implementano modelli finanziari pi\`{u} co
 
 \addcontentsline{toc}{chapter}{Struttura del manuale}
 
-Il manuale \`{e} organizzato in quattro parti. In questa fase i capitoli
-successivi al primo sono mantenuti come traccia editoriale. Verranno inclusi
-nel file master solo quando saranno redatti in file autonomi.
+Il manuale \`{e} organizzato in quattro parti. I capitoli sono redatti
+in file autonomi e inclusi nel presente file master secondo
+l'architettura definita nel Master Plan del corso.
 
 \section*{Parte I -- Probabilit\`{a}, informazione e processi discreti}
 
@@ -397,35 +396,11 @@ $M,\ k=1,\ldots,M$ & numero e indice delle repliche simulate\\\hline
 \input{./Capitoli/MQF_Cap_01_Probabilita.tex}
 %EndExpansion
 
-
-%============================================================
-%Capitoli futuri: traccia operativa.
-%Attivare una riga solo quando il corrispondente file e' stato redatto.
-%============================================================
-%\input{./Capitoli/MQF_Cap_02_Variabili_Casuali}
-%\input{./Capitoli/MQF_Cap_03_Valori_Attesi_Condizionati}
-%\input{./Capitoli/MQF_Cap_04_Processi_Stocastici}
-%\input{./Capitoli/MQF_Cap_05_Python_Processi_Stocastici}
-%\input{./Capitoli/MQF_Cap_06_Catene_Markov}
-%\input{./Capitoli/MQF_Cap_07_Python_Traiettorie_Pricing}
-%\input{./Capitoli/MQF_Cap_08_Python_Rischio_Credito}
-%\input{./Capitoli/MQF_Cap_09_Modelli_Binomiali}
-%\input{./Capitoli/MQF_Cap_10_Python_Pricing}
-%\input{./Capitoli/MQF_Cap_11_Programmazione_Lineare}
-%\input{./Capitoli/MQF_Cap_12_Dualita_ALM_Deterministico}
-%\input{./Capitoli/MQF_Cap_13_Python_ALM_Deterministico}
-%\input{./Capitoli/MQF_Cap_14_Programmazione_Stocastica_I}
-%\input{./Capitoli/MQF_Cap_15_Programmazione_Stocastica_II}
-%\input{./Capitoli/MQF_Cap_16_Python_Programmazione_Stocastica}
-%
-
 %TCIMACRO{\QSubDoc{Include MQF_Cap_02_Variabili_Casuali}%
 %{\input{Capitoli/MQF_Cap_02_Variabili_Casuali.tex}}}%
 %BeginExpansion
 \input{Capitoli/MQF_Cap_02_Variabili_Casuali.tex}
 %EndExpansion
-
-%************
 
 %TCIMACRO{\QSubDoc{Include subdoc}%
 %{\input{./Capitoli/MQF_Cap_03_Valori_Attesi_Condizionati.tex}}}%
@@ -433,15 +408,11 @@ $M,\ k=1,\ldots,M$ & numero e indice delle repliche simulate\\\hline
 \input{./Capitoli/MQF_Cap_03_Valori_Attesi_Condizionati.tex}
 %EndExpansion
 
-%************
-
 %TCIMACRO{\QSubDoc{Include MQF_Cap_04_Python_Probabilita_Condizionamento.texx}%
 %{\input{Capitoli/MQF_Cap_04_Applicazione_Scenario_analysis_in_Python.tex}}}%
 %BeginExpansion
 \input{Capitoli/MQF_Cap_04_Python_Probabilita_Condizionamento.tex}
 %EndExpansion
-
-%************
 
 %TCIMACRO{\QSubDoc{Include MQF_Cap_05_Processi_Stocastici_Tempo_Discreto.tex}%
 %{\input{Capitoli/MQF_Cap_05_Processi_Stocastici_Tempo_Discreto.tex}}}%
@@ -449,15 +420,11 @@ $M,\ k=1,\ldots,M$ & numero e indice delle repliche simulate\\\hline
 \input{Capitoli/MQF_Cap_05_Processi_Stocastici_Tempo_Discreto.tex}
 %EndExpansion
 
-%************
-
 %TCIMACRO{\QSubDoc{Include MQF_Cap_06_Processi_Stocastici_Tempo_Continuo.tex}%
 %{\input{Capitoli/MQF_Cap_06_Processi_Stocastici_Tempo_Continuo.tex}}}%
 %BeginExpansion
 \input{Capitoli/MQF_Cap_06_Processi_Stocastici_Tempo_Continuo.tex}
 %EndExpansion
-
-%************
 
 %TCIMACRO{\QSubDoc{Include MQF_Cap_07_Python_Traiettorie_Pricing.tex}%
 %{\input{Capitoli/MQF_Cap_07_Python_Traiettorie_Pricing.tex}}}%
@@ -465,17 +432,11 @@ $M,\ k=1,\ldots,M$ & numero e indice delle repliche simulate\\\hline
 \input{Capitoli/MQF_Cap_07_Python_Traiettorie_Pricing.tex}
 %EndExpansion
 
-%************
-
 %TCIMACRO{\QSubDoc{Include MQF_Cap_08_Catene_Markov.tex}%
 %{\input{Capitoli/MQF_Cap_08_Catene_Markov.tex}}}%
 %BeginExpansion
 \input{Capitoli/MQF_Cap_08_Catene_Markov.tex}
 %EndExpansion
-
-
-
-%************
 
 %TCIMACRO{\QSubDoc{Include MQF_Cap_09_Markov_Misure_Rischio.tex}%
 %{\input{Capitoli/MQF_Cap_09_Markov_Misure_Rischio.tex}}}%
@@ -483,19 +444,11 @@ $M,\ k=1,\ldots,M$ & numero e indice delle repliche simulate\\\hline
 \input{Capitoli/MQF_Cap_09_Markov_Misure_Rischio.tex}
 %EndExpansion
 
-
-
-%************
-
 %TCIMACRO{\QSubDoc{Include MQF_Cap_10_Python_Rischio_Credito.tex}%
 %{\input{MQF_Cap_10_Python_Rischio_Credito.tex}}}%
 %BeginExpansion
 \input{Capitoli/MQF_Cap_10_Python_Rischio_Credito.tex}
 %EndExpansion
-
-
-
-%************
 
 %TCIMACRO{\QSubDoc{Include MQF_Cap_11_Programmazione_Lineare.tex}%
 %{\input{Capitoli/MQF_Cap_11_Programmazione_Lineare.tex}}}%
@@ -503,15 +456,11 @@ $M,\ k=1,\ldots,M$ & numero e indice delle repliche simulate\\\hline
 \input{Capitoli/MQF_Cap_11_Programmazione_Lineare.tex}
 %EndExpansion
 
-%************
-
 %TCIMACRO{\QSubDoc{Include MQF_Cap_12_Dualita_ALM_Deterministico.tex}%
 %{\input{Capitoli/MQF_Cap_12_Dualita_ALM_Deterministico.tex}}}%
 %BeginExpansion
 \input{Capitoli/MQF_Cap_12_Dualita_ALM_Deterministico.tex}
 %EndExpansion
-
-%************
 
 %TCIMACRO{\QSubDoc{Include MQF_Cap_13_Python_Asset_Allocation_ALM.tex}%
 %{\input{Capitoli/MQF_Cap_13_Python_Asset_Allocation_ALM.tex}}}%
@@ -519,17 +468,11 @@ $M,\ k=1,\ldots,M$ & numero e indice delle repliche simulate\\\hline
 \input{Capitoli/MQF_Cap_13_Python_Asset_Allocation_ALM.tex}
 %EndExpansion
 
-%
-
-%************
-
 %TCIMACRO{\QSubDoc{Include MQF_Cap_14_Programmazione_Stocastica_I.tex}%
 %{\input{Capitoli/MQF_Cap_14_Programmazione_Stocastica_I.tex}}}%
 %BeginExpansion
 \input{Capitoli/MQF_Cap_14_Programmazione_Stocastica_I.tex}
 %EndExpansion
-
-%************
 
 %TCIMACRO{\QSubDoc{Include MQF_Cap_15_Programmazione_Stocastica_II_old.tex}%
 %{\input{Capitoli/MQF_Cap_15_Programmazione_Stocastica_II_old.tex}}}%
@@ -537,31 +480,17 @@ $M,\ k=1,\ldots,M$ & numero e indice delle repliche simulate\\\hline
 %\input{Capitoli/MQF_Cap_15_Programmazione_Stocastica_II_old.tex}
 %EndExpansion
 
-%************
-
 %TCIMACRO{\QSubDoc{Include MQF_Cap_15_Programmazione_Stocastica_II.tex}%
 %{\input{Capitoli/MQF_Cap_15_Programmazione_Stocastica_II.tex}}}%
 %BeginExpansion
 \input{Capitoli/MQF_Cap_15_Programmazione_Stocastica_II.tex}
 %EndExpansion
 
-
-%************
-
 %TCIMACRO{\QSubDoc{Include MQF_Cap_16_Python_Programmazione_Stocastica.tex}%
 %{\input{Capitoli/MQF_Cap_16_Python_Programmazione_Stocastica.tex}}}%
 %BeginExpansion
 \input{Capitoli/MQF_Cap_16_Python_Programmazione_Stocastica.tex}
 %EndExpansion
-
-
-
-
-
-%************
-
-
-
 
 \backmatter
 
