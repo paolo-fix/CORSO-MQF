@@ -9,14 +9,14 @@ Le Guidelines definiscono le regole operative stabili. La Notazione definisce
 le convenzioni matematiche. Le decisioni progettuali stabili e le relative
 motivazioni sono recepite nel documento normativo pertinente.
 
-## Snapshot al 2026-10-18
+## Snapshot al 2026-10-19
 
 |  |  |
 |---|---|
-| **Ultima attività completata** | Completata una nuova passata di coerenza sul blocco Capitoli/Lezioni 8-10 e sui documenti normativi, con verifica del raccordo tra catene di Markov, rischio di credito, misure di rischio e simulazione di portafoglio. Chiuse le principali incoerenze residue di notazione e terminologia, in particolare nella distinzione tra scenari del modello e repliche Monte Carlo e nel raccordo tra misura fisica e misura risk-neutral. Le Guidelines sono state inoltre riallineate all'architettura effettiva delle lezioni applicative: la sequenza formale dei prompt resta normativa per notebook e tracciato IA, ma non costituisce una sequenza obbligatoria delle slides; l'uso di `\subsection{...}` prima di ogni frame è stato reso facoltativo. |
+| **Ultima attività completata** | Completata la revisione conclusiva del Notebook Docente del Caso Aula della Lezione 4, con verifica della coerenza tra Scheda Caso, Scheda Costruzione, struttura in tappe, output, controlli conclusivi e interpretazione. Il notebook è stato rieseguito integralmente con esito positivo. È stata inoltre riallineata la disciplina degli output computazionali dei notebook: tabelle e grafici restano normalmente incorporati nelle rispettive celle e devono essere rigenerabili mediante riesecuzione; eventuali esportazioni in file esterni sono previste soltanto quando richieste esplicitamente dalla Scheda Caso o da altra specifica di progetto. La nuova regola è stata recepita nelle Guidelines e nei principali documenti operativi e template delle lezioni applicative. |
 | **Materiale sviluppato** | Manuale: contenuto sostanziale per i Capitoli 1-16. Slides: contenuto sostanziale per le Lezioni 1-16. Pacchetti applicativi strutturati per le Lezioni 4, 7, 10, 13 e 16. Codice, notebook, script e asset grafici presenti lungo l'intero corso, inclusi i blocchi di programmazione lineare, ALM e programmazione stocastica. |
 | **Lavoro in corso** | Prosegue la verifica conclusiva di coerenza orizzontale, verticale e incrociata tra capitoli, slides e documenti normativi nei blocchi del corso non ancora sottoposti a passata conclusiva; restano inoltre da completare la validazione tecnica dei notebook applicativi, la compilazione integrale dei sorgenti LaTeX, il controllo dei riferimenti incrociati e la verifica finale dei template e dei materiali operativi. |
-| **Prossima priorità** | Completare le passate conclusive sui blocchi ancora aperti utilizzando il promemoria di raccordo come checklist; aggiornare progressivamente il promemoria eliminando i controlli già conclusi; eseguire la compilazione completa del manuale e dei 16 deck; rieseguire e validare in ambiente pulito i notebook delle Lezioni 4, 7, 10, 13 e 16; completare il controllo di riferimenti incrociati, template IA, asset tecnici e scalette-promemoria. |
+| **Prossima priorità** | Completare le passate conclusive sui blocchi ancora aperti utilizzando il promemoria di raccordo come checklist; aggiornare progressivamente il promemoria eliminando i controlli già conclusi; eseguire la compilazione completa del manuale e dei 16 deck; proseguire la validazione tecnica dei notebook applicativi, completando la riesecuzione in ambiente pulito dei notebook ancora aperti delle Lezioni 7, 10, 13 e 16; completare il controllo di riferimenti incrociati, template IA, asset tecnici e scalette-promemoria. |
 
 ---
 
@@ -26,7 +26,7 @@ Legenda: `sviluppato` = contenuto sostanziale presente; `parziale` = componente 
 
 La classificazione `sviluppato` non equivale a `chiuso`: in questa fase gran parte del corso è sviluppata con taratura o verifica conclusiva residua.
 
-Alla data del 2026-10-18 nessuna lezione viene riclassificata automaticamente come `chiusa`. La classificazione richiede il completamento dei controlli di coerenza, compilabilità e, per le lezioni applicative, esecuzione e riproducibilità dei notebook; gli audit automatici restano strumenti di ricognizione e non costituiscono da soli certificazione di chiusura.
+Alla data del 2026-10-19 nessuna lezione viene riclassificata automaticamente come `chiusa`. La classificazione richiede il completamento dei controlli di coerenza, compilabilità e, per le lezioni applicative, esecuzione e riproducibilità dei notebook; gli audit automatici restano strumenti di ricognizione e non costituiscono da soli certificazione di chiusura.
 
 | Lez. | Tipo | Titolo sintetico | Manuale | Slides | Esercizi/materiali operativi | Grafici | Python/Notebook |
 |---:|:---:|---|:---:|:---:|:---:|:---:|:---:|
@@ -63,7 +63,7 @@ Questa sezione conserva una checklist operativa per il controllo orizzontale, ve
 | Programmazione lineare e dualità | Verificare la continuità tra Lezioni 11-12: formulazione primale, interpretazione economica dei vincoli e dualità devono preparare senza duplicazioni il passaggio all'ALM deterministico. |
 | Asset--Liability Management deterministico | Verificare il raccordo tra Capitolo/Lezione 12 e l'implementazione Python della Lezione 13, con particolare attenzione a variabili, vincoli, unità di misura e interpretazione economica. |
 | Programmazione stocastica | Verificare la progressione Lezioni 14-16: due stadi, EVPI/VSS, ricorso, multistadio, non anticipatività e implementazione Python devono restare distinti e progressivi. |
-| Corrispondenza Python | Verificare che le Lezioni applicative 4, 7, 10, 13 e 16 mantengano coerenza tra architettura didattica delle slides, Scheda Caso, protocollo dei prompt, notebook, tracciato IA, output e valutazione, distinguendo la funzione di regia delle slides dalla sequenza operativa di costruzione del notebook. |
+| Corrispondenza Python | Per la Lezione 4 è stata verificata la coerenza tra Scheda Caso, Scheda Costruzione, protocollo dei prompt, notebook, output e controlli, inclusa la riproducibilità mediante riesecuzione completa. Resta da completare la verifica conclusiva della corrispondenza Python per le Lezioni applicative 7, 10, 13 e 16, mantenendo distinta la funzione di regia delle slides dalla sequenza operativa di costruzione del notebook. |
 | Rischio di credito e risk-neutral | Raccordo verificato tra Capitoli/Lezioni 8-10: coerenti distinzione tra misura fisica e misura risk-neutral, uso delle matrici di transizione, costruzione delle perdite, misure di rischio e simulazione Monte Carlo di portafoglio. |
 
 ---
