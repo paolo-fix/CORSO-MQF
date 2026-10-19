@@ -41,7 +41,8 @@ Le matrici di transizione, la composizione del portafoglio, le LGD e gli altri p
 
 **Riferimenti storici docente:** comunicazioni societarie China Evergrande Group; comunicazioni delle principali agenzie di rating relative ai downgrade del 2021; documentazione relativa al successivo default sulle obbligazioni offshore.
 
-## 3. Domanda quantitativa e obiettivo didattico
+
+## 3. Domanda quantitativa e funzione didattica
 
 ### Domanda quantitativa
 
@@ -86,6 +87,37 @@ Il caso deve inoltre consentire di distinguere:
 - rischio di migrazione e rischio di default;
 - composizione iniziale del portafoglio e EAD;
 - misura del rischio e decisione di gestione della concentrazione.
+
+### Collegamento con le lezioni teoriche precedenti
+
+Il caso applica operativamente i contenuti sviluppati nelle lezioni teoriche precedenti sulle catene di Markov, sulle migrazioni creditizie e sulle misure di rischio. In particolare, utilizza:
+
+- la dinamica markoviana di un processo a stati discreti;
+- matrici di transizione dipendenti dallo stato sistemico;
+- il ruolo dello stato di default assorbente;
+- la distinzione tra dipendenza condizionata e dipendenza incondizionata;
+- la costruzione di perdite individuali e aggregate;
+- la stima empirica di valore atteso, varianza, VaR e CVaR.
+
+### Concetti teorici da rendere osservabili
+
+Il caso deve rendere osservabili:
+
+- la dipendenza tra le probabilità di migrazione e il regime sistemico corrente;
+- l’indipendenza delle migrazioni individuali condizionatamente alla traiettoria del regime comune;
+- la dipendenza incondizionata tra le perdite dei debitori;
+- il carattere assorbente dello stato di default;
+- il legame tra tempo di default, regime sistemico e LGD;
+- il passaggio dalle perdite individuali alla distribuzione della perdita di portafoglio;
+- l’effetto della concentrazione single-name sulle misure di rischio.
+
+### Funzione della simulazione o della procedura computazionale
+
+La simulazione Monte Carlo è necessaria per generare congiuntamente le traiettorie del regime sistemico e dei rating individuali, determinare gli eventuali tempi di default, applicare la funzione di perdita coerente con ciascuna traiettoria e costruire la distribuzione empirica della perdita di portafoglio.
+
+### Ruolo dell’informazione, degli stati, degli scenari o dei vincoli
+
+Il regime sistemico costituisce l’informazione comune che modifica le probabilità di transizione creditizia di tutti i debitori. Gli stati creditizi descrivono l’evoluzione individuale del merito creditizio, mentre le repliche Monte Carlo rappresentano possibili realizzazioni congiunte del sistema. Il vincolo di concentrazione single-name determina il portafoglio alternativo da confrontare con quello iniziale.
 
 ## 4. Specifica teorico-matematica
 

@@ -43,9 +43,45 @@ La domanda quantitativa è:
 
 ## 3. Modello e struttura del problema
 
-### 3.1 Regime sistemico
+### 3.1 Grandezze economico-finanziarie
 
-Si considera il processo
+Per ogni debitore \(i\), \(V_{i,0}\) rappresenta l'investimento iniziale.
+
+Nel caso didattico si assume:
+
+$$
+\operatorname{EAD}_i=V_{i,0}.
+$$
+
+Questa uguaglianza costituisce una semplificazione specifica del caso e non una identificazione generale tra investimento iniziale ed EAD.
+
+La perdita individuale è indicata con \(L_i\), mentre la perdita di portafoglio è
+
+$$
+L^P
+=
+\sum_{i=1}^{36}L_i.
+$$
+
+Il portafoglio iniziale presenta un investimento complessivo pari a
+
+$$
+V_0^P=200
+$$
+
+milioni di dollari.
+
+La posizione Evergrande è pari a
+
+$$
+V_{E,0}=30,
+$$
+
+ossia al \(15\%\) dell'investimento complessivo.
+
+### 3.2 Variabili casuali e stati del modello
+
+Si considera il processo di regime sistemico
 
 $$
 \{M_t\}_{t=0}^{3},
@@ -63,11 +99,9 @@ $$
 M_0=S.
 $$
 
-Le probabilità di transizione sono descritte dalla matrice $Q$ riportata nella Sezione 4.
+Le probabilità di transizione sono descritte dalla matrice \(Q\) riportata nella Sezione 4.
 
-### 3.2 Stati creditizi
-
-Per ogni debitore $i$, il rating evolve secondo
+Per ogni debitore \(i\), il rating evolve secondo
 
 $$
 \{X_{i,t}\}_{t=0}^{4},
@@ -81,7 +115,41 @@ $$
 \{BBB,BB,B,CCC,D\}.
 $$
 
-Lo stato $D$ rappresenta il default ed è assorbente.
+Lo stato \(D\) rappresenta il default ed è assorbente.
+
+Per ogni debitore si definisce inoltre il tempo di default
+
+$$
+\tau_i
+=
+\min
+\left\{
+t\in\{1,\ldots,4\}:
+X_{i,t}=D
+\right\}.
+$$
+
+Se il debitore non entra in default entro l'orizzonte considerato, si pone
+
+$$
+\tau_i>4.
+$$
+
+### 3.3 Eventi, stati informativi e dipendenza
+
+Condizionatamente alla traiettoria
+
+$$
+M_0,M_1,M_2,M_3,
+$$
+
+le migrazioni dei differenti debitori sono indipendenti.
+
+Il regime sistemico è invece comune all'intero portafoglio. Una realizzazione sfavorevole di \(M_t\) modifica simultaneamente le probabilità di downgrade e default di tutti i debitori.
+
+Se il default si verifica durante la transizione da \(t\) a \(t+1\), il regime rilevante per la perdita da default è \(M_t\).
+
+### 3.4 Relazioni strutturali e formule principali
 
 Per ogni trimestre:
 
@@ -104,42 +172,6 @@ P^{(S)},\qquad
 P^{(C)}.
 $$
 
-### 3.3 Dipendenza tra i debitori
-
-Condizionatamente alla traiettoria
-
-$$
-M_0,M_1,M_2,M_3,
-$$
-
-le migrazioni dei differenti debitori sono indipendenti.
-
-Il regime sistemico è invece comune all'intero portafoglio. Una realizzazione sfavorevole di $M_t$ modifica simultaneamente le probabilità di downgrade e default di tutti i debitori.
-
-### 3.4 Tempo di default
-
-Per ogni debitore si definisce
-
-$$
-\tau_i
-=
-\min
-\left\{
-t\in\{1,\ldots,4\}:
-X_{i,t}=D
-\right\}.
-$$
-
-Se il debitore non entra in default entro l'orizzonte considerato, si pone
-
-$$
-\tau_i>4.
-$$
-
-Se il default si verifica durante la transizione da $t$ a $t+1$, il regime rilevante per la perdita da default è $M_t$.
-
-### 3.5 Perdita individuale
-
 Se il debitore non entra in default entro l'orizzonte:
 
 $$
@@ -151,7 +183,7 @@ V_{i,0}
 \tau_i>4,
 $$
 
-dove $V_{i,0}$ è l'investimento iniziale e $\varphi$ è il tasso di perdita migration-based assegnato.
+dove \(\varphi\) è il tasso di perdita migration-based assegnato.
 
 Se invece il debitore entra in default:
 
@@ -164,39 +196,7 @@ V_{i,0}
 \tau_i\leq4.
 $$
 
-Nel caso didattico si assume:
-
-$$
-\operatorname{EAD}_i=V_{i,0}.
-$$
-
-Questa uguaglianza costituisce una semplificazione specifica del caso e non una identificazione generale tra investimento iniziale ed EAD.
-
-La perdita di portafoglio è
-
-$$
-L^P
-=
-\sum_{i=1}^{36}L_i.
-$$
-
-### 3.6 Politica di concentrazione
-
-Il portafoglio iniziale presenta un investimento complessivo pari a
-
-$$
-V_0^P=200
-$$
-
-milioni di dollari.
-
-La posizione Evergrande è pari a
-
-$$
-V_{E,0}=30,
-$$
-
-ossia al $15\%$ dell'investimento complessivo.
+### 3.5 Soglie, target e vincoli
 
 Si considera una politica alternativa che impone
 
@@ -213,9 +213,9 @@ $$
 20.
 $$
 
-La posizione Evergrande viene ridotta da $30$ a $20$ milioni.
+La posizione Evergrande viene ridotta da \(30\) a \(20\) milioni.
 
-I $10$ milioni liberati vengono redistribuiti **esclusivamente** tra le posizioni inizialmente BBB e BB, proporzionalmente ai rispettivi investimenti iniziali.
+I \(10\) milioni liberati vengono redistribuiti **esclusivamente** tra le posizioni inizialmente BBB e BB, proporzionalmente ai rispettivi investimenti iniziali.
 
 Il portafoglio iniziale e quello soggetto al limite devono essere confrontati utilizzando **le stesse traiettorie sistemiche e creditizie simulate**.
 
@@ -519,53 +519,35 @@ Confronto della distribuzione delle perdite del portafoglio iniziale tra scenari
 
 Devono essere verificati almeno i seguenti punti.
 
-1. Ogni riga di $Q$ deve sommare a uno.
+### Controlli numerici
 
-2. Ogni riga di $P^{(N)}$, $P^{(S)}$ e $P^{(C)}$ deve sommare a uno.
+1. Verifica che ogni riga della matrice di transizione di regime \(Q\) sommi a 1.
+2. Verifica che ogni riga delle matrici di migrazione creditizia \(P^{(N)}\), \(P^{(S)}\) e \(P^{(C)}\) sommi a 1.
+3. Verifica che l'investimento complessivo \(V_0^P\) sia pari a 200 milioni di USD in entrambi i portafogli.
+4. Verifica che nel portafoglio soggetto al limite:
+   - la posizione Evergrande sia pari a 20 milioni di USD;
+   - vengano riallocati esattamente 10 milioni di USD;
+   - la riallocazione interessi esclusivamente i gruppi BBB e BB;
+   - sia mantenuta la proporzione relativa originale tra gli investimenti dei gruppi BBB e BB.
+5. Verifica che la perdita aggregata di portafoglio coincida con la somma delle perdite dei singoli debitori.
+6. Verifica che VaR e CVaR siano calcolati direttamente sulle distribuzioni delle perdite monetarie dei due portafogli.
+7. Verifica della stabilità delle stime delle principali misure di rischio all'aumentare delle simulazioni Monte Carlo.
 
-3. Lo stato $D$ deve risultare assorbente in tutte le matrici di migrazione.
+### Controlli logici o teorici
 
-4. Il regime iniziale deve essere
+1. Verifica che lo stato di default \(D\) risulti assorbente in tutte le matrici di migrazione creditizia.
+2. Verifica che il regime sistemico iniziale sia \(M_0=S\) in ogni replica Monte Carlo.
+3. Verifica che all'interno della stessa replica esista una sola traiettoria sistemica, comune a tutti i 36 debitori.
+4. Verifica che, condizionatamente alla traiettoria di regime comune, le estrazioni stocastiche per le migrazioni dei debitori siano indipendenti.
+5. Verifica che il tempo di default \(\tau_i\) coincida esattamente con il primo trimestre di ingresso nello stato \(D\).
+6. Verifica che la LGD applicata in caso di default corrisponda al regime sistemico \(M_{\tau_i-1}\) che governa la transizione verso \(D\).
+7. Verifica che un debitore entrato nello stato \(D\) non possa successivamente uscire dal default.
+8. Verifica che la funzione di perdita migration-based \(\varphi\) sia applicata unicamente ai debitori che non sono entrati in default \((\tau_i>4)\).
 
-$$
-M_0=S
-$$
+### Controlli computazionali
 
-in ogni replica.
-
-5. All'interno della stessa replica deve esistere una sola traiettoria sistemica, comune a tutti i debitori.
-
-6. Condizionatamente al regime comune, le estrazioni utilizzate per le migrazioni individuali devono essere indipendenti tra debitori.
-
-7. Il tempo di default $\tau_i$ deve coincidere con il primo ingresso nello stato $D$.
-
-8. La LGD applicata in caso di default deve corrispondere al regime che governa la transizione verso $D$.
-
-9. Un debitore entrato in $D$ non può successivamente uscire dallo stato di default.
-
-10. La funzione di perdita migration-based deve essere applicata soltanto ai debitori con
-
-$$
-\tau_i>4.
-$$
-
-11. L'investimento complessivo deve essere pari a $200$ milioni in entrambi i portafogli.
-
-12. Nel portafoglio soggetto al limite:
-    - la posizione Evergrande deve essere pari a $20$ milioni;
-    - devono essere riallocati esattamente $10$ milioni;
-    - la riallocazione deve interessare esclusivamente i gruppi BBB e BB;
-    - deve essere mantenuta la proporzione relativa tra gli investimenti iniziali dei due gruppi.
-
-13. Il confronto tra i due portafogli deve utilizzare le stesse traiettorie sistemiche e creditizie.
-
-14. La perdita aggregata deve coincidere con la somma delle perdite individuali.
-
-15. I risultati devono essere riproducibili utilizzando il seed assegnato.
-
-16. Le principali misure di rischio devono mostrare una ragionevole stabilità aumentando il numero delle simulazioni.
-
-17. VaR e CVaR devono essere calcolati sulle distribuzioni delle perdite monetarie dei due portafogli.
+1. Verifica che il confronto tra portafoglio iniziale e portafoglio soggetto al limite utilizzi rigorosamente le medesime traiettorie sistemiche e creditizie simulate.
+2. Verifica la riproducibilità esatta dei risultati numerici impostando il seed 2027.
 
 ---
 
