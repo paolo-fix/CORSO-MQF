@@ -630,27 +630,30 @@ Confronto, per il portafoglio iniziale, tra scenari con e senza ingresso nel reg
 - i due portafogli devono utilizzare gli stessi scenari Monte Carlo;
 - la perdita aggregata deve coincidere con la somma delle perdite individuali;
 - i risultati devono essere riproducibili con il seed assegnato;
+- le principali misure di rischio devono mostrare una ragionevole stabilità all'aumentare del numero di repliche Monte Carlo;
 - VaR e CVaR devono essere calcolati sulle perdite monetarie.
 
 ## 6. Flusso logico-teorico risolutivo atteso
 
 | Passo | Finalità risolutiva | Formula, definizione, proprietà o teorema | Applicazione nel caso | Output o controllo collegato |
 |---:|---|---|---|---|
-| 1 | Costruire il modello probabilistico e la politica di concentrazione | Catene di Markov, probabilità condizionata, indipendenza condizionata, vincolo single-name | Definizione di $M_t$, $X_{i,t}$, matrici, portafoglio iniziale e portafoglio soggetto al limite | Specifica teorico-matematica validata |
-| 2 | Generare gli scenari creditizi con fattore sistemico comune | $\Pr(X_{i,t+1}=j\mid X_{i,t}=k,M_t=m)=p_{kj}^{(m)}$ | Simulazione dei regimi, delle migrazioni e dei tempi di default | Traiettorie simulate e controlli |
-| 3 | Trasformare le traiettorie in perdite monetarie | Perdita migration-based; $\operatorname{EAD}\times\operatorname{LGD}$; LGD dipendente dal regime | Applicazione della perdita non-default o della LGD determinata dal regime al default | Campione delle perdite individuali e di portafoglio |
-| 4 | Stimare e confrontare il rischio dei due portafogli | Distribuzione empirica, valore atteso, dispersione, VaR, CVaR | Stima delle misure e valutazione della politica di concentrazione | Tabelle, grafici e differenze tra misure |
-| 5 | Controllare il modello e interpretare i risultati | Markovianità, omogeneità, indipendenza condizionata, recovery, concentrazione, rischio di modello | Valutazione delle ipotesi, controllo conclusivo e interpretazione della politica di concentrazione | Interpretazione finale e, se emerge una criticità specifica, eventuale verifica in Regime C |
+| 1 | Definire la struttura dei portafogli e la politica di concentrazione | Portafoglio iniziale con $V_0^P=200$ milioni; vincolo single-name pari al $10\%$ dell'investimento complessivo; riallocazione proporzionale dei $10$ milioni liberati dalla riduzione della posizione Evergrande verso i gruppi BBB e BB | Costruzione del portafoglio iniziale e del portafoglio soggetto al limite, mantenendo invariato l'investimento complessivo | Tabelle 1 e 2; controlli sulla composizione e sulla riallocazione |
+| 2 | Rappresentare l'evoluzione del regime sistemico | Catena di Markov $M_t\in\{N,S,C\}$ con stato iniziale $M_0=S$ e matrice di transizione $Q$ | Simulazione della traiettoria trimestrale del regime sistemico comune ai debitori | Probabilità di ingresso nel regime $C$; controlli sulla matrice $Q$, sullo stato iniziale e sulla riproducibilità |
+| 3 | Modellizzare le migrazioni creditizie condizionate al regime | $\Pr(X_{i,t+1}=j\mid X_{i,t}=k,M_t=m)=p_{kj}^{(m)}$; stato $D$ assorbente; indipendenza condizionata delle migrazioni individuali data la traiettoria sistemica comune | Simulazione dei rating dei $36$ debitori mediante la matrice $P^{(M_t)}$ coerente con il regime corrente | Controlli sulle matrici di migrazione, sullo stato assorbente, sulla traiettoria sistemica comune e sull'indipendenza condizionata |
+| 4 | Determinare il default e trasformare le traiettorie creditizie in perdite individuali | $\tau_i=\min\{t\in\{1,\ldots,4\}:X_{i,t}=D\}$; se $\tau_i>4$, $L_i=V_{i,0}\varphi(X_{i,0},X_{i,4})$; se $\tau_i\leq4$, $L_i=V_{i,0}\operatorname{LGD}^{(M_{\tau_i-1})}$ | Identificazione del primo ingresso in default e applicazione della perdita migration-based oppure della LGD dipendente dal regime che governa la transizione verso $D$ | Numero medio di default; controlli sul tempo di default, sulla LGD applicata e sull'esclusività fra perdita migration-based e perdita da default |
+| 5 | Aggregare le perdite individuali e costruire le distribuzioni di portafoglio | $L^P=\sum_{i=1}^{36}L_i$; confronto fra portafoglio iniziale e portafoglio soggetto al limite mediante gli stessi scenari sistemici e creditizi | Costruzione di $L_{\mathrm{base}}^P$, $L_{\mathrm{lim}}^P$ e della differenza scenario per scenario $\Delta L^{(r)}=L_{\mathrm{lim}}^{P,(r)}-L_{\mathrm{base}}^{P,(r)}$ | Distribuzioni empiriche; controlli di additività delle perdite e di accoppiamento degli scenari |
+| 6 | Stimare le misure di rischio e valutare l'effetto del regime sistemico e della politica di concentrazione | Stima di $\mathbb{E}[L^P]$, $\operatorname{Var}(L^P)$, $\sigma(L^P)$, $\operatorname{VaR}_{\alpha}(L^P)$ e $\operatorname{CVaR}_{\alpha}(L^P)$ per $\alpha\in\{0.95,0.99\}$ | Confronto delle misure di rischio tra i due portafogli e analisi della perdita condizionata all'ingresso o meno nel regime $C$ | Tabelle 3 e 4; Figure 1, 2 e 3; controlli sulla stabilità Monte Carlo e sul calcolo di VaR e CVaR |
 
 ## 7. Scomposizione attesa in tappe
 
 | Tappa | Titolo | Obiettivo | Input | Regime IA prevalente | Prompt virtuoso di riferimento | Oggetti teorici coinvolti | Operazione | Output | Controllo | Uso successivo |
 |---:|---|---|---|:---:|---|---|---|---|---|---|
-| 1 | Modello teorico e politica di concentrazione | Formalizzare il modello probabilistico, la funzione di perdita e la politica di concentrazione | Scheda Caso | A | Prompt tappa 1 | Catene di Markov, probabilità condizionata, indipendenza condizionata, tempo di default, EAD, LGD, perdita da migrazione, vincolo single-name | Identificare i due processi markoviani, il ruolo del tempo di default, la LGD dipendente dal regime, i due portafogli e le quantità finali | Specifica teorico-matematica e algoritmo concettuale | Coerenza con la Scheda Caso; distinzione investimento/EAD; corretta definizione della politica di concentrazione | Base vincolante della simulazione |
-| 2 | Simulazione delle traiettorie e dei default | Generare scenari coerenti di regime sistemico, rating e default | $Q$, $P^{(N)}$, $P^{(S)}$, $P^{(C)}$, rating iniziali, $N_{\mathrm{MC}}$, seed | B | Prompt tappa 2 | Catene di Markov, matrice di transizione, stato assorbente, indipendenza condizionata | Simulare regime sistemico, migrazioni creditizie e primo ingresso nel default | Regimi, stati finali, tempi e regimi di default | Matrici stocastiche; default assorbente; regime comune; indipendenza condizionata | Costruzione delle perdite |
-| 3 | Costruzione delle perdite | Trasformare le traiettorie simulate in perdite individuali e di portafoglio per le due allocazioni | Traiettorie simulate, investimenti, funzione $\varphi$, LGD per regime | B | Prompt tappa 3 | Perdita migration-based, EAD, LGD, aggregazione di portafoglio, riallocazione dell'investimento | Calcolare le perdite migration-based o da default; costruire i due vettori di investimento e aggregare | $L_{\mathrm{base}}^{P,(r)}$, $L_{\mathrm{lim}}^{P,(r)}$, $\Delta L^{(r)}$ | Corretta LGD al default; investimento totale invariato; stessi scenari nei due portafogli | Stima delle distribuzioni |
-| 4 | Distribuzioni e misure di rischio | Stimare e confrontare le distribuzioni di perdita e le principali misure di rischio | Campioni delle perdite e informazioni sui regimi | B | Prompt tappa 4 | Distribuzione empirica, valore atteso, varianza, VaR, CVaR, condizionamento per evento | Stimare distribuzioni, perdita media, dispersione, VaR e CVaR; confrontare i portafogli e gli scenari sistemici | Tabelle, grafici e variazioni delle misure di rischio | Coerenza VaR/CVaR; stabilità Monte Carlo; corretta lettura del confronto | Interpretazione finanziaria |
-| 5 | Controlli conclusivi | Verificare la coerenza complessiva del notebook rispetto alla Scheda Caso e agli output richiesti | Notebook completo, risultati, controlli e ipotesi | — | Nessun prompt obbligatorio; eventuale Prompt C sulla tappa interessata | Ipotesi modellistiche, rischio di modello e coerenza interna | Svolgere i controlli conclusivi; ricorrere al Regime C solo se emerge una criticità specifica da verificare | Notebook validato ed eventuale correzione delle celle interessate | Coerenza notebook-Scheda Caso; distinzione modello/realtà storica; se viene attivato il Regime C, criticità accolta oppure respinta | Base verificata per l'interpretazione finanziaria finale autonoma dello studente |
+| 1 | Parametri e strutture del modello | Tradurre in strutture computazionali i parametri assegnati e verificarne la coerenza formale | Matrice $Q$, matrici $P^{(N)}$, $P^{(S)}$, $P^{(C)}$, matrice $\varphi$, LGD, $N_{\mathrm{MC}}$, $T$, seed | B | Prompt tappa 1 | Matrici di transizione, probabilità di transizione, stato assorbente, funzione di perdita, LGD | Inizializzare le strutture NumPy/Pandas e verificare le proprietà delle matrici | Strutture dati contenenti la calibrazione vincolante del modello | Somme di riga pari a 1 e stato $D$ assorbente | Input per la costruzione dei portafogli e per la simulazione |
+| 2 | Costruzione dei due portafogli | Costruire il portafoglio iniziale e quello soggetto al limite di concentrazione | Composizione iniziale, investimenti $V_{i,0}$, limite single-name del $10\%$, regola di riallocazione | B | Prompt tappa 2 | Investimento iniziale, concentrazione single-name, riallocazione proporzionale | Costruire i vettori $V_{\mathrm{base}}$ e $V_{\mathrm{lim}}$ e le relative tabelle | Tabelle 1 e 2; vettori degli investimenti dei due portafogli | Investimento totale invariato, Evergrande a 20 milioni, riallocazione di 10 milioni esclusivamente a BBB e BB e mantenimento delle proporzioni | Input monetario per il calcolo delle perdite |
+| 3 | Simulazione delle traiettorie sistemiche e creditizie | Generare scenari con regime sistemico comune, migrazioni individuali e tempi di default | Seed, $N_{\mathrm{MC}}$, $T$, $M_0=S$, $Q$, matrici $P^{(m)}$, rating iniziali | B | Prompt tappa 3 | Catena di Markov, migrazioni condizionate al regime, indipendenza condizionata, stato assorbente, tempo di default | Simulare per ogni replica la traiettoria $M_t$, le traiettorie $X_{i,t}$ e il primo ingresso nello stato $D$ | Traiettorie sistemiche e creditizie e tempi di default $\tau_i$ | Stato iniziale corretto, regime comune, indipendenza condizionata, primo ingresso nel default, riproducibilità | Input per la determinazione delle perdite individuali |
+| 4 | Perdite individuali e di portafoglio | Trasformare le traiettorie simulate in perdite monetarie per le due configurazioni di portafoglio | Traiettorie $M$, $X$, $\tau$, $V_{\mathrm{base}}$, $V_{\mathrm{lim}}$, $\varphi$, LGD | B | Prompt tappa 4 | Perdita migration-based, EAD, LGD dipendente dal regime, aggregazione di portafoglio, Common Random Numbers | Applicare la funzione di perdita corretta a ciascun debitore e aggregare le perdite individuali | $L_{\mathrm{base}}^P$, $L_{\mathrm{lim}}^P$, $\Delta L^{(r)}$ e numero di default per replica | Corretta LGD al default, esclusività tra perdita migration-based e perdita da default, stessi scenari nei due portafogli, additività delle perdite | Input per le misure di rischio e le analisi condizionate |
+| 5 | Misure di rischio e analisi condizionata | Stimare le principali misure di rischio e quantificare l'effetto del regime sistemico | Campioni $L_{\mathrm{base}}^P$, $L_{\mathrm{lim}}^P$, $\Delta L^{(r)}$ e traiettorie $M$ | B | Prompt tappa 5 | Distribuzione empirica, valore atteso, varianza, deviazione standard, VaR, CVaR, condizionamento per evento | Calcolare statistiche, VaR e CVaR, probabilità di ingresso in $C$, numero medio di default e perdite medie condizionate | Tabelle 3 e 4 e misure sintetiche richieste | Stabilità Monte Carlo e coerenza del calcolo di VaR e CVaR | Input per la rappresentazione grafica e i controlli conclusivi |
+| 6 | Rappresentazione grafica e controlli conclusivi | Produrre gli output grafici richiesti e verificare complessivamente l'esecuzione dei controlli previsti | Distribuzioni simulate, differenze di perdita, indicatori di crisi e risultati delle tappe precedenti | B | Prompt tappa 6 | Distribuzioni empiriche, misure di coda, confronto tra scenari e portafogli | Generare le Figure 1, 2 e 3 e ricostruire l'esito complessivo dei controlli | Figure 1, 2 e 3 e sintesi dei controlli effettuati | Verifica complessiva dei controlli della Scheda Caso e coerenza degli output prodotti | Base quantitativa verificata per l'interpretazione finanziaria finale autonoma dello studente |
 
 ## 8. Sequenza docente dei prompt e mappa prompt-notebook
 
@@ -674,16 +677,18 @@ La corrispondenza tra prompt, tappe e notebook è riportata nella tabella seguen
 | Prompt 1 | — | Apertura | Acquisire la Scheda Caso come specifica vincolante e produrre l'inquadramento iniziale | Cella Markdown iniziale con contesto, domanda quantitativa e specifica del caso | Coerenza con la Scheda Caso e assenza di anticipazioni della soluzione |
 | Prompt 2 | A | Progettazione teorica | Verificare, completare e ordinare il Flusso logico-teorico risolutivo proposto | Cella Markdown con il Flusso logico-teorico risolutivo validato | Coerenza tra passaggi teorici, output e controlli |
 | Prompt 3 | A/B | Progettazione operativa | Verificare, completare e ordinare la scomposizione del notebook in tappe input-output | Cella Markdown con la scomposizione operativa validata | Coerenza dei collegamenti input-output e copertura degli output e controlli richiesti |
-| Prompt tappa 1 | A | Tappa 1 | Formalizzare il modello teorico e la politica di concentrazione senza produrre codice | Celle Markdown di impostazione teorico-matematica | Correttezza del modello, della LGD dipendente dal regime e della politica di concentrazione |
-| Prompt tappa 2 | B | Tappa 2 | Tradurre la specifica validata nell'algoritmo di simulazione delle traiettorie e dei default | Celle Markdown e codice per simulazione di regimi, rating e default | Corretta implementazione delle traiettorie, dello stato assorbente e del regime comune |
-| Prompt tappa 3 | B | Tappa 3 | Implementare la trasformazione delle traiettorie in perdite e costruire i due portafogli | Celle Markdown e codice per perdite individuali, due portafogli e aggregazione | Coerenza perdita-regime-investimento, corretta LGD e corretta applicazione del limite |
-| Prompt tappa 4 | B | Tappa 4 | Costruire distribuzioni, misure di rischio, tabelle e grafici previsti | Celle Markdown, codice, tabelle e grafici per distribuzioni e misure di rischio | Corretta implementazione di VaR/CVaR, stabilità Monte Carlo e corretto confronto tra portafogli |
+| Prompt tappa 1 | B | Tappa 1 | Tradurre i parametri assegnati nelle strutture computazionali del modello e verificarne la coerenza formale | Celle Markdown e codice per matrici, parametri e controlli preliminari | Corretta implementazione di $Q$, delle matrici $P^{(m)}$, della funzione $\varphi$, delle LGD e dello stato assorbente |
+| Prompt tappa 2 | B | Tappa 2 | Costruire il portafoglio iniziale e quello soggetto al limite di concentrazione | Celle Markdown, codice e Tabelle 1 e 2 | Investimento totale invariato, posizione Evergrande pari a 20 milioni e corretta riallocazione dei 10 milioni verso BBB e BB |
+| Prompt tappa 3 | B | Tappa 3 | Implementare la simulazione delle traiettorie sistemiche e creditizie e identificare i tempi di default | Celle Markdown e codice per simulazione di regime, rating e default | Stato iniziale corretto, regime sistemico comune, indipendenza condizionata, default assorbente e riproducibilità |
+| Prompt tappa 4 | B | Tappa 4 | Trasformare le traiettorie simulate in perdite individuali e aggregate per i due portafogli | Celle Markdown e codice per funzione di perdita, LGD, aggregazione e $\Delta L^{(r)}$ | Corretta applicazione della LGD, esclusività tra perdita migration-based e perdita da default, stessi scenari nei due portafogli e additività delle perdite |
+| Prompt tappa 5 | B | Tappa 5 | Calcolare le misure di rischio e sviluppare l'analisi condizionata al regime sistemico | Celle Markdown, codice, Tabelle 3 e 4 e misure sintetiche | Corretta implementazione di media, varianza, deviazione standard, VaR, CVaR, probabilità di crisi e perdite condizionate |
+| Prompt tappa 6 | B | Tappa 6 | Produrre gli output grafici richiesti e completare la ricognizione dei controlli | Celle Markdown, codice, Figure 1, 2 e 3 e sintesi conclusiva dei controlli | Coerenza dei grafici con gli output numerici e verifica complessiva dei controlli previsti dalla Scheda Caso |
 | Prompt C eventuale | C | Tappa interessata | Verificare una criticità specifica già individuata dallo studente | Eventuale sostituzione delle celle coinvolte | Criticità accolta oppure respinta |
 
 
 ## 9. Struttura attesa del notebook
 
-Il notebook deve riflettere direttamente le cinque tappe risolutive. Ogni tappa può produrre più celle, purché rimanga riconoscibile come modulo logico unitario.
+Il notebook deve riflettere direttamente la scomposizione operativa validata attraverso il Prompt 3. Nel presente caso, tale scomposizione è articolata in sei tappe operative. Ogni tappa può produrre più celle Markdown, codice e output, purché rimanga riconoscibile come modulo logico unitario.
 
 ### Apertura del notebook
 
@@ -698,75 +703,98 @@ Dopo la cella iniziale prodotta con il Prompt 1, il notebook deve riportare:
 
 Queste due celle documentano le decisioni di progettazione che governano lo sviluppo successivo del notebook e devono precedere le celle operative delle singole tappe.
 
-### Tappa 1 — Modello teorico e politica di concentrazione
+### Tappa 1 — Parametri e strutture del modello
 
-**Prompt di riferimento:** Prompt tappa 1 — Regime A.
+**Prompt di riferimento:** Prompt tappa 1 — Regime B.
 
-- Cella Markdown: definizione del processo sistemico $M_t$.
-- Cella Markdown: definizione dei processi creditizi $X_{i,t}$.
-- Cella Markdown: interpretazione di $Q$ e delle matrici $P^{(N)}$, $P^{(S)}$, $P^{(C)}$.
-- Cella Markdown: indipendenza condizionata e dipendenza incondizionata.
-- Cella Markdown: definizione del tempo di default $\tau_i$.
-- Cella Markdown: distinzione tra perdita da migrazione e perdita da default.
-- Cella Markdown: relazione tra investimento iniziale ed EAD come ipotesi specifica del caso.
-- Cella Markdown: portafoglio iniziale e politica del limite single-name.
-- Cella Markdown: algoritmo concettuale della simulazione.
+- Cella Markdown: funzione della tappa e richiamo dei parametri vincolanti.
+- Cella codice: definizione degli stati sistemici e creditizi.
+- Cella codice: definizione della matrice $Q$.
+- Cella codice: definizione delle matrici $P^{(N)}$, $P^{(S)}$, $P^{(C)}$.
+- Cella codice: definizione della matrice $\varphi$ dei tassi di perdita migration-based.
+- Cella codice: definizione delle LGD per regime.
+- Cella codice: impostazione di $N_{\mathrm{MC}}$, $T$ e seed.
+- Output: controlli sulle somme di riga delle matrici.
+- Output: controllo dello stato $D$ assorbente.
 
-### Tappa 2 — Simulazione delle traiettorie e dei default
+### Tappa 2 — Costruzione dei due portafogli
 
 **Prompt di riferimento:** Prompt tappa 2 — Regime B.
 
-- Cella codice: definizione degli stati e delle matrici.
-- Cella codice: controlli sulle matrici.
-- Cella codice: costruzione del portafoglio iniziale.
-- Cella codice: impostazione del seed e di $N_{\mathrm{MC}}$.
-- Cella codice: simulazione delle traiettorie sistemiche.
-- Cella codice: simulazione delle traiettorie creditizie.
-- Cella codice: individuazione del primo ingresso nello stato $D$.
-- Cella codice: registrazione del regime che ha governato ciascun default.
-- Output sintetico: alcune traiettorie campione.
-- Output: controlli sugli stati e sui default.
+- Cella Markdown: struttura del portafoglio iniziale e regola del limite single-name.
+- Cella codice: costruzione del vettore degli investimenti iniziali.
+- Cella codice: applicazione del limite del $10\%$ alla posizione Evergrande.
+- Cella codice: riallocazione dei $10$ milioni liberati esclusivamente verso BBB e BB secondo la regola proporzionale assegnata.
+- Output: Tabella 1 — portafoglio iniziale.
+- Output: Tabella 2 — portafoglio soggetto al limite.
+- Controllo: investimento totale pari a $200$ milioni in entrambi i portafogli.
+- Controllo: posizione Evergrande pari a $20$ milioni nel portafoglio soggetto al limite.
+- Controllo: riallocazione complessiva pari a $10$ milioni e rispetto delle proporzioni assegnate.
 
-### Tappa 3 — Costruzione delle perdite
+### Tappa 3 — Simulazione delle traiettorie sistemiche e creditizie
 
 **Prompt di riferimento:** Prompt tappa 3 — Regime B.
 
-- Cella Markdown: funzione di perdita migration-based e LGD dipendente dal regime.
-- Cella codice: implementazione della matrice delle perdite non-default.
-- Cella codice: associazione della corretta LGD ai debitori in default.
-- Cella codice: costruzione del vettore degli investimenti iniziali.
-- Cella codice: costruzione del vettore soggetto al limite di concentrazione.
-- Output: controllo dell'investimento totale e della riallocazione.
-- Cella codice: perdite individuali e aggregate del portafoglio iniziale.
-- Cella codice: perdite individuali e aggregate del portafoglio soggetto al limite.
-- Output: campioni delle due perdite.
-- Output: $\Delta L^{(r)}$.
+- Cella codice: inizializzazione del generatore casuale mediante seed assegnato.
+- Cella codice: simulazione della traiettoria sistemica $M_t$ per ciascuna replica.
+- Cella codice: simulazione delle traiettorie creditizie mediante la matrice $P^{(M_t)}$ coerente con il regime corrente.
+- Cella codice: identificazione del primo ingresso nello stato $D$.
+- Cella codice: registrazione del tempo di default $\tau_i$ e del regime che governa la transizione verso $D$.
+- Output sintetico: eventuali traiettorie campione utili alla verifica del meccanismo.
+- Controllo: $M_0=S$ in ogni replica.
+- Controllo: unicità della traiettoria sistemica comune ai $36$ debitori.
+- Controllo: indipendenza delle estrazioni individuali condizionatamente alla traiettoria comune.
+- Controllo: permanenza nello stato assorbente dopo il default.
+- Controllo: riproducibilità con seed $2027$.
 
-### Tappa 4 — Distribuzioni e misure di rischio
+### Tappa 4 — Perdite individuali e di portafoglio
 
 **Prompt di riferimento:** Prompt tappa 4 — Regime B.
 
-- Cella Markdown: convenzioni operative per perdita attesa, VaR e CVaR.
-- Cella codice: costruzione delle distribuzioni empiriche.
-- Cella codice: perdita media, varianza e deviazione standard.
-- Cella codice: $VaR_{0.95}$, $CVaR_{0.95}$, $VaR_{0.99}$, $CVaR_{0.99}$.
-- Output: tabella comparativa.
-- Cella codice/output: distribuzione della perdita del portafoglio iniziale.
-- Cella codice/output: confronto delle code dei due portafogli.
-- Cella codice/output: confronto tra scenari con e senza ingresso nel regime $C$.
-- Controllo: stabilità delle stime rispetto al numero di repliche.
+- Cella Markdown: distinzione tra perdita migration-based e perdita da default.
+- Cella codice: applicazione di $\varphi(X_{i,0},X_{i,4})$ ai debitori che non entrano in default entro l'orizzonte.
+- Cella codice: applicazione della $\operatorname{LGD}^{(M_{\tau_i-1})}$ ai debitori che entrano in default.
+- Cella codice: calcolo delle perdite individuali.
+- Cella codice: aggregazione delle perdite del portafoglio iniziale.
+- Cella codice: aggregazione delle perdite del portafoglio soggetto al limite utilizzando gli stessi scenari.
+- Cella codice: calcolo di $\Delta L^{(r)}$.
+- Controllo: corretta LGD associata al regime che governa la transizione nel default.
+- Controllo: esclusività tra perdita migration-based e perdita da default.
+- Controllo: uso degli stessi scenari nei due portafogli.
+- Controllo: riconciliazione tra perdite individuali e perdita aggregata.
 
-### Tappa 5 — Controlli conclusivi e interpretazione
+### Tappa 5 — Misure di rischio e analisi condizionata
 
-**Prompt di riferimento:** nessun prompt obbligatorio. Il Regime C può essere attivato soltanto in presenza di una criticità specifica individuata dallo studente.
+**Prompt di riferimento:** Prompt tappa 5 — Regime B.
 
-- Cella Markdown: controlli conclusivi sulla coerenza tra notebook e Scheda Caso.
-- Cella Markdown: interpretazione finanziaria finale formulata autonomamente dallo studente.
-- Se emerge una criticità specifica, eventuale Prompt C riferito alla tappa interessata.
-- Classificazione dell'eventuale verifica: criticità accolta oppure criticità respinta.
-- Se la criticità viene accolta, sostituzione delle celle interessate con versioni corrette.
+- Cella Markdown: convenzioni operative per perdita media, varianza, deviazione standard, VaR e CVaR.
+- Cella codice: calcolo delle statistiche descrittive per i due portafogli.
+- Cella codice: calcolo di $VaR_{0.95}$, $CVaR_{0.95}$, $VaR_{0.99}$ e $CVaR_{0.99}$.
+- Cella codice: calcolo dei differenziali $\Delta\rho$.
+- Cella codice: probabilità simulata di ingresso nel regime $C$.
+- Cella codice: numero medio di default.
+- Cella codice: perdite medie condizionate agli scenari con e senza ingresso nel regime $C$.
+- Output: Tabella 3 — misure di rischio.
+- Output: Tabella 4 — regime sistemico e perdita.
+- Controllo: VaR e CVaR calcolati sulle perdite monetarie.
+- Controllo: ragionevole stabilità delle principali stime al crescere del numero di repliche.
 
-L'interpretazione deve distinguere almeno:
+### Tappa 6 — Rappresentazione grafica e controlli conclusivi
+
+**Prompt di riferimento:** Prompt tappa 6 — Regime B.
+
+- Cella codice/output: Figura 1 — distribuzione della perdita del portafoglio iniziale con indicazione di VaR 95% e VaR 99%.
+- Cella codice/output: Figura 2 — confronto delle code delle distribuzioni dei due portafogli.
+- Cella codice/output: Figura 3 — confronto delle perdite negli scenari con e senza ingresso nel regime $C$.
+- Cella Markdown: ricognizione complessiva dell'esito dei controlli richiesti dalla Scheda Caso.
+- Controllo: coerenza tra grafici, tabelle e risultati numerici.
+- Controllo: verifica conclusiva della copertura degli output e dei controlli previsti.
+
+### Interpretazione finanziaria finale dello studente
+
+Dopo il completamento e la validazione delle sei tappe operative, il notebook deve contenere una cella Markdown dedicata all'interpretazione finanziaria finale.
+
+L'interpretazione deve essere formulata autonomamente dallo studente e deve distinguere almeno:
 
 - ruolo del regime sistemico nelle migrazioni;
 - ruolo del regime sistemico nella severità del default;
@@ -777,6 +805,8 @@ L'interpretazione deve distinguere almeno:
 - assenza di dominanza scenario per scenario tra le due allocazioni;
 - limiti delle matrici omogenee e delle LGD deterministiche per regime;
 - differenza tra modello didattico ex ante e successivi eventi storici.
+
+Per questa fase non è previsto un prompt IA obbligatorio. L'eventuale Regime C può essere attivato soltanto se lo studente individua una criticità specifica da verificare; l'IA non deve produrre, riscrivere o completare l'interpretazione finale al posto dello studente.
 
 ## 10. Criteri di validazione del notebook
 
