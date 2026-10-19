@@ -1,4 +1,4 @@
-﻿# Istruzioni per lo studente — Uso virtuoso dell’IA nei casi applicativi MQF
+# Istruzioni per lo studente — Uso virtuoso dell’IA nei casi applicativi MQF
 
 <style>
 .prompt-docente {
