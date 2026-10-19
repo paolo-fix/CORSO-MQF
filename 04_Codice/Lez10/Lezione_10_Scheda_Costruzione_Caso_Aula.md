@@ -775,7 +775,7 @@ Queste due celle documentano le decisioni di progettazione che governano lo svil
 - Cella codice: definizione degli stati sistemici e creditizi.
 - Cella codice: definizione della matrice $Q$.
 - Cella codice: definizione delle matrici $P^{(N)}$, $P^{(S)}$, $P^{(C)}$.
-- Cella codice: definizione della matrice $\varphi$ dei tassi di perdita migration-based.
+- Cella codice: definizione della funzione di perdita $\varphi$, rappresentata mediante la tabella dei tassi di perdita migration-based.
 - Cella codice: definizione delle LGD per regime.
 - Cella codice: impostazione di $N_{\mathrm{MC}}$, $T$ e seed.
 - Output: controlli sulle somme di riga delle matrici.
