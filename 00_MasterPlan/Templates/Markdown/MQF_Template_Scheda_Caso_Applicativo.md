@@ -128,6 +128,10 @@ Gli output devono avere una funzione informativa, diagnostica o interpretativa e
 
 Non devono essere richiesti grafici o tabelle puramente decorativi.
 
+Salvo diversa indicazione esplicita, le tabelle e i grafici richiesti devono essere prodotti come output delle rispettive celle del notebook e devono essere rigenerabili mediante riesecuzione delle celle.
+
+La richiesta di una tabella o di un grafico non implica automaticamente la creazione di un file esterno. Eventuali esportazioni in CSV, XLSX, PNG o altri formati devono essere indicate esplicitamente nella Scheda Caso quando costituiscono parte del prodotto richiesto.
+
 ---
 
 ## 7. Controlli richiesti

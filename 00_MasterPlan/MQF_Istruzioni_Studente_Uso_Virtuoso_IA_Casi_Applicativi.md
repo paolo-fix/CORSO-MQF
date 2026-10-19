@@ -63,6 +63,10 @@ Per un caso applicativo con uso documentato dell’IA devi consegnare:
 2. stampa PDF della chat IA utilizzata per il lavoro;
 3. eventuali file aggiuntivi richiesti dal docente.
 
+Le tabelle, i grafici e gli altri output computazionali prodotti durante l'esecuzione del notebook restano normalmente incorporati nel notebook stesso e devono essere rigenerabili mediante riesecuzione delle celle.
+
+Non devono essere consegnati come file esterni separati, salvo che la Scheda Caso o il docente richiedano esplicitamente un'esportazione in un formato specifico.
+
 Il Jupyter Notebook deve aprirsi con la cella Markdown iniziale prodotta in risposta al Prompt 1 e verificata dallo studente.
 
 La stampa PDF della chat IA costituisce il tracciato dell’interazione con l’IA.

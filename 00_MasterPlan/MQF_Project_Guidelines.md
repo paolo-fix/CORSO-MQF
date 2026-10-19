@@ -299,6 +299,22 @@ FONT_SIZES = {
 
 I valori possono essere adattati alle esigenze della singola figura.
 
+
+### Gestione degli output computazionali dei notebook
+
+Le tabelle e i grafici prodotti dinamicamente dai notebook delle lezioni applicative costituiscono output computazionali delle rispettive celle.
+
+In via ordinaria:
+
+1. le tabelle devono essere visualizzate direttamente nel notebook e devono essere rigenerabili mediante la riesecuzione delle celle;
+2. i grafici devono essere visualizzati direttamente nel notebook e devono essere rigenerabili mediante la riesecuzione delle celle;
+3. tabelle e grafici non devono essere esportati automaticamente come file esterni;
+4. non devono essere create directory di output dedicate al solo scopo di salvare automaticamente tabelle o grafici prodotti durante l'esecuzione del notebook;
+5. l'esportazione in formati esterni, quali CSV, XLSX, PNG o altri formati, deve avvenire soltanto quando sia richiesta esplicitamente dalla Scheda Caso o da un'altra specifica di progetto per una finalità determinata;
+6. un grafico del notebook destinato successivamente al Manuale o alle Slides diventa un asset stabile soltanto quando viene selezionato esplicitamente e prodotto secondo le regole previste per la cartella condivisa `/graphics/`.
+
+La riproducibilità degli output computazionali deve essere verificata mediante riesecuzione completa del notebook, non mediante la presenza sul dispositivo di file esterni generati in precedenza.
+
 ## 9. Manuale del corso
 
 Il manuale deve essere il riferimento scientifico principale. Ogni capitolo deve essere autosufficiente, ma collegato agli altri capitoli.
