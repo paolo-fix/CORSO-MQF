@@ -118,6 +118,10 @@ La sequenza deve essere coerente con la Scheda Caso, con il Flusso logico-teoric
 
 [Indicare l'ordine delle celle Markdown, delle celle codice, degli output e dei controlli.]
 
+Salvo diversa indicazione esplicita, le tabelle e i grafici previsti devono essere prodotti come output delle rispettive celle del notebook e devono essere rigenerabili mediante riesecuzione delle celle.
+
+Non devono essere previste automaticamente directory di output o esportazioni in file esterni. Eventuali esportazioni in CSV, XLSX, PNG o altri formati devono essere motivate da una finalità specifica del caso e indicate esplicitamente nella progettazione.
+
 ## 10. Criteri di validazione del notebook
 
 Il notebook è considerato valido se:

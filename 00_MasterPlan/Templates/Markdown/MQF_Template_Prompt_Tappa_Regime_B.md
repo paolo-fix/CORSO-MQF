@@ -51,3 +51,7 @@ L'output atteso è composto da:
 - una cella di codice Python da eseguire per produrre gli output e i controlli richiesti.
 
 Il codice deve utilizzare soltanto gli input disponibili alla tappa corrente e deve rendere verificabili i controlli richiesti.
+
+Le tabelle e i grafici prodotti dalla procedura devono essere visualizzati come output delle rispettive celle del notebook e devono essere rigenerabili mediante riesecuzione delle celle.
+
+Non introdurre automaticamente salvataggi su file, directory di output, esportazioni in CSV, XLSX, PNG o altri formati, salvo che tale esportazione sia richiesta esplicitamente dalla Scheda Caso o dalla specifica della tappa.
