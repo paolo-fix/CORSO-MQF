@@ -148,7 +148,7 @@ Il caso TakeHome deve rendere osservabili, mediante simulazione, i seguenti conc
 
 ### Funzione della simulazione
 
-La simulazione Monte Carlo consente di costruire artificialmente un campione di scenari energetici coerente con una specifica teorica fissata.
+La simulazione Monte Carlo consente di costruire artificialmente un campione di realizzazioni simulate coerente con una specifica teorica fissata.
 
 La finalità non è produrre una previsione del prezzo dell’energia, ma mostrare come una struttura probabilistica condizionata si traduca in:
 
@@ -183,11 +183,11 @@ Il prodotto finale è un notebook Jupyter che produce:
 1. simulazione degli eventi della partizione;
 2. simulazione del prezzo dell’energia condizionato agli eventi;
 3. calcolo del costo energetico, del margine e dello shortfall;
-4. distribuzione empirica dello shortfall;
-5. stime di media, quantili e probabilità di superamento soglia;
+4. analisi descrittiva di $P_E$, $M$ e $S$, con i relativi output grafici richiesti;
+5. stime della media dello shortfall, dei quantili e delle probabilità di superamento soglia;
 6. valori attesi condizionati per regime;
 7. verifica empirica della formula del valore atteso totale;
-8. interpretazione critica del ruolo dell’informazione di scenario.
+8. interpretazione critica del ruolo dell’informazione di regime.
 
 ---
 
@@ -503,12 +503,12 @@ La simulazione non deve essere interpretata come previsione del prezzo dell’en
 4. Tabella delle soglie implicite $P_E>120$ e $P_E>140$.
 5. Tabella delle frequenze simulate degli eventi.
 6. Tabella di controllo delle statistiche empiriche di $P_E\mid A_g$.
-7. Tabella descrittiva dello shortfall $S$:
+7. Tabella descrittiva delle grandezze principali $P_E$, $M$ e $S$, comprendente almeno:
    - media;
    - deviazione standard;
    - minimo;
    - massimo;
-   - quantili principali.
+   - principali quantili o altre statistiche descrittive utili alla lettura delle rispettive distribuzioni.
 8. Tabella delle probabilità:
    - $\widehat{\mathbb{P}}(S>0)$;
    - $\widehat{\mathbb{P}}(S>s^\star)$.
@@ -522,13 +522,14 @@ La simulazione non deve essere interpretata come previsione del prezzo dell’en
 ### Grafici
 
 1. Istogramma o densità empirica del prezzo dell’energia $P_E$.
-2. Istogramma o densità empirica dello shortfall $S$.
-3. Grafico della distribuzione empirica di $S$ con evidenza della soglia $s^\star$.
-4. Grafico della massa in zero di $S$.
-5. Grafico delle medie condizionate $\widehat{\mathbb{E}}[S\mid A_g]$.
-6. Confronto tra distribuzioni condizionate dello shortfall.
-7. Eventuale confronto tra distribuzioni condizionate del prezzo dell’energia.
-8. Eventuale ECDF dello shortfall.
+2. Istogramma o densità empirica del margine operativo $M$.
+3. Istogramma o densità empirica dello shortfall $S$.
+4. Grafico della distribuzione empirica di $S$ con evidenza della soglia $s^\star$.
+5. Grafico della massa in zero di $S$.
+6. Grafico delle medie condizionate $\widehat{\mathbb{E}}[S\mid A_g]$.
+7. Confronto tra distribuzioni condizionate dello shortfall.
+8. Eventuale confronto tra distribuzioni condizionate del prezzo dell’energia.
+9. Eventuale ECDF dello shortfall.
 
 ### Stime, indicatori o quantità numeriche
 
@@ -596,11 +597,11 @@ Il suo compito non è descrivere il codice, né anticipare la scomposizione oper
 |---:|---|---|---|---|
 | 1 | Identificare la variabile economica finale e il legame con il fattore di rischio | Shortfall come variabile casuale derivata: $S=(m^\star-M)^+$, con $M=G_0-Q_E P_E$ | La quantità di interesse è lo shortfall $S$, determinato dal prezzo dell’energia tramite costo energetico e margine operativo. | Formula da implementare; controllo $S\ge 0$; distinzione tra prezzo, costo, margine e shortfall. |
 | 2 | Definire le soglie di rischio e tradurle nel fattore di rischio | Eventi $\{S>0\}$ e $\{S>s^\star\}$; equivalenze $S>0 \Longleftrightarrow P_E>(G_0-m^\star)/Q_E$ e $S>s^\star \Longleftrightarrow P_E>(G_0-m^\star+s^\star)/Q_E$ | Le soglie monetarie diventano soglie implicite sul prezzo unitario dell’energia. | Calcolo delle soglie $120$ e $140$ euro/MWh; output $\widehat{\mathbb{P}}(S>0)$ e $\widehat{\mathbb{P}}(S>s^\star)$. |
-| 3 | Rappresentare l’informazione di scenario | Partizione di $\Omega$: $\Omega=A_1\cup A_2\cup A_3$, $A_i\cap A_j=\emptyset$ per $i\neq j$; probabilità $p_g=\mathbb{P}(A_g)$, $\sum_g p_g=1$ | I tre eventi rappresentano regimi del mercato energetico e le loro probabilità guidano l’estrazione Monte Carlo del regime. | Tabella degli eventi e delle probabilità; controllo $\sum_g p_g=1$; frequenze empiriche $\widehat{\mathbb{P}}(A_g)$. |
+| 3 | Rappresentare l’informazione di regime | Partizione di $\Omega$: $\Omega=A_1\cup A_2\cup A_3$, $A_i\cap A_j=\emptyset$ per $i\neq j$; probabilità $p_g=\mathbb{P}(A_g)$, $\sum_g p_g=1$ | I tre eventi rappresentano regimi del mercato energetico e le loro probabilità guidano l’estrazione Monte Carlo del regime. | Tabella degli eventi e delle probabilità; controllo $\sum_g p_g=1$; frequenze empiriche $\widehat{\mathbb{P}}(A_g)$. |
 | 4 | Specificare il comportamento del fattore di rischio nei diversi regimi | Distribuzione condizionata: $P_E\mid A_g\sim\mathcal{N}(\mu_g,\sigma_g^2)$ | Ogni regime genera prezzi dell’energia con media e volatilità diverse. | Tabella dei parametri $(\mu_g,\sigma_g)$; controllo di media e deviazione standard empiriche per regime; controllo eventuale $P_E<0$. |
 | 5 | Costruire la distribuzione non condizionata tramite simulazione gerarchica | Formula di miscela e campionamento gerarchico: prima $A_g$, poi $P_E\mid A_g$ | La distribuzione globale di $P_E$ nasce dalla combinazione tra probabilità dei regimi e distribuzioni condizionate. | Dataset simulato con evento e $P_E$; controllo frequenze dei regimi; controllo dei prezzi condizionati. |
 | 6 | Trasformare il prezzo simulato in costo, margine e shortfall | $C_{E,i}=Q_E P_{E,i}$, $M_i=G_0-Q_E P_{E,i}$, $S_i=(m^\star-M_i)^+$ | Da ogni prezzo simulato si ottengono costo energetico, margine operativo e shortfall. | Dataset con evento, $P_E$, $C_E$, $M$, $S$; controllo formula-codice; controllo dimensione $n$. |
-| 7 | Produrre la lettura non condizionata del rischio | Distribuzione empirica, media, quantili, probabilità di superamento soglia | Si analizza la distribuzione globale dello shortfall senza distinguere i regimi. | $\widehat{\mathbb{E}}[S]$, quantili empirici, $\widehat{\mathbb{P}}(S>0)$, $\widehat{\mathbb{P}}(S>s^\star)$, grafici della distribuzione di $S$. |
+| 7 | Produrre la lettura non condizionata del rischio | Distribuzione empirica, media, quantili, probabilità di superamento soglia | Si analizza la distribuzione globale dello shortfall senza distinguere i regimi. | Statistiche descrittive di $P_E$, $M$ e $S$; $\widehat{\mathbb{E}}[S]$, quantili empirici, $\widehat{\mathbb{P}}(S>0)$, $\widehat{\mathbb{P}}(S>s^\star)$; grafico della distribuzione di $M$ e grafici della distribuzione di $S$. |
 | 8 | Produrre la lettura condizionata per regime | Valore atteso condizionato rispetto a un evento: $\mathbb{E}[S\mid A_g]$ | Si confronta lo shortfall atteso nei tre regimi energetici. | Tabella delle medie condizionate $\widehat{\mathbb{E}}[S\mid A_g]$; grafico delle medie condizionate. |
 | 9 | Collegare l’informazione disponibile al valore atteso condizionato | Valore atteso condizionato rispetto alla sigma-algebra: $\mathbb{E}[S\mid\mathcal{G}]=\sum_g \mathbb{E}[S\mid A_g]\mathbf{1}_{A_g}$ | La previsione condizionata diventa una variabile casuale costante sui blocchi della partizione. | Eventuale colonna $\widehat{\mathbb{E}}[S\mid\mathcal{G}]$; distinzione tra numero condizionato e variabile casuale a gradini. |
 | 10 | Verificare la coerenza complessiva e interpretare il ruolo dell’informazione | Formula del valore atteso totale: $\mathbb{E}[S]=\sum_g\mathbb{P}(A_g)\mathbb{E}[S\mid A_g]$; interpretazione del condizionamento | La media globale viene ricostruita come media pesata delle medie di regime. L’informazione modifica la distribuzione rilevante, ma non elimina l’incertezza. | Controllo tra media campionaria e media ricomposta; commento finale su regimi, shortfall atteso, massa in zero, soglie e limiti del modello. |
@@ -667,7 +668,7 @@ La sequenza deve partire da:
 | 4 | Tappa 1 — Specifica teorica e parametri | Specifica teorica validata, parametri $G_0,Q_E,m^\star,s^\star,n,seed$, probabilità degli eventi, parametri condizionati $(\mu_g,\sigma_g)$, soglie implicite da calcolare. | Produci per la Tappa 1 una cella Markdown e una cella Python. Il Markdown deve spiegare grandezze, parametri e partizione informativa. Il codice deve definire i parametri, produrre le tabelle iniziali, controllare la somma delle probabilità e calcolare le soglie implicite di prezzo associate a $S>0$ e $S>s^\star$. |
 | 5 | Tappa 2 — Simulazione della partizione informativa | Probabilità di $A_1,A_2,A_3$, numero di simulazioni $n$, seed, etichette degli eventi. La specifica non prevede una variabile teorica ausiliaria. | Produci Markdown e codice per assegnare ciascuna simulazione a uno degli eventi $A_1,A_2,A_3$. Non introdurre una variabile teorica discreta aggiuntiva. Nel codice puoi usare un vettore di etichette operative. Produci frequenze empiriche e controlli sugli scostamenti dalle probabilità teoriche. |
 | 6 | Tappa 3 — Simulazione di $P_E\mid A_g$, margine e shortfall | Etichette operative degli eventi, parametri condizionati $(\mu_g,\sigma_g)$, formule $C_E=Q_E P_E$, $M=G_0-Q_E P_E$, $S=(m^\star-M)^+$. | Produci Markdown e codice per simulare $P_E\mid A_g$, calcolare $C_E$, $M$ e $S$, e costruire il dataset principale. Mantieni le formule fissate. Inserisci controlli su dimensioni, eventuali $P_E<0$, $S\ge0$, $S=0$ se $M\ge m^\star$ e $S=m^\star-M$ se $M<m^\star$. |
-| 7 | Tappa 4 — Analisi non condizionata dello shortfall | Dataset con evento, $P_E$, $C_E$, $M$, $S$; soglie $0$ e $s^\star$; livelli di quantile; output richiesti per analisi globale. | Produci Markdown e codice per stimare la distribuzione empirica dello shortfall $S$: media, deviazione standard, minimo, massimo, quantili, $\widehat{\mathbb{P}}(S>0)$ e $\widehat{\mathbb{P}}(S>s^\star)$. Produci grafici che evidenzino la massa in zero e la soglia di shortfall severo. Inserisci controlli su quantili e probabilità. |
+| 7 | Tappa 4 — Analisi non condizionata dello shortfall | Dataset con evento, $P_E$, $C_E$, $M$, $S$; soglie $0$ e $s^\star$; livelli di quantile; output richiesti per analisi globale. | Produci Markdown e codice per costruire una tabella descrittiva delle grandezze principali $P_E$, $M$ e $S$, comprendente almeno media, deviazione standard, minimo, massimo e principali quantili. Per lo shortfall $S$, stima inoltre $\widehat{\mathbb{P}}(S>0)$ e $\widehat{\mathbb{P}}(S>s^\star)$. Produci inoltre un grafico della distribuzione del margine operativo $M$ e grafici dello shortfall $S$ che evidenzino la massa in zero e la soglia di shortfall severo. Inserisci controlli su quantili e probabilità. |
 | 8 | Tappa 5 — Analisi condizionata e valore atteso totale | Dataset con evento e $S$, frequenze empiriche, media globale, definizione di $\mathcal{G}=\sigma(A_1,A_2,A_3)$, distinzione tra $\mathbb{E}[S\mid A_g]$ e $\mathbb{E}[S\mid\mathcal{G}]$. | Produci Markdown e codice per calcolare $\widehat{\mathbb{E}}[S\mid A_g]$, costruire se utile la variabile a gradini $\widehat{\mathbb{E}}[S\mid\mathcal{G}]$ e verificare la formula del valore atteso totale. Distingui chiaramente numero condizionato, variabile casuale condizionata e media globale. |
 | 9 | Eventuale verifica critica dell'interpretazione | Bozza autonoma dello studente e criticità concreta individuata dallo studente sulla base degli output delle tappe precedenti. | Regime C. Ho scritto autonomamente questa interpretazione e ho individuato la seguente possibile criticità: [dubbio, anomalia o possibile incoerenza]. Verifica se la criticità è respinta oppure accolta. Se è accolta, indicami precisamente quale passaggio deve essere corretto, senza riscrivere integralmente la conclusione e senza sostituirti a me nell'interpretazione finale. |
 | 10 | Controllo finale del tracciato IA | Tracciato IA compilato, elenco dei prompt, regimi dichiarati, decisioni dello studente, collegamenti alle sezioni del notebook, output e controlli. | Controlla se il tracciato documenta prompt, regime, risposta utilizzata, decisione dello studente, output prodotto e controllo svolto. Non valutare la qualità intrinseca delle risposte IA: valuta solo completezza, coerenza e tracciabilità del processo. |
@@ -687,7 +688,7 @@ La struttura attesa del notebook deve derivare dalla scomposizione in tappe.
 | 5 | Simulazione della partizione informativa | Tappa 2 | 5 | Markdown + codice | Assegna ogni simulazione a uno dei tre eventi $A_1,A_2,A_3$. Produce tabella di frequenze empiriche, confronto con probabilità teoriche e controllo di assenza di etichette non ammesse. |
 | 6 | Simulazione del prezzo dell’energia | Tappa 3 | 6 | Markdown + codice | Simula $P_E\mid A_g$ usando i parametri condizionati. Produce una tabella di controllo per evento con media e deviazione standard empiriche di $P_E$, da confrontare con $\mu_g$ e $\sigma_g$. Include controllo su eventuali $P_E<0$. |
 | 7 | Calcolo del costo energetico, del margine e dello shortfall | Tappa 3 | 6 | Markdown + codice | Calcola $C_E=Q_E P_E$, $M=G_0-Q_E P_E$ e $S=(m^\star-M)^+$. Costruisce il dataset con evento, $P_E$, $C_E$, $M$, $S$. Include controlli su dimensione, relazioni formula-codice e definizione della parte positiva. |
-| 8 | Analisi non condizionata dello shortfall | Tappa 4 | 7 | Markdown + codice | Produce statistiche descrittive di $S$, quantili, $\widehat{\mathbb{P}}(S>0)$ e $\widehat{\mathbb{P}}(S>s^\star)$. Include grafici della distribuzione di $S$, massa in zero e soglia $s^\star$. |
+| 8 | Analisi non condizionata dello shortfall | Tappa 4 | 7 | Markdown + codice | Produce statistiche descrittive di $P_E$, $M$ e $S$, quantili dello shortfall, $\widehat{\mathbb{P}}(S>0)$ e $\widehat{\mathbb{P}}(S>s^\star)$. Include un grafico della distribuzione del margine operativo $M$ e grafici della distribuzione di $S$, con evidenza della massa in zero e della soglia $s^\star$. |
 | 9 | Analisi condizionata per evento | Tappa 5 | 8 | Markdown + codice | Calcola $\widehat{\mathbb{E}}[S\mid A_1]$, $\widehat{\mathbb{E}}[S\mid A_2]$, $\widehat{\mathbb{E}}[S\mid A_3]$, frequenze empiriche e distribuzioni condizionate. Produce tabella e grafico delle medie condizionate. |
 | 10 | Valore atteso condizionato rispetto a $\mathcal{G}$ e valore atteso totale | Tappa 5 | 8 | Markdown + codice | Costruisce, se utile, una colonna con la variabile a gradini $\widehat{\mathbb{E}}[S\mid\mathcal{G}]$. Verifica la ricomposizione della media globale mediante frequenze empiriche e medie condizionate. Deve distinguere tra verifica campionaria e proprietà teorica. |
 | 11 | Interpretazione critica dei risultati | Tappa 6 | 9 | Markdown | Contiene commento autonomo dello studente sul ruolo della partizione informativa, sulla differenza tra analisi globale e condizionata, sulla massa in zero, sullo shortfall atteso nei diversi eventi e sul significato delle soglie. |
@@ -702,16 +703,17 @@ Il notebook è accettabile se:
 1. implementa la specifica teorica senza modificarla;
 2. parte direttamente dalla partizione $A_1,A_2,A_3$ senza introdurre una variabile teorica ausiliaria non necessaria;
 3. mantiene distinti eventi informativi, prezzo dell’energia, costo energetico, margine e shortfall;
-4. simula correttamente l’assegnazione delle osservazioni ai tre eventi della partizione;
-5. simula $P_E\mid A_g$ con parametri coerenti;
-6. controlla e commenta l’eventuale presenza di valori $P_E<0$;
-7. costruisce $C_E$, $M$ e $S$ secondo le formule fissate;
-8. verifica correttamente la definizione di shortfall mediante parte positiva;
-9. produce tabelle e grafici leggibili;
-10. include controlli numerici e logici;
-11. verifica la formula del valore atteso totale;
-12. contiene un’interpretazione critica autonoma;
-13. dichiara i limiti del modello.
+4. produce le statistiche descrittive richieste per $P_E$, $M$ e $S$ e include il grafico della distribuzione del margine operativo $M$ tra gli output non condizionati;
+5. simula correttamente l’assegnazione delle osservazioni ai tre eventi della partizione;
+6. simula $P_E\mid A_g$ con parametri coerenti;
+7. controlla e commenta l’eventuale presenza di valori $P_E<0$;
+8. costruisce $C_E$, $M$ e $S$ secondo le formule fissate;
+9. verifica correttamente la definizione di shortfall mediante parte positiva;
+10. produce tabelle e grafici leggibili;
+11. include controlli numerici e logici;
+12. verifica la formula del valore atteso totale;
+13. contiene un’interpretazione critica autonoma;
+14. dichiara i limiti del modello.
 
 Il notebook non è accettabile se:
 
@@ -792,11 +794,11 @@ Il lavoro deve concludersi con:
 1. notebook Jupyter eseguibile;
 2. tracciato IA, ordinariamente costituito dalla stampa PDF della chat dedicata al caso;
 3. tabelle dei parametri, delle frequenze, delle statistiche e delle medie condizionate;
-4. grafici della distribuzione di $P_E$ e dello shortfall $S$;
+4. grafici della distribuzione di $P_E$, del margine operativo $M$ e dello shortfall $S$;
 5. evidenza della massa in zero dello shortfall;
 6. stima di $\widehat{\mathbb{P}}(S>0)$ e $\widehat{\mathbb{P}}(S>s^\star)$;
 7. verifica empirica della formula del valore atteso totale;
-8. commento finale sul ruolo dell’informazione di scenario e sui limiti della simulazione.
+8. commento finale sul ruolo dell’informazione di regime e sui limiti della simulazione.
 
 Il caso è calibrato correttamente se produce una distinzione visibile tra i tre eventi della partizione:
 
@@ -804,7 +806,7 @@ Il caso è calibrato correttamente se produce una distinzione visibile tra i tre
 2. $A_2$: shortfall atteso positivo e intermedio;
 3. $A_3$: shortfall atteso elevato e maggiore dispersione.
 
-Il risultato atteso non è una previsione del prezzo dell’energia, ma una rappresentazione controllata del modo in cui l’informazione di scenario modifica la distribuzione rilevante dello shortfall.
+Il risultato atteso non è una previsione del prezzo dell’energia, ma una rappresentazione controllata del modo in cui l’informazione di regime modifica la distribuzione rilevante dello shortfall.
 
 ### Possibili segnali di cattiva calibrazione
 
