@@ -409,6 +409,8 @@ $$
 \operatorname{CVaR}_{0.99}(L^P).
 $$
 
+Il CVaR deve essere calcolato secondo la definizione mediante quantili adottata nel Capitolo 9, coerente anche nel caso di distribuzioni empiriche discrete.
+
 Devono inoltre essere determinate:
 
 6. la probabilità che il regime $C$ venga raggiunto almeno una volta durante l'orizzonte;
@@ -517,51 +519,51 @@ Confronto della distribuzione delle perdite del portafoglio iniziale tra scenari
 
 ## 7. Controlli richiesti
 
-Devono essere verificati almeno i seguenti punti.
+I controlli richiesti devono distinguere tra verifiche numeriche, proprietà logiche o teoriche garantite dalla struttura del modello e controlli computazionali relativi alla simulazione e al confronto tra i due portafogli.
 
 ### Controlli numerici
 
-1. Verifica che ogni riga della matrice di transizione di regime \(Q\) sommi a 1.
+1. Verifica che ogni riga della matrice di transizione di regime $Q$ sommi a 1.
 
-2. Verifica che ogni riga delle matrici di migrazione creditizia \(P^{(N)}\), \(P^{(S)}\) e \(P^{(C)}\) sommi a 1.
+2. Verifica che ogni riga delle matrici di migrazione creditizia $P^{(N)}$, $P^{(S)}$ e $P^{(C)}$ sommi a 1.
 
-11. Verifica che l'investimento complessivo \(V_0^P\) sia pari a 200 milioni di USD in entrambi i portafogli.
+11. Verifica che l'investimento complessivo $V_0^P$ sia pari a $200$ milioni di USD in entrambi i portafogli.
 
 12. Verifica che nel portafoglio soggetto al limite:
-   - la posizione Evergrande sia pari a 20 milioni di USD;
-   - vengano riallocati esattamente 10 milioni di USD;
+   - la posizione Evergrande sia pari a $20$ milioni di USD;
+   - vengano riallocati esattamente $10$ milioni di USD;
    - la riallocazione interessi esclusivamente i gruppi BBB e BB;
-   - sia mantenuta la proporzione relativa originale tra gli investimenti dei gruppi BBB e BB.
+   - sia mantenuta la proporzione relativa originale tra gli investimenti complessivi dei gruppi BBB e BB.
 
-14. Verifica che la perdita aggregata di portafoglio coincida con la somma delle perdite dei singoli debitori.
+14. Verifica che, per ciascuna replica Monte Carlo e per ciascun portafoglio, la perdita aggregata coincida con la somma delle perdite dei singoli debitori.
 
-16. Verifica della stabilità delle stime delle principali misure di rischio all'aumentare delle simulazioni Monte Carlo.
+16. Verifica la ragionevole stabilità delle principali misure di rischio confrontando, per entrambi i portafogli, le stime ottenute con il campione Monte Carlo completo e con un sotto-campione sufficientemente ampio. Il controllo deve essere interpretato come verifica empirica di sensibilità alla numerosità delle simulazioni e non come dimostrazione formale di convergenza.
 
-17. Verifica che VaR e CVaR siano calcolati direttamente sulle distribuzioni delle perdite monetarie dei due portafogli.
+17. Verifica che VaR e CVaR siano calcolati direttamente sulle distribuzioni empiriche delle perdite monetarie dei due portafogli. Il CVaR deve essere implementato secondo la definizione mediante quantili adottata nel Capitolo 9, coerente anche nel caso di distribuzioni empiriche discrete.
 
 ### Controlli logici o teorici
 
-3. Verifica che lo stato di default \(D\) risulti assorbente in tutte le matrici di migrazione creditizia.
+3. Verifica che lo stato di default $D$ risulti assorbente in tutte le matrici di migrazione creditizia.
 
-4. Verifica che il regime sistemico iniziale sia \(M_0=S\) in ogni replica Monte Carlo.
+4. Verifica che il regime sistemico iniziale sia $M_0=S$ in ogni replica Monte Carlo.
 
-5. Verifica che all'interno della stessa replica esista una sola traiettoria sistemica, comune a tutti i 36 debitori.
+5. Per ciascuna replica deve esistere una sola traiettoria sistemica comune a tutti i $36$ debitori. Questa proprietà deve risultare dalla costruzione stessa della simulazione e deve essere documentata come **PER COSTRUZIONE**, non come verifica statistica separata.
 
-6. Verifica che, condizionatamente alla traiettoria di regime comune, le estrazioni stocastiche per le migrazioni dei debitori siano indipendenti.
+6. Condizionatamente alla traiettoria sistemica comune, le migrazioni dei differenti debitori devono essere generate mediante estrazioni casuali individuali distinte. Questa proprietà deve essere garantita dalla struttura dell'algoritmo e documentata come **PER COSTRUZIONE**.
 
-7. Verifica che il tempo di default \(\tau_i\) coincida esattamente con il primo trimestre di ingresso nello stato \(D\).
+7. Verifica che il tempo di default $\tau_i$ coincida esattamente con il primo trimestre di ingresso nello stato $D$.
 
-8. Verifica che la LGD applicata in caso di default corrisponda al regime sistemico \(M_{\tau_i-1}\) che governa la transizione verso \(D\).
+8. Verifica, sull'intero insieme dei default simulati, che la LGD applicata corrisponda al regime sistemico $M_{\tau_i-1}$ che governa la transizione verso $D$.
 
-9. Verifica che un debitore entrato nello stato \(D\) non possa successivamente uscire dal default.
+9. Verifica che un debitore entrato nello stato $D$ non possa successivamente uscire dal default.
 
-10. Verifica che la funzione di perdita migration-based \(\varphi\) sia applicata unicamente ai debitori che non sono entrati in default \((\tau_i>4)\).
+10. Verifica, sull'intero insieme delle osservazioni pertinenti, che la funzione di perdita migration-based $\varphi(X_{i,0},X_{i,4})$ sia applicata esclusivamente ai debitori che non sono entrati in default $(\tau_i>4)$ e che, per i debitori in default, sia applicata esclusivamente la perdita basata sulla LGD.
 
 ### Controlli computazionali
 
-13. Verifica che il confronto tra portafoglio iniziale e portafoglio soggetto al limite utilizzi rigorosamente le medesime traiettorie sistemiche e creditizie simulate.
+13. Il confronto tra portafoglio iniziale e portafoglio soggetto al limite deve utilizzare esattamente le medesime traiettorie sistemiche e creditizie simulate. Tale proprietà deve risultare dal riutilizzo degli stessi oggetti simulati nel calcolo delle perdite dei due portafogli ed essere documentata come proprietà strutturale del confronto mediante *Common Random Numbers*.
 
-15. Verifica la riproducibilità esatta dei risultati numerici impostando il seed 2027.
+15. Verifica che il seed assegnato, pari a $2027$, sia impostato correttamente come condizione per la riproducibilità della simulazione a parità di implementazione e ambiente computazionale. Il controllo deve verificare l'impostazione del seed e non essere sostituito da una condizione numerica priva di relazione con la riproducibilità.
 
 ---
 

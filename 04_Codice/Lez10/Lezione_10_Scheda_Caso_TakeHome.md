@@ -553,7 +553,7 @@ p_{DD}^{(m)}=1.
 
 11. Verifica che i 39 debitori comuni utilizzino esattamente gli stessi scenari creditizi nei due portafogli.
 
-13. Verifica la riproducibilità esatta dei risultati impostando il seed assegnato, pari a 2026.
+13. Verifica che il seed assegnato, pari a 2026, sia impostato correttamente come condizione per la riproducibilità della simulazione.
 
 ---
 

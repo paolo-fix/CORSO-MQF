@@ -601,21 +601,55 @@ Per il portafoglio concentrato, confronto tra:
 
 ### 5.4 Controlli
 
-- tutte le righe di $Q$ devono sommare a uno;
-- tutte le righe delle tre matrici $P^{(m)}$ devono sommare a uno;
-- lo stato $D$ deve essere assorbente in tutte le matrici;
-- tutti gli stati simulati devono appartenere agli insiemi previsti;
-- all'interno di una replica la traiettoria sistemica deve essere unica e comune a tutti i debitori;
-- condizionatamente a tale traiettoria, i debitori devono utilizzare estrazioni casuali individuali;
-- il portafoglio concentrato deve contenere $40$ debitori;
-- il portafoglio controfattuale deve contenere $39$ debitori;
-- l'investimento iniziale complessivo deve essere pari a $173$ milioni in entrambi i portafogli;
-- le proporzioni relative degli investimenti dei $39$ debitori residui devono rimanere invariate dopo la riallocazione;
-- i $39$ debitori comuni devono utilizzare gli stessi scenari creditizi nei due portafogli;
-- la perdita di ciascun portafoglio deve coincidere con la somma delle rispettive perdite individuali;
-- i risultati devono essere riproducibili con il seed assegnato;
-- le principali misure di rischio devono mostrare una ragionevole stabilità all'aumentare del numero di repliche Monte Carlo;
-- VaR e CVaR devono essere calcolati sulle distribuzioni empiriche delle perdite monetarie.
+I controlli richiesti devono distinguere tra:
+
+- proprietà verificabili direttamente sui dati, sulle simulazioni o sugli output numerici;
+- proprietà strutturali garantite dalla costruzione dell'algoritmo;
+- controlli computazionali relativi all'accoppiamento degli scenari e all'impostazione della simulazione.
+
+#### Controlli numerici
+
+1. Tutte le righe della matrice di transizione del regime sistemico $Q$ devono sommare a uno.
+
+2. Tutte le righe delle matrici di migrazione creditizia $P^{(N)}$, $P^{(S)}$ e $P^{(C)}$ devono sommare a uno.
+
+11. L'investimento complessivo deve essere pari a $200$ milioni di dollari sia nel portafoglio iniziale sia nel portafoglio soggetto al limite.
+
+12. Nel portafoglio soggetto al limite deve risultare che:
+   - la posizione Evergrande è pari a $20$ milioni di dollari;
+   - l'importo complessivamente riallocato è pari a $10$ milioni di dollari;
+   - la riallocazione interessa esclusivamente i gruppi inizialmente BBB e BB;
+   - la proporzione relativa tra gli investimenti complessivi dei gruppi BBB e BB è preservata.
+
+14. Per ciascuna replica Monte Carlo e per ciascuno dei due portafogli, la perdita aggregata deve coincidere con la somma delle perdite individuali.
+
+16. La stabilità delle stime Monte Carlo deve essere valutata confrontando, per entrambi i portafogli, le principali misure di rischio ottenute con il campione completo e con un sotto-campione sufficientemente ampio. Il controllo costituisce una verifica empirica di sensibilità alla numerosità Monte Carlo e non una dimostrazione formale di convergenza.
+
+17. VaR e CVaR devono essere calcolati direttamente sulle distribuzioni empiriche delle perdite monetarie dei due portafogli, espresse in milioni di dollari. Il CVaR deve essere implementato secondo la definizione mediante quantili adottata nel Capitolo 9; nel campione empirico discreto non deve essere sostituito automaticamente dalla media condizionata delle osservazioni maggiori o uguali al VaR.
+
+#### Controlli logici o teorici
+
+3. Lo stato di default $D$ deve essere assorbente in tutte le matrici di migrazione creditizia e, una volta raggiunto, deve permanere tale nelle successive date simulate.
+
+4. Il regime sistemico iniziale deve essere $M_0=S$ in ogni replica Monte Carlo.
+
+5. Per ciascuna replica deve essere generata una sola traiettoria sistemica $M^{(r)}$, successivamente utilizzata per tutti i $36$ debitori. Questa proprietà è garantita per costruzione dall'architettura della simulazione e non deve essere rappresentata come una verifica statistica distinta.
+
+6. Condizionatamente alla traiettoria sistemica comune, le migrazioni dei differenti debitori devono essere simulate mediante estrazioni casuali individuali distinte. Anche questa proprietà è garantita per costruzione dalla procedura di simulazione e deve essere documentata come tale.
+
+7. Per ogni debitore, il tempo di default $\tau_i$ deve coincidere con il primo trimestre nel quale la traiettoria creditizia entra nello stato $D$.
+
+8. Per tutti i debitori e tutte le repliche nelle quali si verifica un default, la LGD applicata deve corrispondere al regime sistemico $M_{\tau_i-1}$ che governa la transizione verso $D$. Il controllo deve riguardare l'intero insieme dei default simulati e non un singolo caso campione.
+
+9. Un debitore che abbia raggiunto lo stato $D$ non deve successivamente uscire dal default.
+
+10. La funzione di perdita migration-based $\varphi(X_{i,0},X_{i,4})$ deve essere applicata esclusivamente ai debitori per i quali $\tau_i>4$. Per tutti i debitori in default deve invece essere applicata la perdita basata sulla LGD. Il controllo deve essere effettuato sull'intero insieme delle osservazioni pertinenti e non su un singolo caso campione.
+
+#### Controlli computazionali
+
+13. Il confronto tra portafoglio iniziale e portafoglio soggetto al limite deve utilizzare esattamente le medesime traiettorie sistemiche e creditizie simulate. Tale proprietà deriva dal riutilizzo degli stessi oggetti simulati per il calcolo delle perdite dei due portafogli e deve essere documentata come proprietà strutturale del confronto mediante *Common Random Numbers*.
+
+15. Deve essere impostato il seed assegnato, pari a $2027$, come condizione per la riproducibilità della simulazione a parità di implementazione e ambiente computazionale. Il controllo deve verificare l'impostazione del seed e non deve essere rappresentato mediante una condizione numerica estranea alla riproducibilità.
 
 ## 6. Flusso logico-teorico risolutivo atteso
 
@@ -632,12 +666,12 @@ Per il portafoglio concentrato, confronto tra:
 
 | Tappa | Titolo | Obiettivo | Input | Regime IA prevalente | Prompt virtuoso di riferimento | Oggetti teorici coinvolti | Operazione | Output | Controllo | Uso successivo |
 |---:|---|---|---|:---:|---|---|---|---|---|---|
-| 1 | Parametri e costruzione dei portafogli | Tradurre in strutture computazionali i parametri assegnati e costruire i due portafogli da confrontare | $Q$, $P^{(O)}$, $P^{(S)}$, $P^{(C)}$, matrice $\varphi$, struttura del portafoglio iniziale e fattore $173/148$ | B | Prompt tappa 1 | Matrici di transizione, stato assorbente, funzione di perdita migration-based, riallocazione proporzionale | Inizializzare le strutture dati, costruire $V_0^{\mathrm{conc}}$ e $V_0^{\mathrm{div}}$ e verificare i vincoli assegnati | Strutture dati Python, Tabella 1, Tabella 2 e vettori degli investimenti | Validità delle matrici, stato $D$ assorbente, dimensione dei portafogli, investimento totale invariato e conservazione delle proporzioni relative | Input per la simulazione delle traiettorie |
-| 2 | Simulazione delle traiettorie sistemiche e creditizie | Generare scenari coerenti e accoppiati per i due portafogli | Strutture della Tappa 1, seed $2026$, $N=50\,000$, $T=4$, $M_0=S$ | B | Prompt tappa 2 | Catena di Markov, migrazioni regime-dipendenti, indipendenza condizionata, Common Random Numbers | Simulare la traiettoria sistemica comune e le migrazioni dei rating dei debitori, utilizzando gli stessi scenari per i $39$ debitori comuni | Traiettorie di regime e stati creditizi simulati | Dominio degli stati, regime sistemico comune, indipendenza condizionata e riproducibilità | Input per il calcolo delle perdite monetarie |
-| 3 | Perdite individuali e aggregate | Trasformare gli stati creditizi simulati in perdite monetarie per i due portafogli | Stati creditizi, matrice $\varphi$, $V_0^{\mathrm{conc}}$, $V_0^{\mathrm{div}}$ | B | Prompt tappa 3 | Funzione di perdita migration-based, EAD, LGD, aggregazione di portafoglio | Applicare i tassi di perdita e aggregare le perdite individuali | $L_{\mathrm{conc}}^{P,(r)}$, $L_{\mathrm{div}}^{P,(r)}$ e componenti individuali | Accoppiamento degli scenari e additività delle perdite | Input per analisi condizionata e misure di rischio |
-| 4 | Regime sistemico e perdite condizionate | Quantificare l'effetto dell'ingresso nel regime di crisi sulla perdita del portafoglio concentrato | Traiettorie sistemiche, $L_{\mathrm{conc}}^P$, $L_{\mathrm{div}}^P$ | B | Prompt tappa 4 | Evento condizionante, probabilità empirica, valore atteso condizionato | Identificare gli scenari con ingresso in $C$ e calcolare probabilità e perdite medie condizionate | Probabilità $\widehat p_C$, Tabella 4 e Figura 3 | Coerenza della partizione degli scenari | Input interpretativo per la valutazione del rischio sistemico |
-| 5 | Misure di rischio e confronto dei portafogli | Stimare e confrontare le principali misure di rischio | Campioni $L_{\mathrm{conc}}^P$ e $L_{\mathrm{div}}^P$ | B | Prompt tappa 5 | Distribuzione empirica, media, varianza, deviazione standard, VaR, CVaR | Calcolare le statistiche e i differenziali $\Delta\rho$ e produrre gli output grafici richiesti | Tabella 3, Figura 1 e Figura 2 | Corretta implementazione di VaR e CVaR e ragionevole stabilità Monte Carlo | Input per la valutazione complessiva dell'effetto della riallocazione |
-| 6 | Differenze scenario per scenario e controlli conclusivi | Valutare l'effetto netto della riallocazione e completare la verifica del notebook | $L_{\mathrm{conc}}^P$, $L_{\mathrm{div}}^P$ e risultati delle tappe precedenti | B | Prompt tappa 6 | Differenza scenario per scenario, coerenza interna del modello e degli output | Calcolare $\Delta L^{(r)}=L_{\mathrm{div}}^{P,(r)}-L_{\mathrm{conc}}^{P,(r)}$ e ricostruire l'esito complessivo dei controlli | Distribuzione empirica di $\Delta L^{(r)}$ e sintesi dei controlli | Verifica globale dei controlli della Scheda Caso e coerenza degli output prodotti | Base quantitativa verificata per l'interpretazione finanziaria finale autonoma dello studente |
+| 1 | Parametri e strutture del modello | Tradurre in strutture computazionali i parametri assegnati e verificarne la coerenza formale | Matrice $Q$, matrici $P^{(N)}$, $P^{(S)}$, $P^{(C)}$, funzione di perdita $\varphi$ rappresentata mediante la tabella dei tassi, LGD, $N_{\mathrm{MC}}$, $T$, seed | B | Prompt tappa 1 | Matrici di transizione, probabilità di transizione, stato assorbente, funzione di perdita, LGD | Inizializzare le strutture NumPy/Pandas e verificare le proprietà delle matrici | Strutture dati contenenti la calibrazione vincolante del modello | Somme di riga pari a 1 e stato $D$ assorbente | Input per la costruzione dei portafogli e per la simulazione |
+| 2 | Costruzione dei due portafogli | Costruire il portafoglio iniziale e quello soggetto al limite di concentrazione | Composizione iniziale, investimenti $V_{i,0}$, limite single-name del $10\%$, regola di riallocazione | B | Prompt tappa 2 | Investimento iniziale, concentrazione single-name, riallocazione proporzionale | Costruire i vettori $V_{\mathrm{base}}$ e $V_{\mathrm{lim}}$ e le relative tabelle | Tabelle 1 e 2; vettori degli investimenti dei due portafogli | Investimento totale invariato, Evergrande a 20 milioni, riallocazione di 10 milioni esclusivamente a BBB e BB e mantenimento delle proporzioni | Input monetario per il calcolo delle perdite |
+| 3 | Simulazione delle traiettorie sistemiche e creditizie | Generare scenari con una traiettoria sistemica comune per replica, migrazioni individuali e tempi di default | Seed, $N_{\mathrm{MC}}$, $T$, $M_0=S$, $Q$, matrici $P^{(m)}$, rating iniziali | B | Prompt tappa 3 | Catena di Markov, migrazioni condizionate al regime, indipendenza condizionata, stato assorbente, tempo di default | Simulare per ogni replica una sola traiettoria $M_t$ comune ai $36$ debitori; condizionatamente a essa, simulare le traiettorie $X_{i,t}$ mediante estrazioni individuali distinte e identificare il primo ingresso nello stato $D$ | Traiettorie sistemiche e creditizie e tempi di default $\tau_i$ | $M_0=S$ in ogni replica; unicità della traiettoria sistemica e indipendenza condizionata documentate come proprietà della costruzione; corretto primo ingresso in $D$; permanenza nello stato assorbente; seed $2027$ correttamente impostato | Input per la determinazione delle perdite individuali |
+| 4 | Perdite individuali e di portafoglio | Trasformare le traiettorie simulate in perdite monetarie per le due configurazioni di portafoglio | Traiettorie $M$, $X$, $\tau$, $V_{\mathrm{base}}$, $V_{\mathrm{lim}}$, $\varphi$, LGD | B | Prompt tappa 4 | Perdita migration-based, EAD, LGD dipendente dal regime, aggregazione di portafoglio, Common Random Numbers | Applicare $\varphi(X_{i,0},X_{i,4})$ esclusivamente ai debitori con $\tau_i>4$ e $\operatorname{LGD}^{(M_{\tau_i-1})}$ ai debitori con $\tau_i\leq4$; calcolare le perdite individuali e aggregarle per entrambi i portafogli riutilizzando gli stessi scenari simulati | $L_{\mathrm{base}}^P$, $L_{\mathrm{lim}}^P$, $\Delta L^{(r)}$ e numero di default per replica | Verifica sull'intero insieme pertinente della corretta LGD al default e dell'esclusività tra perdita migration-based e perdita da default; riutilizzo strutturale degli stessi scenari nei due portafogli; additività delle perdite per ogni replica | Input per le misure di rischio e le analisi condizionate |
+| 5 | Misure di rischio e analisi condizionata | Stimare le principali misure di rischio e quantificare l'effetto del regime sistemico | Campioni $L_{\mathrm{base}}^P$, $L_{\mathrm{lim}}^P$, $\Delta L^{(r)}$, numero di default e traiettorie $M$ | B | Prompt tappa 5 | Distribuzione empirica, valore atteso, varianza, deviazione standard, quantili empirici, VaR, CVaR, condizionamento per evento | Calcolare statistiche descrittive, VaR e CVaR ai livelli $0.95$ e $0.99$, differenziali $\Delta\rho$, probabilità di ingresso in $C$, numero medio di default e perdite medie condizionate | Tabelle 3 e 4 e misure sintetiche richieste | VaR e CVaR calcolati direttamente sulle distribuzioni empiriche delle perdite monetarie; CVaR implementato secondo la definizione mediante quantili adottata nel Capitolo 9; stabilità delle principali misure valutata per entrambi i portafogli confrontando il campione completo con un sotto-campione sufficientemente ampio | Input per la rappresentazione grafica e i controlli conclusivi |
+| 6 | Rappresentazione grafica e controlli conclusivi | Produrre gli output grafici richiesti e ricostruire in forma coerente l'esito complessivo dei controlli | Distribuzioni simulate, differenze di perdita, indicatori di crisi e risultati delle tappe precedenti | B | Prompt tappa 6 | Distribuzioni empiriche, misure di coda, confronto tra scenari e portafogli, coerenza interna del modello | Generare le Figure 1, 2 e 3 e costruire una sintesi conclusiva che distingua verifiche numeriche, proprietà garantite per costruzione e controlli computazionali | Figure 1, 2 e 3 e sintesi dei controlli effettuati | Coerenza tra grafici, tabelle e risultati numerici; corretta classificazione dei controlli; copertura complessiva della Scheda Caso | Base quantitativa verificata per l'interpretazione finanziaria finale autonoma dello studente |
 
 ## 8. Sequenza docente dei prompt e mappa prompt-notebook
 
@@ -695,7 +729,7 @@ Queste due celle documentano le decisioni di progettazione che governano lo svil
 - Cella codice: definizione degli stati sistemici e creditizi.
 - Cella codice: definizione della matrice $Q$.
 - Cella codice: definizione delle matrici $P^{(O)}$, $P^{(S)}$, $P^{(C)}$.
-- Cella codice: definizione della matrice $\varphi$ dei tassi di perdita migration-based.
+- Cella codice: definizione della funzione di perdita $\varphi$ mediante la tabella dei tassi migration-based.
 - Cella codice: costruzione del portafoglio concentrato.
 - Cella codice: costruzione del portafoglio controfattuale mediante il fattore $173/148$.
 - Output: Tabella 1 — portafoglio concentrato.
@@ -720,45 +754,74 @@ Queste due celle documentano le decisioni di progettazione che governano lo svil
 - Controllo: permanenza nello stato $D$ dopo il default.
 - Controllo: riproducibilità con seed $2026$.
 
-### Tappa 3 — Perdite individuali e aggregate
+### Tappa 3 — Simulazione delle traiettorie sistemiche e creditizie
 
 **Prompt di riferimento:** Prompt tappa 3 — Regime B.
 
-- Cella Markdown: definizione operativa della funzione $\varphi(r_0,r_4)$.
-- Cella codice: applicazione dei tassi di perdita migration-based agli stati finali simulati.
-- Cella codice: calcolo delle perdite individuali del portafoglio concentrato.
-- Cella codice: calcolo delle perdite individuali del portafoglio controfattuale sui medesimi scenari dei $39$ debitori comuni.
-- Cella codice: aggregazione delle perdite dei due portafogli.
-- Output: campioni $L_{\mathrm{conc}}^{P,(r)}$ e $L_{\mathrm{div}}^{P,(r)}$.
-- Controllo: uso degli stessi scenari creditizi per i $39$ debitori comuni.
-- Controllo: riconciliazione tra perdite individuali e perdite aggregate.
+- Cella Markdown: funzione della tappa e richiamo delle proprietà strutturali della simulazione.
+- Cella codice: inizializzazione del generatore casuale mediante il seed assegnato $2027$.
+- Cella codice: simulazione, per ciascuna replica, di una sola traiettoria sistemica $M_t$ comune ai $36$ debitori.
+- Cella codice: simulazione delle traiettorie creditizie mediante la matrice $P^{(M_t)}$ coerente con il regime corrente.
+- Cella codice: uso, condizionatamente alla traiettoria sistemica comune, di estrazioni casuali individuali distinte per i differenti debitori.
+- Cella codice: identificazione del primo ingresso nello stato $D$.
+- Cella codice: registrazione del tempo di default $\tau_i$ e del regime $M_{\tau_i-1}$ che governa la transizione verso $D$.
+- Output sintetico: eventuali traiettorie campione utili alla verifica del meccanismo.
+- Controllo: $M_0=S$ in ogni replica.
+- Proprietà per costruzione: unicità della traiettoria sistemica comune ai $36$ debitori.
+- Proprietà per costruzione: indipendenza delle estrazioni individuali condizionatamente alla traiettoria sistemica comune.
+- Controllo: il tempo $\tau_i$ coincide con il primo ingresso nello stato $D$.
+- Controllo: dopo il primo ingresso in $D$, il debitore permane nello stato assorbente.
+- Controllo computazionale: il seed assegnato $2027$ è effettivamente impostato come condizione per la riproducibilità della simulazione a parità di implementazione e ambiente computazionale.
 
-### Tappa 4 — Regime sistemico e perdite condizionate
+### Tappa 4 — Perdite individuali e di portafoglio
 
 **Prompt di riferimento:** Prompt tappa 4 — Regime B.
 
-- Cella codice: identificazione degli scenari nei quali il regime $C$ viene raggiunto almeno una volta.
-- Cella codice: stima della probabilità empirica di ingresso in $C$.
-- Cella codice: calcolo della perdita media del portafoglio concentrato negli scenari con ingresso in $C$.
-- Cella codice: calcolo della perdita media del portafoglio concentrato negli scenari senza ingresso in $C$.
-- Output: Tabella 4 — regime sistemico e perdita.
-- Output: Figura 3 — confronto delle perdite negli scenari con e senza ingresso in $C$.
-- Controllo: coerenza della partizione degli scenari nelle due classi.
+- Cella Markdown: distinzione tra perdita migration-based e perdita da default.
+- Cella codice: applicazione di $\varphi(X_{i,0},X_{i,4})$ esclusivamente ai debitori per i quali $\tau_i>4$.
+- Cella codice: applicazione di $\operatorname{LGD}^{(M_{\tau_i-1})}$ esclusivamente ai debitori per i quali $\tau_i\leq4$.
+- Cella codice: calcolo delle perdite individuali del portafoglio iniziale.
+- Cella codice: calcolo delle perdite individuali del portafoglio soggetto al limite mediante i medesimi scenari sistemici e creditizi.
+- Cella codice: aggregazione delle perdite dei due portafogli.
+- Cella codice: calcolo della differenza scenario per scenario
+  $$
+  \Delta L^{(r)}
+  =
+  L_{\mathrm{lim}}^{P,(r)}
+  -
+  L_{\mathrm{base}}^{P,(r)}.
+  $$
+- Cella codice: calcolo del numero di default per replica.
+- Controllo: per tutti i default simulati, la LGD applicata coincide con quella associata al regime $M_{\tau_i-1}$ che governa la transizione verso $D$.
+- Controllo: per tutte le osservazioni pertinenti, la funzione $\varphi$ è applicata soltanto ai debitori che non entrano in default e la LGD soltanto ai debitori che entrano in default.
+- Proprietà per costruzione: i due portafogli utilizzano esattamente le stesse traiettorie sistemiche e creditizie, perché le perdite vengono calcolate riutilizzando gli stessi oggetti simulati e modificando esclusivamente il vettore degli investimenti.
+- Controllo: per ciascuna replica e per ciascun portafoglio, la perdita aggregata coincide con la somma delle perdite individuali.
 
-### Tappa 5 — Misure di rischio e confronto dei portafogli
+### Tappa 5 — Misure di rischio e analisi condizionata
 
 **Prompt di riferimento:** Prompt tappa 5 — Regime B.
 
 - Cella Markdown: convenzioni operative per perdita media, varianza, deviazione standard, VaR e CVaR.
-- Cella codice: costruzione delle distribuzioni empiriche dei due portafogli.
-- Cella codice: calcolo di perdita media, varianza e deviazione standard.
-- Cella codice: calcolo di $VaR_{0.95}$, $CVaR_{0.95}$, $VaR_{0.99}$ e $CVaR_{0.99}$.
-- Cella codice: calcolo dei differenziali $\Delta\rho$.
+- Cella Markdown: richiamo esplicito che il CVaR deve essere calcolato secondo la definizione mediante quantili adottata nel Capitolo 9, coerente anche nel caso di distribuzione empirica discreta.
+- Cella codice: calcolo delle statistiche descrittive per i due portafogli.
+- Cella codice: calcolo di $\operatorname{VaR}_{0.95}$ e $\operatorname{VaR}_{0.99}$ come quantili empirici delle distribuzioni delle perdite monetarie.
+- Cella codice: calcolo di $\operatorname{CVaR}_{0.95}$ e $\operatorname{CVaR}_{0.99}$ secondo la definizione mediante quantili adottata nel corso, senza sostituirla automaticamente con la media delle sole osservazioni maggiori o uguali al VaR.
+- Cella codice: calcolo dei differenziali
+  $$
+  \Delta\rho
+  =
+  \rho(L_{\mathrm{lim}}^P)
+  -
+  \rho(L_{\mathrm{base}}^P).
+  $$
+- Cella codice: calcolo della probabilità simulata di ingresso almeno una volta nel regime $C$.
+- Cella codice: calcolo del numero medio di default.
+- Cella codice: calcolo delle perdite medie del portafoglio iniziale condizionate agli scenari con e senza ingresso nel regime $C$.
 - Output: Tabella 3 — misure di rischio.
-- Output: Figura 1 — distribuzione della perdita del portafoglio concentrato.
-- Output: Figura 2 — confronto delle distribuzioni dei due portafogli.
-- Controllo: VaR e CVaR calcolati sulle perdite monetarie.
-- Controllo: ragionevole stabilità delle principali stime al crescere del numero di repliche.
+- Output: Tabella 4 — regime sistemico e perdita.
+- Controllo: VaR e CVaR sono calcolati direttamente sulle distribuzioni empiriche delle perdite monetarie dei due portafogli.
+- Controllo: la stabilità Monte Carlo delle principali misure di rischio è valutata, per entrambi i portafogli, confrontando le stime ottenute sul campione completo con quelle ottenute su un sotto-campione sufficientemente ampio.
+- Interpretazione del controllo di stabilità: verifica empirica di sensibilità alla numerosità Monte Carlo, non dimostrazione formale di convergenza.
 
 ### Tappa 6 — Differenze scenario per scenario e controlli conclusivi
 
@@ -801,21 +864,43 @@ Per questa fase non è previsto un prompt IA obbligatorio. L'eventuale Regime C 
 Il notebook è considerato valido se:
 
 1. implementa la specifica teorico-matematica della Scheda Caso senza modificarla;
-2. utilizza esclusivamente le matrici, gli investimenti, la funzione di perdita, la regola di riallocazione e gli altri parametri assegnati;
+
+2. utilizza esclusivamente le matrici, le LGD, gli investimenti, il limite di concentrazione e gli altri parametri assegnati;
+
 3. rispetta la scomposizione in tappe input-output validata;
+
 4. mantiene coerenti la notazione matematica e le corrispondenti variabili computazionali;
-5. simula una sola traiettoria del regime sistemico per ciascuna replica e la utilizza per tutti i debitori;
-6. preserva l'indipendenza delle estrazioni individuali condizionatamente alla traiettoria sistemica comune;
-7. mantiene lo stato di default assorbente;
-8. costruisce correttamente il portafoglio controfattuale eliminando la posizione Lehman e redistribuendo il relativo investimento proporzionalmente tra i 39 debitori residui;
-9. mantiene invariato l'investimento complessivo, pari a $173$ milioni, e conserva le proporzioni relative degli investimenti dei debitori residui;
-10. utilizza gli stessi scenari sistemici e creditizi per i 39 debitori comuni ai due portafogli;
-11. applica correttamente la funzione $\varphi$ agli stati iniziali e finali e riconcilia le perdite aggregate con la somma delle perdite individuali;
-12. produce tutti gli output numerici, tabellari e grafici richiesti;
-13. calcola VaR e CVaR sulle distribuzioni delle perdite monetarie secondo le convenzioni adottate nel corso;
-14. distingue correttamente gli scenari con e senza ingresso nello stato di crisi;
-15. produce risultati riproducibili con il seed assegnato e sufficientemente stabili rispetto alla dimensione del campione Monte Carlo;
-16. conclude con controlli espliciti e con un'interpretazione finanziaria coerente con gli output e con i limiti del modello.
+
+5. genera, per ciascuna replica, una sola traiettoria del regime sistemico e la utilizza per tutti i debitori; tale proprietà deve risultare dalla struttura stessa della simulazione;
+
+6. preserva, condizionatamente alla traiettoria sistemica comune, l'indipendenza delle estrazioni individuali utilizzate per le migrazioni dei differenti debitori; tale proprietà deve essere garantita per costruzione dall'algoritmo;
+
+7. mantiene lo stato di default assorbente e identifica correttamente, per ogni debitore e replica, il primo ingresso nello stato $D$;
+
+8. applica, per tutti i default simulati, la LGD associata al regime sistemico che governa la transizione verso $D$, cioè $\operatorname{LGD}^{(M_{\tau_i-1})}$;
+
+9. applica la funzione di perdita migration-based $\varphi(X_{i,0},X_{i,4})$ esclusivamente ai debitori che non entrano in default entro l'orizzonte e applica la perdita da default esclusivamente ai debitori con $\tau_i\leq4$;
+
+10. costruisce correttamente il portafoglio soggetto al limite, mantenendo l'investimento complessivo pari a $200$ milioni e riallocando esattamente $10$ milioni esclusivamente tra le posizioni BBB e BB secondo la regola assegnata;
+
+11. utilizza esattamente gli stessi scenari sistemici e creditizi per confrontare il portafoglio iniziale e quello soggetto al limite, riutilizzando gli stessi oggetti simulati e modificando esclusivamente i vettori degli investimenti;
+
+12. riconcilia, per ciascuna replica e per ciascun portafoglio, le perdite aggregate con la somma delle perdite individuali;
+
+13. produce tutti gli output numerici, tabellari e grafici richiesti;
+
+14. calcola VaR e CVaR direttamente sulle distribuzioni empiriche delle perdite monetarie secondo le convenzioni adottate nel corso; in particolare, il CVaR deve essere implementato secondo la definizione mediante quantili adottata nel Capitolo 9, coerente anche nel caso di distribuzioni empiriche discrete;
+
+15. utilizza il seed assegnato $2027$ come condizione per la riproducibilità della simulazione a parità di implementazione e ambiente computazionale;
+
+16. valuta la stabilità Monte Carlo delle principali misure di rischio per entrambi i portafogli confrontando il campione completo con un sotto-campione sufficientemente ampio; tale confronto costituisce una verifica empirica di sensibilità alla numerosità delle simulazioni e non una dimostrazione formale di convergenza;
+
+17. distingue nella sintesi finale:
+   - controlli numerici effettivamente verificati;
+   - proprietà logiche o teoriche garantite per costruzione;
+   - controlli computazionali relativi all'impostazione e al riutilizzo degli scenari;
+
+18. conclude con controlli espliciti e con un'interpretazione finanziaria coerente con gli output e con i limiti del modello.
 
 Un eventuale Prompt in Regime C non costituisce condizione necessaria di validità del notebook. Esso interviene soltanto quando lo studente individua una criticità specifica da verificare.
 
