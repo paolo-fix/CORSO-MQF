@@ -2054,7 +2054,7 @@ Sono elementi penalizzanti:
 7. modifica non autorizzata di variabili, formule, parametri, scenari o output richiesti;
 8. assenza di controlli sulle risposte IA;
 9. trasferimento nel notebook di risultati non verificati;
-10. interpretazione finale generata dall’IA senza bozza autonoma dello studente;
+10. interpretazione finale generata, riscritta o completata dall'IA al posto dello studente;
 11. tracciato non collegato in modo chiaro alle sezioni del notebook.
 
 #### Uso degli errori dell’IA nella valutazione
