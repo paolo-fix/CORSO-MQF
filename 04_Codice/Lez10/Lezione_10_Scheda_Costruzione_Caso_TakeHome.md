@@ -7,7 +7,7 @@
 - **Titolo:** Lehman Brothers 2008: rischio sistemico, migrazioni creditizie e perdita di portafoglio
 - **Nome file previsto:** `Lezione_10_Scheda_Costruzione_Caso_TakeHome.md`
 - **Destinatari:** studenti del secondo anno della Laurea Magistrale in Banca e Risk Management
-- **Uso previsto:** caso applicativo guidato per sviluppare mediante simulazione Monte Carlo un modello di rischio creditizio di portafoglio nel quale le migrazioni dei singoli debitori dipendono da un regime sistemico comune che evolve nel tempo.
+- **Uso previsto:** lavoro autonomo TakeHome per sviluppare mediante simulazione Monte Carlo un modello di rischio creditizio di portafoglio nel quale le migrazioni dei singoli debitori dipendono da un regime sistemico comune che evolve nel tempo.
 
 ## 2. Contesto e motivazione
 
@@ -29,7 +29,8 @@ Le matrici di transizione, la composizione del portafoglio e i parametri economi
 
 **Riferimenti storici docente:** Lehman Brothers Holdings Inc., Form 10-Q 2008; SEC, documentazione relativa al Chapter 11 del 15 settembre 2008.
 
-## 3. Domanda quantitativa e obiettivo didattico
+
+## 3. Domanda quantitativa e funzione didattica
 
 ### Domanda quantitativa
 
@@ -70,6 +71,39 @@ L'applicazione deve inoltre rendere osservabili due meccanismi distinti:
 
 1. il fattore sistemico comune genera dipendenza tra perdite creditizie che sarebbero indipendenti condizionatamente alla traiettoria del regime;
 2. a parità di investimento complessivo, una differente allocazione iniziale delle posizioni modifica la distribuzione della perdita di portafoglio.
+
+### Collegamento con le lezioni teoriche precedenti
+
+Il caso applica operativamente i contenuti sviluppati nelle lezioni teoriche precedenti sulle catene di Markov, sulle migrazioni creditizie e sulle misure di rischio. In particolare, utilizza:
+
+- la dinamica markoviana di un processo a stati discreti;
+- matrici di migrazione creditizia dipendenti dal regime sistemico;
+- il ruolo dello stato di default assorbente;
+- la distinzione tra indipendenza condizionata e dipendenza incondizionata;
+- la costruzione di perdite individuali e aggregate;
+- la stima empirica di valore atteso, varianza, VaR e CVaR.
+
+### Concetti teorici da rendere osservabili
+
+Il caso deve rendere osservabili:
+
+- la dipendenza delle probabilità di migrazione dal regime sistemico corrente;
+- l’indipendenza delle migrazioni individuali condizionatamente alla traiettoria sistemica comune;
+- la dipendenza incondizionata tra le perdite dei debitori;
+- il carattere assorbente dello stato di default;
+- il passaggio dalle traiettorie creditizie alle perdite individuali;
+- il passaggio dalle perdite individuali alla distribuzione della perdita di portafoglio;
+- l’effetto della riallocazione dell’investimento iniziale sulla distribuzione delle perdite e sulle misure di rischio.
+
+### Funzione della simulazione o della procedura computazionale
+
+La simulazione Monte Carlo è necessaria per generare congiuntamente le traiettorie del regime sistemico e dei rating individuali, costruire le perdite dei due portafogli a partire dagli stessi scenari sottostanti e stimare le rispettive distribuzioni empiriche e misure di rischio.
+
+### Ruolo dell’informazione, degli stati, degli scenari o dei vincoli
+
+Il regime sistemico costituisce l’informazione comune che modifica le probabilità di migrazione di tutti i debitori. Gli stati creditizi rappresentano l’evoluzione individuale del merito creditizio, mentre le repliche Monte Carlo rappresentano possibili realizzazioni congiunte del sistema. Il vincolo strutturale del confronto è il mantenimento dello stesso investimento complessivo nei due portafogli, con eliminazione della posizione Lehman e riallocazione proporzionale del relativo investimento tra i debitori residui.
+
+
 
 ## 4. Specifica teorico-matematica
 

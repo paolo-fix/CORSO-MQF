@@ -43,9 +43,52 @@ La domanda quantitativa è:
 
 ## 3. Modello e struttura del problema
 
-### 3.1 Regime sistemico
+### 3.1 Grandezze economico-finanziarie
 
-Si considera il processo
+Per ogni debitore \(i\), \(V_{i,0}\) rappresenta l'investimento iniziale nella posizione creditizia.
+
+Nel caso didattico si assume:
+
+$$
+\mathrm{EAD}_i=V_{i,0},
+$$
+
+e
+
+$$
+\mathrm{LGD}=0.65.
+$$
+
+Questa uguaglianza tra EAD e investimento iniziale costituisce una semplificazione specifica del caso e non una identificazione generale tra i due concetti.
+
+Per ogni debitore, la perdita è indicata con \(L_i\).
+
+Per la replica Monte Carlo \(r\), la perdita del portafoglio concentrato è
+
+$$
+L_{\mathrm{conc}}^{P,(r)}
+=
+\sum_{i=1}^{40}
+L_i^{(r)}.
+$$
+
+Nel portafoglio controfattuale la perdita è
+
+$$
+L_{\mathrm{div}}^{P,(r)}
+=
+\sum_{i\neq L}
+V_{i,0}^{\mathrm{div}}
+\varphi
+\left(
+X_{i,0},
+X_{i,4}^{(r)}
+\right).
+$$
+
+### 3.2 Variabili casuali e stati del modello
+
+Si considera il processo di regime sistemico
 
 $$
 \{M_t\}_{t=0}^{3},
@@ -63,11 +106,9 @@ $$
 M_0=S.
 $$
 
-Le probabilità di transizione sono descritte dalla matrice $Q$ riportata nella Sezione 4.
+Le probabilità di transizione sono descritte dalla matrice \(Q\) riportata nella Sezione 4.
 
-### 3.2 Stati creditizi
-
-Per ogni debitore $i$, il rating evolve secondo
+Per ogni debitore \(i\), il rating evolve secondo
 
 $$
 \{X_{i,t}\}_{t=0}^{4},
@@ -81,7 +122,21 @@ $$
 \{A,BBB,BB,B,D\}.
 $$
 
-Lo stato $D$ rappresenta il default ed è assorbente.
+Lo stato \(D\) rappresenta il default ed è assorbente.
+
+### 3.3 Eventi, stati informativi e dipendenza
+
+Condizionatamente alla traiettoria
+
+$$
+M_0,M_1,M_2,M_3,
+$$
+
+le migrazioni dei differenti debitori sono indipendenti.
+
+Il regime sistemico è invece comune all'intero portafoglio. Una traiettoria che permane o entra nello stato \(C\) applica simultaneamente matrici di migrazione più sfavorevoli a tutti i debitori.
+
+### 3.4 Relazioni strutturali e formule principali
 
 Per ogni trimestre:
 
@@ -104,20 +159,6 @@ P^{(S)},\qquad
 P^{(C)}.
 $$
 
-### 3.3 Dipendenza tra i debitori
-
-Condizionatamente alla traiettoria
-
-$$
-M_0,M_1,M_2,M_3,
-$$
-
-le migrazioni dei differenti debitori sono indipendenti.
-
-Il regime sistemico è invece comune all'intero portafoglio. Una traiettoria che permane o entra nello stato $C$ applica simultaneamente matrici di migrazione più sfavorevoli a tutti i debitori.
-
-### 3.4 Perdita individuale
-
 Per ogni debitore la perdita dipende dal rating iniziale, dal rating finale e dall'investimento iniziale:
 
 $$
@@ -127,54 +168,19 @@ V_{i,0}\,
 \varphi(X_{i,0},X_{i,4}),
 $$
 
-dove $V_{i,0}$ è l'investimento iniziale e $\varphi(r_0,r_4)$ è il tasso di perdita assegnato alla migrazione dal rating iniziale $r_0$ al rating finale $r_4$.
+dove \(\varphi(r_0,r_4)\) è il tasso di perdita assegnato alla migrazione dal rating iniziale \(r_0\) al rating finale \(r_4\).
 
-Il default è incluso direttamente nella funzione $\varphi$. In particolare,
+Il default è incluso direttamente nella funzione \(\varphi\). In particolare,
 
 $$
 \varphi(r_0,D)=0.65.
 $$
 
-Nel caso didattico si assume:
+Poiché \(D\) è assorbente e la LGD è costante, la perdita da default dipende dallo stato terminale \(X_{i,4}=D\) e non dal trimestre nel quale il default si è verificato.
 
-$$
-\mathrm{EAD}_i=V_{i,0},
-$$
+### 3.5 Soglie, target e vincoli
 
-e
-
-$$
-\mathrm{LGD}=0.65.
-$$
-
-Questa uguaglianza tra EAD e investimento iniziale costituisce una semplificazione specifica del caso e non una identificazione generale tra i due concetti.
-
-Poiché $D$ è assorbente e la LGD è costante, la perdita da default dipende dallo stato terminale $X_{i,4}=D$ e non dal trimestre nel quale il default si è verificato.
-
-### 3.5 Perdite dei due portafogli
-
-Per la replica Monte Carlo $r$, la perdita del portafoglio concentrato è
-
-$$
-L_{\mathrm{conc}}^{P,(r)}
-=
-\sum_{i=1}^{40}
-L_i^{(r)}.
-$$
-
-Nel portafoglio controfattuale Lehman è eliminata e gli investimenti dei 39 debitori residui vengono riallocati secondo la regola assegnata. La perdita è
-
-$$
-L_{\mathrm{div}}^{P,(r)}
-=
-\sum_{i\neq L}
-V_{i,0}^{\mathrm{div}}
-\varphi
-\left(
-X_{i,0},
-X_{i,4}^{(r)}
-\right).
-$$
+Nel portafoglio controfattuale la posizione Lehman viene eliminata e il relativo investimento iniziale viene redistribuito proporzionalmente tra gli altri 39 debitori, mantenendo invariato l'investimento complessivo del portafoglio.
 
 Il confronto deve essere effettuato utilizzando **gli stessi scenari Monte Carlo sottostanti**:
 
@@ -495,35 +501,44 @@ Confronto delle perdite del portafoglio concentrato tra scenari nei quali lo sta
 
 Devono essere verificati almeno i seguenti punti.
 
-1. Ogni riga di $Q$ deve sommare a uno.
+### Controlli numerici
 
-2. Ogni riga di $P^{(O)}$, $P^{(S)}$ e $P^{(C)}$ deve sommare a uno.
+1. Verifica che ogni riga della matrice di transizione del regime sistemico \(Q\) sommi a 1.
+2. Verifica che ogni riga delle matrici di migrazione creditizia \(P^{(O)}\), \(P^{(S)}\) e \(P^{(C)}\) sommi a 1.
+3. Verifica che il portafoglio concentrato contenga esattamente 40 debitori.
+4. Verifica che il portafoglio controfattuale contenga esattamente 39 debitori.
+5. Verifica che l'investimento iniziale complessivo sia pari a 173 milioni di dollari in entrambi i portafogli:
+   \[
+   V_0^{P,\mathrm{conc}}
+   =
+   V_0^{P,\mathrm{div}}
+   =
+   173.
+   \]
+6. Verifica che le proporzioni relative degli investimenti dei 39 debitori residui rimangano inalterate dopo la riallocazione proporzionale.
+7. Verifica che la perdita totale di ciascun portafoglio coincida con la somma delle rispettive perdite individuali.
+8. Verifica che VaR e CVaR siano calcolati sulle distribuzioni empiriche delle perdite monetarie, espresse in milioni di dollari.
+9. Verifica che le principali misure di rischio mostrino una ragionevole stabilità al crescere del numero di repliche simulate.
 
-3. Lo stato $D$ deve risultare assorbente in tutte le matrici di migrazione.
+### Controlli logici o teorici
 
-4. Tutti gli stati simulati devono appartenere agli insiemi previsti.
+1. Verifica che lo stato \(D\) sia assorbente in tutte le matrici di migrazione creditizia:
+   \[
+   p_{DD}^{(m)}=1.
+   \]
+2. Verifica che tutti gli stati simulati appartengano agli insiemi definiti:
+   \[
+   \mathcal M=\{O,S,C\},
+   \qquad
+   \mathcal I=\{A,BBB,BB,B,D\}.
+   \]
+3. Verifica che, all'interno della stessa replica Monte Carlo, esista un'unica traiettoria sistemica comune a tutti i debitori.
+4. Verifica che, condizionatamente alla traiettoria sistemica comune, i debitori utilizzino estrazioni casuali individuali e indipendenti.
 
-5. All'interno della stessa replica deve esistere una sola traiettoria sistemica, comune a tutti i debitori.
+### Controlli computazionali
 
-6. Condizionatamente alla traiettoria sistemica comune, i debitori devono utilizzare estrazioni casuali individuali.
-
-7. Il portafoglio concentrato deve contenere 40 debitori.
-
-8. Il portafoglio controfattuale deve contenere 39 debitori.
-
-9. L'investimento iniziale complessivo deve essere pari a $173$ milioni in entrambi i portafogli.
-
-10. Le proporzioni relative degli investimenti dei 39 debitori residui devono rimanere invariate dopo la riallocazione.
-
-11. I 39 debitori comuni devono utilizzare gli stessi scenari creditizi nei due portafogli.
-
-12. La perdita di ciascun portafoglio deve coincidere con la somma delle rispettive perdite individuali.
-
-13. I risultati devono essere riproducibili utilizzando il seed assegnato.
-
-14. VaR e CVaR devono essere calcolati sulle distribuzioni empiriche delle perdite monetarie.
-
-15. Le principali misure di rischio devono mostrare una ragionevole stabilità aumentando il numero delle simulazioni.
+1. Verifica che i 39 debitori comuni utilizzino esattamente gli stessi scenari creditizi nei due portafogli.
+2. Verifica la riproducibilità esatta dei risultati impostando il seed assegnato, pari a 2026.
 
 ---
 
