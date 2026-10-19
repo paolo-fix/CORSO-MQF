@@ -6,7 +6,7 @@
 - **Tipo di caso:** TakeHome
 - **Titolo:** Lehman Brothers 2008: rischio sistemico, migrazioni creditizie e perdita di portafoglio
 - **Contesto sintetico:** giugno 2008, fase di crescente tensione del sistema finanziario internazionale e di deterioramento del merito creditizio di Lehman Brothers.
-- **Uso previsto:** lavoro autonomo take-home per sviluppare, mediante simulazione Monte Carlo, un modello di rischio creditizio di portafoglio nel quale le migrazioni dei singoli debitori dipendono da un regime sistemico comune che evolve nel tempo.
+- **Uso previsto:** lavoro autonomo TakeHome per sviluppare, mediante simulazione Monte Carlo, un modello di rischio creditizio di portafoglio nel quale le migrazioni dei singoli debitori dipendono da un regime sistemico comune che evolve nel tempo.
 
 La presente Scheda Caso costituisce la **specifica vincolante del lavoro**. Variabili, stati, parametri, formule, ipotesi, output e controlli indicati non devono essere modificati durante lo svolgimento.
 
@@ -504,41 +504,56 @@ Devono essere verificati almeno i seguenti punti.
 ### Controlli numerici
 
 1. Verifica che ogni riga della matrice di transizione del regime sistemico \(Q\) sommi a 1.
+
 2. Verifica che ogni riga delle matrici di migrazione creditizia \(P^{(O)}\), \(P^{(S)}\) e \(P^{(C)}\) sommi a 1.
-3. Verifica che il portafoglio concentrato contenga esattamente 40 debitori.
-4. Verifica che il portafoglio controfattuale contenga esattamente 39 debitori.
-5. Verifica che l'investimento iniziale complessivo sia pari a 173 milioni di dollari in entrambi i portafogli:
-   \[
-   V_0^{P,\mathrm{conc}}
-   =
-   V_0^{P,\mathrm{div}}
-   =
-   173.
-   \]
-6. Verifica che le proporzioni relative degli investimenti dei 39 debitori residui rimangano inalterate dopo la riallocazione proporzionale.
-7. Verifica che la perdita totale di ciascun portafoglio coincida con la somma delle rispettive perdite individuali.
-8. Verifica che VaR e CVaR siano calcolati sulle distribuzioni empiriche delle perdite monetarie, espresse in milioni di dollari.
-9. Verifica che le principali misure di rischio mostrino una ragionevole stabilità al crescere del numero di repliche simulate.
+
+7. Verifica che il portafoglio concentrato contenga esattamente 40 debitori.
+
+8. Verifica che il portafoglio controfattuale contenga esattamente 39 debitori.
+
+9. Verifica che l'investimento iniziale complessivo sia pari a 173 milioni di dollari in entrambi i portafogli:
+
+\[
+V_0^{P,\mathrm{conc}}
+=
+V_0^{P,\mathrm{div}}
+=
+173.
+\]
+
+10. Verifica che le proporzioni relative degli investimenti dei 39 debitori residui rimangano inalterate dopo la riallocazione proporzionale.
+
+12. Verifica che la perdita totale di ciascun portafoglio coincida con la somma delle rispettive perdite individuali.
+
+14. Verifica che VaR e CVaR siano calcolati sulle distribuzioni empiriche delle perdite monetarie, espresse in milioni di dollari.
+
+15. Verifica che le principali misure di rischio mostrino una ragionevole stabilità al crescere del numero di repliche simulate.
 
 ### Controlli logici o teorici
 
-1. Verifica che lo stato \(D\) sia assorbente in tutte le matrici di migrazione creditizia:
-   \[
-   p_{DD}^{(m)}=1.
-   \]
-2. Verifica che tutti gli stati simulati appartengano agli insiemi definiti:
-   \[
-   \mathcal M=\{O,S,C\},
-   \qquad
-   \mathcal I=\{A,BBB,BB,B,D\}.
-   \]
-3. Verifica che, all'interno della stessa replica Monte Carlo, esista un'unica traiettoria sistemica comune a tutti i debitori.
-4. Verifica che, condizionatamente alla traiettoria sistemica comune, i debitori utilizzino estrazioni casuali individuali e indipendenti.
+3. Verifica che lo stato \(D\) sia assorbente in tutte le matrici di migrazione creditizia:
+
+\[
+p_{DD}^{(m)}=1.
+\]
+
+4. Verifica che tutti gli stati simulati appartengano agli insiemi definiti:
+
+\[
+\mathcal M=\{O,S,C\},
+\qquad
+\mathcal I=\{A,BBB,BB,B,D\}.
+\]
+
+5. Verifica che, all'interno della stessa replica Monte Carlo, esista un'unica traiettoria sistemica comune a tutti i debitori.
+
+6. Verifica che, condizionatamente alla traiettoria sistemica comune, i debitori utilizzino estrazioni casuali individuali e indipendenti.
 
 ### Controlli computazionali
 
-1. Verifica che i 39 debitori comuni utilizzino esattamente gli stessi scenari creditizi nei due portafogli.
-2. Verifica la riproducibilità esatta dei risultati impostando il seed assegnato, pari a 2026.
+11. Verifica che i 39 debitori comuni utilizzino esattamente gli stessi scenari creditizi nei due portafogli.
+
+13. Verifica la riproducibilità esatta dei risultati impostando il seed assegnato, pari a 2026.
 
 ---
 

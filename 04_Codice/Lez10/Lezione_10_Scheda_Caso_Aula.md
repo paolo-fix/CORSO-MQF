@@ -522,32 +522,46 @@ Devono essere verificati almeno i seguenti punti.
 ### Controlli numerici
 
 1. Verifica che ogni riga della matrice di transizione di regime \(Q\) sommi a 1.
+
 2. Verifica che ogni riga delle matrici di migrazione creditizia \(P^{(N)}\), \(P^{(S)}\) e \(P^{(C)}\) sommi a 1.
-3. Verifica che l'investimento complessivo \(V_0^P\) sia pari a 200 milioni di USD in entrambi i portafogli.
-4. Verifica che nel portafoglio soggetto al limite:
+
+11. Verifica che l'investimento complessivo \(V_0^P\) sia pari a 200 milioni di USD in entrambi i portafogli.
+
+12. Verifica che nel portafoglio soggetto al limite:
    - la posizione Evergrande sia pari a 20 milioni di USD;
    - vengano riallocati esattamente 10 milioni di USD;
    - la riallocazione interessi esclusivamente i gruppi BBB e BB;
    - sia mantenuta la proporzione relativa originale tra gli investimenti dei gruppi BBB e BB.
-5. Verifica che la perdita aggregata di portafoglio coincida con la somma delle perdite dei singoli debitori.
-6. Verifica che VaR e CVaR siano calcolati direttamente sulle distribuzioni delle perdite monetarie dei due portafogli.
-7. Verifica della stabilità delle stime delle principali misure di rischio all'aumentare delle simulazioni Monte Carlo.
+
+14. Verifica che la perdita aggregata di portafoglio coincida con la somma delle perdite dei singoli debitori.
+
+16. Verifica della stabilità delle stime delle principali misure di rischio all'aumentare delle simulazioni Monte Carlo.
+
+17. Verifica che VaR e CVaR siano calcolati direttamente sulle distribuzioni delle perdite monetarie dei due portafogli.
 
 ### Controlli logici o teorici
 
-1. Verifica che lo stato di default \(D\) risulti assorbente in tutte le matrici di migrazione creditizia.
-2. Verifica che il regime sistemico iniziale sia \(M_0=S\) in ogni replica Monte Carlo.
-3. Verifica che all'interno della stessa replica esista una sola traiettoria sistemica, comune a tutti i 36 debitori.
-4. Verifica che, condizionatamente alla traiettoria di regime comune, le estrazioni stocastiche per le migrazioni dei debitori siano indipendenti.
-5. Verifica che il tempo di default \(\tau_i\) coincida esattamente con il primo trimestre di ingresso nello stato \(D\).
-6. Verifica che la LGD applicata in caso di default corrisponda al regime sistemico \(M_{\tau_i-1}\) che governa la transizione verso \(D\).
-7. Verifica che un debitore entrato nello stato \(D\) non possa successivamente uscire dal default.
-8. Verifica che la funzione di perdita migration-based \(\varphi\) sia applicata unicamente ai debitori che non sono entrati in default \((\tau_i>4)\).
+3. Verifica che lo stato di default \(D\) risulti assorbente in tutte le matrici di migrazione creditizia.
+
+4. Verifica che il regime sistemico iniziale sia \(M_0=S\) in ogni replica Monte Carlo.
+
+5. Verifica che all'interno della stessa replica esista una sola traiettoria sistemica, comune a tutti i 36 debitori.
+
+6. Verifica che, condizionatamente alla traiettoria di regime comune, le estrazioni stocastiche per le migrazioni dei debitori siano indipendenti.
+
+7. Verifica che il tempo di default \(\tau_i\) coincida esattamente con il primo trimestre di ingresso nello stato \(D\).
+
+8. Verifica che la LGD applicata in caso di default corrisponda al regime sistemico \(M_{\tau_i-1}\) che governa la transizione verso \(D\).
+
+9. Verifica che un debitore entrato nello stato \(D\) non possa successivamente uscire dal default.
+
+10. Verifica che la funzione di perdita migration-based \(\varphi\) sia applicata unicamente ai debitori che non sono entrati in default \((\tau_i>4)\).
 
 ### Controlli computazionali
 
-1. Verifica che il confronto tra portafoglio iniziale e portafoglio soggetto al limite utilizzi rigorosamente le medesime traiettorie sistemiche e creditizie simulate.
-2. Verifica la riproducibilità esatta dei risultati numerici impostando il seed 2027.
+13. Verifica che il confronto tra portafoglio iniziale e portafoglio soggetto al limite utilizzi rigorosamente le medesime traiettorie sistemiche e creditizie simulate.
+
+15. Verifica la riproducibilità esatta dei risultati numerici impostando il seed 2027.
 
 ---
 
