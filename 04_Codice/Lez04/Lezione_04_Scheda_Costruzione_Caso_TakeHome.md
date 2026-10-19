@@ -35,7 +35,7 @@ Il problema non riguarda la previsione puntuale del prezzo dell’energia. Il ca
 
 L’impresa considerata sostiene un fabbisogno energetico dato, espresso in MWh. Il costo unitario dell’energia è incerto e dipende dal regime di mercato. La variabile di interesse non è direttamente il prezzo dell’energia, ma lo shortfall rispetto a un margine minimo desiderato.
 
-Il caso è rilevante per studenti di Banca e Risk Management perché collega:
+Il caso è rilevante per studenti di Finanza e Risk Management perché collega:
 
 1. rischio di mercato su un fattore di costo;
 2. margine operativo;

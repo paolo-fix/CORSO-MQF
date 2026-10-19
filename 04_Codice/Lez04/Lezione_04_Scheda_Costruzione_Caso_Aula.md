@@ -41,7 +41,7 @@ Il caso non ha l’obiettivo di stimare un modello storico dei tassi né di prod
 4. distribuzione empirica delle perdite;
 5. valori attesi condizionati.
 
-Il caso è rilevante per studenti di Banca e Risk Management perché collega un concetto finanziario familiare, la sensitivity obbligazionaria ai tassi, con gli strumenti probabilistici introdotti nelle prime lezioni del corso.
+Il caso è rilevante per studenti di Finanza e Risk Management perché collega un concetto finanziario familiare, la sensitivity obbligazionaria ai tassi, con gli strumenti probabilistici introdotti nelle prime lezioni del corso.
 
 ---
 
