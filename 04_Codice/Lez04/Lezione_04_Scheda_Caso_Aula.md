@@ -3,7 +3,7 @@
 ## 1. Identificazione del caso
 
 - **Lezione:** Lezione 04 — Applicazione in Python: probabilità, variabili casuali e valori attesi condizionati
-- **Tipo di caso:** aula
+- **Tipo di caso:** Aula
 - **Titolo:** *Perdita obbligazionaria condizionata a regimi di tasso*
 - **Contesto:** portafoglio obbligazionario a tasso fisso esposto a shock dei rendimenti
 - **Uso previsto:** sviluppo guidato in aula, con costruzione progressiva del notebook
@@ -38,7 +38,7 @@ $$\Delta V\simeq-DV_0\Delta y.$$
 
 La perdita è definita come diminuzione del valore del portafoglio:
 
-$$L=-\Delta V\simeq DV_0\Delta y.$$
+$$L= DV_0\Delta y.$$
 
 Il segno è quindi scelto in modo che $\Delta y>0$ produca $L>0$, mentre una diminuzione dei rendimenti possa generare una perdita negativa, interpretabile come guadagno.
 
