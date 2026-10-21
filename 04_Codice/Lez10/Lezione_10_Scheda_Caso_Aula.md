@@ -431,7 +431,7 @@ $$
 \rho(L_{\mathrm{base}}^P);
 $$
 
-10. la differenza scenario per scenario
+10. la differenza replica per replica
 
 $$
 \Delta L^{(r)}
