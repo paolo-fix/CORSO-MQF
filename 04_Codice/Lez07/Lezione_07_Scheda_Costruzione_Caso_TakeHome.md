@@ -8,7 +8,7 @@ Documento interno di progettazione docente.
 - **Lezione:** 7 — Applicazione in Python: simulazione di traiettorie e pricing
 - **Tipo di caso:** TakeHome
 - **Titolo:** *Pricing Monte Carlo di una call asiatica sull'EURO STOXX 50 con tasso di interesse stocastico*
-- **Destinatari:** studenti del secondo anno della Laurea Magistrale in Banca e Risk Management
+- **Destinatari:** studenti del secondo anno della Laurea Magistrale in Finanza e Risk Management
 - **Uso previsto:** lavoro autonomo successivo alla lezione applicativa, sviluppato mediante notebook Jupyter e uso documentato dell'IA secondo il protocollo MQF
 - **Data di riferimento del caso:** 27 luglio 2026
 
