@@ -503,7 +503,7 @@ L_{\mathrm{base}}^{P,(r)}
 L_i^{(r)}.
 $$
 
-Applicando agli stessi scenari simulati il vettore degli investimenti soggetto al limite si ottiene
+Applicando alle stesse traiettorie simulate il vettore degli investimenti soggetto al limite si ottiene
 
 $$
 L_{\mathrm{lim}}^{P,(r)}.
@@ -561,7 +561,7 @@ Per ogni replica $r$:
 6. per i debitori sopravvissuti si applica la funzione di perdita migration-based;
 7. per i debitori in default si applica la LGD associata al regime nel quale il default si è verificato;
 8. si calcola la perdita del portafoglio iniziale;
-9. mantenendo invariati gli stessi scenari, si applica il vettore degli investimenti soggetto al limite e si calcola la seconda perdita di portafoglio.
+9. mantenendo invariate le stesse traiettorie simulate, si applica il vettore degli investimenti soggetto al limite e si calcola la seconda perdita di portafoglio.
 
 Il numero base di simulazioni è
 
