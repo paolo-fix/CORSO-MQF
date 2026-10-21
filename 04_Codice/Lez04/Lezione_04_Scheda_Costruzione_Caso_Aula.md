@@ -19,7 +19,7 @@ Da questa scheda derivano:
 ## 1. Identificazione del caso
 
 - **Lezione:** Lezione 04 — Applicazione in Python: probabilità, variabili casuali e valori attesi condizionati
-- **Tipo di caso:** caso aula
+- **Tipo di caso:** Aula
 - **Titolo:** Perdita obbligazionaria condizionata a regimi di tasso
 - **Collocazione nella lezione applicativa:** primo caso applicativo Python del corso
 - **Destinatari:** studenti del secondo anno del Corso di Laurea Magistrale in Finanza e Risk Management

@@ -8,7 +8,7 @@ Documento interno di progettazione docente.
 - **Lezione:** 7 — Applicazione in Python: simulazione di traiettorie e pricing
 - **Tipo di caso:** Aula
 - **Titolo:** *Inflazione e tassi stocastici: pricing Monte Carlo di un inflation-linked bond*
-- **Destinatari:** studenti del secondo anno della Laurea Magistrale in Banca e Risk Management
+- **Destinatari:** studenti del secondo anno del Corso di Laurea Magistrale in Finanza e Risk Management
 - **Uso previsto:** sviluppo guidato durante la lezione applicativa mediante notebook Jupyter e uso controllato dell'IA secondo il protocollo MQF.
 
 Il caso consolida operativamente i contenuti dei Capitoli 5 e 6 e li trasferisce nel problema di valutazione sviluppato nel Capitolo 7:

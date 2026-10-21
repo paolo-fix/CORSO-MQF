@@ -3,7 +3,7 @@
 ## 1. Identificazione del caso
 
 - **Lezione:** Lezione 07 — Applicazione in Python: simulazione di traiettorie e pricing
-- **Tipo di caso:** Caso Aula
+- **Tipo di caso:** Aula
 - **Titolo:** *Inflazione e tassi stocastici: pricing Monte Carlo di un inflation-linked bond*
 - **Contesto:** obbligazione indicizzata all'inflazione con cedole indicizzate e protezione del capitale nominale a scadenza
 - **Uso previsto:** sviluppo guidato in aula mediante notebook Jupyter

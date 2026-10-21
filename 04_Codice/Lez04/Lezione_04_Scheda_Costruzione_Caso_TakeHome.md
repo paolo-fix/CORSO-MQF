@@ -19,7 +19,7 @@ Da questa scheda derivano:
 ## 1. Identificazione del caso
 
 - **Lezione:** Lezione 04 — Applicazione in Python: probabilità, variabili casuali e valori attesi condizionati
-- **Tipo di caso:** caso TakeHome
+- **Tipo di caso:** TakeHome
 - **Titolo:** Shortfall di margine condizionato a regimi del costo dell’energia
 - **Collocazione nella lezione applicativa:** caso autonomo assegnato dopo il caso aula
 - **Destinatari:** studenti del secondo anno del Corso di Laurea Magistrale in Finanza e Risk Management
