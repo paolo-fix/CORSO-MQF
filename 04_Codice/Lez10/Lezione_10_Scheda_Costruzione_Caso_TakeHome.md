@@ -679,7 +679,7 @@ $$
 |---:|---|---|---|---|
 | 1 | Definire i processi stocastici e la struttura di dipendenza | Catena di Markov $M_t\in\{O,S,C\}$ con $M_0=S$ e matrice $Q$; matrici $P^{(m)}$ con stato $D$ assorbente; indipendenza condizionata delle migrazioni individuali data la traiettoria sistemica comune | Definizione delle regole di transizione del regime sistemico e dei rating individuali dei debitori | Controlli sulle matrici $Q$ e $P^{(m)}$, sul dominio degli stati, sullo stato assorbente e sulla traiettoria sistemica comune |
 | 2 | Definire i due portafogli e la funzione di perdita | $L_i=V_{i,0}\varphi(X_{i,0},X_{i,4})$; $\operatorname{EAD}_i=V_{i,0}$; $\operatorname{LGD}=0.65$; portafoglio concentrato con $40$ debitori e portafoglio controfattuale con $39$ debitori; $V_{i,0}^{\mathrm{div}}=V_{i,0}\frac{173}{148}$ | Costruzione della struttura delle esposizioni e della mappa dei tassi di perdita o incremento di valore associati alle migrazioni creditizie | Controlli sulle dimensioni dei portafogli, sull'investimento totale pari a $173$ milioni e sulla conservazione delle proporzioni relative |
-| 3 | Generare repliche Monte Carlo accoppiate | Simulazione di $N=50\,000$ repliche con seed $2026$; stesse traiettorie sistemiche e creditizie per i $39$ debitori comuni ai due portafogli | Generazione delle traiettorie sistemiche e creditizie e riutilizzo degli stessi shock nei due portafogli | Controlli sull'accoppiamento delle repliche, sulla riproducibilità e sull'indipendenza condizionata |
+| 3 | Generare repliche Monte Carlo accoppiate | Simulazione di $N_{\mathrm{MC}}=50\,000$ repliche con seed $2026$; stesse traiettorie sistemiche e creditizie per i $39$ debitori comuni ai due portafogli | Generazione delle traiettorie sistemiche e creditizie e riutilizzo degli stessi shock nei due portafogli | Controlli sull'accoppiamento delle repliche, sulla riproducibilità e sull'indipendenza condizionata |
 | 4 | Analizzare il ruolo del regime sistemico nella distribuzione delle perdite | Evento di ingresso in crisi $I_C^{(r)}=\mathbf{1}_{\{\exists t:M_t^{(r)}=C\}}$; probabilità empirica di crisi e valori medi condizionati | Separazione delle repliche con e senza ingresso nel regime $C$ e confronto delle perdite del portafoglio concentrato | Probabilità simulata di ingresso in $C$, Tabella 4 e Figura 3 |
 | 5 | Stimare e confrontare le misure di rischio dei due portafogli | Distribuzione empirica, valore atteso, varianza, deviazione standard, $\operatorname{VaR}_{\alpha}$ e $\operatorname{CVaR}_{\alpha}$ per $\alpha\in\{0.95,0.99\}$ | Stima delle misure di rischio per il portafoglio concentrato e per quello controfattuale e calcolo dei differenziali $\Delta\rho$ | Tabella 3, Figure 1 e 2; controllo della stabilità Monte Carlo e del calcolo di VaR e CVaR |
 | 6 | Valutare la differenza replica per replica e completare i controlli | $\Delta L^{(r)}=L_{\mathrm{div}}^{P,(r)}-L_{\mathrm{conc}}^{P,(r)}$; coerenza interna del modello e degli output | Analisi della distribuzione di $\Delta L^{(r)}$ e ricognizione conclusiva dei controlli previsti dalla Scheda Caso | Distribuzione di $\Delta L^{(r)}$, sintesi dei controlli e base quantitativa verificata per l'interpretazione finanziaria finale autonoma |
@@ -720,8 +720,8 @@ La corrispondenza tra prompt, tappe e notebook è riportata nella tabella seguen
 | Prompt tappa 2 | B | Tappa 2 | Costruire il portafoglio concentrato e il portafoglio controfattuale a investimento complessivo invariato | Celle Markdown, codice, Tabella 1 e Tabella 2 | Portafoglio concentrato con $40$ debitori, portafoglio controfattuale con $39$ debitori, investimento complessivo pari a $173$ milioni in entrambi i portafogli e corretta riallocazione proporzionale mediante il fattore $173/148$ |
 | Prompt tappa 3 | B | Tappa 3 | Implementare la simulazione delle traiettorie sistemiche e creditizie comuni ai due portafogli | Celle Markdown e codice per simulazione del regime sistemico e delle traiettorie creditizie | Traiettoria sistemica unica per replica, indipendenza condizionata delle estrazioni individuali, stato $D$ assorbente, identiche traiettorie creditizie per i $39$ debitori comuni e seed $2026$ correttamente impostato |
 | Prompt tappa 4 | B | Tappa 4 | Trasformare gli stati creditizi finali simulati in perdite individuali e aggregate per i due portafogli | Celle Markdown e codice per funzione di perdita, perdite individuali, aggregazione e $\Delta L^{(r)}$ | Corretta applicazione di $\varphi(X_{i,0},X_{i,4})$, coerenza con $\mathrm{LGD}=0.65$ e $\mathrm{EAD}_i=V_{i,0}$, additività delle perdite e utilizzo delle stesse traiettorie creditizie per i debitori comuni |
-| Prompt tappa 5 | B | Tappa 5 | Calcolare e confrontare le principali misure di rischio e sviluppare l'analisi del regime sistemico | Celle Markdown, codice, Tabella 3 e Tabella 4 | Corretta implementazione di perdita media, varianza, deviazione standard, VaR, CVaR e $\Delta\rho$; corretta identificazione degli scenari con e senza ingresso in $C$; stabilità empirica delle principali misure di rischio |
-| Prompt tappa 6 | B | Tappa 6 | Produrre gli output grafici, analizzare le differenze scenario per scenario e completare la ricognizione conclusiva dei controlli | Celle Markdown, codice, Figure 1, 2 e 3, distribuzione di $\Delta L^{(r)}$ e sintesi conclusiva dei controlli | Coerenza tra grafici, tabelle e risultati numerici; coerenza della distribuzione di $\Delta L^{(r)}$; copertura degli output richiesti e verifica complessiva dei controlli della Scheda Caso |
+| Prompt tappa 5 | B | Tappa 5 | Calcolare e confrontare le principali misure di rischio e sviluppare l'analisi del regime sistemico | Celle Markdown, codice, Tabella 3 e Tabella 4 | Corretta implementazione di perdita media, varianza, deviazione standard, VaR, CVaR e $\Delta\rho$; corretta identificazione delle repliche con e senza ingresso in $C$; stabilità empirica delle principali misure di rischio |
+| Prompt tappa 6 | B | Tappa 6 | Produrre gli output grafici, analizzare le differenze replica per replica e completare la ricognizione conclusiva dei controlli | Celle Markdown, codice, Figure 1, 2 e 3, distribuzione di $\Delta L^{(r)}$ e sintesi conclusiva dei controlli | Coerenza tra grafici, tabelle e risultati numerici; coerenza della distribuzione di $\Delta L^{(r)}$; copertura degli output richiesti e verifica complessiva dei controlli della Scheda Caso |
 | Prompt C eventuale | C | Tappa interessata | Verificare una criticità specifica già individuata dallo studente | Eventuale sostituzione delle celle coinvolte | Criticità accolta oppure respinta |
 
 
@@ -1126,12 +1126,12 @@ Il confronto deve rendere evidente la funzione del fattore sistemico comune.
 - verifica della conservazione delle proporzioni relative tra i $39$ debitori residui;
 - verifica della traiettoria sistemica unica per replica;
 - verifica delle estrazioni individuali indipendenti condizionatamente al regime;
-- verifica dell'utilizzo degli stessi scenari per i debitori comuni ai due portafogli;
+- verifica dell'utilizzo delle stesse traiettorie creditizie per i debitori comuni ai due portafogli;
 - controllo della funzione di perdita;
 - riconciliazione fra perdite individuali e perdita aggregata;
 - riproducibilità;
 - stabilità delle misure di rischio aumentando il numero delle simulazioni;
-- confronto qualitativo tra scenari con e senza condizioni sistemiche di crisi.
+- confronto qualitativo tra repliche con e senza condizioni sistemiche di crisi.
 
 ### 11.7 Limiti interpretativi
 
@@ -1300,7 +1300,7 @@ Al termine del caso, lo studente deve essere in grado di:
 2. distinguere indipendenza condizionata e dipendenza incondizionata tra le perdite dei debitori;
 3. trasformare gli stati creditizi simulati in perdite monetarie mediante la funzione di perdita assegnata;
 4. costruire correttamente il portafoglio controfattuale eliminando la posizione Lehman e redistribuendone proporzionalmente l'investimento;
-5. confrontare i due portafogli utilizzando gli stessi scenari Monte Carlo per i debitori comuni;
+5. confrontare i due portafogli utilizzando le stesse traiettorie creditizie per i debitori comuni;
 6. stimare e interpretare perdita attesa, dispersione, VaR e CVaR;
 7. valutare correttamente gli effetti della riallocazione senza identificarli automaticamente con un effetto puro della sola concentrazione;
 8. distinguere i risultati prodotti dal modello didattico dagli eventi storici successivamente osservati;
@@ -1313,7 +1313,7 @@ Il caso è considerato didatticamente ben calibrato se:
 - la posizione Lehman costituisce una concentrazione iniziale economicamente rilevante;
 - la sua eliminazione e la riallocazione proporzionale modificano in modo osservabile la distribuzione delle perdite;
 - il controfattuale non produce necessariamente una riduzione uniforme di tutte le misure di rischio;
-- il regime sistemico comune genera differenze chiaramente osservabili tra scenari con e senza ingresso nello stato di crisi;
+- il regime sistemico comune genera differenze chiaramente osservabili tra repliche con e senza ingresso nello stato di crisi;
 - la riallocazione rende evidente che una riduzione della concentrazione può modificare anche la composizione per rating del portafoglio;
 - gli output numerici rimangono compatibili con gli ordini di grandezza riportati nella calibrazione docente;
 - il problema richiede il trasferimento autonomo della struttura metodologica sviluppata nel Caso Aula, senza ridursi a una semplice sostituzione di parametri.

@@ -637,13 +637,13 @@ Confronto tra:
 
 **Tabella 4 — Regime sistemico e perdita**
 
-Confronto, per il portafoglio iniziale, tra scenari con e senza ingresso nel regime $C$.
+Confronto, per il portafoglio iniziale, tra repliche con e senza ingresso nel regime $C$.
 
 ### 5.3 Grafici
 
 1. Distribuzione empirica della perdita del portafoglio iniziale con indicazione di VaR 95% e VaR 99%.
 2. Confronto delle code delle distribuzioni del portafoglio iniziale e del portafoglio soggetto al limite.
-3. Distribuzione di $\Delta L$ oppure confronto delle perdite negli scenari con e senza ingresso nel regime di crisi.
+3. Distribuzione di $\Delta L$ oppure confronto delle perdite nelle repliche con e senza ingresso nel regime di crisi.
 
 ### 5.4 Controlli
 
@@ -651,7 +651,7 @@ I controlli richiesti devono distinguere tra:
 
 - proprietà verificabili direttamente sui dati, sulle simulazioni o sugli output numerici;
 - proprietà strutturali garantite dalla costruzione dell'algoritmo;
-- controlli computazionali relativi all'accoppiamento degli scenari e all'impostazione della simulazione.
+- controlli computazionali relativi all'accoppiamento delle repliche e all'impostazione della simulazione
 
 #### Controlli numerici
 
@@ -744,7 +744,7 @@ La corrispondenza tra prompt, tappe e notebook è riportata nella tabella seguen
 | Prompt tappa 1 | B | Tappa 1 | Tradurre i parametri assegnati nelle strutture computazionali del modello e verificarne la coerenza formale | Celle Markdown e codice per matrici, parametri e controlli preliminari | Corretta implementazione di $Q$, delle matrici $P^{(m)}$, della funzione $\varphi$, delle LGD e dello stato assorbente |
 | Prompt tappa 2 | B | Tappa 2 | Costruire il portafoglio iniziale e quello soggetto al limite di concentrazione | Celle Markdown, codice e Tabelle 1 e 2 | Investimento totale invariato, posizione Evergrande pari a 20 milioni e corretta riallocazione dei 10 milioni verso BBB e BB |
 | Prompt tappa 3 | B | Tappa 3 | Implementare la simulazione delle traiettorie sistemiche e creditizie e identificare i tempi di default | Celle Markdown e codice per simulazione di regime, rating e default | Stato iniziale corretto, regime sistemico comune, indipendenza condizionata, default assorbente e riproducibilità |
-| Prompt tappa 4 | B | Tappa 4 | Trasformare le traiettorie simulate in perdite individuali e aggregate per i due portafogli | Celle Markdown e codice per funzione di perdita, LGD, aggregazione e $\Delta L^{(r)}$ | Corretta applicazione della LGD, esclusività tra perdita migration-based e perdita da default, stessi scenari nei due portafogli e additività delle perdite |
+| Prompt tappa 4 | B | Tappa 4 | Trasformare le traiettorie simulate in perdite individuali e aggregate per i due portafogli | Celle Markdown e codice per funzione di perdita, LGD, aggregazione e $\Delta L^{(r)}$ | Corretta applicazione della LGD, esclusività tra perdita migration-based e perdita da default, stesse traiettorie simulate nei due portafogli e additività delle perdite |
 | Prompt tappa 5 | B | Tappa 5 | Calcolare le misure di rischio e sviluppare l'analisi condizionata al regime sistemico | Celle Markdown, codice, Tabelle 3 e 4 e misure sintetiche | Corretta implementazione di media, varianza, deviazione standard, VaR, CVaR, probabilità di crisi e perdite condizionate |
 | Prompt tappa 6 | B | Tappa 6 | Produrre gli output grafici richiesti e completare la ricognizione dei controlli | Celle Markdown, codice, Figure 1, 2 e 3 e sintesi conclusiva dei controlli | Coerenza dei grafici con gli output numerici e verifica complessiva dei controlli previsti dalla Scheda Caso |
 | Prompt C eventuale | C | Tappa interessata | Verificare una criticità specifica già individuata dallo studente | Eventuale sostituzione delle celle coinvolte | Criticità accolta oppure respinta |
@@ -856,7 +856,7 @@ Queste due celle documentano le decisioni di progettazione che governano lo svil
   $$
 - Cella codice: calcolo della probabilità simulata di ingresso almeno una volta nel regime $C$.
 - Cella codice: calcolo del numero medio di default.
-- Cella codice: calcolo delle perdite medie del portafoglio iniziale condizionate agli scenari con e senza ingresso nel regime $C$.
+- Cella codice: calcolo delle perdite medie del portafoglio iniziale condizionate alle repliche con e senza ingresso nel regime $C$.
 - Output: Tabella 3 — misure di rischio.
 - Output: Tabella 4 — regime sistemico e perdita.
 - Controllo: VaR e CVaR vengono ricalcolati direttamente sulle distribuzioni empiriche delle perdite monetarie dei due portafogli e confrontati con le misure memorizzate.
@@ -869,7 +869,7 @@ Queste due celle documentano le decisioni di progettazione che governano lo svil
 
 - Cella codice/output: Figura 1 — distribuzione della perdita del portafoglio iniziale con indicazione di VaR 95% e VaR 99%.
 - Cella codice/output: Figura 2 — confronto delle code delle distribuzioni dei due portafogli.
-- Cella codice/output: Figura 3 — confronto delle perdite negli scenari con e senza ingresso nel regime $C$.
+- Cella codice/output: Figura 3 — confronto delle perdite nelle repliche con e senza ingresso nel regime $C$.
 - Cella Markdown: ricognizione complessiva dell'esito dei controlli richiesti dalla Scheda Caso.
 - Controllo: coerenza tra grafici, tabelle e risultati numerici.
 - Controllo: verifica conclusiva della copertura degli output e dei controlli previsti.
@@ -916,7 +916,7 @@ Il notebook è considerato valido se:
 
 10. costruisce correttamente il portafoglio soggetto al limite, mantenendo l'investimento complessivo pari a $200$ milioni e riallocando esattamente $10$ milioni esclusivamente tra le posizioni inizialmente BBB e BB secondo la regola proporzionale assegnata;
 
-11. utilizza esattamente gli stessi scenari sistemici e creditizi per confrontare il portafoglio iniziale e quello soggetto al limite; tale proprietà deve derivare dal riutilizzo degli stessi oggetti simulati e deve essere riconosciuta come proprietà strutturale del confronto mediante *Common Random Numbers*;
+11. utilizza esattamente le stesse traiettorie sistemiche e creditizie per confrontare il portafoglio iniziale e quello soggetto al limite; tale proprietà deve derivare dal riutilizzo degli stessi oggetti simulati e deve essere riconosciuta come proprietà strutturale del confronto mediante *Common Random Numbers*;
 
 12. riconcilia, per ciascuna replica e per entrambi i portafogli, le perdite aggregate con la somma delle perdite individuali;
 
@@ -1010,8 +1010,8 @@ Con la calibrazione assegnata:
 
 - la probabilità simulata di raggiungere il regime $C$ almeno una volta è circa il $37.1\%$;
 - il numero medio di default è circa $5.36$ per replica;
-- la perdita media del portafoglio iniziale negli scenari che visitano $C$ è circa $40.92$ milioni;
-- la perdita media negli scenari che non visitano $C$ è circa $17.50$ milioni.
+- la perdita media del portafoglio iniziale nelle repliche che visitano $C$ è circa $40.92$ milioni;
+- la perdita media nelle repliche che non visitano $C$ è circa $17.50$ milioni.
 
 Il confronto deve rendere evidente che il regime sistemico agisce attraverso due canali:
 
@@ -1051,11 +1051,11 @@ Il confronto deve rendere evidente che il regime sistemico agisce attraverso due
 - verifica del limite massimo di $20$ milioni;
 - verifica della riallocazione di esattamente $10$ milioni;
 - verifica dei destinatari BBB e BB della riallocazione;
-- verifica dell'utilizzo degli stessi scenari nei due portafogli;
+- verifica dell'utilizzo delle stesse traiettorie simulate nei due portafogli;
 - riconciliazione delle perdite individuali e aggregate;
 - riproducibilità;
 - stabilità delle misure di rischio al crescere delle simulazioni;
-- confronto tra scenari con e senza ingresso nel regime di crisi.
+- confronto tra repliche con e senza ingresso nel regime di crisi.
 
 ### 11.7 Limiti interpretativi
 
@@ -1229,7 +1229,7 @@ Al termine del caso, lo studente deve essere in grado di:
 2. distinguere il rischio di migrazione dal rischio di default;
 3. applicare la LGD al regime sistemico che governa la transizione nel default;
 4. trasformare le traiettorie simulate in perdite individuali e di portafoglio;
-5. confrontare il portafoglio iniziale con quello soggetto al limite di concentrazione utilizzando gli stessi scenari Monte Carlo;
+5. confrontare il portafoglio iniziale con quello soggetto al limite di concentrazione utilizzando le stesse traiettorie simulate;
 6. stimare e interpretare perdita attesa, dispersione, VaR e CVaR;
 7. valutare l'effetto della politica di concentrazione sulla distribuzione complessiva delle perdite e sulle misure di coda;
 8. distinguere i risultati prodotti dal modello didattico dagli eventi storici successivamente osservati;

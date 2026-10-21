@@ -1178,8 +1178,12 @@ sulla sua frontiera.
 \medskip
 
 \begin{stepitemize}
-\item I vincoli attivi sono quelli che stanno \textbf{determinando} la
-decisione. Un vincolo con margine positivo, in quel punto, non morde.
+% \item I vincoli attivi sono quelli che stanno \textbf{determinando} la
+% decisione. Un vincolo con margine positivo, in quel punto, non morde.
+
+\item I vincoli attivi sono quelli che \textbf{possono contribuire a
+determinare} la decisione. Un vincolo con margine positivo, in quel punto,
+non morde.
 
 \item Un vincolo di uguaglianza ha margine nullo per costruzione: \`{e}
 attivo in ogni soluzione ammissibile.
@@ -1727,7 +1731,9 @@ complessivo, che con $A_0=100$ si legge anche come percentuale dell'attivo.
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{I vincoli attivi identificano la soluzione}
+%\QTR{frametitle}{I vincoli attivi identificano la soluzione}
+
+\QTR{frametitle}{Che cosa rivelano i vincoli attivi}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -1756,8 +1762,11 @@ Quattro variabili, quattro vincoli attivi: la soluzione \`{e} il vertice ottimo.
 \medskip
 
 \begin{stepitemize}
-\item Un vincolo con margine \textbf{positivo} non condiziona la soluzione:
-allentarlo lascerebbe $x^{*}$ invariato. 
+\item Un vincolo con margine \textbf{positivo} non condiziona localmente
+la soluzione: un piccolo allentamento lascia invariati $x^{*}$ e $z^{*}$.
+
+% \item Un vincolo con margine \textbf{positivo} non condiziona la soluzione:
+% allentarlo lascerebbe $x^{*}$ invariato. 
 \item Solo un vincolo \textbf{attivo} pu\`{o} avere valore marginale non
 nullo. La decisione \`{e} condizionata dalla
 combinazione tra fabbisogno di liquidit\`{a} e capacit\`{a} di assorbire
@@ -1947,29 +1956,35 @@ L'analisi condotta su $Q$ non ha nulla di specifico: ogni termine noto
 $b_i$ pu\`{o} essere fatto variare, e a ciascuno corrisponde una derivata
 del valore ottimo. In un modello con $m$ vincoli la sensitivit\`{a} non
 \`{e} un numero, ma un \textbf{vettore di $m$ numeri}:
-\[
+$
 \frac{\partial z^{*}}{\partial b_1},
 \quad
 \frac{\partial z^{*}}{\partial b_2},
 \quad\ldots,\quad
-\frac{\partial z^{*}}{\partial b_m}.
-\]
+\frac{\partial z^{*}}{\partial b_m}$.
+
 
 \begin{stepitemize}
 \item Le $m$ derivate sono \textbf{confrontabili}: dicono quale requisito
 sta costando di pi\`{u} e dove un allentamento produrrebbe il beneficio
 maggiore. \`{E} l'informazione che il decisore cerca.
 
-\item Un vincolo con margine positivo ha derivata \textbf{nulla}:
-allentarlo non modifica la soluzione, quindi non modifica $z^{*}$. Solo i
-vincoli attivi contano.
+% \item Un vincolo con margine positivo ha derivata \textbf{nulla}:
+% allentarlo non modifica la soluzione, quindi non modifica $z^{*}$. Solo i
+% vincoli attivi contano.
+
+\item Un vincolo con margine positivo ha localmente derivata
+\textbf{nulla}: un piccolo allentamento non modifica il valore ottimo.
+Quindi solo un vincolo attivo \emph{pu\`{o}} avere effetto marginale
+non nullo; l'attivit\`{a} del vincolo \`{e} una condizione necessaria,
+non sufficiente.
 
 \item Calcolarle una per una richiede di risolvere il problema $m$ volte,
 con un'ulteriore soluzione per ogni perturbazione. Su modelli reali, con
 centinaia di vincoli, il procedimento non \`{e} praticabile.
 \end{stepitemize}
 
-\medskip
+%\medskip
 
 \begin{center}
 {\small Serve un modo per ottenere tutte le derivate \textbf{in una sola
@@ -1989,6 +2004,83 @@ soluzione}.}
 
 \subsection{Il prezzo ombra di un vincolo}%
 
+% %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+% %BeginExpansion
+% \begin{frame}%
+% %EndExpansion
+
+% \QTR{frametitle}{Il prezzo ombra di un vincolo}
+
+% %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+% %BeginExpansion
+% \setbeamercovered{transparent=20}%
+% %EndExpansion
+
+% % Si chiama \textbf{prezzo ombra} del vincolo $i$ la derivata del valore
+% % ottimo rispetto al proprio termine noto,
+% % \[
+% % \lambda_i=\frac{\partial z^{*}}{\partial b_i},
+% % \]
+% % valida sull'intervallo in cui l'insieme dei vincoli attivi non cambia. Il
+% % segno dipende dal verso: una risorsa disponibile in maggior quantit\`{a}
+% % migliora il risultato, un requisito pi\`{u} severo lo peggiora.
+
+% La variabile duale $\lambda_i$ d\`{a} il valore marginale per il
+% vincolo $i$, dopo aver scritto il vincolo nella forma di
+% riferimento utilizzata per il problema duale.
+
+% %\medskip
+
+% La derivata del valore ottimo rispetto a un parametro economico pu\`{o}
+% avere segno diverso da $\lambda_i$, a seconda di come quel parametro
+% compare nel termine noto del vincolo. Per il requisito minimo di
+% liquidit\`{a}, ad esempio, vale ${\partial z^{*}}/{\partial Q}
+% =
+% -\lambda_Q$.
+% $\lambda_i$ \`{e} locale: resta valida finch\'{e} l'insieme dei
+% vincoli attivi non cambia.
+
+% %\vspace{-0.1cm}
+
+% \begin{center}
+% {\small
+% \begin{tabular}
+% [c]{lcrl}\hline
+% \textbf{Vincolo} & \textbf{Termine noto} & $\lambda_i$ &
+% \textbf{Lettura}\\\hline
+% Bilancio & $A_0=100$ & $0.05642$ & valore di una risorsa in pi\`{u}\\
+% Liquidit\`{a} & $Q=55$ & $0.03507$ & valore duale del requisito\\
+% Perdita & $K=7$ & $0.00746$ & valore di un limite pi\`{u} ampio\\
+% Concentrazione & $30$ & $0.00000$ & vincolo non attivo\\\hline
+% \end{tabular}
+% }
+% \end{center}
+
+% \begin{stepitemize}
+% %\item Il \textbf{vettore dei prezzi ombra} include $\lambda_Q=-0.03507$ già osservato.
+
+% \item Per il requisito di liquidit\`{a}, $\lambda_Q=0.03507,\qquad \frac{\partial z^{*}}{\partial Q}=-0.03507$.\\
+% La variabile duale misura il costo marginale del requisito; il segno
+% negativo della derivata indica che aumentare $Q$ riduce il valore ottimo.
+
+
+% \item $\lambda_C=0$ perch\'{e} il limite di concentrazione ha margine
+% $9.104$: \textbf{margine positivo implica prezzo nullo}.
+% \end{stepitemize}
+
+% %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+% %BeginExpansion
+% \transboxout%
+% %EndExpansion
+% %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+% %BeginExpansion
+% \end{frame}%
+% %EndExpansion
+
+
+
+\subsection{Il prezzo ombra di un vincolo}%
+
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
@@ -2001,56 +2093,41 @@ soluzione}.}
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-% Si chiama \textbf{prezzo ombra} del vincolo $i$ la derivata del valore
-% ottimo rispetto al proprio termine noto,
-% \[
-% \lambda_i=\frac{\partial z^{*}}{\partial b_i},
-% \]
-% valida sull'intervallo in cui l'insieme dei vincoli attivi non cambia. Il
-% segno dipende dal verso: una risorsa disponibile in maggior quantit\`{a}
-% migliora il risultato, un requisito pi\`{u} severo lo peggiora.
+Chiamiamo \textbf{prezzo ombra} del vincolo $i$ il valore marginale
+associato a una piccola variazione del proprio termine noto:
 
-La variabile duale $\lambda_i$ d\`{a} il valore marginale per il
-vincolo $i$, dopo aver scritto il vincolo nella forma di
-riferimento utilizzata per il problema duale.
-
-%\medskip
-
-La derivata del valore ottimo rispetto a un parametro economico pu\`{o}
-avere segno diverso da $\lambda_i$, a seconda di come quel parametro
-compare nel termine noto del vincolo. Per il requisito minimo di
-liquidit\`{a}, ad esempio, vale ${\partial z^{*}}/{\partial Q}
+\[
+\lambda_i
 =
--\lambda_Q$.
-$\lambda_i$ \`{e} locale: resta valida finch\'{e} l'insieme dei
-vincoli attivi non cambia.
+\frac{\partial z^{*}}{\partial b_i},
+\]
 
-%\vspace{-0.1cm}
+finch\'{e} l'insieme dei vincoli attivi non cambia.
 
-\begin{center}
-{\small
-\begin{tabular}
-[c]{lcrl}\hline
-\textbf{Vincolo} & \textbf{Termine noto} & $\lambda_i$ &
-\textbf{Lettura}\\\hline
-Bilancio & $A_0=100$ & $0.05642$ & valore di una risorsa in pi\`{u}\\
-Liquidit\`{a} & $Q=55$ & $0.03507$ & valore duale del requisito\\
-Perdita & $K=7$ & $0.00746$ & valore di un limite pi\`{u} ampio\\
-Concentrazione & $30$ & $0.00000$ & vincolo non attivo\\\hline
-\end{tabular}
-}
-\end{center}
+\medskip
+
+Il segno rispetto a un parametro economico dipende da come quel parametro
+entra nel vincolo. Per il requisito minimo di liquidit\`{a},
+
+\[
+\frac{\partial z^{*}}{\partial Q}
+=
+-\lambda_Q,
+\qquad
+\lambda_Q=0.03507.
+\]
 
 \begin{stepitemize}
-%\item Il \textbf{vettore dei prezzi ombra} include $\lambda_Q=-0.03507$ già osservato.
 
-\item Per il requisito di liquidit\`{a}, $\lambda_Q=0.03507,\qquad \frac{\partial z^{*}}{\partial Q}=-0.03507$.\\
-La variabile duale misura il costo marginale del requisito; il segno
-negativo della derivata indica che aumentare $Q$ riduce il valore ottimo.
+\item Aumentare $Q$ rende il requisito pi\`{u} severo: il valore ottimo
+diminuisce localmente di circa $0.03507$ per ogni unit\`{a} aggiuntiva.
 
+\item Il limite di concentrazione ha margine positivo e quindi prezzo ombra
+nullo: $\lambda_C=0$.
 
-\item $\lambda_C=0$ perch\'{e} il limite di concentrazione ha margine
-$9.104$: \textbf{margine positivo implica prezzo nullo}.
+\item Resta una domanda: come ottenere \textbf{insieme} i prezzi ombra di
+tutti i vincoli?
+
 \end{stepitemize}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
@@ -2061,6 +2138,7 @@ $9.104$: \textbf{margine positivo implica prezzo nullo}.
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+
 
 
 \subsection{Un problema di valutazione}%
@@ -2086,9 +2164,9 @@ Ora poniamo una domanda diversa: \textbf{possiamo ottenere congiuntamente
 i prezzi impliciti di tutti i vincoli?}
 
  
-Accanto alla domanda \emph{quale composizione scegliere}, poniamone una
-diversa: \textbf{quanto vale, per la banca, ciascuna risorsa e ciascun
-requisito?}
+% Accanto alla domanda \emph{quale composizione scegliere}, poniamone una
+% diversa: \textbf{quanto vale, per la banca, ciascuna risorsa e ciascun
+% requisito?}
  
 \medskip
  
@@ -2185,10 +2263,14 @@ sola soluzione.
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
+
+Per ricondurre il modello alla forma di riferimento, scriviamo il vincolo
+di liquidit\`{a} come $-q'x\leq-Q_{\min}$; il bilancio resta un'uguaglianza.
+
  
 Un prezzo, chiamato solitamente \textbf{prezzo ombra}, per ciascuno dei quattro vincoli:
  
-\medskip
+%\medskip
  
 {\small
 \[
@@ -2305,7 +2387,7 @@ implicito della classe $j$}.
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{perch\'{e} il duale sta sempre sopra}
+\QTR{frametitle}{Perch\'{e} il duale sta sempre sopra}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -2430,51 +2512,116 @@ gli altri, da una sola soluzione.
 
 \subsection{Complementariet\`{a}}%
  
+% %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+% %BeginExpansion
+% \begin{frame}%
+% %EndExpansion
+ 
+% \QTR{frametitle}{Complementariet\`{a}: quali vincoli stanno decidendo}
+ 
+% %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+% %BeginExpansion
+% \setbeamercovered{transparent=20}%
+% %EndExpansion
+ 
+% Per ogni vincolo, all'ottimo:
+% $\lambda_i^{*}s_i^{*}=0$, dove $s_i^{*}=b_i-a_i'x^{*}$ \`{e} il margine.
+ 
+% \medskip
+ 
+% {\small
+% \[
+% \begin{array}{l|c|c|c}
+% \hline
+% \mbox{vincolo} & \mbox{margine }s_i^{*} & \mbox{stato} & \lambda_i^{*}\\
+% \hline
+% \mbox{liquidit\`{a}}      & 0     & \mbox{attivo}  & 0.03507\\
+% \mbox{perdita sotto stress} & 0   & \mbox{attivo}  & 0.00746\\
+% \mbox{concentrazione}     & 9.104 & \mbox{inattivo}& 0\\
+% \hline
+% \end{array}
+% \]
+% }
+ 
+% \medskip
+ 
+% \begin{stepitemize}
+% \item \textbf{O il vincolo \`{e} attivo, o il suo prezzo \`{e} nullo.} Mai
+% entrambe le cose diverse da zero.
+ 
+% \item Il limite di concentrazione conserva un margine di $9.104$: allentarlo
+% non migliorerebbe di nulla il risultato, perch\'{e} non sta condizionando la
+% decisione.
+ 
+% \item La complementariet\`{a} \`{e} quindi uno strumento \textbf{diagnostico}:
+% dice quali requisiti stanno davvero determinando la scelta.
+% \end{stepitemize}
+ 
+% %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+% %BeginExpansion
+% \transboxout%
+% %EndExpansion
+% %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+% %BeginExpansion
+% \end{frame}%
+% %EndExpansion
+
+
+
+
+%\subsection{Complementariet\`{a}}%
+
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
- 
-\QTR{frametitle}{Complementariet\`{a}: quali vincoli stanno decidendo}
- 
+
+\QTR{frametitle}{Complementariet\`{a}: margini e prezzi ombra}
+
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
- 
-Per ogni vincolo, all'ottimo:
-$\lambda_i^{*}s_i^{*}=0$, dove $s_i^{*}=b_i-a_i'x^{*}$ \`{e} il margine.
- 
+
+Per ogni vincolo, all'ottimo,
+\[
+\lambda_i^{*}s_i^{*}=0,
+\]
+dove $s_i^{*}=b_i-a_i'x^{*}$ \`{e} il margine del vincolo.
+
 \medskip
- 
+
 {\small
 \[
 \begin{array}{l|c|c|c}
 \hline
 \mbox{vincolo} & \mbox{margine }s_i^{*} & \mbox{stato} & \lambda_i^{*}\\
 \hline
-\mbox{liquidit\`{a}}      & 0     & \mbox{attivo}  & 0.03507\\
-\mbox{perdita sotto stress} & 0   & \mbox{attivo}  & 0.00746\\
-\mbox{concentrazione}     & 9.104 & \mbox{inattivo}& 0\\
+\mbox{liquidit\`{a}}        & 0     & \mbox{attivo}   & 0.03507\\
+\mbox{perdita sotto stress} & 0     & \mbox{attivo}   & 0.00746\\
+\mbox{concentrazione}       & 9.104 & \mbox{inattivo} & 0\\
 \hline
 \end{array}
 \]
 }
- 
+
 \medskip
- 
+
 \begin{stepitemize}
-\item \textbf{O il vincolo \`{e} attivo, o il suo prezzo \`{e} nullo.} Mai
-entrambe le cose diverse da zero.
- 
-\item Il limite di concentrazione conserva un margine di $9.104$: allentarlo
-non migliorerebbe di nulla il risultato, perch\'{e} non sta condizionando la
-decisione.
- 
-\item La complementariet\`{a} \`{e} quindi uno strumento \textbf{diagnostico}:
-dice quali requisiti stanno davvero determinando la scelta.
+
+\item \textbf{Margine e prezzo ombra non possono essere entrambi positivi.}
+Se $s_i^{*}>0$, allora $\lambda_i^{*}=0$; se $\lambda_i^{*}>0$, allora
+$s_i^{*}=0$ e il vincolo \`{e} attivo.
+
+\item Il limite di concentrazione conserva un margine di $9.104$:
+un piccolo allentamento non modifica localmente il valore ottimo.
+
+\item La complementariet\`{a} \`{e} uno strumento \textbf{diagnostico}:
+i vincoli con margine positivo hanno prezzo ombra nullo; i vincoli attivi
+possono invece avere valore marginale.
+
 \end{stepitemize}
- 
+
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -2483,8 +2630,6 @@ dice quali requisiti stanno davvero determinando la scelta.
 %BeginExpansion
 \end{frame}%
 %EndExpansion
-
-
 
 
 
