@@ -475,7 +475,7 @@ Devono inoltre essere riportati:
 
 - probabilità simulata di ingresso nel regime $C$;
 - numero medio di default;
-- perdita media negli scenari con e senza ingresso in $C$;
+- perdita media nelle repliche con e senza ingresso in $C$;
 - differenze tra le misure di rischio dei due portafogli;
 - incidenza della politica di concentrazione sulle misure di coda.
 
@@ -499,7 +499,7 @@ Confronto tra:
 
 **Tabella 4 — Regime sistemico e perdita**
 
-Confronto, per il portafoglio iniziale, tra scenari con e senza ingresso nello stato $C$.
+Confronto, per il portafoglio iniziale, tra repliche con e senza ingresso nello stato $C$.
 
 ### 6.3 Grafici
 
@@ -513,7 +513,7 @@ Confronto tra le distribuzioni delle perdite del portafoglio iniziale e del port
 
 **Figura 3 — Regime sistemico e perdita**
 
-Confronto della distribuzione delle perdite del portafoglio iniziale tra scenari con ingresso nel regime $C$ e scenari senza ingresso nel regime $C$.
+Confronto della distribuzione delle perdite del portafoglio iniziale tra repliche con ingresso nel regime $C$ e repliche senza ingresso nel regime $C$.
 
 ---
 

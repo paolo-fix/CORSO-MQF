@@ -448,7 +448,7 @@ Devono inoltre essere riportati:
 
 - differenze tra le misure di rischio dei due portafogli;
 - probabilità simulata che il regime $C$ venga raggiunto almeno una volta;
-- perdita media del portafoglio concentrato negli scenari con e senza ingresso nello stato $C$;
+- perdita media del portafoglio concentrato nelle repliche con e senza ingresso nello stato $C$;
 - distribuzione empirica di
 
 $$
@@ -479,7 +479,7 @@ Confronto tra:
 
 **Tabella 4 — Regime sistemico e perdita**
 
-Confronto, per il portafoglio concentrato, tra scenari con e senza ingresso nello stato $C$.
+Confronto, per il portafoglio concentrato, tra repliche con e senza ingresso nello stato $C$.
 
 ### 6.3 Grafici
 
@@ -493,7 +493,7 @@ Confronto tra le distribuzioni empiriche delle perdite del portafoglio concentra
 
 **Figura 3 — Regime sistemico e perdita**
 
-Confronto delle perdite del portafoglio concentrato tra scenari nei quali lo stato $C$ viene raggiunto almeno una volta e scenari nei quali non viene mai raggiunto.
+Confronto delle perdite del portafoglio concentrato tra repliche nelle quali lo stato $C$ viene raggiunto almeno una volta e repliche nelle quali non viene mai raggiunto.
 
 ---
 
@@ -551,7 +551,7 @@ p_{DD}^{(m)}=1.
 
 ### Controlli computazionali
 
-11. Verifica che i 39 debitori comuni utilizzino esattamente gli stessi scenari creditizi nei due portafogli.
+11. Verifica che i 39 debitori comuni utilizzino esattamente le stesse traiettorie creditizie nei due portafogli.
 
 13. Verifica che il seed assegnato, pari a 2026, sia impostato correttamente come condizione per la riproducibilità della simulazione.
 

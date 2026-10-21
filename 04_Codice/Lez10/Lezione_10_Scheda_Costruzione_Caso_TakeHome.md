@@ -445,7 +445,7 @@ La simulazione di $N_{\mathrm{MC}}$ repliche produce:
 $$
 L_{\mathrm{conc}}^{P,(1)},
 \ldots,
-L_{\mathrm{conc}}^{P,(N)}
+L_{\mathrm{conc}}^{P,(N_{\mathrm{MC}})}
 $$
 
 e
@@ -453,7 +453,7 @@ e
 $$
 L_{\mathrm{div}}^{P,(1)},
 \ldots,
-L_{\mathrm{div}}^{P,(N)}.
+L_{\mathrm{div}}^{P,(N_{\mathrm{MC}})}.
 $$
 
 Da tali campioni vengono costruite le distribuzioni empiriche

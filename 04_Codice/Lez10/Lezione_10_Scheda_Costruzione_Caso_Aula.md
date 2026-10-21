@@ -1160,7 +1160,7 @@ Eventuali materiali aggiuntivi possono accompagnare il PDF, ma non sostituiscono
 - corretta distinzione tra investimento iniziale ed EAD;
 - corretta costruzione del portafoglio soggetto al limite;
 - mantenimento dell'investimento totale;
-- corretto riutilizzo degli stessi scenari nei due portafogli;
+- corretto riutilizzo delle stesse traiettorie simulate nei due portafogli;
 - corretta aggregazione delle perdite;
 - corretta stima delle distribuzioni empiriche;
 - corretta implementazione di VaR e CVaR;
