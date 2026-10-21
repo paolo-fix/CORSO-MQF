@@ -244,13 +244,15 @@ L'obiettivo \`{e} costruire la distribuzione della perdita creditizia,
 misurarne il rischio di coda e valutarne la copertura:
 \[
 P^h
-\longrightarrow
+\rightarrow
+\text{default e sopravvivenza}
+\rightarrow
 L_h
-\longrightarrow
+\rightarrow
 \VaR_{\alpha}(L_h)
-\longrightarrow
+\rightarrow
 \CVaR_{\alpha}(L_h)
-\longrightarrow
+\rightarrow
 \text{CDS}.
 \]
 
@@ -750,6 +752,8 @@ misure di rischio della lezione adottano questa convenzione.
 
 \item Condizionatamente a $X_0=i$, la distribuzione di $L_h$ si
 ottiene trasferendo la riga $i$ di $P^h$ sui valori $\ell(j,h)$.
+Se pi\`{u} stati producono la stessa perdita monetaria, le relative
+probabilit\`{a} devono essere aggregate.
 \end{stepitemize}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
@@ -991,6 +995,71 @@ dispersioni e code molto diverse.
 %EndExpansion
 
 %***********************************************************
+\subsection{Dispersione e perdita inattesa}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Dispersione e perdita inattesa}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+La perdita attesa descrive il livello medio di $L_h$, ma non quanto
+le possibili perdite possano discostarsi da tale valore.
+
+\medskip
+
+Condizionatamente allo stato iniziale $X_0=i$,
+\[
+\Var(L_h\mid X_0=i)
+=
+\sum_{j\in\mathcal{I}}
+\left[
+\ell(j,h)-\mathrm{EL}_i(h)
+\right]^2
+(P^h)_{ij},
+\]
+e
+\[
+\sigma_{L,i}(h)
+=
+\sqrt{\Var(L_h\mid X_0=i)}.
+\]
+
+%\medskip
+
+\begin{stepitemize}
+\item La deviazione standard misura la \textbf{dispersione complessiva}
+attorno alla perdita media.
+
+\item Non distingue per\`{o} tra scostamenti favorevoli e sfavorevoli:
+anche un guadagno molto elevato contribuisce alla varianza.
+
+\item Con \emph{unexpected loss}, indichiamo concettualmente la parte
+sfavorevole della perdita che eccede il livello medio; non la
+identifichiamo, in generale, con la sola deviazione standard.
+
+\item Per misurare direttamente la coda destra della distribuzione
+servono quantili, VaR e CVaR.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+
+%***********************************************************
 \subsection{Quantili}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
@@ -1211,6 +1280,63 @@ probabilit\`{a}, tramite $P^h$, sia i valori, tramite $\ell(j,h)$.}
 %EndExpansion
 
 %***********************************************************
+
+\subsection{Back-up: capitale economico}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Credit VaR e capitale economico}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Convenzione adottata: $\mathrm{CreditVaR}_{\alpha,i}(h)
+=\VaR_{\alpha,i}(h)$, il quantile della perdita totale. Il
+\textbf{capitale economico} \`{e} l'eccesso del quantile sulla media:
+\[
+\mathrm{EC}_{\alpha,i}(h)
+=
+\VaR_{\alpha,i}(h)
+-
+\mathrm{EL}_i(h).
+\]
+
+\medskip
+
+\begin{stepitemize}
+\item Tre grandezze distinte: $\VaR$ \`{e} la perdita al quantile
+$\alpha$; $\mathrm{EL}$ la perdita media; $\mathrm{EC}$ la perdita
+corrispondente al quantile $\alpha$ \emph{eccedente} la media.
+
+\item Sul caso guida:
+\[
+\mathrm{EC}_{0.95,2}(1)
+=
+8-2.68
+=
+5.32.
+\]
+
+\item Logica gestionale: la $\mathrm{EL}$ rappresenta la componente media attesa della
+perdita, normalmente assorbita nella gestione ordinaria del rischio di credito;
+l'$\mathrm{EC}$ rappresenta invece una misura del capitale necessario a fronte delle
+perdite inattese. Il tema ritorner\`{a} nella Lezione~10 sul portafoglio.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
 
 %***********************************************************
 
@@ -1974,6 +2100,141 @@ riduzione di EL o VaR.}
 %***********************************************************
 
 %***********************************************************
+\subsection{Expected Credit Loss}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Dalla term structure del default alla Expected Credit Loss}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Le probabilit\`{a} marginali di default ricavate dalla catena
+markoviana entrano anche nella misurazione delle
+\emph{Expected Credit Losses}.
+
+\medskip
+
+In un modello discreto semplificato, la perdita attesa lungo la vita
+residua pu\`{o} essere rappresentata come
+\vspace{-0.2cm}
+\[
+\mathrm{ECL}_{i}^{\mathrm{life}}
+=
+\sum_{h=1}^{H}
+d_h\,
+\mathrm{PD}_{i}^{\mathrm{marg}}(h)\,
+\mathrm{LGD}_h\,
+\mathrm{EAD}_h.
+\]
+\vspace{-0.2cm}
+%\medskip
+
+\begin{stepitemize}
+\item $\mathrm{PD}_{i}^{\mathrm{marg}}(h)$ misura la probabilit\`{a}
+che il default avvenga precisamente nel periodo $h$.
+
+\item $\mathrm{LGD}_h$ ed $\mathrm{EAD}_h$ traducono il default in una
+perdita monetaria; $d_h$ ne riporta il valore alla data iniziale.
+
+\item In IFRS~9, si distinguono \textbf{ECL a 12 mesi} e
+\textbf{lifetime ECL}, secondo l'orizzonte rilevante per la
+misurazione delle perdite attese.
+
+\item Il collegamento con la catena di Markov \`{e} didattico:
+IFRS~9 non prescrive l'impiego di una matrice di transizione.
+\end{stepitemize}
+
+%\medskip
+\vspace{-0.1cm}
+\begin{center}
+{\small Le probabilit\`{a} utilizzate per l'ECL sono probabilit\`{a}
+predittive sotto la misura fisica, non probabilit\`{a} risk-neutral
+per il pricing.}
+\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+%***********************************************************
+
+%***********************************************************
+\subsection{Stress testing e rischio di modello}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Stress testing e rischio di modello}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+VaR e CVaR sintetizzano la distribuzione delle perdite prodotta dal
+modello. Lo \textbf{stress testing} risponde a una domanda diversa:
+che cosa accade sotto uno scenario avverso assegnato?
+
+%\medskip
+\vspace{-0.3cm}
+\[
+F_L
+\longrightarrow
+\VaR_{\alpha}(L),\ \CVaR_{\alpha}(L),
+\qquad
+z^{\mathrm{stress}}
+\longrightarrow
+L\left(z^{\mathrm{stress}}\right).
+\]
+
+%\medskip
+
+\begin{stepitemize}
+\item Lo scenario di stress non deve necessariamente coincidere con un
+quantile della distribuzione, n\'{e} richiede l'assegnazione di una
+probabilit\`{a} precisa.
+
+\item Le misure probabilistiche e gli stress test sono
+\textbf{complementari}: le prime sintetizzano una distribuzione,
+i secondi valutano specifiche configurazioni avverse.
+
+\item VaR, CVaR e perdite stimate dipendono dalle ipotesi del modello:
+matrice di transizione, valori associati ai rating, $\mathrm{LGD}$,
+$\mathrm{EAD}$ e, nel portafoglio, struttura di dipendenza.
+
+\item Se queste componenti sono mal specificate o non rappresentano
+adeguatamente il rischio futuro, anche le misure ottenute possono
+risultare poco affidabili: questo \`{e} \textbf{rischio di modello}.
+\end{stepitemize}
+
+\medskip
+
+%\begin{center}
+%{\small Una misura di rischio non \`{e} un dato osservato: \`{e} il risultato di una distribuzione costruita attraverso un modello.}
+%\end{center}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%***********************************************************
 
 \section{Sintesi e raccordo}
 
@@ -2013,16 +2274,28 @@ L_h=\ell(X_h,h)
 \medskip
 
 \begin{stepitemize}
-\item Per un \textbf{portafoglio}, la perdita aggregata
-$L_h^{\mathrm{port}}=\sum_{n=1}^{N}L_{n,h}$ dipende anche dalla
-probabilit\`{a} che downgrade e default si verifichino
-\emph{congiuntamente}: \`{e} la dipendenza a governare le code.
 
-\item Con molte esposizioni la distribuzione congiunta non \`{e}
-trattabile analiticamente: serve la \textbf{simulazione}. In ciascuna
-replica: fattori comuni $\rightarrow$ transizioni individuali
-$\rightarrow$ perdite per stato e aggregazione $\rightarrow$ stima
-empirica di $\mathrm{EL}$, VaR e CVaR.
+\item Per un portafoglio di $N$ esposizioni, $
+L_h^{\mathrm{port}}
+=
+\sum_{n=1}^{N}L_{n,h}$.
+
+\item La perdita attesa si aggrega linearmente:
+\[
+\E\left[L_h^{\mathrm{port}}\right]
+=
+\sum_{n=1}^{N}\E[L_{n,h}],
+\]
+indipendentemente dalla struttura di dipendenza.
+
+\item Varianza, VaR e CVaR dipendono invece anche da come downgrade
+e default dei diversi emittenti si verificano \textbf{congiuntamente}.
+
+\item Con molte esposizioni, la distribuzione congiunta diventa il vero
+oggetto del problema: nella Lezione~10, la costruiremo mediante
+\textbf{simulazione}, introducendo fattori comuni e transizioni
+individuali condizionate.
+
 \end{stepitemize}
 
 
@@ -2076,7 +2349,8 @@ empirica di $\mathrm{EL}$, VaR e CVaR.
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Probabilit\`{a} $q_i(h)$ di default nel periodo $h$, \emph{dato} che l'emittente \`{e} sopravvissuto fino a $h-1$ è uguale a:
+La probabilit\`{a} $q_i(h)$ di default nel periodo $h$,
+condizionata alla sopravvivenza fino a $h-1$, \`{e}
 \[
 \Prob(\tau_D=h\mid\tau_D>h-1,\,X_0=i)
 =
@@ -2114,61 +2388,6 @@ attuariale: rischio del periodo, tra i sopravvissuti.
 %EndExpansion
 
 %***********************************************************
-\subsection{Back-up: capitale economico}
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\QTR{frametitle}{Back-up: Credit VaR e capitale economico}
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
-
-Convenzione del corso: $\mathrm{CreditVaR}_{\alpha,i}(h)
-=\VaR_{\alpha,i}(h)$, il quantile della perdita totale. Il
-\textbf{capitale economico} \`{e} l'eccesso del quantile sulla media:
-\[
-\mathrm{EC}_{\alpha,i}(h)
-=
-\VaR_{\alpha,i}(h)
--
-\mathrm{EL}_i(h).
-\]
-
-\medskip
-
-\begin{stepitemize}
-\item Tre grandezze distinte: $\VaR$ \`{e} la perdita al quantile
-$\alpha$; $\mathrm{EL}$ la perdita media; $\mathrm{EC}$ la perdita
-corrispondente al quantile $\alpha$ \emph{eccedente} la media.
-
-\item Sul caso guida:
-\[
-\mathrm{EC}_{0.95,2}(1)
-=
-8-2.68
-=
-5.32.
-\]
-
-\item Logica gestionale: la $\mathrm{EL}$ rappresenta la componente media attesa della
-perdita, normalmente assorbita nella gestione ordinaria del rischio di credito;
-l'$\mathrm{EC}$ rappresenta invece una misura del capitale necessario a fronte delle
-perdite inattese. Il tema ritorner\`{a} nella Lezione~10 sul portafoglio.
-\end{stepitemize}
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout%
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
 
 %***********************************************************
 \subsection{Back-up: rappresentazione di ottimizzazione del CVaR}
