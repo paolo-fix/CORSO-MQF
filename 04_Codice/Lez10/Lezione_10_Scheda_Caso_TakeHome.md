@@ -182,7 +182,7 @@ Poiché \(D\) è assorbente e la LGD è costante, la perdita da default dipende 
 
 Nel portafoglio controfattuale la posizione Lehman viene eliminata e il relativo investimento iniziale viene redistribuito proporzionalmente tra gli altri 39 debitori, mantenendo invariato l'investimento complessivo del portafoglio.
 
-Il confronto deve essere effettuato utilizzando **gli stessi scenari Monte Carlo sottostanti**:
+Il confronto deve essere effettuato utilizzando **le stesse repliche Monte Carlo sottostanti**:
 
 - la stessa traiettoria sistemica per i due portafogli;
 - le stesse traiettorie creditizie per i 39 debitori comuni;
@@ -344,7 +344,7 @@ I valori negativi rappresentano incrementi di valore rispetto al riferimento ini
 Numero di repliche Monte Carlo:
 
 $$
-N=50\,000.
+N_{\mathrm{MC}}=50\,000.
 $$
 
 Seed:
@@ -402,8 +402,8 @@ Devono inoltre essere determinate:
 6. la probabilità che il regime $C$ venga raggiunto almeno una volta durante l'orizzonte;
 
 7. la perdita media del portafoglio concentrato:
-   - negli scenari nei quali il regime $C$ viene raggiunto almeno una volta;
-   - negli scenari nei quali il regime $C$ non viene mai raggiunto;
+   - nelle repliche nelle quali il regime $C$ viene raggiunto almeno una volta;
+   - nelle repliche nelle quali il regime $C$ non viene mai raggiunto;
 
 8. per ciascuna misura di rischio $\rho$, la variazione
 
@@ -415,7 +415,7 @@ $$
 \rho(L_{\mathrm{conc}}^P);
 $$
 
-9. la differenza scenario per scenario
+9. la differenza replica per replica
 
 $$
 \Delta L^{(r)}

@@ -2054,6 +2054,234 @@ $9.104$: \textbf{margine positivo implica prezzo nullo}.
 \end{frame}%
 %EndExpansion
 
+
+\subsection{Un problema di valutazione}%
+ 
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+ 
+\QTR{frametitle}{Un secondo problema: valutare le risorse}
+ 
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+ 
+Accanto alla domanda \emph{quale composizione scegliere}, poniamone una
+diversa: \textbf{quanto vale, per la banca, ciascuna risorsa e ciascun
+requisito?}
+ 
+\medskip
+ 
+\begin{stepitemize}
+\item Attribuiamo un prezzo implicito $\lambda_i$ a ogni vincolo.
+ 
+\item I prezzi devono essere \textbf{coerenti}: per nessuna classe di attivo
+il valore delle risorse impiegate pu\`{o} risultare inferiore al contributo
+economico che essa produce.
+ 
+\item Fra tutti i sistemi di prezzi coerenti, scegliamo quello che attribuisce
+alle risorse il \textbf{valore complessivo minimo}.
+\end{stepitemize}
+ 
+\medskip
+ 
+{\small
+\[
+\begin{array}{lll}
+\mbox{primale} & \displaystyle\max_x c'x &
+\mbox{soggetto a }Ax\leq b,\quad x\geq0
+\\[8pt]
+\mbox{duale} & \displaystyle\min_{\lambda} b'\lambda &
+\mbox{soggetto a }A'\lambda\geq c,\quad \lambda\geq0
+\end{array}
+\]
+}
+ 
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%****************************************
+ 
+\subsection{La corrispondenza}%
+ 
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+ 
+\QTR{frametitle}{Righe e colonne si scambiano il ruolo}
+ 
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+ 
+\begin{center}
+\includegraphics[width=0.84\textwidth]
+{../graphics/cap11_corrispondenza_primale_duale.png}
+\end{center}
+ 
+\vspace{-2mm}
+ 
+\begin{stepitemize}
+\item A ogni \textbf{vincolo} del primale corrisponde una \textbf{variabile}
+duale; a ogni \textbf{variabile} del primale corrisponde un \textbf{vincolo}
+duale.
+ 
+\item Il vettore $b$ passa nella funzione obiettivo; il vettore $c$ passa nel
+lato destro dei vincoli; la matrice $A$ diventa $A'$.
+ 
+\item Un modello con $4$ variabili e $4$ vincoli produce quindi un duale con
+$4$ variabili e $4$ vincoli: i prezzi $\lambda$ vengono determinati \textbf{congiuntamente}, in una
+sola soluzione.
+\end{stepitemize}
+ 
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\subsection{Il duale del modello SVB}%
+ 
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+ 
+\QTR{frametitle}{Il duale del modello SVB stilizzato}
+ 
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+ 
+Un prezzo, chiamato solitamente \textbf{prezzo ombra}, per ciascuno dei quattro vincoli:
+ 
+\medskip
+ 
+{\small
+\[
+\begin{array}{ll}
+\lambda_0\in\R & \mbox{bilancio (uguaglianza: libera in segno)}\\[2pt]
+\lambda_Q\geq0 & \mbox{requisito minimo di liquidit\`{a}}\\[2pt]
+\lambda_K\geq0 & \mbox{limite alla perdita sotto stress}\\[2pt]
+\lambda_C\geq0 & \mbox{limite di concentrazione}
+\end{array}
+\]
+}
+ 
+\medskip
+ 
+{\small
+\[
+\begin{array}{ll}
+\min
+&
+100\lambda_0-55\lambda_Q+7\lambda_K+30\lambda_C
+\\[4pt]
+\mbox{soggetto a}
+&
+\lambda_0-\lambda_Q\geq0.010,
+\\[2pt]
+&
+\lambda_0-0.90\lambda_Q+0.02\lambda_K\geq0.025,
+\\[2pt]
+&
+\lambda_0-0.50\lambda_Q+0.15\lambda_K+\lambda_C\geq0.040,
+\\[2pt]
+&
+\lambda_0-0.20\lambda_Q+0.08\lambda_K\geq0.050.
+\end{array}
+\]
+}
+ 
+\medskip
+ 
+{\footnotesize Il segno negativo di $\lambda_Q$ nell'obiettivo deriva dalla
+riscrittura del requisito $q'x\geq55$ nella forma $-q'x\leq-55$.}
+ 
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+\subsection{Leggere un vincolo duale}%
+ 
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+ 
+\QTR{frametitle}{Un vincolo duale per ogni classe di attivo}
+ 
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+ 
+I quattro vincoli duali corrispondono, nell'ordine, a
+$x_1,x_2,x_3,x_4$. Prendiamo quello dei \textbf{titoli a breve scadenza}:
+ 
+\medskip
+ 
+{\small
+\[
+\underbrace{
+\lambda_0-0.90\lambda_Q+0.02\lambda_K
+}_{\mbox{\footnotesize valore implicito delle risorse impiegate}}
+\;\geq\;
+\underbrace{
+0.025
+}_{\mbox{\footnotesize contributo economico unitario}}
+\]
+}
+ 
+\medskip
+ 
+\begin{stepitemize}
+\item Una unit\`{a} di $x_2$ assorbe una unit\`{a} di bilancio, produce
+$0.90$ di liquidit\`{a} e consuma $0.02$ della capacit\`{a} di assorbire
+perdite.
+ 
+\item Il vincolo impone che quell'impiego di risorse \textbf{valga almeno
+quanto rende}. Se valesse meno, converrebbe aumentare $x_2$: la soluzione non
+sarebbe ottima.
+ 
+\item La colonna $j$ del primale, che nel Capitolo~11 descriveva \emph{come
+$x_j$ contribuisce ai requisiti}, diventa qui \emph{il conto economico
+implicito della classe $j$}.
+\end{stepitemize}
+ 
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+
 %*****************************
 
 \subsection{L'origine economica del duale}%

@@ -418,8 +418,8 @@ Devono inoltre essere determinate:
 7. il numero medio di default nel portafoglio;
 
 8. la perdita media del portafoglio iniziale condizionata:
-   - agli scenari nei quali il regime $C$ viene raggiunto;
-   - agli scenari nei quali il regime $C$ non viene raggiunto;
+   - alle repliche nelle quali il regime $C$ viene raggiunto;
+   - alle repliche nelle quali il regime $C$ non viene raggiunto;
 
 9. per ciascuna misura di rischio $\rho$, la variazione
 
