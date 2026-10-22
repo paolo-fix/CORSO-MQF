@@ -7,7 +7,7 @@ Documento interno di progettazione docente. Compilazione riferita al **Caso Aula
 - **Lezione:** 13 — Applicazione in Python: programmazione lineare e ALM deterministico
 - **Tipo di caso:** Aula
 - **Titolo:** **Silicon Valley Bank 2023 — piano ALM, sensitività e scenari di stress**
-- **Destinatari:** studenti del V anno del corso di laurea magistrale in Banca e Risk Management
+- **Destinatari:** studenti del secondo anno del Corso di Laurea Magistrale in Finanza e Risk Management
 - **Uso previsto:** caso applicativo guidato per tradurre in Python il modello di programmazione lineare e ALM deterministico sviluppato nei Capitoli 11 e 12, validarne la soluzione mediante solver e studiare come il piano ottimo reagisce a variazioni del fabbisogno di liquidità, della capacità massima di funding e del costo del funding.
 
 ## 2. Contesto e motivazione
@@ -47,313 +47,544 @@ $$
 
 L'obiettivo non è soltanto osservare come cambia il valore ottimo, ma comprendere come cambia la politica ottima: composizione dell'attivo, uso del funding, giacenze di liquidità, vincoli attivi e valori marginali.
 
-## 3. Domanda quantitativa e obiettivo didattico
+## 3. Domanda quantitativa e funzione didattica
 
-**Domanda quantitativa:** dato il modello ALM deterministico di SVB sviluppato nel Capitolo 12, come si traduce correttamente il problema in forma solver e come cambiano valore ottimo e piano ALM al variare separatamente e congiuntamente del fabbisogno di liquidità, della capacità massima di funding e del costo del funding? Fino a quale livello di aumento del fabbisogno il piano resta ammissibile?
+**Domanda quantitativa:**  
+dato il modello ALM deterministico di Silicon Valley Bank sviluppato nei Capitoli 11 e 12, come si traduce correttamente il problema nella forma richiesta da un solver di programmazione lineare e come cambiano il valore ottimo e il piano ALM al variare, separatamente e congiuntamente, del fabbisogno di liquidità, della capacità massima di funding e del costo del funding? Fino a quale livello di aumento dei fabbisogni iniziali il problema resta ammissibile?
 
-**Obiettivo didattico:** portare lo studente a:
+**Obiettivo didattico:**  
+portare lo studente a:
 
-1. tradurre autonomamente un modello ALM in vettori e matrici compatibili con un solver di programmazione lineare;
-2. distinguere funzione obiettivo, uguaglianze di bilancio, disuguaglianze e bounds;
-3. gestire correttamente il passaggio da massimizzazione a minimizzazione richiesto dal solver;
-4. validare numericamente la soluzione benchmark;
-5. interpretare slack, vincoli attivi e valori marginali;
-6. costruire una funzione parametrica di soluzione;
-7. distinguere fra sensitività univariata, stress test di fattibilità e scenario analysis multivariata;
-8. studiare non soltanto il valore ottimo $\Pi^*$, ma l'intero vettore della soluzione ottima;
-9. riconoscere cambiamenti di regime nella soluzione del programma lineare;
-10. collegare i risultati computazionali alla logica economico-finanziaria dell'ALM.
+1. tradurre un modello ALM deterministico in vettori, matrici, uguaglianze, disuguaglianze e bounds compatibili con un solver di programmazione lineare;
+2. distinguere la formulazione economico-finanziaria del problema dalla sua rappresentazione computazionale;
+3. gestire correttamente il passaggio dalla massimizzazione della funzione obiettivo alla convenzione di minimizzazione utilizzata dal solver;
+4. risolvere e validare numericamente la configurazione benchmark;
+5. interpretare residuali, slack, bounds attivi e valori marginali;
+6. costruire una funzione parametrica di soluzione dipendente da $\theta$, $\phi$ e $\psi$;
+7. distinguere tra sensitività univariata, stress test di fattibilità e scenario analysis multivariata;
+8. analizzare non soltanto il valore ottimo $\Pi^*$, ma anche la composizione ottima dell'attivo, le giacenze di liquidità e l'utilizzo del funding;
+9. riconoscere eventuali cambiamenti di regime nella soluzione del programma lineare;
+10. collegare gli output computazionali alla logica economico-finanziaria dell'Asset--Liability Management.
+
+**Collegamento con le lezioni teoriche precedenti:**  
+il caso utilizza direttamente i risultati sviluppati nei Capitoli 11 e 12.
+
+Dal Capitolo 11 riprende:
+
+- la formulazione di un problema di programmazione lineare;
+- la distinzione tra funzione obiettivo, vincoli e bounds;
+- la nozione di regione ammissibile;
+- il ruolo dei vincoli attivi;
+- la sensitività locale della soluzione;
+- la dualità e l'interpretazione economica dei valori marginali.
+
+Dal Capitolo 12 riprende:
+
+- la distinzione tra liquidità aggregata e liquidità disponibile alle diverse scadenze;
+- la matrice dei cash flow degli attivi;
+- i bilanci temporali di liquidità;
+- le giacenze trasferite tra date successive;
+- il ricorso a funding esterno e il relativo rimborso;
+- i vincoli di capacità del funding;
+- l'interpretazione dei valori marginali associati ai bilanci temporali e ai vincoli di liquidità.
+
+Il Capitolo 13 costituisce il riferimento computazionale immediato: non introduce una nuova classe di modelli, ma rende operativo il modello ALM deterministico costruito nei capitoli precedenti traducendolo nella forma richiesta da `scipy.optimize.linprog`.
+
+**Concetti teorici da rendere osservabili:**  
+il caso deve rendere operativamente osservabili:
+
+1. la corrispondenza tra formulazione economico-finanziaria e forma matriciale del programma lineare;
+2. la distinzione tra vincoli di uguaglianza, vincoli di disuguaglianza e bounds;
+3. la fattibilità della soluzione e il significato dei residuali;
+4. il significato degli slack e l'identificazione dei vincoli attivi;
+5. il ruolo dei bounds attivi sulle variabili;
+6. l'interpretazione dei valori marginali restituiti dal solver;
+7. la dipendenza della soluzione ottima dai parametri del modello;
+8. la differenza tra variazione locale della soluzione, sensitività su griglia e cambiamento di regime;
+9. il passaggio da soluzione ammissibile a problema non ammissibile;
+10. la differenza tra sensitività univariata e scenario analysis con variazione congiunta dei driver.
+
+**Funzione della procedura computazionale:**  
+il ricorso a Python e al solver è necessario perché il caso richiede di risolvere ripetutamente lo stesso programma lineare al variare dei parametri $\theta$, $\phi$ e $\psi$.
+
+La procedura computazionale deve consentire di:
+
+1. costruire in modo riproducibile la forma solver del modello;
+2. risolvere la configurazione benchmark;
+3. verificare automaticamente fattibilità, residuali, slack e bounds attivi;
+4. estrarre i valori marginali restituiti dal solver;
+5. risolvere il modello lungo griglie parametrizzate;
+6. confrontare sistematicamente le diverse configurazioni;
+7. individuare la frontiera di fattibilità rispetto a $\theta$;
+8. analizzare scenari nei quali i tre driver cambiano congiuntamente.
+
+La funzione computazionale non deve sostituire l'interpretazione teorica: serve a rendere osservabili, confrontabili e verificabili proprietà del modello già definite nella specifica matematica.
+
+**Ruolo dell'informazione, degli scenari e dei vincoli:**  
+il caso è interamente deterministico. Non sono presenti variabili casuali né scenari probabilistici.
+
+Per ciascuna configurazione di $(\theta,\phi,\psi)$, coefficienti, cash flow, fabbisogni e capacità di funding sono considerati noti.
+
+I tre parametri svolgono ruoli distinti:
+
+- $\theta$ modifica i fabbisogni di liquidità delle prime due date;
+- $\phi$ modifica la capacità massima di funding;
+- $\psi$ modifica il costo del funding e, di conseguenza, anche l'ammontare da rimborsare alla data successiva.
+
+Le sensitività univariate modificano un solo parametro alla volta, mantenendo gli altri al valore benchmark.
+
+La scenario analysis modifica invece congiuntamente $\theta$, $\phi$ e $\psi$ secondo configurazioni assegnate. Tali configurazioni non rappresentano stati aleatori e non hanno probabilità associate.
+
+I vincoli svolgono una funzione centrale nell'interpretazione economica del caso: i bilanci temporali garantiscono la disponibilità di liquidità alle diverse date; il limite prudenziale e il limite di concentrazione restringono la composizione dell'attivo; i bounds sul funding rappresentano la capacità massima di reperire risorse esterne. L'analisi degli slack, dei bounds attivi e dei valori marginali deve permettere di identificare quali restrizioni determinano effettivamente il piano ALM ottimo nelle diverse configurazioni.
 
 ## 4. Specifica teorico-matematica
 
-- **Grandezze e variabili:**
-  - $x_j$, $j=1,\ldots,4$: ammontare inizialmente allocato nelle quattro classi di attivo:
-    1. cassa e riserve;
-    2. titoli a breve scadenza;
-    3. titoli a lunga scadenza;
-    4. prestiti e impieghi meno liquidi;
-  - $g_t$, $t=1,\ldots,4$: giacenza di liquidità immediatamente successiva al soddisfacimento del fabbisogno alla data $t$;
-  - $u_t$, $t=1,2,3$: funding esterno raccolto alla data $t$, disponibile immediatamente e da rimborsare alla data successiva;
-  - $c_j$: coefficiente di redditività dell'attivo $j$;
-  - $\ell_j$: perdita unitaria sotto stress associata all'attivo $j$;
-  - $a_{tj}$: quota di una unità dell'attivo $j$ resa liquida alla data $t$;
-  - $d_t$: fabbisogno di liquidità benchmark alla data $t$;
-  - $r_t^g$: rendimento della giacenza fra $t$ e $t+1$;
-  - $r_t^u$: costo benchmark del funding raccolto alla data $t$;
-  - $\bar u_t$: capacità benchmark di funding alla data $t$;
-  - $\theta$: moltiplicatore del fabbisogno di liquidità nelle prime due date;
-  - $\phi$: moltiplicatore della capacità massima di funding;
-  - $\psi$: moltiplicatore del costo del funding.
+### Grandezze e variabili
 
-- **Eventi, informazione o scenari:**
-  - benchmark:
+- $x_j$, $j=1,\ldots,4$: ammontare inizialmente allocato nelle quattro classi di attivo:
+  1. cassa e riserve;
+  2. titoli a breve scadenza;
+  3. titoli a lunga scadenza;
+  4. prestiti e impieghi meno liquidi;
 
-    $$
-    (\theta,\phi,\psi)=(1,1,1);
-    $$
+- $g_t$, $t=1,\ldots,4$: giacenza di liquidità immediatamente successiva al soddisfacimento del fabbisogno alla data $t$;
 
-  - sensitività a $\theta$, con $\phi=1$ e $\psi=1$:
+- $u_t$, $t=1,2,3$: funding esterno raccolto alla data $t$, disponibile immediatamente e da rimborsare alla data successiva;
 
-    $$
-    \theta\in\{1.00,1.01,\ldots,1.10\};
-    $$
+- $c_j$: coefficiente di redditività dell'attivo $j$;
 
-  - sensitività a $\phi$, con $\theta=1$ e $\psi=1$:
+- $\ell_j$: perdita unitaria sotto stress associata all'attivo $j$;
 
-    $$
-    \phi\in\{0.50,0.60,0.70,0.80,0.90,1.00,1.10,1.20,1.30,1.40,1.50\};
-    $$
+- $a_{tj}$: quota di una unità dell'attivo $j$ resa liquida alla data $t$;
 
-  - sensitività a $\psi$, con $\theta=1$ e $\phi=1$:
+- $d_t$: fabbisogno di liquidità benchmark alla data $t$;
 
-    $$
-    \psi\in\{0.50,0.75,1.00,1.25,1.50,1.75,2.00\};
-    $$
-
-  - scenario Standard:
-
-    $$
-    (\theta,\phi,\psi)=(1.00,1.00,1.00);
-    $$
-
-  - scenario Mediamente critico:
+- $r_t^g$: rendimento della giacenza trasferita dalla data $t$ alla data $t+1$;
 
-    $$
-    (\theta,\phi,\psi)=(1.03,0.90,1.25);
-    $$
+- $r_t^u$: costo benchmark del funding raccolto alla data $t$;
 
-  - scenario Critico:
+- $\bar u_t$: capacità benchmark di funding alla data $t$;
 
-    $$
-    (\theta,\phi,\psi)=(1.06,0.70,1.50).
-    $$
+- $\theta$: moltiplicatore dei fabbisogni di liquidità delle prime due date;
 
-- **Parametri e dati:**
-  - risorse iniziali:
+- $\phi$: moltiplicatore della capacità massima di funding;
 
-    $$
-    A_0=100;
-    $$
+- $\psi$: moltiplicatore del costo del funding.
 
-  - redditività:
+### Eventi, informazione, stati o scenari
 
-    $$
-    c'=(0.010,0.025,0.040,0.050);
-    $$
-
-  - perdite sotto stress:
+Il caso è deterministico e non prevede variabili casuali, stati informativi aleatori o probabilità associate agli scenari.
 
-    $$
-    \ell'=(0,0.02,0.15,0.08);
-    $$
+La configurazione benchmark è:
 
-  - matrice dei cash flow:
+$$
+(\theta,\phi,\psi)=(1,1,1).
+$$
 
-    $$
-    A^{\mathrm{CF}}=
-    \begin{pmatrix}
-    1.00 & 0.65 & 0.05 & 0.05\\
-    0.00 & 0.35 & 0.10 & 0.15\\
-    0.00 & 0.00 & 0.25 & 0.30\\
-    0.00 & 0.00 & 0.60 & 0.50
-    \end{pmatrix};
-    $$
+La sensitività rispetto a $\theta$, mantenendo $\phi=1$ e $\psi=1$, utilizza:
 
-  - fabbisogni benchmark:
+$$
+\theta\in\{1.00,1.01,\ldots,1.10\}.
+$$
 
-    $$
-    d'=(30,30,22,15);
-    $$
-
-  - rendimenti delle giacenze:
-
-    $$
-    {r^g}'=(0.005,0.006,0.007);
-    $$
+La sensitività rispetto a $\phi$, mantenendo $\theta=1$ e $\psi=1$, utilizza:
 
-  - costi benchmark del funding:
-
-    $$
-    {r^u}'=(0.015,0.020,0.025);
-    $$
-
-  - capacità benchmark di funding:
-
-    $$
-    \bar u'=(10,8,6);
-    $$
-
-  - limite prudenziale:
-
-    $$
-    K=7;
-    $$
-
-  - limite ai titoli a lunga scadenza:
+$$
+\phi\in\{0.50,0.60,0.70,0.80,0.90,1.00,1.10,1.20,1.30,1.40,1.50\}.
+$$
 
-    $$
-    x_3\leq30.
-    $$
+La sensitività rispetto a $\psi$, mantenendo $\theta=1$ e $\phi=1$, utilizza:
 
-- **Ipotesi:**
-  - orizzonte deterministico a quattro date;
-  - coefficienti e cash flow noti in ciascuna configurazione parametrica;
-  - divisibilità delle quantità;
-  - assenza di costi fissi;
-  - linearità della funzione obiettivo e dei vincoli per ciascuna configurazione data di $\theta$, $\phi$ e $\psi$;
-  - funding disponibile entro i limiti assegnati;
-  - lo stress sul fabbisogno agisce soltanto sulle prime due date;
-  - la capacità massima di funding varia proporzionalmente con $\phi$;
-  - il costo del funding varia proporzionalmente con $\psi$;
-  - nelle sensitività univariate varia un solo parametro alla volta;
-  - nella scenario analysis i tre parametri variano congiuntamente;
-  - gli scenari sono configurazioni deterministiche e non hanno probabilità associate;
-  - il caso è stilizzato e non rappresenta una ricostruzione quantitativa del bilancio storico di SVB.
-
-- **Formule vincolanti:**
-  - fabbisogni:
-
-    $$
-    d(\theta)=(30\theta,30\theta,22,15)';
-    $$
-
-  - capacità massima di funding:
-
-    $$
-    \bar u_t(\phi)=\phi\bar u_t;
-    $$
-
-  - costo del funding:
-
-    $$
-    r_t^u(\psi)=\psi r_t^u;
-    $$
-
-  - funzione obiettivo:
-
-    $$
-    \max_{x,g,u}
-    \Pi(x,g,u;\psi)
-    =
-    c'x
-    +
-    \sum_{t=1}^{3}r_t^g g_t
-    -
-    \sum_{t=1}^{3}\psi r_t^u u_t;
-    $$
-
-  - vincolo sulle risorse iniziali:
-
-    $$
-    \sum_{j=1}^{4}x_j=A_0;
-    $$
-
-  - primo bilancio temporale:
-
-    $$
-    a_1'x+u_1-g_1=d_1(\theta);
-    $$
-
-  - bilanci intermedi:
-
-    $$
-    a_t'x
-    +(1+r_{t-1}^g)g_{t-1}
-    +u_t
-    -(1+\psi r_{t-1}^u)u_{t-1}
-    -g_t
-    =
-    d_t(\theta),
-    \qquad t=2,3;
-    $$
-
-  - bilancio terminale:
-
-    $$
-    a_4'x
-    +(1+r_3^g)g_3
-    -(1+\psi r_3^u)u_3
-    -g_4
-    =
-    d_4;
-    $$
-
-  - vincolo prudenziale:
-
-    $$
-    \ell'x\leq K;
-    $$
-
-  - limite di concentrazione:
-
-    $$
-    x_3\leq30;
-    $$
-
-  - capacità di funding:
-
-    $$
-    0\leq u_t\leq\phi\bar u_t,
-    \qquad t=1,2,3;
-    $$
-
-  - non negatività:
-
-    $$
-    x_j\geq0,
-    \qquad
-    g_t\geq0.
-    $$
-
-- **Quantità finali di interesse:**
-  - soluzione ottima benchmark $x^*$, $g^*$, $u^*$;
-  - valore ottimo $\Pi^*$;
-  - residuali dei vincoli di uguaglianza;
-  - slack dei vincoli di disuguaglianza;
-  - vincoli attivi;
-  - valori marginali dei bilanci temporali e dei limiti di funding;
-  - evoluzione di $\Pi^*$ lungo le tre griglie;
-  - evoluzione di $x^*$, $g^*$ e $u^*$ lungo le tre griglie;
-  - utilizzo relativo della capacità di funding:
-
-    $$
-    \rho_t^u(p)=\frac{u_t^*(p)}{\bar u_t(p)};
-    $$
-
-  - variazione del valore ottimo rispetto al benchmark:
-
-    $$
-    \Delta\Pi^*(p)=\Pi^*(p)-\Pi^*(1);
-    $$
-
-  - variazione percentuale del valore ottimo:
-
-    $$
-    \Delta_{\%}\Pi^*(p)
-    =
-    100\left[
-    \frac{\Pi^*(p)}{\Pi^*(1)}-1
-    \right];
-    $$
-
-  - variazioni delle componenti ottime:
-
-    $$
-    \Delta x_j^*(p)=x_j^*(p)-x_j^*(1),
-    $$
-
-    $$
-    \Delta g_t^*(p)=g_t^*(p)-g_t^*(1),
-    $$
-
-    $$
-    \Delta u_t^*(p)=u_t^*(p)-u_t^*(1);
-    $$
-
-  - ultimo valore ammissibile della griglia di $\theta$;
-  - intervallo raffinato contenente $\theta_{\mathrm{crit}}$;
-  - soluzioni ottime nei tre scenari;
-  - perdita di valore di ciascuno scenario rispetto allo scenario Standard.
+$$
+\psi\in\{0.50,0.75,1.00,1.25,1.50,1.75,2.00\}.
+$$
+
+Gli scenari congiunti assegnati sono:
+
+- scenario Standard:
+
+$$
+(\theta,\phi,\psi)=(1.00,1.00,1.00);
+$$
+
+- scenario Mediamente critico:
+
+$$
+(\theta,\phi,\psi)=(1.03,0.90,1.25);
+$$
+
+- scenario Critico:
+
+$$
+(\theta,\phi,\psi)=(1.06,0.70,1.50).
+$$
+
+Gli scenari rappresentano configurazioni deterministiche dei parametri e non eventi ai quali siano associate probabilità.
+
+### Parametri e dati
+
+Le risorse iniziali sono:
+
+$$
+A_0=100.
+$$
+
+Il vettore dei coefficienti di redditività è:
+
+$$
+c'=(0.010,0.025,0.040,0.050).
+$$
+
+Il vettore delle perdite unitarie sotto stress è:
+
+$$
+\ell'=(0,0.02,0.15,0.08).
+$$
+
+La matrice dei cash flow è:
+
+$$
+A^{\mathrm{CF}}
+=
+\begin{pmatrix}
+1.00 & 0.65 & 0.05 & 0.05\\
+0.00 & 0.35 & 0.10 & 0.15\\
+0.00 & 0.00 & 0.25 & 0.30\\
+0.00 & 0.00 & 0.60 & 0.50
+\end{pmatrix}.
+$$
+
+Le righe corrispondono alle date $t=1,\ldots,4$ e le colonne, nell'ordine, alle variabili $(x_1,x_2,x_3,x_4)$.
+
+I fabbisogni benchmark sono:
+
+$$
+d'=(30,30,22,15).
+$$
+
+I rendimenti delle giacenze sono:
+
+$$
+{r^g}'=(0.005,0.006,0.007).
+$$
+
+I costi benchmark del funding sono:
+
+$$
+{r^u}'=(0.015,0.020,0.025).
+$$
+
+Le capacità benchmark di funding sono:
+
+$$
+\bar u'=(10,8,6).
+$$
+
+Il limite prudenziale è:
+
+$$
+K=7.
+$$
+
+Il limite ai titoli a lunga scadenza è:
+
+$$
+x_3\leq30.
+$$
+
+### Ipotesi modellistiche
+
+Il caso assume:
+
+1. orizzonte deterministico a quattro date;
+2. coefficienti, cash flow e fabbisogni noti per ogni configurazione parametrica;
+3. divisibilità delle quantità;
+4. assenza di costi fissi;
+5. linearità della funzione obiettivo e dei vincoli per ciascuna configurazione assegnata di $\theta$, $\phi$ e $\psi$;
+6. funding disponibile soltanto entro i limiti assegnati;
+7. effetto di $\theta$ limitato ai fabbisogni delle prime due date;
+8. variazione proporzionale della capacità massima di funding con $\phi$;
+9. variazione proporzionale del costo del funding con $\psi$;
+10. variazione di un solo parametro alla volta nelle sensitività univariate;
+11. variazione congiunta dei tre parametri nella scenario analysis;
+12. assenza di probabilità associate agli scenari;
+13. natura stilizzata e didattica del caso, che non costituisce una ricostruzione quantitativa del bilancio storico di Silicon Valley Bank.
+
+### Formule vincolanti
+
+I fabbisogni parametrizzati sono:
+
+$$
+d(\theta)
+=
+(30\theta,30\theta,22,15)'.
+$$
+
+La capacità massima di funding è:
+
+$$
+\bar u_t(\phi)
+=
+\phi\bar u_t.
+$$
+
+Il costo del funding è:
+
+$$
+r_t^u(\psi)
+=
+\psi r_t^u.
+$$
+
+La funzione obiettivo è:
+
+$$
+\max_{x,g,u}
+\Pi(x,g,u;\psi)
+=
+c'x
++
+\sum_{t=1}^{3}r_t^g g_t
+-
+\sum_{t=1}^{3}\psi r_t^u u_t.
+$$
+
+Il vincolo sulle risorse iniziali è:
+
+$$
+\sum_{j=1}^{4}x_j=A_0.
+$$
+
+Il primo bilancio temporale è:
+
+$$
+a_1'x+u_1-g_1=d_1(\theta).
+$$
+
+I bilanci intermedi, per $t=2,3$, sono:
+
+$$
+a_t'x
++
+(1+r_{t-1}^g)g_{t-1}
++
+u_t
+-
+(1+\psi r_{t-1}^u)u_{t-1}
+-
+g_t
+=
+d_t(\theta).
+$$
+
+Il bilancio terminale è:
+
+$$
+a_4'x
++
+(1+r_3^g)g_3
+-
+(1+\psi r_3^u)u_3
+-
+g_4
+=
+d_4.
+$$
+
+Il vincolo prudenziale è:
+
+$$
+\ell'x\leq K.
+$$
+
+Il limite di concentrazione è:
+
+$$
+x_3\leq30.
+$$
+
+I limiti di funding sono:
+
+$$
+0\leq u_t\leq\phi\bar u_t,
+\qquad
+t=1,2,3.
+$$
+
+Le condizioni di non negatività sono:
+
+$$
+x_j\geq0,
+\qquad
+j=1,\ldots,4,
+$$
+
+e:
+
+$$
+g_t\geq0,
+\qquad
+t=1,\ldots,4.
+$$
+
+### Quantità teoriche da stimare o calcolare
+
+Devono essere determinate:
+
+1. la soluzione ottima benchmark $x^*$, $g^*$ e $u^*$;
+2. il valore ottimo $\Pi^*$;
+3. i residuali dei vincoli di uguaglianza;
+4. gli slack dei vincoli di disuguaglianza;
+5. i bounds attivi;
+6. i principali valori marginali restituiti dal solver;
+7. l'evoluzione di $\Pi^*$ lungo le griglie di $\theta$, $\phi$ e $\psi$;
+8. l'evoluzione di $x^*$, $g^*$ e $u^*$ lungo le tre griglie;
+9. il rapporto di utilizzo della capacità di funding:
+
+$$
+\rho_t^u(p)
+=
+\frac{u_t^*(p)}{\bar u_t(p)};
+$$
+
+10. la variazione del valore ottimo rispetto al benchmark:
+
+$$
+\Delta\Pi^*(p)
+=
+\Pi^*(p)-\Pi^*(1);
+$$
+
+11. la variazione percentuale del valore ottimo:
+
+$$
+\Delta_{\%}\Pi^*(p)
+=
+100
+\left[
+\frac{\Pi^*(p)}{\Pi^*(1)}-1
+\right];
+$$
+
+12. le variazioni delle componenti ottime:
+
+$$
+\Delta x_j^*(p)
+=
+x_j^*(p)-x_j^*(1),
+$$
+
+$$
+\Delta g_t^*(p)
+=
+g_t^*(p)-g_t^*(1),
+$$
+
+$$
+\Delta u_t^*(p)
+=
+u_t^*(p)-u_t^*(1);
+$$
+
+13. l'ultimo valore ammissibile della griglia di $\theta$;
+14. il primo valore non ammissibile della stessa griglia;
+15. un intervallo raffinato contenente $\theta_{\mathrm{crit}}$;
+16. le soluzioni ottime nei tre scenari congiunti;
+17. la perdita di valore di ciascuno scenario rispetto allo scenario Standard.
+
+### Proprietà teoriche da verificare
+
+Il caso deve verificare esplicitamente:
+
+1. la fattibilità numerica della soluzione benchmark;
+2. la soddisfazione dei bilanci temporali di liquidità;
+3. la coerenza tra residuali numerici e vincoli di uguaglianza;
+4. la coerenza tra slack e stato attivo o non attivo dei vincoli di disuguaglianza;
+5. la coerenza tra valore delle variabili e bounds attivi;
+6. il rispetto dei limiti di funding:
+
+$$
+u_t^*\leq\phi\bar u_t;
+$$
+
+7. il rispetto del vincolo prudenziale:
+
+$$
+\ell'x^*\leq K;
+$$
+
+8. il rispetto del limite di concentrazione:
+
+$$
+x_3^*\leq30;
+$$
+
+9. la coerenza dei valori marginali con i vincoli e i bilanci ai quali si riferiscono;
+10. la corretta distinzione tra configurazioni ammissibili e non ammissibili;
+11. la coerenza tra variazioni parametriche, eventuali cambiamenti dei vincoli attivi e modifiche della soluzione ottima;
+12. la distinzione tra sensitività univariata e variazione congiunta dei parametri negli scenari.
+
+### Soglie, target o vincoli rilevanti
+
+Le principali soglie e condizioni di ammissibilità sono:
+
+- risorse iniziali:
+
+$$
+\sum_{j=1}^{4}x_j=100;
+$$
+
+- limite prudenziale:
+
+$$
+\ell'x\leq7;
+$$
+
+- limite di concentrazione:
+
+$$
+x_3\leq30;
+$$
+
+- capacità massime benchmark di funding:
+
+$$
+\bar u'=(10,8,6),
+$$
+
+modificate mediante $\phi$;
+
+- non negatività di $x$, $g$ e $u$;
+
+- frontiera di fattibilità rispetto a $\theta$, individuata attraverso il passaggio tra l'ultimo valore ammissibile e il primo valore non ammissibile e successivamente raffinata.
+
+### Quantità finali di interesse
+
+Le quantità finali da utilizzare nell'interpretazione sono:
+
+1. valore ottimo e composizione del piano ALM benchmark;
+2. struttura delle giacenze e del funding;
+3. vincoli e bounds attivi;
+4. valori marginali economicamente informativi;
+5. risposta del piano ottimo a variazioni di $\theta$, $\phi$ e $\psi$;
+6. cambiamenti di regime nella soluzione;
+7. grado di utilizzo della capacità di funding;
+8. frontiera di fattibilità rispetto allo stress sui fabbisogni;
+9. confronto tra gli scenari Standard, Mediamente critico e Critico.
+
+### Limiti del modello
+
+Il modello:
+
+1. è deterministico;
+2. non attribuisce probabilità agli scenari;
+3. assume coefficienti e cash flow noti;
+4. mantiene invariata la struttura del modello all'interno di ciascuna analisi parametrica;
+5. non rappresenta costi fissi, non linearità o altre frizioni non previste dalla specifica;
+6. utilizza una calibrazione didattica e stilizzata;
+7. non costituisce una ricostruzione storica del bilancio di Silicon Valley Bank;
+8. non consente di interpretare $\theta_{\mathrm{crit}}$ come stima empirica della soglia effettiva di deflusso di SVB;
+9. consente di interpretare i risultati soltanto nell'ambito delle ipotesi, dei parametri e dei vincoli esplicitamente assegnati.
 
 ## 5. Output richiesti
 

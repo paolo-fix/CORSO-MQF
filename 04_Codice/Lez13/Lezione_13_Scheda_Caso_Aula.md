@@ -450,7 +450,9 @@ $$
 
 ## 6. Output richiesti
 
-### 6.1 Risultati numerici
+Gli output devono avere una funzione informativa, diagnostica o interpretativa esplicita e devono essere costruiti esclusivamente a partire da configurazioni per le quali il solver restituisce una soluzione valida.
+
+### 6.1 Stime o risultati numerici
 
 Devono essere riportati:
 
@@ -458,55 +460,324 @@ Devono essere riportati:
 2. giacenze ottime benchmark $g^*$;
 3. funding ottimo benchmark $u^*$;
 4. valore ottimo benchmark $\Pi^*$;
-5. residuali benchmark;
-6. slack e vincoli attivi benchmark;
+5. residuali dei vincoli di uguaglianza nel benchmark;
+6. slack, bounds attivi e principali vincoli attivi nel benchmark;
 7. principali valori marginali benchmark;
-8. risultati completi delle tre sensitività univariate;
-9. variazioni assolute e percentuali di $\Pi^*$;
-10. variazioni delle componenti della soluzione ottima;
-11. rapporti di utilizzo della capacità di funding;
-12. ultimo valore ammissibile e primo valore non ammissibile della griglia di $\theta$;
-13. intervallo raffinato contenente $\theta_{\mathrm{crit}}$;
-14. risultati completi dei tre scenari;
-15. perdita di valore degli scenari Mediamente critico e Critico rispetto allo Standard.
+8. risultati delle tre sensitività univariate rispetto a $\theta$, $\phi$ e $\psi$;
+9. variazioni assolute del valore ottimo:
+
+$$
+\Delta\Pi^*(p)
+=
+\Pi^*(p)-\Pi^*(1);
+$$
+
+10. variazioni percentuali del valore ottimo:
+
+$$
+\Delta_{\%}\Pi^*(p)
+=
+100
+\left[
+\frac{\Pi^*(p)}{\Pi^*(1)}-1
+\right];
+$$
+
+11. variazioni delle componenti della soluzione ottima:
+
+$$
+\Delta x_j^*(p)
+=
+x_j^*(p)-x_j^*(1),
+$$
+
+$$
+\Delta g_t^*(p)
+=
+g_t^*(p)-g_t^*(1),
+$$
+
+$$
+\Delta u_t^*(p)
+=
+u_t^*(p)-u_t^*(1);
+$$
+
+12. rapporti di utilizzo della capacità di funding:
+
+$$
+\rho_t^u(p)
+=
+\frac{u_t^*(p)}{\bar u_t(p)};
+$$
+
+13. stato di fattibilità per ciascun punto delle griglie parametriche;
+14. ultimo valore ammissibile e primo valore non ammissibile della griglia di $\theta$;
+15. intervallo raffinato contenente $\theta_{\mathrm{crit}}$;
+16. risultati completi dei tre scenari congiunti;
+17. perdita di valore degli scenari Mediamente critico e Critico rispetto allo scenario Standard:
+
+$$
+L_s
+=
+\Pi_{\mathrm{Standard}}^*
+-
+\Pi_s^*.
+$$
 
 ### 6.2 Tabelle
 
-Devono essere costruite:
+Devono essere costruite le seguenti tabelle.
 
-1. **Tabella 1 — Parametri benchmark**: $A_0$, $c$, $\ell$, $d$, $r^g$, $r^u$, $\bar u$, $K$ e limite su $x_3$.
-2. **Tabella 2 — Soluzione benchmark**: $x_1^*,\ldots,x_4^*$, $g_1^*,\ldots,g_4^*$, $u_1^*,u_2^*,u_3^*$ e $\Pi^*$.
-3. **Tabella 3 — Verifica dei bilanci temporali**: per ciascuna data, risorse disponibili, fabbisogno, eventuale rimborso di funding, giacenza finale e residuo.
-4. **Tabella 4 — Vincoli e slack benchmark**: valore assunto, limite, slack e stato attivo / non attivo.
-5. **Tabella 5 — Valori marginali benchmark**: almeno bilanci temporali e limiti di funding economicamente rilevanti.
-6. **Tabella 6 — Sensitività a $\theta$**.
-7. **Tabella 7 — Sensitività a $\phi$**.
-8. **Tabella 8 — Sensitività a $\psi$**.
-9. **Tabella 9 — Raffinamento della frontiera di fattibilità**.
-10. **Tabella 10 — Confronto degli scenari**.
+**Tabella 1 — Parametri benchmark**
 
-Le Tabelle 6–8 devono riportare almeno: valore del parametro, stato del solver, fattibilità, $\Pi^*$, $\Delta\Pi^*$, $x^*$, $g^*$, $u^*$ e rapporti $u_t^*/\bar u_t$.
+Deve riportare almeno:
 
-La Tabella 10 deve riportare almeno: valori di $\theta$, $\phi$, $\psi$, $\Pi^*$, perdita rispetto allo Standard, $x^*$, $g^*$, $u^*$, principali vincoli attivi e utilizzo relativo della capacità di funding.
+- $A_0$;
+- $c$;
+- $\ell$;
+- $d$;
+- $r^g$;
+- $r^u$;
+- $\bar u$;
+- $K$;
+- limite su $x_3$.
+
+La tabella deve rendere immediatamente verificabile la configurazione di riferimento utilizzata dal solver.
+
+**Tabella 2 — Soluzione benchmark**
+
+Deve riportare:
+
+- $x_1^*,\ldots,x_4^*$;
+- $g_1^*,\ldots,g_4^*$;
+- $u_1^*,u_2^*,u_3^*$;
+- $\Pi^*$.
+
+La tabella deve sintetizzare il piano ALM ottimo benchmark.
+
+**Tabella 3 — Verifica dei bilanci temporali**
+
+Per ciascuna data deve riportare almeno:
+
+- cash flow degli attivi;
+- giacenza proveniente dalla data precedente, quando presente;
+- funding raccolto, quando presente;
+- rimborso del funding precedente, quando presente;
+- fabbisogno;
+- giacenza finale;
+- residuo dell'uguaglianza.
+
+La tabella deve rendere verificabile la soddisfazione dei bilanci temporali.
+
+**Tabella 4 — Vincoli, bounds e slack benchmark**
+
+Per ciascun vincolo o bound rilevante deve riportare:
+
+- valore assunto;
+- limite;
+- slack o distanza dal bound;
+- indicazione attivo / non attivo.
+
+**Tabella 5 — Valori marginali benchmark**
+
+Deve riportare almeno i valori marginali economicamente informativi relativi:
+
+- ai bilanci temporali;
+- ai limiti di funding;
+- agli altri vincoli rilevanti quando il solver ne fornisce un marginale interpretabile.
+
+**Tabella 6 — Sensitività a $\theta$**
+
+Per ciascun valore della griglia deve riportare almeno:
+
+- $\theta$;
+- stato del solver;
+- fattibilità;
+- $\Pi^*$;
+- $\Delta\Pi^*$;
+- $\Delta_{\%}\Pi^*$;
+- $x^*$;
+- $g^*$;
+- $u^*$;
+- rapporti di utilizzo della capacità di funding;
+- principali vincoli attivi.
+
+**Tabella 7 — Sensitività a $\phi$**
+
+Deve utilizzare una struttura analoga alla Tabella 6, sostituendo $\theta$ con $\phi$ e mettendo in evidenza l'utilizzo della capacità disponibile di funding.
+
+**Tabella 8 — Sensitività a $\psi$**
+
+Deve utilizzare una struttura analoga alla Tabella 6, sostituendo $\theta$ con $\psi$ e mettendo in evidenza l'effetto del costo del funding sul valore ottimo e sul ricorso al funding.
+
+**Tabella 9 — Raffinamento della frontiera di fattibilità**
+
+Deve riportare, nell'intervallo individuato dalla griglia iniziale:
+
+- valori raffinati di $\theta$;
+- stato del solver;
+- fattibilità.
+
+La tabella deve consentire di individuare un intervallo ristretto contenente $\theta_{\mathrm{crit}}$.
+
+**Tabella 10 — Confronto degli scenari**
+
+Deve confrontare Standard, Mediamente critico e Critico riportando almeno:
+
+- $\theta$;
+- $\phi$;
+- $\psi$;
+- fattibilità;
+- $\Pi^*$;
+- perdita rispetto allo Standard;
+- $x^*$;
+- $g^*$;
+- $u^*$;
+- principali vincoli attivi;
+- utilizzo relativo della capacità di funding.
 
 ### 6.3 Figure
 
-Devono essere prodotte:
+Devono essere prodotte le seguenti figure.
 
-1. **Figura 1 — Valore ottimo e sensitività a $\theta$**: grafico di $\theta\mapsto\Pi^*(\theta)$, limitato ai valori ammissibili.
-2. **Figura 2 — Variazione del valore ottimo rispetto a $\theta$**: grafico di $\theta\mapsto\Delta\Pi^*(\theta)$ oppure della corrispondente variazione percentuale.
-3. **Figura 3 — Composizione ottima dell'attivo rispetto a $\theta$**: $x_1^*(\theta),\ldots,x_4^*(\theta)$.
-4. **Figura 4 — Variazioni dell'asset allocation rispetto al benchmark**: $\Delta x_j^*(\theta)$.
-5. **Figura 5 — Funding ottimo e utilizzo della capacità rispetto a $\theta$**.
-6. **Figura 6 — Giacenze ottime rispetto a $\theta$**.
-7. **Figura 7 — Sensitività a $\phi$**: almeno $\phi\mapsto\Pi^*(\phi)$ e comportamento del funding rispetto alla capacità disponibile.
-8. **Figura 8 — Sensitività a $\psi$**: almeno $\psi\mapsto\Pi^*(\psi)$ ed evoluzione del funding ottimo.
-9. **Figura 9 — Valori marginali**: bilanci temporali e/o limiti di funding più informativi lungo almeno una griglia.
-10. **Figura 10 — Mappa dei principali vincoli attivi**: almeno lungo la sensitività a $\theta$.
-11. **Figura 11 — Valore ottimo nei tre scenari**.
-12. **Figura 12 — Composizione ottima dell'attivo nei tre scenari**.
-13. **Figura 13 — Funding nei tre scenari**.
-14. **Figura 14 — Profilo temporale delle giacenze nei tre scenari**.
+**Figura 1 — Valore ottimo e sensitività a $\theta$**
+
+Grafico di:
+
+$$
+\theta
+\longmapsto
+\Pi^*(\theta).
+$$
+
+Devono essere rappresentati soltanto i punti corrispondenti a problemi ammissibili.
+
+**Figura 2 — Variazione del valore ottimo rispetto a $\theta$**
+
+Grafico di:
+
+$$
+\theta
+\longmapsto
+\Delta\Pi^*(\theta)
+$$
+
+oppure della corrispondente variazione percentuale.
+
+**Figura 3 — Composizione ottima dell'attivo rispetto a $\theta$**
+
+Grafico delle serie:
+
+$$
+x_1^*(\theta),\ldots,x_4^*(\theta).
+$$
+
+**Figura 4 — Variazioni dell'asset allocation rispetto al benchmark**
+
+Grafico delle serie:
+
+$$
+\Delta x_j^*(\theta).
+$$
+
+**Figura 5 — Funding ottimo e utilizzo della capacità rispetto a $\theta$**
+
+Devono essere rappresentati $u_t^*(\theta)$ e/o:
+
+$$
+\frac{u_t^*(\theta)}{\bar u_t}.
+$$
+
+**Figura 6 — Giacenze ottime rispetto a $\theta$**
+
+Grafico delle serie:
+
+$$
+g_1^*(\theta),\ldots,g_4^*(\theta).
+$$
+
+**Figura 7 — Sensitività a $\phi$**
+
+Deve mostrare almeno:
+
+$$
+\phi
+\longmapsto
+\Pi^*(\phi)
+$$
+
+e il comportamento del funding rispetto alla capacità disponibile.
+
+**Figura 8 — Sensitività a $\psi$**
+
+Deve mostrare almeno:
+
+$$
+\psi
+\longmapsto
+\Pi^*(\psi)
+$$
+
+e l'evoluzione del funding ottimo.
+
+**Figura 9 — Valori marginali**
+
+Deve rappresentare i valori marginali dei bilanci temporali e/o dei limiti di funding più informativi lungo almeno una delle griglie.
+
+**Figura 10 — Mappa dei principali vincoli attivi**
+
+Deve rendere visibile il cambiamento dello stato attivo / non attivo dei principali vincoli almeno lungo la sensitività a $\theta$.
+
+**Figura 11 — Valore ottimo nei tre scenari**
+
+Confronto dei valori:
+
+$$
+\Pi_{\mathrm{Standard}}^*,
+\qquad
+\Pi_{\mathrm{Medio}}^*,
+\qquad
+\Pi_{\mathrm{Critico}}^*.
+$$
+
+**Figura 12 — Composizione ottima dell'attivo nei tre scenari**
+
+Confronto delle componenti:
+
+$$
+x_1^*,x_2^*,x_3^*,x_4^*.
+$$
+
+**Figura 13 — Funding nei tre scenari**
+
+Confronto di:
+
+$$
+u_1^*,u_2^*,u_3^*.
+$$
+
+**Figura 14 — Profilo temporale delle giacenze nei tre scenari**
+
+Per ogni scenario deve essere rappresentato:
+
+$$
+t
+\longmapsto
+g_t^*,
+\qquad
+t=1,\ldots,4.
+$$
+
+### 6.4 Regole di produzione degli output
+
+Le tabelle e le figure devono essere prodotte come output delle rispettive celle del notebook e devono essere rigenerabili mediante riesecuzione delle celle.
+
+Non devono essere rappresentati nei grafici valori provenienti da configurazioni non ammissibili.
+
+Non è richiesta automaticamente l'esportazione di tabelle o figure in file esterni. Eventuali esportazioni devono essere effettuate soltanto se richieste esplicitamente dal docente.
+
+Gli output devono essere utilizzati per verificare e interpretare il modello, non come elementi puramente decorativi.
 
 ---
 
@@ -543,27 +814,107 @@ Devono essere verificati almeno i seguenti punti.
 
 ## 8. Ipotesi e limiti del caso
 
+### 8.1 Ipotesi modellistiche
+
 Il modello assume che:
 
 1. l'orizzonte sia deterministico e articolato in quattro date future;
-2. i cash flow degli attivi siano noti e proporzionali agli importi inizialmente investiti;
-3. i fabbisogni siano noti all'interno di ciascuna configurazione parametrica;
-4. le quantità siano divisibili;
-5. funzione obiettivo e vincoli siano lineari per ciascun valore assegnato di $\theta$, $\phi$ e $\psi$;
-6. il funding raccolto alla data $t$ sia immediatamente disponibile e venga rimborsato alla data successiva;
-7. la capacità di funding sia esogena;
-8. il costo del funding sia esogeno e venga modificato mediante il moltiplicatore $\psi$;
-9. il comportamento dei depositanti non sia modellato endogenamente;
-10. non siano modellati fire sales, haircuts o feedback fra vendite di attività e prezzi di mercato;
-11. lo stress non modifichi endogenamente il valore di mercato delle attività;
-12. $\theta$, $\phi$ e $\psi$ siano parametri deterministici e non variabili casuali;
-13. i tre scenari non abbiano probabilità associate;
-14. la scenario analysis non costituisca un problema di programmazione stocastica;
-15. le decisioni non siano adattive rispetto a informazione progressivamente osservata;
-16. i dati numerici abbiano finalità didattica e non debbano essere interpretati come una ricostruzione del bilancio storico di Silicon Valley Bank;
-17. il valore di $\theta_{\mathrm{crit}}$ ottenuto nel caso misuri esclusivamente la frontiera di fattibilità del modello stilizzato e non il livello storico dei deflussi osservati presso SVB.
 
-L'obiettivo del caso è utilizzare la programmazione lineare per rendere osservabile il legame tra:
+2. i cash flow degli attivi siano noti e proporzionali agli importi inizialmente investiti;
+
+3. i fabbisogni di liquidità siano noti all'interno di ciascuna configurazione parametrica;
+
+4. le quantità siano divisibili;
+
+5. la funzione obiettivo e i vincoli siano lineari per ciascun valore assegnato di $\theta$, $\phi$ e $\psi$;
+
+6. il funding raccolto alla data $t$ sia immediatamente disponibile e venga rimborsato alla data successiva;
+
+7. la capacità massima di funding sia esogena e vari proporzionalmente con $\phi$;
+
+8. il costo del funding sia esogeno e vari proporzionalmente con $\psi$;
+
+9. il parametro $\theta$ modifichi esclusivamente i fabbisogni delle prime due date;
+
+10. il parametro $\psi$ modifichi sia il costo del funding nella funzione obiettivo sia il relativo rimborso nei bilanci temporali;
+
+11. nelle sensitività univariate vari un solo parametro alla volta;
+
+12. negli scenari congiunti $\theta$, $\phi$ e $\psi$ assumano simultaneamente le configurazioni assegnate;
+
+13. $\theta$, $\phi$ e $\psi$ siano parametri deterministici e non variabili casuali;
+
+14. gli scenari non abbiano probabilità associate.
+
+### 8.2 Semplificazioni adottate
+
+Il caso adotta le seguenti semplificazioni:
+
+1. la struttura dei cash flow degli attivi resta assegnata nelle diverse configurazioni;
+
+2. il comportamento dei depositanti è rappresentato attraverso fabbisogni esogeni di liquidità e non mediante un modello comportamentale endogeno;
+
+3. la disponibilità di funding è rappresentata mediante capacità massime esogene;
+
+4. il costo del funding varia attraverso un moltiplicatore assegnato e non mediante una curva di offerta endogena;
+
+5. il limite prudenziale e il limite di concentrazione sono rappresentati mediante vincoli lineari;
+
+6. non vengono introdotte non linearità, indivisibilità o costi fissi;
+
+7. il caso utilizza una calibrazione didattica finalizzata a rendere osservabile il funzionamento del modello ALM deterministico.
+
+### 8.3 Elementi esclusi
+
+Il modello non rappresenta:
+
+1. fire sales degli attivi;
+
+2. haircuts variabili nel tempo;
+
+3. feedback tra vendite di attività e prezzi di mercato;
+
+4. variazioni endogene del valore di mercato delle attività causate dallo stress di liquidità;
+
+5. comportamento endogeno dei depositanti;
+
+6. rischio di credito dinamico;
+
+7. rischio di tasso modellato mediante scenari stocastici;
+
+8. costi di transazione o altri costi fissi;
+
+9. probabilità associate agli scenari;
+
+10. decisioni adattive a nuova informazione osservata nel corso dell'orizzonte;
+
+11. una struttura di programmazione stocastica o multistadio.
+
+### 8.4 Limiti dell'interpretazione
+
+Il caso è un modello didattico stilizzato e non costituisce una ricostruzione quantitativa del bilancio storico di Silicon Valley Bank.
+
+In particolare:
+
+1. i valori numerici assegnati non devono essere interpretati come stime dei corrispondenti dati storici di SVB;
+
+2. le configurazioni Standard, Mediamente critico e Critico sono scenari deterministici di analisi e non valutazioni probabilistiche degli eventi storici;
+
+3. i valori marginali devono essere interpretati come proprietà locali del programma lineare nelle configurazioni considerate e non come prezzi di mercato osservabili;
+
+4. l'eventuale variazione dei vincoli attivi al modificarsi dei parametri segnala un cambiamento della struttura locale della soluzione e limita l'uso meccanico di una stessa interpretazione marginale lungo tutta la griglia;
+
+5. il valore $\theta_{\mathrm{crit}}$ misura esclusivamente la frontiera di fattibilità del modello stilizzato:
+
+$$
+\theta_{\mathrm{crit}}
+\neq
+\text{stima del livello storico dei deflussi di SVB};
+$$
+
+6. i risultati possono essere interpretati soltanto nell'ambito dei parametri, dei vincoli e delle ipotesi esplicitamente assegnati.
+
+L'obiettivo del caso è rendere osservabile, mediante programmazione lineare e analisi computazionale, il legame tra:
 
 $$
 \text{struttura dell'attivo},
@@ -576,3 +927,5 @@ $$
 \qquad
 \text{soluzione ottima}.
 $$
+
+I risultati non devono essere estesi oltre questo perimetro modellistico.

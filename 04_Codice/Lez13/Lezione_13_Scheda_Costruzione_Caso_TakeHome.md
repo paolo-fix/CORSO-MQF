@@ -7,7 +7,7 @@ Documento interno di progettazione docente. Compilazione riferita al **Caso Take
 - **Lezione:** 13 — Applicazione in Python: programmazione lineare e ALM deterministico
 - **Tipo di caso:** TakeHome
 - **Titolo:** **First Republic Bank 2023 — due ondate di deposit run e vincoli di ristrutturazione del bilancio**
-- **Destinatari:** studenti del V anno del corso di laurea magistrale in Banca e Risk Management
+- **Destinatari:** studenti del secondo anno del Corso di Laurea Magistrale in Finanza e Risk Management
 - **Uso previsto:** caso applicativo autonomo per trasferire il metodo di programmazione lineare e ALM deterministico sviluppato nel Caso Aula SVB a una struttura finanziaria differente, caratterizzata da un portafoglio più loan-heavy, da una quota minima di attività legacy non immediatamente smobilizzabili, da due ondate distinte di pressione sui depositi e da una capacità di funding che può ridursi.
 
 ## 2. Contesto e motivazione
@@ -40,393 +40,999 @@ $$
 \text{interpretazione}.
 $$
 
-## 3. Domanda quantitativa e obiettivo didattico
+## 3. Domanda quantitativa e funzione didattica
 
-**Domanda quantitativa:** dato un bilancio stilizzato di First Republic caratterizzato da attività a liquidità differenziata, una quota minima di attività legacy e due ondate di fabbisogno di liquidità, come si costruisce e si risolve il corrispondente programma lineare e come cambia il piano ottimo al variare dell'intensità della prima ondata di deflussi, della seconda ondata e della capacità disponibile di funding?
+**Domanda quantitativa:**  
+dato un bilancio stilizzato di First Republic Bank caratterizzato da attivit\`a a liquidit\`a differenziata, da una quota minima di attivit\`a legacy e da due ondate distinte di fabbisogno di liquidit\`a, come si costruisce e si risolve il corrispondente programma lineare e come cambia il piano ALM ottimo al variare dell'intensit\`a della prima ondata di deflussi, della seconda ondata e della capacit\`a disponibile di funding?
 
-**Obiettivo didattico:** portare lo studente a:
+**Obiettivo didattico:**  
+portare lo studente a:
 
-1. riconoscere la struttura di un problema ALM già studiato in una configurazione finanziaria diversa;
-2. riformulare autonomamente variabili, vincoli e matrice dei cash flow;
+1. riconoscere la struttura di un problema di Asset--Liability Management gi\`a studiato quando viene trasferita a una configurazione finanziaria diversa;
+2. riformulare autonomamente variabili, vincoli e matrice dei cash flow senza replicare meccanicamente il Caso Aula;
 3. gestire una dimensione dell'attivo maggiore rispetto al Caso Aula;
-4. introdurre e interpretare un vincolo strutturale su attività legacy;
+4. introdurre e interpretare un vincolo strutturale su attivit\`a legacy;
 5. costruire e validare una funzione solver parametrica;
-6. distinguere gli effetti di due ondate di deposit run;
-7. analizzare separatamente l'effetto della capacità di funding;
-8. costruire scenari congiunti senza confonderli con una sensitività univariata;
-9. interpretare variazioni di valore ottimo, composizione dell'attivo, giacenze, funding e vincoli attivi;
-10. trasferire il metodo del Caso Aula senza riprodurne meccanicamente la struttura.
+6. distinguere gli effetti di una pressione di liquidit\`a iniziale da quelli di una pressione che si manifesta alla data terminale;
+7. analizzare separatamente l'effetto della capacit\`a massima di funding;
+8. distinguere sensitività univariata e scenario analysis multivariata;
+9. interpretare variazioni del valore ottimo, della composizione dell'attivo, delle giacenze, del funding, dei vincoli attivi e dei valori marginali;
+10. trasferire il metodo sviluppato nel Caso Aula mantenendo continuit\`a metodologica ma autonomia del problema finanziario.
+
+**Collegamento con le lezioni teoriche precedenti:**  
+il caso utilizza direttamente i risultati sviluppati nei Capitoli 11 e 12 e la loro traduzione computazionale nel Capitolo 13.
+
+Dal Capitolo 11 riprende:
+
+- la formulazione di un problema di programmazione lineare;
+- la distinzione tra funzione obiettivo, vincoli e bounds;
+- la nozione di regione ammissibile;
+- il ruolo dei vincoli attivi;
+- la sensitività della soluzione;
+- la dualit\`a e l'interpretazione economica dei valori marginali.
+
+Dal Capitolo 12 riprende:
+
+- la rappresentazione temporale dei cash flow degli attivi;
+- i bilanci di liquidit\`a alle diverse date;
+- le giacenze trasferite nel tempo;
+- il ricorso a funding esterno e il relativo rimborso;
+- i vincoli di capacit\`a del funding;
+- l'interpretazione marginale dei vincoli temporali.
+
+Dal Capitolo 13 riprende:
+
+- la traduzione del modello ALM nella forma richiesta da `scipy.optimize.linprog`;
+- la distinzione tra vettore obiettivo, uguaglianze, disuguaglianze e bounds;
+- la lettura di residuali, slack e valori marginali;
+- la costruzione di funzioni solver parametrizzate;
+- l'analisi di sensitività e di scenari.
+
+Il Caso TakeHome richiede per\`o un trasferimento del metodo a una struttura diversa da quella di Silicon Valley Bank: aumenta il numero delle classi di attivo, introduce un vincolo minimo su attivit\`a legacy e distribuisce la pressione di liquidit\`a in due date distinte.
+
+**Concetti teorici da rendere osservabili:**  
+il caso deve rendere operativamente osservabili:
+
+1. la corrispondenza tra formulazione economico-finanziaria e forma matriciale del programma lineare;
+2. la distinzione tra vincoli di uguaglianza, disuguaglianze e bounds;
+3. il ruolo dei bilanci temporali nel garantire la fattibilit\`a del piano ALM;
+4. il significato economico dei vincoli strutturali sul portafoglio;
+5. la differenza tra vincoli superiori e vincoli inferiori;
+6. la necessit\`a di trasformare un vincolo del tipo
+
+$$
+x_3+x_4\geq35
+$$
+
+nella forma compatibile con il solver:
+
+$$
+-x_3-x_4\leq-35;
+$$
+
+7. la relazione tra forma codificata del vincolo e interpretazione del valore marginale restituito dal solver;
+8. la distinzione tra shock di liquidit\`a iniziale e shock terminale;
+9. la dipendenza della soluzione ottima dalla capacit\`a disponibile di funding;
+10. la differenza tra sensitività univariata e variazione congiunta dei driver negli scenari;
+11. il possibile cambiamento dei vincoli attivi al variare dei parametri;
+12. la distinzione tra configurazioni ammissibili e non ammissibili.
+
+**Funzione della procedura computazionale:**  
+il ricorso a Python e al solver \`e necessario per trasferire sistematicamente la struttura teorica del modello a una configurazione pi\`u articolata rispetto al Caso Aula e per risolvere ripetutamente il programma lineare al variare dei parametri $\alpha$, $\beta$ e $\phi$.
+
+La procedura computazionale deve consentire di:
+
+1. costruire la forma solver del modello First Republic;
+2. verificare la corretta codifica dei vincoli, compreso il vincolo legacy;
+3. risolvere e validare la configurazione benchmark;
+4. controllare residuali, slack, bounds attivi e fattibilit\`a;
+5. estrarre e interpretare i principali valori marginali restituiti dal solver;
+6. costruire una funzione parametrica dipendente da $\alpha$, $\beta$ e $\phi$;
+7. risolvere il modello lungo le tre griglie di sensitività;
+8. confrontare gli effetti di shock alla prima e alla quarta data;
+9. analizzare l'utilizzo della capacit\`a di funding;
+10. confrontare configurazioni congiunte mediante scenario analysis.
+
+La procedura computazionale deve rendere osservabili e verificabili le propriet\`a del modello, senza sostituire l'interpretazione economico-finanziaria finale dello studente.
+
+**Ruolo dell'informazione, degli scenari e dei vincoli:**  
+il caso \`e deterministico. Non sono presenti variabili casuali, probabilit\`a di scenario o decisioni adattive a informazione futura.
+
+Per ciascuna configurazione di $(\alpha,\beta,\phi)$, coefficienti, cash flow, fabbisogni e capacit\`a di funding sono considerati noti.
+
+I tre parametri hanno funzioni distinte:
+
+- $\alpha$ modifica il fabbisogno della prima data e rappresenta l'intensit\`a della prima ondata di deflussi;
+- $\beta$ modifica il fabbisogno della quarta data e rappresenta l'intensit\`a della seconda ondata di deflussi;
+- $\phi$ modifica la capacit\`a massima di funding disponibile alle prime tre date.
+
+Le sensitività univariate modificano un solo parametro alla volta, mantenendo gli altri al valore benchmark.
+
+La scenario analysis modifica invece congiuntamente $\alpha$, $\beta$ e $\phi$ secondo configurazioni assegnate. Tali configurazioni non rappresentano eventi aleatori e non hanno probabilit\`a associate.
+
+I vincoli hanno una funzione centrale nell'interpretazione del caso:
+
+- i bilanci temporali impongono che i fabbisogni siano soddisfatti alle rispettive date;
+- il vincolo prudenziale limita l'esposizione complessiva alla perdita sotto stress;
+- il vincolo
+
+$$
+x_3+x_4\geq35
+$$
+
+impone il mantenimento di una quota minima di attivit\`a legacy e rappresenta una rigidit\`a strutturale nella ristrutturazione del bilancio;
+
+- il limite
+
+$$
+x_5\leq35
+$$
+
+impedisce una concentrazione eccessiva negli altri prestiti;
+
+- i bounds sul funding limitano la capacit\`a di utilizzare risorse esterne.
+
+L'analisi di slack, bounds attivi e valori marginali deve consentire di identificare quali restrizioni determinano il piano ottimo nelle diverse configurazioni e di distinguere correttamente il significato economico del vincolo originale dalla forma algebrica utilizzata per il solver.
 
 ## 4. Specifica teorico-matematica
 
-- **Grandezze e variabili:**
-  - $x_j$, $j=1,\ldots,5$: ammontare inizialmente allocato nelle cinque classi di attivo:
-    1. cassa e riserve;
-    2. titoli a breve scadenza;
-    3. mutui residenziali a lunga durata;
-    4. prestiti immobiliari commerciali;
-    5. altri prestiti e crediti a clientela;
-  - $g_t$, $t=1,\ldots,4$: giacenza di liquidità immediatamente successiva al soddisfacimento del fabbisogno alla data $t$;
-  - $u_t$, $t=1,2,3$: funding esterno raccolto alla data $t$, disponibile immediatamente e da rimborsare alla data successiva;
-  - $c_j$: coefficiente di redditività dell'attivo $j$;
-  - $\ell_j$: perdita unitaria sotto stress associata all'attivo $j$;
-  - $a_{tj}$: quota di una unità dell'attivo $j$ resa liquida alla data $t$;
-  - $d_t$: fabbisogno di liquidità benchmark alla data $t$;
-  - $r_t^g$: rendimento della giacenza fra $t$ e $t+1$;
-  - $r_t^u$: costo del funding raccolto alla data $t$;
-  - $\bar u_t$: capacità benchmark di funding alla data $t$;
-  - $\alpha$: moltiplicatore dell'intensità della prima ondata di deflussi;
-  - $\beta$: moltiplicatore dell'intensità della seconda ondata di deflussi;
-  - $\phi$: moltiplicatore della capacità massima di funding.
+### Grandezze e variabili
 
-- **Eventi, informazione o scenari:**
-  - benchmark:
+- $x_j$, $j=1,\ldots,5$: ammontare inizialmente allocato nelle cinque classi di attivo:
+  1. cassa e riserve;
+  2. titoli a breve scadenza;
+  3. mutui residenziali a lunga durata;
+  4. prestiti immobiliari commerciali;
+  5. altri prestiti e crediti a clientela;
 
-    $$
-    (\alpha,\beta,\phi)=(1,1,1);
-    $$
+- $g_t$, $t=1,\ldots,4$: giacenza di liquidità immediatamente successiva al soddisfacimento del fabbisogno alla data $t$;
 
-  - sensitività alla prima ondata, con $\beta=1$ e $\phi=1$:
+- $u_t$, $t=1,2,3$: funding esterno raccolto alla data $t$, disponibile immediatamente e da rimborsare alla data successiva;
 
-    $$
-    \alpha\in\{0.90,0.95,1.00,1.05,1.10,1.15\};
-    $$
+- $c_j$: coefficiente di redditività dell'attivo $j$;
 
-  - sensitività alla seconda ondata, con $\alpha=1$ e $\phi=1$:
+- $\ell_j$: perdita unitaria sotto stress associata all'attivo $j$;
 
-    $$
-    \beta\in\{0.90,0.95,1.00,1.05,1.10,1.15\};
-    $$
+- $a_{tj}$: quota di una unità dell'attivo $j$ resa liquida alla data $t$;
 
-  - sensitività alla capacità di funding, con $\alpha=1$ e $\beta=1$:
+- $d_t$: fabbisogno di liquidità benchmark alla data $t$;
 
-    $$
-    \phi\in\{0.30,0.40,0.50,0.60,0.70,0.80,0.90,1.00,1.10,1.20,1.30\};
-    $$
+- $r_t^g$: rendimento della giacenza trasferita dalla data $t$ alla data $t+1$;
 
-  - scenario Standard:
+- $r_t^u$: costo del funding raccolto alla data $t$;
 
-    $$
-    (\alpha,\beta,\phi)=(1.00,1.00,1.00);
-    $$
-
-  - scenario Mediamente critico:
-
-    $$
-    (\alpha,\beta,\phi)=(1.03,1.03,0.90);
-    $$
+- $\bar u_t$: capacità benchmark di funding alla data $t$;
 
-  - scenario Critico:
-
-    $$
-    (\alpha,\beta,\phi)=(1.06,1.06,0.75).
-    $$
-
-- **Parametri e dati:**
-  - risorse iniziali:
-
-    $$
-    A_0=100;
-    $$
-
-  - redditività:
+- $\alpha$: moltiplicatore dell'intensità della prima ondata di deflussi;
 
-    $$
-    c'=(0.008,0.022,0.035,0.045,0.050);
-    $$
-
-  - perdite sotto stress:
-
-    $$
-    \ell'=(0,0.015,0.060,0.100,0.120);
-    $$
-
-  - matrice dei cash flow:
-
-    $$
-    A^{\mathrm{CF}}
-    =
-    \begin{pmatrix}
-    1.00 & 0.70 & 0.05 & 0.05 & 0.10\\
-    0.00 & 0.30 & 0.10 & 0.15 & 0.20\\
-    0.00 & 0.00 & 0.25 & 0.30 & 0.30\\
-    0.00 & 0.00 & 0.60 & 0.50 & 0.40
-    \end{pmatrix};
-    $$
-
-  - fabbisogni benchmark:
+- $\beta$: moltiplicatore dell'intensità della seconda ondata di deflussi;
 
-    $$
-    d'=(32,18,14,32);
-    $$
-
-  - rendimenti delle giacenze:
-
-    $$
-    {r^g}'=(0.004,0.005,0.006);
-    $$
-
-  - costi del funding:
+- $\phi$: moltiplicatore della capacità massima di funding.
 
-    $$
-    {r^u}'=(0.018,0.025,0.040);
-    $$
-
-  - capacità benchmark di funding:
-
-    $$
-    \bar u'=(4,3,2);
-    $$
-
-  - limite prudenziale:
-
-    $$
-    K=7.5;
-    $$
-
-  - quota minima di attività legacy a lunga durata:
-
-    $$
-    x_3+x_4\geq35;
-    $$
-
-  - limite massimo agli altri prestiti:
+### Eventi, informazione, stati o scenari
 
-    $$
-    x_5\leq35.
-    $$
+Il caso è deterministico e non prevede variabili casuali, stati informativi aleatori o probabilità associate agli scenari.
 
-- **Ipotesi:**
-  - orizzonte deterministico a quattro date;
-  - coefficienti e cash flow noti in ciascuna configurazione parametrica;
-  - divisibilità delle quantità;
-  - assenza di costi fissi;
-  - linearità di funzione obiettivo e vincoli;
-  - la prima ondata di deposit run influenza il fabbisogno della prima data;
-  - la seconda ondata influenza il fabbisogno della quarta data;
-  - i fabbisogni intermedi restano invariati;
-  - la capacità massima di funding varia proporzionalmente con $\phi$;
-  - il costo del funding resta invariato nelle sensitività e negli scenari principali;
-  - il vincolo $x_3+x_4\geq35$ rappresenta una quota minima di attività legacy che non può essere ristrutturata istantaneamente;
-  - nelle sensitività univariate varia un solo parametro alla volta;
-  - gli scenari sono deterministici e non hanno probabilità associate;
-  - il caso è stilizzato e non rappresenta una ricostruzione quantitativa del bilancio storico di First Republic.
+La configurazione benchmark è:
 
-- **Formule vincolanti:**
-  - fabbisogni parametrizzati:
-
-    $$
-    d(\alpha,\beta)
-    =
-    (32\alpha,18,14,32\beta)';
-    $$
-
-  - capacità massima di funding:
-
-    $$
-    \bar u_t(\phi)=\phi\bar u_t;
-    $$
-
-  - funzione obiettivo:
-
-    $$
-    \max_{x,g,u}
-    \Pi(x,g,u)
-    =
-    c'x
-    +
-    \sum_{t=1}^{3}r_t^g g_t
-    -
-    \sum_{t=1}^{3}r_t^u u_t;
-    $$
-
-  - risorse iniziali:
-
-    $$
-    \sum_{j=1}^{5}x_j=A_0;
-    $$
-
-  - primo bilancio:
-
-    $$
-    a_1'x+u_1-g_1=d_1(\alpha);
-    $$
-
-  - bilanci intermedi:
-
-    $$
-    a_t'x
-    +(1+r_{t-1}^g)g_{t-1}
-    +u_t
-    -(1+r_{t-1}^u)u_{t-1}
-    -g_t
-    =
-    d_t,
-    \qquad t=2,3;
-    $$
-
-  - bilancio terminale:
-
-    $$
-    a_4'x
-    +(1+r_3^g)g_3
-    -(1+r_3^u)u_3
-    -g_4
-    =
-    d_4(\beta);
-    $$
-
-  - vincolo prudenziale:
-
-    $$
-    \ell'x\leq K;
-    $$
-
-  - vincolo legacy:
-
-    $$
-    x_3+x_4\geq35;
-    $$
-
-  - limite agli altri prestiti:
-
-    $$
-    x_5\leq35;
-    $$
-
-  - capacità di funding:
-
-    $$
-    0\leq u_t\leq\phi\bar u_t,
-    \qquad t=1,2,3;
-    $$
-
-  - non negatività:
-
-    $$
-    x_j\geq0,
-    \qquad
-    g_t\geq0.
-    $$
-
-- **Quantità finali di interesse:**
-  - soluzione ottima benchmark $x^*$, $g^*$, $u^*$;
-  - valore ottimo $\Pi^*$;
-  - residuali dei vincoli di uguaglianza;
-  - slack dei vincoli di disuguaglianza;
-  - stato attivo / non attivo dei vincoli;
-  - valori marginali dei bilanci temporali;
-  - valore marginale della capacità di funding quando attiva;
-  - evoluzione di $\Pi^*$ lungo le tre griglie;
-  - evoluzione di $x^*$, $g^*$ e $u^*$ lungo le tre griglie;
-  - variazione rispetto al benchmark:
-
-    $$
-    \Delta\Pi^*(p)
-    =
-    \Pi^*(p)-\Pi^*(1);
-    $$
-
-  - variazioni delle componenti ottime:
-
-    $$
-    \Delta x_j^*(p)
-    =
-    x_j^*(p)-x_j^*(1),
-    $$
-
-    $$
-    \Delta g_t^*(p)
-    =
-    g_t^*(p)-g_t^*(1),
-    $$
-
-    $$
-    \Delta u_t^*(p)
-    =
-    u_t^*(p)-u_t^*(1);
-    $$
-
-  - utilizzo relativo della capacità di funding:
-
-    $$
-    \rho_t^u(p)
-    =
-    \frac{u_t^*(p)}
-    {\bar u_t(p)};
-    $$
-
-  - stato di fattibilità lungo le griglie di $\alpha$ e $\beta$;
-  - soluzioni ottime nei tre scenari;
-  - perdita di valore rispetto allo scenario Standard.
+$$
+(\alpha,\beta,\phi)=(1,1,1).
+$$
+
+La sensitività rispetto ad $\alpha$, mantenendo $\beta=1$ e $\phi=1$, utilizza:
+
+$$
+\alpha
+\in
+\{0.90,0.95,1.00,1.05,1.10,1.15\}.
+$$
+
+La sensitività rispetto a $\beta$, mantenendo $\alpha=1$ e $\phi=1$, utilizza:
+
+$$
+\beta
+\in
+\{0.90,0.95,1.00,1.05,1.10,1.15\}.
+$$
+
+La sensitività rispetto a $\phi$, mantenendo $\alpha=1$ e $\beta=1$, utilizza:
+
+$$
+\phi
+\in
+\{0.30,0.40,0.50,0.60,0.70,0.80,0.90,1.00,1.10,1.20,1.30\}.
+$$
+
+Gli scenari congiunti assegnati sono:
+
+- scenario Standard:
+
+$$
+(\alpha,\beta,\phi)=(1.00,1.00,1.00);
+$$
+
+- scenario Mediamente critico:
+
+$$
+(\alpha,\beta,\phi)=(1.03,1.03,0.90);
+$$
+
+- scenario Critico:
+
+$$
+(\alpha,\beta,\phi)=(1.06,1.06,0.75).
+$$
+
+Gli scenari rappresentano configurazioni deterministiche dei parametri e non eventi ai quali siano associate probabilità.
+
+### Parametri e dati
+
+Le risorse iniziali sono:
+
+$$
+A_0=100.
+$$
+
+Il vettore dei coefficienti di redditività è:
+
+$$
+c'
+=
+(0.008,0.022,0.035,0.045,0.050).
+$$
+
+Il vettore delle perdite unitarie sotto stress è:
+
+$$
+\ell'
+=
+(0,0.015,0.060,0.100,0.120).
+$$
+
+La matrice dei cash flow è:
+
+$$
+A^{\mathrm{CF}}
+=
+\begin{pmatrix}
+1.00 & 0.70 & 0.05 & 0.05 & 0.10\\
+0.00 & 0.30 & 0.10 & 0.15 & 0.20\\
+0.00 & 0.00 & 0.25 & 0.30 & 0.30\\
+0.00 & 0.00 & 0.60 & 0.50 & 0.40
+\end{pmatrix}.
+$$
+
+Le righe corrispondono alle date $t=1,\ldots,4$ e le colonne, nell'ordine, alle variabili:
+
+$$
+(x_1,x_2,x_3,x_4,x_5).
+$$
+
+I fabbisogni benchmark sono:
+
+$$
+d'
+=
+(32,18,14,32).
+$$
+
+I rendimenti delle giacenze sono:
+
+$$
+{r^g}'
+=
+(0.004,0.005,0.006).
+$$
+
+I costi del funding sono:
+
+$$
+{r^u}'
+=
+(0.018,0.025,0.040).
+$$
+
+Le capacità benchmark di funding sono:
+
+$$
+\bar u'
+=
+(4,3,2).
+$$
+
+Il limite prudenziale è:
+
+$$
+K=7.5.
+$$
+
+Il vincolo minimo sulle attività legacy è:
+
+$$
+x_3+x_4\geq35.
+$$
+
+Il limite massimo sugli altri prestiti è:
+
+$$
+x_5\leq35.
+$$
+
+### Ipotesi modellistiche
+
+Il caso assume:
+
+1. orizzonte deterministico a quattro date;
+2. coefficienti, cash flow e fabbisogni noti per ogni configurazione parametrica;
+3. divisibilità delle quantità;
+4. assenza di costi fissi;
+5. linearità della funzione obiettivo e dei vincoli;
+6. effetto di $\alpha$ limitato al fabbisogno della prima data;
+7. effetto di $\beta$ limitato al fabbisogno della quarta data;
+8. fabbisogni intermedi invariati rispetto al benchmark;
+9. variazione proporzionale della capacità massima di funding con $\phi$;
+10. costo del funding invariato nelle sensitività e negli scenari principali;
+11. presenza di una quota minima di attività legacy che non può essere ristrutturata istantaneamente;
+12. variazione di un solo parametro alla volta nelle sensitività univariate;
+13. variazione congiunta di $\alpha$, $\beta$ e $\phi$ nella scenario analysis;
+14. assenza di probabilità associate agli scenari;
+15. natura stilizzata e didattica del caso, che non costituisce una ricostruzione quantitativa del bilancio storico di First Republic Bank.
+
+### Formule vincolanti
+
+I fabbisogni parametrizzati sono:
+
+$$
+d(\alpha,\beta)
+=
+(32\alpha,18,14,32\beta)'.
+$$
+
+La capacità massima di funding è:
+
+$$
+\bar u_t(\phi)
+=
+\phi\bar u_t.
+$$
+
+La funzione obiettivo è:
+
+$$
+\max_{x,g,u}
+\Pi(x,g,u)
+=
+c'x
++
+\sum_{t=1}^{3}r_t^g g_t
+-
+\sum_{t=1}^{3}r_t^u u_t.
+$$
+
+Il vincolo sulle risorse iniziali è:
+
+$$
+\sum_{j=1}^{5}x_j=A_0.
+$$
+
+Il primo bilancio temporale è:
+
+$$
+a_1'x+u_1-g_1=d_1(\alpha).
+$$
+
+I bilanci intermedi, per $t=2,3$, sono:
+
+$$
+a_t'x
++
+(1+r_{t-1}^g)g_{t-1}
++
+u_t
+-
+(1+r_{t-1}^u)u_{t-1}
+-
+g_t
+=
+d_t.
+$$
+
+Il bilancio terminale è:
+
+$$
+a_4'x
++
+(1+r_3^g)g_3
+-
+(1+r_3^u)u_3
+-
+g_4
+=
+d_4(\beta).
+$$
+
+Il vincolo prudenziale è:
+
+$$
+\ell'x\leq K.
+$$
+
+Il vincolo legacy è:
+
+$$
+x_3+x_4\geq35.
+$$
+
+Per la codifica nella forma standard richiesta dal solver il vincolo legacy deve essere riscritto come:
+
+$$
+-x_3-x_4\leq-35.
+$$
+
+Il limite sugli altri prestiti è:
+
+$$
+x_5\leq35.
+$$
+
+I limiti di funding sono:
+
+$$
+0\leq u_t\leq\phi\bar u_t,
+\qquad
+t=1,2,3.
+$$
+
+Le condizioni di non negatività sono:
+
+$$
+x_j\geq0,
+\qquad
+j=1,\ldots,5,
+$$
+
+e:
+
+$$
+g_t\geq0,
+\qquad
+t=1,\ldots,4.
+$$
+
+### Quantità teoriche da stimare o calcolare
+
+Devono essere determinate:
+
+1. la soluzione ottima benchmark $x^*$, $g^*$ e $u^*$;
+2. il valore ottimo $\Pi^*$;
+3. i residuali dei vincoli di uguaglianza;
+4. gli slack dei vincoli di disuguaglianza;
+5. i bounds attivi;
+6. i principali valori marginali restituiti dal solver;
+7. l'evoluzione di $\Pi^*$ lungo le griglie di $\alpha$, $\beta$ e $\phi$;
+8. l'evoluzione di $x^*$, $g^*$ e $u^*$ lungo le tre griglie;
+9. la variazione del valore ottimo rispetto al benchmark:
+
+$$
+\Delta\Pi^*(p)
+=
+\Pi^*(p)-\Pi^*(1);
+$$
+
+10. le variazioni delle componenti ottime:
+
+$$
+\Delta x_j^*(p)
+=
+x_j^*(p)-x_j^*(1),
+$$
+
+$$
+\Delta g_t^*(p)
+=
+g_t^*(p)-g_t^*(1),
+$$
+
+$$
+\Delta u_t^*(p)
+=
+u_t^*(p)-u_t^*(1);
+$$
+
+11. il rapporto di utilizzo della capacità di funding:
+
+$$
+\rho_t^u(p)
+=
+\frac{u_t^*(p)}{\bar u_t(p)};
+$$
+
+12. lo stato di fattibilità lungo le griglie di $\alpha$, $\beta$ e $\phi$;
+13. i principali vincoli attivi nelle diverse configurazioni;
+14. il comportamento del vincolo legacy al variare dei parametri;
+15. le soluzioni ottime nei tre scenari congiunti;
+16. la perdita di valore di ciascuno scenario rispetto allo scenario Standard.
+
+### Proprietà teoriche da verificare
+
+Il caso deve verificare esplicitamente:
+
+1. la fattibilità numerica della soluzione benchmark;
+2. la soddisfazione dei bilanci temporali di liquidità;
+3. la coerenza tra residuali numerici e vincoli di uguaglianza;
+4. la coerenza tra slack e stato attivo o non attivo delle disuguaglianze;
+5. la coerenza tra valori delle variabili e bounds attivi;
+6. il rispetto dei limiti di funding:
+
+$$
+u_t^*\leq\phi\bar u_t;
+$$
+
+7. il rispetto del vincolo prudenziale:
+
+$$
+\ell'x^*\leq K;
+$$
+
+8. il rispetto del vincolo legacy:
+
+$$
+x_3^*+x_4^*\geq35;
+$$
+
+9. il rispetto del limite sugli altri prestiti:
+
+$$
+x_5^*\leq35;
+$$
+
+10. la corretta trasformazione del vincolo legacy da
+
+$$
+x_3+x_4\geq35
+$$
+
+a
+
+$$
+-x_3-x_4\leq-35;
+$$
+
+11. la corretta interpretazione del marginale associato al vincolo legacy: il solver restituisce il marginale rispetto al termine noto della disuguaglianza codificata, cioè rispetto a $-35$, e non direttamente rispetto al limite economico $35$;
+
+12. la conseguente ricostruzione del segno quando si interpreta economicamente l'effetto marginale di un aumento del livello minimo richiesto delle attività legacy;
+
+13. la coerenza dei valori marginali con i vincoli e i bilanci ai quali si riferiscono;
+14. la corretta distinzione tra configurazioni ammissibili e non ammissibili;
+15. la coerenza tra variazioni di $\alpha$, $\beta$ e $\phi$, cambiamenti dei vincoli attivi e modifiche della soluzione ottima;
+16. la distinzione tra gli effetti di uno shock alla prima data e quelli di uno shock alla data terminale;
+17. la distinzione tra sensitività univariata e variazione congiunta dei driver negli scenari.
+
+### Soglie, target o vincoli rilevanti
+
+Le principali soglie e condizioni di ammissibilità sono:
+
+- risorse iniziali:
+
+$$
+\sum_{j=1}^{5}x_j=100;
+$$
+
+- limite prudenziale:
+
+$$
+\ell'x\leq7.5;
+$$
+
+- quota minima di attività legacy:
+
+$$
+x_3+x_4\geq35;
+$$
+
+- limite agli altri prestiti:
+
+$$
+x_5\leq35;
+$$
+
+- capacità massime benchmark di funding:
+
+$$
+\bar u'=(4,3,2),
+$$
+
+modificate mediante $\phi$;
+
+- non negatività di $x$, $g$ e $u$;
+
+- soddisfacimento dei fabbisogni alle quattro date secondo:
+
+$$
+d(\alpha,\beta)
+=
+(32\alpha,18,14,32\beta)'.
+$$
+
+### Quantità finali di interesse
+
+Le quantità finali da utilizzare nell'interpretazione sono:
+
+1. valore ottimo e composizione del piano ALM benchmark;
+2. struttura delle giacenze e del funding;
+3. vincoli e bounds attivi;
+4. ruolo economico del vincolo legacy;
+5. valori marginali economicamente informativi;
+6. risposta del piano ottimo alla prima ondata di deflussi;
+7. risposta del piano ottimo alla seconda ondata di deflussi;
+8. risposta del piano ottimo alla variazione della capacità di funding;
+9. grado di utilizzo della capacità di funding;
+10. eventuali cambiamenti di regime nella soluzione;
+11. confronto tra gli scenari Standard, Mediamente critico e Critico.
+
+### Limiti del modello
+
+Il modello:
+
+1. è deterministico;
+2. non attribuisce probabilità agli scenari;
+3. assume coefficienti e cash flow noti;
+4. rappresenta le due ondate di pressione sulla raccolta esclusivamente attraverso i fabbisogni delle date 1 e 4;
+5. rappresenta la rigidità delle attività legacy mediante un singolo vincolo lineare;
+6. non descrive processi dinamici di ristrutturazione del portafoglio durante l'orizzonte;
+7. non rappresenta costi fissi, non linearità o altre frizioni non previste dalla specifica;
+8. utilizza una calibrazione didattica e stilizzata;
+9. non costituisce una ricostruzione storica del bilancio di First Republic Bank;
+10. consente di interpretare i risultati soltanto nell'ambito delle ipotesi, dei parametri e dei vincoli esplicitamente assegnati.
 
 ## 5. Output richiesti
 
-- **Stime o risultati numerici:**
-  1. soluzione ottima benchmark;
-  2. valore della funzione obiettivo benchmark;
-  3. residuali, slack e principali valori marginali;
-  4. soluzioni lungo le griglie di $\alpha$, $\beta$ e $\phi$;
-  5. variazioni di $\Pi^*$, $x^*$, $g^*$ e $u^*$ rispetto al benchmark;
-  6. rapporti di utilizzo della capacità di funding;
-  7. stato di fattibilità per ogni configurazione;
-  8. soluzioni nei tre scenari;
-  9. perdita di valore rispetto allo scenario Standard.
+Gli output devono avere una funzione informativa, diagnostica o interpretativa esplicita e devono restare riconducibili alle quantità teoriche definite nella specifica del caso.
 
-- **Tabelle:**
-  1. tabella dei parametri benchmark;
-  2. tabella della soluzione benchmark con $x_j^*$, $g_t^*$ e $u_t^*$;
-  3. tabella di verifica dei quattro bilanci temporali;
-  4. tabella dei vincoli con valore, limite, slack e stato attivo / non attivo;
-  5. tabella dei principali valori marginali;
-  6. DataFrame della sensitività ad $\alpha$;
-  7. DataFrame della sensitività a $\beta$;
-  8. DataFrame della sensitività a $\phi$;
-  9. tabella comparativa Standard / Mediamente critico / Critico.
+### Stime o risultati numerici
 
-  Ciascun DataFrame di sensitività deve contenere almeno:
-  - valore del parametro;
-  - stato del solver;
-  - fattibilità;
-  - $\Pi^*$;
-  - $\Delta\Pi^*$;
-  - $x_1^*,\ldots,x_5^*$;
-  - $g_1^*,\ldots,g_4^*$;
-  - $u_1^*,u_2^*,u_3^*$;
-  - rapporti $u_t^*/\bar u_t$.
+Devono essere prodotti almeno i seguenti risultati:
 
-- **Grafici:**
-  1. per ciascun parametro $p\in\{\alpha,\beta,\phi\}$, grafico di $p\mapsto\Pi^*(p)$;
-  2. per ciascun parametro, grafico di $p\mapsto\Delta\Pi^*(p)$;
-  3. per ciascun parametro, grafico della composizione ottima dell'attivo $x_j^*(p)$;
-  4. grafico delle variazioni $\Delta x_j^*(p)$ almeno per $\alpha$ e $\beta$;
-  5. per ciascun parametro, grafico del funding $u_t^*(p)$;
-  6. per ciascun parametro, grafico del rapporto $u_t^*(p)/\bar u_t(p)$;
-  7. per ciascun parametro, grafico delle giacenze $g_t^*(p)$;
-  8. grafico dei principali valori marginali dei bilanci temporali;
-  9. mappa dei principali vincoli attivi lungo ciascuna griglia;
-  10. grafico a barre di $\Pi^*$ nei tre scenari;
-  11. grafico della perdita di valore rispetto allo scenario Standard;
-  12. grafico a barre, preferibilmente impilate, della composizione $x^*$ nei tre scenari;
-  13. grafico del funding $u^*$ nei tre scenari;
-  14. grafico del profilo temporale delle giacenze $g_t^*$ nei tre scenari.
+1. soluzione ottima benchmark:
+   - $x^*$;
+   - $g^*$;
+   - $u^*$;
 
-- **Controlli:**
-  1. verifica dimensionale di vettori e matrici;
-  2. verifica del segno della funzione obiettivo nella trasformazione massimo / minimo;
-  3. verifica dello stato del solver;
-  4. verifica indipendente delle uguaglianze mediante residuali;
-  5. verifica indipendente di disuguaglianze e bounds;
-  6. verifica del vincolo legacy $x_3+x_4\geq35$;
-  7. verifica della coerenza fra slack e vincolo attivo;
-  8. verifica mediante perturbazione numerica di almeno un valore marginale;
-  9. verifica della corretta dipendenza di $d_1$ da $\alpha$;
-  10. verifica della corretta dipendenza di $d_4$ da $\beta$;
-  11. verifica della corretta dipendenza della capacità di funding da $\phi$;
-  12. verifica che nelle sensitività univariate gli altri due parametri restino pari a 1;
-  13. verifica che le configurazioni infeasible non vengano interpretate utilizzando valori non validi di `res.x`;
-  14. verifica della coerenza fra cambiamenti di pendenza, cambiamenti della soluzione e cambiamenti dei vincoli attivi;
-  15. verifica che grafici e tabelle utilizzino soltanto risultati solver validi.
+2. valore ottimo benchmark:
+
+$$
+\Pi^*;
+$$
+
+3. residuali dei vincoli di uguaglianza;
+
+4. slack dei vincoli di disuguaglianza;
+
+5. bounds attivi;
+
+6. principali valori marginali restituiti dal solver;
+
+7. soluzioni ottime lungo la griglia di $\alpha$;
+
+8. soluzioni ottime lungo la griglia di $\beta$;
+
+9. soluzioni ottime lungo la griglia di $\phi$;
+
+10. variazioni del valore ottimo rispetto al benchmark:
+
+$$
+\Delta\Pi^*(p)
+=
+\Pi^*(p)-\Pi^*(1);
+$$
+
+11. variazioni delle componenti della soluzione:
+
+$$
+\Delta x_j^*(p)
+=
+x_j^*(p)-x_j^*(1),
+$$
+
+$$
+\Delta g_t^*(p)
+=
+g_t^*(p)-g_t^*(1),
+$$
+
+$$
+\Delta u_t^*(p)
+=
+u_t^*(p)-u_t^*(1);
+$$
+
+12. rapporto di utilizzo della capacità di funding:
+
+$$
+\rho_t^u(p)
+=
+\frac{u_t^*(p)}{\bar u_t(p)};
+$$
+
+13. stato di fattibilità per ciascuna configurazione analizzata;
+
+14. stato attivo o non attivo dei principali vincoli nelle diverse configurazioni;
+
+15. comportamento specifico del vincolo legacy:
+
+$$
+x_3+x_4\geq35;
+$$
+
+16. valori marginali associati ai principali bilanci temporali e ai vincoli economicamente rilevanti;
+
+17. soluzioni ottime nei tre scenari congiunti;
+
+18. perdita di valore di ciascuno scenario rispetto allo scenario Standard.
+
+### Tabelle
+
+Devono essere prodotte almeno le seguenti tabelle.
+
+1. **Tabella benchmark**
+
+   Deve riportare:
+
+   - $x^*$;
+   - $g^*$;
+   - $u^*$;
+   - $\Pi^*$;
+   - stato dei principali vincoli;
+   - principali residuali;
+   - principali slack;
+   - bounds attivi;
+   - principali valori marginali.
+
+   La funzione della tabella è fornire una sintesi verificabile della soluzione benchmark.
+
+2. **Tabella di sensitività rispetto ad $\alpha$**
+
+   Per ciascun valore della griglia deve riportare almeno:
+
+   - fattibilità;
+   - $\Pi^*$;
+   - componenti principali di $x^*$;
+   - componenti di $u^*$;
+   - principali vincoli attivi;
+   - valori marginali rilevanti.
+
+   La funzione della tabella è rendere osservabile l'effetto di una variazione del fabbisogno alla prima data.
+
+3. **Tabella di sensitività rispetto a $\beta$**
+
+   Deve riportare le stesse tipologie di informazioni della tabella precedente.
+
+   La funzione della tabella è rendere osservabile l'effetto di una variazione del fabbisogno alla data terminale.
+
+4. **Tabella di sensitività rispetto a $\phi$**
+
+   Per ciascun valore della griglia deve riportare almeno:
+
+   - fattibilità;
+   - $\Pi^*$;
+   - componenti principali di $x^*$;
+   - $u_t^*$;
+   - rapporto di utilizzo della capacità di funding;
+   - principali vincoli attivi;
+   - valori marginali rilevanti.
+
+   La funzione della tabella è mostrare come varia il piano ottimo quando cambia la capacità disponibile di funding.
+
+5. **Tabella di confronto degli scenari congiunti**
+
+   Deve confrontare:
+
+   - scenario Standard;
+   - scenario Mediamente critico;
+   - scenario Critico.
+
+   Per ciascuno scenario devono essere riportati almeno:
+
+   - $(\alpha,\beta,\phi)$;
+   - fattibilità;
+   - $\Pi^*$;
+   - perdita di valore rispetto allo Standard;
+   - principali componenti di $x^*$;
+   - utilizzo del funding;
+   - principali vincoli attivi.
+
+   La funzione della tabella è confrontare configurazioni nelle quali più driver cambiano simultaneamente.
+
+6. **Tabella di controllo del vincolo legacy**
+
+   Deve riportare, almeno per il benchmark e per le configurazioni nelle quali il vincolo risulta economicamente rilevante:
+
+   - valore di $x_3^*+x_4^*$;
+   - slack rispetto al limite minimo 35;
+   - stato attivo / non attivo;
+   - marginale restituito dal solver per la disuguaglianza codificata;
+   - marginale reinterpretato rispetto al limite economico originale.
+
+   La funzione della tabella è impedire ambiguità tra il vincolo economico:
+
+$$
+x_3+x_4\geq35
+$$
+
+   e la forma utilizzata nel solver:
+
+$$
+-x_3-x_4\leq-35.
+$$
+
+### Grafici
+
+Devono essere prodotti grafici con funzione analitica esplicita.
+
+1. **Valore ottimo al variare di $\alpha$**
+
+   Rappresentare:
+
+$$
+\alpha
+\longmapsto
+\Pi^*(\alpha).
+$$
+
+   Il grafico deve rendere visibile il costo economico di una maggiore pressione di liquidità alla prima data.
+
+2. **Valore ottimo al variare di $\beta$**
+
+   Rappresentare:
+
+$$
+\beta
+\longmapsto
+\Pi^*(\beta).
+$$
+
+   Il grafico deve permettere il confronto con l'effetto di uno shock iniziale.
+
+3. **Valore ottimo al variare di $\phi$**
+
+   Rappresentare:
+
+$$
+\phi
+\longmapsto
+\Pi^*(\phi).
+$$
+
+   Il grafico deve rendere visibile il valore economico della capacità disponibile di funding.
+
+4. **Composizione ottima dell'attivo**
+
+   Rappresentare, per almeno una delle sensitività economicamente più informative, l'evoluzione delle componenti:
+
+$$
+x_j^*(p).
+$$
+
+   Il grafico deve mostrare come cambia la composizione del portafoglio al variare del parametro.
+
+5. **Utilizzo della capacità di funding**
+
+   Rappresentare:
+
+$$
+\rho_t^u(p)
+=
+\frac{u_t^*(p)}{\bar u_t(p)}
+$$
+
+   lungo la sensitività rispetto a $\phi$.
+
+   Il grafico deve consentire di individuare date nelle quali la capacità disponibile diventa vincolante.
+
+6. **Confronto tra prima e seconda ondata di deflussi**
+
+   Deve mettere a confronto, in una rappresentazione coerente, la risposta del valore ottimo e/o delle principali componenti della soluzione alle variazioni di $\alpha$ e $\beta$.
+
+   La funzione del grafico è rendere osservabile che uno shock alla prima data e uno shock alla data terminale possono produrre effetti diversi sul piano ALM.
+
+I grafici devono essere prodotti come output delle rispettive celle del notebook e devono essere rigenerabili mediante riesecuzione delle celle.
+
+Non è richiesta automaticamente l'esportazione in file esterni.
+
+### Controlli
+
+Devono essere previsti ed eseguiti almeno i seguenti controlli.
+
+#### Controlli numerici
+
+1. verifica dei residuali dei vincoli di uguaglianza;
+
+2. verifica degli slack delle disuguaglianze;
+
+3. verifica dei bounds attivi;
+
+4. controllo del rispetto del vincolo prudenziale:
+
+$$
+\ell'x^*\leq7.5;
+$$
+
+5. controllo del rispetto del vincolo legacy:
+
+$$
+x_3^*+x_4^*\geq35;
+$$
+
+6. controllo del rispetto del limite:
+
+$$
+x_5^*\leq35;
+$$
+
+7. controllo dei limiti di funding:
+
+$$
+0\leq u_t^*\leq\phi\bar u_t;
+$$
+
+8. controllo della non negatività di tutte le variabili;
+
+9. verifica dello stato di fattibilità per ogni configurazione parametrica e per ogni scenario.
+
+#### Controlli logici e teorici
+
+1. verifica della corretta distinzione tra shock alla prima data, governato da $\alpha$, e shock alla quarta data, governato da $\beta$;
+
+2. verifica che nelle sensitività univariate vari un solo parametro alla volta;
+
+3. verifica che negli scenari congiunti $\alpha$, $\beta$ e $\phi$ assumano simultaneamente i valori assegnati;
+
+4. verifica della coerenza tra slack nullo e identificazione di un vincolo attivo;
+
+5. verifica della coerenza tra variazioni dei parametri, cambiamenti dei vincoli attivi e variazioni della soluzione ottima;
+
+6. verifica della corretta interpretazione economica dei principali valori marginali.
+
+#### Controlli computazionali
+
+1. verifica della corretta costruzione di $A_{\mathrm{eq}}$, $b_{\mathrm{eq}}$, $A_{\mathrm{ub}}$, $b_{\mathrm{ub}}$ e dei bounds;
+
+2. verifica della corretta traduzione della funzione obiettivo nella convenzione utilizzata da `scipy.optimize.linprog`;
+
+3. verifica della corretta codifica del vincolo legacy:
+
+$$
+x_3+x_4\geq35
+$$
+
+come:
+
+$$
+-x_3-x_4\leq-35;
+$$
+
+4. verifica che il marginale restituito dal solver per tale riga sia interpretato rispetto al termine noto codificato $-35$;
+
+5. ricostruzione del segno necessario per interpretare economicamente l'effetto marginale di una variazione del limite minimo 35;
+
+6. esclusione dall'analisi economica delle configurazioni per le quali il solver segnala non ammissibilità;
+
+7. verifica che tabelle e grafici siano generati esclusivamente a partire da risultati di esecuzioni valide;
+
+8. verifica della riproducibilità degli output mediante riesecuzione ordinata del notebook.
+
+### Funzione interpretativa degli output
+
+Gli output devono consentire allo studente di discutere, sulla base dei risultati numerici già validati:
+
+1. come la presenza di attività legacy modifica la flessibilità del bilancio;
+2. perché una pressione di liquidità iniziale può avere effetti diversi da una pressione terminale;
+3. quando la capacità di funding diventa una risorsa scarsa;
+4. quali vincoli determinano il piano ottimo nelle diverse configurazioni;
+5. come cambiano composizione dell'attivo, funding e valore ottimo nei diversi regimi;
+6. quali effetti sono riconducibili alla struttura del modello e quali non possono essere estesi al caso storico reale di First Republic Bank.
+
+L'interpretazione finale resta responsabilità dello studente e non deve essere prodotta automaticamente dall'IA.
 
 ## 6. Flusso logico-teorico risolutivo atteso
 

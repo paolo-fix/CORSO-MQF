@@ -806,55 +806,59 @@ $$
 
 ## 7. Controlli richiesti
 
-Devono essere verificati almeno i seguenti punti.
+I controlli devono verificare separatamente la correttezza numerica della soluzione, la coerenza teorico-economica del modello e la correttezza della traduzione computazionale.
 
-1. L'ordinamento delle variabili utilizzato nel vettore del solver deve essere dichiarato esplicitamente.
+### 7.1 Controlli numerici
 
-2. La nuova struttura deve comprendere correttamente cinque classi di attivo.
+1. Il benchmark deve restituire uno stato di ottimizzazione valido.
 
-3. Le dimensioni della funzione obiettivo, delle matrici e dei vettori dei vincoli devono essere compatibili.
+2. Tutti i bilanci temporali di liquidità devono essere verificati indipendentemente mediante residuali numerici.
 
-4. La trasformazione del problema di massimo nella convenzione richiesta dal solver deve essere verificata esplicitamente.
+3. I residuali dei vincoli di uguaglianza devono essere prossimi a zero entro una tolleranza numerica dichiarata.
 
-5. Il benchmark deve restituire uno stato di ottimizzazione valido.
-
-6. Tutti i bilanci temporali devono essere verificati indipendentemente mediante residuali numerici.
-
-7. I residuali delle uguaglianze devono essere prossimi a zero entro una tolleranza numerica dichiarata.
-
-8. Il vincolo prudenziale deve essere verificato indipendentemente.
-
-9. Il vincolo legacy
+4. Deve essere verificato indipendentemente il vincolo prudenziale:
 
 $$
-x_3+x_4\geq35
+\ell'x^*\leq7.5.
 $$
 
-deve essere verificato indipendentemente e tradotto correttamente nella forma richiesta dal solver.
-
-10. Il limite
+5. Deve essere verificato indipendentemente il vincolo legacy:
 
 $$
-x_5\leq35
+x_3^*+x_4^*\geq35.
 $$
 
-deve essere verificato indipendentemente.
+6. Deve essere verificato indipendentemente il limite sugli altri prestiti:
 
-11. I bounds del funding devono essere verificati per ciascuna data.
+$$
+x_5^*\leq35.
+$$
 
-12. La classificazione attivo / non attivo deve essere coerente con gli slack entro una tolleranza dichiarata.
+7. Per ciascuna data deve essere verificato il rispetto dei bounds del funding:
 
-13. Deve essere verificato numericamente almeno un valore marginale mediante una piccola perturbazione del relativo termine noto o limite.
+$$
+0\leq u_t^*\leq\phi\bar u_t.
+$$
 
-14. Nell'interpretazione dei valori marginali deve essere tenuto conto della trasformazione massimo / minimo.
+8. Deve essere verificata la non negatività di tutte le variabili decisionali.
 
-15. La funzione parametrica deve riprodurre il benchmark quando:
+9. La classificazione di ciascun vincolo come attivo o non attivo deve essere coerente con il relativo slack entro una tolleranza numerica dichiarata.
+
+10. Deve essere verificato numericamente almeno un valore marginale mediante una piccola perturbazione del termine noto o del limite cui il marginale si riferisce.
+
+11. Per ogni configurazione parametrica deve essere verificato lo stato del solver prima di utilizzare i valori della soluzione.
+
+12. Quando il problema risulta non ammissibile, eventuali valori presenti negli oggetti restituiti dal solver non devono essere utilizzati né interpretati economicamente.
+
+### 7.2 Controlli logici e teorici
+
+1. La funzione parametrica deve riprodurre esattamente la configurazione benchmark quando:
 
 $$
 (\alpha,\beta,\phi)=(1,1,1).
 $$
 
-16. Nella sensitività ad $\alpha$ devono restare fissi:
+2. Nella sensitività rispetto ad $\alpha$ devono rimanere fissi:
 
 $$
 \beta=1,
@@ -862,7 +866,7 @@ $$
 \phi=1.
 $$
 
-17. Nella sensitività a $\beta$ devono restare fissi:
+3. Nella sensitività rispetto a $\beta$ devono rimanere fissi:
 
 $$
 \alpha=1,
@@ -870,7 +874,7 @@ $$
 \phi=1.
 $$
 
-18. Nella sensitività a $\phi$ devono restare fissi:
+4. Nella sensitività rispetto a $\phi$ devono rimanere fissi:
 
 $$
 \alpha=1,
@@ -878,23 +882,107 @@ $$
 \beta=1.
 $$
 
-19. Il parametro $\alpha$ deve modificare soltanto il fabbisogno della prima data.
+5. Il parametro $\alpha$ deve modificare esclusivamente il fabbisogno della prima data.
 
-20. Il parametro $\beta$ deve modificare soltanto il fabbisogno della quarta data.
+6. Il parametro $\beta$ deve modificare esclusivamente il fabbisogno della quarta data.
 
-21. Il parametro $\phi$ deve modificare soltanto la capacità massima di funding.
+7. Il parametro $\phi$ deve modificare esclusivamente la capacità massima di funding.
 
-22. Per ogni configurazione parametrica deve essere controllato lo stato del solver prima di utilizzare i valori delle variabili.
+8. Le tre configurazioni della scenario analysis devono utilizzare esattamente i valori assegnati nella Sezione 4.15.
 
-23. Quando il problema è dichiarato non ammissibile, non devono essere utilizzati o interpretati eventuali valori presenti in `res.x`.
+9. Il confronto tra sensitività ad $\alpha$ e sensitività a $\beta$ deve tenere conto della diversa collocazione temporale dello shock.
 
-24. I grafici delle sensitività devono essere costruiti utilizzando esclusivamente risultati solver validi.
+10. I cambiamenti della soluzione ottima devono essere confrontati con gli eventuali cambiamenti dei vincoli attivi.
 
-25. Devono essere confrontati i cambiamenti della soluzione ottima con i cambiamenti dei vincoli attivi.
+11. L'interpretazione dei valori marginali deve essere coerente con il vincolo o il bilancio cui ciascun marginale si riferisce.
 
-26. Il confronto fra $\alpha$ e $\beta$ deve tenere conto della diversa collocazione temporale dello shock.
+12. L'interpretazione dei marginali deve tenere conto del passaggio dal problema economico di massimizzazione alla convenzione di minimizzazione utilizzata da `scipy.optimize.linprog`.
 
-27. Le tre configurazioni della scenario analysis devono utilizzare esattamente i valori assegnati nella Sezione 4.15.
+13. Il vincolo legacy deve essere interpretato nella sua forma economica originaria:
+
+$$
+x_3+x_4\geq35,
+$$
+
+anche quando, per esigenze computazionali, viene codificato nella forma:
+
+$$
+-x_3-x_4\leq-35.
+$$
+
+14. Il marginale restituito dal solver per il vincolo legacy deve essere interpretato rispetto al termine noto della disuguaglianza effettivamente codificata, cioè rispetto a $-35$.
+
+15. Per interpretare economicamente l'effetto marginale di un aumento del requisito minimo sulle attività legacy da $35$ a $35+\varepsilon$, deve essere ricostruito correttamente il segno rispetto alla variazione del limite economico originario.
+
+16. La presenza di un vincolo attivo non deve essere automaticamente interpretata come prova di un valore marginale economicamente rilevante: attività del vincolo e valore marginale devono essere controllati separatamente.
+
+### 7.3 Controlli computazionali
+
+1. L'ordinamento delle variabili nel vettore decisionale del solver deve essere dichiarato esplicitamente e mantenuto invariato in tutte le funzioni e nelle successive analisi.
+
+2. La struttura del vettore decisionale deve comprendere correttamente:
+
+- cinque variabili di allocazione $x_j$;
+- quattro giacenze $g_t$;
+- tre variabili di funding $u_t$.
+
+3. Le dimensioni del vettore della funzione obiettivo, di $A_{\mathrm{eq}}$, $b_{\mathrm{eq}}$, $A_{\mathrm{ub}}$, $b_{\mathrm{ub}}$ e dei bounds devono essere reciprocamente compatibili.
+
+4. La trasformazione della funzione obiettivo dal problema di massimo alla convenzione richiesta dal solver deve essere verificata esplicitamente.
+
+5. Il vincolo legacy:
+
+$$
+x_3+x_4\geq35
+$$
+
+deve essere tradotto correttamente nella forma:
+
+$$
+-x_3-x_4\leq-35.
+$$
+
+6. La riga corrispondente al vincolo legacy in $A_{\mathrm{ub}}$ e il relativo elemento di $b_{\mathrm{ub}}$ devono essere verificati esplicitamente.
+
+7. I bounds del funding devono essere aggiornati correttamente quando varia $\phi$:
+
+$$
+0\leq u_t\leq\phi\bar u_t.
+$$
+
+8. La costruzione del vettore dei fabbisogni deve rispettare:
+
+$$
+d(\alpha,\beta)
+=
+(32\alpha,18,14,32\beta)'.
+$$
+
+9. Le tabelle e i grafici delle sensitività devono utilizzare esclusivamente risultati provenienti da esecuzioni valide del solver.
+
+10. Le configurazioni non ammissibili devono essere identificate e gestite senza propagare valori numerici non validi nelle tabelle, nei grafici o nei confronti successivi.
+
+11. I risultati del benchmark prodotti dalla funzione parametrica devono coincidere con quelli ottenuti dalla soluzione benchmark diretta, entro la tolleranza numerica adottata.
+
+12. Tabelle e grafici devono essere prodotti come output delle rispettive celle del notebook e devono essere rigenerabili mediante riesecuzione ordinata delle celle.
+
+13. Il notebook deve poter essere rieseguito integralmente dall'inizio senza dipendere da variabili, risultati o oggetti prodotti in esecuzioni precedenti non riproducibili.
+
+### 7.4 Coerenza finale dei controlli
+
+Prima dell'interpretazione conclusiva devono risultare congiuntamente verificati:
+
+1. correttezza della formulazione solver;
+2. fattibilità delle configurazioni utilizzate;
+3. rispetto dei vincoli e dei bounds;
+4. coerenza tra residuali, slack e stato attivo dei vincoli;
+5. correttezza dell'interpretazione dei valori marginali;
+6. corretta gestione del vincolo legacy e della relativa convenzione di segno;
+7. coerenza delle sensitività con i parametri effettivamente modificati;
+8. coerenza delle configurazioni della scenario analysis con i valori assegnati;
+9. utilizzo esclusivo di risultati numericamente validi nelle tabelle, nei grafici e nell'interpretazione.
+
+L'interpretazione finanziaria finale deve basarsi esclusivamente su output che abbiano superato tali controlli.
 
 ---
 
