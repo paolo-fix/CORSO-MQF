@@ -588,88 +588,439 @@ Il modello:
 
 ## 5. Output richiesti
 
-- **Stime o risultati numerici:**
-  1. soluzione ottima benchmark;
-  2. valore della funzione obiettivo benchmark;
-  3. slack, residuali e valori marginali benchmark;
-  4. soluzioni lungo le tre griglie di sensitività;
-  5. variazione assoluta e percentuale di $\Pi^*$;
-  6. variazioni di $x^*$, $g^*$ e $u^*$;
-  7. rapporto di utilizzo della capacità di funding;
-  8. ultimo valore ammissibile della griglia di $\theta$;
-  9. intervallo raffinato contenente $\theta_{\mathrm{crit}}$;
-  10. soluzioni nei tre scenari;
-  11. perdita di valore rispetto allo scenario Standard.
+Gli output devono avere una funzione informativa, diagnostica o interpretativa esplicita e devono essere collegati alle quantità teoriche definite nella specifica del caso.
 
-- **Tabelle:**
-  1. tabella dei parametri benchmark;
-  2. tabella della soluzione benchmark con $x_j^*$, $g_t^*$ e $u_t^*$;
-  3. tabella di verifica dei quattro bilanci temporali;
-  4. tabella dei vincoli con valore, limite, slack e stato attivo/non attivo;
-  5. tabella dei principali valori marginali;
-  6. DataFrame della sensitività a $\theta$;
-  7. DataFrame della sensitività a $\phi$;
-  8. DataFrame della sensitività a $\psi$;
-  9. tabella di raffinamento della frontiera di fattibilità;
-  10. tabella comparativa Standard / Mediamente critico / Critico.
+Devono essere costruiti esclusivamente a partire da configurazioni per le quali il solver restituisce una soluzione valida.
 
-  Ciascun DataFrame di sensitività deve contenere almeno:
-  - valore del parametro;
-  - stato del solver;
-  - fattibilità;
-  - $\Pi^*$;
-  - $\Delta\Pi^*$;
-  - $x_1^*,\ldots,x_4^*$;
-  - $g_1^*,\ldots,g_4^*$;
-  - $u_1^*,u_2^*,u_3^*$;
-  - rapporti $u_t^*/\bar u_t$.
+### Stime o risultati numerici
 
-- **Grafici:**
-  1. per ciascun parametro $p\in\{\theta,\phi,\psi\}$, grafico di $p\mapsto\Pi^*(p)$;
-  2. per ciascun parametro, grafico di $p\mapsto\Delta\Pi^*(p)$ oppure $p\mapsto\Delta_{\%}\Pi^*(p)$;
-  3. per ciascun parametro, grafico delle componenti $x_j^*(p)$;
-  4. grafico delle variazioni $\Delta x_j^*(p)$ almeno per la sensitività a $\theta$ e, se informativo, anche per $\phi$ e $\psi$;
-  5. per ciascun parametro, grafico delle componenti $u_t^*(p)$;
-  6. per ciascun parametro, grafico del rapporto $u_t^*(p)/\bar u_t(p)$;
-  7. per ciascun parametro, grafico delle giacenze $g_t^*(p)$;
-  8. grafico dei valori marginali dei bilanci temporali, con particolare attenzione alla sensitività rispetto a $\theta$;
-  9. grafico dei valori marginali dei limiti di funding quando economicamente informativi;
-  10. mappa dei principali vincoli attivi lungo la griglia parametrica;
-  11. per $\theta$, grafico del valore ottimo fino all'ultima soluzione ammissibile, con indicazione della regione di perdita di fattibilità;
-  12. grafico a barre di $\Pi^*$ nei tre scenari;
-  13. grafico della perdita di valore rispetto allo scenario Standard;
-  14. grafico a barre, preferibilmente impilate, della composizione $x^*$ nei tre scenari;
-  15. grafico del funding $u^*$ nei tre scenari;
-  16. grafico del profilo temporale delle giacenze $g_t^*$ nei tre scenari;
-  17. opzionalmente, misura sintetica della distanza della soluzione dal benchmark, ad esempio:
+Devono essere prodotti almeno i seguenti risultati:
 
-      $$
-      D_x(p)
-      =
-      \sum_{j=1}^{4}
-      \left|
-      x_j^*(p)-x_j^*(1)
-      \right|.
-      $$
+1. soluzione ottima benchmark:
+   - $x^*$;
+   - $g^*$;
+   - $u^*$;
 
-- **Controlli:**
-  1. verifica dimensionale di vettori e matrici;
-  2. verifica del segno della funzione obiettivo nella trasformazione massimo/minimo;
-  3. verifica dello stato del solver;
-  4. verifica indipendente delle uguaglianze mediante residuali;
-  5. verifica indipendente di disuguaglianze e bounds;
-  6. confronto della soluzione benchmark con il Capitolo 12;
-  7. verifica della coerenza fra slack e classificazione del vincolo come attivo;
-  8. verifica mediante perturbazione numerica di almeno un valore marginale;
-  9. verifica della corretta dipendenza di $d$ da $\theta$;
-  10. verifica della corretta dipendenza di $\bar u$ da $\phi$;
-  11. verifica della corretta dipendenza di $r^u$ da $\psi$ sia nella funzione obiettivo sia nei rimborsi del funding;
-  12. verifica che nelle sensitività univariate gli altri due parametri restino pari a 1;
-  13. verifica che scenari infeasible non generino interpretazioni basate su valori non validi di `res.x`;
-  14. verifica che il valore di soglia individuato sulla griglia non venga confuso con la frontiera raffinata;
-  15. verifica che i valori marginali siano interpretati localmente;
-  16. verifica della coerenza fra cambiamenti di pendenza, cambiamenti della soluzione e cambiamenti dei vincoli attivi;
-  17. verifica che grafici e tabelle utilizzino esclusivamente risultati solver validi.
+2. valore ottimo benchmark:
+
+$$
+\Pi^*;
+$$
+
+3. residuali dei vincoli di uguaglianza;
+
+4. slack dei vincoli di disuguaglianza;
+
+5. bounds attivi;
+
+6. principali valori marginali restituiti dal solver;
+
+7. risultati delle sensitività univariate rispetto a:
+
+$$
+\theta,
+\qquad
+\phi,
+\qquad
+\psi;
+$$
+
+8. variazioni assolute del valore ottimo:
+
+$$
+\Delta\Pi^*(p)
+=
+\Pi^*(p)-\Pi^*(1);
+$$
+
+9. variazioni percentuali del valore ottimo:
+
+$$
+\Delta_{\%}\Pi^*(p)
+=
+100
+\left[
+\frac{\Pi^*(p)}{\Pi^*(1)}-1
+\right];
+$$
+
+10. variazioni delle componenti della soluzione:
+
+$$
+\Delta x_j^*(p)
+=
+x_j^*(p)-x_j^*(1),
+$$
+
+$$
+\Delta g_t^*(p)
+=
+g_t^*(p)-g_t^*(1),
+$$
+
+$$
+\Delta u_t^*(p)
+=
+u_t^*(p)-u_t^*(1);
+$$
+
+11. rapporto di utilizzo della capacità di funding:
+
+$$
+\rho_t^u(p)
+=
+\frac{u_t^*(p)}{\bar u_t(p)};
+$$
+
+12. stato di fattibilità per ciascuna configurazione parametrica;
+
+13. principali vincoli e bounds attivi nelle diverse configurazioni;
+
+14. ultimo valore ammissibile e primo valore non ammissibile della griglia di $\theta$;
+
+15. intervallo raffinato contenente:
+
+$$
+\theta_{\mathrm{crit}};
+$$
+
+16. soluzioni ottime nei tre scenari congiunti;
+
+17. perdita di valore degli scenari Mediamente critico e Critico rispetto allo scenario Standard:
+
+$$
+L_s
+=
+\Pi_{\mathrm{Standard}}^*
+-
+\Pi_s^*.
+$$
+
+### Tabelle
+
+Devono essere prodotte le seguenti tabelle.
+
+1. **Tabella 1 — Parametri benchmark**
+
+   Deve riportare almeno:
+
+   - $A_0$;
+   - $c$;
+   - $\ell$;
+   - $d$;
+   - $r^g$;
+   - $r^u$;
+   - $\bar u$;
+   - $K$;
+   - limite su $x_3$.
+
+   La funzione della tabella è rendere verificabile la configurazione benchmark utilizzata dal solver.
+
+2. **Tabella 2 — Soluzione benchmark**
+
+   Deve riportare:
+
+   - $x_1^*,\ldots,x_4^*$;
+   - $g_1^*,\ldots,g_4^*$;
+   - $u_1^*,u_2^*,u_3^*$;
+   - $\Pi^*$.
+
+   La funzione della tabella è sintetizzare il piano ALM ottimo benchmark.
+
+3. **Tabella 3 — Verifica dei bilanci temporali**
+
+   Per ciascuna data deve riportare almeno:
+
+   - cash flow degli attivi;
+   - giacenza proveniente dalla data precedente, quando presente;
+   - funding raccolto, quando presente;
+   - rimborso del funding precedente, quando presente;
+   - fabbisogno;
+   - giacenza finale;
+   - residuo dell'uguaglianza.
+
+   La funzione della tabella è verificare direttamente i bilanci temporali di liquidità.
+
+4. **Tabella 4 — Vincoli, bounds e slack benchmark**
+
+   Per ciascun vincolo o bound rilevante deve riportare:
+
+   - valore assunto;
+   - limite;
+   - slack o distanza dal bound;
+   - stato attivo / non attivo.
+
+   La funzione della tabella è rendere osservabile quali restrizioni risultano determinanti nel benchmark.
+
+5. **Tabella 5 — Valori marginali benchmark**
+
+   Deve riportare almeno i valori marginali economicamente informativi relativi:
+
+   - ai bilanci temporali;
+   - ai limiti di funding;
+   - agli altri vincoli rilevanti quando il solver ne fornisce un marginale interpretabile.
+
+   La funzione della tabella è collegare la soluzione numerica all'interpretazione marginale dei vincoli.
+
+6. **Tabella 6 — Sensitività a $\theta$**
+
+   Per ciascun valore della griglia deve riportare almeno:
+
+   - $\theta$;
+   - stato del solver;
+   - fattibilità;
+   - $\Pi^*$;
+   - $\Delta\Pi^*$;
+   - $\Delta_{\%}\Pi^*$;
+   - $x^*$;
+   - $g^*$;
+   - $u^*$;
+   - rapporti di utilizzo della capacità di funding;
+   - principali vincoli attivi.
+
+   La funzione della tabella è rendere osservabile come cambia il piano ALM quando aumenta il fabbisogno di liquidità iniziale.
+
+7. **Tabella 7 — Sensitività a $\phi$**
+
+   Deve avere struttura analoga alla Tabella 6, sostituendo $\theta$ con $\phi$ e mettendo in evidenza il ruolo della capacità disponibile di funding.
+
+8. **Tabella 8 — Sensitività a $\psi$**
+
+   Deve avere struttura analoga alla Tabella 6, sostituendo $\theta$ con $\psi$ e mettendo in evidenza l'effetto del costo del funding sul valore ottimo e sul ricorso al funding.
+
+9. **Tabella 9 — Raffinamento della frontiera di fattibilità**
+
+   Deve riportare:
+
+   - valori raffinati di $\theta$;
+   - stato del solver;
+   - fattibilità.
+
+   La funzione della tabella è individuare un intervallo ristretto contenente:
+
+$$
+\theta_{\mathrm{crit}}.
+$$
+
+10. **Tabella 10 — Confronto degli scenari**
+
+   Deve confrontare Standard, Mediamente critico e Critico riportando almeno:
+
+   - $\theta$;
+   - $\phi$;
+   - $\psi$;
+   - fattibilità;
+   - $\Pi^*$;
+   - perdita rispetto allo Standard;
+   - $x^*$;
+   - $g^*$;
+   - $u^*$;
+   - principali vincoli attivi;
+   - utilizzo relativo della capacità di funding.
+
+   La funzione della tabella è confrontare configurazioni nelle quali i tre driver cambiano congiuntamente.
+
+### Grafici
+
+Devono essere prodotti i seguenti grafici.
+
+1. **Figura 1 — Valore ottimo e sensitività a $\theta$**
+
+   Rappresentare:
+
+$$
+\theta
+\longmapsto
+\Pi^*(\theta).
+$$
+
+   Devono essere rappresentati soltanto i punti corrispondenti a configurazioni ammissibili.
+
+2. **Figura 2 — Variazione del valore ottimo rispetto a $\theta$**
+
+   Rappresentare:
+
+$$
+\theta
+\longmapsto
+\Delta\Pi^*(\theta)
+$$
+
+   oppure la corrispondente variazione percentuale.
+
+3. **Figura 3 — Composizione ottima dell'attivo rispetto a $\theta$**
+
+   Rappresentare:
+
+$$
+x_1^*(\theta),\ldots,x_4^*(\theta).
+$$
+
+4. **Figura 4 — Variazioni dell'asset allocation rispetto al benchmark**
+
+   Rappresentare:
+
+$$
+\Delta x_j^*(\theta).
+$$
+
+5. **Figura 5 — Funding ottimo e utilizzo della capacità rispetto a $\theta$**
+
+   Rappresentare $u_t^*(\theta)$ e/o:
+
+$$
+\frac{u_t^*(\theta)}{\bar u_t}.
+$$
+
+6. **Figura 6 — Giacenze ottime rispetto a $\theta$**
+
+   Rappresentare:
+
+$$
+g_1^*(\theta),\ldots,g_4^*(\theta).
+$$
+
+7. **Figura 7 — Sensitività a $\phi$**
+
+   Rappresentare almeno:
+
+$$
+\phi
+\longmapsto
+\Pi^*(\phi)
+$$
+
+   e il comportamento del funding rispetto alla capacità disponibile.
+
+8. **Figura 8 — Sensitività a $\psi$**
+
+   Rappresentare almeno:
+
+$$
+\psi
+\longmapsto
+\Pi^*(\psi)
+$$
+
+   e l'evoluzione del funding ottimo.
+
+9. **Figura 9 — Valori marginali**
+
+   Rappresentare i valori marginali dei bilanci temporali e/o dei limiti di funding più informativi lungo almeno una delle griglie.
+
+10. **Figura 10 — Mappa dei principali vincoli attivi**
+
+   Rendere visibile il cambiamento dello stato attivo / non attivo dei principali vincoli almeno lungo la sensitività a $\theta$.
+
+11. **Figura 11 — Valore ottimo nei tre scenari**
+
+   Confrontare:
+
+$$
+\Pi_{\mathrm{Standard}}^*,
+\qquad
+\Pi_{\mathrm{Medio}}^*,
+\qquad
+\Pi_{\mathrm{Critico}}^*.
+$$
+
+12. **Figura 12 — Composizione ottima dell'attivo nei tre scenari**
+
+   Confrontare:
+
+$$
+x_1^*,x_2^*,x_3^*,x_4^*.
+$$
+
+13. **Figura 13 — Funding nei tre scenari**
+
+   Confrontare:
+
+$$
+u_1^*,u_2^*,u_3^*.
+$$
+
+14. **Figura 14 — Profilo temporale delle giacenze nei tre scenari**
+
+   Per ogni scenario rappresentare:
+
+$$
+t
+\longmapsto
+g_t^*,
+\qquad
+t=1,\ldots,4.
+$$
+
+I grafici devono essere prodotti come output delle rispettive celle del notebook e devono essere rigenerabili mediante riesecuzione delle celle.
+
+Non è richiesta automaticamente l'esportazione in file esterni.
+
+### Controlli
+
+Devono essere previsti ed eseguiti almeno i seguenti controlli.
+
+#### Controlli numerici
+
+1. verifica dei residuali dei vincoli di uguaglianza;
+2. verifica degli slack delle disuguaglianze;
+3. verifica dei bounds attivi;
+4. controllo del vincolo prudenziale:
+
+$$
+\ell'x^*\leq7;
+$$
+
+5. controllo del limite:
+
+$$
+x_3^*\leq30;
+$$
+
+6. controllo dei limiti di funding:
+
+$$
+0\leq u_t^*\leq\phi\bar u_t;
+$$
+
+7. controllo della non negatività di tutte le variabili;
+8. verifica dello stato di fattibilità per ogni configurazione parametrica e per ogni scenario.
+
+#### Controlli logici e teorici
+
+1. verifica che nelle sensitività univariate vari un solo parametro alla volta;
+2. verifica della corretta distinzione tra sensitività univariata, stress test di fattibilità e scenario analysis;
+3. verifica della coerenza tra slack, bounds e classificazione attivo / non attivo;
+4. verifica della coerenza tra variazioni dei parametri, cambiamenti dei vincoli attivi e modifiche della soluzione ottima;
+5. verifica della corretta interpretazione economica dei principali valori marginali;
+6. verifica che $\theta_{\mathrm{crit}}$ sia interpretato esclusivamente come frontiera di fattibilità del modello stilizzato.
+
+#### Controlli computazionali
+
+1. verifica della corretta costruzione di $A_{\mathrm{eq}}$, $b_{\mathrm{eq}}$, $A_{\mathrm{ub}}$, $b_{\mathrm{ub}}$ e dei bounds;
+2. verifica della corretta trasformazione della funzione obiettivo nella convenzione utilizzata da `scipy.optimize.linprog`;
+3. verifica della corretta dipendenza dei fabbisogni da $\theta$;
+4. verifica della corretta dipendenza della capacità di funding da $\phi$;
+5. verifica che $\psi$ modifichi coerentemente sia il costo del funding nella funzione obiettivo sia il rimborso del funding nei bilanci temporali;
+6. verifica mediante perturbazione numerica di almeno un valore marginale;
+7. esclusione dall'analisi economica delle configurazioni per le quali il solver segnala non ammissibilità;
+8. verifica che tabelle e grafici siano generati esclusivamente a partire da risultati di esecuzioni valide;
+9. verifica della riproducibilità degli output mediante riesecuzione ordinata del notebook.
+
+### Funzione interpretativa degli output
+
+Gli output devono consentire allo studente di discutere, sulla base dei risultati numerici già validati:
+
+1. come cambia il piano ALM al variare dei fabbisogni di liquidità;
+2. quando la capacità di funding diventa una risorsa scarsa;
+3. come il costo del funding modifica la convenienza del suo utilizzo;
+4. quali vincoli e bounds determinano il piano ottimo nelle diverse configurazioni;
+5. come cambiano composizione dell'attivo, giacenze, funding e valore ottimo;
+6. quando si verifica un cambiamento di regime nella soluzione;
+7. dove si colloca la frontiera di fattibilità rispetto a $\theta$;
+8. come differiscono gli scenari Standard, Mediamente critico e Critico.
+
+L'interpretazione finale resta responsabilità dello studente e deve basarsi esclusivamente su output già validati.
 
 ## 6. Flusso logico-teorico risolutivo atteso
 
@@ -684,30 +1035,222 @@ Il modello:
 
 ## 7. Scomposizione attesa in tappe
 
-| Tappa | Regime | Input | Operazione | Output | Controllo | Uso successivo |
-|---:|:---:|---|---|---|---|---|
-| 1 | A/B | Scheda Caso e modello teorico | Definire ordinamento delle variabili, parametri e matrici del benchmark | Struttura solver completa | Dimensioni, indici, coefficienti e segni | Risoluzione benchmark |
-| 2 | B/C | Modello benchmark | Risolvere il LP e costruire la diagnostica | $x^*$, $g^*$, $u^*$, $\Pi^*$, residuali, slack e marginals | Confronto con Capitolo 12 e verifica di almeno un marginale | Validazione del modello |
-| 3 | A/B | Modello validato | Costruire una funzione parametrica in $\theta$, $\phi$, $\psi$ | Solver parametrico riutilizzabile | Riproduzione del benchmark per $(1,1,1)$ | Analisi parametrica |
-| 4 | B | Funzione parametrica e tre griglie | Eseguire le sensitività univariate e costruire tabelle e grafici | Tre DataFrame di sensitività e relativi grafici | Un solo parametro varia alla volta; gestione degli scenari infeasible | Lettura comparative statics |
-| 5 | B/C | Risultati della sensitività a $\theta$ | Raffinare la ricerca della frontiera di fattibilità | Ultimo valore ammissibile, primo non ammissibile e intervallo per $\theta_{\mathrm{crit}}$ | Robustezza rispetto al passo della griglia | Stress test |
-| 6 | B/C | Tre scenari congiunti | Risolvere e confrontare Standard, Mediamente critico e Critico | Tabella comparativa, grafici e commento finale | Coerenza tra parametri, soluzione ottima, vincoli attivi e interpretazione | Chiusura del caso |
+La scomposizione operativa deve derivare dal Flusso logico-teorico risolutivo e deve mantenere visibile, per ciascuna tappa, il collegamento tra input disponibili, oggetti teorici, operazione computazionale, output prodotto, controllo associato e utilizzo successivo.
 
-## 8. Mappa tra prompt e notebook
+Il Regime IA indicato nella tabella rappresenta il regime prevalente della tappa ordinaria.
 
-| Prompt | Regime | Tappa | Celle o output prodotti | Decisione o controllo richiesto |
-|---:|:---:|---:|---|---|
-| 0 | — | — | Inizializzazione della chat | Applicazione delle regole generali |
-| 1 | — | — | Cella Markdown iniziale | Fedeltà alla Scheda Caso |
-| 2 | A | — | Flusso logico-teorico risolutivo | Correttezza dell'ordine logico |
-| 3 | A | — | Scomposizione in tappe | Coerenza input / output / controlli |
-| 4 | A/B | 1 | Definizione del modello | Ordinamento delle variabili e controllo delle matrici |
-| 5 | B | 2 | Solver benchmark | Confronto con Capitolo 12 |
-| 6 | B/C | 3–4 | Diagnostica e marginali | Residuali, slack e verifica mediante differenza finita |
-| 7 | A/B | 5 | Funzione parametrica | Corretta azione di $\theta$, $\phi$ e $\psi$ |
-| 8 | B | 6–8 | Tre sensitività, DataFrame e grafici | Isolamento corretto dei parametri |
-| 9 | B/C | 9–10 | Frontiera e scenari | Fattibilità e confronto multivariato |
-| 10, solo se necessario | C | 11 | Revisione critica finale | Solo criticità effettivamente emersa |
+Il Regime C non costituisce una tappa programmata del percorso. Può essere attivato soltanto quando lo studente individua una criticità specifica nel materiale prodotto e formula una richiesta mirata di verifica.
+
+| Tappa | Titolo | Obiettivo | Input | Regime IA prevalente | Prompt virtuoso di riferimento | Oggetti teorici coinvolti | Operazione | Output | Controllo | Uso successivo |
+|---:|---|---|---|:---:|---|---|---|---|---|---|
+| 1 | Traduzione del modello nella forma solver | Trasformare la specifica economico-finanziaria in una struttura compatibile con il solver senza modificarne il contenuto | Scheda Caso; parametri benchmark; formule del modello | A/B | Ricostruire l'ordinamento delle variabili e verificare la traduzione di obiettivo, uguaglianze, disuguaglianze e bounds | Programmazione lineare; variabili decisionali; bilanci temporali; vincoli; bounds | Definire ordinamento delle variabili, vettore obiettivo, $A_{\mathrm{eq}}$, $b_{\mathrm{eq}}$, $A_{\mathrm{ub}}$, $b_{\mathrm{ub}}$ e bounds | Struttura solver completa del benchmark | Coerenza dimensionale; corrispondenza tra formule e coefficienti; segni; ordinamento delle variabili | Risoluzione del benchmark |
+| 2 | Soluzione e validazione del benchmark | Risolvere il problema benchmark e verificare che la soluzione numerica soddisfi integralmente la specifica | Struttura solver della Tappa 1; $(\theta,\phi,\psi)=(1,1,1)$ | B | Risolvere il benchmark e costruire una diagnostica completa della soluzione | Ammissibilità; ottimalità; residuali; slack; bounds attivi; valori marginali | Eseguire `scipy.optimize.linprog`; ricostruire $\Pi^*$; estrarre $x^*$, $g^*$, $u^*$; calcolare diagnostica | Soluzione benchmark; valore ottimo; residuali; slack; bounds attivi; valori marginali; tabelle benchmark | Stato del solver; bilanci temporali; vincolo prudenziale; limite su $x_3$; bounds del funding; non negatività | Validazione del modello prima della parametrizzazione |
+| 3 | Verifica dei valori marginali | Collegare i marginali restituiti dal solver alla sensitività locale del problema | Soluzione e diagnostica benchmark della Tappa 2 | B | Verificare numericamente almeno un marginale mediante una perturbazione controllata del relativo termine noto o limite | Dualità; sensitività locale; valore marginale; trasformazione massimo/minimo | Perturbare un termine noto o un limite, risolvere nuovamente il problema e confrontare la variazione del valore ottimo con il marginale | Verifica numerica di almeno un valore marginale e relativa interpretazione locale | Segno; ordine di grandezza; validità locale; coerenza con il vincolo o bilancio interessato | Costruzione consapevole dell'analisi parametrica |
+| 4 | Costruzione del solver parametrico | Generalizzare il benchmark introducendo i tre driver senza alterare la struttura del modello | Modello benchmark validato; definizioni di $\theta$, $\phi$, $\psi$ | A/B | Costruire una funzione solver parametrica che modifichi esclusivamente gli elementi previsti dalla Scheda Caso | Analisi parametrica; termini noti; bounds; coefficienti della funzione obiettivo e dei bilanci | Implementare una funzione dipendente da $(\theta,\phi,\psi)$ | Funzione solver parametrica riutilizzabile | Riproduzione del benchmark per $(1,1,1)$; corretta azione separata di $\theta$, $\phi$, $\psi$ | Sensitività univariate |
+| 5 | Sensitività rispetto a $\theta$ | Analizzare l'effetto dell'aumento dei fabbisogni iniziali sul valore ottimo, sulla politica ALM e sulla fattibilità | Funzione parametrica; griglia di $\theta$; $\phi=\psi=1$ | B | Risolvere il modello lungo la griglia di $\theta$ e costruire gli output previsti | Comparative statics; fattibilità parametrica; vincoli attivi; utilizzo del funding | Eseguire il solver per ogni valore ammissibile di $\theta$; raccogliere risultati e diagnostica | Tabella di sensitività a $\theta$; variazioni di $\Pi^*$, $x^*$, $g^*$, $u^*$; grafici; stato dei vincoli | Unico parametro variato; stato del solver; esclusione dei risultati non validi; coerenza tra soluzione e vincoli attivi | Individuazione della frontiera di fattibilità |
+| 6 | Frontiera di fattibilità rispetto a $\theta$ | Individuare e raffinare il passaggio tra configurazioni ammissibili e non ammissibili | Risultati della Tappa 5 | B | Raffinare la ricerca nell'intervallo compreso tra l'ultimo valore ammissibile e il primo non ammissibile | Insieme ammissibile parametrico; frontiera di fattibilità | Costruire una griglia più fine nell'intervallo critico e rieseguire il solver | Tabella di raffinamento; intervallo ristretto contenente $\theta_{\mathrm{crit}}$ | Classificazione basata esclusivamente sullo stato di fattibilità; nessun uso di `res.x` nelle configurazioni non ammissibili | Stress test conclusivo e confronto con gli altri driver |
+| 7 | Sensitività rispetto a $\phi$ | Analizzare il valore economico e operativo della capacità disponibile di funding | Funzione parametrica; griglia di $\phi$; $\theta=\psi=1$ | B | Risolvere il modello lungo la griglia di $\phi$ e analizzare il ricorso al funding | Bounds parametrizzati; scarsità della capacità di funding; vincoli attivi | Eseguire il solver per ogni valore di $\phi$ e costruire tabelle e grafici previsti | Tabella di sensitività a $\phi$; $\Pi^*$; $x^*$, $g^*$, $u^*$; rapporti di utilizzo; grafici | Unico parametro variato; corretta modifica di $\bar u_t$; coerenza fra capacità, funding utilizzato e bounds attivi | Confronto tra driver e scenario analysis |
+| 8 | Sensitività rispetto a $\psi$ | Analizzare l'effetto del costo del funding sulla soluzione ottima | Funzione parametrica; griglia di $\psi$; $\theta=\phi=1$ | B | Risolvere il modello lungo la griglia di $\psi$ verificando la doppia azione del parametro | Coefficienti della funzione obiettivo; rimborso intertemporale del funding | Modificare $\psi r_t^u$ sia nella funzione obiettivo sia nei bilanci di rimborso; risolvere la griglia | Tabella di sensitività a $\psi$; $\Pi^*$; $x^*$, $g^*$, $u^*$; grafici | Unico parametro variato; corretta applicazione di $\psi$ in entrambi i punti del modello; stato del solver | Confronto tra driver e scenario analysis |
+| 9 | Confronto delle sensitività | Interpretare congiuntamente le tre comparative statics senza confonderle con la scenario analysis | Risultati delle Tappe 5–8 | A | Confrontare gli effetti di $\theta$, $\phi$ e $\psi$ su soluzione, vincoli e valore ottimo | Comparative statics; cambiamenti di regime; vincoli attivi; marginali locali | Mettere in relazione tabelle, grafici, cambiamenti della soluzione e cambiamenti dei vincoli attivi | Sintesi comparativa delle tre sensitività | Coerenza tra output numerici e interpretazione; distinzione tra effetti locali e cambiamenti di regime | Preparazione della scenario analysis |
+| 10 | Scenario analysis | Analizzare configurazioni nelle quali i tre driver variano congiuntamente | Funzione parametrica; tre scenari assegnati | B | Risolvere esattamente Standard, Mediamente critico e Critico | Scenario analysis deterministica; vincoli; soluzione ottima | Risolvere le tre configurazioni assegnate e costruire il confronto | Tabella degli scenari; $\Pi^*$, perdita rispetto allo Standard, $x^*$, $g^*$, $u^*$; grafici di scenario | Corrispondenza esatta dei parametri; stato del solver; uso esclusivo di risultati validi | Interpretazione finale del caso |
+| 11 | Controlli conclusivi e interpretazione | Verificare la coerenza complessiva del notebook e predisporre gli elementi quantitativi per l'interpretazione finale dello studente | Tutti gli output precedenti | A | Eseguire un controllo conclusivo tra Scheda Caso, formule, risultati, tabelle, grafici e vincoli | Coerenza globale; limiti del modello; interpretazione economico-finanziaria | Riesaminare risultati e controlli; identificare eventuali limiti o anomalie ancora aperte | Sintesi quantitativa validata e base per il commento finale | Completezza degli output; riproducibilità; coerenza con la Scheda Caso; rispetto dei limiti interpretativi | Chiusura del notebook |
+
+### Eventuale attivazione del Regime C
+
+Il Regime C non deve essere incorporato preventivamente nella sequenza delle tappe.
+
+Può essere utilizzato, dopo una qualsiasi tappa, soltanto se lo studente individua una criticità specifica, ad esempio:
+
+- un residuale inatteso;
+- un segno apparentemente incoerente;
+- un valore marginale che non coincide con la verifica perturbativa;
+- una configurazione dichiarata ammissibile o non ammissibile in modo inatteso;
+- una possibile incoerenza tra formula, codice e output;
+- una possibile incoerenza tra tabella, grafico e risultato numerico.
+
+In tal caso il prompt in Regime C deve indicare:
+
+1. la tappa interessata;
+2. la criticità specifica osservata;
+3. gli elementi quantitativi che motivano il dubbio.
+
+L'esito deve essere classificato come **criticità respinta** oppure **criticità accolta**.
+
+Un eventuale intervento in Regime C non modifica la numerazione ordinaria delle tappe.
+
+## 8. Sequenza docente dei prompt e mappa prompt-notebook
+
+### 8.1 Sequenza docente dei prompt virtuosi
+
+La sequenza ordinaria dei prompt è:
+
+1. Prompt zero;
+2. Prompt 1;
+3. Prompt 2;
+4. Prompt 3;
+5. prompt di tappa derivati dalla scomposizione operativa validata.
+
+Il Regime C non costituisce una fase obbligatoria né una tappa programmata del lavoro.
+
+Può essere attivato soltanto quando lo studente individua una criticità specifica in una parte del notebook, in un output, in un controllo o nell'interpretazione di un risultato e formula una richiesta mirata di verifica.
+
+La sequenza ordinaria è quindi:
+
+$$
+\text{Prompt zero}
+\longrightarrow
+\text{Prompt 1}
+\longrightarrow
+\text{Prompt 2}
+\longrightarrow
+\text{Prompt 3}
+\longrightarrow
+\text{prompt di tappa}.
+$$
+
+L'eventuale intervento in Regime C si inserisce soltanto nel punto in cui emerge una criticità specifica e non modifica la struttura ordinaria del percorso.
+
+### 8.2 Funzione dei prompt iniziali
+
+**Prompt zero**
+
+Funzione:
+- inizializzare il contesto;
+- acquisire le regole generali;
+- fissare il significato dei Regimi A, B e C;
+- richiamare i vincoli sul ruolo dell'IA.
+
+Non produce direttamente una cella del notebook.
+
+**Prompt 1**
+
+Funzione:
+- acquisire integralmente la Scheda Caso come specifica vincolante;
+- produrre esclusivamente la cella Markdown iniziale di inquadramento.
+
+La cella deve:
+- sintetizzare titolo, contesto e domanda quantitativa;
+- riportare le quantità da stimare o calcolare;
+- riportare gli output richiesti;
+- riportare i controlli richiesti;
+- dichiarare che la Scheda Caso non può essere modificata.
+
+Non deve contenere:
+- codice;
+- soluzione;
+- Flusso logico-teorico risolutivo;
+- tappe operative;
+- risultati numerici;
+- interpretazioni conclusive.
+
+**Prompt 2 — Regime A**
+
+Funzione:
+- costruire il Flusso logico-teorico risolutivo.
+
+Lo studente deve proporre una prima sequenza teorico-logica.
+
+L'IA può:
+- verificare;
+- completare;
+- correggere;
+- ordinare.
+
+L'output deve essere una sola cella Markdown contenente il Flusso logico-teorico risolutivo nella forma prevista dal template.
+
+**Prompt 3 — Regime A/B**
+
+Funzione:
+- trasformare il Flusso logico-teorico validato nella scomposizione operativa in tappe.
+
+Lo studente deve proporre una prima articolazione delle tappe.
+
+L'IA può:
+- verificarla;
+- completarla;
+- ordinarla;
+- associare a ciascuna tappa il regime IA prevalente.
+
+Non deve ancora sviluppare integralmente il codice delle singole tappe.
+
+L'output deve essere una sola cella Markdown contenente la scomposizione operativa validata.
+
+### 8.3 Prompt di tappa
+
+I prompt di tappa devono essere costruiti a partire dalla Sezione 7 e devono indicare almeno:
+
+1. numero e titolo della tappa;
+2. obiettivo;
+3. input disponibili;
+4. oggetti teorici coinvolti;
+5. operazione richiesta;
+6. output atteso;
+7. controllo da svolgere;
+8. uso dell'output nella tappa successiva;
+9. regime IA prevalente.
+
+Il Regime A deve essere utilizzato quando la funzione principale della tappa è teorico-modellistica o interpretativa.
+
+Il Regime B deve essere utilizzato quando una struttura già definita deve essere tradotta in codice o in una procedura computazionale.
+
+Una stessa tappa può richiedere un primo passaggio in Regime A e un successivo passaggio in Regime B quando sia necessario separare chiarimento teorico e implementazione.
+
+### 8.4 Mappa prompt-notebook
+
+| Prompt | Regime | Tappa o fase | Funzione del prompt | Celle o output prodotti | Decisione o controllo richiesto |
+|---:|:---:|---|---|---|---|
+| Prompt zero | — | Inizializzazione | Acquisire regole generali, struttura del lavoro e disciplina dei Regimi IA | Nessuna cella obbligatoria | Verifica dell'acquisizione delle regole |
+| Prompt 1 | — | Inquadramento | Acquisire la Scheda Caso e produrre la cella Markdown iniziale | Cella Markdown iniziale | Fedeltà integrale alla Scheda Caso; assenza di soluzione o suggerimenti risolutivi |
+| Prompt 2 | A | Flusso teorico | Costruire e ordinare il Flusso logico-teorico risolutivo a partire dal contributo iniziale dello studente | Cella Markdown con tabella del Flusso logico-teorico | Completezza teorica; ordine logico; copertura di output e controlli |
+| Prompt 3 | A/B | Scomposizione operativa | Tradurre il Flusso validato nella sequenza di tappe input-output | Cella Markdown con tabella delle tappe | Coerenza con il Flusso; copertura di output e controlli; correttezza dei Regimi IA |
+| Prompt di tappa 1 | A/B | Tappa 1 — Traduzione nella forma solver | Costruire l'ordinamento delle variabili e la struttura matriciale del benchmark | Cella Markdown della tappa e/o celle codice per parametri, matrici e bounds | Dimensioni; coefficienti; segni; corrispondenza con la Scheda Caso |
+| Prompt di tappa 2 | B | Tappa 2 — Soluzione benchmark | Risolvere e diagnosticare il benchmark | Celle codice e output con $x^*$, $g^*$, $u^*$, $\Pi^*$, residuali, slack, bounds attivi e marginali | Stato del solver; vincoli; residuali; fattibilità |
+| Prompt di tappa 3 | B | Tappa 3 — Verifica dei marginali | Verificare numericamente almeno un marginale | Celle codice e breve cella Markdown di interpretazione locale | Coerenza tra marginale solver e perturbazione numerica; segno max/min |
+| Prompt di tappa 4 | A/B | Tappa 4 — Solver parametrico | Costruire la funzione dipendente da $\theta$, $\phi$, $\psi$ | Celle Markdown/codice della funzione parametrica | Riproduzione esatta del benchmark in $(1,1,1)$ |
+| Prompt di tappa 5 | B | Tappa 5 — Sensitività a $\theta$ | Eseguire la griglia e costruire tabelle e grafici previsti | DataFrame e figure relative a $\theta$ | Variazione del solo parametro $\theta$; esclusione dei punti non validi |
+| Prompt di tappa 6 | B | Tappa 6 — Frontiera di fattibilità | Raffinare l'intervallo critico | Tabella di raffinamento e intervallo contenente $\theta_{\mathrm{crit}}$ | Fattibilità; ultimo valore ammissibile; primo non ammissibile |
+| Prompt di tappa 7 | B | Tappa 7 — Sensitività a $\phi$ | Analizzare la capacità disponibile di funding | DataFrame e figure relative a $\phi$ | Modifica esclusiva dei bounds del funding; coerenza dei rapporti di utilizzo |
+| Prompt di tappa 8 | B | Tappa 8 — Sensitività a $\psi$ | Analizzare il costo del funding | DataFrame e figure relative a $\psi$ | Applicazione di $\psi$ sia all'obiettivo sia ai rimborsi del funding |
+| Prompt di tappa 9 | A | Tappa 9 — Confronto delle sensitività | Confrontare i tre driver senza confondere comparative statics e scenario analysis | Cella Markdown di sintesi quantitativa | Coerenza tra variazioni, vincoli attivi e interpretazione locale |
+| Prompt di tappa 10 | B | Tappa 10 — Scenario analysis | Risolvere le tre configurazioni assegnate | Tabella comparativa e grafici di scenario | Parametri esatti; stato del solver; uso esclusivo di risultati validi |
+| Prompt di tappa 11 | A | Tappa 11 — Controlli conclusivi | Verificare completezza e coerenza del notebook e predisporre gli elementi quantitativi per l'interpretazione finale | Cella Markdown conclusiva di controllo | Coerenza Scheda Caso–notebook; riproducibilità; completezza degli output; limiti del modello |
+
+### 8.5 Eventuale Prompt in Regime C
+
+Un Prompt C può essere attivato soltanto se lo studente identifica una criticità specifica.
+
+Non deve essere previsto automaticamente un «Prompt C finale» né deve essere richiesto un numero minimo di interventi in Regime C.
+
+Il Prompt C deve indicare:
+
+1. tappa interessata;
+2. cella, output o controllo interessato;
+3. criticità osservata;
+4. ragionamento che motiva il dubbio.
+
+L'IA deve verificare esclusivamente la criticità indicata e classificare l'esito come:
+
+- **criticità respinta**;
+- **criticità accolta**.
+
+Se la criticità è respinta, non devono essere proposte modifiche al notebook.
+
+Se la criticità è accolta, devono essere proposte soltanto le correzioni necessarie alla parte interessata, senza modificare autonomamente la Scheda Caso.
+
+### 8.6 Regole di coerenza della sequenza
+
+La sequenza dei prompt deve rispettare le seguenti condizioni:
+
+1. il Prompt 2 precede sempre il Prompt 3;
+2. il Prompt 3 precede i prompt operativi di tappa;
+3. le tappe devono derivare dal Flusso logico-teorico validato;
+4. nessun prompt può modificare variabili, parametri, formule, griglie, scenari, output o controlli fissati dalla Scheda Caso;
+5. ogni prompt di tappa deve essere riconducibile a una tappa della Sezione 7;
+6. tutti gli output e tutti i controlli della Scheda Caso devono risultare coperti dalla sequenza complessiva;
+7. l'IA non deve produrre in un unico passaggio l'intero notebook;
+8. ogni output computazionale deve essere validato prima di essere utilizzato nella tappa successiva;
+9. l'interpretazione finanziaria finale resta responsabilità dello studente;
+10. il Regime C resta eventuale e subordinato all'individuazione autonoma di una criticità specifica.
 
 ## 9. Struttura attesa del notebook
 
@@ -748,174 +1291,1823 @@ Il modello:
 
 Il notebook deve essere eseguibile sequenzialmente dall'inizio alla fine. Tutte le tabelle e tutti i grafici devono derivare dagli oggetti prodotti dal solver. Non devono essere inseriti manualmente valori della soluzione nelle celle successive.
 
-## 10. Calibrazione docente
+## 10. Criteri di validazione del notebook
 
-- **Ordine di grandezza atteso dei risultati:**
-  - nel benchmark devono essere riprodotti, a tolleranza numerica:
+Il notebook del Caso Aula è considerato valido se implementa integralmente la Scheda Caso senza modificarne il modello, produce tutti gli output richiesti, esegue i controlli previsti ed è riproducibile mediante esecuzione sequenziale dall'inizio alla fine.
 
-    $$
-    x^*\approx(0,51.920,0,48.080)',
-    $$
+### 10.1 Fedeltà alla specifica del caso
 
-    $$
-    g^*\approx(6.152,1.567,0,2.890)',
-    $$
+Il notebook deve:
 
-    $$
-    u^*\approx(0,0,6)',
-    $$
+1. utilizzare esclusivamente le variabili, i parametri, le formule, le griglie e gli scenari definiti nella Scheda Caso;
 
-    $$
-    \Pi^*\approx3.5922;
-    $$
+2. mantenere invariato l'ordinamento delle variabili una volta dichiarato;
 
-  - il limite $u_3\leq6$ deve risultare attivo nel benchmark;
-  - i residuali dei bilanci devono essere prossimi allo zero entro una tolleranza numerica appropriata;
-  - aumentando $\theta$, la soluzione deve riallocare progressivamente il piano verso profili che rendono liquidità disponibile prima;
-  - la funzione obiettivo deve deteriorarsi all'aumentare dello stress, salvo eventuali tratti locali associati a cambiamenti della base ottima;
-  - la sensitività a $\phi$ deve evidenziare quando una capacità aggiuntiva di funding smette di modificare la soluzione;
-  - la sensitività a $\psi$ deve evidenziare come cambia la convenienza economica del funding;
-  - con la calibrazione prevista, il problema è ancora ammissibile per $\theta=1.05$ e perde la fattibilità prima di $\theta=1.07$;
-  - il controllo docente più fine colloca la frontiera approssimativamente attorno a:
+3. rispettare la specifica:
 
-    $$
-    \theta_{\mathrm{crit}}\simeq1.061;
-    $$
+$$
+d(\theta)
+=
+(30\theta,30\theta,22,15)';
+$$
 
-  - tale valore è riservato alla calibrazione docente e non deve essere riportato nella Scheda Caso destinata agli studenti;
-  - prima della pubblicazione della Scheda Caso studente devono essere validati nuovamente con il solver anche gli scenari Mediamente critico e Critico.
+4. rispettare la parametrizzazione della capacità di funding:
 
-- **Errori o ambiguità prevedibili:**
-  1. dimenticare che il solver minimizza;
-  2. modificare erroneamente anche i segni dei vincoli;
-  3. confondere rendimento dell'attivo e cash flow disponibile;
-  4. dimenticare il rimborso del funding;
-  5. collocare il rimborso nella data errata;
-  6. dimenticare $g_4$;
-  7. confondere uguaglianze e disuguaglianze;
-  8. duplicare bounds e vincoli senza comprenderne la funzione;
-  9. interpretare direttamente il segno dei marginals del problema trasformato;
-  10. trattare un valore marginale come valido globalmente;
-  11. modificare contemporaneamente più parametri durante una sensitività univariata;
-  12. applicare $\phi$ ai valori di $u_t$ anziché alle capacità $\bar u_t$;
-  13. applicare $\psi$ soltanto alla funzione obiettivo e non al rimborso del funding nei bilanci;
-  14. confondere variazione assoluta e percentuale;
-  15. interpretare cambiamenti di pendenza senza verificare i vincoli attivi;
-  16. utilizzare `res.x` quando il solver dichiara il problema non ammissibile;
-  17. collegare graficamente punti ammissibili e non ammissibili;
-  18. confondere lo scenario Critico con la frontiera di fattibilità;
-  19. interpretare $(\theta,\phi,\psi)$ come stime storiche effettive di SVB.
+$$
+\bar u_t(\phi)
+=
+\phi\bar u_t;
+$$
 
-- **Controlli minimi di validazione:**
-  1. riproduzione del benchmark del Capitolo 12;
-  2. errore massimo dei bilanci temporali inferiore alla tolleranza scelta;
-  3. rispetto di tutti i bounds;
-  4. rispetto del vincolo prudenziale e del limite di concentrazione;
-  5. coerenza slack / vincoli attivi;
-  6. verifica numerica di almeno un valore marginale;
-  7. test della funzione parametrica nel punto $(1,1,1)$;
-  8. verifica che in ciascuna sensitività univariata restino fissi gli altri due parametri;
-  9. separazione degli scenari feasible / infeasible prima della costruzione dei grafici;
-  10. raffinamento della griglia attorno alla frontiera di $\theta$;
-  11. coerenza fra cambiamenti della soluzione, cambiamenti di pendenza e insieme dei vincoli attivi;
-  12. riproducibilità integrale del notebook.
+5. rispettare la parametrizzazione del costo del funding:
 
-- **Limiti interpretativi:**
-  1. il modello è deterministico;
-  2. ogni configurazione parametrica è trattata come nota al tempo iniziale;
-  3. non è modellato il comportamento endogeno dei depositanti;
-  4. non sono modellati fire sales o feedback prezzo-vendita;
-  5. lo stress non modifica endogenamente il valore di mercato degli attivi;
-  6. la capacità di funding è esogena;
-  7. il costo del funding è parametrico e non dipende endogenamente dalla quantità raccolta;
-  8. $\theta$, $\phi$ e $\psi$ non sono variabili casuali;
-  9. i tre scenari non costituiscono una distribuzione probabilistica;
-  10. non vengono assegnate probabilità agli scenari;
-  11. non si effettua ottimizzazione stocastica;
-  12. le decisioni non sono adattive rispetto a informazione progressiva;
-  13. tali estensioni appartengono alle Lezioni 14–16;
-  14. i coefficienti numerici non devono essere interpretati come dati storici effettivi di SVB.
+$$
+r_t^u(\psi)
+=
+\psi r_t^u;
+$$
 
-## 11. Uso dell'IA e tracciato
+6. applicare $\psi$ coerentemente sia alla funzione obiettivo sia al rimborso del funding nei bilanci temporali;
 
-- **Prompt obbligatori:**
-  1. Prompt zero;
-  2. Prompt 1;
-  3. Prompt 2 in Regime A;
-  4. Prompt 3 in Regime A;
-  5. prompt di tappa coerenti con la scomposizione approvata;
-  6. almeno un intervento in Regime C fondato su un dubbio, controllo o anomalia concreta.
+7. utilizzare esattamente le griglie parametriche assegnate;
 
-- **Numero minimo e massimo di prompt:** indicativamente da 9 a 10 prompt complessivi, inclusi Prompt zero e Prompt 1. Un eventuale prompt aggiuntivo in Regime C è ammesso soltanto se motivato da una criticità effettivamente emersa.
+8. utilizzare esattamente le configurazioni Standard, Mediamente critico e Critico previste dalla Scheda Caso;
 
-- **Usi ammessi dell'IA:**
-  1. verifica della traduzione fra formulazione teorica e struttura matriciale;
-  2. costruzione di codice Python per una tappa già definita;
-  3. controllo di dimensioni, indici e segni;
-  4. costruzione della funzione parametrica;
-  5. supporto nella gestione dei DataFrame;
-  6. costruzione dei grafici richiesti;
-  7. spiegazione dell'output del solver;
-  8. verifica di residuali, slack e valori marginali;
-  9. revisione di codice a seguito di un errore identificato;
-  10. controllo della coerenza fra grafici, tabelle e output numerici;
-  11. revisione critica dell'interpretazione finale.
+9. non introdurre parametri, vincoli, scenari o modifiche del modello non autorizzati.
 
-- **Usi non ammessi:**
-  1. chiedere all'IA di risolvere integralmente il caso in un unico prompt;
-  2. delegare all'IA la formulazione del modello;
-  3. introdurre autonomamente nuovi parametri o scenari;
-  4. modificare le griglie assegnate senza motivazione e senza approvazione;
-  5. sostituire la Scheda Caso con una formulazione proposta dall'IA;
-  6. chiedere un notebook completo senza passare attraverso flusso e tappe;
-  7. chiedere direttamente all'IA il valore di $\theta_{\mathrm{crit}}$;
-  8. accettare valori marginali o interpretazioni del solver senza controllo;
-  9. interpretare automaticamente i grafici senza confronto con tabelle e vincoli;
-  10. attribuire valore storico ai parametri stilizzati del caso.
+### 10.2 Validazione della forma solver
 
-## 12. Valutazione
+La traduzione computazionale è considerata valida se:
 
-- **Criteri per il notebook:**
-  1. corretta costruzione della forma solver;
-  2. leggibilità dell'ordinamento delle variabili;
-  3. riproducibilità;
-  4. riproduzione corretta del benchmark;
-  5. presenza dei controlli numerici richiesti;
-  6. corretta parametrizzazione di $\theta$, $\phi$ e $\psi$;
-  7. costruzione corretta delle tre sensitività univariate;
-  8. gestione corretta della fattibilità;
-  9. qualità e completezza dei DataFrame;
-  10. qualità e leggibilità dei grafici;
-  11. capacità di leggere le variazioni della soluzione ottima;
-  12. collegamento fra cambiamenti della soluzione e vincoli attivi;
-  13. corretta costruzione della scenario analysis;
-  14. coerenza fra risultati numerici e interpretazione.
+1. il vettore decisionale contiene correttamente le variabili:
 
-- **Criteri per il tracciato IA:**
-  1. contributo autonomo dello studente nei Prompt 2 e 3;
-  2. distinzione corretta fra Regime A, B e C;
-  3. specificità dei prompt di tappa;
-  4. esplicitazione di input, output e controlli;
-  5. presenza di verifiche critiche e non soltanto di richieste di generazione di codice;
-  6. capacità di non delegare all'IA le decisioni modellistiche fissate dalla Scheda Caso;
-  7. uso del Regime C fondato su criticità effettivamente osservate.
+$$
+x_1,\ldots,x_4,
+\qquad
+g_1,\ldots,g_4,
+\qquad
+u_1,u_2,u_3;
+$$
 
-- **Peso dei controlli e dell'interpretazione:** deve essere attribuito rilievo elevato alla correttezza della costruzione del modello e ai controlli, non alla sola capacità di ottenere `success=True`. La lettura di residuali, slack, valori marginali, cambiamenti della soluzione ottima, vincoli attivi e perdita di fattibilità costituisce parte sostanziale dell'esercizio. La distinzione fra sensitività univariata, stress test e scenario analysis deve risultare esplicita nell'interpretazione finale.
+2. le dimensioni del vettore obiettivo, di $A_{\mathrm{eq}}$, $b_{\mathrm{eq}}$, $A_{\mathrm{ub}}$, $b_{\mathrm{ub}}$ e dei bounds sono reciprocamente compatibili;
 
-## 13. Relazione con l'altro caso della lezione
+3. il passaggio dal problema economico di massimizzazione alla convenzione di minimizzazione di `scipy.optimize.linprog` è effettuato correttamente;
 
-Il Caso Aula SVB e il Caso TakeHome First Republic devono essere metodologicamente comparabili senza ridursi a una variazione parametrica dello stesso problema.
+4. i quattro bilanci temporali sono tradotti senza omissioni o errori di indice;
 
-Nel Caso Aula SVB lo studente dispone:
+5. il vincolo prudenziale:
 
-- di un modello teorico già noto;
-- di un benchmark verificabile;
-- di una calibrazione strutturata;
-- di tre driver di sensitività;
-- di una frontiera di fattibilità riferita a $\theta$;
-- di tre scenari congiunti.
+$$
+\ell'x\leq7
+$$
 
-Il percorso metodologico del Caso Aula è:
+è codificato correttamente;
+
+6. il limite:
+
+$$
+x_3\leq30
+$$
+
+è codificato correttamente;
+
+7. i bounds del funding rispettano:
+
+$$
+0\leq u_t\leq\phi\bar u_t;
+$$
+
+8. le condizioni di non negatività di $x$ e $g$ sono correttamente rappresentate;
+
+9. la forma solver può essere ricostruita direttamente dalle formule della Scheda Caso.
+
+### 10.3 Validazione del benchmark
+
+Il benchmark è considerato validato se:
+
+1. il solver restituisce uno stato di ottimizzazione valido per:
+
+$$
+(\theta,\phi,\psi)
+=
+(1,1,1);
+$$
+
+2. il vettore $x^*$ soddisfa il vincolo sulle risorse iniziali;
+
+3. tutti i bilanci temporali risultano soddisfatti entro una tolleranza numerica dichiarata;
+
+4. il vincolo prudenziale è rispettato;
+
+5. il limite su $x_3$ è rispettato;
+
+6. tutti i bounds del funding sono rispettati;
+
+7. tutte le variabili soddisfano le condizioni di non negatività;
+
+8. slack e classificazione attivo / non attivo risultano coerenti;
+
+9. i bounds attivi sono identificati correttamente;
+
+10. il valore economico della funzione obiettivo è ricostruito correttamente a partire dalla soluzione del problema trasformato;
+
+11. i principali valori marginali restituiti dal solver sono associati al corretto vincolo o bilancio;
+
+12. almeno un valore marginale è verificato mediante una piccola perturbazione numerica del relativo termine noto o limite.
+
+### 10.4 Validazione della funzione parametrica
+
+La funzione solver parametrica è considerata valida se:
+
+1. nel punto:
+
+$$
+(\theta,\phi,\psi)
+=
+(1,1,1)
+$$
+
+riproduce la soluzione benchmark entro la tolleranza numerica adottata;
+
+2. una variazione di $\theta$ modifica esclusivamente i fabbisogni delle prime due date;
+
+3. una variazione di $\phi$ modifica esclusivamente la capacità massima di funding;
+
+4. una variazione di $\psi$ modifica correttamente sia i costi nella funzione obiettivo sia i rimborsi del funding;
+
+5. nessuna variazione parametrica altera accidentalmente coefficienti che devono restare invariati;
+
+6. lo stato del solver viene controllato prima di utilizzare i valori della soluzione.
+
+### 10.5 Validazione delle sensitività univariate
+
+Ciascuna sensitività è considerata valida se:
+
+1. varia un solo parametro alla volta;
+
+2. gli altri due parametri restano pari ai valori benchmark;
+
+3. viene utilizzata integralmente la griglia assegnata;
+
+4. per ogni punto viene registrato almeno lo stato del solver e la fattibilità;
+
+5. valori di $x^*$, $g^*$, $u^*$ e $\Pi^*$ vengono utilizzati soltanto quando la soluzione è valida;
+
+6. le variazioni rispetto al benchmark sono calcolate coerentemente;
+
+7. i rapporti di utilizzo della capacità di funding utilizzano il denominatore corretto;
+
+8. i cambiamenti della soluzione vengono confrontati con gli eventuali cambiamenti dei vincoli e dei bounds attivi;
+
+9. grafici e tabelle non collegano né interpretano artificialmente configurazioni ammissibili e non ammissibili;
+
+10. le interpretazioni dei valori marginali restano locali e coerenti con la configurazione considerata.
+
+### 10.6 Validazione della frontiera di fattibilità
+
+La ricerca di $\theta_{\mathrm{crit}}$ è considerata valida se:
+
+1. sulla griglia iniziale viene identificato l'ultimo valore ammissibile di $\theta$;
+
+2. viene identificato il primo valore successivo non ammissibile;
+
+3. il raffinamento viene effettuato esclusivamente nell'intervallo così determinato;
+
+4. lo stato di fattibilità deriva dall'esito del solver e non dall'andamento del valore obiettivo o di una singola variabile;
+
+5. nelle configurazioni non ammissibili non vengono interpretati eventuali valori presenti negli oggetti del solver;
+
+6. il risultato finale viene espresso come intervallo raffinato contenente:
+
+$$
+\theta_{\mathrm{crit}};
+$$
+
+7. $\theta_{\mathrm{crit}}$ viene interpretato esclusivamente come frontiera di fattibilità del modello stilizzato.
+
+### 10.7 Validazione della scenario analysis
+
+La scenario analysis è considerata valida se:
+
+1. utilizza esattamente le tre configurazioni assegnate;
+
+2. i tre parametri vengono modificati congiuntamente secondo ciascuno scenario;
+
+3. lo scenario Standard riproduce il benchmark;
+
+4. lo stato del solver viene controllato separatamente per ogni scenario;
+
+5. soltanto gli scenari con soluzione valida vengono utilizzati nell'analisi numerica ed economica;
+
+6. la perdita rispetto allo scenario Standard è calcolata come:
+
+$$
+L_s
+=
+\Pi_{\mathrm{Standard}}^*
+-
+\Pi_s^*;
+$$
+
+7. la scenario analysis resta distinta dalle sensitività univariate e non viene interpretata come analisi probabilistica.
+
+### 10.8 Validazione degli output
+
+Gli output sono considerati validi se:
+
+1. tutti i risultati numerici richiesti nella Scheda Caso sono presenti;
+
+2. tutte le tabelle richieste sono presenti e costruite a partire dagli oggetti effettivamente prodotti dal solver;
+
+3. tutti i grafici richiesti sono presenti;
+
+4. tabelle e grafici utilizzano esclusivamente risultati validi;
+
+5. nessun valore della soluzione è inserito manualmente nelle celle successive;
+
+6. titoli, etichette e grandezze rappresentate consentono di identificare chiaramente parametro, variabile o scenario;
+
+7. gli output hanno una funzione informativa, diagnostica o interpretativa riconoscibile;
+
+8. le figure relative alla perdita di fattibilità non rappresentano come continue regioni nelle quali il problema non possiede una soluzione valida;
+
+9. gli output possono essere rigenerati mediante riesecuzione delle celle;
+
+10. non sono richieste esportazioni in file esterni salvo indicazione esplicita del docente.
+
+### 10.9 Validazione della struttura del notebook
+
+Il notebook deve:
+
+1. seguire una sequenza coerente con il Flusso logico-teorico risolutivo e con la scomposizione in tappe validata;
+
+2. mantenere distinguibili:
+   - definizione del modello;
+   - soluzione benchmark;
+   - diagnostica;
+   - verifica dei marginali;
+   - parametrizzazione;
+   - sensitività;
+   - frontiera di fattibilità;
+   - scenari;
+   - controlli conclusivi;
+
+3. integrare celle Markdown e codice in modo da rendere tracciabile il passaggio dalla formulazione teorica all'operazione computazionale;
+
+4. non contenere celle errate duplicate o versioni alternative non utilizzate;
+
+5. essere eseguibile sequenzialmente dall'inizio alla fine;
+
+6. non dipendere da oggetti prodotti da esecuzioni precedenti non riproducibili;
+
+7. mantenere coerenti notazione matematica e nomi delle variabili computazionali;
+
+8. utilizzare gli output delle tappe precedenti come input delle successive in modo tracciabile.
+
+### 10.10 Validazione dell'uso dell'IA
+
+Quando l'IA è utilizzata, il notebook e il relativo tracciato devono risultare coerenti con il protocollo previsto.
+
+In particolare:
+
+1. Prompt zero, Prompt 1, Prompt 2 e Prompt 3 devono precedere i prompt operativi di tappa;
+
+2. il Flusso logico-teorico deve essere validato prima della scomposizione in tappe;
+
+3. la scomposizione in tappe deve essere validata prima dello sviluppo operativo;
+
+4. i prompt di tappa devono essere riconducibili alle tappe approvate;
+
+5. il Regime A non deve produrre codice Python;
+
+6. il Regime B deve tradurre in codice strutture già definite e validate;
+
+7. il Regime C non deve essere attivato automaticamente;
+
+8. un eventuale Regime C deve partire da una criticità specifica individuata dallo studente;
+
+9. l'IA non deve modificare autonomamente la Scheda Caso;
+
+10. la risposta dell'IA deve essere verificata prima di essere incorporata nel notebook.
+
+### 10.11 Criteri specifici del Caso Aula
+
+Oltre ai criteri generali, il notebook del Caso Aula è considerato valido soltanto se:
+
+1. riproduce correttamente il benchmark del modello SVB;
+
+2. rende osservabile il passaggio tra formulazione economico-finanziaria e forma solver;
+
+3. permette di distinguere chiaramente gli effetti di $\theta$, $\phi$ e $\psi$;
+
+4. verifica esplicitamente che $\psi$ agisca sia sul costo del funding sia sul rimborso intertemporale;
+
+5. individua correttamente la perdita di fattibilità rispetto a $\theta$;
+
+6. raffina l'intervallo contenente $\theta_{\mathrm{crit}}$;
+
+7. rende leggibili i cambiamenti della soluzione e dei vincoli attivi lungo le analisi parametriche;
+
+8. distingue esplicitamente sensitività univariata, stress test di fattibilità e scenario analysis;
+
+9. produce tutti gli output previsti nella Scheda Caso;
+
+10. conclude con controlli complessivi coerenti con i limiti del modello.
+
+Un notebook che restituisca semplicemente `success=True` nel benchmark ma non soddisfi i controlli, gli output e i criteri precedenti non è considerato validato.
+
+
+## 11. Calibrazione docente
+
+La presente sezione contiene informazioni interne di calibrazione e validazione preventiva del Caso Aula.
+
+Tali informazioni servono al docente per verificare che il caso sia numericamente non banale, coerente con gli obiettivi didattici e capace di produrre output interpretabili.
+
+I valori numerici riportati in questa sezione non devono essere trasferiti nella Scheda Caso destinata agli studenti.
+
+### 11.1 Ordini di grandezza attesi
+
+Nel benchmark:
+
+$$
+(\theta,\phi,\psi)
+=
+(1,1,1),
+$$
+
+la soluzione attesa, a tolleranza numerica, è:
+
+$$
+x^*
+\approx
+(0,\;51.920,\;0,\;48.080)',
+$$
+
+$$
+g^*
+\approx
+(6.152,\;1.567,\;0,\;2.890)',
+$$
+
+$$
+u^*
+\approx
+(0,\;0,\;6)',
+$$
+
+e:
+
+$$
+\Pi^*
+\approx
+3.5922.
+$$
+
+Il limite:
+
+$$
+u_3\leq6
+$$
+
+deve risultare attivo nel benchmark.
+
+I residuali dei bilanci temporali devono risultare prossimi a zero entro la tolleranza numerica adottata.
+
+### 11.2 Relazioni qualitative attese
+
+La calibrazione deve produrre almeno le seguenti relazioni qualitative.
+
+1. All'aumentare di $\theta$, il piano ottimo deve progressivamente adattarsi a fabbisogni di liquidità più elevati nelle prime due date.
+
+2. L'aumento di $\theta$ deve tendere a deteriorare il valore ottimo:
+
+$$
+\Pi^*(\theta),
+$$
+
+salvo eventuali tratti locali associati a cambiamenti della base ottima.
+
+3. L'aumento dello stress sui fabbisogni deve rendere maggiormente rilevante la disponibilità di attività che generano liquidità nelle prime date.
+
+4. La sensitività rispetto a $\phi$ deve evidenziare almeno:
+   - una regione nella quale la capacità di funding è economicamente scarsa;
+   - una regione nella quale ulteriore capacità non modifica più la soluzione ottima.
+
+5. La sensitività rispetto a $\psi$ deve rendere osservabile come il maggiore costo del funding ne modifica la convenienza economica e, quando rilevante, il livello ottimo di utilizzo.
+
+6. Lungo le griglie parametriche possono verificarsi cambiamenti dei vincoli e dei bounds attivi. Tali cambiamenti devono essere coerenti con eventuali cambiamenti di pendenza o di composizione della soluzione.
+
+7. Le sensitività univariate devono produrre una lettura diversa dalla scenario analysis con variazione congiunta dei tre driver.
+
+### 11.3 Calibrazione della frontiera di fattibilità
+
+Con la calibrazione prevista, il problema deve risultare ancora ammissibile per:
+
+$$
+\theta=1.05
+$$
+
+e deve perdere la fattibilità prima di:
+
+$$
+\theta=1.07.
+$$
+
+Il controllo docente più fine colloca la frontiera approssimativamente attorno a:
+
+$$
+\theta_{\mathrm{crit}}
+\simeq
+1.061.
+$$
+
+Tale valore costituisce esclusivamente una calibrazione interna docente.
+
+Non deve essere comunicato preventivamente agli studenti e non deve comparire nella Scheda Caso.
+
+Nel lavoro dello studente, la frontiera deve essere ricostruita autonomamente mediante:
+
+1. individuazione dell'ultimo valore ammissibile sulla griglia iniziale;
+2. individuazione del primo valore non ammissibile;
+3. raffinamento dell'intervallo così ottenuto.
+
+Il risultato dello studente non deve essere valutato sulla coincidenza meccanica con il valore interno:
+
+$$
+1.061,
+$$
+
+ma sulla corretta procedura di individuazione della frontiera, sulla coerenza numerica e sulla precisione compatibile con il raffinamento richiesto.
+
+### 11.4 Calibrazione degli scenari
+
+Prima dell'utilizzo definitivo del caso devono essere validate mediante solver le tre configurazioni:
+
+**Standard**
+
+$$
+(\theta,\phi,\psi)
+=
+(1.00,1.00,1.00);
+$$
+
+**Mediamente critico**
+
+$$
+(\theta,\phi,\psi)
+=
+(1.03,0.90,1.25);
+$$
+
+**Critico**
+
+$$
+(\theta,\phi,\psi)
+=
+(1.06,0.70,1.50).
+$$
+
+Lo scenario Standard deve coincidere con il benchmark.
+
+Gli scenari Mediamente critico e Critico devono produrre configurazioni economicamente distinguibili e sufficientemente informative da rendere osservabili:
+
+1. la variazione del valore ottimo;
+2. la ricomposizione dell'attivo;
+3. la variazione delle giacenze;
+4. la variazione dell'utilizzo del funding;
+5. eventuali modifiche dei vincoli e dei bounds attivi.
+
+Gli scenari non devono essere calibrati in modo da produrre differenze puramente cosmetiche.
+
+### 11.5 Errori o ambiguità prevedibili
+
+Gli errori più probabili sono:
+
+1. dimenticare che `scipy.optimize.linprog` risolve un problema di minimizzazione;
+
+2. modificare erroneamente i segni dei vincoli quando si trasforma la funzione obiettivo;
+
+3. confondere redditività dell'attivo e cash flow disponibile alle singole date;
+
+4. dimenticare il rimborso del funding raccolto nella data precedente;
+
+5. collocare il rimborso del funding nella data errata;
+
+6. dimenticare la variabile terminale $g_4$;
+
+7. confondere vincoli di uguaglianza, disuguaglianze e bounds;
+
+8. duplicare un bound come vincolo esplicito senza comprenderne la funzione;
+
+9. interpretare direttamente il segno dei marginali del problema trasformato senza tenere conto della convenzione massimo/minimo;
+
+10. trattare un valore marginale come valido globalmente lungo una griglia parametrica;
+
+11. modificare contemporaneamente più parametri durante una sensitività univariata;
+
+12. applicare $\phi$ al funding effettivamente utilizzato anziché alle capacità:
+
+$$
+\bar u_t;
+$$
+
+13. applicare $\psi$ soltanto alla funzione obiettivo e non al rimborso del funding nei bilanci temporali;
+
+14. confondere variazione assoluta e variazione percentuale di $\Pi^*$;
+
+15. interpretare cambiamenti di pendenza senza verificare se sia cambiato l'insieme dei vincoli attivi;
+
+16. utilizzare o interpretare `res.x` quando il solver dichiara il problema non ammissibile;
+
+17. collegare graficamente configurazioni ammissibili e non ammissibili;
+
+18. confondere lo scenario Critico con la frontiera di fattibilità rispetto a $\theta$;
+
+19. interpretare $\theta$, $\phi$ e $\psi$ come stime storiche effettive riferite a Silicon Valley Bank;
+
+20. confondere una variazione della capacità di funding con una variazione del funding effettivamente utilizzato;
+
+21. interpretare uno slack nullo come sufficiente, da solo, per attribuire rilevanza economica a un marginale.
+
+### 11.6 Controlli minimi di calibrazione
+
+Prima di considerare il caso pronto per l'utilizzo didattico, il docente deve verificare almeno:
+
+1. riproduzione del benchmark previsto;
+
+2. errore massimo dei bilanci temporali inferiore alla tolleranza numerica adottata;
+
+3. rispetto di tutti i bounds;
+
+4. rispetto del vincolo prudenziale;
+
+5. rispetto del limite di concentrazione:
+
+$$
+x_3\leq30;
+$$
+
+6. coerenza tra slack e classificazione dei vincoli attivi;
+
+7. corretta identificazione dei bounds attivi;
+
+8. verifica numerica di almeno un valore marginale;
+
+9. corretta interpretazione del segno dei valori marginali rispetto al problema economico originario;
+
+10. riproduzione del benchmark mediante la funzione parametrica nel punto:
+
+$$
+(\theta,\phi,\psi)
+=
+(1,1,1);
+$$
+
+11. variazione di un solo parametro alla volta nelle sensitività univariate;
+
+12. corretta applicazione di $\psi$ sia alla funzione obiettivo sia ai rimborsi del funding;
+
+13. separazione tra configurazioni ammissibili e non ammissibili prima della produzione di tabelle e grafici;
+
+14. corretto raffinamento dell'intervallo attorno alla frontiera di $\theta$;
+
+15. coerenza tra variazioni della soluzione, cambiamenti di pendenza e insieme dei vincoli attivi;
+
+16. validità numerica delle tre configurazioni della scenario analysis;
+
+17. riproducibilità integrale del notebook mediante esecuzione sequenziale.
+
+### 11.7 Limiti interpretativi da preservare
+
+La calibrazione deve mantenere visibili i seguenti limiti.
+
+1. Il modello è deterministico.
+
+2. Ogni configurazione parametrica è considerata nota al tempo iniziale.
+
+3. Il comportamento dei depositanti non è modellato endogenamente.
+
+4. Non sono modellati fire sales o feedback tra vendite e prezzi.
+
+5. Lo stress non modifica endogenamente il valore di mercato degli attivi.
+
+6. La capacità di funding è esogena.
+
+7. Il costo del funding è parametrico e non dipende endogenamente dalla quantità raccolta.
+
+8. $\theta$, $\phi$ e $\psi$ non sono variabili casuali.
+
+9. I tre scenari non costituiscono una distribuzione probabilistica.
+
+10. Non vengono assegnate probabilità agli scenari.
+
+11. Non viene effettuata ottimizzazione stocastica.
+
+12. Le decisioni non sono adattive rispetto a informazione progressivamente osservata.
+
+13. Le estensioni stocastiche e adattive appartengono alle lezioni successive.
+
+14. I coefficienti numerici non devono essere interpretati come dati storici effettivi di Silicon Valley Bank.
+
+15. Il valore:
+
+$$
+\theta_{\mathrm{crit}}
+$$
+
+non deve essere interpretato come una stima empirica della soglia storica di deflusso di SVB.
+
+### 11.8 Segnali di possibile cattiva calibrazione
+
+Il caso deve essere riesaminato se emerge una delle seguenti situazioni:
+
+1. il benchmark risulta non ammissibile;
+
+2. il benchmark presenta residuali incompatibili con la tolleranza numerica adottata;
+
+3. nessun vincolo o bound risulta economicamente informativo;
+
+4. tutte le sensitività producono soluzioni praticamente identiche;
+
+5. una variazione sostanziale di $\phi$ non produce mai alcun effetto sul funding o sulla soluzione;
+
+6. una variazione sostanziale di $\psi$ non produce alcun effetto economicamente interpretabile;
+
+7. la perdita di fattibilità rispetto a $\theta$ cade fuori dalla griglia prevista;
+
+8. la regione di transizione feasible / infeasible non può essere raffinata in modo informativo;
+
+9. gli scenari Mediamente critico e Critico producono risultati quasi indistinguibili dallo Standard;
+
+10. lo scenario Critico risulta talmente estremo da impedire qualsiasi confronto economicamente utile;
+
+11. le variazioni della soluzione risultano dominate da artefatti numerici anziché da cambiamenti economicamente leggibili dei vincoli;
+
+12. la calibrazione rende immediatamente evidente allo studente un risultato che dovrebbe invece emergere dall'analisi.
+
+La calibrazione finale deve garantire un caso numericamente stabile, non banale, interpretabile e coerente con la progressione didattica della Lezione 13.
+
+## 12. Uso dell'IA e tracciato
+
+### 12.1 Uso documentato dell'IA previsto
+
+L'uso documentato dell'IA è previsto.
+
+L'IA deve essere utilizzata come supporto controllato alla costruzione del ragionamento, alla traduzione computazionale e alla verifica degli output.
+
+Non deve sostituire:
+
+1. la Scheda Caso;
+2. le decisioni modellistiche già fissate;
+3. il contributo iniziale dello studente nei passaggi valutativi;
+4. la validazione degli output;
+5. l'interpretazione finanziaria finale.
+
+### 12.2 Prompt obbligatori
+
+La sequenza obbligatoria comprende:
+
+1. Prompt zero;
+2. Prompt 1;
+3. Prompt 2;
+4. Prompt 3;
+5. prompt di tappa necessari a sviluppare la scomposizione operativa validata.
+
+Il Regime C non costituisce un prompt obbligatorio.
+
+Un eventuale Prompt C può essere aggiunto soltanto quando lo studente individua una criticità specifica da verificare.
+
+La sequenza ordinaria è quindi:
+
+$$
+\text{Prompt zero}
+\longrightarrow
+\text{Prompt 1}
+\longrightarrow
+\text{Prompt 2}
+\longrightarrow
+\text{Prompt 3}
+\longrightarrow
+\text{prompt di tappa}.
+$$
+
+### 12.3 Numero dei prompt
+
+Il numero complessivo dei prompt non deve essere fissato artificialmente a priori.
+
+Deve derivare dalla scomposizione operativa validata e dal numero di interazioni effettivamente necessarie per:
+
+1. sviluppare le tappe previste;
+2. produrre gli output richiesti;
+3. eseguire i controlli;
+4. correggere eventuali errori ordinari all'interno dei Regimi A o B.
+
+Un eventuale Prompt C si aggiunge alla sequenza soltanto in presenza di una criticità specifica individuata dallo studente.
+
+Non è richiesto un numero minimo di Prompt C.
+
+Non deve essere introdotto un Prompt C puramente formale allo scopo di soddisfare un requisito quantitativo.
+
+### 12.4 Regimi IA utilizzati
+
+I regimi ordinariamente utilizzati sono:
+
+- **Regime A — Ricognizione teorico-modellistica**;
+- **Regime B — Traduzione operativa in codice**.
+
+Il **Regime C — Verifica di una criticità specifica** è eventuale.
+
+#### Regime A
+
+Il Regime A deve essere utilizzato quando occorre:
+
+1. chiarire la struttura teorico-finanziaria del problema;
+2. ordinare i passaggi logici;
+3. collegare formule, output e controlli;
+4. interpretare localmente un risultato già prodotto;
+5. confrontare sensitività, vincoli attivi e cambiamenti della soluzione.
+
+Il Regime A non deve produrre codice Python.
+
+#### Regime B
+
+Il Regime B deve essere utilizzato quando una struttura già fissata deve essere tradotta in codice.
+
+Può riguardare:
+
+1. costruzione delle matrici;
+2. implementazione del solver;
+3. calcolo di residuali e slack;
+4. costruzione della funzione parametrica;
+5. esecuzione delle griglie;
+6. produzione di DataFrame;
+7. produzione dei grafici;
+8. controlli numerici;
+9. raffinamento della frontiera di fattibilità;
+10. scenario analysis.
+
+Il Regime B non può modificare la specifica teorica del caso.
+
+#### Regime C
+
+Il Regime C può essere attivato soltanto quando lo studente identifica una possibile criticità specifica.
+
+Il prompt deve contenere:
+
+1. tappa interessata;
+2. cella, formula, output o controllo interessato;
+3. criticità osservata;
+4. ragionamento che motiva il dubbio.
+
+L'IA deve classificare l'esito come:
+
+- **criticità respinta**;
+- **criticità accolta**.
+
+Il Regime C non può essere utilizzato per richiedere:
+
+- una revisione generica dell'intero notebook;
+- una nuova soluzione del caso;
+- un'interpretazione finale delegata all'IA;
+- modifiche autonome della Scheda Caso.
+
+### 12.5 Usi ammessi dell'IA
+
+Sono ammessi:
+
+1. verifica della traduzione fra formulazione teorica e struttura solver;
+
+2. controllo dell'ordinamento delle variabili;
+
+3. controllo delle dimensioni di vettori e matrici;
+
+4. supporto alla costruzione di codice Python per una tappa già definita;
+
+5. costruzione della funzione parametrica in:
+
+$$
+(\theta,\phi,\psi);
+$$
+
+6. supporto alla gestione dei DataFrame;
+
+7. costruzione dei grafici richiesti;
+
+8. spiegazione tecnica degli oggetti restituiti da `scipy.optimize.linprog`;
+
+9. supporto alla verifica di residuali, slack e bounds attivi;
+
+10. supporto alla verifica numerica di un valore marginale;
+
+11. controllo della corretta applicazione di $\theta$, $\phi$ e $\psi$;
+
+12. supporto alla gestione delle configurazioni non ammissibili;
+
+13. supporto al raffinamento della frontiera di fattibilità;
+
+14. confronto tra output numerici, tabelle e grafici;
+
+15. revisione di codice dopo che sia stato identificato un errore o un malfunzionamento;
+
+16. supporto alla verifica della coerenza fra variazioni della soluzione e variazioni dei vincoli attivi;
+
+17. supporto alla revisione critica di una specifica interpretazione già formulata dallo studente.
+
+### 12.6 Usi non ammessi dell'IA
+
+Non sono ammessi:
+
+1. chiedere all'IA di risolvere integralmente il caso in un unico prompt;
+
+2. delegare all'IA la formulazione del modello;
+
+3. modificare variabili, formule, parametri, vincoli o scenari fissati dalla Scheda Caso;
+
+4. introdurre autonomamente nuovi parametri;
+
+5. modificare le griglie assegnate senza esplicita autorizzazione;
+
+6. modificare le tre configurazioni di scenario;
+
+7. chiedere un notebook completo senza passare attraverso Flusso logico-teorico e scomposizione in tappe;
+
+8. chiedere direttamente all'IA il valore di:
+
+$$
+\theta_{\mathrm{crit}};
+$$
+
+9. accettare valori marginali senza verificarne almeno un caso mediante perturbazione numerica;
+
+10. accettare automaticamente interpretazioni dei valori marginali;
+
+11. interpretare automaticamente grafici e tabelle senza confronto con la soluzione numerica e con i vincoli attivi;
+
+12. utilizzare l'IA per attribuire valore storico ai parametri stilizzati del modello;
+
+13. utilizzare il Regime C per una revisione generica del lavoro;
+
+14. chiedere all'IA di scrivere autonomamente l'interpretazione finanziaria finale da consegnare come contributo dello studente.
+
+### 12.7 Criteri di validazione delle risposte IA
+
+Ogni risposta dell'IA deve essere verificata prima di essere incorporata nel notebook.
+
+La validazione deve controllare almeno:
+
+1. coerenza con il Regime richiesto;
+
+2. coerenza con la Scheda Caso;
+
+3. utilizzo esclusivo degli input disponibili nella tappa;
+
+4. rispetto delle variabili e della notazione fissate;
+
+5. assenza di modifiche non autorizzate al modello;
+
+6. assenza di nuovi parametri, vincoli o scenari non previsti;
+
+7. correttezza della traduzione computazionale quando pertinente;
+
+8. pertinenza degli output proposti;
+
+9. presenza dei controlli richiesti dalla tappa;
+
+10. utilità dell'output prodotto per la tappa successiva;
+
+11. coerenza fra codice, output numerici e formule;
+
+12. assenza di interpretazioni che eccedano il perimetro del modello.
+
+Se la risposta è in Regime C deve essere inoltre verificato che:
+
+1. la criticità sia stata formulata prima dallo studente;
+
+2. l'IA abbia verificato esclusivamente la criticità indicata;
+
+3. l'esito sia classificato come **criticità respinta** oppure **criticità accolta**;
+
+4. in caso di criticità respinta non siano state introdotte modifiche arbitrarie;
+
+5. in caso di criticità accolta la correzione sia limitata alla parte effettivamente interessata.
+
+### 12.8 Tracciato IA richiesto
+
+Il tracciato IA è richiesto.
+
+La modalità ordinaria di consegna è la stampa PDF della chat dedicata al caso.
+
+La chat deve essere utilizzata esclusivamente per il lavoro relativo al Caso Aula.
+
+Non deve contenere:
+
+1. conversazioni estranee;
+2. materiale personale;
+3. prove casuali non pertinenti;
+4. richieste riferite ad altri casi;
+5. messaggi che rendano ambiguo il tracciato del processo.
+
+### 12.9 Sequenza osservabile richiesta nel tracciato
+
+Il tracciato deve rendere osservabile la sequenza:
+
+$$
+\text{Prompt zero}
+\longrightarrow
+\text{Prompt 1}
+\longrightarrow
+\text{Prompt 2}
+\longrightarrow
+\text{Prompt 3}
+\longrightarrow
+\text{prompt di tappa effettivamente utilizzati}.
+$$
+
+Quando presente, un eventuale Prompt C deve essere collocato nel punto in cui la criticità è effettivamente emersa.
+
+Il tracciato deve permettere di ricostruire:
+
+1. il contributo iniziale dello studente;
+2. la risposta dell'IA;
+3. la decisione dello studente di accettare, correggere, ridurre o rifiutare la risposta;
+4. la traduzione nel notebook;
+5. l'output prodotto;
+6. il controllo effettuato;
+7. il passaggio alla tappa successiva.
+
+### 12.10 Elementi del tracciato oggetto di valutazione
+
+Sono oggetto di valutazione:
+
+1. contributo autonomo dello studente nel Prompt 2;
+
+2. contributo autonomo dello studente nel Prompt 3;
+
+3. capacità di formulare prompt di tappa coerenti con la scomposizione validata;
+
+4. corretta distinzione tra Regime A e Regime B;
+
+5. specificità degli input forniti all'IA;
+
+6. chiarezza dell'output richiesto;
+
+7. presenza dei controlli all'interno dei prompt di tappa;
+
+8. capacità di verificare criticamente le risposte IA;
+
+9. capacità di non delegare all'IA decisioni già fissate dalla Scheda Caso;
+
+10. coerenza fra conversazione, notebook e output prodotti;
+
+11. eventuale qualità dell'attivazione del Regime C quando sia emersa una criticità reale.
+
+L'assenza di un Prompt C non costituisce penalizzazione quando non è emersa alcuna criticità specifica che ne giustificasse l'utilizzo.
+
+### 12.11 Responsabilità dello studente
+
+Restano responsabilità dello studente:
+
+1. validare il Flusso logico-teorico;
+
+2. validare la scomposizione in tappe;
+
+3. controllare il codice prodotto dall'IA;
+
+4. eseguire il notebook;
+
+5. verificare gli output;
+
+6. eseguire i controlli previsti;
+
+7. riconoscere eventuali anomalie;
+
+8. decidere se una risposta IA debba essere accettata, modificata o respinta;
+
+9. formulare eventuali criticità da verificare in Regime C;
+
+10. redigere l'interpretazione finanziaria finale.
+
+L'uso dell'IA deve restare tracciabile, controllato e subordinato alla struttura teorica e operativa definita dal caso.
+
+## 13. Valutazione
+
+La valutazione deve considerare congiuntamente:
+
+1. correttezza della formulazione quantitativa;
+2. qualità della traduzione computazionale;
+3. completezza e validità degli output;
+4. qualità dei controlli;
+5. uso documentato e consapevole dell'IA;
+6. coerenza dell'interpretazione finale.
+
+L'ottenimento di una soluzione numerica non è sufficiente, da solo, per considerare corretto il lavoro.
+
+### 13.1 Criteri per il notebook
+
+Il notebook deve essere valutato almeno rispetto ai seguenti aspetti.
+
+1. **Corretta costruzione della forma solver**
+   - ordinamento delle variabili;
+   - vettore obiettivo;
+   - uguaglianze;
+   - disuguaglianze;
+   - bounds.
+
+2. **Fedeltà alla Scheda Caso**
+   - nessuna modifica non autorizzata a variabili, formule, parametri, griglie o scenari;
+   - corretta implementazione di $\theta$, $\phi$ e $\psi$.
+
+3. **Riproduzione del benchmark**
+   - stato valido del solver;
+   - soluzione coerente;
+   - corretta ricostruzione di $\Pi^*$.
+
+4. **Controlli numerici**
+   - residuali;
+   - slack;
+   - bounds attivi;
+   - rispetto del vincolo prudenziale;
+   - rispetto del limite su $x_3$;
+   - rispetto dei limiti sul funding;
+   - non negatività.
+
+5. **Interpretazione dei valori marginali**
+   - corretta associazione ai vincoli;
+   - attenzione alla trasformazione massimo/minimo;
+   - verifica numerica di almeno un marginale.
+
+6. **Qualità della funzione parametrica**
+   - riproduzione del benchmark;
+   - corretta azione separata di $\theta$, $\phi$, $\psi$;
+   - assenza di modifiche accidentali alla struttura del modello.
+
+7. **Sensitività univariate**
+   - corretta esecuzione delle tre griglie;
+   - variazione di un solo parametro alla volta;
+   - corretta gestione delle configurazioni non ammissibili;
+   - qualità delle tabelle e dei grafici.
+
+8. **Frontiera di fattibilità**
+   - corretta individuazione dell'ultimo valore ammissibile;
+   - corretta individuazione del primo valore non ammissibile;
+   - raffinamento coerente;
+   - interpretazione corretta di $\theta_{\mathrm{crit}}$.
+
+9. **Scenario analysis**
+   - utilizzo esatto delle configurazioni assegnate;
+   - confronto coerente tra Standard, Mediamente critico e Critico;
+   - corretta lettura della perdita di valore e delle modifiche del piano ALM.
+
+10. **Coerenza tra soluzione e vincoli attivi**
+    - lettura congiunta di variazioni di $x^*$, $g^*$, $u^*$, $\Pi^*$;
+    - confronto con slack, bounds e valori marginali;
+    - riconoscimento dei cambiamenti di regime.
+
+11. **Qualità degli output**
+    - completezza;
+    - leggibilità;
+    - pertinenza;
+    - coerenza con le quantità richieste;
+    - assenza di grafici o tabelle puramente decorativi.
+
+12. **Riproducibilità**
+    - esecuzione sequenziale dall'inizio alla fine;
+    - assenza di dipendenze nascoste;
+    - assenza di valori inseriti manualmente.
+
+### 13.2 Criteri per il tracciato IA
+
+Il tracciato IA deve essere valutato almeno rispetto a:
+
+1. presenza e corretto utilizzo di Prompt zero, Prompt 1, Prompt 2 e Prompt 3;
+
+2. contributo autonomo dello studente nella costruzione del Flusso logico-teorico risolutivo;
+
+3. contributo autonomo dello studente nella scomposizione in tappe;
+
+4. qualità dei prompt di tappa;
+
+5. corretta distinzione tra Regime A e Regime B;
+
+6. capacità di fornire all'IA input completi ma non ridondanti;
+
+7. esplicitazione di output e controlli richiesti;
+
+8. capacità di verificare criticamente le risposte dell'IA;
+
+9. capacità di accettare, modificare o rifiutare una risposta motivando la scelta;
+
+10. assenza di delega all'IA delle decisioni già fissate dalla Scheda Caso;
+
+11. coerenza tra tracciato IA e notebook finale;
+
+12. eventuale corretto utilizzo del Regime C, quando effettivamente giustificato da una criticità specifica.
+
+L'assenza di un intervento in Regime C non costituisce una carenza quando non emerge una criticità specifica.
+
+### 13.3 Peso dei controlli e dell'interpretazione
+
+La valutazione deve attribuire rilievo elevato alla correttezza dei controlli e alla capacità di leggere gli output.
+
+Non è sufficiente ottenere:
+
+```text
+success = True
+```
+
+dal solver.
+
+Lo studente deve mostrare di sapere verificare:
+
+1. bilanci temporali;
+2. vincoli;
+3. bounds;
+4. residuali;
+5. slack;
+6. valori marginali;
+7. fattibilità;
+8. coerenza tra output numerici e rappresentazioni grafiche;
+9. relazione tra cambiamenti della soluzione e cambiamenti dei vincoli attivi.
+
+L'interpretazione deve distinguere esplicitamente:
+
+- sensitività univariata;
+- stress test di fattibilità;
+- scenario analysis.
+
+### 13.4 Elementi particolarmente rilevanti nel Caso Aula
+
+Nel Caso Aula SVB assumono particolare rilievo valutativo:
+
+1. corretta traduzione del modello ALM del Capitolo 12 nella forma solver;
+
+2. verifica della doppia azione di $\psi$:
+   - costo del funding nella funzione obiettivo;
+   - rimborso del funding nei bilanci temporali;
+
+3. corretta identificazione della frontiera di fattibilità rispetto a $\theta$;
+
+4. distinzione tra ultimo valore ammissibile, primo valore non ammissibile e intervallo raffinato contenente $\theta_{\mathrm{crit}}$;
+
+5. lettura dei bounds di funding attivi;
+
+6. confronto tra effetti di $\theta$, $\phi$ e $\psi$;
+
+7. coerenza tra scenario analysis e struttura deterministica del modello;
+
+8. capacità di non attribuire significato storico ai parametri stilizzati.
+
+### 13.5 Errori che devono incidere significativamente sulla valutazione
+
+Devono incidere in modo rilevante:
+
+1. modifica non autorizzata della Scheda Caso;
+
+2. errore nella forma solver;
+
+3. mancato rimborso del funding;
+
+4. errata applicazione di $\psi$;
+
+5. utilizzo di risultati provenienti da configurazioni non ammissibili;
+
+6. mancata verifica dei vincoli;
+
+7. assenza di controlli numerici;
+
+8. interpretazione errata dei valori marginali;
+
+9. confusione tra sensitività e scenario analysis;
+
+10. uso di $\theta_{\mathrm{crit}}$ come dato fornito anziché come quantità da determinare;
+
+11. notebook non riproducibile;
+
+12. delega all'IA dell'intera soluzione o dell'interpretazione finale.
+
+### 13.6 Qualità attesa dell'interpretazione finale
+
+L'interpretazione finale dello studente deve:
+
+1. basarsi su risultati numericamente validati;
+
+2. collegare il valore ottimo alla composizione dell'attivo, alle giacenze e al funding;
+
+3. discutere quali vincoli risultino economicamente rilevanti;
+
+4. distinguere effetti locali e cambiamenti di regime;
+
+5. discutere la perdita di fattibilità rispetto a $\theta$;
+
+6. confrontare le tre sensitività senza confonderne il significato economico;
+
+7. confrontare gli scenari assegnati;
+
+8. richiamare i limiti del modello;
+
+9. evitare inferenze storiche non giustificate dai dati stilizzati.
+
+La qualità dell'interpretazione deve essere valutata sulla coerenza con gli output e con i limiti dichiarati, non sulla lunghezza del commento.
+
+## 14. Rubrica sintetica
+
+Per il Caso Aula la valutazione deve riflettere la funzione didattica guidata dell'esercizio.
+
+La rubrica assume come riferimento una valutazione complessiva su 100 punti.
+
+| Area | Peso | Criteri principali |
+|---|---:|---|
+| Formulazione del modello e forma solver | 20 | corretta traduzione del modello ALM; ordinamento delle variabili; costruzione di funzione obiettivo, uguaglianze, disuguaglianze e bounds; coerenza dimensionale |
+| Soluzione benchmark e diagnostica | 15 | correttezza della soluzione benchmark; residuali; slack; bounds attivi; rispetto dei vincoli; corretta ricostruzione di $\Pi^*$ |
+| Valori marginali e controlli teorico-numerici | 10 | corretta associazione dei marginali ai vincoli; gestione del passaggio massimo/minimo; verifica numerica di almeno un marginale; interpretazione locale |
+| Sensitività univariate | 15 | corretta parametrizzazione di $\theta$, $\phi$ e $\psi$; variazione di un solo parametro alla volta; qualità di tabelle e grafici; gestione della fattibilità |
+| Frontiera di fattibilità rispetto a $\theta$ | 10 | corretta identificazione dell'ultimo valore ammissibile e del primo non ammissibile; raffinamento dell'intervallo; corretta interpretazione di $\theta_{\mathrm{crit}}$ |
+| Scenario analysis | 10 | corretta implementazione di Standard, Mediamente critico e Critico; confronto tra soluzioni; perdita di valore; coerenza con i vincoli attivi |
+| Notebook e riproducibilità | 10 | struttura lineare; eseguibilità dall'inizio alla fine; assenza di valori inseriti manualmente; coerenza tra celle Markdown, codice e output |
+| Uso documentato dell'IA | 5 | corretto uso di Prompt zero, Prompt 1, Prompt 2, Prompt 3 e prompt di tappa; distinzione tra Regime A e B; capacità di validare le risposte IA; eventuale uso appropriato del Regime C |
+| Interpretazione finanziaria finale | 5 | coerenza con gli output; collegamento tra soluzione, funding, liquidità e vincoli; consapevolezza dei limiti del modello |
+
+**Totale: 100 punti.**
+
+### 14.1 Criteri trasversali
+
+Indipendentemente dall'area della rubrica, devono essere considerati criteri trasversali:
+
+1. fedeltà alla Scheda Caso;
+
+2. correttezza matematica;
+
+3. coerenza tra formulazione teorica e implementazione computazionale;
+
+4. qualità dei controlli;
+
+5. uso esclusivo di risultati solver validi;
+
+6. chiarezza nella distinzione tra:
+   - benchmark;
+   - sensitività;
+   - frontiera di fattibilità;
+   - scenario analysis;
+
+7. riproducibilità;
+
+8. coerenza tra risultati numerici, tabelle, grafici e interpretazione.
+
+### 14.2 Errori sostanziali
+
+Sono considerati errori sostanziali, tali da incidere significativamente sulla valutazione:
+
+1. modifica non autorizzata del modello;
+
+2. errore nella costruzione dei bilanci temporali;
+
+3. omissione del rimborso del funding;
+
+4. errata trasformazione della funzione obiettivo per il solver;
+
+5. errata applicazione di $\theta$, $\phi$ o $\psi$;
+
+6. utilizzo di `res.x` in configurazioni non ammissibili;
+
+7. mancata verifica dei vincoli;
+
+8. mancata distinzione tra slack e bounds attivi;
+
+9. interpretazione dei marginali senza controllo della convenzione massimo/minimo;
+
+10. confusione tra sensitività univariata e scenario analysis;
+
+11. utilizzo di $\theta_{\mathrm{crit}}$ come dato anziché come quantità da determinare;
+
+12. notebook non riproducibile;
+
+13. produzione di output non coerenti con la Scheda Caso;
+
+14. interpretazione storica dei parametri stilizzati.
+
+### 14.3 Uso dell'IA nella valutazione
+
+L'uso dell'IA non viene valutato in base al numero di prompt utilizzati.
+
+La valutazione riguarda invece:
+
+1. qualità del contributo iniziale dello studente;
+
+2. coerenza dei prompt con la tappa;
+
+3. capacità di utilizzare correttamente il Regime A e il Regime B;
+
+4. capacità di verificare le risposte dell'IA;
+
+5. capacità di correggere o rifiutare risposte incoerenti;
+
+6. assenza di delega all'IA delle decisioni modellistiche già fissate;
+
+7. coerenza tra tracciato IA e notebook finale.
+
+L'eventuale assenza di un Prompt in Regime C non comporta penalizzazione.
+
+Un Prompt C è valutato soltanto quando è stato effettivamente attivato e deve essere giudicato sulla qualità della criticità formulata e della successiva verifica.
+
+### 14.4 Interpretazione del punteggio
+
+La rubrica non deve essere applicata in modo puramente meccanico.
+
+In particolare:
+
+- una soluzione numericamente corretta ma priva di controlli non può ottenere una valutazione elevata;
+
+- un notebook formalmente completo ma non riproducibile deve essere penalizzato;
+
+- grafici e tabelle corretti ma non collegati all'interpretazione non compensano errori nella formulazione del modello;
+
+- un uso esteso dell'IA non costituisce elemento premiante di per sé;
+
+- la qualità del lavoro dipende dalla capacità di collegare:
+
+$$
+\text{modello}
+\longrightarrow
+\text{solver}
+\longrightarrow
+\text{output}
+\longrightarrow
+\text{controlli}
+\longrightarrow
+\text{interpretazione}.
+$$
+
+## 15. Esito atteso e calibrazione qualitativa del caso
+
+### 15.1 Esito atteso
+
+Se il caso è correttamente costruito e risolto, deve emergere in modo osservabile che la programmazione lineare consente di collegare:
+
+$$
+\text{struttura dell'attivo}
+\longrightarrow
+\text{profilo temporale della liquidità}
+\longrightarrow
+\text{uso del funding}
+\longrightarrow
+\text{vincoli attivi}
+\longrightarrow
+\text{valore ottimo}.
+$$
+
+Lo studente deve poter osservare che il problema ALM non è determinato soltanto dall'ammontare complessivo delle risorse disponibili, ma dalla loro collocazione temporale e dalla capacità di adattare la composizione del portafoglio ai fabbisogni previsti.
+
+Il caso deve inoltre rendere evidente la differenza tra:
+
+1. soluzione benchmark;
+2. sensitività univariata;
+3. stress test di fattibilità;
+4. scenario analysis con variazione congiunta dei driver.
+
+### 15.2 Relazioni qualitative attese
+
+Gli output devono rendere osservabili almeno le seguenti relazioni.
+
+1. Un aumento di $\theta$ deve aumentare la pressione sui bilanci di liquidità delle prime due date e richiedere una ricomposizione del piano ALM.
+
+2. La ricomposizione può interessare:
+   - asset allocation;
+   - giacenze;
+   - ricorso al funding;
+   - insieme dei vincoli e dei bounds attivi.
+
+3. Il valore ottimo:
+
+$$
+\Pi^*
+$$
+
+deve riflettere il costo economico dell'adattamento a condizioni di liquidità più stringenti.
+
+4. Una riduzione di $\phi$ deve rendere più scarsa la capacità disponibile di funding e può modificare la politica ottima anche quando il funding effettivamente utilizzato non coincide con la capacità massima.
+
+5. Un aumento di $\psi$ deve rendere il funding economicamente meno conveniente e deve essere leggibile sia nella funzione obiettivo sia nella dinamica dei rimborsi.
+
+6. I cambiamenti della soluzione non devono essere interpretati separatamente dai cambiamenti dei vincoli e dei bounds attivi.
+
+7. I valori marginali devono risultare informativi localmente, ma non devono essere utilizzati meccanicamente oltre il regime nel quale la struttura della soluzione resta invariata.
+
+8. L'aumento di $\theta$ deve condurre, oltre una certa regione, alla perdita di fattibilità del problema.
+
+9. La frontiera di fattibilità deve emergere come proprietà del modello e non come parametro assegnato.
+
+10. Gli scenari congiunti devono produrre una lettura diversa da quella ottenuta modificando un solo parametro alla volta.
+
+### 15.3 Funzione didattica degli output
+
+Gli output devono rendere operativamente osservabili i seguenti concetti.
+
+1. **Forma solver del programma lineare**
+
+   Lo studente deve vedere come una formulazione economico-finanziaria venga tradotta in:
+
+$$
+c,
+\qquad
+A_{\mathrm{eq}},
+\qquad
+b_{\mathrm{eq}},
+\qquad
+A_{\mathrm{ub}},
+\qquad
+b_{\mathrm{ub}},
+\qquad
+\text{bounds}.
+$$
+
+2. **Fattibilità**
+
+   Lo stato del solver e i residuali devono rendere evidente la distinzione tra una soluzione ottima valida e una configurazione non ammissibile.
+
+3. **Vincoli attivi e slack**
+
+   Le tabelle diagnostiche devono mostrare quali restrizioni incidono effettivamente sul piano ottimo.
+
+4. **Bounds attivi**
+
+   Deve risultare osservabile che anche i bounds sulle variabili possono essere economicamente rilevanti e devono essere distinti dalle disuguaglianze esplicite.
+
+5. **Valori marginali**
+
+   I marginali devono collegare i vincoli del problema alla variazione locale del valore ottimo.
+
+6. **Comparative statics**
+
+   Le sensitività devono mostrare come una stessa struttura ottimizzativa reagisca quando cambia un parametro assegnato.
+
+7. **Cambiamenti di regime**
+
+   I cambiamenti di pendenza, soluzione o vincoli attivi devono rendere evidente la natura piecewise-linear della risposta del programma lineare.
+
+8. **Frontiera di fattibilità**
+
+   La sensitività rispetto a $\theta$ deve mostrare che l'insieme ammissibile può scomparire quando i fabbisogni superano la capacità del sistema di soddisfarli.
+
+9. **Scenario analysis**
+
+   Gli scenari devono mostrare l'effetto combinato di più driver senza introdurre un'interpretazione probabilistica.
+
+### 15.4 Relazioni che non devono essere imposte artificialmente
+
+La calibrazione non deve imporre a priori:
+
+1. monotonicità perfettamente regolare di tutte le variabili decisionali;
+
+2. variazioni lineari della soluzione lungo le griglie;
+
+3. identità dei vincoli attivi in tutte le configurazioni;
+
+4. saturazione permanente della capacità di funding;
+
+5. utilizzo positivo del funding in ogni configurazione;
+
+6. un ordine fisso delle componenti dell'asset allocation;
+
+7. un determinato marginale come economicamente dominante in tutte le configurazioni;
+
+8. differenze artificialmente elevate tra gli scenari.
+
+Le proprietà devono emergere dal modello e dalla calibrazione, non essere incorporate forzatamente negli output.
+
+### 15.5 Possibili segnali di cattiva calibrazione
+
+Costituiscono segnali di possibile cattiva calibrazione:
+
+1. benchmark non ammissibile;
+
+2. benchmark dominato da soluzioni degeneri prive di contenuto economico;
+
+3. residuali incompatibili con la tolleranza numerica adottata;
+
+4. sensitività a $\theta$ quasi priva di effetti sulla soluzione;
+
+5. sensitività a $\phi$ completamente irrilevante su tutta la griglia;
+
+6. sensitività a $\psi$ priva di effetti osservabili sul funding o sul valore ottimo;
+
+7. assenza di qualsiasi cambiamento nei vincoli o nei bounds attivi lungo le griglie;
+
+8. perdita di fattibilità già al benchmark;
+
+9. perdita di fattibilità fuori dall'intervallo previsto dalla griglia di $\theta$;
+
+10. impossibilità di individuare un intervallo utile per il raffinamento di $\theta_{\mathrm{crit}}$;
+
+11. scenari Mediamente critico e Critico quasi indistinguibili dallo Standard;
+
+12. scenario Critico non interpretabile perché eccessivamente distante dal benchmark;
+
+13. risultati dominati da artefatti numerici;
+
+14. grafici sostanzialmente piatti o privi di contenuto informativo;
+
+15. output così complessi da impedire una lettura chiara dei principali meccanismi del modello.
+
+### 15.6 Criterio qualitativo finale
+
+La calibrazione è considerata soddisfacente se il caso consente allo studente di osservare con chiarezza che:
+
+$$
+\text{una variazione dei parametri}
+\not\Rightarrow
+\text{solo una variazione di } \Pi^*,
+$$
+
+ma può determinare anche:
+
+$$
+\text{ricomposizione dell'attivo},
+\qquad
+\text{variazione delle giacenze},
+\qquad
+\text{variazione del funding},
+$$
+
+$$
+\text{cambiamento dei vincoli attivi},
+\qquad
+\text{variazione dei valori marginali},
+\qquad
+\text{perdita di fattibilità}.
+$$
+
+Il caso deve quindi risultare:
+
+1. numericamente stabile;
+2. non banale;
+3. economicamente interpretabile;
+4. coerente con i Capitoli 11 e 12;
+5. coerente con la funzione computazionale della Lezione 13;
+6. sufficientemente ricco da motivare sensitività, frontiera di fattibilità e scenario analysis;
+7. sufficientemente delimitato da non anticipare i contenuti stocastici delle lezioni successive.
+
+## 16. Relazione con l'altro caso della lezione
+
+Il Caso Aula Silicon Valley Bank e il Caso TakeHome First Republic Bank devono essere metodologicamente comparabili, ma non devono ridursi a una semplice variazione parametrica dello stesso problema.
+
+La relazione fra i due casi deve mostrare continuità degli strumenti quantitativi e differenza della struttura economico-finanziaria.
+
+### 16.1 Concetti teorici comuni
+
+I due casi consolidano i seguenti concetti:
+
+1. formulazione di un problema di programmazione lineare;
+
+2. distinzione tra:
+   - funzione obiettivo;
+   - uguaglianze;
+   - disuguaglianze;
+   - bounds;
+
+3. rappresentazione temporale dei cash flow degli attivi;
+
+4. bilanci di liquidità multiperiodali;
+
+5. utilizzo di giacenze trasferite tra date successive;
+
+6. utilizzo di funding esterno e relativo rimborso;
+
+7. fattibilità del piano ALM;
+
+8. residuali dei vincoli di uguaglianza;
+
+9. slack dei vincoli di disuguaglianza;
+
+10. vincoli e bounds attivi;
+
+11. valori marginali e loro interpretazione locale;
+
+12. sensitività parametrica;
+
+13. cambiamenti della soluzione ottima al variare dei parametri;
+
+14. scenario analysis deterministica;
+
+15. distinzione tra risultati del modello e interpretazione del caso storico.
+
+### 16.2 Strumenti computazionali comuni
+
+Entrambi i casi utilizzano:
+
+1. Python in ambiente Jupyter / VS Code;
+
+2. `scipy.optimize.linprog`;
+
+3. costruzione esplicita di:
+   - vettore della funzione obiettivo;
+   - $A_{\mathrm{eq}}$;
+   - $b_{\mathrm{eq}}$;
+   - $A_{\mathrm{ub}}$;
+   - $b_{\mathrm{ub}}$;
+   - bounds;
+
+4. funzioni solver parametrizzate;
+
+5. DataFrame per organizzare le analisi di sensitività;
+
+6. grafici prodotti a partire dagli output del solver;
+
+7. controlli numerici su residuali, slack e bounds;
+
+8. lettura dei valori marginali restituiti dal solver;
+
+9. verifica dello stato del solver prima dell'utilizzo dei risultati;
+
+10. riesecuzione sequenziale e riproducibile del notebook.
+
+### 16.3 Output comparabili
+
+I due casi devono produrre tipologie di output comparabili:
+
+1. soluzione benchmark;
+
+2. valore ottimo;
+
+3. composizione ottima dell'attivo;
+
+4. giacenze di liquidità;
+
+5. funding utilizzato;
+
+6. residuali;
+
+7. slack;
+
+8. vincoli e bounds attivi;
+
+9. valori marginali economicamente informativi;
+
+10. sensitività univariate;
+
+11. stato di fattibilità lungo le griglie;
+
+12. tabelle comparative;
+
+13. grafici della soluzione parametrica;
+
+14. scenario analysis con configurazioni congiunte;
+
+15. interpretazione economico-finanziaria finale.
+
+La comparabilità riguarda la funzione metodologica degli output, non l'identità del loro contenuto numerico.
+
+### 16.4 Controlli comparabili
+
+Entrambi i casi devono prevedere:
+
+1. controllo dimensionale di vettori e matrici;
+
+2. verifica della trasformazione massimo/minimo;
+
+3. verifica indipendente dei bilanci temporali;
+
+4. controllo dei vincoli di portafoglio;
+
+5. controllo dei bounds del funding;
+
+6. controllo della non negatività;
+
+7. verifica della coerenza tra slack e stato attivo / non attivo;
+
+8. verifica dei bounds attivi;
+
+9. verifica numerica di almeno un valore marginale;
+
+10. controllo della funzione parametrica nel benchmark;
+
+11. verifica che nelle sensitività univariate vari un solo parametro alla volta;
+
+12. esclusione delle configurazioni non ammissibili dall'interpretazione economica;
+
+13. produzione di grafici e tabelle esclusivamente da risultati solver validi;
+
+14. controllo conclusivo di riproducibilità.
+
+### 16.5 Elementi metodologici comuni
+
+La struttura metodologica deve restare comune:
+
+$$
+\text{Scheda Caso}
+\longrightarrow
+\text{Flusso logico-teorico}
+\longrightarrow
+\text{tappe}
+\longrightarrow
+\text{notebook}
+$$
+
+$$
+\longrightarrow
+\text{output}
+\longrightarrow
+\text{controlli}
+\longrightarrow
+\text{interpretazione finale}.
+$$
+
+Anche il protocollo IA deve essere comparabile:
+
+$$
+\text{Prompt zero}
+\longrightarrow
+\text{Prompt 1}
+\longrightarrow
+\text{Prompt 2}
+\longrightarrow
+\text{Prompt 3}
+\longrightarrow
+\text{prompt di tappa}.
+$$
+
+L'eventuale Regime C resta subordinato, in entrambi i casi, all'individuazione di una criticità specifica da parte dello studente.
+
+### 16.6 Elementi distintivi del Caso TakeHome rispetto al Caso Aula
+
+Il Caso TakeHome deve essere autonomo rispetto al Caso Aula almeno nelle seguenti dimensioni.
+
+#### Numero e composizione delle classi di attivo
+
+Nel Caso Aula SVB:
+
+- quattro classi di attivo.
+
+Nel Caso TakeHome First Republic:
+
+- cinque classi di attivo;
+- maggiore peso di attività creditizie a lunga durata.
+
+#### Struttura dei fabbisogni
+
+Nel Caso Aula lo stress principale riguarda l'aumento dei fabbisogni delle prime due date attraverso:
+
+$$
+\theta.
+$$
+
+Nel Caso TakeHome sono presenti due ondate distinte:
+
+- prima data, governata da $\alpha$;
+- quarta data, governata da $\beta$.
+
+#### Struttura dei vincoli
+
+Nel Caso Aula compare il limite:
+
+$$
+x_3\leq30.
+$$
+
+Nel Caso TakeHome compare invece il vincolo strutturale:
+
+$$
+x_3+x_4\geq35,
+$$
+
+oltre al limite:
+
+$$
+x_5\leq35.
+$$
+
+Il vincolo legacy introduce una rigidità che non è presente nel Caso Aula e richiede una traduzione specifica nella forma solver.
+
+#### Driver parametrici
+
+Nel Caso Aula:
+
+$$
+(\theta,\phi,\psi)
+$$
+
+consentono di analizzare:
+
+1. fabbisogno;
+2. capacità di funding;
+3. costo del funding.
+
+Nel Caso TakeHome:
+
+$$
+(\alpha,\beta,\phi)
+$$
+
+consentono di analizzare:
+
+1. prima ondata di deflussi;
+2. seconda ondata di deflussi;
+3. capacità di funding.
+
+Il costo del funding resta invariato nel TakeHome.
+
+#### Linea interpretativa
+
+Nel Caso Aula la linea interpretativa principale è:
 
 $$
 \text{implementare}
@@ -924,12 +3116,10 @@ $$
 \longrightarrow
 \text{parametrizzare}
 \longrightarrow
-\text{analizzare}
-\longrightarrow
-\text{interpretare}.
+\text{analizzare}.
 $$
 
-Il Caso TakeHome First Republic deve invece richiedere:
+Nel Caso TakeHome deve prevalere:
 
 $$
 \text{riconoscere}
@@ -939,13 +3129,95 @@ $$
 \text{trasferire il metodo}.
 $$
 
-La diversità dovrà riguardare almeno una dimensione strutturale fra:
+### 16.7 Differenza della responsabilità didattica
 
-- profilo temporale dei cash flow degli attivi;
-- struttura dei fabbisogni;
-- accesso al funding;
-- distribuzione temporale della scarsità.
+Nel Caso Aula il docente:
 
-Il Caso TakeHome non deve trasformarsi in una semplice replica delle tre griglie di SVB con coefficienti differenti.
+1. guida la lettura del problema;
 
-La comparabilità deve riguardare il metodo di programmazione lineare e ALM; la differenza deve riguardare il problema finanziario che il metodo è chiamato a risolvere.
+2. governa il ritmo delle tappe;
+
+3. discute gli errori più rilevanti;
+
+4. seleziona gli output da interpretare;
+
+5. sostiene la verifica del collegamento con i Capitoli 11 e 12.
+
+Lo studente deve comunque:
+
+1. contribuire al Flusso logico-teorico;
+
+2. contribuire alla scomposizione in tappe;
+
+3. validare le risposte IA;
+
+4. eseguire i controlli;
+
+5. interpretare gli output.
+
+Nel Caso TakeHome aumenta invece la responsabilità dello studente nella:
+
+1. riformulazione autonoma del nuovo problema;
+
+2. costruzione del nuovo benchmark;
+
+3. gestione del vincolo legacy;
+
+4. distinzione fra prima e seconda ondata;
+
+5. verifica della corretta trasposizione del metodo appreso in aula.
+
+### 16.8 Ruolo dell'IA nei due casi
+
+L'IA può assistere entrambi i casi nella traduzione computazionale e nei controlli.
+
+Non deve però:
+
+1. trasformare automaticamente il Caso Aula nel TakeHome mediante semplice sostituzione dei coefficienti;
+
+2. decidere autonomamente come modificare il modello;
+
+3. eliminare o modificare il vincolo legacy;
+
+4. costruire il TakeHome come replica meccanica delle analisi di SVB.
+
+Nel Caso TakeHome deve risultare particolarmente evidente la capacità dello studente di riconoscere:
+
+- quali elementi metodologici sono trasferibili;
+- quali elementi devono invece essere riformulati.
+
+### 16.9 Criterio conclusivo di comparabilità
+
+La coppia di casi è considerata ben costruita se:
+
+$$
+\text{metodo comune}
+\qquad\text{e}\qquad
+\text{problema finanziario differente}
+$$
+
+sono entrambi chiaramente riconoscibili.
+
+Il Caso TakeHome non deve apparire come:
+
+$$
+\text{Caso Aula}
++
+\text{nuovi coefficienti}.
+$$
+
+Deve invece rappresentare un'applicazione autonoma dello stesso quadro quantitativo a una diversa struttura ALM.
+
+La relazione didattica finale deve essere:
+
+$$
+\text{Caso Aula SVB:}
+\quad
+\text{apprendere e consolidare il metodo},
+$$
+
+$$
+\text{Caso TakeHome First Republic:}
+\quad
+\text{trasferire autonomamente il metodo}.
+$$
