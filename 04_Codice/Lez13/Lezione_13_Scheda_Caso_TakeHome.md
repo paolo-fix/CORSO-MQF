@@ -565,22 +565,28 @@ $$
 
 Gli output devono essere prodotti esclusivamente a partire da configurazioni per le quali il solver restituisce una soluzione valida.
 
-Devono essere coerenti con le quantità definite nelle sezioni precedenti e devono consentire di distinguere chiaramente:
+Devono consentire di distinguere chiaramente:
 
-- soluzione benchmark;
-- sensitività univariate;
-- confronto tra prima e seconda ondata;
-- scenario analysis;
-- controlli sul vincolo legacy.
+1. soluzione benchmark;
+2. diagnostica della soluzione;
+3. sensitività univariate;
+4. confronto tra prima e seconda ondata;
+5. scenario analysis;
+6. ruolo del vincolo legacy.
 
-### 6.1 Risultati numerici richiesti
+### 6.1 Risultati numerici
 
-Devono essere riportati almeno i seguenti risultati:
+Devono essere riportati almeno:
 
 1. soluzione ottima benchmark:
-   - $x^*$;
-   - $g^*$;
-   - $u^*$;
+
+$$
+x^*,
+\qquad
+g^*,
+\qquad
+u^*;
+$$
 
 2. valore ottimo benchmark:
 
@@ -596,7 +602,7 @@ $$
 
 6. principali valori marginali restituiti dal solver;
 
-7. risultati delle sensitività univariate rispetto a:
+7. risultati delle sensitività rispetto a:
 
 $$
 \alpha,
@@ -606,35 +612,19 @@ $$
 \phi;
 $$
 
-8. variazioni del valore ottimo rispetto al benchmark:
+8. variazioni rispetto al benchmark:
 
 $$
-\Delta\Pi^*(p)
-=
-\Pi^*(p)-\Pi^*(1);
+\Delta\Pi^*(p),
+\qquad
+\Delta x_j^*(p),
+\qquad
+\Delta g_t^*(p),
+\qquad
+\Delta u_t^*(p);
 $$
 
-9. variazioni delle componenti della soluzione:
-
-$$
-\Delta x_j^*(p)
-=
-x_j^*(p)-x_j^*(1),
-$$
-
-$$
-\Delta g_t^*(p)
-=
-g_t^*(p)-g_t^*(1),
-$$
-
-$$
-\Delta u_t^*(p)
-=
-u_t^*(p)-u_t^*(1);
-$$
-
-10. rapporto di utilizzo della capacità di funding:
+9. rapporti di utilizzo della capacità di funding:
 
 $$
 \rho_t^u(p)
@@ -642,21 +632,21 @@ $$
 \frac{u_t^*(p)}{\bar u_t(p)};
 $$
 
-11. stato di fattibilità per ciascuna configurazione parametrica;
+10. stato di fattibilità per ciascuna configurazione parametrica;
 
-12. principali vincoli e bounds attivi nelle diverse configurazioni;
+11. principali vincoli e bounds attivi;
 
-13. comportamento del vincolo:
+12. confronto tra gli effetti di uno shock alla prima data e alla data terminale;
+
+13. comportamento del vincolo legacy:
 
 $$
 x_3+x_4\geq35;
 $$
 
-14. confronto degli effetti prodotti da uno shock alla prima data e da uno shock alla data terminale;
+14. risultati dei tre scenari assegnati;
 
-15. soluzioni ottime nei tre scenari assegnati;
-
-16. perdita di valore degli scenari Mediamente critico e Critico rispetto allo scenario Standard:
+15. perdita di valore degli scenari Mediamente critico e Critico rispetto allo Standard:
 
 $$
 L_s
@@ -666,104 +656,25 @@ L_s
 \Pi_s^*.
 $$
 
-### 6.2 Tabelle richieste
+### 6.2 Tabelle
 
-Devono essere prodotte le seguenti tabelle.
+Devono essere prodotte le seguenti tabelle:
 
-#### Tabella 1 — Benchmark e diagnostica
+1. **Benchmark e diagnostica**;
 
-Deve riportare almeno:
+2. **Sensitività ad $\alpha$**;
 
-- $x^*$;
-- $g^*$;
-- $u^*$;
-- $\Pi^*$;
-- residuali dei bilanci temporali;
-- slack dei principali vincoli;
-- bounds attivi;
-- principali valori marginali;
-- stato attivo / non attivo dei vincoli economicamente rilevanti.
+3. **Sensitività a $\beta$**;
 
-#### Tabella 2 — Sensitività ad $\alpha$
+4. **Sensitività a $\phi$**;
 
-Per ciascun valore della griglia deve riportare almeno:
+5. **Confronto degli scenari**;
 
-- $\alpha$;
-- stato del solver;
-- fattibilità;
-- $\Pi^*$;
-- $\Delta\Pi^*$;
-- $x^*$;
-- $g^*$;
-- $u^*$;
-- principali vincoli attivi;
-- valori marginali economicamente informativi.
+6. **Controllo del vincolo legacy**.
 
-#### Tabella 3 — Sensitività a $\beta$
+Le tabelle devono contenere le quantità necessarie a rappresentare gli output definiti nella Sezione 5 e i controlli richiesti nella Sezione 7.
 
-Deve avere struttura analoga alla Tabella 2, sostituendo $\alpha$ con $\beta$.
-
-#### Tabella 4 — Sensitività a $\phi$
-
-Per ciascun valore della griglia deve riportare almeno:
-
-- $\phi$;
-- stato del solver;
-- fattibilità;
-- $\Pi^*$;
-- $\Delta\Pi^*$;
-- $x^*$;
-- $g^*$;
-- $u^*$;
-- rapporti di utilizzo:
-
-$$
-\rho_t^u(\phi)
-=
-\frac{u_t^*(\phi)}
-{\phi\bar u_t};
-$$
-
-- principali vincoli attivi;
-- valori marginali economicamente informativi.
-
-#### Tabella 5 — Confronto degli scenari
-
-Deve confrontare Standard, Mediamente critico e Critico riportando almeno:
-
-- $\alpha$;
-- $\beta$;
-- $\phi$;
-- fattibilità;
-- $\Pi^*$;
-- perdita rispetto allo Standard;
-- $x^*$;
-- $g^*$;
-- $u^*$;
-- principali vincoli attivi;
-- utilizzo relativo della capacità di funding.
-
-#### Tabella 6 — Controllo del vincolo legacy
-
-Deve riportare, almeno per il benchmark e per le configurazioni nelle quali il vincolo risulta economicamente informativo:
-
-- valore di:
-
-$$
-x_3^*+x_4^*;
-$$
-
-- distanza dal limite:
-
-$$
-35;
-$$
-
-- stato attivo / non attivo;
-- marginale restituito dal solver per la disuguaglianza codificata;
-- verifica perturbativa del relativo significato economico, quando il vincolo è attivo.
-
-La forma economica:
+Per il vincolo legacy deve essere resa osservabile la distinzione tra:
 
 $$
 x_3+x_4\geq L,
@@ -771,7 +682,7 @@ x_3+x_4\geq L,
 L=35,
 $$
 
-deve essere distinta dalla forma solver:
+e la forma solver:
 
 $$
 -x_3-x_4\leq b,
@@ -815,132 +726,59 @@ $$
 
 si compensano.
 
-### 6.3 Grafici richiesti
+### 6.3 Grafici
 
-Devono essere prodotti i seguenti grafici.
+Devono essere prodotti i seguenti grafici:
 
-#### Figura 1 — Valore ottimo al variare di $\alpha$
+1. valore ottimo al variare di $\alpha$;
 
-Rappresentare:
+2. valore ottimo al variare di $\beta$;
 
-$$
-\alpha
-\longmapsto
-\Pi^*(\alpha).
-$$
+3. valore ottimo al variare di $\phi$;
 
-Devono essere riportate esclusivamente configurazioni ammissibili.
+4. composizione ottima dell'attivo lungo almeno una sensitività informativa;
 
-#### Figura 2 — Valore ottimo al variare di $\beta$
+5. utilizzo della capacità di funding lungo la sensitività rispetto a $\phi$;
 
-Rappresentare:
+6. confronto diretto tra gli effetti delle variazioni di $\alpha$ e $\beta$.
 
-$$
-\beta
-\longmapsto
-\Pi^*(\beta).
-$$
+I grafici devono utilizzare esclusivamente configurazioni ammissibili.
 
-Devono essere riportate esclusivamente configurazioni ammissibili.
+### 6.4 Regole di produzione
 
-#### Figura 3 — Valore ottimo e capacità di funding
+1. Tabelle e grafici devono essere generati direttamente dagli oggetti prodotti nel notebook.
 
-Rappresentare:
+2. Non devono essere utilizzati o interpretati valori della soluzione quando il solver segnala una configurazione non ammissibile.
 
-$$
-\phi
-\longmapsto
-\Pi^*(\phi)
-$$
+3. Le configurazioni ammissibili e non ammissibili devono essere distinte chiaramente.
 
-e, quando informativo, il comportamento dell'utilizzo relativo della capacità di funding.
+4. Non devono essere inseriti manualmente nelle celle successive valori numerici prodotti in precedenza dal solver.
 
-#### Figura 4 — Composizione ottima dell'attivo
+5. I punti separati da configurazioni non ammissibili non devono essere collegati graficamente come se appartenessero a una relazione continua.
 
-Per almeno una delle sensitività più informative devono essere rappresentate:
+6. Gli output devono essere rigenerabili mediante riesecuzione ordinata del notebook.
 
-$$
-x_1^*(p),\ldots,x_5^*(p).
-$$
+7. Non devono essere previste esportazioni automatiche in file esterni, salvo indicazione esplicita del docente.
 
-#### Figura 5 — Utilizzo della capacità di funding
+### 6.5 Funzione interpretativa
 
-Lungo la sensitività rispetto a $\phi$ devono essere rappresentati i rapporti:
-
-$$
-\rho_t^u(\phi)
-=
-\frac{u_t^*(\phi)}
-{\phi\bar u_t},
-\qquad
-t=1,2,3.
-$$
-
-#### Figura 6 — Confronto tra prima e seconda ondata
-
-Deve confrontare direttamente gli effetti delle variazioni di $\alpha$ e $\beta$.
-
-Il confronto deve riguardare almeno:
-
-$$
-\Pi^*
-$$
-
-e, quando informativo, una o più componenti di:
-
-$$
-x^*,
-\qquad
-g^*,
-\qquad
-u^*.
-$$
-
-### 6.4 Regole per la produzione degli output
-
-Gli output devono rispettare le seguenti regole:
-
-1. utilizzare esclusivamente risultati provenienti da esecuzioni valide del solver;
-
-2. non interpretare `res.x` quando il solver segnala una configurazione non ammissibile;
-
-3. distinguere chiaramente configurazioni ammissibili e non ammissibili;
-
-4. generare tabelle e grafici direttamente dagli oggetti prodotti dal notebook;
-
-5. evitare l'inserimento manuale di valori numerici nelle celle successive;
-
-6. utilizzare titoli ed etichette che rendano identificabili parametro, variabile e scenario;
-
-7. non collegare graficamente come se fossero continui punti separati da configurazioni non ammissibili;
-
-8. mantenere coerenti notazione matematica e nomi delle variabili computazionali;
-
-9. rendere tutti gli output rigenerabili mediante riesecuzione ordinata del notebook;
-
-10. non esportare automaticamente grafici o tabelle in file esterni, salvo indicazione esplicita del docente.
-
-### 6.5 Funzione interpretativa degli output
-
-Gli output devono consentire allo studente di discutere:
+Gli output devono consentire di discutere:
 
 1. come cambia il piano ALM al variare del fabbisogno della prima data;
 
-2. come cambia il piano ALM al variare del fabbisogno della quarta data;
+2. come cambia il piano ALM al variare del fabbisogno terminale;
 
-3. perché gli effetti di $\alpha$ e $\beta$ possano differire;
+3. perché shock relativi analoghi nelle due date possano produrre effetti differenti;
 
 4. come la capacità di funding influenzi la soluzione;
 
 5. quale ruolo svolga il vincolo legacy;
 
-6. come cambino composizione dell'attivo, giacenze, funding e valore ottimo;
+6. quali vincoli e bounds diventino economicamente rilevanti;
 
-7. quali vincoli e bounds diventino economicamente rilevanti;
+7. come differiscano Standard, Mediamente critico e Critico;
 
-8. come differiscano Standard, Mediamente critico e Critico;
-
-9. quali conclusioni dipendano dalla struttura del modello stilizzato e non possano essere trasferite direttamente al caso storico di First Republic Bank.
+8. quali conclusioni dipendano dalla struttura del modello stilizzato.
 
 L'interpretazione finale deve basarsi esclusivamente su risultati numericamente validati.
 
@@ -954,87 +792,51 @@ I controlli devono verificare separatamente:
 2. coerenza logico-teorica del modello;
 3. correttezza della traduzione computazionale.
 
-L'interpretazione finanziaria finale deve utilizzare esclusivamente risultati che abbiano superato tali controlli.
+L'interpretazione finale deve utilizzare esclusivamente risultati che abbiano superato tali controlli.
 
 ### 7.1 Controlli numerici
 
 1. Il benchmark deve restituire uno stato di ottimizzazione valido.
 
-2. Tutti i bilanci temporali di liquidità devono essere verificati indipendentemente mediante residuali numerici.
+2. I bilanci temporali devono essere verificati mediante residuali numerici prossimi a zero entro una tolleranza dichiarata.
 
-3. I residuali dei vincoli di uguaglianza devono essere prossimi a zero entro una tolleranza numerica dichiarata.
-
-4. Deve essere verificato indipendentemente il vincolo prudenziale:
+3. Devono essere verificati:
 
 $$
-\ell'x^*\leq7.5.
+\ell'x^*\leq7.5,
 $$
 
-5. Deve essere verificato indipendentemente il vincolo legacy:
-
 $$
-x_3^*+x_4^*\geq35.
+x_3^*+x_4^*\geq35,
 $$
 
-6. Deve essere verificato indipendentemente il limite sugli altri prestiti:
-
 $$
-x_5^*\leq35.
+x_5^*\leq35,
 $$
-
-7. Per ciascuna data deve essere verificato il rispetto dei bounds del funding:
 
 $$
 0\leq u_t^*\leq\phi\bar u_t,
 \qquad
-t=1,2,3.
+t=1,2,3,
 $$
 
-8. Deve essere verificata la non negatività di tutte le variabili:
+e la non negatività di tutte le variabili.
 
-$$
-x_j^*\geq0,
-\qquad
-j=1,\ldots,5,
-$$
+4. La classificazione dei vincoli come attivi o non attivi deve essere coerente con i relativi slack.
 
-$$
-g_t^*\geq0,
-\qquad
-t=1,\ldots,4,
-$$
+5. I bounds attivi devono essere identificati verificando la distanza della variabile dal relativo lower bound o upper bound.
 
-$$
-u_t^*\geq0,
-\qquad
-t=1,2,3.
-$$
+6. Almeno un valore marginale deve essere verificato mediante una piccola perturbazione del termine noto o del limite cui esso si riferisce.
 
-9. La classificazione dei vincoli di disuguaglianza come attivi o non attivi deve essere coerente con i relativi slack entro una tolleranza numerica dichiarata.
+7. Quando il vincolo legacy è attivo e il relativo marginale è localmente informativo, deve essere effettuata una verifica perturbativa specifica del limite economico.
 
-10. I bounds attivi sulle variabili devono essere identificati separatamente verificando la distanza dal relativo lower bound o upper bound.
+8. Per ogni configurazione parametrica deve essere verificato lo stato del solver prima di utilizzare i risultati.
 
-11. Deve essere verificato numericamente almeno un valore marginale mediante una piccola perturbazione del termine noto o del limite cui esso si riferisce.
-
-12. Quando il vincolo legacy è attivo e il relativo marginale è localmente informativo, deve essere effettuata una verifica perturbativa specifica del parametro:
-
-$$
-L
-$$
-
-nella formulazione:
-
-$$
-x_3+x_4\geq L.
-$$
-
-13. Per ogni configurazione parametrica deve essere verificato lo stato del solver prima di utilizzare i valori della soluzione.
-
-14. Quando il problema risulta non ammissibile, eventuali valori presenti negli oggetti restituiti dal solver non devono essere utilizzati né interpretati economicamente.
+9. I risultati di configurazioni non ammissibili non devono essere utilizzati né interpretati economicamente.
 
 ### 7.2 Controlli logici e teorici
 
-1. La funzione parametrica deve riprodurre la configurazione benchmark quando:
+1. La funzione parametrica deve riprodurre il benchmark in:
 
 $$
 (\alpha,\beta,\phi)
@@ -1042,71 +844,27 @@ $$
 (1,1,1).
 $$
 
-2. Nella sensitività rispetto ad $\alpha$ devono rimanere fissi:
+2. Nelle sensitività univariate deve variare un solo parametro alla volta.
 
-$$
-\beta=1,
-\qquad
-\phi=1.
-$$
+3. Il parametro $\alpha$ deve modificare esclusivamente il fabbisogno della prima data.
 
-3. Nella sensitività rispetto a $\beta$ devono rimanere fissi:
+4. Il parametro $\beta$ deve modificare esclusivamente il fabbisogno della quarta data.
 
-$$
-\alpha=1,
-\qquad
-\phi=1.
-$$
+5. Il parametro $\phi$ deve modificare esclusivamente la capacità massima di funding.
 
-4. Nella sensitività rispetto a $\phi$ devono rimanere fissi:
+6. Il costo del funding deve rimanere invariato nelle sensitività e negli scenari.
 
-$$
-\alpha=1,
-\qquad
-\beta=1.
-$$
+7. Le sensitività ad $\alpha$ e a $\beta$ devono essere sviluppate separatamente prima del loro confronto.
 
-5. Il parametro:
+8. Il confronto tra $\alpha$ e $\beta$ deve tenere conto della diversa collocazione temporale dello shock.
 
-$$
-\alpha
-$$
+9. I cambiamenti della soluzione devono essere confrontati con gli eventuali cambiamenti dei vincoli e dei bounds attivi.
 
-deve modificare esclusivamente il fabbisogno della prima data.
+10. I valori marginali devono essere associati al corretto vincolo o bilancio e interpretati come quantità locali.
 
-6. Il parametro:
+11. La presenza di un vincolo attivo non implica automaticamente un valore marginale economicamente rilevante.
 
-$$
-\beta
-$$
-
-deve modificare esclusivamente il fabbisogno della quarta data.
-
-7. Il parametro:
-
-$$
-\phi
-$$
-
-deve modificare esclusivamente la capacità massima di funding.
-
-8. Il costo del funding deve restare invariato nelle sensitività e negli scenari.
-
-9. Le tre configurazioni della scenario analysis devono utilizzare esattamente i valori assegnati nella Sezione 4.15.
-
-10. Le sensitività ad $\alpha$ e a $\beta$ devono essere costruite separatamente prima di essere confrontate.
-
-11. Il confronto tra $\alpha$ e $\beta$ deve tenere conto della diversa collocazione temporale dello shock.
-
-12. I cambiamenti della soluzione ottima devono essere confrontati con gli eventuali cambiamenti dei vincoli e dei bounds attivi.
-
-13. L'interpretazione dei valori marginali deve essere coerente con il vincolo o il bilancio cui ciascun marginale si riferisce.
-
-14. I valori marginali devono essere interpretati come quantità locali e non come relazioni globali valide lungo l'intera griglia parametrica.
-
-15. La presenza di un vincolo attivo non implica automaticamente che il relativo valore marginale sia economicamente rilevante: attività del vincolo e valore marginale devono essere controllati separatamente.
-
-16. Il vincolo legacy deve essere interpretato nella sua forma economica:
+12. La forma economica del vincolo legacy:
 
 $$
 x_3+x_4\geq L,
@@ -1114,13 +872,37 @@ x_3+x_4\geq L,
 L=35,
 $$
 
-anche se per il solver viene codificato come:
+deve essere distinta dalla forma solver:
 
 $$
--x_3-x_4\leq -L.
+-x_3-x_4\leq b,
+\qquad
+b=-L.
 $$
 
-17. L'interpretazione del marginale legacy deve tenere conto congiuntamente delle due trasformazioni:
+13. Se:
+
+$$
+F=-\Pi
+$$
+
+è la funzione minimizzata dal solver e:
+
+$$
+m
+=
+\frac{\partial F^*}{\partial b},
+$$
+
+allora:
+
+$$
+\frac{\partial\Pi^*}{\partial L}
+=
+m.
+$$
+
+Le due inversioni di segno associate a:
 
 $$
 F=-\Pi
@@ -1129,74 +911,26 @@ $$
 e:
 
 $$
-b=-L.
+b=-L
 $$
 
-18. Se il solver restituisce:
+si compensano.
 
-$$
-m
-=
-\frac{\partial F^*}{\partial b},
-$$
+14. Non deve quindi essere applicato un ulteriore cambio di segno al marginale legacy restituito dal solver.
 
-allora deve essere utilizzata la relazione:
+15. La sensitività univariata deve rimanere distinta dalla scenario analysis.
 
-$$
-\frac{\partial\Pi^*}{\partial L}
-=
-m.
-$$
-
-19. Non deve essere introdotto un ulteriore cambio di segno meccanico nel passaggio dal marginale restituito dal solver all'effetto economico di una variazione di:
-
-$$
-L.
-$$
-
-20. La relazione:
-
-$$
-\frac{\partial\Pi^*}{\partial L}
-=
-m
-$$
-
-deve essere interpretata localmente e, quando pertinente, verificata mediante una piccola perturbazione di $L$.
-
-21. La sensitività univariata deve restare distinta dalla scenario analysis:
-   - nella sensitività varia un solo parametro alla volta;
-   - nella scenario analysis $\alpha$, $\beta$ e $\phi$ possono variare congiuntamente.
-
-22. Le configurazioni di scenario devono essere interpretate come configurazioni deterministiche assegnate e non come eventi probabilistici.
+16. Gli scenari devono essere interpretati come configurazioni deterministiche assegnate e non come eventi probabilistici.
 
 ### 7.3 Controlli computazionali
 
-1. L'ordinamento delle variabili nel vettore decisionale deve essere dichiarato esplicitamente e mantenuto invariato in tutte le funzioni.
+1. L'ordinamento delle variabili decisionali deve essere dichiarato e mantenuto invariato.
 
-2. Il vettore decisionale deve comprendere correttamente:
-
-- cinque variabili di allocazione:
+2. Devono essere compatibili le dimensioni di:
 
 $$
-x_1,\ldots,x_5;
-$$
-
-- quattro giacenze:
-
-$$
-g_1,\ldots,g_4;
-$$
-
-- tre variabili di funding:
-
-$$
-u_1,u_2,u_3.
-$$
-
-3. Le dimensioni del vettore della funzione obiettivo, di:
-
-$$
+f,
+\qquad
 A_{\mathrm{eq}},
 \qquad
 b_{\mathrm{eq}},
@@ -1206,70 +940,23 @@ A_{\mathrm{ub}},
 b_{\mathrm{ub}}
 $$
 
-e dei bounds devono essere reciprocamente compatibili.
+e dei bounds.
 
-4. La trasformazione della funzione obiettivo dal problema economico di massimo alla convenzione di minimizzazione utilizzata da `scipy.optimize.linprog` deve essere verificata esplicitamente.
-
-5. I quattro bilanci temporali devono essere tradotti senza omissioni o errori di indice.
-
-6. Il vincolo legacy:
+3. Deve essere verificata correttamente la trasformazione:
 
 $$
-x_3+x_4\geq35
+\max\Pi
+\quad\longleftrightarrow\quad
+\min(-\Pi).
 $$
 
-deve essere codificato come:
+4. Il vincolo legacy deve essere codificato come:
 
 $$
 -x_3-x_4\leq-35.
 $$
 
-7. La riga corrispondente al vincolo legacy in:
-
-$$
-A_{\mathrm{ub}}
-$$
-
-e il relativo elemento di:
-
-$$
-b_{\mathrm{ub}}
-$$
-
-devono essere verificati esplicitamente.
-
-8. Per la verifica del marginale legacy deve essere resa esplicita la parametrizzazione:
-
-$$
-x_3+x_4\geq L,
-$$
-
-$$
-b=-L,
-$$
-
-$$
-F=-\Pi.
-$$
-
-9. Se:
-
-$$
-m
-=
-\frac{\partial F^*}{\partial b},
-$$
-
-la verifica perturbativa deve confrontare direttamente il marginale con:
-
-$$
-\frac{\Pi^*(L+\varepsilon)-\Pi^*(L)}
-{\varepsilon}
-$$
-
-per un valore di $\varepsilon$ sufficientemente piccolo e in una regione nella quale il confronto locale sia significativo.
-
-10. La costruzione del vettore dei fabbisogni deve rispettare:
+5. La parametrizzazione dei fabbisogni deve rispettare:
 
 $$
 d(\alpha,\beta)
@@ -1277,41 +964,41 @@ d(\alpha,\beta)
 (32\alpha,18,14,32\beta)'.
 $$
 
-11. I bounds del funding devono essere aggiornati correttamente quando varia $\phi$:
+6. I bounds del funding devono rispettare:
 
 $$
 0\leq u_t\leq\phi\bar u_t.
 $$
 
-12. Una variazione di $\alpha$ non deve modificare coefficienti diversi dal fabbisogno della prima data.
+7. La variazione di $\alpha$ non deve modificare elementi diversi dal fabbisogno della prima data.
 
-13. Una variazione di $\beta$ non deve modificare coefficienti diversi dal fabbisogno della quarta data.
+8. La variazione di $\beta$ non deve modificare elementi diversi dal fabbisogno della quarta data.
 
-14. Una variazione di $\phi$ non deve modificare la funzione obiettivo o i costi del funding.
+9. La variazione di $\phi$ non deve modificare la funzione obiettivo o i costi del funding.
 
-15. I risultati prodotti dalla funzione parametrica nel punto:
+10. La funzione parametrica valutata in:
 
 $$
 (1,1,1)
 $$
 
-devono coincidere con quelli della soluzione benchmark diretta entro la tolleranza numerica adottata.
+deve riprodurre la soluzione benchmark diretta entro la tolleranza numerica adottata.
 
-16. Le tabelle e i grafici delle sensitività devono utilizzare esclusivamente risultati provenienti da esecuzioni valide del solver.
+11. Le tabelle e i grafici devono utilizzare esclusivamente risultati provenienti da esecuzioni valide del solver.
 
-17. Le configurazioni non ammissibili devono essere identificate e gestite senza propagare valori numerici non validi nelle tabelle, nei grafici o nei confronti successivi.
+12. Le configurazioni non ammissibili devono essere gestite senza propagare valori numerici non validi.
 
-18. Gli scenari devono essere passati alla funzione solver senza modifiche rispetto ai valori assegnati.
+13. Gli scenari devono essere passati al solver senza modifiche rispetto ai valori assegnati.
 
-19. Tabelle e grafici devono essere generati direttamente dagli oggetti prodotti nel notebook.
+14. Tabelle e grafici devono essere rigenerabili mediante riesecuzione ordinata del notebook.
 
-20. Il notebook deve poter essere rieseguito integralmente dall'inizio senza dipendere da variabili, risultati o oggetti prodotti in esecuzioni precedenti non riproducibili.
+15. Il notebook deve poter essere eseguito integralmente dall'inizio senza dipendere da oggetti prodotti in esecuzioni precedenti non riproducibili.
 
-### 7.4 Coerenza finale dei controlli
+### 7.4 Controllo conclusivo
 
-Prima dell'interpretazione conclusiva devono risultare congiuntamente verificati:
+Prima dell'interpretazione finale devono risultare verificati congiuntamente:
 
-1. correttezza della formulazione solver;
+1. corretta formulazione solver;
 
 2. fattibilità delle configurazioni utilizzate;
 
@@ -1321,11 +1008,9 @@ Prima dell'interpretazione conclusiva devono risultare congiuntamente verificati
 
 5. corretta identificazione dei bounds attivi;
 
-6. corretta associazione dei valori marginali ai rispettivi vincoli e bilanci;
+6. corretta interpretazione locale dei valori marginali;
 
-7. corretta gestione del vincolo legacy;
-
-8. corretta relazione:
+7. corretta relazione:
 
 $$
 \frac{\partial\Pi^*}{\partial L}
@@ -1333,19 +1018,13 @@ $$
 m;
 $$
 
-9. assenza di un cambio di segno aggiuntivo non giustificato nell'interpretazione del marginale legacy;
+8. corretta azione separata di $\alpha$, $\beta$ e $\phi$;
 
-10. corretta azione separata di $\alpha$, $\beta$ e $\phi$;
+9. corretto confronto tra shock iniziale e shock terminale;
 
-11. coerenza delle sensitività con i parametri effettivamente modificati;
+10. coerenza degli scenari con i valori assegnati;
 
-12. corretto confronto tra shock alla prima data e shock alla data terminale;
-
-13. coerenza delle configurazioni della scenario analysis con i valori assegnati;
-
-14. distinzione fra sensitività univariata e scenario analysis;
-
-15. utilizzo esclusivo di risultati numericamente validi nelle tabelle, nei grafici e nell'interpretazione.
+11. utilizzo esclusivo di risultati numericamente validi.
 
 L'interpretazione finanziaria finale deve basarsi esclusivamente su output che abbiano superato tali controlli.
 
@@ -1355,45 +1034,23 @@ L'interpretazione finanziaria finale deve basarsi esclusivamente su output che a
 
 ### 8.1 Ipotesi modellistiche
 
-Il caso assume che:
+Il modello assume che:
 
-1. l'orizzonte sia articolato in quattro date discrete;
+1. l'orizzonte sia deterministico e articolato in quattro date future;
 
-2. i cash flow generati dalle classi di attivo siano noti e deterministici una volta fissata la configurazione parametrica;
+2. le decisioni iniziali di allocazione siano assunte al tempo iniziale e rimangano invariate lungo l'orizzonte;
 
-3. i fabbisogni di liquidità siano noti per ciascuna configurazione di:
+3. i cash flow degli attivi siano noti e proporzionali agli importi inizialmente investiti;
 
-$$
-(\alpha,\beta,\phi);
-$$
+4. i fabbisogni di liquidità siano deterministici all'interno di ciascuna configurazione parametrica;
 
-4. le decisioni di allocazione siano divisibili;
+5. le quantità siano divisibili;
 
-5. funzione obiettivo e vincoli siano lineari;
+6. la funzione obiettivo e i vincoli siano lineari;
 
-6. il parametro:
+7. il funding raccolto alla data $t$ sia immediatamente disponibile e venga rimborsato alla data successiva;
 
-$$
-\alpha
-$$
-
-modifichi esclusivamente il fabbisogno della prima data;
-
-7. il parametro:
-
-$$
-\beta
-$$
-
-modifichi esclusivamente il fabbisogno della quarta data;
-
-8. i fabbisogni delle date intermedie restino invariati;
-
-9. il funding raccolto alla data $t$ sia immediatamente disponibile alla stessa data;
-
-10. il funding raccolto alla data $t$ debba essere rimborsato alla data successiva secondo la struttura specificata dal modello;
-
-11. la capacità massima di funding sia esogena e parametrizzata da:
+8. la capacità massima di funding sia esogena e parametrizzata mediante:
 
 $$
 \bar u_t(\phi)
@@ -1401,9 +1058,13 @@ $$
 \phi\bar u_t;
 $$
 
-12. il costo del funding sia fissato e non dipenda da $\alpha$, $\beta$ o $\phi$;
+9. il costo del funding sia esogeno e rimanga invariato al variare di $\alpha$, $\beta$ e $\phi$;
 
-13. il vincolo:
+10. $\alpha$ modifichi esclusivamente il fabbisogno della prima data;
+
+11. $\beta$ modifichi esclusivamente il fabbisogno della quarta data;
+
+12. il vincolo:
 
 $$
 x_3+x_4\geq35
@@ -1411,7 +1072,7 @@ $$
 
 rappresenti in forma stilizzata una rigidità legacy del portafoglio;
 
-14. il limite:
+13. il limite:
 
 $$
 x_5\leq35
@@ -1419,33 +1080,29 @@ $$
 
 rappresenti un vincolo distinto dalla rigidità legacy;
 
-15. ogni configurazione parametrica venga risolta come problema deterministico autonomo.
+14. ogni configurazione parametrica venga risolta come problema deterministico autonomo;
+
+15. gli scenari siano configurazioni deterministiche assegnate e non eventi probabilistici.
 
 ### 8.2 Semplificazioni adottate
 
-Il caso adotta le seguenti semplificazioni:
+Il caso utilizza una rappresentazione stilizzata nella quale:
 
-1. il comportamento dei depositanti non viene modellato endogenamente;
+1. le classi di attivo sono aggregate;
 
-2. i fabbisogni di liquidità sono rappresentati direttamente attraverso i parametri assegnati;
+2. i fabbisogni di liquidità sono rappresentati direttamente mediante parametri assegnati;
 
 3. la capacità di funding è trattata come limite esogeno;
 
 4. il costo del funding non dipende dalla quantità effettivamente raccolta;
 
-5. non sono previste decisioni di funding con durata superiore a quella specificata dal modello;
+5. il vincolo legacy è rappresentato mediante una singola disuguaglianza lineare;
 
-6. il vincolo legacy è rappresentato mediante una singola disuguaglianza lineare;
+6. la struttura dei cash flow degli attivi resta invariata nelle diverse configurazioni;
 
 7. non vengono introdotte non linearità associate alla liquidazione degli attivi;
 
-8. la struttura dei cash flow degli attivi resta invariata al variare degli scenari;
-
-9. $\alpha$, $\beta$ e $\phi$ sono trattati come parametri deterministici;
-
-10. gli scenari Standard, Mediamente critico e Critico sono configurazioni assegnate e non scenari probabilistici;
-
-11. le decisioni vengono formulate ex ante e non vengono aggiornate sulla base di nuova informazione osservata durante l'orizzonte.
+8. le decisioni non vengono aggiornate sulla base di nuova informazione osservata durante l'orizzonte.
 
 ### 8.3 Elementi esclusi
 
@@ -1463,63 +1120,49 @@ Il modello non include:
 
 6. comportamento strategico dei depositanti;
 
-7. rischio di mercato stocastico;
+7. rischio di mercato o di credito stocastico;
 
-8. rischio di credito stocastico;
+8. probabilità associate agli scenari;
 
-9. probabilità associate agli scenari;
+9. variabili casuali per $\alpha$, $\beta$ o $\phi$;
 
-10. variabili casuali per $\alpha$, $\beta$ o $\phi$;
+10. ottimizzazione stocastica;
 
-11. ottimizzazione stocastica;
+11. decisioni adattive o multistadio;
 
-12. decisioni adattive o multistadio;
+12. revisione dinamica del portafoglio;
 
-13. revisione dinamica del portafoglio sulla base di informazione progressivamente osservata;
+13. effetti reputazionali, regolamentari o macrofinanziari endogeni;
 
-14. effetti reputazionali;
-
-15. interventi regolamentari endogeni;
-
-16. effetti macrofinanziari di equilibrio generale.
+14. una ricostruzione empirica completa della crisi di First Republic Bank.
 
 ### 8.4 Limiti dell'interpretazione
 
-I risultati devono essere interpretati entro i seguenti limiti.
+Il caso è un modello didattico deterministico di Asset--Liability Management ispirato alla crisi di First Republic Bank del 2023.
 
-1. Il caso è un modello didattico deterministico di Asset-Liability Management.
+Pertanto:
 
-2. I coefficienti numerici non devono essere interpretati come ricostruzione puntuale dei dati storici di First Republic Bank.
+1. i coefficienti numerici non devono essere interpretati come ricostruzione puntuale del bilancio storico della banca;
 
-3. I parametri:
+2. $\alpha$, $\beta$ e $\phi$ sono parametri deterministici e non stime probabilistiche;
 
-$$
-\alpha,
-\qquad
-\beta,
-\qquad
-\phi
-$$
+3. Standard, Mediamente critico e Critico non costituiscono una distribuzione di probabilità;
 
-non costituiscono stime probabilistiche.
+4. la perdita di valore calcolata negli scenari non è una misura probabilistica di rischio;
 
-4. Le tre configurazioni di scenario non rappresentano una distribuzione di probabilità.
+5. il confronto tra $\alpha$ e $\beta$ riguarda il diverso timing dei fabbisogni nel modello e non consente inferenze generali sulla dinamica storica dei deposit run;
 
-5. La perdita di valore calcolata negli scenari non costituisce una misura probabilistica di rischio.
-
-6. Il confronto fra $\alpha$ e $\beta$ riguarda il diverso timing dei fabbisogni all'interno del modello e non consente, da solo, inferenze generali sulla dinamica storica delle corse agli sportelli.
-
-7. Il vincolo:
+6. il vincolo:
 
 $$
 x_3+x_4\geq35
 $$
 
-deve essere interpretato esclusivamente come rappresentazione stilizzata di una rigidità legacy.
+deve essere interpretato esclusivamente come rappresentazione stilizzata di una rigidità legacy;
 
-8. Il valore marginale associato al vincolo legacy ha significato locale e dipende dalla configurazione nella quale viene calcolato.
+7. il marginale associato al vincolo legacy ha significato locale;
 
-9. La relazione:
+8. con le convenzioni adottate:
 
 $$
 \frac{\partial\Pi^*}{\partial L}
@@ -1527,20 +1170,18 @@ $$
 m
 $$
 
-vale localmente con le convenzioni di codifica definite nel modello e non deve essere interpretata come relazione globale.
+vale localmente e non costituisce una relazione globale lungo tutte le configurazioni;
 
-10. Un vincolo attivo non è necessariamente il solo determinante economico della soluzione.
+9. un vincolo attivo non è necessariamente l'unico determinante economico della soluzione;
 
-11. Un marginale nullo o prossimo a zero non implica che il corrispondente vincolo sia irrilevante in tutte le configurazioni.
+10. una maggiore capacità di funding non implica necessariamente un maggiore utilizzo effettivo del funding;
 
-12. Una maggiore capacità di funding non implica necessariamente un maggiore utilizzo effettivo del funding.
+11. la fattibilità del problema non equivale alla sostenibilità economico-finanziaria della banca nel mondo reale;
 
-13. La fattibilità del modello non equivale a sostenibilità economica o finanziaria nel mondo reale.
+12. l'ottimalità riguarda esclusivamente la funzione obiettivo e i vincoli specificati;
 
-14. L'ottimalità della soluzione riguarda esclusivamente la funzione obiettivo e i vincoli specificati.
+13. i risultati non incorporano effetti di secondo ordine derivanti da comportamento, prezzi, reputazione o mercato;
 
-15. I risultati non incorporano effetti di secondo ordine derivanti da comportamento, prezzi, reputazione o mercato.
+14. il modello non consente inferenze causali sulla crisi storica di First Republic Bank;
 
-16. Il modello non consente inferenze causali sulla crisi storica di First Republic Bank.
-
-17. Le conclusioni devono essere formulate come risultati del modello stilizzato, non come ricostruzioni empiriche dell'evento storico.
+15. le conclusioni devono essere formulate come risultati del modello stilizzato e non come ricostruzioni empiriche dell'evento storico.

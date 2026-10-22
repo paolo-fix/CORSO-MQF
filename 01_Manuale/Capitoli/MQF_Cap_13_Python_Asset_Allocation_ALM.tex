@@ -586,7 +586,7 @@ svolta operativamente nel Caso Aula e nel relativo notebook.
 
 Nel presente capitolo, interessa soprattutto mantenere esplicita la
 corrispondenza tra formulazione economica, oggetti forniti al solver e
-quantit\`{a da controllare prima di interpretare la soluzione.
+quantit\`{a} da controllare prima di interpretare la soluzione.
 
 \section{Dal benchmark al modello parametrico}
 
@@ -1281,31 +1281,96 @@ $$
 La trasformazione non modifica il vincolo economico, ma modifica il segno del
 termine noto utilizzato dal solver.
 
-Questa distinzione diventa rilevante quando si interpretano i marginali. Il
-marginale restituito dal solver si riferisce al lato destro della
-disuguaglianza codificata, cio\`e a $-35$. Se si vuole invece interpretare
-l'effetto di una variazione del limite economico naturale
 
-$$
-L=35,
-$$
+Questa distinzione diventa rilevante quando si interpretano i marginali. Per
+rendere esplicita la relazione tra la quantit\`a restituita dal solver e il
+significato economico del vincolo, si consideri la forma parametrica
 
-\noindent nel vincolo
-
-$$
+\[
 x_3+x_4\geq L,
-$$
+\]
 
-\noindent occorre tener conto della relazione
+con
 
-$$
-b_{\mathrm{ub}}=-L.
-$$
+\[
+L=35.
+\]
 
-Una variazione positiva di $L$ corrisponde quindi a una variazione negativa
-del termine noto utilizzato dal solver. Il segno del marginale economico
-rispetto a $L$ deve essere conseguentemente ricostruito a partire dalla
-formulazione effettivamente codificata.
+La corrispondente disuguaglianza fornita a \texttt{linprog} \`e
+
+\[
+-x_3-x_4\leq b,
+\qquad
+b=-L.
+\]
+
+Occorre inoltre ricordare che il problema economico massimizza \(\Pi\), mentre
+il solver minimizza
+
+\[
+F=-\Pi.
+\]
+
+Se il marginale restituito dal solver per questa disuguaglianza viene indicato
+con
+
+\[
+m
+=
+\frac{\partial F^*}{\partial b},
+\]
+
+allora, poich\'e
+
+\[
+\frac{\partial b}{\partial L}=-1,
+\]
+
+si ottiene
+
+\[
+\frac{\partial F^*}{\partial L}
+=
+\frac{\partial F^*}{\partial b}
+\frac{\partial b}{\partial L}
+=
+-m.
+\]
+
+D'altra parte,
+
+\[
+F^*=-\Pi^*,
+\]
+
+e quindi
+
+\[
+-\frac{\partial\Pi^*}{\partial L}
+=
+-m.
+\]
+
+Ne segue
+
+\[
+\boxed{
+\frac{\partial\Pi^*}{\partial L}
+=
+m
+}.
+\]
+
+Le due inversioni di segno, dovute rispettivamente al passaggio da
+massimizzazione di \(\Pi\) a minimizzazione di \(F=-\Pi\) e alla trasformazione
+del limite economico \(L\) nel termine noto \(b=-L\), si compensano.
+
+Non deve quindi essere applicato un ulteriore cambio di segno al marginale
+restituito dal solver. L'interpretazione resta locale: quando il vincolo \`e
+attivo e la struttura della soluzione ottima non cambia, il marginale pu\`o
+essere verificato numericamente confrontandolo con la variazione di
+\(\Pi^*\) prodotta da una piccola perturbazione di \(L\).
+
 
 \subsection{Trasferire il metodo, non la soluzione}
 
