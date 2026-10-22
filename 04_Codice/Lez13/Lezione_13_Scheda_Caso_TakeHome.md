@@ -47,49 +47,39 @@ L'analisi deve consentire anche di confrontare gli effetti di uno shock che si m
 
 La banca dispone al tempo iniziale di risorse complessive pari a $A_0$.
 
-Le variabili
+Le variabili di allocazione sono:
+
+- $x_1$: cassa e riserve;
+- $x_2$: titoli a breve scadenza;
+- $x_3$: mutui residenziali a lunga durata;
+- $x_4$: prestiti immobiliari commerciali;
+- $x_5$: altri prestiti e crediti a clientela.
+
+Per $t=1,\ldots,4$:
 
 $$
-x_1,\quad x_2,\quad x_3,\quad x_4,\quad x_5
+g_t\geq0
 $$
 
-rappresentano gli importi inizialmente allocati nelle seguenti classi di attivo:
+rappresenta la giacenza di liquidità successiva al soddisfacimento del fabbisogno della data $t$.
 
-1. $x_1$: cassa e riserve;
-2. $x_2$: titoli a breve scadenza;
-3. $x_3$: mutui residenziali a lunga durata;
-4. $x_4$: prestiti immobiliari commerciali;
-5. $x_5$: altri prestiti e crediti a clientela.
-
-Per ciascuna data futura $t=1,\ldots,4$ si definisce:
+Per $t=1,2,3$:
 
 $$
-g_t\geq0,
+u_t\geq0
 $$
 
-dove $g_t$ rappresenta la giacenza di liquidità rimasta immediatamente dopo avere soddisfatto il fabbisogno della data $t$.
+rappresenta il funding esterno raccolto alla data $t$, disponibile immediatamente e rimborsato alla data successiva.
 
-Per $t=1,2,3$ si definisce:
+### 3.2 Cash flow, fabbisogni e funding
 
-$$
-u_t\geq0,
-$$
-
-dove $u_t$ rappresenta il funding esterno raccolto alla data $t$, disponibile immediatamente e da rimborsare alla data successiva.
-
-### 3.2 Cash flow degli attivi
-
-La matrice
+La matrice:
 
 $$
 A^{\mathrm{CF}}=(a_{tj})
 $$
 
-descrive il profilo temporale dei cash flow.
-
-Il coefficiente $a_{tj}$ indica quanta liquidità viene resa disponibile alla data $t$ da una unità investita al tempo iniziale nell'attivo $j$.
-
-Il cash flow complessivamente prodotto dall'attivo alla data $t$ è:
+descrive i cash flow temporali degli attivi, con:
 
 $$
 a_t'x
@@ -97,15 +87,7 @@ a_t'x
 \sum_{j=1}^{5}a_{tj}x_j.
 $$
 
-### 3.3 Due ondate di fabbisogno di liquidità
-
-Nel benchmark, i fabbisogni alle quattro date sono raccolti nel vettore:
-
-$$
-d=(d_1,d_2,d_3,d_4)'.
-$$
-
-Per rappresentare due ondate distinte di pressione sulla raccolta si introducono i parametri $\alpha$ e $\beta$:
+I fabbisogni parametrizzati sono:
 
 $$
 d(\alpha,\beta)
@@ -113,39 +95,9 @@ d(\alpha,\beta)
 (32\alpha,18,14,32\beta)'.
 $$
 
-Il parametro $\alpha$ modifica il fabbisogno della prima data.
+Il parametro $\alpha$ modifica esclusivamente il fabbisogno della prima data, mentre $\beta$ modifica esclusivamente quello della quarta data.
 
-Il parametro $\beta$ modifica il fabbisogno della quarta data.
-
-Il benchmark corrisponde a:
-
-$$
-\alpha=1,
-\qquad
-\beta=1.
-$$
-
-### 3.4 Giacenze di liquidità
-
-Una giacenza $g_t$ viene trasferita alla data successiva e produce il rendimento $r_t^g$.
-
-Alla data successiva diventa quindi disponibile:
-
-$$
-(1+r_t^g)g_t.
-$$
-
-### 3.5 Funding esterno
-
-Il funding raccolto alla data $t$ è immediatamente disponibile come risorsa $u_t$ e deve essere rimborsato alla data successiva per:
-
-$$
-(1+r_t^u)u_t.
-$$
-
-La capacità massima di funding benchmark è $\bar u_t$.
-
-Per analizzare variazioni della capacità disponibile si introduce il parametro $\phi$:
+La capacità massima di funding è:
 
 $$
 \bar u_t(\phi)
@@ -153,15 +105,21 @@ $$
 \phi\bar u_t.
 $$
 
-Il benchmark corrisponde a:
+Le giacenze trasferite alla data successiva diventano disponibili per:
 
 $$
-\phi=1.
+(1+r_t^g)g_t,
 $$
 
-### 3.6 Funzione obiettivo
+mentre il funding raccolto alla data $t$ deve essere rimborsato alla data successiva per:
 
-La banca massimizza il risultato economico:
+$$
+(1+r_t^u)u_t.
+$$
+
+### 3.3 Funzione obiettivo
+
+La banca massimizza:
 
 $$
 \Pi(x,g,u)
@@ -179,23 +137,23 @@ $$
 \max_{x,g,u}\Pi(x,g,u).
 $$
 
-Nell'implementazione Python occorre tenere conto della convenzione adottata dal solver utilizzato.
+Nell'implementazione Python deve essere rispettata la convenzione di minimizzazione utilizzata dal solver.
 
-### 3.7 Vincolo sulle risorse iniziali
+### 3.4 Vincoli
+
+Le risorse iniziali soddisfano:
 
 $$
 \sum_{j=1}^{5}x_j=A_0.
 $$
 
-### 3.8 Bilanci temporali di liquidità
-
-Alla prima data:
+Il primo bilancio temporale è:
 
 $$
 a_1'x+u_1-g_1=d_1(\alpha).
 $$
 
-Alle date intermedie $t=2,3$:
+Per $t=2,3$:
 
 $$
 a_t'x
@@ -225,81 +183,66 @@ g_4
 d_4(\beta).
 $$
 
-### 3.9 Vincolo prudenziale
-
-A ciascuna classe di attivo è associato un coefficiente di perdita sotto stress $\ell_j$.
-
-La perdita aggregata sotto stress deve rispettare:
+Il vincolo prudenziale è:
 
 $$
 \ell'x\leq K.
 $$
 
-### 3.10 Vincolo legacy
-
-Una quota minima delle attività a lunga durata deve essere mantenuta:
+Il vincolo legacy è:
 
 $$
 x_3+x_4\geq35.
 $$
 
-Il vincolo rappresenta in forma stilizzata la presenza di attività legacy che non possono essere eliminate o ristrutturate istantaneamente.
-
-### 3.11 Limite sugli altri prestiti
+Il limite sugli altri prestiti è:
 
 $$
 x_5\leq35.
 $$
 
-### 3.12 Capacità di funding e non negatività
-
-Per $t=1,2,3$:
+La capacità di funding soddisfa:
 
 $$
-0\leq u_t\leq\phi\bar u_t.
+0\leq u_t\leq\phi\bar u_t,
+\qquad
+t=1,2,3.
 $$
 
-Inoltre:
+Infine:
 
 $$
 x_j\geq0,
-\qquad j=1,\ldots,5,
+\qquad
+j=1,\ldots,5,
 $$
-
-e:
 
 $$
 g_t\geq0,
-\qquad t=1,\ldots,4.
+\qquad
+t=1,\ldots,4.
 $$
 
 ---
 
 ## 4. Parametri assegnati
 
-### 4.1 Risorse iniziali
+### 4.1 Parametri benchmark
 
-$$
-A_0=100.
-$$
+| Quantità | Valore |
+|---|---|
+| Risorse iniziali | $A_0=100$ |
+| Redditività degli attivi | $c'=(0.008,0.022,0.035,0.045,0.050)$ |
+| Perdite unitarie sotto stress | $\ell'=(0,0.015,0.060,0.100,0.120)$ |
+| Fabbisogni benchmark | $d'=(32,18,14,32)$ |
+| Rendimenti delle giacenze | ${r^g}'=(0.004,0.005,0.006)$ |
+| Costi del funding | ${r^u}'=(0.018,0.025,0.040)$ |
+| Capacità benchmark di funding | $\bar u'=(4,3,2)$ |
+| Limite prudenziale | $K=7.5$ |
+| Vincolo legacy | $x_3+x_4\geq35$ |
+| Limite sugli altri prestiti | $x_5\leq35$ |
 
-### 4.2 Redditività degli attivi
-
-$$
-c'
-=
-(0.008,0.022,0.035,0.045,0.050).
-$$
-
-### 4.3 Perdite unitarie sotto stress
-
-$$
-\ell'
-=
-(0,0.015,0.060,0.100,0.120).
-$$
-
-### 4.4 Matrice dei cash flow
+La matrice dei cash flow è:
 
 $$
 A^{\mathrm{CF}}
@@ -312,121 +255,25 @@ A^{\mathrm{CF}}
 \end{pmatrix}.
 $$
 
-Le righe corrispondono alle date $t=1,\ldots,4$.
-
-Le colonne corrispondono, nell'ordine, a:
+Le righe corrispondono alle date $t=1,\ldots,4$ e le colonne, nell'ordine, a:
 
 $$
 (x_1,x_2,x_3,x_4,x_5).
 $$
 
-### 4.5 Fabbisogni benchmark
+### 4.2 Griglie di sensitività
 
-$$
-d'
-=
-(32,18,14,32).
-$$
+Le sensitività univariate utilizzano le seguenti griglie:
 
-### 4.6 Rendimenti delle giacenze
+| Parametro variato | Valori | Parametri mantenuti al benchmark |
+|---|---|---|
+| $\alpha$ | $\{0.90,0.95,1.00,1.05,1.10,1.15\}$ | $\beta=1$, $\phi=1$ |
+| $\beta$ | $\{0.90,0.95,1.00,1.05,1.10,1.15\}$ | $\alpha=1$, $\phi=1$ |
+| $\phi$ | $\{0.30,0.40,\ldots,1.30\}$ | $\alpha=1$, $\beta=1$ |
 
-$$
-{r^g}'
-=
-(0.004,0.005,0.006).
-$$
+Le sensitività ad $\alpha$ e $\beta$ devono essere sviluppate separatamente prima del loro confronto.
 
-### 4.7 Costi del funding
-
-$$
-{r^u}'
-=
-(0.018,0.025,0.040).
-$$
-
-### 4.8 Capacità benchmark di funding
-
-$$
-\bar u'
-=
-(4,3,2).
-$$
-
-### 4.9 Limite prudenziale
-
-$$
-K=7.5.
-$$
-
-### 4.10 Vincolo legacy
-
-$$
-x_3+x_4\geq35.
-$$
-
-### 4.11 Limite sugli altri prestiti
-
-$$
-x_5\leq35.
-$$
-
-### 4.12 Griglia di sensitività ad $\alpha$
-
-Con:
-
-$$
-\beta=1,
-\qquad
-\phi=1,
-$$
-
-si utilizza:
-
-$$
-\alpha
-\in
-\{0.90,0.95,1.00,1.05,1.10,1.15\}.
-$$
-
-### 4.13 Griglia di sensitività a $\beta$
-
-Con:
-
-$$
-\alpha=1,
-\qquad
-\phi=1,
-$$
-
-si utilizza:
-
-$$
-\beta
-\in
-\{0.90,0.95,1.00,1.05,1.10,1.15\}.
-$$
-
-### 4.14 Griglia di sensitività a $\phi$
-
-Con:
-
-$$
-\alpha=1,
-\qquad
-\beta=1,
-$$
-
-si utilizza:
-
-$$
-\phi
-\in
-\{0.30,0.40,0.50,0.60,0.70,0.80,0.90,1.00,1.10,1.20,1.30\}.
-$$
-
-### 4.15 Scenari congiunti
-
-Devono essere analizzati i seguenti scenari:
+### 4.3 Scenari congiunti
 
 | Scenario | $\alpha$ | $\beta$ | $\phi$ |
 |---|---:|---:|---:|
@@ -438,52 +285,83 @@ Lo scenario Standard coincide con il benchmark.
 
 Gli scenari Mediamente critico e Critico modificano congiuntamente l'intensità delle due ondate di fabbisogno e la capacità massima di funding.
 
-Gli scenari devono essere interpretati come configurazioni deterministiche assegnate e non come eventi ai quali siano associate probabilità.
+Gli scenari costituiscono configurazioni deterministiche assegnate e non eventi ai quali siano associate probabilità.
 
 ---
 
 ## 5. Quantità da stimare o calcolare
 
+Per il benchmark e per le analisi parametriche devono essere determinate le seguenti quantità.
+
 ### 5.1 Benchmark
 
-Per il benchmark:
+Per:
 
 $$
 (\alpha,\beta,\phi)
 =
-(1,1,1),
+(1,1,1)
 $$
 
-devono essere determinati:
+devono essere calcolati:
 
-1. il vettore ottimo degli attivi $x^*$;
-2. il vettore ottimo delle giacenze $g^*$;
-3. il vettore ottimo del funding $u^*$;
-4. il valore ottimo $\Pi^*$;
-5. i residuali dei vincoli di uguaglianza;
-6. gli slack dei vincoli di disuguaglianza;
-7. i bounds attivi;
-8. i principali valori marginali restituiti dal solver.
+1. soluzione ottima:
+
+$$
+x^*,
+\qquad
+g^*,
+\qquad
+u^*;
+$$
+
+2. valore ottimo:
+
+$$
+\Pi^*;
+$$
+
+3. residuali dei vincoli di uguaglianza;
+
+4. slack dei vincoli di disuguaglianza;
+
+5. bounds attivi;
+
+6. principali valori marginali restituiti dal solver.
 
 ### 5.2 Sensitività univariate
 
 Per ciascun parametro:
 
 $$
-p\in\{\alpha,\beta,\phi\},
+p\in\{\alpha,\beta,\phi\}
 $$
 
-devono essere determinate, per ogni punto della relativa griglia:
+e per ogni valore della relativa griglia devono essere determinati:
 
-1. la fattibilità del problema;
-2. il valore ottimo $\Pi^*(p)$;
-3. le componenti $x_j^*(p)$;
-4. le componenti $g_t^*(p)$;
-5. le componenti $u_t^*(p)$;
-6. i principali vincoli attivi;
-7. i principali valori marginali quando economicamente informativi.
+1. stato di fattibilità;
 
-Devono inoltre essere calcolate:
+2. valore ottimo:
+
+$$
+\Pi^*(p);
+$$
+
+3. soluzione ottima:
+
+$$
+x^*(p),
+\qquad
+g^*(p),
+\qquad
+u^*(p);
+$$
+
+4. principali vincoli e bounds attivi;
+
+5. principali valori marginali, quando economicamente informativi.
+
+Devono inoltre essere calcolate le variazioni rispetto al benchmark:
 
 $$
 \Delta\Pi^*(p)
@@ -509,45 +387,61 @@ $$
 u_t^*(p)-u_t^*(1).
 $$
 
-### 5.3 Utilizzo della capacità di funding
-
-Per ogni data e per ciascuna analisi parametrica deve essere calcolato:
+Per il funding deve essere inoltre determinato:
 
 $$
 \rho_t^u(p)
 =
-\frac{u_t^*(p)}
-{\bar u_t(p)}.
+\frac{u_t^*(p)}{\bar u_t(p)}.
 $$
 
 Quando il parametro variato non è $\phi$, il denominatore coincide con la capacità benchmark.
 
-### 5.4 Confronto tra prima e seconda ondata
+### 5.3 Confronto tra prima e seconda ondata
 
-Le sensitività ad $\alpha$ e a $\beta$ devono essere confrontate esplicitamente.
+Le sensitività ad $\alpha$ e a $\beta$ devono essere confrontate rispetto a:
 
-Il confronto deve riguardare almeno:
+1. valore ottimo;
 
-1. andamento di $\Pi^*$;
-2. variazioni di $x^*$;
-3. variazioni di $g^*$;
-4. variazioni di $u^*$;
-5. cambiamenti nei vincoli attivi;
+2. composizione dell'attivo;
+
+3. giacenze;
+
+4. funding;
+
+5. principali vincoli e bounds attivi;
+
 6. stato di fattibilità.
 
-L'obiettivo è verificare se uno stesso aumento relativo del fabbisogno produce effetti differenti quando si manifesta alla prima data oppure alla data terminale.
+Il confronto deve verificare se uno stesso aumento relativo del fabbisogno produce effetti differenti quando si manifesta alla prima data oppure alla data terminale.
 
-### 5.5 Scenario analysis
+### 5.4 Scenario analysis
 
-Per ciascuno dei tre scenari devono essere determinati:
+Per ciascuno degli scenari Standard, Mediamente critico e Critico devono essere determinati:
 
-1. $\Pi^*$;
-2. $x^*$;
-3. $g^*$;
-4. $u^*$;
-5. i principali vincoli attivi;
-6. il rapporto di utilizzo della capacità di funding;
-7. i principali valori marginali, se economicamente rilevanti.
+1. fattibilità;
+
+2. valore ottimo:
+
+$$
+\Pi^*;
+$$
+
+3. soluzione ottima:
+
+$$
+x^*,
+\qquad
+g^*,
+\qquad
+u^*;
+$$
+
+4. principali vincoli e bounds attivi;
+
+5. utilizzo della capacità di funding;
+
+6. principali valori marginali, quando economicamente informativi.
 
 Per gli scenari Mediamente critico e Critico deve essere inoltre calcolata la perdita di valore rispetto allo Standard:
 
@@ -674,7 +568,7 @@ Devono essere prodotte le seguenti tabelle:
 
 Le tabelle devono contenere le quantità necessarie a rappresentare gli output definiti nella Sezione 5 e i controlli richiesti nella Sezione 7.
 
-Per il vincolo legacy deve essere resa osservabile la distinzione tra:
+Per il vincolo legacy deve essere resa osservabile la distinzione tra la forma economica:
 
 $$
 x_3+x_4\geq L,
@@ -682,7 +576,7 @@ x_3+x_4\geq L,
 L=35,
 $$
 
-e la forma solver:
+e la forma utilizzata dal solver:
 
 $$
 -x_3-x_4\leq b,
@@ -693,18 +587,14 @@ $$
 Se:
 
 $$
-F=-\Pi
-$$
-
-è la funzione minimizzata dal solver e:
-
-$$
 m
 =
 \frac{\partial F^*}{\partial b},
+\qquad
+F=-\Pi,
 $$
 
-allora:
+il valore marginale deve essere interpretato e verificato coerentemente con:
 
 $$
 \frac{\partial\Pi^*}{\partial L}
@@ -712,19 +602,8 @@ $$
 m.
 $$
 
-Le due inversioni di segno associate a:
+La relazione ha significato locale e deve essere verificata, quando informativa, mediante una piccola perturbazione del limite $L$.
 
-$$
-F=-\Pi
-$$
-
-e:
-
-$$
-b=-L
-$$
-
-si compensano.
 
 ### 6.3 Grafici
 

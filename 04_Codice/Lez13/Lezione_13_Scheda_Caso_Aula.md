@@ -57,86 +57,78 @@ L'analisi deve distinguere chiaramente:
 
 La banca dispone al tempo iniziale di risorse complessive pari a $A_0$.
 
-Le variabili $x_1,x_2,x_3,x_4$ rappresentano gli importi inizialmente allocati nelle seguenti classi di attivo:
+Le variabili di allocazione sono:
 
-1. $x_1$: cassa e riserve;
-2. $x_2$: titoli a breve scadenza;
-3. $x_3$: titoli a lunga scadenza;
-4. $x_4$: prestiti e impieghi meno liquidi.
+- $x_1$: cassa e riserve;
+- $x_2$: titoli a breve scadenza;
+- $x_3$: titoli a lunga scadenza;
+- $x_4$: prestiti e impieghi meno liquidi.
 
-Gli importi $x_j$ sono espressi nelle stesse unità monetarie di $A_0$.
+Per $t=1,\ldots,4$:
 
-Per ciascuna data futura $t=1,\ldots,4$ si definisce $g_t\geq0$, dove $g_t$ rappresenta la giacenza di liquidità rimasta immediatamente dopo avere soddisfatto il fabbisogno della data $t$.
+$$
+g_t\geq0
+$$
 
-Per $t=1,2,3$ si definisce $u_t\geq0$, dove $u_t$ rappresenta il funding esterno raccolto alla data $t$, disponibile immediatamente e da rimborsare alla data successiva.
+rappresenta la giacenza di liquidità successiva al soddisfacimento del fabbisogno della data $t$.
 
-### 3.2 Cash flow degli attivi
+Per $t=1,2,3$:
 
-La matrice
+$$
+u_t\geq0
+$$
+
+rappresenta il funding esterno raccolto alla data $t$, disponibile immediatamente e rimborsato alla data successiva.
+
+### 3.2 Cash flow, fabbisogni e funding
+
+La matrice:
 
 $$
 A^{\mathrm{CF}}=(a_{tj})
 $$
 
-descrive il profilo temporale dei cash flow.
-
-Il coefficiente $a_{tj}$ indica quanta liquidità viene resa disponibile alla data $t$ da una unità investita al tempo iniziale nell'attivo $j$.
-
-Il cash flow complessivamente prodotto dall'attivo alla data $t$ è:
+descrive i cash flow temporali degli attivi, con:
 
 $$
-a_t'x=\sum_{j=1}^{4}a_{tj}x_j.
+a_t'x
+=
+\sum_{j=1}^{4}a_{tj}x_j.
 $$
 
-### 3.3 Fabbisogni di liquidità
-
-Nel benchmark, i fabbisogni alle quattro date sono raccolti nel vettore $d=(d_1,d_2,d_3,d_4)'$.
-
-Per l'analisi dello stress sui fabbisogni si introduce il parametro $\theta$:
+I fabbisogni parametrizzati sono:
 
 $$
-d(\theta)=(30\theta,30\theta,22,15)'.
+d(\theta)
+=
+(30\theta,30\theta,22,15)'.
 $$
 
-Il benchmark corrisponde a $\theta=1$.
+La capacità massima di funding è:
 
-### 3.4 Giacenze di liquidità
+$$
+\bar u_t(\phi)
+=
+\phi\bar u_t,
+$$
 
-Una giacenza $g_t$ viene trasferita alla data successiva e produce il rendimento $r_t^g$. Pertanto, alla data successiva diventa disponibile:
+mentre il costo del funding è:
+
+$$
+r_t^u(\psi)
+=
+\psi r_t^u.
+$$
+
+Il parametro $\psi$ modifica sia il costo del funding nella funzione obiettivo sia il rimborso del funding nei bilanci temporali.
+
+Le giacenze trasferite alla data successiva diventano disponibili per:
 
 $$
 (1+r_t^g)g_t.
 $$
 
-### 3.5 Funding esterno
-
-Il funding raccolto alla data $t$ è immediatamente disponibile come risorsa $u_t$ e alla data successiva deve essere rimborsato per:
-
-$$
-(1+r_t^u)u_t.
-$$
-
-La capacità massima di funding benchmark è $\bar u_t$.
-
-Per la sensitività alla disponibilità di funding:
-
-$$
-\bar u_t(\phi)=\phi\bar u_t.
-$$
-
-Il benchmark corrisponde a $\phi=1$.
-
-Per la sensitività al costo del funding:
-
-$$
-r_t^u(\psi)=\psi r_t^u.
-$$
-
-Il benchmark corrisponde a $\psi=1$.
-
-Il parametro $\psi$ modifica sia il costo del funding nella funzione obiettivo sia l'ammontare da rimborsare alla data successiva.
-
-### 3.6 Funzione obiettivo
+### 3.3 Funzione obiettivo
 
 La banca massimizza:
 
@@ -156,23 +148,23 @@ $$
 \max_{x,g,u}\Pi(x,g,u;\psi).
 $$
 
-Nell'implementazione Python occorre tenere conto della convenzione adottata dal solver utilizzato.
+Nell'implementazione Python deve essere rispettata la convenzione di minimizzazione utilizzata dal solver.
 
-### 3.7 Vincolo sulle risorse iniziali
+### 3.4 Vincoli
+
+Le risorse iniziali soddisfano:
 
 $$
 \sum_{j=1}^{4}x_j=A_0.
 $$
 
-### 3.8 Bilanci temporali di liquidità
-
-Alla prima data:
+Il primo bilancio temporale è:
 
 $$
 a_1'x+u_1-g_1=d_1(\theta).
 $$
 
-Alle date intermedie $t=2,3$:
+Per $t=2,3$:
 
 $$
 a_t'x
@@ -202,62 +194,59 @@ g_4
 d_4.
 $$
 
-### 3.9 Vincolo prudenziale
+Il vincolo prudenziale è:
 
 $$
 \ell'x\leq K.
 $$
 
-### 3.10 Limite di concentrazione
+Il limite di concentrazione è:
 
 $$
 x_3\leq30.
 $$
 
-### 3.11 Capacità di funding e non negatività
+La capacità di funding soddisfa:
 
 $$
 0\leq u_t\leq\phi\bar u_t,
-\qquad t=1,2,3.
+\qquad
+t=1,2,3.
 $$
 
-Inoltre:
+Infine:
 
 $$
 x_j\geq0,
-\qquad j=1,\ldots,4,
+\qquad
+j=1,\ldots,4,
 $$
-
-e:
 
 $$
 g_t\geq0,
-\qquad t=1,\ldots,4.
+\qquad
+t=1,\ldots,4.
 $$
 
 ---
 
 ## 4. Parametri assegnati
 
-### 4.1 Risorse iniziali
+### 4.1 Parametri benchmark
 
-$$
-A_0=100.
-$$
+| Quantità | Valore |
+|---|---|
+| Risorse iniziali | $A_0=100$ |
+| Redditività degli attivi | $c'=(0.010,0.025,0.040,0.050)$ |
+| Perdite unitarie sotto stress | $\ell'=(0,0.02,0.15,0.08)$ |
+| Fabbisogni benchmark | $d'=(30,30,22,15)$ |
+| Rendimenti delle giacenze | ${r^g}'=(0.005,0.006,0.007)$ |
+| Costi benchmark del funding | ${r^u}'=(0.015,0.020,0.025)$ |
+| Capacità benchmark di funding | $\bar u'=(10,8,6)$ |
+| Limite prudenziale | $K=7$ |
+| Limite di concentrazione | $x_3\leq30$ |
 
-### 4.2 Redditività degli attivi
-
-$$
-c'=(0.010,0.025,0.040,0.050).
-$$
-
-### 4.3 Perdite unitarie sotto stress
-
-$$
-\ell'=(0,0.02,0.15,0.08).
-$$
-
-### 4.4 Matrice dei cash flow
+La matrice dei cash flow è:
 
 $$
 A^{\mathrm{CF}}
@@ -270,65 +259,29 @@ A^{\mathrm{CF}}
 \end{pmatrix}.
 $$
 
-Le righe corrispondono alle date $t=1,\ldots,4$ e le colonne, nell'ordine, a $(x_1,x_2,x_3,x_4)$.
-
-### 4.5 Fabbisogni benchmark
+Le righe corrispondono alle date $t=1,\ldots,4$ e le colonne, nell'ordine, a:
 
 $$
-d'=(30,30,22,15).
+(x_1,x_2,x_3,x_4).
 $$
 
-### 4.6 Rendimenti delle giacenze
+### 4.2 Griglie di sensitività
+
+Le sensitività univariate utilizzano le seguenti griglie:
+
+| Parametro variato | Valori | Parametri mantenuti al benchmark |
+|---|---|---|
+| $\theta$ | $\{1.00,1.01,\ldots,1.10\}$ | $\phi=1$, $\psi=1$ |
+| $\phi$ | $\{0.50,0.60,\ldots,1.50\}$ | $\theta=1$, $\psi=1$ |
+| $\psi$ | $\{0.50,0.75,1.00,1.25,1.50,1.75,2.00\}$ | $\theta=1$, $\phi=1$ |
+
+Per $\theta$, la griglia iniziale deve essere utilizzata anche per individuare l'intervallo compreso tra l'ultimo valore ammissibile e il primo valore non ammissibile; tale intervallo deve poi essere raffinato per localizzare:
 
 $$
-{r^g}'=(0.005,0.006,0.007).
+\theta_{\mathrm{crit}}.
 $$
 
-### 4.7 Costi benchmark del funding
-
-$$
-{r^u}'=(0.015,0.020,0.025).
-$$
-
-### 4.8 Capacità benchmark di funding
-
-$$
-\bar u'=(10,8,6).
-$$
-
-### 4.9 Limite prudenziale
-
-$$
-K=7.
-$$
-
-### 4.10 Griglia di sensitività a $\theta$
-
-Con $\phi=1$ e $\psi=1$:
-
-$$
-\theta\in\{1.00,1.01,\ldots,1.10\}.
-$$
-
-La griglia deve essere utilizzata anche per individuare l'intervallo nel quale cambia lo stato di fattibilità. Dopo avere individuato tale intervallo, deve essere effettuato un raffinamento della ricerca.
-
-### 4.11 Griglia di sensitività a $\phi$
-
-Con $\theta=1$ e $\psi=1$:
-
-$$
-\phi\in\{0.50,0.60,0.70,0.80,0.90,1.00,1.10,1.20,1.30,1.40,1.50\}.
-$$
-
-### 4.12 Griglia di sensitività a $\psi$
-
-Con $\theta=1$ e $\phi=1$:
-
-$$
-\psi\in\{0.50,0.75,1.00,1.25,1.50,1.75,2.00\}.
-$$
-
-### 4.13 Scenari congiunti
+### 4.3 Scenari congiunti
 
 | Scenario | $\theta$ | $\phi$ | $\psi$ |
 |---|---:|---:|---:|
@@ -338,68 +291,120 @@ $$
 
 Lo scenario Standard coincide con il benchmark.
 
-Gli scenari Mediamente critico e Critico modificano contemporaneamente fabbisogni iniziali, capacità massima di funding e costo del funding.
+Gli scenari Mediamente critico e Critico modificano congiuntamente fabbisogni iniziali, capacità massima di funding e costo del funding.
 
-Gli scenari devono essere interpretati come configurazioni deterministiche assegnate e non come eventi ai quali siano associate probabilità.
+Gli scenari costituiscono configurazioni deterministiche assegnate e non eventi ai quali siano associate probabilità.
 
 ---
 
 ## 5. Quantità da stimare o calcolare
 
+Per il benchmark e per le analisi parametriche devono essere determinate le seguenti quantità.
+
 ### 5.1 Benchmark
 
-Per il benchmark $(\theta,\phi,\psi)=(1,1,1)$ devono essere determinati:
+Per:
 
-1. il vettore ottimo degli attivi $x^*$;
-2. il vettore ottimo delle giacenze $g^*$;
-3. il vettore ottimo del funding $u^*$;
-4. il valore ottimo $\Pi^*$;
-5. i residuali dei vincoli di uguaglianza;
-6. gli slack dei vincoli di disuguaglianza;
-7. i bounds attivi;
-8. i principali valori marginali restituiti dal solver.
+$$
+(\theta,\phi,\psi)
+=
+(1,1,1)
+$$
+
+devono essere calcolati:
+
+1. soluzione ottima:
+
+$$
+x^*,
+\qquad
+g^*,
+\qquad
+u^*;
+$$
+
+2. valore ottimo:
+
+$$
+\Pi^*;
+$$
+
+3. residuali dei vincoli di uguaglianza;
+
+4. slack dei vincoli di disuguaglianza;
+
+5. bounds attivi;
+
+6. principali valori marginali restituiti dal solver.
 
 ### 5.2 Sensitività univariate
 
-Per ciascun parametro $p\in\{\theta,\phi,\psi\}$ devono essere determinate, per ogni punto della relativa griglia:
-
-1. la fattibilità del problema;
-2. il valore ottimo $\Pi^*(p)$;
-3. le componenti $x_j^*(p)$;
-4. le componenti $g_t^*(p)$;
-5. le componenti $u_t^*(p)$;
-6. i principali vincoli attivi;
-7. i principali valori marginali quando economicamente informativi.
-
-Devono inoltre essere calcolate:
+Per ciascun parametro:
 
 $$
-\Delta\Pi^*(p)=\Pi^*(p)-\Pi^*(1),
+p\in\{\theta,\phi,\psi\}
+$$
+
+e per ogni valore della relativa griglia devono essere determinati:
+
+1. stato di fattibilità;
+
+2. valore ottimo:
+
+$$
+\Pi^*(p);
+$$
+
+3. soluzione ottima:
+
+$$
+x^*(p),
+\qquad
+g^*(p),
+\qquad
+u^*(p);
+$$
+
+4. principali vincoli e bounds attivi;
+
+5. principali valori marginali, quando economicamente informativi.
+
+Devono inoltre essere calcolate le variazioni rispetto al benchmark:
+
+$$
+\Delta\Pi^*(p)
+=
+\Pi^*(p)-\Pi^*(1),
 $$
 
 $$
 \Delta_{\%}\Pi^*(p)
 =
-100\left[
+100
+\left[
 \frac{\Pi^*(p)}{\Pi^*(1)}-1
 \right],
 $$
 
 $$
-\Delta x_j^*(p)=x_j^*(p)-x_j^*(1),
+\Delta x_j^*(p)
+=
+x_j^*(p)-x_j^*(1),
 $$
 
 $$
-\Delta g_t^*(p)=g_t^*(p)-g_t^*(1),
+\Delta g_t^*(p)
+=
+g_t^*(p)-g_t^*(1),
 $$
 
 $$
-\Delta u_t^*(p)=u_t^*(p)-u_t^*(1).
+\Delta u_t^*(p)
+=
+u_t^*(p)-u_t^*(1).
 $$
 
-### 5.3 Utilizzo della capacità di funding
-
-Per ogni data e per ciascuna analisi parametrica:
+Per il funding deve essere inoltre determinato:
 
 $$
 \rho_t^u(p)
@@ -409,32 +414,49 @@ $$
 
 Quando il parametro variato non è $\phi$, il denominatore coincide con la capacità benchmark.
 
-### 5.4 Frontiera di fattibilità rispetto a $\theta$
+### 5.3 Frontiera di fattibilità
 
-Sulla griglia assegnata devono essere individuati:
+Per la sensitività rispetto a $\theta$ devono essere individuati:
 
-1. l'ultimo valore di $\theta$ per il quale il problema è ammissibile;
-2. il primo valore di $\theta$ per il quale il problema non è ammissibile.
+1. l'ultimo valore ammissibile della griglia iniziale;
 
-Nell'intervallo così individuato deve essere effettuato un raffinamento della ricerca, con passo più fine, in modo da determinare un intervallo ristretto contenente:
+2. il primo valore non ammissibile;
+
+3. un intervallo raffinato contenente:
 
 $$
 \theta_{\mathrm{crit}}.
 $$
 
-Il valore $\theta_{\mathrm{crit}}$ rappresenta la frontiera di fattibilità del modello stilizzato e non deve essere interpretato come stima dei deflussi storicamente osservati presso SVB.
+Il valore $\theta_{\mathrm{crit}}$ rappresenta esclusivamente la frontiera di fattibilità del modello stilizzato.
 
-### 5.5 Scenario analysis
+### 5.4 Scenario analysis
 
-Per ciascuno dei tre scenari devono essere determinati:
+Per ciascuno degli scenari Standard, Mediamente critico e Critico devono essere determinati:
 
-1. $\Pi^*$;
-2. $x^*$;
-3. $g^*$;
-4. $u^*$;
-5. i principali vincoli attivi;
-6. il rapporto di utilizzo della capacità di funding;
-7. i principali valori marginali, se economicamente rilevanti.
+1. fattibilità;
+
+2. valore ottimo:
+
+$$
+\Pi^*;
+$$
+
+3. soluzione ottima:
+
+$$
+x^*,
+\qquad
+g^*,
+\qquad
+u^*;
+$$
+
+4. principali vincoli e bounds attivi;
+
+5. utilizzo della capacità di funding;
+
+6. principali valori marginali, quando economicamente informativi.
 
 Per gli scenari Mediamente critico e Critico deve essere inoltre calcolata la perdita di valore rispetto allo Standard:
 
@@ -566,35 +588,105 @@ Le tabelle devono contenere le quantità necessarie a rappresentare gli output d
 
 Devono essere prodotti i seguenti grafici:
 
-1. valore ottimo al variare di $\theta$;
+1. **Valore ottimo al variare di $\theta$**:
 
-2. composizione ottima dell'attivo al variare di $\theta$;
+$$
+\theta
+\longmapsto
+\Pi^*(\theta);
+$$
 
-3. giacenze al variare di $\theta$;
+2. **Variazione del valore ottimo rispetto al benchmark al variare di $\theta$**:
 
-4. funding al variare di $\theta$;
+$$
+\theta
+\longmapsto
+\Delta\Pi^*(\theta)
+$$
 
-5. utilizzo della capacità di funding al variare di $\theta$;
+oppure la corrispondente variazione percentuale;
 
-6. valore ottimo al variare di $\phi$;
+3. **Composizione ottima dell'attivo al variare di $\theta$**:
 
-7. composizione ottima dell'attivo al variare di $\phi$;
+$$
+x_1^*(\theta),\ldots,x_4^*(\theta);
+$$
 
-8. funding al variare di $\phi$;
+4. **Variazioni dell'asset allocation rispetto al benchmark**:
 
-9. utilizzo della capacità di funding al variare di $\phi$;
+$$
+\Delta x_j^*(\theta);
+$$
 
-10. valore ottimo al variare di $\psi$;
+5. **Funding ottimo e utilizzo della capacità al variare di $\theta$**, mediante $u_t^*(\theta)$ e/o:
 
-11. composizione ottima dell'attivo al variare di $\psi$;
+$$
+\frac{u_t^*(\theta)}{\bar u_t};
+$$
 
-12. funding al variare di $\psi$;
+6. **Giacenze ottime al variare di $\theta$**:
 
-13. confronto del valore ottimo nei tre scenari;
+$$
+g_1^*(\theta),\ldots,g_4^*(\theta);
+$$
 
-14. confronto della composizione della soluzione nei tre scenari.
+7. **Sensitività rispetto a $\phi$**, rappresentando almeno:
 
-I grafici devono essere utilizzati esclusivamente quando la relativa configurazione è ammissibile.
+$$
+\phi
+\longmapsto
+\Pi^*(\phi)
+$$
+
+e il comportamento del funding rispetto alla capacità disponibile;
+
+8. **Sensitività rispetto a $\psi$**, rappresentando almeno:
+
+$$
+\psi
+\longmapsto
+\Pi^*(\psi)
+$$
+
+e l'evoluzione del funding ottimo;
+
+9. **Valori marginali**, rappresentando i marginali dei bilanci temporali e/o dei limiti di funding più informativi lungo almeno una delle griglie;
+
+10. **Mappa dei principali vincoli attivi**, mostrando almeno lungo la sensitività rispetto a $\theta$ il passaggio tra stato attivo e non attivo;
+
+11. **Valore ottimo nei tre scenari**, confrontando:
+
+$$
+\Pi_{\mathrm{Standard}}^*,
+\qquad
+\Pi_{\mathrm{Medio}}^*,
+\qquad
+\Pi_{\mathrm{Critico}}^*;
+$$
+
+12. **Composizione ottima dell'attivo nei tre scenari**, confrontando:
+
+$$
+x_1^*,x_2^*,x_3^*,x_4^*;
+$$
+
+13. **Funding nei tre scenari**, confrontando:
+
+$$
+u_1^*,u_2^*,u_3^*;
+$$
+
+14. **Profilo temporale delle giacenze nei tre scenari**, rappresentando per ciascuno scenario:
+
+$$
+t
+\longmapsto
+g_t^*,
+\qquad
+t=1,\ldots,4.
+$$
+
+I grafici devono utilizzare esclusivamente configurazioni per le quali il solver restituisce una soluzione valida.
 
 ### 6.4 Regole di produzione
 
