@@ -6,7 +6,7 @@
 - **Tipo di caso:** TakeHome
 - **Titolo:** Lehman Brothers 2008: rischio sistemico, migrazioni creditizie e perdita di portafoglio
 - **Nome file previsto:** `Lezione_10_Scheda_Costruzione_Caso_TakeHome.md`
-- **Destinatari:** studenti del secondo anno della Laurea Magistrale in Banca e Risk Management
+- **Destinatari:** studenti del secondo anno del Corso di Laurea Magistrale in Finanza e Risk Management
 - **Uso previsto:** lavoro autonomo TakeHome per sviluppare mediante simulazione Monte Carlo un modello di rischio creditizio di portafoglio nel quale le migrazioni dei singoli debitori dipendono da un regime sistemico comune che evolve nel tempo.
 
 ## 2. Contesto e motivazione

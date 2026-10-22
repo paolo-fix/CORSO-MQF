@@ -6,7 +6,7 @@
 - **Tipo di caso:** Aula
 - **Titolo:** China Evergrande 2021: crisi immobiliare, dipendenza sistemica e controllo della concentrazione creditizia
 - **Nome file previsto:** `Lezione_10_Scheda_Costruzione_Caso_Aula.md`
-- **Destinatari:** studenti del secondo anno della Laurea Magistrale in Banca e Risk Management
+- **Destinatari:** studenti del secondo anno del Corso di Laurea Magistrale in Finanza e Risk Management
 - **Uso previsto:** sviluppo guidato in aula di un caso applicativo basato su una struttura markoviana a due livelli, finalizzato a simulare il rischio di credito di un portafoglio esposto al settore immobiliare cinese e a valutare gli effetti di una politica di contenimento della concentrazione single-name.
 
 ## 2. Contesto e motivazione

@@ -7,7 +7,7 @@ Documento interno di progettazione docente.
 - **Lezione:** 16 — Applicazione in Python: programmazione stocastica
 - **Tipo di caso:** aula
 - **Titolo:** SVB–ALM 2023 — Asset allocation, liquidità e valore dell'informazione
-- **Destinatari:** studenti del V anno di Banca e Risk Management
+- **Destinatari:** studenti del secondo anno del Corso di Laurea Magistrale in Finanza e Risk Management
 - **Uso previsto:** caso guidato in aula per consolidare computazionalmente la programmazione stocastica a due stadi sviluppata nei Capitoli 14 e 15, con particolare attenzione a soluzione stocastica, ricorso, Expected Value, wait-and-see, VSS ed EVPI.
 
 ## 2. Contesto e motivazione
