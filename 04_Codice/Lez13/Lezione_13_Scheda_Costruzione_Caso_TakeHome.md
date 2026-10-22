@@ -555,58 +555,232 @@ $$
 
 ### Proprietà teoriche da verificare
 
-Il caso deve verificare esplicitamente:
+Devono essere verificate almeno le seguenti proprietà.
 
-1. la fattibilità numerica della soluzione benchmark;
-2. la soddisfazione dei bilanci temporali di liquidità;
-3. la coerenza tra residuali numerici e vincoli di uguaglianza;
-4. la coerenza tra slack e stato attivo o non attivo delle disuguaglianze;
-5. la coerenza tra valori delle variabili e bounds attivi;
-6. il rispetto dei limiti di funding:
+1. La soluzione deve soddisfare il vincolo sulle risorse iniziali:
 
 $$
-u_t^*\leq\phi\bar u_t;
+\sum_{j=1}^{5}x_j=100.
 $$
 
-7. il rispetto del vincolo prudenziale:
+2. Devono essere soddisfatti i quattro bilanci temporali di liquidità.
+
+3. I residuali numerici dei vincoli di uguaglianza devono essere coerenti con la tolleranza numerica adottata.
+
+4. Gli slack devono essere coerenti con la classificazione dei vincoli di disuguaglianza come attivi o non attivi.
+
+5. I valori delle variabili devono essere coerenti con l'identificazione dei bounds attivi.
+
+6. Devono essere rispettati i limiti di funding:
 
 $$
-\ell'x^*\leq K;
+0\leq u_t\leq\phi\bar u_t,
+\qquad
+t=1,2,3.
 $$
 
-8. il rispetto del vincolo legacy:
+7. Deve essere rispettato il vincolo prudenziale:
 
 $$
-x_3^*+x_4^*\geq35;
+\ell'x\leq7.5.
 $$
 
-9. il rispetto del limite sugli altri prestiti:
+8. Deve essere rispettato il vincolo legacy:
 
 $$
-x_5^*\leq35;
+x_3+x_4\geq35.
 $$
 
-10. la corretta trasformazione del vincolo legacy da
+9. Deve essere rispettato il limite:
 
 $$
-x_3+x_4\geq35
+x_5\leq35.
 $$
 
-a
+10. I valori marginali devono essere associati correttamente ai vincoli e ai bilanci ai quali si riferiscono e devono essere interpretati come quantità locali.
+
+11. Per il vincolo legacy occorre distinguere la forma economica:
 
 $$
--x_3-x_4\leq-35;
+x_3+x_4\geq L,
+\qquad
+L=35,
 $$
 
-11. la corretta interpretazione del marginale associato al vincolo legacy: il solver restituisce il marginale rispetto al termine noto della disuguaglianza codificata, cioè rispetto a $-35$, e non direttamente rispetto al limite economico $35$;
+dalla forma utilizzata dal solver:
 
-12. la conseguente ricostruzione del segno quando si interpreta economicamente l'effetto marginale di un aumento del livello minimo richiesto delle attività legacy;
+$$
+-x_3-x_4\leq b,
+\qquad
+b=-L.
+$$
 
-13. la coerenza dei valori marginali con i vincoli e i bilanci ai quali si riferiscono;
-14. la corretta distinzione tra configurazioni ammissibili e non ammissibili;
-15. la coerenza tra variazioni di $\alpha$, $\beta$ e $\phi$, cambiamenti dei vincoli attivi e modifiche della soluzione ottima;
-16. la distinzione tra gli effetti di uno shock alla prima data e quelli di uno shock alla data terminale;
-17. la distinzione tra sensitività univariata e variazione congiunta dei driver negli scenari.
+12. Se il problema economico massimizza:
+
+$$
+\Pi
+$$
+
+mentre il solver minimizza:
+
+$$
+F=-\Pi,
+$$
+
+e se il marginale restituito dal solver per la riga del vincolo legacy è:
+
+$$
+m
+=
+\frac{\partial F^*}{\partial b},
+$$
+
+allora deve essere verificata la relazione:
+
+$$
+\frac{\partial\Pi^*}{\partial L}
+=
+m.
+$$
+
+Infatti:
+
+$$
+\frac{\partial F^*}{\partial L}
+=
+\frac{\partial F^*}{\partial b}
+\frac{\partial b}{\partial L}
+=
+m(-1)
+=
+-m,
+$$
+
+e, poiché:
+
+$$
+F^*=-\Pi^*,
+$$
+
+si ha:
+
+$$
+-\frac{\partial\Pi^*}{\partial L}
+=
+-m,
+$$
+
+da cui:
+
+$$
+\frac{\partial\Pi^*}{\partial L}
+=
+m.
+$$
+
+Le due inversioni di segno, dovute rispettivamente a:
+
+$$
+F=-\Pi
+$$
+
+e:
+
+$$
+b=-L,
+$$
+
+si compensano.
+
+13. Non deve quindi essere applicato un ulteriore cambio di segno meccanico al marginale restituito dal solver quando lo si interpreta rispetto al limite economico:
+
+$$
+L.
+$$
+
+14. Quando il vincolo legacy è attivo e il marginale è localmente informativo, la relazione:
+
+$$
+\frac{\partial\Pi^*}{\partial L}
+=
+m
+$$
+
+deve essere verificata numericamente mediante una piccola perturbazione di:
+
+$$
+L.
+$$
+
+15. La verifica perturbativa deve utilizzare una perturbazione sufficientemente piccola da restare, per quanto possibile, nello stesso regime locale della soluzione.
+
+16. La funzione parametrica deve distinguere correttamente gli effetti di:
+
+$$
+\alpha,
+\qquad
+\beta,
+\qquad
+\phi.
+$$
+
+17. Il parametro:
+
+$$
+\alpha
+$$
+
+deve modificare esclusivamente il fabbisogno della prima data.
+
+18. Il parametro:
+
+$$
+\beta
+$$
+
+deve modificare esclusivamente il fabbisogno della quarta data.
+
+19. Il parametro:
+
+$$
+\phi
+$$
+
+deve modificare esclusivamente la capacità massima di funding.
+
+20. Nelle sensitività univariate deve variare un solo parametro alla volta.
+
+21. Le configurazioni non ammissibili devono essere distinte dalle configurazioni ammissibili prima di utilizzare risultati numerici, tabelle o grafici.
+
+22. I cambiamenti della soluzione ottima devono essere confrontati con gli eventuali cambiamenti dei vincoli e dei bounds attivi.
+
+23. Gli effetti di una variazione di:
+
+$$
+\alpha
+$$
+
+devono essere distinti dagli effetti di una variazione di:
+
+$$
+\beta,
+$$
+
+in modo da rendere osservabile il ruolo della collocazione temporale del fabbisogno.
+
+24. La sensitività univariata deve restare distinta dalla scenario analysis, nella quale:
+
+$$
+\alpha,
+\qquad
+\beta,
+\qquad
+\phi
+$$
+
+possono variare congiuntamente.
+
+25. Gli scenari devono essere interpretati come configurazioni deterministiche assegnate e non come eventi probabilistici.
 
 ### Soglie, target o vincoli rilevanti
 
@@ -1184,14 +1358,226 @@ L'interpretazione finanziaria finale resta responsabilità dello studente e deve
 
 ## 6. Flusso logico-teorico risolutivo atteso
 
-| Passo | Finalità risolutiva | Formula, definizione, proprietà o teorema | Applicazione nel caso | Output o controllo collegato |
+Il Flusso logico-teorico deve ricostruire la sequenza concettuale necessaria per trasferire il metodo appreso nel Caso Aula a una struttura ALM differente.
+
+Il percorso non deve partire dalla duplicazione del notebook Aula, ma dalla nuova specifica del problema:
+
+$$
+\text{nuovo problema}
+\longrightarrow
+\text{nuova struttura teorica}
+\longrightarrow
+\text{nuova forma solver}
+\longrightarrow
+\text{nuovi controlli}
+\longrightarrow
+\text{nuova interpretazione}.
+$$
+
+| Passo | Finalità risolutiva | Formula teorico-matematica / definizione / proprietà / teorema | Applicazione nel caso | Output o controllo collegato |
 |---:|---|---|---|---|
-| 1 | Ricostruire e tradurre il nuovo modello ALM | Struttura del programma lineare e forma matriciale per il solver | Identificare cinque classi di attivo, bilanci temporali, funding, vincolo legacy e bounds | Matrici e vettori con controllo dimensionale |
-| 2 | Risolvere e validare il benchmark | Ammissibilità, ottimalità, slack e valori marginali | Risolvere il caso $(\alpha,\beta,\phi)=(1,1,1)$ | Soluzione benchmark, residuali, vincoli attivi e marginals |
-| 3 | Parametrizzare i driver di stress | Analisi parametrica di termini noti e bounds | Introdurre $\alpha$, $\beta$ e $\phi$ nella funzione solver | Funzione generale di soluzione validata sul benchmark |
-| 4 | Svolgere le sensitività univariate | Comparative statics numerica | Variare separatamente $\alpha$, $\beta$ e $\phi$ sulle griglie assegnate | DataFrame, variazioni della soluzione ottima, vincoli attivi e grafici |
-| 5 | Confrontare le due ondate di liquidità | Struttura temporale dei bilanci ALM | Valutare differenze fra stress iniziale e stress terminale | Confronto fra sensitività ad $\alpha$ e a $\beta$ |
-| 6 | Confrontare gli scenari e interpretare | Scenario analysis deterministica | Risolvere Standard, Mediamente critico e Critico | Tabella, grafici e interpretazione economico-finanziaria finale |
+| 1 | Ricostruire autonomamente la struttura del nuovo problema | Struttura generale di un programma lineare ALM; distinzione tra variabili, uguaglianze, disuguaglianze e bounds | Identificare cinque classi di attivo, quattro giacenze, tre variabili di funding, doppia ondata di fabbisogno, vincolo legacy e limite su $x_5$ | Mappa teorica del caso; controllo che il TakeHome non sia ridotto a una semplice sostituzione di coefficienti |
+| 2 | Tradurre la specifica economica nella forma solver | Equivalenza tra massimo di $\Pi$ e minimo di $F=-\Pi$; forma matriciale con $A_{\mathrm{eq}}$, $b_{\mathrm{eq}}$, $A_{\mathrm{ub}}$, $b_{\mathrm{ub}}$ e bounds | Costruire vettore decisionale, obiettivo, bilanci temporali, vincolo prudenziale, vincolo legacy, limite su $x_5$ e bounds del funding | Struttura solver completa; controllo dimensionale, dei segni e dell'ordinamento delle variabili |
+| 3 | Risolvere e validare il benchmark | Ammissibilità; ottimalità; residuali; slack; vincoli attivi; bounds attivi | Risolvere $(\alpha,\beta,\phi)=(1,1,1)$ e verificare indipendentemente tutti i vincoli | $x^*$, $g^*$, $u^*$, $\Pi^*$; residuali; slack; bounds attivi; valori marginali |
+| 4 | Verificare il vincolo legacy e il significato del relativo marginale | Vincolo inferiore; trasformazione in disuguaglianza di tipo $\leq$; dualità e sensitività locale | Partire da $x_3+x_4\geq L$, porre $b=-L$, utilizzare $F=-\Pi$ e collegare il marginale solver alla variazione del limite economico | Verifica della codifica del vincolo; marginale associato; controllo perturbativo |
+| 5 | Derivare correttamente la relazione marginale del vincolo legacy | Se $m=\partial F^*/\partial b$, con $F=-\Pi$ e $b=-L$, allora le due inversioni di segno si compensano | Utilizzare la relazione: $$\frac{\partial\Pi^*}{\partial L}=m$$ senza introdurre ulteriori cambi di segno | Verifica teorica e numerica del marginale legacy; controllo della validità locale |
+| 6 | Costruire il solver parametrico | Analisi parametrica dei termini noti e dei bounds | Introdurre $\alpha$, $\beta$ e $\phi$ modificando esclusivamente gli elementi previsti dalla Scheda Caso | Funzione solver parametrica; riproduzione del benchmark in $(1,1,1)$ |
+| 7 | Analizzare lo shock alla prima data | Comparative statics numerica | Variare $\alpha$ mantenendo $\beta=\phi=1$ | Sensitività ad $\alpha$; variazioni di $\Pi^*$, $x^*$, $g^*$, $u^*$; vincoli attivi |
+| 8 | Analizzare lo shock alla data terminale | Comparative statics numerica | Variare $\beta$ mantenendo $\alpha=\phi=1$ | Sensitività a $\beta$; variazioni di $\Pi^*$, $x^*$, $g^*$, $u^*$; vincoli attivi |
+| 9 | Confrontare prima e seconda ondata | Struttura temporale dei bilanci ALM; liquidità disponibile alla data necessaria | Confrontare configurazioni omogenee di $\alpha$ e $\beta$ senza variarli simultaneamente | Confronto diretto fra shock iniziale e terminale su valore ottimo, asset allocation, giacenze, funding e vincoli attivi |
+| 10 | Analizzare il ruolo della capacità di funding | Bounds parametrizzati; scarsità della capacità esterna | Variare $\phi$ mantenendo $\alpha=\beta=1$ e modificare esclusivamente i bounds del funding | Sensitività a $\phi$; rapporti di utilizzo; variazioni di $\Pi^*$, $x^*$, $g^*$, $u^*$ |
+| 11 | Confrontare i tre driver senza confondere sensitività e scenari | Comparative statics; cambiamento di regime; sensitività locale | Confrontare separatamente gli effetti di $\alpha$, $\beta$ e $\phi$ | Sintesi delle sensitività; ruolo del timing, del vincolo legacy e della capacità di funding |
+| 12 | Analizzare configurazioni con variazione congiunta dei driver | Scenario analysis deterministica | Risolvere Standard, Mediamente critico e Critico con i valori assegnati di $(\alpha,\beta,\phi)$ | Tabella degli scenari; perdita rispetto allo Standard; confronto delle soluzioni e dei vincoli attivi |
+| 13 | Verificare la coerenza conclusiva e delimitare l'interpretazione | Coerenza modello–solver–output; validità locale dei marginali; limiti del modello deterministico | Controllare completezza, riproducibilità, autonomia rispetto all'Aula e uso esclusivo di risultati validi | Controlli conclusivi; elementi quantitativi per l'interpretazione finanziaria finale; limiti del modello |
+
+### 6.1 Passaggio teorico specifico sul vincolo legacy
+
+Il vincolo:
+
+$$
+x_3+x_4\geq L
+$$
+
+deve essere trattato come passaggio teorico autonomo.
+
+Per la forma solver si utilizza:
+
+$$
+-x_3-x_4\leq -L.
+$$
+
+Ponendo:
+
+$$
+b=-L
+$$
+
+e indicando con:
+
+$$
+F=-\Pi
+$$
+
+la funzione minimizzata dal solver, se:
+
+$$
+m
+=
+\frac{\partial F^*}{\partial b},
+$$
+
+allora:
+
+$$
+\frac{\partial F^*}{\partial L}
+=
+\frac{\partial F^*}{\partial b}
+\frac{\partial b}{\partial L}
+=
+-m.
+$$
+
+Poiché:
+
+$$
+F^*=-\Pi^*,
+$$
+
+segue:
+
+$$
+-\frac{\partial\Pi^*}{\partial L}
+=
+-m,
+$$
+
+e quindi:
+
+$$
+\boxed{
+\frac{\partial\Pi^*}{\partial L}
+=
+m
+}.
+$$
+
+Le due inversioni di segno si compensano.
+
+Questo risultato deve essere validato mediante una piccola perturbazione di $L$ quando il vincolo è attivo e la soluzione resta nello stesso regime locale.
+
+### 6.2 Passaggio teorico specifico sul confronto $\alpha$–$\beta$
+
+Le due sensitività devono essere sviluppate separatamente prima del confronto.
+
+Per $\alpha$:
+
+$$
+d(\alpha,1)
+=
+(32\alpha,18,14,32)'.
+$$
+
+Per $\beta$:
+
+$$
+d(1,\beta)
+=
+(32,18,14,32\beta)'.
+$$
+
+Il confronto deve utilizzare variazioni relative omogenee e deve verificare se:
+
+$$
+\alpha-1
+=
+\beta-1
+$$
+
+produca o meno gli stessi effetti su:
+
+$$
+\Pi^*,
+\qquad
+x^*,
+\qquad
+g^*,
+\qquad
+u^*.
+$$
+
+L'eventuale differenza deve essere interpretata attraverso la struttura temporale dei bilanci ALM.
+
+Il principio da rendere osservabile è:
+
+$$
+\text{stesso aumento relativo del fabbisogno}
+\not\Rightarrow
+\text{stesso effetto sul piano ALM}.
+$$
+
+### 6.3 Logica della sequenza
+
+Il flusso deve rispettare l'ordine:
+
+$$
+\text{ricognizione del nuovo problema}
+\longrightarrow
+\text{forma solver}
+\longrightarrow
+\text{benchmark}
+$$
+
+$$
+\longrightarrow
+\text{vincolo legacy e marginale}
+\longrightarrow
+\text{solver parametrico}
+\longrightarrow
+\alpha
+\longrightarrow
+\beta
+$$
+
+$$
+\longrightarrow
+\text{confronto }\alpha\text{--}\beta
+\longrightarrow
+\phi
+\longrightarrow
+\text{confronto dei driver}
+$$
+
+$$
+\longrightarrow
+\text{scenari}
+\longrightarrow
+\text{controlli conclusivi}.
+$$
+
+La verifica del vincolo legacy deve precedere l'analisi parametrica, perché la sua corretta codifica e interpretazione costituiscono parte della validazione del modello.
+
+Analogamente, le sensitività ad $\alpha$ e a $\beta$ devono precedere il loro confronto, perché il confronto deve utilizzare risultati ottenuti separatamente e già validati.
+
+### 6.4 Relazione con la scomposizione in tappe
+
+La successiva scomposizione operativa deriva da questo Flusso logico-teorico.
+
+In particolare:
+
+- il Passo 1 alimenta la Tappa 1 — Ricognizione del nuovo problema;
+- il Passo 2 alimenta la Tappa 2 — Traduzione del modello nella forma solver;
+- il Passo 3 alimenta la Tappa 3 — Soluzione e validazione del benchmark;
+- i Passi 4–5 alimentano la Tappa 4 — Verifica del vincolo legacy e del relativo marginale;
+- il Passo 6 alimenta la Tappa 5 — Costruzione del solver parametrico;
+- il Passo 7 alimenta la Tappa 6 — Sensitività rispetto ad $\alpha$;
+- il Passo 8 alimenta la Tappa 7 — Sensitività rispetto a $\beta$;
+- il Passo 9 alimenta la Tappa 8 — Confronto tra prima e seconda ondata;
+- il Passo 10 alimenta la Tappa 9 — Sensitività rispetto a $\phi$;
+- il Passo 11 alimenta la Tappa 10 — Confronto delle sensitività;
+- il Passo 12 alimenta la Tappa 11 — Scenario analysis;
+- il Passo 13 alimenta la Tappa 12 — Controlli conclusivi e predisposizione dell'interpretazione.
+
+Il Flusso definisce l'ordine concettuale della soluzione. La scomposizione in tappe ne costituisce la traduzione operativa e non deve introdurre passaggi privi di fondamento nel Flusso teorico.
 
 ## 7. Scomposizione attesa in tappe
 
@@ -1548,38 +1934,517 @@ La sequenza dei prompt deve rispettare le seguenti condizioni:
 
 ## 9. Struttura attesa del notebook
 
-1. Cella Markdown iniziale prodotta dal Prompt 1.
-2. Cella Markdown con il Flusso logico-teorico risolutivo.
-3. Cella Markdown con la scomposizione in tappe.
-4. Cella codice per l'importazione delle librerie.
-5. Cella codice per la definizione dei parametri benchmark.
-6. Cella Markdown con l'ordinamento delle variabili.
-7. Cella codice per la costruzione delle matrici e del vincolo legacy.
-8. Cella codice per i controlli dimensionali.
-9. Cella codice per la soluzione benchmark.
-10. Output con stato del solver, valore ottimo e vettori $x^*$, $g^*$, $u^*$.
-11. Cella codice per la ricostruzione dei bilanci e dei residuali.
-12. Cella codice per slack, bounds attivi e valori marginali.
-13. Output con tabella diagnostica.
-14. Cella codice per la verifica di almeno un valore marginale mediante perturbazione.
-15. Cella Markdown con interpretazione della verifica.
-16. Cella Markdown per la definizione di $\alpha$, $\beta$ e $\phi$.
-17. Cella codice per la funzione solver parametrica.
-18. Cella codice di test della funzione in $(1,1,1)$.
-19. Cella codice per la sensitività ad $\alpha$.
-20. Output DataFrame e grafici relativi ad $\alpha$.
-21. Cella codice per la sensitività a $\beta$.
-22. Output DataFrame e grafici relativi a $\beta$.
-23. Cella codice per la sensitività a $\phi$.
-24. Output DataFrame e grafici relativi a $\phi$.
-25. Cella Markdown e output di confronto fra prima e seconda ondata.
-26. Cella Markdown con la definizione dei tre scenari.
-27. Cella codice per la risoluzione degli scenari.
-28. Output con tabella comparativa.
-29. Celle codice / output con grafici di scenario.
-30. Cella Markdown finale con interpretazione economico-finanziaria e limiti del modello.
+Il notebook deve riflettere la sequenza logico-operativa validata nelle Sezioni 6 e 7 e deve rendere evidente che il Caso TakeHome richiede un trasferimento autonomo del metodo sviluppato nel Caso Aula.
 
-Il notebook deve essere eseguibile sequenzialmente dall'inizio alla fine. Tutte le tabelle e tutti i grafici devono derivare dagli oggetti prodotti dal solver. Non devono essere inseriti manualmente valori della soluzione nelle celle successive.
+La struttura deve rendere riconoscibile il percorso:
+
+$$
+\text{inquadramento}
+\longrightarrow
+\text{Flusso logico-teorico}
+\longrightarrow
+\text{tappe operative}
+\longrightarrow
+\text{ricognizione del nuovo problema}
+$$
+
+$$
+\longrightarrow
+\text{forma solver}
+\longrightarrow
+\text{benchmark}
+\longrightarrow
+\text{vincolo legacy e marginale}
+\longrightarrow
+\text{solver parametrico}
+$$
+
+$$
+\longrightarrow
+\alpha
+\longrightarrow
+\beta
+\longrightarrow
+\text{confronto }\alpha\text{--}\beta
+\longrightarrow
+\phi
+$$
+
+$$
+\longrightarrow
+\text{confronto delle sensitività}
+\longrightarrow
+\text{scenari}
+\longrightarrow
+\text{controlli conclusivi}
+\longrightarrow
+\text{interpretazione finale}.
+$$
+
+### 9.1 Sequenza delle celle e degli output
+
+1. Cella Markdown iniziale prodotta dal Prompt 1.
+
+2. Cella Markdown con il Flusso logico-teorico risolutivo validato.
+
+3. Cella Markdown con la scomposizione in tappe input-output validata.
+
+4. Cella Markdown di ricognizione del nuovo problema, nella quale devono essere identificati almeno:
+
+   - cinque classi di attivo;
+   - doppia ondata di fabbisogno;
+   - ruolo distinto di $\alpha$ e $\beta$;
+   - capacità di funding parametrizzata da $\phi$;
+   - vincolo legacy;
+   - limite su $x_5$;
+   - differenze strutturali rispetto al Caso Aula.
+
+5. Cella codice per l'importazione delle librerie necessarie.
+
+6. Cella codice per la definizione dei parametri benchmark.
+
+7. Cella Markdown con l'ordinamento completo delle variabili decisionali:
+
+$$
+x_1,\ldots,x_5,
+\qquad
+g_1,\ldots,g_4,
+\qquad
+u_1,u_2,u_3.
+$$
+
+8. Cella Markdown e/o codice per la traduzione del modello economico nella forma solver.
+
+9. Cella codice per la costruzione del vettore della funzione obiettivo.
+
+10. Cella codice per la costruzione di:
+
+$$
+A_{\mathrm{eq}},
+\qquad
+b_{\mathrm{eq}}.
+$$
+
+11. Cella codice per la costruzione di:
+
+$$
+A_{\mathrm{ub}},
+\qquad
+b_{\mathrm{ub}}.
+$$
+
+12. Cella codice per la definizione dei bounds.
+
+13. Cella codice per i controlli dimensionali e di coerenza della forma solver.
+
+14. Cella Markdown sintetica sulla trasformazione:
+
+$$
+\max\Pi
+\quad\longleftrightarrow\quad
+\min F=-\Pi.
+$$
+
+15. Cella codice per la soluzione del benchmark:
+
+$$
+(\alpha,\beta,\phi)
+=
+(1,1,1).
+$$
+
+16. Output con:
+
+   - stato del solver;
+   - $x^*$;
+   - $g^*$;
+   - $u^*$;
+   - $\Pi^*$.
+
+17. Cella codice per la ricostruzione indipendente dei bilanci temporali.
+
+18. Output con residuali dei vincoli di uguaglianza.
+
+19. Cella codice per il calcolo degli slack dei vincoli di disuguaglianza.
+
+20. Cella codice per l'identificazione dei bounds attivi.
+
+21. Cella codice per l'estrazione dei principali valori marginali.
+
+22. Output con tabella diagnostica benchmark comprendente almeno:
+
+   - residuali;
+   - slack;
+   - bounds attivi;
+   - vincoli attivi;
+   - marginali economicamente informativi.
+
+23. Cella Markdown dedicata al vincolo legacy:
+
+$$
+x_3+x_4\geq L,
+\qquad
+L=35.
+$$
+
+La cella deve mostrare la forma solver:
+
+$$
+-x_3-x_4\leq -L.
+$$
+
+24. Cella Markdown dedicata alla relazione tra forma economica, forma solver e marginale:
+
+$$
+b=-L,
+\qquad
+F=-\Pi.
+$$
+
+Se:
+
+$$
+m
+=
+\frac{\partial F^*}{\partial b},
+$$
+
+deve essere esplicitata la relazione:
+
+$$
+\frac{\partial\Pi^*}{\partial L}
+=
+m.
+$$
+
+25. Cella codice per la verifica perturbativa del limite legacy.
+
+26. Output con confronto tra:
+
+   - marginale restituito dal solver;
+   - variazione numerica di $\Pi^*$ indotta da una piccola perturbazione di $L$.
+
+27. Cella Markdown con interpretazione locale della verifica e richiamo al fatto che non deve essere introdotto un ulteriore cambio di segno.
+
+28. Cella Markdown con la definizione dei tre driver:
+
+$$
+\alpha,
+\qquad
+\beta,
+\qquad
+\phi.
+$$
+
+29. Cella codice per la costruzione della funzione solver parametrica:
+
+$$
+\operatorname{solve}(\alpha,\beta,\phi).
+$$
+
+30. Cella codice di verifica della funzione parametrica nel benchmark:
+
+$$
+(1,1,1).
+$$
+
+31. Output di confronto tra benchmark diretto e benchmark prodotto dalla funzione parametrica.
+
+32. Cella codice per la sensitività rispetto ad:
+
+$$
+\alpha.
+$$
+
+33. Output DataFrame relativo alla griglia di $\alpha$.
+
+34. Output con tabelle e grafici previsti per la sensitività ad $\alpha$.
+
+35. Cella codice per la sensitività rispetto a:
+
+$$
+\beta.
+$$
+
+36. Output DataFrame relativo alla griglia di $\beta$.
+
+37. Output con tabelle e grafici previsti per la sensitività a $\beta$.
+
+38. Cella Markdown per il confronto diretto tra prima e seconda ondata.
+
+39. La cella deve confrontare configurazioni omogenee di $\alpha$ e $\beta$ e deve riguardare almeno:
+
+$$
+\Pi^*,
+\qquad
+x^*,
+\qquad
+g^*,
+\qquad
+u^*.
+$$
+
+40. Output e/o grafico di confronto fra shock alla prima data e shock alla data terminale.
+
+41. Cella Markdown di interpretazione del diverso ruolo del timing dei fabbisogni.
+
+42. Cella codice per la sensitività rispetto a:
+
+$$
+\phi.
+$$
+
+43. Output DataFrame relativo alla griglia di $\phi$.
+
+44. Output con tabelle e grafici relativi a:
+
+   - valore ottimo;
+   - asset allocation;
+   - giacenze;
+   - funding;
+   - rapporti di utilizzo della capacità;
+   - vincoli e bounds attivi.
+
+45. Cella Markdown di confronto complessivo tra le sensitività rispetto a:
+
+$$
+\alpha,
+\qquad
+\beta,
+\qquad
+\phi.
+$$
+
+46. La cella deve distinguere chiaramente:
+
+   - shock alla prima data;
+   - shock alla quarta data;
+   - riduzione o aumento della capacità di funding.
+
+47. La stessa cella deve collegare le variazioni della soluzione agli eventuali cambiamenti del vincolo legacy, del limite su $x_5$ e dei bounds del funding.
+
+48. Cella Markdown con la definizione dei tre scenari:
+
+   - Standard;
+   - Mediamente critico;
+   - Critico.
+
+49. Cella codice per la risoluzione dei tre scenari.
+
+50. Output con tabella comparativa degli scenari.
+
+51. Celle codice e output con i grafici di scenario previsti.
+
+52. Cella codice e/o Markdown per i controlli conclusivi di coerenza:
+
+   - formulazione solver;
+   - benchmark;
+   - vincolo legacy;
+   - marginale legacy;
+   - funzione parametrica;
+   - sensitività ad $\alpha$;
+   - sensitività a $\beta$;
+   - confronto $\alpha$–$\beta$;
+   - sensitività a $\phi$;
+   - scenari;
+   - utilizzo esclusivo di risultati validi.
+
+53. Cella Markdown conclusiva con gli elementi quantitativi necessari all'interpretazione economico-finanziaria.
+
+54. Cella Markdown finale dello studente con:
+
+   - interpretazione finanziaria;
+   - ruolo del timing dei fabbisogni;
+   - ruolo del vincolo legacy;
+   - ruolo del limite su $x_5$;
+   - ruolo della capacità di funding;
+   - differenze tra sensitività e scenario analysis;
+   - limiti del modello;
+   - distinzione tra risultati del modello stilizzato e fatti storici relativi a First Republic Bank.
+
+### 9.2 Corrispondenza con le tappe operative
+
+La struttura deve mantenere riconoscibile la seguente corrispondenza:
+
+- **Tappa 1 — Ricognizione del nuovo problema:** cella 4;
+
+- **Tappa 2 — Traduzione del modello nella forma solver:** celle 7–14;
+
+- **Tappa 3 — Soluzione e validazione del benchmark:** celle 15–22;
+
+- **Tappa 4 — Verifica del vincolo legacy e del relativo marginale:** celle 23–27;
+
+- **Tappa 5 — Costruzione del solver parametrico:** celle 28–31;
+
+- **Tappa 6 — Sensitività rispetto ad $\alpha$:** celle 32–34;
+
+- **Tappa 7 — Sensitività rispetto a $\beta$:** celle 35–37;
+
+- **Tappa 8 — Confronto tra prima e seconda ondata:** celle 38–41;
+
+- **Tappa 9 — Sensitività rispetto a $\phi$:** celle 42–44;
+
+- **Tappa 10 — Confronto delle sensitività:** celle 45–47;
+
+- **Tappa 11 — Scenario analysis:** celle 48–51;
+
+- **Tappa 12 — Controlli conclusivi:** celle 52–54.
+
+La numerazione delle celle è indicativa della sequenza logica attesa. Una singola tappa può comprendere più celle Markdown, codice e output quando ciò migliora leggibilità, controllo e riproducibilità.
+
+### 9.3 Regole di costruzione del notebook
+
+Il notebook deve rispettare le seguenti regole:
+
+1. essere eseguibile sequenzialmente dall'inizio alla fine;
+
+2. non dipendere da oggetti prodotti in esecuzioni precedenti non riproducibili;
+
+3. non contenere celle errate duplicate o versioni alternative non utilizzate;
+
+4. mantenere invariato l'ordinamento delle variabili dopo che è stato dichiarato;
+
+5. generare tabelle e grafici direttamente dagli oggetti prodotti dal solver;
+
+6. non inserire manualmente nelle celle successive valori numerici della soluzione;
+
+7. verificare sempre lo stato del solver prima di utilizzare:
+
+$$
+x^*,
+\qquad
+g^*,
+\qquad
+u^*,
+\qquad
+\Pi^*;
+$$
+
+8. non utilizzare risultati provenienti da configurazioni non ammissibili;
+
+9. mantenere invariato il costo del funding lungo tutte le sensitività e gli scenari;
+
+10. applicare $\alpha$ esclusivamente al fabbisogno della prima data;
+
+11. applicare $\beta$ esclusivamente al fabbisogno della quarta data;
+
+12. applicare $\phi$ esclusivamente ai bounds del funding;
+
+13. mantenere distinto il vincolo legacy dal limite su $x_5$;
+
+14. trattare esplicitamente il vincolo legacy e il relativo marginale prima della costruzione delle sensitività;
+
+15. non introdurre un cambio di segno aggiuntivo nella relazione:
+
+$$
+\frac{\partial\Pi^*}{\partial L}
+=
+m;
+$$
+
+16. sviluppare separatamente le sensitività ad $\alpha$ e a $\beta$ prima di confrontarle;
+
+17. collocare il confronto $\alpha$–$\beta$ prima della sensitività a $\phi$;
+
+18. distinguere chiaramente sensitività univariate e scenario analysis;
+
+19. produrre tutti gli output richiesti dalla Scheda Caso;
+
+20. eseguire i controlli previsti prima dell'interpretazione conclusiva;
+
+21. mantenere coerenti notazione matematica e nomi delle variabili computazionali;
+
+22. non prevedere automaticamente directory di output o esportazioni esterne.
+
+### 9.4 Funzione specifica della ricognizione iniziale
+
+La ricognizione iniziale è parte sostanziale del TakeHome.
+
+Essa deve mostrare che lo studente ha riconosciuto autonomamente che il nuovo caso contiene:
+
+1. una dimensione dell'attivo diversa;
+
+2. un diverso vettore dei fabbisogni;
+
+3. due driver temporali distinti:
+
+$$
+\alpha
+\qquad\text{e}\qquad
+\beta;
+$$
+
+4. un vincolo inferiore legacy;
+
+5. un limite separato su:
+
+$$
+x_5;
+$$
+
+6. una struttura parametrica differente da quella del Caso Aula;
+
+7. assenza di un parametro dedicato al costo del funding.
+
+La ricognizione non deve consistere nella modifica meccanica del notebook Aula.
+
+### 9.5 Funzione delle celle Markdown
+
+Le celle Markdown devono rendere riconoscibili:
+
+1. obiettivo della tappa;
+
+2. input disponibili;
+
+3. oggetti teorici coinvolti;
+
+4. operazione da svolgere;
+
+5. output atteso;
+
+6. controllo associato;
+
+7. collegamento con la tappa successiva;
+
+8. interpretazioni locali necessarie alla comprensione degli output.
+
+Le celle Markdown non devono duplicare estensivamente il manuale o le slides.
+
+### 9.6 Funzione delle celle di controllo
+
+I controlli devono essere collocati nel momento in cui diventano necessari.
+
+In particolare:
+
+- controllo dimensionale dopo la costruzione della forma solver;
+
+- residuali, slack e bounds dopo il benchmark;
+
+- verifica dedicata del vincolo legacy prima della parametrizzazione;
+
+- verifica perturbativa del marginale legacy prima delle sensitività;
+
+- controllo dello stato del solver lungo ciascuna griglia;
+
+- confronto separato $\alpha$–$\beta$ dopo avere validato entrambe le sensitività;
+
+- controllo della capacità effettivamente utilizzata durante la sensitività a $\phi$;
+
+- controllo delle configurazioni assegnate durante la scenario analysis;
+
+- controllo complessivo prima dell'interpretazione finale.
+
+Il notebook deve quindi rendere visibile la sequenza:
+
+$$
+\text{operazione}
+\longrightarrow
+\text{output}
+\longrightarrow
+\text{controllo}
+\longrightarrow
+\text{uso successivo}.
+$$
 
 ## 10. Criteri di validazione del notebook
 
@@ -3151,149 +4016,398 @@ La qualità dell'interpretazione deve essere valutata sulla coerenza con gli out
 
 ## 14. Rubrica sintetica
 
-Per il Caso TakeHome la valutazione deve riflettere la maggiore autonomia richiesta allo studente nel trasferire il metodo appreso nel Caso Aula a una struttura ALM differente.
+Per il Caso TakeHome con uso documentato dell'IA, la valutazione assume come riferimento una articolazione complessiva su 100 punti coerente con il template normativo del corso.
 
-La rubrica assume come riferimento una valutazione complessiva su 100 punti.
+La rubrica valuta non soltanto il risultato finale, ma anche la qualità del processo mediante il quale lo studente trasferisce autonomamente il metodo sviluppato nel Caso Aula al nuovo problema First Republic.
 
 | Area | Peso | Criteri principali |
 |---|---:|---|
-| Ricognizione autonoma e trasferimento metodologico | 15 | riconoscimento delle differenze rispetto al Caso Aula; cinque classi di attivo; doppia ondata; vincolo legacy; limite su $x_5$; adattamento autonomo del metodo |
-| Formulazione del modello e forma solver | 15 | corretta traduzione del problema; ordinamento delle variabili; costruzione di funzione obiettivo, uguaglianze, disuguaglianze e bounds |
-| Soluzione benchmark e diagnostica | 10 | correttezza della soluzione benchmark; residuali; slack; bounds attivi; rispetto dei vincoli; corretta ricostruzione di $\Pi^*$ |
-| Vincolo legacy e valori marginali | 10 | corretta codifica; distinzione fra forma economica e forma solver; interpretazione del marginale; verifica perturbativa |
-| Sensitività ad $\alpha$ e a $\beta$ | 15 | corretta parametrizzazione delle due ondate; variazione di un solo parametro alla volta; qualità degli output; confronto fra shock iniziale e terminale |
-| Sensitività a $\phi$ | 10 | corretta parametrizzazione della capacità di funding; rapporti di utilizzo; lettura dei bounds attivi; effetti sul valore ottimo |
-| Scenario analysis | 10 | corretta implementazione di Standard, Mediamente critico e Critico; confronto delle soluzioni; perdita di valore; coerenza con i vincoli attivi |
-| Notebook e riproducibilità | 5 | struttura lineare; eseguibilità dall'inizio alla fine; assenza di valori inseriti manualmente; coerenza fra Markdown, codice e output |
-| Uso documentato dell'IA | 5 | corretto uso di Prompt zero, Prompt 1, Prompt 2, Prompt 3 e prompt di tappa; distinzione fra Regime A e B; eventuale uso appropriato del Regime C |
-| Interpretazione finanziaria finale | 5 | coerenza con gli output; ruolo del timing, del vincolo legacy e del funding; consapevolezza dei limiti del modello |
+| Prompt 2 — Flusso logico-teorico risolutivo | 30 | contributo iniziale dello studente; riconoscimento della nuova struttura ALM; corretto ruolo di $\alpha$, $\beta$ e $\phi$; presenza del vincolo legacy; ordine teorico; collegamento tra teoria, output e controlli |
+| Prompt 3 — Scomposizione input-output | 15 | proposta operativa iniziale dello studente; coerenza delle tappe con il Flusso; corretta sequenza benchmark → legacy → sensitività → scenari; collegamento input-output; corretto regime IA attribuito alle tappe |
+| Notebook Jupyter e output computazionali | 20 | correttezza della forma solver; soluzione benchmark; funzione parametrica; sensitività; confronto $\alpha$–$\beta$; scenario analysis; tabelle e grafici richiesti; riproducibilità |
+| Prompt di tappa e uso dei Regimi A/B; eventuale Regime C | 15 | qualità e specificità dei prompt; rispetto degli input disponibili; uso appropriato dei Regimi A e B; autonomia rispetto al Caso Aula; eventuale Regime C attivato solo su criticità specifica |
+| Verifiche logiche e controlli numerici | 15 | residuali; slack; bounds; fattibilità; vincolo prudenziale; vincolo legacy; limite su $x_5$; funding; marginale legacy; controlli parametrici; uso esclusivo di risultati validi |
+| Interpretazione finanziaria finale | 5 | autonomia; coerenza con gli output; ruolo del timing, della rigidità legacy e della capacità di funding; consapevolezza dei limiti del modello |
 
 **Totale: 100 punti.**
 
-### 14.1 Criteri trasversali
+### 14.1 Prompt 2 — Flusso logico-teorico risolutivo — 30 punti
 
-Indipendentemente dall'area della rubrica, devono essere considerati criteri trasversali:
+La valutazione deve considerare:
 
-1. fedeltà alla Scheda Caso;
+1. qualità del contributo iniziale dello studente;
 
-2. correttezza matematica;
+2. capacità di riconoscere che il TakeHome non costituisce una semplice replica del Caso Aula;
 
-3. coerenza tra formulazione teorica e implementazione computazionale;
+3. corretta identificazione di:
 
-4. qualità dei controlli;
+$$
+x_1,\ldots,x_5;
+$$
 
-5. uso esclusivo di risultati solver validi;
+4. corretta identificazione della doppia ondata di fabbisogno;
 
-6. distinzione chiara tra:
-   - benchmark;
-   - sensitività ad $\alpha$;
-   - sensitività a $\beta$;
-   - confronto fra le due ondate;
-   - sensitività a $\phi$;
-   - scenario analysis;
+5. corretta distinzione tra:
 
-7. riproducibilità;
+$$
+\alpha
+\qquad\text{e}\qquad
+\beta;
+$$
 
-8. coerenza tra risultati numerici, tabelle, grafici e interpretazione;
+6. corretta identificazione del ruolo di:
 
-9. autonomia rispetto al Caso Aula.
+$$
+\phi;
+$$
 
-### 14.2 Errori sostanziali
-
-Sono considerati errori sostanziali, tali da incidere significativamente sulla valutazione:
-
-1. trattare il TakeHome come semplice copia del Caso Aula;
-
-2. modifica non autorizzata del modello;
-
-3. errore nella costruzione dei bilanci temporali;
-
-4. omissione del rimborso del funding;
-
-5. errore nella trasformazione massimo/minimo;
-
-6. errata applicazione di $\alpha$, $\beta$ o $\phi$;
-
-7. errore nella codifica del vincolo:
+7. riconoscimento del vincolo legacy:
 
 $$
 x_3+x_4\geq35;
 $$
 
-8. interpretazione del marginale legacy mediante un cambio di segno non corretto;
-
-9. mancata verifica del limite:
+8. riconoscimento del limite:
 
 $$
 x_5\leq35;
 $$
 
-10. modifica del costo del funding, che deve restare invariato;
+9. corretta collocazione teorica della verifica del marginale legacy;
 
-11. utilizzo di risultati relativi a configurazioni non ammissibili;
+10. corretto ordine tra:
+   - benchmark;
+   - verifica del vincolo legacy;
+   - funzione parametrica;
+   - sensitività ad $\alpha$;
+   - sensitività a $\beta$;
+   - confronto $\alpha$–$\beta$;
+   - sensitività a $\phi$;
+   - scenario analysis;
 
-12. mancata verifica dei vincoli;
+11. collegamento esplicito tra teoria, output e controlli;
 
-13. confusione tra sensitività univariata e scenario analysis;
+12. assenza di anticipazioni improprie di codice in Regime A.
 
-14. confronto tra $\alpha$ e $\beta$ costruito facendo variare contemporaneamente entrambi;
+Una proposta iniziale scarsamente autonoma, pur successivamente corretta dall'IA, deve incidere sulla valutazione di questa area.
 
-15. notebook non riproducibile;
+### 14.2 Prompt 3 — Scomposizione input-output — 15 punti
 
-16. produzione di output non coerenti con la Scheda Caso;
+La valutazione deve considerare:
 
-17. attribuzione di significato storico ai parametri stilizzati.
+1. qualità della proposta operativa iniziale dello studente;
 
-### 14.3 Uso dell'IA nella valutazione
+2. derivazione delle tappe dal Flusso logico-teorico validato;
 
-L'uso dell'IA non viene valutato in base al numero di prompt utilizzati.
+3. presenza, per ogni tappa, di:
+   - obiettivo;
+   - input;
+   - oggetti teorici;
+   - operazione;
+   - output;
+   - controllo;
+   - uso successivo;
 
-La valutazione riguarda:
+4. corretta distinzione dei Regimi A e B;
 
-1. qualità del contributo iniziale dello studente;
+5. corretta collocazione della ricognizione iniziale del nuovo problema;
 
-2. capacità di riconoscere autonomamente le differenze rispetto al Caso Aula;
+6. presenza di una tappa autonoma per il vincolo legacy e il relativo marginale;
 
-3. coerenza dei prompt con la tappa;
+7. sviluppo separato delle sensitività ad $\alpha$ e a $\beta$ prima del loro confronto;
 
-4. capacità di utilizzare correttamente il Regime A e il Regime B;
+8. collocazione della sensitività a $\phi$ dopo il confronto prima/seconda ondata;
 
-5. capacità di verificare le risposte dell'IA;
+9. distinzione tra sensitività univariate e scenario analysis;
 
-6. capacità di correggere o rifiutare risposte incoerenti;
+10. copertura integrale degli output e dei controlli richiesti dalla Scheda Caso.
 
-7. assenza di delega all'IA della riformulazione autonoma del nuovo problema;
+### 14.3 Notebook Jupyter e output computazionali — 20 punti
 
-8. coerenza tra tracciato IA e notebook finale.
+La valutazione deve considerare:
 
-L'eventuale assenza di un Prompt in Regime C non comporta penalizzazione.
+1. corretta costruzione del vettore decisionale;
 
-Un Prompt C è valutato soltanto quando è stato effettivamente attivato e deve essere giudicato sulla qualità della criticità formulata e della successiva verifica.
+2. corretta costruzione del vettore obiettivo;
 
-### 14.4 Interpretazione del punteggio
-
-La rubrica non deve essere applicata in modo puramente meccanico.
-
-In particolare:
-
-- una soluzione numericamente corretta ma ottenuta senza riconoscere la specificità del TakeHome non può ottenere una valutazione elevata;
-
-- un notebook che replica meccanicamente il Caso Aula deve essere penalizzato anche se produce risultati numericamente plausibili;
-
-- una corretta gestione del vincolo legacy è necessaria ma non sufficiente a compensare errori strutturali nel modello;
-
-- grafici e tabelle corretti ma privi di interpretazione non compensano errori nella formulazione;
-
-- un uso esteso dell'IA non costituisce elemento premiante di per sé;
-
-- la qualità complessiva dipende dalla capacità di collegare:
+3. corretta costruzione di:
 
 $$
-\text{nuovo problema}
+A_{\mathrm{eq}},
+\qquad
+b_{\mathrm{eq}},
+\qquad
+A_{\mathrm{ub}},
+\qquad
+b_{\mathrm{ub}};
+$$
+
+4. corretta definizione dei bounds;
+
+5. corretta trasformazione:
+
+$$
+\max\Pi
+\quad\longleftrightarrow\quad
+\min F=-\Pi;
+$$
+
+6. corretta soluzione del benchmark;
+
+7. corretta costruzione della funzione:
+
+$$
+d(\alpha,\beta)
+=
+(32\alpha,18,14,32\beta)';
+$$
+
+8. corretta parametrizzazione:
+
+$$
+\bar u_t(\phi)
+=
+\phi\bar u_t;
+$$
+
+9. mantenimento invariato del costo del funding;
+
+10. corretta implementazione del vincolo legacy;
+
+11. corretta implementazione del limite:
+
+$$
+x_5\leq35;
+$$
+
+12. corretta costruzione delle sensitività ad $\alpha$, $\beta$ e $\phi$;
+
+13. corretto confronto $\alpha$–$\beta$;
+
+14. corretta implementazione dei tre scenari;
+
+15. completezza delle tabelle richieste;
+
+16. completezza dei grafici richiesti;
+
+17. uso esclusivo di risultati solver validi;
+
+18. assenza di valori della soluzione inseriti manualmente nelle celle successive;
+
+19. coerenza tra Markdown, codice e output;
+
+20. riproducibilità mediante riesecuzione sequenziale del notebook.
+
+### 14.4 Prompt di tappa e uso dei Regimi IA — 15 punti
+
+La valutazione deve considerare:
+
+1. specificità dei prompt rispetto alla tappa;
+
+2. corretta indicazione degli input disponibili;
+
+3. corretta indicazione dell'output richiesto;
+
+4. presenza del controllo da eseguire;
+
+5. collegamento con la tappa successiva;
+
+6. uso del Regime A per ricognizione teorica, confronto e interpretazione locale;
+
+7. uso del Regime B per traduzione in codice di strutture già definite;
+
+8. assenza di delega all'IA della riformulazione completa del TakeHome;
+
+9. assenza di trasformazione automatica del notebook Aula;
+
+10. capacità dello studente di verificare, accettare, correggere o respingere le risposte IA;
+
+11. coerenza tra tracciato IA e notebook finale.
+
+Il Regime C non è obbligatorio.
+
+Quando presente, deve essere valutato soltanto se:
+
+1. parte da una criticità specifica già individuata dallo studente;
+
+2. riguarda una cella, formula, output o controllo preciso;
+
+3. conduce alla classificazione:
+
+   - **criticità respinta**;
+
+   oppure:
+
+   - **criticità accolta**;
+
+4. non si trasforma in una revisione generica dell'intero notebook.
+
+L'assenza di un Prompt C non comporta penalizzazione.
+
+### 14.5 Verifiche logiche e controlli numerici — 15 punti
+
+La valutazione deve considerare almeno:
+
+1. verifica dello stato del solver;
+
+2. verifica dei bilanci temporali;
+
+3. residuali prossimi a zero entro una tolleranza dichiarata;
+
+4. verifica del vincolo prudenziale:
+
+$$
+\ell'x^*\leq7.5;
+$$
+
+5. verifica del vincolo legacy:
+
+$$
+x_3^*+x_4^*\geq35;
+$$
+
+6. verifica del limite:
+
+$$
+x_5^*\leq35;
+$$
+
+7. verifica dei bounds del funding:
+
+$$
+0\leq u_t^*\leq\phi\bar u_t;
+$$
+
+8. verifica della non negatività;
+
+9. coerenza tra slack e stato attivo dei vincoli;
+
+10. corretta identificazione dei bounds attivi;
+
+11. corretta gestione della relazione:
+
+$$
+F=-\Pi,
+\qquad
+b=-L,
+$$
+
+12. corretta interpretazione:
+
+$$
+\frac{\partial\Pi^*}{\partial L}
+=
+m,
+$$
+
+senza applicare un ulteriore cambio di segno;
+
+13. verifica perturbativa del marginale legacy quando localmente informativo;
+
+14. controllo che $\alpha$ modifichi esclusivamente la prima data;
+
+15. controllo che $\beta$ modifichi esclusivamente la quarta data;
+
+16. controllo che $\phi$ modifichi esclusivamente la capacità di funding;
+
+17. controllo che il costo del funding resti invariato;
+
+18. verifica che nelle sensitività vari un solo parametro alla volta;
+
+19. verifica delle configurazioni di scenario assegnate;
+
+20. esclusione dall'analisi di configurazioni non ammissibili.
+
+### 14.6 Interpretazione finanziaria finale — 5 punti
+
+L'interpretazione finale deve essere valutata rispetto a:
+
+1. coerenza con i risultati numericamente validati;
+
+2. capacità di collegare:
+
+$$
+\Pi^*
+$$
+
+alla composizione dell'attivo, alle giacenze e al funding;
+
+3. discussione del ruolo del vincolo legacy;
+
+4. discussione del limite su $x_5$ quando economicamente rilevante;
+
+5. confronto tra shock alla prima data e shock terminale;
+
+6. discussione della capacità di funding;
+
+7. collegamento tra cambiamenti della soluzione e cambiamenti dei vincoli attivi;
+
+8. confronto tra Standard, Mediamente critico e Critico;
+
+9. richiamo dei limiti del modello;
+
+10. distinzione tra risultati del modello stilizzato e ricostruzione storica di First Republic Bank.
+
+La qualità dell'interpretazione deve essere valutata sulla coerenza e sull'autonomia, non sulla lunghezza del testo.
+
+### 14.7 Errori sostanziali
+
+Devono incidere significativamente sulla valutazione:
+
+1. trattamento del TakeHome come copia del Caso Aula;
+
+2. modifica non autorizzata della Scheda Caso;
+
+3. errore nella forma solver;
+
+4. omissione o errata codifica del vincolo legacy;
+
+5. errore nell'interpretazione del relativo marginale;
+
+6. applicazione di un cambio di segno aggiuntivo non corretto;
+
+7. confusione tra $\alpha$ e $\beta$;
+
+8. applicazione dei due parametri alla data errata;
+
+9. errata applicazione di $\phi$;
+
+10. modifica del costo del funding;
+
+11. omissione del rimborso del funding;
+
+12. mancata verifica del limite su $x_5$;
+
+13. utilizzo di risultati provenienti da configurazioni non ammissibili;
+
+14. assenza dei controlli essenziali;
+
+15. confusione tra sensitività e scenario analysis;
+
+16. confronto $\alpha$–$\beta$ ottenuto facendo variare simultaneamente entrambi;
+
+17. notebook non riproducibile;
+
+18. delega all'IA dell'intera soluzione;
+
+19. delega all'IA dell'interpretazione finanziaria finale;
+
+20. attribuzione di significato storico ai parametri stilizzati.
+
+### 14.8 Criterio complessivo
+
+Una soluzione numericamente corretta non è sufficiente, da sola, per ottenere una valutazione elevata.
+
+La valutazione complessiva deve riflettere la capacità dello studente di costruire autonomamente la catena:
+
+$$
+\text{ricognizione}
 \longrightarrow
-\text{riformulazione}
+\text{Flusso teorico}
 \longrightarrow
-\text{solver}
+\text{tappe}
+\longrightarrow
+\text{codice}
 \longrightarrow
 \text{output}
 \longrightarrow
@@ -3301,6 +4415,8 @@ $$
 \longrightarrow
 \text{interpretazione}.
 $$
+
+L'uso dell'IA costituisce parte del processo valutato, ma non sostituisce la responsabilità teorica, computazionale e interpretativa dello studente.
 
 
 ## 15. Esito atteso e calibrazione qualitativa del caso

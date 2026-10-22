@@ -1024,14 +1024,94 @@ L'interpretazione finale resta responsabilità dello studente e deve basarsi esc
 
 ## 6. Flusso logico-teorico risolutivo atteso
 
-| Passo | Finalità risolutiva | Formula, definizione, proprietà o teorema | Applicazione nel caso | Output o controllo collegato |
+Il Flusso logico-teorico deve ricostruire la sequenza concettuale necessaria per passare dalla specifica ALM alla soluzione computazionale e alla successiva interpretazione.
+
+La sequenza deve precedere la scomposizione operativa in tappe e deve rendere esplicito il collegamento tra:
+
+$$
+\text{modello teorico}
+\longrightarrow
+\text{forma solver}
+\longrightarrow
+\text{soluzione}
+\longrightarrow
+\text{controlli}
+\longrightarrow
+\text{analisi parametrica}
+\longrightarrow
+\text{interpretazione}.
+$$
+
+| Passo | Finalità risolutiva | Formula teorico-matematica / definizione / proprietà / teorema | Applicazione nel caso | Output o controllo collegato |
 |---:|---|---|---|---|
-| 1 | Ricostruire e tradurre il modello ALM | Struttura del programma lineare e forma matriciale per il solver | Identificare variabili, obiettivo, bilanci, vincoli e bounds; definire l'ordinamento delle variabili | Matrici e vettori del modello con controllo dimensionale |
-| 2 | Risolvere e validare il benchmark | Ammissibilità, ottimalità, slack e valori marginali | Risolvere il caso $(\theta,\phi,\psi)=(1,1,1)$ e confrontarlo con il Capitolo 12 | Soluzione benchmark, residuali, vincoli attivi e marginals |
-| 3 | Parametrizzare i tre driver di stress | Analisi parametrica di termini noti, bounds e coefficienti | Introdurre $\theta$, $\phi$ e $\psi$ nella funzione solver | Funzione generale di soluzione validata sul benchmark |
-| 4 | Svolgere le sensitività univariate | Comparative statics numerica | Variare separatamente $\theta$, $\phi$ e $\psi$ sulle griglie assegnate | DataFrame, variazioni di $\Pi^*$, $x^*$, $g^*$, $u^*$, vincoli attivi e grafici |
-| 5 | Individuare la frontiera di fattibilità | Insieme ammissibile parametrico | Raffinare l'analisi di $\theta$ nell'intorno del passaggio feasible / infeasible | Intervallo contenente $\theta_{\mathrm{crit}}$ |
-| 6 | Confrontare gli scenari e interpretare | Scenario analysis deterministica | Risolvere Standard, Mediamente critico e Critico e confrontare le soluzioni ottime | Tabella e grafici di scenario; interpretazione economico-finanziaria finale |
+| 1 | Ricostruire il programma lineare ALM e distinguerne gli elementi strutturali | Forma generale di un problema di programmazione lineare; funzione obiettivo; uguaglianze; disuguaglianze; bounds | Identificare $x$, $g$, $u$, funzione obiettivo, vincolo sulle risorse iniziali, bilanci temporali, vincolo prudenziale, limite su $x_3$, bounds del funding e non negatività | Ordinamento delle variabili; struttura teorica completa del benchmark; controllo di corrispondenza con la Scheda Caso |
+| 2 | Tradurre il problema economico nella forma richiesta dal solver | Equivalenza tra massimizzazione di $\Pi$ e minimizzazione di $F=-\Pi$; rappresentazione matriciale mediante $A_{\mathrm{eq}}$, $b_{\mathrm{eq}}$, $A_{\mathrm{ub}}$, $b_{\mathrm{ub}}$ e bounds | Costruire la forma compatibile con `scipy.optimize.linprog` mantenendo invariati significato economico, coefficienti e vincoli del modello | Vettore obiettivo; matrici e vettori del solver; controllo dimensionale e dei segni |
+| 3 | Risolvere e validare il benchmark | Ammissibilità; ottimalità; residuali; slack; vincoli attivi; bounds attivi | Risolvere la configurazione $(\theta,\phi,\psi)=(1,1,1)$ e verificare indipendentemente la soddisfazione della specifica | $x^*$, $g^*$, $u^*$, $\Pi^*$; residuali; slack; bounds attivi; verifica dei vincoli |
+| 4 | Collegare i valori marginali alla sensitività locale del problema | Dualità e sensitività locale; marginale come variazione locale del valore ottimo rispetto al termine noto o al bound pertinente; trasformazione massimo/minimo | Associare ciascun marginale al corretto bilancio, vincolo o bound e verificare numericamente almeno un marginale mediante piccola perturbazione | Tabella dei marginali benchmark; confronto marginale–perturbazione; controllo del segno e dell'ordine di grandezza |
+| 5 | Costruire la versione parametrica del modello senza modificarne la struttura | Analisi parametrica di termini noti, bounds e coefficienti | Introdurre $\theta$, $\phi$ e $\psi$ esclusivamente negli elementi previsti dalla Scheda Caso | Funzione solver parametrica; riproduzione del benchmark in $(1,1,1)$ |
+| 6 | Analizzare l'effetto dell'aumento dei fabbisogni iniziali | Comparative statics numerica; dipendenza parametrica dei termini noti | Variare $\theta$ nella griglia assegnata mantenendo $\phi=\psi=1$ | Sensitività a $\theta$; $\Pi^*$, $x^*$, $g^*$, $u^*$; variazioni rispetto al benchmark; vincoli attivi |
+| 7 | Individuare la frontiera di fattibilità rispetto allo stress sui fabbisogni | Insieme ammissibile parametrico; passaggio feasible / infeasible | Individuare ultimo $\theta$ ammissibile e primo non ammissibile e raffinare l'intervallo | Tabella di raffinamento; intervallo contenente $\theta_{\mathrm{crit}}$; controllo dello stato del solver |
+| 8 | Analizzare il ruolo della capacità disponibile di funding | Bounds parametrizzati; scarsità di una risorsa vincolata | Variare $\phi$ mantenendo $\theta=\psi=1$ e modificare esclusivamente i limiti superiori del funding | Sensitività a $\phi$; rapporti di utilizzo; bounds attivi; variazioni di $\Pi^*$, $x^*$, $g^*$, $u^*$ |
+| 9 | Analizzare il ruolo del costo del funding | Modifica parametrica dei coefficienti economici e dei rimborsi | Variare $\psi$ mantenendo $\theta=\phi=1$ e applicare il parametro sia al costo nella funzione obiettivo sia ai rimborsi nei bilanci temporali | Sensitività a $\psi$; variazione del funding ottimo; variazione del valore ottimo; controllo della doppia applicazione di $\psi$ |
+| 10 | Confrontare le tre sensitività senza confonderle con la scenario analysis | Comparative statics; cambiamento di regime; valori marginali locali | Confrontare gli effetti separati di $\theta$, $\phi$ e $\psi$ su valore ottimo, asset allocation, giacenze, funding e vincoli attivi | Sintesi comparativa delle tre sensitività; individuazione di cambiamenti di regime e vincoli economicamente rilevanti |
+| 11 | Analizzare configurazioni con variazione congiunta dei driver | Scenario analysis deterministica | Risolvere Standard, Mediamente critico e Critico con i valori assegnati di $(\theta,\phi,\psi)$ | Tabella degli scenari; perdita rispetto allo Standard; confronto di $x^*$, $g^*$, $u^*$ e dei vincoli attivi |
+| 12 | Verificare la coerenza conclusiva del lavoro e delimitare l'interpretazione | Coerenza modello–solver–output; validità locale dei marginali; limiti del modello deterministico | Controllare completezza, riproducibilità, uso esclusivo di risultati validi e distinzione tra risultati del modello e fatti storici | Controlli conclusivi; elementi quantitativi per l'interpretazione finanziaria finale; richiamo dei limiti del modello |
+
+### 6.1 Logica della sequenza
+
+Il flusso deve rispettare il seguente ordine concettuale:
+
+$$
+\text{specifica economica}
+\longrightarrow
+\text{forma solver}
+\longrightarrow
+\text{benchmark}
+\longrightarrow
+\text{diagnostica}
+$$
+
+$$
+\longrightarrow
+\text{marginali}
+\longrightarrow
+\text{parametrizzazione}
+\longrightarrow
+\text{sensitività}
+\longrightarrow
+\text{frontiera}
+$$
+
+$$
+\longrightarrow
+\text{confronto dei driver}
+\longrightarrow
+\text{scenari}
+\longrightarrow
+\text{controlli conclusivi}.
+$$
+
+In particolare, la verifica dei valori marginali deve precedere l'analisi parametrica, perché lo studente deve comprendere e validare il significato locale dei marginali prima di utilizzarli nell'interpretazione delle successive configurazioni.
+
+### 6.2 Relazione con la scomposizione in tappe
+
+La successiva scomposizione operativa deve derivare da questo Flusso logico-teorico.
+
+In particolare:
+
+- i Passi 1–2 alimentano la Tappa 1 — Traduzione del modello nella forma solver;
+- il Passo 3 alimenta la Tappa 2 — Soluzione e validazione del benchmark;
+- il Passo 4 alimenta la Tappa 3 — Verifica dei valori marginali;
+- il Passo 5 alimenta la Tappa 4 — Costruzione del solver parametrico;
+- il Passo 6 alimenta la Tappa 5 — Sensitività rispetto a $\theta$;
+- il Passo 7 alimenta la Tappa 6 — Frontiera di fattibilità rispetto a $\theta$;
+- il Passo 8 alimenta la Tappa 7 — Sensitività rispetto a $\phi$;
+- il Passo 9 alimenta la Tappa 8 — Sensitività rispetto a $\psi$;
+- il Passo 10 alimenta la Tappa 9 — Confronto delle sensitività;
+- il Passo 11 alimenta la Tappa 10 — Scenario analysis;
+- il Passo 12 alimenta la Tappa 11 — Controlli conclusivi e predisposizione dell'interpretazione.
+
+La corrispondenza non implica che ciascun passo teorico debba coincidere con una singola cella del notebook. Il Flusso definisce l'ordine concettuale; la scomposizione in tappe ne costituisce la traduzione operativa.
 
 ## 7. Scomposizione attesa in tappe
 
@@ -1254,42 +1334,397 @@ La sequenza dei prompt deve rispettare le seguenti condizioni:
 
 ## 9. Struttura attesa del notebook
 
-1. Cella Markdown iniziale prodotta dal Prompt 1.
-2. Cella Markdown con il Flusso logico-teorico risolutivo.
-3. Cella Markdown con la scomposizione in tappe.
-4. Cella codice per l'importazione delle librerie.
-5. Cella codice per la definizione dei parametri benchmark.
-6. Cella Markdown con l'ordinamento delle variabili.
-7. Cella codice per la costruzione delle matrici benchmark.
-8. Cella codice per i controlli dimensionali.
-9. Cella codice per la soluzione benchmark.
-10. Output con stato del solver, valore ottimo e vettori $x^*$, $g^*$, $u^*$.
-11. Cella Markdown di confronto con il Capitolo 12.
-12. Cella codice per la ricostruzione dei bilanci.
-13. Output con residuali.
-14. Cella codice per slack, bounds attivi e valori marginali.
-15. Output con tabella diagnostica.
-16. Cella codice per la verifica di almeno un marginale mediante perturbazione.
-17. Cella Markdown con interpretazione della verifica.
-18. Cella Markdown per la definizione di $\theta$, $\phi$ e $\psi$.
-19. Cella codice per la funzione solver parametrica.
-20. Cella codice di test della funzione in $(1,1,1)$.
-21. Cella codice per la sensitività a $\theta$.
-22. Output DataFrame e grafici relativi a $\theta$.
-23. Cella codice per la sensitività a $\phi$.
-24. Output DataFrame e grafici relativi a $\phi$.
-25. Cella codice per la sensitività a $\psi$.
-26. Output DataFrame e grafici relativi a $\psi$.
-27. Cella Markdown per l'identificazione dell'intervallo critico di $\theta$.
-28. Cella codice per il raffinamento della frontiera.
-29. Output con ultimo valore ammissibile e primo valore non ammissibile.
-30. Cella Markdown con la definizione dei tre scenari.
-31. Cella codice per la risoluzione degli scenari.
-32. Output con tabella comparativa.
-33. Celle codice / output con grafici di scenario.
-34. Cella Markdown finale con interpretazione economico-finanziaria e limiti del modello.
+Il notebook deve riflettere la sequenza logico-operativa validata nelle Sezioni 6 e 7.
 
-Il notebook deve essere eseguibile sequenzialmente dall'inizio alla fine. Tutte le tabelle e tutti i grafici devono derivare dagli oggetti prodotti dal solver. Non devono essere inseriti manualmente valori della soluzione nelle celle successive.
+La struttura deve rendere riconoscibile il percorso:
+
+$$
+\text{inquadramento}
+\longrightarrow
+\text{Flusso logico-teorico}
+\longrightarrow
+\text{tappe operative}
+\longrightarrow
+\text{forma solver}
+$$
+
+$$
+\longrightarrow
+\text{benchmark}
+\longrightarrow
+\text{marginali}
+\longrightarrow
+\text{solver parametrico}
+\longrightarrow
+\text{sensitività}
+$$
+
+$$
+\longrightarrow
+\text{frontiera di fattibilità}
+\longrightarrow
+\text{scenari}
+\longrightarrow
+\text{controlli conclusivi}
+\longrightarrow
+\text{interpretazione finale}.
+$$
+
+### 9.1 Sequenza delle celle e degli output
+
+1. Cella Markdown iniziale prodotta dal Prompt 1.
+
+2. Cella Markdown con il Flusso logico-teorico risolutivo validato.
+
+3. Cella Markdown con la scomposizione in tappe input-output validata.
+
+4. Cella codice per l'importazione delle librerie necessarie.
+
+5. Cella codice per la definizione dei parametri benchmark.
+
+6. Cella Markdown con l'ordinamento completo delle variabili decisionali:
+
+$$
+x_1,\ldots,x_4,
+\qquad
+g_1,\ldots,g_4,
+\qquad
+u_1,u_2,u_3.
+$$
+
+7. Cella Markdown e/o codice per la traduzione del modello economico nella forma solver.
+
+8. Cella codice per la costruzione del vettore della funzione obiettivo.
+
+9. Cella codice per la costruzione di:
+
+$$
+A_{\mathrm{eq}},
+\qquad
+b_{\mathrm{eq}}.
+$$
+
+10. Cella codice per la costruzione di:
+
+$$
+A_{\mathrm{ub}},
+\qquad
+b_{\mathrm{ub}}.
+$$
+
+11. Cella codice per la definizione dei bounds.
+
+12. Cella codice per i controlli dimensionali e di coerenza della forma solver.
+
+13. Cella Markdown sintetica sulla trasformazione:
+
+$$
+\max\Pi
+\quad\longleftrightarrow\quad
+\min F=-\Pi.
+$$
+
+14. Cella codice per la soluzione del benchmark:
+
+$$
+(\theta,\phi,\psi)
+=
+(1,1,1).
+$$
+
+15. Output con:
+   - stato del solver;
+   - $x^*$;
+   - $g^*$;
+   - $u^*$;
+   - $\Pi^*$.
+
+16. Cella codice per la ricostruzione indipendente dei bilanci temporali.
+
+17. Output con residuali dei vincoli di uguaglianza.
+
+18. Cella codice per il calcolo degli slack dei vincoli di disuguaglianza.
+
+19. Cella codice per l'identificazione dei bounds attivi.
+
+20. Cella codice per l'estrazione dei principali valori marginali.
+
+21. Output con tabella diagnostica benchmark comprendente almeno:
+   - residuali;
+   - slack;
+   - bounds attivi;
+   - vincoli attivi;
+   - marginali economicamente informativi.
+
+22. Cella Markdown che associa ciascun marginale al relativo vincolo, bilancio o bound.
+
+23. Cella codice per la verifica perturbativa di almeno un valore marginale.
+
+24. Output con confronto tra:
+   - marginale restituito dal solver;
+   - variazione numerica del valore ottimo.
+
+25. Cella Markdown con breve interpretazione della validità locale del marginale verificato.
+
+26. Cella Markdown con la definizione dei tre driver:
+
+$$
+\theta,
+\qquad
+\phi,
+\qquad
+\psi.
+$$
+
+27. Cella codice per la costruzione della funzione solver parametrica:
+
+$$
+\operatorname{solve}(\theta,\phi,\psi).
+$$
+
+28. Cella codice di verifica della funzione parametrica in:
+
+$$
+(1,1,1).
+$$
+
+29. Output di confronto tra:
+   - benchmark diretto;
+   - benchmark prodotto dalla funzione parametrica.
+
+30. Cella codice per la sensitività rispetto a:
+
+$$
+\theta.
+$$
+
+31. Output DataFrame relativo alla griglia di $\theta$.
+
+32. Output con tabelle e grafici previsti per la sensitività a $\theta$.
+
+33. Cella Markdown per l'identificazione di:
+   - ultimo valore ammissibile della griglia;
+   - primo valore non ammissibile.
+
+34. Cella codice per il raffinamento della frontiera di fattibilità rispetto a:
+
+$$
+\theta.
+$$
+
+35. Output con tabella di raffinamento.
+
+36. Cella Markdown con l'intervallo ristretto contenente:
+
+$$
+\theta_{\mathrm{crit}}.
+$$
+
+37. Cella codice per la sensitività rispetto a:
+
+$$
+\phi.
+$$
+
+38. Output DataFrame relativo alla griglia di $\phi$.
+
+39. Output con tabelle e grafici previsti per:
+   - valore ottimo;
+   - asset allocation;
+   - giacenze;
+   - funding;
+   - utilizzo della capacità;
+   - vincoli e bounds attivi.
+
+40. Cella codice per la sensitività rispetto a:
+
+$$
+\psi.
+$$
+
+41. Output DataFrame relativo alla griglia di $\psi$.
+
+42. Output con tabelle e grafici previsti per:
+   - valore ottimo;
+   - funding;
+   - composizione della soluzione;
+   - vincoli attivi.
+
+43. Cella Markdown di confronto tra le tre sensitività:
+
+$$
+\theta,
+\qquad
+\phi,
+\qquad
+\psi.
+$$
+
+44. La cella deve distinguere chiaramente:
+   - variazione dei fabbisogni;
+   - variazione della capacità disponibile di funding;
+   - variazione del costo del funding.
+
+45. La stessa cella deve collegare le variazioni osservate agli eventuali cambiamenti di vincoli e bounds attivi.
+
+46. Cella Markdown con la definizione dei tre scenari:
+   - Standard;
+   - Mediamente critico;
+   - Critico.
+
+47. Cella codice per la risoluzione dei tre scenari.
+
+48. Output con tabella comparativa degli scenari.
+
+49. Celle codice e output con i grafici di scenario previsti.
+
+50. Cella codice e/o Markdown per i controlli conclusivi di coerenza:
+   - formulazione solver;
+   - benchmark;
+   - marginali;
+   - sensitività;
+   - frontiera di fattibilità;
+   - scenari;
+   - utilizzo esclusivo di risultati validi.
+
+51. Cella Markdown conclusiva con gli elementi quantitativi necessari all'interpretazione economico-finanziaria.
+
+52. Cella Markdown finale dello studente con:
+   - interpretazione finanziaria;
+   - ruolo dei vincoli attivi;
+   - ruolo del funding;
+   - differenze tra sensitività e scenari;
+   - significato della frontiera di fattibilità;
+   - limiti del modello.
+
+### 9.2 Corrispondenza con le tappe operative
+
+La struttura deve mantenere riconoscibile la seguente corrispondenza:
+
+- **Tappa 1 — Traduzione del modello nella forma solver:** celle 6–13;
+
+- **Tappa 2 — Soluzione e validazione del benchmark:** celle 14–21;
+
+- **Tappa 3 — Verifica dei valori marginali:** celle 22–25;
+
+- **Tappa 4 — Costruzione del solver parametrico:** celle 26–29;
+
+- **Tappa 5 — Sensitività rispetto a $\theta$:** celle 30–32;
+
+- **Tappa 6 — Frontiera di fattibilità rispetto a $\theta$:** celle 33–36;
+
+- **Tappa 7 — Sensitività rispetto a $\phi$:** celle 37–39;
+
+- **Tappa 8 — Sensitività rispetto a $\psi$:** celle 40–42;
+
+- **Tappa 9 — Confronto delle sensitività:** celle 43–45;
+
+- **Tappa 10 — Scenario analysis:** celle 46–49;
+
+- **Tappa 11 — Controlli conclusivi:** celle 50–52.
+
+La numerazione delle celle è indicativa della sequenza logica attesa. Una singola tappa può richiedere più celle Markdown, codice o output quando ciò migliora leggibilità e controllo.
+
+### 9.3 Regole di costruzione del notebook
+
+Il notebook deve rispettare le seguenti regole:
+
+1. essere eseguibile sequenzialmente dall'inizio alla fine;
+
+2. non dipendere da oggetti prodotti in esecuzioni precedenti non riproducibili;
+
+3. non contenere celle errate duplicate o versioni alternative non utilizzate;
+
+4. mantenere invariato l'ordinamento delle variabili dopo che è stato dichiarato;
+
+5. generare tabelle e grafici direttamente dagli oggetti prodotti dal solver;
+
+6. non inserire manualmente nelle celle successive valori numerici della soluzione;
+
+7. verificare sempre lo stato del solver prima di utilizzare:
+
+$$
+x^*,
+\qquad
+g^*,
+\qquad
+u^*,
+\qquad
+\Pi^*;
+$$
+
+8. non utilizzare risultati provenienti da configurazioni non ammissibili;
+
+9. distinguere chiaramente:
+   - sensitività univariata;
+   - frontiera di fattibilità;
+   - scenario analysis;
+
+10. applicare $\psi$ coerentemente sia alla funzione obiettivo sia ai rimborsi del funding;
+
+11. collocare la ricerca della frontiera di fattibilità immediatamente dopo la sensitività a $\theta$;
+
+12. produrre tutti gli output richiesti dalla Scheda Caso;
+
+13. eseguire i controlli previsti prima dell'interpretazione conclusiva;
+
+14. mantenere coerenti notazione matematica e nomi delle variabili computazionali;
+
+15. non prevedere automaticamente directory di output o esportazioni esterne.
+
+### 9.4 Funzione delle celle Markdown
+
+Le celle Markdown devono essere utilizzate per rendere riconoscibile:
+
+1. obiettivo della tappa;
+
+2. input disponibili;
+
+3. oggetti teorici coinvolti;
+
+4. operazione da svolgere;
+
+5. output atteso;
+
+6. controllo associato;
+
+7. collegamento con la tappa successiva;
+
+8. interpretazioni locali necessarie alla comprensione degli output.
+
+Le celle Markdown non devono duplicare estensivamente il manuale o le slides.
+
+### 9.5 Funzione delle celle di controllo
+
+I controlli non devono essere concentrati esclusivamente alla fine.
+
+Devono comparire nel punto in cui diventano necessari:
+
+- controllo dimensionale dopo la costruzione della forma solver;
+
+- residuali e slack dopo la soluzione benchmark;
+
+- verifica dei marginali prima della parametrizzazione;
+
+- stato del solver durante ciascuna griglia;
+
+- controllo feasible / infeasible durante la ricerca di $\theta_{\mathrm{crit}}$;
+
+- coerenza dei parametri durante la scenario analysis;
+
+- controllo complessivo prima dell'interpretazione finale.
+
+Il notebook deve quindi rendere visibile la sequenza:
+
+$$
+\text{operazione}
+\longrightarrow
+\text{output}
+\longrightarrow
+\text{controllo}
+\longrightarrow
+\text{uso successivo}.
+$$
 
 ## 10. Criteri di validazione del notebook
 
