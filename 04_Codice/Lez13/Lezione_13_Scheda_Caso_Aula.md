@@ -472,219 +472,81 @@ $$
 
 ## 6. Output richiesti
 
-Gli output devono essere prodotti esclusivamente a partire da configurazioni per le quali il solver restituisce una soluzione valida.
+Gli output devono essere prodotti esclusivamente per configurazioni nelle quali il solver restituisce una soluzione valida e devono rendere distinguibili:
 
-Devono consentire di distinguere chiaramente:
-
-1. soluzione benchmark;
-2. diagnostica della soluzione;
-3. sensitività univariate;
-4. frontiera di fattibilità rispetto a $\theta$;
-5. scenario analysis.
+1. benchmark e relativa diagnostica;
+2. sensitività univariate;
+3. frontiera di fattibilità rispetto a $\theta$;
+4. scenario analysis.
 
 ### 6.1 Risultati numerici
 
-Devono essere riportati almeno:
+Devono essere riportati:
 
-1. soluzione ottima benchmark:
+1. soluzione e valore ottimi del benchmark;
 
-$$
-x^*,
-\qquad
-g^*,
-\qquad
-u^*;
-$$
+2. residuali dei vincoli di uguaglianza, slack dei vincoli di disuguaglianza e bounds attivi;
 
-2. valore ottimo benchmark:
+3. principali valori marginali;
 
-$$
-\Pi^*;
-$$
+4. per le sensitività a $\theta$, $\phi$ e $\psi$: fattibilità, valore e soluzione ottimi, variazioni rispetto al benchmark, utilizzo della capacità di funding e principali vincoli o bounds attivi;
 
-3. residuali dei vincoli di uguaglianza;
-
-4. slack dei vincoli di disuguaglianza;
-
-5. bounds attivi;
-
-6. principali valori marginali restituiti dal solver;
-
-7. risultati delle sensitività rispetto a:
-
-$$
-\theta,
-\qquad
-\phi,
-\qquad
-\psi;
-$$
-
-8. variazioni rispetto al benchmark:
-
-$$
-\Delta\Pi^*(p),
-\qquad
-\Delta_{\%}\Pi^*(p),
-$$
-
-$$
-\Delta x_j^*(p),
-\qquad
-\Delta g_t^*(p),
-\qquad
-\Delta u_t^*(p);
-$$
-
-9. rapporti di utilizzo della capacità di funding:
-
-$$
-\rho_t^u(p)
-=
-\frac{u_t^*(p)}{\bar u_t(p)};
-$$
-
-10. stato di fattibilità per ciascuna configurazione parametrica;
-
-11. principali vincoli e bounds attivi;
-
-12. intervallo contenente:
+5. intervallo raffinato contenente:
 
 $$
 \theta_{\mathrm{crit}};
 $$
 
-13. risultati dei tre scenari assegnati;
-
-14. perdita di valore degli scenari Mediamente critico e Critico rispetto allo scenario Standard.
+6. risultati dei tre scenari assegnati e perdita di valore degli scenari Mediamente critico e Critico rispetto allo Standard.
 
 ### 6.2 Tabelle
 
 Devono essere prodotte le seguenti tabelle:
 
 1. **Benchmark e parametri principali**;
-
 2. **Soluzione benchmark**;
-
 3. **Verifica dei bilanci temporali**;
-
 4. **Vincoli, bounds e slack nel benchmark**;
-
 5. **Valori marginali principali**;
-
 6. **Sensitività a $\theta$**;
-
 7. **Sensitività a $\phi$**;
-
 8. **Sensitività a $\psi$**;
-
 9. **Raffinamento della frontiera di fattibilità rispetto a $\theta$**;
-
 10. **Confronto degli scenari**.
 
-Le tabelle devono contenere le quantità necessarie a rappresentare gli output definiti nella Sezione 5 e i controlli richiesti nella Sezione 7.
+Le tabelle devono contenere le quantità necessarie a rappresentare i risultati definiti nella Sezione 5 e i controlli richiesti nella Sezione 7.
 
 ### 6.3 Grafici
 
 Devono essere prodotti i seguenti grafici:
 
-1. **Valore ottimo al variare di $\theta$**:
+1. valore ottimo al variare di $\theta$;
 
-$$
-\theta
-\longmapsto
-\Pi^*(\theta);
-$$
+2. variazione assoluta o percentuale del valore ottimo rispetto al benchmark al variare di $\theta$;
 
-2. **Variazione del valore ottimo rispetto al benchmark al variare di $\theta$**:
+3. composizione ottima dell'attivo al variare di $\theta$;
 
-$$
-\theta
-\longmapsto
-\Delta\Pi^*(\theta)
-$$
+4. variazioni dell'asset allocation rispetto al benchmark al variare di $\theta$;
 
-oppure la corrispondente variazione percentuale;
+5. funding ottimo e/o utilizzo della relativa capacità al variare di $\theta$;
 
-3. **Composizione ottima dell'attivo al variare di $\theta$**:
+6. giacenze ottime al variare di $\theta$;
 
-$$
-x_1^*(\theta),\ldots,x_4^*(\theta);
-$$
+7. sensitività rispetto a $\phi$, rappresentando almeno valore ottimo e comportamento del funding;
 
-4. **Variazioni dell'asset allocation rispetto al benchmark**:
+8. sensitività rispetto a $\psi$, rappresentando almeno valore ottimo e funding ottimo;
 
-$$
-\Delta x_j^*(\theta);
-$$
+9. principali valori marginali lungo almeno una griglia informativa;
 
-5. **Funding ottimo e utilizzo della capacità al variare di $\theta$**, mediante $u_t^*(\theta)$ e/o:
+10. mappa dei principali vincoli attivi, almeno lungo la sensitività rispetto a $\theta$;
 
-$$
-\frac{u_t^*(\theta)}{\bar u_t};
-$$
+11. confronto del valore ottimo nei tre scenari;
 
-6. **Giacenze ottime al variare di $\theta$**:
+12. confronto della composizione ottima dell'attivo nei tre scenari;
 
-$$
-g_1^*(\theta),\ldots,g_4^*(\theta);
-$$
+13. confronto del funding nei tre scenari;
 
-7. **Sensitività rispetto a $\phi$**, rappresentando almeno:
-
-$$
-\phi
-\longmapsto
-\Pi^*(\phi)
-$$
-
-e il comportamento del funding rispetto alla capacità disponibile;
-
-8. **Sensitività rispetto a $\psi$**, rappresentando almeno:
-
-$$
-\psi
-\longmapsto
-\Pi^*(\psi)
-$$
-
-e l'evoluzione del funding ottimo;
-
-9. **Valori marginali**, rappresentando i marginali dei bilanci temporali e/o dei limiti di funding più informativi lungo almeno una delle griglie;
-
-10. **Mappa dei principali vincoli attivi**, mostrando almeno lungo la sensitività rispetto a $\theta$ il passaggio tra stato attivo e non attivo;
-
-11. **Valore ottimo nei tre scenari**, confrontando:
-
-$$
-\Pi_{\mathrm{Standard}}^*,
-\qquad
-\Pi_{\mathrm{Medio}}^*,
-\qquad
-\Pi_{\mathrm{Critico}}^*;
-$$
-
-12. **Composizione ottima dell'attivo nei tre scenari**, confrontando:
-
-$$
-x_1^*,x_2^*,x_3^*,x_4^*;
-$$
-
-13. **Funding nei tre scenari**, confrontando:
-
-$$
-u_1^*,u_2^*,u_3^*;
-$$
-
-14. **Profilo temporale delle giacenze nei tre scenari**, rappresentando per ciascuno scenario:
-
-$$
-t
-\longmapsto
-g_t^*,
-\qquad
-t=1,\ldots,4.
-$$
+14. confronto del profilo temporale delle giacenze nei tre scenari.
 
 I grafici devono utilizzare esclusivamente configurazioni per le quali il solver restituisce una soluzione valida.
 
@@ -692,33 +554,29 @@ I grafici devono utilizzare esclusivamente configurazioni per le quali il solver
 
 1. Tabelle e grafici devono essere generati direttamente dagli oggetti prodotti nel notebook.
 
-2. Non devono essere utilizzati o interpretati valori della soluzione quando il solver segnala una configurazione non ammissibile.
+2. I risultati di configurazioni non ammissibili non devono essere utilizzati o interpretati.
 
-3. Le configurazioni ammissibili e non ammissibili devono essere distinte chiaramente.
+3. Configurazioni ammissibili e non ammissibili devono essere chiaramente distinguibili.
 
-4. Non devono essere inseriti manualmente nelle celle successive valori numerici prodotti in precedenza dal solver.
+4. I valori numerici prodotti dal solver non devono essere ricopiati manualmente nelle celle successive.
 
 5. Gli output devono essere rigenerabili mediante riesecuzione ordinata del notebook.
 
-6. Non devono essere previste esportazioni automatiche in file esterni, salvo indicazione esplicita del docente.
+6. Non sono richieste esportazioni automatiche in file esterni, salvo indicazione esplicita del docente.
 
 ### 6.5 Funzione interpretativa
 
 Gli output devono consentire di discutere:
 
-1. come cambia il piano ALM al variare dei fabbisogni iniziali;
+1. effetti dei fabbisogni iniziali, della capacità di funding e del costo del funding sul piano ALM;
 
-2. come cambia la soluzione al variare della capacità di funding;
+2. cambiamenti dei principali vincoli e bounds attivi;
 
-3. come cambia la soluzione al variare del costo del funding;
+3. posizione della frontiera di fattibilità rispetto a $\theta$;
 
-4. quali vincoli e bounds diventano attivi nelle diverse configurazioni;
+4. differenze tra gli scenari Standard, Mediamente critico e Critico;
 
-5. dove si colloca la frontiera di fattibilità rispetto a $\theta$;
-
-6. come differiscono Standard, Mediamente critico e Critico;
-
-7. quali conclusioni dipendono dalla struttura del modello stilizzato.
+5. dipendenza delle conclusioni dalla struttura del modello stilizzato.
 
 L'interpretazione deve basarsi esclusivamente su risultati numericamente validati.
 
