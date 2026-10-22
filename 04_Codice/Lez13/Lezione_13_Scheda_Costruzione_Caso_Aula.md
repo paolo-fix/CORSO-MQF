@@ -1372,6 +1372,7 @@ La sequenza attesa è la seguente.
 4. **Tappa 1 — Traduzione del modello nella forma solver**
    - cella Markdown con obiettivo, input, oggetti teorici, output e controllo;
    - celle codice per importazioni e parametri benchmark;
+   - **Tabella 1 — Benchmark e parametri principali**;
    - ordinamento dichiarato e invariato delle variabili;
    - celle codice per vettore obiettivo, $A_{\mathrm{eq}}$, $b_{\mathrm{eq}}$, $A_{\mathrm{ub}}$, $b_{\mathrm{ub}}$ e bounds;
    - controlli dimensionali, dei coefficienti e dei segni;
