@@ -726,21 +726,17 @@ L'interpretazione deve basarsi esclusivamente su risultati numericamente validat
 
 ## 7. Controlli richiesti
 
-I controlli devono verificare separatamente:
-
-1. correttezza numerica della soluzione;
-2. coerenza logico-teorica del modello;
-3. correttezza della traduzione computazionale.
-
-L'interpretazione finale deve utilizzare esclusivamente risultati che abbiano superato tali controlli.
+L'interpretazione finale deve utilizzare esclusivamente risultati provenienti da configurazioni per le quali il solver restituisce una soluzione valida.
 
 ### 7.1 Controlli numerici
 
-1. Il benchmark deve restituire uno stato di ottimizzazione valido.
+Devono essere verificati:
 
-2. I bilanci temporali devono essere verificati mediante residuali numerici prossimi a zero entro una tolleranza dichiarata.
+1. stato di ottimizzazione valido del benchmark e di ogni configurazione utilizzata;
 
-3. Devono essere verificati:
+2. residuali dei bilanci temporali prossimi a zero entro una tolleranza dichiarata;
+
+3. rispetto dei vincoli:
 
 $$
 \ell'x^*\leq7,
@@ -756,64 +752,62 @@ $$
 t=1,2,3,
 $$
 
-e la non negatività di tutte le variabili.
+e della non negatività delle variabili;
 
-4. La classificazione dei vincoli come attivi o non attivi deve essere coerente con i relativi slack.
+4. coerenza tra slack e classificazione dei vincoli come attivi o non attivi;
 
-5. I bounds attivi devono essere identificati verificando la distanza della variabile dal relativo lower bound o upper bound.
+5. identificazione dei bounds attivi mediante la distanza dai rispettivi limiti;
 
-6. Almeno un valore marginale deve essere verificato numericamente mediante una piccola perturbazione del termine noto o del limite cui esso si riferisce.
+6. verifica numerica di almeno un valore marginale mediante una piccola perturbazione del termine noto o del limite cui esso si riferisce.
 
-7. Per ogni configurazione parametrica deve essere verificato lo stato del solver prima di utilizzare i risultati.
-
-8. I risultati di configurazioni non ammissibili non devono essere utilizzati né interpretati economicamente.
+I risultati relativi a configurazioni non ammissibili non devono essere utilizzati né interpretati economicamente.
 
 ### 7.2 Controlli logici e teorici
 
-1. La funzione parametrica deve riprodurre il benchmark in:
+Devono essere verificati:
+
+1. riproduzione del benchmark per:
 
 $$
-(\theta,\phi,\psi)=(1,1,1).
+(\theta,\phi,\psi)
+=
+(1,1,1);
 $$
 
-2. Nelle sensitività univariate deve variare un solo parametro alla volta.
+2. variazione di un solo parametro alla volta nelle sensitività univariate;
 
-3. Il parametro $\theta$ deve modificare esclusivamente i fabbisogni delle prime due date.
+3. azione corretta dei tre driver:
+   - $\theta$ modifica esclusivamente i fabbisogni delle prime due date;
+   - $\phi$ modifica esclusivamente la capacità massima di funding;
+   - $\psi$ modifica sia il costo del funding nella funzione obiettivo sia il rimborso del funding nei bilanci temporali;
 
-4. Il parametro $\phi$ deve modificare esclusivamente la capacità massima di funding.
+4. coerenza tra cambiamenti della soluzione e cambiamenti dei vincoli o bounds attivi;
 
-5. Il parametro $\psi$ deve modificare sia:
+5. associazione dei valori marginali al corretto vincolo o bilancio e loro interpretazione locale, tenendo conto della trasformazione del problema di massimizzazione nella convenzione di minimizzazione del solver;
 
-- il costo del funding nella funzione obiettivo;
-- il rimborso del funding nei bilanci temporali.
+6. distinzione tra vincolo attivo e valore marginale economicamente informativo;
 
-6. I cambiamenti della soluzione devono essere confrontati con gli eventuali cambiamenti dei vincoli e dei bounds attivi.
+7. individuazione della frontiera di fattibilità rispetto a $\theta$ mediante il passaggio tra configurazioni ammissibili e non ammissibili;
 
-7. I valori marginali devono essere associati al corretto vincolo o bilancio e interpretati come quantità locali.
-
-8. Nell'interpretazione dei marginali deve essere considerato il passaggio dal problema economico di massimizzazione alla convenzione di minimizzazione utilizzata dal solver.
-
-9. La presenza di un vincolo attivo non implica automaticamente un valore marginale economicamente rilevante.
-
-10. La frontiera di fattibilità rispetto a $\theta$ deve essere determinata esclusivamente mediante il passaggio tra configurazioni ammissibili e non ammissibili.
-
-11. Il valore:
+8. interpretazione di:
 
 $$
 \theta_{\mathrm{crit}}
 $$
 
-deve essere interpretato come frontiera del modello stilizzato e non come stima empirica dei deflussi storicamente osservati presso Silicon Valley Bank.
+come frontiera del modello stilizzato e non come stima empirica dei deflussi storici di Silicon Valley Bank;
 
-12. Gli scenari devono utilizzare esattamente i valori assegnati nella Sezione 4.13.
+9. utilizzo esatto degli scenari assegnati nella Sezione 4.3;
 
-13. Sensitività univariata e scenario analysis devono rimanere distinte: nella prima varia un solo driver, nella seconda più driver possono variare congiuntamente.
+10. distinzione tra sensitività univariata e scenario analysis.
 
 ### 7.3 Controlli computazionali
 
-1. L'ordinamento delle variabili decisionali deve essere dichiarato e mantenuto invariato.
+Devono essere verificati:
 
-2. Devono essere compatibili le dimensioni di:
+1. ordinamento dichiarato e invariato delle variabili decisionali;
+
+2. compatibilità dimensionale di:
 
 $$
 f,
@@ -827,83 +821,55 @@ A_{\mathrm{ub}},
 b_{\mathrm{ub}}
 $$
 
-e dei bounds.
+e dei bounds;
 
-3. Deve essere verificata correttamente la trasformazione:
+3. corretta trasformazione:
 
 $$
 \max\Pi
 \quad\longleftrightarrow\quad
-\min(-\Pi).
+\min(-\Pi);
 $$
 
-4. La parametrizzazione dei fabbisogni deve rispettare:
+4. corretta parametrizzazione:
 
 $$
 d(\theta)
 =
-(30\theta,30\theta,22,15)'.
+(30\theta,30\theta,22,15)',
 $$
 
-5. I bounds del funding devono rispettare:
-
 $$
-0\leq u_t\leq\phi\bar u_t.
+0\leq u_t\leq\phi\bar u_t;
 $$
 
-6. La variazione di $\psi$ deve essere applicata coerentemente sia alla funzione obiettivo sia ai rimborsi del funding.
+5. applicazione di $\psi$ sia alla funzione obiettivo sia ai rimborsi del funding;
 
-7. La funzione parametrica, valutata in:
+6. riproduzione della soluzione benchmark da parte della funzione parametrica valutata in:
 
 $$
-(1,1,1),
+(1,1,1);
 $$
 
-deve riprodurre la soluzione benchmark diretta entro la tolleranza numerica adottata.
+7. utilizzo nelle tabelle e nei grafici esclusivamente di risultati provenienti da esecuzioni valide del solver;
 
-8. Le tabelle e i grafici devono utilizzare esclusivamente risultati provenienti da esecuzioni valide del solver.
+8. mancata interpolazione o connessione artificiale di punti separati da configurazioni non ammissibili;
 
-9. I punti non ammissibili non devono essere interpolati o collegati artificialmente alle curve delle quantità ottime.
-
-10. Il raffinamento della ricerca di:
+9. raffinamento della ricerca di:
 
 $$
 \theta_{\mathrm{crit}}
 $$
 
-deve essere effettuato soltanto dopo avere individuato sulla griglia iniziale l'ultimo valore ammissibile e il primo non ammissibile.
+soltanto dopo avere individuato sulla griglia iniziale l'ultimo valore ammissibile e il primo non ammissibile;
 
-11. Le configurazioni della scenario analysis devono essere passate al solver senza modifiche.
+10. utilizzo senza modifiche delle configurazioni assegnate nella scenario analysis;
 
-12. Tabelle e grafici devono essere rigenerabili mediante riesecuzione ordinata del notebook.
+11. rigenerabilità di tabelle e grafici mediante riesecuzione ordinata del notebook;
 
-13. Il notebook deve poter essere eseguito integralmente dall'inizio senza dipendere da oggetti prodotti in esecuzioni precedenti non riproducibili.
+12. eseguibilità integrale del notebook dall'inizio senza dipendenze da oggetti prodotti in esecuzioni precedenti non riproducibili.
 
-### 7.4 Controllo conclusivo
-
-Prima dell'interpretazione finale devono risultare verificati congiuntamente:
-
-1. corretta formulazione solver;
-
-2. fattibilità delle configurazioni utilizzate;
-
-3. rispetto dei vincoli e dei bounds;
-
-4. coerenza tra residuali, slack e stato attivo dei vincoli;
-
-5. corretta identificazione dei bounds attivi;
-
-6. corretta interpretazione locale dei valori marginali;
-
-7. corretta azione di $\theta$, $\phi$ e $\psi$;
-
-8. corretta individuazione della frontiera di fattibilità;
-
-9. coerenza degli scenari con i valori assegnati;
-
-10. utilizzo esclusivo di risultati numericamente validi.
-
-L'interpretazione finanziaria finale deve basarsi esclusivamente su output che abbiano superato tali controlli.
+Prima dell'interpretazione finanziaria finale devono risultare congiuntamente soddisfatti i controlli numerici, logico-teorici e computazionali sopra indicati.
 
 ---
 
@@ -917,73 +883,55 @@ Il modello assume che:
 
 2. le decisioni iniziali di allocazione siano assunte al tempo iniziale e rimangano invariate lungo l'orizzonte;
 
-3. i cash flow degli attivi siano noti e proporzionali agli importi inizialmente investiti;
+3. i cash flow degli attivi e i fabbisogni di liquidità siano deterministici all'interno di ciascuna configurazione parametrica;
 
-4. i fabbisogni di liquidità siano deterministici all'interno di ciascuna configurazione parametrica;
+4. le quantità siano divisibili e funzione obiettivo e vincoli siano lineari;
 
-5. le quantità siano divisibili;
+5. il funding raccolto alla data $t$ sia immediatamente disponibile e venga rimborsato alla data successiva;
 
-6. la funzione obiettivo e i vincoli siano lineari;
+6. capacità e costo del funding siano esogeni e agiscano secondo le parametrizzazioni assegnate;
 
-7. il funding raccolto alla data $t$ sia immediatamente disponibile e venga rimborsato alla data successiva;
-
-8. la capacità massima di funding sia esogena;
-
-9. il costo del funding sia esogeno;
-
-10. nelle sensitività univariate vari un solo parametro alla volta;
-
-11. gli scenari siano configurazioni deterministiche assegnate e non eventi probabilistici.
+7. nelle sensitività univariate vari un solo parametro alla volta, mentre gli scenari modifichino congiuntamente i driver secondo le configurazioni assegnate.
 
 ### 8.2 Semplificazioni adottate
 
 Il caso utilizza una rappresentazione stilizzata nella quale:
 
-1. le classi di attivo sono aggregate;
+1. le classi di attivo e i cash flow sono aggregati e descritti mediante coefficienti deterministici;
 
-2. i cash flow sono rappresentati mediante coefficienti deterministici;
+2. la liquidità è rappresentata attraverso bilanci temporali discreti;
 
-3. non vengono modellati aggiustamenti endogeni dei tassi o dei prezzi conseguenti alle decisioni della banca;
+3. il funding è descritto mediante capacità e costi assegnati;
 
-4. non vengono modellati costi di transazione o frizioni di mercato diversi dai costi esplicitamente inclusi;
+4. il vincolo prudenziale è lineare;
 
-5. il funding è rappresentato mediante capacità e costi assegnati;
-
-6. il vincolo prudenziale è rappresentato in forma lineare;
-
-7. la disponibilità di liquidità viene descritta attraverso bilanci temporali discreti.
+5. non vengono modellati aggiustamenti endogeni di prezzi, tassi o costi conseguenti alle decisioni della banca.
 
 ### 8.3 Elementi esclusi
 
 Il modello non include:
 
-1. incertezza probabilistica sui fabbisogni futuri;
+1. incertezza probabilistica sui fabbisogni e dinamiche stocastiche dei tassi;
 
-2. dinamiche stocastiche dei tassi di interesse;
+2. variazioni endogene dei prezzi degli attivi, fire sales o feedback di mercato;
 
-3. variazioni endogene dei prezzi di mercato degli attivi;
+3. interazioni strategiche con depositanti, controparti o autorità;
 
-4. fire sales o effetti di mercato prodotti dalla liquidazione degli attivi;
+4. rischio di credito dinamico e requisiti regolamentari completi;
 
-5. interazione strategica con depositanti, controparti o autorità;
+5. decisioni adattive, struttura stocastica o multistadio;
 
-6. rischio di credito dinamico;
-
-7. requisiti regolamentari completi;
-
-8. una struttura stocastica o multistadio delle decisioni;
-
-9. una ricostruzione empirica completa della crisi di Silicon Valley Bank.
+6. una ricostruzione empirica completa della crisi di Silicon Valley Bank.
 
 ### 8.4 Limiti dell'interpretazione
 
-Il caso è ispirato alla crisi di Silicon Valley Bank del 2023, ma utilizza un modello didattico stilizzato.
+Il caso è un modello didattico stilizzato ispirato alla crisi di Silicon Valley Bank del 2023.
 
 Pertanto:
 
-1. i parametri non devono essere interpretati come una ricostruzione puntuale del bilancio storico della banca;
+1. i parametri non rappresentano una ricostruzione puntuale del bilancio storico della banca;
 
-2. le sensitività descrivono la risposta del modello a variazioni dei parametri assegnati, non relazioni causali osservate empiricamente;
+2. sensitività e scenari descrivono la risposta del modello ai parametri assegnati e non relazioni causali empiricamente osservate;
 
 3. la frontiera:
 
@@ -991,14 +939,10 @@ $$
 \theta_{\mathrm{crit}}
 $$
 
-rappresenta una soglia di fattibilità del modello e non una stima dei deflussi storici effettivi;
+è una soglia di fattibilità del modello e non una stima dei deflussi storici effettivi;
 
-4. i valori marginali devono essere interpretati localmente e soltanto nella configurazione nella quale risultano informativi;
+4. i valori marginali hanno significato locale e possono cambiare al variare dell'insieme dei vincoli attivi;
 
-5. un cambiamento dei vincoli attivi può modificare la relazione marginale osservata;
+5. gli scenari Standard, Mediamente critico e Critico sono configurazioni deterministiche di confronto e non scenari probabilizzati;
 
-6. gli scenari Standard, Mediamente critico e Critico sono configurazioni deterministiche di confronto e non scenari probabilizzati;
-
-7. i risultati non devono essere estesi oltre le ipotesi, i vincoli e l'orizzonte temporale dichiarati.
-
-Il caso ha finalità didattica: deve rendere osservabile come composizione dell'attivo, fabbisogni temporali, giacenze, funding e vincoli interagiscano in un problema ALM deterministico.
+6. i risultati non devono essere estesi oltre le ipotesi, i vincoli e l'orizzonte dichiarati.
