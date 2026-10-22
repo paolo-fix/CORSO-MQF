@@ -783,32 +783,171 @@ Gli output devono essere utilizzati per verificare e interpretare il modello, no
 
 ## 7. Controlli richiesti
 
-Devono essere verificati almeno i seguenti punti.
+I controlli devono verificare separatamente la correttezza numerica della soluzione, la coerenza logico-teorica del modello e la correttezza della traduzione computazionale.
 
-1. L'ordinamento delle variabili utilizzato nel vettore del solver deve essere dichiarato esplicitamente.
-2. Le dimensioni della funzione obiettivo, delle matrici e dei vettori dei vincoli devono essere compatibili.
-3. La trasformazione del problema di massimo nella convenzione richiesta dal solver deve essere verificata esplicitamente.
-4. Il benchmark deve restituire uno stato di ottimizzazione valido.
-5. Tutti i bilanci temporali devono essere verificati indipendentemente mediante residuali numerici.
-6. I residuali delle uguaglianze devono essere prossimi a zero entro una tolleranza numerica dichiarata.
-7. Il vincolo prudenziale deve essere verificato indipendentemente.
-8. Il limite $x_3\leq30$ deve essere verificato indipendentemente.
-9. I bounds del funding devono essere verificati per ciascuna data.
-10. La classificazione attivo / non attivo deve essere coerente con gli slack entro una tolleranza dichiarata.
-11. Deve essere verificato numericamente almeno un valore marginale mediante una piccola perturbazione del relativo termine noto o limite.
-12. Nell'interpretazione dei valori marginali deve essere tenuto conto della trasformazione massimo / minimo.
-13. La funzione parametrica deve riprodurre il benchmark quando $(\theta,\phi,\psi)=(1,1,1)$.
-14. Nella sensitività a $\theta$ devono restare fissi $\phi=1$ e $\psi=1$.
-15. Nella sensitività a $\phi$ devono restare fissi $\theta=1$ e $\psi=1$.
-16. Nella sensitività a $\psi$ devono restare fissi $\theta=1$ e $\phi=1$.
-17. Il parametro $\psi$ deve modificare sia il costo del funding nella funzione obiettivo sia il rimborso del funding nei bilanci temporali.
-18. Per ogni configurazione parametrica deve essere controllato lo stato del solver prima di utilizzare i valori delle variabili.
-19. Quando il problema è dichiarato non ammissibile, non devono essere utilizzati o interpretati eventuali valori presenti in `res.x`.
-20. I punti non ammissibili non devono essere collegati artificialmente alla curva di $\Pi^*$.
-21. L'intervallo contenente $\theta_{\mathrm{crit}}$ deve essere determinato sulla base della fattibilità.
-22. I grafici delle sensitività devono essere costruiti utilizzando esclusivamente risultati solver validi.
-23. Devono essere confrontati i cambiamenti della soluzione ottima con i cambiamenti dei vincoli attivi.
-24. Le tre configurazioni della scenario analysis devono utilizzare esattamente i valori assegnati nella Sezione 4.13.
+### 7.1 Controlli numerici
+
+1. Il benchmark deve restituire uno stato di ottimizzazione valido.
+
+2. Tutti i bilanci temporali devono essere verificati indipendentemente mediante residuali numerici.
+
+3. I residuali dei vincoli di uguaglianza devono essere prossimi a zero entro una tolleranza numerica dichiarata.
+
+4. Deve essere verificato indipendentemente il vincolo prudenziale:
+
+$$
+\ell'x^*\leq7.
+$$
+
+5. Deve essere verificato indipendentemente il limite di concentrazione:
+
+$$
+x_3^*\leq30.
+$$
+
+6. Per ciascuna data deve essere verificato il rispetto dei bounds del funding:
+
+$$
+0\leq u_t^*\leq\phi\bar u_t.
+$$
+
+7. Deve essere verificata la non negatività di tutte le variabili:
+
+$$
+x_j^*\geq0,
+\qquad
+g_t^*\geq0,
+\qquad
+u_t^*\geq0.
+$$
+
+8. La classificazione dei vincoli di disuguaglianza come attivi o non attivi deve essere coerente con i relativi slack entro una tolleranza numerica dichiarata.
+
+9. I bounds attivi sulle variabili devono essere identificati separatamente, verificando quando una variabile si trova sul proprio lower bound o upper bound.
+
+10. Deve essere verificato numericamente almeno un valore marginale mediante una piccola perturbazione del termine noto o del limite cui il marginale si riferisce.
+
+11. Per ogni configurazione parametrica deve essere verificato lo stato del solver prima di utilizzare i valori della soluzione.
+
+12. Quando il problema risulta non ammissibile, eventuali valori presenti negli oggetti restituiti dal solver non devono essere utilizzati né interpretati economicamente.
+
+### 7.2 Controlli logici e teorici
+
+1. La funzione parametrica deve riprodurre la configurazione benchmark quando:
+
+$$
+(\theta,\phi,\psi)=(1,1,1).
+$$
+
+2. Nella sensitività rispetto a $\theta$ devono rimanere fissi:
+
+$$
+\phi=1,
+\qquad
+\psi=1.
+$$
+
+3. Nella sensitività rispetto a $\phi$ devono rimanere fissi:
+
+$$
+\theta=1,
+\qquad
+\psi=1.
+$$
+
+4. Nella sensitività rispetto a $\psi$ devono rimanere fissi:
+
+$$
+\theta=1,
+\qquad
+\phi=1.
+$$
+
+5. Il parametro $\theta$ deve modificare esclusivamente i fabbisogni delle prime due date.
+
+6. Il parametro $\phi$ deve modificare esclusivamente la capacità massima di funding.
+
+7. Il parametro $\psi$ deve modificare:
+
+- il costo del funding nella funzione obiettivo;
+- l'ammontare da rimborsare nei bilanci temporali.
+
+8. I cambiamenti della soluzione ottima devono essere confrontati con gli eventuali cambiamenti dei vincoli e dei bounds attivi.
+
+9. L'interpretazione dei valori marginali deve essere coerente con il vincolo o il bilancio cui ciascun marginale si riferisce.
+
+10. Nell'interpretazione dei valori marginali deve essere tenuto conto del passaggio dal problema economico di massimizzazione alla convenzione di minimizzazione utilizzata da `scipy.optimize.linprog`.
+
+11. La presenza di un vincolo attivo non deve essere automaticamente interpretata come prova di un valore marginale economicamente rilevante: attività del vincolo e valore marginale devono essere verificati separatamente.
+
+12. L'intervallo contenente $\theta_{\mathrm{crit}}$ deve essere determinato esclusivamente sulla base del passaggio tra configurazioni ammissibili e non ammissibili.
+
+13. Il valore $\theta_{\mathrm{crit}}$ deve essere interpretato come frontiera di fattibilità del modello stilizzato e non come stima empirica dei deflussi storici di Silicon Valley Bank.
+
+14. Le tre configurazioni della scenario analysis devono utilizzare esattamente i valori assegnati nella Sezione 4.13.
+
+15. La sensitività univariata e la scenario analysis devono restare concettualmente distinte: nella prima varia un solo parametro alla volta, nella seconda i tre driver possono variare congiuntamente.
+
+### 7.3 Controlli computazionali
+
+1. L'ordinamento delle variabili nel vettore decisionale del solver deve essere dichiarato esplicitamente e mantenuto invariato in tutte le funzioni e nelle successive analisi.
+
+2. Le dimensioni del vettore della funzione obiettivo, di $A_{\mathrm{eq}}$, $b_{\mathrm{eq}}$, $A_{\mathrm{ub}}$, $b_{\mathrm{ub}}$ e dei bounds devono essere reciprocamente compatibili.
+
+3. La trasformazione della funzione obiettivo dal problema di massimo alla convenzione richiesta dal solver deve essere verificata esplicitamente.
+
+4. La costruzione del vettore dei fabbisogni deve rispettare:
+
+$$
+d(\theta)
+=
+(30\theta,30\theta,22,15)'.
+$$
+
+5. I bounds del funding devono essere aggiornati correttamente quando varia $\phi$:
+
+$$
+0\leq u_t\leq\phi\bar u_t.
+$$
+
+6. Quando varia $\psi$, il coefficiente modificato deve essere utilizzato coerentemente sia nella funzione obiettivo sia nei termini di rimborso presenti nei bilanci temporali.
+
+7. I risultati del benchmark prodotti dalla funzione parametrica devono coincidere con quelli ottenuti dalla soluzione benchmark diretta, entro la tolleranza numerica adottata.
+
+8. I punti non ammissibili non devono essere collegati artificialmente alla curva di:
+
+$$
+\Pi^*(\theta).
+$$
+
+9. Le tabelle e i grafici delle sensitività devono utilizzare esclusivamente risultati provenienti da esecuzioni valide del solver.
+
+10. Le configurazioni non ammissibili devono essere identificate e gestite senza propagare valori numerici non validi nelle tabelle, nei grafici o nei confronti successivi.
+
+11. Il raffinamento della ricerca di $\theta_{\mathrm{crit}}$ deve essere effettuato soltanto dopo avere individuato, sulla griglia iniziale, un intervallo compreso tra l'ultimo valore ammissibile e il primo valore non ammissibile.
+
+12. Le tre configurazioni della scenario analysis devono essere passate alla funzione solver senza modifiche rispetto ai valori assegnati.
+
+13. Tabelle e grafici devono essere prodotti come output delle rispettive celle del notebook e devono essere rigenerabili mediante riesecuzione ordinata delle celle.
+
+14. Il notebook deve poter essere rieseguito integralmente dall'inizio senza dipendere da variabili, risultati o oggetti prodotti in esecuzioni precedenti non riproducibili.
+
+### 7.4 Coerenza finale dei controlli
+
+Prima dell'interpretazione conclusiva devono risultare congiuntamente verificati:
+
+1. correttezza della formulazione solver;
+2. fattibilità delle configurazioni utilizzate;
+3. rispetto dei vincoli e dei bounds;
+4. coerenza tra residuali, slack e stato attivo dei vincoli;
+5. corretta identificazione dei bounds attivi;
+6. correttezza dell'interpretazione dei valori marginali;
+7. coerenza delle sensitività con i parametri effettivamente modificati;
+8. corretta individuazione della frontiera di fattibilità rispetto a $\theta$;
+9. coerenza delle configurazioni della scenario analysis con i valori assegnati;
+10. utilizzo esclusivo di risultati numericamente validi nelle tabelle, nei grafici e nell'interpretazione.
+
+L'interpretazione finanziaria finale deve basarsi esclusivamente su output che abbiano superato tali controlli.
 
 ---
 
