@@ -235,7 +235,7 @@ Il codice di supporto e i notebook sono organizzati nella cartella `04_Codice`, 
   /Lez16
 ```
 
-Per i notebook delle lezioni applicative, si adotta una convenzione uniforme di denominazione.
+Per i notebook delle lezioni applicative si adotta una convenzione uniforme di denominazione.
 
 I notebook docente utilizzano i nomi:
 
@@ -250,6 +250,18 @@ I notebook studente utilizzano i nomi:
 Lezione_XX_Notebook_Aula_StudN.ipynb
 Lezione_XX_Notebook_TakeHome_StudN.ipynb
 ```
+
+dove `XX` identifica il numero della lezione e `N` identifica lo studente o la versione del notebook studente.
+
+L'ordine dei componenti del nome deve essere mantenuto uniforme:
+
+```text
+Lezione_XX_Notebook_[Aula|TakeHome]_[Docente|StudN].ipynb
+```
+
+Non devono essere introdotte varianti locali nell'ordine dei componenti del nome.
+
+
 
 Nella stessa cartella `04_Codice` possono essere presenti script di supporto per lezioni teoriche, calibrazioni, controlli o generazione di figure. Gli script che generano asset grafici stabili sono collocati, quando disponibili, nelle sottocartelle `04_Codice/LezXX/` della lezione corrispondente.
 
