@@ -15,8 +15,8 @@ motivazioni sono recepite nel documento normativo pertinente.
 |---|---|
 | **Ultima attività completata** | Completata la verifica residuale dei rinvii espliciti obsoleti a capitoli, lezioni, file, notebook e percorsi. La passata ha riguardato le slides delle Lezioni 1--16, i materiali applicativi e operativi delle Lezioni 4, 7, 10, 13 e 16, i template dei prompt e le Istruzioni Studente, nonché Master Plan, Guidelines, Notazione e Stato di avanzamento. Sono stati corretti i residui individuati nella Lezione 13 relativi alla scansione dualità--sensitività e i riferimenti alla calibrazione docente del Caso TakeHome, ricondotta alla Scheda Costruzione Caso TakeHome. Il controllo residuale dei rinvii espliciti è pertanto concluso. |
 | **Materiale sviluppato** | Manuale: contenuto sostanziale per i Capitoli 1-16. Slides: contenuto sostanziale per le Lezioni 1-16. Pacchetti applicativi strutturati per le Lezioni 4, 7, 10, 13 e 16. Codice, notebook, script e asset grafici presenti lungo l'intero corso, inclusi i blocchi di programmazione lineare, ALM e programmazione stocastica. |
-| **Lavoro in corso** | Prosegue la verifica conclusiva di coerenza orizzontale, verticale e incrociata nei blocchi del corso non ancora sottoposti a passata conclusiva. Il blocco Capitoli/Lezioni 1--4 ha completato la verifica sostanziale di coerenza; per la Lezione 4 risultano completati anche il riallineamento del pacchetto applicativo TakeHome, la produzione del notebook docente coerente con il protocollo dei prompt e la relativa esecuzione tecnica. Per le Lezioni 7, 10, 13 e 16 sono concluse sia la verifica di coerenza dei notebook docente Aula/TakeHome con le rispettive Schede Caso e Schede Costruzione sia la validazione tecnica con controllo degli output. Nel blocco 11--13 risultano verificati il raccordo programmazione lineare--dualità--ALM, la diversa scansione intenzionale tra Capitoli 11--12 e Lezioni 11--12, il raccordo teorico-computazionale tra ALM deterministico e Lezione 13, la coerenza conclusiva tra Capitolo 13, slides, Schede Costruzione e Schede Caso e la validazione dei notebook docente Aula/TakeHome. Il blocco 14--16 è concluso sul piano della coerenza interna, sia teorica sia applicativa. La compilazione di manuale e slides viene svolta ordinariamente a seguito delle modifiche e non costituisce un'attività residua autonoma. La verifica residuale dei rinvii espliciti obsoleti a capitoli, lezioni, file, notebook e percorsi è conclusa. Resta da completare la verifica finale dei template IA e degli asset tecnici. |
-| **Prossima priorità** | Completare le passate conclusive sui blocchi ancora aperti utilizzando la checklist di raccordo, senza riaprire i blocchi già verificati salvo nuove evidenze; completare il controllo dei template IA e degli asset tecnici; implementare la scaletta-promemoria per le lezioni teoriche e aggiornare nel Master Plan il riferimento alla pagina pubblica del progetto. |
+| **Lavoro in corso** | La verifica conclusiva di coerenza è completata, con lo stesso trattamento metodologico, per tutti e cinque i blocchi del corso: Capitoli/Lezioni 1--4, 5--7, 8--10, 11--13 e 14--16. Per le Lezioni applicative 4, 7, 10, 13 e 16 risultano inoltre concluse la verifica di coerenza dei notebook docente Aula/TakeHome con le rispettive Schede Caso e Schede Costruzione e la validazione tecnica con controllo degli output. La compilazione di manuale e slides viene svolta ordinariamente a seguito delle modifiche e non costituisce un'attività residua autonoma. La verifica residuale dei rinvii espliciti obsoleti a capitoli, lezioni, file, notebook e percorsi è conclusa. Restano da completare la verifica finale dei template IA e degli asset tecnici. |
+| **Prossima priorità** | Completare il controllo dei template IA e degli asset tecnici; implementare la scaletta-promemoria per le lezioni teoriche e aggiornare nel Master Plan il riferimento alla pagina pubblica del progetto. |
 
 ---
 
@@ -26,7 +26,7 @@ Legenda: `sviluppato` = contenuto sostanziale presente; `parziale` = componente 
 
 La classificazione `sviluppato` non equivale a `chiuso`: in questa fase gran parte del corso è sviluppato con taratura o verifica conclusiva residua.
 
-Alla data del 2026-10-23 nessuna lezione viene riclassificata automaticamente come `chiusa`. La classificazione richiede il completamento dei controlli di coerenza, compilabilità e, per le lezioni applicative, esecuzione e riproducibilità dei notebook; gli audit automatici restano strumenti di ricognizione e non costituiscono da soli certificazione di chiusura.
+Alla data del 2026-10-24 nessuna lezione viene riclassificata automaticamente come `chiusa`. La classificazione richiede il completamento dei controlli di coerenza, compilabilità e, per le lezioni applicative, esecuzione e riproducibilità dei notebook; gli audit automatici restano strumenti di ricognizione e non costituiscono da soli certificazione di chiusura.
 
 | Lez. | Tipo | Titolo sintetico | Manuale | Slides | Esercizi/materiali operativi | Grafici | Python/Notebook |
 |---:|:---:|---|:---:|:---:|:---:|:---:|:---:|
@@ -52,6 +52,8 @@ Alla data del 2026-10-23 nessuna lezione viene riclassificata automaticamente co
 ## Checklist per il controllo di raccordo
 
 Questa sezione conserva una checklist operativa per il controllo orizzontale, verticale e incrociato dei materiali del corso. Non rappresenta lo stato ufficiale di avanzamento, sintetizzato nelle sezioni precedenti. Le note vengono aggiornate o eliminate quando il relativo controllo è stato completato.
+
+Ai fini dello stato complessivo del progetto, i blocchi Capitoli/Lezioni 1--4, 5--7, 8--10, 11--13 e 14--16 sono tutti classificati uniformemente come **verifica conclusiva di coerenza completata**. Le formulazioni più specifiche riportate nelle note della checklist descrivono il contenuto dei controlli svolti e non indicano livelli differenti di completamento.
 
 | Area | Note |
 |---|---|
@@ -81,9 +83,6 @@ L'output dell'audit contiene anche rumore tecnico che non deve essere interpreta
 
 ## Questioni operative aperte
 
-- Completare il controllo integrato di coerenza tra Manuale, Slides, Master Plan, Notazione, Guidelines e Istruzioni Studente nei blocchi del corso per i quali la verifica conclusiva non è ancora stata chiusa.
-- Usare la `Checklist per il controllo di raccordo` per i controlli orizzontali, verticali e incrociati ancora aperti.
-- Chiudere le incoerenze residue eventualmente individuate nei blocchi ancora in revisione prima di considerarne conclusa la verifica.
 - Per le Lezioni applicative 4, 7, 10, 13 e 16 la verifica di coerenza dei notebook rispetto alle rispettive specifiche applicative e la validazione tecnica dei notebook docente risultano concluse.
 - Il blocco 14--16 è stabilizzato sul piano del raccordo teorico, didattico e applicativo: il Capitolo 15 mantiene l'estensione multistadio, mentre le Lezioni 15 e 16 restano deliberatamente nel framework two-stage; nella Lezione 16 la non anticipatività è rappresentata mediante un'unica decisione iniziale comune agli scenari e ricorso scenario-specifico.
 - La compilazione di manuale e deck viene svolta ordinariamente durante le revisioni e non costituisce un'attività aperta autonoma.
