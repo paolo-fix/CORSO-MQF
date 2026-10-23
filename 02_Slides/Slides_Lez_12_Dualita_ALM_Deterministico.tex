@@ -230,9 +230,12 @@ Il limite di concentrazione conserva invece un margine.
 0.03507.
 \]
 
-\item Nel Capitolo~11 abbiamo interpretato $\lambda_Q^{*}$ come variabile
-duale associata al requisito di liquidit\`{a}: misura localmente il costo
-marginale di rendere quel requisito pi\`{u} severo.
+\item Nel Capitolo~11 abbiamo interpretato $\lambda_Q^{*}$ come
+\textbf{prezzo ombra} del requisito di liquidit\`{a}: misura localmente il
+costo marginale di rendere quel requisito pi\`{u} severo.
+
+\item Resta da capire come ottenere \textbf{congiuntamente} i prezzi ombra
+dei diversi vincoli: questa domanda conduce al problema duale.
 \end{stepitemize}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
@@ -261,12 +264,12 @@ marginale di rendere quel requisito pi\`{u} severo.
 %EndExpansion
 
 \begin{stepenumerate}
-\item [1.] \textbf{Come usiamo quel prezzo?}
+\item [1.] \textbf{Da dove vengono tutti questi prezzi?}
 
-Nel Capitolo~11 abbiamo costruito il problema duale e interpretato le
-variabili duali come valori marginali dei vincoli. Ora utilizziamo quella
-lettura economica per capire quanto vale la liquidit\`{a} quando i
-fabbisogni sono distribuiti nel tempo.
+Nel Capitolo~11 abbiamo visto che i vincoli possono avere un proprio
+\textbf{prezzo ombra}, cio\`{e} un valore marginale locale. Ora costruiamo
+il \textbf{problema duale}, che permette di ottenere congiuntamente questi
+prezzi e di interpretarli in modo sistematico.
 
 \item [2.] \textbf{\`{E} davvero un solo prezzo?}
 
@@ -321,9 +324,9 @@ $j$, ma non dice \emph{quando} quella liquidit\`{a} diventa disponibile.
 %EndExpansion
 
 \begin{stepenumerate}
-\item [1.] \textbf{Richiamare i prezzi duali}: utilizzare la dualit\`{a}
-introdotta nel Capitolo~11 per interpretare il valore marginale dei vincoli
-di liquidit\`{a}.
+\item [1.] \textbf{Costruire il problema duale}: ottenere congiuntamente i
+prezzi ombra dei vincoli e interpretarli come valori marginali delle risorse
+e dei requisiti.
 
 \item [2.] \textbf{Distribuire nel tempo}: i cash flow prodotti dall'attivo e
 i fabbisogni collocati alle diverse date.
@@ -863,50 +866,49 @@ possono invece avere valore marginale.
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-I prezzi duali non sono numeri indipendenti. Per costruire il duale,
-i vincoli vengono prima espressi nella forma di riferimento. In particolare, il requisito di liquidit\`{a} $q'x\geq55$ viene scritto come $-q'x\leq-55$.
+I prezzi duali si riferiscono ai vincoli nella forma utilizzata per costruire
+il duale. Per il requisito di liquidit\`{a},
 
-Valutando quindi i termini noti della forma normalizzata ai rispettivi
-prezzi duali:
 \[
-100(0.05642)
-+(-55)(0.03507)
-+7(0.00746)
-+30(0)
+q'x\geq55
+\qquad\Longleftrightarrow\qquad
+-q'x\leq-55.
+\]
+
+Alla soluzione ottima,
+
+\[
+100(0.05642)-55(0.03507)+7(0.00746)+30(0)
 \approx3.7654
 \approx z^{*}.
 \]
 
-
-
-%I prezzi ombra non sono quattro numeri indipendenti. Valutando ogni livello al proprio prezzo e sommando:
-%\[
-%100\,(0.05642)-55\,(0.03507)+7\,(0.00746)+30\,(0)=3.7654\approx z^{*}.
-%\]
-
-%\medskip
-
 \begin{stepitemize}
-\item Il risultato ottenibile dalla decisione e il \textbf{valore implicito
-delle risorse} coincidono. I prezzi ombra ripartiscono $z^{*}$ tra i
-vincoli: ciascuno riceve la quota di risultato che sta determinando.
 
-\item Il limite di concentrazione riceve zero. Non contribuisce a spiegare
-$z^{*}$ perch\'{e} non lo sta determinando.
+\item La \textbf{dualit\`{a} forte} implica
+\[
+b'\lambda^{*}=z^{*}.
+\]
+Il valore della decisione coincide con il valore implicito delle risorse e
+dei requisiti.
 
-\item Alla soluzione ottima, la dualit\`{a} forte implica $b'\lambda^{*}=z^{*}$, dove $b$ \`{e} il vettore dei termini noti nella forma utilizzata per
-costruire il duale.
+\item Un vincolo con prezzo ombra nullo, come quello di concentrazione,
+non contribuisce localmente a determinare il valore ottimo.
 
-%\item La relazione $\sum_i b_i\lambda_i=z^{*}$ vale in generale, non solo qui: \`{e} il legame tra il problema di \emph{decisione} e un problema di \textbf{valutazione}.
 \end{stepitemize}
 
-%\medskip
+\medskip
 
 \begin{center}
-{\small Quel problema di valutazione \`{e} un secondo programma lineare, il
-\textbf{duale}: ha per incognite i prezzi $\lambda_i$ e li produce tutti in
-una sola soluzione. Il problema duale formalizza questa valutazione implicita delle risorse e
-dei requisiti.}
+{\small
+Finora la liquidit\`{a} \`{e} stata rappresentata da un unico vincolo e da
+un unico prezzo ombra.
+
+\smallskip
+
+\textbf{Se la liquidit\`{a} serve in date diverse, avr\`{a} ancora un solo
+prezzo?}
+}
 \end{center}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
@@ -3148,9 +3150,10 @@ u_t=u_t(\mbox{informazione alla data }t)
 %EndExpansion
 
 \begin{stepitemize}
-\item Dal Capitolo~11 sappiamo che il \textbf{duale} produce in una sola
-soluzione i prezzi impliciti dei vincoli. Nel modello ALM questa lettura
-si estende ai bilanci di liquidit\`{a} delle diverse scadenze.
+\item In questa lezione abbiamo costruito il \textbf{problema duale}, che
+produce congiuntamente i prezzi impliciti dei vincoli. Nel modello ALM
+questa lettura si estende ai bilanci di liquidit\`{a} delle diverse
+scadenze.
 
 \item La \textbf{liquidit\`{a} aggregata non basta}: la composizione ottima
 del Capitolo~11 soddisfa il requisito complessivo e tuttavia non \`{e}
