@@ -866,16 +866,134 @@ La soluzione stocastica attesa è:
 x^{SP}
 =
 \begin{pmatrix}
-25\\
-75
+20\\
+80
 \end{pmatrix}.
 \]
 
-Il valore ottimo è:
+Il rendimento di primo stadio è:
 
 \[
-z^{SP}=3.944000.
+c'x^{SP}
+=
+0.010(20)+0.050(80)
+=
+4.200000.
 \]
+
+Sotto questa decisione, le margin call nei tre scenari sono:
+
+\[
+m_N
+=
+0.10(80)
+=
+8,
+\]
+
+\[
+m_S
+=
+0.25(80)
+=
+20,
+\]
+
+\[
+m_E
+=
+0.40(80)
+=
+32.
+\]
+
+Nello scenario \(N\), il buffer iniziale eccede la margin call di 12 unità. La soluzione ottima di ricorso è quindi:
+
+\[
+e_N^{SP}=0,
+\qquad
+f_N^{SP}=0,
+\qquad
+g_N^{SP}=12.
+\]
+
+Nello scenario \(S\), il buffer iniziale coincide con la margin call:
+
+\[
+e_S^{SP}=0,
+\qquad
+f_S^{SP}=0,
+\qquad
+g_S^{SP}=0.
+\]
+
+Nello scenario \(E\), il fabbisogno residuo dopo l'utilizzo del buffer è:
+
+\[
+32-20=12.
+\]
+
+Una unità di deleveraging produce \(0.75\) unità di liquidità. Poiché:
+
+\[
+\frac{\delta_E}{\beta_E}
+=
+\frac{0.080}{0.75}
+<
+0.120
+=
+\kappa_E,
+\]
+
+il deleveraging è meno costoso della liquidità esterna per unità di liquidità ottenuta. La soluzione ottima utilizza quindi:
+
+\[
+e_E^{SP}=0,
+\]
+
+\[
+f_E^{SP}
+=
+\frac{12}{0.75}
+=
+16,
+\]
+
+\[
+g_E^{SP}=0.
+\]
+
+Il costo di ricorso nello scenario estremo è:
+
+\[
+C_E
+=
+0.120(0)+0.080(16)
+=
+1.280000.
+\]
+
+Negli scenari \(N\) e \(S\) il costo di ricorso è nullo. Il costo atteso del ricorso è pertanto:
+
+\[
+\sum_{s\in\mathcal S}p_sC_s
+=
+0.20(1.28)
+=
+0.256000.
+\]
+
+Il valore ottimo del programma stocastico è quindi:
+
+\[
+z^{SP}
+=
+4.200000-0.256000
+=
+3.944000.
+\]
+
+La soluzione rende osservabile il ruolo del buffer iniziale: \(x_1=20\) copre integralmente la margin call negli scenari \(N\) e \(S\), mentre nello scenario estremo il fabbisogno residuo viene assorbito mediante deleveraging entro i limiti operativi assegnati.
 
 ### Expected Value
 
@@ -1131,13 +1249,21 @@ la soluzione stocastica deve scegliere un buffer positivo che preservi la fattib
 \[
 x^{SP}
 =
-(25,75)',
+(20,80)',
 \]
 
 \[
 x^{EV}
 =
 (0,100)'.
+\]
+
+Sotto \(x^{SP}\), il buffer iniziale copre integralmente le margin call negli scenari \(N\) e \(S\). Nello scenario \(E\) il fabbisogno residuo è pari a 12 e viene coperto mediante:
+
+\[
+f_E^{SP}=16,
+\qquad
+e_E^{SP}=0.
 \]
 
 Deve risultare:
