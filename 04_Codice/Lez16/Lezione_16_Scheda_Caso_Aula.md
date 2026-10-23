@@ -3,535 +3,443 @@
 ## 1. Identificazione del caso
 
 - **Lezione:** 16 — Applicazione in Python: programmazione stocastica
-- **Tipo di caso:** aula
-- **Titolo:** *SVB–ALM 2023 — Asset allocation, liquidità e valore dell'informazione*
-- **Contesto sintetico:** crisi di Silicon Valley Bank del marzo 2023, utilizzata come riferimento finanziario per analizzare in forma stilizzata una decisione di asset allocation sotto incertezza, con fabbisogni di liquidità e costi di funding dipendenti dallo scenario.
-- **Uso previsto:** sviluppo guidato in aula di un programma stocastico lineare a due stadi, con confronto tra soluzione stocastica, Expected Value e wait-and-see.
+- **Tipo di caso:** Caso Aula
+- **Titolo:** SVB–ALM 2023 — Asset allocation, liquidità e valore dell'informazione
+- **Contesto sintetico:** gestione della composizione dell'attivo e della liquidità bancaria sotto scenari alternativi di deflusso della raccolta
+- **Uso previsto:** sviluppo guidato in aula mediante notebook Python
 
-La presente Scheda Caso costituisce la **specifica vincolante del lavoro**. Variabili, scenari, parametri, formule, ipotesi, output e controlli indicati non devono essere modificati durante lo svolgimento.
+La presente Scheda Caso costituisce la specifica vincolante del lavoro.
 
-La Scheda Caso definisce il problema ma **non ne contiene la soluzione**.
+Non contiene la soluzione del problema e non deve essere modificata durante lo svolgimento, salvo esplicita indicazione del docente.
+
+Il caso utilizza una rappresentazione stilizzata ispirata alla crisi di Silicon Valley Bank del marzo 2023. Non costituisce una ricostruzione quantitativa del bilancio storico della banca.
 
 ---
 
 ## 2. Contesto e domanda quantitativa
 
-Silicon Valley Bank operava con una struttura dell'attivo caratterizzata da una quota rilevante di attività a più lunga durata e con una raccolta fortemente concentrata. Il rapido aumento dei tassi di interesse e i successivi deflussi dei depositi resero centrale il problema della capacità di trasformare l'attivo in liquidità e di reperire funding aggiuntivo in condizioni di stress.
+### Contesto
 
-Il caso qui considerato non ricostruisce quantitativamente il bilancio storico di SVB. Utilizza invece una rappresentazione didattica stilizzata nella quale una banca deve scegliere, prima di conoscere lo scenario futuro, la composizione iniziale dell'attivo tra quattro classi:
+Una banca deve scegliere al tempo iniziale la composizione del proprio attivo prima di conoscere l'evoluzione futura delle condizioni di liquidità.
 
-1. cassa e riserve;
-2. titoli a breve scadenza;
-3. titoli a lunga scadenza;
-4. prestiti e impieghi meno liquidi.
+La decisione iniziale riguarda quattro classi di attivo caratterizzate da rendimenti e livelli di liquidabilità differenti.
 
-Dopo la scelta iniziale può verificarsi uno dei tre scenari:
+Successivamente si realizza uno tra tre scenari:
 
-- $N$: condizioni normali;
-- $P$: pressione sulla raccolta;
-- $R$: run severo.
+- condizioni normali;
+- pressione sulla raccolta;
+- run severo.
 
-Ogni scenario modifica:
+Lo scenario determina:
 
 1. il fabbisogno di liquidità;
-2. la quota dei diversi attivi trasformabile in liquidità;
-3. il costo economico del funding di emergenza.
+2. la quota delle diverse attività trasformabile in liquidità;
+3. il costo del funding di emergenza.
 
-La decisione iniziale deve essere unica e comune a tutti gli scenari. Solo dopo avere osservato lo scenario la banca può adattarsi mediante il ricorso a funding di emergenza e la gestione dell'eventuale liquidità residua.
+Dopo l'osservazione dello scenario, la banca può ricorrere a funding aggiuntivo e può detenere eventuale liquidità residua.
 
-La domanda quantitativa è:
+Il caso utilizza un framework di programmazione stocastica lineare a due stadi:
 
-> **quale composizione iniziale dell'attivo massimizza il risultato economico atteso della banca quando fabbisogni di liquidità, liquidabilità degli attivi e costo del funding dipendono dallo scenario futuro, e quanto valgono rispettivamente l'uso della programmazione stocastica e l'informazione perfetta sullo scenario futuro?**
-
-Il caso utilizza i concetti sviluppati nei Capitoli 14 e 15 e richiede di distinguere chiaramente:
-
-- decisione ex ante;
-- decisioni di ricorso;
-- soluzione stocastica;
-- soluzione Expected Value;
-- rivalutazione della soluzione Expected Value;
-- wait-and-see;
-- VSS;
-- EVPI.
-
----
-
-## 3. Modello e struttura del problema
-
-### 3.1 Risorse iniziali e decisione di primo stadio
-
-La banca dispone al tempo iniziale di risorse complessive pari a
-
-$$
-A_0=100.
-$$
-
-La decisione iniziale è
-
-$$
-x=(x_1,x_2,x_3,x_4)',
-$$
-
-dove:
-
-1. $x_1$: cassa e riserve;
-2. $x_2$: titoli a breve scadenza;
-3. $x_3$: titoli a lunga scadenza;
-4. $x_4$: prestiti e impieghi meno liquidi.
-
-Il vincolo sulle risorse iniziali è
-
-$$
-x_1+x_2+x_3+x_4=100.
-$$
-
-Le variabili devono soddisfare:
-
-$$
-x_j\geq0,
-\qquad
-j=1,\ldots,4.
-$$
-
-Sono inoltre imposti i limiti:
-
-$$
-x_3\leq70,
-$$
-
-$$
-x_4\leq70.
-$$
-
-### 3.2 Redditività iniziale degli attivi
-
-A ciascuna classe di attivo è associato un rendimento unitario $c_j$.
-
-Il rendimento iniziale complessivo è:
-
-$$
-c'x
-=
-\sum_{j=1}^{4}c_jx_j.
-$$
-
-### 3.3 Scenari
-
-L'insieme degli scenari è
-
-$$
-\mathcal S=\{N,P,R\}.
-$$
-
-Le probabilità sono indicate con $p_s$ e devono soddisfare:
-
-$$
-\sum_{s\in\mathcal S}p_s=1.
-$$
-
-La decisione $x$ viene assunta **prima** di conoscere quale scenario si realizzerà.
-
-### 3.4 Liquidità generata dagli attivi
-
-Il coefficiente
-
-$$
-\alpha_{js}
-$$
-
-rappresenta la quota dell'investimento nell'attivo $j$ trasformabile in liquidità nello scenario $s$.
-
-La liquidità complessivamente ottenibile dagli attivi nello scenario $s$ è quindi:
-
-$$
-\sum_{j=1}^{4}\alpha_{js}x_j.
-$$
-
-Il coefficiente $\alpha_{js}$ è un coefficiente di liquidabilità e **non** un rendimento.
-
-### 3.5 Decisioni di ricorso
-
-Dopo avere osservato lo scenario $s$, la banca può utilizzare:
-
-$$
-u_s\geq0,
-$$
-
-dove $u_s$ rappresenta il funding di emergenza;
-
-e:
-
-$$
-g_s\geq0,
-$$
-
-dove $g_s$ rappresenta la liquidità residua dopo avere soddisfatto il fabbisogno dello scenario.
-
-Il bilancio di liquidità nello scenario $s$ è:
-
-$$
-\sum_{j=1}^{4}\alpha_{js}x_j+u_s
-=
-d_s+g_s.
-$$
-
-La struttura informativa del problema è pertanto:
-
-$$
+\[
 x
 \longrightarrow
 s
 \longrightarrow
 (u_s,g_s).
-$$
+\]
 
-La decisione $x$ deve essere la stessa in tutti gli scenari.
+La decisione iniziale \(x\) è unica e comune agli scenari. Le decisioni \(u_s\) e \(g_s\) possono invece dipendere dallo scenario osservato.
 
-### 3.6 Funzione obiettivo
+### Domanda quantitativa
 
-Il costo economico unitario del funding di emergenza nello scenario $s$ è indicato con
+Determinare la composizione iniziale dell'attivo che massimizza il risultato economico atteso della banca tenendo conto congiuntamente di:
 
-$$
-\kappa_s.
-$$
+- rendimento delle attività;
+- probabilità degli scenari;
+- liquidabilità delle attività;
+- fabbisogni di liquidità;
+- costo del funding di emergenza.
 
-La banca massimizza il rendimento iniziale degli attivi al netto del costo atteso del funding:
+Confrontare inoltre la soluzione stocastica con:
 
-$$
+1. la decisione ottenuta sostituendo gli scenari con parametri medi;
+2. il benchmark nel quale lo scenario è conosciuto prima della decisione iniziale.
+
+Utilizzare tali confronti per determinare il valore della soluzione stocastica e il valore dell'informazione perfetta.
+
+---
+
+## 3. Modello e struttura del problema
+
+### Grandezze economico-finanziarie
+
+Le risorse iniziali sono:
+
+\[
+A_0=100.
+\]
+
+La decisione di primo stadio è:
+
+\[
+x=(x_1,x_2,x_3,x_4)',
+\]
+
+dove:
+
+- \(x_1\): cassa e riserve;
+- \(x_2\): titoli a breve scadenza;
+- \(x_3\): titoli a lunga scadenza;
+- \(x_4\): prestiti e impieghi meno liquidi.
+
+I rendimenti unitari delle quattro classi di attivo sono indicati con:
+
+\[
+c=(c_1,c_2,c_3,c_4)'.
+\]
+
+### Variabili decisionali
+
+La decisione iniziale soddisfa:
+
+\[
+x_j\geq0,
+\qquad j=1,\ldots,4.
+\]
+
+Per ogni scenario \(s\), le decisioni di secondo stadio sono:
+
+\[
+u_s\geq0,
+\]
+
+funding di emergenza, e
+
+\[
+g_s\geq0,
+\]
+
+liquidità residua.
+
+### Scenari
+
+L'insieme degli scenari è:
+
+\[
+\mathcal S=\{N,P,R\},
+\]
+
+dove:
+
+- \(N\): condizioni normali;
+- \(P\): pressione sulla raccolta;
+- \(R\): run severo.
+
+A ciascuno scenario è associata una probabilità \(p_s\), con:
+
+\[
+p_s\geq0,
+\qquad
+\sum_{s\in\mathcal S}p_s=1.
+\]
+
+### Relazioni strutturali e formule principali
+
+Il vincolo di bilancio iniziale è:
+
+\[
+x_1+x_2+x_3+x_4=100.
+\]
+
+Sono inoltre imposti:
+
+\[
+x_3\leq70,
+\qquad
+x_4\leq70.
+\]
+
+Il coefficiente \(\alpha_{js}\) indica la quota dell'investimento \(x_j\) trasformabile in liquidità nello scenario \(s\).
+
+Il bilancio di liquidità nello scenario \(s\) è:
+
+\[
+\sum_{j=1}^{4}\alpha_{js}x_j+u_s
+=
+d_s+g_s,
+\]
+
+dove \(d_s\) è il fabbisogno di liquidità dello scenario.
+
+La funzione obiettivo del problema stocastico è:
+
+\[
 \max
 \left\{
 \sum_{j=1}^{4}c_jx_j
 -
-\sum_{s\in\mathcal S}
-p_s\kappa_su_s
-\right\}.
-$$
+\sum_{s\in\mathcal S}p_s\kappa_su_s
+\right\},
+\]
 
-La soluzione ottima del programma stocastico è indicata con
+dove \(\kappa_s\) rappresenta il costo unitario del funding nello scenario \(s\).
 
-$$
-x^{SP},
-$$
+Il valore ottimo del problema stocastico è indicato con:
 
-e il corrispondente valore ottimo con
-
-$$
+\[
 z^{SP}.
-$$
+\]
 
-### 3.7 Expected Value problem
+### Expected Value
 
-Per costruire il problema Expected Value devono essere calcolati i parametri medi:
+Definire i parametri medi:
 
-$$
+\[
 \bar d
 =
 \sum_s p_sd_s,
-$$
+\]
 
-$$
+\[
 \bar\alpha_j
 =
 \sum_s p_s\alpha_{js},
-$$
+\]
 
-$$
+\[
 \bar\kappa
 =
 \sum_s p_s\kappa_s.
-$$
+\]
 
-Il problema deterministico costruito sui valori medi produce una decisione:
+La soluzione del problema costruito sui parametri medi è indicata con:
 
-$$
+\[
 x^{EV}.
-$$
+\]
 
-La decisione $x^{EV}$ deve successivamente essere **fissata** e rivalutata nei tre scenari originari.
+La decisione \(x^{EV}\) deve successivamente essere mantenuta fissa e rivalutata negli scenari originari.
 
-Il valore stocastico così ottenuto è indicato con:
+Il valore ottenuto è:
 
-$$
+\[
 z^{EV}.
-$$
+\]
 
-Il valore ottimo del problema deterministico medio deve essere tenuto distinto da $z^{EV}$.
+Per il problema formulato in massimizzazione:
 
-Non è ammesso riottimizzare $x^{EV}$ separatamente nei tre scenari.
-
-Il valore della soluzione stocastica è:
-
-$$
+\[
 VSS
 =
 z^{SP}-z^{EV}.
-$$
+\]
 
-### 3.8 Wait-and-see
+### Wait-and-see
 
-Nel benchmark wait-and-see si assume che lo scenario futuro sia noto prima della decisione iniziale.
+Per ciascuno scenario viene inoltre risolto un problema nel quale la decisione iniziale può essere assunta conoscendo anticipatamente lo scenario.
 
-Per ciascuno scenario $s$ viene quindi risolto un problema distinto, ottenendo:
+Il valore atteso dei problemi scenario-specifici è:
 
-$$
-x_s^{WS}
-$$
-
-e:
-
-$$
-z_s^{WS}.
-$$
-
-Il valore atteso wait-and-see è:
-
-$$
+\[
 z^{WS}
 =
 \sum_s p_sz_s^{WS}.
-$$
+\]
 
-Il valore atteso dell'informazione perfetta è:
+L'Expected Value of Perfect Information è:
 
-$$
+\[
 EVPI
 =
 z^{WS}-z^{SP}.
-$$
-
-Per un problema di massimizzazione devono essere verificate le relazioni:
-
-$$
-VSS\geq0,
-$$
-
-$$
-EVPI\geq0,
-$$
-
-e:
-
-$$
-z^{EV}\leq z^{SP}\leq z^{WS}.
-$$
+\]
 
 ---
 
 ## 4. Parametri assegnati
 
-I parametri sono stilizzati e hanno funzione didattica. Non costituiscono una ricostruzione dei valori storicamente osservati in Silicon Valley Bank.
+I parametri sono deliberatamente stilizzati e hanno finalità didattica.
 
-### 4.1 Risorse iniziali
+### Parametri economico-finanziari
 
-$$
-A_0=100.
-$$
-
-### 4.2 Rendimenti unitari
-
-| Attivo | Descrizione | $c_j$ |
+| Attivo | Interpretazione | Rendimento unitario |
 |---|---|---:|
-| $x_1$ | Cassa e riserve | 0.010 |
-| $x_2$ | Titoli a breve scadenza | 0.025 |
-| $x_3$ | Titoli a lunga scadenza | 0.040 |
-| $x_4$ | Prestiti e impieghi meno liquidi | 0.050 |
+| \(x_1\) | Cassa e riserve | 0.010 |
+| \(x_2\) | Titoli a breve scadenza | 0.025 |
+| \(x_3\) | Titoli a lunga scadenza | 0.040 |
+| \(x_4\) | Prestiti e impieghi meno liquidi | 0.050 |
 
-### 4.3 Probabilità degli scenari
+### Probabilità e fabbisogni
 
-| Scenario | Descrizione | $p_s$ |
-|---|---|---:|
-| $N$ | Condizioni normali | 0.60 |
-| $P$ | Pressione sulla raccolta | 0.25 |
-| $R$ | Run severo | 0.15 |
+| Scenario | Descrizione | \(p_s\) | \(d_s\) |
+|---|---|---:|---:|
+| \(N\) | Condizioni normali | 0.60 | 15 |
+| \(P\) | Pressione sulla raccolta | 0.25 | 35 |
+| \(R\) | Run severo | 0.15 | 65 |
 
-### 4.4 Fabbisogni di liquidità
+### Coefficienti di liquidabilità
 
-| Scenario | $d_s$ |
-|---|---:|
-| $N$ | 15 |
-| $P$ | 35 |
-| $R$ | 65 |
-
-### 4.5 Coefficienti di liquidabilità
-
-| Attivo | $N$ | $P$ | $R$ |
+| Attivo | \(N\) | \(P\) | \(R\) |
 |---|---:|---:|---:|
-| Cassa e riserve $x_1$ | 1.00 | 1.00 | 1.00 |
-| Titoli a breve $x_2$ | 0.98 | 0.95 | 0.90 |
-| Titoli a lunga $x_3$ | 0.85 | 0.70 | 0.50 |
-| Prestiti e impieghi $x_4$ | 0.60 | 0.40 | 0.20 |
+| Cassa e riserve \(x_1\) | 1.00 | 1.00 | 1.00 |
+| Titoli brevi \(x_2\) | 0.98 | 0.95 | 0.90 |
+| Titoli lunghi \(x_3\) | 0.85 | 0.70 | 0.50 |
+| Prestiti/impieghi \(x_4\) | 0.60 | 0.40 | 0.20 |
 
-### 4.6 Costi unitari del funding di emergenza
+### Costi del funding
 
-| Scenario | $\kappa_s$ |
+| Scenario | \(\kappa_s\) |
 |---|---:|
-| $N$ | 0.01 |
-| $P$ | 0.06 |
-| $R$ | 0.25 |
+| \(N\) | 0.01 |
+| \(P\) | 0.06 |
+| \(R\) | 0.25 |
 
-Il parametro $\kappa_s$ rappresenta un costo economico complessivo del ricorso alla liquidità di emergenza nello scenario e non deve essere interpretato come semplice tasso di interesse di mercato.
+### Vincoli assegnati
 
-### 4.7 Limiti sulle allocazioni
+\[
+x_1+x_2+x_3+x_4=100,
+\]
 
-$$
+\[
+x_j\geq0,
+\qquad j=1,\ldots,4,
+\]
+
+\[
 x_3\leq70,
-$$
-
-$$
+\qquad
 x_4\leq70.
-$$
+\]
+
+Il funding di emergenza non presenta un limite quantitativo superiore.
 
 ---
 
-## 5. Quantità da calcolare
+## 5. Quantità da stimare o calcolare
 
-### 5.1 Soluzione stocastica
+Determinare:
 
-Devono essere determinati:
+1. la soluzione stocastica
+   \[
+   x^{SP};
+   \]
 
-1. il vettore ottimo:
+2. le decisioni di ricorso
+   \[
+   u_s^{SP},
+   \qquad
+   g_s^{SP};
+   \]
 
-$$
-x^{SP};
-$$
+3. il valore ottimo
+   \[
+   z^{SP};
+   \]
 
-2. le decisioni di ricorso:
+4. i parametri medi
+   \[
+   \bar d,
+   \qquad
+   \bar\alpha_j,
+   \qquad
+   \bar\kappa;
+   \]
 
-$$
-u_s^{SP},
-\qquad
-g_s^{SP},
-\qquad
-s\in\{N,P,R\};
-$$
+5. la soluzione Expected Value
+   \[
+   x^{EV};
+   \]
 
-3. il rendimento iniziale lordo:
+6. il valore ottimo del problema deterministico medio;
 
-$$
-c'x^{SP};
-$$
+7. il valore della decisione \(x^{EV}\) rivalutata negli scenari originari
+   \[
+   z^{EV};
+   \]
 
-4. il costo atteso del funding:
+8. il Value of the Stochastic Solution
+   \[
+   VSS=z^{SP}-z^{EV};
+   \]
 
-$$
-\sum_s p_s\kappa_su_s^{SP};
-$$
+9. le soluzioni wait-and-see
+   \[
+   x_s^{WS};
+   \]
 
-5. il valore ottimo:
+10. i valori scenario-specifici
+   \[
+   z_s^{WS};
+   \]
 
-$$
-z^{SP}.
-$$
+11. il valore atteso wait-and-see
+   \[
+   z^{WS};
+   \]
 
-### 5.2 Expected Value ed EV
-
-Devono essere calcolati:
-
-1. $\bar d$;
-2. $\bar\alpha_j$ per $j=1,\ldots,4$;
-3. $\bar\kappa$;
-4. la soluzione:
-
-$$
-x^{EV};
-$$
-
-5. le decisioni di ricorso necessarie quando $x^{EV}$ viene rivalutata nei tre scenari originali;
-6. il valore:
-
-$$
-z^{EV};
-$$
-
-7. il valore della soluzione stocastica:
-
-$$
-VSS
-=
-z^{SP}-z^{EV}.
-$$
-
-### 5.3 Wait-and-see ed EVPI
-
-Per ciascuno scenario devono essere determinati:
-
-$$
-x_s^{WS}
-$$
-
-e:
-
-$$
-z_s^{WS}.
-$$
-
-Deve quindi essere calcolato:
-
-$$
-z^{WS}
-=
-\sum_s p_sz_s^{WS},
-$$
-
-e infine:
-
-$$
-EVPI
-=
-z^{WS}-z^{SP}.
-$$
+12. l'Expected Value of Perfect Information
+   \[
+   EVPI=z^{WS}-z^{SP}.
+   \]
 
 ---
 
 ## 6. Output richiesti
 
-### 6.1 Tabelle
+### Risultati numerici
 
-Produrre almeno le seguenti tabelle.
+Il notebook deve riportare in modo leggibile:
+
+- soluzione SP;
+- ricorsi scenario-specifici;
+- valore \(z^{SP}\);
+- soluzione EV;
+- valore del problema medio;
+- rivalutazione di \(x^{EV}\);
+- \(z^{EV}\);
+- VSS;
+- soluzioni WS;
+- \(z^{WS}\);
+- EVPI.
+
+### Tabelle
 
 **Tabella 1 — Parametri del problema**
 
-Deve contenere:
-
-- rendimenti unitari;
-- probabilità degli scenari;
-- fabbisogni di liquidità;
-- coefficienti di liquidabilità;
-- costi del funding;
-- limiti sulle allocazioni.
+Deve contenere i parametri economico-finanziari, probabilistici e modellistici utilizzati.
 
 **Tabella 2 — Soluzione stocastica**
 
 Deve riportare:
 
-- $x_j^{SP}$;
-- liquidità ottenibile dagli attivi in ciascuno scenario;
-- $u_s^{SP}$;
-- $g_s^{SP}$;
+- composizione \(x^{SP}\);
+- liquidità ottenibile dagli attivi per scenario;
+- funding \(u_s^{SP}\);
+- liquidità residua \(g_s^{SP}\);
 - costo del funding per scenario.
 
 **Tabella 3 — Expected Value e rivalutazione**
 
 Deve riportare:
 
-- $x^{EV}$;
-- parametri medi utilizzati;
-- funding necessario nei tre scenari originari;
-- valore $z^{EV}$;
-- confronto con $x^{SP}$.
+- parametri medi;
+- \(x^{EV}\);
+- valore ottimo del problema medio;
+- ricorsi necessari negli scenari originari;
+- \(z^{EV}\).
 
 **Tabella 4 — Wait-and-see**
 
-Per ciascuno scenario deve riportare:
+Deve riportare per ciascuno scenario:
 
-- $x_s^{WS}$;
-- $z_s^{WS}$.
+- \(x_s^{WS}\);
+- \(z_s^{WS}\).
 
-**Tabella 5 — Valore dell'informazione**
+**Tabella 5 — Confronto dei benchmark**
 
-Deve contenere almeno:
+Deve confrontare:
 
-$$
+\[
 z^{EV},
 \qquad
 z^{SP},
@@ -541,158 +449,143 @@ z^{WS},
 VSS,
 \qquad
 EVPI.
-$$
+\]
 
-### 6.2 Grafici
+### Grafici
 
-Produrre almeno:
+**Figura 1 — Composizione dell'attivo**
 
-1. un grafico a barre affiancate che confronti:
+Confronto tra:
 
-$$
+\[
 x^{SP}
 \quad\text{e}\quad
-x^{EV};
-$$
-
-2. un grafico a barre del funding richiesto nei tre scenari sotto:
-
-$$
-x^{SP}
-$$
-
-e:
-
-$$
 x^{EV}.
-$$
+\]
 
-I grafici devono essere accompagnati da titoli, etichette e unità coerenti e devono avere funzione interpretativa.
+**Figura 2 — Funding per scenario**
 
-### 6.3 Commento finale
+Confronto del funding necessario nei tre scenari sotto:
 
-Il notebook deve concludersi con un commento che distingua chiaramente:
+\[
+x^{SP}
+\quad\text{e}\quad
+x^{EV}.
+\]
 
-- la soluzione stocastica dalla soluzione Expected Value;
-- il problema EV dal valore EEV;
-- il VSS dall'EVPI;
-- la decisione implementabile ex ante dal benchmark wait-and-see;
-- il trade-off tra rendimento iniziale e capacità di affrontare gli scenari di stress.
+Le tabelle e i grafici devono essere prodotti come output del notebook e devono essere rigenerabili mediante riesecuzione delle celle.
+
+Non sono richieste esportazioni automatiche in file esterni.
 
 ---
 
 ## 7. Controlli richiesti
 
-Il notebook deve verificare esplicitamente che:
+### Controlli numerici
 
-1. le probabilità soddisfino:
+Verificare:
 
-$$
-\sum_s p_s=1;
-$$
+\[
+\sum_s p_s=1,
+\]
 
-2. la soluzione rispetti:
+\[
+\sum_jx_j=100,
+\]
 
-$$
-\sum_jx_j=100;
-$$
+\[
+x_j\geq0,
+\]
 
-3. siano rispettati:
-
-$$
-x_j\geq0;
-$$
-
-4. siano rispettati i limiti:
-
-$$
+\[
 x_3\leq70,
 \qquad
-x_4\leq70;
-$$
+x_4\leq70.
+\]
 
-5. per ogni scenario sia verificato il bilancio:
+Per ogni scenario verificare:
 
-$$
-\sum_{j=1}^{4}\alpha_{js}x_j+u_s
+\[
+\sum_j\alpha_{js}x_j+u_s
 =
-d_s+g_s;
-$$
+d_s+g_s,
+\]
 
-6. valgano:
+e:
 
-$$
+\[
 u_s\geq0,
 \qquad
-g_s\geq0;
-$$
+g_s\geq0.
+\]
 
-7. il solver restituisca una soluzione ottima;
+### Controlli logici e teorici
 
-8. la stessa decisione $x^{SP}$ sia utilizzata in tutti gli scenari;
+Verificare che:
 
-9. la decisione $x^{EV}$ venga rivalutata nei tre scenari senza essere riottimizzata scenario per scenario;
+1. la decisione di primo stadio sia unica e comune agli scenari;
+2. \(x^{EV}\) rimanga fissa durante la rivalutazione;
+3. i problemi wait-and-see siano risolti separatamente per scenario;
+4. il valore del problema medio non venga confuso con \(z^{EV}\);
+5. risulti:
 
-10. nel wait-and-see i tre problemi vengano effettivamente risolti separatamente;
+\[
+z^{EV}\leq z^{SP}\leq z^{WS};
+\]
 
-11. sia verificato:
+6. risultino:
 
-$$
-VSS\geq0;
-$$
+\[
+VSS\geq0,
+\qquad
+EVPI\geq0.
+\]
 
-12. sia verificato:
+### Controlli computazionali
 
-$$
-EVPI\geq0;
-$$
+Verificare:
 
-13. sia verificato l'ordinamento:
-
-$$
-z^{EV}
-\leq
-z^{SP}
-\leq
-z^{WS}.
-$$
-
-Devono inoltre rimanere distinti:
-
-- i rendimenti $c_j$;
-- i coefficienti di liquidabilità $\alpha_{js}$;
-- i fabbisogni $d_s$;
-- il funding $u_s$;
-- la liquidità residua $g_s$;
-- il costo unitario del funding $\kappa_s$.
+1. successo del solver;
+2. assenza di violazioni numericamente significative dei vincoli;
+3. coerenza tra ordinamento delle variabili matematiche e ordinamento utilizzato nel solver;
+4. riproducibilità degli output mediante riesecuzione completa del notebook.
 
 ---
 
 ## 8. Ipotesi e limiti del caso
 
-Ai fini di questa applicazione si assume che:
+### Ipotesi modellistiche
 
-1. gli scenari $N$, $P$ e $R$ siano mutuamente esclusivi ed esaustivi;
-2. le probabilità degli scenari siano note al tempo iniziale;
-3. la composizione iniziale dell'attivo venga scelta prima della rivelazione dello scenario;
-4. solo $u_s$ e $g_s$ possano adattarsi allo scenario osservato;
-5. il funding di emergenza sia disponibile senza limite quantitativo;
-6. il costo del funding sia lineare;
-7. rendimenti, fabbisogni, coefficienti di liquidabilità e costi siano esogeni;
-8. tutte le quantità monetarie siano espresse in unità convenzionali su scala $A_0=100$.
+1. Gli scenari sono mutuamente esclusivi ed esaustivi.
+2. Le probabilità sono note al tempo iniziale.
+3. La decisione iniziale è unica e comune agli scenari.
+4. Le decisioni di ricorso vengono assunte dopo l'osservazione dello scenario.
+5. Il funding di emergenza è disponibile senza limite quantitativo.
+6. Il costo del funding è lineare.
+7. Rendimenti, fabbisogni, liquidabilità e costi sono esogeni.
+8. Le quantità monetarie sono espresse nella scala normalizzata \(A_0=100\).
 
-Sono deliberatamente esclusi:
+### Semplificazioni adottate
 
-- ricostruzione quantitativa del bilancio storico di SVB;
-- dinamica endogena dei deposit run;
-- capitale regolamentare e insolvenza;
-- distinzione contabile tra HTM e AFS;
+1. L'incertezza futura è rappresentata mediante tre scenari discreti.
+2. L'intero adattamento successivo alla decisione iniziale è concentrato in un unico secondo stadio.
+3. La liquidabilità delle attività è rappresentata mediante coefficienti esogeni.
+4. Il costo del funding è rappresentato mediante un coefficiente lineare scenario-specifico.
+
+### Elementi esclusi
+
+Il modello non considera:
+
+- dinamica endogena di una corsa agli sportelli;
+- capitale regolamentare;
+- insolvenza;
+- distinzione HTM/AFS;
 - duration e mark-to-market espliciti;
-- retroazioni tra decisioni della banca e probabilità degli scenari;
-- interventi della Federal Reserve o della FDIC;
-- costi non lineari del funding;
-- più stadi di rivelazione progressiva dell'informazione.
+- feedback tra decisioni e probabilità degli scenari;
+- strumenti pubblici di emergenza.
 
-Il caso è quindi un modello didattico di programmazione stocastica a due stadi applicata a un problema di asset allocation e liquidità bancaria.
+### Limiti dell'interpretazione
 
-I risultati non devono essere interpretati come ricostruzione storica di Silicon Valley Bank né come raccomandazione operativa di gestione bancaria.
+Il caso è una rappresentazione quantitativa stilizzata finalizzata allo studio della programmazione stocastica a due stadi.
+
+I risultati devono essere interpretati esclusivamente all'interno del modello assegnato e non possono essere letti come stime empiriche o ricostruzioni delle decisioni effettivamente assunte da Silicon Valley Bank.
