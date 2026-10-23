@@ -3,197 +3,251 @@
 ## 1. Identificazione del caso
 
 - **Lezione:** 16 — Applicazione in Python: programmazione stocastica
-- **Tipo di caso:** TakeHome
-- **Titolo:** *UK LDI 2022 — Buffer di liquidità, margin call e valore dell'informazione*
-- **Contesto:** crisi delle strategie Liability Driven Investment (LDI) dei fondi pensione britannici nell'autunno 2022.
-- **Framework metodologico:** programmazione stocastica lineare **two-stage**.
-- **Prodotti da consegnare:** notebook Jupyter eseguibile e tracciato IA secondo le istruzioni generali del corso.
-- **Numero complessivo di prompt nel tracciato IA:** da 9 a 11, comprendendo Prompt zero e Prompt 1.
+- **Tipo di caso:** Caso TakeHome
+- **Titolo:** UK LDI 2022 — Buffer di liquidità, margin call e valore dell'informazione
+- **Contesto sintetico:** gestione di un portafoglio LDI sotto scenari alternativi di margin call, con capacità limitata di ricorso mediante liquidità aggiuntiva e deleveraging
+- **Uso previsto:** lavoro individuale TakeHome mediante notebook Python
 
-La presente Scheda Caso costituisce la **specifica vincolante del lavoro**. Variabili, scenari, parametri, formule, quantità da calcolare, output richiesti, controlli e ipotesi non devono essere modificati durante lo svolgimento.
+La presente Scheda Caso costituisce la specifica vincolante del lavoro.
 
-La Scheda Caso non contiene la soluzione del problema.
+Non contiene la soluzione del problema e non deve essere modificata durante lo svolgimento, salvo esplicita indicazione del docente.
+
+Il caso utilizza una rappresentazione stilizzata ispirata alla crisi britannica delle strategie Liability Driven Investment del 2022. Non costituisce la ricostruzione quantitativa di uno specifico fondo pensione o portafoglio LDI.
 
 ---
 
 ## 2. Contesto e domanda quantitativa
 
-Le strategie Liability Driven Investment sono utilizzate da fondi pensione defined benefit per gestire la sensibilità del valore delle attività rispetto alle passività future.
+### Contesto
 
-Nel settembre 2022 il rapido aumento dei rendimenti dei gilt britannici generò forti richieste di collateral e margin call sulle strategie LDI. In presenza di buffer liquidi insufficienti, alcuni investitori dovettero mobilitare liquidità aggiuntiva e ridurre rapidamente le proprie esposizioni in condizioni di mercato sfavorevoli.
+Un investitore istituzionale deve scegliere al tempo iniziale come ripartire le proprie risorse tra:
 
-Il caso utilizza questo episodio come riferimento economico-finanziario, ma adotta un modello quantitativo stilizzato. Il decisore dispone inizialmente di risorse pari a 100 e deve scegliere quanta parte mantenere come buffer di liquidità e quanta destinare all'esposizione LDI.
+- buffer di liquidità immediatamente disponibile;
+- esposizione a una strategia LDI.
 
-Dopo la decisione iniziale si realizza uno fra tre scenari completi. Lo scenario determina l'intensità della margin call, l'efficacia con cui l'esposizione liquidata può essere trasformata in liquidità e i costi delle decisioni di ricorso.
+La decisione deve essere presa prima di conoscere le future condizioni di mercato.
 
-La domanda quantitativa centrale è:
+Successivamente si realizza uno tra tre scenari:
 
-> **Quale combinazione iniziale tra buffer di liquidità ed esposizione LDI massimizza il risultato economico atteso, tenendo conto delle margin call e delle possibilità di ricorso nei diversi scenari?**
+- normalizzazione;
+- stress;
+- stress estremo.
 
-Il lavoro deve inoltre rispondere a due domande collegate:
+Lo scenario determina:
 
-1. come si comporta, negli scenari originari, una decisione costruita sui valori medi e, quando essa è ammissibile in tutti gli scenari, quanto vale utilizzare esplicitamente la distribuzione degli scenari rispetto a tale decisione;
-2. quanto varrebbe conoscere anticipatamente lo scenario futuro.
+1. l'intensità della margin call;
+2. la quantità di liquidità ottenibile mediante deleveraging;
+3. il costo della liquidità aggiuntiva;
+4. il costo economico del deleveraging.
+
+Dopo l'osservazione dello scenario, il decisore può mobilitare liquidità aggiuntiva e ridurre l'esposizione LDI, entro limiti operativi assegnati.
+
+Il caso utilizza esclusivamente un framework di programmazione stocastica lineare a due stadi:
+
+\[
+x
+\longrightarrow
+s
+\longrightarrow
+y_s.
+\]
+
+La decisione iniziale \(x\) è unica e comune agli scenari. Le decisioni di ricorso sono invece scenario-specifiche.
+
+Il caso non introduce informazione progressiva, decisioni intermedie o vincoli di non anticipatività tra nodi intermedi.
+
+### Domanda quantitativa
+
+Determinare la combinazione iniziale tra buffer di liquidità ed esposizione LDI che massimizza il risultato economico atteso, tenendo conto congiuntamente di:
+
+- rendimento delle due componenti iniziali;
+- probabilità degli scenari;
+- margin call;
+- capacità limitata di mobilizzare liquidità aggiuntiva;
+- capacità limitata di deleveraging;
+- costi di ricorso.
+
+Confrontare inoltre la soluzione stocastica con:
+
+1. la decisione ottenuta sostituendo gli scenari con parametri medi;
+2. il benchmark nel quale lo scenario è conosciuto prima della decisione iniziale.
+
+La decisione Expected Value deve essere rivalutata negli scenari originari verificandone esplicitamente l'ammissibilità.
 
 ---
 
 ## 3. Modello e struttura del problema
 
-### 3.1 Decisione di primo stadio
+### Grandezze economico-finanziarie
 
-Le risorse iniziali sono normalizzate a:
+Le risorse iniziali sono:
 
-$$
+\[
 A_0=100.
-$$
+\]
 
-La decisione iniziale è:
+La decisione di primo stadio è:
 
-$$
+\[
 x=
 \begin{pmatrix}
-x_1 \\
+x_1\\
 x_2
 \end{pmatrix},
-$$
+\]
 
 dove:
 
-- $x_1$ è il buffer di liquidità immediatamente disponibile;
-- $x_2$ è l'esposizione LDI.
-
-Il vincolo iniziale è:
-
-$$
-x_1+x_2=100.
-$$
-
-Si impone inoltre:
-
-$$
-x_1\geq0,
-\qquad
-x_2\geq0,
-$$
-
-e, per preservare una funzione minima di copertura delle passività:
-
-$$
-x_2\geq50.
-$$
+- \(x_1\): buffer di liquidità immediatamente disponibile;
+- \(x_2\): esposizione LDI.
 
 Il contributo economico di primo stadio è:
 
-$$
-c'x
-=
+\[
 0.010x_1+0.050x_2.
-$$
+\]
 
-### 3.2 Scenari
+### Variabili decisionali
 
-L'insieme degli scenari è:
+La decisione iniziale soddisfa:
 
-$$
-\mathcal S=\{N,S,E\},
-$$
+\[
+x_1+x_2=100,
+\]
 
-dove:
+\[
+x_1\geq0,
+\qquad
+x_2\geq0,
+\]
 
-- $N$ = normalizzazione;
-- $S$ = stress;
-- $E$ = stress estremo.
+\[
+x_2\geq50.
+\]
 
-La decisione $x$ viene assunta prima di conoscere quale scenario si realizzerà.
+Per ogni scenario \(s\), le decisioni di secondo stadio sono:
 
-### 3.3 Margin call
-
-Nello scenario $s$, la margin call è proporzionale all'esposizione LDI iniziale:
-
-$$
-m_s=\alpha_sx_2.
-$$
-
-### 3.4 Decisioni di ricorso
-
-Dopo avere osservato lo scenario $s$, il decisore può utilizzare tre variabili di secondo stadio:
-
-$$
+\[
 e_s\geq0,
-$$
+\]
 
 liquidità aggiuntiva mobilitata esternamente;
 
-$$
+\[
 f_s\geq0,
-$$
+\]
 
-quota di esposizione LDI liquidata o deleverata;
+esposizione LDI liquidata o deleverata;
 
-$$
+\[
 g_s\geq0,
-$$
+\]
 
-liquidità residua dopo avere soddisfatto la margin call.
+liquidità residua.
 
-Una unità di esposizione liquidata nello scenario $s$ genera:
+### Scenari
 
-$$
-\beta_s f_s
-$$
+L'insieme degli scenari è:
+
+\[
+\mathcal S=\{N,S,E\},
+\]
+
+dove:
+
+- \(N\): normalizzazione;
+- \(S\): stress;
+- \(E\): stress estremo.
+
+A ciascuno scenario è associata una probabilità \(p_s\), con:
+
+\[
+p_s\geq0,
+\qquad
+\sum_{s\in\mathcal S}p_s=1.
+\]
+
+### Margin call
+
+La margin call nello scenario \(s\) è:
+
+\[
+m_s=\alpha_sx_2.
+\]
+
+### Liquidità prodotta dal deleveraging
+
+Una unità di esposizione liquidata produce:
+
+\[
+\beta_sf_s
+\]
 
 unità di liquidità.
 
-Il bilancio di liquidità è:
+### Bilancio di liquidità
 
-$$
+Per ogni scenario:
+
+\[
 x_1+e_s+\beta_sf_s
 =
 \alpha_sx_2+g_s.
-$$
+\]
 
-I limiti operativi sono:
+### Limiti del ricorso
 
-$$
-0\leq e_s\leq4,
-$$
+La liquidità aggiuntiva soddisfa:
 
-$$
+\[
+0\leq e_s\leq4.
+\]
+
+Il deleveraging soddisfa:
+
+\[
 0\leq f_s\leq25,
-$$
+\]
 
-$$
+e:
+
+\[
 f_s\leq x_2.
-$$
+\]
 
-### 3.5 Costi di ricorso
+### Costo di ricorso
 
-Il costo economico del ricorso nello scenario $s$ è:
+Il costo nello scenario \(s\) è:
 
-$$
+\[
 C_s
 =
-\kappa_se_s+\lambda_sf_s.
-$$
+\kappa_se_s+\delta_sf_s,
+\]
 
-La funzione di ricorso è:
+dove:
 
-$$
+- \(\kappa_s\): costo unitario della liquidità aggiuntiva;
+- \(\delta_s\): costo economico unitario del deleveraging.
+
+La funzione di ricorso può essere scritta come:
+
+\[
 Q_s(x)
 =
 \max_{e_s,f_s,g_s}
 \left\{
--\kappa_se_s-\lambda_sf_s
-\right\}
-$$
+-\kappa_se_s-\delta_sf_s
+\right\},
+\]
 
-soggetta al bilancio di liquidità e ai limiti operativi dello scenario.
+soggetta ai vincoli di secondo stadio.
 
-### 3.6 Problema stocastico
+### Programma stocastico
 
-Il programma stocastico è:
+Il problema è:
 
-$$
+\[
 z^{SP}
 =
 \max
@@ -202,194 +256,170 @@ z^{SP}
 +
 \sum_{s\in\mathcal S}p_sQ_s(x)
 \right\}.
-$$
+\]
 
-La decisione ottima di primo stadio è indicata con:
+La soluzione ottima di primo stadio è indicata con:
 
-$$
+\[
 x^{SP}.
-$$
+\]
 
-La struttura informativa del caso è esclusivamente two-stage:
+### Expected Value
 
-$$
-x
-\longrightarrow
-s
-\longrightarrow
-y_s,
-$$
+Definire:
 
-con:
-
-$$
-y_s=
-\begin{pmatrix}
-e_s \\
-f_s \\
-g_s
-\end{pmatrix}.
-$$
-
-Non sono previste decisioni intermedie tra la scelta iniziale e l'osservazione dello scenario completo.
-
-### 3.7 Expected Value
-
-Per costruire il problema deterministico medio utilizzare:
-
-$$
+\[
 \bar\alpha
 =
-\sum_{s\in\mathcal S}p_s\alpha_s,
-$$
+\sum_s p_s\alpha_s,
+\]
 
-$$
+\[
 \bar\beta
 =
-\sum_{s\in\mathcal S}p_s\beta_s,
-$$
+\sum_s p_s\beta_s,
+\]
 
-$$
+\[
 \bar\kappa
 =
-\sum_{s\in\mathcal S}p_s\kappa_s,
-$$
+\sum_s p_s\kappa_s,
+\]
 
-$$
-\bar\lambda
+\[
+\bar\delta
 =
-\sum_{s\in\mathcal S}p_s\lambda_s.
-$$
+\sum_s p_s\delta_s.
+\]
 
-La decisione iniziale ottima del problema medio è indicata con:
+La soluzione del problema costruito sui parametri medi è indicata con:
 
-$$
+\[
 x^{EV}.
-$$
+\]
 
-Per valutarla sotto l'incertezza originaria, $x^{EV}$ deve essere mantenuta fissa e il ricorso deve essere nuovamente ottimizzato in ciascuno scenario originale.
+La decisione \(x^{EV}\) deve essere successivamente mantenuta fissa e rivalutata separatamente negli scenari originari.
 
-Se $x^{EV}$ è ammissibile in tutti gli scenari originari, il valore stocastico della decisione $x^{EV}$ è:
+Se il ricorso è ammissibile in tutti gli scenari, definire:
 
-$$
+\[
 z^{EV}
 =
 c'x^{EV}
 +
-\sum_{s\in\mathcal S}p_sQ_s(x^{EV}).
-$$
+\sum_s p_sQ_s(x^{EV}),
+\]
 
-In tal caso, il Value of the Stochastic Solution è:
+e:
 
-$$
+\[
 VSS
 =
 z^{SP}-z^{EV}.
-$$
+\]
 
-Se invece $x^{EV}$ non è ammissibile in almeno uno scenario originario, $z^{EV}$ e $VSS$ non sono definiti nella forma standard.
+Se \(x^{EV}\) non è ammissibile in almeno uno scenario, tale circostanza deve essere esplicitamente rilevata e discussa.
 
-### 3.8 Wait-and-see
+### Wait-and-see
 
-Nel benchmark wait-and-see lo scenario è noto prima della decisione iniziale.
+Per ciascuno scenario viene inoltre risolto un problema nel quale la decisione iniziale può essere assunta conoscendo anticipatamente lo scenario.
 
-Per ciascuno scenario $s$ si risolve:
+Il valore atteso è:
 
-$$
-z_s^{WS}
-=
-\max
-\left\{
-c'x_s+Q_s(x_s)
-\right\}.
-$$
-
-Il valore wait-and-see è:
-
-$$
+\[
 z^{WS}
 =
-\sum_{s\in\mathcal S}p_sz_s^{WS}.
-$$
+\sum_s p_sz_s^{WS}.
+\]
 
 L'Expected Value of Perfect Information è:
 
-$$
+\[
 EVPI
 =
 z^{WS}-z^{SP}.
-$$
-
-Se $x^{EV}$ è ammissibile in tutti gli scenari originari, per il problema di massimizzazione deve risultare:
-
-$$
-z^{EV}
-\leq
-z^{SP}
-\leq
-z^{WS}.
-$$
-
-Se invece $x^{EV}$ non è ammissibile in almeno uno scenario originario, $z^{EV}$ non è definito nella forma standard e resta verificabile la relazione:
-
-$$
-z^{SP}
-\leq
-z^{WS}.
-$$
+\]
 
 ---
 
 ## 4. Parametri assegnati
 
-### 4.1 Parametri di primo stadio
+I parametri sono deliberatamente stilizzati e hanno finalità didattica.
 
-| Parametro | Significato | Valore |
+### Parametri economico-finanziari
+
+| Variabile | Interpretazione | Rendimento unitario |
 |---|---|---:|
-| $A_0$ | risorse iniziali | 100 |
-| $c_1$ | rendimento unitario del buffer | 0.010 |
-| $c_2$ | rendimento unitario dell'esposizione LDI | 0.050 |
-| $x_2^{\min}$ | esposizione LDI minima | 50 |
+| \(x_1\) | Buffer di liquidità | 0.010 |
+| \(x_2\) | Esposizione LDI | 0.050 |
 
-### 4.2 Parametri di scenario
+### Probabilità degli scenari
 
-| Scenario | $p_s$ | $\alpha_s$ | $\beta_s$ | $\kappa_s$ | $\lambda_s$ |
-|---|---:|---:|---:|---:|---:|
-| $N$ | 0.50 | 0.10 | 1.00 | 0.020 | 0.005 |
-| $S$ | 0.30 | 0.25 | 0.90 | 0.060 | 0.030 |
-| $E$ | 0.20 | 0.40 | 0.75 | 0.120 | 0.080 |
+| Scenario | Descrizione | \(p_s\) |
+|---|---|---:|
+| \(N\) | Normalizzazione | 0.50 |
+| \(S\) | Stress | 0.30 |
+| \(E\) | Stress estremo | 0.20 |
 
-Interpretazione dei parametri:
+### Coefficienti di margin call
 
-- $p_s$ = probabilità dello scenario;
-- $\alpha_s$ = margin call per unità di esposizione LDI;
-- $\beta_s$ = liquidità ottenuta per unità di esposizione liquidata;
-- $\kappa_s$ = costo unitario della liquidità aggiuntiva;
-- $\lambda_s$ = costo economico unitario del deleveraging.
+| Scenario | \(\alpha_s\) |
+|---|---:|
+| \(N\) | 0.10 |
+| \(S\) | 0.25 |
+| \(E\) | 0.40 |
 
-### 4.3 Limiti di ricorso
+### Coefficienti di monetizzazione del deleveraging
 
-Per ogni scenario:
+| Scenario | \(\beta_s\) |
+|---|---:|
+| \(N\) | 1.00 |
+| \(S\) | 0.90 |
+| \(E\) | 0.75 |
 
-$$
+### Costi della liquidità aggiuntiva
+
+| Scenario | \(\kappa_s\) |
+|---|---:|
+| \(N\) | 0.020 |
+| \(S\) | 0.060 |
+| \(E\) | 0.120 |
+
+### Costi economici del deleveraging
+
+| Scenario | \(\delta_s\) |
+|---|---:|
+| \(N\) | 0.005 |
+| \(S\) | 0.030 |
+| \(E\) | 0.080 |
+
+### Vincoli operativi
+
+\[
+x_1+x_2=100,
+\]
+
+\[
+x_1\geq0,
+\qquad
+x_2\geq50,
+\]
+
+\[
 0\leq e_s\leq4,
-$$
+\]
 
-$$
+\[
 0\leq f_s\leq25,
-$$
+\]
 
-$$
-g_s\geq0,
-$$
+\[
+f_s\leq x_2,
+\]
 
-$$
-f_s\leq x_2.
-$$
-
-Tutte le quantità monetarie sono espresse nella scala normalizzata del modello con $A_0=100$.
-
-I parametri sono **didattici e stilizzati**. Sono costruiti per rappresentare il meccanismo economico di una crisi LDI e non costituiscono una calibrazione empirica di uno specifico fondo pensione.
+\[
+g_s\geq0.
+\]
 
 ---
 
@@ -397,234 +427,330 @@ I parametri sono **didattici e stilizzati**. Sono costruiti per rappresentare il
 
 Determinare:
 
-1. la soluzione stocastica di primo stadio $x^{SP}$;
-2. il valore ottimo $z^{SP}$;
-3. le decisioni di ricorso ottime $e_s$, $f_s$, $g_s$ per ciascuno scenario sotto $x^{SP}$;
-4. i valori dei parametri medi $\bar\alpha$, $\bar\beta$, $\bar\kappa$, $\bar\lambda$;
-5. la decisione iniziale del problema medio $x^{EV}$;
-6. il valore $z^{EV}$ ottenuto fissando $x=x^{EV}$ e rivalutando tale decisione negli scenari originari, se $x^{EV}$ è ammissibile in tutti gli scenari; in caso contrario, verificare e riportare esplicitamente la sua non definibilità nella forma standard;
-7. il Value of the Stochastic Solution:
+1. la soluzione stocastica
+   \[
+   x^{SP};
+   \]
 
-$$
-VSS=z^{SP}-z^{EV},
-$$
+2. il valore ottimo
+   \[
+   z^{SP};
+   \]
 
-se $z^{EV}$ è definito; in caso contrario, indicare esplicitamente che il $VSS$ non è calcolabile nella forma standard;
-8. le soluzioni wait-and-see $x_s^{WS}$ e i valori $z_s^{WS}$ per ciascuno scenario;
-9. il valore:
+3. le decisioni di ricorso
+   \[
+   e_s^{SP},
+   \qquad
+   f_s^{SP},
+   \qquad
+   g_s^{SP};
+   \]
 
-$$
-z^{WS}
-=
-\sum_{s\in\mathcal S}p_sz_s^{WS};
-$$
+4. i parametri medi
+   \[
+   \bar\alpha,
+   \qquad
+   \bar\beta,
+   \qquad
+   \bar\kappa,
+   \qquad
+   \bar\delta;
+   \]
 
-10. l'Expected Value of Perfect Information:
+5. la soluzione Expected Value
+   \[
+   x^{EV};
+   \]
 
-$$
-EVPI=z^{WS}-z^{SP}.
-$$
+6. il valore ottimo del problema deterministico medio;
 
-Il valore ottimo del problema deterministico medio deve essere tenuto distinto da $z^{EV}$.
+7. l'ammissibilità di \(x^{EV}\) in ciascuno scenario originario;
+
+8. \(z^{EV}\), se definito;
+
+9. il VSS, se definito;
+
+10. le soluzioni wait-and-see
+    \[
+    x_s^{WS};
+    \]
+
+11. i valori scenario-specifici
+    \[
+    z_s^{WS};
+    \]
+
+12. il valore atteso
+    \[
+    z^{WS};
+    \]
+
+13. l'Expected Value of Perfect Information
+    \[
+    EVPI=z^{WS}-z^{SP}.
+    \]
 
 ---
 
 ## 6. Output richiesti
 
-### 6.1 Risultati numerici
+### Risultati numerici
 
-Il notebook deve riportare chiaramente:
+Il notebook deve riportare in modo leggibile:
 
-1. $x^{SP}$ e $z^{SP}$;
-2. $e_s$, $f_s$, $g_s$ per ciascuno scenario sotto $x^{SP}$;
-3. $\bar\alpha$, $\bar\beta$, $\bar\kappa$, $\bar\lambda$;
-4. $x^{EV}$ e valore ottimo del problema deterministico medio;
-5. $z^{EV}$, se $x^{EV}$ è ammissibile in tutti gli scenari originari; in caso contrario, indicazione esplicita della sua non definibilità nella forma standard;
-6. $VSS$, se $z^{EV}$ è definito; in caso contrario, indicazione esplicita della sua non calcolabilità nella forma standard;
-7. $x_s^{WS}$ e $z_s^{WS}$ per ciascuno scenario;
-8. $z^{WS}$;
-9. $EVPI$.
+- soluzione SP;
+- ricorsi scenario-specifici;
+- valore \(z^{SP}\);
+- parametri medi;
+- soluzione EV;
+- valore del problema medio;
+- esito della rivalutazione di \(x^{EV}\) in ciascuno scenario;
+- \(z^{EV}\), se definito;
+- VSS, se definito;
+- soluzioni WS;
+- \(z^{WS}\);
+- EVPI.
 
-### 6.2 Tabelle
+### Tabelle
 
-Produrre almeno le seguenti tabelle:
+**Tabella 1 — Parametri del problema**
 
-1. **Tabella dei parametri del caso**, con probabilità e coefficienti scenario-specifici;
-2. **Tabella della soluzione SP**, con decisione iniziale, margin call, ricorsi e liquidità residua per scenario;
-3. **Tabella di rivalutazione di $x^{EV}$**, con indicazione dei ricorsi ottimi negli scenari in cui il problema di ricorso è ammissibile e dell'eventuale inammissibilità negli altri scenari, insieme al contributo economico scenario-specifico ove definito;
-4. **Tabella wait-and-see**, con $x_s^{WS}$ e $z_s^{WS}$ per ciascuno scenario;
-5. **Tabella riepilogativa dei benchmark**, contenente $z^{SP}$, $z^{WS}$ ed $EVPI$ e, se definiti, anche $z^{EV}$ e $VSS$; in caso contrario, indicazione esplicita della loro non definibilità nella forma standard.
+Deve contenere:
 
+- rendimenti;
+- probabilità;
+- \(\alpha_s\);
+- \(\beta_s\);
+- \(\kappa_s\);
+- \(\delta_s\);
+- limiti operativi.
 
+**Tabella 2 — Soluzione stocastica**
 
-### 6.3 Grafici
+Deve riportare:
 
-Produrre tre grafici:
+- \(x^{SP}\);
+- margin call per scenario;
+- \(e_s^{SP}\);
+- \(f_s^{SP}\);
+- \(g_s^{SP}\);
+- costo di ricorso per scenario.
 
-1. **Confronto tra $x^{SP}$ e $x^{EV}$**, distinguendo buffer ed esposizione LDI;
-2. **Decisioni di ricorso per scenario**, mostrando almeno $e_s$ e $f_s$ sotto la soluzione stocastica;
-3. **Confronto dei benchmark**, rappresentando $z^{SP}$ e $z^{WS}$ e, se definito, anche $z^{EV}$; in caso contrario, evidenziare esplicitamente la non definibilità di $z^{EV}$ nella forma standard.
+**Tabella 3 — Expected Value e rivalutazione**
 
-Ogni grafico deve avere titolo, assi ed etichette leggibili e deve essere accompagnato da una breve interpretazione collegata alla domanda quantitativa del caso.
+Deve riportare:
+
+- parametri medi;
+- \(x^{EV}\);
+- valore ottimo del problema medio;
+- stato di ammissibilità di \(x^{EV}\) in ciascuno scenario;
+- ricorsi negli scenari ammissibili;
+- \(z^{EV}\), se definito.
+
+Se \(z^{EV}\) non è definito nella forma standard, la tabella deve indicarne esplicitamente la ragione.
+
+**Tabella 4 — Wait-and-see**
+
+Deve riportare per ciascuno scenario:
+
+- \(x_s^{WS}\);
+- \(z_s^{WS}\).
+
+**Tabella 5 — Confronto dei benchmark**
+
+Deve riportare sempre:
+
+\[
+z^{SP},
+\qquad
+z^{WS},
+\qquad
+EVPI.
+\]
+
+Deve riportare inoltre:
+
+\[
+z^{EV},
+\qquad
+VSS,
+\]
+
+soltanto quando definiti.
+
+### Grafici
+
+**Figura 1 — Decisioni di primo stadio**
+
+Confronto tra:
+
+\[
+x^{SP}
+\quad\text{e}\quad
+x^{EV}.
+\]
+
+**Figura 2 — Ricorso per scenario**
+
+Rappresentare almeno:
+
+\[
+e_s^{SP}
+\quad\text{e}\quad
+f_s^{SP}.
+\]
+
+**Figura 3 — Confronto dei benchmark**
+
+Rappresentare:
+
+\[
+z^{SP}
+\quad\text{e}\quad
+z^{WS},
+\]
+
+e, se definito:
+
+\[
+z^{EV}.
+\]
+
+Se \(z^{EV}\) non è definito, tale circostanza deve essere rappresentata senza attribuirgli un valore numerico artificiale.
+
+Le tabelle e i grafici devono essere prodotti come output del notebook e devono essere rigenerabili mediante riesecuzione delle celle.
+
+Non sono richieste esportazioni automatiche in file esterni.
 
 ---
 
 ## 7. Controlli richiesti
 
-Il notebook deve includere verifiche osservabili sui seguenti punti.
-
-### 7.1 Probabilità e dati
+### Controlli numerici
 
 Verificare:
 
-$$
-\sum_{s\in\mathcal S}p_s=1.
-$$
+\[
+\sum_s p_s=1,
+\]
 
-Controllare inoltre che tutti i parametri utilizzati dal codice coincidano con quelli della Scheda Caso.
-
-### 7.2 Vincoli di primo stadio
-
-Verificare numericamente:
-
-$$
+\[
 x_1+x_2=100,
-$$
+\]
 
-$$
+\[
 x_1\geq0,
-$$
-
-$$
+\qquad
 x_2\geq50.
-$$
-
-### 7.3 Vincoli di ricorso
+\]
 
 Per ogni scenario verificare:
 
-$$
+\[
 0\leq e_s\leq4,
-$$
+\]
 
-$$
+\[
 0\leq f_s\leq25,
-$$
+\]
 
-$$
+\[
+f_s\leq x_2,
+\]
+
+\[
 g_s\geq0,
-$$
+\]
 
-$$
-f_s\leq x_2.
-$$
+e il bilancio:
 
-### 7.4 Bilancio di liquidità
+\[
+x_1+e_s+\beta_sf_s
+=
+\alpha_sx_2+g_s.
+\]
 
-Per ogni scenario verificare che il residuo del bilancio:
-
-$$
-x_1+e_s+\beta_sf_s-\alpha_sx_2-g_s
-$$
-
-sia numericamente nullo entro una tolleranza coerente con il solver.
-
-### 7.5 Soluzione del solver
-
-Controllare:
-
-- successo dell'ottimizzazione;
-- ammissibilità della soluzione;
-- assenza di violazioni significative dei vincoli;
-- coerenza tra variabili estratte e ordinamento utilizzato nel vettore del solver.
-
-### 7.6 Expected Value
+### Controlli logici e teorici
 
 Verificare che:
 
-1. $x^{EV}$ sia ottenuta dal problema costruito con i parametri medi;
-2. nella rivalutazione negli scenari originari la decisione $x^{EV}$ resti **fissa**;
-3. per ciascuno scenario originario vengano riottimizzate soltanto le decisioni di ricorso;
-4. sia verificata l'ammissibilità di $x^{EV}$ in ciascuno scenario originario;
-5. $z^{EV}$ sia calcolato solo se $x^{EV}$ è ammissibile in tutti gli scenari originari;
-6. se $x^{EV}$ non è ammissibile in almeno uno scenario, sia riportata esplicitamente la non definibilità di $z^{EV}$ e la conseguente non calcolabilità del $VSS$ nella forma standard.
+1. la decisione di primo stadio sia unica e comune agli scenari;
+2. \(x^{EV}\) rimanga fissa durante la rivalutazione;
+3. l'ammissibilità di \(x^{EV}\) venga verificata separatamente in ciascuno scenario;
+4. i problemi wait-and-see siano risolti separatamente;
+5. risulti sempre:
+   \[
+   z^{SP}\leq z^{WS};
+   \]
+6. risulti:
+   \[
+   EVPI\geq0.
+   \]
 
-### 7.7 Wait-and-see
+Se \(z^{EV}\) è definito, verificare inoltre:
 
-Verificare che ogni problema WS utilizzi i dati di un solo scenario e consenta di scegliere una decisione iniziale scenario-specifica $x_s^{WS}$.
-
-Controllare inoltre:
-
-$$
-z^{WS}
-=
-\sum_{s\in\mathcal S}p_sz_s^{WS}.
-$$
-
-### 7.8 Ordinamento dei benchmark
-
-Se $x^{EV}$ è ammissibile in tutti gli scenari originari, verificare:
-
-$$
-z^{EV}
-\leq
-z^{SP}
-\leq
-z^{WS},
-$$
+\[
+z^{EV}\leq z^{SP}\leq z^{WS},
+\]
 
 e:
 
-$$
+\[
 VSS\geq0.
-$$
+\]
 
-In ogni caso, verificare:
+Se \(z^{EV}\) non è definito, non deve essere sostituito con un valore numerico arbitrario e il VSS non deve essere calcolato artificialmente.
 
-$$
-z^{SP}
-\leq
-z^{WS},
-$$
+### Controlli computazionali
 
-e:
+Verificare:
 
-$$
-EVPI\geq0.
-$$
-
-Se $x^{EV}$ non è ammissibile in almeno uno scenario originario, i controlli che coinvolgono $z^{EV}$ e $VSS$ non sono valutabili nella forma standard.
+1. successo del solver nei problemi ammissibili;
+2. corretta identificazione degli eventuali problemi di ricorso inammissibili;
+3. assenza di violazioni numericamente significative dei vincoli;
+4. coerenza tra ordinamento delle variabili matematiche e ordinamento utilizzato nel solver;
+5. riproducibilità degli output mediante riesecuzione completa del notebook.
 
 ---
 
 ## 8. Ipotesi e limiti del caso
 
-Il caso adotta le seguenti ipotesi e semplificazioni.
+### Ipotesi modellistiche
 
-1. Il problema è **two-stage**: la decisione iniziale viene presa prima della rivelazione dell'incertezza e tutte le decisioni di ricorso vengono assunte dopo l'osservazione dello scenario completo.
+1. Gli scenari sono mutuamente esclusivi ed esaustivi.
+2. Le probabilità sono note al tempo iniziale.
+3. La decisione iniziale è unica e comune agli scenari.
+4. Le decisioni di ricorso vengono assunte dopo l'osservazione dello scenario.
+5. La margin call è proporzionale all'esposizione LDI.
+6. La capacità di liquidità aggiuntiva è limitata.
+7. La capacità di deleveraging è limitata.
+8. I costi di ricorso sono lineari.
+9. Le quantità monetarie sono espresse nella scala normalizzata \(A_0=100\).
 
-2. Gli scenari $N$, $S$ ed $E$ sono mutuamente esclusivi ed esaustivi rispetto all'incertezza rappresentata nel modello.
+### Semplificazioni adottate
 
-3. Le probabilità degli scenari sono assegnate e non devono essere stimate.
+1. L'incertezza è rappresentata mediante tre scenari discreti.
+2. L'intero adattamento è concentrato in un unico secondo stadio.
+3. La monetizzazione del deleveraging è rappresentata mediante coefficienti scenario-specifici.
+4. Margin call e costi sono esogeni.
+5. Non vengono modellati effetti dinamici successivi al ricorso.
 
-4. La margin call è rappresentata mediante una relazione lineare:
+### Elementi esclusi
 
-$$
-m_s=\alpha_sx_2.
-$$
+Il modello non considera:
 
-5. La capacità di trasformare il deleveraging in liquidità è lineare e rappresentata dal coefficiente $\beta_s$.
+- dinamiche intraday;
+- collateral waterfall;
+- haircut multipli;
+- feedback endogeni sui prezzi dei gilt;
+- derivati specifici;
+- duration delle passività;
+- requisiti regolamentari dettagliati;
+- informazione progressiva;
+- decisioni multistadio.
 
-6. I costi della liquidità aggiuntiva e del deleveraging sono lineari.
+### Limiti dell'interpretazione
 
-7. I limiti $e_s\leq4$ e $f_s\leq25$ rappresentano capacità operative didattiche e non limiti storicamente osservati.
+Il caso è una rappresentazione quantitativa stilizzata finalizzata allo studio della programmazione stocastica a due stadi e della fattibilità del ricorso.
 
-8. Il modello non rappresenta dinamiche intraday, collateral waterfall, haircut multipli, feedback endogeni sui prezzi dei gilt, derivati specifici, duration delle passività o requisiti regolamentari dettagliati.
-
-9. Non sono presenti decisioni intermedie, alberi informativi multistadio o vincoli di non anticipatività tra nodi intermedi.
-
-10. I parametri numerici sono stilizzati. Il caso è ispirato alla crisi LDI britannica del 2022, ma non costituisce una ricostruzione empirica di un singolo fondo o portafoglio.
-
-11. I risultati devono essere interpretati esclusivamente all'interno del modello assegnato. In particolare, $EVPI$ misura un valore economico relativo alla specifica distribuzione degli scenari, ai costi e ai vincoli adottati; il $VSS$ ha analoga interpretazione solo quando $z^{EV}$ è definito nella forma standard.
-
-12. L'interpretazione finale deve essere formulata dallo studente sulla base degli output effettivamente ottenuti nel notebook. L'IA può essere utilizzata soltanto per una revisione critica mirata secondo le istruzioni generali del corso.
+I risultati devono essere interpretati esclusivamente all'interno del modello assegnato e non possono essere letti come stime empiriche o ricostruzioni delle decisioni effettivamente assunte da specifici fondi pensione o operatori LDI.
