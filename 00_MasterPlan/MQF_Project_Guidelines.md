@@ -69,13 +69,14 @@ Questa progressione deve orientare la scrittura del manuale, delle slides, degli
 
 Il modello binomiale non costituisce più una lezione applicativa autonoma di pricing. Deve essere utilizzato, quando utile, come esempio strutturale di processo in tempo discreto, filtrazione, adattabilità e martingala e come primo raccordo elementare tra martingale, assenza di arbitraggio e valutazione risk-neutral, senza sviluppare un modulo autonomo di pricing dei derivati.
 
-La dualità nella programmazione lineare non scompare dal corso, ma viene ricondotta alla lezione introduttiva di programmazione lineare come contenuto essenziale per l'interpretazione economica dei vincoli e dei prezzi ombra. Non costituisce più una lezione autonoma.
+La dualità nella programmazione lineare resta un contenuto scientifico essenziale del blocco dedicato alla programmazione lineare. Nel Manuale la sua trattazione formale rimane collocata nel Capitolo 11. Nella scansione didattica delle lezioni, invece, la Lezione 11 arriva fino alla sensitivit\`a e all'interpretazione dei prezzi ombra, mentre la costruzione del problema duale, la dualità debole e forte e le condizioni di complementarietà vengono sviluppate all'apertura della Lezione 12. Questa diversa scansione tra Manuale e lezioni è intenzionale e non costituisce un'incoerenza.
 
 L'Asset--Liability Management deterministico costituisce il passaggio dalla
 programmazione lineare statica a una decisione nella quale la disponibilità
-delle risorse deve essere verificata alle diverse date. La dualità introdotta
-nella Lezione 11 viene utilizzata per interpretare il valore marginale della
-liquidità e della capacità di funding.
+delle risorse deve essere verificata alle diverse date. La formalizzazione
+duale sviluppata all'apertura della Lezione 12 viene quindi utilizzata per
+interpretare il valore marginale della liquidità e della capacità di funding
+alle diverse scadenze.
 
 ## 5. Prodotti finali previsti
 
@@ -111,8 +112,8 @@ La struttura operativa dell'insegnamento è la seguente.
 | 8 | P | Catene di Markov: definizioni e proprietà | Stati, transizioni, matrice di transizione, distribuzioni stazionarie |
 | 9 | P | Catene di Markov e misure di rischio | Transizioni di rating, distribuzioni di perdita, VaR, CVaR |
 | 10 | C | Applicazione in Python: rischio di credito | Simulazione di catene di Markov, portafogli creditizi, misure di rischio |
-| 11 | P | Ottimizzazione e programmazione lineare | Formulazione, regione ammissibile, soluzioni di base, dualità essenziale |
-| 12 | P | Dualità e Asset--Liability Management deterministico | Cash flow temporali, bilanci di liquidità, funding, valori marginali |
+| 11 | P | Ottimizzazione e programmazione lineare | Formulazione, regione ammissibile, soluzioni di base, sensitivit\`a, prezzi ombra |
+| 12 | P | Dualità e Asset--Liability Management deterministico | Dualità, cash flow temporali, bilanci di liquidità, funding, valori marginali |
 | 13 | C | Applicazione in Python: programmazione lineare e ALM deterministico | Forma solver, soluzione LP, controlli, valori marginali, analisi what-if |
 | 14 | P | Programmazione lineare stocastica I | Decisioni sotto incertezza, scenari, recourse, valore atteso |
 | 15 | P | Programmazione lineare stocastica II | Alberi di scenari, informazione progressiva, non anticipatività |
@@ -664,8 +665,16 @@ La costruzione delle slides deve sempre partire dalla lettura aggiornata di:
 1. Master Plan;
 2. Guidelines;
 3. Notazione ufficiale;
-4. capitolo corrispondente del Manuale;
+4. capitolo o capitoli del Manuale rilevanti per i contenuti effettivamente
+assegnati alla lezione secondo il Master Plan;
 5. eventuali figure, esercizi e materiali collegati.
+
+La corrispondenza tra capitoli del Manuale e lezioni non deve essere intesa
+necessariamente in senso uno-a-uno. Il Master Plan può prevedere, per ragioni
+didattiche, che contenuti sviluppati scientificamente in un capitolo vengano
+distribuiti diversamente tra più lezioni, oppure che una lezione selezioni solo
+una parte della struttura teorica sviluppata nel Manuale.
+
 
 La memoria delle conversazioni precedenti può servire solo da orientamento generale, ma non deve sostituire la lettura diretta dei file aggiornati quando si pianifica o si genera una nuova lezione.
 
