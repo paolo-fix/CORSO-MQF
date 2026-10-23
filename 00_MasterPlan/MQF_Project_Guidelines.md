@@ -116,7 +116,7 @@ La struttura operativa dell'insegnamento è la seguente.
 | 12 | P | Dualità e Asset--Liability Management deterministico | Dualità, cash flow temporali, bilanci di liquidità, funding, valori marginali |
 | 13 | C | Applicazione in Python: programmazione lineare e ALM deterministico | Forma solver, soluzione LP, controlli, valori marginali, analisi what-if |
 | 14 | P | Programmazione lineare stocastica I | Decisioni sotto incertezza, scenari, recourse, valore atteso |
-| 15 | P | Programmazione lineare stocastica II | Alberi di scenari, informazione progressiva, non anticipatività |
+| 15 | P | Programmazione lineare stocastica II | Fattibilità e proprietà del ricorso, SP/EV/WS, VSS/EVPI, forma estesa nel framework a due stadi |
 | 16 | C | Applicazione in Python: programmazione stocastica | Asset allocation sotto incertezza, scenari, vincoli di non anticipatività |
 
 
