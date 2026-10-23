@@ -410,9 +410,9 @@ loro discretizzazione numerica.
 8 & P & Catene di Markov: definizioni e propriet\`{a} & Stati, transizioni, matrice di transizione, distribuzioni stazionarie & Capitolo teorico ed esercizi \\
 9 & P & Catene di Markov e misure di rischio & Transizioni di rating, perdite, VaR e CVaR & Capitolo teorico, esercizi e grafici \\
 10 & C & Applicazione in Python: rischio di credito & Simulazione di rating e rischio di portafoglio & Notebook Jupyter, tracciato IA e slides applicative \\
-11 & P & Ottimizzazione e programmazione lineare & Formulazione, soluzioni di base, dualit\`{a} essenziale & Capitolo teorico, esercizi e grafici \\
-12 & P & Dualit\`a e Asset-Liability Management deterministico &
-Cash flow temporali, bilanci di liquidit\`a, funding e valori marginali &
+11 & P & Ottimizzazione e programmazione lineare & Formulazione, soluzioni di base, sensitivit\`{a} e prezzi ombra & Capitolo teorico, esercizi e grafici \\
+12 & P & Dualit\`{a} e Asset-Liability Management deterministico &
+Dualit\`{a}, cash flow temporali, bilanci di liquidit\`{a}, funding e valori marginali &
 Capitolo teorico, esercizi e grafici \\
 13 & C & Applicazione in Python: programmazione lineare e ALM deterministico &
 Formulazione per il solver, soluzione, controlli e analisi what-if &
@@ -883,8 +883,7 @@ _{t}\hbox{-misurabile}.
 \]
 \[
 S_{t+1}=%
-\begin{cases}
-u S_{t}, & \hbox{stato up},\\
+\begin{cases}\nu S_{t}, & \hbox{stato up},\\
 dS_{t}, & \hbox{stato down},
 \end{cases}
 \qquad\mathcal{F}_{t}%
@@ -1180,22 +1179,25 @@ rendimenti e vincoli.\newline
 \textbf{Obiettivi didattici:} distinguere dati, variabili decisionali,
 funzione obiettivo e vincoli; formulare un programma lineare; interpretare
 regione ammissibile, convessit\`{a}, vincoli attivi, variabili di scarto,
-punti estremi e soluzioni di base; costruire il problema duale; dimostrare
-la dualit\`{a} debole; enunciare la dualit\`{a} forte; applicare le
-condizioni di complementariet\`{a}; interpretare le variabili duali come
-prezzi ombra.\newline
+punti estremi e soluzioni di base; analizzare la sensitivit\`{a} del valore
+ottimo rispetto ai requisiti; interpretare i prezzi ombra come valori
+marginali locali dei vincoli.\newline
 \textbf{Caso motivante e applicazione principale:} il fallimento di Silicon
 Valley Bank viene utilizzato in apertura per motivare il problema della
 composizione preventiva dell'attivo in presenza di redditivit\`{a},
 liquidit\`{a}, perdite di valore e limiti prudenziali. Dopo lo sviluppo
 della teoria generale, viene formulato e analizzato un modello lineare
 stilizzato, calibrato su dati e proporzioni riconducibili al caso SVB. Il
-caso serve ad applicare formulazione, dualit\`{a}, complementariet\`{a} e
-prezzi ombra, ma non determina l'ordine dell'esposizione teorica. La
-geometria bidimensionale resta un esempio introduttivo autonomo.\newline
+caso serve ad applicare formulazione, vincoli attivi, sensitivit\`{a} e
+prezzi ombra. La geometria bidimensionale resta un esempio introduttivo
+autonomo.\newline
+\textbf{Scansione didattica:} la teoria della dualit\`{a} resta sviluppata
+scientificamente nel Capitolo 11 del manuale, ma la sua formalizzazione in
+aula viene svolta all'apertura della Lezione 12. La Lezione 11 si arresta
+alla sensitivit\`{a} e all'interpretazione locale dei prezzi ombra.\newline
 \textbf{Notazione introdotta:} vettore decisionale $x$, matrice dei vincoli
 $A$, vettori $b$ e $c$, regione ammissibile, soluzione ottima $x^{*}$,
-valore ottimo $z^{*}$, variabili di scarto e vettore duale $\lambda$.\newline
+valore ottimo $z^{*}$, variabili di scarto e prezzi ombra $\lambda_i$.\newline
 \textbf{Formule principali:}
 \[
 \max_{x}\;c'x
@@ -1203,38 +1205,29 @@ valore ottimo $z^{*}$, variabili di scarto e vettore duale $\lambda$.\newline
 Ax\leq b,\qquad x\geq0,
 \]
 \[
-\min_{\lambda}\;b'\lambda
-\quad\hbox{soggetto a}\quad
-A'\lambda\geq c,\qquad \lambda\geq0,
+\lambda_i=\frac{\partial z^{*}}{\partial b_i},
 \]
+localmente, finch\'{e} non cambia l'insieme dei vincoli attivi. Per un
+requisito minimo di liquidit\`{a} scritto nella forma
+$-q'x\leq-Q_{\min}$,
 \[
-c'x\leq b'\lambda,
-\qquad
-c'x^{*}=b'\lambda^{*},
-\]
-\[
-\lambda_{i}^{*}\left(b_{i}-a_{i}'x^{*}\right)=0,
-\qquad
-x_{j}^{*}\left((A'\lambda^{*})_{j}-c_{j}\right)=0.
+\frac{\partial z^{*}}{\partial Q_{\min}}=-\lambda_Q.
 \]
 \textbf{Esercizi previsti:} formulazione di problemi decisionali lineari;
 verifica di ammissibilit\`{a}; rappresentazione geometrica; identificazione
-di vincoli attivi e punti estremi; costruzione del duale; verifica della
-dualit\`{a} e della complementariet\`{a}; applicazione conclusiva al caso
-bancario.\newline
+di vincoli attivi e punti estremi; analisi di sensitivit\`{a}; interpretazione
+dei prezzi ombra; applicazione conclusiva al caso bancario.\newline
 \textbf{Grafici previsti:} regione ammissibile e rette di livello in un
-esempio bidimensionale autonomo; corrispondenza tra primale e duale;
-rappresentazione della complementariet\`{a}; risultati essenziali
-dell'applicazione bancaria.\newline
+esempio bidimensionale autonomo; rappresentazione dei vincoli attivi e dei
+margini; risultati essenziali dell'applicazione bancaria.\newline
 \textbf{Contenuti non sviluppati:} algoritmo del simplesso, tableau,
 metodo Big M, metodo delle due fasi, lemma di Farkas, metodi del punto
 interno e programmazione lineare intera.\newline
 \textbf{Riferimenti scientifici principali:} Bertsimas e Tsitsiklis,
 Capitoli 2 e 4, costituiscono il riferimento principale per geometria dei
-poliedri, punti estremi, soluzioni di base, dualit\`{a} e
-complementariet\`{a}. Rardin, Capitoli 1-2 e 6, fornisce il riferimento
-per il processo di modellizzazione di ricerca operativa, l'esposizione
-operativa della dualit\`{a} e l'interpretazione dei prezzi ombra.
+poliedri, punti estremi, soluzioni di base e analisi di sensitivit\`{a}.
+Rardin, Capitoli 1-2 e 6, fornisce il riferimento per il processo di
+modellizzazione di ricerca operativa e l'interpretazione dei prezzi ombra.
 Cornu\'{e}jols, Pe\~{n}a e T\"{u}t\"{u}nc\"{u}, Capitoli 1-3, viene
 utilizzato per la contestualizzazione e la modellizzazione finanziaria. I
 rapporti ufficiali sul fallimento di Silicon Valley Bank vengono impiegati
@@ -1243,30 +1236,39 @@ conclusiva.\newline
 \newline
 \textbf{Applicazioni collegate:} Lezioni 12-16.
 
-\subsection{Lezione 12 - Dualit\`a e Asset-Liability Management
+\subsection{Lezione 12 - Dualit\`{a} e Asset-Liability Management
 deterministico}
 
 \textbf{Tipo:} P.\newline
 \textbf{Domanda guida:} come cambia una decisione bancaria quando la
-liquidit\`a deve essere disponibile nelle specifiche date in cui sorgono i
+liquidit\`{a} deve essere disponibile nelle specifiche date in cui sorgono i
 fabbisogni?\newline
-\textbf{Prerequisiti:} Lezione 11; programmazione lineare, dualit\`a,
-prezzi ombra e sensitivit\`a locale.\newline
-\textbf{Obiettivi didattici:} distinguere liquidit\`a aggregata e temporale;
-rappresentare i cash flow degli attivi; introdurre giacenze e funding;
-formulare un ALM deterministico come programma lineare; interpretare i
-valori marginali della liquidit\`a alle diverse date; preparare il passaggio
-dalla traiettoria deterministica all'incertezza.\newline
+\textbf{Prerequisiti:} Lezione 11; programmazione lineare, prezzi ombra e
+sensitivit\`{a} locale.\newline
+\textbf{Scansione didattica:} la costruzione del problema duale, la dualit\`{a}
+debole e forte e le condizioni di complementariet\`{a}, sviluppate
+scientificamente nel Capitolo 11 del manuale, vengono presentate in aula
+all'apertura della Lezione 12 e immediatamente utilizzate per interpretare
+l'ALM deterministico.\newline
+\textbf{Obiettivi didattici:} costruire il problema duale; introdurre la
+dualit\`{a} debole e forte e le condizioni di complementariet\`{a};
+interpretare le variabili duali come prezzi ombra; distinguere liquidit\`{a}
+aggregata e temporale; rappresentare i cash flow degli attivi; introdurre
+giacenze e funding; formulare un ALM deterministico come programma lineare;
+interpretare i valori marginali della liquidit\`{a} alle diverse date;
+preparare il passaggio dalla traiettoria deterministica all'incertezza.\newline
 \textbf{Caso guida:} estensione multiperiodale del caso SVB introdotto nella
 Lezione 11, con cash flow distribuiti nel tempo, fabbisogni, giacenze e
 capacit\`a limitata di funding.\newline
-\textbf{Notazione introdotta:} $A^{\mathrm{CF}}=(a_{tj})$, $d_t$, $g_t$,
-$u_t$, $r_t^{g}$, $r_t^{u}$, $\bar u_t$, $\lambda_0$, $\lambda_t$,
-$\lambda_{u,t}$, $\Pi$, $v$; eccezioni locali dichiarate: $X_t$ (stato
-patrimoniale della banca), $s_t$ (indicatore di solidit\`a).\newline
-\textbf{Grafici previsti:} liquidit\`a aggregata e temporale; cash flow e
-fabbisogni; bilancio intertemporale; profili ottimi; valori marginali per
-scadenza.\newline
+\textbf{Notazione introdotta:} vettore duale $\lambda$,
+$A^{\mathrm{CF}}=(a_{tj})$, $d_t$, $g_t$, $u_t$, $r_t^{g}$, $r_t^{u}$,
+$\bar u_t$, $\lambda_0$, $\lambda_t$, $\lambda_{u,t}$, $\Pi$, $v$;
+eccezioni locali dichiarate: $X_t$ (stato patrimoniale della banca), $s_t$
+(indicatore di solidit\`{a}).\newline
+\textbf{Grafici previsti:} corrispondenza tra primale e duale;
+rappresentazione della complementariet\`{a}; liquidit\`{a} aggregata e
+temporale; cash flow e fabbisogni; bilancio intertemporale; profili ottimi;
+valori marginali per scadenza.\newline
 \textbf{Applicazioni Python collegate:} Lezione 13.
 
 \subsection{Lezione 13 - Applicazione in Python: programmazione lineare
@@ -1289,7 +1291,7 @@ deterministico coerente con il modello della Lezione 12.\newline
 \textbf{Contenuti non sviluppati:} nuova teoria di ottimizzazione o nuova
 teoria ALM.\newline
 \textbf{Applicazioni Python collegate:} Caso Aula: Silicon Valley Bank 2023, piano ALM,
-sensitivit\`a e scenari di stress; Caso TakeHome: First Republic Bank 2023,
+sensitivit\`{a} e scenari di stress; Caso TakeHome: First Republic Bank 2023,
 due ondate di deposit run e vincoli di ristrutturazione del bilancio.
 
 \subsection{Lezione 14 - Programmazione lineare stocastica I}
@@ -1299,7 +1301,7 @@ presa prima di conoscere lo scenario futuro?\newline\textbf{Prerequisiti:}
 Lezioni 11-13.
 \newline\textbf{Obiettivi didattici:} introdurre decisioni sotto incertezza, scenari,
 modelli a due stadi, decisioni here-and-now e di recourse, funzione di
-recourse e forma estesa; distinguere fattibilit\`a del primo stadio e del
+recourse e forma estesa; distinguere fattibilit\`{a} del primo stadio e del
 recourse; introdurre SP, WS, EV, EVPI e VSS.
 \newline\textbf{Notazione introdotta:} decisione di primo
 stadio $x$, scenario $s\in\mathcal{S}$, dati di scenario $\xi_{s}$, decisione
@@ -1395,9 +1397,9 @@ costruire scenari; formulare decisioni di primo stadio e recourse; imporre
 vincoli di non anticipativit\`{a}; calcolare soluzioni SP, EV e WS; stimare
 EVPI e VSS.\\La Lezione 16 consolida sul piano computazionale il modello a due stadi.
 L'estensione multistadio, l'informazione progressiva e i vincoli di
-non anticipativit\`a tra nodi intermedi restano contenuti teorici della
+non anticipativit\`{a} tra nodi intermedi restano contenuti teorici della
 Lezione 15 e non sono oggetto dell'implementazione applicativa della
-Lezione 16. Nel modello a due stadi la non anticipativit\`a della decisione
+Lezione 16. Nel modello a due stadi la non anticipativit\`{a} della decisione
 iniziale \`e imposta mantenendo un'unica decisione $x$ comune a tutti gli
 scenari.\newline\textbf{Notazione introdotta:} raccordo computazionale con
 $x$, $y_{s}$, $p_{s}$, $\xi_{s}$, $z^{SP}$, $z^{WS}$, $z^{EV}$,
@@ -1417,8 +1419,8 @@ introdurre o rimuovere vincoli di non anticipativit\`{a}.\newline%
 \textbf{Grafici previsti:} albero degli scenari; composizione del portafoglio
 per scenario o nodo; confronto dei valori; visualizzazione di EVPI e
 VSS.\newline\textbf{Applicazioni Python collegate:} Caso Aula: Silicon Valley Bank 2023, asset
-allocation, liquidit\`a e valore dell'informazione; Caso TakeHome: crisi
-LDI britannica 2022, buffer di liquidit\`a, margin call e ricorso
+allocation, liquidit\`{a} e valore dell'informazione; Caso TakeHome: crisi
+LDI britannica 2022, buffer di liquidit\`{a}, margin call e ricorso
 scenario-specifico.
 
 \section{Registro degli esercizi}
@@ -1447,10 +1449,10 @@ registrato esclusivamente nel documento dedicato allo stato di avanzamento.
 8 & Transizioni a due periodi & Stato assorbente e stazionariet\`{a} & Grafo di Markov\\
 9 & VaR discreto in modello markoviano & CVaR discreto & Distribuzione delle perdite\\
 10 & Transizioni di rating simulate & Probabilit\`{a} di default & Heatmap e distribuzione perdite\\
-11 & Formulazione PL & Duale essenziale e prezzi ombra & Regione ammissibile\\
-12 & Formulazione ALM da descrizione finanziaria &
-Fattibilit\`a temporale e funding &
-Valori duali e forma matriciale per il solver\\
+11 & Formulazione PL & Sensitivit\`{a} e prezzi ombra & Regione ammissibile\\
+12 & Costruzione del duale e complementariet\`{a} &
+Formulazione ALM e fattibilit\`{a} temporale &
+Funding e valori marginali per scadenza\\
 13 & Costruzione e soluzione del modello LP &
 Controlli, slack e valori marginali &
 Profili ALM e analisi what-if\\
