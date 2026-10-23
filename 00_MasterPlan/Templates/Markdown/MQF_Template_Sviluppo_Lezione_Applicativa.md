@@ -21,7 +21,7 @@ Per questa lezione applicativa occorre progettare:
 3. una scomposizione del caso aula in tappe logiche;
 4. la sequenza dei prompt del Caso Aula: Prompt zero, Prompt 1, Prompt 2, Prompt 3, prompt di tappa in Regime A/B ed eventuali Prompt C soltanto in presenza di criticità specifiche individuate dallo studente;
 5. un notebook Jupyter in cui ogni tappa sia documentata da celle Markdown e celle codice;
-6. una scheda di calibrazione docente per il caso take-home;
+6. una Scheda Costruzione Caso TakeHome, comprensiva della calibrazione docente;
 7. le istruzioni per la consegna del tracciato IA, ordinariamente mediante stampa PDF della chat dedicata;
 8. una rubrica di valutazione del notebook e del tracciato IA.
 
@@ -67,7 +67,7 @@ Per ogni tappa occorre esplicitare:
 
 Il caso aula deve essere sufficientemente ricco da mostrare il metodo, ma non eccessivamente lungo. Il caso take-home deve essere distinto dal caso aula, ma isomorfo sul piano metodologico: deve richiedere strumenti teorici e passaggi analoghi, senza ridursi a una semplice variazione parametrica.
 
-Per il caso take-home occorre produrre una scheda docente di calibrazione contenente:
+Per il Caso TakeHome occorre predisporre una Scheda Costruzione Caso TakeHome che comprenda anche la calibrazione docente e contenga:
 
 1. premesse teorico-matematiche attese;
 2. scomposizione attesa in tappe;
