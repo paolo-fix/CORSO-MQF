@@ -324,19 +324,29 @@ Determinare:
    x^{SP};
    \]
 
-2. le decisioni di ricorso
+2. il rendimento iniziale lordo associato alla soluzione stocastica
+   \[
+   \sum_{j=1}^{4}c_jx_j^{SP};
+   \]
+
+3. le decisioni di ricorso
    \[
    u_s^{SP},
    \qquad
    g_s^{SP};
    \]
 
-3. il valore ottimo
+4. il costo atteso del funding
+   \[
+   \sum_{s\in\mathcal S}p_s\kappa_su_s^{SP};
+   \]
+
+5. il valore ottimo
    \[
    z^{SP};
    \]
 
-4. i parametri medi
+6. i parametri medi
    \[
    \bar d,
    \qquad
@@ -345,42 +355,42 @@ Determinare:
    \bar\kappa;
    \]
 
-5. la soluzione Expected Value
+7. la soluzione Expected Value
    \[
    x^{EV};
    \]
 
-6. il valore ottimo del problema deterministico medio;
+8. il valore ottimo del problema deterministico medio;
 
-7. il valore della decisione \(x^{EV}\) rivalutata negli scenari originari
+9. il valore della decisione \(x^{EV}\) rivalutata negli scenari originari
    \[
    z^{EV};
    \]
 
-8. il Value of the Stochastic Solution
-   \[
-   VSS=z^{SP}-z^{EV};
-   \]
+10. il Value of the Stochastic Solution
+    \[
+    VSS=z^{SP}-z^{EV};
+    \]
 
-9. le soluzioni wait-and-see
-   \[
-   x_s^{WS};
-   \]
+11. le soluzioni wait-and-see
+    \[
+    x_s^{WS};
+    \]
 
-10. i valori scenario-specifici
-   \[
-   z_s^{WS};
-   \]
+12. i valori scenario-specifici
+    \[
+    z_s^{WS};
+    \]
 
-11. il valore atteso wait-and-see
-   \[
-   z^{WS};
-   \]
+13. il valore atteso wait-and-see
+    \[
+    z^{WS};
+    \]
 
-12. l'Expected Value of Perfect Information
-   \[
-   EVPI=z^{WS}-z^{SP}.
-   \]
+14. l'Expected Value of Perfect Information
+    \[
+    EVPI=z^{WS}-z^{SP}.
+    \]
 
 ---
 
@@ -392,6 +402,8 @@ Il notebook deve riportare in modo leggibile:
 
 - soluzione SP;
 - ricorsi scenario-specifici;
+- rendimento iniziale lordo;
+- costo atteso del funding;
 - valore \(z^{SP}\);
 - soluzione EV;
 - valore del problema medio;
