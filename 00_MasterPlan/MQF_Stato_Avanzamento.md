@@ -132,8 +132,6 @@ La compilazione del manuale e dei deck viene effettuata ordinariamente nel corso
 
 Restano da completare:
 
-- la riesecuzione integrale, in ambiente pulito, dei notebook della Lezione 16;
-- la verifica della riproducibilità degli output, dei seed e delle dipendenze Python per i notebook ancora aperti;
 - una verifica visuale sistematica degli output grafici e degli eventuali problemi di impaginazione;
 - una verifica residuale di eventuali rinvii espliciti obsoleti a capitoli, lezioni, file e notebook.
 
