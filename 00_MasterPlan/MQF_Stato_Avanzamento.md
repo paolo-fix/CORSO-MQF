@@ -69,18 +69,6 @@ Ai fini dello stato complessivo del progetto, i blocchi Capitoli/Lezioni 1--4, 5
 
 ---
 
-## Verifiche tecniche ancora da completare
-
-La compilazione del manuale e dei deck viene effettuata ordinariamente nel corso delle revisioni e delle modifiche e non è quindi registrata come verifica tecnica residua autonoma.
-
-Resta da completare:
-
-- una verifica visuale sistematica degli output grafici e degli eventuali problemi di impaginazione.
-
-L'output dell'audit contiene anche rumore tecnico che non deve essere interpretato come avanzamento didattico, tra cui file temporanei Word, directory `__pycache__`, file `synctex(busy)`, copie `_old` e cartelle storiche.
-
----
-
 ## Questioni operative aperte
 
 - Per le Lezioni applicative 4, 7, 10, 13 e 16 la verifica di coerenza dei notebook rispetto alle rispettive specifiche applicative e la validazione tecnica dei notebook docente risultano concluse.
