@@ -63,7 +63,7 @@ Quantitativi per la Finanza}}\\[12pt]
 \end{center}
 
 \textbf{Destinatari:} studenti del secondo anno del Corso di Laurea Magistrale in Finanza e
-Risk Management.
+Risk Management.\newline
 \textbf{Prerequisiti:} principi di Python.\newline
 \textbf{Lingua del materiale:}
 italiano.\newline\textbf{Formato di scrittura:} LaTeX compatibile con
@@ -1359,47 +1359,96 @@ stadio.\newline\textbf{Applicazioni Python collegate:} Lezione 16.
 
 \subsection{Lezione 15 - Programmazione lineare stocastica II}
 
-\textbf{Tipo:} P.\newline\textbf{Domanda guida:} come si estende una decisione
-stocastica a pi\`{u} date informative e come si impedisce l'uso anticipato
-dell'informazione futura?\newline\textbf{Prerequisiti:} Lezione 14; richiami
-su filtrazioni dalla Lezione 5.\newline\textbf{Obiettivi didattici:}
-introdurre modelli multistadio, alberi di scenari, nodi informativi, decisioni
-adattate alla storia osservata e vincoli di non anticipativit\`{a}; mantenere
-EVPI e VSS come indicatori sintetici del valore dell'informazione e della
-soluzione stocastica.\newline\textbf{Notazione introdotta:} nodi $n$
-dell'albero, predecessore $a(n)$, probabilit\`{a} di nodo $p_{n}$, decisione
-$x_{n}$, gruppi di scenari con storia comune, $z^{SP}$, $z^{WS}$, $z^{EV}$,
-$\operatorname{EVPI}$, $\operatorname{VSS}$.\newline\textbf{Formule
-principali:}
+\textbf{Tipo:} P.\newline
+\textbf{Domanda guida:} quali propriet\`{a} deve possedere una decisione
+stocastica a due stadi, come si determina il compromesso tra scenari
+differenti e quanto vale disporre di una migliore informazione sul futuro?
+\newline
+\textbf{Prerequisiti:} Lezione 14; formulazione del programma stocastico
+lineare a due stadi, funzione di ricorso e forma estesa.
+\newline
+\textbf{Obiettivi didattici:} analizzare la fattibilit\`{a} del ricorso e
+distinguere ricorso completo e relativamente completo; studiare la dipendenza
+della funzione di ricorso dalla decisione iniziale; interpretare il
+compromesso tra redditivit\`{a} della decisione ex ante e costo del ricorso;
+costruire e confrontare soluzione stocastica, Expected Value e Wait-and-See;
+interpretare $\operatorname{EVPI}$ e $\operatorname{VSS}$; raccordare la
+formulazione teorica alla forma estesa che verr\`{a} implementata nella
+Lezione 16.
+\newline
+\textbf{Notazione introdotta:} soluzione stocastica $x^{SP}$ e valore
+$z^{SP}$; soluzione Expected Value $x^{EV}$ e valore rivalutato $z^{EV}$;
+valore Wait-and-See $z^{WS}$; funzione di ricorso $Q_s(x)$;
+$\operatorname{EVPI}$ e $\operatorname{VSS}$.
+\newline
+\textbf{Formule principali:}
 \[
-x_t^{s}=x_t^{s^{\prime}} \qquad\hbox{se gli scenari }s\hbox{ e }s^{\prime
-}\hbox{ hanno la stessa storia fino a }t.
+Q_s(x)
+=
+\max_{y_s\in\mathcal X_s}
+\left\{
+q_s'y_s:
+T_sx+W_sy_s=h_s
+\right\}.
 \]
-Per problemi formulati in massimizzazione (convenzione adottata nel caso
-guida SVB-ALM),
+Per problemi formulati in massimizzazione,
 \[
-z^{WS}\geq z^{SP}\geq z^{EV}, \qquad\operatorname{EVPI}=z^{WS}-z^{SP},
-\qquad\operatorname{VSS}=z^{SP}-z^{EV}.
+z^{WS}\geq z^{SP}\geq z^{EV},
+\qquad
+\operatorname{EVPI}=z^{WS}-z^{SP},
+\qquad
+\operatorname{VSS}=z^{SP}-z^{EV}.
 \]
-\textbf{Esercizi previsti:} costruzione di un piccolo albero multistadio;
-identificazione di vincoli di non anticipativit\`{a}; calcolo di EVPI e VSS su
-esempio ridotto.\newline\textbf{Grafici previsti:} albero multistadio; gruppi
-di scenari con storia comune; confronto dei valori SP, EV e WS.\newline%
+Il valore $z^{EV}$ viene ottenuto rivalutando la decisione $x^{EV}$ negli
+scenari originari e non coincide, in generale, con il valore ottimo del
+problema deterministico costruito sui parametri medi.
+\newline
+\textbf{Esercizi previsti:} verifica della fattibilit\`{a} del ricorso in
+presenza di capacit\`{a} limitata; costruzione e interpretazione di funzioni
+di ricorso lineari a tratti; scelta della decisione iniziale al variare della
+probabilit\`{a} di uno scenario avverso; calcolo e confronto di SP, EV e WS;
+calcolo di $\operatorname{EVPI}$ e $\operatorname{VSS}$; costruzione della
+forma estesa con pi\`{u} scenari.
+\newline
+\textbf{Grafici previsti:} funzione di ricorso lineare a tratti; confronto
+tra soluzione stocastica, Expected Value e Wait-and-See; rappresentazione
+grafica di $\operatorname{EVPI}$ e $\operatorname{VSS}$; struttura a blocchi
+della forma estesa.
+\newline
 \textbf{Applicazioni Python collegate:} Lezione 16.
+
+\medskip
+
+Il Capitolo 15 amplia la trattazione oltre i contenuti sviluppati nella
+lezione introducendo la programmazione stocastica multistadio, la
+rivelazione progressiva dell'informazione, gli alberi degli scenari e i
+vincoli di non anticipativit\`{a} tra decisioni associate a storie
+informative comuni. In tale estensione uno stadio decisionale pu\`{o}
+comprendere pi\`{u} tempi fisici e le decisioni di ricorso vengono
+organizzate in blocchi adattati all'informazione disponibile nei diversi
+stadi.
+
+Questi contenuti costituiscono un ampliamento teorico del manuale e non sono
+sviluppati nelle slides della Lezione 15. La lezione rimane deliberatamente
+nel framework a due stadi, cos\`{i} da isolare la fattibilit\`{a} e le
+propriet\`{a} della soluzione, il valore dell'informazione e la struttura
+della forma estesa, preparando direttamente la successiva implementazione
+computazionale della Lezione 16.
 
 \subsection{Lezione 16 - Applicazione in Python: programmazione stocastica}
 
 \textbf{Tipo:} C.\newline\textbf{Domanda guida:} come si implementa un modello
 di asset allocation sotto incertezza con scenari e decisioni non
 anticipative?\newline\textbf{Prerequisiti:} Lezioni 14-15; basi operative di
-Python.\newline\textbf{Obiettivi didattici:} implementare modelli di
-programmazione stocastica per problemi di asset allocation sotto incertezza;
-costruire scenari; formulare decisioni di primo stadio e recourse; imporre
-vincoli di non anticipativit\`{a}; calcolare soluzioni SP, EV e WS; stimare
-EVPI e VSS.\\La Lezione 16 consolida sul piano computazionale il modello a due stadi.
+Python.\newline\textbf{Obiettivi didattici:} implementare modelli di programmazione
+stocastica a due stadi per problemi di asset allocation sotto incertezza;
+costruire scenari; formulare decisioni di primo stadio e decisioni di
+ricorso scenario-specifiche; rappresentare la non anticipativit\`{a}
+mediante un'unica decisione iniziale comune agli scenari; calcolare
+soluzioni SP, EV e WS; stimare $\operatorname{EVPI}$ e
+$\operatorname{VSS}$.\\La Lezione 16 consolida sul piano computazionale il modello a due stadi.
 L'estensione multistadio, l'informazione progressiva e i vincoli di
-non anticipativit\`{a} tra nodi intermedi restano contenuti teorici della
-Lezione 15 e non sono oggetto dell'implementazione applicativa della
+non anticipativit\`{a} tra nodi intermedi restano contenuti teorici del Capitolo 15 e non sono oggetto dell'implementazione applicativa della
 Lezione 16. Nel modello a due stadi la non anticipativit\`{a} della decisione
 iniziale \`e imposta mantenendo un'unica decisione $x$ comune a tutti gli
 scenari.\newline\textbf{Notazione introdotta:} raccordo computazionale con
@@ -1416,10 +1465,13 @@ z^{WS}\geq z^{SP}\geq z^{EV},
 \]
 \textbf{Esercizi previsti:} modificare probabilit\`{a} degli scenari;
 modificare rendimenti e passivit\`{a}; confrontare soluzioni SP, EV e WS;
-introdurre o rimuovere vincoli di non anticipativit\`{a}.\newline%
-\textbf{Grafici previsti:} albero degli scenari; composizione del portafoglio
-per scenario o nodo; confronto dei valori; visualizzazione di EVPI e
-VSS.\newline\textbf{Applicazioni Python collegate:} Caso Aula: Silicon Valley Bank 2023, asset
+verificare la fattibilit\`{a} del ricorso e la non anticipativit\`{a}
+della decisione iniziale comune agli scenari.
+\newline
+\textbf{Grafici previsti:} rappresentazione degli scenari; composizione
+della decisione iniziale comune; confronto del ricorso nei diversi scenari;
+confronto dei valori SP, EV e WS; visualizzazione di
+$\operatorname{EVPI}$ e $\operatorname{VSS}$.\newline\textbf{Applicazioni Python collegate:} Caso Aula: Silicon Valley Bank 2023, asset
 allocation, liquidit\`{a} e valore dell'informazione; Caso TakeHome: crisi
 LDI britannica 2022, buffer di liquidit\`{a}, margin call e ricorso
 scenario-specifico.
@@ -1458,7 +1510,8 @@ Funding e valori marginali per scadenza\\
 Controlli, slack e valori marginali &
 Profili ALM e analisi what-if\\
 14 & Modello a due stadi & Recourse e valore atteso & Albero degli scenari a due stadi\\
-15 & Non anticipativit\`{a} multistadio & EVPI e VSS & Albero multistadio e confronto valori\\
+15 & Fattibilit\`{a} e funzione di ricorso & EVPI e VSS &
+Forma estesa e confronto SP/EV/WS\\
 16 & Modifica degli scenari & Confronto SP/EV/WS & Grafico dei risultati\\
 \hline
 \end{longtable}
