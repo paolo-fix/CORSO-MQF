@@ -182,7 +182,9 @@ in tempo discreto e applicarlo a un primo modello concreto.
 
 \begin{center}
 {\small Tutti gli strumenti di questa lezione valgono per qualunque
-processo, discreto o continuo.}
+processo, discreto o continuo.\\
+Approfondimenti ed esempi ulteriori sono raccolti nella sezione
+finale \emph{Materiale aggiuntivo}.}
 \end{center}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
@@ -301,57 +303,6 @@ influenzano e si correlano.
 \end{frame}%
 %EndExpansion
 
-%******************
-% Slide 5 - Esempio finanziario: prezzo su più periodi
-%******************
-
-\subsection{Esempio finanziario}
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\QTR{frametitle}{(*) Esempio: il prezzo di un'azione su pi\`{u} periodi}
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
-
-Sia $S_t$ il prezzo di un'azione al tempo $t = 0, 1, 2, 3$.
-
-\medskip
-
-\begin{stepitemize}
-
-\item \textbf{Distribuzione marginale}: al tempo $t=2$ il prezzo $S_2$
-\`{e} una variabile casuale. Possiamo chiederci: qual \`{e} il suo
-valore atteso? Qual \`{e} la sua varianza?
-
-\item \textbf{Traiettoria}: in uno scenario $\omega$ specifico, il
-prezzo percorre un cammino:
-\[
-S_0(\omega) = 100,\quad S_1(\omega) = 110,\quad
-S_2(\omega) = 99,\quad S_3(\omega) = 108.9.
-\]
-Ogni scenario corrisponde a una diversa sequenza di rialzi e ribassi.
-
-\item \textbf{Famiglia}: la struttura congiunta di $S_0, S_1, S_2, S_3$
-risponde a domande come: il prezzo di oggi \`{e} correlato con quello
-di dopodomani? Come evolve l'incertezza sul prezzo al crescere
-dell'orizzonte?
-
-\end{stepitemize}
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
 
 %******************
 % Slide 6 - Spazio campionario e traiettorie
@@ -478,56 +429,6 @@ Dipendenza lineare tra i valori del processo a due istanti diversi.
 \end{frame}%
 %EndExpansion
 
-%******************
-% Slide 8 - Significato finanziario
-%******************
-
-\subsection{Significato finanziario}
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\QTR{frametitle}{(*) Significato finanziario}
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
-
-Le tre funzioni rispondono a domande operative concrete.
-
-\medskip
-
-\begin{stepitemize}
-
-\item $\mu(t)$: \textbf{qual \`{e} il valore atteso del prezzo
-(o del tasso) al tempo $t$?}\\
-Utile per stimare il rendimento atteso su un orizzonte.
-
-\item $\sigma^2(t)$: \textbf{quanto \`{e} incerto il valore
-all'orizzonte $t$?}\\
-L'incertezza tipicamente cresce con $t$: il futuro lontano
-\`{e} pi\`{u} difficile da prevedere del futuro prossimo.
-
-\item $c(s,t)$: \textbf{il valore di oggi \`{e} correlato
-con il valore di domani?}\\
-Se $c(s,t) > 0$: un valore elevato oggi tende ad
-accompagnarsi a un valore elevato in futuro.\\
-Se $c(s,t) = 0$: i valori ai due istanti sono incorrelati --
-il passato non aiuta a prevedere il futuro.
-
-\end{stepitemize}
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
 
 %******************
 % Slide 9 - Esempio 1: rumore i.i.d.
@@ -638,57 +539,6 @@ traiettorie che partono alte tendono a restare alte e viceversa.
 \end{frame}%
 %EndExpansion
 
-%******************
-% Slide 11 - Confronto e ponte al moto browniano
-%******************
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\QTR{frametitle}{(*) Confronto e ponte al tempo continuo (Lezione 6)}
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
-
-\begin{center}
-\begin{tabular}{lcc}
-\hline
-& \textbf{Rendimenti i.i.d.} & \textbf{Passeggiata aleatoria}\\
-\hline
-$\mu(t)$ & $\nu$ (costante) & $t\,\nu$ (crescente)\\
-$\sigma^2(t)$ & $\tau^2$ (costante) & $t\,\tau^2$ (crescente)\\
-$c(s,t)$ & $0$ & $\min(s,t)\,\tau^2$\\
-Struttura temporale & nessuna & accumulo nel tempo\\
-\hline
-\end{tabular}
-\end{center}
-
-\medskip
-
-\begin{stepitemize}
-
-\item La varianza $\sigma^2(t) = t\,\tau^2$ della passeggiata aleatoria
-cresce \textbf{linearmente} con il tempo: raddoppiare l'orizzonte
-raddoppia la varianza del valore finale.
-
-\item La struttura di covarianza $c(s,t) = \min(s,t)\,\tau^2$
-ricompare \textbf{identica} nel moto browniano standard (Lezione 6),
-di cui la passeggiata aleatoria \`{e} l'analogo discreto.
-
-\end{stepitemize}
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
 
 %******************
 % Slide 12 - Stazionariet\`{a} forte e debole
@@ -1084,57 +934,6 @@ naturale -- per costruzione.
 \end{frame}%
 %EndExpansion
 
-%******************
-% Slide 19 - Esempi: adattato vs anticipativo
-%******************
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\QTR{frametitle}{(*) Esempi: adattato vs anticipativo}
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
-
-Sia $\{X_t\}$ il profitto cumulato di una strategia di trading,
-$\{\mathcal{F}_t\}$ la sua filtrazione naturale.
-
-\medskip
-
-\begin{stepitemize}
-
-\item \textbf{Adattato}: il massimo profitto osservato fino a $t$,
-\[
-M_t = \max_{s \leq t} X_s.
-\]
-Per calcolarlo bastano i valori $X_0, X_1, \ldots, X_t$,
-tutti gi\`{a} osservati. Anche il drawdown $D_t = M_t - X_t$
-\`{e} adattato.
-
-\item \textbf{Anticipativo}: il profitto del giorno successivo,
-\[
-X_{t+1}.
-\]
-Per conoscerlo oggi bisognerebbe vedere l'esito di domani:
-richiede informazione futura, non ancora disponibile in $t$.
-
-\item Anche la media futura $\frac{1}{T-t}\sum_{k=t+1}^T X_k$
-\`{e} anticipativa: dipende da valori non ancora realizzati.
-
-\end{stepitemize}
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
 
 %******************
 % Slide 20 - Implicazione finanziaria
@@ -1157,10 +956,9 @@ richiede informazione futura, non ancora disponibile in $t$.
 \begin{block}{Principio fondamentale}
 Una strategia di investimento \`{e} implementabile se, a ogni data,
 la posizione da detenere nel periodo successivo \`{e} determinata
-dall'informazione gi\`a disponibile. Con la convenzione adottata
-nella trasformata di martingala, la posizione $\phi_t$ detenuta
-nell'intervallo $(t-1,t]$ deve quindi essere
-$\F_{t-1}$-misurabile, cio\`{e} prevedibile.
+dall'informazione gi\`{a} disponibile. Se $\phi_t$ indica la
+posizione detenuta nell'intervallo $(t-1,t]$, $\phi_t$ deve quindi
+essere $\F_{t-1}$-misurabile, cio\`{e} prevedibile.
 \end{block}
 \vspace{-0.2cm}
 %\medskip
@@ -1363,7 +1161,7 @@ componente di gioco equo dalla tendenza.
 %EndExpansion
 
 %******************
-% Slide 24 - Esempio: profitto cumulato
+% Slide 24 - Esempio: passeggiata aleatoria e decomposizione
 %******************
 
 \subsection{Esempio}
@@ -1380,24 +1178,76 @@ componente di gioco equo dalla tendenza.
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Sia $X_t = \sum_{k=1}^t Z_k$ con $Z_k$ i.i.d., $\E[Z_k] = \nu$,
-$\Var(Z_k)=\tau^2$. Allora $\E[X_t \mid \F_s] = X_s + (t-s)\nu$.
+Sia $X_t=\sum_{k=1}^t Z_k$ con $Z_k$ i.i.d., $\E[Z_k]=\nu$,
+$\Var(Z_k)=\tau^2$. Poich\'{e} $Z_{t+1}$ \`{e} indipendente da
+$\F_t$, si ha $\E[X_t\mid\F_s]=X_s+(t-s)\nu$.
 
 \medskip
 
 \begin{stepitemize}
-\item Per $\nu = 0$: martingala. Per $\nu > 0$: submartingala.
-Per $\nu < 0$: supermartingala.
-\item \textbf{Decomposizione di Doob esplicita}: con drift $\nu$,
+\item Per $\nu=0$: martingala. Per $\nu>0$: submartingala.
+Per $\nu<0$: supermartingala.
+\item \textbf{Costruzione della decomposizione di Doob}: la
+componente prevedibile somma gli incrementi attesi condizionati,
 \[
-X_t = \underbrace{(X_t - t\nu)}_{M_t \text{ martingala}}
-+ \underbrace{t\nu}_{A_t \text{ prevedibile}}.
+A_t=\sum_{k=1}^{t}\E[X_k-X_{k-1}\mid\F_{k-1}],
+\qquad M_t=X_t-A_t.
 \]
-\item \textbf{Il quadrato $X^2_t$ non è una martingala, perché incorpora la crescita prevedibile della varianza}. Il processo
+\item Qui ogni incremento atteso vale
+$\E[Z_k\mid\F_{k-1}]=\nu$, quindi $A_t=t\nu$ e
 \[
-X_t^2 - \Var(X_t) = X_t^2 - t\tau^2 \quad (\text{caso } \nu=0)
+X_t=\underbrace{(X_t-t\nu)}_{M_t\text{ martingala}}
++\underbrace{t\nu}_{A_t\text{ prevedibile}}.
 \]
-\`{e} una martingala.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+% Slide 24-bis - Esempio: il quadrato della passeggiata aleatoria
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Esempio: il quadrato della passeggiata aleatoria}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Caso $\nu=0$, quindi $\E[Z_k^2]=\tau^2$. Il processo $\{X_t^2\}$
+\`{e} adattato e integrabile: \`{e} una martingala?
+
+\medskip
+
+\begin{stepitemize}
+\item Sviluppando il quadrato,
+$X_{t+1}^2=X_t^2+2X_tZ_{t+1}+Z_{t+1}^2$. Poich\'{e} $X_t$ \`{e}
+noto in $t$ e $Z_{t+1}$ \`{e} indipendente da $\F_t$:
+\[
+\E[X_{t+1}^2\mid\F_t]=X_t^2+2X_t\underbrace{\E[Z_{t+1}]}_{=0}
++\underbrace{\E[Z_{t+1}^2]}_{=\tau^2}=X_t^2+\tau^2.
+\]
+\item $\{X_t^2\}$ \`{e} quindi una \textbf{submartingala}: a ogni
+periodo cresce in media di $\tau^2$. Con la costruzione di Doob,
+$A_t=t\tau^2$ e
+\[
+M_t=X_t^2-t\tau^2, \qquad
+\E[M_{t+1}\mid\F_t]=X_t^2+\tau^2-(t+1)\tau^2=M_t.
+\]
+\item Poich\'{e} $t\tau^2=\Var(X_t)$, la componente prevedibile del
+quadrato \`{e} la crescita della varianza.
 \end{stepitemize}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
@@ -1459,107 +1309,6 @@ imprevedibili -- legame diretto con l'efficienza dei mercati.
 \end{frame}%
 %EndExpansion
 
-%******************
-% Slide 26 - Trasformata di martingala e arresto opzionale
-%******************
-
-\subsection{Strategie e arresto opzionale}
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\QTR{frametitle}{(*) Strategie prevedibili e arresto opzionale}
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
-
-Sia $\{X_t\}$ una martingala e $\{\phi_t\}$ una strategia
-\textbf{prevedibile} ($\phi_t$ \`{e} $\F_{t-1}$-misurabile: la
-posizione si sceglie prima di osservare l'esito).
-
-%\medskip
-
-\begin{stepitemize}
-\item Il \textbf{guadagno cumulato} della strategia,
-\[
-G_t = \sum_{k=1}^t \phi_k (X_k - X_{k-1}),
-\]
-\`{e} ancora una martingala (\emph{trasformata di martingala}):
-$\E[G_t \mid \F_s] = G_s$.
-\item Conseguenza: nessuna strategia prevedibile trasforma un gioco
-equo in uno favorevole. In particolare $\E[G_T] = 0$.
-\item \textbf{Arresto opzionale}: per un tempo d'arresto $\tau$
-limitato, $\E[X_\tau] = \E[X_0]$. Scegliere \emph{quando} uscire,
-sulla sola base del passato, non altera il valore atteso.
-\item Il risultato mostra che una strategia prevedibile non trasforma
-una martingala in una strategia con guadagno atteso positivo.
-Il collegamento con l'\textbf{assenza di arbitraggio} sar\`{a}
-formalizzato nella slide successiva mediante la misura martingala
-equivalente.
-\end{stepitemize}
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-%******************
-% Slide 27 - Cambio di misura e pricing
-%******************
-
-\subsection{Cambio di misura}
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\QTR{frametitle}{(*) Misura fisica, misura risk-neutral, pricing}
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
-
-\begin{alertblock}{La propriet\`{a} di martingala \`{e} relativa alla misura}
-Lo stesso processo pu\`{o} essere submartingala sotto $\Prob$ e
-martingala sotto una misura equivalente $\Q$.
-\end{alertblock}
-
-\medskip
-
-\begin{stepitemize}
-\item Sotto la misura \textbf{fisica} $\Prob$, il prezzo scontato
-$\tilde{S}_t = S_t / (1+r)^t$ \`{e} tipicamente una submartingala
-(premio al rischio positivo).
-\item Esiste una misura \textbf{equivalente} $\Q$, legata a $\Prob$
-dalla derivata di Radon-Nikodym $\frac{d\Q}{d\Prob}$, sotto la quale
-$\tilde{S}_t$ \`{e} una martingala.
-\item Allora il prezzo di un derivato con payoff $H$ \`{e}
-\[
-\pi_0 = \E_{\Q}\!\left[\frac{H}{(1+r)^T}\right].
-\]
-\item L'\textbf{esistenza} di $\Q$ equivale all'assenza di arbitraggio;
-la sua \textbf{unicit\`{a}} alla completezza del mercato (primo e
-secondo teorema fondamentale del pricing).
-\end{stepitemize}
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
 
 % ============================================================
 % Slides_Lez_05_Gruppo_07_Binomiale.tex
@@ -1721,63 +1470,6 @@ prezzi alti in futuro.
 \end{frame}%
 %EndExpansion
 
-%******************
-% Slide 31 - Ricombinazione: concetto
-%******************
-
-\subsection{Scenari e ricombinazione}
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\QTR{frametitle}{(*) Scenari, albero e ricombinazione}
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
-
-
-\begin{example}
-$S_0=100$, $u=1.1$, $d=0.9$, $p=0.6$:
-\[
-m=0.6\cdot1.1+0.4\cdot0.9=1.02, \qquad
-\mu(3)=100\cdot1.02^3=106.12.
-\]
-\end{example}
-
-\medskip
-
-\begin{stepitemize}
-
-\item Con $T=3$ il modello ha $2^3=8$ scenari (traiettorie),
-ma solo $4$ valori terminali distinti, perch\'{e}
-$ud=du$: l'ordine dei movimenti non conta per il prezzo
-finale.
-
-\item \textbf{Ricombinazione}: il numero di nodi distinti
-al tempo $t$ \`{e} $t+1$, non $2^t$. Per $T=3$:
-$1+2+3+4=10$ nodi, anzich\'{e} $1+2+4+8=15$.
-
-\item La crescita \textbf{lineare} del numero di nodi
-(non esponenziale) \`{e} computazionalmente cruciale:
-consente di calcolare valori attesi condizionati e prezzi
-su alberi con molti periodi in modo efficiente.
-
-\end{stepitemize}
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-
 
 %******************
 % Slide 32 - Sigma-algebre e partizioni sull'albero
@@ -1845,70 +1537,6 @@ osservato fino a $t$.
 \end{frame}%
 %EndExpansion
 
-%******************
-% Slide 33 - Processo delle previsioni sull'albero
-%******************
-
-\subsection{Processo delle previsioni}
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\QTR{frametitle}{(*) Il processo delle previsioni sull'albero}
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
-
-Definiamo $H_t=\E[S_3\mid\F_t]$: la previsione del prezzo
-terminale aggiornata all'informazione disponibile al tempo $t$.
-
-\medskip
-
-\begin{stepitemize}
-
-\item \textbf{Formula compatta}: poich\`{e} i fattori futuri
-sono indipendenti da $\F_t$,
-\[
-H_t=\E[S_3\mid\F_t]=S_t\cdot m^{3-t}.
-\]
-La previsione \`{e} il prezzo corrente capitalizzato al
-rendimento medio $m$ per i periodi residui.
-
-\item \textbf{Valori nei nodi} ($S_0=100$, $m=1.02$):
-\begin{center}
-{\small
-\begin{tabular}{cl}
-\hline
-$t$ & Valori di $H_t$ nei nodi\\
-\hline
-$0$ & $106.12$\\
-$1$ & $114.44$ (nodo $u$), $\quad 93.64$ (nodo $d$)\\
-$2$ & $123.42$ ($uu$), $100.98$ ($ud$), $82.62$ ($dd$)\\
-$3$ & $133.10$, $108.90$, $89.10$, $72.90$\\
-\hline
-\end{tabular}
-}
-\end{center}
-
-\item \textbf{Verifica al nodo $u$, $t=1\to 2$}:
-\[
-\E[H_2\mid A_u]=0.6\cdot123.42+0.4\cdot100.98=114.44=H_1(A_u).
-\]
-
-\end{stepitemize}
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
 
 %******************
 % Slide 34 - Martingala di Doob e prezzi
@@ -1946,7 +1574,7 @@ $\E[H_{t+1}-H_t\mid\F_t]=0$.
 \[
 \E[S_{t+1}\mid\F_t]=S_t\cdot m.
 \]
-Con $m=1.02>1$: $\E[S_{t+1}\mid\F_t]>S_t$ --- il processo
+Con $m>1$: $\E[S_{t+1}\mid\F_t]>S_t$ --- il processo
 dei prezzi \`{e} una \textbf{submartingala}.
 
 \item \textbf{Attenzione}: non confondere il processo delle
@@ -2003,7 +1631,7 @@ come affinamento progressivo delle partizioni di $\Omega$.
 \item \textbf{Adattato}: $S_t$ \`{e} $\F_t$-misurabile;
 $S_{t+1}$ \`{e} anticipativo rispetto a $\F_t$.
 
-\item \textbf{Martingala di Doob}: $H_t=S_t\,m^{3-t}$,
+\item \textbf{Martingala di Doob}: $H_t=\E[S_3\mid\F_t]$,
 sempre martingala per la propriet\`{a} della torre.
 
 \item \textbf{Submartingala}: $\{S_t\}$ con $m>1$; martingala
@@ -2355,5 +1983,529 @@ di non anticipativit\`{a} della programmazione stocastica.
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+
+%******************
+% Slide A00 - Separatore: Materiale aggiuntivo
+%******************
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+\vfill
+\begin{center}
+{\Huge\bfseries\textcolor{structure.fg!55}{Materiale aggiuntivo}}
+\end{center}
+\vfill
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+
+% MATERIALE AGGIUNTIVO
+% Slide di approfondimento, non svolte in aula
+% (in precedenza contrassegnate con (*) nel corpo della lezione)
+% ============================================================
+
+\section{Materiale aggiuntivo}
+
+%******************
+% Slide A0 - Indice del materiale aggiuntivo
+%******************
+
+\subsection{Indice}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Materiale aggiuntivo}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Le slide seguenti approfondiscono o esemplificano punti della
+lezione. Non fanno parte del percorso svolto in aula, ma sono utili
+per lo studio individuale.
+
+\medskip
+
+{\small
+\begin{tabular}{lp{6.9cm}}
+\hline
+\textbf{Blocco della lezione} & \textbf{Approfondimento}\\
+\hline
+Processo stocastico & Il prezzo di un'azione su pi\`{u} periodi\\
+Momenti e dipendenza & Significato finanziario di $\mu(t)$,
+$\sigma^2(t)$, $c(s,t)$\\
+ & Confronto i.i.d./passeggiata aleatoria e ponte al tempo continuo\\
+Filtrazione & Esempi di processi adattati e anticipativi\\
+Martingale & Strategie prevedibili e arresto opzionale\\
+ & Misura fisica, misura risk-neutral, pricing\\
+Modello binomiale & Scenari, albero e ricombinazione\\
+ & Il processo delle previsioni sull'albero\\
+\hline
+\end{tabular}
+}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+% Slide 5 - Esempio finanziario: prezzo su più periodi
+%******************
+
+\subsection{Esempio finanziario}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Esempio: il prezzo di un'azione su pi\`{u} periodi}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Sia $S_t$ il prezzo di un'azione al tempo $t = 0, 1, 2, 3$.
+
+\medskip
+
+\begin{stepitemize}
+
+\item \textbf{Distribuzione marginale}: al tempo $t=2$ il prezzo $S_2$
+\`{e} una variabile casuale. Possiamo chiederci: qual \`{e} il suo
+valore atteso? Qual \`{e} la sua varianza?
+
+\item \textbf{Traiettoria}: in uno scenario $\omega$ specifico, il
+prezzo percorre un cammino:
+\[
+S_0(\omega) = 100,\quad S_1(\omega) = 110,\quad
+S_2(\omega) = 99,\quad S_3(\omega) = 108.9.
+\]
+Ogni scenario corrisponde a una diversa sequenza di rialzi e ribassi.
+
+\item \textbf{Famiglia}: la struttura congiunta di $S_0, S_1, S_2, S_3$
+risponde a domande come: il prezzo di oggi \`{e} correlato con quello
+di dopodomani? Come evolve l'incertezza sul prezzo al crescere
+dell'orizzonte?
+
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+% Slide 8 - Significato finanziario
+%******************
+
+\subsection{Significato finanziario}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Significato finanziario}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Le tre funzioni rispondono a domande operative concrete.
+
+\medskip
+
+\begin{stepitemize}
+
+\item $\mu(t)$: \textbf{qual \`{e} il valore atteso del prezzo
+(o del tasso) al tempo $t$?}\\
+Utile per stimare il rendimento atteso su un orizzonte.
+
+\item $\sigma^2(t)$: \textbf{quanto \`{e} incerto il valore
+all'orizzonte $t$?}\\
+L'incertezza tipicamente cresce con $t$: il futuro lontano
+\`{e} pi\`{u} difficile da prevedere del futuro prossimo.
+
+\item $c(s,t)$: \textbf{il valore di oggi \`{e} correlato
+con il valore di domani?}\\
+Se $c(s,t) > 0$: un valore elevato oggi tende ad
+accompagnarsi a un valore elevato in futuro.\\
+Se $c(s,t) = 0$: i valori ai due istanti sono incorrelati --
+il passato non aiuta a prevedere il futuro.
+
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+% Slide 11 - Confronto e ponte al moto browniano
+%******************
+
+\subsection{Confronto e ponte al tempo continuo}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Confronto e ponte al tempo continuo (Lezione 6)}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+\begin{center}
+\begin{tabular}{lcc}
+\hline
+& \textbf{Rendimenti i.i.d.} & \textbf{Passeggiata aleatoria}\\
+\hline
+$\mu(t)$ & $\nu$ (costante) & $t\,\nu$ (crescente)\\
+$\sigma^2(t)$ & $\tau^2$ (costante) & $t\,\tau^2$ (crescente)\\
+$c(s,t)$ & $0$ & $\min(s,t)\,\tau^2$\\
+Struttura temporale & nessuna & accumulo nel tempo\\
+\hline
+\end{tabular}
+\end{center}
+
+\medskip
+
+\begin{stepitemize}
+
+\item La varianza $\sigma^2(t) = t\,\tau^2$ della passeggiata aleatoria
+cresce \textbf{linearmente} con il tempo: raddoppiare l'orizzonte
+raddoppia la varianza del valore finale.
+
+\item La struttura di covarianza $c(s,t) = \min(s,t)\,\tau^2$
+ricompare \textbf{identica} nel moto browniano standard (Lezione 6),
+di cui la passeggiata aleatoria \`{e} l'analogo discreto.
+
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+% Slide 19 - Esempi: adattato vs anticipativo
+%******************
+
+\subsection{Esempi: adattato e anticipativo}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Esempi: adattato vs anticipativo}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Sia $\{X_t\}$ il profitto cumulato di una strategia di trading,
+$\{\mathcal{F}_t\}$ la sua filtrazione naturale.
+
+\medskip
+
+\begin{stepitemize}
+
+\item \textbf{Adattato}: il massimo profitto osservato fino a $t$,
+\[
+M_t = \max_{s \leq t} X_s.
+\]
+Per calcolarlo bastano i valori $X_0, X_1, \ldots, X_t$,
+tutti gi\`{a} osservati. Anche il drawdown $D_t = M_t - X_t$
+\`{e} adattato.
+
+\item \textbf{Anticipativo}: il profitto del giorno successivo,
+\[
+X_{t+1}.
+\]
+Per conoscerlo oggi bisognerebbe vedere l'esito di domani:
+richiede informazione futura, non ancora disponibile in $t$.
+
+\item Anche la media futura $\frac{1}{T-t}\sum_{k=t+1}^T X_k$
+\`{e} anticipativa: dipende da valori non ancora realizzati.
+
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+% Slide 26 - Trasformata di martingala e arresto opzionale
+%******************
+
+\subsection{Strategie e arresto opzionale}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Strategie prevedibili e arresto opzionale}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Sia $\{X_t\}$ una martingala e $\{\phi_t\}$ una strategia
+\textbf{prevedibile} ($\phi_t$ \`{e} $\F_{t-1}$-misurabile: la
+posizione si sceglie prima di osservare l'esito).
+
+%\medskip
+
+\begin{stepitemize}
+\item Il \textbf{guadagno cumulato} della strategia,
+\[
+G_t = \sum_{k=1}^t \phi_k (X_k - X_{k-1}),
+\]
+\`{e} ancora una martingala (\emph{trasformata di martingala}):
+$\E[G_t \mid \F_s] = G_s$.
+\item Conseguenza: nessuna strategia prevedibile trasforma un gioco
+equo in uno favorevole. In particolare $\E[G_T] = 0$.
+\item \textbf{Arresto opzionale}: per un tempo d'arresto $\tau$
+limitato, $\E[X_\tau] = \E[X_0]$. Scegliere \emph{quando} uscire,
+sulla sola base del passato, non altera il valore atteso.
+\item Il risultato mostra che una strategia prevedibile non trasforma
+una martingala in una strategia con guadagno atteso positivo.
+Il collegamento con l'\textbf{assenza di arbitraggio} sar\`{a}
+formalizzato nella slide successiva mediante la misura martingala
+equivalente.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+% Slide 27 - Cambio di misura e pricing
+%******************
+
+\subsection{Cambio di misura}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Misura fisica, misura risk-neutral, pricing}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+\begin{alertblock}{La propriet\`{a} di martingala \`{e} relativa alla misura}
+Lo stesso processo pu\`{o} essere submartingala sotto $\Prob$ e
+martingala sotto una misura equivalente $\Q$.
+\end{alertblock}
+
+\medskip
+
+\begin{stepitemize}
+\item Sotto la misura \textbf{fisica} $\Prob$, il prezzo scontato
+$\tilde{S}_t = S_t / (1+r)^t$ \`{e} tipicamente una submartingala
+(premio al rischio positivo).
+\item Esiste una misura \textbf{equivalente} $\Q$, legata a $\Prob$
+dalla derivata di Radon-Nikodym $\frac{d\Q}{d\Prob}$, sotto la quale
+$\tilde{S}_t$ \`{e} una martingala.
+\item Allora il prezzo di un derivato con payoff $H$ \`{e}
+\[
+\pi_0 = \E_{\Q}\!\left[\frac{H}{(1+r)^T}\right].
+\]
+\item L'\textbf{esistenza} di $\Q$ equivale all'assenza di arbitraggio;
+la sua \textbf{unicit\`{a}} alla completezza del mercato (primo e
+secondo teorema fondamentale del pricing).
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+% Slide 31 - Ricombinazione: concetto
+%******************
+
+\subsection{Scenari e ricombinazione}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Scenari, albero e ricombinazione}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+
+\begin{example}
+$S_0=100$, $u=1.1$, $d=0.9$, $p=0.6$:
+\[
+m=0.6\cdot1.1+0.4\cdot0.9=1.02, \qquad
+\mu(3)=100\cdot1.02^3=106.12.
+\]
+\end{example}
+
+\medskip
+
+\begin{stepitemize}
+
+\item Con $T=3$ il modello ha $2^3=8$ scenari (traiettorie),
+ma solo $4$ valori terminali distinti, perch\'{e}
+$ud=du$: l'ordine dei movimenti non conta per il prezzo
+finale.
+
+\item \textbf{Ricombinazione}: il numero di nodi distinti
+al tempo $t$ \`{e} $t+1$, non $2^t$. Per $T=3$:
+$1+2+3+4=10$ nodi, anzich\'{e} $1+2+4+8=15$.
+
+\item La crescita \textbf{lineare} del numero di nodi
+(non esponenziale) \`{e} computazionalmente cruciale:
+consente di calcolare valori attesi condizionati e prezzi
+su alberi con molti periodi in modo efficiente.
+
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%******************
+% Slide 33 - Processo delle previsioni sull'albero
+%******************
+
+\subsection{Processo delle previsioni}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Il processo delle previsioni sull'albero}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Definiamo $H_t=\E[S_3\mid\F_t]$: la previsione del prezzo
+terminale aggiornata all'informazione disponibile al tempo $t$.
+
+\medskip
+
+\begin{stepitemize}
+
+\item \textbf{Formula compatta}: poich\`{e} i fattori futuri
+sono indipendenti da $\F_t$,
+\[
+H_t=\E[S_3\mid\F_t]=S_t\cdot m^{3-t}.
+\]
+La previsione \`{e} il prezzo corrente capitalizzato al
+rendimento medio $m$ per i periodi residui.
+
+\item \textbf{Valori nei nodi} ($S_0=100$, $m=1.02$):
+\begin{center}
+{\small
+\begin{tabular}{cl}
+\hline
+$t$ & Valori di $H_t$ nei nodi\\
+\hline
+$0$ & $106.12$\\
+$1$ & $114.44$ (nodo $u$), $\quad 93.64$ (nodo $d$)\\
+$2$ & $123.42$ ($uu$), $100.98$ ($ud$), $82.62$ ($dd$)\\
+$3$ & $133.10$, $108.90$, $89.10$, $72.90$\\
+\hline
+\end{tabular}
+}
+\end{center}
+
+\item \textbf{Verifica al nodo $u$, $t=1\to 2$}:
+\[
+\E[H_2\mid A_u]=0.6\cdot123.42+0.4\cdot100.98=114.44=H_1(A_u).
+\]
+
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
 
 \end{document}
