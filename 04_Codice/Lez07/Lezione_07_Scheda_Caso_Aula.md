@@ -41,11 +41,11 @@ Il prezzo deve essere costruito a partire dai valori attuali ottenuti nelle sing
 
 Il tasso istantaneo di inflazione segue un processo di Ornstein--Uhlenbeck:
 
-$
+$$
 di_t=
 \kappa_i(\theta_i-i_t)\,dt
 +
-\sigma_i\,dW_t^{(i)}$.
+\sigma_i\,dW_t^{(i)}.$$
 
 Il modello ammette valori negativi di $i_t$, compatibili con periodi di deflazione.
 
@@ -53,23 +53,23 @@ Il modello ammette valori negativi di $i_t$, compatibili con periodi di deflazio
 
 Il tasso nominale istantaneo segue un processo CIR:
 
-$
+$$
 dr_t=
 \kappa_r(\theta_r-r_t)\,dt
 +
-\sigma_r\sqrt{r_t}\,dW_t^{(r)}$.
+\sigma_r\sqrt{r_t}\,dW_t^{(r)}.$$
 
 I parametri assegnati soddisfano la condizione di Feller:
 
-$
+$$
 2\kappa_r\theta_r
 \geq
-\sigma_r^2$.
+\sigma_r^2.$$
 
 Nella discretizzazione numerica, il termine diffusivo deve utilizzare
 
-$
-\sqrt{\max(r_t,0)}$.
+$$
+\sqrt{\max(r_t,0)}.$$
 
 L'operatore $\max(r_t,0)$ agisce soltanto all'interno della radice quadrata. Eventuali valori negativi del tasso prodotti dalla discretizzazione non devono essere automaticamente azzerati, ma rilevati e documentati.
 
@@ -77,8 +77,8 @@ L'operatore $\max(r_t,0)$ agisce soltanto all'interno della radice quadrata. Eve
 
 Gli shock browniani soddisfano:
 
-$
-dW_t^{(i)}\,dW_t^{(r)}=\rho\,dt$.
+$$
+dW_t^{(i)}\,dW_t^{(r)}=\rho\,dt.$$
 
 La dipendenza deve essere preservata all'interno della stessa replica Monte Carlo.
 
@@ -88,11 +88,11 @@ Sia $I_t$ il livello dell'indice dei prezzi e sia $I_0$ il suo valore iniziale.
 
 Il fattore cumulato di indicizzazione è
 
-$
+$$
 J_t=\frac{I_t}{I_0}=
 \exp\left(
 \int_0^t i_s\,ds
-\right)$.
+\right).$$
 
 Sulla griglia temporale, l'integrale deve essere approssimato numericamente utilizzando i valori dell'inflazione appartenenti alla stessa replica.
 
@@ -100,10 +100,10 @@ Sulla griglia temporale, l'integrale deve essere approssimato numericamente util
 
 Il fattore di sconto stocastico è
 
-$
+$$
 D(0,t)=\exp\left(
 -\int_0^t r_s\,ds
-\right)$.
+\right).$$
 
 Anche questo integrale deve essere approssimato lungo la singola traiettoria del tasso. Non deve essere utilizzato il solo valore terminale $r_T$, né un tasso medio calcolato tra repliche differenti.
 
@@ -113,45 +113,45 @@ Il bond ha valore facciale $N$, scadenza $T$ e tasso cedolare annuo $c$.
 
 Le cedole sono semestrali. Alla data $t_j$,
 
-$
-C_{t_j}=\frac{c}{2}N J_{t_j}$.
+$$
+C_{t_j}=\frac{c}{2}N J_{t_j}.$$
 
 Le cedole non sono protette contro la deflazione.
 
 A scadenza il capitale rimborsato è
 
-$R_T=N\max(J_T,1)$.
+$$R_T=N\max(J_T,1).$$
 
 Il floor protegge quindi il capitale nominale, non le cedole.
 
 Per la replica Monte Carlo $k$,
 
-$
+$$
 V^{(k)}=\sum_{j=1}^{m}
 D^{(k)}(0,t_j)
 C_{t_j}^{(k)}
 +
 D^{(k)}(0,T)
-R_T^{(k)}$.
+R_T^{(k)}.$$
 
 Con $M$ repliche, il prezzo Monte Carlo è
 
-$
+$$
 \widehat V_M=\frac{1}{M}
 \sum_{k=1}^{M}
-V^{(k)}$.
+V^{(k)}.$$
 
 Indicando con $s_V$ la deviazione standard campionaria dei valori $V^{(k)}$,
 
-$
-SE(\widehat V_M)=\frac{s_V}{\sqrt{M}}$.
+$$
+SE(\widehat V_M)=\frac{s_V}{\sqrt{M}}.$$
 
 Un intervallo di confidenza Monte Carlo approssimato al $95\%$ è
 
-$
+$$
 \widehat V_M
 \pm
-1.96\,SE(\widehat V_M)$.
+1.96\,SE(\widehat V_M).$$
 
 ---
 
@@ -194,7 +194,6 @@ Devono essere determinate almeno le seguenti quantità:
 3. **valore attuale medio delle cedole**;
 4. **valore attuale atteso del rimborso del capitale**;
 5. probabilità simulata di deflazione cumulata a scadenza, $\widehat{\mathbb P}(J_T<1)$;
-
 6. media e deviazione standard simulate di $i_T$, $r_T$, $J_T$.
 
 Tutte le quantità finanziarie devono essere costruite replica per replica prima dell'aggregazione Monte Carlo.
