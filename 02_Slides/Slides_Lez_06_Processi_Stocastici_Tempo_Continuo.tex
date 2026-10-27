@@ -50,7 +50,7 @@
   }%
   \vskip0pt%
 }
-
+\definecolor{light-blue}{rgb}{0.50,0.55,1.00}% 
 \providecommand{\R}{\mathbb{R}}
 \providecommand{\N}{\mathbb{N}}
 \providecommand{\E}{\mathbb{E}}
@@ -84,65 +84,57 @@ mean-reversion e simulazione}
 \begin{document}
 \maketitle
 
-
-% ============================================================
+%********************
 % GRUPPO 1 - APERTURA E ORIENTAMENTO
 % Slide 1-3
 % Tempo parziale: 7 minuti | Tempo cumulato: 7 minuti
-% ============================================================
+%********************
 
 \section{Apertura}
 
-%******************
-% Slide 1 - Collocazione della lezione
-%******************
+% Slide 1 - Domanda guida
 
-\subsection{Dal tempo discreto al tempo continuo}
+\subsection{Domanda guida}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Processi stocastici in tempo continuo}
+\QTR{frametitle}{La domanda guida: traiettorie in tempo continuo}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Nella lezione precedente abbiamo costruito il linguaggio generale dei
-processi stocastici:
+\begin{center}
+{\large Come si modellano fattori finanziari che evolvono con continuit\`a
+nel tempo, e come si preparano alla simulazione?}
+\end{center}
 
+\medskip
+
+Nella Lezione 5 abbiamo costruito il linguaggio dei processi stocastici:
 \[
 \text{traiettorie}
-\quad
-\text{--}
-\quad
+\quad\text{--}\quad
 \text{informazione}
-\quad
-\text{--}
-\quad
+\quad\text{--}\quad
 \text{martingale}.
 \]
+Ora l'indice temporale varia con continuit\`a: $\{X_t\}_{t\geq 0}$.
 
 \medskip
 
-Passiamo ora ai principali modelli finanziari in cui il tempo varia
-con continuit\`{a}:
-
-\[
-\{X_t\}_{t\geq 0}.
-\]
-
-\medskip
+Un modello in tempo continuo si costruisce con tre ingredienti:
 
 \begin{stepitemize}
-\item Il processo viene descritto mediante una dinamica locale.
-\item L'incertezza \`{e} generata da incrementi browniani.
-\item Le traiettorie vengono poi costruite su una griglia temporale.
+\item una sorgente di incertezza: gli \textbf{incrementi browniani};
+\item una \textbf{dinamica locale} che d\`a forma a quell'incertezza:
+drift e diffusione;
+\item una \textbf{griglia temporale} su cui generare le traiettorie.
 \end{stepitemize}
-
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -151,21 +143,18 @@ con continuit\`{a}:
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
+% Slide 2 - Motivazione finanziaria: i due casi
 
-%******************
-% Slide 2 - Motivazione finanziaria
-%******************
-
-\subsection{Perch\'{e} servono intere traiettorie}
+\subsection{Due casi}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Perch\'{e} servono intere traiettorie?}
+\QTR{frametitle}{Due casi che chiedono intere traiettorie}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -174,30 +163,34 @@ con continuit\`{a}:
 
 \begin{stepitemize}
 
-\item Una banca deve valutare un contratto il cui payoff dipende non
-soltanto dal prezzo finale di un titolo, ma anche dai livelli raggiunti
-durante la vita del contratto.
+\item \textbf{Caso A.} Una banca deve valutare un contratto su un titolo
+il cui payoff dipende dai livelli raggiunti durante la vita del
+contratto, per esempio dalla media dei prezzi.
+
+Fattore da modellare: il prezzo $S_t$.
 
 \medskip
 
-\item Un fondo pensione deve valutare un'obbligazione i cui flussi
-dipendono dall'inflazione futura e il cui valore attuale dipende
-dall'evoluzione dei tassi di interesse.
+\item \textbf{Caso B.} Un fondo pensione deve valutare un'obbligazione i
+cui flussi sono indicizzati all'inflazione e il cui valore attuale
+dipende dall'evoluzione dei tassi di interesse.
+
+Fattori da modellare: l'inflazione e il tasso istantaneo $r_t$, che
+evolvono insieme.
 
 \end{stepitemize}
 
 \medskip
 
-In entrambi i casi non basta descrivere una sola variabile terminale:
-occorre modellizzare l'evoluzione congiunta delle grandezze rilevanti
-lungo l'intero orizzonte temporale.
+In entrambi i casi non basta la distribuzione di una variabile
+terminale: occorre l'evoluzione delle grandezze rilevanti lungo l'intero
+orizzonte.
 
 \medskip
 
 \begin{center}
 {\large Come si descrivono e si generano queste traiettorie?}
 \end{center}
-
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -206,12 +199,9 @@ lungo l'intero orizzonte temporale.
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
-
-%******************
-% Slide 3 - Percorso della lezione
-%******************
+% Slide 3 - Mappa del percorso
 
 \subsection{Percorso della lezione}
 
@@ -220,41 +210,95 @@ lungo l'intero orizzonte temporale.
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Percorso della lezione}
+\QTR{frametitle}{Il percorso: ogni passo nasce dal limite del precedente}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-La lezione costruisce il passaggio dal rumore elementare al modello
-finanziario simulabile.
+{\scriptsize
+\renewcommand{\arraystretch}{1.3}
+\begin{center}
+\begin{tabular}{|c|p{1.9cm}|p{4.9cm}|p{2.7cm}|}
+\hline
+\textbf{Passo} & \textbf{Tema} & \textbf{Domanda} & \textbf{Strumento} \\
+\hline
+1 & Il rumore & Quanto \`e grande uno shock su $\Delta t$? & $W_t$, scala $\sqrt{\Delta t}$ \\
+\hline
+2 & La forma & Quali propriet\`a deve avere il processo? & SDE: GBM, OU, CIR \\
+\hline
+3 & La dipendenza & I processi si muovono insieme? & shock correlati \\
+\hline
+4 & La simulazione & Come si genera la traiettoria? & Eulero-Maruyama \\
+\hline
+\end{tabular}
+\end{center}
+}
 
-\medskip
+\begin{stepitemize}
+\item Il rumore browniano fornisce lo shock, ma non le propriet\`a
+economiche.
+\item Drift e diffusione danno forma al rumore: un modello per ciascun
+caso.
+\item Nel Caso B gli shock non sono indipendenti: vanno
+costruiti congiuntamente.
+\item La dinamica continua viene riportata su una griglia e diventa
+traiettoria simulata.
+\end{stepitemize}
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+%*
 
-\begin{stepenumerate}
-\item[1.] Moto browniano e scala temporale degli incrementi.
-\item[2.] Equazioni differenziali stocastiche: drift e diffusione.
-\item[3.] Moto browniano geometrico per i prezzi.
-\item[4.] Processi mean-reverting: Ornstein-Uhlenbeck e CIR.
-\item[5.] Shock correlati nei modelli a pi\`{u} fattori.
-\item[6.] Discretizzazione mediante Eulero-Maruyama.
-\end{stepenumerate}
+%********************
+% GRUPPO 2 - PASSO 1: IL RUMORE (MOTO BROWNIANO)
+% Divisorio + Slide 4-8
+% Tempo parziale: 12 minuti | Tempo cumulato: 19 minuti
+%********************
 
-\medskip
+\section{\texorpdfstring{Passo 1 -- Il rumore}{Passo 1 - Il rumore}}
 
-\[
-\text{modello continuo}
-\longrightarrow
-\text{griglia temporale}
-\longrightarrow
-\text{traiettorie simulate}.
-\]
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\setbeamertemplate{headline}{}
+
+\vfill
 
 \begin{center}
-{\small La Lezione 7 tradurr\`{a} questo percorso in procedure Python
-per simulazione e pricing Monte Carlo.}
+\textcolor{light-blue}{{\Large \textbf{Passo 1 -- Il rumore: il moto browniano}}}
 \end{center}
+
+\vfill
+
+{\scriptsize
+\renewcommand{\arraystretch}{1.3}
+\begin{center}
+\begin{tabular}{|c|p{1.9cm}|p{4.9cm}|p{2.7cm}|}
+\hline
+\textbf{Passo} & \textbf{Tema} & \textbf{Domanda} & \textbf{Strumento} \\
+\hline
+\alert{1} & \alert{Il rumore} & \alert{Quanto \`e grande uno shock su $\Delta t$?} & \alert{$W_t$, scala $\sqrt{\Delta t}$} \\
+\hline
+2 & La forma & Quali propriet\`a deve avere il fattore? & SDE: GBM, OU, CIR \\
+\hline
+3 & La dipendenza & I fattori si muovono insieme? & shock correlati \\
+\hline
+4 & La simulazione & Come si genera la traiettoria? & Eulero-Maruyama \\
+\hline
+\end{tabular}
+\end{center}
+}
+
+\vfill
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
@@ -264,20 +308,9 @@ per simulazione e pricing Monte Carlo.}
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
-
-% ============================================================
-% GRUPPO 2 - DAL TEMPO DISCRETO AL MOTO BROWNIANO
-% Slide 4-8
-% Tempo parziale: 12 minuti | Tempo cumulato: 19 minuti
-% ============================================================
-
-\section{Moto browniano}
-
-%******************
 % Slide 4 - Passeggiata aleatoria riscalata
-%******************
 
 \subsection{Passeggiata aleatoria riscalata}
 
@@ -286,45 +319,41 @@ per simulazione e pricing Monte Carlo.}
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Dalla passeggiata aleatoria alla griglia temporale}
+\QTR{frametitle}{Si parte da una griglia: la passeggiata aleatoria riscalata}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Consideriamo una griglia uniforme dell'intervallo $[0,T]$:
+\textcolor{light-blue}{Il modo pi\`u semplice di generare incertezza nel tempo: sommare shock indipendenti su una griglia.}
 
+\medskip
+
+Consideriamo una griglia uniforme dell'intervallo $[0,T]$:
 \[
 0=t_0<t_1<\cdots<t_n=T,
 \qquad
 \Delta t=\frac{T}{n}.
 \]
-
 A ogni intervallo associamo una innovazione gaussiana indipendente
-
 \[
 Z_1,\ldots,Z_n\sim\mathcal{N}(0,1).
 \]
-
-La passeggiata aleatoria riscalata \`{e}
-
+La passeggiata aleatoria riscalata \`e
 \[
 W_{t_j}^{(n)}
 =
 \sum_{k=1}^{j}\sqrt{\Delta t}\,Z_k,
 \qquad
-j=1,\ldots,n.
+j=1,\ldots,n,
 \]
-
-Il singolo incremento sulla griglia \`{e}
-
+e il singolo incremento sulla griglia \`e
 \[
 W_{t_j}^{(n)}-W_{t_{j-1}}^{(n)}
 =
 \sqrt{\Delta t}\,Z_j.
 \]
-
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -333,12 +362,9 @@ W_{t_j}^{(n)}-W_{t_{j-1}}^{(n)}
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
-
-%******************
-% Slide 5 - Raffinamento della griglia
-%******************
+% Slide 5 - Raffinamento della griglia e ripresa della Lezione 5
 
 \subsection{Raffinamento della griglia}
 
@@ -347,7 +373,7 @@ W_{t_j}^{(n)}-W_{t_{j-1}}^{(n)}
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Verso il tempo continuo}
+\QTR{frametitle}{Raffinando la griglia, la struttura della varianza non cambia}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -355,36 +381,30 @@ W_{t_j}^{(n)}-W_{t_{j-1}}^{(n)}
 %EndExpansion
 
 Per ogni incremento della passeggiata riscalata:
-
 \[
-\E\left[
-W_{t_j}^{(n)}-W_{t_{j-1}}^{(n)}
-\right]
-=
-0,
+\E\left[W_{t_j}^{(n)}-W_{t_{j-1}}^{(n)}\right]=0,
 \qquad
-\Var\left(
-W_{t_j}^{(n)}-W_{t_{j-1}}^{(n)}
-\right)
-=
-\Delta t.
+\Var\left(W_{t_j}^{(n)}-W_{t_{j-1}}^{(n)}\right)=\Delta t.
 \]
 
 \begin{stepitemize}
 
 \item Raffinando la griglia, $\Delta t$ diminuisce e i singoli
-incrementi diventano pi\`{u} piccoli.
+incrementi diventano pi\`u piccoli, ma la varianza accumulata su
+$[0,T]$ resta $n\Delta t=T$.
 
-\item La varianza accumulata su $[0,T]$ rimane
+\item La covarianza fra due tempi della griglia \`e
 \[
-n\Delta t=T.
+\Cov\left(W_{t_i}^{(n)},W_{t_j}^{(n)}\right)=\min(t_i,t_j):
 \]
+\`e la struttura $\min(s,t)\,\tau^2$ della passeggiata aleatoria della
+Lezione 5, con varianza per unit\`a di tempo pari a $1$.
 
-\item Nel passaggio al tempo continuo si conserva la struttura:
-incrementi indipendenti con varianza pari alla durata dell'intervallo.
+\item Nel passaggio al tempo continuo si conserva proprio questa
+struttura: incrementi indipendenti con varianza pari alla durata
+dell'intervallo.
 
 \end{stepitemize}
-
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -393,12 +413,9 @@ incrementi indipendenti con varianza pari alla durata dell'intervallo.
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
-
-%******************
 % Slide 6 - Moto browniano standard
-%******************
 
 \subsection{Moto browniano standard}
 
@@ -407,29 +424,26 @@ incrementi indipendenti con varianza pari alla durata dell'intervallo.
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Moto browniano standard}
+\QTR{frametitle}{Il limite della griglia: il moto browniano standard}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Un processo $\{W_t\}_{t\geq0}$ \`{e} un \textbf{moto browniano
+Un processo $\{W_t\}_{t\geq0}$ \`e un \textbf{moto browniano
 standard} se:
 
 \begin{stepenumerate}
 
-\item[1.] parte dall'origine:
-\[
-W_0=0;
-\]
+\item[1.] parte dall'origine: $W_0=0$;
 
 \item[2.] le traiettorie $t\mapsto W_t(\omega)$ sono continue;
 
 \item[3.] gli incrementi su intervalli temporali disgiunti sono
 indipendenti;
 
-\item[4.] per ogni $0\leq s<t$,
+\item[4.] per ogni intervallo $0\leq s<t$,
 \[
 W_t-W_s
 \sim
@@ -438,9 +452,19 @@ W_t-W_s
 
 \end{stepenumerate}
 
+\medskip
+
+Ne seguono
+\[
+\E[W_t]=0,
+\qquad
+\Var(W_t)=t,
+\qquad
+\Cov(W_s,W_t)=\min(s,t).
+\]
+
 La distribuzione dell'incremento dipende dalla lunghezza
 dell'intervallo, non dalla sua posizione nel tempo.
-
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -449,12 +473,9 @@ dell'intervallo, non dalla sua posizione nel tempo.
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
-
-%******************
 % Slide 7 - Scala degli incrementi
-%******************
 
 \subsection{Scala degli incrementi}
 
@@ -463,7 +484,7 @@ dell'intervallo, non dalla sua posizione nel tempo.
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{La scala degli incrementi}
+\QTR{frametitle}{Lo shock su $\Delta t$ scala con $\sqrt{\Delta t}$, non con $\Delta t$}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -471,7 +492,6 @@ dell'intervallo, non dalla sua posizione nel tempo.
 %EndExpansion
 
 Su un intervallo di ampiezza $\Delta t$,
-
 \[
 \Delta W_t
 =
@@ -479,9 +499,7 @@ W_{t+\Delta t}-W_t
 \sim
 \mathcal{N}(0,\Delta t).
 \]
-
 Quindi
-
 \[
 \E[\Delta W_t]=0,
 \qquad
@@ -489,9 +507,7 @@ Quindi
 \qquad
 \operatorname{sd}(\Delta W_t)=\sqrt{\Delta t}.
 \]
-
 Per simulare l'incremento si usa
-
 \[
 \Delta W_t
 =
@@ -501,13 +517,11 @@ Z\sim\mathcal{N}(0,1).
 \]
 
 \begin{stepitemize}
-
-\item $Z$ \`{e} una innovazione standardizzata.
-\item $\Delta W_t$ \`{e} l'incremento browniano sull'intervallo effettivo.
-\item Lo shock browniano scala con $\sqrt{\Delta t}$, non con $\Delta t$.
-
+\item $Z$ \`e una innovazione standardizzata.
+\item $\Delta W_t$ \`e l'incremento browniano sull'intervallo effettivo.
+\item Su intervalli brevi, $\sqrt{\Delta t}$ \`e molto pi\`u grande di
+$\Delta t$: lo shock domina la variazione locale.
 \end{stepitemize}
-
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -516,12 +530,9 @@ Z\sim\mathcal{N}(0,1).
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
-
-%******************
-% Slide 8 - Traiettorie browniane
-%******************
+% Slide 8 - Traiettorie browniane e ponte
 
 \subsection{Traiettorie browniane}
 
@@ -530,7 +541,7 @@ Z\sim\mathcal{N}(0,1).
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Che aspetto ha una traiettoria browniana?}
+\QTR{frametitle}{Traiettorie continue, irregolari, sempre pi\`u disperse}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -538,7 +549,7 @@ Z\sim\mathcal{N}(0,1).
 %EndExpansion
 
 \begin{center}
-\includegraphics[width=0.68\textwidth]
+\includegraphics[width=0.6\textwidth]
 {../graphics/Cap06_Brownian_traiettorie.png}
 \end{center}
 
@@ -546,16 +557,14 @@ Z\sim\mathcal{N}(0,1).
 
 \item Le traiettorie sono continue, ma irregolari.
 
-\item La dispersione aumenta con l'orizzonte temporale, poich\'{e}
-\[
-\Var(W_t)=t.
-\]
+\item La dispersione aumenta con l'orizzonte temporale, poich\'e
+$\Var(W_t)=t$.
 
-\item Il Browniano \`{e} la sorgente elementare degli shock: non impone
-positivit\`{a} n\'{e} mean reversion.
+\item \textcolor{light-blue}{Il moto browniano \`e la materia prima degli
+shock, ma non ha forma: non resta positivo e non torna verso alcun
+livello. Prima di dargli forma, una conseguenza immediata per il rischio.}
 
 \end{stepitemize}
-
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -564,49 +573,41 @@ positivit\`{a} n\'{e} mean reversion.
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
-
-% ============================================================
+%********************
 % GRUPPO 3 - ESERCIZIO IN AULA: SCALA TEMPORALE DEL RISCHIO
 % Slide 9-11
 % Tempo parziale: 8 minuti | Tempo cumulato: 27 minuti
-% ============================================================
+%********************
 
-\section{Scala temporale del rischio}
-
-%******************
 % Slide 9 - Esercizio
-%******************
 
-\subsection{Shock giornaliero e settimanale}
+\subsection{Esercizio: scala temporale del rischio}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Esercizio: shock giornaliero e settimanale}
+\QTR{frametitle}{Esercizio: dal rischio giornaliero al rischio su cinque giorni}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-La componente aleatoria del rendimento di un'attivit\`{a} \`{e}
-
+La componente aleatoria del rendimento di un'attivit\`a su un
+orizzonte $h$ \`e
 \[
 R_h
 =
 \sigma\left(W_{t+h}-W_t\right),
 \]
-
-con volatilit\`{a} annualizzata
-
+con volatilit\`a annualizzata
 \[
 \sigma=0.20.
 \]
-
 Si assumano $252$ giorni di mercato in un anno.
 
 \medskip
@@ -621,11 +622,10 @@ Determinare:
 
 \item[3.] il rapporto tra le due deviazioni standard;
 
-\item[4.] la probabilit\`{a} che lo shock giornaliero sia inferiore al
+\item[4.] la probabilit\`a che lo shock giornaliero sia inferiore al
 $-2\%$.
 
 \end{stepenumerate}
-
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -634,12 +634,9 @@ $-2\%$.
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
-
-%******************
-% Slide 10 - Regola della radice del tempo
-%******************
+% Slide 10 - Soluzione punti 1-3
 
 \subsection{Regola della radice del tempo}
 
@@ -648,28 +645,26 @@ $-2\%$.
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Soluzione: la regola della radice del tempo}
+\QTR{frametitle}{Soluzione: il rischio cresce con la radice dell'orizzonte}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Poich\'{e}
-
+Poich\'e su un intervallo annuale $[0,h]$
 \[
 R_h\sim\mathcal{N}(0,\sigma^2h),
 \qquad
 \operatorname{sd}(R_h)=\sigma\sqrt{h},
 \]
-
-si ottiene:
+per un intervallo giornaliero si ottiene:
 
 {\small
 \[
 \operatorname{sd}(R_{1/252})
 =
-\frac{0.20}{\sqrt{252}}
+0.20\sqrt{\frac{1}{252}}
 \approx0.0126,
 \qquad
 \operatorname{sd}(R_{5/252})
@@ -680,7 +675,6 @@ si ottiene:
 }
 
 Pertanto,
-
 \[
 \frac{\operatorname{sd}(R_{5/252})}
 {\operatorname{sd}(R_{1/252})}
@@ -690,9 +684,8 @@ Pertanto,
 2.236.
 \]
 
-La deviazione standard a cinque giorni \`{e} circa $2.24$ volte quella
-giornaliera.
-
+Quintuplicare l'orizzonte non quintuplica il rischio: la deviazione
+standard a cinque giorni \`e circa $2.24$ volte quella giornaliera.
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -701,21 +694,18 @@ giornaliera.
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
+% Slide 11 - Soluzione punto 4 e ponte al passo 2
 
-%******************
-% Slide 11 - Probabilita' di coda
-%******************
-
-\subsection{Probabilit\`{a} di coda}
+\subsection{Probabilit\`a di coda}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Probabilit\`{a} di uno shock giornaliero inferiore al $-2\%$}
+\QTR{frametitle}{Soluzione: uno shock giornaliero sotto il $-2\%$}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -723,7 +713,6 @@ giornaliera.
 %EndExpansion
 
 Lo shock giornaliero soddisfa
-
 \[
 R_{1/252}
 \sim
@@ -737,9 +726,7 @@ R_{1/252}
 \approx
 0.0126.
 \]
-
 Standardizzando,
-
 \[
 \Prob(R_{1/252}<-0.02)
 =
@@ -748,18 +735,68 @@ Standardizzando,
 \frac{-0.02}{0.0126}
 \right)
 =
-\Phi(-1.587).
-\]
-
-Dalla tavola della normale standard:
-
-\[
-\Prob(R_{1/252}<-0.02)
+\Phi(-1.587)
 \approx
 0.0562.
 \]
+La probabilit\`a richiesta \`e quindi circa il $5.6\%$.
 
-La probabilit\`{a} richiesta \`{e} quindi circa il $5.6\%$.
+\bigskip
+
+\textcolor{light-blue}{Per modellare altri oggetti finanziari (prezzi, tassi interesse, di inflazione,...) il moto browniano non è sufficientemente articolato.}
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+%*
+
+%********************
+% GRUPPO 4 - PASSO 2: LA FORMA (EQUAZIONI DIFFERENZIALI STOCASTICHE)
+% Divisorio + Slide 12-14
+% Tempo parziale: 10 minuti | Tempo cumulato: 37 minuti
+%********************
+
+\section{\texorpdfstring{Passo 2 -- La forma}{Passo 2 - La forma}}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\setbeamertemplate{headline}{}
+
+\vfill
+
+\begin{center}
+\textcolor{light-blue}{{\Large \textbf{Passo 2 -- La forma: drift e diffusione}}}
+\end{center}
+
+\vfill
+
+{\scriptsize
+\renewcommand{\arraystretch}{1.3}
+\begin{center}
+\begin{tabular}{|c|p{1.9cm}|p{4.9cm}|p{2.7cm}|}
+\hline
+\textbf{Passo} & \textbf{Tema} & \textbf{Domanda} & \textbf{Strumento} \\
+\hline
+1 & Il rumore & Quanto \`e grande uno shock su $\Delta t$? & $W_t$, scala $\sqrt{\Delta t}$ \\
+\hline
+\alert{2} & \alert{La forma} & \alert{Quali propriet\`a deve avere il fattore?} & \alert{SDE: GBM, OU, CIR} \\
+\hline
+3 & La dipendenza & I fattori si muovono insieme? & shock correlati \\
+\hline
+4 & La simulazione & Come si genera la traiettoria? & Eulero-Maruyama \\
+\hline
+\end{tabular}
+\end{center}
+}
+
+\vfill
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
@@ -769,20 +806,9 @@ La probabilit\`{a} richiesta \`{e} quindi circa il $5.6\%$.
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
-
-% ============================================================
-% GRUPPO 4 - EQUAZIONI DIFFERENZIALI STOCASTICHE
-% Slide 12-14
-% Tempo parziale: 9 minuti | Tempo cumulato: 36 minuti
-% ============================================================
-
-\section{Equazioni differenziali stocastiche}
-
-%******************
 % Slide 12 - Struttura generale di una diffusione
-%******************
 
 \subsection{Struttura generale}
 
@@ -791,15 +817,14 @@ La probabilit\`{a} richiesta \`{e} quindi circa il $5.6\%$.
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Struttura generale di una diffusione}
+\QTR{frametitle}{Una SDE d\`a forma al rumore: drift e diffusione}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Una diffusione in tempo continuo \`{e} descritta da
-
+Una diffusione in tempo continuo \`e descritta da una \textbf{equazione differenziale stocastica}:
 \[
 dX_t
 =
@@ -814,7 +839,7 @@ b(X_t,t)\,dW_t.
 la componente sistematica della variazione.
 
 \item Il coefficiente $b(X_t,t)$ determina la \textbf{diffusione}:
-l'intensit\`{a} dello shock casuale.
+l'intensit\`a con cui lo shock browniano entra nella dinamica.
 
 \item Entrambi i coefficienti possono dipendere dal
 \textbf{livello corrente} $X_t$ e dal \textbf{tempo} $t$.
@@ -824,8 +849,7 @@ l'intensit\`{a} dello shock casuale.
 \medskip
 
 Il simbolo $dW_t$ rappresenta un incremento browniano elementare:
-non \`{e} una derivata ordinaria rispetto al tempo.
-
+non \`e un differenziale ordinario.
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -834,12 +858,9 @@ non \`{e} una derivata ordinaria rispetto al tempo.
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
-
-%******************
-% Slide 13 - Drift e diffusione
-%******************
+% Slide 13 - Drift e diffusione: interpretazione locale
 
 \subsection{Interpretazione locale}
 
@@ -848,7 +869,7 @@ non \`{e} una derivata ordinaria rispetto al tempo.
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Drift e diffusione: interpretazione locale}
+\QTR{frametitle}{Il drift sposta la media, la diffusione scala lo shock}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -856,7 +877,6 @@ non \`{e} una derivata ordinaria rispetto al tempo.
 %EndExpansion
 
 Su un intervallo temporale breve $\Delta t$,
-
 \[
 \Delta X_t
 \approx
@@ -866,9 +886,7 @@ b(X_t,t)\sqrt{\Delta t}\,Z,
 \qquad
 Z\sim\mathcal{N}(0,1).
 \]
-
 Condizionatamente al livello corrente,
-
 \[
 \E[\Delta X_t\mid X_t]
 \approx
@@ -885,11 +903,10 @@ b^2(X_t,t)\,\Delta t.
 
 \item La \textbf{diffusione} governa la varianza locale.
 
-\item La componente di drift \`{e} dell'ordine di $\Delta t$;
-lo shock casuale \`{e} dell'ordine di $\sqrt{\Delta t}$.
+\item La componente di drift \`e dell'ordine di $\Delta t$;
+lo shock casuale \`e dell'ordine di $\sqrt{\Delta t}$, come nel passo 1.
 
 \end{stepitemize}
-
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -898,87 +915,58 @@ lo shock casuale \`{e} dell'ordine di $\sqrt{\Delta t}$.
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
+% Slide 14 - Tre domande di progetto e scheda dei requisiti
 
-%******************
-% Slide 14 - Tre scelte modellistiche
-%******************
-
-\subsection{Tre scelte modellistiche}
+\subsection{Tre domande di progetto}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Tre scelte modellistiche}
+\QTR{frametitle}{Scegliere $a$ e $b$ significa scegliere le propriet\`a di un processo}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-La scelta di \textbf{drift} e \textbf{diffusione} determina le
-propriet\`{a} economiche del processo.
+Prima di scegliere un modello, tre domande di progetto:
+
+\begin{stepenumerate}
+\item[1.] Il processo deve \textbf{restare positivo}?
+\item[2.] Deve \textbf{tornare verso un livello} di lungo periodo?
+\item[3.] La sua \textbf{volatilit\`a} deve dipendere dal livello corrente?
+\end{stepenumerate}
 
 \medskip
 
-{\scriptsize
-\renewcommand{\arraystretch}{1.35}
 \begin{center}
-\begin{tabular}{|p{1.0cm}|p{2.05cm}|p{2.05cm}|p{5.0cm}|}
-\hline
-\textbf{Modello}
-&
-\textbf{Drift}
-&
-\textbf{Diffusione}
-&
-\textbf{Propriet\`{a} e applicazione}
-\\
-\hline
+\scriptsize
+\textbf{Scheda dei requisiti (da compilare)}
 
-GBM
-&
-$\mu S_t$
-&
-$\sigma S_t$
-&
-Positivit\`{a}; shock proporzionali al livello; prezzi di attivit\`{a}.
-\\
-\hline
+\smallskip
 
-OU
-&
-$\kappa(\theta-X_t)$
-&
-$\sigma$
-&
-Mean reversion; valori anche negativi; spread e scostamenti.
-\\
+\renewcommand{\arraystretch}{1.25}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{0.95cm}|p{1.85cm}|p{3.0cm}|p{3.1cm}|}
 \hline
-
-CIR
-&
-$\kappa(\theta-X_t)$
-&
-$\sigma\sqrt{X_t}$
-&
-Mean reversion e non negativit\`{a}; tassi e intensit\`{a}.
-\\
+\textbf{Modello} & \textbf{Positivo?} & \textbf{Richiamo?} & \textbf{Vol. dal livello?}  \\
 \hline
-
+GBM & ? & ? & ?  \\
+\hline
+OU & ? & ? & ?  \\
+\hline
+CIR & ? & ? & ?  \\
+\hline
 \end{tabular}
 \end{center}
-}
 
 \medskip
 
-I tre modelli incorporano ipotesi diverse sul
-\textbf{supporto}, sulla \textbf{mean reversion} e sulla dipendenza
-della volatilit\`{a} dal livello del processo.
-
+La scheda si riempie un modello alla volta, partendo dal Caso A.
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -987,38 +975,36 @@ della volatilit\`{a} dal livello del processo.
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
-
-% ============================================================
-% GRUPPO 5 - MOTO BROWNIANO GEOMETRICO
+%********************
+% GRUPPO 5 - PASSO 2a: MOTO BROWNIANO GEOMETRICO (CASO A)
 % Slide 15-19
-% Tempo parziale: 17 minuti | Tempo cumulato: 53 minuti
-% ============================================================
+% Tempo parziale: 15 minuti | Tempo cumulato: 52 minuti
+%********************
 
-\section{Moto browniano geometrico}
+\subsection{Moto browniano geometrico}
 
-%******************
-% Slide 15 - Dinamica moltiplicativa
-%******************
-
-\subsection{Dinamica moltiplicativa}
+% Slide 15 - GBM: dinamica moltiplicativa
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{GBM: una dinamica moltiplicativa}
+\QTR{frametitle}{Caso A: un prezzo richiede shock proporzionali al livello}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
+
+\textcolor{light-blue}{Un prezzo non pu\`o diventare negativo e oscilla in proporzione al proprio livello: uno shock di 2 euro pesa diversamente su un titolo da 10 euro e su uno da 100.}
+
+\medskip
 
 Il \textbf{moto browniano geometrico} descrive il prezzo
 $\{S_t\}_{t\geq0}$ mediante
-
 \[
 dS_t
 =
@@ -1026,19 +1012,13 @@ dS_t
 +
 \sigma S_t\,dW_t,
 \qquad
-S_0>0.
-\]
-
-Dividendo per il livello corrente:
-
-\[
+S_0>0,
+\qquad
 \frac{dS_t}{S_t}
 =
 \mu\,dt+\sigma\,dW_t.
 \]
-
 Su un breve intervallo temporale,
-
 \[
 \frac{\Delta S_t}{S_t}
 \approx
@@ -1048,16 +1028,11 @@ Z\sim\mathcal{N}(0,1).
 \]
 
 \begin{stepitemize}
-
 \item $\mu$ determina il \textbf{rendimento medio locale}.
-
-\item $\sigma$ determina la \textbf{volatilit\`{a} relativa}.
-
+\item $\sigma$ determina la \textbf{volatilit\`a relativa}.
 \item Drift e shock assoluti sono proporzionali al
 \textbf{livello corrente} $S_t$.
-
 \end{stepitemize}
-
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -1066,21 +1041,16 @@ Z\sim\mathcal{N}(0,1).
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
-
-%******************
 % Slide 16 - Soluzione esplicita e positivita'
-%******************
-
-\subsection{Soluzione esplicita}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Soluzione esplicita e positivit\`{a}}
+\QTR{frametitle}{Il logaritmo rende la dinamica additiva}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -1089,7 +1059,6 @@ Z\sim\mathcal{N}(0,1).
 
 Il passaggio al logaritmo trasforma la dinamica moltiplicativa
 in una dinamica additiva:
-
 \[
 d\ln S_t
 =
@@ -1099,37 +1068,30 @@ d\ln S_t
 +
 \sigma\,dW_t.
 \]
-
-Integrando tra $0$ e $t$ si ottiene
-
+La soluzione di tale equazione tra $0$ e $t$ è:
 \[
 S_t
 =
 S_0
 \exp
-\left[
+\left\{
 \left(
 \mu-\frac{1}{2}\sigma^2
 \right)t
 +
 \sigma W_t
-\right].
+\right\}.
 \]
 
 \begin{stepitemize}
 
-\item L'esponenziale implica
-\[
-S_t>0
-\qquad
-\text{per ogni }t.
-\]
+\item L'esponenziale implica $S_t>0$ per ogni $t$: la prima domanda di
+progetto ha risposta affermativa.
 
-\item Poich\'{e} $\ln S_t$ \`{e} gaussiano, $S_t$ ha una
+\item Poich\'e $\ln S_t$ \`e gaussiano, $S_t$ ha una
 \textbf{distribuzione lognormale}.
 
 \end{stepitemize}
-
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -1138,21 +1100,16 @@ S_t>0
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
-
-%******************
 % Slide 17 - Drift del prezzo e drift logaritmico
-%******************
-
-\subsection{Drift del prezzo e del logaritmo}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Drift del prezzo e drift logaritmico}
+\QTR{frametitle}{Due drift diversi: del prezzo e del logaritmo}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -1160,15 +1117,19 @@ S_t>0
 %EndExpansion
 
 Per il livello del prezzo:
-
 \[
 \E[S_t]
 =
-S_0e^{\mu t}.
+S_0e^{\mu t},
+\qquad
+\Var(S_t)
+=
+S_0^2e^{2\mu t}
+\left(
+e^{\sigma^2t}-1
+\right).
 \]
-
 Per il rendimento logaritmico:
-
 \[
 \ln\left(\frac{S_t}{S_0}\right)
 \sim
@@ -1179,33 +1140,20 @@ Per il rendimento logaritmico:
 \right)t,
 \,
 \sigma^2t
-\right].
-\]
-
-Pertanto,
-
-\[
-\E\left[
-\ln\left(\frac{S_t}{S_0}\right)
 \right]
-=
-\left(
-\mu-\frac{1}{2}\sigma^2
-\right)t.
 \]
 
 \begin{stepitemize}
 
-\item $\mu$ \`{e} il \textbf{drift del prezzo}.
+\item $\mu$ \`e il \textbf{drift del prezzo}.
 
-\item $\mu-\frac{1}{2}\sigma^2$ \`{e} il
-\textbf{drift del logaritmo del prezzo}.
+\item $\mu-\frac{1}{2}\sigma^2$ \`e il
+\textbf{tasso di rendimento logaritmico atteso} di $S_t$.
 
-\item Il termine $-\frac{1}{2}\sigma^2$ \`{e} la
+\item Il termine $-\frac{1}{2}\sigma^2$ \`e la
 \textbf{correzione di It\^{o}} dovuta alla trasformazione logaritmica.
 
 \end{stepitemize}
-
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -1214,21 +1162,16 @@ Pertanto,
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
-
-%******************
 % Slide 18 - Effetto dei parametri
-%******************
-
-\subsection{Effetto dei parametri}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Effetto di drift e volatilit\`{a}}
+\QTR{frametitle}{$\mu$ sposta il centro, $\sigma$ allarga il ventaglio}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -1242,14 +1185,13 @@ Pertanto,
 
 \begin{stepitemize}
 
-\item Un valore pi\`{u} elevato di $\mu$ aumenta la
+\item Un valore pi\`u elevato di $\mu$ aumenta la
 \textbf{tendenza centrale di crescita} delle traiettorie.
 
-\item Un valore pi\`{u} elevato di $\sigma$ aumenta la
+\item Un valore pi\`u elevato di $\sigma$ aumenta la
 \textbf{dispersione} delle traiettorie e dei prezzi terminali.
 
 \end{stepitemize}
-
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -1258,21 +1200,16 @@ Pertanto,
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
-
-%******************
 % Slide 19 - Punti di forza e limiti
-%******************
-
-\subsection{Punti di forza e limiti}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Che cosa descrive bene il GBM?}
+\QTR{frametitle}{Che cosa descrive bene il GBM, e che cosa no}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -1287,7 +1224,7 @@ Pertanto,
 
 \begin{itemize}
 
-\item garantisce la \textbf{positivit\`{a}} del prezzo;
+\item garantisce la \textbf{positivit\`a} del prezzo;
 
 \item rappresenta shock proporzionali al
 \textbf{livello corrente};
@@ -1305,7 +1242,7 @@ nel pricing.
 
 \begin{itemize}
 
-\item assume \textbf{volatilit\`{a} costante};
+\item assume \textbf{volatilit\`a costante};
 
 \item non introduce alcuna
 \textbf{mean reversion};
@@ -1319,11 +1256,13 @@ nel pricing.
 
 \end{columns}
 
+\bigskip
+
+Il GBM \`e il \textbf{modello di riferimento} per il Caso A.
+
 \medskip
 
-Il GBM costituisce un utile \textbf{modello di riferimento}, ma non
-descrive tutte le caratteristiche osservate nei mercati finanziari.
-
+\textcolor{light-blue}{Per il Caso B il limite decisivo \`e l'assenza di mean reversion: un tasso o un tasso di inflazione non crescono indefinitamente come un prezzo.}
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -1332,38 +1271,107 @@ descrive tutte le caratteristiche osservate nei mercati finanziari.
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
+%********************
+% GRUPPO 6 -  PRIMOPUNTO DI ARRIVO 
+% Slide 20
+% Tempo parziale: 3 minuti | Tempo cumulato: 55 minuti
+% PAUSA
+%********************
 
+% Slide 20 - Punto di arrivo 
 
-% ============================================================
-% GRUPPO 6 - PROCESSI MEAN-REVERTING: OU E CIR
-% Slide 20-24
-% Tempo parziale: 18 minuti | Tempo cumulato seconda parte: 18 minuti
-% ============================================================
-
-\section{Processi mean-reverting}
-
-%******************
-% Slide 20 - Ornstein-Uhlenbeck
-%******************
-
-\subsection{Ornstein-Uhlenbeck}
+\subsection{Primo punto di arrivo}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Ornstein-Uhlenbeck: il drift di richiamo}
+\QTR{frametitle}{Primo punto di arrivo}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Il processo di \textbf{Ornstein-Uhlenbeck} \`{e} definito da
+\begin{stepitemize}
 
+\item \textbf{Passo 1 completato.} Lo shock browniano su $\Delta t$ \`e
+$\sqrt{\Delta t}\,Z$: il rischio cresce con la radice dell'orizzonte.
+
+\item \textbf{Passo 2 avviato.} Drift e diffusione rispondono alle tre
+domande di progetto; il GBM compila la prima riga della scheda:
+
+\end{stepitemize}
+
+\begin{center}
+\fbox{\parbox{0.94\textwidth}{
+\scriptsize
+\textbf{Requisiti (1/3)}
+
+\smallskip
+
+\renewcommand{\arraystretch}{1.25}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{0.95cm}|p{1.85cm}|p{1.55cm}|p{2.1cm}|p{2.2cm}|}
+\hline
+\textbf{Modello} & \textbf{Positivo?} & \textbf{Richiamo?} & \textbf{Vol. dal livello?} & \textbf{Applicazione} \\
+\hline
+GBM & s\`i, $S_t>0$ & no & s\`i, $\sigma S_t$ & prezzo (Caso A) \\
+\hline
+OU & ? & ? & ? & \\
+\hline
+CIR & ? & ? & ? & \\
+\hline
+\end{tabular}
+}}
+\end{center}
+
+\medskip
+
+\begin{center}
+\textcolor{light-blue}{Caso B: quale modello per un fattore
+che oscilla attorno a un livello?}
+\end{center}
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+%*
+
+%********************
+% GRUPPO 7 - PASSO 2b: PROCESSI MEAN-REVERTING OU E CIR (CASO B)
+% Slide 21-26
+% Tempo parziale: 18 minuti | Tempo cumulato seconda parte: 18 minuti
+%********************
+
+\subsection{Ornstein-Uhlenbeck}
+
+% Slide 21 - Ornstein-Uhlenbeck: il drift di richiamo
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Caso B: un drift di richiamo (Ornstein-Uhlenbeck)}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+\textcolor{light-blue}{Il GBM non \`e soggetto a richiamo verso una media storica. Viceversa l'inflazione oscilla attorno a un livello di lungo periodo: serve un drift che la richiami verso di esso.}
+
+\medskip
+
+Il processo di \textbf{Ornstein-Uhlenbeck} \`e definito da
 \[
 dX_t
 =
@@ -1374,19 +1382,27 @@ dX_t
 
 \begin{stepitemize}
 
-\item $\theta$ \`{e} il \textbf{livello di lungo periodo}.
+\item $\theta$ \`e il \textbf{livello di lungo periodo};
+$\kappa$ misura la \textbf{velocit\`a di richiamo}.
 
-\item $\kappa$ misura la \textbf{velocit\`{a} di richiamo}.
+\item Se $X_t<\theta$, allora $\kappa(\theta-X_t)>0$: il drift spinge
+verso l'alto.
 
-\item Se $X_t<\theta$, allora $\kappa(\theta-X_t)>0$.
-
-\item Se $X_t>\theta$, allora $\kappa(\theta-X_t)<0$.
+\item Se $X_t>\theta$, allora $\kappa(\theta-X_t)<0$: il drift spinge
+verso il basso.
 
 \end{stepitemize}
 
-Il drift spinge il processo verso $\theta$: questa \`{e} la
-\textbf{mean reversion}.
+\medskip
 
+Il processo ammette la \textbf{soluzione esplicita}
+\[
+X_t
+=
+\theta+(X_0-\theta)e^{-\kappa t}
++
+\sigma \int_{0}^{t} e^{-\kappa(t-s)}\,dW_s.
+\]
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -1395,21 +1411,16 @@ Il drift spinge il processo verso $\theta$: questa \`{e} la
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
-
-%******************
-% Slide 21 - Media e dispersione OU
-%******************
-
-\subsection{Media e dispersione dell'OU}
+% Slide 22 - Media e dispersione dell'OU
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Media, dispersione e limite dell'OU}
+\QTR{frametitle}{L'OU: la media converge a $\theta$, la varianza si stabilizza}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -1417,7 +1428,7 @@ Il drift spinge il processo verso $\theta$: questa \`{e} la
 %EndExpansion
 
 \begin{center}
-\includegraphics[width=0.58\textwidth]
+\includegraphics[width=0.56\textwidth]
 {../graphics/Cap06_OU_mean_reversion.png}
 \end{center}
 
@@ -1434,15 +1445,13 @@ Il drift spinge il processo verso $\theta$: questa \`{e} la
 
 \begin{stepitemize}
 
-\item La media converge al livello $\theta$.
+\item La media converge al livello $\theta$, con velocit\`a governata
+da $\kappa$.
 
-\item La varianza converge a $\sigma^2/(2\kappa)$.
-
-\item Il processo \`{e} \textbf{gaussiano}: pu\`{o} assumere anche
-valori negativi.
+\item La varianza non cresce indefinitamente come nel moto browniano:
+converge a $\sigma^2/(2\kappa)$.
 
 \end{stepitemize}
-
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -1451,29 +1460,86 @@ valori negativi.
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
-
-%******************
-% Slide 22 - CIR
-%******************
-
-\subsection{Cox-Ingersoll-Ross}
+% Slide 23 - Requisiti (2/3) e ponte verso il CIR
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{CIR: diffusione dipendente dallo stato}
+\QTR{frametitle}{Che cosa risolve l'OU, e che cosa no}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Il processo \textbf{Cox-Ingersoll-Ross} \`{e} definito da
+\begin{center}
+\fbox{\parbox{0.94\textwidth}{
+\scriptsize
+\textbf{Requisiti (2/3)}
 
+\smallskip
+
+\renewcommand{\arraystretch}{1.25}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{0.95cm}|p{1.85cm}|p{1.55cm}|p{2.1cm}|p{2.2cm}|}
+\hline
+\textbf{Modello} & \textbf{Positivo?} & \textbf{Richiamo?} & \textbf{Vol. dal livello?} & \textbf{Applicazione} \\
+\hline
+GBM & s\`i, $S_t>0$ & no & s\`i, $\sigma S_t$ & prezzo (Caso A) \\
+\hline
+OU & no, supporto $\R$ & s\`i, verso $\theta$ & no, $\sigma$ & inflazione (Caso B) \\
+\hline
+CIR & ? & ? & ? & \\
+\hline
+\end{tabular}
+}}
+\end{center}
+
+\medskip
+
+\begin{stepitemize}
+
+\item L'OU \`e \textbf{gaussiano}: pu\`o assumere anche valori negativi.
+
+\item Per l'inflazione del Caso B, o per uno spread, questo \`e
+accettabile: anche l'inflazione pu\`o essere negativa.
+
+\item Per il tasso $r_t$ del Caso B, o per un'intensit\`a di default,
+non lo \`e: serve un richiamo che preservi la
+\textbf{non negativit\`a}.
+
+\end{stepitemize}
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+%*
+
+\subsection{Cox-Ingersoll-Ross}
+
+% Slide 24 - CIR
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{CIR: stesso richiamo, diffusione che si spegne vicino a zero}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Il processo \textbf{Cox-Ingersoll-Ross} \`e definito da
 \[
 dr_t
 =
@@ -1486,19 +1552,21 @@ r_0>0.
 
 \begin{stepitemize}
 
-\item Il drift $\kappa(\theta-r_t)$ mantiene la
-\textbf{mean reversion}.
+\item Il drift $\kappa(\theta-r_t)$ \`e lo stesso dell'OU: la
+\textbf{mean reversion} resta.
 
-\item La diffusione $\sigma\sqrt{r_t}$ dipende dal
+\item Cambia la diffusione: $\sigma\sqrt{r_t}$ dipende dal
 \textbf{livello corrente}.
 
-\item Quando $r_t$ \`{e} vicino a zero, lo shock casuale si riduce.
+\item Quando $r_t$ \`e vicino a zero, lo shock casuale si riduce e
+prevale il richiamo verso $\theta>0$.
 
-\item Il modello \`{e} adatto a grandezze \textbf{non negative}:
-tassi, intensit\`{a}, varianze istantanee.
+\item Il modello \`e adatto a grandezze \textbf{non negative}:
+tassi, intensit\`a, varianze istantanee.
+
+\item Il modello CIR \textbf{non ha una soluzione} esplicita come quelle del GBM e dell’OU: per simulare le traiettorie si discretizza.
 
 \end{stepitemize}
-
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -1507,29 +1575,23 @@ tassi, intensit\`{a}, varianze istantanee.
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
-
-%******************
-% Slide 23 - Condizione di Feller
-%******************
-
-\subsection{Condizione di Feller}
+% Slide 25 - Condizione di Feller
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Condizione di Feller}
+\QTR{frametitle}{Condizione di Feller: quando il richiamo prevale sullo shock}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Per il processo CIR, la \textbf{condizione di Feller} \`{e}
-
+Per il processo CIR, la \textbf{condizione di Feller} \`e
 \[
 2\kappa\theta
 \geq
@@ -1541,19 +1603,16 @@ Per il processo CIR, la \textbf{condizione di Feller} \`{e}
 \item Il termine $2\kappa\theta$ misura la forza del richiamo verso un
 livello positivo.
 
-\item Il termine $\sigma^2$ misura l'intensit\`{a} della componente
+\item Il termine $\sigma^2$ misura l'intensit\`a della componente
 casuale.
 
-\item Se la condizione \`{e} soddisfatta, il processo non raggiunge il
+\item Se la condizione \`e soddisfatta, il processo non raggiunge il
 confine zero, partendo da $r_0>0$.
 
-\item Se non \`{e} soddisfatta, il processo pu\`{o} raggiungere zero,
+\item Se non \`e soddisfatta, il processo pu\`o raggiungere zero,
 pur rimanendo non negativo.
 
 \end{stepitemize}
-
-La condizione non \`{e} una regola di stima: \`{e} un vincolo
-strutturale sui parametri del modello.
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
@@ -1563,21 +1622,16 @@ strutturale sui parametri del modello.
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
-
-%******************
-% Slide 24 - OU o CIR
-%******************
-
-\subsection{OU o CIR}
+% Slide 26 - OU o CIR: requisiti (3/3)
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{OU o CIR?}
+\QTR{frametitle}{La scheda completa: un modello per ciascun fattore}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -1585,46 +1639,39 @@ strutturale sui parametri del modello.
 %EndExpansion
 
 \begin{center}
-\includegraphics[width=0.54\textwidth]
+\includegraphics[width=0.46\textwidth]
 {../graphics/Cap06_Es03_OU_CIR_distribuzioni_terminali.png}
 \end{center}
 
-{\scriptsize
-\renewcommand{\arraystretch}{1.25}
+\vspace{-0.2cm}
+
 \begin{center}
-\begin{tabular}{|p{1.2cm}|p{2.2cm}|p{2.2cm}|p{4.4cm}|}
+\fbox{\parbox{0.94\textwidth}{
+\scriptsize
+\textbf{Requisiti (3/3)}
+
+\smallskip
+
+\renewcommand{\arraystretch}{1.25}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|p{0.95cm}|p{1.85cm}|p{1.55cm}|p{2.1cm}|p{2.2cm}|}
 \hline
-\textbf{Modello}
-&
-\textbf{Supporto}
-&
-\textbf{Diffusione}
-&
-\textbf{Uso tipico}
-\\
+\textbf{Modello} & \textbf{Positivo?} & \textbf{Richiamo?} & \textbf{Vol. dal livello?} & \textbf{Applicazione} \\
 \hline
-OU
-&
-$\R$
-&
-costante
-&
-spread, scostamenti, fattori gaussiani mean-reverting
-\\
+GBM & s\`i, $S_t>0$ & no & s\`i, $\sigma S_t$ & prezzo (Caso A) \\
 \hline
-CIR
-&
-non negativo
-&
-$\sigma\sqrt{r_t}$
-&
-tassi, intensit\`{a}, grandezze positive mean-reverting
-\\
+OU & no, supporto $\R$ & s\`i, verso $\theta$ & no, $\sigma$ & inflazione (Caso B) \\
+\hline
+CIR & non negativo & s\`i, verso $\theta$ & s\`i, $\sigma\sqrt{r_t}$ & tasso $r_t$ (Caso B) \\
 \hline
 \end{tabular}
+}}
 \end{center}
-}
 
+\smallskip
+
+{\small Le distribuzioni terminali mostrano la differenza: l'OU ha supporto
+$\R$, il CIR resta sul semiasse non negativo.}
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -1633,22 +1680,17 @@ tassi, intensit\`{a}, grandezze positive mean-reverting
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
+%********************
+% GRUPPO 8 - ESERCIZIO IN AULA: SCELTA DEL MODELLO E FELLER
+% Slide 27-28
+% Tempo parziale: 7 minuti | Tempo cumulato seconda parte: 25 minuti
+%********************
 
-% ============================================================
-% GRUPPO 7 - ESERCIZIO IN AULA: SCELTA DEL MODELLO E FELLER
-% Slide 25-26
-% Tempo parziale: 8 minuti | Tempo cumulato seconda parte: 26 minuti
-% ============================================================
+% Slide 27 - Esercizio
 
-\section{Scelta del modello}
-
-%******************
-% Slide 25 - Esercizio
-%******************
-
-\subsection{Scelta tra OU e CIR}
+\subsection{Esercizio: scelta tra OU e CIR}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
@@ -1662,16 +1704,18 @@ tassi, intensit\`{a}, grandezze positive mean-reverting
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Si considerino due fattori finanziari.
+\textcolor{light-blue}{La scheda dei requisiti serve anche per fattori diversi da quelli dei due casi.}
 
 \medskip
+
+Si considerino due fattori finanziari.
 
 \begin{stepenumerate}
 
 \item[1.] Uno \textbf{spread} rispetto a un valore di riferimento,
-che pu\`{o} assumere valori sia positivi sia negativi.
+che pu\`o assumere valori sia positivi sia negativi.
 
-\item[2.] Un'\textbf{intensit\`{a} di default}, che si vuole mantenere
+\item[2.] Un'\textbf{intensit\`a di default}, che si vuole mantenere
 non negativa e richiamata verso un livello di lungo periodo.
 
 \end{stepenumerate}
@@ -1692,17 +1736,14 @@ Per ciascun fattore:
 \medskip
 
 Per il modello CIR si assumano inoltre
-
 \[
 \kappa=0.80,
 \qquad
 \theta=0.04,
 \qquad
-\sigma=0.20.
+\sigma=0.20,
 \]
-
-Verificare se la \textbf{condizione di Feller} \`{e} soddisfatta.
-
+e si verifichi se la \textbf{condizione di Feller} \`e soddisfatta.
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -1711,12 +1752,9 @@ Verificare se la \textbf{condizione di Feller} \`{e} soddisfatta.
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
-
-%******************
-% Slide 26 - Soluzione
-%******************
+% Slide 28 - Soluzione
 
 \subsection{Soluzione e interpretazione}
 
@@ -1725,7 +1763,7 @@ Verificare se la \textbf{condizione di Feller} \`{e} soddisfatta.
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Soluzione e interpretazione}
+\QTR{frametitle}{Soluzione: spread con OU, intensit\`a con CIR}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -1738,9 +1776,9 @@ Verificare se la \textbf{condizione di Feller} \`{e} soddisfatta.
 \[
 dX_t=\kappa(\theta-X_t)\,dt+\sigma\,dW_t.
 \]
-Il supporto \`{e} $\R$ e sono quindi ammessi valori negativi.
+Il supporto \`e $\R$ e sono quindi ammessi valori negativi.
 
-\item Per l'\textbf{intensit\`{a} di default} scegliamo il modello CIR:
+\item Per l'\textbf{intensit\`a di default} scegliamo il modello CIR:
 \[
 dr_t=\kappa(\theta-r_t)\,dt+\sigma\sqrt{r_t}\,dW_t.
 \]
@@ -1749,7 +1787,6 @@ La diffusione si riduce quando $r_t$ si avvicina a zero.
 \end{stepitemize}
 
 Per la condizione di Feller:
-
 \[
 2\kappa\theta
 =
@@ -1763,15 +1800,62 @@ Per la condizione di Feller:
 =
 0.040.
 \]
+Poich\'e $2\kappa\theta>\sigma^2$, la condizione \`e soddisfatta:
+partendo da un valore positivo, il processo CIR \textbf{non raggiunge il
+confine zero}.
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+%*
 
-Poich\'{e}
+%********************
+% GRUPPO 9 - PASSO 3: LA DIPENDENZA (SHOCK CORRELATI)
+% Divisorio + Slide 29-31
+% Tempo parziale: 11 minuti | Tempo cumulato seconda parte: 36 minuti
+%********************
 
-\[
-2\kappa\theta>\sigma^2,
-\]
+\section{\texorpdfstring{Passo 3 -- La dipendenza}{Passo 3 - La dipendenza}}
 
-la condizione \`{e} soddisfatta: partendo da un valore positivo, il
-processo CIR \textbf{non raggiunge il confine zero}.
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\setbeamertemplate{headline}{}
+
+\vfill
+
+\begin{center}
+\textcolor{light-blue}{{\Large \textbf{Passo 3 -- La dipendenza: shock correlati}}}
+\end{center}
+
+\vfill
+
+{\scriptsize
+\renewcommand{\arraystretch}{1.3}
+\begin{center}
+\begin{tabular}{|c|p{1.9cm}|p{4.9cm}|p{2.7cm}|}
+\hline
+\textbf{Passo} & \textbf{Tema} & \textbf{Domanda} & \textbf{Strumento} \\
+\hline
+1 & Il rumore & Quanto \`e grande uno shock su $\Delta t$? & $W_t$, scala $\sqrt{\Delta t}$ \\
+\hline
+2 & La forma & Quali propriet\`a deve avere il fattore? & SDE: GBM, OU, CIR \\
+\hline
+\alert{3} & \alert{La dipendenza} & \alert{I fattori si muovono insieme?} & \alert{shock correlati} \\
+\hline
+4 & La simulazione & Come si genera la traiettoria? & Eulero-Maruyama \\
+\hline
+\end{tabular}
+\end{center}
+}
+
+\vfill
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
@@ -1781,20 +1865,9 @@ processo CIR \textbf{non raggiunge il confine zero}.
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
-
-% ============================================================
-% GRUPPO 8 - PROCESSI MULTIVARIATI E SHOCK CORRELATI
-% Slide 27-29
-% Tempo parziale: 11 minuti | Tempo cumulato seconda parte: 37 minuti
-% ============================================================
-
-\section{Shock correlati}
-
-%******************
-% Slide 27 - Motivazione multivariata
-%******************
+% Slide 29 - Motivazione multivariata dal Caso B
 
 \subsection{Fattori congiunti}
 
@@ -1803,27 +1876,27 @@ processo CIR \textbf{non raggiunge il confine zero}.
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Perch\'{e} simulare fattori congiuntamente?}
+\QTR{frametitle}{Caso B: inflazione e tasso non si muovono separatamente}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Un portafoglio raramente dipende da un solo fattore di rischio.
+\textcolor{light-blue}{Ora abbiamo un modello per ciascun fattore. Ma nel Caso B inflazione e tasso reagiscono agli stessi eventi macroeconomici.}
 
 \medskip
 
 \begin{stepitemize}
 
-\item Prezzi azionari, tassi, cambi e commodities possono muoversi
-congiuntamente.
+\item Simulare i due fattori con shock indipendenti significherebbe
+ignorare questa dipendenza.
 
-\item Le repliche Monte Carlo devono essere \textbf{coerenti} anche
-nella struttura di dipendenza.
+\item Le repliche Monte Carlo devono essere coerenti anche
+nella \textbf{struttura di dipendenza} tra fattori.
 
 \item La correlazione tra shock modifica la \textbf{diversificazione}
-e quindi la distribuzione del risultato di portafoglio.
+e quindi la distribuzione del valore della posizione.
 
 \end{stepitemize}
 
@@ -1832,11 +1905,13 @@ e quindi la distribuzione del risultato di portafoglio.
 \longrightarrow
 \text{shock correlati}
 \longrightarrow
-\text{rendimenti}
+\text{fattori}
 \longrightarrow
 \text{rischio}.
 \]
 
+Lo stesso vale per qualunque portafoglio esposto a pi\`u fattori:
+prezzi azionari, tassi, cambi, commodities.
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -1845,12 +1920,9 @@ e quindi la distribuzione del risultato di portafoglio.
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
-
-%******************
-% Slide 28 - Costruzione degli shock correlati
-%******************
+% Slide 30 - Costruzione degli shock correlati
 
 \subsection{Shock correlati}
 
@@ -1859,23 +1931,27 @@ e quindi la distribuzione del risultato di portafoglio.
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Da shock indipendenti a shock correlati}
+\QTR{frametitle}{Da shock indipendenti a shock correlati: decomposizione di Cholesky}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Si parte da due variabili indipendenti
-
+Si parte da un vettore di normali standard indipendenti e si costruisce
 \[
-Z_1,Z_2\sim\mathcal{N}(0,1),
+Z=
+\begin{pmatrix}Z_1\\Z_2\end{pmatrix}
+\sim\mathcal{N}(0,I),
 \qquad
-\Cov(Z_1,Z_2)=0.
+L=
+\begin{pmatrix}
+1 & 0\\
+\rho & \sqrt{1-\rho^2}
+\end{pmatrix},
+\qquad
+\varepsilon=LZ.
 \]
-
-Si costruisce la coppia
-
 \[
 \varepsilon_1=Z_1,
 \qquad
@@ -1883,23 +1959,21 @@ Si costruisce la coppia
 =
 \rho Z_1+\sqrt{1-\rho^2}\,Z_2.
 \]
-
 Allora
-
 \[
 \E[\varepsilon_1]=\E[\varepsilon_2]=0,
 \qquad
 \Var(\varepsilon_1)=\Var(\varepsilon_2)=1,
 \qquad
-\Corr(\varepsilon_1,\varepsilon_2)=\rho.
+\Corr(\varepsilon_1,\varepsilon_2)=\rho,
 \]
+cio\`e $\varepsilon$ ha matrice di correlazione
+$R=LL'=\begin{pmatrix}1 & \rho\\ \rho & 1\end{pmatrix}$.
 
 \medskip
-
-La correlazione non appartiene a una singola coppia numerica:
-\`{e} una propriet\`{a} della \textbf{distribuzione congiunta}
-degli shock generati.
-
+Con $d$ fattori, $L$ si ottiene da $R$ con la decomposizione di
+Cholesky. Gli incrementi browniani correlati sono
+$\Delta W_t^i=\sqrt{\Delta t}\,\varepsilon_i$.
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -1908,12 +1982,9 @@ degli shock generati.
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
-
-%******************
-% Slide 29 - Correlazione e rischio di portafoglio
-%******************
+% Slide 31 - Correlazione e rischio della posizione
 
 \subsection{Rischio di portafoglio}
 
@@ -1922,7 +1993,7 @@ degli shock generati.
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Correlazione e rischio di portafoglio}
+\QTR{frametitle}{La correlazione cambia il rischio della posizione}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -1930,33 +2001,77 @@ degli shock generati.
 %EndExpansion
 
 \begin{center}
-\includegraphics[width=0.54\textwidth]
+\includegraphics[width=0.34\textwidth]
 {../graphics/Cap06_correlated_gaussian_shocks.png}
 \end{center}
 
-Per due fattori con volatilit\`{a} $\sigma_1,\sigma_2$ e correlazione
-$\rho$,
-
+Una posizione ha esposizioni $V_1,V_2$ a due fattori con shock
+$\sigma_1\Delta W_t^1$ e $\sigma_2\Delta W_t^2$, dove
+$\Corr(\Delta W_t^1,\Delta W_t^2)=\rho$:
+{\small
 \[
-\Cov(\Delta R_1,\Delta R_2)
+\Var\left(V_1\sigma_1\Delta W_t^1+V_2\sigma_2\Delta W_t^2\right)
 =
-\rho\sigma_1\sigma_2\,\Delta t.
+\left(V_1^2\sigma_1^2+V_2^2\sigma_2^2+2\rho V_1V_2\sigma_1\sigma_2\right)\Delta t.
 \]
+}
 
-Per un portafoglio lineare,
+Ponendo $V_1=V_2=1$, $\sigma_1=\sigma_2=0.20$ e $\Delta t=1$, la varianza \`{e}
+$0.08(1+\rho)$. Fissando $\rho=0.75$, come in figura, la varianza della posizione vale $0.14$; con shock
+indipendenti vale $0.08$; con $\rho=-0.75$ vale $0.02$.
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+%*
 
-\[
-\Var(\Delta\Pi)
-=
-V_1^2\Var(\Delta R_1)
-+
-V_2^2\Var(\Delta R_2)
-+
-2V_1V_2\Cov(\Delta R_1,\Delta R_2).
-\]
 
-Il termine di covarianza misura l'effetto della
-\textbf{dipendenza tra fattori} sul rischio complessivo.
+% GRUPPO 10 - PASSO 4: LA SIMULAZIONE (EULERO-MARUYAMA)
+% Divisorio + Slide 32-34
+% Tempo parziale: 14 minuti | Tempo cumulato seconda parte: 50 minuti
+%********************
+
+\section{\texorpdfstring{Passo 4 -- La simulazione}{Passo 4 - La simulazione}}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\setbeamertemplate{headline}{}
+
+\vfill
+
+\begin{center}
+\textcolor{light-blue}{{\Large \textbf{Passo 4 -- La simulazione: dalla SDE alla griglia}}}
+\end{center}
+
+\vfill
+
+{\scriptsize
+\renewcommand{\arraystretch}{1.3}
+\begin{center}
+\begin{tabular}{|c|p{1.9cm}|p{4.9cm}|p{2.7cm}|}
+\hline
+\textbf{Passo} & \textbf{Tema} & \textbf{Domanda} & \textbf{Strumento} \\
+\hline
+1 & Il rumore & Quanto \`e grande uno shock su $\Delta t$? & $W_t$, scala $\sqrt{\Delta t}$ \\
+\hline
+2 & La forma & Quali propriet\`a deve avere il fattore? & SDE: GBM, OU, CIR \\
+\hline
+3 & La dipendenza & I fattori si muovono insieme? & shock correlati \\
+\hline
+\alert{4} & \alert{La simulazione} & \alert{Come si genera una traiettoria?} & \alert{Eulero-Maruyama} \\
+\hline
+\end{tabular}
+\end{center}
+}
+
+\vfill
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
@@ -1966,21 +2081,9 @@ Il termine di covarianza misura l'effetto della
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
-
-
-% ============================================================
-% GRUPPO 9 - DISCRETIZZAZIONE ED EULERO-MARUYAMA
-% Slide 30-32
-% Tempo parziale: 14 minuti | Tempo cumulato seconda parte: 51 minuti
-% ============================================================
-
-\section{Discretizzazione}
-
-%******************
-% Slide 30 - Dalla SDE alla griglia temporale
-%******************
+% Slide 32 - Dalla SDE alla griglia temporale
 
 \subsection{Eulero-Maruyama}
 
@@ -1989,48 +2092,42 @@ Il termine di covarianza misura l'effetto della
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Dalla SDE alla griglia temporale}
+\QTR{frametitle}{Si torna alla griglia: lo stesso $\sqrt{\Delta t}\,Z$ del passo 1}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Si consideri
+\textcolor{light-blue}{Nel passo 1 siamo partiti da una griglia per costruire $W_t$; ora torniamo sulla griglia per generare le traiettorie di $X_t$.}
 
+\medskip
+
+Data la SDE
 \[
-dX_t=a(X_t,t)\,dt+b(X_t,t)\,dW_t.
+dX_t=a(X_t,t)\,dt+b(X_t,t)\,dW_t,
 \]
-
-Su una griglia \(0=t_0<\cdots<t_N=T\),
-
+lo schema di \textbf{Eulero-Maruyama} con passo $\Delta t$ \`e
 \[
-\Delta W_{n+1}
+X_{t+\Delta t}
 =
-W_{t_{n+1}}-W_{t_n}
-=
-\sqrt{\Delta t}\,Z_{n+1},
+X_t
++
+a(X_t,t)\Delta t
++
+b(X_t,t)\sqrt{\Delta t}\,Z_{t+\Delta t},
 \qquad
-Z_{n+1}\sim\mathcal{N}(0,1).
-\]
-
-Lo schema di \textbf{Eulero-Maruyama} è
-
-\[
-X_{t_{n+1}}^{EM}
-=
-X_{t_n}^{EM}
-+
-a(X_{t_n}^{EM},t_n)\Delta t
-+
-b(X_{t_n}^{EM},t_n)\Delta W_{n+1}.
+Z_{t+\Delta t}\sim\mathcal{N}(0,1).
 \]
 
 \begin{stepitemize}
-\item Si congela la dinamica al valore corrente.
-\item Si sostituisce l'incremento browniano con uno shock simulabile.
+\item Su $[t,t+\Delta t]$ drift e diffusione vengono congelati al valore
+corrente $X_t$.
+\item L'incremento browniano \`e sostituito dallo shock simulabile
+$\sqrt{\Delta t}\,Z_{t+\Delta t}$, come nella passeggiata riscalata.
+\item Con pi\`u fattori, gli shock sono le componenti di $\varepsilon=LZ$
+del passo 3.
 \end{stepitemize}
-
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -2039,12 +2136,9 @@ b(X_{t_n}^{EM},t_n)\Delta W_{n+1}.
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
-
-%******************
-% Slide 31 - Un passo mensile per il GBM
-%******************
+% Slide 33 - Un passo mensile per il GBM
 
 \subsection{Un passo per il GBM}
 
@@ -2053,58 +2147,50 @@ b(X_{t_n}^{EM},t_n)\Delta W_{n+1}.
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Un passo mensile per il GBM}
+\QTR{frametitle}{Caso A: un passo mensile per il GBM}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Dato un processo GBM: $dS_t=\mu S_t\,dt+\sigma S_t\,dW_t,$ lo schema diventa
-
+Per il GBM $dS_t=\mu S_t\,dt+\sigma S_t\,dW_t$ lo schema Eulero-Maruyama (EM) per $S_t $ offre:
 \[
-S_{t+\Delta t}^{EM}
+S_{t+\Delta t}^{\mathrm{EM}}
 =
-S_t^{EM}
+S_t^{\mathrm{EM}}
 \left(
-1+\mu\Delta t+\sigma\Delta W
+1+\mu\Delta t+\sigma\sqrt{\Delta t}\,Z_{t+\Delta t}
 \right).
 \]
-
 Partendo da $t=0$, con
-
 \[
 S_0=100,\quad
 \mu=0.06,\quad
 \sigma=0.20,\quad
 \Delta t=\frac{1}{12},\quad
-Z=-1.1,
+Z_{\Delta t}=-1.1,
 \]
-
-si ha
-
+lo shock browniano \`e
 \[
-\Delta W=\sqrt{\Delta t}\,Z
+\sqrt{\Delta t}\,Z_{\Delta t}
 =
 \sqrt{\frac{1}{12}}(-1.1)
 \approx
--0.3175.
+-0.31754.
 \]
-
 Quindi
-
 \[
-S_{\Delta t}^{EM}
+S_{\Delta t}^{\mathrm{EM}}
 =
 100
 \left[
-1+0.06\frac{1}{12}
-+0.20(-0.3175)
+1+0.06\cdot\frac{1}{12}
++0.20(-0.31754)
 \right]
 \approx
 94.149.
 \]
-
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -2113,21 +2199,77 @@ S_{\Delta t}^{EM}
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
+%********************
 
-%******************
-% Slide 32 - Errore e proprieta' strutturali
-%******************
+% Slide 34a - Errore di discretizzazione in un passo
 
-\subsection{Errore e propriet\`{a} strutturali}
+\subsection{Errore in un passo}
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
-\QTR{frametitle}{Approssimazione, errore e propriet\`{a} strutturali}
+\QTR{frametitle}{Il prezzo della discretizzazione: l'errore in un passo}
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+Con lo stesso shock $\sqrt{\Delta t}\,Z_{\Delta t}\approx-0.31754$, la
+soluzione esplicita del GBM d\`{a} il valore esatto
+{\small
+\[
+S_{\Delta t}
+=
+100
+\exp\left\{
+\left(0.06-\frac{1}{2}0.20^2\right)\frac{1}{12}
++
+0.20(-0.31754)
+\right\}
+\approx
+94.160,
+\]
+}
+contro il valore approssimato $S_{\Delta t}^{\mathrm{EM}}\approx94.149$:
+un \textbf{errore di discretizzazione} di circa $0.011$ in un solo passo.
+
+\begin{stepitemize}
+\item Lo shock \`{e} lo stesso: la differenza dipende solo dallo schema,
+che congela drift e diffusione al valore iniziale del passo.
+\item Su una traiettoria gli errori dei singoli passi si accumulano.
+\item Le propriet\`{a} del modello continuo, ottenute con la scelta di
+drift e diffusione, non passano automaticamente allo schema discreto:
+con uno shock molto sfavorevole,
+$1+\mu\Delta t+\sigma\sqrt{\Delta t}\,Z_{t+\Delta t}$ pu\`{o} diventare
+negativo e con esso $S_{t+\Delta t}^{\mathrm{EM}}$. La
+\textbf{positivit\`{a}} del GBM e la \textbf{non negativit\`{a}} del CIR
+vanno controllate nella simulazione.
+\end{stepitemize}
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+%*
+
+% Slide 34b - Qualita' della simulazione lungo la traiettoria
+
+\subsection{Qualit\`{a} della simulazione}
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Lungo la traiettoria: la qualit\`{a} dipende dal passo}
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
@@ -2135,33 +2277,18 @@ S_{\Delta t}^{EM}
 %EndExpansion
 
 \begin{center}
-\includegraphics[width=0.62\textwidth]
+\includegraphics[width=0.8\textwidth]
 {../graphics/Cap06_EulerMaruyama_GBM_confronto.png}
 \end{center}
 
-Per il GBM esiste una soluzione esplicita:
+\vspace{-0.15cm}
 
-\[
-S_{\Delta t}
-=
-S_0
-\exp\left[
-\left(\mu-\frac{1}{2}\sigma^2\right)\Delta t
-+
-\sigma\Delta W
-\right].
-\]
-
-Lo schema di Eulero-Maruyama è utile perché rende simulabile la SDE,
-ma introduce un \textbf{errore di discretizzazione}.
-
-\begin{stepitemize}
-\item L'errore tende a ridursi quando la griglia diventa più fitta.
-\item Alcune proprietà del processo continuo possono non essere preservate.
-\item Per il GBM, lo schema discreto non garantisce automaticamente la
-\textbf{positività}.
-\end{stepitemize}
-
+{\small
+Stessa realizzazione browniana: con $20$ passi ($\Delta t=0.1$) lo schema
+perde le oscillazioni interne al passo; con $100$ passi ($\Delta t=0.02$)
+segue da vicino la traiettoria esatta. Griglia pi\`{u} fine: errore
+minore, \textbf{costo computazionale} maggiore.
+}
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -2170,16 +2297,18 @@ ma introduce un \textbf{errore di discretizzazione}.
 %BeginExpansion
 \end{frame}%
 %EndExpansion
+%*
 
-%******************
 
-% ============================================================
-% GRUPPO 10 - SINTESI E RACCORDO CON PYTHON
-% Slide 33
-% Tempo parziale: 4 minuti | Tempo cumulato seconda parte: 55 minuti
-% ============================================================
+%********************
+% GRUPPO 11 - SINTESI E RACCORDO CON PYTHON
+% Slide 35
+% Tempo parziale: 5 minuti | Tempo cumulato seconda parte: 55 minuti
+%********************
 
 \section{Sintesi}
+
+% Sintesi e raccordo con Python
 
 \subsection{Raccordo con Python}
 
@@ -2187,7 +2316,9 @@ ma introduce un \textbf{errore di discretizzazione}.
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
-\QTR{frametitle}{Sintesi e raccordo con Python}
+
+\QTR{frametitle}{Sintesi: dal rumore alle traiettorie dei due casi}
+
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
@@ -2196,33 +2327,33 @@ ma introduce un \textbf{errore di discretizzazione}.
 {\scriptsize
 \renewcommand{\arraystretch}{1.3}
 \begin{center}
-\begin{tabular}{|p{1.2cm}|p{1.7cm}|p{1.7cm}|p{2.7cm}|p{2.2cm}|}
+\begin{tabular}{|c|p{1.9cm}|p{6.6cm}|}
 \hline
-\textbf{Modello}
-&
-\textbf{Mean reversion}
-&
-\textbf{Supporto}
-&
-\textbf{Diffusione}
-&
-\textbf{Uso tipico}
-\\
+\textbf{Passo} & \textbf{Tema} & \textbf{Risultato} \\
 \hline
-GBM & no & positivo & proporzionale al livello & prezzi \\
+1 & Il rumore & $\Delta W_t=\sqrt{\Delta t}\,Z$: il rischio cresce con $\sqrt{h}$ \\
 \hline
-OU & s\`{i} & reale & costante & spread e scostamenti \\
+2 & La forma & drift e diffusione scelti dai requisiti: GBM, OU, CIR \\
 \hline
-CIR & s\`{i} & non negativo & proporzionale a $\sqrt{r_t}$ & tassi e intensit\`{a} \\
+3 & La dipendenza & shock correlati $\varepsilon=LZ$, con $R=LL'$ \\
+\hline
+4 & La simulazione & Eulero-Maruyama: traiettorie su griglia, con errore da controllare \\
 \hline
 \end{tabular}
 \end{center}
 }
 
+\begin{stepitemize}
+\item \textbf{Caso A.} Il prezzo $S_t$ segue un GBM; le traiettorie
+simulate alimentano la valutazione del contratto sulla media dei prezzi.
+\item \textbf{Caso B.} L'inflazione segue un OU, il tasso $r_t$ un CIR,
+con shock correlati; le traiettorie alimentano la valutazione
+dell'obbligazione indicizzata.
+\end{stepitemize}
+
 \medskip
 
-La Lezione 7 traduce questi modelli in procedure computazionali:
-
+La Lezione 7 traduce questo percorso in procedure Python:
 \[
 \begin{gathered}
 \text{modello continuo}
@@ -2232,15 +2363,9 @@ La Lezione 7 traduce questi modelli in procedure computazionali:
 \text{traiettorie simulate}
 \\
 \longrightarrow
-\text{pricing e rischio}
+\text{pricing e rischio}.
 \end{gathered}
 \]
-\begin{stepitemize}
-\item Il modello stabilisce la dinamica teorica del fattore.
-\item La discretizzazione rende la dinamica simulabile.
-\item Le traiettorie simulate alimentano pricing, rischio e analisi di scenario.
-\end{stepitemize}
-
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
@@ -2249,12 +2374,6 @@ La Lezione 7 traduce questi modelli in procedure computazionali:
 %BeginExpansion
 \end{frame}%
 %EndExpansion
-
-%******************
-
-
-
-
-
+%*
 
 \end{document}
