@@ -22,8 +22,8 @@ Le cedole sono indicizzate al livello dei prezzi. A scadenza, il capitale rimbor
 
 La valutazione dipende congiuntamente da due fattori di rischio:
 
-1. il **tasso istantaneo di inflazione** \(i_t\), che determina l'indicizzazione dei flussi;
-2. il **tasso nominale istantaneo privo di rischio** \(r_t\), che determina l'attualizzazione.
+1. il **tasso istantaneo di inflazione** $i_t$, che determina l'indicizzazione dei flussi;
+2. il **tasso nominale istantaneo privo di rischio** $r_t$, che determina l'attualizzazione.
 
 Gli shock dei due fattori sono correlati.
 
@@ -41,71 +41,58 @@ Il prezzo deve essere costruito a partire dai valori attuali ottenuti nelle sing
 
 Il tasso istantaneo di inflazione segue un processo di Ornstein--Uhlenbeck:
 
-\[
-di_t
-=
+$
+di_t=
 \kappa_i(\theta_i-i_t)\,dt
 +
-\sigma_i\,dW_t^{(i)}.
-\]
+\sigma_i\,dW_t^{(i)}$.
 
-Il modello ammette valori negativi di \(i_t\), compatibili con periodi di deflazione.
+Il modello ammette valori negativi di $i_t$, compatibili con periodi di deflazione.
 
 ### Tasso nominale
 
 Il tasso nominale istantaneo segue un processo CIR:
 
-\[
-dr_t
-=
+$
+dr_t=
 \kappa_r(\theta_r-r_t)\,dt
 +
-\sigma_r\sqrt{r_t}\,dW_t^{(r)}.
-\]
+\sigma_r\sqrt{r_t}\,dW_t^{(r)}$.
 
 I parametri assegnati soddisfano la condizione di Feller:
 
-\[
+$
 2\kappa_r\theta_r
 \geq
-\sigma_r^2.
-\]
+\sigma_r^2$.
 
 Nella discretizzazione numerica, il termine diffusivo deve utilizzare
 
-\[
-\sqrt{\max(r_t,0)}.
-\]
+$
+\sqrt{\max(r_t,0)}$.
 
-L'operatore \(\max(r_t,0)\) agisce soltanto all'interno della radice quadrata. Eventuali valori negativi del tasso prodotti dalla discretizzazione non devono essere automaticamente azzerati, ma rilevati e documentati.
+L'operatore $\max(r_t,0)$ agisce soltanto all'interno della radice quadrata. Eventuali valori negativi del tasso prodotti dalla discretizzazione non devono essere automaticamente azzerati, ma rilevati e documentati.
 
 ### Dipendenza tra i fattori
 
 Gli shock browniani soddisfano:
 
-\[
-dW_t^{(i)}\,dW_t^{(r)}
-=
-\rho\,dt.
-\]
+$
+dW_t^{(i)}\,dW_t^{(r)}=\rho\,dt$.
 
 La dipendenza deve essere preservata all'interno della stessa replica Monte Carlo.
 
 ### Indicizzazione
 
-Sia \(I_t\) il livello dell'indice dei prezzi e sia \(I_0\) il suo valore iniziale.
+Sia $I_t$ il livello dell'indice dei prezzi e sia $I_0$ il suo valore iniziale.
 
 Il fattore cumulato di indicizzazione è
 
-\[
-J_t
-=
-\frac{I_t}{I_0}
-=
+$
+J_t=\frac{I_t}{I_0}=
 \exp\left(
 \int_0^t i_s\,ds
-\right).
-\]
+\right)$.
 
 Sulla griglia temporale, l'integrale deve essere approssimato numericamente utilizzando i valori dell'inflazione appartenenti alla stessa replica.
 
@@ -113,78 +100,58 @@ Sulla griglia temporale, l'integrale deve essere approssimato numericamente util
 
 Il fattore di sconto stocastico è
 
-\[
-D(0,t)
-=
-\exp\left(
+$
+D(0,t)=\exp\left(
 -\int_0^t r_s\,ds
-\right).
-\]
+\right)$.
 
-Anche questo integrale deve essere approssimato lungo la singola traiettoria del tasso. Non deve essere utilizzato il solo valore terminale \(r_T\), né un tasso medio calcolato tra repliche differenti.
+Anche questo integrale deve essere approssimato lungo la singola traiettoria del tasso. Non deve essere utilizzato il solo valore terminale $r_T$, né un tasso medio calcolato tra repliche differenti.
 
 ### Flussi contrattuali
 
-Il bond ha valore facciale \(N\), scadenza \(T\) e tasso cedolare annuo \(c\).
+Il bond ha valore facciale $N$, scadenza $T$ e tasso cedolare annuo $c$.
 
-Le cedole sono semestrali. Alla data \(t_j\),
+Le cedole sono semestrali. Alla data $t_j$,
 
-\[
-C_{t_j}
-=
-\frac{c}{2}N J_{t_j}.
-\]
+$
+C_{t_j}=\frac{c}{2}N J_{t_j}$.
 
 Le cedole non sono protette contro la deflazione.
 
 A scadenza il capitale rimborsato è
 
-\[
-R_T
-=
-N\max(J_T,1).
-\]
+$R_T=N\max(J_T,1)$.
 
 Il floor protegge quindi il capitale nominale, non le cedole.
 
-Per la replica Monte Carlo \(k\),
+Per la replica Monte Carlo $k$,
 
-\[
-V^{(k)}
-=
-\sum_{j=1}^{m}
+$
+V^{(k)}=\sum_{j=1}^{m}
 D^{(k)}(0,t_j)
 C_{t_j}^{(k)}
 +
 D^{(k)}(0,T)
-R_T^{(k)}.
-\]
+R_T^{(k)}$.
 
-Con \(M\) repliche, il prezzo Monte Carlo è
+Con $M$ repliche, il prezzo Monte Carlo è
 
-\[
-\widehat V_M
-=
-\frac{1}{M}
+$
+\widehat V_M=\frac{1}{M}
 \sum_{k=1}^{M}
-V^{(k)}.
-\]
+V^{(k)}$.
 
-Indicando con \(s_V\) la deviazione standard campionaria dei valori \(V^{(k)}\),
+Indicando con $s_V$ la deviazione standard campionaria dei valori $V^{(k)}$,
 
-\[
-SE(\widehat V_M)
-=
-\frac{s_V}{\sqrt{M}}.
-\]
+$
+SE(\widehat V_M)=\frac{s_V}{\sqrt{M}}$.
 
-Un intervallo di confidenza Monte Carlo approssimato al \(95\%\) è
+Un intervallo di confidenza Monte Carlo approssimato al $95\%$ è
 
-\[
+$
 \widehat V_M
 \pm
-1.96\,SE(\widehat V_M).
-\]
+1.96\,SE(\widehat V_M)$.
 
 ---
 
@@ -194,31 +161,27 @@ I parametri sono assegnati a fini didattici e **non costituiscono una calibrazio
 
 | Componente | Parametro | Valore |
 |---|---|---:|
-| Contratto | \(N\) | 100 |
-| Contratto | \(T\) | 5 anni |
-| Contratto | \(c\) | 1,5% annuo |
+| Contratto | $N$ | 100 |
+| Contratto | $T$ | 5 anni |
+| Contratto | $c$ | 1,5% annuo |
 | Contratto | frequenza cedole | semestrale |
-| Indice prezzi | \(I_0\) | 100 |
-| Inflazione OU | \(i_0\) | 0,025 |
-| Inflazione OU | \(\kappa_i\) | 0,80 |
-| Inflazione OU | \(\theta_i\) | 0,020 |
-| Inflazione OU | \(\sigma_i\) | 0,015 |
-| Tasso CIR | \(r_0\) | 0,030 |
-| Tasso CIR | \(\kappa_r\) | 1,20 |
-| Tasso CIR | \(\theta_r\) | 0,030 |
-| Tasso CIR | \(\sigma_r\) | 0,10 |
-| Dipendenza | \(\rho\) | 0,25 |
-| Simulazione | \(\Delta t\) | \(1/12\) |
-| Simulazione | \(M\) | 50.000 |
+| Indice prezzi | $I_0$ | 100 |
+| Inflazione OU | $i_0$ | 0,025 |
+| Inflazione OU | $\kappa_i$ | 0,80 |
+| Inflazione OU | $\theta_i$ | 0,020 |
+| Inflazione OU | $\sigma_i$ | 0,015 |
+| Tasso CIR | $r_0$ | 0,030 |
+| Tasso CIR | $\kappa_r$ | 1,20 |
+| Tasso CIR | $\theta_r$ | 0,030 |
+| Tasso CIR | $\sigma_r$ | 0,10 |
+| Dipendenza | $\rho$ | 0,25 |
+| Simulazione | $\Delta t$ | 1/12 |
+| Simulazione | $M$ | 50.000 |
 | Simulazione | seed | 12345 |
 
 La griglia principale è mensile e contiene 60 intervalli temporali.
 
-Le date semestrali di pagamento coincidono con i passi
-
-\[
-6,12,\ldots,60.
-\]
+Le date semestrali di pagamento coincidono con i passi $6,12,\ldots,60$.
 
 ---
 
@@ -227,20 +190,12 @@ Le date semestrali di pagamento coincidono con i passi
 Devono essere determinate almeno le seguenti quantità:
 
 1. **prezzo Monte Carlo del bond**;
-2. **errore standard Monte Carlo** del prezzo e relativo intervallo di confidenza al \(95\%\);
+2. **errore standard Monte Carlo** del prezzo e relativo intervallo di confidenza al $95\%$;
 3. **valore attuale medio delle cedole**;
 4. **valore attuale atteso del rimborso del capitale**;
-5. probabilità simulata di deflazione cumulata a scadenza,
+5. probabilità simulata di deflazione cumulata a scadenza, $\widehat{\mathbb P}(J_T<1)$;
 
-\[
-\widehat{\mathbb P}(J_T<1);
-\]
-
-6. media e deviazione standard simulate di
-
-\[
-i_T,\qquad r_T,\qquad J_T.
-\]
+6. media e deviazione standard simulate di $i_T$, $r_T$, $J_T$.
 
 Tutte le quantità finanziarie devono essere costruite replica per replica prima dell'aggregazione Monte Carlo.
 
@@ -257,28 +212,22 @@ Produrre:
    - valore attuale medio delle cedole;
    - valore attuale atteso del rimborso;
    - prezzo complessivo;
-3. **tabella di diagnostica Monte Carlo** per
-
-\[
-M=
+3. **tabella di diagnostica Monte Carlo** per $M=
 1\,000,\;
 5\,000,\;
 10\,000,\;
-50\,000,
-\]
-
-riportando almeno prezzo stimato ed errore standard;
-4. **tabella delle statistiche terminali** di \(i_T\), \(r_T\) e \(J_T\).
+50\,000$, riportando almeno prezzo stimato ed errore standard;
+4. **tabella delle statistiche terminali** di $i_T$, $r_T$ e $J_T$.
 
 ### Grafici
 
 Produrre almeno:
 
-1. alcune traiettorie simulate del tasso di inflazione \(i_t\);
-2. alcune traiettorie simulate del tasso nominale \(r_t\);
-3. distribuzione simulata di \(J_T\);
-4. distribuzione dei valori attuali \(V^{(k)}\);
-5. grafico di convergenza della stima Monte Carlo al crescere di \(M\).
+1. alcune traiettorie simulate del tasso di inflazione $i_t$;
+2. alcune traiettorie simulate del tasso nominale $r_t$;
+3. distribuzione simulata di $J_T$;
+4. distribuzione dei valori attuali $V^{(k)}$;
+5. grafico di convergenza della stima Monte Carlo al crescere di $M$.
 
 I grafici devono riportare titoli, assi e unità coerenti e devono avere una funzione interpretativa.
 
@@ -289,58 +238,34 @@ I grafici devono riportare titoli, assi e unità coerenti e devono avere una fun
 Il notebook deve verificare esplicitamente che:
 
 1. la correlazione empirica degli shock simulati sia coerente con
-
-\[
-\rho=0.25;
-\]
+$\rho=0.25$;
 
 2. il fattore di indicizzazione soddisfi
-
-\[
-J_{t_j}^{(k)}>0
-\]
-
-per ogni replica e data;
+$J_{t_j}^{(k)}>0$ per ogni replica e data;
 
 3. il rimborso soddisfi in ogni replica
+$R_T^{(k)}\geq N$;
 
-\[
-R_T^{(k)}\geq N;
-\]
-
-4. eventuali valori negativi di \(r_t\) prodotti dalla discretizzazione siano rilevati, conteggiati e documentati, senza imporre automaticamente \(r_t=0\);
+4. eventuali valori negativi di $r_t$ prodotti dalla discretizzazione siano rilevati, conteggiati e documentati, senza imporre automaticamente $r_t=0$;
 
 5. la decomposizione del prezzo soddisfi
+$
+\widehat V_M=\widehat{PV}_C+\widehat{PV}_R$;
 
-\[
-\widehat V_M
-=
-\widehat{PV}_C
-+
-\widehat{PV}_R;
-\]
-
-6. l'errore standard Monte Carlo diminuisca al crescere di \(M\) in modo compatibile con l'ordine
-
-\[
-\frac{1}{\sqrt M};
-\]
+6. l'errore standard Monte Carlo diminuisca al crescere di $M$ in modo compatibile con l'ordine $\frac{1}{\sqrt M}$;
 
 7. il prezzo sia sufficientemente stabile rispetto a una griglia temporale più fine.
 
-Il controllo rispetto a \(M\) e quello rispetto alla griglia temporale riguardano problemi diversi:
+Il controllo rispetto a $M$ e quello rispetto alla griglia temporale riguardano problemi diversi:
 
-\[
-M
+$M
 \longrightarrow
-\text{precisione Monte Carlo},
-\]
+\text{precisione Monte Carlo}$,
 
-\[
-\Delta t
+
+$\Delta t
 \longrightarrow
-\text{approssimazione temporale}.
-\]
+\text{approssimazione temporale}$.
 
 ---
 
