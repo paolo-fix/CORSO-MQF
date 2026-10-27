@@ -597,7 +597,7 @@ I parametri combinano dati osservati, proxy di mercato e scelte modellistiche di
 |---|---|---:|---|
 | Data | \(t_0\) | 27/07/2026 | data di riferimento |
 | Sottostante | indice | EURO STOXX 50 | riferimento di mercato |
-| Contratto | \(S_0\) | 6.286,35 | dato osservato |
+| Sottostante | \(S_0\) | 6.286,35 | dato osservato |
 | Contratto | \(K\) | 6.300 | scelta contrattuale |
 | Contratto | \(T\) | 1 anno | specifica contrattuale |
 | Contratto | fixing | 12 mensili | specifica contrattuale |
