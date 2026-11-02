@@ -151,7 +151,7 @@ Un intervallo di confidenza Monte Carlo approssimato al $95\%$ è
 $$
 \widehat V_M
 \pm
-1.96\,SE(\widehat V_M).$$
+1,96\,SE(\widehat V_M).$$
 
 ---
 
@@ -192,7 +192,7 @@ Devono essere determinate almeno le seguenti quantità:
 1. **prezzo Monte Carlo del bond**;
 2. **errore standard Monte Carlo** del prezzo e relativo intervallo di confidenza al $95\%$;
 3. **valore attuale medio delle cedole**;
-4. **valore attuale atteso del rimborso del capitale**;
+4. **valore attuale medio del rimborso del capitale**;
 5. probabilità simulata di deflazione cumulata a scadenza, $\widehat{\mathbb P}(J_T<1)$;
 6. media e deviazione standard simulate di $i_T$, $r_T$, $J_T$.
 
@@ -209,13 +209,13 @@ Produrre:
 1. **tabella dei parametri del caso**;
 2. **tabella di sintesi del pricing**, contenente almeno:
    - valore attuale medio delle cedole;
-   - valore attuale atteso del rimborso;
-   - prezzo complessivo;
+   - valore attuale medio del rimborso;
+   - prezzo Monte Carlo del bond;
 3. **tabella di diagnostica Monte Carlo** per $M=
 1\,000,\;
 5\,000,\;
 10\,000,\;
-50\,000$, riportando almeno prezzo stimato ed errore standard;
+50\,000$, riportando almeno prezzo stimato ed errore standard stimato;
 4. **tabella delle statistiche terminali** di $i_T$, $r_T$ e $J_T$.
 
 ### Grafici
@@ -225,7 +225,7 @@ Produrre almeno:
 1. alcune traiettorie simulate del tasso di inflazione $i_t$;
 2. alcune traiettorie simulate del tasso nominale $r_t$;
 3. distribuzione simulata di $J_T$;
-4. distribuzione dei valori attuali $V^{(k)}$;
+4. distribuzione simulata dei valori attuali $V^{(k)}$;
 5. grafico di convergenza della stima Monte Carlo al crescere di $M$.
 
 I grafici devono riportare titoli, assi e unità coerenti e devono avere una funzione interpretativa.
@@ -237,7 +237,7 @@ I grafici devono riportare titoli, assi e unità coerenti e devono avere una fun
 Il notebook deve verificare esplicitamente che:
 
 1. la correlazione empirica degli shock simulati sia coerente con
-$\rho=0.25$;
+$\rho=0,25$;
 
 2. il fattore di indicizzazione soddisfi
 $J_{t_j}^{(k)}>0$ per ogni replica e data;
@@ -273,9 +273,9 @@ $\Delta t
 Ai fini di questa applicazione:
 
 1. i parametri dei processi sono costanti e assegnati;
-2. le dinamiche indicate vengono utilizzate direttamente ai fini della valutazione;
-3. non sono richiesti stima econometrica, calibrazione di mercato o derivazione del cambio di misura;
-4. non sono considerati rischio di credito, rischio di liquidità o fiscalità;
+2. le dinamiche indicate vengono utilizzate direttamente ai fini della valutazione; non viene, cioè, derivato un cambio di misura e non si afferma che i parametri costituiscano una calibrazione risk-neutral di mercato.
+3. non sono richiesti stima econometrica, calibrazione di mercato, o derivazione del cambio di misura;
+4. non sono considerati rischio di credito, rischio di liquidità, o fiscalità;
 5. l'indicizzazione è semplificata e non replica integralmente le convenzioni operative di specifici titoli inflation-linked;
 6. l'indice dei prezzi è costruito mediante integrazione del tasso istantaneo di inflazione;
 7. inflazione e tasso nominale sono simulati sulla medesima griglia temporale;

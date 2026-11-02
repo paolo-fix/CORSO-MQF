@@ -22,7 +22,7 @@ Il sottostante è l'**EURO STOXX 50**, uno dei principali benchmark azionari del
 Il caso è collocato al **27 luglio 2026**. Il valore iniziale dell'indice utilizzato è
 
 $$
-S_0=6\,286.35.
+S_0=6\,286,35.
 $$
 
 Lo strike è fissato a
@@ -36,7 +36,7 @@ così da considerare un contratto sostanzialmente at-the-money all'origine.
 Il livello iniziale dello short rate è
 
 $$
-r_0=0.02185,
+r_0=0,02185,
 $$
 
 ancorato all'€STR (Euro Short-Term Rate) della data di riferimento.
@@ -44,7 +44,7 @@ ancorato all'€STR (Euro Short-Term Rate) della data di riferimento.
 Per il dividend yield continuo, si utilizza
 
 $$
-q=0.025,
+q=0,025,
 $$
 
 mentre per la volatilità dell'indice si assume
@@ -304,7 +304,7 @@ Un intervallo di confidenza Monte Carlo approssimato al $95\%$ è
 $$
 \widehat V_M
 \pm
-1.96\,SE(\widehat V_M).$$
+1,96\,SE(\widehat V_M).$$
 
 
 ### Probabilità simulata di esercizio
@@ -349,10 +349,10 @@ I parametri combinano dati osservati, proxy di mercato e scelte modellistiche di
 La condizione di Feller è soddisfatta:
 
 $$
-2(1.25)(0.0220)=
-0.055 >
-0.0016 =
-(0.040)^2.$$
+2\times1,25\times0,0220=
+0,055 >
+0,0016 =
+(0,040)^2.$$
 
 
 La griglia principale contiene $252$ intervalli e $253$ nodi, compresa la data iniziale.
@@ -386,7 +386,7 @@ Produrre:
    - probabilità simulata di esercizio;
    - payoff medio;
    - prezzo Monte Carlo;
-   - errore standard;
+   - errore standard Monte Carlo;
    - intervallo di confidenza al $95\%$;
 4. **tabella di diagnostica Monte Carlo** per $
    M=
@@ -415,7 +415,7 @@ I grafici devono riportare titoli, assi e unità coerenti e devono avere una fun
 
 Il notebook deve verificare esplicitamente che:
 
-1. la correlazione empirica degli shock simulati sia coerente con $\rho=-0.25$;
+1. la correlazione empirica degli shock simulati sia coerente con $\rho=-0,25$;
 
 2. il sottostante soddisfi $S_{t_j}^{(k)}>0$ per ogni replica e data;
 
@@ -468,7 +468,7 @@ Ai fini di questa applicazione:
 9. l'integrale del tasso è approssimato mediante somma di Riemann sinistra;
 10. i fixing sono mensili ed equidistanti;
 11. $S_0$ non appartiene alle date di fixing;
-12. non sono considerati rischio di credito, rischio di liquidità, costi di transazione o fiscalità;
+12. non sono considerati rischio di credito, rischio di liquidità, costi di transazione, o fiscalità;
 13. non sono richieste formule chiuse di pricing né modelli alternativi;
 14. la call asiatica è un contratto OTC stilizzato e non deve essere confusa con le opzioni vanilla EURO STOXX 50 quotate su Eurex;
 15. il prezzo ottenuto è il risultato del modello assegnato e non una quotazione operativa di mercato.
