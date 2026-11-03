@@ -28,7 +28,6 @@
 %TCIDATA{BibliographyScheme=Manual}
 %TCIDATA{<META NAME="DocumentShell" CONTENT="Other Documents\SW\Slides - Beamer">}
 %BeginMSIPreambleData
-\graphicspath{{../graphics/}}
 \providecommand{\U}[1]{\protect\rule{.1in}{.1in}}
 %EndMSIPreambleData
 \newenvironment{stepenumerate}{\begin{enumerate}[<+->]}{\end{enumerate}}
@@ -38,27 +37,6 @@
 \usetheme{Madrid}
 
 
-\setbeamertemplate{footline}
-{
-  \leavevmode%
-  \hbox{%
-    \begin{beamercolorbox}[wd=.20\paperwidth,ht=2.25ex,dp=1ex,center]
-      {author in head/foot}%
-      \usebeamerfont{author in head/foot}\insertshortauthor
-    \end{beamercolorbox}%
-    \begin{beamercolorbox}[wd=.69\paperwidth,ht=2.25ex,dp=1ex,center]
-      {title in head/foot}%
-      \usebeamerfont{title in head/foot}\insertshorttitle
-    \end{beamercolorbox}%
-    \begin{beamercolorbox}[wd=.11\paperwidth,ht=2.25ex,dp=1ex,right]
-      {date in head/foot}%
-      \usebeamerfont{date in head/foot}%
-      \insertshortdate{}\hspace*{2em}%
-      \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
-    \end{beamercolorbox}%
-  }%
-  \vskip0pt%
-}
 
 
 
@@ -97,18 +75,33 @@
 % Slide 1
 %******************
 
-\title[Lez. 10 - Python, rischio di credito]{Lezione 10 - Python, rischio di credito}
-\subtitle{Metodi Quantitativi per la Finanza}
-\author[P. Falbo, C. Pelizzari]{{\LARGE Paolo Falbo, Cristian Pelizzari}}
-\institute[]{{\large Dipartimento di Economia e Management}}
-\date[]{}
-\titlegraphic{
-\includegraphics[height=1.25cm]{../graphics/MQF_logo.png}\hspace{0.8cm}%
-\includegraphics[height=1.25cm]{../graphics/logo-Unibs-esteso.png}
-}
+%**** Cartella delle figure: percorso relativo (Overleaf) e assoluto (SWP 5.5)
+\graphicspath{{../graphics/}{E:/Didattica/MQF/Github/CORSO-MQF/graphics/}}
+%**** Titolo, autori e barra inferiore: campo TeX "Frontespizio" dopo \begin{document}
 
 \begin{document}
-\maketitle
+
+%****************************************************************
+%**** PAGINA DI TITOLO E BARRA INFERIORE (campo TeX "Frontespizio")
+%**** Contiene: footline, title, subtitle, author, institute, date,
+%**** titlegraphic, maketitle. Resta qui, nel corpo del documento:
+%**** nel preambolo SWP 5.5 altera argomenti opzionali e fine riga.
+%**** Vedi MQF_Project_Guidelines.md, sezione 10.2.
+%****************************************************************
+%TCIMACRO{\TeXButton{Frontespizio}{\setbeamertemplate{footline}{\leavevmode\hbox{\begin{beamercolorbox}[wd=.20\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}\usebeamerfont{author in head/foot}\insertshortauthor\end{beamercolorbox}\begin{beamercolorbox}[wd=.69\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}\usebeamerfont{title in head/foot}\insertshorttitle\end{beamercolorbox}\begin{beamercolorbox}[wd=.11\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}\usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}\insertframenumber{} / \inserttotalframenumber\hspace*{2ex}\end{beamercolorbox}}\vskip0pt}\title[Lez. 10 - Python, rischio di credito]{Lezione 10 - Python, rischio di credito}\subtitle{Metodi Quantitativi per la Finanza}\author[P. Falbo, C. Pelizzari]{{\LARGE Paolo Falbo, Cristian Pelizzari}}\institute[]{{\large Dipartimento di Economia e Management}}\date[]{}\titlegraphic{\includegraphics[height=1.25cm]{MQF_logo.png}\hspace{0.8cm}\includegraphics[height=1.25cm]{logo-Unibs-esteso.png}}\maketitle}}%
+%BeginExpansion
+\setbeamertemplate{footline}{\leavevmode\hbox{\begin{beamercolorbox}[wd=.20\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}\usebeamerfont{author in head/foot}\insertshortauthor\end{beamercolorbox}\begin{beamercolorbox}[wd=.69\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}\usebeamerfont{title in head/foot}\insertshorttitle\end{beamercolorbox}\begin{beamercolorbox}[wd=.11\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}\usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}\insertframenumber{} / \inserttotalframenumber\hspace*{2ex}\end{beamercolorbox}}\vskip0pt}%
+\title[Lez. 10 - Python, rischio di credito]{Lezione 10 - Python, rischio di credito}%
+\subtitle{Metodi Quantitativi per la Finanza}%
+\author[P. Falbo, C. Pelizzari]{{\LARGE Paolo Falbo, Cristian Pelizzari}}%
+\institute[]{{\large Dipartimento di Economia e Management}}%
+\date[]{}%
+\titlegraphic{\includegraphics[height=1.25cm]{MQF_logo.png}\hspace{0.8cm}\includegraphics[height=1.25cm]{logo-Unibs-esteso.png}}%
+\maketitle%
+%EndExpansion
+%****************************************************************
+%**** FINE PAGINA DI TITOLO
+%****************************************************************
 
 
 
@@ -156,7 +149,7 @@ problema finanziario distinto, che non verr\`a sviluppato in aula.
 Il protocollo generale delle lezioni applicative, introdotto nella
 Lezione 4, verr\`a richiamato solo quando necessario.
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
@@ -229,7 +222,7 @@ Nella lezione di oggi, il passaggio centrale \`e:
 %tra dinamica creditizia e rischio di portafoglio.}
 %\end{center}
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
@@ -297,7 +290,7 @@ La risposta \`e: \texttt{True} \text{oppure} \texttt{False}.
 Python traduce cos\`i un evento probabilistico in una condizione
 verificabile replica per replica.
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
@@ -367,7 +360,7 @@ L'output \`e un vettore:
 
 con una componente per ogni replica Monte Carlo.
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
@@ -432,7 +425,7 @@ L^P \mid \text{No Crisi}.
 definita dal modello probabilistico.}
 \end{center}
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
@@ -502,7 +495,7 @@ molte traiettorie $M_0,M_1,\ldots,M_{T-1}$.
 \textbf{Il Capitolo 8 fornisce il modello; Python genera le traiettorie.}
 \end{center}
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
@@ -571,7 +564,7 @@ utilizzare nella transizione successiva.
 stato sistemico comune.}
 \end{center}
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
@@ -638,7 +631,7 @@ incondizionata.}
 Il regime sistemico introduce cos\`i dipendenza tra le perdite
 individuali senza imporre traiettorie creditizie identiche.
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
@@ -703,7 +696,7 @@ Il passaggio concettuale \`e quindi:
 %\textbf{Gli stati creditizi diventano quantit\`a monetarie.}
 %\end{center}
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
@@ -786,7 +779,7 @@ L^P
 %\textbf{Il Caso Aula costruir\`a operativamente questa catena.}
 %\end{center}
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
@@ -862,7 +855,7 @@ Il confronto deve tenere conto contemporaneamente di:
 \text{severit\`a}.
 \]
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
@@ -921,7 +914,7 @@ La quota iniziale di Evergrande \`e
 posizione rispetto al portafoglio.}
 \end{center}
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
@@ -995,7 +988,7 @@ sistemico, non la misura risk-neutral \(\Q\) introdotta nella Lezione 9).
 debitori.}
 \end{center}
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
@@ -1066,7 +1059,7 @@ La $\mathrm{LGD}$ applicata \`e, quindi, quella associata al regime sistemico
 M_{\tau_i-1}.
 \]
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
@@ -1145,7 +1138,7 @@ V_{i,0}\,
 
 La perdita di portafoglio \`e, quindi, $L^P=\sum_{i=1}^{36}L_i$.
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
@@ -1220,7 +1213,7 @@ V_0^{P,\mathrm{lim}}
 200\text{ MUSD}.
 \]
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
@@ -1288,7 +1281,7 @@ simulazione.
 economicamente interpretabile.}
 \end{center}
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
@@ -1366,7 +1359,7 @@ Nel notebook dovremo:
 \textbf{Il codice deve rispettare l'ordine logico del modello.}
 \end{center}
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
@@ -1444,7 +1437,7 @@ L_{\mathrm{base}}^{P,(r)}.
 base, isoliamo anche l'effetto delle repliche di crisi.}
 \end{center}
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
@@ -1511,7 +1504,7 @@ VS Code.}
 
 
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
@@ -1581,7 +1574,7 @@ concentrazione su Lehman viene eliminata?}
 Anche in questo caso il confronto dovr\`a riguardare l'intera
 distribuzione delle perdite, non soltanto la perdita media.
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
@@ -1655,7 +1648,7 @@ La riallocazione modifica anche la composizione per rating del
 portafoglio: il confronto non \`e quindi un puro esperimento sulla
 concentrazione.
 
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}}%
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
 \transboxout%
 %EndExpansion
