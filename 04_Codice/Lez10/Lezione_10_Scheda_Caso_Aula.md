@@ -45,9 +45,9 @@ La domanda quantitativa è:
 
 ### 3.1 Grandezze economico-finanziarie
 
-Per ogni debitore \(i\), \(V_{i,0}\) rappresenta l'investimento iniziale.
+Per ogni debitore $i$, $V_{i,0}$ rappresenta l'investimento iniziale.
 
-Nel caso didattico si assume:
+Nel caso didattico, si assume:
 
 $$
 \operatorname{EAD}_i=V_{i,0}.
@@ -55,7 +55,7 @@ $$
 
 Questa uguaglianza costituisce una semplificazione specifica del caso e non una identificazione generale tra investimento iniziale ed EAD.
 
-La perdita individuale è indicata con \(L_i\), mentre la perdita di portafoglio è
+La perdita individuale è indicata con $L_i$, mentre la perdita di portafoglio è
 
 $$
 L^P
@@ -77,7 +77,7 @@ $$
 V_{E,0}=30,
 $$
 
-ossia al \(15\%\) dell'investimento complessivo.
+ossia al $15\%$ dell'investimento complessivo.
 
 ### 3.2 Variabili casuali e stati del modello
 
@@ -99,9 +99,9 @@ $$
 M_0=S.
 $$
 
-Le probabilità di transizione sono descritte dalla matrice \(Q\) riportata nella Sezione 4.
+Le probabilità di transizione sono descritte dalla matrice $Q$ riportata nella Sezione 4.
 
-Per ogni debitore \(i\), il rating evolve secondo
+Per ogni debitore $i$, il rating evolve secondo
 
 $$
 \{X_{i,t}\}_{t=0}^{4},
@@ -115,7 +115,7 @@ $$
 \{BBB,BB,B,CCC,D\}.
 $$
 
-Lo stato \(D\) rappresenta il default ed è assorbente.
+Lo stato $D$ rappresenta il default ed è assorbente.
 
 Per ogni debitore si definisce inoltre il tempo di default
 
@@ -145,16 +145,16 @@ $$
 
 le migrazioni dei differenti debitori sono indipendenti.
 
-Il regime sistemico è invece comune all'intero portafoglio. Una realizzazione sfavorevole di \(M_t\) modifica simultaneamente le probabilità di downgrade e default di tutti i debitori.
+Il regime sistemico è invece comune all'intero portafoglio. Una realizzazione sfavorevole di $M_t$ modifica simultaneamente le probabilità di downgrade e default di tutti i debitori.
 
-Se il default si verifica durante la transizione da \(t\) a \(t+1\), il regime rilevante per la perdita da default è \(M_t\).
+Se il default si verifica durante la transizione da $t$ a $t+1$, il regime rilevante per la perdita da default è $M_t$.
 
 ### 3.4 Relazioni strutturali e formule principali
 
 Per ogni trimestre:
 
 $$
-\Pr
+\mathbb{P}
 \left(
 X_{i,t+1}=j
 \mid
@@ -183,7 +183,7 @@ V_{i,0}
 \tau_i>4,
 $$
 
-dove \(\varphi\) è il tasso di perdita migration-based assegnato.
+dove $\varphi$ è il tasso di perdita migration-based assegnato.
 
 Se invece il debitore entra in default:
 
@@ -213,9 +213,9 @@ $$
 20.
 $$
 
-La posizione Evergrande viene ridotta da \(30\) a \(20\) milioni.
+La posizione Evergrande viene ridotta da $30$ a $20$ milioni.
 
-I \(10\) milioni liberati vengono redistribuiti **esclusivamente** tra le posizioni inizialmente BBB e BB, proporzionalmente ai rispettivi investimenti iniziali.
+I $10$ milioni liberati vengono redistribuiti **esclusivamente** tra le posizioni inizialmente BBB e BB, proporzionalmente ai rispettivi investimenti iniziali.
 
 Il portafoglio iniziale e quello soggetto al limite devono essere confrontati utilizzando **le stesse traiettorie sistemiche e creditizie simulate**.
 
@@ -396,17 +396,17 @@ $$
 4. il Value at Risk ai livelli $95\%$ e $99\%$:
 
 $$
-\operatorname{VaR}_{0.95}(L^P),
+\operatorname{VaR}_{0,95}(L^P),
 \qquad
-\operatorname{VaR}_{0.99}(L^P);
+\operatorname{VaR}_{0,99}(L^P);
 $$
 
 5. il Conditional Value at Risk ai livelli $95\%$ e $99\%$:
 
 $$
-\operatorname{CVaR}_{0.95}(L^P),
+\operatorname{CVaR}_{0,95}(L^P),
 \qquad
-\operatorname{CVaR}_{0.99}(L^P).
+\operatorname{CVaR}_{0,99}(L^P).
 $$
 
 Il CVaR deve essere calcolato secondo la definizione mediante quantili adottata nel Capitolo 9, coerente anche nel caso di distribuzioni empiriche discrete.
@@ -447,7 +447,7 @@ $$
 
 ### 6.1 Risultati numerici
 
-Per entrambi i portafogli devono essere riportati:
+Per entrambi i portafogli, devono essere riportati:
 
 - perdita media;
 - varianza;
@@ -577,7 +577,7 @@ Il modello assume che:
 4. le migrazioni individuali siano indipendenti condizionatamente al regime sistemico comune;
 5. il default sia assorbente;
 6. gli investimenti iniziali siano deterministici;
-7. nel caso didattico valga
+7. nel caso didattico, valga
 
 $$
 \operatorname{EAD}_i=V_{i,0};

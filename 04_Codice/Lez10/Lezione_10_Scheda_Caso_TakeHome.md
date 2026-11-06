@@ -45,9 +45,9 @@ La domanda quantitativa è:
 
 ### 3.1 Grandezze economico-finanziarie
 
-Per ogni debitore \(i\), \(V_{i,0}\) rappresenta l'investimento iniziale nella posizione creditizia.
+Per ogni debitore $i$, $V_{i,0}$ rappresenta l'investimento iniziale nella posizione creditizia.
 
-Nel caso didattico si assume:
+Nel caso didattico, si assume:
 
 $$
 \mathrm{EAD}_i=V_{i,0},
@@ -61,9 +61,9 @@ $$
 
 Questa uguaglianza tra EAD e investimento iniziale costituisce una semplificazione specifica del caso e non una identificazione generale tra i due concetti.
 
-Per ogni debitore, la perdita è indicata con \(L_i\).
+Per ogni debitore, la perdita è indicata con $L_i$.
 
-Per la replica Monte Carlo \(r\), la perdita del portafoglio concentrato è
+Per la replica Monte Carlo $r$, la perdita del portafoglio concentrato è
 
 $$
 L_{\mathrm{conc}}^{P,(r)}
@@ -106,9 +106,9 @@ $$
 M_0=S.
 $$
 
-Le probabilità di transizione sono descritte dalla matrice \(Q\) riportata nella Sezione 4.
+Le probabilità di transizione sono descritte dalla matrice $Q$ riportata nella Sezione 4.
 
-Per ogni debitore \(i\), il rating evolve secondo
+Per ogni debitore $i$, il rating evolve secondo
 
 $$
 \{X_{i,t}\}_{t=0}^{4},
@@ -122,7 +122,7 @@ $$
 \{A,BBB,BB,B,D\}.
 $$
 
-Lo stato \(D\) rappresenta il default ed è assorbente.
+Lo stato $D$ rappresenta il default ed è assorbente.
 
 ### 3.3 Eventi, stati informativi e dipendenza
 
@@ -134,14 +134,14 @@ $$
 
 le migrazioni dei differenti debitori sono indipendenti.
 
-Il regime sistemico è invece comune all'intero portafoglio. Una traiettoria che permane o entra nello stato \(C\) applica simultaneamente matrici di migrazione più sfavorevoli a tutti i debitori.
+Il regime sistemico è invece comune all'intero portafoglio. Una traiettoria che permane o entra nello stato $C$ applica simultaneamente matrici di migrazione più sfavorevoli a tutti i debitori.
 
 ### 3.4 Relazioni strutturali e formule principali
 
 Per ogni trimestre:
 
 $$
-\Pr
+\mathbb P
 \left(
 X_{i,t+1}=j
 \mid
@@ -159,7 +159,7 @@ P^{(S)},\qquad
 P^{(C)}.
 $$
 
-Per ogni debitore la perdita dipende dal rating iniziale, dal rating finale e dall'investimento iniziale:
+Per ogni debitore, la perdita dipende dal rating iniziale, dal rating finale e dall'investimento iniziale:
 
 $$
 L_i
@@ -168,19 +168,19 @@ V_{i,0}\,
 \varphi(X_{i,0},X_{i,4}),
 $$
 
-dove \(\varphi(r_0,r_4)\) è il tasso di perdita assegnato alla migrazione dal rating iniziale \(r_0\) al rating finale \(r_4\).
+dove $\varphi(r_0,r_4)$ è il tasso di perdita assegnato alla migrazione dal rating iniziale $r_0$ al rating finale $r_4$.
 
-Il default è incluso direttamente nella funzione \(\varphi\). In particolare,
+Il default è incluso direttamente nella funzione $\varphi$. In particolare,
 
 $$
 \varphi(r_0,D)=0.65.
 $$
 
-Poiché \(D\) è assorbente e la LGD è costante, la perdita da default dipende dallo stato terminale \(X_{i,4}=D\) e non dal trimestre nel quale il default si è verificato.
+Poiché $D$ è assorbente e la LGD è costante, la perdita da default dipende dallo stato terminale $X_{i,4}=D$ e non dal trimestre nel quale il default si è verificato.
 
 ### 3.5 Soglie, target e vincoli
 
-Nel portafoglio controfattuale la posizione Lehman viene eliminata e il relativo investimento iniziale viene redistribuito proporzionalmente tra gli altri 39 debitori, mantenendo invariato l'investimento complessivo del portafoglio.
+Nel portafoglio controfattuale, la posizione Lehman viene eliminata e il relativo investimento iniziale viene redistribuito proporzionalmente tra gli altri 39 debitori, mantenendo invariato l'investimento complessivo del portafoglio.
 
 Il confronto deve essere effettuato utilizzando **le stesse repliche Monte Carlo sottostanti**:
 
@@ -365,7 +365,7 @@ trimestri, pari a un anno.
 
 ## 5. Quantità da stimare o calcolare
 
-Per il portafoglio concentrato e per il portafoglio controfattuale devono essere determinate:
+Per il portafoglio concentrato e per il portafoglio controfattuale, devono essere determinate:
 
 1. la perdita media
 
@@ -384,17 +384,17 @@ $$
 4. il Value at Risk ai livelli $95\%$ e $99\%$:
 
 $$
-\operatorname{VaR}_{0.95}(L^P),
+\operatorname{VaR}_{0,95}(L^P),
 \qquad
-\operatorname{VaR}_{0.99}(L^P);
+\operatorname{VaR}_{0,99}(L^P);
 $$
 
 5. il Conditional Value at Risk ai livelli $95\%$ e $99\%$:
 
 $$
-\operatorname{CVaR}_{0.95}(L^P),
+\operatorname{CVaR}_{0,95}(L^P),
 \qquad
-\operatorname{CVaR}_{0.99}(L^P).
+\operatorname{CVaR}_{0,99}(L^P).
 $$
 
 Devono inoltre essere determinate:
@@ -433,7 +433,7 @@ Il CVaR deve essere calcolato secondo la definizione mediante quantili adottata 
 
 ### 6.1 Risultati numerici
 
-Per entrambi i portafogli devono essere riportati:
+Per entrambi i portafogli, devono essere riportati:
 
 - distribuzione simulata della perdita;
 - perdita media;
@@ -503,57 +503,57 @@ Devono essere verificati almeno i seguenti punti.
 
 ### Controlli numerici
 
-1. Verifica che ogni riga della matrice di transizione del regime sistemico \(Q\) sommi a 1.
+- **Controllo 1:** Verifica che ogni riga della matrice di transizione del regime sistemico $Q$ sommi a 1.
 
-2. Verifica che ogni riga delle matrici di migrazione creditizia \(P^{(O)}\), \(P^{(S)}\) e \(P^{(C)}\) sommi a 1.
+- **Controllo 2:** Verifica che ogni riga delle matrici di migrazione creditizia $P^{(O)}$, $P^{(S)}$ e $P^{(C)}$ sommi a 1.
 
-7. Verifica che il portafoglio concentrato contenga esattamente 40 debitori.
+- **Controllo 7:** Verifica che il portafoglio concentrato contenga esattamente 40 debitori.
 
-8. Verifica che il portafoglio controfattuale contenga esattamente 39 debitori.
+- **Controllo 8:** Verifica che il portafoglio controfattuale contenga esattamente 39 debitori.
 
-9. Verifica che l'investimento iniziale complessivo sia pari a 173 milioni di dollari in entrambi i portafogli:
+- **Controllo 9:** Verifica che l'investimento iniziale complessivo sia pari a 173 milioni di dollari in entrambi i portafogli:
 
-\[
+$$
 V_0^{P,\mathrm{conc}}
 =
 V_0^{P,\mathrm{div}}
 =
 173.
-\]
+$$
 
-10. Verifica che le proporzioni relative degli investimenti dei 39 debitori residui rimangano inalterate dopo la riallocazione proporzionale.
+- **Controllo 10:** Verifica che le proporzioni relative degli investimenti dei 39 debitori residui rimangano inalterate dopo la riallocazione proporzionale.
 
-12. Verifica che la perdita totale di ciascun portafoglio coincida con la somma delle rispettive perdite individuali.
+- **Controllo 12:** Verifica che la perdita totale di ciascun portafoglio coincida con la somma delle rispettive perdite individuali.
 
-14. Verifica che VaR e CVaR siano calcolati sulle distribuzioni empiriche delle perdite monetarie, espresse in milioni di dollari.
+- **Controllo 14:** Verifica che VaR e CVaR siano calcolati sulle distribuzioni empiriche delle perdite monetarie, espresse in milioni di dollari.
 
-15. Verifica che le principali misure di rischio mostrino una ragionevole stabilità al crescere del numero di repliche simulate.
+- **Controllo 15:** Verifica che le principali misure di rischio mostrino una ragionevole stabilità al crescere del numero di repliche simulate.
 
 ### Controlli logici o teorici
 
-3. Verifica che lo stato \(D\) sia assorbente in tutte le matrici di migrazione creditizia:
+- **Controllo 3:** Verifica che lo stato $D$ sia assorbente in tutte le matrici di migrazione creditizia:
 
-\[
+$$
 p_{DD}^{(m)}=1.
-\]
+$$
 
-4. Verifica che tutti gli stati simulati appartengano agli insiemi definiti:
+- **Controllo 4:** Verifica che tutti gli stati simulati appartengano agli insiemi definiti:
 
-\[
+$$
 \mathcal M=\{O,S,C\},
 \qquad
 \mathcal I=\{A,BBB,BB,B,D\}.
-\]
+$$
 
-5. Verifica che, all'interno della stessa replica Monte Carlo, esista un'unica traiettoria sistemica comune a tutti i debitori.
+- **Controllo 5:** Verifica che, all'interno della stessa replica Monte Carlo, esista un'unica traiettoria sistemica comune a tutti i debitori.
 
-6. Verifica che, condizionatamente alla traiettoria sistemica comune, i debitori utilizzino estrazioni casuali individuali e indipendenti.
+- **Controllo 6:** Verifica che, condizionatamente alla traiettoria sistemica comune, i debitori utilizzino estrazioni casuali individuali e indipendenti.
 
 ### Controlli computazionali
 
-11. Verifica che i 39 debitori comuni utilizzino esattamente le stesse traiettorie creditizie nei due portafogli.
+- **Controllo 11:** Verifica che i 39 debitori comuni utilizzino esattamente le stesse traiettorie creditizie nei due portafogli.
 
-13. Verifica che il seed assegnato, pari a 2026, sia impostato correttamente come condizione per la riproducibilità della simulazione.
+- **Controllo 13:** Verifica che il seed assegnato, pari a 2026, sia impostato correttamente come condizione per la riproducibilità della simulazione.
 
 ---
 

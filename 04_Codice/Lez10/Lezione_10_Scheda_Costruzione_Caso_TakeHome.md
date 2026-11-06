@@ -609,15 +609,15 @@ I controlli richiesti devono distinguere tra:
 
 #### Controlli numerici
 
-1. Tutte le righe della matrice di transizione del regime sistemico $Q$ devono sommare a uno.
+- **Controllo 1:** Tutte le righe della matrice di transizione del regime sistemico $Q$ devono sommare a uno.
 
-2. Tutte le righe delle matrici di migrazione creditizia $P^{(O)}$, $P^{(S)}$ e $P^{(C)}$ devono sommare a uno.
+- **Controllo 2:** Tutte le righe delle matrici di migrazione creditizia $P^{(O)}$, $P^{(S)}$ e $P^{(C)}$ devono sommare a uno.
 
-7. Il portafoglio concentrato deve contenere esattamente $40$ debitori.
+- **Controllo 7:** Il portafoglio concentrato deve contenere esattamente $40$ debitori.
 
-8. Il portafoglio controfattuale deve contenere esattamente $39$ debitori, dopo l'eliminazione della posizione Lehman Brothers.
+- **Controllo 8:** Il portafoglio controfattuale deve contenere esattamente $39$ debitori, dopo l'eliminazione della posizione Lehman Brothers.
 
-9. L'investimento iniziale complessivo deve essere pari a $173$ milioni di dollari in entrambi i portafogli:
+- **Controllo 9:** L'investimento iniziale complessivo deve essere pari a $173$ milioni di dollari in entrambi i portafogli:
 
 $$
 V_0^{P,\mathrm{conc}}
@@ -627,7 +627,7 @@ V_0^{P,\mathrm{div}}
 173.
 $$
 
-10. La riallocazione dei $25$ milioni inizialmente investiti in Lehman Brothers deve preservare le proporzioni relative degli investimenti dei $39$ debitori residui. Per ogni debitore $i\neq L$ deve risultare:
+- **Controllo 10:** La riallocazione dei $25$ milioni inizialmente investiti in Lehman Brothers deve preservare le proporzioni relative degli investimenti dei $39$ debitori residui. Per ogni debitore $i\neq L$ deve risultare:
 
 $$
 V_{i,0}^{\mathrm{div}}
@@ -635,15 +635,15 @@ V_{i,0}^{\mathrm{div}}
 V_{i,0}\frac{173}{148}.
 $$
 
-12. Per ciascuna replica Monte Carlo, la perdita aggregata di ciascun portafoglio deve coincidere con la somma delle rispettive perdite individuali.
+- **Controllo 12:** Per ciascuna replica Monte Carlo, la perdita aggregata di ciascun portafoglio deve coincidere con la somma delle rispettive perdite individuali.
 
-14. VaR e CVaR devono essere calcolati direttamente sulle distribuzioni empiriche delle perdite monetarie dei due portafogli, espresse in milioni di dollari. Il CVaR deve essere calcolato secondo la definizione mediante quantili adottata nel Capitolo 9.
+- **Controllo 14:** VaR e CVaR devono essere calcolati direttamente sulle distribuzioni empiriche delle perdite monetarie dei due portafogli, espresse in milioni di dollari. Il CVaR deve essere calcolato secondo la definizione mediante quantili adottata nel Capitolo 9.
 
-15. Le principali misure di rischio devono mostrare una ragionevole stabilità al crescere del numero di repliche simulate. Il controllo costituisce una verifica empirica di sensibilità alla numerosità Monte Carlo e non una dimostrazione formale di convergenza.
+- **Controllo 15:** Le principali misure di rischio devono mostrare una ragionevole stabilità al crescere del numero di repliche simulate. Il controllo costituisce una verifica empirica di sensibilità alla numerosità Monte Carlo e non una dimostrazione formale di convergenza.
 
 #### Controlli logici o teorici
 
-3. Lo stato di default $D$ deve essere assorbente in tutte le matrici di migrazione creditizia:
+- **Controllo 3:** Lo stato di default $D$ deve essere assorbente in tutte le matrici di migrazione creditizia:
 
 $$
 p_{DD}^{(m)}
@@ -651,7 +651,7 @@ p_{DD}^{(m)}
 1.
 $$
 
-4. Tutti gli stati simulati devono appartenere agli insiemi definiti dal modello:
+- **Controllo 4:** Tutti gli stati simulati devono appartenere agli insiemi definiti dal modello:
 
 $$
 \mathcal M
@@ -663,15 +663,15 @@ $$
 \{A,BBB,BB,B,D\}.
 $$
 
-5. All'interno di ciascuna replica Monte Carlo deve essere generata una sola traiettoria sistemica comune a tutti i debitori.
+- **Controllo 5:** All'interno di ciascuna replica Monte Carlo deve essere generata una sola traiettoria sistemica comune a tutti i debitori.
 
-6. Condizionatamente alla traiettoria sistemica comune, le migrazioni dei differenti debitori devono essere generate mediante estrazioni casuali individuali e indipendenti.
+- **Controllo 6:** Condizionatamente alla traiettoria sistemica comune, le migrazioni dei differenti debitori devono essere generate mediante estrazioni casuali individuali e indipendenti.
 
 #### Controlli computazionali
 
-11. I $39$ debitori comuni ai due portafogli devono utilizzare esattamente le stesse traiettorie creditizie nelle due configurazioni. Il confronto deve quindi essere effettuato riutilizzando le medesime traiettorie sistemiche e creditizie sottostanti, così che le differenze osservate dipendano dalla composizione dei portafogli e non da differenti realizzazioni casuali.
+- **Controllo 11:** I $39$ debitori comuni ai due portafogli devono utilizzare esattamente le stesse traiettorie creditizie nelle due configurazioni. Il confronto deve quindi essere effettuato riutilizzando le medesime traiettorie sistemiche e creditizie sottostanti, così che le differenze osservate dipendano dalla composizione dei portafogli e non da differenti realizzazioni casuali.
 
-13. Il seed assegnato, pari a $2026$, deve essere correttamente impostato come condizione per la riproducibilità della simulazione a parità di implementazione e ambiente computazionale. Il controllo riguarda la corretta impostazione del seed e non deve essere interpretato come garanzia astratta di riproducibilità esatta indipendentemente dall'ambiente computazionale.
+- **Controllo 13:** Il seed assegnato, pari a $2026$, deve essere correttamente impostato come condizione per la riproducibilità della simulazione a parità di implementazione e ambiente computazionale. Il controllo riguarda la corretta impostazione del seed e non deve essere interpretato come garanzia astratta di riproducibilità esatta indipendentemente dall'ambiente computazionale.
 
 ## 6. Flusso logico-teorico risolutivo atteso
 
