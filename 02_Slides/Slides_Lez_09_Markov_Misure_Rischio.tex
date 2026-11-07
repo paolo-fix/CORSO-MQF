@@ -36,27 +36,6 @@
 \newenvironment{stepitemizewithalert}{\begin{itemize}[<+-| alert@+>]}{\end{itemize} }
 \usetheme{Madrid}
 
-\setbeamertemplate{footline}
-{
-  \leavevmode%
-  \hbox{%
-    \begin{beamercolorbox}[wd=.20\paperwidth,ht=2.25ex,dp=1ex,center]
-      {author in head/foot}%
-      \usebeamerfont{author in head/foot}\insertshortauthor
-    \end{beamercolorbox}%
-    \begin{beamercolorbox}[wd=.69\paperwidth,ht=2.25ex,dp=1ex,center]
-      {title in head/foot}%
-      \usebeamerfont{title in head/foot}\insertshorttitle
-    \end{beamercolorbox}%
-    \begin{beamercolorbox}[wd=.11\paperwidth,ht=2.25ex,dp=1ex,right]
-      {date in head/foot}%
-      \usebeamerfont{date in head/foot}%
-      \insertshortdate{}\hspace*{2em}%
-      \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
-    \end{beamercolorbox}%
-  }%
-  \vskip0pt%
-}
 
 \providecommand{\R}{\mathbb{R}}
 \providecommand{\N}{\mathbb{N}}
@@ -88,19 +67,33 @@
 \fi\fi\fi
 %EndMSIPreambleData
 
-
-\title[Lez. 9 - Catene di Markov e misure di rischio]{Lezione 9 - Catene di Markov e misure di rischio}
-\subtitle{Metodi Quantitativi per la Finanza}
-\author[P. Falbo, C. Pelizzari]{{\LARGE Paolo Falbo, Cristian Pelizzari}}
-\institute[]{{\large Dipartimento di Economia e Management}}
-\date[]{}
-\titlegraphic{
-\includegraphics[height=1.25cm]{../graphics/MQF_logo.png}\hspace{0.8cm}%
-\includegraphics[height=1.25cm]{../graphics/logo-Unibs-esteso.png}
-}
+%**** Cartella delle figure: percorso relativo (Overleaf) e assoluto (SWP 5.5)
+\graphicspath{{../graphics/}{E:/Didattica/MQF/Github/CORSO-MQF/graphics/}}
+%**** Titolo, autori e barra inferiore: campo TeX "Frontespizio" dopo \begin{document}
 
 \begin{document}
-\maketitle
+
+%****************************************************************
+%**** PAGINA DI TITOLO E BARRA INFERIORE (campo TeX "Frontespizio")
+%**** Contiene: footline, title, subtitle, author, institute, date,
+%**** titlegraphic, maketitle. Resta qui, nel corpo del documento:
+%**** nel preambolo SWP 5.5 altera argomenti opzionali e fine riga.
+%**** Vedi MQF_Project_Guidelines.md, sezione 10.2.
+%****************************************************************
+%TCIMACRO{\TeXButton{Frontespizio}{\setbeamertemplate{footline}{\leavevmode\hbox{\begin{beamercolorbox}[wd=.20\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}\usebeamerfont{author in head/foot}\insertshortauthor\end{beamercolorbox}\begin{beamercolorbox}[wd=.69\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}\usebeamerfont{title in head/foot}\insertshorttitle\end{beamercolorbox}\begin{beamercolorbox}[wd=.11\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}\usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}\insertframenumber{} / \inserttotalframenumber\hspace*{2ex}\end{beamercolorbox}}\vskip0pt}\title[Lez. 9 - Catene di Markov e misure di rischio]{Lezione 9 - Catene di Markov e misure di rischio}\subtitle{Metodi Quantitativi per la Finanza}\author[P. Falbo, C. Pelizzari]{{\LARGE Paolo Falbo, Cristian Pelizzari}}\institute[]{{\large Dipartimento di Economia e Management}}\date[]{}\titlegraphic{\includegraphics[height=1.25cm]{MQF_logo.png}\hspace{0.8cm}\includegraphics[height=1.25cm]{logo-Unibs-esteso.png}}\maketitle}}%
+%BeginExpansion
+\setbeamertemplate{footline}{\leavevmode\hbox{\begin{beamercolorbox}[wd=.20\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}\usebeamerfont{author in head/foot}\insertshortauthor\end{beamercolorbox}\begin{beamercolorbox}[wd=.69\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}\usebeamerfont{title in head/foot}\insertshorttitle\end{beamercolorbox}\begin{beamercolorbox}[wd=.11\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}\usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}\insertframenumber{} / \inserttotalframenumber\hspace*{2ex}\end{beamercolorbox}}\vskip0pt}%
+\title[Lez. 9 - Catene di Markov e misure di rischio]{Lezione 9 - Catene di Markov e misure di rischio}%
+\subtitle{Metodi Quantitativi per la Finanza}%
+\author[P. Falbo, C. Pelizzari]{{\LARGE Paolo Falbo, Cristian Pelizzari}}%
+\institute[]{{\large Dipartimento di Economia e Management}}%
+\date[]{}%
+\titlegraphic{\includegraphics[height=1.25cm]{MQF_logo.png}\hspace{0.8cm}\includegraphics[height=1.25cm]{logo-Unibs-esteso.png}}%
+\maketitle%
+%EndExpansion
+%****************************************************************
+%**** FINE PAGINA DI TITOLO
+%****************************************************************
 
 %****************************************
 \section{Apertura}
@@ -114,7 +107,7 @@
 %EndExpansion
 %
 
-%TCIMACRO{\QTR{frametitle}{Lezione 9 - Dalla dinamica dei rating alla perdita}}%
+%TCIMACRO{\QTR{frametitle}{Dalla dinamica dei rating alla perdita}}%
 %BeginExpansion
 \frametitle{Dalla dinamica dei rating alla perdita}%
 %EndExpansion
@@ -510,7 +503,7 @@ orizzonti $h=0,1,\ldots,5$:
 \medskip
 
 \begin{center}
-\includegraphics[height=6.2cm]{../graphics/Cap09_term_structure_default_esercizio.png}
+\includegraphics[height=6.2cm]{Cap09_term_structure_default_esercizio.png}
 \end{center}
 
 \medskip
@@ -903,7 +896,7 @@ discussione.}
 %EndExpansion
 
 \begin{center}
-\includegraphics[height=4.6cm]{../graphics/Cap09_distribuzione_perdita_esercizio.png}
+\includegraphics[height=4.6cm]{Cap09_distribuzione_perdita_esercizio.png}
 \end{center}
 
 \medskip
@@ -1141,7 +1134,7 @@ q_{0.95}(L_1\mid X_0=2)=8.
 %\medskip
 
 \begin{center}
-\includegraphics[height=4.9cm]{../graphics/Cap09_funzione_ripartizione_quantile.png}
+\includegraphics[height=4.9cm]{Cap09_funzione_ripartizione_quantile.png}
 \end{center}
 
 %\medskip
@@ -1587,7 +1580,7 @@ alla perdita $60$.
 \]
 
 \begin{center}
-\includegraphics[height=3.9cm]{../graphics/Cap09_CVaR_massa_quantile_esercizio.png}
+\includegraphics[height=3.9cm]{Cap09_CVaR_massa_quantile_esercizio.png}
 \end{center}
 
 \begin{center}
@@ -1876,7 +1869,7 @@ adattabilit\`{a} gi\`{a} incontrato nella Lezione~5.
 \item Con premi anticipati e $H=1$ l'unico premio cade in $t=0$, dove
 $d_0=1$ e $\Q(\tau_D>0)=S(0)=1$. Il coefficiente della gamba dei premi
 non sparisce: \textbf{vale} $1$, e
-$\mathrm{PV}_{\mathrm{prem}}^\mathrm{ant}(s)=sN$.
+$\mathrm{PV}_{\mathrm{prem}}^{\mathrm{ant}}(s)=sN$.
 \end{stepitemize}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
@@ -1966,7 +1959,7 @@ s^{*}
 \QTR{frametitle}{Lo spread equo come punto di equilibrio}
 
 \begin{center}
-\includegraphics[height=5.6cm]{../graphics/Cap09_CDS_equilibrio_gambe_caso_guida.png}
+\includegraphics[height=5.6cm]{Cap09_CDS_equilibrio_gambe_caso_guida.png}
 \end{center}
 
 \medskip
@@ -2024,7 +2017,7 @@ N_{\mathrm{CDS}}(1-R_{\mathrm{CDS}})
 \]
 
 \begin{center}
-\includegraphics[height=4.5cm]{../graphics/Cap09_cdf_hedged_var_cvar.png}
+\includegraphics[height=4.5cm]{Cap09_cdf_hedged_var_cvar.png}
 \end{center}
 
 \begin{center}

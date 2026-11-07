@@ -36,27 +36,6 @@
 \newenvironment{stepitemizewithalert}{\begin{itemize}[<+-| alert@+>]}{\end{itemize} }
 \usetheme{Madrid}
 
-\setbeamertemplate{footline}
-{
-  \leavevmode%
-  \hbox{%
-    \begin{beamercolorbox}[wd=.20\paperwidth,ht=2.25ex,dp=1ex,center]
-      {author in head/foot}%
-      \usebeamerfont{author in head/foot}\insertshortauthor
-    \end{beamercolorbox}%
-    \begin{beamercolorbox}[wd=.69\paperwidth,ht=2.25ex,dp=1ex,center]
-      {title in head/foot}%
-      \usebeamerfont{title in head/foot}\insertshorttitle
-    \end{beamercolorbox}%
-    \begin{beamercolorbox}[wd=.11\paperwidth,ht=2.25ex,dp=1ex,right]
-      {date in head/foot}%
-      \usebeamerfont{date in head/foot}%
-      \insertshortdate{}\hspace*{2em}%
-      \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
-    \end{beamercolorbox}%
-  }%
-  \vskip0pt%
-}
 
 \providecommand{\R}{\mathbb{R}}
 \providecommand{\N}{\mathbb{N}}
@@ -87,21 +66,33 @@
 \fi\fi\fi
 %EndMSIPreambleData
 
-
-\title[Lez. 12 - Dualit\`a e Asset-Liability Management
-deterministico]{Lezione 12 - Dualit\`a e Asset-Liability Management
-deterministico}
-\subtitle{Metodi Quantitativi per la Finanza}
-\author[P. Falbo, C. Pelizzari]{{\LARGE Paolo Falbo, Cristian Pelizzari}}
-\institute[]{{\large Dipartimento di Economia e Management}}
-\date[]{}
-\titlegraphic{
-\includegraphics[height=1.25cm]{../graphics/MQF_logo.png}\hspace{0.8cm}%
-\includegraphics[height=1.25cm]{../graphics/logo-Unibs-esteso.png}
-}
+%**** Cartella delle figure: percorso relativo (Overleaf) e assoluto (SWP 5.5)
+\graphicspath{{../graphics/}{E:/Didattica/MQF/Github/CORSO-MQF/graphics/}}
+%**** Titolo, autori e barra inferiore: campo TeX "Frontespizio" dopo \begin{document}
 
 \begin{document}
-\maketitle
+
+%****************************************************************
+%**** PAGINA DI TITOLO E BARRA INFERIORE (campo TeX "Frontespizio")
+%**** Contiene: footline, title, subtitle, author, institute, date,
+%**** titlegraphic, maketitle. Resta qui, nel corpo del documento:
+%**** nel preambolo SWP 5.5 altera argomenti opzionali e fine riga.
+%**** Vedi MQF_Project_Guidelines.md, sezione 10.2.
+%****************************************************************
+%TCIMACRO{\TeXButton{Frontespizio}{\setbeamertemplate{footline}{\leavevmode\hbox{\begin{beamercolorbox}[wd=.20\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}\usebeamerfont{author in head/foot}\insertshortauthor\end{beamercolorbox}\begin{beamercolorbox}[wd=.69\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}\usebeamerfont{title in head/foot}\insertshorttitle\end{beamercolorbox}\begin{beamercolorbox}[wd=.11\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}\usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}\insertframenumber{} / \inserttotalframenumber\hspace*{2ex}\end{beamercolorbox}}\vskip0pt}\title[Lez. 12 - Dualit\`a e Asset-Liability Management deterministico]{Lezione 12 - Dualit\`a e Asset-Liability Management deterministico}\subtitle{Metodi Quantitativi per la Finanza}\author[P. Falbo, C. Pelizzari]{{\LARGE Paolo Falbo, Cristian Pelizzari}}\institute[]{{\large Dipartimento di Economia e Management}}\date[]{}\titlegraphic{\includegraphics[height=1.25cm]{MQF_logo.png}\hspace{0.8cm}\includegraphics[height=1.25cm]{logo-Unibs-esteso.png}}\maketitle}}%
+%BeginExpansion
+\setbeamertemplate{footline}{\leavevmode\hbox{\begin{beamercolorbox}[wd=.20\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}\usebeamerfont{author in head/foot}\insertshortauthor\end{beamercolorbox}\begin{beamercolorbox}[wd=.69\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}\usebeamerfont{title in head/foot}\insertshorttitle\end{beamercolorbox}\begin{beamercolorbox}[wd=.11\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}\usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}\insertframenumber{} / \inserttotalframenumber\hspace*{2ex}\end{beamercolorbox}}\vskip0pt}%
+\title[Lez. 12 - Dualit\`a e Asset-Liability Management deterministico]{Lezione 12 - Dualit\`a e Asset-Liability Management deterministico}%
+\subtitle{Metodi Quantitativi per la Finanza}%
+\author[P. Falbo, C. Pelizzari]{{\LARGE Paolo Falbo, Cristian Pelizzari}}%
+\institute[]{{\large Dipartimento di Economia e Management}}%
+\date[]{}%
+\titlegraphic{\includegraphics[height=1.25cm]{MQF_logo.png}\hspace{0.8cm}\includegraphics[height=1.25cm]{logo-Unibs-esteso.png}}%
+\maketitle%
+%EndExpansion
+%****************************************************************
+%**** FINE PAGINA DI TITOLO
+%****************************************************************
 
 %****************************************
 
@@ -440,7 +431,7 @@ alle risorse il \textbf{valore complessivo minimo}.
  
 \begin{center}
 \includegraphics[width=0.84\textwidth]
-{../graphics/cap11_corrispondenza_primale_duale.png}
+{cap11_corrispondenza_primale_duale.png}
 \end{center}
  
 \vspace{-2mm}
@@ -998,7 +989,7 @@ prezzo?}
  
 % \begin{center}
 % \includegraphics[width=0.84\textwidth]
-% {../graphics/cap11_corrispondenza_primale_duale.png}
+% {cap11_corrispondenza_primale_duale.png}
 % \end{center}
  
 % \vspace{-2mm}
@@ -1362,7 +1353,7 @@ B:\;(1,\;2,\;7),
 
 \begin{center}
 \includegraphics[width=0.78\textwidth]
-{../graphics/Cap12_liquidita_aggregata_temporale.png}
+{Cap12_liquidita_aggregata_temporale.png}
 \end{center}
 
 \vspace{-2mm}
@@ -1525,7 +1516,7 @@ alla data $t$: rimborsi, pagamenti contrattuali, deflussi della raccolta.
 
 \begin{center}
 \includegraphics[width=0.80\textwidth]
-{../graphics/Cap12_cashflow_attivi_fabbisogni_b.png}
+{Cap12_cashflow_attivi_fabbisogni_b.png}
 \end{center}
 
 \vspace{-2mm}
@@ -2043,7 +2034,7 @@ g_t
 
 \begin{center}
 \includegraphics[width=0.84\textwidth]
-{../graphics/Cap12_bilancio_intertemporale.png}
+{Cap12_bilancio_intertemporale.png}
 \end{center}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
@@ -2744,7 +2735,7 @@ t & a_t'x^{*} & (1+r_{t-1}^{g})g_{t-1}^{*} & u_t^{*}
 
 \begin{center}
 \includegraphics[width=0.78\textwidth]
-{../graphics/Cap12_ALM_profili_ottimi.png}
+{Cap12_ALM_profili_ottimi.png}
 \end{center}
 
 
@@ -2921,7 +2912,7 @@ quanto \`{e} ``stretta'' la banca} nel momento in cui deve farvi fronte.
 
 \begin{center}
 \includegraphics[width=0.62\textwidth]
-{../graphics/Cap12_prezzi_ombra_scadenze.png}
+{Cap12_prezzi_ombra_scadenze.png}
 \end{center}
 
 \medskip

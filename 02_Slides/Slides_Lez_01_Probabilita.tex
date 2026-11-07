@@ -7,10 +7,10 @@
 % Fallback utile per compilazione esterna se qualche titolo resta scritto come \QTR.
 % Scientific WorkPlace usa \QTR internamente; in Beamer \QTR{frametitle}{Titolo}
 % deve espandersi in \frametitle{Titolo}.
+%\usepackage{hyperref}
 
 \documentclass[handout]{beamer}%
 \usepackage{mathpazo}
-%\usepackage{hyperref}
 \usepackage{multimedia}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -22,7 +22,7 @@
 %TCIDATA{Codepage=65001}
 %TCIDATA{CSTFile=beamer.cst}
 %TCIDATA{Created=Saturday, May 16, 2026 09:09:59}
-%TCIDATA{LastRevised=Saturday, May 16, 2026 11:24:58}
+%TCIDATA{LastRevised=Monday, November 02, 2026 19:41:23}
 %TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
 %TCIDATA{<META NAME="SaveForMode" CONTENT="2">}
 %TCIDATA{BibliographyScheme=Manual}
@@ -35,29 +35,6 @@
 \newenvironment{stepenumeratewithalert}{\begin{enumerate}[<+-| alert@+>]}{\end{enumerate}}
 \newenvironment{stepitemizewithalert}{\begin{itemize}[<+-| alert@+>]}{\end{itemize} }
 \usetheme{Madrid}
-
-\setbeamertemplate{footline}
-{
-  \leavevmode%
-  \hbox{%
-    \begin{beamercolorbox}[wd=.20\paperwidth,ht=2.25ex,dp=1ex,center]
-      {author in head/foot}%
-      \usebeamerfont{author in head/foot}\insertshortauthor
-    \end{beamercolorbox}%
-    \begin{beamercolorbox}[wd=.69\paperwidth,ht=2.25ex,dp=1ex,center]
-      {title in head/foot}%
-      \usebeamerfont{title in head/foot}\insertshorttitle
-    \end{beamercolorbox}%
-    \begin{beamercolorbox}[wd=.11\paperwidth,ht=2.25ex,dp=1ex,right]
-      {date in head/foot}%
-      \usebeamerfont{date in head/foot}%
-      \insertshortdate{}\hspace*{2em}%
-      \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
-    \end{beamercolorbox}%
-  }%
-  \vskip0pt%
-}
-
 \providecommand{\R}{\mathbb{R}}
 \providecommand{\N}{\mathbb{N}}
 \providecommand{\E}{\mathbb{E}}
@@ -76,6 +53,9 @@
 \providecommand{\EVPI}{\operatorname{EVPI}}
 \providecommand{\VSS}{\operatorname{VSS}}
 \providecommand{\QTR}[2]{\csname #1\endcsname{#2}}
+%**** Cartella delle figure: percorso relativo (Overleaf) e assoluto (SWP 5.5)
+\graphicspath{{../graphics/}{E:/Didattica/MQF/Github/CORSO-MQF/graphics/}}
+%**** Titolo, autori e barra inferiore: campo TeX "Frontespizio" dopo \begin{document}
 %BeginMSIPreambleData
 \ifx\pdfoutput\relax\let\pdfoutput=\undefined\fi
 \newcount\msipdfoutput
@@ -87,23 +67,61 @@
 \ifdim\paperwidth=0pt\relax\else\pdfpagewidth\paperwidth\fi
 \fi\fi\fi
 %EndMSIPreambleData
-
-
-\title[Lez. 1 - Elementi di teoria della probabilit\`{a}]{Lezione 1 - Elementi di teoria della probabilit\`{a}}
-\subtitle{Metodi Quantitativi per la Finanza}
-\author[P. Falbo, C. Pelizzari]{{\LARGE Paolo Falbo, Cristian Pelizzari}}
-\institute[]{{\large Dipartimento di Economia e Management}}
-\date[]{}
-\titlegraphic{
-\includegraphics[height=1.25cm]{../graphics/MQF_logo.png}\hspace{0.8cm}%
-\includegraphics[height=1.25cm]{../graphics/logo-Unibs-esteso.png}
-}
-
 \begin{document}
-\maketitle
+
+%****************************************************************
+%**** PAGINA DI TITOLO E BARRA INFERIORE (campo TeX "Frontespizio")
+%**** Contiene: footline, title, subtitle, author, institute, date,
+%**** titlegraphic, maketitle. Resta qui, nel corpo del documento:
+%**** nel preambolo SWP 5.5 altera argomenti opzionali e fine riga.
+%**** Vedi MQF_Project_Guidelines.md, sezione 10.2.
+%****************************************************************
+%TCIMACRO{\TeXButton{Frontespizio}{\setbeamertemplate{footline}{\leavevmode
+%\hbox{\begin{beamercolorbox}[wd=.20\paperwidth
+%,ht=2.25ex,dp=1ex,center]{author in head/foot}\usebeamerfont
+%{author in head/foot}\insertshortauthor\end{beamercolorbox}%
+%\begin{beamercolorbox}[wd=.69\paperwidth
+%,ht=2.25ex,dp=1ex,center]{title in head/foot}\usebeamerfont
+%{title in head/foot}\insertshorttitle\end{beamercolorbox}%
+%\begin{beamercolorbox}[wd=.11\paperwidth
+%,ht=2.25ex,dp=1ex,right]{date in head/foot}\usebeamerfont{date in head/foot}%
+%\insertshortdate{}\hspace*{2em}\insertframenumber{} / \inserttotalframenumber
+%\hspace*{2ex}\end{beamercolorbox}}\vskip0pt}\title
+%[Lez. 1 - Elementi di teoria della probabilit\`{a}%
+%]{Lezione 1 - Elementi di teoria della probabilit\`{a}}\subtitle
+%{Metodi Quantitativi per la Finanza}\author[P. Falbo, C. Pelizzari]{{\LARGE
+%Paolo Falbo, Cristian Pelizzari}}\institute[]{{\large
+%Dipartimento di Economia e Management}}\date[]{}\titlegraphic{\includegraphics
+%[height=1.25cm]{MQF_logo.png}\hspace{0.8cm}\includegraphics
+%[height=1.25cm]{logo-Unibs-esteso.png}}\maketitle}}%
+%BeginExpansion
+\setbeamertemplate{footline}{\leavevmode\hbox{\begin{beamercolorbox}%
+[wd=.20\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+\usebeamerfont{author in head/foot}\insertshortauthor\end{beamercolorbox}%
+\begin{beamercolorbox}[wd=.69\paperwidth
+,ht=2.25ex,dp=1ex,center]{title in head/foot}\usebeamerfont
+{title in head/foot}\insertshorttitle\end{beamercolorbox}%
+\begin{beamercolorbox}[wd=.11\paperwidth
+,ht=2.25ex,dp=1ex,right]{date in head/foot}\usebeamerfont{date in head/foot}%
+\insertshortdate{}\hspace*{2em}\insertframenumber{} / \inserttotalframenumber
+\hspace*{2ex}\end{beamercolorbox}}\vskip0pt}\title
+[Lez. 1 - Elementi di teoria della probabilit\`{a}%
+]{Lezione 1 - Elementi di teoria della probabilit\`{a}}\subtitle
+{Metodi Quantitativi per la Finanza}\author[P. Falbo, C. Pelizzari]{{\LARGE
+Paolo Falbo, Cristian Pelizzari}}\institute[]{{\large
+Dipartimento di Economia e Management}}\date[]{}\titlegraphic{\includegraphics
+[height=1.25cm]{MQF_logo.png}\hspace{0.8cm}\includegraphics
+[height=1.25cm]{logo-Unibs-esteso.png}}\maketitle
+%EndExpansion
+%****************************************************************
+%**** FINE PAGINA DI TITOLO
+%****************************************************************
+
+
 \section{Apertura}
 
 %****************************************
+
 
 \subsection{Domanda guida}%
 
@@ -162,21 +180,29 @@ Il linguaggio di base sar\`{a} quello dello spazio di probabilit\`{a}:
 \end{frame}%
 %EndExpansion
 
+
 %****************************************
 
-\subsection{Percorso della lezione}
+
+\subsection{Percorso della lezione}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Percorso della lezione}
+%TCIMACRO{\QTR{frametitle}{Percorso della lezione}}%
+%BeginExpansion
+\frametitle{Percorso della lezione}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
+
 
 L'obiettivo della lezione \`{e} costruire il primo linguaggio formale per
 descrivere l'incertezza in finanza.
@@ -185,13 +211,19 @@ descrivere l'incertezza in finanza.
 
 \begin{stepenumerate}
 \item[1.] Scenari ed eventi: $\Omega$, $\omega$, $A\in\F$.
+
 \item[2.] Esperimenti ripetuti e traiettorie:
 \[
-\omega=(\omega_1,\ldots,\omega_n).
+\omega=(\omega_{1},\ldots,\omega_{n}).
 \]
+
+
 \item[3.] Operazioni sugli eventi: unione, intersezione, complemento.
+
 \item[4.] Informazione e sigma-algebre: $\F$.
+
 \item[5.] Misura di probabilit\`{a}: $\Prob(A)$.
+
 \item[6.] Condizionamento e aggiornamento bayesiano.
 \end{stepenumerate}
 
@@ -199,59 +231,70 @@ descrivere l'incertezza in finanza.
 
 \begin{center}
 {\small Dalla descrizione degli scenari alla probabilit\`{a} condizionata.}
-\end{center}
+\end{center}%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %****************************************
+
 
 \section{Spazio campionario ed eventi}
 
-\subsection{Scenari elementari}
+\subsection{Scenari elementari}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Spazio campionario: l'insieme degli scenari}
+%TCIMACRO{\QTR{frametitle}{Spazio campionario: l'insieme degli scenari}}%
+%BeginExpansion
+\frametitle{Spazio campionario: l'insieme degli scenari}%
+%EndExpansion
 
-Uno spazio campionario descrive gli esiti elementari possibili di un fenomeno
-aleatorio.
 
-\medskip
+Uno spazio campionario descrive gli esiti elementari possibili di un fenomeno aleatorio.
+
+\medskip%
 
 \[
-\Omega=\{\omega_1,\omega_2,\ldots,\omega_m\}
+\Omega=\{\omega_{1},\omega_{2},\ldots,\omega_{m}\}
 \]
+
 
 \medskip
 
 \begin{stepitemize}
+
+
 \item $\Omega$ \`{e} l'insieme degli scenari possibili.
+
 \item $\omega\in\Omega$ \`{e} un esito elementare.
-\item Prima della realizzazione dell'incertezza, non sappiamo quale
-$\omega$ si verificher\`{a}.
+
+\item Prima della realizzazione dell'incertezza, non sappiamo quale $\omega$
+si verificher\`{a}.
 \end{stepitemize}
 
 \medskip
 
 \begin{center}
-{\small In finanza, uno scenario pu\`{o} descrivere uno stato di mercato,
-uno stato di credito o una configurazione futura dei fattori di rischio.}
-\end{center}
+{\small In finanza, uno scenario pu\`{o} descrivere uno stato di mercato, uno
+stato di credito o una configurazione futura dei fattori di rischio.}
+\end{center}%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
@@ -259,40 +302,49 @@ uno stato di credito o una configurazione futura dei fattori di rischio.}
 
 
 %***********************************************************
-\subsection{Eventi}
+
+
+\subsection{Eventi}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Eventi: propriet\`{a} degli scenari}
+%TCIMACRO{\QTR{frametitle}{Eventi: propriet\`{a} degli scenari}}%
+%BeginExpansion
+\frametitle{Eventi: propriet\`{a} degli scenari}%
+%EndExpansion
+
 
 Un evento \`{e} un sottoinsieme dello spazio campionario appartenente alla
-famiglia $\F$ degli eventi considerati dal modello.
+famiglia $\F$ degli eventi considerati dal modello.%
 
 \[
-A\in\F,
-\qquad
-A\subseteq\Omega.
+A\in\F, \qquad A\subseteq\Omega.
 \]
 
-La struttura della famiglia $\F$ sar\`{a} precisata introducendo le
-sigma-algebre.
+
+La struttura della famiglia $\F$ sar\`{a} precisata introducendo le sigma-algebre.
 
 Dire che l'evento $A$ si verifica significa che l'esito elementare realizzato
-appartiene ad $A$:
+appartiene ad $A$:%
 
 \[
 \omega\in A.
 \]
 
+
 \medskip
 
 \begin{stepitemize}
 \item Evento certo: $\Omega$.
+
 \item Evento impossibile: $\emptyset$.
+
 \item Evento elementare: un singleton $\{\omega\}\in\F$.
+
 \item \textbf{Evento non elementare}: un insieme che contiene pi\`{u} esiti elementari.
 \end{stepitemize}
 
@@ -300,12 +352,12 @@ appartiene ad $A$:
 
 \begin{center}
 {\small Gli eventi traducono proposizioni finanziarie in oggetti matematici.}
-\end{center}
+\end{center}%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
@@ -313,97 +365,121 @@ appartiene ad $A$:
 
 
 %***********************************
-\subsection{Un primo esempio finanziario}
+
+
+\subsection{Un primo esempio finanziario}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Esempio: tre scenari di mercato}
+%TCIMACRO{\QTR{frametitle}{Esempio: tre scenari di mercato}}%
+%BeginExpansion
+\frametitle{Esempio: tre scenari di mercato}%
+%EndExpansion
 
-Consideriamo tre possibili scenari per il rendimento di un titolo su un periodo:
+
+Consideriamo tre possibili scenari per il rendimento di un titolo su un periodo:%
 
 \[
-\Omega=\{\omega_1,\omega_2,\omega_3\},
+\Omega=\{\omega_{1},\omega_{2},\omega_{3}\},
 \]
+
 
 dove
 
 \begin{stepenumerate}
-\item[1.] $\omega_1$ indica uno scenario di ribasso;
-\item[2.] $\omega_2$ indica uno scenario di stabilit\`{a};
-\item[3.] $\omega_3$ indica uno scenario di rialzo.
+\item[1.] $\omega_{1}$ indica uno scenario di ribasso;
+
+\item[2.] $\omega_{2}$ indica uno scenario di stabilit\`{a};
+
+\item[3.] $\omega_{3}$ indica uno scenario di rialzo.
 \end{stepenumerate}
 
 \medskip
 
-Possiamo definire, ad esempio,
+Possiamo definire, ad esempio,%
 
 \[
-A=\{\omega_1\},
-\qquad
-B=\{\omega_2,\omega_3\}.
+A=\{\omega_{1}\}, \qquad B=\{\omega_{2},\omega_{3}\}.
 \]
 
+
 \begin{stepitemize}
+
+
 \item $A$ rappresenta l'evento di perdita.
+
 \item $B$ rappresenta l'evento di rendimento non negativo.
-\end{stepitemize}
+\end{stepitemize}%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
+
+
 \section{Esperimenti ripetuti e traiettorie}
 
-\subsection{Esperimenti ripetuti}
+\subsection{Esperimenti ripetuti}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Esperimenti ripetuti}
+%TCIMACRO{\QTR{frametitle}{Esperimenti ripetuti}}%
+%BeginExpansion
+\frametitle{Esperimenti ripetuti}%
+%EndExpansion
 
-Molti problemi finanziari non riguardano un singolo esperimento aleatorio,
-ma una sequenza di esperimenti osservati nel tempo.
+
+Molti problemi finanziari non riguardano un singolo esperimento aleatorio, ma
+una sequenza di esperimenti osservati nel tempo.
 
 \medskip
 
 Se l'incertezza viene osservata in $n$ date successive, possiamo introdurre
-gli spazi campionari
+gli spazi campionari%
 
 \[
-\Omega_1,\Omega_2,\ldots,\Omega_n.
+\Omega_{1},\Omega_{2},\ldots,\Omega_{n}.
 \]
+
 
 \medskip
 
-Lo spazio campionario complessivo \`{e} il prodotto cartesiano
+Lo spazio campionario complessivo \`{e} il prodotto cartesiano%
 
 \[
-\Omega=\Omega_1\times\Omega_2\times\cdots\times\Omega_n.
+\Omega=\Omega_{1}\times\Omega_{2}\times\cdots\times\Omega_{n}.
 \]
+
 
 \medskip
 
 \begin{stepitemize}
-\item Ogni $\Omega_i$ descrive gli esiti possibili alla data $i$.
+\item Ogni $\Omega_{i}$ descrive gli esiti possibili alla data $i$.
+
 \item Lo spazio $\Omega$ descrive tutte le sequenze possibili.
+
 \item Un esito elementare diventa una \textbf{traiettoria}.
-\end{stepitemize}
+\end{stepitemize}%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
@@ -411,36 +487,47 @@ Lo spazio campionario complessivo \`{e} il prodotto cartesiano
 
 
 %***********************************************************
-\subsection{Notazione per le traiettorie}
+
+
+\subsection{Notazione per le traiettorie}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Esiti elementari come traiettorie}
+%TCIMACRO{\QTR{frametitle}{Esiti elementari come traiettorie}}%
+%BeginExpansion
+\frametitle{Esiti elementari come traiettorie}%
+%EndExpansion
+
 
 Se poniamo
 \[
-\Omega=\Omega_1\times\Omega_2\times\cdots\times\Omega_n,
+\Omega=\Omega_{1}\times\Omega_{2}\times\cdots\times\Omega_{n},
 \]
-allora un esito elementare $\omega\in\Omega$ \`{e} una $n$-pla
+allora un esito elementare $\omega\in\Omega$ \`{e} una $n$-pla%
 
 \[
-\omega=(\omega_1,\omega_2,\ldots,\omega_n),
+\omega=(\omega_{1},\omega_{2},\ldots,\omega_{n}),
 \]
 
-dove
+
+dove%
 
 \[
-\omega_i\in\Omega_i.
+\omega_{i}\in\Omega_{i}.
 \]
+
 
 \medskip
 
 \begin{stepitemize}
-\item $\omega_i$ \`{e} l'esito osservato alla data $i$.
+\item $\omega_{i}$ \`{e} l'esito osservato alla data $i$.
+
 \item $\omega$ raccoglie l'intera sequenza degli esiti.
+
 \item In termini finanziari, $\omega$ descrive una possibile evoluzione
 temporale dei fattori rilevanti: prezzi, rendimenti, rating, default.
 \end{stepitemize}
@@ -450,12 +537,12 @@ temporale dei fattori rilevanti: prezzi, rendimenti, rating, default.
 \begin{center}
 {\small Un esito elementare $\omega$ pu\`{o} rappresentare una traiettoria:
 una sequenza ordinata di realizzazioni nel tempo.}
-\end{center}
+\end{center}%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
@@ -463,50 +550,62 @@ una sequenza ordinata di realizzazioni nel tempo.}
 
 
 %***********************************************************
-\subsection{Esperimento ripetuto con stesso spazio elementare}
+
+
+\subsection{Esperimento ripetuto con stesso spazio elementare}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Il caso di esperimenti identici ripetuti}
+%TCIMACRO{\QTR{frametitle}{Il caso di esperimenti identici ripetuti}}%
+%BeginExpansion
+\frametitle{Il caso di esperimenti identici ripetuti}%
+%EndExpansion
 
-Se lo stesso esperimento viene ripetuto $n$ volte, possiamo porre
+
+Se lo stesso esperimento viene ripetuto $n$ volte, possiamo porre%
 
 \[
-\Omega_1=\Omega_2=\cdots=\Omega_n=\Omega^\ast.
+\Omega_{1}=\Omega_{2}=\cdots=\Omega_{n}=\Omega^{\ast}.
 \]
+
 
 \medskip
 
-In questo caso lo spazio campionario complessivo \`{e}
+In questo caso lo spazio campionario complessivo \`{e}%
 
 \[
-\Omega=(\Omega^\ast)^n.
+\Omega=(\Omega^{\ast})^{n}.
 \]
+
 
 \medskip
 
-Se $\Omega^\ast$ contiene $m$ esiti elementari, allora
+Se $\Omega^{\ast}$ contiene $m$ esiti elementari, allora%
 
 \[
-|\Omega|=m^n.
+|\Omega|=m^{n}.
 \]
+
 
 \medskip
 
 \begin{stepitemize}
 \item La dimensione dello spazio cresce rapidamente con $n$.
+
 \item Ogni elemento di $\Omega$ \`{e} una sequenza di lunghezza $n$.
+
 \item Questa struttura anticipa alberi binomiali, traiettorie simulate e
 processi stocastici.
-\end{stepitemize}
+\end{stepitemize}%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
@@ -514,39 +613,51 @@ processi stocastici.
 
 
 %***********************************************************
-\subsection{Esempio: tre movimenti di mercato}
+
+
+\subsection{Esempio: tre movimenti di mercato}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Esempio: tre movimenti di un titolo}
+%TCIMACRO{\QTR{frametitle}{Esempio: tre movimenti di un titolo}}%
+%BeginExpansion
+\frametitle{Esempio: tre movimenti di un titolo}%
+%EndExpansion
 
-A ogni data il prezzo di un titolo pu\`{o} registrare un rialzo $u$ oppure
-un ribasso $d$:
+
+A ogni data il prezzo di un titolo pu\`{o} registrare un rialzo $u$ oppure un
+ribasso $d$:%
 
 \[
-\Omega^\ast=\{u,d\}.
+\Omega^{\ast}=\{u,d\}.
 \]
 
-Per tre osservazioni successive,
+
+Per tre osservazioni successive,%
 
 \[
-\Omega=(\Omega^\ast)^3=\{u,d\}^3.
+\Omega=(\Omega^{\ast})^{3}=\{u,d\}^{3}.
 \]
 
-Gli esiti elementari sono
+
+Gli esiti elementari sono%
 
 \[
 \Omega=\{uuu,uud,udu,udd,duu,dud,ddu,ddd\}.
 \]
 
+
 \medskip
 
 \begin{stepitemize}
 \item $\omega=uuu$: tre rialzi consecutivi.
+
 \item $\omega=udd$: un rialzo seguito da due ribassi.
+
 \item $\omega=ddd$: tre ribassi consecutivi.
 \end{stepitemize}
 
@@ -554,12 +665,12 @@ Gli esiti elementari sono
 
 \begin{center}
 {\small Ogni esito elementare \`{e} una traiettoria di mercato.}
-\end{center}
+\end{center}%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
@@ -567,67 +678,87 @@ Gli esiti elementari sono
 
 
 %***********************************************************
-\subsection{Eventi definiti su traiettorie}
+
+
+\subsection{Eventi definiti su traiettorie}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Eventi come propriet\`{a} delle traiettorie}
+%TCIMACRO{\QTR{frametitle}{Eventi come propriet\`{a} delle traiettorie}}%
+%BeginExpansion
+\frametitle{Eventi come propriet\`{a} delle traiettorie}%
+%EndExpansion
 
-Quando gli esiti elementari sono traiettorie, gli eventi descrivono propriet\`{a}
-dell'intera sequenza. Riprendendo:
+
+Quando gli esiti elementari sono traiettorie, gli eventi descrivono
+propriet\`{a} dell'intera sequenza. Riprendendo:
 \[
 \Omega=\{uuu,uud,udu,udd,duu,dud,ddu,ddd\},
 \]
 
-possiamo definire:
+
+possiamo definire:%
 
 \[
 A=\{uuu,uud,udu,udd\},
 \]
 
-evento in cui il primo movimento \`{e} un rialzo;
+
+evento in cui il primo movimento \`{e} un rialzo;%
 
 \[
 B=\{udd,dud,ddu\},
 \]
 
-evento in cui si osserva esattamente un rialzo;
+
+evento in cui si osserva esattamente un rialzo;%
 
 \[
 C=\{uuu,uud,udu,duu\},
 \]
+
 
 evento in cui si osservano almeno due rialzi.
 
 \medskip
 
 \begin{center}
-{\small Gli eventi possono caratterizzare il percorso, non solo il valore finale.}
-\end{center}
+{\small Gli eventi possono caratterizzare il percorso, non solo il valore
+finale.}
+\end{center}%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
+
+
 \section{Operazioni sugli eventi}
 
-\subsection{Unione, intersezione e complemento}
+\subsection{Unione, intersezione e complemento}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Operazioni sugli eventi}
+%TCIMACRO{\QTR{frametitle}{Operazioni sugli eventi}}%
+%BeginExpansion
+\frametitle{Operazioni sugli eventi}%
+%EndExpansion
+
 
 Siano $A,B\in\F$ due eventi.
 
@@ -648,7 +779,7 @@ si verifica quando $A$ e $B$ si verificano simultaneamente.
 
 \item Il complemento
 \[
-A^c=\Omega\setminus A
+A^{c}=\Omega\setminus A
 \]
 si verifica quando $A$ non si verifica.
 \end{stepitemize}
@@ -656,13 +787,14 @@ si verifica quando $A$ non si verifica.
 \medskip
 
 \begin{center}
-{\small Come vedremo, operazioni sugli eventi permettono di costruire eventi finanziari complessi a partire da condizioni elementari.}
-\end{center}
+{\small Come vedremo, operazioni sugli eventi permettono di costruire eventi
+finanziari complessi a partire da condizioni elementari.}
+\end{center}%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
@@ -671,14 +803,20 @@ si verifica quando $A$ non si verifica.
 
 %***********************************************************
 
-\subsection{Eventi compatibili e disgiunti}
+
+\subsection{Eventi compatibili e disgiunti}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Eventi compatibili e disgiunti}
+%TCIMACRO{\QTR{frametitle}{Eventi compatibili e disgiunti}}%
+%BeginExpansion
+\frametitle{Eventi compatibili e disgiunti}%
+%EndExpansion
+
 
 Siano $A,B\in\F$ due eventi.
 
@@ -700,99 +838,116 @@ allora $A$ e $B$ sono \textbf{disgiunti}: non possono verificarsi simultaneament
 
 \medskip
 
-\begin{center}
-\begin{tabular}{c|c|c}
-\hline
-Caso & Intersezione & Interpretazione \\
-\hline
-Compatibili & $A\cap B\neq\emptyset$ & possono accadere insieme \\
-Disgiunti & $A\cap B=\emptyset$ & mutuamente esclusivi \\
-\hline
+\begin{center}%
+\begin{tabular}
+[c]{c|c|c}\hline
+Caso & Intersezione & Interpretazione\\\hline
+Compatibili & $A\cap B\neq\emptyset$ & possono accadere insieme\\
+Disgiunti & $A\cap B=\emptyset$ & mutuamente esclusivi\\\hline
 \end{tabular}
+
 \end{center}
 
 \medskip
 
 \begin{center}
-{\small Attenzione: eventi disgiunti non sono, in generale, eventi indipendenti.}
-\end{center}
+{\small Attenzione: eventi disgiunti non sono, in generale, eventi
+indipendenti.}
+\end{center}%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
-\subsection{Esempio su traiettorie}
+
+
+\subsection{Esempio su traiettorie}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Esempio: operazioni su traiettorie}
+%TCIMACRO{\QTR{frametitle}{Esempio: operazioni su traiettorie}}%
+%BeginExpansion
+\frametitle{Esempio: operazioni su traiettorie}%
+%EndExpansion
 
-Riprendiamo lo spazio delle traiettorie di rialzo e ribasso su tre tempi:
+
+Riprendiamo lo spazio delle traiettorie di rialzo e ribasso su tre tempi:%
 
 \[
 \Omega=\{uuu,uud,udu,udd,duu,dud,ddu,ddd\}.
 \]
 
-Definiamo
+
+Definiamo%
 
 \[
-A=\{uuu,uud,udu,udd\},
-\qquad
-B=\{uuu,udu,duu\}.
+A=\{uuu,uud,udu,udd\}, \qquad B=\{uuu,udu,duu\}.
 \]
+
 
 \begin{stepitemize}
 \item $A$: il primo movimento \`{e} un rialzo.
+
 \item $B$: nei primi due movimenti c'\`{e} almeno un rialzo e il terzo
 movimento \`{e} un rialzo.
-\end{stepitemize}
+\end{stepitemize}%
 
 \[
-A\cap B=\{uuu,udu\},
-\qquad
-A\cup B=\{uuu,uud,udu,udd,duu\}.
+A\cap B=\{uuu,udu\}, \qquad A\cup B=\{uuu,uud,udu,udd,duu\}.
 \]
+%
 
 \[
-A^c=\{duu,dud,ddu,ddd\}.
+A^{c}=\{duu,dud,ddu,ddd\}.
 \]
+
 
 \medskip
 
 \begin{center}
 {\small Le operazioni insiemistiche diventano operazioni su propriet\`{a}
 delle traiettorie.}
-\end{center}
+\end{center}%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
+
+
 \section{Sigma-algebra e informazione}
 
-\subsection{Famiglie di eventi}
+\subsection{Famiglie di eventi}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Perch\'{e} non basta parlare di sottoinsiemi?}
+%TCIMACRO{\QTR{frametitle}{Perch\'{e} non basta parlare di sottoinsiemi?}}%
+%BeginExpansion
+\frametitle{Perch\'{e} non basta parlare di sottoinsiemi?}%
+%EndExpansion
+
 
 Uno spazio campionario $\Omega$ descrive gli esiti possibili. Tuttavia, un
 modello probabilistico deve anche specificare quali eventi sono considerati
@@ -800,175 +955,210 @@ modello probabilistico deve anche specificare quali eventi sono considerati
 
 \medskip
 
-Una \textbf{famiglia di eventi} \`{e} un insieme i cui elementi sono eventi:
+Una \textbf{famiglia di eventi} \`{e} un insieme i cui elementi sono eventi:%
 
 \[
-\mathcal{A}=\{A_1,A_2,\ldots\}.
+\mathcal{A}=\{A_{1},A_{2},\ldots\}.
 \]
+
 
 \medskip
 
-Attenzione alla distinzione:
+Attenzione alla distinzione:%
 
 \[
-\mathcal{A}=\{A_1,A_2,\ldots\}
-\qquad\text{non \`{e}}\qquad
-\bigcup_i A_i.
+\mathcal{A}=\{A_{1},A_{2},\ldots\} \qquad\text{non \`{e}}\qquad\bigcup_{i}
+A_{i}.
 \]
+
 
 \medskip
 
 \begin{stepitemize}
-
 \item $\mathcal{A}$ \`{e} una collezione di eventi.
 
-\item Ogni $A_i\in\mathcal{A}$ \`{e} un evento, quindi un sottoinsieme di $\Omega$.
+\item Ogni $A_{i}\in\mathcal{A}$ \`{e} un evento, quindi un sottoinsieme di
+$\Omega$.
 
-\item Se gli $A_i$ appartengono alla stessa sigma-algebra e la famiglia
-\`{e} finita o numerabile, allora l'unione $\bigcup_i A_i$ \`{e} un singolo evento.
-
+\item Se gli $A_{i}$ appartengono alla stessa sigma-algebra e la famiglia
+\`{e} finita o numerabile, allora l'unione $\bigcup_{i} A_{i}$ \`{e} un
+singolo evento.
 \end{stepitemize}
 
-\medskip
+\medskip%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
-\subsection{Partizioni dello spazio campionario}
+
+
+\subsection{Partizioni dello spazio campionario}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Partizioni dello spazio campionario}
+%TCIMACRO{\QTR{frametitle}{Partizioni dello spazio campionario}}%
+%BeginExpansion
+\frametitle{Partizioni dello spazio campionario}%
+%EndExpansion
 
-Una prima importante famiglia di eventi $B_1,\ldots,B_n$ \`{e} la cosiddetta \textbf{partizione} di $\Omega$. Affinch\'{e} una famiglia $\mathcal{A}$ sia una partizione \`{e} necessario che:
+
+Una prima importante famiglia di eventi $B_{1},\ldots,B_{n}$ \`{e} la
+cosiddetta \textbf{partizione} di $\Omega$. Affinch\'{e} una famiglia
+$\mathcal{A}$ sia una partizione \`{e} necessario che:
 
 \medskip
 
 \begin{stepenumerate}
 \item[1.] gli eventi siano due a due disgiunti:
 \[
-B_i\cap B_j=\emptyset,\qquad i\neq j;
+B_{i}\cap B_{j}=\emptyset,\qquad i\neq j;
 \]
+
 
 \item[2.] la loro unione ricostruisca l'intero spazio campionario:
 \[
-\bigcup_{i=1}^{n}B_i=\Omega.
+\bigcup_{i=1}^{n}B_{i}=\Omega.
 \]
+
 \end{stepenumerate}
 
 Una partizione suddivide $\Omega$ in eventi informativi alternativi o
-\textbf{mutuamente esclusivi}.
+\textbf{mutuamente esclusivi}.%
 
 \[
-\Omega
-=
-B_1\cup B_2\cup\cdots\cup B_n.
+\Omega= B_{1}\cup B_{2}\cup\cdots\cup B_{n}.
 \]
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
-\subsection{Definizione di sigma-algebra}
+
+
+\subsection{Definizione di sigma-algebra}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Sigma-algebra degli eventi}
+%TCIMACRO{\QTR{frametitle}{Sigma-algebra degli eventi}}%
+%BeginExpansion
+\frametitle{Sigma-algebra degli eventi}%
+%EndExpansion
 
-Un'altra importante famiglia di eventi \`{e} la \textbf{$\sigma$-algebra}. Una famiglia $\F$ di sottoinsiemi di $\Omega$ \`{e} una sigma-algebra se:
+
+Un'altra importante famiglia di eventi \`{e} la \textbf{$\sigma$-algebra}. Una
+famiglia $\F$ di sottoinsiemi di $\Omega$ \`{e} una sigma-algebra se:
 
 \medskip
 
 \begin{stepenumerate}
+
+
 \item[1.] contiene l'evento certo:
 \[
 \Omega\in\F;
 \]
 
+
 \item[2.] \`{e} chiusa rispetto al complemento:
 \[
-A\in\F \quad \Longrightarrow \quad A^c\in\F;
+A\in\F \quad\Longrightarrow\quad A^{c}\in\F;
 \]
+
 
 \item[3.] \`{e} chiusa rispetto alle unioni numerabili:
 \[
-A_1,A_2,\ldots\in\F
-\quad \Longrightarrow \quad
-\bigcup_{n=1}^{\infty}A_n\in\F.
+A_{1},A_{2},\ldots\in\F
+\quad\Longrightarrow\quad\bigcup_{n=1}^{\infty}A_{n}\in\F.
 \]
-\end{stepenumerate}
 
-
+\end{stepenumerate}%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
-\subsection{Dalle partizioni alle sigma-algebre}
+
+
+\subsection{Dalle partizioni alle sigma-algebre}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Partizioni e sigma-algebre}
+%TCIMACRO{\QTR{frametitle}{Partizioni e sigma-algebre}}%
+%BeginExpansion
+\frametitle{Partizioni e sigma-algebre}%
+%EndExpansion
+
 
 %\textbf{Partizioni (finite) di $\Omega$ e sigma-algebre sono collegabili in una relazione uno-a-uno}.
-\textbf{Partizioni finite di $\Omega$ e sigma-algebre finite sono collegate da una relazione uno-a-uno: ogni partizione genera una sigma-algebra finita e ogni sigma-algebra finita determina una partizione di $\Omega$}.
+\textbf{Partizioni finite di $\Omega$ e sigma-algebre finite sono collegate da
+una relazione uno-a-uno: ogni partizione genera una sigma-algebra finita e
+ogni sigma-algebra finita determina una partizione di $\Omega$}.
 
 \medskip
 
-Sia $\mathcal A=\{A_1,\ldots,A_n\}$ 
-una partizione di $\Omega$. Allora:
+Sia $\mathcal{A}=\{A_{1},\ldots,A_{n}\}$ una partizione di $\Omega$. Allora:
+
 \begin{stepitemize}
 
-\item Dalla partizione $\mathcal A$ "$\rightarrow$" si costruisce la sigma-algebra pi\`{u}
-piccola $\F$, che contiene tutti i blocchi $A_i$.
+
+\item Dalla partizione $\mathcal{A}$ "$\rightarrow$" si costruisce la
+sigma-algebra pi\`{u} piccola $\F$, che contiene tutti i blocchi $A_{i}$.
 
 \item La costruzione avviene aggiungendo $\Omega$, $\emptyset$, i complementi
 e tutte le unioni possibili dei blocchi della partizione.
 
-\item Viceversa, dalla $\sigma$-algebra finita $\F$ "$\rightarrow$" si identifica la partizione $\mathcal{A}$ di
-$\Omega$, raccogliendo in $\F$ gli eventi disgiunti minimi che uniti compongono $\Omega$.
+\item Viceversa, dalla $\sigma$-algebra finita $\F$ "$\rightarrow$" si
+identifica la partizione $\mathcal{A}$ di $\Omega$, raccogliendo in $\F$ gli
+eventi disgiunti minimi che uniti compongono $\Omega$.
 \end{stepitemize}
 
-\medskip
+\medskip%
 
 \[
-\mathcal A
-\quad \longleftrightarrow \quad
-\F \text{ denominata anche } \sigma(\mathcal A)
+\mathcal{A }\quad\longleftrightarrow\quad\F \text{ denominata anche }
+\sigma(\mathcal{A})
 \]
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
@@ -976,50 +1166,58 @@ $\Omega$, raccogliendo in $\F$ gli eventi disgiunti minimi che uniti compongono 
 
 
 %***********************************************************
-\subsection{Informazione e raffinamento}
+
+
+\subsection{Informazione e raffinamento}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Informazione e raffinamento delle partizioni}
+%TCIMACRO{\QTR{frametitle}{Informazione e raffinamento delle partizioni}}%
+%BeginExpansion
+\frametitle{Informazione e raffinamento delle partizioni}%
+%EndExpansion
+
 
 Una partizione pi\`{u} fine distingue pi\`{u} casi; quindi genera una
 sigma-algebra pi\`{u} ricca.
 
-\medskip
+\medskip%
 
 \[
-\text{partizione pi\`{u} fine}
-\quad \Longrightarrow \quad
-\text{pi\`{u} eventi distinguibili}
+\text{partizione pi\`{u} fine} \quad\Longrightarrow\quad\text{pi\`{u} eventi
+distinguibili}
 \]
 
-\medskip
+
+\medskip%
 
 \[
-\text{pi\`{u} informazione}
-\quad \Longleftrightarrow \quad
-\text{sigma-algebra pi\`{u} ricca}.
+\text{pi\`{u} informazione} \quad\Longleftrightarrow\quad\text{sigma-algebra
+pi\`{u} ricca}.
 \]
+
 
 \medskip
 
-Nel tempo discreto questa idea porta naturalmente a una successione crescente:
+Nel tempo discreto questa idea porta naturalmente a una successione crescente:%
 
 \[
-\F_0\subseteq \F_1\subseteq\cdots\subseteq \F_n.
+\F_{0}\subseteq\F_{1}\subseteq\cdots\subseteq\F_{n}.
 \]
+
 
 \medskip
 
-Questa successione sar\`{a} chiamata \textbf{filtrazione}.
+Questa successione sar\`{a} chiamata \textbf{filtrazione}.%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
@@ -1027,46 +1225,55 @@ Questa successione sar\`{a} chiamata \textbf{filtrazione}.
 
 
 %***********************************************************
-\subsection{Esempio: informazione su tre movimenti}
+
+
+\subsection{Esempio: informazione su tre movimenti}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Esempio: informazione crescente}
+%TCIMACRO{\QTR{frametitle}{Esempio: informazione crescente}}%
+%BeginExpansion
+\frametitle{Esempio: informazione crescente}%
+%EndExpansion
 
-Consideriamo lo spazio $\Omega$ di tre movimenti successivi di un titolo:
+
+Consideriamo lo spazio $\Omega$ di tre movimenti successivi di un titolo:%
 
 \[
 \Omega=\{uuu,uud,udu,udd,duu,dud,ddu,ddd\}.
 \]
 
+
 \medskip
 
 \begin{stepitemize}
-\item $\F_0$: informazione nulla (detta $\sigma$-algebra banale);
+\item $\F_{0}$: informazione nulla (detta $\sigma$-algebra banale);
 \[
-\F_0=\{\emptyset,\Omega\}.
+\F_{0}=\{\emptyset,\Omega\}.
 \]
 
-\item $\F_1=\sigma(\mathcal{A})$ ove : 
+
+\item $\F_{1}=\sigma(\mathcal{A})$ ove :
 \[
 \mathcal{A} =\{\{uuu,uud,udu,udd\}, \{duu,dud,ddu,ddd\}\}.
 \]
 fornisce informazione sul primo movimento;
-\item $\F_2=\sigma(\mathcal{A})$ ove:
+
+\item $\F_{2}=\sigma(\mathcal{A})$ ove:
 \[
 \mathcal{A} =\{\{uuu,uud\},\{udu,udd\},\{duu,dud\},\{ddu,ddd\}\}.
 \]
 fornisce informazione sui primi due movimenti.
-
-\end{stepitemize}
+\end{stepitemize}%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
@@ -1074,64 +1281,87 @@ fornisce informazione sui primi due movimenti.
 
 
 %***********************************************************
-\subsection{Informazione completa e insieme delle parti}
+
+
+\subsection{Informazione completa e insieme delle parti}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Informazione completa}
+%TCIMACRO{\QTR{frametitle}{Informazione completa}}%
+%BeginExpansion
+\frametitle{Informazione completa}%
+%EndExpansion
+
 
 \begin{itemize}
-    \item $\F_3 =\sigma(\mathcal{A})$ ove:
-    \[
-\mathcal{A}=\{\{uuu\},\{uud\},\{udu\},\{udd\},\{duu\},\{dud\},\{ddu\},\{ddd\}\}.
+
+
+\item $\F_{3} =\sigma(\mathcal{A})$ ove:
+\[
+\mathcal{A}%
+=\{\{uuu\},\{uud\},\{udu\},\{udd\},\{duu\},\{dud\},\{ddu\},\{ddd\}\}.
 \]
 fornisce informazione completa sulla traiettoria.
 \end{itemize}
 
 \medskip
 
-La sigma-algebra $\F_3$ generata da una partizione di singleton, come $\mathcal{A}$, \`{e} detta \textbf{insieme delle parti} di $\Omega$, che indichiamo col simbolo $\mathcal{P} (\Omega)$:
+La sigma-algebra $\F_{3}$ generata da una partizione di singleton, come
+$\mathcal{A}$, \`{e} detta \textbf{insieme delle parti} di $\Omega$, che
+indichiamo col simbolo $\mathcal{P} (\Omega)$:%
 
 \[
-\F_3=\mathcal{P}(\Omega).
+\F_{3}=\mathcal{P}(\Omega).
 \]
+
 
 \medskip
 
-La cardinalit\`{a} di $\mathcal{P}(\Omega)$ si ricava  osservando il numero degli  esiti elementari contenuti in $\Omega$. Nel nostro caso:
+La cardinalit\`{a} di $\mathcal{P}(\Omega)$ si ricava osservando il numero
+degli esiti elementari contenuti in $\Omega$. Nel nostro caso:%
 
 \[
-|\mathcal{P}(\Omega)|=2^8=256.
+|\mathcal{P}(\Omega)|=2^{8}=256.
 \]
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 %***********************************************************
+
+
 \section{Misura di probabilit\`{a}}
 
-\subsection{Definizione}
+\subsection{Definizione}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Misura di probabilit\`{a}}
+%TCIMACRO{\QTR{frametitle}{Misura di probabilit\`{a}}}%
+%BeginExpansion
+\frametitle{Misura di probabilit\`{a}}%
+%EndExpansion
 
-Una \textbf{misura di probabilit\`{a}} su $(\Omega,\F)$ \`{e} una funzione
+
+Una \textbf{misura di probabilit\`{a}} su $(\Omega,\F)$ \`{e} una funzione%
 
 \[
-\Prob:\F\longrightarrow [0,1]
+\Prob:\F\longrightarrow[0,1]
 \]
+
 
 che assegna a ogni evento $A\in\F$ un numero $\Prob(A)$.
 
@@ -1142,27 +1372,29 @@ La misura $\Prob$ deve soddisfare tre propriet\`{a} fondamentali:
 \begin{stepenumerate}
 \item[1.] non negativit\`{a}:
 \[
-\Prob(A)\geq 0,\qquad A\in\F;
+\Prob(A)\geq0,\qquad A\in\F;
 \]
+
 
 \item[2.] normalizzazione:
 \[
 \Prob(\Omega)=1;
 \]
 
-\item[3.] additivit\`{a} per eventi disgiunti: se
-$A_1,A_2,\ldots\in\F$ sono due a due disgiunti, allora
+
+\item[3.] additivit\`{a} per eventi disgiunti: se $A_{1},A_{2},\ldots\in\F$
+sono due a due disgiunti, allora
 \[
-\Prob\left(\bigcup_{i=1}^{\infty}A_i\right)
-=
-\sum_{i=1}^{\infty}\Prob(A_i).
+\Prob\left( \bigcup_{i=1}^{\infty}A_{i}\right)  = \sum_{i=1}^{\infty
+}\Prob(A_{i}).
 \]
-\end{stepenumerate}
+
+\end{stepenumerate}%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
@@ -1170,82 +1402,95 @@ $A_1,A_2,\ldots\in\F$ sono due a due disgiunti, allora
 
 
 %***********************************************************
-\subsection{Regole elementari di calcolo}
+
+
+\subsection{Regole elementari di calcolo}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Prime regole di calcolo}
+%TCIMACRO{\QTR{frametitle}{Prime regole di calcolo}}%
+%BeginExpansion
+\frametitle{Prime regole di calcolo}%
+%EndExpansion
+
 
 Dagli assiomi della probabilit\`{a} derivano alcune regole operative.
 
 \medskip
 
-Per ogni evento $A\in\F$,
+Per ogni evento $A\in\F$,%
 
 \[
-\Prob(A^c)=1-\Prob(A).
+\Prob(A^{c})=1-\Prob(A).
 \]
+
 
 \medskip
 
-Per ogni coppia di eventi $A,B\in\F$,
+Per ogni coppia di eventi $A,B\in\F$,%
 
 \[
-\Prob(A\cup B)
-=
-\Prob(A)+\Prob(B)-\Prob(A\cap B).
+\Prob(A\cup B) = \Prob(A)+\Prob(B)-\Prob(A\cap B).
 \]
+
 
 \medskip
 
-Se $A$ e $B$ sono disgiunti, cio\`{e} $A\cap B=\emptyset$, allora
+Se $A$ e $B$ sono disgiunti, cio\`{e} $A\cap B=\emptyset$, allora%
 
 \[
-\Prob(A\cup B)
-=
-\Prob(A)+\Prob(B).
+\Prob(A\cup B) = \Prob(A)+\Prob(B).
 \]
+
 
 \medskip
 
-Queste regole permettono di calcolare la probabilit\`{a} di eventi composti
-a partire da eventi pi\`{u} elementari.
+Queste regole permettono di calcolare la probabilit\`{a} di eventi composti a
+partire da eventi pi\`{u} elementari.%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
+
+
 \section{Probabilit\`{a} condizionata}
 
-\subsection{Definizione}
+\subsection{Definizione}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Probabilit\`{a} condizionata}
+%TCIMACRO{\QTR{frametitle}{Probabilit\`{a} condizionata}}%
+%BeginExpansion
+\frametitle{Probabilit\`{a} condizionata}%
+%EndExpansion
+
 
 Siano $A,B\in\F$ e sia $\Prob(B)>0$.
 
 \medskip
 
-La probabilit\`{a} condizionata di $A$ dato $B$ \`{e}
+La probabilit\`{a} condizionata di $A$ dato $B$ \`{e}%
 
 \[
-\Prob(A\mid B)
-=
-\frac{\Prob(A\cap B)}{\Prob(B)}.
+\Prob(A\mid B) = \frac{\Prob(A\cap B)}{\Prob(B)}.
 \]
+
 
 \medskip
 
@@ -1254,25 +1499,30 @@ L'evento $B$ rappresenta l'informazione disponibile.
 \medskip
 
 \begin{stepitemize}
+
+
 \item Prima del condizionamento, valutiamo la probabilit\`{a} di $A$ su
 $\Omega$.
+
 \item Dopo avere osservato $B$, valutiamo la probabilit\`{a} di $A$ sugli
 scenari compatibili con $B$.
+
 \item Il condizionamento modifica lo spazio informativo rilevante.
 \end{stepitemize}
 
 \medskip
 
-Dalla definizione segue la regola del prodotto:
+Dalla definizione segue la regola del prodotto:%
 
 \[
 \Prob(A\cap B)=\Prob(A\mid B)\Prob(B).
 \]
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
@@ -1280,102 +1530,111 @@ Dalla definizione segue la regola del prodotto:
 
 
 %***********************************************************
-
+%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Esempio: score creditizio}
+%TCIMACRO{\QTR{frametitle}{Esempio: score creditizio}}%
+%BeginExpansion
+\frametitle{Esempio: score creditizio}%
+%EndExpansion
+
 
 Una controparte riceve uno score intero da $1$ a $10$, con valori pi\`{u}
-elevati associati a migliore qualit\`{a} creditizia.
+elevati associati a migliore qualit\`{a} creditizia.%
 
 \[
-\Omega=\{1,2,\ldots,10\},
-\qquad
-\Prob(\{\omega\})=\frac{1}{10}.
+\Omega=\{1,2,\ldots,10\}, \qquad\Prob(\{\omega\})=\frac{1}{10}.
 \]
+
 
 \medskip
 
-Sia
+Sia%
 
 \[
 A=\{10\}
 \]
 
-l'evento ``score massimo''. Supponiamo di sapere che lo score \`{e} almeno pari
-a $5$:
+
+l'evento ``score massimo''. Supponiamo di sapere che lo score \`{e} almeno
+pari a $5$:%
 
 \[
 B=\{5,6,7,8,9,10\}.
 \]
 
+
 \medskip
 
-Poich\'{e} $A\subseteq B$,
+Poich\'{e} $A\subseteq B$,%
 
 \[
-\Prob(A\mid B)
-=
-\frac{\Prob(A\cap B)}{\Prob(B)}
-=
-\frac{\Prob(A)}{\Prob(B)}
-=
-\frac{1/10}{6/10}
-=
-\frac{1}{6}.
+\Prob(A\mid B) = \frac{\Prob(A\cap B)}{\Prob(B)} = \frac{\Prob(A)}{\Prob(B)} =
+\frac{1/10}{6/10} = \frac{1}{6}.
 \]
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
+%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Esempio: probabilit\`{a} di perdita dato lo scenario avverso}
+%TCIMACRO{\QTR{frametitle}{Esempio: probabilit\`{a} di perdita dato lo scenario
+%avverso}}%
+%BeginExpansion
+\frametitle{Esempio: probabilit\`{a} di perdita dato lo scenario avverso}%
+%EndExpansion
+
 
 Consideriamo un portafoglio osservato su un orizzonte di un periodo. Ogni
-scenario descrive congiuntamente condizioni di mercato e risultato del
-portafoglio.
+scenario descrive congiuntamente condizioni di mercato e risultato del portafoglio.%
 
 \[
-\Omega=\{\omega_1,\omega_2,\omega_3,\omega_4,\omega_5,\omega_6\}.
+\Omega=\{\omega_{1},\omega_{2},\omega_{3},\omega_{4},\omega_{5},\omega_{6}\}.
 \]
+%
 
-\[
-\begin{array}{c|c|c}
-\text{Scenario} & \text{Contesto} & \Prob(\{\omega\}) \\
-\hline
-\omega_1 & \text{favorevole} & 0.10 \\
-\omega_2 & \text{avverso} & 0.15 \\
-\omega_3 & \text{avverso, perdita rilevante} & 0.20 \\
-\omega_4 & \text{neutrale} & 0.20 \\
-\omega_5 & \text{avverso, perdita rilevante} & 0.25 \\
-\omega_6 & \text{avverso, perdita rilevante} & 0.10
+\[%
+\begin{array}
+[c]{c|c|c}%
+\text{Scenario} & \text{Contesto} & \Prob(\{\omega\})\\\hline
+\omega_{1} & \text{favorevole} & 0.10\\
+\omega_{2} & \text{avverso} & 0.15\\
+\omega_{3} & \text{avverso, perdita rilevante} & 0.20\\
+\omega_{4} & \text{neutrale} & 0.20\\
+\omega_{5} & \text{avverso, perdita rilevante} & 0.25\\
+\omega_{6} & \text{avverso, perdita rilevante} & 0.10
 \end{array}
 \]
 
+
 \medskip
 
-Le probabilit\`{a} degli scenari sono assegnate ex ante dal modello.
+Le probabilit\`{a} degli scenari sono assegnate ex ante dal modello.%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
@@ -1383,48 +1642,59 @@ Le probabilit\`{a} degli scenari sono assegnate ex ante dal modello.
 
 
 %***********************************************************
+%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Esempio: probabilit\`{a} di perdita dato lo scenario avverso}
+%TCIMACRO{\QTR{frametitle}{Esempio: probabilit\`{a} di perdita dato lo scenario
+%avverso}}%
+%BeginExpansion
+\frametitle{Esempio: probabilit\`{a} di perdita dato lo scenario avverso}%
+%EndExpansion
 
-Definiamo l'evento di perdita rilevante:
+
+Definiamo l'evento di perdita rilevante:%
 
 \[
-A=\{\omega_3,\omega_5,\omega_6\}.
+A=\{\omega_{3},\omega_{5},\omega_{6}\}.
 \]
 
-Il complemento \`{e}
+
+Il complemento \`{e}%
 
 \[
-A^c=\{\omega_1,\omega_2,\omega_4\},
+A^{c}=\{\omega_{1},\omega_{2},\omega_{4}\},
 \]
+
 
 cio\`{e} l'evento in cui il portafoglio non registra una perdita rilevante.
 
 \medskip
 
-Definiamo l'evento informativo ``scenario macro-finanziario avverso'':
+Definiamo l'evento informativo ``scenario macro-finanziario avverso'':%
 
 \[
-B=\{\omega_2,\omega_3,\omega_5,\omega_6\}.
+B=\{\omega_{2},\omega_{3},\omega_{5},\omega_{6}\}.
 \]
 
-Il complemento \`{e}
+
+Il complemento \`{e}%
 
 \[
-B^c=\{\omega_1,\omega_4\},
+B^{c}=\{\omega_{1},\omega_{4}\},
 \]
 
-cio\`{e} l'evento in cui lo scenario non \`{e} avverso.
+
+cio\`{e} l'evento in cui lo scenario non \`{e} avverso.%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
@@ -1432,79 +1702,96 @@ cio\`{e} l'evento in cui lo scenario non \`{e} avverso.
 
 
 %***********************************************************
+%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Esempio: probabilit\`{a} di perdita dato lo scenario avverso}
+%TCIMACRO{\QTR{frametitle}{Esempio: probabilit\`{a} di perdita dato lo scenario
+%avverso}}%
+%BeginExpansion
+\frametitle{Esempio: probabilit\`{a} di perdita dato lo scenario avverso}%
+%EndExpansion
 
-Poich\'{e} $A=\{\omega_3,\omega_5,\omega_6\}$ e $B=\{\omega_2,\omega_3,\omega_5,\omega_6\}$,
-si ha
+
+Poich\'{e} $A=\{\omega_{3},\omega_{5},\omega_{6}\}$ e $B=\{\omega_{2}%
+,\omega_{3},\omega_{5},\omega_{6}\}$, si ha%
 
 \[
-A\cap B=\{\omega_3,\omega_5,\omega_6\}.
+A\cap B=\{\omega_{3},\omega_{5},\omega_{6}\}.
 \]
+
 
 \medskip
 
-Quindi
+Quindi%
 
 \[
 \Prob(A\cap B)=0.20+0.25+0.10=0.55,
 \]
+%
 
 \[
 \Prob(B)=0.15+0.20+0.25+0.10=0.70.
 \]
+%
 
 \[
-\Prob(A\mid B)
-=
-\frac{\Prob(A\cap B)}{\Prob(B)}
-=
-\frac{0.55}{0.70}
-\simeq 0.786.
+\Prob(A\mid B) = \frac{\Prob(A\cap B)}{\Prob(B)} = \frac{0.55}{0.70}
+\simeq0.786.
 \]
 
-La probabilit\`{a} di perdita rilevante, dato lo scenario avverso, \`{e}
-circa il $78.6\%$.
+
+La probabilit\`{a} di perdita rilevante, dato lo scenario avverso, \`{e} circa
+il $78.6\%$.%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
+
+
 \section{Indipendenza}
 
-\subsection{Eventi indipendenti}
+\subsection{Eventi indipendenti}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Indipendenza tra eventi}
+%TCIMACRO{\QTR{frametitle}{Indipendenza tra eventi}}%
+%BeginExpansion
+\frametitle{Indipendenza tra eventi}%
+%EndExpansion
 
-Due eventi $A,B\in\F$ si dicono indipendenti se
+
+Due eventi $A,B\in\F$ si dicono indipendenti se%
 
 \[
 \Prob(A\cap B)=\Prob(A)\Prob(B).
 \]
 
+
 \medskip
 
-Se $\Prob(B)>0$, questa condizione equivale a
+Se $\Prob(B)>0$, questa condizione equivale a%
 
 \[
 \Prob(A\mid B)=\Prob(A).
 \]
+
 
 \medskip
 
@@ -1514,47 +1801,56 @@ Quindi l'evento $B$ non modifica la probabilit\`{a} attribuita ad $A$.
 
 \begin{stepitemize}
 \item Indipendenza: l'informazione su $B$ non cambia la valutazione di $A$.
+
 \item Dipendenza: l'informazione su $B$ modifica la valutazione di $A$.
+
 \item Eventi disgiunti con probabilit\`{a} positiva non sono indipendenti.
-\end{stepitemize}
+\end{stepitemize}%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
+
+
 \section{Probabilit\`{a} totali e formula di Bayes}
 
-\subsection{Formula delle probabilit\`{a} totali}
+\subsection{Formula delle probabilit\`{a} totali}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Formula delle probabilit\`{a} totali}
+%TCIMACRO{\QTR{frametitle}{Formula delle probabilit\`{a} totali}}%
+%BeginExpansion
+\frametitle{Formula delle probabilit\`{a} totali}%
+%EndExpansion
 
-Sia $\{C_1,\ldots,C_n\}$ una partizione di $\Omega$, con
+
+Sia $\{C_{1},\ldots,C_{n}\}$ una partizione di $\Omega$, con%
 
 \[
-\Prob(C_i)>0,\qquad i=1,\ldots,n.
+\Prob(C_{i})>0,\qquad i=1,\ldots,n.
 \]
+
 
 \medskip
 
-Per ogni evento $A\in\F$ vale
+Per ogni evento $A\in\F$ vale%
 
 \[
-\Prob(A)
-=
-\sum_{i=1}^{n}
-\Prob(A\mid C_i)\Prob(C_i).
+\Prob(A) = \sum_{i=1}^{n} \Prob(A\mid C_{i})\Prob(C_{i}).
 \]
+
 
 \medskip
 
@@ -1564,37 +1860,48 @@ esaustivi e mutuamente esclusivi.
 \medskip
 
 \begin{stepitemize}
-\item $C_i$: scenario o stato informativo.
-\item $\Prob(C_i)$: probabilit\`{a} dello scenario (probabilit\`{a} detta anche \textit{a priori}).
-\item $\Prob(A\mid C_i)$: probabilit\`{a} di $A$ nello scenario $C_i$.
-\end{stepitemize}
+\item $C_{i}$: scenario o stato informativo.
+
+\item $\Prob(C_{i})$: probabilit\`{a} dello scenario (probabilit\`{a} detta
+anche \textit{a priori}).
+
+\item $\Prob(A\mid C_{i})$: probabilit\`{a} di $A$ nello scenario $C_{i}$.
+\end{stepitemize}%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
+%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Legge delle probabilit\`{a} totali: rappresentazione grafica}
+%TCIMACRO{\QTR{frametitle}{Legge delle probabilit\`{a} totali: rappresentazione
+%grafica}}%
+%BeginExpansion
+\frametitle{Legge delle probabilit\`{a} totali: rappresentazione grafica}%
+%EndExpansion
+
 
 \begin{center}
-\includegraphics[width=0.92\textwidth]{../graphics/Cap01_legge_probabilita_totali.png}
-\end{center}
+\includegraphics[width=0.92\textwidth]{Cap01_legge_probabilita_totali.png}
+\end{center}%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
@@ -1602,46 +1909,54 @@ esaustivi e mutuamente esclusivi.
 
 
 %***********************************************************
-\subsection{Formula di Bayes}
+
+
+\subsection{Formula di Bayes}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Formula di Bayes}
+%TCIMACRO{\QTR{frametitle}{Formula di Bayes}}%
+%BeginExpansion
+\frametitle{Formula di Bayes}%
+%EndExpansion
 
-Sia $\{C_1,\ldots,C_n\}$ una partizione di $\Omega$ e sia $A\in\F$ un evento
-osservato, con $\Prob(A)>0$.
+
+Sia $\{C_{1},\ldots,C_{n}\}$ una partizione di $\Omega$ e sia $A\in\F$ un
+evento osservato, con $\Prob(A)>0$.
 
 \medskip
 
-Per ogni $j=1,\ldots,n$,
+Per ogni $j=1,\ldots,n$,%
 
 \[
-\Prob(C_j\mid A)
-=
-\frac{\Prob(A\mid C_j)\Prob(C_j)}
-{\sum_{i=1}^{n}\Prob(A\mid C_i)\Prob(C_i)}.
+\Prob(C_{j}\mid A) = \frac{\Prob(A\mid C_{j})\Prob(C_{j})} {\sum_{i=1}%
+^{n}\Prob(A\mid C_{i})\Prob(C_{i})}.
 \]
+
 
 \medskip
 
 \begin{stepitemize}
-\item $\Prob(C_j)$: probabilit\`{a} a priori dello scenario $C_j$.
-\item $\Prob(A\mid C_j)$: verosimiglianza dell'evento osservato.
-\item $\Prob(C_j\mid A)$: probabilit\`{a} a posteriori dopo l'osservazione di $A$.
+\item $\Prob(C_{j})$: probabilit\`{a} a priori dello scenario $C_{j}$.
+
+\item $\Prob(A\mid C_{j})$: verosimiglianza dell'evento osservato.
+
+\item $\Prob(C_{j}\mid A)$: probabilit\`{a} a posteriori dopo l'osservazione
+di $A$.
 \end{stepitemize}
 
 \medskip
 
-La formula di Bayes descrive un aggiornamento probabilistico basato su nuova
-informazione.
+La formula di Bayes descrive un aggiornamento probabilistico basato su nuova informazione.%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
@@ -1649,52 +1964,57 @@ informazione.
 
 
 %***********************************************************
-\subsection{Esempio: segnale e stato del debitore}
+
+
+\subsection{Esempio: segnale e stato del debitore}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Esempio: segnale e stato del debitore}
+%TCIMACRO{\QTR{frametitle}{Esempio: segnale e stato del debitore}}%
+%BeginExpansion
+\frametitle{Esempio: segnale e stato del debitore}%
+%EndExpansion
 
-Un debitore pu\`{o} trovarsi in tre stati latenti:
+
+Un debitore pu\`{o} trovarsi in tre stati latenti:%
 
 \[
-B_1=\text{solido},\qquad
-B_2=\text{fragile},\qquad
-B_3=\text{critico}.
+B_{1}=\text{solido},\qquad B_{2}=\text{fragile},\qquad B_{3}=\text{critico}.
 \]
+
 
 \medskip
 
-Le probabilit\`{a} a priori sono
+Le probabilit\`{a} a priori sono%
 
 \[
-\Prob(B_1)=0.60,\qquad
-\Prob(B_2)=0.30,\qquad
-\Prob(B_3)=0.10.
+\Prob(B_{1})=0.60,\qquad\Prob(B_{2})=0.30,\qquad\Prob(B_{3})=0.10.
 \]
+
 
 \medskip
 
-Si osserva un segnale negativo $S$. Le probabilit\`{a} condizionate del segnale
-sono
+Si osserva un segnale negativo $S$. Le probabilit\`{a} condizionate del
+segnale sono%
 
 \[
-\Prob(S\mid B_1)=0.10,\qquad
-\Prob(S\mid B_2)=0.40,\qquad
-\Prob(S\mid B_3)=0.80.
+\Prob(S\mid B_{1})=0.10,\qquad\Prob(S\mid B_{2})=0.40,\qquad\Prob(S\mid
+B_{3})=0.80.
 \]
+
 
 \medskip
 
-Vogliamo aggiornare la probabilit\`{a} dello stato critico dopo il segnale.
+Vogliamo aggiornare la probabilit\`{a} dello stato critico dopo il segnale.%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
@@ -1702,16 +2022,23 @@ Vogliamo aggiornare la probabilit\`{a} dello stato critico dopo il segnale.
 
 
 %***********************************************************
-\subsection{Aggiornamento bayesiano}
+
+
+\subsection{Aggiornamento bayesiano}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Esempio: aggiornamento bayesiano}
+%TCIMACRO{\QTR{frametitle}{Esempio: aggiornamento bayesiano}}%
+%BeginExpansion
+\frametitle{Esempio: aggiornamento bayesiano}%
+%EndExpansion
 
-Prima calcoliamo la probabilit\`{a} non condizionata del segnale:
+
+Prima calcoliamo la probabilit\`{a} non condizionata del segnale:%
 
 \[
 \begin{aligned}
@@ -1728,50 +2055,57 @@ Prima calcoliamo la probabilit\`{a} non condizionata del segnale:
 \end{aligned}
 \]
 
+
 \medskip
 
-La probabilit\`{a} a posteriori dello stato critico \`{e}
+La probabilit\`{a} a posteriori dello stato critico \`{e}%
 
 \[
-\Prob(B_3\mid S)
-=
-\frac{\Prob(S\mid B_3)\Prob(B_3)}{\Prob(S)}
-=
-\frac{0.80\cdot 0.10}{0.26}
-\simeq 0.3077.
+\Prob(B_{3}\mid S) = \frac{\Prob(S\mid B_{3})\Prob(B_{3})}{\Prob(S)} =
+\frac{0.80\cdot0.10}{0.26} \simeq0.3077.
 \]
+
 
 \medskip
 
-Il segnale negativo aumenta la probabilit\`{a} dello stato critico dal
-$10\%$ a circa il $30.77\%$.
+Il segnale negativo aumenta la probabilit\`{a} dello stato critico dal $10\%$
+a circa il $30.77\%$.%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
+
+
 \section{Back-up ed esercizi}
 
-\subsection{Esercizio 1: eventi e traiettorie}
+\subsection{Esercizio 1: eventi e traiettorie}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Esercizio 1: eventi su traiettorie}
+%TCIMACRO{\QTR{frametitle}{Esercizio 1: eventi su traiettorie}}%
+%BeginExpansion
+\frametitle{Esercizio 1: eventi su traiettorie}%
+%EndExpansion
 
-Consideriamo tre movimenti successivi di un titolo:
+
+Consideriamo tre movimenti successivi di un titolo:%
 
 \[
 \Omega=\{uuu,uud,udu,udd,duu,dud,ddu,ddd\}.
 \]
+
 
 \medskip
 
@@ -1779,20 +2113,24 @@ Definire esplicitamente i seguenti eventi:
 
 \begin{stepenumerate}
 \item[1.] $A$: il primo movimento \`{e} un rialzo.
+
 \item[2.] $B$: si osservano esattamente due rialzi.
+
 \item[3.] $C$: si osservano almeno due ribassi consecutivi.
+
 \item[4.] $A\cap B$.
-\item[5.] $A^c$.
+
+\item[5.] $A^{c}$.
 \end{stepenumerate}
 
 \medskip
 
-Discutere se $A$ e $B$ sono compatibili oppure disgiunti.
+Discutere se $A$ e $B$ sono compatibili oppure disgiunti.%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
@@ -1800,55 +2138,62 @@ Discutere se $A$ e $B$ sono compatibili oppure disgiunti.
 
 
 %***********************************************************
+%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Esercizio 2: probabilit\`{a} condizionata}
+%TCIMACRO{\QTR{frametitle}{Esercizio 2: probabilit\`{a} condizionata}}%
+%BeginExpansion
+\frametitle{Esercizio 2: probabilit\`{a} condizionata}%
+%EndExpansion
 
-Sia
+
+Sia%
 
 \[
-\Omega=\{\omega_1,\omega_2,\omega_3,\omega_4,\omega_5\}
+\Omega=\{\omega_{1},\omega_{2},\omega_{3},\omega_{4},\omega_{5}\}
 \]
 
-con probabilit\`{a}
 
-\[
-\begin{array}{c|ccccc}
-\omega & \omega_1 & \omega_2 & \omega_3 & \omega_4 & \omega_5 \\
-\hline
+con probabilit\`{a}%
+
+\[%
+\begin{array}
+[c]{c|ccccc}%
+\omega & \omega_{1} & \omega_{2} & \omega_{3} & \omega_{4} & \omega
+_{5}\\\hline
 \Prob(\{\omega\}) & 0.10 & 0.20 & 0.25 & 0.30 & 0.15
 \end{array}
 \]
 
-\medskip
-
-Siano
-
-\[
-A=\{\omega_2,\omega_3,\omega_4\},
-\qquad
-B=\{\omega_1,\omega_3,\omega_4,\omega_5\}.
-\]
 
 \medskip
 
-Calcolare:
+Siano%
 
 \[
-\Prob(A),\qquad
-\Prob(B),\qquad
-\Prob(A\cap B),\qquad
-\Prob(A\mid B).
+A=\{\omega_{2},\omega_{3},\omega_{4}\}, \qquad B=\{\omega_{1},\omega
+_{3},\omega_{4},\omega_{5}\}.
 \]
+
+
+\medskip
+
+Calcolare:%
+
+\[
+\Prob(A),\qquad\Prob(B),\qquad\Prob(A\cap B),\qquad\Prob(A\mid B).
+\]
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
@@ -1856,58 +2201,61 @@ Calcolare:
 
 
 %***********************************************************
-
+%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Esercizio 3: aggiornamento bayesiano}
+%TCIMACRO{\QTR{frametitle}{Esercizio 3: aggiornamento bayesiano}}%
+%BeginExpansion
+\frametitle{Esercizio 3: aggiornamento bayesiano}%
+%EndExpansion
 
-Un debitore pu\`{o} trovarsi in due stati:
+
+Un debitore pu\`{o} trovarsi in due stati:%
 
 \[
-B_1=\text{solido},\qquad B_2=\text{fragile}.
+B_{1}=\text{solido},\qquad B_{2}=\text{fragile}.
 \]
 
-Le probabilit\`{a} a priori sono
+
+Le probabilit\`{a} a priori sono%
 
 \[
-\Prob(B_1)=0.75,\qquad
-\Prob(B_2)=0.25.
+\Prob(B_{1})=0.75,\qquad\Prob(B_{2})=0.25.
 \]
+
 
 \medskip
 
-Si osserva un segnale negativo $S$, con
+Si osserva un segnale negativo $S$, con%
 
 \[
-\Prob(S\mid B_1)=0.10,
-\qquad
-\Prob(S\mid B_2)=0.60.
+\Prob(S\mid B_{1})=0.10, \qquad\Prob(S\mid B_{2})=0.60.
 \]
+
 
 \medskip
 
-Calcolare:
+Calcolare:%
 
 \[
-\Prob(S),
-\qquad
-\Prob(B_2\mid S).
+\Prob(S), \qquad\Prob(B_{2}\mid S).
 \]
 
-Interpretare il risultato in termini di revisione della valutazione del rischio.
+
+Interpretare il risultato in termini di revisione della valutazione del rischio.%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
-
 
 \end{document}
