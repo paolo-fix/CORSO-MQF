@@ -9,10 +9,12 @@
 % Fallback utile per compilazione esterna se qualche titolo resta scritto come \QTR.
 % Scientific WorkPlace usa \QTR internamente; in Beamer \QTR{frametitle}{Titolo}
 % deve espandersi in \frametitle{Titolo}.
+%\usepackage{hyperref}
+%**** Cartella delle figure: percorso relativo (Overleaf) e assoluto (SWP 5.5)
+%**** Titolo, autori e barra inferiore: campo TeX "Frontespizio" dopo \begin{document}
 
 \documentclass[handout]{beamer}%
 \usepackage{mathpazo}
-%\usepackage{hyperref}
 \usepackage{multimedia}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -23,6 +25,7 @@
 %TCIDATA{Version=5.50.0.2960}
 %TCIDATA{Codepage=65001}
 %TCIDATA{CSTFile=beamer.cst}
+%TCIDATA{LastRevised=Sunday, November 08, 2026 21:26:36}
 %TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
 %TCIDATA{<META NAME="SaveForMode" CONTENT="2">}
 %TCIDATA{BibliographyScheme=Manual}
@@ -35,8 +38,6 @@
 \newenvironment{stepenumeratewithalert}{\begin{enumerate}[<+-| alert@+>]}{\end{enumerate}}
 \newenvironment{stepitemizewithalert}{\begin{itemize}[<+-| alert@+>]}{\end{itemize} }
 \usetheme{Madrid}
-
-
 \providecommand{\R}{\mathbb{R}}
 \providecommand{\N}{\mathbb{N}}
 \providecommand{\E}{\mathbb{E}}
@@ -55,6 +56,7 @@
 \providecommand{\EVPI}{\operatorname{EVPI}}
 \providecommand{\VSS}{\operatorname{VSS}}
 \providecommand{\QTR}[2]{\csname #1\endcsname{#2}}
+\graphicspath{{../graphics/}{E:/Didattica/MQF/Github/CORSO-MQF/graphics/}}
 %BeginMSIPreambleData
 \ifx\pdfoutput\relax\let\pdfoutput=\undefined\fi
 \newcount\msipdfoutput
@@ -66,12 +68,23 @@
 \ifdim\paperwidth=0pt\relax\else\pdfpagewidth\paperwidth\fi
 \fi\fi\fi
 %EndMSIPreambleData
-
-%**** Cartella delle figure: percorso relativo (Overleaf) e assoluto (SWP 5.5)
-\graphicspath{{../graphics/}{E:/Didattica/MQF/Github/CORSO-MQF/graphics/}}
-%**** Titolo, autori e barra inferiore: campo TeX "Frontespizio" dopo \begin{document}
-
 \begin{document}
+%
+%TCIMACRO{\TeXButton{define lb}{\definecolor{lb}{rgb}{0.50,0.55,1.00}}}%
+%BeginExpansion
+\definecolor{lb}{rgb}{0.50,0.55,1.00}%
+%EndExpansion
+%
+
+%TCIMACRO{\TeXButton{lb}{\color{lb}}}%
+%BeginExpansion
+\color{lb}%
+%EndExpansion%
+%TCIMACRO{\TeXButton{black}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+
 
 %****************************************************************
 %**** PAGINA DI TITOLO E BARRA INFERIORE (campo TeX "Frontespizio")
@@ -79,25 +92,51 @@
 %**** titlegraphic, maketitle. Resta qui, nel corpo del documento:
 %**** nel preambolo SWP 5.5 altera argomenti opzionali e fine riga.
 %**** Vedi MQF_Project_Guidelines.md, sezione 10.2.
-%****************************************************************
-%TCIMACRO{\TeXButton{Frontespizio}{\setbeamertemplate{footline}{\leavevmode\hbox{\begin{beamercolorbox}[wd=.20\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}\usebeamerfont{author in head/foot}\insertshortauthor\end{beamercolorbox}\begin{beamercolorbox}[wd=.69\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}\usebeamerfont{title in head/foot}\insertshorttitle\end{beamercolorbox}\begin{beamercolorbox}[wd=.11\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}\usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}\insertframenumber{} / \inserttotalframenumber\hspace*{2ex}\end{beamercolorbox}}\vskip0pt}\title[Lez. 9 - Catene di Markov e misure di rischio]{Lezione 9 - Catene di Markov e misure di rischio}\subtitle{Metodi Quantitativi per la Finanza}\author[P. Falbo, C. Pelizzari]{{\LARGE Paolo Falbo, Cristian Pelizzari}}\institute[]{{\large Dipartimento di Economia e Management}}\date[]{}\titlegraphic{\includegraphics[height=1.25cm]{MQF_logo.png}\hspace{0.8cm}\includegraphics[height=1.25cm]{logo-Unibs-esteso.png}}\maketitle}}%
+%****************************************************************%
+%TCIMACRO{\TeXButton{Frontespizio}{\setbeamertemplate{footline}{\leavevmode
+%\hbox{\begin{beamercolorbox}[wd=.20\paperwidth
+%,ht=2.25ex,dp=1ex,center]{author in head/foot}\usebeamerfont
+%{author in head/foot}\insertshortauthor\end{beamercolorbox}%
+%\begin{beamercolorbox}[wd=.69\paperwidth
+%,ht=2.25ex,dp=1ex,center]{title in head/foot}\usebeamerfont
+%{title in head/foot}\insertshorttitle\end{beamercolorbox}%
+%\begin{beamercolorbox}[wd=.11\paperwidth
+%,ht=2.25ex,dp=1ex,right]{date in head/foot}\usebeamerfont{date in head/foot}%
+%\insertshortdate{}\hspace*{2em}\insertframenumber{} / \inserttotalframenumber
+%\hspace*{2ex}\end{beamercolorbox}}\vskip0pt}\title
+%[Lez. 9 - Catene di Markov e misure di rischio]{Lezione 9 - Catene di Markov e misure di rischio}%
+%\subtitle{Metodi Quantitativi per la Finanza}\author
+%[P. Falbo, C. Pelizzari]{{\LARGE Paolo Falbo, Cristian Pelizzari}}%
+%\institute[]{{\large Dipartimento di Economia e Management}}\date
+%[]{}\titlegraphic{\includegraphics[height=1.25cm]{MQF_logo.png}\hspace
+%{0.8cm}\includegraphics[height=1.25cm]{logo-Unibs-esteso.png}}\maketitle}}%
 %BeginExpansion
-\setbeamertemplate{footline}{\leavevmode\hbox{\begin{beamercolorbox}[wd=.20\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}\usebeamerfont{author in head/foot}\insertshortauthor\end{beamercolorbox}\begin{beamercolorbox}[wd=.69\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}\usebeamerfont{title in head/foot}\insertshorttitle\end{beamercolorbox}\begin{beamercolorbox}[wd=.11\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}\usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}\insertframenumber{} / \inserttotalframenumber\hspace*{2ex}\end{beamercolorbox}}\vskip0pt}%
-\title[Lez. 9 - Catene di Markov e misure di rischio]{Lezione 9 - Catene di Markov e misure di rischio}%
-\subtitle{Metodi Quantitativi per la Finanza}%
-\author[P. Falbo, C. Pelizzari]{{\LARGE Paolo Falbo, Cristian Pelizzari}}%
-\institute[]{{\large Dipartimento di Economia e Management}}%
-\date[]{}%
-\titlegraphic{\includegraphics[height=1.25cm]{MQF_logo.png}\hspace{0.8cm}\includegraphics[height=1.25cm]{logo-Unibs-esteso.png}}%
-\maketitle%
+\setbeamertemplate{footline}{\leavevmode\hbox{\begin{beamercolorbox}%
+[wd=.20\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+\usebeamerfont{author in head/foot}\insertshortauthor\end{beamercolorbox}%
+\begin{beamercolorbox}[wd=.69\paperwidth
+,ht=2.25ex,dp=1ex,center]{title in head/foot}\usebeamerfont
+{title in head/foot}\insertshorttitle\end{beamercolorbox}%
+\begin{beamercolorbox}[wd=.11\paperwidth
+,ht=2.25ex,dp=1ex,right]{date in head/foot}\usebeamerfont{date in head/foot}%
+\insertshortdate{}\hspace*{2em}\insertframenumber{} / \inserttotalframenumber
+\hspace*{2ex}\end{beamercolorbox}}\vskip0pt}\title
+[Lez. 9 - Catene di Markov e misure di rischio]{Lezione 9 - Catene di Markov e misure di rischio}%
+\subtitle{Metodi Quantitativi per la Finanza}\author
+[P. Falbo, C. Pelizzari]{{\LARGE Paolo Falbo, Cristian Pelizzari}}%
+\institute[]{{\large Dipartimento di Economia e Management}}\date
+[]{}\titlegraphic{\includegraphics[height=1.25cm]{MQF_logo.png}\hspace
+{0.8cm}\includegraphics[height=1.25cm]{logo-Unibs-esteso.png}}\maketitle
 %EndExpansion
 %****************************************************************
 %**** FINE PAGINA DI TITOLO
 %****************************************************************
 
-%****************************************
-\section{Apertura}
 
+%****************************************
+
+
+\section{Apertura}
 
 \subsection{Domanda guida}%
 
@@ -118,14 +157,15 @@
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
 Nel Capitolo~8, la dinamica creditizia \`{e} una catena di Markov: assegnata
-la matrice di transizione $P$, le sue potenze determinano le
-probabilit\`{a} dei rating futuri,
+la matrice di transizione $P$, le sue potenze determinano le probabilit\`{a}
+dei rating futuri,
 \[
-p_{ij}^{(h)}=\Prob(X_h=j\mid X_0=i)=(P^h)_{ij},
-\qquad
-\pi_h=\pi_0P^h.
+p_{ij}^{(h)}=\Prob(X_{h}=j\mid X_{0}=i)=(P^{h})_{ij}, \qquad\pi_{h}=\pi
+_{0}P^{h}.
 \]
+
 
 \medskip
 
@@ -143,11 +183,12 @@ probabilit\`{a}; non dice quali conseguenze economiche ne derivino.
 \medskip
 
 \begin{center}
-{\small \emph{Come si passa dalle probabilit\`{a} di migrazione e di
-default a una distribuzione monetaria delle perdite, alla misura del
-rischio della sua coda e alla valutazione di uno strumento di
-copertura?}}
+{\small \emph{Come si passa dalle probabilit\`{a} di migrazione e di default a
+una distribuzione monetaria delle perdite, alla misura del rischio della sua
+coda e alla valutazione di uno strumento di copertura?}}
 \end{center}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
@@ -158,40 +199,50 @@ copertura?}}
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
+
 
 %****************************************
 
-\subsection{Stessa $\mathrm{PD}$, rischio diverso}
+
+\subsection{Stessa \texorpdfstring{$\mathrm{PD}$}{PD}, rischio diverso}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Due esposizioni, stessa probabilit\`{a} di default}
+%TCIMACRO{\QTR{frametitle}{Due esposizioni, stessa probabilit\`{a} di
+%default}}%
+%BeginExpansion
+\frametitle{Due esposizioni, stessa probabilit\`{a} di default}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
 Due esposizioni creditizie $A$ e $B$: stesso nozionale, stessa scadenza,
 stesso tasso di recupero, stessa $\mathrm{PD}$ annuale del $3\%$.
 
-\medskip
+\medskip%
 
-\[
-\begin{array}{lcccc}
-\hline
-& & \text{rating} & & \\
-& \text{miglioramento} & \text{invariato} & \text{downgrade} & \text{default}\\
-\hline
+\[%
+\begin{array}
+[c]{lcccc}\hline
+&  & \text{rating} &  & \\
+& \text{miglioramento} & \text{invariato} & \text{downgrade} & \text{default}%
+\\\hline
 \text{Esposizione }A & 0.04 & 0.78 & 0.15 & 0.03\\
-\text{Esposizione }B & 0.08 & 0.87 & 0.02 & 0.03\\
-\hline
+\text{Esposizione }B & 0.08 & 0.87 & 0.02 & 0.03\\\hline
 \end{array}
 \]
+
 
 \medskip
 
@@ -199,305 +250,319 @@ stesso tasso di recupero, stessa $\mathrm{PD}$ annuale del $3\%$.
 \item Guardando solo la $\mathrm{PD}$, $A$ e $B$ appaiono equivalenti.
 
 \item Ma $A$ ha una probabilit\`{a} di \textbf{downgrade} molto pi\`{u}
-elevata: se il deterioramento del rating riduce il valore di mercato,
-le distribuzioni delle perdite sono diverse.
+elevata: se il deterioramento del rating riduce il valore di mercato, le
+distribuzioni delle perdite sono diverse.
 
-\item La $\mathrm{PD}$ \`{e} una componente essenziale del rischio di credito, ma
-non ne \`{e} una misura completa.
+\item La $\mathrm{PD}$ \`{e} una componente essenziale del rischio di credito,
+ma non ne \`{e} una misura completa.
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
+
 
 %****************************************
 
-\subsection{Percorso della lezione}
+
+\subsection{Percorso della lezione}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Percorso della lezione}
+%TCIMACRO{\QTR{frametitle}{Percorso della lezione}}%
+%BeginExpansion
+\frametitle{Percorso della lezione}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
 L'obiettivo \`{e} costruire la distribuzione della perdita creditizia,
 misurarne il rischio di coda e valutarne la copertura:
 \[
-P^h
-\rightarrow
-\text{default e sopravvivenza}
-\rightarrow
-L_h
-\rightarrow
-\VaR_{\alpha}(L_h)
-\rightarrow
-\CVaR_{\alpha}(L_h)
-\rightarrow
-\text{CDS}.
+P^{h} \rightarrow\text{default e sopravvivenza} \rightarrow L_{h}
+\rightarrow\VaR_{\alpha}(L_{h}) \rightarrow\CVaR_{\alpha}(L_{h})
+\rightarrow\text{CDS}.
 \]
+
 
 \medskip
 
 \begin{stepenumerate}
-\item[1.] Struttura temporale del default: $\mathrm{PD}$ cumulativa, marginale,
-sopravvivenza.
+\item[1.] Struttura temporale del default: $\mathrm{PD}$ cumulativa,
+marginale, sopravvivenza.
 
-\item[2.] Dalle probabilit\`{a} alle conseguenze economiche: $\mathrm{PD}$, $\mathrm{LGD}$,
-$\mathrm{EAD}$; la variabile casuale $L_h$.
+\item[2.] Dalle probabilit\`{a} alle conseguenze economiche: $\mathrm{PD}$,
+$\mathrm{LGD}$, $\mathrm{EAD}$; la variabile casuale $L_{h}$.
 
-\item[3.] Misure di rischio: quantili, $\VaR_{\alpha}$,
-$\CVaR_{\alpha}$.
+\item[3.] Misure di rischio: quantili, $\VaR_{\alpha}$, $\CVaR_{\alpha}$.
 
-\item[4.] Trasferimento del rischio: il credit default swap e la
-posizione coperta.
+\item[4.] Trasferimento del rischio: il credit default swap e la posizione coperta.
 \end{stepenumerate}
 
 \medskip
 
 \begin{center}
-{\small Prima \textbf{misurare} il rischio, poi \textbf{trasferirlo}:
-lo stesso scheletro markoviano sostiene entrambe le operazioni,
-ma sotto misure di probabilit\`{a} differenti.}
+{\small Prima \textbf{misurare} il rischio, poi \textbf{trasferirlo}: lo
+stesso scheletro markoviano sostiene entrambe le operazioni, ma sotto misure
+di probabilit\`{a} differenti.}
 \end{center}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
-%***********************************************************
 
 %***********************************************************
+
+
+%***********************************************************
+
 
 \section{Struttura temporale del default}
 
-\subsection{Tempo di default}
+\subsection{Tempo di default}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Tempo di default e stato assorbente}
+%TCIMACRO{\QTR{frametitle}{Tempo di default e stato assorbente}}%
+%BeginExpansion
+\frametitle{Tempo di default e stato assorbente}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Nella catena di rating lo stato $D$ \`{e} \textbf{assorbente}:
-$p_{DD}=1$. Il momento in cui la catena vi entra \`{e} una variabile
-casuale:
+
+Nella catena di rating lo stato $D$ \`{e} \textbf{assorbente}: $p_{DD}=1$. Il
+momento in cui la catena vi entra \`{e} una variabile casuale:
 \[
-\tau_D
-=
-\inf
-\{
-h\geq 1:X_h=D
-\},
-\qquad
-\inf\varnothing=+\infty.
+\tau_{D} = \inf\{ h\geq1:X_{h}=D \}, \qquad\inf\varnothing=+\infty.
 \]
+
 
 \medskip
 
 \begin{stepitemize}
-\item $\{\tau_D=2\}$: l'emittente sopravvive al primo periodo ed entra
-in default nel secondo.
 
-\item L'assorbimento implica, per ogni $h\geq 1$,
+
+\item $\{\tau_{D}=2\}$: l'emittente sopravvive al primo periodo ed entra in
+default nel secondo.
+
+\item L'assorbimento implica, per ogni $h\geq1$,
 \[
-\{\tau_D\leq h\}
-=
-\{X_h=D\}:
+\{\tau_{D}\leq h\} = \{X_{h}=D\}:
 \]
 trovarsi in $D$ alla data $h$ equivale a esservi entrati entro $h$.
 
-\item Se la catena potesse uscire da $D$, questa equivalenza non
-varrebbe: \`{e} l'assorbimento a renderla possibile.
+\item Se la catena potesse uscire da $D$, questa equivalenza non varrebbe:
+\`{e} l'assorbimento a renderla possibile.
 \end{stepitemize}
 
 \medskip
 
 \begin{center}
 {\small Lo stato assorbente del Capitolo~8 diventa cos\`{\i} l'evento
-creditizio fondamentale: tutta la struttura temporale del default si
-legge dalle potenze $P^h$.}
+creditizio fondamentale: tutta la struttura temporale del default si legge
+dalle potenze $P^{h}$.}
 \end{center}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
-\subsection{Probabilit\`{a} cumulativa}
+
+
+\subsection{Probabilit\`{a} cumulativa}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Probabilit\`{a} cumulativa di default}
+%TCIMACRO{\QTR{frametitle}{Probabilit\`{a} cumulativa di default}}%
+%BeginExpansion
+\frametitle{Probabilit\`{a} cumulativa di default}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Per uno stato iniziale $i\in\mathcal{I}\setminus\{D\}$, la
-probabilit\`{a} \textbf{cumulativa} di default entro l'orizzonte $h$
-\`{e}
+
+Per uno stato iniziale $i\in\mathcal{I}\setminus\{D\}$, la probabilit\`{a}
+\textbf{cumulativa} di default entro l'orizzonte $h$ \`{e}
 \[
-\mathrm{PD}_{i}^{\mathrm{cum}}(h)
-=
-\Prob(\tau_D\leq h\mid X_0=i)
-=
-(P^h)_{iD}.
+\mathrm{PD}_{i}^{\mathrm{cum}}(h) = \Prob(\tau_{D}\leq h\mid X_{0}=i) =
+(P^{h})_{iD}.
 \]
+
 
 \medskip
 
 \begin{stepitemize}
-\item Si legge \emph{direttamente} dalla colonna $D$ della potenza
-$P^h$: nessun calcolo aggiuntivo rispetto al Capitolo~8.
+\item Si legge \emph{direttamente} dalla colonna $D$ della potenza $P^{h}$:
+nessun calcolo aggiuntivo rispetto al Capitolo~8.
 
-\item L'evento $\{\tau_D\leq h\}$ cresce al crescere di $h$: la
-successione
+\item L'evento $\{\tau_{D}\leq h\}$ cresce al crescere di $h$: la successione
 \[
-\mathrm{PD}_{i}^{\mathrm{cum}}(1),
-\;
-\mathrm{PD}_{i}^{\mathrm{cum}}(2),
-\;
+\mathrm{PD}_{i}^{\mathrm{cum}}(1), \; \mathrm{PD}_{i}^{\mathrm{cum}}(2), \;
 \ldots
 \]
 \`{e} \textbf{non decrescente}.
 
-\item Attenzione: $\Prob(X_h=D\mid X_0=i)$ \emph{non} \`{e} la
+\item Attenzione: $\Prob(X_{h}=D\mid X_{0}=i)$ \emph{non} \`{e} la
 probabilit\`{a} di fare default ``al periodo $h$''. Per l'assorbimento,
 contiene tutta la massa entrata in default nei periodi precedenti.
 \end{stepitemize}
 
+%
+
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
-\subsection{Marginale e sopravvivenza}
+
+
+\subsection{Marginale e sopravvivenza}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Probabilit\`{a} marginale e di sopravvivenza}
+%TCIMACRO{\QTR{frametitle}{Probabilit\`{a} marginale e di sopravvivenza}}%
+%BeginExpansion
+\frametitle{Probabilit\`{a} marginale e di sopravvivenza}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
 Tre probabilit\`{a} da tenere distinte:
-\[
-\begin{array}{lll}
-\mathrm{PD}_{i}^{\mathrm{cum}}(h)
-&
-=
-\Prob(\tau_D\leq h\mid X_0=i),
-&
-\text{default entro }h,
-\\[2mm]
-\mathrm{PD}_{i}^{\mathrm{marg}}(h)
-&
-=
-\Prob(\tau_D=h\mid X_0=i),
-&
-\text{default nel periodo }h,
-\\[2mm]
-S_i(h)
-&
-=
-\Prob(\tau_D>h\mid X_0=i),
-&
-\text{sopravvivenza oltre }h.
+\[%
+\begin{array}
+[c]{lll}%
+\mathrm{PD}_{i}^{\mathrm{cum}}(h) & = \Prob(\tau_{D}\leq h\mid X_{0}=i), &
+\text{default entro }h,\\[2mm]%
+\mathrm{PD}_{i}^{\mathrm{marg}}(h) & = \Prob(\tau_{D}=h\mid X_{0}=i), &
+\text{default nel periodo }h,\\[2mm]%
+S_{i}(h) & = \Prob(\tau_{D}>h\mid X_{0}=i), & \text{sopravvivenza oltre }h.
 \end{array}
 \]
+
 
 \medskip
 
 \begin{stepitemize}
 \item La marginale si ottiene per differenza:
 \[
-\mathrm{PD}_{i}^{\mathrm{marg}}(h)
-=
-\mathrm{PD}_{i}^{\mathrm{cum}}(h)
--
-\mathrm{PD}_{i}^{\mathrm{cum}}(h-1)
-=
-S_i(h-1)-S_i(h).
+\mathrm{PD}_{i}^{\mathrm{marg}}(h) = \mathrm{PD}_{i}^{\mathrm{cum}}(h) -
+\mathrm{PD}_{i}^{\mathrm{cum}}(h-1) = S_{i}(h-1)-S_{i}(h).
 \]
 
-\item Complementarit\`{a}: $S_i(h)=1-\mathrm{PD}_{i}^{\mathrm{cum}}(h)
-=1-(P^h)_{iD}$, con $S_i(0)=1$.
 
-\item Ricomposizione: $\mathrm{PD}_{i}^{\mathrm{cum}}(h)
-=\sum_{k=1}^{h}\mathrm{PD}_{i}^{\mathrm{marg}}(k)$.
+\item Complementarit\`{a}: $S_{i}(h)=1-\mathrm{PD}_{i}^{\mathrm{cum}}(h)
+=1-(P^{h})_{iD}$, con $S_{i}(0)=1$.
+
+\item Ricomposizione: $\mathrm{PD}_{i}^{\mathrm{cum}}(h) =\sum_{k=1}%
+^{h}\mathrm{PD}_{i}^{\mathrm{marg}}(k)$.
 \end{stepitemize}
 
 \medskip
 
 \begin{center}
-{\small Queste quantit\`{a} torneranno nella parte finale della
-lezione: le \textbf{marginali} pesano i pagamenti della gamba di
-protezione di un CDS, le \textbf{sopravvivenze} i premi.}
+{\small Queste quantit\`{a} torneranno nella parte finale della lezione: le
+\textbf{marginali} pesano i pagamenti della gamba di protezione di un CDS, le
+\textbf{sopravvivenze} i premi.}
 \end{center}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
-\subsection{Term structure del default}
+
+
+\subsection{Term structure del default}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{La struttura temporale del default}
+%TCIMACRO{\QTR{frametitle}{La struttura temporale del default}}%
+%BeginExpansion
+\frametitle{La struttura temporale del default}%
+%EndExpansion
 
-Emittente in classe intermedia ($X_0=2$), matrice di rating $P_R$,
+
+Emittente in classe intermedia ($X_{0}=2$), matrice di rating $P_{R}$,
 orizzonti $h=0,1,\ldots,5$:
 
 \medskip
@@ -509,50 +574,61 @@ orizzonti $h=0,1,\ldots,5$:
 \medskip
 
 \begin{center}
-{\small La $\mathrm{PD}$ cumulativa non decresce; la sopravvivenza \`{e} la sua
-immagine speculare rispetto a $1$. La pendenza tra due date
-consecutive \`{e} la probabilit\`{a} \textbf{marginale} di quel
-periodo.}
+{\small La $\mathrm{PD}$ cumulativa non decresce; la sopravvivenza \`{e} la
+sua immagine speculare rispetto a $1$. La pendenza tra due date consecutive
+\`{e} la probabilit\`{a} \textbf{marginale} di quel periodo.}
 \end{center}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
-%***********************************************************
 
 %***********************************************************
+
+
+%***********************************************************
+
 
 \section{Dalle probabilit\`{a} alle conseguenze economiche}
 
-\subsection{$\mathrm{PD}$, $\mathrm{LGD}$, $\mathrm{EAD}$}
+\subsection{\texorpdfstring{$\mathrm{PD}$, $\mathrm{LGD}$, $\mathrm{EAD}$}{PD, LGD, EAD}}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{$\mathrm{PD}$, $\mathrm{LGD}$, $\mathrm{EAD}$ e recovery rate}
+%TCIMACRO{\QTR{frametitle}{$\QTR{rm}{PD}$, $\QTR{rm}{LGD}$, $\QTR{rm}{EAD}$ e
+%recovery rate}}%
+%BeginExpansion
+\frametitle{$\mathrm{PD}$, $\mathrm{LGD}$, $\mathrm{EAD}$ e recovery rate}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
 Il modello elementare della perdita da default combina tre parametri:
 
 \medskip
 
 \begin{stepitemize}
-\item $\mathrm{PD}$ (\emph{probability of default}): nel modello
-markoviano \`{e} determinata da matrice, stato iniziale e orizzonte,
+\item $\mathrm{PD}$ (\emph{probability of default}): nel modello markoviano
+\`{e} determinata da matrice, stato iniziale e orizzonte,
 \[
-\mathrm{PD}_{i}^{\mathrm{cum}}(h)=(P^h)_{iD}.
+\mathrm{PD}_{i}^{\mathrm{cum}}(h)=(P^{h})_{iD}.
 \]
 Non \`{e} una propriet\`{a} assoluta dell'emittente.
 
@@ -560,130 +636,142 @@ Non \`{e} una propriet\`{a} assoluta dell'emittente.
 \textbf{monetario} esposto al momento del default; non coincide
 necessariamente con il nominale iniziale.
 
-\item $\mathrm{LGD}$ (\emph{loss given default}): quota
-dell'esposizione perduta, $0\leq\mathrm{LGD}\leq 1$; complementare del
-\emph{recovery rate}, $R=1-\mathrm{LGD}$.
+\item $\mathrm{LGD}$ (\emph{loss given default}): quota dell'esposizione
+perduta, $0\leq\mathrm{LGD}\leq1$; complementare del \emph{recovery rate},
+$R=1-\mathrm{LGD}$.
 \end{stepitemize}
 
 \medskip
 
 \begin{center}
-{\small Probabilit\`{a} dell'evento, severit\`{a}, esposizione: solo
-la loro \textbf{combinazione} produce una quantit\`{a} monetaria.}
+{\small Probabilit\`{a} dell'evento, severit\`{a}, esposizione: solo la loro
+\textbf{combinazione} produce una quantit\`{a} monetaria.}
 \end{center}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
-\subsection{Perdita da default e da migrazione}
+
+
+\subsection{Perdita da default e da migrazione}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Perdita da default e perdita da migrazione}
+%TCIMACRO{\QTR{frametitle}{Perdita da default e perdita da migrazione}}%
+%BeginExpansion
+\frametitle{Perdita da default e perdita da migrazione}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Con $\mathrm{EAD}_h$ e $\mathrm{LGD}_h$ deterministici, la perdita da
+
+Con $\mathrm{EAD}_{h}$ e $\mathrm{LGD}_{h}$ deterministici, la perdita da
 \textbf{default} entro $h$ \`{e}
 \[
-L_h^{D}
-=
-\mathrm{EAD}_h\,
-\mathrm{LGD}_h\,
-\1_{\{\tau_D\leq h\}}.
+L_{h}^{D} = \mathrm{EAD}_{h}\, \mathrm{LGD}_{h}\, \1_{\{\tau_{D}\leq h\}}.
 \]
+
 
 \medskip
 
 \begin{stepitemize}
 \item Ma il valore pu\`{o} ridursi anche \textbf{senza} default:
 \[
-\text{downgrade}
-\longrightarrow
-\text{aumento del credit spread}
-\longrightarrow
-\text{riduzione del valore}.
+\text{downgrade} \longrightarrow\text{aumento del credit spread}
+\longrightarrow\text{riduzione del valore}.
 \]
 
-\item A ogni stato futuro $j\in\mathcal{I}$ associamo un valore
-$V_j(h)$: per un'obbligazione, i flussi residui attualizzati con
-fattori di sconto coerenti con il rating $j$.
 
-\item Fissato un riferimento $V^{\mathrm{ref}}(h)$, la perdita
-associata allo stato $j$ \`{e}
+\item A ogni stato futuro $j\in\mathcal{I}$ associamo un valore $V_{j}(h)$:
+per un'obbligazione, i flussi residui attualizzati con fattori di sconto
+coerenti con il rating $j$.
+
+\item Fissato un riferimento $V^{\mathrm{ref}}(h)$, la perdita associata allo
+stato $j$ \`{e}
 \[
-\ell(j,h)
-=
-V^{\mathrm{ref}}(h)-V_j(h).
+\ell(j,h) = V^{\mathrm{ref}}(h)-V_{j}(h).
 \]
+
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
-\subsection{Default-only (DO) e migration-based}
+
+
+\subsection{Default-only (DO) e migration-based}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Modello default-only e modello migration-based}
+%TCIMACRO{\QTR{frametitle}{Modello default-only e modello migration-based}}%
+%BeginExpansion
+\frametitle{Modello default-only e modello migration-based}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
+%
 
 \[
-\ell^{\mathrm{DO}}(j,h)
-=
+\ell^{\mathrm{DO}}(j,h) =
 \begin{cases}
-0, & j\neq D,\\[1mm]
-\mathrm{EAD}_h\mathrm{LGD}_h, & j=D,
+0, & j\neq D,\\[1mm]%
+\mathrm{EAD}_{h}\mathrm{LGD}_{h}, & j=D,
 \end{cases}
-\qquad
-\ell^{\mathrm{MB}}(j,h)
-=
-V^{\mathrm{ref}}(h)-V_j(h).
+\qquad\ell^{\mathrm{MB}}(j,h) = V^{\mathrm{ref}}(h)-V_{j}(h).
 \]
 
-\medskip
 
-\[
-\begin{array}{lll}
-\hline
-& \text{default-only} & \text{migration-based}\\
-\hline
-\text{stati rilevanti} & \text{default e sopravvivenza} & \text{tutti
-i rating futuri}\\
+\medskip%
+
+\[%
+\begin{array}
+[c]{lll}\hline
+& \text{default-only} & \text{migration-based}\\\hline
+\text{stati rilevanti} & \text{default e sopravvivenza} & \text{tutti i rating
+futuri}\\
 \text{perdite non-default} & \text{nulle} & \text{positive o negative}\\
-\text{informazione usata} & (P^h)_{iD} & \text{intera riga $i$ di }P^h\\
+\text{informazione usata} & (P^{h})_{iD} & \text{intera riga $i$ di }P^{h}\\
 \text{applicazione} & \text{perdita da default} & \text{rischio
-mark-to-market}\\
-\hline
+mark-to-market}\\\hline
 \end{array}
 \]
+
 
 \medskip
 
@@ -691,177 +779,205 @@ mark-to-market}\\
 \item Le esposizioni $A$ e $B$ dell'apertura: stessa $\mathrm{PD}$, downgrade
 $0.15$ contro $0.02$.
 
-\item Nel modello default-only sono \textbf{indistinguibili}; nel
-modello migration-based producono distribuzioni di perdita diverse.
+\item Nel modello default-only sono \textbf{indistinguibili}; nel modello
+migration-based producono distribuzioni di perdita diverse.
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
+
 
 \section{La distribuzione della perdita}
 
-\subsection{La funzione di perdita}
+\subsection{La funzione di perdita}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Dallo stato futuro alla perdita}
+%TCIMACRO{\QTR{frametitle}{Dallo stato futuro alla perdita}}%
+%BeginExpansion
+\frametitle{Dallo stato futuro alla perdita}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-La perdita all'orizzonte $h$ \`{e} una \textbf{variabile casuale},
-funzione dello stato futuro della catena:
+
+La perdita all'orizzonte $h$ \`{e} una \textbf{variabile casuale}, funzione
+dello stato futuro della catena:
 \[
-L_h
-=
-\ell(X_h,h),
-\qquad
-\ell(j,h)=V^{\mathrm{ref}}(h)-V_j(h).
+L_{h} = \ell(X_{h},h), \qquad\ell(j,h)=V^{\mathrm{ref}}(h)-V_{j}(h).
 \]
+
 
 \medskip
 
 \begin{stepitemize}
-\item L'aleatoriet\`{a} di $L_h$ deriva interamente da quella di
-$X_h$: la catena fornisce le \textbf{probabilit\`{a}}, il modello
-economico fornisce i \textbf{valori}.
+\item L'aleatoriet\`{a} di $L_{h}$ deriva interamente da quella di $X_{h}$: la
+catena fornisce le \textbf{probabilit\`{a}}, il modello economico fornisce i
+\textbf{valori}.
 
-\item Convenzione sul segno: valori \emph{positivi} di $L_h$
-rappresentano perdite, valori \emph{negativi} guadagni. Tutte le
-misure di rischio della lezione adottano questa convenzione.
+\item Convenzione sul segno: valori \emph{positivi} di $L_{h}$ rappresentano
+perdite, valori \emph{negativi} guadagni. Tutte le misure di rischio della
+lezione adottano questa convenzione.
 
-\item Condizionatamente a $X_0=i$, la distribuzione di $L_h$ si
-ottiene trasferendo la riga $i$ di $P^h$ sui valori $\ell(j,h)$.
-Se pi\`{u} stati producono la stessa perdita monetaria, le relative
-probabilit\`{a} devono essere aggregate.
+\item Condizionatamente a $X_{0}=i$, la distribuzione di $L_{h}$ si ottiene
+trasferendo la riga $i$ di $P^{h}$ sui valori $\ell(j,h)$. Se pi\`{u} stati
+producono la stessa perdita monetaria, le relative probabilit\`{a} devono
+essere aggregate.
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
-\subsection{Il caso guida}
+
+
+\subsection{Il caso guida}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Caso guida: tabella stato-probabilit\`{a}-valore-perdita}
+%TCIMACRO{\QTR{frametitle}{Caso guida: tabella
+%stato-probabilit\`{a}-valore-perdita}}%
+%BeginExpansion
+\frametitle{Caso guida: tabella stato-probabilit\`{a}-valore-perdita}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
 Matrice di migrazione del Capitolo~8, emittente in classe intermedia
-($X_0=2$), orizzonte $h=1$, $V^{\mathrm{ref}}(1)=100$:
+($X_{0}=2$), orizzonte $h=1$, $V^{\mathrm{ref}}(1)=100$:
 \[
-P_R
-=
+P_{R} =
 \begin{pmatrix}
 0.80 & 0.18 & 0.02 & 0.00\\
 0.08 & 0.75 & 0.14 & 0.03\\
 0.02 & 0.18 & 0.65 & 0.15\\
 0.00 & 0.00 & 0.00 & 1.00
-\end{pmatrix},
-\qquad
-\begin{array}{l}
-V_1(1)=103,\\
-V_2(1)=100,\\
-V_3(1)=92,\\
-V_D(1)=40.
+\end{pmatrix}
+, \qquad%
+\begin{array}
+[c]{l}%
+V_{1}(1)=103,\\
+V_{2}(1)=100,\\
+V_{3}(1)=92,\\
+V_{D}(1)=40.
 \end{array}
 \]
 
-\medskip
 
-\[
-\begin{array}{lcccc}
-\hline
-\text{rating futuro} & \text{probabilit\`{a}} & V_j(1) & \ell(j,1) &
-\text{prob. cumulata}\\
-\hline
+\medskip%
+
+\[%
+\begin{array}
+[c]{lcccc}\hline
+\text{rating futuro} & \text{probabilit\`{a}} & V_{j}(1) & \ell(j,1) &
+\text{prob. cumulata}\\\hline
 1 & 0.08 & 103 & -3 & 0.08\\
 2 & 0.75 & 100 & 0 & 0.83\\
 3 & 0.14 & 92 & 8 & 0.97\\
-D & 0.03 & 40 & 60 & 1.00\\
-\hline
+D & 0.03 & 40 & 60 & 1.00\\\hline
 \end{array}
 \]
+
 
 \medskip
 
 \begin{center}
-{\small Le probabilit\`{a} derivano dalla \textbf{catena}; valori e
-perdite dal \textbf{modello economico}. Questa tabella sar\`{a} il
-riferimento per EL, VaR e CVaR.}
+{\small Le probabilit\`{a} derivano dalla \textbf{catena}; valori e perdite
+dal \textbf{modello economico}. Questa tabella sar\`{a} il riferimento per EL,
+VaR e CVaR.}
 \end{center}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
-\subsection{Esercizio A}
+
+
+\subsection{Esercizio A}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Esercizio A: la distribuzione della perdita}
+%TCIMACRO{\QTR{frametitle}{Esercizio A: la distribuzione della perdita}}%
+%BeginExpansion
+\frametitle{Esercizio A: la distribuzione della perdita}%
+%EndExpansion
 
-Emittente con $X_0=2$; distribuzione del rating a un anno, valore di
+
+Emittente con $X_{0}=2$; distribuzione del rating a un anno, valore di
 riferimento e valori per stato:
-\[
-\begin{array}{c|cccc}
-j & 1 & 2 & 3 & D\\
-\hline
-\Prob(X_1=j\mid X_0=2) & 0.05 & 0.78 & 0.14 & 0.03\\
-V_j(1) & 104 & 100 & 90 & 45
+\[%
+\begin{array}
+[c]{c|cccc}%
+j & 1 & 2 & 3 & D\\\hline
+\Prob(X_{1}=j\mid X_{0}=2) & 0.05 & 0.78 & 0.14 & 0.03\\
+V_{j}(1) & 104 & 100 & 90 & 45
 \end{array}
-\qquad
-V^{\mathrm{ref}}(1)=100.
+\qquad V^{\mathrm{ref}}(1)=100.
 \]
+
 
 \medskip
 
-Posto $L_1=\ell(X_1,1)$ con $\ell(j,1)=V^{\mathrm{ref}}(1)-V_j(1)$:
+Posto $L_{1}=\ell(X_{1},1)$ con $\ell(j,1)=V^{\mathrm{ref}}(1)-V_{j}(1)$:
 
 \begin{enumerate}
 \item[1.] Determinare la perdita associata a ciascun rating futuro.
 
-\item[2.] Costruire la funzione di massa di $L_1$.
+\item[2.] Costruire la funzione di massa di $L_{1}$.
 
-\item[3.] Determinare la funzione di ripartizione $F_{L_1}$.
+\item[3.] Determinare la funzione di ripartizione $F_{L_{1}}$.
 
-\item[4.] Calcolare la perdita attesa e interpretare i contributi dei
-diversi stati.
+\item[4.] Calcolare la perdita attesa e interpretare i contributi dei diversi stati.
 \end{enumerate}
 
 \medskip
@@ -871,29 +987,40 @@ diversi stati.
 discussione.}
 \end{center}
 
+%
+
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
-\subsection{Esercizio A: discussione}
+
+
+\subsection{Esercizio A: discussione}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Esercizio A: discussione}
+%TCIMACRO{\QTR{frametitle}{Esercizio A: discussione}}%
+%BeginExpansion
+\frametitle{Esercizio A: discussione}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
+
 
 \begin{center}
 \includegraphics[height=4.6cm]{Cap09_distribuzione_perdita_esercizio.png}
@@ -902,236 +1029,260 @@ discussione.}
 \medskip
 
 \begin{stepitemize}
-\item Perch\'{e} la massa dominante \`{e} in $L_1=0$? Che cosa dice
-sulla natura del rischio di credito?
 
-\item La perdita $-4$ \`{e} un \textbf{guadagno}: quale evento la
-genera, e perch\'{e} la convenzione sul segno la rappresenta cos\`{\i}?
 
-\item Il default: perdita elevata ($55$), probabilit\`{a} piccola
-($0.03$). \`{E} questa asimmetria a rendere insufficiente la sola
-perdita attesa.
+\item Perch\'{e} la massa dominante \`{e} in $L_{1}=0$? Che cosa dice sulla
+natura del rischio di credito?
+
+\item La perdita $-4$ \`{e} un \textbf{guadagno}: quale evento la genera, e
+perch\'{e} la convenzione sul segno la rappresenta cos\`{\i}?
+
+\item Il default: perdita elevata ($55$), probabilit\`{a} piccola ($0.03$).
+\`{E} questa asimmetria a rendere insufficiente la sola perdita attesa.
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
-%***********************************************************
 
 %***********************************************************
+
+
+%***********************************************************
+
 
 \section{Perdita attesa e quantili}
 
-\subsection{Expected Loss}
+\subsection{Expected Loss}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Expected Loss}
+%TCIMACRO{\QTR{frametitle}{Expected Loss}}%
+%BeginExpansion
+\frametitle{Expected Loss}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Condizionatamente allo stato iniziale $X_0=i$, la \textbf{perdita
-attesa} all'orizzonte $h$ \`{e}
+
+Condizionatamente allo stato iniziale $X_{0}=i$, la \textbf{perdita attesa}
+all'orizzonte $h$ \`{e}
 \[
-\mathrm{EL}_i(h)
-=
-\E[L_h\mid X_0=i]
-=
-\sum_{j\in\mathcal{I}}
-\ell(j,h)(P^h)_{ij}.
+\mathrm{EL}_{i}(h) = \E[L_h\mid X_0=i] = \sum_{j\in\mathcal{I}} \ell
+(j,h)(P^{h})_{ij}.
 \]
+
 
 \medskip
 
 \begin{stepitemize}
-\item $P^h$ fornisce i pesi probabilistici, $\ell(j,h)$ le perdite
+\item $P^{h}$ fornisce i pesi probabilistici, $\ell(j,h)$ le perdite
 monetarie: la formula combina i due modelli.
 
 \item Nel modello default-only la formula si riduce alla relazione
 tradizionale
 \[
-\mathrm{EL}_i(h)
-=
-\mathrm{PD}_{i}^{\mathrm{cum}}(h)\,
-\mathrm{LGD}_h\,
-\mathrm{EAD}_h.
+\mathrm{EL}_{i}(h) = \mathrm{PD}_{i}^{\mathrm{cum}}(h)\, \mathrm{LGD}_{h}\,
+\mathrm{EAD}_{h}.
 \]
 
-\item Sul caso guida: $\mathrm{EL}_2(1)=(-3)(0.08)+0(0.75)
+
+\item Sul caso guida: $\mathrm{EL}_{2}(1)=(-3)(0.08)+0(0.75)
 +8(0.14)+60(0.03)=2.68$.
 
-\item La $\mathrm{EL}$ misura il \textbf{livello medio della perdita}, ma non il
-rischio di coda: due distribuzioni con la stessa media possono avere
+\item La $\mathrm{EL}$ misura il \textbf{livello medio della perdita}, ma non
+il rischio di coda: due distribuzioni con la stessa media possono avere
 dispersioni e code molto diverse.
-
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
-\subsection{Dispersione e perdita inattesa}
+
+
+\subsection{Dispersione e perdita inattesa}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Dispersione e perdita inattesa}
+%TCIMACRO{\QTR{frametitle}{Dispersione e perdita inattesa}}%
+%BeginExpansion
+\frametitle{Dispersione e perdita inattesa}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-La perdita attesa descrive il livello medio di $L_h$, ma non quanto
-le possibili perdite possano discostarsi da tale valore.
+
+La perdita attesa descrive il livello medio di $L_{h}$, ma non quanto le
+possibili perdite possano discostarsi da tale valore.
 
 \medskip
 
-Condizionatamente allo stato iniziale $X_0=i$,
+Condizionatamente allo stato iniziale $X_{0}=i$,
 \[
-\Var(L_h\mid X_0=i)
-=
-\sum_{j\in\mathcal{I}}
-\left[
-\ell(j,h)-\mathrm{EL}_i(h)
-\right]^2
-(P^h)_{ij},
+\Var(L_{h}\mid X_{0}=i) = \sum_{j\in\mathcal{I}} \left[  \ell(j,h)-\mathrm{EL}%
+_{i}(h) \right]  ^{2} (P^{h})_{ij},
 \]
 e
 \[
-\sigma_{L,i}(h)
-=
-\sqrt{\Var(L_h\mid X_0=i)}.
+\sigma_{L,i}(h) = \sqrt{\Var(L_{h}\mid X_{0}=i)}.
 \]
 
+
 %\medskip
+
 
 \begin{stepitemize}
 \item La deviazione standard misura la \textbf{dispersione complessiva}
 attorno alla perdita media.
 
-\item Non distingue per\`{o} tra scostamenti favorevoli e sfavorevoli:
-anche un guadagno molto elevato contribuisce alla varianza.
+\item Non distingue per\`{o} tra scostamenti favorevoli e sfavorevoli: anche
+un guadagno molto elevato contribuisce alla varianza.
 
 \item Con \emph{unexpected loss}, indichiamo concettualmente la parte
-sfavorevole della perdita che eccede il livello medio; non la
-identifichiamo, in generale, con la sola deviazione standard.
+sfavorevole della perdita che eccede il livello medio; non la identifichiamo,
+in generale, con la sola deviazione standard.
 
-\item Per misurare direttamente la coda destra della distribuzione
-servono quantili, VaR e CVaR.
+\item Per misurare direttamente la coda destra della distribuzione servono
+quantili, VaR e CVaR.
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
 
-
 %***********************************************************
-\subsection{Quantili}
+
+
+\subsection{Quantili}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Quantili di distribuzioni discrete}
+%TCIMACRO{\QTR{frametitle}{Quantili di distribuzioni discrete}}%
+%BeginExpansion
+\frametitle{Quantili di distribuzioni discrete}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Per $\alpha\in(0,1)$, il \textbf{quantile} di livello $\alpha$ della
-perdita $L$ \`{e}
+
+Per $\alpha\in(0,1)$, il \textbf{quantile} di livello $\alpha$ della perdita
+$L$ \`{e}
 \[
-q_{\alpha}(L)
-=
-\inf
-\left\{
-\ell\in\R:
-F_L(\ell)\geq\alpha
-\right\}.
+q_{\alpha}(L) = \inf\left\{  \ell\in\R: F_{L}(\ell)\geq\alpha\right\}  .
 \]
+
 
 \medskip
 
 \begin{stepitemize}
-\item Il pi\`{u} piccolo valore monetario per cui la probabilit\`{a}
-cumulata raggiunge \emph{almeno} $\alpha$.
+\item Il pi\`{u} piccolo valore monetario per cui la probabilit\`{a} cumulata
+raggiunge \emph{almeno} $\alpha$.
 
 \item Vale $\Prob(L\leq q_{\alpha}(L))\geq\alpha$, \textbf{non}
-necessariamente con uguaglianza: nel caso discreto $\alpha$ pu\`{o}
-cadere dentro un salto,
+necessariamente con uguaglianza: nel caso discreto $\alpha$ pu\`{o} cadere
+dentro un salto,
 \[
-F_L\left(q_{\alpha}(L)^{-}\right)
-\leq
-\alpha
-\leq
-F_L\left(q_{\alpha}(L)\right).
+F_{L}\left(  q_{\alpha}(L)^{-}\right)  \leq\alpha\leq F_{L}\left(  q_{\alpha
+}(L)\right)  .
 \]
 
-\item Il quantile \textbf{appartiene al supporto}: nessuna
-interpolazione tra valori discreti.
 
-\item Ricetta operativa: ordinare le perdite (non i codici degli
-stati!), cumulare le probabilit\`{a}, selezionare la prima perdita che
-raggiunge $\alpha$.
+\item Il quantile \textbf{appartiene al supporto}: nessuna interpolazione tra
+valori discreti.
+
+\item Ricetta operativa: ordinare le perdite (non i codici degli stati!),
+cumulare le probabilit\`{a}, selezionare la prima perdita che raggiunge
+$\alpha$.
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
-\subsection{Lettura grafica}
+
+
+\subsection{Lettura grafica}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Il quantile sulla funzione di ripartizione}
+%TCIMACRO{\QTR{frametitle}{Il quantile sulla funzione di ripartizione}}%
+%BeginExpansion
+\frametitle{Il quantile sulla funzione di ripartizione}%
+%EndExpansion
 
-Caso guida ($X_0=2$, $h=1$), livello $\alpha=0.95$:
+
+Caso guida ($X_{0}=2$, $h=1$), livello $\alpha=0.95$:
 \[
-F_{L_1\mid 2}(0)=0.83<0.95,
-\text{ }F_{L_1\mid 2}(8)=0.97\geq0.95
-\text{ }\Rightarrow\text{ }
-q_{0.95}(L_1\mid X_0=2)=8.
+F_{L_{1}\mid2}(0)=0.83<0.95, \text{ }F_{L_{1}\mid2}(8)=0.97\geq0.95 \text{
+}\Rightarrow\text{ } q_{0.95}(L_{1}\mid X_{0}=2)=8.
 \]
 
+
 %\medskip
+
 
 \begin{center}
 \includegraphics[height=4.9cm]{Cap09_funzione_ripartizione_quantile.png}
@@ -1139,99 +1290,113 @@ q_{0.95}(L_1\mid X_0=2)=8.
 
 %\medskip
 
+
 \begin{center}
-{\small Il livello $0.95$ cade \emph{dentro} il salto di ampiezza
-$0.14$ in $\ell=8$. Il quantile resta costante per interi intervalli
-di $\alpha$ e cambia bruscamente oltre una cumulata: per
-$\alpha=0.97$ vale ancora $8$, appena oltre vale $60$.}
+{\small Il livello $0.95$ cade \emph{dentro} il salto di ampiezza $0.14$ in
+$\ell=8$. Il quantile resta costante per interi intervalli di $\alpha$ e
+cambia bruscamente oltre una cumulata: per $\alpha=0.97$ vale ancora $8$,
+appena oltre vale $60$.}
 \end{center}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
+
 
 \section{Value at Risk creditizio}
 
-\subsection{Definizione}
+\subsection{Definizione}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Value at Risk}
+%TCIMACRO{\QTR{frametitle}{Value at Risk}}%
+%BeginExpansion
+\frametitle{Value at Risk}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
 Il Value at Risk \`{e} il quantile della perdita, interpretato come
 \textbf{soglia monetaria di rischio}:
 \[
-\VaR_{\alpha}(L)
-=
-q_{\alpha}(L)
-=
-\inf
-\left\{
-\ell\in\R:
-F_L(\ell)\geq\alpha
-\right\}.
+\VaR_{\alpha}(L) = q_{\alpha}(L) = \inf\left\{  \ell\in\R: F_{L}(\ell
+)\geq\alpha\right\}  .
 \]
+
 
 \medskip
 
 \begin{stepitemize}
 \item Nel contesto creditizio, condizionatamente allo stato iniziale:
 \[
-\VaR_{\alpha,i}(h)
-=
-q_{\alpha}(L_h\mid X_0=i).
+\VaR_{\alpha,i}(h) = q_{\alpha}(L_{h}\mid X_{0}=i).
 \]
+
 
 \item Sul caso guida:
 \[
 \VaR_{0.95,2}(1)=8:
 \]
-la pi\`{u} piccola soglia per cui la probabilit\`{a} cumulata delle
-perdite raggiunge almeno il $95\%$.
+la pi\`{u} piccola soglia per cui la probabilit\`{a} cumulata delle perdite
+raggiunge almeno il $95\%$.
 
-\item In una distribuzione discreta $\Prob(L\leq\VaR_{\alpha}(L))$
-pu\`{o} essere \emph{strettamente} maggiore di $\alpha$: qui vale
-$0.97$.
+\item In una distribuzione discreta $\Prob(L\leq\VaR_{\alpha}(L))$ pu\`{o}
+essere \emph{strettamente} maggiore di $\alpha$: qui vale $0.97$.
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
-\subsection{Orizzonte e confidenza}
+
+
+\subsection{Orizzonte e confidenza}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Orizzonte e livello di confidenza}
+%TCIMACRO{\QTR{frametitle}{Orizzonte e livello di confidenza}}%
+%BeginExpansion
+\frametitle{Orizzonte e livello di confidenza}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
+
 
 Un valore di VaR non \`{e} interpretabile senza specificare:
 
@@ -1242,7 +1407,7 @@ Un valore di VaR non \`{e} interpretabile senza specificare:
 
 \item l'unit\`{a} monetaria della perdita;
 
-\item la distribuzione di $L_h$ e il modello che la genera.
+\item la distribuzione di $L_{h}$ e il modello che la genera.
 \end{stepitemize}
 
 \medskip
@@ -1251,80 +1416,87 @@ Incompleta: \emph{``il VaR \`{e} pari a 8''.}
 
 \smallskip
 
-Corretta: \emph{``il VaR al $95\%$ della perdita a un anno,
-condizionatamente al rating iniziale $i=2$, \`{e} pari a $8$
-unit\`{a} monetarie nel modello di transizione considerato''.}
+Corretta: \emph{``il VaR al $95\%$ della perdita a un anno, condizionatamente
+al rating iniziale $i=2$, \`{e} pari a $8$ unit\`{a} monetarie nel modello di
+transizione considerato''.}
 
 \medskip
 
 \begin{center}
 {\small $\alpha$ e $h$ sono \textbf{convenzioni della misura}, non
 propriet\`{a} dell'esposizione: cambiando orizzonte cambiano sia le
-probabilit\`{a}, tramite $P^h$, sia i valori, tramite $\ell(j,h)$.}
+probabilit\`{a}, tramite $P^{h}$, sia i valori, tramite $\ell(j,h)$.}
 \end{center}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
 
-\subsection{Capitale economico}
+
+\subsection{Capitale economico}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Credit VaR e capitale economico}
+%TCIMACRO{\QTR{frametitle}{Credit VaR e capitale economico}}%
+%BeginExpansion
+\frametitle{Credit VaR e capitale economico}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Convenzione adottata: $\mathrm{CreditVaR}_{\alpha,i}(h)
-=\VaR_{\alpha,i}(h)$, il quantile della perdita totale. Il
-\textbf{capitale economico} \`{e} l'eccesso del quantile sulla media:
+
+Convenzione adottata: $\mathrm{CreditVaR}_{\alpha,i}(h) =\VaR_{\alpha,i}(h)$,
+il quantile della perdita totale. Il \textbf{capitale economico} \`{e}
+l'eccesso del quantile sulla media:
 \[
-\mathrm{EC}_{\alpha,i}(h)
-=
-\VaR_{\alpha,i}(h)
--
-\mathrm{EL}_i(h).
+\mathrm{EC}_{\alpha,i}(h) = \VaR_{\alpha,i}(h) - \mathrm{EL}_{i}(h).
 \]
+
 
 \medskip
 
 \begin{stepitemize}
-\item Tre grandezze distinte: $\VaR$ \`{e} la perdita al quantile
-$\alpha$; $\mathrm{EL}$ la perdita media; $\mathrm{EC}$ la perdita
-corrispondente al quantile $\alpha$ \emph{eccedente} la media.
+\item Tre grandezze distinte: $\VaR$ \`{e} la perdita al quantile $\alpha$;
+$\mathrm{EL}$ la perdita media; $\mathrm{EC}$ la perdita corrispondente al
+quantile $\alpha$ \emph{eccedente} la media.
 
 \item Sul caso guida:
 \[
-\mathrm{EC}_{0.95,2}(1)
-=
-8-2.68
-=
-5.32.
+\mathrm{EC}_{0.95,2}(1) = 8-2.68 = 5.32.
 \]
 
-\item Logica gestionale: la $\mathrm{EL}$ rappresenta la componente media attesa della
-perdita, normalmente assorbita nella gestione ordinaria del rischio di credito;
-l'$\mathrm{EC}$ rappresenta invece una misura del capitale necessario a fronte delle
-perdite inattese. Il tema ritorner\`{a} nella Lezione~10 sul portafoglio.
+
+\item Logica gestionale: la $\mathrm{EL}$ rappresenta la componente media
+attesa della perdita, normalmente assorbita nella gestione ordinaria del
+rischio di credito; l'$\mathrm{EC}$ rappresenta invece una misura del capitale
+necessario a fronte delle perdite inattese. Il tema ritorner\`{a} nella
+Lezione~10 sul portafoglio.
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
@@ -1333,81 +1505,98 @@ perdite inattese. Il tema ritorner\`{a} nella Lezione~10 sul portafoglio.
 
 %***********************************************************
 
+
 \section{Conditional Value at Risk}
 
-\subsection{Limiti del VaR}
+\subsection{Limiti del VaR}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Che cosa il VaR non vede}
+%TCIMACRO{\QTR{frametitle}{Che cosa il VaR non vede}}%
+%BeginExpansion
+\frametitle{Che cosa il VaR non vede}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
+
 
 Posto $v=\VaR_{\alpha}(L)$:
 
 \medskip
 
 \begin{stepitemize}
-\item \textbf{Il VaR non \`{e} la massima perdita possibile.} Da
-$\Prob(L\leq v)\geq\alpha$ segue $\Prob(L>v)\leq 1-\alpha$: una quota
-fino a $1-\alpha$ della distribuzione sta \emph{oltre} la soglia.
+\item \textbf{Il VaR non \`{e} la massima perdita possibile.} Da $\Prob(L\leq
+v)\geq\alpha$ segue $\Prob(L>v)\leq1-\alpha$: una quota fino a $1-\alpha$
+della distribuzione sta \emph{oltre} la soglia.
 
-\item \textbf{Il VaR non descrive la severit\`{a} oltre la soglia.}
-Se la coda estrema diventa pi\`{u} severa ma il quantile non cambia,
-il VaR resta invariato: due distribuzioni possono avere lo stesso VaR
-e scenari estremi molto diversi.
+\item \textbf{Il VaR non descrive la severit\`{a} oltre la soglia.} Se la coda
+estrema diventa pi\`{u} severa ma il quantile non cambia, il VaR resta
+invariato: due distribuzioni possono avere lo stesso VaR e scenari estremi
+molto diversi.
 
 \item \textbf{Il VaR pu\`{o} non essere subadditivo}: aggregando due
-posizioni, la misura del portafoglio pu\`{o} superare la somma delle
-misure individuali.
+posizioni, la misura del portafoglio pu\`{o} superare la somma delle misure individuali.
 \end{stepitemize}
 
 \medskip
 
 \begin{center}
-{\small Il secondo limite \`{e} quello che ora tocchiamo con mano:
-lavoriamo su due distribuzioni costruite apposta.}
+{\small Il secondo limite \`{e} quello che ora tocchiamo con mano: lavoriamo
+su due distribuzioni costruite apposta.}
 \end{center}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
-\subsection{Esercizio B}
+
+
+\subsection{Esercizio B}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Esercizio B: stesso VaR, code diverse}
+%TCIMACRO{\QTR{frametitle}{Esercizio B: stesso VaR, code diverse}}%
+%BeginExpansion
+\frametitle{Esercizio B: stesso VaR, code diverse}%
+%EndExpansion
+
 
 Due distribuzioni discrete di perdita:
-\[
-\begin{array}{c|cccc}
-\lambda & 0 & 10 & 20 & 100\\
-\hline
-\Prob(L_A=\lambda) & 0.90 & 0.05 & 0.04 & 0.01\\
-\Prob(L_B=\lambda) & 0.90 & 0.05 & 0.01 & 0.04
+\[%
+\begin{array}
+[c]{c|cccc}%
+\lambda & 0 & 10 & 20 & 100\\\hline
+\Prob(L_{A}=\lambda) & 0.90 & 0.05 & 0.04 & 0.01\\
+\Prob(L_{B}=\lambda) & 0.90 & 0.05 & 0.01 & 0.04
 \end{array}
 \]
+
 
 \medskip
 
 \begin{enumerate}
-\item[1.] Costruire le funzioni di ripartizione di $L_A$ e $L_B$.
+\item[1.] Costruire le funzioni di ripartizione di $L_{A}$ e $L_{B}$.
 
 \item[2.] Calcolare il VaR al livello del $95\%$ per entrambe.
 
@@ -1422,50 +1611,60 @@ pi\`{u} rischiosa? Il VaR rileva questa differenza?
 discussione.}
 \end{center}
 
+%
+
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
-\subsection{Esercizio B: discussione}
+
+
+\subsection{Esercizio B: discussione}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Esercizio B: discussione}
+%TCIMACRO{\QTR{frametitle}{Esercizio B: discussione}}%
+%BeginExpansion
+\frametitle{Esercizio B: discussione}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
 Raccogliamo e verifichiamo i risultati.
 
 \medskip
 
 \begin{stepitemize}
-\item Le cumulate coincidono fino a $\lambda=10$: in particolare
-$F_{L_A}(10)=F_{L_B}(10)=0.95$. Pertanto
+
+
+\item Le cumulate coincidono fino a $\lambda=10$: in particolare $F_{L_{A}%
+}(10)=F_{L_{B}}(10)=0.95$. Pertanto
 \[
-\VaR_{0.95}(L_A)
-=
-\VaR_{0.95}(L_B)
-=
-10.
+\VaR_{0.95}(L_{A}) = \VaR_{0.95}(L_{B}) = 10.
 \]
 
-\item Ma oltre la soglia le code sono molto diverse: $L_A$ colloca in
-$100$ una probabilit\`{a} $0.01$, $L_B$ una probabilit\`{a} $0.04$.
 
-\item Un risk manager preferirebbe la posizione $A$; il VaR le
-dichiara \textbf{equivalenti}.
+\item Ma oltre la soglia le code sono molto diverse: $L_{A}$ colloca in $100$
+una probabilit\`{a} $0.01$, $L_{B}$ una probabilit\`{a} $0.04$.
+
+\item Un risk manager preferirebbe la posizione $A$; il VaR le dichiara
+\textbf{equivalenti}.
 \end{stepitemize}
 
 \medskip
@@ -1473,490 +1672,536 @@ dichiara \textbf{equivalenti}.
 Domanda di interpretazione:
 
 \begin{stepitemize}
-\item Quale caratteristica della distribuzione dovrebbe misurare un
-indicatore capace di distinguere $A$ da $B$?
+\item Quale caratteristica della distribuzione dovrebbe misurare un indicatore
+capace di distinguere $A$ da $B$?
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
-\subsection{Definizione di CVaR}
+
+
+\subsection{Definizione di CVaR}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Conditional Value at Risk}
+%TCIMACRO{\QTR{frametitle}{Conditional Value at Risk}}%
+%BeginExpansion
+\frametitle{Conditional Value at Risk}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
+
 
 La risposta: mediare i quantili della coda peggiore.
 
 \medskip
 
-Per $\alpha\in(0,1)$, il \emph{Conditional Value at Risk} di livello
-$\alpha$ \`{e}
+Per $\alpha\in(0,1)$, il \emph{Conditional Value at Risk} di livello $\alpha$
+\`{e}
 \[
-\CVaR_{\alpha}(L)
-=
-\frac{1}{1-\alpha}
-\int_{\alpha}^{1}
-q_u(L)\,du.
+\CVaR_{\alpha}(L) = \frac{1}{1-\alpha} \int_{\alpha}^{1} q_{u}(L)\,du.
 \]
+
 
 \medskip
 
 \begin{stepitemize}
-\item La media dei quantili appartenenti alla frazione $1-\alpha$
-pi\`{u} sfavorevole della distribuzione: dipende dal punto in cui
-inizia la coda \emph{e} dall'ampiezza delle perdite che la
-costituiscono.
+\item La media dei quantili appartenenti alla frazione $1-\alpha$ pi\`{u}
+sfavorevole della distribuzione: dipende dal punto in cui inizia la coda
+\emph{e} dall'ampiezza delle perdite che la costituiscono.
 
-\item Convenzione del corso:
-$\operatorname{ES}_{\alpha}(L)=\CVaR_{\alpha}(L)$ --- Expected
-Shortfall e CVaR denominano la stessa misura.
+\item Convenzione del corso: $\operatorname{ES}_{\alpha}(L)=\CVaR_{\alpha}(L)$
+--- Expected Shortfall e CVaR denominano la stessa misura.
 
-\item Nel contesto creditizio:
-$\CVaR_{\alpha,i}(h)=\CVaR_{\alpha}(L_h\mid X_0=i)$.
+\item Nel contesto creditizio: $\CVaR_{\alpha,i}(h)=\CVaR_{\alpha}(L_{h}\mid
+X_{0}=i)$.
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
-\subsection{Massa nel punto di VaR}
+
+
+\subsection{Massa nel punto di VaR}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Distribuzioni discrete: la massa nel punto di VaR}
+%TCIMACRO{\QTR{frametitle}{Distribuzioni discrete: la massa nel punto di VaR}}%
+%BeginExpansion
+\frametitle{Distribuzioni discrete: la massa nel punto di VaR}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Caso guida, $\alpha=0.95$, $v=\VaR_{0.95,2}(1)=8$. La coda al $5\%$
-si compone di:
+
+Caso guida, $\alpha=0.95$, $v=\VaR_{0.95,2}(1)=8$. La coda al $5\%$ si compone di:
 
 \begin{stepitemize}
-\item la parte tra i livelli $0.95$ e $0.97$, probabilit\`{a}
-$F(8)-\alpha=0.02$, associata alla perdita $8$: solo una
-\textbf{frazione} della massa $0.14$ nel punto di VaR;
+\item la parte tra i livelli $0.95$ e $0.97$, probabilit\`{a} $F(8)-\alpha
+=0.02$, associata alla perdita $8$: solo una \textbf{frazione} della massa
+$0.14$ nel punto di VaR;
 
-\item la parte tra $0.97$ e $1$, probabilit\`{a} $0.03$, associata
-alla perdita $60$.
+\item la parte tra $0.97$ e $1$, probabilit\`{a} $0.03$, associata alla
+perdita $60$.
 \end{stepitemize}
 
-\smallskip
+\smallskip%
 
 \[
-\CVaR_{0.95,2}(1)
-=
-8\left(\frac{0.02}{0.05}\right)
-+
-60\left(\frac{0.03}{0.05}\right)
-=
-39.2.
+\CVaR_{0.95,2}(1) = 8\left(  \frac{0.02}{0.05}\right)  + 60\left(  \frac
+{0.03}{0.05}\right)  = 39.2.
 \]
+
 
 \begin{center}
 \includegraphics[height=3.9cm]{Cap09_CVaR_massa_quantile_esercizio.png}
+
+{\small Errore da evitare: $\E[L_1\mid L_1\geq 8]\approx17.18\neq39.2$,
+perch\'{e} include \emph{tutta} la massa in $8$. In generale $\CVaR_{\alpha
+}(L)\neq\E[L\mid L\geq\VaR_{\alpha}(L)]$ in presenza di massa nel punto di
+VaR.}
 \end{center}
 
-\begin{center}
-{\small Errore da evitare: $\E[L_1\mid L_1\geq 8]\approx 17.18\neq
-39.2$, perch\'{e} include \emph{tutta} la massa in $8$. In generale
-$\CVaR_{\alpha}(L)\neq\E[L\mid L\geq\VaR_{\alpha}(L)]$ in presenza di
-massa nel punto di VaR.}
-\end{center}
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
-\subsection{VaR e CVaR a confronto}
+
+
+\subsection{VaR e CVaR a confronto}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{VaR e CVaR a confronto}
+%TCIMACRO{\QTR{frametitle}{VaR e CVaR a confronto}}%
+%BeginExpansion
+\frametitle{VaR e CVaR a confronto}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
 Chiudiamo l'Esercizio B con la misura che ora possediamo:
-\[
-\begin{array}{lcc}
-\hline
-& L_A & L_B\\
-\hline
+\[%
+\begin{array}
+[c]{lcc}\hline
+& L_{A} & L_{B}\\\hline
 \VaR_{0.95} & 10 & 10\\
-\CVaR_{0.95} & 36 & 84\\
-\hline
+\CVaR_{0.95} & 36 & 84\\\hline
 \end{array}
 \]
+
 
 \medskip
 
 \begin{stepitemize}
 \item Il CVaR distingue ci\`{o} che il VaR dichiarava equivalente: la
-probabilit\`{a} della perdita estrema $100$ \`{e} $0.01$ contro
-$0.04$.
+probabilit\`{a} della perdita estrema $100$ \`{e} $0.01$ contro $0.04$.
 
-\item Sul caso guida: $\VaR_{0.95,2}(1)=8$, $\CVaR_{0.95,2}(1)=39.2$
---- la soglia \`{e} modesta, la coda \`{e} severa. I due numeri
-raccontano aspetti diversi della stessa distribuzione.
+\item Sul caso guida: $\VaR_{0.95,2}(1)=8$, $\CVaR_{0.95,2}(1)=39.2$ --- la
+soglia \`{e} modesta, la coda \`{e} severa. I due numeri raccontano aspetti
+diversi della stessa distribuzione.
 
-\item Il CVaR \`{e} la misura che ritroveremo nei modelli di
-ottimizzazione di portafoglio, nella seconda parte del corso.
+\item Il CVaR \`{e} la misura che ritroveremo nei modelli di ottimizzazione di
+portafoglio, nella seconda parte del corso.
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
-%***********************************************************
 
 %***********************************************************
+
+
+%***********************************************************
+
 
 \section{Il credit default swap}
 
-\subsection{Misurare o prezzare}
+\subsection{Misurare o prezzare}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Misurare il rischio o prezzare la protezione}
+%TCIMACRO{\QTR{frametitle}{Misurare il rischio o prezzare la protezione}}%
+%BeginExpansion
+\frametitle{Misurare il rischio o prezzare la protezione}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Finora abbiamo \textbf{misurato}: quali perdite possono verificarsi, e
-con quali probabilit\`{a}? Ora vogliamo \textbf{prezzare} la
-protezione: qual \`{e} oggi il valore di mercato dei flussi futuri?
 
-\medskip
+Finora abbiamo \textbf{misurato}: quali perdite possono verificarsi, e con
+quali probabilit\`{a}? Ora vogliamo \textbf{prezzare} la protezione: qual
+\`{e} oggi il valore di mercato dei flussi futuri?
 
-\[
-\begin{array}{ccl}
-\text{misurazione del rischio}
-&
-\longrightarrow
-&
-\text{probabilit\`{a} predittive sotto }\Prob,
-\\[2mm]
-\text{valutazione di mercato}
-&
-\longrightarrow
-&
-\text{valori attesi di flussi attualizzati sotto }\Q.
+\medskip%
+
+\[%
+\begin{array}
+[c]{ccl}%
+\text{misurazione del rischio} & \longrightarrow & \text{probabilit\`{a}
+predittive sotto }\Prob,\\[2mm]%
+\text{valutazione di mercato} & \longrightarrow & \text{valori attesi di
+flussi attualizzati sotto }\Q.
 \end{array}
 \]
+
 
 \medskip
 
 \begin{stepitemize}
-\item $\mathrm{EL}$, VaR e CVaR usano la matrice $P^{\Prob}$; il pricing usa la
-matrice risk-neutral $P^{\Q}$. Stesso scheletro markoviano, due
-domande diverse.
+\item $\mathrm{EL}$, VaR e CVaR usano la matrice $P^{\Prob}$; il pricing usa
+la matrice risk-neutral $P^{\Q}$. Stesso scheletro markoviano, due domande diverse.
 
-\item Le probabilit\`{a} risk-neutral \textbf{non} rappresentano le
-frequenze attese degli eventi: sono pesi che riproducono i prezzi di
-mercato.
+\item Le probabilit\`{a} risk-neutral \textbf{non} rappresentano le frequenze
+attese degli eventi: sono pesi che riproducono i prezzi di mercato.
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
-\subsection{Struttura e gamba di protezione}
+
+
+\subsection{Struttura e gamba di protezione}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Il contratto CDS e la gamba di protezione}
+%TCIMACRO{\QTR{frametitle}{Il contratto CDS e la gamba di protezione}}%
+%BeginExpansion
+\frametitle{Il contratto CDS e la gamba di protezione}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Il \emph{protection buyer} paga un premio periodico $sN$; il
-\emph{protection seller} paga $N(1-R)$ al default della
-\emph{reference entity}, entro la scadenza $H$. Dal punto di vista del
-buyer:
+
+Il \emph{protection buyer} paga su un nozionale $N$ un premio periodico $sN,$
+dove $s$ \`{e} lo \emph{spread} del CDS (tasso per periodo); il
+\emph{protection seller} paga $N(1-R)$ al default della \emph{reference
+entity}, entro la scadenza $H$. Il contratto scambia due flussi, detti
+\textbf{gambe}: i premi pagati dal buyer (\emph{prem}) e la protezione pagata
+dal seller (\emph{prot}). Indicati con $\mathrm{PV}_{\mathrm{prem}}(s)$ e
+$\mathrm{PV}_{\mathrm{prot}}$ i loro valori attuali, il valore del CDS per il
+buyer \`{e}:
 \[
-V_{\mathrm{CDS}}(s)
-=
-\mathrm{PV}_{\mathrm{prot}}
--
-\mathrm{PV}_{\mathrm{prem}}(s).
+V_{\mathrm{CDS}}(s)=\mathrm{PV}_{\mathrm{prot}}-\mathrm{PV}_{\mathrm{prem}%
+}(s).
 \]
 
-\medskip
 
 \begin{stepitemize}
-\item La gamba di protezione paga solo sull'evento $\{\tau_D=h\}$:
+\item La gamba di protezione paga solo sull'evento $\{\tau_{D}=h\}.$ Detto
+$d_{h}$ il fattore di sconto all'orizzonte $h$:
 \[
-\mathrm{PV}_{\mathrm{prot}}
-=
-N(1-R)
-\sum_{h=1}^{H}
-d_h\,
-\Q(\tau_D=h\mid X_0=i).
+\mathrm{PV}_{\mathrm{prot}}=N(1-R)\sum_{h=1}^{H}d_{h}\,\Q(\tau_{D}=h\mid
+X_{0}=i).
 \]
+
 
 \item Le probabilit\`{a} di \textbf{primo ingresso} in default sono le
 marginali della struttura temporale del default, ora sotto $\Q$:
 \[
-\Q(\tau_D=h\mid X_0=i)
-=
-\left[(P^{\Q})^h\right]_{iD}
--
-\left[(P^{\Q})^{h-1}\right]_{iD}.
+\Q(\tau_{D}=h\mid X_{0}=i)=\left[  (P^{\Q})^{h}\right]  _{iD}-\left[
+(P^{\Q})^{h-1}\right]  _{iD}.
 \]
+
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
-\subsection{Premio equo}
+
+
+\subsection{Premio equo}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Gamba dei premi e spread equo}
+%TCIMACRO{\QTR{frametitle}{Gamba dei premi e spread equo}}%
+%BeginExpansion
+\frametitle{Gamba dei premi e spread equo}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Nel contratto standard i premi sono \textbf{posticipati}: il premio
-del periodo $h$ \`{e} pagato in $t=h$, solo se l'emittente \`{e}
-ancora in vita ($\{\tau_D>h\}$):
+
+Nel contratto standard i premi sono \textbf{posticipati}: il premio del
+periodo $h$ \`{e} pagato in $t=h$, solo se l'emittente \`{e} ancora in vita
+($\{\tau_{D}>h\}$):
 \[
-\mathrm{PV}_{\mathrm{prem}}(s)
-=
-sN
-\sum_{h=1}^{H}
-d_h\,
-\Q(\tau_D>h\mid X_0=i).
+\mathrm{PV}_{\mathrm{prem}}(s) = sN \sum_{h=1}^{H} d_{h}\, \Q(\tau_{D}>h\mid
+X_{0}=i).
 \]
 
-Il premio equo $s^{*}$ annulla il valore del contratto,
-$\mathrm{PV}_{\mathrm{prem}}(s^{*})=\mathrm{PV}_{\mathrm{prot}}$:
+
+Il premio equo $s^{*}$ annulla il valore del contratto, $\mathrm{PV}%
+_{\mathrm{prem}}(s^{*})=\mathrm{PV}_{\mathrm{prot}}$:
 \[
-s^{*}
-=
-(1-R)
-\frac{
-\displaystyle\sum_{h=1}^{H}d_h\,\Q(\tau_D=h\mid X_0=i)
-}{
-\displaystyle\sum_{h=1}^{H}d_h\,\Q(\tau_D>h\mid X_0=i)
-}.
+s^{*} = (1-R) \frac{ \displaystyle\sum_{h=1}^{H}d_{h}\,\Q(\tau_{D}=h\mid
+X_{0}=i) }{ \displaystyle\sum_{h=1}^{H}d_{h}\,\Q(\tau_{D}>h\mid X_{0}=i) }.
 \]
+
 
 \medskip
 
 \begin{center}
-{\small Marginali al numeratore, sopravvivenze al denominatore: la
-struttura temporale del default \`{e} l'ingrediente di entrambe le
-gambe.}
+{\small Marginali al numeratore, sopravvivenze al denominatore: la struttura
+temporale del default \`{e} l'ingrediente di entrambe le gambe.}
 \end{center}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
+%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Premi posticipati e premi anticipati}
+%TCIMACRO{\QTR{frametitle}{Premi posticipati e premi anticipati}}%
+%BeginExpansion
+\frametitle{Premi posticipati e premi anticipati}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
 Il premio del periodo $h$ pu\`{o} essere pagato alla fine ($t=h$,
-\textbf{posticipato}) oppure all'inizio ($t=h-1$,
-\textbf{anticipato}). Sconto e sopravvivenza si valutano alla data di
-pagamento:
+\textbf{posticipato}) oppure all'inizio ($t=h-1$, \textbf{anticipato}). Sconto
+e sopravvivenza si valutano alla data di pagamento:
 \[
-\mathrm{PV}_{\mathrm{prem}}^{\mathrm{post}}(s)
-=
-sN\sum_{h=1}^{H}d_{h}\,\Q(\tau_D>h\mid X_0=i),
+\mathrm{PV}_{\mathrm{prem}}^{\mathrm{post}}(s) = sN\sum_{h=1}^{H}%
+d_{h}\,\Q(\tau_{D}>h\mid X_{0}=i),
 \]
 \[
-\mathrm{PV}_{\mathrm{prem}}^{\mathrm{ant}}(s)
-=
-sN\sum_{h=1}^{H}d_{h-1}\,\Q(\tau_D>h-1\mid X_0=i).
+\mathrm{PV}_{\mathrm{prem}}^{\mathrm{ant}}(s) = sN\sum_{h=1}^{H}%
+d_{h-1}\,\Q(\tau_{D}>h-1\mid X_{0}=i).
 \]
+
 
 \medskip
 
 \begin{stepitemize}
-\item Un pagamento pu\`{o} dipendere solo dall'informazione
-disponibile alla data in cui avviene: \`{e} il principio di
-adattabilit\`{a} gi\`{a} incontrato nella Lezione~5.
+\item Un pagamento pu\`{o} dipendere solo dall'informazione disponibile alla
+data in cui avviene: \`{e} il principio di adattabilit\`{a} gi\`{a} incontrato
+nella Lezione~5.
 
 \item Con premi anticipati e $H=1$ l'unico premio cade in $t=0$, dove
-$d_0=1$ e $\Q(\tau_D>0)=S(0)=1$. Il coefficiente della gamba dei premi
-non sparisce: \textbf{vale} $1$, e
-$\mathrm{PV}_{\mathrm{prem}}^{\mathrm{ant}}(s)=sN$.
+$d_{0}=1$ e $\Q(\tau_{D}>0)=S(0)=1$. Il coefficiente della gamba dei premi non
+sparisce: \textbf{vale} $1$, e $\mathrm{PV}_{\mathrm{prem}}^{\mathrm{ant}%
+}(s)=sN$.
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
 
-
-
 %***********************************************************
+%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Il caso guida sotto la misura di pricing}
+%TCIMACRO{\QTR{frametitle}{Il caso guida sotto la misura di pricing}}%
+%BeginExpansion
+\frametitle{Il caso guida sotto la misura di pricing}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Per prezzare il CDS sul caso guida serve la riga risk-neutral dello
-stato iniziale. Essa \`{e} \textbf{assegnata}, coerente con i prezzi
-di mercato:
-\[
-\begin{array}{lcccc}
-\hline
-& \text{upgrade} & \text{invariato} & \text{downgrade} & \text{default}\\
-\hline
+
+Per prezzare il CDS sul caso guida serve la riga risk-neutral dello stato
+iniziale. Essa \`{e} \textbf{assegnata}, coerente con i prezzi di mercato:
+\[%
+\begin{array}
+[c]{lcccc}\hline
+& \text{upgrade} & \text{invariato} & \text{downgrade} & \text{default}%
+\\\hline
 \text{riga 2 sotto }\Prob & 0.08 & 0.75 & 0.14 & 0.03\\
-\text{riga 2 sotto }\Q & 0.075 & 0.745 & 0.145 & 0.035\\
-\hline
+\text{riga 2 sotto }\Q & 0.075 & 0.745 & 0.145 & 0.035\\\hline
 \end{array}
 \]
 
-\begin{stepitemize}
-\item La massa si sposta dagli stati favorevoli a downgrade e default:
-il mercato, avverso al rischio, prezza la protezione pi\`{u} di quanto
-farebbe un investitore neutrale. \`{E} il premio al rischio, letto nei
-pesi. Le $\mathrm{PD}$ implicite nei CDS superano cos\`{\i} quelle storiche:
-$0.035$ contro $0.03$.
 
-\item Premio \textbf{upfront}, gi\`{a} in valore attuale:
-$\mathrm{PV}_{\mathrm{prem}}(s)=sN$, senza sconto. La protezione \`{e}
-un flusso futuro e incerto, da scontare e ponderare ($R=0.40$,
-$d_1=1/1.05$):
+\begin{stepitemize}
+\item La massa si sposta dagli stati favorevoli a downgrade e default: il
+mercato, avverso al rischio, prezza la protezione pi\`{u} di quanto farebbe un
+investitore neutrale. \`{E} il premio al rischio, letto nei pesi. Le
+$\mathrm{PD}$ implicite nei CDS superano cos\`{\i} quelle storiche: $0.035$
+contro $0.03$.
+
+\item Premio \textbf{upfront}, gi\`{a} in valore attuale: $\mathrm{PV}%
+_{\mathrm{prem}}(s)=sN$, senza sconto. La protezione \`{e} un flusso futuro e
+incerto, da scontare e ponderare ($R=0.40$, $d_{1}=1/1.05$):
 \[
-\mathrm{PV}_{\mathrm{prot}}
-=
-100\,(0.60)\,\frac{0.035}{1.05}
-=
-2,
-\qquad
-s^{*}
-=
-\frac{2}{100}
-=
-200
-\text{ punti base}.
+\mathrm{PV}_{\mathrm{prot}} = 100\,(0.60)\,\frac{0.035}{1.05} = 2, \qquad
+s^{*} = \frac{2}{100} = 200 \text{ punti base}.
 \]
+
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
-\subsection{Spread equo: lettura grafica}
+
+
+\subsection{Spread equo: lettura grafica}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Lo spread equo come punto di equilibrio}
+%TCIMACRO{\QTR{frametitle}{Lo spread equo come punto di equilibrio}}%
+%BeginExpansion
+\frametitle{Lo spread equo come punto di equilibrio}%
+%EndExpansion
+
 
 \begin{center}
 \includegraphics[height=5.6cm]{Cap09_CDS_equilibrio_gambe_caso_guida.png}
@@ -1965,295 +2210,289 @@ s^{*}
 \medskip
 
 \begin{center}
-{\small La gamba di protezione non dipende da $s$: retta orizzontale.
-La gamba dei premi cresce linearmente in $s$. 
-Lo spread equo $s^{*}$ \`{e} l'ascissa dell'intersezione: per $s<s^{*}$ il contratto ha valore positivo per il \emph{protection buyer}, con $s>s^*$ per il
-\emph{seller}.}
+{\small La gamba di protezione non dipende da $s$: retta orizzontale. La gamba
+dei premi cresce linearmente in $s$. Lo spread equo $s^{*}$ \`{e} l'ascissa
+dell'intersezione: per $s<s^{*}$ il contratto ha valore positivo per il
+\emph{protection buyer}, con $s>s^{*}$ per il \emph{seller}.}
 \end{center}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
-%***********************************************************
 
 %***********************************************************
+
+
+%***********************************************************
+
 
 \section{Copertura e rischio residuo}
 
-\subsection{Posizione coperta}
+\subsection{Posizione coperta}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{La posizione coperta}
+%TCIMACRO{\QTR{frametitle}{La posizione coperta}}%
+%BeginExpansion
+\frametitle{La posizione coperta}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Perdita del protection buyer con copertura:
+
+Il titolare dell'esposizione del caso guida ($X_{0}=2$) acquista protezione
+con un CDS a un periodo ($H=1$). La sua perdita \`{e}
 \[
-L^{\mathrm{hedged}}
-=
-L^{\mathrm{credito}}
--
-\Pi^{\mathrm{CDS}}
-+
-C^{\mathrm{premi}},
-\qquad
-\Pi^{\mathrm{CDS}}
-=
-N_{\mathrm{CDS}}(1-R_{\mathrm{CDS}})
-\1_{\{\tau_D\leq H\}}.
+L^{\mathrm{hedged}} = L^{\mathrm{credito}} - \Pi^{\mathrm{CDS}} +
+C^{\mathrm{premi}}.
 \]
 
-\begin{center}
-\includegraphics[height=4.5cm]{Cap09_cdf_hedged_var_cvar.png}
-\end{center}
+
+\begin{stepitemize}
+\item $L^{\mathrm{credito}}$: perdita dell'esposizione senza copertura,
+cio\`{e} la $L_{1}$ del caso guida. La indichiamo anche con
+$L^{\mathrm{unhedged}}$.
+
+\item $\Pi^{\mathrm{CDS}}$: pagamento ricevuto dal CDS, solo in caso di
+default,
+\[
+\Pi^{\mathrm{CDS}} = N_{\mathrm{CDS}}(1-R_{\mathrm{CDS}}) \1_{\{\tau_{D}\leq
+H\}},
+\]
+con $N_{\mathrm{CDS}}$ nozionale e $R_{\mathrm{CDS}}$ recovery rate del
+contratto. Qui $100\,(1-0.40)=60$.
+
+\item $C^{\mathrm{premi}}$: costo dei premi, pagato in ogni stato. Qui il
+premio upfront equo, $s^{*}N=2$.
+\end{stepitemize}
 
 \begin{center}
-{\small Il pagamento di protezione elimina lo scenario estremo: la
-coda del $5\%$ \`{e} interamente associata a $L^{\mathrm{hedged}}=10$
-e le due misure coincidono, $\VaR_{0.95}=\CVaR_{0.95}=10$. Il costo
-dei premi trasla per\`{o} le perdite negli altri stati.}
+{\small Il CDS \textbf{riduce} la perdita, i premi la \textbf{aumentano}.}
 \end{center}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
-\subsection{Rischio residuo}
+%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Che cosa la copertura non elimina}
+%TCIMACRO{\QTR{frametitle}{La posizione coperta: perdite stato per stato}}%
+%BeginExpansion
+\frametitle{La posizione coperta: perdite stato per stato}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
+Caso guida, stato per stato:
+\[%
+\begin{array}
+[c]{l|cccc}%
+\text{rating futuro }j & 1 & 2 & 3 & D\\[1mm]\hline
+\rule{0pt}{2.8ex}\Prob(X_{1}=j\mid X_{0}=2) & 0.08 & 0.75 & 0.14 & 0.03\\[1mm]%
+L^{\mathrm{credito}} & -3 & 0 & 8 & 60\\[1mm]%
+\Pi^{\mathrm{CDS}} & 0 & 0 & 0 & 60\\[1mm]%
+C^{\mathrm{premi}} & 2 & 2 & 2 & 2\\[1mm]\hline
+\rule{0pt}{2.8ex}L^{\mathrm{hedged}} & -1 & 2 & 10 & 2
+\end{array}
+\]
+
+
 \begin{stepitemize}
-\item \textbf{Costo dei premi}: la copertura riduce la perdita attesa
-sotto $\Prob$ solo se la protezione attesa supera il costo atteso ---
-non \`{e} garantito da un premio equo sotto $\Q$.
+\item Nel default la perdita $60$ \`{e} compensata dal pagamento $60$: resta
+solo il costo dei premi, $L^{\mathrm{hedged}}=2$.
 
-\item \textbf{Perdite da migrazione}: il CDS default-only non paga per
-un semplice downgrade; la perdita mark-to-market resta scoperta.
+\item Gli stati $2$ e $D$ producono la stessa perdita: le probabilit\`{a} si
+aggregano, $\Prob(L^{\mathrm{hedged}}=2)=0.75+0.03=0.78$.
 
-\item \textbf{Basis risk e mismatch}: nozionale o scadenza del CDS
-diversi dall'esposizione lasciano quote di rischio scoperte o
-sovracoperte.
+\item Il downgrade non \`{e} coperto: $L^{\mathrm{hedged}}=8+2=10$, con
+probabilit\`{a} $0.14$. \`{E} ora la perdita peggiore.
+\end{stepitemize}
 
-\item \textbf{Rischio di controparte}: la protezione vale solo se il
-seller paga --- e pu\`{o} deteriorarsi proprio negli scenari in cui
-serve.
+%
 
-\item \textbf{Evento economico $\neq$ evento contrattuale}: il
-pagamento dipende dalla definizione giuridica del credit event, non
-dalla perdita economica subita.
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion%
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%***********************************************************
+%
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+%
+
+%TCIMACRO{\QTR{frametitle}{La posizione coperta: VaR e CVaR}}%
+%BeginExpansion
+\frametitle{La posizione coperta: VaR e CVaR}%
+%EndExpansion
+%
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+
+\begin{center}
+\includegraphics[height=5.2cm]{Cap09_cdf_hedged_var_cvar.png}
+
+{\small Il pagamento di protezione elimina lo scenario estremo: la coda del
+$5\%$ \`{e} interamente associata a $L^{\mathrm{hedged}}=10$ e le due misure
+coincidono, $\VaR_{0.95}=\CVaR_{0.95}=10$. Il costo dei premi trasla per\`{o}
+le perdite negli altri stati.}
+\end{center}
+
+%
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion%
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%***********************************************************
+
+
+%***********************************************************
+
+
+\subsection{Rischio residuo}%
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+%
+
+%TCIMACRO{\QTR{frametitle}{Che cosa la copertura non elimina}}%
+%BeginExpansion
+\frametitle{Che cosa la copertura non elimina}%
+%EndExpansion
+%
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+
+\begin{stepitemize}
+\item \textbf{Costo dei premi}: la copertura riduce la perdita attesa sotto
+$\Prob$ solo se la protezione attesa supera il costo atteso --- non \`{e}
+garantito da un premio equo sotto $\Q$.
+
+\item \textbf{Perdite da migrazione}: il CDS default-only non paga per un
+semplice downgrade; la perdita mark-to-market resta scoperta.
+
+\item \textbf{Basis risk e mismatch}: nozionale o scadenza del CDS diversi
+dall'esposizione lasciano quote di rischio scoperte o sovracoperte.
+
+\item \textbf{Rischio di controparte}: la protezione vale solo se il seller
+paga --- e pu\`{o} deteriorarsi proprio negli scenari in cui serve.
+
+\item \textbf{Evento economico $\neq$ evento contrattuale}: il pagamento
+dipende dalla definizione giuridica del credit event, non dalla perdita
+economica subita.
 \end{stepitemize}
 
 \medskip
 
 \begin{center}
 {\small La qualit\`{a} della copertura si giudica confrontando le
-distribuzioni complete di $L^{\mathrm{unhedged}}$ e
-$L^{\mathrm{hedged}}$: una riduzione del CVaR non implica una
-riduzione di EL o VaR.}
+distribuzioni complete di $L^{\mathrm{unhedged}}$ e $L^{\mathrm{hedged}}$: una
+riduzione del CVaR non implica una riduzione di EL o VaR.}
 \end{center}
 
+%
+
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
-%***********************************************************
-
-\section{Impiego gestionale e limiti del modello}
-%***********************************************************
-
-\subsection{Expected Credit Loss}
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\QTR{frametitle}{Dalla term structure del default alla Expected Credit Loss}
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
-
-Le probabilit\`{a} marginali di default ricavate dalla catena
-markoviana entrano anche nella misurazione delle
-\emph{Expected Credit Losses}.
-
-\medskip
-
-In un modello discreto semplificato, la perdita attesa lungo la vita
-residua pu\`{o} essere rappresentata come
-\vspace{-0.2cm}
-\[
-\mathrm{ECL}_{i}^{\mathrm{life}}
-=
-\sum_{h=1}^{H}
-d_h\,
-\mathrm{PD}_{i}^{\mathrm{marg}}(h)\,
-\mathrm{LGD}_h\,
-\mathrm{EAD}_h.
-\]
-\vspace{-0.2cm}
-%\medskip
-
-\begin{stepitemize}
-\item $\mathrm{PD}_{i}^{\mathrm{marg}}(h)$ misura la probabilit\`{a}
-che il default avvenga precisamente nel periodo $h$.
-
-\item $\mathrm{LGD}_h$ ed $\mathrm{EAD}_h$ traducono il default in una
-perdita monetaria; $d_h$ ne riporta il valore alla data iniziale.
-
-\item IFRS~9 distingue \textbf{ECL a 12 mesi} e
-\textbf{lifetime ECL}. La prima considera le perdite lungo la vita
-residua generate dai default possibili nei successivi dodici mesi;
-in presenza di un incremento significativo del rischio creditizio,
-la misurazione passa alla lifetime ECL.
-
-\item Il collegamento con la catena di Markov \`{e} didattico:
-IFRS~9 non prescrive l'impiego di una matrice di transizione.
-\end{stepitemize}
-
-%\medskip
-\vspace{-0.1cm}
-\begin{center}
-{\small Le probabilit\`{a} utilizzate per l'ECL sono probabilit\`{a}
-predittive sotto la misura fisica, non probabilit\`{a} risk-neutral
-per il pricing.}
-\end{center}
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout%
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-%***********************************************************
 
 %***********************************************************
-\subsection{Stress testing e rischio di modello}
 
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\QTR{frametitle}{Stress testing e rischio di modello}
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
-
-VaR e CVaR sintetizzano la distribuzione delle perdite prodotta dal
-modello. Lo \textbf{stress testing} risponde a una domanda diversa:
-che cosa accade sotto uno scenario avverso assegnato?
-
-%\medskip
-\vspace{-0.3cm}
-\[
-F_L
-\longrightarrow
-\VaR_{\alpha}(L),\ \CVaR_{\alpha}(L),
-\qquad
-z^{\mathrm{stress}}
-\longrightarrow
-L\left(z^{\mathrm{stress}}\right).
-\]
-
-%\medskip
-
-\begin{stepitemize}
-\item Lo scenario di stress non deve necessariamente coincidere con un
-quantile della distribuzione, n\'{e} richiede l'assegnazione di una
-probabilit\`{a} precisa.
-
-\item Le misure probabilistiche e gli stress test sono
-\textbf{complementari}: le prime sintetizzano una distribuzione,
-i secondi valutano specifiche configurazioni avverse.
-
-\item VaR, CVaR e perdite stimate dipendono dalle ipotesi del modello:
-matrice di transizione, valori associati ai rating, $\mathrm{LGD}$,
-$\mathrm{EAD}$ e, nel portafoglio, struttura di dipendenza.
-
-\item Se queste componenti sono mal specificate o non rappresentano
-adeguatamente il rischio futuro, anche le misure ottenute possono
-risultare poco affidabili: questo \`{e} \textbf{rischio di modello}.
-\end{stepitemize}
-
-\medskip
-
-%\begin{center}
-%{\small Una misura di rischio non \`{e} un dato osservato: \`{e} il risultato di una distribuzione costruita attraverso un modello.}
-%\end{center}
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout%
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-%***********************************************************
 
 \section{Sintesi e raccordo}
 
-\subsection{Sintesi della lezione}
+\subsection{Sintesi della lezione}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Sintesi e raccordo con la Lezione 10}
+%TCIMACRO{\QTR{frametitle}{Sintesi della lezione}}%
+%BeginExpansion
+\frametitle{Sintesi della lezione}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
+
 
 La catena costruita oggi:
 \[
 \boxed{
 \begin{array}{l}
-\text{$\mathrm{PD}$ cum./marg./sopravv.}
+\text{$\mathrm{PD}$ cum./marg./sopravviv.}
 \;\rightarrow\;
 L_h=\ell(X_h,h)
 \;\rightarrow\;
@@ -2268,278 +2507,354 @@ L_h=\ell(X_h,h)
 }
 \]
 
+
 \medskip
 
-\begin{stepitemize}
+Due sviluppi che il manuale tratta per esteso (Cap.~9):
 
-\item Per un portafoglio di $N$ esposizioni, $
-L_h^{\mathrm{port}}
-=
+\begin{stepitemize}
+\item \textbf{Accantonamenti contabili.} Le probabilit\`{a} marginali
+$\mathrm{PD}_{i}^{\mathrm{marg}}(h)$ costruite oggi entrano anche nel calcolo
+delle perdite attese che le banche accantonano in bilancio (principio
+contabile internazionale IFRS~9): Sezione~14.
+
+\item \textbf{Rischio di modello.} VaR e CVaR valgono quanto il modello da cui
+sono calcolati: matrice di transizione, valori associati ai rating, LGD. Come
+metterlo alla prova con scenari di stress: Sezioni~14 e 15.
+\end{stepitemize}
+
+%
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion%
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%***********************************************************
+
+
+\subsection{Raccordo con la Lezione 10}%
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+%
+
+%TCIMACRO{\QTR{frametitle}{Raccordo con la Lezione 10}}%
+%BeginExpansion
+\frametitle{Raccordo con la Lezione 10}%
+%EndExpansion
+%
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+
+Dalla singola esposizione al portafoglio:
+
+\begin{stepitemize}
+\item Per un portafoglio di $N$ esposizioni, $L_{h}^{\mathrm{port}} =
 \sum_{n=1}^{N}L_{n,h}$.
 
 \item La perdita attesa si aggrega linearmente:
 \[
-\E\left[L_h^{\mathrm{port}}\right]
-=
-\sum_{n=1}^{N}\E[L_{n,h}],
+\E\left[  L_{h}^{\mathrm{port}}\right]  = \sum_{n=1}^{N}\E[L_{n,h}],
 \]
 indipendentemente dalla struttura di dipendenza.
 
-\item Varianza, VaR e CVaR dipendono invece anche da come downgrade
-e default dei diversi emittenti si verificano \textbf{congiuntamente}.
+\item Varianza, VaR e CVaR dipendono invece anche da come downgrade e default
+dei diversi emittenti si verificano \textbf{congiuntamente}.
 
 \item Con molte esposizioni, la distribuzione congiunta diventa il vero
 oggetto del problema: nella Lezione~10, la costruiremo mediante
-\textbf{simulazione}, introducendo fattori comuni e transizioni
-individuali condizionate.
-
+\textbf{simulazione}, introducendo fattori comuni e transizioni individuali condizionate.
 \end{stepitemize}
 
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
+
 
 \section{Back-up}
 
-\subsection{Separatore}
+\subsection{Separatore}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
 
+
 \vfill
+
+
 \begin{center}
-{\Huge\bfseries Back-up}
+{\Huge \bfseries%
+%TCIMACRO{\TeXButton{lb}{\color{lb}}}%
+%BeginExpansion
+\color{lb}%
+%EndExpansion
+Back-up%
+%TCIMACRO{\TeXButton{black}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+}
 \end{center}
+
 \vfill
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
-\subsection{Back-up: probabilit\`{a} condizionata di default}
+
+
+\subsection{Back-up: probabilit\`{a} condizionata di default}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Back-up: probabilit\`{a} condizionata di default}
+%TCIMACRO{\QTR{frametitle}{Back-up: probabilit\`{a} condizionata di default}}%
+%BeginExpansion
+\frametitle{Back-up: probabilit\`{a} condizionata di default}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-La probabilit\`{a} $q_i(h)$ di default nel periodo $h$,
-condizionata alla sopravvivenza fino a $h-1$, \`{e}
+
+La probabilit\`{a} $q_{i}(h)$ di default nel periodo $h$, condizionata alla
+sopravvivenza fino a $h-1$, \`{e}
 \[
-\Prob(\tau_D=h\mid\tau_D>h-1,\,X_0=i)
-=
-\frac{\mathrm{PD}_{i}^{\mathrm{marg}}(h)}{S_i(h-1)}
-=
-\frac{(P^h)_{iD}-(P^{h-1})_{iD}}{1-(P^{h-1})_{iD}}.
+\Prob(\tau_{D}=h\mid\tau_{D}>h-1,\,X_{0}=i) = \frac{\mathrm{PD}_{i}%
+^{\mathrm{marg}}(h)}{S_{i}(h-1)} = \frac{(P^{h})_{iD}-(P^{h-1})_{iD}%
+}{1-(P^{h-1})_{iD}}.
 \]
+
 
 \medskip
 
 \begin{stepitemize}
-\item In generale $q_i(h)\neq p_{iD}$: per $h>1$ l'emittente pu\`{o}
-avere attraversato classi diverse prima dell'inizio del periodo $h$.
+\item In generale $q_{i}(h)\neq p_{iD}$: per $h>1$ l'emittente pu\`{o} avere
+attraversato classi diverse prima dell'inizio del periodo $h$.
 
 \item Scomposizione sui percorsi:
 \[
-\mathrm{PD}_{i}^{\mathrm{marg}}(h)
-=
-\sum_{j\neq D}
-(P^{h-1})_{ij}\,p_{jD}:
+\mathrm{PD}_{i}^{\mathrm{marg}}(h) = \sum_{j\neq D} (P^{h-1})_{ij}\,p_{jD}:
 \]
 sopravvivere fino a $h-1$ nello stato $j$, poi transitare in $D$.
 
-\item \`{E} l'analogo creditizio del tasso di mortalit\`{a}
-attuariale: rischio del periodo, tra i sopravvissuti.
+\item \`{E} l'analogo creditizio del tasso di mortalit\`{a} attuariale:
+rischio del periodo, tra i sopravvissuti.
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
-%***********************************************************
 
 %***********************************************************
-\subsection{Back-up: rappresentazione di ottimizzazione del CVaR}
+
+
+%***********************************************************
+
+
+\subsection{Back-up: rappresentazione di ottimizzazione del CVaR}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Back-up: il CVaR come problema di minimo}
+%TCIMACRO{\QTR{frametitle}{Back-up: il CVaR come problema di minimo}}%
+%BeginExpansion
+\frametitle{Back-up: il CVaR come problema di minimo}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
 Il CVaR ammette la rappresentazione
 \[
-\CVaR_{\alpha}(L)
-=
-\min_{\eta\in\R}
-\left\{
-\eta
-+
-\frac{1}{1-\alpha}
-\E\left[(L-\eta)^{+}\right]
-\right\},
-\qquad
-(x)^{+}=\max\{x,0\}.
+\CVaR_{\alpha}(L) = \min_{\eta\in\R} \left\{  \eta+ \frac{1}{1-\alpha}
+\E\left[  (L-\eta)^{+}\right]  \right\}  , \qquad(x)^{+}=\max\{x,0\}.
 \]
+
 
 \medskip
 
 \begin{stepitemize}
-\item $(L-\eta)^{+}$ conta solo gli \textbf{eccessi} oltre la soglia
-$\eta$; la funzione da minimizzare \`{e} convessa e un minimizzatore
-pu\`{o} essere scelto tra i quantili di livello $\alpha$.
+\item $(L-\eta)^{+}$ conta solo gli \textbf{eccessi} oltre la soglia $\eta$;
+la funzione da minimizzare \`{e} convessa e un minimizzatore pu\`{o} essere
+scelto tra i quantili di livello $\alpha$.
 
 \item Verifica sul caso guida, $\eta=8$:
 \[
-8+\frac{1}{0.05}\,\E\left[(L_1-8)^{+}\right]
-=
-8+\frac{(60-8)(0.03)}{0.05}
-=
-8+31.2
-=
-39.2.
+8+\frac{1}{0.05}\,\E\left[  (L_{1}-8)^{+}\right]  = 8+\frac{(60-8)(0.03)}%
+{0.05} = 8+31.2 = 39.2.
 \]
 Lo stesso valore ottenuto in lezione con il calcolo della coda.
 
 \item \`{E} la forma con cui il CVaR entrer\`{a} nei problemi di
-ottimizzazione di portafoglio (Lezioni~12-16): soglia $\eta$ e
-eccessi diventano variabili e vincoli lineari.
+ottimizzazione di portafoglio (Lezioni~12-16): soglia $\eta$ e eccessi
+diventano variabili e vincoli lineari.
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
-\subsection{Back-up: la matrice risk-neutral}
+
+
+\subsection{Back-up: la matrice risk-neutral}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Back-up: la matrice $P^{\Q}$ e il pricing}
+%TCIMACRO{\QTR{frametitle}{Back-up: la matrice $P^{\Q}$ e il pricing}}%
+%BeginExpansion
+\frametitle{Back-up: la matrice $P^{\Q}$ e il pricing}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-$P^{\Q}=(p_{ij}^{\Q})$ con $p_{ij}^{\Q}=\Q(X_{t+1}=j\mid X_t=i)$;
-per una catena omogenea sotto $\Q$,
-$\Q(X_h=j\mid X_0=i)=[(P^{\Q})^h]_{ij}$.
+
+$P^{\Q}=(p_{ij}^{\Q})$ con $p_{ij}^{\Q}=\Q(X_{t+1}=j\mid X_{t}=i)$; per una
+catena omogenea sotto $\Q$, $\Q(X_{h}=j\mid X_{0}=i)=[(P^{\Q})^{h}]_{ij}$.
 
 \medskip
 
-Se il flusso alla data $t$ dipende solo dallo stato, $C_t=c_t(X_t)$, e
+Se il flusso alla data $t$ dipende solo dallo stato, $C_{t}=c_{t}(X_{t})$, e
 lo sconto $D(0,t)$ \`{e} deterministico:
 \[
-V_0
-=
-\E_{\Q}\left[\sum_{t=1}^{T}D(0,t)\,C_t\right]
-=
-\sum_{t=1}^{T}
-D(0,t)
-\sum_{j\in\mathcal{I}}
-c_t(j)
-\left[\left(P^{\Q}\right)^t\right]_{ij}.
+V_{0} = \E_{\Q}\left[  \sum_{t=1}^{T}D(0,t)\,C_{t}\right]  = \sum_{t=1}^{T}
+D(0,t) \sum_{j\in\mathcal{I}} c_{t}(j) \left[  \left(  P^{\Q}\right)
+^{t}\right]  _{ij}.
 \]
+
 
 \medskip
 
 \begin{stepitemize}
 \item La struttura del pricing: $P^{\Q}\rightarrow$ probabilit\`{a}
-risk-neutral dei flussi $\rightarrow$ valore atteso attualizzato
-$\rightarrow$ valore di mercato.
+risk-neutral dei flussi $\rightarrow$ valore atteso attualizzato $\rightarrow$
+valore di mercato.
 
 \item In generale $P^{\Prob}\neq P^{\Q}$: le probabilit\`{a} fisiche
-riflettono la dinamica predittiva; quelle risk-neutral incorporano
-anche la remunerazione richiesta per l'esposizione al rischio.
+riflettono la dinamica predittiva; quelle risk-neutral incorporano anche la
+remunerazione richiesta per l'esposizione al rischio.
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
-%***********************************************************
 
+%***********************************************************
+%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Come si pagano i premi nella pratica}
+%TCIMACRO{\QTR{frametitle}{Come si pagano i premi nella pratica}}%
+%BeginExpansion
+\frametitle{Come si pagano i premi nella pratica}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-\begin{stepitemize}
-\item \textbf{Standard di mercato}: premi trimestrali posticipati,
-alle date convenzionali del 20 marzo, giugno, settembre e dicembre.
-Al default \`{e} dovuto il rateo maturato dall'ultimo pagamento:
-conferma che la copertura viene pagata \emph{dopo} averne goduto.
 
-\item \textbf{Dal 2009} (riforma dei contratti standard): la cedola
-corrente \`{e} fissata a valori convenzionali e la differenza rispetto
-al premio equo \`{e} regolata con un pagamento \textbf{upfront} alla
-stipula, positivo o negativo.
+\begin{stepitemize}
+\item \textbf{Standard di mercato}: premi trimestrali posticipati, alle date
+convenzionali del 20 marzo, giugno, settembre e dicembre. Al default \`{e}
+dovuto il rateo maturato dall'ultimo pagamento: conferma che la copertura
+viene pagata \emph{dopo} averne goduto.
+
+\item \textbf{Dal 2009} (riforma dei contratti standard): la cedola corrente
+\`{e} fissata a valori convenzionali e la differenza rispetto al premio equo
+\`{e} regolata con un pagamento \textbf{upfront} alla stipula, positivo o negativo.
 
 \item \textbf{Nel nostro caso a un periodo} adottiamo la forma pi\`{u}
-semplice: premio interamente upfront, versato in $t=0$. Pagamento
-certo e immediato:
+semplice: premio interamente upfront, versato in $t=0$. Pagamento certo e
+immediato:
 \[
-d_0=1,
-\qquad
-\Q(\tau_D>0)=S(0)=1
-\quad\Longrightarrow\quad
-\mathrm{PV}_{\mathrm{prem}}(s)=sN.
+d_{0}=1,\qquad\Q(\tau_{D}>0)=S(0)=1\quad\Longrightarrow\quad\mathrm{PV}%
+_{\mathrm{prem}}(s)=sN.
 \]
 Il coefficiente della gamba dei premi non sparisce: \textbf{vale} $1$.
 \end{stepitemize}
@@ -2547,20 +2862,20 @@ Il coefficiente della gamba dei premi non sparisce: \textbf{vale} $1$.
 \medskip
 
 \begin{center}
-{\small Un pagamento pu\`{o} dipendere solo dall'informazione
-disponibile alla data in cui avviene: \`{e} il principio di
-adattabilit\`{a} della Lezione~5.}
+{\small Un pagamento pu\`{o} dipendere solo dall'informazione disponibile alla
+data in cui avviene: \`{e} il principio di adattabilit\`{a} della Lezione~5.}
 \end{center}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
-
 
 
 
