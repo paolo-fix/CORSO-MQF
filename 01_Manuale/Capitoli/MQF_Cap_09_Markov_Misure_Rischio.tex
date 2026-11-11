@@ -1,4 +1,11 @@
 % !TeX root = ../MQF_Manuale_Master.tex
+%2multibyte Version: 5.50.0.2960 CodePage: 65001
+
+%TCIDATA{OutputFilter=latex2.dll}
+%TCIDATA{Version=5.50.0.2960}
+%TCIDATA{LaTeXparent=1,1,MQF_Manuale_Master.tex}
+
+
 % Capitoli/MQF_Cap_09_Markov_Misure_Rischio.tex
 
 \chapter{Catene di Markov e misure di rischio}
@@ -1375,6 +1382,38 @@ perdita associata agli stati creditizi futuri.
 
 Le conseguenze economiche della catena di rating possono essere
 rappresentate secondo due impostazioni principali.
+
+Le due impostazioni rispondono a esigenze diverse e convivono nella
+pratica bancaria.
+
+Il modello default-only \`e il riferimento naturale per i crediti tenuti
+fino a scadenza, come i mutui e i prestiti alle imprese. Queste
+esposizioni non hanno un prezzo di mercato: se il merito creditizio del
+debitore peggiora ma i pagamenti proseguono regolarmente, la banca non
+registra una perdita di valore, e la perdita si manifesta soltanto con
+l'insolvenza. In questo contesto si \`e affermato il linguaggio dei
+parametri $\mathrm{PD}$, $\mathrm{LGD}$ ed $\mathrm{EAD}$, sul quale si
+fondano i modelli interni per i requisiti patrimoniali a fronte del
+rischio di credito e, nella prassi, il calcolo degli accantonamenti per
+perdite attese. Anche il modello di portafoglio CreditRisk+, proposto da
+Credit Suisse Financial Products nel 1997, considera il solo evento di
+default.
+
+Il modello migration-based \`e invece il riferimento per i titoli
+negoziati, come le obbligazioni. Un titolo ha un prezzo di mercato: un
+declassamento dell'emittente aumenta il credit spread e riduce
+immediatamente il valore del titolo, anche in assenza di default. Questa
+impostazione \`e stata resa operativa da CreditMetrics, pubblicato da
+J.P.~Morgan nel 1997, che valuta l'esposizione in ciascuno stato di
+rating futuro.
+
+I due modelli non si sono quindi succeduti l'uno all'altro: nascono
+negli stessi anni, come risposte a domande diverse. Come mostrato alla
+fine della sottosezione precedente, la perdita da default \`e un caso
+particolare della perdita associata agli stati creditizi futuri: il
+modello default-only si ottiene dal modello migration-based assegnando a
+tutti gli stati non-default il valore di riferimento.
+
 
 Nel modello \emph{default-only}, tutti gli stati non-default vengono
 considerati economicamente equivalenti. La funzione di perdita \`{e}
