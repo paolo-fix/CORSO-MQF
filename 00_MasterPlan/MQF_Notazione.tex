@@ -654,18 +654,26 @@ S_i(h)=\Prob(\tau_D>h\mid X_0=i)=1-\mathrm{PD}_i^{\mathrm{cum}}(h).
 \]
 
 I parametri del rischio di credito sono indicati con $\mathrm{PD}$
-(probabilit\`{a} di default), $\mathrm{EAD}$ (esposizione al default),
+(probabilit\`a di default), $\mathrm{EAD}$ (esposizione al default),
 $\mathrm{LGD}$ (perdita in caso di default) e $R=1-\mathrm{LGD}$ (recovery
-rate). Il valore dell'esposizione nello stato $j$ all'orizzonte $h$ \`{e}
-$V_j(h)$; fissato un riferimento $V^{\mathrm{ref}}(h)$, la funzione di
-perdita \`{e}
+rate). Il valore dell'esposizione nello stato $j$ all'orizzonte $h$ \`e
+$V_j(h)$. Fissato un riferimento $V^{\mathrm{ref}}(h)$, la perdita
+all'orizzonte $h$ \`e la variabile casuale
 \[
-\ell(j,h)=V^{\mathrm{ref}}(h)-V_j(h),
-\qquad
-L_h=\ell(X_h,h).
+L_h=L_h(X_h),
 \]
+il cui elemento incerto \`e lo stato futuro della catena: se $X_h=j$, la
+perdita vale il numero
+\[
+L_h(j)=V^{\mathrm{ref}}(h)-V_j(h).
+\]
+Nel testo si scrive di norma la forma breve $L_h$. L'orizzonte della
+funzione coincide sempre con quello dello stato a cui \`e applicata. Nel
+modello default-only si pone $L_h(j)=0$ per $j\neq D$ e
+$L_h(D)=\mathrm{EAD}_h\,\mathrm{LGD}_h$. Il simbolo $\ell$ indica un valore
+numerico generico della perdita, come in $F_L(\ell)$.
 Nelle applicazioni della Lezione 10, quando la perdita associata a una
-migrazione di rating \`{e} espressa come quota adimensionale dell'esposizione,
+migrazione di rating \`e espressa come quota adimensionale dell'esposizione,
 si utilizza la funzione
 \[
 \varphi(a,b),
@@ -678,8 +686,8 @@ L_i
 V_{i,0}\,\varphi(X_{i,0},X_{i,T}).
 \]
 Il simbolo $\varphi$ distingue pertanto il tasso di perdita da migrazione,
-adimensionale, dalla funzione $\ell(j,h)$, che rappresenta una perdita
-monetaria rispetto a un valore di riferimento.
+adimensionale, dalla perdita $L_h(j)$, che \`e una perdita monetaria
+rispetto a un valore di riferimento.
 
 
 

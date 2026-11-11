@@ -160,6 +160,8 @@ oppure
 
 Le due forme sono considerate equivalenti ai fini delle convenzioni del progetto e possono coesistere nei sorgenti senza costituire un'incoerenza editoriale. La stessa convenzione deve essere rispettata nel codice LaTeX prodotto nelle chat di lavoro. Non inserire direttamente i caratteri accentati nei nuovi sorgenti LaTeX e non modificare retroattivamente i documenti già consolidati al solo scopo di uniformare tra loro le due forme ammesse.
 
+Nel codice LaTeX di nuova produzione, compresi i frammenti forniti nelle chat di lavoro, si preferisce la forma senza graffe (`\`a`, `\`e`, `\'e`, ...), perché riduce il rischio di graffe non bilanciate e dei conseguenti errori di compilazione a catena. I documenti già consolidati non vanno modificati al solo scopo di convertire la forma con graffe.
+
 ## 8. Vincoli LaTeX e compatibilità Scientific WorkPlace 5.5
 
 Il manuale e le slides devono essere scritti in LaTeX compatibile con Scientific WorkPlace 5.5.
@@ -305,7 +307,9 @@ Regole operative:
 
 1. una figura definitiva destinata al Manuale e/o alle Slides deve essere salvata nella cartella condivisa `/graphics/`;
 2. la stessa figura non deve essere duplicata in cartelle separate per Manuale e Slides;
-3. i file LaTeX devono utilizzare percorsi relativi coerenti con la struttura effettiva del progetto; nella struttura corrente, i sorgenti del Manuale e delle Slides richiamano gli asset condivisi mediante percorsi del tipo `../graphics/NOME_FILE.png`;
+3. i file LaTeX dichiarano nel preambolo la cartella condivisa delle figure mediante `\graphicspath`, indicando prima il percorso relativo (usato da Overleaf e dalle compilazioni standard) e poi il percorso assoluto locale (usato da Scientific WorkPlace 5.5, che compila una copia temporanea del documento in una cartella di sistema, dove i percorsi relativi non sono validi):
+   `\graphicspath{{../graphics/}{E:/Didattica/MQF/Github/CORSO-MQF/graphics/}}`
+   Gli `\includegraphics` richiamano il solo nome del file, senza cartella (per esempio `\includegraphics[width=0.6\textwidth]{Cap08_Esempio_periodico.png}`): un percorso scritto nel comando renderebbe inefficace `\graphicspath`. Se cambia la posizione locale del repository, il percorso assoluto va aggiornato in tutti i file;
 4. gli script Python di generazione delle figure devono essere conservati in `04_Codice/LezXX/` e devono produrre gli asset definitivi nella cartella condivisa `/graphics/`;
 5. i grafici prodotti dinamicamente dai notebook delle lezioni applicative sono output computazionali e non devono essere trasformati automaticamente in asset grafici stabili del Manuale o delle Slides;
 6. un grafico del notebook diventa un asset stabile solo quando viene scelto esplicitamente per essere incorporato nel codice LaTeX di un capitolo o di un deck;
@@ -327,6 +331,31 @@ FONT_SIZES = {
 ```
 
 I valori possono essere adattati alle esigenze della singola figura.
+
+#### Inserimento delle figure con Scientific WorkPlace 5.5
+
+Le figure sono inserite in Scientific WorkPlace 5.5 mediante *File > Import Picture*, così da risultare visibili nell'editor. Per evitare che SWP sostituisca il file originale con una propria copia a bassa risoluzione, richiamata con un percorso assoluto non valido su Overleaf, si applicano le regole seguenti.
+
+1. **Soglia di ridimensionamento (una volta per computer).** SWP crea una copia ricampionata (`NOME__1.png`) quando la figura è ridimensionata oltre una soglia, per default pari a `0.075`. La soglia va portata a `2` nel registro dell'utente Windows con cui si usa SWP 5.5, eseguendo i comandi da un terminale aperto con quello stesso utente (non come amministratore), a SWP chiuso:
+
+   ```text
+   reg export "HKCU\Software\MacKichan Software\Scientific Workplace\5.50\GraphicsMisc" "<percorso>\GraphicsMisc_backup.reg"
+   reg add "HKCU\Software\MacKichan Software\Scientific Workplace\5.50\GraphicsMisc" /v GrfxResizeThreshhold /t REG_SZ /d 2 /f
+   ```
+
+   Il file `.reg` esportato consente di ripristinare la configurazione precedente.
+
+2. **Impostazioni PDF della grafica (una volta per computer).** In *Typeset > General Settings > PDF Graphics Settings*: casella *Graphics subdirectory name* vuota; in *Apply Export Options to*, *Selected graphics* e *Special graphics sets* (`graphics supported in PDF`); in *Export Options*, *Leave graphics unchanged*.
+
+3. **Percorso delle figure.** Con le impostazioni precedenti SWP scrive nel blocco di espansione un percorso relativo, calcolato dalla cartella del documento alla cartella da cui la figura è stata importata. Il percorso è valido anche su Overleaf solo se la figura è importata da una cartella `graphics` collocata allo stesso livello della cartella del documento, come nel repository (`02_Slides/` e `graphics/`): SWP scrive allora `../graphics/NOME_FILE.png`. Lavorando fuori dal repository, si riproduce la stessa struttura (per esempio una cartella di lavoro con le sottocartelle del documento e `graphics/`) e si importa da lì; un percorso relativo che risale a un'altra struttura (per esempio `../../../Github/CORSO-MQF/graphics/`) non è valido dopo lo spostamento del file nel repository. Un percorso assoluto o un file con suffisso `__1` nel blocco di espansione segnala che le impostazioni non sono attive. Le figure scritte a mano con `\includegraphics` (per esempio i loghi in `\titlegraphic`) continuano a richiamare il solo nome del file e sono risolte da `\graphicspath`.
+
+4. **Compatibilità con Overleaf.** SWP aggiunge a ogni `\includegraphics` le opzioni `natheight` e `natwidth`, non supportate dal driver `pdftex.def` attuale. Ogni file contiene quindi, subito dopo il campo TeX `Frontespizio`, un campo TeX denominato `Grafica natwidth` che le neutralizza:
+
+   ```latex
+   \expandafter\let\csname KV@Gin@natwidth\expandafter\endcsname\csname @gobble\endcsname\expandafter\let\csname KV@Gin@natheight\expandafter\endcsname\csname @gobble\endcsname
+   ```
+
+5. **Dimensione delle figure.** Con la soglia impostata a `2`, la figura può essere ridimensionata liberamente nell'editor: la verifica ha coperto scale dal 30% al 180% della dimensione naturale, senza copie ricampionate. Non servono quindi versioni distinte dello stesso PNG per Manuale e Slides. È comunque consigliabile che gli script producano PNG con una dimensione fisica dichiarata non troppo lontana da quella d'uso. Per le Slides la collocazione consigliata in SWP è *In Line* o *Displayed* (*Tools > User Setup > Graphics > Placement*), che evita l'ambiente `figure`.
 
 
 ### Gestione degli output computazionali dei notebook
@@ -605,6 +634,42 @@ Le nuove slides devono assumere disponibili le macro ufficiali, fra cui:
 ```
 
 Le formule devono usare queste macro in modo coerente con la notazione ufficiale del progetto MQF. Ogni nuova notazione introdotta nelle slides deve essere coerente con il documento `MQF_Notazione.tex`.
+
+#### Frontespizio e barra inferiore nelle slides
+
+Scientific WorkPlace 5.5, nel generare la copia temporanea da compilare, elimina gli argomenti opzionali di `\title`, `\author` e `\date` e i caratteri di commento `%` di fine riga del preambolo. Ne derivano, rispettivamente, la perdita delle forme brevi di titolo e autori nella barra inferiore e spazi spuri fra i riquadri del footline. Per garantire la piena compatibilità fra Scientific WorkPlace 5.5 e Overleaf:
+
+1. il preambolo non contiene `\setbeamertemplate{footline}`, `\title`, `\subtitle`, `\author`, `\institute`, `\date`, `\titlegraphic` e `\maketitle`;
+2. questi comandi sono raccolti, subito dopo `\begin{document}`, in un unico campo TeX denominato `Frontespizio`, nell'ordine: footline, title, subtitle, author, institute, date, titlegraphic, maketitle;
+3. la definizione del footline è scritta senza a capo fra i riquadri `beamercolorbox`;
+4. il campo TeX ha la forma standard di Scientific WorkPlace 5.5 ed è racchiuso fra due blocchi di commento che lo rendono riconoscibile nel sorgente; nel preambolo, accanto a `\graphicspath`, un commento rimanda al campo TeX:
+
+```latex
+%**** Cartella delle figure: percorso relativo (Overleaf) e assoluto (SWP 5.5)
+\graphicspath{{../graphics/}{E:/Didattica/MQF/Github/CORSO-MQF/graphics/}}
+%**** Titolo, autori e barra inferiore: campo TeX "Frontespizio" dopo \begin{document}
+
+\begin{document}
+
+%****************************************************************
+%**** PAGINA DI TITOLO E BARRA INFERIORE (campo TeX "Frontespizio")
+%**** Contiene: footline, title, subtitle, author, institute, date,
+%**** titlegraphic, maketitle. Resta qui, nel corpo del documento:
+%**** nel preambolo SWP 5.5 altera argomenti opzionali e fine riga.
+%**** Vedi MQF_Project_Guidelines.md, sezione 10.2.
+%****************************************************************
+%TCIMACRO{\TeXButton{Frontespizio}{...contenuto su una riga...}}%
+%BeginExpansion
+...stesso contenuto, un comando per riga, ciascuno chiuso da %...
+%EndExpansion
+%****************************************************************
+%**** FINE PAGINA DI TITOLO
+%****************************************************************
+```
+
+Al salvataggio Scientific WorkPlace 5.5 può spezzare su più righe di commento il contenuto della riga `%TCIMACRO`: è un comportamento normale e non compromette la compilazione.
+
+Il warning di hyperref `Option 'pdfauthor' has already been used`, prodotto da questa struttura, è innocuo: incide solo sulle proprietà del file PDF (autore e titolo) e non sull'aspetto delle slides.
 
 ### 10.3 Enumerazioni e liste
 
