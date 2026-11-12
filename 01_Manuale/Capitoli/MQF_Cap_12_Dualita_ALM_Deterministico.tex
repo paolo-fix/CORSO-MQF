@@ -5558,14 +5558,14 @@ punti.
 \item \textbf{La liquidit\`a aggregata non garantisce la liquidit\`a alle
 diverse scadenze.}
 
-Nel modello statico del Capitolo 11 la disponibilit\`a di liquidit\`a era
-rappresentata da un unico vincolo
+Nel modello statico del Capitolo 11, la disponibilit\`a di liquidit\`a era
+rappresentata dall'unico vincolo
 
 \[
 q'x\geq Q_{\min}.
 \]
 
-In un problema ALM occorre invece verificare che le risorse monetarie siano
+In un problema ALM, occorre invece verificare che le risorse monetarie siano
 disponibili nelle date nelle quali devono essere utilizzate. Il vincolo
 aggregato viene quindi sostituito da una successione di bilanci temporali.
 
@@ -5667,7 +5667,7 @@ La soluzione ALM modifica quindi la composizione iniziale dell'attivo per
 tenere conto non soltanto della redditivit\`a e dei vincoli prudenziali, ma
 anche della distribuzione temporale dei cash flow.
 
-Nel caso considerato la terza data emerge come particolarmente critica:
+Nel caso considerato, la terza data emerge come particolarmente critica:
 
 \[
 u_3^*=\bar u_3=6,
@@ -5679,7 +5679,7 @@ determinanti per la soluzione ottima.
 \item \textbf{La dualit\`a attribuisce un valore marginale alla liquidit\`a
 nelle diverse date.}
 
-A ciascun bilancio temporale pu\`o essere associato un valore duale
+A ciascun bilancio temporale, pu\`o essere associato un valore duale
 
 \[
 \lambda_t^*,
@@ -5694,7 +5694,7 @@ fabbisogno alla data $t$:
 -\lambda_t^*\,\Delta d_t.
 \]
 
-Nel caso SVB i valori marginali differiscono tra le date. La liquidit\`a non
+Nel caso SVB, i valori marginali differiscono tra le date. La liquidit\`a non
 ha quindi un unico valore economico indipendente dalla scadenza.
 
 Analogamente, il valore duale associato al limite
@@ -5712,7 +5712,7 @@ anche i corrispondenti valori marginali.
 \item \textbf{Il carattere deterministico riguarda la conoscenza del futuro,
 non la costanza dei parametri.}
 
-Nel modello sviluppato nel capitolo i coefficienti possono variare nel tempo,
+Nel modello sviluppato nel capitolo, i coefficienti possono variare nel tempo,
 ma la loro intera traiettoria viene considerata nota al tempo $0$.
 
 La banca pu\`o quindi determinare fin dall'inizio il piano completo
@@ -5768,3 +5768,1066 @@ L'Asset--Liability Management deterministico fornisce cos\`i il ponte tra la
 programmazione lineare statica e i problemi decisionali nei quali la
 dimensione temporale e, successivamente, l'incertezza diventano componenti
 essenziali del modello.
+
+
+
+
+
+
+\section{Appendice: dualit\`{a} e valori marginali
+della liquidit\`{a} nell'ALM}
+
+\label{sec:cap12-appendice-dualita}
+
+La Sezione~\ref{sec:cap12-dualita-alm} ha utilizzato
+due risultati: il collegamento tra i valori duali
+della liquidit\`{a} in date consecutive e la relazione
+tra tali valori e le variazioni dei fabbisogni.
+
+Questa appendice mostra come entrambi discendano
+dalla dualit\`{a} della programmazione lineare.
+
+Il procedimento riprende quello del Capitolo 11:
+si costruisce un limite superiore al risultato del
+primale, si individua il problema duale e si applicano
+la dualit\`{a} forte e la complementariet\`{a}.
+
+Non occorrono strumenti ulteriori rispetto a quelli
+gi\`{a} fino ad ora.
+
+\subsection{Il problema da esaminare}
+
+Consideriamo il modello ALM deterministico con
+$n$ classi di attivo e $T$ date future.
+
+La funzione obiettivo \`{e}
+
+\[
+\max_{x,g,u}\;
+\Pi(x,g,u)
+=
+\sum_{j=1}^{n}c_jx_j
++
+\sum_{t=1}^{T-1}r_t^gg_t
+-
+\sum_{t=1}^{T-1}r_t^uu_t.
+\]
+
+Le variabili decisionali sono non negative:
+
+\[
+x_j\geq0,\qquad
+g_t\geq0,\qquad
+u_t\geq0.
+\]
+
+Il bilancio iniziale richiede
+
+\[
+\sum_{j=1}^{n}x_j=A_0.
+\]
+
+Per ciascuna data, indichiamo con
+$h_t(x,g,u)$ le risorse nette del relativo
+bilancio, in modo da scrivere
+
+\[
+h_t(x,g,u)=d_t.
+\]
+
+In particolare,
+
+\[
+h_1(x,g,u)=a_1'x+u_1-g_1,
+\]
+
+\noindent mentre, per $t=2,\ldots,T-1$,
+
+\[
+\begin{aligned}
+h_t(x,g,u)
+={}&a_t'x
++(1+r_{t-1}^g)g_{t-1}
++u_t\\
+&-(1+r_{t-1}^u)u_{t-1}
+-g_t.
+\end{aligned}
+\]
+
+Alla data finale,
+
+\[
+\begin{aligned}
+h_T(x,g,u)
+={}&a_T'x
++(1+r_{T-1}^g)g_{T-1}\\
+&-(1+r_{T-1}^u)u_{T-1}
+-g_T.
+\end{aligned}
+\]
+
+Completano il problema i vincoli
+
+\[
+\ell'x\leq K,
+\qquad
+x_3\leq\alpha A_0,
+\]
+
+\noindent e
+
+\[
+u_t\leq\bar u_t,
+\qquad t=1,\ldots,T-1.
+\]
+
+Come nel caso SVB, il vincolo su $x_3$
+riguarda la concentrazione nella terza
+classe di attivo.
+
+Assumiamo che il programma lineare sia
+ammissibile e abbia valore ottimo finito.
+
+\subsection{Come attribuire un valore ai vincoli}
+
+Nel Capitolo 11, il problema duale \`{e} stato
+interpretato come un sistema di prezzi impliciti
+associati alle risorse e ai requisiti.
+
+Adottiamo la stessa interpretazione.
+
+Attribuiamo:
+
+\begin{itemize}
+
+\item il valore $\lambda_0$ al bilancio iniziale;
+
+\item il valore $\lambda_t$ al bilancio temporale
+della data $t$;
+
+\item il valore $\mu$ al limite sulla perdita;
+
+\item il valore $\xi$ al limite di concentrazione;
+
+\item il valore $\lambda_{u,t}$ al limite
+sulla capacit\`{a} di funding.
+
+\end{itemize}
+
+I moltiplicatori dei vincoli di uguaglianza
+sono liberi in segno:
+
+\[
+\lambda_0,\lambda_t\in\mathbb{R}.
+\]
+
+Quelli associati ai vincoli di disuguaglianza
+considerati sono non negativi:
+
+\[
+\mu\geq0,\qquad
+\xi\geq0,\qquad
+\lambda_{u,t}\geq0.
+\]
+
+La differenza dipende dalla struttura dei vincoli.
+
+Un'uguaglianza deve essere rispettata esattamente;
+un vincolo del tipo risorsa utilizzata minore
+o uguale a risorsa disponibile pu\`{o} invece
+presentare un margine positivo.
+
+Cerchiamo un sistema di prezzi che consenta
+di costruire un limite superiore al risultato
+di qualsiasi decisione ammissibile.
+
+Il valore complessivo associato alle quantit\`{a}
+presenti nei membri destri dei vincoli sar\`{a}
+
+\[
+\begin{aligned}
+D={}&
+\lambda_0 A_0
+-\sum_{t=1}^{T}\lambda_t d_t\\
+&+\mu K+\xi\alpha A_0
++\sum_{t=1}^{T-1}\lambda_{u,t}\bar u_t.
+\end{aligned}
+\]
+
+Il segno negativo davanti ai fabbisogni
+deriva dalla convenzione scelta per i bilanci:
+$\lambda_t$ valorizza una risorsa netta,
+mentre $d_t$ rappresenta un pagamento richiesto.
+
+Non sappiamo ancora se $D$ sia effettivamente
+un limite superiore al profitto.
+
+Dobbiamo determinare quali condizioni sui
+prezzi rendano valida questa propriet\`{a}.
+
+\subsection{Un vincolo duale per ogni decisione}
+
+La costruzione del Capitolo 11 associa a ogni
+variabile del primale un vincolo del duale.
+
+L'idea economica \`{e} confrontare il contributo
+di una decisione alla funzione obiettivo con
+il valore implicito delle risorse che essa
+utilizza o rende disponibili.
+
+Applichiamo questo principio alle tre famiglie
+di variabili dell'ALM.
+
+\paragraph{Allocazione iniziale.}
+
+Una unit\`{a} della classe $j$ produce il
+contributo economico $c_j$ e genera
+$a_{tj}$ unit\`{a} di liquidit\`{a}
+alla data $t$.
+
+Il valore dei corrispondenti flussi futuri \`{e}
+
+\[
+\sum_{t=1}^{T}a_{tj}\lambda_t.
+\]
+
+La stessa unit\`{a} utilizza una unit\`{a}
+del bilancio iniziale, valutata $\lambda_0$,
+e pu\`{o} consumare capacit\`{a} prudenziale.
+
+Il valore attribuito a tali requisiti \`{e}
+
+\[
+\lambda_0+\mu\ell_j
++\xi\mathbf{1}_{\{j=3\}}.
+\]
+
+Affinch\'{e} il sistema di prezzi attribuisca
+alle risorse impiegate un valore almeno pari
+al contributo economico complessivo della
+decisione, richiediamo
+
+\[
+\boxed{
+\lambda_0+\mu\ell_j
++\xi\mathbf{1}_{\{j=3\}}
+\geq
+c_j+\sum_{t=1}^{T}a_{tj}\lambda_t.
+}
+\]
+
+La condizione deve valere per ogni
+$j=1,\ldots,n$.
+
+\paragraph{Giacenza trasferita alla data successiva.}
+
+Consideriamo ora una unit\`{a} di $g_t$,
+con $t<T$.
+
+Questa decisione:
+
+\begin{itemize}
+
+\item sottrae una unit\`{a} di risorse
+alla data $t$;
+
+\item rende disponibili $1+r_t^g$
+unit\`{a} alla data $t+1$;
+
+\item produce un contributo economico
+$r_t^g$ nella funzione obiettivo.
+
+\end{itemize}
+
+Il valore della risorsa utilizzata oggi \`{e}
+
+\[
+\lambda_t.
+\]
+
+Il beneficio economico complessivo
+del trasferimento \`{e}
+
+\[
+r_t^g+(1+r_t^g)\lambda_{t+1}.
+\]
+
+Per garantire che il sistema di prezzi
+attribuisca alla risorsa corrente un valore
+almeno pari a tale beneficio, imponiamo
+
+\[
+\boxed{
+\lambda_t
+\geq
+r_t^g+(1+r_t^g)\lambda_{t+1}.
+}
+\]
+
+Questo \`{e} il vincolo duale associato a $g_t$.
+
+Si osservi che la relazione \`{e},
+per il momento, una disuguaglianza.
+
+Non abbiamo ancora dimostrato che essa
+debba essere soddisfatta come uguaglianza.
+
+Alla data finale, $g_T$ riduce le risorse
+nette del bilancio, ma non genera un
+rendimento nella funzione obiettivo.
+
+Il corrispondente vincolo duale \`{e}
+
+\[
+\boxed{\lambda_T\geq0.}
+\]
+
+\paragraph{Funding esterno.}
+
+Una unit\`{a} di funding $u_t$:
+
+\begin{itemize}
+
+\item rende disponibile una unit\`{a}
+di liquidit\`{a} alla data $t$;
+
+\item comporta il rimborso di $1+r_t^u$
+unit\`{a} alla data $t+1$;
+
+\item genera un costo economico $r_t^u$
+nella funzione obiettivo;
+
+\item utilizza una unit\`{a} della
+capacit\`{a} massima di funding.
+
+\end{itemize}
+
+Il beneficio netto della decisione,
+prima di valorizzare il limite di capacit\`{a},
+\`{e}
+
+\[
+-r_t^u+\lambda_t
+-(1+r_t^u)\lambda_{t+1}.
+\]
+
+Il corrispondente vincolo duale richiede
+
+\[
+\boxed{
+\lambda_{u,t}
+\geq
+-r_t^u+\lambda_t
+-(1+r_t^u)\lambda_{t+1}.
+}
+\]
+
+Abbiamo cos\`{i} costruito un vincolo duale
+per ogni famiglia di variabili primali.
+
+\subsection{Perch\'{e} questi vincoli forniscono
+un limite superiore}
+
+La costruzione precedente ha utilizzato
+un'interpretazione economica dei prezzi.
+
+Verifichiamo ora algebricamente che essa
+produce effettivamente un limite superiore.
+
+Definiamo gli scarti dei vincoli duali
+associati alle allocazioni:
+
+\[
+s_j^x
+=
+\lambda_0+\mu\ell_j
++\xi\mathbf{1}_{\{j=3\}}
+-c_j-\sum_{t=1}^{T}a_{tj}\lambda_t.
+\]
+
+Per le giacenze non terminali:
+
+\[
+s_t^g
+=
+\lambda_t-r_t^g
+-(1+r_t^g)\lambda_{t+1}.
+\]
+
+Per il funding:
+
+\[
+s_t^u
+=
+\lambda_{u,t}+r_t^u-\lambda_t
++(1+r_t^u)\lambda_{t+1}.
+\]
+
+I vincoli duali appena costruiti garantiscono
+
+\[
+s_j^x\geq0,\qquad
+s_t^g\geq0,\qquad
+s_t^u\geq0.
+\]
+
+Consideriamo una decisione primale ammissibile.
+
+Sostituendo nel valore $D$ le definizioni
+degli scarti e utilizzando le uguaglianze
+dei bilanci iniziale e temporali, si ottiene
+la seguente identit\`{a}:
+
+\[
+\begin{aligned}
+D-\Pi
+={}&
+\sum_{j=1}^{n}s_j^x x_j\\
+&+\sum_{t=1}^{T-1}s_t^g g_t
++\lambda_Tg_T\\
+&+\sum_{t=1}^{T-1}s_t^u u_t\\
+&+\mu(K-\ell'x)\\
+&+\xi(\alpha A_0-x_3)\\
+&+\sum_{t=1}^{T-1}
+\lambda_{u,t}(\bar u_t-u_t).
+\end{aligned}
+\]
+
+L'identit\`{a} pu\`{o} essere controllata
+sviluppando i prodotti del membro destro:
+i termini associati ai bilanci temporali
+si raccolgono nei valori $d_t$, mentre
+quelli relativi all'allocazione iniziale
+si raccolgono in $A_0$.
+
+Esaminiamo il segno dei termini.
+
+Poich\'{e} le variabili primali sono
+non negative e gli scarti duali sono
+non negativi, valgono
+
+\[
+s_j^xx_j\geq0,\qquad
+s_t^gg_t\geq0,\qquad
+s_t^uu_t\geq0.
+\]
+
+Anche
+
+\[
+\lambda_Tg_T\geq0.
+\]
+
+Inoltre, la fattibilit\`{a} primale
+e la non negativit\`{a} dei prezzi
+associati alle disuguaglianze implicano
+
+\[
+\mu(K-\ell'x)\geq0,
+\]
+
+\[
+\xi(\alpha A_0-x_3)\geq0,
+\]
+
+\noindent e
+
+\[
+\lambda_{u,t}(\bar u_t-u_t)\geq0.
+\]
+
+Tutti i termini del membro destro sono
+quindi non negativi.
+
+Ne segue
+
+\[
+D-\Pi\geq0,
+\]
+
+\noindent ossia
+
+\[
+\boxed{\Pi(x,g,u)\leq D.}
+\]
+
+Abbiamo dimostrato che ogni sistema di
+prezzi che soddisfa i vincoli duali
+fornisce un limite superiore al risultato
+di qualsiasi decisione primale ammissibile.
+
+Questa \`{e} la dualit\`{a} debole
+applicata al modello ALM.
+
+\subsection{Il problema duale dell'ALM}
+
+Il duale ricerca il sistema di prezzi
+ammissibile che produce il pi\`{u}
+piccolo limite superiore.
+
+Il suo obiettivo \`{e} pertanto
+
+\[
+\min D,
+\]
+
+\noindent dove
+
+\[
+\begin{aligned}
+D={}&
+\lambda_0 A_0
+-\sum_{t=1}^{T}\lambda_t d_t\\
+&+\mu K+\xi\alpha A_0
++\sum_{t=1}^{T-1}\lambda_{u,t}\bar u_t.
+\end{aligned}
+\]
+
+La minimizzazione avviene rispetto a
+$\lambda_0$, ai valori $\lambda_t$,
+a $\mu$, a $\xi$ e ai valori
+$\lambda_{u,t}$, soggetti ai vincoli
+
+\[
+\begin{aligned}
+\lambda_0+\mu\ell_j
++\xi\mathbf{1}_{\{j=3\}}
+&\geq
+c_j+\sum_{t=1}^{T}a_{tj}\lambda_t,
+\\
+\lambda_t
+&\geq
+r_t^g+(1+r_t^g)\lambda_{t+1},
+\\
+\lambda_T&\geq0,
+\\
+\lambda_{u,t}
+&\geq
+-r_t^u+\lambda_t
+-(1+r_t^u)\lambda_{t+1}.
+\end{aligned}
+\]
+
+La prima condizione vale per ogni classe
+$j$, la seconda e la quarta per
+$t=1,\ldots,T-1$.
+
+I prezzi $\lambda_0$ e $\lambda_t$
+sono liberi in segno; gli altri prezzi
+sono non negativi.
+
+Il problema costruito \`{e} un programma
+lineare, come il primale.
+
+Poich\'{e} il primale \`{e} ammissibile
+e ha valore ottimo finito, la dualit\`{a}
+forte garantisce l'esistenza di soluzioni
+ottime primale e duale con
+
+\[
+\boxed{\Pi^*=D^*.}
+\]
+
+La differenza tra il migliore risultato
+primale e il pi\`{u} piccolo limite
+superiore duale \`{e} quindi nulla.
+
+\subsection{Come nasce la complementariet\`{a}}
+
+Consideriamo nuovamente l'identit\`{a}
+che esprime il divario primale-duale:
+
+\[
+\begin{aligned}
+D-\Pi
+={}&
+\sum_j s_j^xx_j
++\sum_{t=1}^{T-1}s_t^gg_t
++\lambda_Tg_T\\
+&+\sum_{t=1}^{T-1}s_t^uu_t\\
+&+\mu(K-\ell'x)
++\xi(\alpha A_0-x_3)\\
+&+\sum_{t=1}^{T-1}
+\lambda_{u,t}(\bar u_t-u_t).
+\end{aligned}
+\]
+
+Abbiamo dimostrato che tutti i termini
+del membro destro sono non negativi.
+
+All'ottimo, per dualit\`{a} forte,
+
+\[
+D^*-\Pi^*=0.
+\]
+
+Una somma di quantit\`{a} non negative
+pu\`{o} essere nulla soltanto se
+ciascuna quantit\`{a} \`{e} nulla.
+
+Di conseguenza,
+
+\[
+x_j^*s_j^{x,*}=0,
+\]
+
+\[
+g_t^*s_t^{g,*}=0,
+\qquad t<T,
+\]
+
+\[
+\lambda_T^*g_T^*=0,
+\]
+
+\[
+u_t^*s_t^{u,*}=0,
+\qquad t<T,
+\]
+
+\noindent e, per i vincoli primali,
+
+\[
+\mu^*(K-\ell'x^*)=0,
+\]
+
+\[
+\xi^*(\alpha A_0-x_3^*)=0,
+\]
+
+\[
+\lambda_{u,t}^*
+(\bar u_t-u_t^*)=0.
+\]
+
+Abbiamo ottenuto le condizioni di
+complementariet\`{a} dell'ALM.
+
+Non sono condizioni aggiunte al modello:
+discendono dalla dualit\`{a} forte
+e dall'espressione del divario
+primale-duale.
+
+\subsection{Dalla complementariet\`{a}
+alla ricorsione dei valori marginali}
+
+Esaminiamo la condizione relativa
+alla giacenza $g_t$:
+
+\[
+g_t^*s_t^{g,*}=0.
+\]
+
+Ricordando che
+
+\[
+s_t^{g,*}
+=
+\lambda_t^*-r_t^g
+-(1+r_t^g)\lambda_{t+1}^*,
+\]
+
+\noindent otteniamo
+
+\[
+\boxed{
+g_t^*
+\left[
+\lambda_t^*-r_t^g
+-(1+r_t^g)\lambda_{t+1}^*
+\right]=0.
+}
+\]
+
+Questa relazione deve essere letta
+distinguendo due casi.
+
+\paragraph{Giacenza positiva.}
+
+Se
+
+\[
+g_t^*>0,
+\]
+
+\noindent la complementariet\`{a} impone
+
+\[
+s_t^{g,*}=0.
+\]
+
+Pertanto,
+
+\[
+\boxed{
+\lambda_t^*
+=
+r_t^g+(1+r_t^g)\lambda_{t+1}^*.
+}
+\]
+
+Questa \`{e} la relazione ricorsiva
+utilizzata nella Sezione~\ref{sec:cap12-dualita-alm}.
+
+La sua origine \`{e} ora esplicita:
+la relazione \`{e} un vincolo duale
+che diventa attivo quando la
+corrispondente variabile primale
+\`{e} strettamente positiva.
+
+Economicamente, quando la banca conserva
+effettivamente liquidit\`{a} tra due date,
+il valore marginale delle risorse correnti
+uguaglia il rendimento diretto del
+trasferimento pi\`{u} il valore delle
+risorse disponibili alla data successiva.
+
+\paragraph{Giacenza nulla.}
+
+Se
+
+\[
+g_t^*=0,
+\]
+
+\noindent la complementariet\`{a} risulta
+soddisfatta senza imporre
+l'annullamento dello scarto duale.
+
+Rimane dunque soltanto
+
+\[
+\boxed{
+\lambda_t^*
+\geq
+r_t^g+(1+r_t^g)\lambda_{t+1}^*.
+}
+\]
+
+La disuguaglianza pu\`{o} essere
+stretta oppure verificarsi come
+uguaglianza.
+
+Una giacenza nulla non implica,
+da sola, che lo scarto duale
+sia strettamente positivo.
+
+\subsection{Il valore marginale alla data finale}
+
+La variabile terminale $g_T$ presenta
+una particolarit\`{a}.
+
+Essa non produce alcun contributo
+nella funzione obiettivo.
+
+Il suo vincolo duale \`{e}
+
+\[
+\lambda_T\geq0.
+\]
+
+La complementariet\`{a} impone
+
+\[
+\lambda_T^*g_T^*=0.
+\]
+
+Se
+
+\[
+g_T^*>0,
+\]
+
+deve quindi valere
+
+\[
+\boxed{\lambda_T^*=0.}
+\]
+
+Questo risultato dipende dalla
+specificazione terminale del modello:
+la giacenza residua non riceve
+un valore economico esplicito.
+
+Non si tratta di una propriet\`{a}
+generale della liquidit\`{a}
+alla scadenza finale.
+
+\subsection{Perch\'{e} il fabbisogno
+compare con segno negativo}
+
+Consideriamo adesso il valore ottimo
+come funzione dei fabbisogni:
+
+\[
+\Pi^*(d_1,\ldots,d_T).
+\]
+
+Nel problema duale, i fabbisogni
+compaiono esclusivamente attraverso
+il termine
+
+\[
+-\sum_{t=1}^{T}\lambda_t d_t.
+\]
+
+Gli altri coefficienti e i vincoli duali
+non dipendono dal vettore $d$.
+
+Per dualit\`{a} forte, il valore ottimo
+pu\`{o} quindi essere scritto come
+
+\[
+\Pi^*(d)
+=
+\min_{\text{prezzi duali ammissibili}}
+\left[
+\lambda_0 A_0
+-\sum_{t=1}^{T}\lambda_t d_t
++\mu K+\xi\alpha A_0
++\sum_{t=1}^{T-1}\lambda_{u,t}\bar u_t
+\right].
+\]
+
+Questa rappresentazione spiega
+la sensitivit\`{a} rispetto ai fabbisogni.
+
+Per un sistema di prezzi duali fissato,
+un aumento di $d_t$ pari a $\Delta d_t$
+modifica il corrispondente valore
+della funzione obiettivo duale di
+
+\[
+-\lambda_t\Delta d_t.
+\]
+
+Consideriamo ora prezzi duali ottimi
+per il vettore di fabbisogni iniziale.
+
+Se il vettore $d$ varia di $\Delta d$,
+quegli stessi prezzi rimangono dualmente
+ammissibili, poich\'{e} i vincoli
+duali non dipendono da $d$.
+
+Pertanto, per ogni variazione che
+mantenga il problema primale
+ammissibile e con valore ottimo finito,
+
+\[
+\Pi^*(d+\Delta d)
+\leq
+\Pi^*(d)
+-\sum_{t=1}^{T}\lambda_t^*\Delta d_t.
+\]
+
+Questa \`{e} una maggiorazione,
+non ancora un'uguaglianza.
+
+Se il valore ottimo \`{e}
+differenziabile rispetto a $d_t$,
+il coefficiente di tale maggiorazione
+affine coincide con la derivata:
+
+\[
+\boxed{
+\frac{\partial\Pi^*}{\partial d_t}
+=
+-\lambda_t^*.
+}
+\]
+
+Il risultato pu\`{o} essere compreso
+anche nel caso in cui il valore
+ottimo sia lineare a tratti.
+
+All'interno di un tratto nel quale
+il medesimo sistema di prezzi rimane
+ottimo, una piccola variazione
+del fabbisogno determina esattamente
+
+\[
+\Delta\Pi^*
+=
+-\lambda_t^*\Delta d_t.
+\]
+
+Nei punti in cui cambia il sistema
+di prezzi ottimo, la derivata pu\`{o}
+non esistere e occorre distinguere
+le sensitivit\`{a} nelle diverse direzioni.
+
+Il segno meno della formula dipende
+quindi dalla costruzione del duale.
+
+Esso non significa che la derivata
+sia sempre negativa.
+
+Se
+
+\[
+\lambda_t^*>0,
+\]
+
+\noindent allora il fabbisogno aggiuntivo
+riduce localmente il profitto ottimo.
+
+Se invece
+
+\[
+\lambda_t^*=0,
+\]
+
+\noindent il valore ottimo \`{e} localmente
+insensibile a quella variazione,
+nei punti di differenziabilit\`{a}.
+
+\subsection{Interpretazione del caso SVB}
+
+Nel caso SVB multiperiodale,
+i valori duali riportati nella
+Sezione~\ref{sec:cap12-dualita-alm}
+sono approssimativamente
+
+\[
+\lambda^*
+=
+\begin{pmatrix}
+0.04524\\
+0.04004\\
+0.03383\\
+0
+\end{pmatrix}.
+\]
+
+Le giacenze ottime sono
+
+\[
+g_1^*>0,\qquad
+g_2^*>0,\qquad
+g_3^*=0,\qquad
+g_4^*>0.
+\]
+
+Poich\'{e} le prime due giacenze
+sono positive, valgono le uguaglianze
+
+\[
+\lambda_1^*
+=
+r_1^g+(1+r_1^g)\lambda_2^*,
+\]
+
+\[
+\lambda_2^*
+=
+r_2^g+(1+r_2^g)\lambda_3^*.
+\]
+
+Numericamente,
+
+\[
+0.005+1.005(0.04004)
+\approx0.04524,
+\]
+
+\[
+0.006+1.006(0.03383)
+\approx0.04004.
+\]
+
+Alla terza data, invece,
+
+\[
+g_3^*=0.
+\]
+
+La fattibilit\`{a} duale richiede
+
+\[
+\lambda_3^*
+\geq
+r_3^g+(1+r_3^g)\lambda_4^*.
+\]
+
+Con i valori del caso,
+
+\[
+0.03383>0.007.
+\]
+
+La liquidit\`{a} alla terza data
+ha quindi un valore marginale
+superiore al beneficio economico
+del suo trasferimento alla data finale.
+
+La condizione \`{e} coerente
+con la scarsit\`{a} di liquidit\`{a}
+e con il completo utilizzo del
+funding disponibile alla data $3$.
+
+Alla data finale,
+
+\[
+g_4^*>0
+\]
+
+\noindent implica
+
+\[
+\lambda_4^*=0.
+\]
+
+Infine, la relazione di sensitivit\`{a}
+mostra che un piccolo aumento
+del fabbisogno alla data $1$ determina,
+localmente,
+
+\[
+\Delta\Pi^*
+\approx
+-0.04524\,\Delta d_1.
+\]
+
+Un aumento marginale del fabbisogno
+alla data finale pu\`{o} invece
+essere assorbito dalla giacenza
+residua positiva, senza modificare
+il valore ottimo.
+
+\subsection{Conclusione dell'appendice}
+
+I risultati utilizzati per interpretare
+la dualit\`{a} dell'ALM hanno ora
+una giustificazione comune.
+
+Il sistema di prezzi duali permette
+di costruire un limite superiore al
+profitto di qualsiasi decisione
+primale ammissibile.
+
+La dualit\`{a} forte garantisce che
+il limite superiore minimo coincida
+con il profitto ottimo.
+
+La complementariet\`{a} collega
+la positivit\`{a} delle decisioni
+agli scarti dei corrispondenti
+vincoli duali.
+
+Da questo collegamento, discende
+la ricorsione dei valori marginali
+della liquidit\`{a}.
+
+Infine, la presenza dei fabbisogni
+nella funzione obiettivo duale
+spiega il segno e il significato
+economico della sensitivit\`{a}
+del valore ottimo.
+
+La dualit\`{a} fornisce cos\`{i}
+due informazioni complementari:
+quanto valgono marginalmente
+le risorse alle diverse date
+e come tali valori sono collegati
+dalle decisioni intertemporali
+della banca.
