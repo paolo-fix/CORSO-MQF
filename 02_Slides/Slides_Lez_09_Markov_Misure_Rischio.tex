@@ -25,7 +25,7 @@
 %TCIDATA{Version=5.50.0.2960}
 %TCIDATA{Codepage=65001}
 %TCIDATA{CSTFile=beamer.cst}
-%TCIDATA{LastRevised=Sunday, November 08, 2026 21:26:36}
+%TCIDATA{LastRevised=Monday, November 09, 2026 23:22:24}
 %TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
 %TCIDATA{<META NAME="SaveForMode" CONTENT="2">}
 %TCIDATA{BibliographyScheme=Manual}
@@ -131,6 +131,18 @@
 %****************************************************************
 %**** FINE PAGINA DI TITOLO
 %****************************************************************
+
+
+%**** Compatibilita' Overleaf: ignora natwidth/natheight scritti da SWP
+%**** negli \includegraphics (non supportati dal pdftex.def attuale).%
+%TCIMACRO{\TeXButton{Grafica natwidth}{\expandafter\let\csname
+%KV@Gin@natwidth\expandafter\endcsname\csname@gobble\endcsname\expandafter
+%\let\csname KV@Gin@natheight\expandafter\endcsname\csname@gobble\endcsname}}%
+%BeginExpansion
+\expandafter\let\csname KV@Gin@natwidth\expandafter\endcsname\csname
+@gobble\endcsname\expandafter\let\csname KV@Gin@natheight\expandafter
+\endcsname\csname@gobble\endcsname
+%EndExpansion
 
 
 %****************************************
@@ -457,7 +469,7 @@ nessun calcolo aggiuntivo rispetto al Capitolo~8.
 
 \item Attenzione: $\Prob(X_{h}=D\mid X_{0}=i)$ \emph{non} \`{e} la
 probabilit\`{a} di fare default ``al periodo $h$''. Per l'assorbimento,
-contiene tutta la massa entrata in default nei periodi precedenti.
+contiene tutta la probabilit\`{a} di default accumulata nei periodi precedenti.
 \end{stepitemize}
 
 %
@@ -567,8 +579,27 @@ orizzonti $h=0,1,\ldots,5$:
 
 \medskip
 
-\begin{center}
-\includegraphics[height=6.2cm]{Cap09_term_structure_default_esercizio.png}
+\begin{center}%
+%TCIMACRO{\FRAME{itbpF}{3.8768in}{2.4409in}{0in}{}{}%
+%{cap09_term_structure_default_esercizio.png}%
+%{\special{ language "Scientific Word";  type "GRAPHIC";
+%maintain-aspect-ratio TRUE;  display "USEDEF";  valid_file "F";
+%width 3.8768in;  height 2.4409in;  depth 0in;  original-width 8.1000in;
+%original-height 5.1000in;  cropleft "0";  croptop "1";  cropright "1";
+%cropbottom "0";
+%filename '../graphics/Cap09_term_structure_default_esercizio.png';file-properties "XNPEU";}%
+%} }%
+%BeginExpansion
+{\includegraphics[
+natheight=5.100000in,
+natwidth=8.100000in,
+height=2.4409in,
+width=3.8768in
+]%
+{../graphics/Cap09_term_structure_default_esercizio.png}%
+}
+%EndExpansion
+
 \end{center}
 
 \medskip
@@ -600,6 +631,9 @@ sua immagine speculare rispetto a $1$. La pendenza tra due date consecutive
 \section{Dalle probabilit\`{a} alle conseguenze economiche}
 
 \subsection{\texorpdfstring{$\mathrm{PD}$, $\mathrm{LGD}$, $\mathrm{EAD}$}{PD, LGD, EAD}}%
+
+
+%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
@@ -663,7 +697,7 @@ $R=1-\mathrm{LGD}$.
 %***********************************************************
 
 
-\subsection{Perdita da default e da migrazione}%
+\subsection{Due modi di misurare la perdita}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
@@ -671,9 +705,9 @@ $R=1-\mathrm{LGD}$.
 %EndExpansion
 %
 
-%TCIMACRO{\QTR{frametitle}{Perdita da default e perdita da migrazione}}%
+%TCIMACRO{\QTR{frametitle}{Due modi di misurare la perdita}}%
 %BeginExpansion
-\frametitle{Perdita da default e perdita da migrazione}%
+\frametitle{Due modi di misurare la perdita}%
 %EndExpansion
 %
 
@@ -683,107 +717,35 @@ $R=1-\mathrm{LGD}$.
 %EndExpansion
 
 
-Con $\mathrm{EAD}_{h}$ e $\mathrm{LGD}_{h}$ deterministici, la perdita da
-\textbf{default} entro $h$ \`{e}
-\[
-L_{h}^{D} = \mathrm{EAD}_{h}\, \mathrm{LGD}_{h}\, \1_{\{\tau_{D}\leq h\}}.
-\]
-
+La stessa catena di rating risponde a due domande diverse.
 
 \medskip
 
 \begin{stepitemize}
-\item Ma il valore pu\`{o} ridursi anche \textbf{senza} default:
+\item \textbf{Crediti tenuti fino a scadenza} (mutui, prestiti): non hanno un
+prezzo di mercato. Se il debitore peggiora ma continua a pagare, non si
+registra alcuna perdita: conta \textbf{solo il default}. \`E il linguaggio di
+$\mathrm{PD}$, $\mathrm{LGD}$, $\mathrm{EAD}$, dei requisiti patrimoniali e
+degli accantonamenti.
+
+\item \textbf{Titoli negoziati} (obbligazioni): hanno un prezzo, e un
+downgrade lo riduce subito, \textbf{senza} default:
 \[
 \text{downgrade} \longrightarrow\text{aumento del credit spread}
 \longrightarrow\text{riduzione del valore}.
 \]
 
-
-\item A ogni stato futuro $j\in\mathcal{I}$ associamo un valore $V_{j}(h)$:
-per un'obbligazione, i flussi residui attualizzati con fattori di sconto
-coerenti con il rating $j$.
-
-\item Fissato un riferimento $V^{\mathrm{ref}}(h)$, la perdita associata allo
-stato $j$ \`{e}
-\[
-\ell(j,h) = V^{\mathrm{ref}}(h)-V_{j}(h).
-\]
-
+\item Ne derivano due modelli, \textbf{default-only} e
+\textbf{migration-based}. Nascono negli stessi anni (CreditRisk+ e
+CreditMetrics, 1997) e oggi convivono.
 \end{stepitemize}
-
-%
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout
-%EndExpansion%
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
-
-%***********************************************************
-
-
-\subsection{Default-only (DO) e migration-based}%
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-%
-
-%TCIMACRO{\QTR{frametitle}{Modello default-only e modello migration-based}}%
-%BeginExpansion
-\frametitle{Modello default-only e modello migration-based}%
-%EndExpansion
-%
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
-%
-
-\[
-\ell^{\mathrm{DO}}(j,h) =
-\begin{cases}
-0, & j\neq D,\\[1mm]%
-\mathrm{EAD}_{h}\mathrm{LGD}_{h}, & j=D,
-\end{cases}
-\qquad\ell^{\mathrm{MB}}(j,h) = V^{\mathrm{ref}}(h)-V_{j}(h).
-\]
-
-
-\medskip%
-
-\[%
-\begin{array}
-[c]{lll}\hline
-& \text{default-only} & \text{migration-based}\\\hline
-\text{stati rilevanti} & \text{default e sopravvivenza} & \text{tutti i rating
-futuri}\\
-\text{perdite non-default} & \text{nulle} & \text{positive o negative}\\
-\text{informazione usata} & (P^{h})_{iD} & \text{intera riga $i$ di }P^{h}\\
-\text{applicazione} & \text{perdita da default} & \text{rischio
-mark-to-market}\\\hline
-\end{array}
-\]
-
 
 \medskip
 
-\begin{stepitemize}
-\item Le esposizioni $A$ e $B$ dell'apertura: stessa $\mathrm{PD}$, downgrade
-$0.15$ contro $0.02$.
-
-\item Nel modello default-only sono \textbf{indistinguibili}; nel modello
-migration-based producono distribuzioni di perdita diverse.
-\end{stepitemize}
-
-%
+\begin{center}
+{\small La catena \`e la stessa: cambia la perdita associata a ciascuno
+stato.}
+\end{center}
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
@@ -796,9 +758,6 @@ migration-based producono distribuzioni di perdita diverse.
 
 
 %***********************************************************
-
-
-\section{La distribuzione della perdita}
 
 \subsection{La funzione di perdita}%
 
@@ -820,18 +779,18 @@ migration-based producono distribuzioni di perdita diverse.
 %EndExpansion
 
 
-La perdita all'orizzonte $h$ \`{e} una \textbf{variabile casuale}, funzione
-dello stato futuro della catena:
+A ogni stato futuro $j\in\mathcal{I}$ il modello economico associa una perdita
+$\ell(j,h)$. La perdita all'orizzonte $h$ \`e una \textbf{variabile casuale},
+funzione dello stato futuro della catena:
 \[
-L_{h} = \ell(X_{h},h), \qquad\ell(j,h)=V^{\mathrm{ref}}(h)-V_{j}(h).
+L_{h} = \ell(X_{h},h).
 \]
-
 
 \medskip
 
 \begin{stepitemize}
-\item L'aleatoriet\`{a} di $L_{h}$ deriva interamente da quella di $X_{h}$: la
-catena fornisce le \textbf{probabilit\`{a}}, il modello economico fornisce i
+\item L'aleatoriet\`a di $L_{h}$ deriva interamente da quella di $X_{h}$: la
+catena fornisce le \textbf{probabilit\`a}, il modello economico fornisce i
 \textbf{valori}.
 
 \item Convenzione sul segno: valori \emph{positivi} di $L_{h}$ rappresentano
@@ -839,12 +798,10 @@ perdite, valori \emph{negativi} guadagni. Tutte le misure di rischio della
 lezione adottano questa convenzione.
 
 \item Condizionatamente a $X_{0}=i$, la distribuzione di $L_{h}$ si ottiene
-trasferendo la riga $i$ di $P^{h}$ sui valori $\ell(j,h)$. Se pi\`{u} stati
-producono la stessa perdita monetaria, le relative probabilit\`{a} devono
+trasferendo la riga $i$ di $P^{h}$ sui valori $\ell(j,h)$. Se pi\`u stati
+producono la stessa perdita monetaria, le relative probabilit\`a devono
 essere aggregate.
 \end{stepitemize}
-
-%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
@@ -858,6 +815,124 @@ essere aggregate.
 
 %***********************************************************
 
+\subsection{Migration-based e default-only}%
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+%
+
+%TCIMACRO{\QTR{frametitle}{Le due funzioni di perdita}}%
+%BeginExpansion
+\frametitle{Le due funzioni di perdita}%
+%EndExpansion
+%
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+
+\textbf{Migration-based.} A ogni stato $j$ si associa un valore $V_{j}(h)$
+(per un'obbligazione: flussi residui scontati con fattori coerenti con il
+rating $j$) e si fissa un riferimento $V^{\mathrm{ref}}(h)$:
+\[
+\ell^{\mathrm{MB}}(j,h) = V^{\mathrm{ref}}(h)-V_{j}(h).
+\]
+
+\textbf{Default-only.} Gli stati non-default valgono quanto il riferimento;
+in default si perde $\mathrm{EAD}_{h}\mathrm{LGD}_{h}$:
+\[
+\ell^{\mathrm{DO}}(j,h) =
+\begin{cases}
+0, & j\neq D,\\
+\mathrm{EAD}_{h}\mathrm{LGD}_{h}, & j=D.
+\end{cases}
+\]
+
+\begin{stepitemize}
+\item Il default-only \`e il \textbf{caso particolare} del migration-based in
+cui $V_{j}(h)=V^{\mathrm{ref}}(h)$ per ogni $j\neq D$.
+
+\item In quel caso $\ell^{\mathrm{DO}}(X_{h},h)=\mathrm{EAD}_{h}\,
+\mathrm{LGD}_{h}\,\1_{\{\tau_{D}\leq h\}}$: serve solo $(P^{h})_{iD}$, cio\`e
+la $\mathrm{PD}$ cumulativa.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion%
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%***********************************************************
+
+\subsection{Confronto fra i due modelli}%
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+%
+
+%TCIMACRO{\QTR{frametitle}{Default-only e migration-based a confronto}}%
+%BeginExpansion
+\frametitle{Default-only e migration-based a confronto}%
+%EndExpansion
+%
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+
+\[
+\begin{array}
+[c]{lll}\hline
+& \text{default-only} & \text{migration-based}\\\hline
+\text{ambito tipico} & \text{crediti tenuti a scadenza} & \text{titoli
+negoziati}\\
+\text{stati rilevanti} & \text{default e sopravvivenza} & \text{tutti i rating
+futuri}\\
+\text{perdite non-default} & \text{nulle} & \text{positive o negative}\\
+\text{informazione usata} & (P^{h})_{iD} & \text{intera riga $i$ di }P^{h}\\
+\hline
+\end{array}
+\]
+
+\medskip
+
+\begin{stepitemize}
+\item Le esposizioni $A$ e $B$ dell'apertura: stessa $\mathrm{PD}$, downgrade
+$0.15$ contro $0.02$.
+
+\item Nel modello default-only sono \textbf{indistinguibili}; nel modello
+migration-based producono distribuzioni di perdita diverse.
+
+\item Nel seguito $\ell=\ell^{\mathrm{MB}}$. Il default-only riemerge nella
+formula tradizionale $\mathrm{EL}=\mathrm{PD}\cdot\mathrm{LGD}\cdot\mathrm{EAD}$.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion%
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+
+%***********************************************************
+
+\section{La distribuzione della perdita}
 
 \subsection{Il caso guida}%
 
@@ -973,7 +1048,7 @@ Posto $L_{1}=\ell(X_{1},1)$ con $\ell(j,1)=V^{\mathrm{ref}}(1)-V_{j}(1)$:
 \begin{enumerate}
 \item[1.] Determinare la perdita associata a ciascun rating futuro.
 
-\item[2.] Costruire la funzione di massa di $L_{1}$.
+\item[2.] Costruire la funzione di probabilit\`{a} di $L_{1}$.
 
 \item[3.] Determinare la funzione di ripartizione $F_{L_{1}}$.
 
@@ -1022,8 +1097,27 @@ discussione.}
 %EndExpansion
 
 
-\begin{center}
-\includegraphics[height=4.6cm]{Cap09_distribuzione_perdita_esercizio.png}
+\begin{center}%
+%TCIMACRO{\FRAME{itbpF}{2.8763in}{1.8110in}{0in}{}{}%
+%{cap09_distribuzione_perdita_esercizio.png}%
+%{\special{ language "Scientific Word";  type "GRAPHIC";
+%maintain-aspect-ratio TRUE;  display "USEDEF";  valid_file "F";
+%width 2.8763in;  height 1.8110in;  depth 0in;  original-width 8.1000in;
+%original-height 5.1000in;  cropleft "0";  croptop "1";  cropright "1";
+%cropbottom "0";
+%filename '../graphics/Cap09_distribuzione_perdita_esercizio.png';file-properties "XNPEU";}%
+%} }%
+%BeginExpansion
+{\includegraphics[
+natheight=5.100000in,
+natwidth=8.100000in,
+height=1.8110in,
+width=2.8763in
+]%
+{../graphics/Cap09_distribuzione_perdita_esercizio.png}%
+}
+%EndExpansion
+
 \end{center}
 
 \medskip
@@ -1031,8 +1125,8 @@ discussione.}
 \begin{stepitemize}
 
 
-\item Perch\'{e} la massa dominante \`{e} in $L_{1}=0$? Che cosa dice sulla
-natura del rischio di credito?
+\item Perch\'{e} la probabilit\`{a} si concentra in $L_{1}=0$? Che cosa dice
+sulla natura del rischio di credito?
 
 \item La perdita $-4$ \`{e} un \textbf{guadagno}: quale evento la genera, e
 perch\'{e} la convenzione sul segno la rappresenta cos\`{\i}?
@@ -1084,8 +1178,8 @@ perch\'{e} la convenzione sul segno la rappresenta cos\`{\i}?
 Condizionatamente allo stato iniziale $X_{0}=i$, la \textbf{perdita attesa}
 all'orizzonte $h$ \`{e}
 \[
-\mathrm{EL}_{i}(h) = \E[L_h\mid X_0=i] = \sum_{j\in\mathcal{I}} \ell
-(j,h)(P^{h})_{ij}.
+\mathrm{EL}_{i}(h) = \E[L_h\mid X_0=i] = \sum_{j\in\mathcal{I}}
+\ell(j,h)(P^{h})_{ij}.
 \]
 
 
@@ -1284,8 +1378,27 @@ F_{L_{1}\mid2}(0)=0.83<0.95, \text{ }F_{L_{1}\mid2}(8)=0.97\geq0.95 \text{
 %\medskip
 
 
-\begin{center}
-\includegraphics[height=4.9cm]{Cap09_funzione_ripartizione_quantile.png}
+\begin{center}%
+%TCIMACRO{\FRAME{itbpF}{3.0999in}{1.9291in}{0in}{}{}%
+%{cap09_funzione_ripartizione_quantile.png}%
+%{\special{ language "Scientific Word";  type "GRAPHIC";
+%maintain-aspect-ratio TRUE;  display "USEDEF";  valid_file "F";
+%width 3.0999in;  height 1.9291in;  depth 0in;  original-width 8.4731in;
+%original-height 5.2730in;  cropleft "0";  croptop "1";  cropright "1";
+%cropbottom "0";
+%filename '../graphics/Cap09_funzione_ripartizione_quantile.png';file-properties "XNPEU";}%
+%} }%
+%BeginExpansion
+{\includegraphics[
+natheight=5.273000in,
+natwidth=8.473100in,
+height=1.9291in,
+width=3.0999in
+]%
+{../graphics/Cap09_funzione_ripartizione_quantile.png}%
+}
+%EndExpansion
+
 \end{center}
 
 %\medskip
@@ -1751,7 +1864,7 @@ X_{0}=i)$.
 %***********************************************************
 
 
-\subsection{Massa nel punto di VaR}%
+\subsection{Probabilit\`{a} nel punto di VaR}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
@@ -1759,9 +1872,10 @@ X_{0}=i)$.
 %EndExpansion
 %
 
-%TCIMACRO{\QTR{frametitle}{Distribuzioni discrete: la massa nel punto di VaR}}%
+%TCIMACRO{\QTR{frametitle}{Distribuzioni discrete: la probabilit\`{a} nel punto
+%di VaR}}%
 %BeginExpansion
-\frametitle{Distribuzioni discrete: la massa nel punto di VaR}%
+\frametitle{Distribuzioni discrete: la probabilit\`{a} nel punto di VaR}%
 %EndExpansion
 %
 
@@ -1771,12 +1885,12 @@ X_{0}=i)$.
 %EndExpansion
 
 
-Caso guida, $\alpha=0.95$, $v=\VaR_{0.95,2}(1)=8$. La coda al $5\%$ si compone di:
+Caso guida, $\alpha=0.95$, $v=\VaR_{0.95,2}(1)=8$. La coda al $5\%$ include:
 
 \begin{stepitemize}
 \item la parte tra i livelli $0.95$ e $0.97$, probabilit\`{a} $F(8)-\alpha
-=0.02$, associata alla perdita $8$: solo una \textbf{frazione} della massa
-$0.14$ nel punto di VaR;
+=0.02$, associata alla perdita $8$: solo una \textbf{frazione} della
+probabilit\`{a} $0.14$ del punto di VaR;
 
 \item la parte tra $0.97$ e $1$, probabilit\`{a} $0.03$, associata alla
 perdita $60$.
@@ -1790,13 +1904,32 @@ perdita $60$.
 \]
 
 
-\begin{center}
-\includegraphics[height=3.9cm]{Cap09_CVaR_massa_quantile_esercizio.png}
+\begin{center}%
+%TCIMACRO{\FRAME{itbpF}{2.4128in}{1.5354in}{0in}{}{}%
+%{cap09_cvar_probabilita_quantile_caso_guida.png}%
+%{\special{ language "Scientific Word";  type "GRAPHIC";
+%maintain-aspect-ratio TRUE;  display "USEDEF";  valid_file "F";
+%width 2.4128in;  height 1.5354in;  depth 0in;  original-width 2.4128in;
+%original-height 1.5354in;  cropleft "0";  croptop "1";  cropright "1";
+%cropbottom "0";
+%filename '../graphics/Cap09_CVaR_probabilita_quantile_caso_guida.png';file-properties "XNPEU";}%
+%} }%
+%BeginExpansion
+{\includegraphics[
+natheight=1.535400in,
+natwidth=2.412800in,
+height=1.5354in,
+width=2.4128in
+]%
+{../graphics/Cap09_CVaR_probabilita_quantile_caso_guida.png}%
+}
+%EndExpansion
+
 
 {\small Errore da evitare: $\E[L_1\mid L_1\geq 8]\approx17.18\neq39.2$,
-perch\'{e} include \emph{tutta} la massa in $8$. In generale $\CVaR_{\alpha
-}(L)\neq\E[L\mid L\geq\VaR_{\alpha}(L)]$ in presenza di massa nel punto di
-VaR.}
+perch\'{e} include \emph{tutta} la probabilit\`{a} in $8$. In generale
+$\CVaR_{\alpha}(L)\neq\E[L\mid L\geq\VaR_{\alpha}(L)]$ quando il punto di VaR
+ha probabilit\`{a} positiva.}
 \end{center}
 
 %
@@ -2158,11 +2291,11 @@ iniziale. Essa \`{e} \textbf{assegnata}, coerente con i prezzi di mercato:
 
 
 \begin{stepitemize}
-\item La massa si sposta dagli stati favorevoli a downgrade e default: il
-mercato, avverso al rischio, prezza la protezione pi\`{u} di quanto farebbe un
-investitore neutrale. \`{E} il premio al rischio, letto nei pesi. Le
-$\mathrm{PD}$ implicite nei CDS superano cos\`{\i} quelle storiche: $0.035$
-contro $0.03$.
+\item La probabilit\`{a} si sposta dagli stati favorevoli a downgrade e
+default: il mercato, avverso al rischio, prezza la protezione pi\`{u} di
+quanto farebbe un investitore neutrale. \`{E} il premio al rischio, letto nei
+pesi. Le $\mathrm{PD}$ implicite nei CDS superano cos\`{\i} quelle storiche:
+$0.035$ contro $0.03$.
 
 \item Premio \textbf{upfront}, gi\`{a} in valore attuale: $\mathrm{PV}%
 _{\mathrm{prem}}(s)=sN$, senza sconto. La protezione \`{e} un flusso futuro e
@@ -2203,8 +2336,27 @@ s^{*} = \frac{2}{100} = 200 \text{ punti base}.
 %EndExpansion
 
 
-\begin{center}
-\includegraphics[height=5.6cm]{Cap09_CDS_equilibrio_gambe_caso_guida.png}
+\begin{center}%
+%TCIMACRO{\FRAME{itbpF}{3.7064in}{2.2047in}{0in}{}{}%
+%{cap09_cds_equilibrio_gambe_caso_guida.png}%
+%{\special{ language "Scientific Word";  type "GRAPHIC";
+%maintain-aspect-ratio TRUE;  display "USEDEF";  valid_file "F";
+%width 3.7064in;  height 2.2047in;  depth 0in;  original-width 7.8900in;
+%original-height 4.6933in;  cropleft "0";  croptop "1";  cropright "1";
+%cropbottom "0";
+%filename '../graphics/Cap09_CDS_equilibrio_gambe_caso_guida.png';file-properties "XNPEU";}%
+%} }%
+%BeginExpansion
+{\includegraphics[
+natheight=4.693300in,
+natwidth=7.890000in,
+height=2.2047in,
+width=3.7064in
+]%
+{../graphics/Cap09_CDS_equilibrio_gambe_caso_guida.png}%
+}
+%EndExpansion
+
 \end{center}
 
 \medskip
@@ -2377,8 +2529,26 @@ probabilit\`{a} $0.14$. \`{E} ora la perdita peggiore.
 %EndExpansion
 
 
-\begin{center}
-\includegraphics[height=5.2cm]{Cap09_cdf_hedged_var_cvar.png}
+\begin{center}%
+%TCIMACRO{\FRAME{itbpF}{3.3861in}{2.0472in}{0in}{}{}%
+%{cap09_cdf_hedged_var_cvar.png}{\special{ language "Scientific Word";
+%type "GRAPHIC";  maintain-aspect-ratio TRUE;  display "USEDEF";
+%valid_file "F";  width 3.3861in;  height 2.0472in;  depth 0in;
+%original-width 8.9867in;  original-height 5.4333in;  cropleft "0";
+%croptop "1";  cropright "1";  cropbottom "0";
+%filename '../graphics/Cap09_cdf_hedged_var_cvar.png';file-properties "XNPEU";}%
+%} }%
+%BeginExpansion
+{\includegraphics[
+natheight=5.433300in,
+natwidth=8.986700in,
+height=2.0472in,
+width=3.3861in
+]%
+{../graphics/Cap09_cdf_hedged_var_cvar.png}%
+}
+%EndExpansion
+
 
 {\small Il pagamento di protezione elimina lo scenario estremo: la coda del
 $5\%$ \`{e} interamente associata a $L^{\mathrm{hedged}}=10$ e le due misure
