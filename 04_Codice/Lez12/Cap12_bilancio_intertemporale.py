@@ -93,15 +93,15 @@ LEFT_TITLE = r"Bilancio alla data $t$"
 RIGHT_TITLE = r"Bilancio alla data $t+1$"
 
 LEFT_FORMULA = (
-    r"$\sum_{j=1}^{n} a_{tj}x_j+(1+r_{t-1})g_{t-1}+u_t$"
+    r"$\sum_{j=1}^{n} a_{tj}x_j+(1+r^g_{t-1})g_{t-1}+u_t$"
     "\n"
-    r"$=d_t+(1+\rho_{t-1})u_{t-1}+g_t$"
+    r"$=d_t+(1+r^u_{t-1})u_{t-1}+g_t$"
 )
 
 RIGHT_FORMULA = (
-    r"$\sum_{j=1}^{n} a_{t+1,j}x_j+(1+r_t)g_t+u_{t+1}$"
+    r"$\sum_{j=1}^{n} a_{t+1,j}x_j+(1+r^g_t)g_t+u_{t+1}$"
     "\n"
-    r"$=d_{t+1}+(1+\rho_t)u_t+g_{t+1}$"
+    r"$=d_{t+1}+(1+r^u_t)u_t+g_{t+1}$"
 )
 
 # ============================================================
@@ -195,12 +195,12 @@ add_balance_box(RIGHT_BOX_X, RIGHT_TITLE, RIGHT_FORMULA)
 
 add_transfer(
     UPPER_ARROW_Y,
-    r"$g_t \mapsto (1+r_t)g_t$",
+    r"$g_t \mapsto (1+r^g_t)g_t$",
     "risorsa futura",
 )
 add_transfer(
     LOWER_ARROW_Y,
-    r"$u_t \mapsto (1+\rho_t)u_t$",
+    r"$u_t \mapsto (1+r^u_t)u_t$",
     "obbligo futuro",
 )
 
