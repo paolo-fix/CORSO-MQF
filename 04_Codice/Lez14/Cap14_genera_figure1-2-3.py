@@ -197,7 +197,7 @@ ax.axis("off")
 two_stage_nodes = (
     ("x", r"$x$", "decisione di\nprimo stadio"),
     ("xi", r"$\xi$", "rivelazione\ndell'incertezza"),
-    ("y", r"$y(x,\xi)$", "decisione di\nrecourse"),
+    ("y", r"$y(x,\xi)$", "decisione di\nricorso"),
 )
 
 for key, box_text, header_text in two_stage_nodes:
