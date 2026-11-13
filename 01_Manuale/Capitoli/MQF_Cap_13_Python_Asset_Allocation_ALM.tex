@@ -40,7 +40,7 @@ condizioni del problema.
 
 Particolare attenzione viene dedicata ai controlli. Una soluzione dichiarata
 ottima dal solver deve essere ricondotta alla formulazione economica
-originaria verificando vincoli, residui, slack, bound attivi e significato
+originaria verificando vincoli, residui, slack, limiti attivi delle variabili e significato
 dei valori marginali.
 
 Il metodo di lavoro rimane quello introdotto nel Capitolo 4 per i capitoli
@@ -161,7 +161,18 @@ A_{\mathrm{ub}}v\leq b_{\mathrm{ub}},
 A_{\mathrm{eq}}v=b_{\mathrm{eq}},
 \]
 
-\noindent e ai bound assegnati alle singole variabili.
+\noindent e ai limiti inferiori e superiori assegnati alle singole variabili.
+
+Nel linguaggio dei solver di programmazione lineare,
+questi limiti sono denominati \emph{bound}.
+Essi definiscono gli intervalli ammissibili delle
+singole variabili, gi\`{a} introdotti nel Capitolo 12.
+
+Un bound \`{e} \emph{attivo} quando la variabile
+raggiunge esattamente il corrispondente estremo.
+Si tratta di un caso particolare di vincolo attivo,
+secondo la definizione del Capitolo 11.
+
 
 La traduzione richiede quindi quattro scelte coordinate: l'ordinamento delle
 variabili decisionali, la costruzione del vettore della funzione obiettivo,
