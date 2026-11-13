@@ -476,7 +476,7 @@ A_{\mathrm{eq}},
 \qquad
 b_{\mathrm{eq}},
 \qquad
-\text{bound},
+\text{bounds},
 \]
 
 \noindent il problema pu\`o essere passato al solver.
@@ -490,7 +490,7 @@ res = linprog(
     b_ub=b_ub,
     A_eq=A_eq,
     b_eq=b_eq,
-    bounds=bound,
+    bounds=bounds,
     method="highs"
 )
 \end{verbatim}
@@ -574,7 +574,7 @@ A_{\mathrm{ub}},\,b_{\mathrm{ub}}
 &
 \longrightarrow
 &
-\text{bound}.
+\text{bounds}.
 \end{array}
 \]
 
@@ -723,7 +723,7 @@ b_{\mathrm{eq}},
 \\[4pt]
 \phi
 &\longrightarrow&
-\text{bound},
+\text{bounds},
 \\[4pt]
 \psi
 &\longrightarrow&
@@ -810,13 +810,13 @@ L'analisi considera una griglia di valori di $\theta$ mantenendo
 Per ciascuna configurazione, vengono osservati almeno
 
 \[
-\Pi^*(\theta),
+\Pi^*(\theta,1,1),
 \qquad
-x^*(\theta),
+x^*(\theta,1,1),
 \qquad
-g^*(\theta),
+g^*(\theta,1,1),
 \qquad
-u^*(\theta).
+u^*(\theta,1,1).
 \]
 
 Un aumento di $\theta$ rende pi\`u oneroso il soddisfacimento dei fabbisogni
@@ -842,7 +842,7 @@ L'andamento di
 \[
 \theta
 \longmapsto
-\Pi^*(\theta)
+\Pi^*(\theta,1,1)
 \]
 
 \noindent non deve inoltre essere interpretato come necessariamente caratterizzato da
@@ -947,7 +947,7 @@ piccole variazioni del parametro producono una risposta coerente con i
 marginali associati alla configurazione corrente.
 
 Quando un bound viene raggiunto, un vincolo precedentemente attivo cessa di
-esserlo oppure un nuovo vincolo diventa vincolante, la struttura della
+esserlo oppure un nuovo vincolo diventa attivo, la struttura della
 soluzione cambia. I valori marginali della configurazione precedente non
 devono allora essere estesi automaticamente oltre quel punto.
 
@@ -986,7 +986,7 @@ A_{\mathrm{eq}}v=b_{\mathrm{eq}}(\theta),
 \;
 A_{\mathrm{ub}}v\leq b_{\mathrm{ub}},
 \;
-v\in\text{bound}
+v\in\text{bounds}
 \right\}
 $$
 
@@ -1243,7 +1243,7 @@ $\beta$ agisce invece sul fabbisogno terminale e pu\`o essere assorbito, almeno
 in parte, attraverso liquidit\`a accumulata nelle date precedenti.
 
 Il confronto tra $\alpha$ e $\beta$ rende quindi nuovamente evidente che, in
-un problema ALM multi-periodale, non conta soltanto l'ammontare complessivo
+un problema ALM multiperiodale, non conta soltanto l'ammontare complessivo
 dei fabbisogni, ma anche il momento nel quale essi devono essere soddisfatti.
 
 \subsection{Capacit\`a di funding e vincoli strutturali}
@@ -1331,13 +1331,13 @@ m
 \frac{\partial F^*}{\partial b},
 \]
 
-allora, poich\'e
+\noindent allora, poich\'e
 
 \[
 \frac{\partial b}{\partial L}=-1,
 \]
 
-si ottiene
+\noindent si ottiene
 
 \[
 \frac{\partial F^*}{\partial L}
@@ -1354,7 +1354,7 @@ D'altra parte,
 F^*=-\Pi^*,
 \]
 
-e quindi
+\noindent e quindi
 
 \[
 -\frac{\partial\Pi^*}{\partial L}
@@ -1401,7 +1401,7 @@ operativa:
 \end{gather*}
 
 
-Non rimangono invece invariati i risultati, i vincoli attivi o il ruolo dei
+Non rimangono invece invariati i risultati, i vincoli attivi, o il ruolo dei
 singoli parametri.
 
 Nel Caso TakeHome, il benchmark \`e determinato congiuntamente dal vincolo
