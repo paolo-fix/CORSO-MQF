@@ -9,10 +9,12 @@
 % Fallback utile per compilazione esterna se qualche titolo resta scritto come \QTR.
 % Scientific WorkPlace usa \QTR internamente; in Beamer \QTR{frametitle}{Titolo}
 % deve espandersi in \frametitle{Titolo}.
+%\usepackage{hyperref}
+%**** Cartella delle figure: percorso relativo (Overleaf) e assoluto (SWP 5.5)
+%**** Titolo, autori e barra inferiore: campo TeX "Frontespizio" dopo \begin{document}
 
 \documentclass[handout]{beamer}%
 \usepackage{mathpazo}
-%\usepackage{hyperref}
 \usepackage{multimedia}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -23,6 +25,7 @@
 %TCIDATA{Version=5.50.0.2960}
 %TCIDATA{Codepage=65001}
 %TCIDATA{CSTFile=beamer.cst}
+%TCIDATA{LastRevised=Saturday, November 14, 2026 10:13:13}
 %TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
 %TCIDATA{<META NAME="SaveForMode" CONTENT="2">}
 %TCIDATA{BibliographyScheme=Manual}
@@ -35,8 +38,6 @@
 \newenvironment{stepenumeratewithalert}{\begin{enumerate}[<+-| alert@+>]}{\end{enumerate}}
 \newenvironment{stepitemizewithalert}{\begin{itemize}[<+-| alert@+>]}{\end{itemize} }
 \usetheme{Madrid}
-
-
 \providecommand{\R}{\mathbb{R}}
 \providecommand{\N}{\mathbb{N}}
 \providecommand{\E}{\mathbb{E}}
@@ -54,6 +55,7 @@
 \providecommand{\EVPI}{\operatorname{EVPI}}
 \providecommand{\VSS}{\operatorname{VSS}}
 \providecommand{\QTR}[2]{\csname #1\endcsname{#2}}
+\graphicspath{{../graphics/}{E:/Didattica/MQF/Github/CORSO-MQF/graphics/}}
 %BeginMSIPreambleData
 \ifx\pdfoutput\relax\let\pdfoutput=\undefined\fi
 \newcount\msipdfoutput
@@ -65,11 +67,6 @@
 \ifdim\paperwidth=0pt\relax\else\pdfpagewidth\paperwidth\fi
 \fi\fi\fi
 %EndMSIPreambleData
-
-%**** Cartella delle figure: percorso relativo (Overleaf) e assoluto (SWP 5.5)
-\graphicspath{{../graphics/}{E:/Didattica/MQF/Github/CORSO-MQF/graphics/}}
-%**** Titolo, autori e barra inferiore: campo TeX "Frontespizio" dopo \begin{document}
-
 \begin{document}
 
 %****************************************************************
@@ -78,23 +75,59 @@
 %**** titlegraphic, maketitle. Resta qui, nel corpo del documento:
 %**** nel preambolo SWP 5.5 altera argomenti opzionali e fine riga.
 %**** Vedi MQF_Project_Guidelines.md, sezione 10.2.
-%****************************************************************
-%TCIMACRO{\TeXButton{Frontespizio}{\setbeamertemplate{footline}{\leavevmode\hbox{\begin{beamercolorbox}[wd=.20\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}\usebeamerfont{author in head/foot}\insertshortauthor\end{beamercolorbox}\begin{beamercolorbox}[wd=.69\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}\usebeamerfont{title in head/foot}\insertshorttitle\end{beamercolorbox}\begin{beamercolorbox}[wd=.11\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}\usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}\insertframenumber{} / \inserttotalframenumber\hspace*{2ex}\end{beamercolorbox}}\vskip0pt}\title[Lez. 11 - Ottimizzazione e programmazione lineare]{Lezione 11 - Ottimizzazione e programmazione lineare}\subtitle{Metodi Quantitativi per la Finanza}\author[P. Falbo, C. Pelizzari]{{\LARGE Paolo Falbo, Cristian Pelizzari}}\institute[]{{\large Dipartimento di Economia e Management}}\date[]{}\titlegraphic{\includegraphics[height=1.25cm]{MQF_logo.png}\hspace{0.8cm}\includegraphics[height=1.25cm]{logo-Unibs-esteso.png}}\maketitle}}%
+%****************************************************************%
+%TCIMACRO{\TeXButton{Frontespizio}{\setbeamertemplate{footline}{\leavevmode
+%\hbox{\begin{beamercolorbox}[wd=.20\paperwidth
+%,ht=2.25ex,dp=1ex,center]{author in head/foot}\usebeamerfont
+%{author in head/foot}\insertshortauthor\end{beamercolorbox}%
+%\begin{beamercolorbox}[wd=.69\paperwidth
+%,ht=2.25ex,dp=1ex,center]{title in head/foot}\usebeamerfont
+%{title in head/foot}\insertshorttitle\end{beamercolorbox}%
+%\begin{beamercolorbox}[wd=.11\paperwidth
+%,ht=2.25ex,dp=1ex,right]{date in head/foot}\usebeamerfont{date in head/foot}%
+%\insertshortdate{}\hspace*{2em}\insertframenumber{} / \inserttotalframenumber
+%\hspace*{2ex}\end{beamercolorbox}}\vskip0pt}\title
+%[Lez. 11 - Ottimizzazione e programmazione lineare]{Lezione 11 - Ottimizzazione e programmazione lineare}%
+%\subtitle{Metodi Quantitativi per la Finanza}\author
+%[P. Falbo, C. Pelizzari]{{\LARGE Paolo Falbo, Cristian Pelizzari}}%
+%\institute[]{{\large Dipartimento di Economia e Management}}\date
+%[]{}\titlegraphic{\includegraphics[height=1.25cm]{MQF_logo.png}\hspace
+%{0.8cm}\includegraphics[height=1.25cm]{logo-Unibs-esteso.png}}\maketitle}}%
 %BeginExpansion
-\setbeamertemplate{footline}{\leavevmode\hbox{\begin{beamercolorbox}[wd=.20\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}\usebeamerfont{author in head/foot}\insertshortauthor\end{beamercolorbox}\begin{beamercolorbox}[wd=.69\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}\usebeamerfont{title in head/foot}\insertshorttitle\end{beamercolorbox}\begin{beamercolorbox}[wd=.11\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}\usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}\insertframenumber{} / \inserttotalframenumber\hspace*{2ex}\end{beamercolorbox}}\vskip0pt}%
-\title[Lez. 11 - Ottimizzazione e programmazione lineare]{Lezione 11 - Ottimizzazione e programmazione lineare}%
-\subtitle{Metodi Quantitativi per la Finanza}%
-\author[P. Falbo, C. Pelizzari]{{\LARGE Paolo Falbo, Cristian Pelizzari}}%
-\institute[]{{\large Dipartimento di Economia e Management}}%
-\date[]{}%
-\titlegraphic{\includegraphics[height=1.25cm]{MQF_logo.png}\hspace{0.8cm}\includegraphics[height=1.25cm]{logo-Unibs-esteso.png}}%
-\maketitle%
+\setbeamertemplate{footline}{\leavevmode\hbox{\begin{beamercolorbox}%
+[wd=.20\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+\usebeamerfont{author in head/foot}\insertshortauthor\end{beamercolorbox}%
+\begin{beamercolorbox}[wd=.69\paperwidth
+,ht=2.25ex,dp=1ex,center]{title in head/foot}\usebeamerfont
+{title in head/foot}\insertshorttitle\end{beamercolorbox}%
+\begin{beamercolorbox}[wd=.11\paperwidth
+,ht=2.25ex,dp=1ex,right]{date in head/foot}\usebeamerfont{date in head/foot}%
+\insertshortdate{}\hspace*{2em}\insertframenumber{} / \inserttotalframenumber
+\hspace*{2ex}\end{beamercolorbox}}\vskip0pt}\title
+[Lez. 11 - Ottimizzazione e programmazione lineare]{Lezione 11 - Ottimizzazione e programmazione lineare}%
+\subtitle{Metodi Quantitativi per la Finanza}\author
+[P. Falbo, C. Pelizzari]{{\LARGE Paolo Falbo, Cristian Pelizzari}}%
+\institute[]{{\large Dipartimento di Economia e Management}}\date
+[]{}\titlegraphic{\includegraphics[height=1.25cm]{MQF_logo.png}\hspace
+{0.8cm}\includegraphics[height=1.25cm]{logo-Unibs-esteso.png}}\maketitle
 %EndExpansion
 %****************************************************************
 %**** FINE PAGINA DI TITOLO
 %****************************************************************
 
+
+%**** Compatibilita' Overleaf: ignora natwidth/natheight scritti da SWP
+%**** negli \includegraphics (non supportati dal pdftex.def attuale).%
+%TCIMACRO{\TeXButton{Grafica natwidth}{\makeatletter\let\KV@Gin@natwidth
+%\@gobble\let\KV@Gin@natheight\@gobble\makeatother}}%
+%BeginExpansion
+\makeatletter\let\KV@Gin@natwidth\@gobble\let\KV@Gin@natheight\@gobble
+\makeatother
+%EndExpansion
+
+
 %****************************************
+
 
 \section{Apertura}
 
@@ -104,32 +137,37 @@
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Dalla misurazione del rischio alla decisione}
+%TCIMACRO{\QTR{frametitle}{Dalla misurazione del rischio alla decisione}}%
+%BeginExpansion
+\frametitle{Dalla misurazione del rischio alla decisione}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
 Nei Capitoli~8-10, le catene di Markov hanno descritto l'evoluzione degli
-stati creditizi; associando a ciascuno stato una perdita monetaria, sono
-state costruite distribuzioni di perdita e misure di rischio.
+stati creditizi; associando a ciascuno stato una perdita monetaria, sono state
+costruite distribuzioni di perdita e misure di rischio.
 
 \medskip
 
 {\small
-\[
-\begin{array}{rcl}
-\mbox{Cap. 8-10} & : &
-\mbox{stati futuri}\rightarrow\mbox{probabilit\`a}\rightarrow
-\mbox{perdite}\rightarrow\mbox{misure di rischio}
-\\[8pt]
-\mbox{Cap. 11} & : &
-\mbox{variabili decisionali}\rightarrow\mbox{vincoli}\rightarrow
-\mbox{decisioni ammissibili}\\
-&  &\rightarrow\mbox{scelta ottima}\rightarrow
-\mbox{sensitivit\`a}\rightarrow\mbox{valori marginali dei vincoli}
+\[%
+\begin{array}
+[c]{rcl}%
+\mbox{Cap. 8-10} & : & \mbox{stati futuri}\rightarrow
+\mbox{probabilit\`a}\rightarrow\mbox{perdite}\rightarrow
+\mbox{misure di rischio}\\[8pt]%
+\mbox{Cap. 11} & : & \mbox{variabili decisionali}\rightarrow
+\mbox{vincoli}\rightarrow\mbox{decisioni ammissibili}\\
+&  & \rightarrow\mbox{scelta ottima}\rightarrow\mbox{sensitivit\`a}\rightarrow
+\mbox{valori marginali dei vincoli}
 \end{array}
 \]
 }
@@ -137,9 +175,8 @@ state costruite distribuzioni di perdita e misure di rischio.
 \medskip
 
 \begin{stepitemize}
-\item La prima catena dice quali eventi avversi possono verificarsi, con
-quale probabilit\`{a} e quanto pesa la parte pi\`{u} sfavorevole della
-distribuzione.
+\item La prima catena dice quali eventi avversi possono verificarsi, con quale
+probabilit\`{a} e quanto pesa la parte pi\`{u} sfavorevole della distribuzione.
 
 \item Non stabilisce per\`{o} \textbf{quale decisione} debba essere adottata.
 
@@ -148,51 +185,58 @@ futuri siano osservati: scegliere le posizioni da assumere, quante risorse
 mantenere liquide, quale redditivit\`{a} perseguire.
 \end{stepitemize}
 
+%
+
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %****************************************
+%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Percorso della lezione}
+%TCIMACRO{\QTR{frametitle}{Percorso della lezione}}%
+%BeginExpansion
+\frametitle{Percorso della lezione}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
 \begin{stepenumerate}
-\item [1.] \textbf{Formulare}: variabili decisionali, parametri, funzione
+\item[1.] \textbf{Formulare}: variabili decisionali, parametri, funzione
 obiettivo e vincoli di un modello bancario stilizzato.
 
-\item [2.] \textbf{Verificare}: quali composizioni dell'attivo sono
+\item[2.] \textbf{Verificare}: quali composizioni dell'attivo sono
 ammissibili, quali vincoli sono attivi e quali conservano un margine.
 
-\item [3.] \textbf{Vedere}: la regione ammissibile, i punti estremi e le
-rette di livello in due dimensioni.
+\item[3.] \textbf{Vedere}: la regione ammissibile, i punti estremi e le rette
+di livello in due dimensioni.
 
-\item [4.] \textbf{Leggere l'ottimo}: non soltanto il valore della funzione
+\item[4.] \textbf{Leggere l'ottimo}: non soltanto il valore della funzione
 obiettivo, ma la composizione della decisione e i vincoli che la determinano.
 
-\item [5.] \textbf{Misurare il costo della prudenza}: di quanto si riduce il
+\item[5.] \textbf{Misurare il costo della prudenza}: di quanto si riduce il
 risultato economico quando i requisiti diventano pi\`{u} severi.
 
-
-\item [6.] \textbf{Interpretare i vincoli al margine}: collegare la sensitivit\`{a}
-del valore ottimo ai prezzi ombra e leggere il costo marginale dei requisiti
-che condizionano la soluzione.
-
-
+\item[6.] \textbf{Interpretare i vincoli al margine}: collegare la
+sensitivit\`{a} del valore ottimo ai prezzi ombra e leggere il costo marginale
+dei requisiti che condizionano la soluzione.
 \end{stepenumerate}
 
 \medskip
@@ -202,18 +246,22 @@ che condizionano la soluzione.
 della formulazione, \`{e} la decisione.}}
 \end{center}
 
+%
+
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 \section{Il caso Silicon Valley Bank}
 
 %****************************************
+
 
 \subsection{Raccolta e attivo}%
 
@@ -221,28 +269,35 @@ della formulazione, \`{e} la decisione.}}
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Silicon Valley Bank: la raccolta e l'attivo}
+%TCIMACRO{\QTR{frametitle}{Silicon Valley Bank: la raccolta e l'attivo}}%
+%BeginExpansion
+\frametitle{Silicon Valley Bank: la raccolta e l'attivo}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
 \begin{stepitemize}
+
+
 \item \textbf{Crescita.} Tra il 2019 e il 2021 le attivit\`{a} del gruppo
 passano da circa $71$ a oltre $211$ miliardi di dollari: un volume molto
 elevato di nuove risorse da investire in un periodo breve.
 
 \item \textbf{Concentrazione della raccolta.} I depositanti appartengono in
 larga parte agli stessi settori e possono manifestare esigenze di
-liquidit\`{a} correlate. A fine $2022$ circa il $94\%$ dei depositi non
-\`{e} coperto dall'assicurazione federale.
+liquidit\`{a} correlate. A fine $2022$ circa il $94\%$ dei depositi non \`{e}
+coperto dall'assicurazione federale.
 
-\item \textbf{Impieghi.} Una parte consistente delle risorse \`{e}
-investita in titoli pubblici e \emph{mortgage-backed securities} a lunga
-scadenza: rischio di credito contenuto, ma elevata sensibilit\`{a} alle
-variazioni dei tassi.
+\item \textbf{Impieghi.} Una parte consistente delle risorse \`{e} investita
+in titoli pubblici e \emph{mortgage-backed securities} a lunga scadenza:
+rischio di credito contenuto, ma elevata sensibilit\`{a} alle variazioni dei tassi.
 
 \item \textbf{Lo scarto del $2022$.} L'aumento dei tassi riduce il valore di
 mercato dei titoli lunghi; il rallentamento dei finanziamenti alle imprese
@@ -252,24 +307,28 @@ tecnologiche induce i clienti a utilizzare i depositi.
 \medskip
 
 \begin{center}
-{\small Rischio di credito, rischio di tasso e rischio di
-liquidit\`{a} sono \textbf{dimensioni distinte}: un titolo pu\`{o} essere
-sicuro rispetto al rimborso del capitale e perdere valore quando i tassi
-aumentano.}
+{\small Rischio di credito, rischio di tasso e rischio di liquidit\`{a} sono
+\textbf{dimensioni distinte}: un titolo pu\`{o} essere sicuro rispetto al
+rimborso del capitale e perdere valore quando i tassi aumentano.}
 \end{center}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
 
+
 %****************************************
+
 
 \subsection{Il meccanismo della fragilit\`{a}}%
 
@@ -277,52 +336,70 @@ aumentano.}
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Il meccanismo della fragilit\`{a}}
+%TCIMACRO{\QTR{frametitle}{Il meccanismo della fragilit\`{a}}}%
+%BeginExpansion
+\frametitle{Il meccanismo della fragilit\`{a}}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-\begin{center}
-\includegraphics[width=0.90\textwidth]
-{Cap11_SVB_meccanismo_fragilita.png}
-\end{center}
 
-\medskip
+\begin{center}%
+%TCIMACRO{\FRAME{itbpF}{4.1494in}{1.9726in}{0in}{}{}%
+%{cap11_svb_meccanismo_fragilita.png}{\special{ language "Scientific Word";
+%type "GRAPHIC";  maintain-aspect-ratio TRUE;  display "USEDEF";
+%valid_file "F";  width 4.1494in;  height 1.9726in;  depth 0in;
+%original-width 7.53in;  original-height 3.5533in;  cropleft "0";
+%croptop "1";  cropright "1";  cropbottom "0";
+%filename '../graphics/Cap11_SVB_meccanismo_fragilita.png';file-properties "XNPEU";}%
+%} }%
+%BeginExpansion
+{\includegraphics[
+natheight=3.553300in,
+natwidth=7.530000in,
+height=1.9726in,
+width=4.1494in
+]%
+{../graphics/Cap11_SVB_meccanismo_fragilita.png}%
+}
+%EndExpansion
+
+
+
+\end{center}
 
 \begin{stepitemize}
-\item La fragilit\`{a} non dipende da una singola classe di attivo, ma
-dalla \textbf{relazione} tra struttura dell'attivo e struttura della
-raccolta.
+\item La fragilit\`{a} non dipende da una singola classe di attivo, ma dalla
+\textbf{relazione} tra struttura dell'attivo e struttura della raccolta.
 
-\item Nel marzo $2023$ l'annuncio della vendita di una parte del
-portafoglio (in perdita) rende visibili le difficolt\`{a}: il
-$9$ marzo vengono richiesti prelievi per oltre $40$ miliardi, il giorno
-successivo la banca viene chiusa.
+\item Nel marzo $2023$ l'annuncio della vendita di una parte del portafoglio
+(in perdita) rende visibili le difficolt\`{a}: il $9$ marzo vengono richiesti
+prelievi per oltre $40$ miliardi, il giorno successivo la banca viene chiusa.
 \end{stepitemize}
 
-\medskip
-
-\begin{center}
-{\small \emph{Il caso non viene usato per ricostruire il fallimento della
-banca, n\'{e} si sostiene che una diversa allocazione lo avrebbe
-necessariamente evitato.}}
-\end{center}
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
 
+
 %****************************************
+
 
 \subsection{Il problema guida}%
 
@@ -330,23 +407,27 @@ necessariamente evitato.}}
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Quattro elementi, un problema decisionale}
+%TCIMACRO{\QTR{frametitle}{Quattro elementi, un problema decisionale}}%
+%BeginExpansion
+\frametitle{Quattro elementi, un problema decisionale}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
 {\small
-\[
-\begin{array}{c}
-\mbox{rapida crescita delle risorse da investire}
-\\[3pt]
-\mbox{concentrazione e instabilit\`{a} potenziale della raccolta}
-\\[3pt]
-\mbox{investimento in attivit\`{a} a lunga scadenza sensibili ai tassi}
-\\[3pt]
+\[%
+\begin{array}
+[c]{c}%
+\mbox{rapida crescita delle risorse da investire}\\[3pt]%
+\mbox{concentrazione e instabilit\`{a} potenziale della raccolta}\\[3pt]%
+\mbox{investimento in attivit\`{a} a lunga scadenza sensibili ai tassi}\\[3pt]%
 \mbox{difficolt\`{a} di liquidazione dell'attivo in presenza di deflussi}
 \end{array}
 \]
@@ -357,11 +438,11 @@ necessariamente evitato.}}
 Considerati separatamente, questi elementi non identificano una decisione:
 
 \begin{stepitemize}
-\item pi\`{u} attivit\`{a} liquide riducono la vulnerabilit\`{a} ai
-deflussi, ma tendono a ridurre la redditivit\`{a};
+\item pi\`{u} attivit\`{a} liquide riducono la vulnerabilit\`{a} ai deflussi,
+ma tendono a ridurre la redditivit\`{a};
 
-\item pi\`{u} titoli a lunga scadenza accrescono il rendimento corrente,
-ma aumentano la sensibilit\`{a} ai tassi;
+\item pi\`{u} titoli a lunga scadenza accrescono il rendimento corrente, ma
+aumentano la sensibilit\`{a} ai tassi;
 
 \item un limite pi\`{u} severo alle perdite migliora la resistenza allo
 scenario avverso, ma restringe gli impieghi disponibili.
@@ -371,22 +452,26 @@ scenario avverso, ma restringe gli impieghi disponibili.
 
 \begin{center}
 {\small \emph{Prima che una crisi si manifesti, come pu\`{o} una banca
-scegliere la composizione del proprio attivo perseguendo la
-redditivit\`{a}, ma rispettando simultaneamente requisiti di
-liquidit\`{a}, limiti alle perdite di valore e vincoli di concentrazione?
-Quale costo economico comporta rendere il bilancio pi\`{u} resiliente?}}
+scegliere la composizione del proprio attivo perseguendo la redditivit\`{a},
+ma rispettando simultaneamente requisiti di liquidit\`{a}, limiti alle perdite
+di valore e vincoli di concentrazione? Quale costo economico comporta rendere
+il bilancio pi\`{u} resiliente?}}
 \end{center}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %****************************************
+
 
 \section{Variabili, parametri, risultati}
 
@@ -396,13 +481,19 @@ Quale costo economico comporta rendere il bilancio pi\`{u} resiliente?}}
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Che cosa la banca pu\`{o} decidere}
+%TCIMACRO{\QTR{frametitle}{Che cosa la banca pu\`{o} decidere}}%
+%BeginExpansion
+\frametitle{Che cosa la banca pu\`{o} decidere}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
+
 
 Tassi, andamento del settore tecnologico e richieste di rimborso non erano
 controllabili. La \textbf{composizione dell'attivo} dipendeva invece da
@@ -411,21 +502,18 @@ decisioni gestionali. Consideriamo quattro classi aggregate:
 \medskip
 
 {\small
-\[
-\begin{array}{ll}
-\hline
-x_1 & \mbox{Cassa e riserve: disponibili subito, redditivit\`{a} minima}
-\\
-x_2 & \mbox{Titoli a breve: monetizzabili in tempi brevi, poco sensibili ai
-tassi}
-\\
-x_3 & \mbox{Titoli a lunga: pi\`{u} redditizi, valore sensibile a un rialzo
-dei tassi}
-\\
-x_4 & \mbox{Prestiti e impieghi meno liquidi: contributo elevato, non
-negoziabili}
-\\
-\hline
+\[%
+\begin{array}
+[c]{ll}\hline
+x_{1} & \mbox{Cassa e riserve: disponibili subito, redditivit\`{a} minima}\\
+x_{2} &
+\mbox{Titoli a breve: monetizzabili in tempi brevi, poco sensibili ai
+tassi}\\
+x_{3} &
+\mbox{Titoli a lunga: pi\`{u} redditizi, valore sensibile a un rialzo
+dei tassi}\\
+x_{4} & \mbox{Prestiti e impieghi meno liquidi: contributo elevato, non
+negoziabili}\\\hline
 \end{array}
 \]
 }
@@ -433,20 +521,22 @@ negoziabili}
 \medskip
 
 \begin{stepitemize}
-\item Le $x_j$ sono le \textbf{variabili decisionali}: non sono dati
+\item Le $x_{j}$ sono le \textbf{variabili decisionali}: non sono dati
 osservati e non sono risultati prodotti dal modello.
 
-\item Poich\'{e} rappresentano importi investiti, $x_j\geq0$: la
-condizione esclude vendite allo scoperto e posizioni negative.
+\item Poich\'{e} rappresentano importi investiti, $x_{j}\geq0$: la condizione
+esclude vendite allo scoperto e posizioni negative.
 
-\item Una politica di allocazione \`{e} un vettore
-$x=(x_1,x_2,x_3,x_4)^{\prime}$; vettori diversi sono politiche diverse.
+\item Una politica di allocazione \`{e} un vettore $x=(x_{1},x_{2},x_{3}%
+,x_{4})^{\prime}$; vettori diversi sono politiche diverse.
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
@@ -454,6 +544,7 @@ $x=(x_1,x_2,x_3,x_4)^{\prime}$; vettori diversi sono politiche diverse.
 
 
 %****************************************
+
 
 \subsection{I parametri}%
 
@@ -461,30 +552,32 @@ $x=(x_1,x_2,x_3,x_4)^{\prime}$; vettori diversi sono politiche diverse.
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{I dati che servono per valutare una composizione}
+%TCIMACRO{\QTR{frametitle}{I dati che servono per valutare una composizione}}%
+%BeginExpansion
+\frametitle{I dati che servono per valutare una composizione}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
 Per ogni classe di attivo $j$ introduciamo tre coefficienti:
 
 {\small
-\[
-\begin{array}{lll}
-\hline
-c_j & \mbox{contributo economico unitario} &
-\displaystyle\sum_{j=1}^{4}c_jx_j
-\\[8pt]
-q_j & \mbox{quota liquidabile entro l'orizzonte} &
-\displaystyle\sum_{j=1}^{4}q_jx_j
-\\[8pt]
-\ell_j & \mbox{perdita unitaria nello scenario di stress} &
-\displaystyle\sum_{j=1}^{4}\ell_jx_j
-\\[4pt]
-\hline
+\[%
+\begin{array}
+[c]{lll}\hline
+c_{j} & \mbox{contributo economico unitario} & \displaystyle\sum_{j=1}%
+^{4}c_{j}x_{j}\\[8pt]%
+q_{j} & \mbox{quota liquidabile entro l'orizzonte} & \displaystyle\sum
+_{j=1}^{4}q_{j}x_{j}\\[8pt]%
+\ell_{j} & \mbox{perdita unitaria nello scenario di stress} &
+\displaystyle\sum_{j=1}^{4}\ell_{j}x_{j}\\[4pt]\hline
 \end{array}
 \]
 }
@@ -492,22 +585,24 @@ q_j & \mbox{quota liquidabile entro l'orizzonte} &
 \medskip
 
 \begin{stepitemize}
-\item $c_j$ non \`{e} necessariamente il solo tasso contrattuale: pu\`{o}
+\item $c_{j}$ non \`{e} necessariamente il solo tasso contrattuale: pu\`{o}
 essere un margine economico atteso al netto dei costi attribuibili.
 
-\item $q_j$ \textbf{non misura la qualit\`{a} creditizia}. Un titolo pu\`{o}
+\item $q_{j}$ \textbf{non misura la qualit\`{a} creditizia}. Un titolo pu\`{o}
 avere rischio di insolvenza minimo e non essere utile per fronteggiare
-pagamenti concentrati in pochi giorni. Il coefficiente ha senso solo
-rispetto a un orizzonte dichiarato.
+pagamenti concentrati in pochi giorni. Il coefficiente ha senso solo rispetto
+a un orizzonte dichiarato.
 
 \item I coefficienti sono \textbf{parametri}: non vengono scelti dalla
 procedura di ottimizzazione, ma fissati o stimati prima della soluzione.
 \end{stepitemize}
 
+%
+
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
@@ -516,19 +611,26 @@ procedura di ottimizzazione, ma fissati o stimati prima della soluzione.
 
 %****************************************
 
+
 \subsection{Decisioni, dati, risultati, requisiti}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Quattro componenti da non confondere}
+%TCIMACRO{\QTR{frametitle}{Quattro componenti da non confondere}}%
+%BeginExpansion
+\frametitle{Quattro componenti da non confondere}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
+
 
 Le tre somme della slide precedente non sono dati: sono \textbf{risultati}
 della decisione. Una volta scelto $x$, possono essere calcolate.
@@ -539,10 +641,12 @@ della decisione. Una volta scelto $x$, possono essere calcolate.
 {\small
 \begin{tabular}
 [c]{ll}\hline
-\textbf{Variabili decisionali} & che cosa pu\`{o} essere scelto: $x_1,\ldots,x_4$\\[3pt]
-\textbf{Parametri} & fissati prima della soluzione: $c_j$, $q_j$, $\ell_j$\\[3pt]
+\textbf{Variabili decisionali} & che cosa pu\`{o} essere scelto: $x_{1}%
+,\ldots,x_{4}$\\[3pt]%
+\textbf{Parametri} & fissati prima della soluzione: $c_{j}$, $q_{j}$,
+$\ell_{j}$\\[3pt]%
 \textbf{Risultati} & che cosa discende dalla scelta: redditivit\`{a},\\
- & liquidit\`{a}, perdita sotto stress\\[3pt]
+& liquidit\`{a}, perdita sotto stress\\[3pt]%
 \textbf{Requisiti} & che cosa rende accettabile una decisione\\\hline
 \end{tabular}
 }
@@ -552,35 +656,40 @@ della decisione. Una volta scelto $x$, possono essere calcolate.
 
 \begin{stepitemize}
 \item La banca pu\`{o} perseguire un risultato economico elevato, ma non
-pu\`{o} ignorare la necessit\`{a} di mantenere liquidit\`{a} sufficiente e
-di contenere le perdite potenziali.
+pu\`{o} ignorare la necessit\`{a} di mantenere liquidit\`{a} sufficiente e di
+contenere le perdite potenziali.
 
-\item Il modello dovr\`{a} quindi stabilire \emph{quale} risultato
-migliorare e \emph{quali} livelli minimi o massimi rispettare.
+\item Il modello dovr\`{a} quindi stabilire \emph{quale} risultato migliorare
+e \emph{quali} livelli minimi o massimi rispettare.
 \end{stepitemize}
 
 \medskip
 
 \begin{center}
-{\small La programmazione lineare organizza queste quattro componenti in
-un unico modello: \textbf{variabili}, \textbf{funzione obiettivo},
+{\small La programmazione lineare organizza queste quattro componenti in un
+unico modello: \textbf{variabili}, \textbf{funzione obiettivo},
 \textbf{vincoli}.}
 \end{center}
 
+%
+
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %*********************************
+
 
 \section{Costruzione del modello}
 
 %****************************************
+
 
 \subsection{Bilancio e funzione obiettivo}%
 
@@ -588,34 +697,42 @@ un unico modello: \textbf{variabili}, \textbf{funzione obiettivo},
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Il vincolo di bilancio e la funzione obiettivo}
+%TCIMACRO{\QTR{frametitle}{Il vincolo di bilancio e la funzione obiettivo}}%
+%BeginExpansion
+\frametitle{Il vincolo di bilancio e la funzione obiettivo}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Sia $A_0$ l'ammontare complessivo delle risorse da allocare. L'intero
-attivo considerato deve essere distribuito tra le quattro classi:
+
+Sia $A_{0}$ l'ammontare complessivo delle risorse da allocare. L'intero attivo
+considerato deve essere distribuito tra le quattro classi:
 \[
-x_1+x_2+x_3+x_4=A_0.
+x_{1}+x_{2}+x_{3}+x_{4}=A_{0}.
 \]
 
-\begin{stepitemize}
-\item Il vincolo non dice \emph{come} impiegare le risorse: dice soltanto
-che la somma degli impieghi coincide con le risorse disponibili.
 
-\item Le risorse non investite in titoli o prestiti sono rappresentate
-dalla variabile relativa alla cassa.
+\begin{stepitemize}
+\item Il vincolo non dice \emph{come} impiegare le risorse: dice soltanto che
+la somma degli impieghi coincide con le risorse disponibili.
+
+\item Le risorse non investite in titoli o prestiti sono rappresentate dalla
+variabile relativa alla cassa.
 \end{stepitemize}
 
 \medskip
 
 Se la banca intende massimizzare il risultato economico,
 \[
-\max\; c_1x_1+c_2x_2+c_3x_3+c_4x_4.
+\max\; c_{1}x_{1}+c_{2}x_{2}+c_{3}x_{3}+c_{4}x_{4}.
 \]
+
 
 \medskip
 
@@ -626,18 +743,23 @@ unico indicatore. La prima \`{e} il risultato da migliorare, le altre
 delimitano ci\`{o} che \`{e} accettabile.}
 \end{center}
 
+%
+
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
 
+
 %****************************************
+
 
 \subsection{Il requisito di liquidit\`{a}}%
 
@@ -645,35 +767,42 @@ delimitano ci\`{o} che \`{e} accettabile.}
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Il requisito minimo di liquidit\`{a}}
+%TCIMACRO{\QTR{frametitle}{Il requisito minimo di liquidit\`{a}}}%
+%BeginExpansion
+\frametitle{Il requisito minimo di liquidit\`{a}}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
 La liquidit\`{a} disponibile dalla composizione $x$ entro l'orizzonte
 considerato \`{e}
 \[
-q_1x_1+q_2x_2+q_3x_3+q_4x_4.
+q_{1}x_{1}+q_{2}x_{2}+q_{3}x_{3}+q_{4}x_{4}.
 \]
 
-Se $Q_{\min}$ \`{e} il livello minimo necessario per fronteggiare i
-deflussi previsti nello scenario considerato,
+
+Se $Q_{\min}$ \`{e} il livello minimo necessario per fronteggiare i deflussi
+previsti nello scenario considerato,
 \[
-q_1x_1+q_2x_2+q_3x_3+q_4x_4\geq Q_{\min}.
+q_{1}x_{1}+q_{2}x_{2}+q_{3}x_{3}+q_{4}x_{4}\geq Q_{\min}.
 \]
+
 
 \medskip
 
 \begin{stepitemize}
-\item Il vincolo esclude le composizioni che, \textbf{pur essendo
-redditizie}, non rendono disponibile un ammontare sufficiente di risorse
-nei tempi richiesti.
+\item Il vincolo esclude le composizioni che, \textbf{pur essendo redditizie},
+non rendono disponibile un ammontare sufficiente di risorse nei tempi richiesti.
 
-\item $Q_{\min}$ non \`{e} prodotto dal modello: \`{e} una scelta
-prudenziale o gestionale \textbf{prefissata}.
+\item $Q_{\min}$ non \`{e} prodotto dal modello: \`{e} una scelta prudenziale
+o gestionale \textbf{prefissata}.
 
 \item Un suo aumento restringe l'insieme delle composizioni ammissibili e
 tende a spostare le risorse verso le attivit\`{a} maggiormente liquidabili.
@@ -687,18 +816,23 @@ risulter\`{a} \textbf{attivo}, e alla fine della lezione ne misureremo il
 costo.}
 \end{center}
 
+%
+
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
 
+
 %****************************************
+
 
 \subsection{Perdite, concentrazione, non negativit\`{a}}%
 
@@ -706,59 +840,70 @@ costo.}
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Perdite sotto stress, concentrazione, non negativit\`{a}}
+%TCIMACRO{\QTR{frametitle}{Perdite sotto stress, concentrazione, non
+%negativit\`{a}}}%
+%BeginExpansion
+\frametitle{Perdite sotto stress, concentrazione, non negativit\`{a}}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Se $K$ \`{e} la perdita massima compatibile con la capacit\`{a}
-patrimoniale,
+
+Se $K$ \`{e} la perdita massima compatibile con la capacit\`{a} patrimoniale,
 \[
-\ell_1x_1+\ell_2x_2+\ell_3x_3+\ell_4x_4\leq K.
+\ell_{1}x_{1}+\ell_{2}x_{2}+\ell_{3}x_{3}+\ell_{4}x_{4}\leq K.
 \]
+
 
 Per limitare l'esposizione verso i titoli a lunga scadenza,
 \[
-x_3\leq\alpha A_0,
-\qquad
-0\leq\alpha\leq1.
+x_{3}\leq\alpha A_{0}, \qquad0\leq\alpha\leq1.
 \]
+
 
 \smallskip
 
 Infine, poich\'{e} le variabili rappresentano importi investiti,
 \[
-x_j\geq0,
-\qquad j=1,\ldots,4.
+x_{j}\geq0, \qquad j=1,\ldots,4.
 \]
+
 
 \medskip
 
 \begin{stepitemize}
 \item I due limiti controllano vulnerabilit\`{a} \textbf{diverse}: il primo
-l'effetto economico dello scenario di stress, il secondo la dipendenza da
-una singola classe di attivo \emph{anche quando la perdita stimata resta
-entro} $K$.
+l'effetto economico dello scenario di stress, il secondo la dipendenza da una
+singola classe di attivo \emph{anche quando la perdita stimata resta entro}
+$K$.
 
 \item Una composizione pu\`{o} rispettare il requisito di liquidit\`{a} ed
 essere comunque inammissibile perch\'{e} troppo esposta alle perdite.
 \end{stepitemize}
 
+%
+
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
 
+
 %****************************************
+
 
 \subsection{Il modello SVB stilizzato}%
 
@@ -766,24 +911,30 @@ essere comunque inammissibile perch\'{e} troppo esposta alle perdite.
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Il modello SVB stilizzato}
+%TCIMACRO{\QTR{frametitle}{Il modello SVB stilizzato}}%
+%BeginExpansion
+\frametitle{Il modello SVB stilizzato}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
 {\small
-\[
+\[%
 \begin{array}
 [c]{ll}%
-\max & c_1x_1+c_2x_2+c_3x_3+c_4x_4\\[4pt]
-\text{soggetto a} & x_1+x_2+x_3+x_4=A_0,\\[3pt]
-& q_1x_1+q_2x_2+q_3x_3+q_4x_4\geq Q_{\min},\\[3pt]
-& \ell_1x_1+\ell_2x_2+\ell_3x_3+\ell_4x_4\leq K,\\[3pt]
-& x_3\leq\alpha A_0,\\[3pt]
-& x_j\geq0,\qquad j=1,\ldots,4.
+\max & c_{1}x_{1}+c_{2}x_{2}+c_{3}x_{3}+c_{4}x_{4}\\[4pt]%
+\text{soggetto a} & x_{1}+x_{2}+x_{3}+x_{4}=A_{0},\\[3pt]
+& q_{1}x_{1}+q_{2}x_{2}+q_{3}x_{3}+q_{4}x_{4}\geq Q_{\min},\\[3pt]
+& \ell_{1}x_{1}+\ell_{2}x_{2}+\ell_{3}x_{3}+\ell_{4}x_{4}\leq K,\\[3pt]
+& x_{3}\leq\alpha A_{0},\\[3pt]
+& x_{j}\geq0,\qquad j=1,\ldots,4.
 \end{array}
 \]
 }
@@ -794,11 +945,11 @@ essere comunque inammissibile perch\'{e} troppo esposta alle perdite.
 {\small
 \begin{tabular}
 [c]{lccc}\hline
-\textbf{Classe di attivo} & $c_j$ & $q_j$ & $\ell_j$\\\hline
-$x_1$ Cassa e riserve & $0.010$ & $1.00$ & $0.00$\\
-$x_2$ Titoli a breve scadenza & $0.025$ & $0.90$ & $0.02$\\
-$x_3$ Titoli a lunga scadenza & $0.040$ & $0.50$ & $0.15$\\
-$x_4$ Prestiti e impieghi meno liquidi & $0.050$ & $0.20$ & $0.08$\\\hline
+\textbf{Classe di attivo} & $c_{j}$ & $q_{j}$ & $\ell_{j}$\\\hline
+$x_{1}$ Cassa e riserve & $0.010$ & $1.00$ & $0.00$\\
+$x_{2}$ Titoli a breve scadenza & $0.025$ & $0.90$ & $0.02$\\
+$x_{3}$ Titoli a lunga scadenza & $0.040$ & $0.50$ & $0.15$\\
+$x_{4}$ Prestiti e impieghi meno liquidi & $0.050$ & $0.20$ & $0.08$\\\hline
 \end{tabular}
 }
 \end{center}
@@ -806,29 +957,31 @@ $x_4$ Prestiti e impieghi meno liquidi & $0.050$ & $0.20$ & $0.08$\\\hline
 \smallskip
 
 \begin{center}
-{\small
-$A_0=100$, \quad $Q_{\min}=55$, \quad $K=7$, \quad $\alpha=0.30$.
-\smallskip
-
-Il modello non cerca la composizione pi\`{u} redditizia in assoluto, ma la
-pi\`{u} redditizia \textbf{tra quelle che rispettano simultaneamente tutti
-i requisiti}.}
+{\small $A_{0}=100$, \quad$Q_{\min}=55$, \quad$K=7$, \quad$\alpha=0.30$.
+\smallskip}
 \end{center}
+
+{\small Il modello non cerca la composizione pi\`{u} redditizia in assoluto,
+ma la pi\`{u} redditizia \textbf{tra quelle che rispettano simultaneamente
+tutti i requisiti}.}%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %*****************************
+
 
 \section{Linearit\`{a} e forma generale}
 
 %****************************************
+
 
 \subsection{Che cosa rende lineare il modello}%
 
@@ -836,18 +989,24 @@ i requisiti}.}
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Che cosa rende lineare il modello}
+%TCIMACRO{\QTR{frametitle}{Che cosa rende lineare il modello}}%
+%BeginExpansion
+\frametitle{Che cosa rende lineare il modello}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
 Ogni variabile compare moltiplicata per un coefficiente noto e i contributi
 vengono sommati. La linearit\`{a} non dipende dal fatto che il problema sia
-semplice o contenga poche variabili, ma dal \textbf{modo} in cui le
-decisioni entrano nella funzione obiettivo e nei vincoli.
+semplice o contenga poche variabili, ma dal \textbf{modo} in cui le decisioni
+entrano nella funzione obiettivo e nei vincoli.
 
 \medskip
 
@@ -855,15 +1014,15 @@ decisioni entrano nella funzione obiettivo e nei vincoli.
 {\small
 \begin{tabular}
 [c]{ll}\hline
-\textbf{Proporzionalit\`{a}} & il contributo \`{e} proporzionale al
-livello: $c_jx_j$, $q_jx_j$, $\ell_jx_j$\\[3pt]
+\textbf{Proporzionalit\`{a}} & il contributo \`{e} proporzionale al livello:
+$c_{j}x_{j}$, $q_{j}x_{j}$, $\ell_{j}x_{j}$\\[3pt]%
 \textbf{Additivit\`{a}} & il risultato \`{e} la somma dei contributi, senza
-interazioni\\[3pt]
-\textbf{Divisibilit\`a} & le variabili possono assumere valori frazionari,
-non solo interi\\[3pt]
-\textbf{Coefficienti} & $c_j$, $q_j$, $\ell_j$ e i livelli $A_0$,
+interazioni\\[3pt]%
+\textbf{Divisibilit\`a} & le variabili possono assumere valori
+frazionari\\[3pt]%
+\textbf{Coefficienti} & $c_{j}$, $q_{j}$, $\ell_{j}$ e i livelli $A_{0}$,
 $Q_{\min}$, $K$, $\alpha$\\
-\quad \textbf{come parametri} & sono fissati prima della soluzione\\\hline
+\quad\textbf{come parametri} & sono fissati prima della soluzione\\\hline
 \end{tabular}
 }
 \end{center}
@@ -872,25 +1031,29 @@ $Q_{\min}$, $K$, $\alpha$\\
 
 \begin{stepitemize}
 \item Nel caso SVB: rendimento, quota liquidabile e perdita unitaria
-attribuiti a una classe \textbf{non cambiano} al variare dell'importo
-investito.
+attribuiti a una classe \textbf{non cambiano} al variare dell'importo investito.
 
-\item La divisibilit\`{a} \`{e} naturale per importi monetari; non lo
-sarebbe per decisioni indivisibili, che richiederebbero variabili intere.
+\item La divisibilit\`{a} \`{e} naturale per importi monetari; non lo sarebbe
+per decisioni indivisibili, che richiederebbero variabili intere.
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %***********************************************************
 
+
 %****************************************
+
 
 \subsection{Che cosa la linearit\`{a} esclude}%
 
@@ -898,56 +1061,61 @@ sarebbe per decisioni indivisibili, che richiederebbero variabili intere.
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Che cosa la linearit\`{a} esclude}
+%TCIMACRO{\QTR{frametitle}{Che cosa la linearit\`{a} esclude}}%
+%BeginExpansion
+\frametitle{Che cosa la linearit\`{a} esclude}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
 Non compaiono potenze delle variabili, prodotti tra variabili, coefficienti
 dipendenti dalle quantit\`{a} investite. Non sarebbero lineari
 \[
-x_3^2,
-\qquad
-x_2x_3,
-\qquad
-c_3(x_3)\,x_3.
+x_{3}^{2}, \qquad x_{2}x_{3}, \qquad c_{3}(x_{3})\,x_{3}.
 \]
+
 
 \medskip
 
 \begin{stepitemize}
 \item \textbf{Nessuna amplificazione.} Il modello non considera che
-un'esposizione simultanea verso titoli a lunga e prestiti poco liquidi
-possa produrre una vulnerabilit\`{a} superiore alla somma delle due: un
-termine $\gamma x_3x_4$ renderebbe il modello non lineare.
+un'esposizione simultanea verso titoli a lunga e prestiti poco liquidi possa
+produrre una vulnerabilit\`{a} superiore alla somma delle due: un termine
+$\gamma x_{3}x_{4}$ renderebbe il modello non lineare.
 
-\item \textbf{No fire sale.} La vendita di una grande posizione
-pu\`{o} deprimere il prezzo: la perdita unitaria non resta costante al
-crescere dell'importo liquidato. Servirebbe $L_j=L_j(x_j)$.
+\item \textbf{No fire sale.} La vendita di una grande posizione pu\`{o}
+deprimere il prezzo: la perdita unitaria non resta costante al crescere
+dell'importo liquidato. Servirebbe $L_{j}=L_{j}(x_{j})$.
 
-\item \textbf{L'incertezza non scompare}, viene incorporata nei
-coefficienti. Il modello risponde a una domanda condizionata: qual \`{e} la
-migliore allocazione \emph{se} i coefficienti e lo scenario di stress
-assumono i valori indicati.
+\item \textbf{L'incertezza non scompare}, viene incorporata nei coefficienti.
+Il modello risponde a una domanda condizionata: qual \`{e} la migliore
+allocazione \emph{se} i coefficienti e lo scenario di stress assumono i valori indicati.
 \end{stepitemize}
 
-\medskip
+\medskip%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
-%****************************************
 
 %****************************************
+
+
+%****************************************
+
 
 \subsection{Dalla forma scalare alla forma matriciale}%
 
@@ -955,61 +1123,71 @@ assumono i valori indicati.
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Dal caso SVB alla formulazione generale}
+%TCIMACRO{\QTR{frametitle}{Dal caso SVB alla formulazione generale}}%
+%BeginExpansion
+\frametitle{Dal caso SVB alla formulazione generale}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-La struttura non dipende dal numero di classi. Con $n$ variabili e $m$
-requisiti:
-\[
-\begin{array}
-[c]{ll}%
-\max & \displaystyle\sum_{j=1}^{n}c_jx_j\\[10pt]
-\text{soggetto a} & \displaystyle\sum_{j=1}^{n}a_{ij}x_j\leq b_i,
-\qquad i=1,\ldots,m,\\[8pt]
-& x_j\geq0,\qquad j=1,\ldots,n.
-\end{array}
-\]
 
-Raccogliendo $x$, $c$, $b$ e la matrice $A=(a_{ij})$:
-\[
+La struttura non dipende dal numero di classi. Con $n$ variabili e $m$
+requisiti, in forma scalare e in forma matriciale, con $A=(a_{ij})$:
+\[%
 \begin{array}
 [c]{ll}%
-\max\limits_x & c^{\prime}x\\[4pt]
-\text{soggetto a} & Ax\leq b,\\[2pt]
+\max & \displaystyle\sum_{j=1}^{n}c_{j}x_{j}\\[6pt]%
+\text{s.a.} & \displaystyle\sum_{j=1}^{n}a_{ij}x_{j}\leq b_{i},\quad
+i=1,\ldots,m,\\[4pt]
+& x_{j}\geq0,\quad j=1,\ldots,n,
+\end{array}
+\qquad\Longleftrightarrow\qquad%
+\begin{array}
+[c]{ll}%
+\max\limits_{x} & c^{\prime}x\\[4pt]%
+\text{s.a.} & Ax\leq b,\\[2pt]
 & x\geq0.
 \end{array}
 \]
 
-\medskip
 
 \begin{stepitemize}
 \item Ogni \textbf{riga} di $A$ \`e un requisito; ogni \textbf{colonna}
-descrive come una variabile contribuisce ai diversi requisiti. Nel modello
-SVB la colonna di una classe di attivo ne raccoglie il peso nel bilancio,
-la liquidabilit\`a $q_j$, la perdita sotto stress $\ell_j$ e, per i titoli
-a lunga, l'esposizione al limite di concentrazione. La redditivit\`a $c_j$
-non sta in $A$, ma nel vettore $c$ della funzione obiettivo.
+descrive come una variabile contribuisce ai diversi requisiti. Nel modello SVB
+la colonna di una classe di attivo ne raccoglie il peso nel bilancio, la
+liquidabilit\`a $q_{j}$, la perdita sotto stress $\ell_{j}$ e, per i titoli a
+lunga, l'esposizione al limite di concentrazione. La redditivit\`a $c_{j}$ non
+sta in $A$, ma nel vettore $c$ della funzione obiettivo.
 
+\item Uguaglianze e vincoli $\geq$ si riconducono a questa forma: ad esempio
+$q^{\prime}x\geq Q_{\min}$ equivale a $-q^{\prime}x\leq-Q_{\min}$.
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %*****************************
+
+
 \section{Decisioni ammissibili e diagnosi}
 
 %*****************************
+
 
 \subsection{Decisioni ammissibili}%
 
@@ -1017,54 +1195,66 @@ non sta in $A$, ma nel vettore $c$ della funzione obiettivo.
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Quali composizioni possono essere considerate}
+%TCIMACRO{\QTR{frametitle}{Quali composizioni possono essere considerate}}%
+%BeginExpansion
+\frametitle{Quali composizioni possono essere considerate}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Una composizione $\bar{x}$ \`{e} \textbf{ammissibile} se soddisfa
-\emph{tutti} i vincoli del modello: bilancio, requisito di liquidit\`{a},
-limite alle perdite, limite di concentrazione e non negativit\`{a}.
+
+Una composizione $\bar{x}$ \`{e} \textbf{ammissibile} se soddisfa \emph{tutti}
+i vincoli del modello: bilancio, requisito di liquidit\`{a}, limite alle
+perdite, limite di concentrazione e non negativit\`{a}.
 
 \medskip
 
 L'insieme delle soluzioni ammissibili si indica con $\mathcal{X}$; nella
 formulazione generale
 \[
-\mathcal{X}=\left\{ x\in\R^n:Ax\leq b,\;x\geq0\right\} .
+\mathcal{X}=\left\{  x\in\R^{n}:Ax\leq b,\;x\geq0\right\}  .
 \]
 
-La funzione obiettivo viene massimizzata \textbf{non} su tutto $\R^n$, ma
-su $\mathcal{X}$:
+
+La funzione obiettivo viene massimizzata \textbf{non} su tutto $\R^{n}$, ma su
+$\mathcal{X}$:
 \[
 z^{*}=\max_{x\in\mathcal{X}}c^{\prime}x.
 \]
+
 
 \medskip
 
 \begin{stepitemize}
 \item Il rispetto di un \emph{singolo} requisito non rende ammissibile una
-decisione: una composizione pu\`{o} avere liquidit\`{a} sufficiente e
-produrre nello stesso tempo una perdita eccessiva sotto stress.
+decisione: una composizione pu\`{o} avere liquidit\`{a} sufficiente e produrre
+nello stesso tempo una perdita eccessiva sotto stress.
 
 \item Una decisione con risultato economico molto elevato ma esterna a
 $\mathcal{X}$ non \`{e} un'alternativa migliore: \`{e} una decisione che il
 modello considera \textbf{non realizzabile}.
 \end{stepitemize}
 
+%
+
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %*****************************
+
 
 \subsection{Ammissibilit\`{a} e confronto tra decisioni}%
 
@@ -1072,15 +1262,21 @@ modello considera \textbf{non realizzabile}.
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Il risultato pi\`{u} alto non basta}
+%TCIMACRO{\QTR{frametitle}{Il risultato pi\`{u} alto non basta}}%
+%BeginExpansion
+\frametitle{Il risultato pi\`{u} alto non basta}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Con $A_0=100$, $Q_{\min}=55$, $K=7$, $\alpha A_0=30$:
+
+Con $A_{0}=100$, $Q_{\min}=55$, $K=7$, $\alpha A_{0}=30$:
 
 \medskip
 
@@ -1100,15 +1296,15 @@ $x^{(B)}=(10,30,20,40)^{\prime}$ & $3.65$ & $55.00$ & $6.80$ & $20$\\\hline
 \medskip
 
 \begin{stepitemize}
-\item $x^{(A)}$ rende di pi\`{u} e viola \textbf{tre} requisiti su tre.
-Non \`{e} un'alternativa migliore: \`{e} fuori da $\mathcal{X}$.
+\item $x^{(A)}$ rende di pi\`{u} e viola \textbf{tre} requisiti su tre. Non
+\`{e} un'alternativa migliore: \`{e} fuori da $\mathcal{X}$.
 
 \item La funzione obiettivo ordina le decisioni, ma ordina soltanto quelle
 ammissibili. L'\textbf{ammissibilit\`{a} precede il confronto dei valori}.
 
-\item Le due composizioni non si distinguono per\`{o} solo in
-ammissibile/non ammissibile: $x^{(B)}$ soddisfa la liquidit\`{a} esattamente
-al limite, la perdita con $0.20$ di margine, la concentrazione con $10$.
+\item Le due composizioni non si distinguono per\`{o} solo in ammissibile/non
+ammissibile: $x^{(B)}$ soddisfa la liquidit\`{a} esattamente al limite, la
+perdita con $0.20$ di margine, la concentrazione con $10$.
 \end{stepitemize}
 
 \medskip
@@ -1118,16 +1314,20 @@ al limite, la perdita con $0.20$ di margine, la concentrazione con $10$.
 limiti.}
 \end{center}
 
+%
+
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %*****************************
+
 
 \subsection{Margini, vincoli attivi, diagnosi}%
 
@@ -1135,89 +1335,98 @@ limiti.}
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Margine di un vincolo e vincoli attivi}
+%TCIMACRO{\QTR{frametitle}{Margine di un vincolo e vincoli attivi}}%
+%BeginExpansion
+\frametitle{Margine di un vincolo e vincoli attivi}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Il \textbf{margine del vincolo} $i$ misura quanto la decisione dista dal limite del
-vincolo $i$. L'espressione dipende dal verso:
+
+Il \textbf{margine del vincolo} $i$ misura quanto la decisione dista dal
+limite del vincolo $i$. L'espressione dipende dal verso:
 \[
-a_i^{\prime}x\leq b_i:
-\quad
-b_i-a_i^{\prime}x;
-\qquad
-a_i^{\prime}x\geq b_i:
-\quad
-a_i^{\prime}x-b_i.
+a_{i}^{\prime}x\leq b_{i}: \quad b_{i}-a_{i}^{\prime}x; \qquad a_{i}^{\prime
+}x\geq b_{i}: \quad a_{i}^{\prime}x-b_{i}.
 \]
 
-Nel primo caso $s_i$ conta quanto resta prima di superare il limite, nel
+
+Nel primo caso $s_{i}$ conta quanto resta prima di superare il limite, nel
 secondo di quanto lo si supera. In entrambi,
 \[
-x\in\mathcal{X}
-\quad\Longleftrightarrow\quad
-s_i\geq0
-\;\text{ per ogni }i.
+x\in\mathcal{X} \quad\Longleftrightarrow\quad s_{i}\geq0 \;\text{ per ogni
+}i.
 \]
 
-Il vincolo \`{e} \textbf{attivo} quando il suo margine \`{e} nullo, cio\`{e} quando \`{e}
-soddisfatto come uguaglianza $a_i^{\prime}x=b_i$: la decisione si trova
-sulla sua frontiera.
+
+Il vincolo \`{e} \textbf{attivo} quando il suo margine \`{e} nullo, cio\`{e}
+quando \`{e} soddisfatto come uguaglianza $a_{i}^{\prime}x=b_{i}$: la
+decisione si trova sulla sua frontiera.
 
 \medskip
 
 \begin{stepitemize}
-% \item I vincoli attivi sono quelli che stanno \textbf{determinando} la
-% decisione. Un vincolo con margine positivo, in quel punto, non morde.
+%\item I vincoli attivi sono quelli che stanno \textbf{determinando} la
+%decisione. Un vincolo con margine positivo, in quel punto, non morde.
+
 
 \item I vincoli attivi sono quelli che \textbf{possono contribuire a
-determinare} la decisione. Un vincolo con margine positivo, in quel punto,
-non morde.
+determinare} la decisione. Un vincolo con margine positivo, in quel punto, non morde.
 
-\item Un vincolo di uguaglianza ha margine nullo per costruzione: \`{e}
-attivo in ogni soluzione ammissibile.
+\item Un vincolo di uguaglianza ha margine nullo per costruzione: \`{e} attivo
+in ogni soluzione ammissibile.
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %*********************
 
-\subsection{I tre esiti del solver}%
+
+\subsection{I tre esiti della risoluzione}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Che cosa pu\`{o} rispondere un solver}
+%TCIMACRO{\QTR{frametitle}{I tre possibili esiti della risoluzione}}%
+%BeginExpansion
+\frametitle{I tre possibili esiti della risoluzione}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
 \begin{stepenumerate}
-\item [1.] Una \textbf{soluzione ottima} e il corrispondente valore
-obiettivo.
+\item[1.] Una \textbf{soluzione ottima} e il corrispondente valore obiettivo.
 
-\item [2.] L'\textbf{inammissibilit\`{a}} del modello, cio\`{e}
-$\mathcal{X}=\varnothing$: nessuna decisione soddisfa simultaneamente tutti
-i vincoli.
+\item[2.] L'\textbf{inammissibilit\`{a}} del modello, cio\`{e} $\mathcal{X}%
+=\varnothing$: nessuna decisione soddisfa simultaneamente tutti i vincoli.
 
-\item [3.] L'\textbf{illimitatezza}: esistono decisioni ammissibili che
-producono valori arbitrariamente elevati. In un problema finanziario
-segnala normalmente che manca un vincolo rilevante.
+\item[3.] L'\textbf{illimitatezza}: esistono decisioni ammissibili che
+producono valori arbitrariamente elevati. In un problema finanziario segnala
+normalmente che manca un vincolo rilevante.
 \end{stepenumerate}
 
 \medskip
@@ -1232,20 +1441,25 @@ Una regione vuota pu\`{o} segnalare requisiti economicamente incompatibili,
 \`{e} modificare i vincoli fino a ottenere una soluzione.}}
 \end{center}
 
+%
+
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %*****************************
+
 
 \section{Esercizio in aula: verifica di ammissibilit\`{a}}
 
 %*****************************
+
 
 \subsection{Enunciato}%
 
@@ -1253,54 +1467,65 @@ Una regione vuota pu\`{o} segnalare requisiti economicamente incompatibili,
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Esercizio: questa composizione \`{e} ammissibile?}
+%TCIMACRO{\QTR{frametitle}{Esercizio: questa composizione \`{e} ammissibile?}}%
+%BeginExpansion
+\frametitle{Esercizio: questa composizione \`{e} ammissibile?}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Modello bancario con $A_0=100$, $Q_{\min}=55$, $K=7$, $\alpha A_0=30$. Si
+
+Modello bancario con $A_{0}=100$, $Q_{\min}=55$, $K=7$, $\alpha A_{0}=30$. Si
 consideri la composizione
 \[
 x=(8,\;32,\;18,\;42)^{\prime}.
 \]
 
+
 \medskip
 
 \begin{stepenumerate}
-\item [1.] Verificare il vincolo di bilancio.
 
-\item [2.] Calcolare la liquidit\`{a} disponibile e la perdita nello
-scenario di stress.
 
-\item [3.] Stabilire se la composizione \`{e} ammissibile e, in caso
-negativo, quale requisito \`{e} violato.
+\item[1.] Verificare il vincolo di bilancio.
 
-\item [4.] Per ciascun requisito rispettato, calcolare il margine e dire se
-il vincolo \`{e} attivo.
+\item[2.] Calcolare la liquidit\`{a} disponibile e la perdita nello scenario
+di stress.
+
+\item[3.] Stabilire se la composizione \`{e} ammissibile e, in caso negativo,
+quale requisito \`{e} violato.
+
+\item[4.] Per ciascun requisito rispettato, calcolare il margine e dire se il
+vincolo \`{e} attivo.
 \end{stepenumerate}
 
 \medskip
 
 \begin{center}
-{\small
-$q=(1.00,\;0.90,\;0.50,\;0.20)^{\prime}$
-\qquad
-$\ell=(0,\;0.02,\;0.15,\;0.08)^{\prime}$}
+$q=(1.00,\;0.90,\;0.50,\;0.20)^{\prime}$ \qquad$\ell
+=(0,\;0.02,\;0.15,\;0.08)^{\prime}$
 \end{center}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %*****************************
+
 
 \subsection{Il calcolo}%
 
@@ -1308,50 +1533,64 @@ $\ell=(0,\;0.02,\;0.15,\;0.08)^{\prime}$}
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Le tre grandezze prodotte dalla composizione}
+%TCIMACRO{\QTR{frametitle}{Le tre grandezze prodotte dalla composizione}}%
+%BeginExpansion
+\frametitle{Le tre grandezze prodotte dalla composizione}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
 Bilancio:
 \[
-8+32+18+42=100=A_0.
+8+32+18+42=100=A_{0}.
 \]
+
 
 Liquidit\`{a} disponibile:
 \[
 1.00(8)+0.90(32)+0.50(18)+0.20(42)=8+28.8+9+8.4=54.2.
 \]
 
+
 Perdita nello scenario di stress:
 \[
 0.02(32)+0.15(18)+0.08(42)=0.64+2.70+3.36=6.70.
 \]
 
+
 \medskip
 
 \begin{stepitemize}
-\item Il bilancio \`{e} un'uguaglianza: \`{e} soddisfatto esattamente da
-ogni composizione che impieghi tutte le risorse.
 
-\item La cassa non contribuisce alla perdita, perch\'{e} $\ell_1=0$:
-compare nella liquidit\`{a} con coefficiente unitario e nella perdita non
-compare affatto.
+
+\item Il bilancio \`{e} un'uguaglianza: \`{e} soddisfatto esattamente da ogni
+composizione che impieghi tutte le risorse.
+
+\item La cassa non contribuisce alla perdita, perch\'{e} $\ell_{1}=0$: compare
+nella liquidit\`{a} con coefficiente unitario e nella perdita non compare affatto.
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %*****************************
+
 
 \subsection{La diagnosi}%
 
@@ -1359,23 +1598,30 @@ compare affatto.
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Valore, limite, margine}
+%TCIMACRO{\QTR{frametitle}{Valore, limite, margine}}%
+%BeginExpansion
+\frametitle{Valore, limite, margine}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
 \begin{center}
 {\small
 \begin{tabular}
-[c]{lccc}\hline
-\textbf{Requisito} & \textbf{Valore} & \textbf{Limite} & \textbf{Margine}%
-\\\hline
-Liquidit\`{a} & $54.2$ & $\geq55$ & $-0.8$ \quad violato\\
-Perdita sotto stress & $6.70$ & $\leq7$ & $0.30$\\
-Titoli a lunga scadenza & $18$ & $\leq30$ & $12$\\\hline
+[c]{lcccc}\hline
+\textbf{Vincolo} & \textbf{Valore} & \textbf{Limite} & \textbf{Margine} &
+\textbf{Stato}\\\hline
+Bilancio & $100$ & $=100$ & $0$ & attivo\\
+Liquidit\`{a} & $54.2$ & $\geq55$ & $-0.8$ & violato\\
+Perdita sotto stress & $6.70$ & $\leq7$ & $0.30$ & non attivo\\
+Concentrazione ($x_{3}$) & $18$ & $\leq30$ & $12$ & non attivo\\\hline
 \end{tabular}
 }
 \end{center}
@@ -1386,27 +1632,32 @@ Titoli a lunga scadenza & $18$ & $\leq30$ & $12$\\\hline
 \item Un solo requisito violato basta: $x\notin\mathcal{X}$. Il risultato
 economico della composizione non viene nemmeno calcolato.
 
-\item Nessun vincolo \`{e} attivo tra quelli rispettati: entrambi
-conservano margine. La composizione non si trova su alcuna frontiera.
+\item Tra i vincoli rispettati \`e attivo soltanto il bilancio, come ogni
+uguaglianza; perdita e concentrazione conservano margine.
 
 \item Lo scostamento $-0.8$ misura quanta liquidit\`{a} manca. \`{E} la
 quantit\`{a} che una correzione dovrebbe colmare.
 \end{stepitemize}
 
+%
+
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %*****************************
+
 
 \section{La geometria del problema}
 
 %*****************************
+
 
 \subsection{Un modello bancario ridotto}%
 
@@ -1414,13 +1665,20 @@ quantit\`{a} che una correzione dovrebbe colmare.
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Un problema bancario ridotto, rappresentabile graficamente}
+%TCIMACRO{\QTR{frametitle}{Un problema bancario ridotto, rappresentabile
+%graficamente}}%
+%BeginExpansion
+\frametitle{Un problema bancario ridotto, rappresentabile graficamente}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
+
 
 Il modello a quattro classi non pu\`{o} essere rappresentato su un piano.
 Consideriamo una versione ridotta a \textbf{due sole grandezze}: le
@@ -1432,13 +1690,11 @@ attivit\`{a} liquide e i titoli a lunga scadenza.
 {\small
 \begin{tabular}
 [c]{ll}\hline
-$x_1$ & attivit\`{a} liquide\\
-$x_2$ & titoli a lunga scadenza\\\hline
+$x_{1}$ & attivit\`{a} liquide\\
+$x_{2}$ & titoli a lunga scadenza\\\hline
 \end{tabular}
 }
-\end{center}
 
-\begin{center}
 {\small \emph{Avvertenza: in questa rappresentazione le due variabili sono
 ridefinite. }}
 \end{center}
@@ -1446,33 +1702,33 @@ ridefinite. }}
 \medskip
 
 \begin{stepitemize}
-\item Le risorse destinate alle due classi non possono superare $A_0$: la
+\item Le risorse destinate alle due classi non possono superare $A_{0}$: la
 parte restante \`{e} investita nelle altre classi, non rappresentate.
 
 \item Restano un requisito minimo sulle liquide e un limite massimo sulle
 lunghe, oltre alla non negativit\`{a}.
 \end{stepitemize}
-\[
-x_1+x_2\leq10,
-\qquad
-x_1\geq3,
-\qquad
-x_2\leq4,
-\qquad
-x_1,x_2\geq0.
-\]
 
+%
+
+\[
+x_{1}+x_{2}\leq10, \qquad x_{1}\geq3, \qquad x_{2}\leq4, \qquad x_{1}%
+,x_{2}\geq0.
+\]
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %*****************************
+
 
 \subsection{Regione ammissibile e vertici}%
 
@@ -1480,20 +1736,42 @@ x_1,x_2\geq0.
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{La regione ammissibile e i suoi vertici}
+%TCIMACRO{\QTR{frametitle}{La regione ammissibile e i suoi vertici}}%
+%BeginExpansion
+\frametitle{La regione ammissibile e i suoi vertici}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-\begin{center}
-\includegraphics[width=0.62\textwidth]
-{cap11_geometria_programmazione_lineare.png}
-\end{center}
 
-\begin{center}
+\begin{center}%
+%TCIMACRO{\FRAME{itbpF}{2.9365in}{1.9561in}{0in}{}{}%
+%{cap11_geometria_programmazione_lineare.png}%
+%{\special{ language "Scientific Word";  type "GRAPHIC";
+%maintain-aspect-ratio TRUE;  display "USEDEF";  valid_file "F";
+%width 2.9365in;  height 1.9561in;  depth 0in;  original-width 8.4567in;
+%original-height 5.6333in;  cropleft "0";  croptop "1";  cropright "1";
+%cropbottom "0";
+%filename '../graphics/Cap11_geometria_programmazione_lineare.png';file-properties "XNPEU";}%
+%} }%
+%BeginExpansion
+{\includegraphics[
+natheight=5.633300in,
+natwidth=8.456700in,
+height=1.9561in,
+width=2.9365in
+]%
+{../graphics/Cap11_geometria_programmazione_lineare.png}%
+}
+%EndExpansion
+
+
 {\small
 \begin{tabular}
 [c]{ccl}\hline
@@ -1506,16 +1784,20 @@ $D$ & $(3,4)$ & liquide al minimo, lunghe al massimo\\\hline
 }
 \end{center}
 
+%
+
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %*****************************
+
 
 \subsection{Rette di livello e punti estremi}%
 
@@ -1523,40 +1805,65 @@ $D$ & $(3,4)$ & liquide al minimo, lunghe al massimo\\\hline
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Come la funzione obiettivo sceglie un vertice}
+%TCIMACRO{\QTR{frametitle}{Come la funzione obiettivo sceglie un vertice}}%
+%BeginExpansion
+\frametitle{Come la funzione obiettivo sceglie un vertice}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Stessa regione ammissibile, due criteri diversi: $2x_1+3x_2$ e
-$3x_1+2x_2$.
 
-\begin{center}
-\includegraphics[width=0.60\textwidth]
-{Cap11_Es02_geometria_ottimo.png}
+Stessa regione ammissibile, due criteri diversi: $2x_{1}+3x_{2}$ e
+$3x_{1}+2x_{2}$.
+
+\begin{center}%
+%TCIMACRO{\FRAME{itbpF}{2.8418in}{2.0845in}{0in}{}{}%
+%{cap11_es02_geometria_ottimo.png}{\special{ language "Scientific Word";
+%type "GRAPHIC";  maintain-aspect-ratio TRUE;  display "USEDEF";
+%valid_file "F";  width 2.8418in;  height 2.0845in;  depth 0in;
+%original-width 7.1300in;  original-height 5.2300in;  cropleft "0";
+%croptop "1";  cropright "1";  cropbottom "0";
+%filename '../graphics/Cap11_Es02_geometria_ottimo.png';file-properties "XNPEU";}%
+%} }%
+%BeginExpansion
+{\includegraphics[
+natheight=5.230000in,
+natwidth=7.130000in,
+height=2.0845in,
+width=2.8418in
+]%
+{../graphics/Cap11_Es02_geometria_ottimo.png}%
+}
+%EndExpansion
+
 \end{center}
 
 \begin{stepitemize}
-\item Fissato un livello $k$, l'equazione $c_1x_1+c_2x_2=k$ descrive una
-\textbf{retta di livello}: tutti i suoi punti danno lo stesso risultato. Al
-crescere di $k$ la retta trasla parallelamente.
+\item Fissato un livello $k$, l'equazione $c_{1}x_{1}+c_{2}x_{2}=k$ descrive
+una \textbf{retta di livello}: tutti i suoi punti danno lo stesso risultato.
+Al crescere di $k$ la retta trasla parallelamente.
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %*****************************
 
-\section{La soluzione ottima del modello SVB}
 
 \subsection{Vincoli attivi e vertici}%
 
@@ -1564,50 +1871,62 @@ crescere di $k$ la retta trasla parallelamente.
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Perch\'{e} l'ottimo si trova dove i vincoli stringono}
+%TCIMACRO{\QTR{frametitle}{Perch\'{e} l'ottimo si trova dove i vincoli
+%stringono}}%
+%BeginExpansion
+\frametitle{Perch\'{e} l'ottimo si trova dove i vincoli stringono}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
 %Un \textbf{vertice} \`{e} il punto in cui si incontrano tante frontiere quante sono le variabili. In due dimensioni servono due vincoli attivi; con $n$ variabili ne servono $n$.
 
-Un \textbf{vertice} \`{e} un punto della regione ammissibile nel quale
-sono attivi vincoli sufficienti a determinare localmente la soluzione.
-Con $n$ variabili, servono $n$ vincoli attivi
-\textbf{linearmente indipendenti} per determinare il vertice; in casi degeneri, possono essere attivi
-anche pi\`{u} di $n$ vincoli.
+
+Un \textbf{vertice} \`{e} un punto della regione ammissibile nel quale sono
+attivi vincoli sufficienti a determinare localmente la soluzione. Con $n$
+variabili, servono $n$ vincoli attivi \textbf{linearmente indipendenti} per
+determinare il vertice; in casi degeneri, possono essere attivi anche pi\`{u}
+di $n$ vincoli.
 
 \begin{stepitemize}
 \item L'ottimo \`{e} l'\textbf{ultimo punto di contatto} con la regione. I
-vincoli non cambiano, cambia l'inclinazione delle rette: l'ottimo si sposta
-da $C$ a $B$.
+vincoli non cambiano, cambia l'inclinazione delle rette: l'ottimo si sposta da
+$C$ a $B$.
 
 \item Se le rette fossero parallele a un lato, tutti i punti di quel lato
-sarebbero ottimi. In ogni caso \textbf{almeno un vertice \`{e} ottimo}:
-per cercare l'ottimo basta guardare i vertici.
+sarebbero ottimi. In ogni caso \textbf{almeno un vertice \`{e} ottimo}: per
+cercare l'ottimo basta guardare i vertici.
 \end{stepitemize}
 
 \medskip
 
 \begin{center}
-{\small Cercare l'ottimo significa cercare la \textbf{combinazione di
-vincoli} che lo determina. Il valore di $z^{*}$ dice quanto si ottiene; i
-vincoli attivi dicono \emph{perch\'{e}} non si ottiene di pi\`{u}.}
+{\small Cercare l'ottimo significa cercare la \textbf{combinazione di vincoli}
+che lo determina. Il valore di $z^{*}$ dice quanto si ottiene; i vincoli
+attivi dicono \emph{perch\'{e}} non si ottiene di pi\`{u}.}
 \end{center}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %*****************************
+
 
 \subsection{Che cosa significa soluzione ottima}%
 
@@ -1615,46 +1934,40 @@ vincoli attivi dicono \emph{perch\'{e}} non si ottiene di pi\`{u}.}
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Che cosa significa soluzione ottima}
+%TCIMACRO{\QTR{frametitle}{Che cosa significa soluzione ottima}}%
+%BeginExpansion
+\frametitle{Che cosa significa soluzione ottima}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
 Una soluzione $x^{*}\in\mathcal{X}$ \`{e} \textbf{ottima} se
 \[
-c^{\prime}x^{*}\geq c^{\prime}x
-\qquad\text{per ogni }x\in\mathcal{X},
+c^{\prime}x^{*}\geq c^{\prime}x \qquad\text{per ogni }x\in\mathcal{X},
 \]
 e il valore $z^{*}=c^{\prime}x^{*}$ \`{e} il \textbf{valore ottimo}. La
-definizione richiede due condizioni: ammissibilit\`{a}, e nessuna
-alternativa ammissibile migliore.
+definizione richiede due condizioni: ammissibilit\`{a}, e nessuna alternativa
+ammissibile migliore.
 
 \medskip
 
 \begin{stepitemize}
-\item Se $\mathcal{X}$ non \`{e} vuoto e il massimo \`{e} finito, almeno una
-soluzione ottima \`{e} un \textbf{punto estremo}. Non ogni vertice \`{e}
-ottimo, ma per cercare l'ottimo basta esaminare i vertici.
+\item Quanto visto nel piano vale in generale: se $\mathcal{X}$ non \`e vuoto
+e il massimo \`e finito, almeno una soluzione ottima \`e un \textbf{punto
+estremo}.
 
-\item Un vertice \`{e} individuato da un insieme di vincoli attivi
-linearmente indipendenti che determina la soluzione. Con $n$ variabili,
-servono $n$ vincoli attivi linearmente indipendenti; in presenza di
-degenerazione, possono essere attivi anche pi\`{u} di $n$ vincoli.
-Possono farvi parte le condizioni di non negativit\`{a}, che sono
-vincoli a tutti gli effetti.
-
-
-%\item Un vertice \`{e} individuato da tante frontiere quante sono le variabili: con $n$ variabili, \textbf{$n$ vincoli attivi}. Fra questi possono figurare le condizioni di non negativit\`{a}, che sono vincoli a tutti gli effetti.
-
-\item Identificare la soluzione ottima significa quindi identificare la
-\textbf{combinazione di vincoli} che la determina.
+\item Tra i vincoli attivi che individuano un vertice possono figurare le
+condizioni di non negativit\`a, che sono vincoli a tutti gli effetti.
 \end{stepitemize}
 
-%\medskip
-\vspace{-0.2cm}
+\medskip
 
 \begin{center}
 {\small L'ottimo va riferito al modello adottato: variabili incluse,
@@ -1662,16 +1975,22 @@ coefficienti, vincoli, funzione obiettivo. Non \`{e} la migliore decisione
 possibile in senso assoluto.}
 \end{center}
 
+%
+
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %*****************************
+
+
+\section{La soluzione ottima del modello SVB}
 
 \subsection{La composizione ottima}%
 
@@ -1679,43 +1998,76 @@ possibile in senso assoluto.}
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Torniamo al modello completo SVB: soluzione ottima}
+%TCIMACRO{\QTR{frametitle}{Torniamo al modello completo SVB: soluzione
+%ottima}}%
+%BeginExpansion
+\frametitle{Torniamo al modello completo SVB: soluzione ottima}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-La soluzione ottima del caso \`{e} determinata da
-quattro vincoli attivi linearmente indipendenti. Risolvendo con $A_0=100$, $Q_{\min}=55$, $K=7$ e
-$x_3\leq30$, si ottiene $x^{*}\approx(0;\;41.045;\;20.896;\;38.060)^{\prime}$, $z^{*}\approx3.7649$.
+
+La soluzione ottima del caso \`{e} determinata da quattro vincoli attivi
+linearmente indipendenti. Risolvendo con $A_{0}=100$, $Q_{\min}=55$, $K=7$ e
+$x_{3}\leq30$, si ottiene $x^{*}\approx(0;\;41.045;\;20.896;\;38.060)^{\prime
+}$, $z^{*}\approx3.7649$.
+
+\begin{center}%
+%TCIMACRO{\FRAME{itbpF}{2.6050in}{1.4409in}{0in}{}{}%
+%{cap11_soluzione_ottima_allocazione.png}%
+%{\special{ language "Scientific Word";  type "GRAPHIC";
+%maintain-aspect-ratio TRUE;  display "USEDEF";  valid_file "F";
+%width 2.6050in;  height 1.4409in;  depth 0in;  original-width 11.5955in;
+%original-height 6.4136in;  cropleft "0";  croptop "1";  cropright "1";
+%cropbottom "0";
+%filename '../graphics/Cap11_soluzione_ottima_allocazione.png';file-properties "XNPEU";}%
+%} }%
+%BeginExpansion
+{\includegraphics[
+natheight=6.413600in,
+natwidth=11.595500in,
+height=1.4409in,
+width=2.6050in
+]%
+{../graphics/Cap11_soluzione_ottima_allocazione.png}%
+}
+%EndExpansion
 
 
-\begin{center}
-\includegraphics[width=0.6\textwidth]
-{Cap11_soluzione_ottima_allocazione.png}
+
 \end{center}
-\vspace{-0.1cm}
-\begin{stepitemize}
-\item La soluzione \`{e} un vettore, non un numero: $z^{*}$ dice quanto si
-ottiene, $x^{*}$ dice come. Due modelli con lo stesso valore ottimo possono
-richiedere decisioni molto diverse.
 
-\item $z^{*}$ ha l'unit\`{a} dei coefficienti $c_j$: \`{e} il margine
-complessivo, che con $A_0=100$ si legge anche come percentuale dell'attivo.
+\vspace{-0.1cm}
+
+\begin{stepitemize}
+\item La soluzione \`{e} un vettore, non un numero: $z^{\ast}$ dice
+\textbf{quanto} si ottiene, $x^{\ast}$ dice \textbf{come}. Due modelli con lo
+stesso valore ottimo possono richiedere decisioni molto diverse.
+
+\item $z^{*}$ ha l'unit\`{a} dei coefficienti $c_{j}$: \`{e} il margine
+complessivo, che con $A_{0}=100$ si legge anche come percentuale dell'attivo.
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %*****************************
+
 
 \subsection{Che cosa rivelano i vincoli attivi}%
 
@@ -1724,26 +2076,33 @@ complessivo, che con $A_0=100$ si legge anche come percentuale dell'attivo.
 \begin{frame}%
 %EndExpansion
 
-%\QTR{frametitle}{I vincoli attivi identificano la soluzione}
 
-\QTR{frametitle}{Che cosa rivelano i vincoli attivi}
+%\QTR{frametitle}{I vincoli attivi identificano la soluzione}
+%
+
+%TCIMACRO{\QTR{frametitle}{Che cosa rivelano i vincoli attivi}}%
+%BeginExpansion
+\frametitle{Che cosa rivelano i vincoli attivi}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
 \begin{center}
 {\small
 \begin{tabular}
-[c]{lccc}\hline
-\textbf{Vincolo} & \textbf{Valore} & \textbf{Limite} & \textbf{Margine}%
-\\\hline
-Bilancio & $100$ & $=100$ & $0$ \quad attivo\\
-Liquidit\`{a} & $55.00$ & $\geq55$ & $0$ \quad attivo\\
-Perdita sotto stress & $7.00$ & $\leq7$ & $0$ \quad attivo\\
-Non negativit\`{a} di $x_1$ & $0$ & $\geq0$ & $0$ \quad attivo\\
-Titoli a lunga scadenza & $20.896$ & $\leq30$ & $9.104$\\\hline
+[c]{lcccc}\hline
+\textbf{Vincolo} & \textbf{Valore} & \textbf{Limite} & \textbf{Margine} &
+\textbf{Stato}\\\hline
+Bilancio & $100$ & $=100$ & $0$ & attivo\\
+Liquidit\`{a} & $55.00$ & $\geq55$ & $0$ & attivo\\
+Perdita sotto stress & $7.00$ & $\leq7$ & $0$ & attivo\\
+Non negativit\`{a} di $x_{1}$ & $0$ & $\geq0$ & $0$ & attivo\\
+Concentrazione ($x_{3}$) & $20.896$ & $\leq30$ & $9.104$ & non attivo\\\hline
 \end{tabular}
 }
 \end{center}
@@ -1755,32 +2114,39 @@ Quattro variabili, quattro vincoli attivi: la soluzione \`{e} il vertice ottimo.
 \medskip
 
 \begin{stepitemize}
-\item Un vincolo con margine \textbf{positivo} non condiziona localmente
-la soluzione: un piccolo allentamento lascia invariati $x^{*}$ e $z^{*}$.
+\item Un vincolo con margine \textbf{positivo} non condiziona localmente la
+soluzione: un piccolo allentamento lascia invariati $x^{*}$ e $z^{*}$.
 
-% \item Un vincolo con margine \textbf{positivo} non condiziona la soluzione:
-% allentarlo lascerebbe $x^{*}$ invariato. 
+%\item Un vincolo con margine \textbf{positivo} non condiziona la soluzione:
+%allentarlo lascerebbe $x^{*}$ invariato.
+
+
 \item Solo un vincolo \textbf{attivo} pu\`{o} avere valore marginale non
-nullo. La decisione \`{e} condizionata dalla
-combinazione tra fabbisogno di liquidit\`{a} e capacit\`{a} di assorbire
-perdite.
+nullo. La decisione \`{e} condizionata dalla combinazione tra fabbisogno di
+liquidit\`{a} e capacit\`{a} di assorbire perdite.
 
 \item Un vincolo attivo pu\`{o} rivelare un requisito \textbf{mancante}:
-$x_1^{*}=0$ non significa cassa inutile, ma che nessun vincolo impone di
-detenerne. Se la banca ritiene necessaria una dotazione
-minima, deve scriverla come vincolo: $x_1\geq C_{\min}$.
+$x_{1}^{*}=0$ non significa cassa inutile, ma che nessun vincolo impone di
+detenerne. Se la banca ritiene necessaria una dotazione minima, deve scriverla
+come vincolo: $x_{1}\geq C_{\min}$.
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %**************************
+
+
+\section{Sensitivit\`a e prezzi ombra}
 
 \subsection{La funzione del valore ottimo}%
 
@@ -1788,56 +2154,63 @@ minima, deve scriverla come vincolo: $x_1\geq C_{\min}$.
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Analisi di sensitività: il valore ottimo come funzione di un termine noto}
+%TCIMACRO{\QTR{frametitle}{Il valore ottimo in funzione del requisito di
+%liquidit\`a}}%
+%BeginExpansion
+\frametitle{Il valore ottimo in funzione del requisito di liquidit\`a}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-I termini noti $b_i$ non sono prodotti dal modello: sono livelli fissati
-prima della soluzione. Ciascuno pu\`{o} essere trattato come un
-\textbf{parametro} e si pu\`{o} studiare come varia il valore ottimo al suo
-variare.
 
-\medskip
-
-Nel modello SVB assumiamo come parametro il requisito di liquidit\`{a} e
-scriviamo $z^{*}(Q)$ per il migliore risultato compatibile con il livello
-$Q$.
-
-\medskip
-
-\begin{stepitemize}
-\item \textbf{Monotonia.} Se $Q_2>Q_1$, ogni decisione che soddisfa il
-requisito pi\`{u} severo soddisfa anche quello pi\`{u} blando:
-\[
-\mathcal{X}(Q_2)\subseteq\mathcal{X}(Q_1)
-\qquad\Longrightarrow\qquad
-z^{*}(Q_2)\leq z^{*}(Q_1).
+Come ogni termine noto, il requisito di liquidit\`a \`e fissato prima della
+soluzione: finora $Q_{\min}=55$. Ora lo trattiamo come un \textbf{parametro}
+$Q$ e chiamiamo
+\[%
+\begin{array}
+[c]{rl}%
+\mathcal{X}(Q) & \text{le composizioni ammissibili con il vincolo }q^{\prime
+}x\geq Q,\\[3pt]%
+z^{*}(Q) & \text{il miglior risultato ottenibile in }\mathcal{X}(Q).
+\end{array}
 \]
 
-\item Il risultato non richiede di risolvere nulla: discende dal fatto che
-\textbf{restringere l'insieme ammissibile non pu\`{o} migliorare il
-massimo}.
 
-\item Non afferma che una maggiore liquidit\`{a} sia indesiderabile:
-afferma che un requisito pi\`{u} severo pu\`{o} escludere allocazioni
-redditizie. La riduzione di $z^{*}$ misura il \textbf{costo
-opportunit\`{a}} della prudenza \emph{all'interno del modello}.
+\begin{stepitemize}
+\item \textbf{Un requisito pi\`u severo restringe le scelte.} Se $Q_{2}>Q_{1}%
+$, ogni composizione con $q^{\prime}x\geq Q_{2}$ ha anche $q^{\prime}x\geq
+Q_{1}$, quindi $\mathcal{X}(Q_{2})\subseteq\mathcal{X}(Q_{1})$.
+
+\item \textbf{Ridurre lo spazio delle soluzioni ammissibili non pu\`{o}
+migliorare il risultato.} La composizione ottima con $Q_{2}$ vale altrettanto
+con $Q_{1}$, quindi $z^{\ast}(Q_{2})\leq z^{\ast}(Q_{1})$.
+
+\item \textbf{La differenza \`e il costo della prudenza.} $z^{*}(Q_{1}%
+)-z^{*}(Q_{2})$ \`e il rendimento a cui si rinuncia per avere pi\`u
+liquidit\`a: un \textbf{costo opportunit\`a}, misurato \emph{all'interno del
+modello}. Non dice che la liquidit\`a sia un male: dice quanto costa.
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %*****************************
+
 
 \subsection{Analisi numerica e costo marginale}%
 
@@ -1845,13 +2218,19 @@ opportunit\`{a}} della prudenza \emph{all'interno del modello}.
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Il costo marginale della liquidit\`{a}}
+%TCIMACRO{\QTR{frametitle}{Il costo marginale della liquidit\`{a}}}%
+%BeginExpansion
+\frametitle{Il costo marginale della liquidit\`{a}}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
+
 
 \begin{center}
 {\small
@@ -1864,25 +2243,47 @@ $75$ & $3.0571$ & $(0;\;65.714;\;30.000;\;4.286)$\\
 $80$ & $2.8750$ & $(0;\;75.000;\;25.000;\;0)$\\\hline
 \end{tabular}
 }
+
+\bigskip%
+
+%TCIMACRO{\FRAME{itbpF}{2.6368in}{1.5865in}{0in}{}{}%
+%{cap11_valore_ottimo_liquidita.png}{\special{ language "Scientific Word";
+%type "GRAPHIC";  maintain-aspect-ratio TRUE;  display "USEDEF";
+%valid_file "F";  width 2.6368in;  height 1.5865in;  depth 0in;
+%original-width 6.7933in;  original-height 4.06in;  cropleft "0";
+%croptop "1";  cropright "1";  cropbottom "0";
+%filename '../graphics/Cap11_valore_ottimo_liquidita.png';file-properties "XNPEU";}%
+%} }%
+%BeginExpansion
+{\includegraphics[
+natheight=4.060000in,
+natwidth=6.793300in,
+height=1.5865in,
+width=2.6368in
+]%
+{../graphics/Cap11_valore_ottimo_liquidita.png}%
+}
+%EndExpansion
+
+
+
 \end{center}
 
-\begin{center}
-\includegraphics[width=0.58\textwidth]
-{Cap11_valore_ottimo_liquidita.png}
-\end{center}
-
-$z^{*}(Q)$ \`{e} \textbf{funzione lineare a tratti}. La pendenza cambia quando cambia l'insieme dei vincoli attivi.
+$z^{\ast}(Q)$ \`{e} \textbf{funzione lineare a tratti}. La pendenza cambia
+quando cambia l'insieme dei vincoli attivi.%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %*****************************
+
 
 \subsection{Una valutazione locale}%
 
@@ -1890,261 +2291,181 @@ $z^{*}(Q)$ \`{e} \textbf{funzione lineare a tratti}. La pendenza cambia quando c
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Come si legge un costo marginale}
+%TCIMACRO{\QTR{frametitle}{Come si legge un costo marginale}}%
+%BeginExpansion
+\frametitle{Come si legge un costo marginale}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
 \begin{stepitemize}
-\item \textbf{\`{E} un costo opportunit\`{a}, non una spesa.} Nessun
-esborso contabile: \`{e} il risultato massimo al quale il modello rinuncia
-per rispettare un requisito leggermente pi\`{u} severo.
+\item \textbf{\`{E} un costo opportunit\`{a}, non una spesa.} Nessun esborso
+contabile: \`{e} il risultato massimo al quale il modello rinuncia per
+rispettare un requisito leggermente pi\`{u} severo.
 
 \item \textbf{Vale localmente.} La derivata di $z^{*}$ rispetto al termine
-noto \`{e} costante finch\'{e} l'insieme dei vincoli attivi non cambia.
-Fuori da quell'intervallo va ricalcolata: un costo marginale senza il
-proprio intervallo di validit\`{a} \`{e} un numero incompleto.
+noto \`{e} costante finch\'{e} l'insieme dei vincoli attivi non cambia. Fuori
+da quell'intervallo va ricalcolata: un costo marginale senza il proprio
+intervallo di validit\`{a} \`{e} un numero incompleto.
 
 \item \textbf{Si legge nella ricomposizione.} Il costo non nasce dal nulla:
 irrigidire un requisito obbliga a sostituire alcune attivit\`{a} con altre
-meno redditizie. Qui le risorse migrano verso i titoli a breve e i prestiti
-si riducono fino ad azzerarsi.
+meno redditizie. Qui le risorse migrano verso i titoli a breve e i prestiti si
+riducono fino ad azzerarsi.
 
 \item \textbf{Non \`{e} una risposta normativa.} Dice quanto costa la
 prudenza, non quanta prudenza serva: quella scelta richiede valutazioni sul
-rischio dei deflussi e sulla stabilit\`{a} della raccolta, che il modello
-non contiene.
+rischio dei deflussi e sulla stabilit\`{a} della raccolta, che il modello non contiene.
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %*****************************
 
-\section{Sensitivit\`{a} e prezzi ombra}
+
+\subsection{Valore marginale dei vincoli e prezzi ombra}%
 
 %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Ogni vincolo ha un proprio effetto marginale}
+%TCIMACRO{\QTR{frametitle}{Il prezzo ombra di un vincolo}}%
+%BeginExpansion
+\frametitle{Il prezzo ombra di un vincolo}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-L'analisi condotta sul requisito di liquidit\`{a} si estende a ogni
-termine noto $b_i$ del modello:
 
+Per la liquidit\`{a} di SVB abbiamo visto che: requisito pi\`{u} severo
+$\Rightarrow$ insieme ammissibile pi\`{u} piccolo $\Rightarrow$ valore ottimo
+inferiore. Questo ragionamento si estende ad \textbf{ogni} vincolo attivo ed
+introduce il concetto di \textbf{prezzo ombra}.
+
+\begin{definition}
+[Definizione]Il \textbf{prezzo ombra} $\lambda_{i}$ di un vincolo $i$ \`{e} la
+derivata del valore ottimo rispetto al termine noto $b_{i}$:
 \[
-\frac{\partial z^{*}}{\partial b_i},
-\qquad i=1,\ldots,m.
+\lambda_{i}=\frac{\partial z^{\ast}}{\partial b_{i}}.
 \]
 
-\begin{stepitemize}
+\end{definition}
 
-\item Queste derivate misurano il \textbf{valore marginale dei vincoli}:
-indicano come cambia localmente il valore ottimo quando un requisito viene
-modificato.
+\begin{itemize}
+\item Finch\'{e} i vincoli attivi non cambiano, $z^{\ast}$ varia
+\textbf{linearmente} con ciascun termine noto e quindi $\lambda_{i}$ =
+\textbf{valore costante} (come abbiamo visto per $Q$ nel caso SVB).
 
-\item Un vincolo con margine positivo ha localmente effetto marginale
-\textbf{nullo}. Solo un vincolo attivo pu\`{o} avere un valore marginale
-non nullo.
+\item Un vincolo con margine positivo non condiziona la soluzione: una piccola
+variazione del suo termine noto lascia invariati $x^{\ast}$ e $z^{\ast}$.
+\textbf{Solo i vincoli attivi hanno un valore marginale diverso da zero.}
+\end{itemize}
 
-\item Calcolare questi effetti perturbando separatamente tutti i vincoli
-diventa rapidamente inefficiente.
+%
 
-\end{stepitemize}
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout
+%EndExpansion%
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
 
-\medskip
+
+%*****************************
+%
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+%
+
+%TCIMACRO{\QTR{frametitle}{Ogni vincolo attivo ha un valore marginale}}%
+%BeginExpansion
+\frametitle{Ogni vincolo attivo ha un valore marginale}%
+%EndExpansion
+%
+
+%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
+%BeginExpansion
+\setbeamercovered{transparent=20}%
+%EndExpansion
+
+
+\begin{itemize}
+\item \textbf{Interpretazione dei prezzi ombra}: dipende dal tipo di problema,
+di massimo (es.\ un profitto) o di minimo (es.\ un costo), e dal verso in cui
+$b_{i}$ modifica $\mathcal{X}$:
+\end{itemize}
 
 \begin{center}
 {\small
-\textbf{Come ottenere congiuntamente i valori marginali di tutti i vincoli?}
-
-\medskip
-
-La risposta sar\`a il \textbf{problema duale}, sviluppato nella Lezione 12.
+\begin{tabular}
+[c]{lcc}\hline
+& aumentare $b_{i}$ \textbf{allarga} $\mathcal{X}$ & aumentare $b_{i}$
+\textbf{restringe} $\mathcal{X}$\\\hline
+\textbf{max} (profitto) & $\lambda_{i}>0$ & $\lambda_{i}<0$\\
+& {\footnotesize profitto dal rilassamento} & {\footnotesize perdita dalla
+restrizione}\\[4pt]%
+\textbf{min} (costo) & $\lambda_{i}<0$ & $\lambda_{i}>0$\\
+& {\footnotesize risparmio dal rilassamento} & {\footnotesize costo della
+restrizione}\\\hline
+\end{tabular}
 }
 \end{center}
 
+\begin{itemize}
+\item \textbf{Caso SVB, massimizzare rendimento, vincolo liquidit\`{a} }$dQ$
+restringe $\mathcal{X}$\textbf{:} $\partial z^{\ast}/\partial Q\approx
+-0.03507$. Ogni unit\`{a} di requisito liquidit\`{a} aggiuntiva $Q$
+produrrebbe una riduzione del rendimento.
+\end{itemize}
+
+\medskip
+
+{\small Calcolare i prezzi ombra un vincolo alla volta richiede di risolvere
+pi\`u volte il modello. Il \textbf{problema duale} (Lezione 12) li fornisce
+tutti insieme.}%
+
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
-
-%*****************************
-
-\subsection{Il prezzo ombra di un vincolo}%
-
-% %TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-% %BeginExpansion
-% \begin{frame}%
-% %EndExpansion
-
-% \QTR{frametitle}{Il prezzo ombra di un vincolo}
-
-% %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-% %BeginExpansion
-% \setbeamercovered{transparent=20}%
-% %EndExpansion
-
-% % Si chiama \textbf{prezzo ombra} del vincolo $i$ la derivata del valore
-% % ottimo rispetto al proprio termine noto,
-% % \[
-% % \lambda_i=\frac{\partial z^{*}}{\partial b_i},
-% % \]
-% % valida sull'intervallo in cui l'insieme dei vincoli attivi non cambia. Il
-% % segno dipende dal verso: una risorsa disponibile in maggior quantit\`{a}
-% % migliora il risultato, un requisito pi\`{u} severo lo peggiora.
-
-% La variabile duale $\lambda_i$ d\`{a} il valore marginale per il
-% vincolo $i$, dopo aver scritto il vincolo nella forma di
-% riferimento utilizzata per il problema duale.
-
-% %\medskip
-
-% La derivata del valore ottimo rispetto a un parametro economico pu\`{o}
-% avere segno diverso da $\lambda_i$, a seconda di come quel parametro
-% compare nel termine noto del vincolo. Per il requisito minimo di
-% liquidit\`{a}, ad esempio, vale ${\partial z^{*}}/{\partial Q}
-% =
-% -\lambda_Q$.
-% $\lambda_i$ \`{e} locale: resta valida finch\'{e} l'insieme dei
-% vincoli attivi non cambia.
-
-% %\vspace{-0.1cm}
-
-% \begin{center}
-% {\small
-% \begin{tabular}
-% [c]{lcrl}\hline
-% \textbf{Vincolo} & \textbf{Termine noto} & $\lambda_i$ &
-% \textbf{Lettura}\\\hline
-% Bilancio & $A_0=100$ & $0.05642$ & valore di una risorsa in pi\`{u}\\
-% Liquidit\`{a} & $Q=55$ & $0.03507$ & valore duale del requisito\\
-% Perdita & $K=7$ & $0.00746$ & valore di un limite pi\`{u} ampio\\
-% Concentrazione & $30$ & $0.00000$ & vincolo non attivo\\\hline
-% \end{tabular}
-% }
-% \end{center}
-
-% \begin{stepitemize}
-% %\item Il \textbf{vettore dei prezzi ombra} include $\lambda_Q=-0.03507$ già osservato.
-
-% \item Per il requisito di liquidit\`{a}, $\lambda_Q=0.03507,\qquad \frac{\partial z^{*}}{\partial Q}=-0.03507$.\\
-% La variabile duale misura il costo marginale del requisito; il segno
-% negativo della derivata indica che aumentare $Q$ riduce il valore ottimo.
-
-
-% \item $\lambda_C=0$ perch\'{e} il limite di concentrazione ha margine
-% $9.104$: \textbf{margine positivo implica prezzo nullo}.
-% \end{stepitemize}
-
-% %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-% %BeginExpansion
-% \transboxout%
-% %EndExpansion
-% %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-% %BeginExpansion
-% \end{frame}%
-% %EndExpansion
-
-
-
-\subsection{Il prezzo ombra di un vincolo}%
-
-%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
-%BeginExpansion
-\begin{frame}%
-%EndExpansion
-
-\QTR{frametitle}{Il prezzo ombra di un vincolo}
-
-%TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
-%BeginExpansion
-\setbeamercovered{transparent=20}%
-%EndExpansion
-
-Chiamiamo \textbf{prezzo ombra} del vincolo $i$ il valore marginale
-associato a una piccola variazione del proprio termine noto:
-
-\vspace{-0.3cm}
-
-\[
-\lambda_i
-=
-\frac{\partial z^{*}}{\partial b_i},
-\]
-
-finch\'{e} l'insieme dei vincoli attivi non cambia.
-
-
-
-%\medskip
-
-Il segno rispetto a un parametro economico dipende da come quel parametro
-entra nel vincolo. Per il requisito minimo di liquidit\`{a},
-
-\vspace{-0.3cm}
-
-\[
-q'x\geq Q
-\qquad\Longleftrightarrow\qquad
--q'x\leq -Q,
-\]
-
-e quindi
-\vspace{-0.3cm}
-\[
-\frac{\partial z^{*}}{\partial Q}
-=
--\lambda_Q,
-\qquad
-\lambda_Q\approx0.03507.
-\]
-
-\begin{stepitemize}
-
-\item Aumentare $Q$ rende il requisito pi\`{u} severo e riduce localmente il
-valore ottimo.
-
-\item Il prezzo ombra \`{e} una \textbf{valutazione locale}: resta valido
-finch\'{e} non cambia la struttura dei vincoli attivi.
-
-\item Un vincolo con margine positivo ha localmente prezzo ombra nullo.
-
-\end{stepitemize}
-
-%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
-%BeginExpansion
-\transboxout%
-%EndExpansion
-%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
-%BeginExpansion
-\end{frame}%
-%EndExpansion
-
 
 
 \section{Esercizio in aula: redditivit\`{a} e resilienza}
 
 %*****************************
+
 
 \subsection{Enunciato}%
 
@@ -2152,49 +2473,62 @@ finch\'{e} non cambia la struttura dei vincoli attivi.
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Esercizio: quali vincoli determineranno la decisione?}
+%TCIMACRO{\QTR{frametitle}{Esercizio: il costo di una politica pi\`{u}
+%resiliente}}%
+%BeginExpansion
+\frametitle{Esercizio: il costo di una politica pi\`{u} resiliente}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
+La banca valuta una politica pi\`{u} prudente. Rispetto alla soluzione ottima
+trovata, cambiano due requisiti:
+
 \begin{center}
 {\small
-Prima di risolvere nuovamente il modello, formulate una previsione qualitativa:
-
-\medskip
-
-\textbf{quali vincoli vi aspettate diventino attivi e quali modifiche dei
-requisiti potrebbero avere il maggiore effetto sul valore ottimo?}
+\begin{tabular}
+[c]{lcc}\hline
+\textbf{Requisito} & \textbf{Caso base} & \textbf{Politica resiliente}\\\hline
+Liquidit\`{a} minima $Q_{\min}$ & $55$ & $75$\\
+Cassa minima $x_{1}\geq C_{\min}$ & --- & $10$\\\hline
+\end{tabular}
 }
 \end{center}
 
-\medskip
+Bilancio ($A_{0}=100$), perdita sotto stress ($K=7$) e concentrazione
+($x_{3}\leq30$) restano invariati. Prima di risolvere, formulate una previsione:
 
 \begin{stepitemize}
+\item Il valore ottimo $z^{\ast}$ aumenter\`{a} o diminuir\`{a}? Si pu\`{o}
+dire senza calcoli?
 
-\item Confrontate il margine disponibile nei diversi vincoli.
+\item Quali vincoli resteranno attivi e quali potrebbero acquistare margine?
+Partite dai margini della soluzione ottima.
 
-\item Individuate quali requisiti sembrano pi\`{u} vicini a condizionare
-la scelta ottima.
-
-\item Per i vincoli attivi, ragionate sul segno atteso dell'effetto
-marginale di un loro irrigidimento.
-
+\item Che segno vi aspettate per i prezzi ombra dei due requisiti irrigiditi?
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %*****************************
+
 
 \subsection{Debrief}%
 
@@ -2202,70 +2536,74 @@ marginale di un loro irrigidimento.
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{I vincoli si scambiano il ruolo}
+%TCIMACRO{\QTR{frametitle}{I vincoli si scambiano il ruolo}}%
+%BeginExpansion
+\frametitle{I vincoli si scambiano il ruolo}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
 \begin{center}
 {\small
-\begin{tabular}{lrrrr}
-\hline
-& \multicolumn{2}{c}{\textbf{Situazione iniziale}}
-& \multicolumn{2}{c}{\textbf{Maggiore resilienza}}\\
-\textbf{Vincolo} & \textbf{margine} & $\lambda_i$
-& \textbf{margine} & $\lambda_i$\\
-\hline
-Liquidit\`{a} & $0$ & $0.03507$ & $0$ & $0.03571$\\
-Perdita sotto stress & $0$ & $0.00746$ & $0.957$ & $0$\\
-Concentrazione & $9.104$ & $0$ & $0$ & $0.00071$\\
-Cassa minima & --- & --- & $0$ & $0.01143$\\
-\hline
+\begin{tabular}
+[c]{lrcrrc}\hline
+& \multicolumn{2}{c}{\textbf{Caso base}} &  &
+\multicolumn{2}{c}{\textbf{Politica resiliente}}\\\cline{2-3}\cline{5-6}%
+\textbf{Vincolo} & \textbf{margine} & $\lambda_{i}$ &  & \textbf{margine} &
+$\lambda_{i}$\\\hline
+Liquidit\`{a} & $0$ & \multicolumn{1}{r}{$-0.03507$} &  & $0$ &
+\multicolumn{1}{r}{$-0.03571$}\\
+Perdita sotto stress & $0$ & \multicolumn{1}{r}{$0.00746$} &  & $0.957$ &
+\multicolumn{1}{r}{$0$}\\
+Concentrazione & $9.104$ & \multicolumn{1}{r}{$0$} &  & $0$ &
+\multicolumn{1}{r}{$0.00071$}\\
+Cassa minima & --- & \multicolumn{1}{r}{---} &  & $0$ &
+\multicolumn{1}{r}{$-0.01143$}\\\hline
+Soluzione ottima $x^{\ast}$ & \multicolumn{2}{c}{$(0;\,41.0;\,20.9;\,38.1)$} &
+& \multicolumn{2}{c}{$(10;\,54.3;\,30;\,5.7)$}\\
+Valore ottimo $z^{\ast}$ & \multicolumn{2}{c}{$3.7649$} &  &
+\multicolumn{2}{c}{$2.9429$}\\\hline
 \end{tabular}
 }
 \end{center}
 
-\medskip
-
 \begin{stepitemize}
+\item \textbf{Il costo della resilienza} \`{e} $3.7649-2.9429=0.822$, circa il
+$22\%$ del valore ottimo: le risorse passano dai prestiti ai titoli a breve e
+alla cassa.
 
-\item I vincoli attivi possono cambiare quando cambiano i requisiti:
-la struttura della soluzione non \`{e} immutabile.
-
-\item Un vincolo che acquista margine perde localmente il proprio prezzo
-ombra; un vincolo che diventa attivo pu\`{o} invece acquisire valore
-marginale.
-
-\item Per un requisito minimo, un prezzo ombra positivo segnala un costo
-marginale: aumentando il livello richiesto, il valore ottimo diminuisce
-localmente.
-
+\item \textbf{Alcuni vincoli attivi si sostituiscono}: la perdita sotto stress
+acquista margine e il suo prezzo ombra si annulla; concentrazione e cassa
+minima diventano attive. I prezzi ombra sono \textbf{locali}: cambiano con
+l'insieme dei vincoli attivi.
 \end{stepitemize}
 
-\begin{center}
-{\small
-I prezzi ombra sono quindi \textbf{locali}: cambiano quando cambia
-l'insieme dei vincoli che determina l'ottimo.
-}
-\end{center}
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %*****************************
+
 
 \section{Limiti del modello e sintesi}
 
 %*****************************
+
 
 \subsection{Che cosa il modello non rappresenta}%
 
@@ -2273,58 +2611,63 @@ l'insieme dei vincoli che determina l'ottimo.
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{I limiti sono conseguenze delle ipotesi}
+%TCIMACRO{\QTR{frametitle}{I limiti sono conseguenze delle ipotesi}}%
+%BeginExpansion
+\frametitle{I limiti sono conseguenze delle ipotesi}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
-Ogni ipotesi di linearit\`{a} dichiarata all'inizio produce un limite
-preciso alla portata dei risultati.
 
-\medskip
+Le ipotesi del modello lo rendono risolvibile, ma ciascuna esclude un fenomeno
+che nel caso SVB ha avuto un ruolo.
 
 \begin{center}
 {\small
 \begin{tabular}
 [c]{ll}\hline
-\textbf{Ipotesi} & \textbf{Limite che ne deriva}\\\hline
-Proporzionalit\`{a} & nessuna \emph{fire sale}: la perdita unitaria non
+\textbf{Ipotesi} & \textbf{Che cosa esclude}\\\hline
+Proporzionalit\`{a} & le vendite forzate (\emph{fire sale}): $\ell_{j}$ non
 cresce\\
- & con l'importo liquidato\\[3pt]
-Additivit\`{a} & nessuna amplificazione tra classi di attivo\\[3pt]
-Coefficienti dati & un solo scenario di stress; l'incertezza \`{e}
-riassunta\\
- & in $c_j$, $q_j$, $\ell_j$ e non compare esplicitamente\\\hline
+& con la quantit\`{a} venduta\\[3pt]%
+Additivit\`{a} & il contagio: le perdite su una classe non costringono\\
+& a vendere in perdita le altre\\[3pt]%
+Coefficienti noti & l'incertezza: un solo scenario di stress. Pi\`{u}
+scenari\\
+& sono l'oggetto della programmazione stocastica\\
+& (Lezioni 14--15)\\\hline
 \end{tabular}
 }
 \end{center}
 
-\medskip
-
 \begin{stepitemize}
-\item Un limite ulteriore non riguarda i vincoli ma la
-\textbf{funzione obiettivo}: massimizzare il margine non attribuisce alcun
-valore alla continuit\`{a} aziendale. Il costo della resilienza \`{e}
-misurato, il beneficio no.
-
-\item Una soluzione pu\`{o} essere inadeguata non perch\'{e} il problema
-sia stato risolto male, ma perch\'{e} il problema \textbf{formulato} non
-contiene una dimensione rilevante.
+\item Anche la \textbf{funzione obiettivo} ha un limite: misura solo il
+margine. Il costo della resilienza \`{e} nel modello ($z^{\ast}$ scende di
+$0.822$); il suo beneficio, resistere a una corsa agli sportelli come quella
+subita da SVB, non lo \`{e}. Servirebbe ricorrere a \textbf{metodi
+multi-criterio}.
 \end{stepitemize}
+
+%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
+
 %*****************************
+
 
 \subsection{Sintesi}%
 
@@ -2332,57 +2675,58 @@ contiene una dimensione rilevante.
 %BeginExpansion
 \begin{frame}%
 %EndExpansion
+%
 
-\QTR{frametitle}{Sintesi: dal vincolo al suo prezzo}
+%TCIMACRO{\QTR{frametitle}{Sintesi: dal vincolo al suo prezzo}}%
+%BeginExpansion
+\frametitle{Sintesi: dal vincolo al suo prezzo}%
+%EndExpansion
+%
 
 %TCIMACRO{\TeXButton{Transparency}{\setbeamercovered{transparent=20}}}%
 %BeginExpansion
 \setbeamercovered{transparent=20}%
 %EndExpansion
 
+
 \begin{stepenumerate}
-\item [1.] \textbf{Formulare.} Variabili decisionali, funzione obiettivo e
+\item[1.] \textbf{Formulare.} Variabili decisionali, funzione obiettivo e
 vincoli: $\max c^{\prime}x$, $Ax\leq b$, $x\geq0$.
 
-\item [2.] \textbf{Delimitare.} $\mathcal{X}$ raccoglie le decisioni
+\item[2.] \textbf{Delimitare.} $\mathcal{X}$ raccoglie le decisioni
 ammissibili; il margine misura la distanza di un vincolo dal proprio limite.
 
-\item [3.] \textbf{Individuare.} L'ottimo pu\`{o} essere cercato tra i punti
+\item[3.] \textbf{Individuare.} L'ottimo pu\`{o} essere cercato tra i punti
 estremi, determinati dai vincoli attivi.
 
-\item [4.] \textbf{Valutare al margine.} La sensitivit\`{a} misura come
-cambia localmente il valore ottimo al variare dei requisiti.
+\item[4.] \textbf{Valutare al margine.} La sensitivit\`{a} misura come cambia
+localmente il valore ottimo al variare dei requisiti.
 
-\item [5.] \textbf{Interpretare.} Il prezzo ombra esprime il valore marginale
-di un vincolo; se il vincolo ha margine positivo, il prezzo \`{e}
-localmente nullo.
+\item[5.] \textbf{Interpretare.} Il prezzo ombra esprime il valore marginale
+di un vincolo; se il vincolo ha margine positivo, il prezzo \`{e} localmente nullo.
 \end{stepenumerate}
 
 \begin{center}
-{\small
-Il vincolo contribuisce a determinare la decisione e pu\`{o} avere un
-proprio valore marginale.
-
-\smallskip
-
-\textbf{Lezione 12}: costruiremo il problema duale e useremo i prezzi ombra
-per interpretare liquidit\`{a} e funding alle diverse scadenze.
-}
+{\small Il vincolo contribuisce a determinare la decisione e pu\`{o} avere un
+proprio valore marginale. }
 \end{center}
+
+{\small \smallskip}
+
+{\small \textbf{Lezione 12}: costruiremo il problema duale e useremo i prezzi
+ombra per interpretare liquidit\`{a} e funding alle diverse scadenze. }%
 
 %TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
 %BeginExpansion
-\transboxout%
-%EndExpansion
+\transboxout
+%EndExpansion%
 %TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
 %BeginExpansion
 \end{frame}%
 %EndExpansion
 
-%*****************************
-
-
 
 
 %*****************************
+
 \end{document}
