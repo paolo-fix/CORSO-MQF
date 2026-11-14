@@ -351,7 +351,7 @@ scenari
 s\in\mathcal S=\{1,\ldots,N\},
 \]
 
-ai quali sono associati pesi probabilistici
+\noindent ai quali sono associati pesi probabilistici
 
 \[
 p_s\geq0,
@@ -376,7 +376,7 @@ Figura~\ref{fig:cap14-rappresentazione-scenari}.
 \includegraphics[width=0.82\textwidth]
 {../graphics/Cap14_rappresentazione_scenari.png}
 \caption{Rappresentazione discreta dell'incertezza mediante un insieme
-finito di scenari. A ciascuno scenario \`e associata una probabilit\`a;
+finito di scenari. A ciascun scenario, \`e associata una probabilit\`a;
 $N$ indica il numero complessivo degli scenari considerati.}
 \label{fig:cap14-rappresentazione-scenari}
 \end{figure}
@@ -395,7 +395,7 @@ possibili valori vengono inclusi, allora
 p_s=\Prob(\xi=\xi_s)
 \]
 
-e la rappresentazione \`e esatta. Per ogni funzione integrabile $\varphi$,
+\noindent e la rappresentazione \`e esatta. Per ogni funzione integrabile $\varphi$,
 
 \begin{equation}
 \E[\varphi(\xi)]
@@ -427,7 +427,7 @@ Se
 \xi=(\xi_1,\ldots,\xi_T),
 \]
 
-lo scenario $s$ \`e la realizzazione completa
+\noindent lo scenario $s$ \`e la realizzazione completa
 
 \begin{equation}
 \xi_s=
@@ -441,11 +441,11 @@ Il singolo $\xi_t^s$ descrive i dati alla data $t$ lungo la realizzazione
 $s$; il vettore $\xi_s$ descrive invece l'intera traiettoria utilizzata come
 scenario.
 
-Nel modello a due stadi questa distinzione \`e essenziale. Le diverse date
+Nel modello a due stadi, questa distinzione \`e essenziale. Le diverse date
 contenute nella \eqref{eq:cap14-scenario-traiettoria} descrivono
 l'evoluzione temporale dell'incertezza, ma non costituiscono nuovi stadi
-decisionali: al secondo stadio viene considerato noto l'intero scenario
-$\xi_s$.
+decisionali: \textbf{al secondo stadio, viene considerato noto l'intero scenario
+$\xi_s$}.
 
 \subsection{Costruzione della distribuzione discreta}
 
@@ -486,7 +486,7 @@ p_s=\frac{1}{M},
 s=1,\ldots,M,
 \]
 
-e quindi
+\noindent e quindi
 
 \[
 \E[\varphi(\xi)]
@@ -516,7 +516,7 @@ Indicando con
 k=1,\ldots,K,
 \]
 
-i momenti o, pi\`u generalmente, le caratteristiche da preservare, si cercano
+\noindent i momenti o, pi\`u generalmente, le caratteristiche da preservare, si cercano
 $\xi_s$ e $p_s$ tali che
 
 \[
@@ -533,10 +533,9 @@ riprodurre media, varianza, covarianze o altri momenti ritenuti rilevanti.
 
 \paragraph{Campionamento interno.}
 
-In alcuni metodi gli scenari non vengono fissati una volta per tutte prima
+In alcuni metodi, gli scenari non vengono fissati una volta per tutte prima
 dell'ottimizzazione, ma vengono campionati durante la procedura di soluzione.
-Questa impostazione, detta \emph{internal sampling}, non verr\`a sviluppata
-nel corso.
+Questa impostazione, detta \emph{internal sampling}, non verr\`a sviluppata.
 
 \paragraph{Riduzione degli scenari.}
 
@@ -546,7 +545,7 @@ Se un insieme iniziale contiene un numero molto elevato di scenari,
 \mathcal S_0=\{1,\ldots,M\},
 \]
 
-si pu\`o selezionare un sottoinsieme
+\noindent si pu\`o selezionare un sottoinsieme
 
 \[
 \mathcal S_R\subset\mathcal S_0,
@@ -554,7 +553,7 @@ si pu\`o selezionare un sottoinsieme
 |\mathcal S_R|=N<M,
 \]
 
-e riassegnare le probabilit\`a agli scenari conservati:
+\noindent e riassegnare le probabilit\`a agli scenari conservati:
 
 \[
 \widetilde p_s\geq0,
@@ -565,18 +564,18 @@ e riassegnare le probabilit\`a agli scenari conservati:
 La scelta del sottoinsieme e dei nuovi pesi viene effettuata cercando di
 mantenere la distribuzione ridotta sufficientemente vicina alla
 distribuzione discreta originaria secondo un opportuno criterio di distanza.
-Gli algoritmi di scenario reduction non verranno sviluppati nel corso.
+Gli algoritmi di scenario reduction non verranno sviluppati.
 
 \subsection{Il caso SVB--ALM}
 
-Nel caso guida non \`e necessario approssimare una distribuzione continua.
+Nel caso guida, non \`e necessario approssimare una distribuzione continua.
 L'incertezza \`e descritta dal processo a stati finiti
 
 \[
 Z_t=(Z_t^R,Z_t^C,Z_t^F),
 \]
 
-la cui dinamica \`e governata da una catena di Markov.
+\noindent la cui dinamica \`e governata da una catena di Markov.
 
 Il caso SVB--ALM rientra quindi nell'enumerazione delle traiettorie di un
 modello discreto di transizione. Uno scenario avr\`a la forma
@@ -588,14 +587,14 @@ Z_1^s,Z_2^s,Z_3^s,Z_4^s
 \right),
 \]
 
-e la sua probabilit\`a sar\`a determinata dalle probabilit\`a di transizione
+\noindent e la sua probabilit\`a sar\`a determinata dalle probabilit\`a di transizione
 lungo la traiettoria.
 
 La sezione successiva sviluppa formalmente questa costruzione e mostra come
 dalla matrice di transizione della catena si ottengano l'insieme degli
 scenari e le probabilit\`a $p_s$.
 
-\section{Dalla legge probabilistica agli scenari: il caso Markoviano}
+\section{Dalla legge probabilistica agli scenari: il caso markoviano}
 
 \label{sec:cap14-scenari-markov}
 
@@ -604,7 +603,7 @@ essere rappresentata mediante un insieme finito di scenari e delle
 rispettive probabilit\`a. Resta da chiarire come tali scenari possano
 essere ottenuti a partire da un modello probabilistico.
 
-Nel caso SVB--ALM l'incertezza \`e descritta da una catena di Markov
+Nel caso SVB--ALM, l'incertezza \`e descritta da una catena di Markov
 finita. Il modello probabilistico non fornisce direttamente gli scenari
 del problema di programmazione stocastica: esso descrive le probabilit\`a
 di transizione tra gli stati. Gli scenari vengono invece costruiti
@@ -617,13 +616,13 @@ Sia
 \mathcal I=\{z_1,\ldots,z_8\}
 \]
 
-lo spazio degli stati e sia
+\noindent lo spazio degli stati e sia
 
 \[
 Z_t\in\mathcal I
 \]
 
-lo stato dell'ambiente esterno alla data $t$. Nel caso SVB--ALM ogni
+\noindent lo stato dell'ambiente esterno alla data $t$. Nel caso SVB--ALM, ogni
 stato combina una condizione relativa al tasso di interesse, al rischio
 di credito e alla tensione sul funding:
 
@@ -644,7 +643,7 @@ transizione
 P=(p_{ij})_{i,j=1}^{8},
 \]
 
-dove
+\noindent dove
 
 \begin{equation}
 p_{ij}
@@ -657,13 +656,13 @@ La matrice $P$ descrive congiuntamente l'evoluzione degli otto stati.
 Non viene quindi introdotta alcuna ipotesi di indipendenza tra le tre
 componenti che definiscono lo stato.
 
-Nel problema considerato lo stato iniziale
+Nel problema considerato, lo stato iniziale
 
 \[
 Z_0=z_{i_0}
 \]
 
-\`e noto al momento della decisione di primo stadio. L'incertezza riguarda
+\noindent \`e noto al momento della decisione di primo stadio. L'incertezza riguarda
 invece gli stati futuri
 
 \[
@@ -676,7 +675,7 @@ Una possibile evoluzione del processo \`e identificata dalla sequenza
 s=(i_1^s,i_2^s,i_3^s,i_4^s),
 \]
 
-alla quale corrisponde la traiettoria
+\noindent alla quale corrisponde la traiettoria
 
 \begin{equation}
 \xi_s
@@ -702,12 +701,15 @@ particolare, se
 
 \[
 p_{i_0i_1^s}
+\cdot
 p_{i_1^si_2^s}
+\cdot
 p_{i_2^si_3^s}
+\cdot
 p_{i_3^si_4^s}>0,
 \]
 
-la traiettoria $s$ appartiene all'insieme degli scenari considerati.
+\noindent la traiettoria $s$ appartiene all'insieme degli scenari considerati.
 
 La Figura~\ref{fig:cap14-albero-markoviano} rappresenta schematicamente
 questa costruzione per l'orizzonte $T=4$ del caso SVB--ALM.
