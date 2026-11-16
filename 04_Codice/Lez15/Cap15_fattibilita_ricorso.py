@@ -125,7 +125,7 @@ TIGHT_LAYOUT_RECT = (0.00, 0.00, 1.00, 1.00)
 # ============================================================
 
 def feasibility_threshold(a_liquid, a_illiquid, funding_capacity):
-    """Calcola la minima quota x che rende ammissibile il recourse."""
+    """Calcola la minima quota x che rende ammissibile il ricorso."""
     slope = a_liquid - a_illiquid
     if slope <= 0:
         raise ValueError(
@@ -254,7 +254,7 @@ ax.text(
 ax.text(
     FEASIBLE_NOTE_X,
     FEASIBLE_NOTE_Y,
-    "Recourse ammissibile in entrambi gli scenari\n"
+    "Ricorso ammissibile in entrambi gli scenari\n"
     rf"per $x\geq {x_feas_all:g}$",
     ha="center",
     va="center",
@@ -274,7 +274,7 @@ ax.set_ylabel(
     fontsize=font_size("axis_label"),
 )
 ax.set_title(
-    "Fattibilità del recourse e capacità massima di funding",
+    "Fattibilità del ricorso e capacità massima di funding",
     fontsize=font_size("title"),
 )
 ax.tick_params(axis="both", labelsize=font_size("tick_label"))
