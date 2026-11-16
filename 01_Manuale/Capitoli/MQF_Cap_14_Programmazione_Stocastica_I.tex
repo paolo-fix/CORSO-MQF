@@ -1465,7 +1465,23 @@ La probabilit\`a $p_s$ non modifica il problema di ricorso dello scenario
 $s$: essa determina il peso con cui il relativo valore ottimo entra nella
 decisione di primo stadio.
 
-Se, come nella sezione precedente,
+%Se, come nella sezione precedente,
+
+%\[
+%Q_s(x)
+%=
+%\max_{y_s\in\mathcal X_s}
+%\left\{
+%q_s'y_s:
+%T_sx+W_sy_s=h_s
+%\right\},
+%\]
+
+%\noindent il programma stocastico pu\`o essere scritto esplicitando una decisione di ricorso per ciascuno scenario:
+
+
+Ricordiamo che, per ogni scenario $s$, la funzione di
+ricorso \`{e} definita da
 
 \[
 Q_s(x)
@@ -1474,11 +1490,31 @@ Q_s(x)
 \left\{
 q_s'y_s:
 T_sx+W_sy_s=h_s
-\right\},
+\right\}.
 \]
 
-\noindent il programma stocastico pu\`o essere scritto esplicitando una decisione di
-ricorso per ciascuno scenario:
+Una volta fissata la decisione iniziale $x$, i problemi
+di ricorso dei diversi scenari possono essere risolti
+separatamente: ciascun $y_s$ compare soltanto nei vincoli
+del proprio scenario.
+
+Poich\'{e} le probabilit\`{a} $p_s$ sono non negative,
+la somma dei valori ottimi dei problemi di ricorso
+coincide con il valore ottimo ottenuto scegliendo
+congiuntamente tutte le variabili $y_s$, mantenendo
+fissata $x$. Si pu\`{o} quindi riunire anche la
+massimizzazione rispetto a $x$ in un unico problema.
+
+Questo non significa che il contributo di primo stadio
+$c'x$ e quello di secondo stadio possano essere
+massimizzati indipendentemente. Le due componenti
+sono collegate dai vincoli
+$T_sx+W_sy_s=h_s$: la scelta iniziale influenza
+le possibilit\`{a} di ricorso in ciascuno scenario.
+
+Si ottiene cos\`{i} la formulazione congiunta:
+
+
 
 \begin{equation}
 \begin{aligned}
@@ -1526,7 +1562,7 @@ x=
 (x_1,x_2,x_3,x_4)',
 \]
 
-mentre ogni scenario possiede il proprio vettore di ricorso
+\noindent mentre ogni scenario possiede il proprio vettore di ricorso
 
 \[
 y_s=
@@ -1540,7 +1576,7 @@ Per ogni scenario $s$, la relazione
 T_sx+W_sy_s=h_s
 \]
 
-rappresenta i quattro bilanci temporali di liquidit\`a. In forma esplicita,
+\noindent rappresenta i quattro bilanci temporali di liquidit\`a. In forma esplicita,
 essi sono
 
 \[
@@ -1596,7 +1632,7 @@ c'x+
 \right\},
 \]
 
-soggetta ai vincoli di primo stadio su $x$ e, per ciascuno scenario $s$, ai
+\noindent soggetta ai vincoli di primo stadio su $x$ e, per ciascuno scenario $s$, ai
 corrispondenti bilanci di liquidit\`a e ai vincoli operativi sulle variabili
 $g_t^s$ e $u_t^s$.
 
@@ -1614,7 +1650,7 @@ r_t^{u,s},
 \bar u_t^s,
 \]
 
-e genera differenti problemi di ricorso. La decisione di primo stadio deve
+\noindent e genera differenti problemi di ricorso. La decisione di primo stadio deve
 essere scelta considerando simultaneamente tutte queste possibili
 conseguenze.
 
@@ -1633,19 +1669,19 @@ Una banca deve allocare al tempo $0$ un ammontare
 A_0=10
 \]
 
-tra due classi di attivo. Indichiamo con
+\noindent tra due classi di attivo. Indichiamo con
 
 \[
 x_1
 \]
 
-l'investimento nell'attivit\`a maggiormente liquida e con
+\noindent l'investimento nell'attivit\`a maggiormente liquida e con
 
 \[
 x_2
 \]
 
-l'investimento nell'attivit\`a pi\`u redditizia ma meno liquida.
+\noindent l'investimento nell'attivit\`a pi\`u redditizia ma meno liquida.
 
 Le decisioni di primo stadio devono soddisfare
 
@@ -1669,16 +1705,26 @@ La funzione obiettivo di primo stadio \`e quindi
 c'x=x_1+2x_2.
 \]
 
+\noindent
+I coefficienti $c_1$ e $c_2$ misurano il contributo
+economico unitario delle due attivit\`{a} al criterio
+di ottimizzazione. Non rappresentano la liquidit\`{a}
+che gli investimenti renderanno disponibile alla data
+futura. Quest'ultima dipende da coefficienti distinti,
+che descrivono la capacit\`{a} delle attivit\`{a} di
+generare liquidit\`{a} nei diversi scenari.
+
+
 Se si considerasse soltanto questo termine, sarebbe conveniente investire
 tutte le risorse nella seconda attivit\`a.
 
-Alla data futura pu\`o tuttavia verificarsi uno dei due scenari
+Alla data futura, pu\`o tuttavia verificarsi uno dei due scenari
 
 \[
 \mathcal S=\{1,2\},
 \]
 
-con probabilit\`a
+\noindent con probabilit\`a
 
 \[
 p_1=0.75,
@@ -1686,7 +1732,7 @@ p_1=0.75,
 p_2=0.25.
 \]
 
-In entrambi gli scenari la banca deve soddisfare un fabbisogno di
+In entrambi gli scenari, la banca deve soddisfare un fabbisogno di
 liquidit\`a pari a
 
 \[
@@ -1700,13 +1746,13 @@ liquidit\`a in entrambi gli scenari. La seconda attivit\`a genera invece
 0.8
 \]
 
-unit\`a di liquidit\`a nello scenario ordinario e soltanto
+\noindent unit\`a di liquidit\`a nello scenario ordinario e soltanto
 
 \[
 0.2
 \]
 
-unit\`a nello scenario avverso.
+\noindent unit\`a nello scenario avverso.
 
 I flussi disponibili prima del ricorso sono quindi
 
@@ -1714,13 +1760,13 @@ I flussi disponibili prima del ricorso sono quindi
 x_1+0.8x_2
 \]
 
-nello scenario $1$ e
+\noindent nello scenario $1$ e
 
 \[
 x_1+0.2x_2
 \]
 
-nello scenario $2$.
+\noindent nello scenario $2$.
 
 Se tali flussi non sono sufficienti, la banca pu\`o raccogliere funding
 d'emergenza. Indichiamo con
@@ -1729,13 +1775,13 @@ d'emergenza. Indichiamo con
 u_s\geq0
 \]
 
-il funding raccolto nello scenario $s$ e con
+\noindent il funding raccolto nello scenario $s$ e con
 
 \[
 g_s\geq0
 \]
 
-l'eventuale liquidit\`a residua dopo aver soddisfatto il fabbisogno.
+\noindent l'eventuale liquidit\`a residua dopo aver soddisfatto il fabbisogno.
 
 I bilanci di liquidit\`a sono
 
@@ -1745,7 +1791,7 @@ x_1+0.8x_2+u_1
 6+g_1
 \]
 
-nello scenario ordinario e
+\noindent nello scenario ordinario e
 
 \[
 x_1+0.2x_2+u_2
@@ -1753,24 +1799,61 @@ x_1+0.2x_2+u_2
 6+g_2
 \]
 
-nello scenario avverso.
+\noindent nello scenario avverso.
 
-Supponiamo che il costo unitario del funding sia
 
-\[
-r_1^u=1
-\]
 
-nello scenario ordinario e
+Indichiamo con $\gamma_s$ il coefficiente di costo
+unitario del funding d'emergenza nello scenario $s$.
+Assumiamo
 
 \[
-r_2^u=6
+\gamma_1=1,
+\qquad
+\gamma_2=6.
 \]
 
-nello scenario avverso. La liquidit\`a residua non produce invece alcun
+Questi coefficienti misurano il costo economico
+attribuito a ciascuna unit\`{a} di funding nella
+funzione obiettivo. Non rappresentano i tassi di
+interesse intertemporali $r_t^u$ del modello ALM
+generale, ma parametri illustrativi scelti per
+evidenziare il diverso costo del ricorso nei due
+scenari.
+%Supponiamo che il costo unitario del funding sia
+%
+%\[
+%r_1^u=1
+%\]
+%
+%\noindent nello scenario ordinario e
+%
+%\[
+%r_2^u=6
+%\]
+%
+%\noindent nello scenario avverso.
+La liquidit\`a residua non produce invece alcun
 rendimento nell'orizzonte considerato.
 
-Le funzioni di ricorso sono pertanto
+
+%\medskip
+
+%\noindent
+Una volta fissata l'allocazione iniziale $x$ e osservato
+lo scenario, il problema di secondo stadio consiste nel
+soddisfare il fabbisogno di liquidit\`{a} al minor costo
+possibile. Poich\'{e} il funding comporta un costo
+unitario $\gamma_s$, il suo contributo economico
+alla funzione obiettivo \`{e} pari a $-\gamma_su_s$.
+Massimizzare tale contributo equivale quindi a
+minimizzare il costo del funding, nel rispetto del
+bilancio di liquidit\`{a}. La giacenza residua $g_s$ non compare nella funzione
+obiettivo perch\'{e}, per ipotesi, non produce alcun
+rendimento nell'orizzonte considerato. I due problemi
+di ricorso differiscono sia per il costo unitario
+del funding sia per la liquidit\`{a} generata dagli
+investimenti nei rispettivi scenari. Le funzioni di ricorso sono pertanto
 
 \[
 Q_1(x)
@@ -1782,7 +1865,7 @@ x_1+0.8x_2+u_1=6+g_1
 \right\},
 \]
 
-e
+\noindent e
 
 \[
 Q_2(x)
@@ -1807,7 +1890,7 @@ x_1+2x_2
 \right\}
 \]
 
-soggetto a
+\noindent soggetto a
 
 \[
 x_1+x_2=10,
@@ -1819,7 +1902,7 @@ x_1,x_2\geq0.
 
 \subsubsection{Determinazione delle funzioni di ricorso}
 
-Dal vincolo di bilancio iniziale si ricava
+Dal vincolo di bilancio iniziale, si ricava
 
 \[
 x_1=10-x_2,
@@ -1831,8 +1914,10 @@ Nello scenario ordinario, la liquidit\`a disponibile prima del ricorso
 \`e
 
 \[
-x_1+0.8x_2
-=
+x_1+0.8x_2,
+\]
+\noindent che diventa, per sostituzione dell'espressione di $x_1$,
+\[
 10-0.2x_2.
 \]
 
@@ -1842,14 +1927,14 @@ Poich\'e
 10-0.2x_2\geq8>6
 \]
 
-per ogni $0\leq x_2\leq10$, nello scenario ordinario non \`e mai
+\noindent per ogni $0\leq x_2\leq10$, nello scenario ordinario non \`e mai
 necessario ricorrere al funding. Ne segue
 
 \[
 u_1^*(x)=0
 \]
 
-e quindi
+\noindent e quindi
 
 \[
 Q_1(x)=0.
@@ -1875,7 +1960,7 @@ u_2^*(x)
 \right\},
 \]
 
-ossia
+\noindent ossia
 
 \[
 u_2^*(x)
@@ -1906,20 +1991,20 @@ Il punto
 x_2=5
 \]
 
-separa quindi due regioni economicamente differenti. Per
+\noindent separa quindi due regioni economicamente differenti. Per
 
 \[
 x_2\leq5
 \]
 
-la banca dispone di liquidit\`a sufficiente anche nello scenario avverso;
+\noindent la banca dispone di liquidit\`a sufficiente anche nello scenario avverso;
 per
 
 \[
 x_2>5
 \]
 
-l'investimento nella seconda attivit\`a rende necessario funding
+\noindent l'investimento nella seconda attivit\`a rende necessario funding
 d'emergenza qualora si realizzi lo scenario avverso.
 
 \subsubsection{Funzione obiettivo e soluzione ottima}
@@ -1954,13 +2039,13 @@ Per
 0\leq x_2\leq5,
 \]
 
-non viene utilizzato funding in nessuno dei due scenari e quindi
+\noindent non viene utilizzato funding in nessuno dei due scenari e quindi
 
 \[
 V(x_2)=10+x_2.
 \]
 
-In questa regione il valore cresce con $x_2$.
+In questa regione, il valore cresce con $x_2$.
 
 Per
 
@@ -1968,7 +2053,7 @@ Per
 5<x_2\leq10,
 \]
 
-il funding diventa necessario nello scenario avverso. In questo caso
+\noindent il funding diventa necessario nello scenario avverso. In questo caso,
 
 \[
 \begin{split}
@@ -1983,7 +2068,7 @@ V(x_2)
 \end{split}
 \]
 
-In questa seconda regione il valore diminuisce con $x_2$.
+In questa seconda regione, il valore diminuisce con $x_2$.
 
 Il massimo viene quindi raggiunto esattamente nel punto di raccordo:
 
@@ -2012,7 +2097,7 @@ x_1^*+0.8x_2^*
 9
 \]
 
-nello scenario ordinario e
+\noindent nello scenario ordinario e
 
 \[
 x_1^*+0.2x_2^*
@@ -2020,13 +2105,13 @@ x_1^*+0.2x_2^*
 6
 \]
 
-nello scenario avverso. Pertanto
+\noindent nello scenario avverso. Pertanto
 
 \[
 u_1^*=u_2^*=0
 \]
 
-e
+\noindent e
 
 \[
 Q_1(x^*)=Q_2(x^*)=0.
@@ -2091,7 +2176,7 @@ x^*=
 \end{pmatrix}
 \]
 
-risulta quindi preferibile.
+\noindent risulta quindi preferibile.
 
 \begin{remark}
 L'allocazione bilanciata non \`e stata imposta mediante un vincolo di
@@ -2116,11 +2201,11 @@ c'x+\sum_{s\in\mathcal S}p_sQ_s(x)
 \right\}
 \]
 
-incorpora precisamente questo confronto: il primo termine remunera la
+\noindent incorpora precisamente questo confronto: il primo termine remunera la
 decisione assunta prima dell'incertezza, mentre il secondo valuta il
 risultato atteso delle decisioni di ricorso.
 
-Nella sezione successiva questa struttura verr\`a riscritta nella forma
+Nella sezione successiva, questa struttura verr\`a riscritta nella forma
 estesa del programma lineare, nella quale le variabili di secondo stadio
 e i relativi vincoli compaiono esplicitamente per ciascuno scenario.
 
@@ -2137,7 +2222,7 @@ c'x+\sum_{s\in\mathcal S}p_sQ_s(x)
 \right\},
 \]
 
-dove, per ogni scenario $s$,
+\noindent dove, per ogni scenario $s$,
 
 \[
 Q_s(x)
@@ -2278,7 +2363,7 @@ all'altro. Per ogni $s\in\mathcal S$, il vettore
 y_s
 \]
 
-viene scelto dopo l'osservazione dello scenario e pu\`o quindi dipendere
+\noindent viene scelto dopo l'osservazione dello scenario e pu\`o quindi dipendere
 da esso.
 
 La distinzione fondamentale \`e quindi la seguente:
@@ -2299,7 +2384,7 @@ scenario, ad esempio
 x_1,x_2,\ldots,x_{|\mathcal S|},
 \]
 
-si attribuirebbe indebitamente al decisore la conoscenza anticipata
+\noindent si attribuirebbe indebitamente al decisore la conoscenza anticipata
 dello scenario futuro.
 
 \begin{remark}
@@ -2318,9 +2403,9 @@ Nel caso SVB--ALM, la decisione di primo stadio
 x=(x_1,x_2,x_3,x_4)'
 \]
 
-\`e unica per tutti gli scenari.
+\noindent \`e unica per tutti gli scenari.
 
-Per ciascuno scenario $s$ viene invece introdotto il vettore
+Per ciascuno scenario $s$, viene invece introdotto il vettore
 
 \[
 y_s=
@@ -2390,7 +2475,7 @@ del numero di scenari produce pertanto una rapida espansione della forma
 estesa.
 
 Questo aspetto non modifica la formulazione teorica, ma anticipa il problema
-computazionale che sar\`a affrontato nelle lezioni successive: come risolvere
+computazionale che sar\`a affrontato in seguito: come risolvere
 in modo efficiente programmi stocastici caratterizzati da un numero elevato
 di scenari.
 
@@ -2418,7 +2503,7 @@ capitolo:
 
 Gli esercizi seguenti consolidano tre passaggi centrali del capitolo: la
 costruzione delle probabilit\`a degli scenari a partire da una dinamica
-Markoviana, il calcolo della funzione di ricorso per una decisione iniziale
+markoviana, il calcolo della funzione di ricorso per una decisione iniziale
 assegnata e la costruzione della forma estesa di un programma stocastico a
 due stadi.
 
