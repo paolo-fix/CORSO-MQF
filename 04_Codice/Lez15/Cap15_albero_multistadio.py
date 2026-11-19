@@ -6,6 +6,7 @@ A,B etichettano le realizzazioni di Z_1; C_1,C_2 le storie del blocco
 Il nodo a t=2 e' intermedio e non introduce una decisione autonoma.
 """
 from pathlib import Path
+
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 
@@ -95,10 +96,10 @@ for z in ("A","B"):
         arco(p2,p3,evidenziato=evidenziato)
         pieno(p3)
         # C_c indica la storia congiunta (Z_2,Z_3) nota al tempo t=3.
-        ax.text(p3[0]-.16,p3[1]+.26,f"$C_{c}$",ha="right",va="bottom",
+        ax.text(p3[0]-.05,p3[1]+.46,rf"$(Z_2,Z_3)=C_{c}$",ha="center",va="bottom",
                 fontsize=fs("intermediate_label"),color="#555555")
         if evidenziato:
-            ax.text(p3[0]-.05,p3[1]-.37,r"decisione $(u_2,u_3)$",ha="center",va="top",
+            ax.text(p3[0]-.38,p3[1]-.60,r"decisione $(u_2,u_3)$",ha="center",va="top",
                     fontsize=fs("scenario_label"),color=BLU)
         for d,dy in ((1,.5),(2,-.5)):
             i+=1
@@ -106,7 +107,7 @@ for z in ("A","B"):
             arco(p3,p4)
             pieno(p4)
             # Etichette D_1,D_2 al nodo terminale (tempo t=4).
-            ax.text(p4[0]-.14,p4[1]+.20,f"$D_{d}$",ha="right",va="bottom",
+            ax.text(p4[0]+.24,p4[1]+.22,rf"$Z_4=D_{d}$",ha="left",va="bottom",
                     fontsize=fs("intermediate_label"),color="#555555")
             ax.text(p4[0]+.30,p4[1],f"$s_{i}=({z},C_{c},D_{d})$",va="center",
                     fontsize=fs("scenario_label"),color=BLU)
