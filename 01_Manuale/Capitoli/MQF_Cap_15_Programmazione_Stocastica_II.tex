@@ -1369,25 +1369,22 @@ disponibili per i tre blocchi di ricorso
 \centering
 \includegraphics[width=\textwidth]
 {../graphics/Cap15_albero_multistadio.png}
-\caption{Esempio con quattro stadi decisionali:
-la decisione iniziale $x$ e tre successivi
-stadi di ricorso. Il primo blocco comprende
-$u_1$, il secondo comprende $(u_2,u_3)$
-e il terzo comprende $g_4$. I nodi
-rappresentano le storie informative
-disponibili nei momenti decisionali.
-Il percorso evidenziato mostra che
-il blocco $(u_2,u_3)$ viene scelto
-al termine dello stadio che comprende
-i tempi fisici $2$ e $3$.}
+
+\caption{Albero illustrativo con quattro stadi
+decisionali e otto scenari terminali.
+La decisione iniziale $x$ \`{e} seguita
+da tre stadi di ricorso, con decisioni
+$u_1$, $(u_2,u_3)$ e $g_4$.
+I nodi pieni rappresentano i momenti
+decisionali, mentre i nodi vuoti
+rappresentano momenti informativi intermedi.
+Le decisioni sono indicate come funzioni
+delle storie osservate. Il percorso
+evidenziato corrisponde alla successione
+$(A,C_2,D_1)$, ossia allo scenario $s_3$.}
+
 \label{fig:cap15-albero-generico-v2}
 \end{figure}
-
-La figura permette anche di leggere
-la condizione di non anticipativit\`a
-\eqref{eq:cap15-non-anticipativita-multistadio-v2}.
-
-
 
 
 Nell'albero illustrativo, le realizzazioni
@@ -1406,21 +1403,22 @@ Le etichette $C_1$ e $C_2$ rappresentano
 due possibili realizzazioni congiunte del
 blocco informativo $(Z_2,Z_3)$, osservato
 integralmente al termine dello stadio 3.
-Non identificano quindi le sole realizzazioni
+Esse non rappresentano le sole realizzazioni
 di $Z_2$ o le sole realizzazioni di $Z_3$.
 
 Il nodo vuoto al tempo $t=2$ rappresenta
 un momento informativo intermedio, nel quale
-non viene assunta una nuova decisione autonoma.
-La figura non distingue separatamente tutte
-le possibili realizzazioni di $Z_2$ e $Z_3$,
-ma rappresenta le storie informative complete
-al tempo $t=3$.
+non viene assunta una decisione autonoma.
+La figura non distingue separatamente
+tutte le possibili realizzazioni di
+$Z_2$ e $Z_3$, ma rappresenta le storie
+informative complete al tempo $t=3$.
 
-Ogni percorso dalla radice a un nodo terminale
-identifica uno scenario completo. La
-corrispondenza fra gli otto scenari e le
-successioni di realizzazioni \`{e} la seguente:
+Ogni percorso dalla radice a un nodo
+terminale identifica uno scenario completo.
+La corrispondenza tra gli otto scenari
+e le successioni di realizzazioni
+\`{e} la seguente:
 
 \[
 \begin{array}{ll}
@@ -1432,19 +1430,31 @@ s_7=(B,C_2,D_1), & s_8=(B,C_2,D_2).
 \]
 
 Le lettere $A$, $B$, $C_1$, $C_2$,
-$D_1$ e $D_2$ sono etichette illustrative
-delle realizzazioni dell'incertezza,
-non variabili decisionali.
+$D_1$ e $D_2$ sono etichette
+illustrative delle realizzazioni
+dell'incertezza, non variabili
+decisionali.
 
-La figura indica invece le decisioni
-come funzioni delle storie informative
-osservate. Ad esempio, dopo avere
-osservato $Z_1=A$, la decisione del
-primo stadio di ricorso \`{e} $u_1(A)$.
+La figura rappresenta le decisioni
+come funzioni della storia osservata
+al momento in cui vengono assunte.
 
-Quando viene osservato anche il blocco
-$(Z_2,Z_3)=C_2$, le decisioni del
-secondo stadio di ricorso sono
+Al tempo $t=1$, ad esempio, dopo
+avere osservato $Z_1=A$, il decisore
+sceglie
+
+\[
+u_1(A).
+\]
+
+Questa decisione \`{e} comune agli
+scenari $s_1,s_2,s_3,s_4$, che
+condividono la stessa storia
+informativa fino al tempo $t=1$.
+
+Al tempo $t=3$, dopo avere osservato
+anche il blocco $(Z_2,Z_3)=C_2$,
+il decisore sceglie congiuntamente
 
 \[
 u_2(A,C_2),
@@ -1452,14 +1462,22 @@ u_2(A,C_2),
 u_3(A,C_2).
 \]
 
-Esse sono comuni agli scenari $s_3$ e
-$s_4$, che condividono la stessa storia
-informativa fino al tempo $t=3$.
+Le due decisioni si riferiscono
+rispettivamente ai tempi fisici
+$2$ e $3$, ma appartengono allo
+stesso blocco decisionale e sono
+assunte con l'informazione
+disponibile al tempo $t=3$.
 
-Al tempo $t=4$, invece, i due scenari
-si distinguono per la realizzazione
-di $Z_4$. Le corrispondenti decisioni
-terminali sono
+Esse sono comuni agli scenari
+$s_3$ e $s_4$, poich\'{e} tali
+scenari condividono la storia
+$(A,C_2)$ fino al tempo $t=3$.
+
+Al tempo $t=4$, invece, i due
+scenari si distinguono per la
+realizzazione finale dell'incertezza.
+Le corrispondenti decisioni sono
 
 \[
 g_4(A,C_2,D_1)
@@ -1467,38 +1485,46 @@ g_4(A,C_2,D_1)
 g_4(A,C_2,D_2).
 \]
 
-Questa rappresentazione delle decisioni
-mediante le storie osservate \`{e}
-equivalente alla notazione per scenario
-utilizzata nel modello multistadio.
+Queste decisioni possono assumere
+valori diversi, poich\'{e} vengono
+assunte dopo l'osservazione di
+informazioni differenti.
 
+La rappresentazione delle decisioni
+come funzioni delle storie osservate
+esprime quindi il principio di
+non anticipativit\`{a}.
 
-
-Gli scenari $s_1,\ldots,s_4$ condividono
-la storia osservata al tempo $1$,
-identificata da $Z_1=A$. Pertanto
-la decisione del primo stadio
-di ricorso deve coincidere:
-
-\[
-y_2^{s_1}=y_2^{s_2}=y_2^{s_3}=y_2^{s_4}.
-\]
-
-Gli scenari $s_3$ e $s_4$ condividono
-inoltre la storia osservata fino
-al tempo $3$, identificata nella
-figura dal nodo evidenziato.
-Ne segue che
+Nella notazione generale del modello
+multistadio, tale principio si traduce,
+per gli scenari considerati, nelle
+uguaglianze
 
 \[
-y_3^{s_3}=y_3^{s_4}.
+y_2^{s_1}
+=
+y_2^{s_2}
+=
+y_2^{s_3}
+=
+y_2^{s_4}
 \]
 
-Dopo l'osservazione di $Z_4$,
-invece, i due scenari risultano
-distinguibili e le rispettive
-decisioni del terzo stadio
-di ricorso possono differire.
+e
+
+\[
+y_3^{s_3}
+=
+y_3^{s_4}.
+\]
+
+Le decisioni dello stadio 4,
+invece, non sono soggette
+a un vincolo di uguaglianza
+fra $s_3$ e $s_4$, poich\'{e}
+le rispettive storie informative
+sono ormai distinguibili.
+
 
 Il passaggio dal modello a due stadi
 al multistadio non richiede quindi
