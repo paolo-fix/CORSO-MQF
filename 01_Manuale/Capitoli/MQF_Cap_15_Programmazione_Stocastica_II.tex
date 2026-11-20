@@ -1945,7 +1945,7 @@ h_{s,2}&=h_s,
 \end{aligned}
 \]
 
-e ponendo
+\noindent e ponendo
 $\mathcal X_{s,2}=\mathcal X_s$,
 la formulazione
 \eqref{eq:cap15-forma-estesa-multistadio-v2}
@@ -1964,7 +1964,7 @@ in momenti successivi, ciascuno
 nel rispetto dell'informazione
 allora disponibile.
 
-Nella sezione successiva
+Nella sezione successiva,
 specializzeremo questa
 formulazione al caso SVB--ALM.
 
@@ -1972,7 +1972,7 @@ formulazione al caso SVB--ALM.
 
 \label{sec:cap15-svb-alm-multistadio-v2}
 
-Nel Capitolo~\ref{cap:programmazione-stocastica-due-stadi}
+Nel Capitolo~\ref{cap:programmazione-stocastica-due-stadi},
 il caso SVB--ALM \`e stato formulato come un problema
 stocastico lineare a due stadi. La banca sceglie
 inizialmente la composizione dell'attivo $x$; dopo
@@ -1992,7 +1992,7 @@ scelti in stadi successivi.
 
 \subsection{Gli scenari del caso finanziario}
 
-Nel caso SVB--ALM l'incertezza \`e descritta
+Nel caso SVB--ALM, l'incertezza \`e descritta
 dalla catena di Markov introdotta nella
 Sezione~\ref{sec:cap14-scenari-markov}.
 Lo stato esogeno
@@ -2001,7 +2001,7 @@ Lo stato esogeno
 Z_t=(Z_t^R,Z_t^C,Z_t^F)\in\{0,1\}^3
 \]
 
-combina tre condizioni economico-finanziarie:
+\noindent combina tre condizioni economico-finanziarie:
 il livello dei tassi risk-free, dei credit spread
 e dei funding spread. Le combinazioni possibili
 individuano otto stati, raccolti nell'insieme
@@ -2041,7 +2041,7 @@ probabilit\`a di transizione, secondo
 la \eqref{eq:cap14-probabilita-traiettoria}.
 
 Nel passaggio dal modello a due stadi
-al multistadio manteniamo la stessa
+al multistadio, manteniamo la stessa
 catena di Markov, gli stessi scenari
 e le rispettive probabilit\`a.
 Cambia soltanto la struttura decisionale:
@@ -2104,7 +2104,7 @@ comprendono i tempi fisici
 \mathcal T_4=\{4\},
 \]
 
-con tempi terminali
+\noindent con tempi terminali
 
 \[
 \bar t_2=1,
@@ -2114,7 +2114,7 @@ con tempi terminali
 \bar t_4=4.
 \]
 
-Nel modello a due stadi il vettore
+Nel modello a due stadi, il vettore
 di ricorso dello scenario $s$ era
 
 \[
@@ -2123,7 +2123,7 @@ y_s=
 u_1^s,u_2^s,u_3^s)'.
 \]
 
-Nel modello a quattro stadi
+Nel modello a quattro stadi,
 le medesime variabili operative
 vengono ripartite nei blocchi
 
@@ -2170,27 +2170,72 @@ non introduce nuove variabili
 operative nel problema finanziario.
 
 
+
 \subsection{Dalla catena di Markov alle storie informative}
 
 La catena di Markov descrive l'evoluzione
 probabilistica dello stato esogeno.
-La struttura multistadio richiede,
-inoltre, di identificare le informazioni
-disponibili quando viene scelto
-ciascun blocco di ricorso.
+Nel caso SVB--ALM, uno scenario completo
+$s$ identifica la successione degli stati
+economico-finanziari osservati nei quattro
+tempi fisici:
 
-Nello stadio $2$, due scenari
-appartengono alla medesima storia
-informativa se condividono
-lo stato osservato al tempo $1$:
+\[
+\xi_s=(Z_1^s,Z_2^s,Z_3^s,Z_4^s).
+\]
+
+La struttura multistadio richiede
+di distinguere questa traiettoria completa
+dalla parte di essa effettivamente
+osservata quando viene assunto
+ciascun blocco decisionale.
+
+Nel primo stadio di ricorso,
+corrispondente allo stadio $2$,
+il decisore conosce soltanto
+lo stato raggiunto al tempo $1$.
+La storia informativa disponibile
+\`{e} quindi rappresentata da
+
+\[
+Z_1^s.
+\]
+
+Nel secondo stadio di ricorso,
+corrispondente allo stadio $3$,
+sono invece noti gli stati
+osservati ai tempi $1$, $2$ e $3$.
+La storia informativa disponibile
+\`{e} rappresentata da
+
+\[
+(Z_1^s,Z_2^s,Z_3^s).
+\]
+
+Nel terzo e ultimo stadio di ricorso,
+corrispondente allo stadio $4$,
+\`{e} nota l'intera traiettoria
+
+\[
+(Z_1^s,Z_2^s,Z_3^s,Z_4^s).
+\]
+
+Due scenari completi possono dunque
+essere differenti pur condividendo
+la medesima storia informativa
+in uno degli stadi intermedi.
+
+In particolare, nello stadio $2$
+due scenari $s$ e $s'$ sono
+indistinguibili per il decisore se
 
 \[
 Z_1^s=Z_1^{s'}.
 \]
 
-Nello stadio $3$, la storia osservata
-comprende invece gli stati raggiunti
-ai tempi $1$, $2$ e $3$:
+Nello stadio $3$, invece,
+la loro indistinguibilit\`{a}
+richiede che
 
 \[
 (Z_1^s,Z_2^s,Z_3^s)
@@ -2198,24 +2243,26 @@ ai tempi $1$, $2$ e $3$:
 (Z_1^{s'},Z_2^{s'},Z_3^{s'}).
 \]
 
-Nello stadio $4$ \`e nota
-la traiettoria completa.
-
 Queste condizioni individuano
 i gruppi di scenari che devono
 condividere le decisioni nei
-rispettivi stadi. Esse non
-dipendono dal numero di stati
-della catena, ma dalle storie
-effettivamente osservate.
+rispettivi stadi, in applicazione
+del principio di non anticipativit\`{a}
+espresso dalla
+\eqref{eq:cap15-non-anticipativita-multistadio-v2}.
 
-La propriet\`a di Markov
-stabilisce che, dato lo stato
-esogeno corrente, la distribuzione
-dello stato esogeno successivo
-non dipende dagli stati precedenti.
-Non implica, tuttavia, che
-due scenari giunti allo stesso
+La distinzione tra stato corrente
+e storia osservata \`{e} importante
+anche in presenza della propriet\`{a}
+di Markov.
+
+Tale propriet\`{a} stabilisce che,
+dato lo stato esogeno corrente,
+la distribuzione dello stato
+esogeno successivo non dipende
+dagli stati precedenti.
+Essa non implica, tuttavia,
+che due scenari giunti allo stesso
 stato attraverso storie differenti
 debbano condividere la medesima
 decisione di ricorso.
@@ -2224,12 +2271,74 @@ Nel problema ALM, infatti,
 le decisioni precedenti possono
 avere determinato giacenze
 e posizioni di funding differenti.
-Per applicare la condizione
-di non anticipativit\`a
-continuiamo quindi a confrontare
-le storie informative, come
-stabilito nella
-\eqref{eq:cap15-non-anticipativita-multistadio-v2}.
+Pertanto, ai fini della
+non anticipativit\`{a},
+il confronto deve riguardare
+le storie informative disponibili
+e non soltanto lo stato esogeno
+raggiunto nello stadio corrente.
+
+
+
+%\subsection{Dalla catena di Markov alle storie informative}
+
+%La catena di Markov descrive l'evoluzione probabilistica dello stato esogeno.
+%La struttura multistadio richiede,
+%inoltre, di identificare le informazioni
+%disponibili quando viene scelto
+%ciascun blocco di ricorso.
+
+%Nello stadio $2$, due scenari
+%appartengono alla medesima storia
+%informativa se condividono
+%lo stato osservato al tempo $1$:
+
+%\[
+%Z_1^s=Z_1^{s'}.
+%\]
+
+%Nello stadio $3$, la storia osservata
+%comprende invece gli stati raggiunti
+%ai tempi $1$, $2$ e $3$:
+
+%\[
+%(Z_1^s,Z_2^s,Z_3^s)
+%=
+%(Z_1^{s'},Z_2^{s'},Z_3^{s'}).
+%\]
+
+%Nello stadio $4$, \`e nota
+%la traiettoria completa.
+
+%Queste condizioni individuano
+%i gruppi di scenari che devono
+%condividere le decisioni nei
+%rispettivi stadi. Esse non
+%dipendono dal numero di stati
+%della catena, ma dalle storie
+%effettivamente osservate.
+
+%La propriet\`a di Markov
+%stabilisce che, dato lo stato
+%esogeno corrente, la distribuzione
+%dello stato esogeno successivo
+%non dipende dagli stati precedenti.
+%Non implica, tuttavia, che
+%due scenari giunti allo stesso
+%stato attraverso storie differenti
+%debbano condividere la medesima
+%decisione di ricorso.
+
+%Nel problema ALM, infatti,
+%le decisioni precedenti possono
+%avere determinato giacenze
+%e posizioni di funding differenti.
+%Per applicare la condizione
+%di non anticipativit\`a
+%continuiamo quindi a confrontare
+%le storie informative, come
+%stabilito nella
+%\eqref{eq:cap15-non-anticipativita-multistadio-v2}.
 
 \subsection{I bilanci di liquidit\`a nei diversi stadi}
 
