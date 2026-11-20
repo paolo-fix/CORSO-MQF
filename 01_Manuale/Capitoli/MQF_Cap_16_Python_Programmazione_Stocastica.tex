@@ -263,19 +263,22 @@ Se il problema economico \`e formulato come massimizzazione,
 \noindent \texttt{linprog} viene utilizzato con
 
 \[
-c=-c_{\Pi}.
+f=-c_{\Pi}.
 \]
 
-La chiamata essenziale rimane
+La chiamata essenziale al solver,
+coerentemente con la convenzione
+adottata nel Capitolo 13,
+assume quindi la forma
 
 \begin{verbatim}
 result = linprog(
-    c,
+    c=f,
     A_ub=A_ub,
     b_ub=b_ub,
     A_eq=A_eq,
     b_eq=b_eq,
-    bounds=bound,
+    bounds=bounds,
     method="highs"
 )
 \end{verbatim}
@@ -432,7 +435,7 @@ Il valore ottimo di questo problema medio non costituisce per\`o il termine di
 confronto corretto con \(z^{SP}\).
 
 La decisione \(x^{EV}\) deve essere fissata e rivalutata nel problema
-stocastico originario. In ciascuno scenario vengono quindi ottimizzate
+stocastico originario. In ciascuno scenario, vengono quindi ottimizzate
 soltanto le variabili di ricorso, mantenendo invariata la decisione di primo
 stadio.
 
@@ -508,8 +511,13 @@ WS
 \end{array}
 \]
 
-Quando tutti i benchmark risultano ben definiti e fattibili, per un problema
-di massimizzazione deve valere
+
+Per un problema di massimizzazione,
+supponendo che i benchmark siano
+ben definiti e abbiano valori ottimi finiti,
+e che $x^{EV}$ ammetta un ricorso
+ammissibile in tutti gli scenari originari,
+vale l'ordinamento
 
 \[
 z^{EV}
@@ -519,8 +527,14 @@ z^{SP}
 z^{WS}.
 \]
 
-Questa relazione costituisce anche un controllo della procedura
-computazionale.
+Questa relazione costituisce anche
+un controllo della procedura computazionale.
+Se invece $x^{EV}$ non ammette un ricorso
+ammissibile in tutti gli scenari,
+il confronto completo non \`{e} applicabile,
+mentre resta valido l'ordinamento
+$z^{SP}\leq z^{WS}$.
+
 
 Nel Caso Aula, i quattro problemi verranno costruiti a partire dalla stessa
 struttura di Asset--Liability Management. Ci\`o che cambier\`a non sar\`a il
@@ -1096,7 +1110,7 @@ x=x^{EV}
 
 \noindent e ottimizza soltanto le variabili di ricorso nei tre scenari.
 
-Nel caso normale e in quello di pressione non \`e necessario ricorrere a
+Nel caso normale e in quello di pressione, non \`e necessario ricorrere a
 funding:
 
 \[
@@ -1115,14 +1129,74 @@ La maggiore esposizione alle attivit\`a meno liquide rende quindi la
 decisione basata sui valori medi sensibilmente pi\`u costosa nello scenario
 estremo.
 
-Il valore atteso della decisione Expected Value rivalutata negli scenari
-originari \`e
+
+Il rendimento lordo della decisione
+iniziale $x^{EV}$ \`{e}
 
 \[
-z^{EV}
-=
-3.35.
+\begin{aligned}
+c'x^{EV}
+&=
+0.040\cdot 30
++
+0.050\cdot 70
+\\
+&=
+4.70.
+\end{aligned}
 \]
+
+Per ottenere il valore atteso della decisione
+rivalutata negli scenari originari,
+occorre sottrarre il costo atteso
+del funding di emergenza.
+
+Poich\'{e} il funding ottimo
+\`{e} nullo negli scenari $N$ e $P$
+e risulta pari a $36$ nello scenario $R$,
+il costo atteso \`{e}
+
+\[
+\begin{aligned}
+\sum_{s\in\mathcal S}
+p_s\kappa_su_s^{EV}
+&=
+0.60\cdot0.01\cdot0
++
+0.25\cdot0.06\cdot0
+\\
+&\quad+
+0.15\cdot0.25\cdot36
+\\
+&=
+1.35.
+\end{aligned}
+\]
+
+Pertanto,
+
+\[
+\begin{aligned}
+z^{EV}
+&=
+c'x^{EV}
+-
+\sum_{s\in\mathcal S}
+p_s\kappa_su_s^{EV}
+\\
+&=
+4.70-1.35=3.35.
+\end{aligned}
+\]
+
+Il valore $z^{EV}$ \`{e} quindi
+inferiore al valore ottimo
+del problema deterministico medio,
+pari a $4.70$, poich\'{e}
+la rivalutazione tiene conto
+del costo del ricorso negli
+scenari originari.
+
 
 Il valore della soluzione stocastica \`e pertanto
 
@@ -1275,7 +1349,7 @@ WS
 \end{array}
 \]
 
-e verificano l'ordinamento
+\noindent e verificano l'ordinamento
 
 \[
 z^{EV}
@@ -1746,18 +1820,40 @@ EV riporta la decisione ottenuta negli scenari originari; il benchmark
 Wait-and-See misura invece il valore di una situazione nella quale lo scenario
 sia noto prima della decisione.
 
-Quando i benchmark sono ben definiti e fattibili, il confronto tra
+
+Per un problema di massimizzazione,
+supponendo che i benchmark SP e WS
+siano ben definiti e abbiano valori
+ottimi finiti, vale
 
 \[
-z^{EV},
-\qquad
-z^{SP},
-\qquad
-z^{WS}
+z^{SP}\leq z^{WS}.
 \]
 
-\noindent permette di costruire \(VSS\) ed \(EVPI\) e di valutare il costo
-economico di differenti strutture informative.
+Se inoltre la decisione $x^{EV}$
+ammette un ricorso ammissibile
+in tutti gli scenari originari,
+vale l'ordinamento completo
+
+\[
+z^{EV}\leq z^{SP}\leq z^{WS}.
+\]
+
+In queste condizioni, il confronto
+tra i tre valori permette di calcolare
+sia il VSS, che misura il vantaggio
+della soluzione stocastica rispetto
+alla decisione costruita sui valori medi,
+sia l'EVPI, che misura il valore
+dell'informazione perfetta.
+
+Quando invece $x^{EV}$ non ammette
+un ricorso ammissibile in tutti
+gli scenari originari, il VSS
+non \`{e} definito nella forma standard
+adottata, mentre l'EVPI rimane
+calcolabile come differenza
+tra $z^{WS}$ e $z^{SP}$.
 
 I due casi hanno inoltre mostrato che il controllo non costituisce una fase
 accessoria della soluzione. Deve essere verificato che la decisione iniziale
