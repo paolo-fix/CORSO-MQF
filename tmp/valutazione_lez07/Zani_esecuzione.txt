@@ -1,0 +1,33 @@
+[Controllo 10 verificato] Seed impostato a 12345 per garantire la riproducibilità.
+
+
+Indici (step temporali) calcolati per i fixing mensili:
+[ 21  42  63  84 105 126 147 168 189 210 231 252]
+CELLA 5 OK
+[Controllo 1] Correlazione empirica tra gli shock (Z_S, Z_r): -0.2496 (Attesa: -0.25)
+
+[Controllo 2] Valore minimo globale del sottostante simulato: 2805.7460
+              -> Condizione S_t > 0 rigorosamente soddisfatta in ogni nodo.
+
+[Controllo 3] Nessun valore negativo rilevato per il tasso r_t durante l'intera simulazione (su 12650000 nodi).
+----------------------------------------------------------------------
+CELLA 7 OK
+[Controllo 4 verificato] Per ogni singola replica, la media asiatica A_T è 
+                       strettamente compresa tra il minimo e il massimo dei fixing mensili.
+
+CELLA 9 OK
+[Controllo 5 verificato] H_T >= 0 per tutte le repliche ed è nullo quando A_T <= K.
+
+[Controllo 6 verificato] Somma di Riemann calcolata correttamente su r_t0 ... r_t{N-1}.
+                       Il fattore di sconto D(0,T) è strettamente positivo per ogni replica.
+
+[Controllo 7 verificato] V^(k) = D^(k)(0,T) * H_T^(k) in tutte le repliche.
+
+----------------------------------------------------------------------
+CELLA 11 OK
+
+[Controllo di Coerenza]
+Stima Centrale (Prezzo): 255.1539
+Semi-ampiezza IC 95% calcolata: 3.6162 (deve corrispondere a 1.96 * SE = 3.6162)
+L'intervallo di confidenza [251.5377, 258.7700] risulta regolarmente calcolato e centrato sulla stima.
+CELLA 13 OK

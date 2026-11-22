@@ -1,0 +1,50 @@
+CELLA 5 OK
+--- CONTROLLI TAPPA 2 ---
+Controllo 1 - Correlazione empirica shock: -0.2496 (Attesa: -0.25)
+Controllo 2 - S_t > 0 per tutte le traiettorie e date: True (Minimo osservato: 2805.7460)
+Controllo 3 - Nessun valore negativo di r_t rilevato dalla discretizzazione.
+
+Verifica Media Sottostante:
+  Valore iniziale (S_0): 6286.35
+  Valore medio terminale (S_T): 6261.02
+-------------------------
+
+CELLA 7 OK
+--- CONTROLLI TAPPA 3 ---
+Controllo 4 - min(S_tau) <= A_T <= max(S_tau) per ogni replica: True
+Controllo 5 - H_T >= 0 per ogni replica: True
+              H_T nullo se A_T <= K: True
+Controllo 6 - D(0,T) > 0 per ogni replica: True
+              L'integrale è stato calcolato su 252 passi (da t_0 a t_251)
+Controllo 7 - V^(k) = D^(k)(0,T) * H_T^(k) per ogni replica: True
+-------------------------
+
+CELLA 9 OK
+OUTPUT RICHIESTO: TABELLA 2
+<pandas.io.formats.style.Styler object at 0x000001898337DE50>
+
+OUTPUT RICHIESTO: TABELLA 3
+<pandas.io.formats.style.Styler object at 0x000001898337DE50>
+CELLA 11 OK
+--- CONTROLLI TAPPA 5 ---
+Controllo 8 - Decadimento Errore Standard in O(M^{-1/2}):
+  M =  1000 -> SE = 13.004172 | Costante asintotica [SE * sqrt(M)] = 411.2280
+  M =  5000 -> SE = 5.954132 | Costante asintotica [SE * sqrt(M)] = 421.0207
+  M = 10000 -> SE = 4.213651 | Costante asintotica [SE * sqrt(M)] = 421.3651
+  M = 50000 -> SE = 1.844978 | Costante asintotica [SE * sqrt(M)] = 412.5495
+  (Il prodotto approssimativamente costante dimostra il decadimento con radice di M)
+
+Controllo 9 - Stabilità griglia temporale:
+  Prezzo con N=252: 255.1539
+  Prezzo con N=504: 255.3560
+  Differenza assoluta: 0.2021
+
+Controllo 10 - Riproducibilità risultati:
+  Prezzo M=50.000 (ricavato ora):       255.1539
+  Prezzo M=50.000 (Tappa 4 originale):  255.1539
+  Risultati coincidenti tramite seed=12345: True
+-------------------------
+
+OUTPUT RICHIESTO: TABELLA 4
+<pandas.io.formats.style.Styler object at 0x00000189D13A1F30>
+CELLA 13 OK
