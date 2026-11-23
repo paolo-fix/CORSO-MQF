@@ -122,10 +122,17 @@ $$
 
 Il parametro $\psi$ modifica sia il costo del funding nella funzione obiettivo sia il rimborso del funding nei bilanci temporali.
 
-Le giacenze trasferite alla data successiva diventano disponibili per:
+La giacenza $g_t$, residua dopo il soddisfacimento del fabbisogno alla data 
+$t$, viene trasferita alla data $t+1$, dove diventa disponibile, comprensiva degli interessi maturati, per un ammontare pari a
 
 $$
 (1+r_t^g)g_t.
+$$
+
+Il funding $u_t$, raccolto alla data $t$ e immediatamente disponibile, deve essere rimborsato alla data $t+1$, comprensivo degli interessi maturati, per un ammontare pari a
+
+$$
+(1+\psi r_t^u)u_t.
 $$
 
 ### 3.3 Funzione obiettivo
@@ -148,7 +155,7 @@ $$
 \max_{x,g,u}\Pi(x,g,u;\psi).
 $$
 
-Nell'implementazione Python deve essere rispettata la convenzione di minimizzazione utilizzata dal solver.
+Nell'implementazione Python, deve essere rispettata la convenzione di minimizzazione utilizzata dal solver.
 
 ### 3.4 Vincoli
 
@@ -299,7 +306,7 @@ Gli scenari costituiscono configurazioni deterministiche assegnate e non eventi 
 
 ## 5. Quantità da stimare o calcolare
 
-Per il benchmark e per le analisi parametriche devono essere determinate le seguenti quantità.
+Per il benchmark e per le analisi parametriche, devono essere determinate le seguenti quantità.
 
 ### 5.1 Benchmark
 
@@ -308,7 +315,7 @@ Per:
 $$
 (\theta,\phi,\psi)
 =
-(1,1,1)
+(1,1,1),
 $$
 
 devono essere calcolati:
@@ -404,7 +411,7 @@ $$
 u_t^*(p)-u_t^*(1).
 $$
 
-Per il funding deve essere inoltre determinato:
+Per il funding, deve essere inoltre determinato:
 
 $$
 \rho_t^u(p)
@@ -416,7 +423,7 @@ Quando il parametro variato non è $\phi$, il denominatore coincide con la capac
 
 ### 5.3 Frontiera di fattibilità
 
-Per la sensitività rispetto a $\theta$ devono essere individuati:
+Per la sensitività rispetto a $\theta$, devono essere individuati:
 
 1. l'ultimo valore ammissibile della griglia iniziale;
 
@@ -432,7 +439,7 @@ Il valore $\theta_{\mathrm{crit}}$ rappresenta esclusivamente la frontiera di fa
 
 ### 5.4 Scenario analysis
 
-Per ciascuno degli scenari Standard, Mediamente critico e Critico devono essere determinati:
+Per ciascuno degli scenari Standard, Mediamente critico e Critico, devono essere determinati:
 
 1. fattibilità;
 
@@ -458,7 +465,7 @@ $$
 
 6. principali valori marginali, quando economicamente informativi.
 
-Per gli scenari Mediamente critico e Critico deve essere inoltre calcolata la perdita di valore rispetto allo Standard:
+Per gli scenari Mediamente critico e Critico, deve essere inoltre calcolata la perdita di valore rispetto allo Standard:
 
 $$
 L_s
