@@ -186,7 +186,7 @@ L’IA deve acquisire la Scheda Caso come specifica vincolante e non deve modifi
 
 La risposta deve consistere in una sola cella Markdown iniziale che:
 
-1. inquadra titolo, contesto, domanda quantitativa, variabile finale e informazione disponibile;
+1. inquadra titolo, contesto, domanda quantitativa, principali grandezze di interesse e informazioni disponibili, secondo la specifica della Scheda Caso;
 2. presenta separatamente le quantità da stimare o calcolare;
 3. riporta tutti gli output richiesti conservando categorie e numerazione della Scheda Caso;
 4. dedica una voce distinta a ciascuna tabella e a ciascuna figura;

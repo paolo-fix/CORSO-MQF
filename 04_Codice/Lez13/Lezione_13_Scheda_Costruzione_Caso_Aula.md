@@ -72,7 +72,8 @@ il caso utilizza direttamente i risultati sviluppati nei Capitoli 11 e 12.
 Dal Capitolo 11 riprende:
 
 - la formulazione di un problema di programmazione lineare;
-- la distinzione tra funzione obiettivo, vincoli e bounds;
+- la distinzione tra funzione obiettivo, vincoli
+  e condizioni di non negatività delle variabili;
 - la nozione di regione ammissibile;
 - il ruolo dei vincoli attivi;
 - la sensitività locale della soluzione;
