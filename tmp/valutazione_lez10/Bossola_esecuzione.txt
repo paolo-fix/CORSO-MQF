@@ -1,0 +1,108 @@
+<IPython.core.display.HTML object>
+             Gruppo  ... Investimento_complessivo
+0   Lehman Brothers  ...                  25.0000
+1  Altri debitori A  ...                  55.0000
+2      Debitori BBB  ...                  56.0000
+3       Debitori BB  ...                  27.0000
+4        Debitori B  ...                  10.0000
+5            Totale  ...                 173.0000
+
+[6 rows x 5 columns]
+<IPython.core.display.HTML object>
+             Gruppo  ... Investimento_complessivo
+0  Altri debitori A  ...                  64.2905
+1      Debitori BBB  ...                  65.4595
+2       Debitori BB  ...                  31.5608
+3        Debitori B  ...                  11.6892
+4            Totale  ...                 173.0000
+
+[5 rows x 5 columns]
+
+--- ESITO DEI CONTROLLI ---
+Controllo 7: Il portafoglio concentrato contiene 40 debitori. -> SUPERATO
+Controllo 8: Il portafoglio controfattuale contiene 39 debitori. -> SUPERATO
+Controllo 9: Investimento tot concentrato = 173.0000, controfattuale = 173.0000. -> SUPERATO
+Controllo 10: Le proporzioni relative dei 39 debitori residui sono inalterate. -> SUPERATO
+CELLA 5 OK
+--- PARAMETRI DELLA SIMULAZIONE ---
+Numero di repliche Monte Carlo (N_MC) : 50000
+Orizzonte temporale in trimestri (T)  : 4
+Stato del generatore                  : Generator(PCG64)
+
+--- ESITO DEI CONTROLLI ---
+Controllo 13: Il seed assegnato per la riproducibilità è 2026. -> SUPERATO
+CELLA 7 OK
+--- ANTEPRIMA TRAIETTORIE SISTEMICHE (prime 5 repliche) ---
+Colonne: M(0), M(1), M(2), M(3) | Stati: 0=O, 1=S, 2=C
+[[1 0 0 0]
+ [1 1 0 0]
+ [1 1 1 0]
+ [1 1 2 1]
+ [1 1 1 1]]
+
+--- ESITO DEI CONTROLLI ---
+Controllo 1: Ogni riga della matrice Q somma a 1. Somme calcolate: [1. 1. 1.]. -> SUPERATO
+Controllo 4: Tutti gli stati simulati appartengono all'insieme M = {O, S, C}. Valori presenti: [0 1 2]. -> SUPERATO
+Controllo 5: All'interno di una replica esiste un'unica traiettoria sistemica (comune a tutti i debitori). Shape: (50000, 4). -> SUPERATO
+CELLA 9 OK
+--- ANTEPRIMA RATING FINALI (Prime 2 repliche, Primi 5 debitori) ---
+Stati: 0=A, 1=BBB, 2=BB, 3=B, 4=D
+[[0 0 0 0 1]
+ [0 0 0 0 2]]
+
+--- ESITO DEI CONTROLLI ---
+Controllo 2: Le righe di tutte le matrici di migrazione sommano a 1. -> SUPERATO
+Controllo 3: Lo stato D è assorbente teoricamente ed empiricamente (nessuna uscita). -> SUPERATO
+Controllo 4: Tutti i rating simulati appartengono all'insieme I = {A, BBB, BB, B, D}. Valori: [0 1 2 3 4]. -> SUPERATO
+Controllo 6: L'indipendenza condizionata al regime è garantita dall'estrazione vettorializzata indipendente (size=num_transitions) nella simulazione per ciascuna combinazione replica/debitore. -> SUPERATO
+CELLA 11 OK
+--- ANTEPRIMA PERDITE INDIVIDUALI CONCENTRATE (Prime 2 repliche, Primi 5 debitori) ---
+[[0.   0.   0.   0.   0.15]
+ [0.   0.   0.   0.   0.5 ]]
+
+--- ANTEPRIMA PERDITE INDIVIDUALI CONTROFATTUALI (Prime 2 repliche, Primi 5 debitori) ---
+[[0.         0.         0.         0.         0.17533784]
+ [0.         0.         0.         0.         0.58445946]]
+
+--- ESITO DEI CONTROLLI ---
+Controllo: Il tasso di perdita phi(r_0, D) è esattamente 0.65 per ogni riga. -> SUPERATO
+Controllo: Le perdite negative si manifestano esclusivamente in caso di miglioramento del rating. -> SUPERATO
+CELLA 14 OK
+--- ANTEPRIMA PERDITE DI PORTAFOGLIO (Prime 5 repliche) ---
+L(conc) : [ 2.21  7.61  6.34 17.9  16.78]
+L(div)  : [ 2.58331081  8.89547297  7.41094595 20.92364865 19.61445946]
+Delta L : [0.37331081 1.28547297 1.07094595 3.02364865 2.83445946]
+
+--- ESITO DEI CONTROLLI ---
+Controllo 11: I 39 debitori comuni utilizzano esattamente le stesse traiettorie creditizie (verificato tramite fattore 1.1689) e Lehman contribuisce solo al concentrato. -> SUPERATO
+Controllo 12: La perdita totale di ciascun portafoglio coincide puntualmente con la somma delle rispettive perdite individuali. -> SUPERATO
+CELLA 16 OK
+<IPython.core.display.HTML object>
+<pandas.io.formats.style.Styler object at 0x00000205A95E28B0>
+
+--- ESITO DEI CONTROLLI ---
+Controllo 14: Le misure (max simulato: 53.77) sono limitate all'esposizione massima e rappresentano milioni di dollari. -> SUPERATO
+Controllo logico: Il CVaR è rigorosamente maggiore o uguale al corrispondente VaR per entrambi i portafogli. -> SUPERATO
+CELLA 18 OK
+<IPython.core.display.HTML object>
+<pandas.io.formats.style.Styler object at 0x00000205AA4F08A0>
+
+--- ESITO DEI CONTROLLI ---
+Controllo Teorico (Total Expectation Theorem): La media condizionata pesata (11.1231) coincide perfettamente con la perdita media incondizionata del portafoglio (11.1231). -> SUPERATO
+CELLA 20 OK
+<IPython.core.display.HTML object>
+<pandas.io.formats.style.Styler object at 0x00000205AA3B7E10>
+<IPython.core.display.HTML object>
+<pandas.io.formats.style.Styler object at 0x00000205AA3B7E10>
+
+--- ESITO DEI CONTROLLI ---
+Controllo: La media delle differenze replica per replica (1.0562) coincide con la differenza matematica delle perdite medie (1.0562). -> SUPERATO
+CELLA 22 OK
+<IPython.core.display.HTML object>
+<pandas.io.formats.style.Styler object at 0x00000205AA4F0FC0>
+<IPython.core.display.HTML object>
+<pandas.io.formats.style.Styler object at 0x00000205AA3B7E10>
+
+--- ESITO DEI CONTROLLI ---
+Controllo 15: La tabella di stabilità e i grafici di convergenza dimostrano che le misurazioni si appiattiscono asintoticamente. Le leggere variazioni sul CVaR 99% si smorzano progressivamente raggiungendo il target dei 50.000 campioni, garantendo l'affidabilità delle code. -> SUPERATO
+CELLA 24 OK

@@ -1,0 +1,92 @@
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x00000205AA4F0FC0>
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x00000205AA4F0FC0>
+==============================================================================
+VERIFICA DEI CONTROLLI DELLA TAPPA 1
+==============================================================================
+[Controllo 1] Somma righe matrice Q == 1: True | Somme: [1. 1. 1.]
+[Controllo 2] Somma righe matrici P^(m) == 1: True
+   - P^(O): True | Somme: [1. 1. 1. 1. 1.]
+   - P^(S): True | Somme: [1. 1. 1. 1. 1.]
+   - P^(C): True | Somme: [1. 1. 1. 1. 1.]
+[Controllo 3] Stato D assorbente (p_DD^(m) == 1): True | Valori p_DD: {'O': np.float64(1.0), 'S': np.float64(1.0), 'C': np.float64(1.0)}
+[Controllo 7] Numero debitori portafoglio concentrato == 40: True (valore: 40)
+[Controllo 8] Numero debitori portafoglio controfattuale == 39: True (valore: 39)
+[Controllo 9] Investimento totale == 173 mln USD: True (Conc: 173.000000, Div: 173.000000)
+[Controllo 10] Invarianza proporzioni relative dei 39 debitori residui: True (max diff: 6.94e-18)
+==============================================================================
+CELLA 5 OK
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x00000205AA4F0FC0>
+==============================================================================
+VERIFICA DEI CONTROLLI DELLA TAPPA 2
+==============================================================================
+[Controllo 4] Appartenenza stati simulati a M e I (e coerenza iniziale/assorbenza): True
+   - Stati sistemici osservati: ['O', 'S', 'C']
+   - Stati creditizi osservati: ['A', 'BBB', 'BB', 'B', 'D']
+[Controllo 5] Unicità traiettoria sistemica e matrice P^(M_t) comune in (r, t): True
+   - Traiettorie sistemiche distinte osservate tra le 50,000 repliche: 27 (su 27 possibili)
+[Controllo 6] Estrazioni individuali e indipendenza condizionata: True
+   - Corr. estrazioni uniformi debitori (0,1) a t=0: -0.00217 | Corr. default condizionata a (S,S,S,S): 0.00313
+[Controllo 11] Identità traiettorie dei 39 debitori comuni nei due portafogli: True
+[Controllo 13] Riproducibilità esatta con seed == 2026: True
+==============================================================================
+CELLA 7 OK
+==============================================================================
+VERIFICA DEI CONTROLLI DELLA TAPPA 3
+==============================================================================
+[Controllo 12] Coincidenza perdita totale con somma perdite individuali: True
+   - Portafoglio concentrato (40 debitori): True | Max diff: 1.42e-14
+   - Portafoglio controfattuale (39 debitori): True | Max diff: 1.42e-14
+[Coerenza Passo 4] Tasso default == LGD (0.65): True | Identità tassi phi dei 39 debitori comuni: True
+==============================================================================
+CELLA 9 OK
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x00000205AA4F03E0>
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x00000205AA4F03E0>
+==============================================================================
+VERIFICA DEI CONTROLLI DELLA TAPPA 4
+==============================================================================
+[Controllo 14] VaR e CVaR calcolati su perdite monetarie empiriche (mln USD): True
+   - Concentrato:    VaR_95 = 24.9800 <= CVaR_95 = 29.7866 | VaR_99 = 32.8002 <= CVaR_99 = 37.1532 mln USD
+   - Controfattuale: VaR_95 = 26.7566 <= CVaR_95 = 31.0223 | VaR_99 = 33.7701 <= CVaR_99 = 36.9149 mln USD
+==============================================================================
+CELLA 11 OK
+<IPython.core.display.Markdown object>
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x00000205AA4F03E0>
+==============================================================================
+VERIFICA DEI CONTROLLI DELLA TAPPA 5
+==============================================================================
+[Controllo Partizione] n_in_C + n_no_C == N_MC (50,000): True
+[Controllo Aspettative Totali] Ricomposizione esatta di E[L_conc^P]: True (diff: 3.55e-15)
+[Controllo Integrativo Markov] Coerenza tra P(E_C) simulata e teorica: True
+   - P(E_C) simulata : 0.300780 (30.08%)
+   - P(E_C) teorica  : 0.299295 (29.93%)
+   - Scarto assoluto : 0.001485 (soglia 4*SE = 0.008192)
+==============================================================================
+CELLA 13 OK
+<IPython.core.display.Markdown object>
+<pandas.io.formats.style.Styler object at 0x00000205AC767A80>
+==============================================================================
+VERIFICA DEI CONTROLLI DELLA TAPPA 6
+==============================================================================
+[Controllo 15] Stabilità delle misure di rischio al crescere di N_MC: True
+   - Max variazione relativa (n in {40k, 45k} vs 50k) — Concentrato:
+       * Media   : 0.112%
+       * Dev_std : 0.160%
+       * VaR_95  : 0.160%
+       * CVaR_95 : 0.137%
+       * VaR_99  : 0.122%
+       * CVaR_99 : 0.430%
+   - Max variazione relativa (n in {40k, 45k} vs 50k) — Controfattuale:
+       * Media   : 0.175%
+       * Dev_std : 0.123%
+       * VaR_95  : 0.175%
+       * CVaR_95 : 0.165%
+       * VaR_99  : 0.104%
+       * CVaR_99 : 0.097%
+==============================================================================
+CELLA 15 OK

@@ -1,0 +1,490 @@
+
+PAGINA 20
+
+# Prompt 2
+**Regime A - Ricognizione teorico-modellistica.**
+## Parte variabile: contributo studente
+Sulla base della Scheda Caso acquisita, devo costruire il Flusso logico-teorico risolutivo.
+Secondo me gli elementi teorici necessari, nell’ordine logico utile alla soluzione, sono:
+1. de￾nire i due portafogli creditizi, rappresentando il portafoglio concentrato con 40 debitori
+e il portafoglio controfattuale con i 39 debitori residui, e veri￾care che la riallocazione
+proporzionale dell’investimento di Lehman mantenga invariati l’investimento complessivo di
+173 milioni di dollari e le proporzioni relative tra gli investimenti residui;
+2. de￾nire il processo che descrive il regime sistemico come catena di Markov omogenea
+sotto misura ￾sica, ￾ssare lo stato iniziale di stress al tempo 0 e usare la matrice di
+transizione assegnata per simulare i regimi ai tempi 1, 2 e 3, ottenendo una sola traiettoria
+sistemica comune a tutti i debitori in ciascuna replica;
+Powered by AI Exporter 20 / 105
+=== PAGINA 21 ===
+3. de￾nire gli stati dei rating creditizi e applicare, per ciascuna delle quattro transizioni
+trimestrali, governate rispettivamente dai regimi (M0, M1, M2, M3), la matrice di migrazione
+coerente con il regime sistemico corrente, veri￾cando la validità delle matrici e che il default
+sia uno stato assorbente;
+4. simulare le migrazioni dei singoli debitori mediante estrazioni individuali indipendenti
+condizionatamente alla traiettoria sistemica comune, distinguendo questa indipendenza
+condizionata dalla dipendenza incondizionata delle perdite dovuta al fattore sistemico
+comune;
+5. trasformare la migrazione dal rating iniziale al rating terminale di ciascun debitore nella
+perdita monetaria individuale, applicando il tasso di perdita assegnato all’investimento
+iniziale e assumendo, secondo la sempli￾cazione speci￾ca del caso, che l’EAD sia pari
+all’investimento iniziale. Devono essere considerati anche i valori negativi dovuti ai
+miglioramenti del rating. Poiché il default è assorbente, la LGD è costante e il default è
+incluso direttamente nella funzione di perdita tramite il tasso assegnato allo stato terminale
+(D), ritengo su￾ciente utilizzare il rating iniziale e quello terminale senza tracciare il
+trimestre in cui avviene l’eventuale default;
+6. aggregare le perdite individuali per ottenere, in ciascuna replica Monte Carlo, la perdita
+complessiva del portafoglio concentrato e quella del portafoglio controfattuale,
+condividendo la stessa traiettoria sistemica e le stesse traiettorie creditizie per i 39 debitori
+comuni, mentre la traiettoria di Lehman contribuisce soltanto al portafoglio concentrato,
+così da poter costruire anche la differenza di perdita replica per replica;
+7. ripetere la simulazione per le 50.000 repliche sull’orizzonte annuale con il seed assegnato,
+per ottenere le distribuzioni empiriche delle perdite dei due portafogli e della loro differenza
+replica per replica, tenendo distinta la riproducibilità garantita dal seed dalla stabilità delle
+stime al crescere del numero di repliche;
+8. de￾nire e calcolare, direttamente sulle distribuzioni empiriche monetarie di entrambi i
+portafogli, la perdita media, la varianza, la deviazione standard, il VaR e il CVaR ai livelli del
+95% e del 99%, applicando per il CVaR la de￾nizione mediante quantili, e veri￾care la
+stabilità delle principali stime;
+9. identi￾care le repliche nelle quali il regime di crisi viene raggiunto almeno una volta
+nell’orizzonte, stimare la probabilità di questo evento e confrontare, per il portafoglio
+concentrato, la perdita media nelle repliche con ingresso in crisi con quella delle repliche
+senza ingresso in crisi
+10. confrontare le distribuzioni, con particolare attenzione alla coda destra, e le misure di
+rischio dei due portafogli, calcolando la variazione di ciascuna misura e mantenendo
+distinta l’analisi di queste differenze dalla distribuzione della differenza di perdita replica
+per replica;
+11. interpretare i risultati ottenuti entro le ipotesi e i limiti del modello, tenendo conto che la
+riallocazione proporzionale modi￾ca sia la concentrazione sia la composizione
+dell’investimento tra classi di rating e non isola quindi un puro effetto di concentrazione.
+Chiedo anche di veri￾care:
+- se l’ordine logico proposto sia coerente e se tutti gli output, le tabelle, le ￾gure e i controlli
+della Scheda Caso risultino collegabili ai passi indicati;
+- se, con default assorbente e LGD costante, sia corretto determinare la perdita solo dal
+Powered by AI Exporter 21 / 105
+=== PAGINA 22 ===
+rating iniziale e da quello terminale senza registrare il trimestre del default;
+- se la distinzione tra differenza di perdita replica per replica e differenze tra le misure di
+rischio sia formulata correttamente.
+
+
+PAGINA 25
+
+Approvo questa scomposizione in passi con i tuoi consigli.
+
+
+PAGINA 25
+
+# Prompt 3
+**Regime A/B - Scomposizione input-output.**
+## Parte variabile: contributo studente
+Sulla base della Scheda Caso e del Flusso logico-teorico risolutivo già validato, propongo
+questa prima scomposizione del notebook in tappe.
+Per ciascuna tappa indico almeno, in forma sintetica:
+- obiettivo;
+- input disponibili;
+- operazione prevista;
+- output atteso;
+- controllo principale.
+1. De￾nizione e veri￾ca dei due portafogli: a partire dalla composizione iniziale della
+Scheda, costruire il portafoglio concentrato (40 debitori, Lehman compresa) e quello
+controfattuale (39 debitori, con gli investimenti moltiplicati per 173/148); ottenere i vettori
+degli investimenti e le Tabelle 1 e 2, controllando numero dei debitori, totale di 173 milioni in
+entrambi i portafogli e proporzioni invariate tra i 39 debitori (Controlli 7, 8, 9, 10).
+2. Procedura di simulazione del regime sistemico: inserire gli stati O, S, C, lo stato iniziale S e
+la matrice Q, e de￾nire come generare in una replica i regimi dei trimestri 1, 2 e 3, così da
+avere un'unica traiettoria valida per tutti i debitori; controllare che le righe di Q sommino a 1
+e che gli stati generati siano solo O, S, C (Controlli 1, 4, 5).
+3. Stati creditizi e matrici di migrazione: inserire i rating A, BBB, BB, B, D e le tre matrici di
+migrazione dei regimi O, S e C, collegando ogni trimestre alla matrice del regime in vigore
+all'inizio del trimestre; controllare che ogni riga sommi a 1 e che il default sia assorbente
+(Controlli 2, 3).
+4. Procedura di simulazione dei rating: usando i rating iniziali, la traiettoria del regime della
+replica e le matrici della tappa 3, de￾nire come far migrare ogni debitore per quattro trimestri
+utilizzando, a ogni transizione, un'estrazione casuale individuale distinta per ciascun
+debitore, ￾no al rating di ￾ne anno; controllare che gli stati restino tra quelli previsti e che,
+dato il regime, le estrazioni dei debitori siano indipendenti per costruzione (Controlli 4, 6).
+5. Perdite individuali: per ogni debitore prendere dalla tabella dei tassi di perdita il valore
+corrispondente a rating iniziale e rating ￾nale e moltiplicare il tasso per l'investimento
+Powered by AI Exporter 25 / 105
+=== PAGINA 26 ===
+iniziale del portafoglio concentrato e, per i 39 debitori comuni, per l'investimento riscalato
+del portafoglio controfattuale, così da ricavare le rispettive perdite individuali; il default vale
+sempre 0.65 e, essendo assorbente con LGD costante, non serve sapere in quale trimestre
+avviene; le perdite negative indicano un miglioramento del rating e vanno mantenute.
+6. Perdite di portafoglio e differenza per replica: sommare in ciascuna replica le perdite
+individuali per ottenere in ogni replica la perdita del portafoglio concentrato e quella del
+controfattuale, usando per i 39 debitori comuni le stesse traiettorie e facendo entrare
+Lehman solo nel concentrato; calcolare poi la differenza di perdita tra controfattuale e
+concentrato, controllando che le perdite totali coincidano con la somma delle individuali e
+che le traiettorie dei debitori comuni siano identiche (Controlli 11, 12).
+7. Ripetizione Monte Carlo: impostare il seed 2026 e ripetere 50.000 volte la procedura delle
+tappe 2-6 sull'orizzonte di un anno, raccogliendo le perdite dei due portafogli e la loro
+differenza per ottenere le distribuzioni empiriche; controllare che il seed sia impostato
+correttamente per rendere i risultati riproducibili (Controllo 13).
+8. Misure di rischio, Figura 1 e stabilità: calcolare sulle distribuzioni empiriche dei due
+portafogli, in milioni di dollari, perdita media, varianza, deviazione standard, VaR e CVaR al
+95% e al 99%, usando per il CVaR la de￾nizione mediante quantili coerente con distribuzioni
+empiriche discrete; produrre la Figura 1 con i due VaR e ricalcolare le misure principali al
+crescere del numero di repliche per veri￾carne la stabilità (Controlli 14, 15).
+9. Regime di crisi e perdite condizionate: separare le repliche in cui il regime di crisi compare
+almeno una volta da quelle in cui non compare mai, stimare la probabilità di crisi e
+confrontare la perdita media del portafoglio concentrato nei due gruppi, producendo la
+Tabella 4 e la Figura 3; controllare che la media delle due perdite condizionate, pesata con le
+rispettive probabilità, restituisca la perdita media totale.
+10. Confronto tra i due portafogli: calcolare per ogni misura di rischio la differenza tra
+controfattuale e concentrato, produrre la Tabella 3 e la Figura 2 con attenzione alla coda
+destra e studiare a parte la distribuzione della differenza di perdita replica per replica;
+controllare che la media di questa differenza coincida con la differenza tra le perdite medie,
+ricordando che per VaR e CVaR questa uguaglianza in generale non vale.
+11. Risultati e limiti del modello: raccogliere i risultati necessari all'interpretazione ￾nale, che
+svolgerò autonomamente, veri￾cando che siano presenti le quattro tabelle, le tre ￾gure e
+l'esito di tutti i 15 controlli; tenere presente che la riallocazione cambia sia la concentrazione
+sia la composizione per rating e che i risultati descrivono il modello didattico, non una stima
+storica né una previsione del default di Lehman.
+
+
+PAGINA 30
+
+# Prompt di tappa in Regime B
+**Regime B - Traduzione operativa in codice.**
+## Parte variabile: contributo studente
+Sto lavorando sulla Tappa 1 — De￾nizione e veri￾ca dei due portafogli.
+Partendo dalla composizione assegnata nella Scheda Caso, voglio costruire l’anagra￾ca a
+livello di singolo debitore del portafoglio concentrato, formato da 40 debitori, mantenendo
+separata la posizione Lehman dalle altre 11 posizioni con rating A, e ricavare il portafoglio
+controfattuale eliminando Lehman e moltiplicando gli investimenti dei 39 debitori residui
+per il fattore esatto (173/148).
+Vorrei conservare per ogni debitore almeno un identi￾cativo, il gruppo di appartenenza, il
+rating iniziale e l’investimento, perché questi dati saranno riutilizzati nelle tappe dedicate
+alle migrazioni e alle perdite.
+Come output devono essere visualizzate la Tabella 1 — Portafoglio iniziale concentrato e la
+Tabella 2 — Portafoglio controfattuale, entrambe riepilogate per gruppo e rating iniziale,
+come nella Scheda Caso, con numero di debitori, investimento individuale e investimento
+complessivo.
+Per i calcoli preferisco mantenere la precisione completa degli investimenti riallocati e usare
+l’arrotondamento a quattro decimali, come nella Scheda Caso, soltanto nella
+visualizzazione della Tabella 2, così da non introdurre differenze arti￾ciali nel totale.
+Nel codice devono inoltre essere veri￾cati in modo chiaro il Controllo 7 sui 40 debitori del
+portafoglio concentrato, il Controllo 8 sui 39 debitori del portafoglio controfattuale, il
+Controllo 9 sull’investimento complessivo pari a 173 milioni di dollari in entrambi i
+portafogli e il Controllo 10 sul mantenimento delle proporzioni relative tra gli investimenti
+dei 39 debitori residui, utilizzando i valori non arrotondati, senza modi￾care i dati della
+Scheda Caso né anticipare matrici o simulazioni delle tappe successive.
+
+
+PAGINA 35
+
+# Prompt di tappa in Regime B
+**Regime B - Traduzione operativa in codice.**
+## Parte variabile: contributo studente
+Sto lavorando sulla Tappa 2 — Procedura di simulazione del regime sistemico.
+Partendo dagli stati ordinario (O), stress (S) e crisi (C), dallo stato iniziale di stress al tempo
+0, dalla matrice di transizione Q assegnata nella Scheda Caso e dall’orizzonte annuale
+articolato nei regimi dei tempi 0, 1, 2 e 3, voglio costruire la procedura che simula, per una
+singola replica, l’evoluzione trimestrale del regime sistemico. La procedura deve partire dallo
+stato iniziale ￾ssato e generare in sequenza i regimi dei tre trimestri successivi utilizzando le
+probabilità di transizione associate al regime corrente, così da ottenere un’unica traiettoria
+sistemica ordinata, composta da quattro elementi e comune a tutti i debitori. Preferisco
+mantenere le stesse etichette testuali e lo stesso ordine degli stati indicati nella Scheda
+Caso (O, S, C), in modo che la traiettoria sia immediatamente leggibile e possa essere
+riutilizzata facilmente nelle tappe successive. Prima della simulazione deve essere veri￾cato
+il **Controllo 1** sulle somme delle righe della matrice di transizione Q e sulla non
+negatività delle probabilità; sulla traiettoria di prova ottenuta devono invece essere resi
+veri￾cabili il **Controllo 4**, per l’appartenenza dei regimi simulati allo spazio previsto, e il
+**Controllo 5**, evidenziando che l’unicità della traiettoria sistemica comune nella replica è
+garantita per costruzione dalla struttura stessa dell’output restituito. In questa tappa voglio
+soltanto de￾nire la funzione e testarla su una singola replica di prova, senza impostare o
+modi￾care il seed assegnato alla simulazione Monte Carlo completa, senza modi￾care i
+dati della Scheda Caso, senza simulare ancora le migrazioni dei rating e senza eseguire
+l’intera simulazione Monte Carlo.
+
+
+PAGINA 40
+
+# Prompt di tappa in Regime B
+**Regime B - Traduzione operativa in codice.**
+## Parte variabile: contributo studente
+Sto lavorando sulla Tappa 3 — Stati creditizi e matrici di migrazione regime-dipendenti.
+Partendo dagli stati creditizi A, BBB, BB, B e default, e dalle tre matrici di migrazione
+assegnate nella Scheda Caso per i regimi ordinario, stress e crisi, voglio predisporre gli
+oggetti che serviranno successivamente per simulare le migrazioni dei rating. Preferisco
+mantenere le stesse etichette testuali e lo stesso ordine degli stati indicati nella Scheda
+Caso, cioè A, BBB, BB, B e D, e organizzare le tre matrici in modo che sia immediato
+individuare quella associata al regime sistemico corrente. Ogni matrice deve conservare
+esattamente i valori assegnati e lo stesso ordine degli stati sia sulle righe, che
+rappresentano il rating corrente, sia sulle colonne, che rappresentano il rating del trimestre
+successivo. Come output voglio ottenere lo spazio degli stati creditizi e una struttura chiara
+che colleghi ciascun regime alla relativa matrice di migrazione, così che questi oggetti
+possano essere riutilizzati direttamente nella procedura della tappa successiva. Nel codice
+devono essere veri￾cati in modo chiaro il Controllo 2, controllando che tutte le righe delle tre
+matrici sommino a 1 e che le probabilità siano non negative, e il Controllo 3, veri￾cando che
+il default sia assorbente in tutte le matrici. In questa tappa voglio soltanto inserire,
+organizzare e validare gli stati e le matrici senza modi￾care i dati della Scheda Caso, senza
+generare estrazioni casuali e senza simulare ancora le traiettorie creditizie dei debitori.
+
+
+PAGINA 44
+
+# Prompt di tappa in Regime B
+**Regime B - Traduzione operativa in codice.**
+## Parte variabile: contributo studente
+Sto lavorando sulla **Tappa 4 — Procedura di simulazione delle migrazioni individuali di
+rating**.
+Partendo dai rating iniziali dei 40 debitori costruiti nella Tappa 1, dalla traiettoria del regime
+sistemico generata nella Tappa 2 e dalle matrici di migrazione organizzate nella Tappa 3,
+voglio de￾nire la procedura che simula l’evoluzione trimestrale del rating di ogni debitore in
+una singola replica. Per ciascuno dei quattro trimestri deve essere utilizzata la matrice
+associata al regime sistemico in vigore all’inizio del trimestre, selezionando poi, per ogni
+debitore, la riga corrispondente al suo rating corrente. A ogni transizione voglio che ciascun
+debitore utilizzi un’estrazione casuale individuale distinta, mentre la traiettoria sistemica
+deve rimanere la stessa per tutti. La procedura deve restituire almeno il rating ￾nale di
+Powered by AI Exporter 44 / 105
+=== PAGINA 45 ===
+ciascuno dei 40 debitori e preferirei conservare anche l’intera traiettoria dei rating, perché
+rende più semplice controllare l’evoluzione trimestrale e veri￾care l’assorbenza del default.
+Devono essere resi veri￾cabili il **Controllo 4**, accertando che tutti i rating generati
+appartengano agli stati previsti, e il **Controllo 6**, mostrando che le estrazioni individuali
+sono distinte e che l’indipendenza condizionata è garantita per costruzione. Vorrei inoltre
+veri￾care, come conseguenza dell’assorbenza già controllata nella Tappa 3, che un debitore
+entrato in default rimanga in default nei trimestri successivi. In questa tappa voglio de￾nire
+e provare la procedura sui 40 debitori in una sola replica, riutilizzando la traiettoria
+sistemica di prova senza modi￾carla, senza calcolare ancora le perdite individuali e senza
+eseguire la simulazione Monte Carlo completa.
+
+
+PAGINA 51
+
+# Prompt di tappa in Regime B
+**Regime B - Traduzione operativa in codice.**
+## Parte variabile: contributo studente
+Sto lavorando sulla Tappa 5 — Calcolo delle perdite individuali migration-based.
+Partendo dai rating iniziali e dagli investimenti dei due portafogli costruiti nella Tappa 1, dai
+rating ￾nali ottenuti nella Tappa 4 e dalla tabella dei tassi di perdita assegnata nella Scheda
+Caso, voglio costruire la procedura che calcola la perdita monetaria annuale di ciascun
+debitore in una singola replica. Per ogni posizione deve essere individuato il tasso
+corrispondente alla combinazione tra rating iniziale e rating ￾nale e tale tasso deve essere
+applicato all’investimento previsto nel portafoglio considerato. Per i 39 debitori comuni
+voglio utilizzare gli stessi rating iniziali e ￾nali nei due portafogli, ma applicare nel
+portafoglio controfattuale gli investimenti riallocati calcolati nella Tappa 1; la posizione
+Lehman deve invece comparire soltanto tra le perdite individuali del portafoglio concentrato.
+Il default deve essere trattato utilizzando il tasso costante pari a 0,65 previsto dalla tabella,
+senza ricostruire il trimestre nel quale è avvenuto, mentre i valori negativi associati ai
+miglioramenti del rating devono essere mantenuti perché rappresentano incrementi di valore
+e non errori da correggere. Vorrei conservare la precisione completa in tutti i calcoli e
+ottenere due vettori distinti di perdite individuali, uno relativo alle 40 posizioni del
+portafoglio concentrato e uno relativo alle 39 posizioni del portafoglio controfattuale,
+mantenendo gli identi￾cativi dei debitori per rendere chiara la corrispondenza tra posizione,
+rating, investimento, tasso applicato e perdita risultante. Prima del calcolo deve essere
+veri￾cata anche la corretta introduzione della tabella dei tassi di perdita, controllandone le
+dimensioni, i valori nulli quando il rating non cambia, i valori negativi in caso di
+miglioramento e il valore 0,65 per tutti gli stati ￾nali di default. In questa tappa voglio
+calcolare e mostrare le perdite a livello individuale per una sola replica, senza sommarle
+ancora a livello di portafoglio e senza eseguire la simulazione Monte Carlo completa; i due
+vettori ottenuti saranno utilizzati nella Tappa 6 per calcolare le perdite aggregate e la
+differenza tra i portafogli.
+
+
+PAGINA 59
+
+# Prompt di tappa in Regime B
+**Regime B - Traduzione operativa in codice.**
+## Parte variabile: contributo studente
+Sto lavorando sulla **Tappa 6 — Aggregazione delle perdite di portafoglio e differenza per
+replica**.
+Partendo dai due vettori di perdite individuali ottenuti nella Tappa 5 per la stessa replica,
+voglio calcolare la perdita complessiva del portafoglio concentrato, sommando le perdite
+delle 40 posizioni, e quella del portafoglio controfattuale, sommando le perdite dei 39
+debitori residui con gli investimenti riallocati. Le perdite dei 39 debitori comuni devono
+derivare esattamente dagli stessi rating iniziali e ￾nali utilizzati nei due portafogli, mentre
+Lehman deve contribuire soltanto alla perdita del portafoglio concentrato. Per questo
+preferisco mantenere gli identi￾cativi dei debitori anche durante l’aggregazione, così da
+rendere evidente l’allineamento tra le posizioni comuni ed evitare che eventuali differenze
+nell’ordine dei dati vengano confuse con l’effetto della riallocazione. Dopo aver ottenuto le
+due perdite complessive, voglio calcolare anche la differenza tra la perdita del portafoglio
+controfattuale e quella del portafoglio concentrato, rispettando l’ordine stabilito dalla
+Scheda Caso. Come output devono essere mostrati i due valori aggregati e la loro differenza
+per la replica di prova, mantenendo le perdite espresse in milioni di dollari e senza
+modi￾care la precisione dei valori individuali. Nel codice devono essere veri￾cati
+chiaramente il **Controllo 11**, mostrando che i 39 debitori comuni utilizzano le stesse
+traiettorie creditizie nei due portafogli, e il **Controllo 12**, veri￾cando che la perdita totale
+di ciascun portafoglio coincida con la somma delle rispettive perdite individuali. In questa
+tappa non devono essere effettuate nuove estrazioni casuali né ricalcolati rating o tassi di
+perdita: devono essere utilizzati esclusivamente gli oggetti già prodotti nelle tappe
+Powered by AI Exporter 59 / 105
+=== PAGINA 60 ===
+precedenti. Voglio de￾nire e provare l’aggregazione su una sola replica, senza eseguire
+ancora le 50.000 repliche Monte Carlo; la procedura ottenuta sarà poi richiamata nella
+Tappa 7 per costruire le distribuzioni empiriche delle perdite e della loro differenza.
+
+
+PAGINA 66
+
+# Prompt di tappa in Regime B
+**Regime B - Traduzione operativa in codice.**
+## Parte variabile: contributo studente
+Sto lavorando sulla **Tappa 7 — Esecuzione della simulazione Monte Carlo riproducibile**.
+Partendo dalle procedure de￾nite e provate nelle Tappe 2-6, voglio eseguire la simulazione
+completa su 50.000 repliche e sull’orizzonte annuale assegnato. Prima di iniziare deve
+essere impostato il seed 2026, in modo che la simulazione sia riproducibile a parità di
+codice e ambiente di esecuzione. In ogni replica devono essere generate una sola traiettoria
+sistemica comune, le traiettorie creditizie individuali dei 40 debitori e, a partire da queste, le
+perdite del portafoglio concentrato e del portafoglio controfattuale, utilizzando gli stessi
+scenari per i 39 debitori comuni. Per ogni replica voglio conservare la perdita dei due
+portafogli e la loro differenza, così da ottenere al termine le tre distribuzioni empiriche
+richieste. Devono inoltre essere conservate le traiettorie sistemiche, o almeno tutte le
+informazioni necessarie per individuare successivamente le repliche nelle quali lo stato di
+crisi è stato raggiunto almeno una volta. Preferirei organizzare gli output in vettori della
+stessa lunghezza e nello stesso ordine delle repliche, così da mantenere l’allineamento tra
+perdite, differenze e scenari sistemici e poterli riutilizzare senza ambiguità nelle analisi
+successive. Il codice deve rendere veri￾cabile il **Controllo 13**, mostrando che il seed
+assegnato è stato impostato correttamente; sull’insieme completo delle repliche devono
+inoltre essere confermati i controlli già predisposti nelle tappe precedenti sull’appartenenza
+degli stati simulati, sull’unicità della traiettoria sistemica comune, sull’uso di estrazioni
+individuali distinte, sulla condivisione delle traiettorie dei 39 debitori comuni e sulla
+corrispondenza tra perdite aggregate e somme delle perdite individuali. Vorrei che queste
+veri￾che fossero svolte utilizzando gli oggetti già prodotti durante la simulazione, senza
+avviare una seconda simulazione separata. In questa tappa non devono ancora essere
+calcolate le misure di rischio né prodotte tabelle o ￾gure delle tappe successive: l’output
+deve consistere nelle distribuzioni empiriche delle perdite e della loro differenza, nelle
+informazioni sistemiche necessarie alle analisi successive e nell’esito dei controlli
+computazionali richiesti.
+
+
+PAGINA 75
+
+# Prompt di tappa in Regime B
+**Regime B - Traduzione operativa in codice.**
+## Parte variabile: contributo studente
+Sto lavorando sulla **Tappa 8 — Stima delle misure di rischio, Figura 1 e veri￾ca di
+stabilità**.
+Partendo dalle distribuzioni empiriche delle perdite del portafoglio concentrato e del
+portafoglio controfattuale ottenute nella Tappa 7, voglio calcolare per entrambi i portafogli
+la perdita media, la varianza, la deviazione standard, il VaR e il CVaR ai livelli del 95% e del
+99%. Tutte le misure devono essere calcolate direttamente sulle perdite monetarie simulate,
+mantenendo come unità di misura i milioni di dollari. Per il VaR deve essere utilizzato il
+quantile empirico della distribuzione, mentre per il CVaR deve essere applicata la de￾nizione
+mediante quantili prevista dal corso e già richiamata nel ￾usso validato, in modo coerente
+con la natura discreta del campione simulato e senza ampliare arbitrariamente la coda in
+presenza di valori uguali alla soglia. Vorrei ottenere una sintesi ordinata delle misure dei due
+portafogli, conservandole con nomi chiari perché saranno utilizzate nella Tappa 10 per
+costruire il confronto e calcolare le rispettive differenze; in questa fase, però, non deve
+ancora essere prodotta la Tabella 3. Deve inoltre essere realizzata la **Figura 1 —
+Distribuzione della perdita del portafoglio concentrato**, mostrando la distribuzione
+empirica e indicando chiaramente il VaR al 95% e il VaR al 99%, con titolo, assi, legenda e
+unità di misura leggibili. Per veri￾care la stabilità Monte Carlo, voglio ricalcolare le principali
+misure utilizzando numerosità cumulative crescenti delle repliche già simulate, senza
+effettuare nuove simulazioni, e confrontare i risultati con quelli ottenuti sul campione
+completo di 50.000 repliche. Nel codice devono essere resi veri￾cabili il **Controllo 14**,
+mostrando che VaR e CVaR sono calcolati sulle distribuzioni empiriche delle perdite
+monetarie espresse in milioni di dollari, e il **Controllo 15**, presentando in modo
+comprensibile il confronto delle stime al crescere del numero di repliche, da interpretare
+come veri￾ca empirica di stabilità e non come dimostrazione formale di convergenza. In
+questa tappa non devono ancora essere analizzate le repliche con ingresso nel regime di
+crisi, calcolate le differenze tra le misure dei due portafogli o prodotte le Tabelle 3 e 4 e le
+Figure 2 e 3.
+
+
+PAGINA 83
+
+# Prompt di tappa in Regime B
+**Regime B - Traduzione operativa in codice.**
+## Parte variabile: contributo studente
+Sto lavorando sulla **Tappa 9 — Analisi del regime di crisi e delle perdite condizionate**.
+Partendo dalle traiettorie sistemiche e dalle perdite del portafoglio concentrato ottenute
+nella Tappa 7, insieme alla sua perdita media complessiva calcolata nella Tappa 8, voglio
+analizzare il legame tra l’ingresso nel regime di crisi e il livello delle perdite. Per ogni replica
+bisogna veri￾care se lo stato di crisi compare almeno una volta nella traiettoria sistemica e
+costruire due gruppi distinti: le repliche con almeno un ingresso in crisi e quelle nelle quali la
+crisi non viene mai raggiunta. Vorrei conservare un indicatore booleano allineato all’ordine
+delle repliche, così da poter ￾ltrare correttamente le perdite senza separarle dagli scenari
+sistemici che le hanno generate. Una volta suddiviso il campione, voglio stimare la
+probabilità simulata di ingresso in crisi e calcolare, per il portafoglio concentrato, la perdita
+media nei due gruppi. Come output devono essere visualizzate la **Tabella 4 — Regime
+sistemico e perdita**, con il confronto tra repliche con e senza ingresso in crisi, e la **Figura
+3 — Regime sistemico e perdita**, che deve permettere di confrontare in modo chiaro le
+rispettive distribuzioni delle perdite. Preferisco che la tabella riporti almeno il numero e la
+frequenza delle repliche di ciascun gruppo e la corrispondente perdita media, mantenendo
+la precisione completa nei calcoli e utilizzando un arrotondamento leggibile soltanto nella
+visualizzazione. Il gra￾co deve riportare titolo, assi, legenda e perdite espresse in milioni di
+dollari, utilizzando la stessa scala per i due gruppi così da non rendere fuorviante il
+confronto. Come controllo aggiuntivo voglio veri￾care che i due gruppi siano disgiunti e
+comprendano complessivamente tutte le 50.000 repliche e che la media delle due perdite
+condizionate, ponderata con le rispettive frequenze simulate, coincida entro la normale
+precisione numerica con la perdita media complessiva del portafoglio concentrato. In
+Powered by AI Exporter 83 / 105
+=== PAGINA 84 ===
+questa tappa non devono essere generate nuove traiettorie né ricalcolate le perdite: devono
+essere utilizzati soltanto gli scenari e i risultati già prodotti nelle Tappe 7 e 8. L’analisi deve
+rimanere descrittiva e quantitativa, senza anticipare l’interpretazione economico\-￾nanziaria
+￾nale.
+
+
+PAGINA 89
+
+# Prompt di tappa in Regime B
+**Regime B - Traduzione operativa in codice.**
+## Parte variabile: contributo studente
+Sto lavorando sulla **Tappa 10 — Confronto controfattuale tra i due portafogli**.
+Partendo dalle distribuzioni empiriche delle perdite e dalla differenza di perdita calcolata
+replica per replica nella Tappa 7, insieme alle misure di rischio ottenute nella Tappa 8, voglio
+confrontare il portafoglio controfattuale con quello concentrato. Per ogni misura richiesta
+dalla Scheda Caso deve essere calcolata la variazione come valore del portafoglio
+controfattuale meno valore del portafoglio concentrato, mantenendo la stessa convenzione
+di segno per tutti i risultati: una differenza negativa indica che la misura è più bassa nel
+Powered by AI Exporter 89 / 105
+=== PAGINA 90 ===
+controfattuale, mentre una differenza positiva indica che è più alta. Come output deve
+essere visualizzata la **Tabella 3 — Misure di rischio**, riportando la perdita media, la
+varianza, la deviazione standard, il VaR e il CVaR al 95% e al 99% dei due portafogli e le
+rispettive differenze. Preferisco mantenere la precisione completa nei calcoli e applicare un
+arrotondamento leggibile soltanto nella tabella visualizzata. Deve inoltre essere prodotta la
+**Figura 2 — Confronto delle distribuzioni**, rappresentando insieme le perdite simulate dei
+due portafogli e rendendo chiaramente leggibile il confronto nella coda destra; il gra￾co
+deve riportare titolo, assi, legenda e unità di misura in milioni di dollari. Voglio poi analizzare
+separatamente la distribuzione della differenza di perdita replica per replica, senza
+confonderla con le differenze tra le misure calcolate sulle due distribuzioni. Come controllo
+aggiuntivo deve essere veri￾cato che la media delle differenze replica per replica coincida,
+entro la normale precisione numerica, con la differenza tra le perdite medie dei due
+portafogli; questa relazione non deve essere estesa automaticamente alla varianza, alla
+deviazione standard, al VaR e al CVaR. In questa tappa non devono essere effettuate nuove
+simulazioni né ricalcolate le traiettorie, i rating o le perdite individuali, ma devono essere
+utilizzati esclusivamente gli oggetti già prodotti nelle tappe precedenti. Il confronto deve
+rimanere quantitativo e descrittivo, lasciando alla fase ￾nale la mia interpretazione
+economico\-￾nanziaria complessiva.
+
+
+PAGINA 98
+
+# Prompt di tappa in Regime B
+**Regime B - Traduzione operativa in codice.**
+## Parte variabile: contributo studente
+Sto lavorando sulla **Tappa 11 — Riepilogo di completezza, controlli e limiti del modello**.
+Partendo da tutti gli output prodotti nelle tappe precedenti, voglio svolgere una veri￾ca
+conclusiva del notebook prima di procedere autonomamente all’interpretazione ￾nale. Vorrei
+costruire un riepilogo chiaro che mostri, per ciascuno dei 15 controlli richiesti dalla Scheda
+Caso, la tappa in cui è stato svolto e il relativo esito, distinguendo quando possibile tra
+controlli numerici, proprietà garantite per costruzione e controlli computazionali. Il riepilogo
+deve permettere di veri￾care rapidamente che nessun controllo sia stato omesso, senza
+ripetere le simulazioni o modi￾care gli oggetti già ottenuti.
+Deve inoltre essere controllata la presenza di tutti gli output richiesti: le distribuzioni
+simulate delle perdite dei due portafogli e della loro differenza replica per replica, le misure
+di rischio, la probabilità di ingresso nel regime di crisi e le perdite medie del portafoglio
+concentrato con e senza ingresso in crisi. Voglio veri￾care anche che siano presenti e
+correttamente denominate le quattro tabelle e le tre ￾gure previste dalla Scheda Caso,
+mantenendo il collegamento tra ogni output e la tappa che lo ha prodotto.
+Come risultato di questa tappa vorrei ottenere un quadro di sintesi della completezza del
+lavoro e un breve promemoria dei principali limiti da tenere presenti nella successiva
+interpretazione. In particolare, deve essere ricordato che il modello utilizza una calibrazione
+didattica e probabilità ￾siche, assume investimenti e LGD deterministici e non considera
+ulteriori fonti di dipendenza, contagio diretto, liquidità o strumenti di copertura. Deve inoltre
+rimanere chiaro che il confronto tra i due portafogli non misura un effetto puro della sola
+concentrazione, perché l’eliminazione di Lehman e la riallocazione proporzionale
+modi￾cano anche la composizione dell’investimento tra le classi di rating.
+In questa tappa non voglio introdurre nuovi calcoli, nuove tabelle o nuove ￾gure rispetto a
+quelle richieste, né modi￾care risultati già ottenuti. Non deve essere formulata
+automaticamente l’interpretazione economico-￾nanziaria conclusiva e non devono essere
+tratte conclusioni storiche o previsive sul default effettivo di Lehman Brothers. L’output deve
+soltanto confermare che il notebook è completo, riproducibile e coerente con la Scheda
+Powered by AI Exporter 98 / 105
+=== PAGINA 99 ===
+Caso, lasciando a me la successiva interpretazione critica dei risultati quantitativi.

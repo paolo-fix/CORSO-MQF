@@ -1,0 +1,410 @@
+
+PAGINA 24
+
+# Prompt 2
+**Regime A - Ricognizione teorico-modellistica.**
+## Parte variabile: contributo studente
+Sulla base della Scheda Caso acquisita, devo costruire il Flusso logico￾teorico risolutivo.
+Secondo me gli elementi teorici necessari, nell'ordine logico utile alla
+soluzione, sono:
+1. De￾nire il regime sistemico come catena di Markov con stati O
+Powered by AI Exporter 24 / 75
+=== PAGINA 25 ===
+(Ordinario), S (Stress) e C (Crisi) e matrice di transizione Q. Partendo da
+M(0) = S e simulando i regimi ai tempi 1, 2 e 3. Mi servono M(0), M(1), M(2),
+M(3) perché ogni regime determina la transizione del trimestre successivo
+dei rating.
+2. De￾nire gli stati dei debitori (A, BBB, BB, B, D) e usare per ogni trimestre la
+matrice di migrazione corrispondente al regime corrispondente a quello
+dell'inizio del trimestre, cioè P^(M(t)) per passare da t a t+1. Controllare che
+tutte le matrici abbiano righe che sommano a 1 e che D sia effettivamente
+considerato come stato assorbente.
+3. Simulare le migrazioni dei singoli debitori facendo sì che, nella stessa
+replica, essi seguano la stessa traiettoria del regime ma con estrazioni
+casuali individuali e indipendenti. Così le migrazioni sono indipendenti dato
+il regime, ma le perdite risultano dipendenti perché tutti risentono dello
+stesso fattore comune.
+4. Calcolare la perdita di ogni debitore come investimento iniziale per il
+tasso di perdita phi(rating_iniziale, rating_￾nale), con EAD uguale
+all’investimento. Il default è già compreso nella tabella phi con LGD ￾ssa a
+0.65 e, siccome D è assorbente, basta guardare il rating a ￾ne anno senza
+distinguere in quale trimestre è avvenuto il default. Se la perdita risulta
+negativa non è un errore: è un guadagno dovuto a un miglioramento del
+rating.
+5. Sommare le perdite individuali dei 40 debitori per ottenere la perdita del
+portafoglio concentrato in ciascuna replica.
+6. Ripetere la simulazione 50.000 volte con il seed speci￾co: 2026. Si ottiene
+così la distribuzione empirica delle perdite.
+7. Calcolare: perdita media, varianza, deviazione standard, VaR al 95% e al
+99% come quantili della distribuzione empirica e CVaR agli stessi livelli
+indicati prima.
+8. Individuare per ogni replica se il regime C viene raggiunto almeno una
+volta, stimare questa probabilità e calcolare la perdita media del portafoglio
+concentrato nelle repliche con crisi e in quelle senza crisi. Controllare poi
+che la media pesata delle due medie condizionate dia di nuovo la perdita
+media totale.
+9. Costruire il portafoglio controfattuale eliminando Lehman e
+redistribuendo i suoi 25 milioni tra gli altri 39 debitori in proporzione al loro
+investimento (fattore 173/148), controllando che il totale resti 173 e che le
+proporzioni tra i debitori non cambino.
+10. Calcolare le perdite del portafoglio controfattuale usando le stesse
+repliche utilizzate per il portafoglio iniziale, cioè la stessa traiettoria di
+regime e le stesse traiettorie di rating per i 39 debitori comuni, la traiettoria
+di Lehman entra ovviamente per il solo portafoglio concentrato.
+11. Confrontare le misure di rischio dei due portafogli calcolando le
+differenze e studiare la distribuzione della differenza di perdita replica per
+replica. Ciò che mi aspetto è che per la media la differenza delle medie
+coincida con la media delle differenze, mentre per VaR e CVaR questo non
+vale.
+Powered by AI Exporter 25 / 75
+=== PAGINA 26 ===
+12. Controllare che le principali misure di rischio restino abbastanza stabili
+aumentando il numero di repliche.
+13. Interpretare i risultati, tenendo presente che la riallocazione cambia
+anche la composizione del portafoglio per classi di rating, quindi il
+confronto non misura solo l'effetto della concentrazione su Lehman.
+Due osservazioni da tenere presente:
+- il regime arriva solo ￾no a t = 3 mentre i rating arrivano a t = 4: dalla
+scheda del caso risulta però che M(3) governa l'ultima transizione e che
+quindi M(4) non serve, veri￾ca la correttezza di questa assunzione.
+- per evitare eventuali problematiche poni attenzione a come vada trattata la
+massa di probabilità che cade proprio nel punto del VaR.
+
+
+PAGINA 28
+
+Approvo questa scomposizione in passi
+
+
+PAGINA 28
+
+# Prompt 3
+**Regime A/B - Scomposizione input-output.**
+## Parte variabile: contributo studente
+Sulla base della Scheda Caso e del Flusso logico-teorico risolutivo,
+propongo questa prima scomposizione del notebook in tappe.
+Per ciascuna tappa indico almeno, in forma sintetica:
+- obiettivo;
+- input disponibili;
+- operazione prevista;
+- output atteso;
+- controllo principale.
+1. Portafogli iniziali: partendo dagli investimenti indicati nella Scheda,
+costruisci il vettore dei 40 debitori del portafoglio concentrato (con Lehman
+ben identi￾cato) e quello dei 39 debitori del controfattuale riallocando i 25
+milioni con il fattore 173/148. Si ottengono così le tabelle 1 e 2 e il controllo
+del numero di debitori (Controlli 7, 8, 9, 10).
+2. Impostazione della simulazione: ￾ssa il seed 2026, N = 50.000 e T = 4
+trimestri. L'output saranno i parametri computazionali da usare nelle tappe
+successive e il controllo è che il seed sia impostato una sola volta all'inizio
+(Controllo 13).
+3. Simulazione del regime sistemico: con la matrice Q e M(0) = S simula
+M(1), M(2) e M(3) per ogni replica, ottenendo una traiettoria del regime per
+replica e l'indicatore delle repliche in cui C viene raggiunto almeno una volta.
+Controlla che le righe di Q sommino a 1, che gli stati siano solo O, S, C e che
+ci sia una sola traiettoria comune per replica (Controlli 1, 4, 5).
+Powered by AI Exporter 28 / 75
+=== PAGINA 29 ===
+4. Simulazione delle migrazioni dei rating: usando le traiettorie del regime e
+le matrici P^(O), P^(S), P^(C), simula le quattro transizioni trimestrali di ogni
+debitore con la matrice del regime M(t) e un'estrazione casuale individuale
+per ciascuno, si otterranno così i rating ￾nali. Controlla che le righe delle P
+sommino a 1, che D sia assorbente anche nelle traiettorie simulate, che gli
+stati siano solamente A, BBB, BB, B, D e che le estrazioni siano indipendenti
+dato il regime (Controlli 2, 3, 4, 6).
+5. Perdite individuali: utilizzando rating iniziali, rating ￾nali, tabella phi e
+investimenti, calcola L(i) per ogni debitore e replica, ottenendo le matrici
+delle perdite individuali dei due portafogli. In questo caso devi controllare
+che phi(r(0), D) = 0.65 e che le perdite negative compaiano solo in caso di
+miglioramento del rating.
+6. Perdite di portafoglio: somma le perdite individuali e calcola Delta L
+replica per replica. Devi controllare che la perdita totale coincida con la
+somma delle individuali e che i 39 debitori comuni abbiano le stesse
+traiettorie nei due portafogli, con Lehman solo nel concentrato (Controlli 11,
+12).
+7. Misure di rischio: sulle distribuzioni empiriche di L(conc) e L(div) calcola
+la media, la varianza, la deviazione standard, il VaR rispettivamente al 95%
+e al 99% come quantili e in￾ne il CVaR, ottenendo le misure per la Tabella 3
+e la Figura 1. Controlla che le misure siano calcolate sulle perdite in milioni
+di dollari e che il CVaR non sia inferiore al VaR (Controllo 14).
+8. Regime di crisi e perdita: con l'indicatore di crisi della tappa 3 e L(conc)
+stima la probabilità di raggiungere C almeno una volta e la perdita media
+con e senza crisi, ottenendo la Tabella 4 e la Figura 3.
+9. Confronto tra i portafogli: con le misure della tappa 7 e Delta L calcola
+Delta rho per ogni misura e analizzo la distribuzione di Delta L,
+completando la Tabella 3 e producendo la Figura 2.
+10. Stabilità e controlli conclusivi: ricalcola le principali misure per un
+numero crescente di repliche e riassumi l'esito di tutti i controlli, ottenendo
+una tabella o un gra￾co di stabilità e un riepilogo dei controlli 1-15 che sarà
+utile all'interpretazione ￾nale. Controlla che le misure, soprattutto in coda,
+siano ragionevolmente stabili (Controllo 15).
+
+
+PAGINA 31
+
+Anche in questo caso approvo questa scomposizione in tappe, attendi le
+mie future indicazioni per procedere.
+
+
+PAGINA 32
+
+# Prompt di tappa in Regime B
+**Regime B - Traduzione operativa in codice.**
+## Parte variabile: contributo studente
+Sto lavorando sulla Tappa 1 — Input-Output.
+Per questa tappa utilizza i seguenti input: composizione del portafoglio
+concentrato (Sezione 4.3 della Scheda) e regola di riallocazione del
+controfattuale con fattore 173/148 (Sezione 4.4).
+Le procedure da implementare sono: costruire una struttura per singolo
+debitore (40 righe, Lehman ben identi￾cato) con rating iniziale, investimento
+nel concentrato e investimento riallocato nel controfattuale, calcolato con il
+fattore esatto 173/148 e non con i valori arrotondati della Scheda; ricavare
+poi le tabelle riassuntive per gruppo.
+L'output richiesto è: Tabella 1, Tabella 2 e vettori degli investimenti per
+debitore dei due portafogli.
+I controlli da includere sono: Controlli 7, 8, 9 e 10.
+L'output della tappa sarà utilizzato successivamente per: il calcolo delle
+perdite individuali nella tappa 5.
+I vincoli da rispettare sono: non modi￾care i dati della Scheda, mantenere
+￾sso l'ordine dei debitori (così da associare il corretto rating), mostrare gli
+importi arrotondati a 4 decimali usando nei calcoli i valori esatti e stampare
+per ogni controllo un esito chiaro.
+
+
+PAGINA 37
+
+# Prompt di tappa in Regime B
+**Regime B - Traduzione operativa in codice.**
+## Parte variabile: contributo studente
+Sto lavorando sulla Tappa 2 — Impostazione della Simulazione.
+Per questa tappa dispongo dei seguenti input: parametri computazionali
+della Scheda (N = 50.000 repliche, seed 2026, T = 4 trimestri).
+Le procedure da implementare sono: de￾nire i parametri della simulazione e
+creare un unico generatore di numeri casuali inizializzato con il seed 2026,
+da usare in tutte le tappe successive.
+L'output richiesto è: parametri computazionali e generatore pronti per la
+simulazione.
+I controlli da includere sono: Controllo 13.
+L'output della tappa sarà utilizzato successivamente per: le simulazioni del
+regime e dei rating nelle Tappe 3 e 4.
+I vincoli da rispettare sono: impostare il seed una sola volta, senza
+reinizializzarlo nelle tappe successive.
+
+
+PAGINA 39
+
+# Prompt di tappa in Regime B
+**Regime B - Traduzione operativa in codice.**
+## Parte variabile: contributo studente
+Sto lavorando sulla Tappa 3 — Simulazione del Regime Sistemico.
+Powered by AI Exporter 39 / 75
+=== PAGINA 40 ===
+Per questa tappa dispongo dei seguenti input: stati O, S, C, matrice Q e stato
+iniziale M(0) = S della Scheda, parametri e generatore della Tappa 2.
+Le procedure da implementare sono: inserire la matrice Q, codi￾care gli stati
+in forma numerica e simulare per ogni replica M(1), M(2), M(3) partendo da
+M(0) = S, estraendo ogni stato dalla riga di Q corrispondente al regime
+precedente; costruire poi l'indicatore delle repliche in cui C viene raggiunto
+almeno una volta (np.any lungo il tempo, come visto a lezione).
+L'output richiesto è: array delle traiettorie del regime (una riga per replica,
+colonne M(0), ..., M(3)) e indicatore di crisi.
+I controlli da includere sono: Controlli 1, 4 e 5.
+L'output della tappa sarà utilizzato successivamente per: la simulazione dei
+rating nella Tappa 4 e l'analisi della crisi nella Tappa 8.
+I vincoli da rispettare sono: usare il generatore della Tappa 2 senza
+reimpostare il seed e generare una sola traiettoria del regime per replica,
+comune a tutti i debitori.
+
+
+PAGINA 43
+
+# Prompt di tappa in Regime B
+**Regime B - Traduzione operativa in codice.**
+## Parte variabile: contributo studente
+Sto lavorando sulla Tappa 4 — Simulazione delle Migrazioni dei Rating.
+Per questa tappa dispongo dei seguenti input: stati A, BBB, BB, B, D e matrici
+P^(O), P^(S), P^(C) della Scheda, rating iniziali dei 40 debitori dalla Tappa 1,
+traiettorie del regime dalla tappa 3, generatore della tappa 2.
+Le procedure da implementare sono: inserire le tre matrici e codi￾care i
+rating in forma numerica; per ogni trimestre t = 0, ..., 3 far migrare tutti i
+debitori usando la matrice del regime M_t della propria replica, con un
+numero casuale diverso per ogni debitore e per ogni replica; conservare le
+traiettorie dei rating da t = 0 a t = 4.
+L'output richiesto è: array delle traiettorie dei rating (repliche × debitori ×
+tempi) e in particolare i rating ￾nali.
+Powered by AI Exporter 43 / 75
+=== PAGINA 44 ===
+I controlli da includere sono: Controlli 2, 3, 4 e 6 (per il 3 veri￾care anche
+nelle traiettorie simulate che nessun debitore esca da D).
+L'output della tappa sarà utilizzato successivamente per: il calcolo delle
+perdite individuali nella tappa 5.
+I vincoli da rispettare sono: mantenere l'ordine dei debitori della Tappa 1,
+usare il generatore della Tappa 2 senza reimpostare il seed e preferire
+un'implementazione vettoriale, perché le repliche sono 50.000.
+
+
+PAGINA 48
+
+# Prompt di tappa in Regime B
+**Regime B - Traduzione operativa in codice.**
+## Parte variabile: contributo studente
+Sto lavorando sulla Tappa 5 — Perdite Individuali.
+Per questa tappa dispongo dei seguenti input: tabella dei tassi di perdita phi
+della Scheda, rating iniziali e investimenti dei due portafogli dalla tappa 1,
+rating ￾nali dalla tappa 4.
+Le procedure da implementare sono: inserire la tabella phi e calcolare per
+ogni debitore e replica L(i) = V({i,0}) · phi(X({i,0}), X({i,4})), sia per il
+portafoglio concentrato sia per il controfattuale.
+L'output richiesto è: matrici delle perdite individuali dei due portafogli
+(repliche × debitori).
+I controlli da includere sono: phi(r(0), D) = 0.65 per ogni rating iniziale e
+perdite negative solo in caso di miglioramento del rating.
+L'output della tappa sarà utilizzato successivamente per: l'aggregazione
+delle perdite di portafoglio nella tappa 6.
+I vincoli da rispettare sono: per il controfattuale usare la colonna
+Investimento(Div) della tappa 1 (40 debitori, Lehman con investimento
+nullo), così da mantenere lo stesso ordine dei debitori e le stesse traiettorie.
+
+
+PAGINA 51
+
+Powered by AI Exporter 51 / 75
+=== PAGINA 52 ===
+# Prompt di tappa in Regime C
+**Regime C - Veri￾ca di una criticità speci￾ca.**
+## Parte variabile: contributo studente
+Sto veri￾cando la Tappa 5 — Perdite Individuali.
+Il materiale che deve essere controllato è:
+la cella di codice della tappa, in particolare la riga perdite_ind_div =
+tassi_perdita * V_0_div (allego lo screenshot dell'errore).
+Ho individuato questa possibile criticità:
+eseguendo la cella ottengo un ValueError di broadcasting tra shape (50000,
+40) e (39,).
+Il mio ragionamento è il seguente:
+secondo me il problema è che V_0_div, creato nella Tappa 1, contiene solo i
+39 debitori senza Lehman, mentre tassi_perdita ha una colonna per
+ciascuno dei 40 debitori. Penso che vada usata la colonna Investimento_Div
+della Tappa 1, che ha 40 elementi con investimento nullo per Lehman, come
+avevo indicato nei vincoli della tappa.
+
+
+PAGINA 55
+
+# Prompt di tappa in Regime B
+**Regime B - Traduzione operativa in codice.**
+## Parte variabile: contributo studente
+Sto lavorando sulla Tappa 6 — Perdite di Portafoglio.
+Per questa tappa dispongo dei seguenti input: matrici delle perdite
+individuali dei due portafogli dalla Tappa 5.
+Le procedure da implementare sono: sommare per ogni replica le perdite
+individuali per ottenere L(conc) e L(div) e calcolare Delta L = L(div) - L(conc)
+replica per replica.
+L'output richiesto è: vettori L(conc), L(div) e Delta L (uno per replica).
+I controlli da includere sono: Controlli 11 e 12 (per l'11 si può veri￾care che,
+per i 39 debitori comuni, la perdita nel controfattuale sia sempre pari a
+quella nel concentrato moltiplicata per 173/148, e che Lehman contribuisca
+solo al concentrato).
+L'output della tappa sarà utilizzato successivamente per: le misure di
+rischio (tappa 7), l'analisi della crisi (tappa 8) e il confronto tra i portafogli
+(tappa 9).
+I vincoli da rispettare sono: non generare nuovi numeri casuali e usare solo
+le perdite della tappa 5.
+
+
+PAGINA 58
+
+# Prompt di tappa in Regime B
+**Regime B - Traduzione operativa in codice.**
+## Parte variabile: contributo studente
+Sto lavorando sulla Tappa 7 — Misure di Rischio.
+Per questa tappa dispongo dei seguenti input: vettori L(conc) e L(div) dalla
+tappa 6.
+Le procedure da implementare sono: calcolare per entrambi i portafogli
+media, varianza, deviazione standard, VaR al 95% e al 99% come quantile
+empirico e CVaR agli stessi livelli. Nel caso empirico il CVaR va calcolato
+sulle perdite ordinate considerando solo la parte della massa nel punto del
+VaR che cade effettivamente nella coda, e non come semplice media delle
+perdite maggiori o uguali al VaR.
+L'output richiesto è: tabella delle misure per i due portafogli (base della
+Tabella 3) e Figura 1 con la distribuzione di L(conc) e le linee del VaR al 95%
+e al 99%.
+I controlli da includere sono: Controllo 14 e veri￾ca che il CVaR non sia
+inferiore al VaR allo stesso livello.
+L'output della tappa sarà utilizzato successivamente per: il confronto tra i
+portafogli nella tappa 9.
+
+
+PAGINA 62
+
+# Prompt di tappa in Regime B
+**Regime B - Traduzione operativa in codice.**
+## Parte variabile: contributo studente
+Sto lavorando sulla Tappa 8 — Regime di Crisi e Perdita.
+Per questa tappa dispongo dei seguenti input: indicatore di crisi dalla tappa
+3 e vettore L(conc) dalla tappa 6.
+Le procedure da implementare sono: usare l'indicatore come maschera
+booleana per separare le repliche con crisi da quelle senza crisi, stimare la
+probabilità di raggiungere C almeno una volta e calcolare la perdita media
+del portafoglio concentrato nei due gruppi.
+L'output richiesto è: Tabella 4 (numero di repliche, frequenza e perdita
+media con e senza crisi) e Figura 3 con il confronto tra le distribuzioni delle
+perdite nei due gruppi.
+I controlli da includere sono: veri￾care che la media delle due perdite
+condizionate, pesata con le rispettive frequenze, restituisca la perdita media
+totale.
+Powered by AI Exporter 62 / 75
+=== PAGINA 63 ===
+L'output della tappa sarà utilizzato successivamente per: il riepilogo ￾nale
+(tappa 10) e l'interpretazione.
+I vincoli da rispettare sono: considerare solo il portafoglio concentrato,
+come indicato dalla Scheda.
+
+
+PAGINA 66
+
+# Prompt di tappa in Regime B
+**Regime B - Traduzione operativa in codice.**
+## Parte variabile: contributo studente
+Sto lavorando sulla Tappa 9 — Confronto tra i Portafogli.
+Per questa tappa dispongo dei seguenti input: misure di rischio dei due
+portafogli dalla tappa 7, vettori L(conc), L(div) e Delta L dalla tappa 6.
+Le procedure da implementare sono: calcolare Delta rho = rho(L_div) -
+rho(L_conc) per ogni misura e analizzare la distribuzione empirica di Delta L
+(statistiche principali e istogramma).
+L'output richiesto è: Tabella 3 completa (concentrato, controfattuale e
+differenza), Figura 2 con il confronto tra le distribuzioni dei due portafogli e
+un dettaglio sulla coda destra, distribuzione empirica di Delta L.
+Powered by AI Exporter 66 / 75
+=== PAGINA 67 ===
+I controlli da includere sono: veri￾care che la media di Delta L coincida con
+la differenza tra le perdite medie dei due portafogli.
+L'output della tappa sarà utilizzato successivamente per: il riepilogo ￾nale
+(tappa 10) e l'interpretazione.
+I vincoli da rispettare sono: usare le misure già calcolate nella tappa 7 senza
+ricalcolarle con de￾nizioni diverse, e non confondere la differenza dei VaR e
+dei CVaR con il VaR e il CVaR di Delta L.
+
+
+PAGINA 70
+
+# Prompt di tappa in Regime B
+**Regime B - Traduzione operativa in codice.**
+## Parte variabile: contributo studente
+Sto lavorando sulla Tappa 10 — Stabilità e Controlli Conclusivi.
+Per questa tappa dispongo dei seguenti input: vettori L(conc) e L(div) dalla
+tappa 6, funzioni o procedure di calcolo delle misure della tappa 7, esiti dei
+controlli delle tappe precedenti.
+Le procedure da implementare sono: ricalcolare media, VaR e CVaR al 95% e
+al 99% dei due portafogli su sottoinsiemi crescenti delle stesse repliche (ad
+esempio 5.000, 10.000, 20.000, 30.000, 40.000 e 50.000), senza nuove
+Powered by AI Exporter 70 / 75
+=== PAGINA 71 ===
+simulazioni; riassumere poi in una tabella l'esito di tutti i Controlli da 1 a 15.
+L'output richiesto è: tabella e gra￾co dell'andamento delle misure al crescere
+del numero di repliche e tabella riepilogativa dei controlli con il relativo esito.
+I controlli da includere sono: Controllo 15.
+L'output della tappa sarà utilizzato successivamente per: l'interpretazione
+￾nale, che scriverò autonomamente.
+I vincoli da rispettare sono: usare le stesse de￾nizioni di VaR e CVaR della
+Tappa 7, non generare nuovi numeri casuali e non produrre commenti
+interpretativi sui risultati.

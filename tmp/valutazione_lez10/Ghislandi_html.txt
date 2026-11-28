@@ -1,0 +1,1097 @@
+CELLA 5
+ 
+  
+  
+    
+      
+        Gruppo 
+        Numero debitori 
+        Rating iniziale 
+        Investimento per debitore 
+        Investimento complessivo 
+      
+    
+    
+      
+        Lehman Brothers 
+        1 
+        A 
+        25.00 
+        25.00 
+      
+      
+        Altri debitori A 
+        11 
+        A 
+        5.00 
+        55.00 
+      
+      
+        Debitori BBB 
+        14 
+        BBB 
+        4.00 
+        56.00 
+      
+      
+        Debitori BB 
+        9 
+        BB 
+        3.00 
+        27.00 
+      
+      
+        Debitori B 
+        5 
+        B 
+        2.00 
+        10.00 
+      
+      
+        Totale 
+        40 
+         
+         
+        173.00 
+      
+    
+  
+
+CELLA 5
+ 
+  
+  
+    
+      
+        Gruppo 
+        Numero debitori 
+        Rating iniziale 
+        Investimento per debitore 
+        Investimento complessivo 
+      
+    
+    
+      
+        Altri debitori A 
+        11 
+        A 
+        5.8446 
+        64.2905 
+      
+      
+        Debitori BBB 
+        14 
+        BBB 
+        4.6757 
+        65.4595 
+      
+      
+        Debitori BB 
+        9 
+        BB 
+        3.5068 
+        31.5608 
+      
+      
+        Debitori B 
+        5 
+        B 
+        2.3378 
+        11.6892 
+      
+      
+        Totale 
+        39 
+         
+         
+        173.0000 
+      
+    
+  
+
+CELLA 5
+ 
+  
+  
+    
+      
+        Controllo 
+        Descrizione 
+        Valore verificato 
+        Esito 
+      
+    
+    
+      
+        Controllo 1 
+        Somma delle righe della matrice Q pari a 1 
+        [1.0, 1.0, 1.0] 
+        SUPERATO 
+      
+      
+        Controllo 2 
+        Somma delle righe di P^(O), P^(S), P^(C) pari a 1 
+        Tutte le righe = 1.000000 
+        SUPERATO 
+      
+      
+        Controllo 3 
+        Stato D assorbente in tutte le matrici creditizie (p_DD = 1) 
+        p_DD = 1.0 in O, S, C 
+        SUPERATO 
+      
+      
+        Controllo 7 
+        Portafoglio concentrato composto da 40 debitori 
+        40 debitori 
+        SUPERATO 
+      
+      
+        Controllo 8 
+        Portafoglio controfattuale composto da 39 debitori 
+        39 debitori 
+        SUPERATO 
+      
+      
+        Controllo 9 
+        Investimento complessivo pari a 173 mln in entrambi i portafogli 
+        Conc: 173.00 | Div: 173.00 
+        SUPERATO 
+      
+      
+        Controllo 10 
+        Invarianza proporzioni relative dei 39 debitori residui 
+        Max diff rel: 6.94e-18 
+        SUPERATO 
+      
+      
+        Controllo 13 
+        Seed = 2026 impostato e riproducibilità verificata 
+        SEED = 2026 
+        SUPERATO 
+      
+    
+  
+
+CELLA 7
+ 
+  
+  
+    
+      
+        Replica (r) 
+        M_0 
+        M_1 
+        M_2 
+        M_3 
+      
+    
+    
+      
+        1 
+        S 
+        O 
+        O 
+        O 
+      
+      
+        2 
+        S 
+        S 
+        S 
+        S 
+      
+      
+        3 
+        S 
+        C 
+        S 
+        S 
+      
+      
+        4 
+        S 
+        O 
+        S 
+        C 
+      
+      
+        5 
+        S 
+        S 
+        S 
+        S 
+      
+      
+        6 
+        S 
+        S 
+        S 
+        S 
+      
+      
+        7 
+        S 
+        O 
+        O 
+        O 
+      
+      
+        8 
+        S 
+        S 
+        S 
+        O 
+      
+      
+        9 
+        S 
+        S 
+        S 
+        O 
+      
+      
+        10 
+        S 
+        S 
+        S 
+        O 
+      
+    
+  
+
+CELLA 7
+ 
+  
+  
+    
+      
+        Stato sistemico 
+        t = 0 
+        t = 1 
+        t = 2 
+        t = 3 
+      
+    
+    
+      
+        O 
+        0.0000% 
+        30.2280% 
+        42.9360% 
+        48.9660% 
+      
+      
+        S 
+        100.0000% 
+        54.7780% 
+        40.2540% 
+        34.8920% 
+      
+      
+        C 
+        0.0000% 
+        14.9940% 
+        16.8100% 
+        16.1420% 
+      
+    
+  
+
+CELLA 7
+ 
+  
+  
+    
+      
+        Controllo 
+        Descrizione 
+        Valore verificato 
+        Esito 
+      
+    
+    
+      
+        Controllo 4 (Regime sistemico) 
+        Stati simulati in M = {O, S, C} e stato iniziale M_0 = S in tutte le repliche 
+        Stati osservati: [np.str_('C'), np.str_('O'), np.str_('S')] | M_0 = S 
+        SUPERATO 
+      
+      
+        Controllo 5 
+        Unica traiettoria sistemica comune per ciascuna replica Monte Carlo 
+        Dimensione matrice traiettorie: (50000, 4) 
+        SUPERATO 
+      
+    
+  
+
+CELLA 9
+ 
+  
+  
+    
+      
+        Replica (r) 
+        Traiettoria sistemica (M_0..M_3) 
+        X_0 (Lehman) 
+        X_1 (Lehman) 
+        X_2 (Lehman) 
+        X_3 (Lehman) 
+        X_4 (Lehman) 
+      
+    
+    
+      
+        1 
+        S-O-O-O 
+        A 
+        A 
+        A 
+        A 
+        A 
+      
+      
+        2 
+        S-S-S-S 
+        A 
+        A 
+        A 
+        A 
+        A 
+      
+      
+        3 
+        S-C-S-S 
+        A 
+        A 
+        A 
+        A 
+        A 
+      
+      
+        4 
+        S-O-S-C 
+        A 
+        A 
+        A 
+        A 
+        A 
+      
+      
+        5 
+        S-S-S-S 
+        A 
+        BBB 
+        BBB 
+        BBB 
+        BBB 
+      
+      
+        6 
+        S-S-S-S 
+        A 
+        A 
+        A 
+        A 
+        A 
+      
+      
+        7 
+        S-O-O-O 
+        A 
+        A 
+        A 
+        A 
+        A 
+      
+      
+        8 
+        S-S-S-O 
+        A 
+        A 
+        A 
+        A 
+        A 
+      
+      
+        9 
+        S-S-S-O 
+        A 
+        A 
+        A 
+        A 
+        A 
+      
+      
+        10 
+        S-S-S-O 
+        A 
+        A 
+        A 
+        A 
+        A 
+      
+    
+  
+
+CELLA 9
+ 
+  
+  
+    
+      
+        Gruppo 
+        Rating iniziale 
+        Numero debitori 
+        Finale A 
+        Finale BBB 
+        Finale BB 
+        Finale B 
+        Finale D 
+      
+    
+    
+      
+        Lehman Brothers 
+        A 
+        1 
+        72.7640% 
+        17.1100% 
+        5.6840% 
+        2.7960% 
+        1.6460% 
+      
+      
+        Altri debitori A 
+        A 
+        11 
+        72.4044% 
+        17.2565% 
+        5.7727% 
+        2.9300% 
+        1.6364% 
+      
+      
+        Debitori BBB 
+        BBB 
+        14 
+        3.7583% 
+        61.0497% 
+        18.7810% 
+        10.7173% 
+        5.6937% 
+      
+      
+        Debitori BB 
+        BB 
+        9 
+        0.8051% 
+        5.5016% 
+        49.9436% 
+        29.4436% 
+        14.3062% 
+      
+      
+        Debitori B 
+        B 
+        5 
+        0.1388% 
+        0.8940% 
+        5.0504% 
+        61.7676% 
+        32.1492% 
+      
+    
+  
+
+CELLA 9
+ 
+  
+  
+    
+      
+        Controllo 
+        Descrizione 
+        Valore verificato 
+        Esito 
+      
+    
+    
+      
+        Controllo 4 (Rating) 
+        Tutti gli stati simulati in I = {A, BBB, BB, B, D} e rating iniziali X_{i,0} corretti 
+        Stati osservati: [np.str_('A'), np.str_('B'), np.str_('BB'), np.str_('BBB'), np.str_('D')] 
+        SUPERATO 
+      
+      
+        Controllo 3 (Traiettorie) 
+        Assorbenza dello stato D lungo l'intera traiettoria trimestrale 
+        Violazioni post-default: 0 
+        SUPERATO 
+      
+      
+        Controllo 6 
+        Estrazioni casuali individuali indipendenti condizionatamente al regime sistemico 
+        Shape U: (50000, 4, 40) | Max |corr(U_i, U_j)|: 0.0142 
+        SUPERATO 
+      
+    
+  
+
+CELLA 11
+ 
+  
+  
+    
+      
+        Misura di rischio 
+        Portafoglio concentrato (mln $) 
+        Portafoglio controfattuale (mln $) 
+      
+    
+    
+      
+        Perdita media 
+        11.1182 
+        12.1877 
+      
+      
+        Varianza 
+        48.2596 
+        53.3336 
+      
+      
+        Deviazione standard 
+        6.9469 
+        7.3030 
+      
+      
+        VaR 95% 
+        24.8000 
+        26.6163 
+      
+      
+        CVaR 95% 
+        29.8047 
+        31.0662 
+      
+      
+        VaR 99% 
+        33.1800 
+        33.8636 
+      
+      
+        CVaR 99% 
+        37.4234 
+        37.3024 
+      
+    
+  
+
+CELLA 11
+ 
+  
+  
+    
+      
+        Repliche (n) 
+        E[L_conc] 
+        VaR 95% conc 
+        CVaR 95% conc 
+        VaR 99% conc 
+        CVaR 99% conc 
+        E[L_div] 
+        VaR 95% div 
+        CVaR 95% div 
+        VaR 99% div 
+        CVaR 99% div 
+      
+    
+    
+      
+        5,000 
+        11.177842 
+        24.960000 
+        29.740726 
+        32.180000 
+        36.950088 
+        12.282348 
+        26.476014 
+        31.062315 
+        33.886959 
+        37.159856 
+      
+      
+        10,000 
+        11.167090 
+        25.100000 
+        30.000588 
+        33.140000 
+        37.444452 
+        12.241404 
+        26.803311 
+        31.208813 
+        34.132432 
+        37.278994 
+      
+      
+        20,000 
+        11.134024 
+        24.940000 
+        29.928152 
+        33.180000 
+        37.454556 
+        12.186972 
+        26.709797 
+        31.090079 
+        33.886959 
+        37.272683 
+      
+      
+        30,000 
+        11.114863 
+        24.810000 
+        29.779399 
+        32.990000 
+        37.243179 
+        12.166991 
+        26.487703 
+        30.971523 
+        33.875270 
+        37.078290 
+      
+      
+        40,000 
+        11.115046 
+        24.780000 
+        29.786309 
+        33.210000 
+        37.397446 
+        12.176602 
+        26.663041 
+        31.015545 
+        33.735000 
+        37.163461 
+      
+      
+        50,000 
+        11.118178 
+        24.800000 
+        29.804728 
+        33.180000 
+        37.423448 
+        12.187731 
+        26.616284 
+        31.066217 
+        33.863581 
+        37.302433 
+      
+    
+  
+
+CELLA 11
+ 
+  
+  
+    
+      
+        Controllo 
+        Descrizione 
+        Valore verificato 
+        Esito 
+      
+    
+    
+      
+        Controllo 11 
+        I 39 debitori comuni utilizzano esattamente le stesse traiettorie nei due portafogli 
+        Traiettorie identiche (shape 50.000 x 39) 
+        SUPERATO 
+      
+      
+        Controllo 12 
+        Perdita totale uguale alla somma delle perdite individuali per entrambi i portafogli 
+        Max diff conc: 0.00e+00 | div: 0.00e+00 
+        SUPERATO 
+      
+      
+        Controllo 14 
+        VaR e CVaR calcolati sulle distribuzioni empiriche delle perdite monetarie (mln $) 
+        Monotonicità e scala in [0, 112.45] mln $ verificate 
+        SUPERATO 
+      
+      
+        Controllo 15 
+        Stabilità delle principali misure di rischio al crescere del numero di repliche 
+        Max var. rel. (40k vs 50k): 0.38% 
+        SUPERATO 
+      
+    
+  
+
+CELLA 13
+ 
+  
+  
+    
+      
+        Scenario sistemico 
+        Numero repliche 
+        Probabilità stimata 
+        Perdita media (mln $) 
+        Deviazione standard (mln $) 
+        Mediana (mln $) 
+        Quantile 95% (mln $) 
+      
+    
+    
+      
+        Regime C raggiunto almeno una volta (E_C) 
+        14,848 
+        29.70% 
+        18.3169 
+        6.7957 
+        17.4300 
+        30.8865 
+      
+      
+        Regime C mai raggiunto (E_C^c) 
+        35,152 
+        70.30% 
+        8.0775 
+        4.2429 
+        7.4900 
+        15.5200 
+      
+      
+        Portafoglio concentrato complessivo (Incondizionato) 
+        50,000 
+        100.00% 
+        11.1182 
+        6.9469 
+        9.5100 
+        24.8000 
+      
+    
+  
+
+CELLA 13
+ 
+  
+  
+    
+      
+        Controllo 
+        Descrizione 
+        Valore verificato 
+        Esito 
+      
+    
+    
+      
+        Partizione campionaria (E_C, E_C^c) 
+        Partizione esaustiva e disgiunta delle N_MC = 50.000 repliche 
+        14,848 + 35,152 = 50,000 (p_C + p_C^c = 1.000000) 
+        SUPERATO 
+      
+      
+        Legge delle aspettative totali 
+        Coerenza tra medie condizionate e media incondizionata E[L_conc^P] 
+        Diff. assoluta: 1.78e-15 
+        SUPERATO 
+      
+      
+        Coerenza stato iniziale M_0 = S 
+        Assenza dello stato di crisi C al trimestre iniziale t = 0 
+        Repliche con M_0 = C: 0 
+        SUPERATO 
+      
+    
+  
+
+CELLA 15
+ 
+  
+  
+    
+      
+        Misura di rischio 
+        Portafoglio concentrato 
+        Portafoglio controfattuale 
+        Differenza (Delta rho) 
+        Variazione relativa 
+      
+    
+    
+      
+        Perdita media 
+        11.1182 
+        12.1877 
+        +1.0696 
+        +9.62% 
+      
+      
+        Varianza 
+        48.2596 
+        53.3336 
+        +5.0740 
+        +10.51% 
+      
+      
+        Deviazione standard 
+        6.9469 
+        7.3030 
+        +0.3561 
+        +5.13% 
+      
+      
+        VaR 95% 
+        24.8000 
+        26.6163 
+        +1.8163 
+        +7.32% 
+      
+      
+        CVaR 95% 
+        29.8047 
+        31.0662 
+        +1.2615 
+        +4.23% 
+      
+      
+        VaR 99% 
+        33.1800 
+        33.8636 
+        +0.6836 
+        +2.06% 
+      
+      
+        CVaR 99% 
+        37.4234 
+        37.3024 
+        -0.1210 
+        -0.32% 
+      
+    
+  
+
+CELLA 15
+ 
+  
+  
+    
+      
+        Statistica di Delta L^(r) = L_div - L_conc 
+        Valore 
+      
+    
+    
+      
+        Media empirica (mln USD) 
+        1.0696 
+      
+      
+        Deviazione standard (mln USD) 
+        2.3650 
+      
+      
+        Minimo (mln USD) 
+        -16.0676 
+      
+      
+        Quantile 1% (mln USD) 
+        -13.5557 
+      
+      
+        Quantile 5% (mln USD) 
+        -1.4832 
+      
+      
+        Quantile 25% (mln USD) 
+        0.6520 
+      
+      
+        Mediana / Quantile 50% (mln USD) 
+        1.2584 
+      
+      
+        Quantile 75% (mln USD) 
+        2.0118 
+      
+      
+        Quantile 95% (mln USD) 
+        3.4966 
+      
+      
+        Quantile 99% (mln USD) 
+        4.5997 
+      
+      
+        Massimo (mln USD) 
+        7.2111 
+      
+      
+        Frequenza P(Delta L  
+        0.1023 
+      
+      
+        Frequenza P(Delta L = 0) 
+        0.0001 
+      
+      
+        Frequenza P(Delta L > 0) 
+        0.8976 
+      
+    
+  
+
+CELLA 15
+ 
+  
+  
+    
+      
+        Controllo 
+        Descrizione 
+        Valore verificato 
+        Esito 
+      
+    
+    
+      
+        Linearità valore atteso Delta L 
+        Coerenza E[Delta L^(r)] = E[L_div^P] - E[L_conc^P] 
+        Diff. assoluta: 1.33e-15 
+        SUPERATO 
+      
+      
+        Integrità campionaria Delta L^(r) 
+        Dimensione (50.000,) e assenza di valori NaN/Inf nelle differenze accoppiate 
+        Shape: (50000,) 
+        SUPERATO 
+      
+    
+  
+
+CELLA 15
+ 
+  
+  
+    
+      
+        ID 
+        Categoria 
+        Tappa 
+        Descrizione 
+        Esito 
+      
+    
+    
+      
+        Controllo 1 
+        Numerico 
+        Tappa 1 
+        Ogni riga della matrice Q somma a 1 
+        SUPERATO 
+      
+      
+        Controllo 2 
+        Numerico 
+        Tappa 1 
+        Ogni riga delle matrici P^(O), P^(S) e P^(C) somma a 1 
+        SUPERATO 
+      
+      
+        Controllo 3 
+        Logico/Teorico 
+        Tappa 1, Tappa 3 
+        Stato D assorbente in tutte le matrici e nelle traiettorie simulate 
+        SUPERATO 
+      
+      
+        Controllo 4 
+        Logico/Teorico 
+        Tappa 2, Tappa 3 
+        Tutti gli stati simulati appartengono a M = {O,S,C} e I = {A,BBB,BB,B,D} 
+        SUPERATO 
+      
+      
+        Controllo 5 
+        Logico/Teorico 
+        Tappa 2 
+        Unica traiettoria sistemica comune a tutti i debitori in ciascuna replica 
+        SUPERATO 
+      
+      
+        Controllo 6 
+        Logico/Teorico 
+        Tappa 3 
+        Estrazioni casuali individuali indipendenti condizionatamente al regime 
+        SUPERATO 
+      
+      
+        Controllo 7 
+        Numerico 
+        Tappa 1 
+        Portafoglio concentrato composto esattamente da 40 debitori 
+        SUPERATO 
+      
+      
+        Controllo 8 
+        Numerico 
+        Tappa 1 
+        Portafoglio controfattuale composto esattamente da 39 debitori 
+        SUPERATO 
+      
+      
+        Controllo 9 
+        Numerico 
+        Tappa 1 
+        Investimento iniziale complessivo pari a 173 mln USD in entrambi i portafogli 
+        SUPERATO 
+      
+      
+        Controllo 10 
+        Numerico 
+        Tappa 1 
+        Proporzioni relative dei 39 debitori residui inalterate dopo riallocazione 
+        SUPERATO 
+      
+      
+        Controllo 11 
+        Computazionale 
+        Tappa 4 
+        I 39 debitori comuni utilizzano le stesse traiettorie nei due portafogli 
+        SUPERATO 
+      
+      
+        Controllo 12 
+        Numerico 
+        Tappa 4 
+        Perdita totale di ciascun portafoglio uguale alla somma delle perdite indiv. 
+        SUPERATO 
+      
+      
+        Controllo 13 
+        Computazionale 
+        Tappa 1–3 
+        Seed = 2026 impostato correttamente per la riproducibilità della simulazione 
+        SUPERATO 
+      
+      
+        Controllo 14 
+        Numerico 
+        Tappa 4 
+        VaR e CVaR calcolati sulle distribuzioni empiriche delle perdite (mln USD) 
+        SUPERATO 
+      
+      
+        Controllo 15 
+        Numerico 
+        Tappa 4 
+        Ragionevole stabilità delle misure di rischio al crescere delle repliche 
+        SUPERATO 
+      
+    
+  
